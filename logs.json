@@ -105,10 +105,12 @@
     "title": "永山椿 数原龍友さんありがとうございます！！！",
     "url": "https://girls2-fc.jp/page/lucky2blogs/1222133621935046656",
     "groups": [
-      "L2",
-      "RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ]
-  },
+      "L2","TBK"
+    ],
+    "relation": [
+      "RIN","HIR","YUW","KAN","RRK","AKR","KIK"
+    ] 
+ },
   {
     "date": "2026.08.26",
     "contents": "DIARY",
