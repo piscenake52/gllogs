@@ -1,5 +1,161 @@
 [
   {
+    "date": "2026.10.04",
+    "contents": "RELEASE",
+    "title": "EP「EASY」",
+    "url": "https://girls2-fc.jp/page/news/1220569487942615041",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ],
+    "relation": [
+    ],
+    "tags": [
+      "EASY Nocturne","Girls² 7th Anniversary Seven×Seven in Bloom -The Live-"
+    ]
+  },
+  {
+    "date": "2026.09.30",
+    "contents": "RELEASE",
+    "title": "2nd ALBUM「WORK≒LiFE」",
+    "url": "https://girls2-fc.jp/page/familyNews/1202914447505489922",
+    "groups": [
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+    ],
+    "relation": [
+    ],
+    "tags": [
+      "WORK≒LiFE", "Gimme 143", "Pancake", "Unicorn Dance", "Like it!!", "Starry pop Canvas", "Love is Magic", "Ladybug", "Best Friends"
+    ]
+  },
+  {
+    "date": "2026.10.27",
+    "contents": "EVENT",
+    "title": "BOOK ACT Z 2026",
+    "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
+    "groups": [
+      "G2","MSK"
+    ],
+    "relation": [
+    ],
+    "tags": [
+      "THEATER MILANO-Za","芸人交換日記"
+    ]
+  },
+  {
+    "date": "2026.10.29",
+    "contents": "EVENT",
+    "title": "BOOK ACT Z 2026",
+    "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
+    "groups": [
+      "G2","YZH"
+    ],
+    "relation": [
+    ],
+    "tags": [
+      "THEATER MILANO-Za","芸人交換日記"
+    ]
+  },
+  {
+    "date": "2026.11.29",
+    "contents": "LIVE",
+    "title": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-",
+    "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+    ],
+    "relation": [
+    ],
+    "tags": [
+      "MUFGスタジアム","国立競技場"
+    ]
+  },
+  {
+    "date": "2026.11.28",
+    "contents": "LIVE",
+    "title": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-",
+    "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+    ],
+    "relation": [
+    ],
+    "tags": [
+      "MUFGスタジアム","国立競技場"
+    ]
+  },
+  {
+    "date": "2026.10.04",
+    "contents": "LIVE",
+    "title": "Laki 5th Anniversary Live -L∞K UP-",
+    "url": "https://girls2-fc.jp/page/events/Laki5thAnnivLP",
+    "groups": [
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+    ],
+    "relation": [
+    ],
+    "tags": [
+      "ヒューリックホール東京"
+    ]
+  },
+  {
+    "date": "2026.10.04",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 福岡",
+    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ],
+    "relation": [
+    ],
+    "tags": [
+      "福岡国際会議場 メインホール"
+    ]
+  },
+  {
+    "date": "2026.10.10",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 愛知",
+    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ],
+    "relation": [
+    ],
+    "tags": [
+      "Niterra日本特殊陶業市民会館ビレッジホール"
+    ]
+  },
+  {
+    "date": "2026.10.18",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 大阪",
+    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ],
+    "relation": [
+    ],
+    "tags": [
+      "NHK大阪ホール"
+    ]
+  },
+  {
+    "date": "2026.12.25",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special",
+    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ],
+    "relation": [
+    ],
+    "tags": [
+      "Shibuya LOVEZ"
+    ]
+  },
+  {
     "date": "2026.08.26",
     "contents": "CL",
     "title": "山口綺羅　POST",
