@@ -2,7 +2,7 @@
   {
     "date": "2026.09.10",
     "contents": "RADIO",
-    "title": "【特別番組】小川桜花＆増田來亜のがるらじ ≪前編≫",
+    "title": "【特別番組】小川桜花＆増田來亜のがるらじ 前編",
     "url": "",
     "groups": [
       "YOK","KUR"
@@ -13,7 +13,7 @@
   {
     "date": "2026.09.20",
     "contents": "RADIO",
-    "title": "【特別番組】小川桜花＆増田來亜のがるらじ ≪後編≫",
+    "title": "【特別番組】小川桜花＆増田來亜のがるらじ 後編",
     "url": "",
     "groups": [
       "YOK","KUR"
@@ -24,7 +24,7 @@
   {
     "date": "2026.09.15",
     "contents": "RADIO",
-    "title": "【特別番組】比嘉優和＆佐藤妃希のがるらじ ≪前編≫",
+    "title": "【特別番組】比嘉優和＆佐藤妃希のがるらじ 前編",
     "url": "",
     "groups": [
       "YUW","KIK"
@@ -35,7 +35,7 @@
   {
     "date": "2026.09.15",
     "contents": "RADIO",
-    "title": "【特別番組】比嘉優和＆佐藤妃希のがるらじ ≪後編≫",
+    "title": "【特別番組】比嘉優和＆佐藤妃希のがるらじ 後編",
     "url": "",
     "groups": [
       "YUW","KIK"
@@ -160,7 +160,7 @@
   {
     "date": "2026.09.13",
     "contents": "EVENT",
-    "title": "Girls² EP「EASY」発売記念 リリースイベント 埼玉",
+    "title": "Girls²「EASY」発売記念 リリースイベント 埼玉",
     "url": "https://girls2-fc.jp/page/familyNews/1220992081527308290",
     "groups": [
       "G2",
@@ -180,7 +180,7 @@
   {
     "date": "2026.09.20",
     "contents": "EVENT",
-    "title": "Girls² EP「EASY」発売記念 リリースイベント 大阪",
+    "title": "Girls²「EASY」発売記念 リリースイベント 大阪",
     "url": "https://girls2-fc.jp/page/familyNews/1220992081527308290",
     "groups": [
       "G2",
@@ -200,7 +200,7 @@
   {
     "date": "2026.09.27",
     "contents": "EVENT",
-    "title": "Girls² EP「EASY」発売記念 リリースイベント 宮城",
+    "title": "Girls²「EASY」発売記念 リリースイベント 宮城",
     "url": "https://girls2-fc.jp/page/familyNews/1220992081527308290",
     "groups": [
       "G2",
@@ -233,7 +233,7 @@
   {
     "date": "2026.08.26",
     "contents": "RELEASE",
-    "title": "Laki「WORK≒LiFE」先行配信",
+    "title": "Laki『WORK≒LiFE』先行配信",
     "url": "https://girls2-fc.jp/page/familyNews/1222015073346650113",
     "groups": [
       "L2",
@@ -252,7 +252,7 @@
   {
     "date": "2026.08.29",
     "contents": "LIVE",
-    "title": "Laki 超WEGO2026",
+    "title": "Laki　超WEGO2026",
     "url": "https://girls2-fc.jp/page/familyNews/1214912420577804288",
     "groups": [
       "L2",
@@ -272,7 +272,7 @@
   {
     "date": "2026.09.12",
     "contents": "EVENT",
-    "title": "Girls² EP「EASY」発売記念 メンバー個別オンライントーク会",
+    "title": "Girls²「EASY」発売記念 メンバー個別オンライントーク会",
     "url": "https://girls2-fc.jp/page/news/1220576408795873281",
     "groups": [
       "YZH",
@@ -806,7 +806,7 @@
   {
     "date": "2026.08.20",
     "contents": "RADIO",
-    "title": "【特別番組】隅谷百花＆鶴屋美咲のがるらじ ≪後編≫",
+    "title": "【特別番組】隅谷百花＆鶴屋美咲のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/girls2radio/1217742866235785217",
     "groups": [
       "MMK",
@@ -16076,72 +16076,6 @@
     "relations": []
   },
   {
-    "date": "2020.11.10",
-    "contents": "RADIO",
-    "title": "原田都愛　「This is 都愛」#1",
-    "url": "https://girls2-fc.jp/page/girls2radio/455910800914121531",
-    "groups": [
-      "TOA"
-    ],
-    "relations": [],
-    "tags": []
-  },
-  {
-    "date": "2020.11.10",
-    "contents": "RADIO",
-    "title": "山口綺羅　「きらとLet's take TikTok together」#1",
-    "url": "https://girls2-fc.jp/page/girls2radio/455911151872508731",
-    "groups": [
-      "KIR"
-    ],
-    "relations": [],
-    "tags": []
-  },
-  {
-    "date": "2020.11.10",
-    "contents": "RADIO",
-    "title": "小川桜花　「桜花のBeauty room」#1",
-    "url": "https://girls2-fc.jp/page/girls2radio/455911514801439785",
-    "groups": [
-      "YOK"
-    ],
-    "relations": [],
-    "tags": []
-  },
-  {
-    "date": "2020.11.10",
-    "contents": "RADIO",
-    "title": "鶴屋美咲　「美咲とステキ発見」#1",
-    "url": "https://girls2-fc.jp/page/girls2radio/455912103639778107",
-    "groups": [
-      "MSK"
-    ],
-    "relations": [],
-    "tags": []
-  },
-  {
-    "date": "2020.11.10",
-    "contents": "RADIO",
-    "title": "隅谷百花　「百花のmusic diary」#1",
-    "url": "https://girls2-fc.jp/page/girls2radio/455912486411961281",
-    "groups": [
-      "MMK"
-    ],
-    "relations": [],
-    "tags": []
-  },
-  {
-    "date": "2020.11.10",
-    "contents": "RADIO",
-    "title": "小田柚葉　「全力タイムズ！柚ニュース！」#1",
-    "url": "https://girls2-fc.jp/page/girls2radio/455913300778025921",
-    "groups": [
-      "YZH"
-    ],
-    "relations": [],
-    "tags": []
-  },
-  {
     "date": "2020.11.07",
     "contents": "YOUTUBE",
     "title": "Girls² - 大事なモノ(Daijinamono) Dance Performance Video YouTube ver.",
@@ -17703,7 +17637,7 @@
   {
     "date": "2017.11.23",
     "contents": "YOUTUBE",
-    "title": "miracle²「天マデトドケ☆」YouTube ver.",
+    "title": "miracle²「天マデトドケ☆」MV YouTube ver.",
     "url": "https://www.youtube.com/watch?v=OWl1zYAbN-0",
     "groups": ["YZH"],
     "tags": ["miracle² from ミラクルちゅーんず","ガールズ×戦士シリーズ","アイドル×戦士 ミラクルちゅーんず!"],
@@ -17721,7 +17655,7 @@
   {
     "date": "2017.09.08",
     "contents": "YOUTUBE",
-    "title": "miracle²「JUMP!」YouTube ver.",
+    "title": "miracle²「JUMP!」MV YouTube ver.",
     "url": "https://www.youtube.com/watch?v=ryjqp9ctU9k",
     "groups": ["YZH"],
     "tags": ["miracle² from ミラクルちゅーんず","Commentary","ガールズ×戦士シリーズ","アイドル×戦士 ミラクルちゅーんず!"],
@@ -17730,7 +17664,7 @@
   {
     "date": "2017.04.23",
     "contents": "YOUTUBE",
-    "title": "miracle²「Catch Me!」YouTube ver.",
+    "title": "miracle²「Catch Me!」MV YouTube ver.",
     "url": "https://www.youtube.com/watch?v=WBuzXnW074Q",
     "groups": ["YZH"],
     "tags": ["miracle² from ミラクルちゅーんず","Commentary","ガールズ×戦士シリーズ","アイドル×戦士 ミラクルちゅーんず!"],
@@ -17739,7 +17673,7 @@
   {
     "date": "2026.08.25",
     "contents": "RADIO",
-    "title": "【特別番組】深澤日彩＆上村梨々香のがるらじ ≪後編≫",
+    "title": "【特別番組】深澤日彩＆上村梨々香のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/lucky2radio/1221704074496311297",
     "groups": [
       "HIR","RRK"
@@ -17750,7 +17684,7 @@
   {
     "date": "2026.08.15",
     "contents": "RADIO",
-    "title": "【特別番組】深澤日彩＆上村梨々香のがるらじ ≪前編≫",
+    "title": "【特別番組】深澤日彩＆上村梨々香のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/lucky2radio/1216586284550586369",
     "groups": [
       "HIR","RRK"
@@ -17761,7 +17695,7 @@
   {
     "date": "2026.07.25",
     "contents": "RADIO",
-    "title": "【特別番組】山口莉愛＆永山椿のがるらじ ≪後編≫",
+    "title": "【特別番組】山口莉愛＆永山椿のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/lucky2radio/1207536218301005824",
     "groups": [
       "RIN","TBK"
@@ -17772,7 +17706,7 @@
   {
     "date": "2026.07.15",
     "contents": "RADIO",
-    "title": "【特別番組】山口莉愛＆永山椿のがるらじ ≪前編≫",
+    "title": "【特別番組】山口莉愛＆永山椿のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/lucky2radio/1206498621604757506",
     "groups": [
       "RIN","TBK"
@@ -17783,7 +17717,7 @@
   {
     "date": "2026.06.25",
     "contents": "RADIO",
-    "title": "【特別番組】森朱里＆佐藤妃希のがるらじ ≪後編≫",
+    "title": "【特別番組】森朱里＆佐藤妃希のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/lucky2radio/1199180009432940546",
     "groups": [
       "AKR","KIK"
@@ -17794,7 +17728,7 @@
   {
     "date": "2026.06.15",
     "contents": "RADIO",
-    "title": "【特別番組】森朱里＆佐藤妃希のがるらじ ≪前編≫",
+    "title": "【特別番組】森朱里＆佐藤妃希のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/lucky2radio/1194129593099878402",
     "groups": [
       "AKR","KIK"
@@ -17805,7 +17739,7 @@
   {
     "date": "2026.05.25",
     "contents": "RADIO",
-    "title": "【特別番組】佐藤栞奈＆上村梨々香のがるらじ ≪後編≫",
+    "title": "【特別番組】佐藤栞奈＆上村梨々香のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/lucky2radio/1187975490766372865",
     "groups": [
       "KAN","RRK"
@@ -17816,7 +17750,7 @@
   {
     "date": "2026.05.15",
     "contents": "RADIO",
-    "title": "【特別番組】佐藤栞奈＆上村梨々香のがるらじ ≪前編≫",
+    "title": "【特別番組】佐藤栞奈＆上村梨々香のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/lucky2radio/1183639556402970626",
     "groups": [
       "KAN","RRK"
@@ -17827,7 +17761,7 @@
   {
     "date": "2026.04.25",
     "contents": "RADIO",
-    "title": "【特別番組】深澤日彩＆比嘉優和のがるらじ ≪後編≫",
+    "title": "【特別番組】深澤日彩＆比嘉優和のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/lucky2radio/1177538847286755330",
     "groups": [
       "HIR","YUW"
@@ -17838,7 +17772,7 @@
   {
     "date": "2026.04.15",
     "contents": "RADIO",
-    "title": "【特別番組】深澤日彩＆比嘉優和のがるらじ ≪前編≫",
+    "title": "【特別番組】深澤日彩＆比嘉優和のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/lucky2radio/1172502673333682177",
     "groups": [
       "HIR","YUW"
@@ -18652,7 +18586,7 @@
   {
     "date": "2023.04.03",
     "contents": "RADIO",
-    "title": "【特別番組】綺羅×優和のがるらじ",
+    "title": "【特別番組】綺羅＆優和のがるらじ",
     "url": "https://girls2-fc.jp/page/lucky2radio/771987002701644858",
     "groups": [
       "KIR","YUW"
@@ -18696,7 +18630,7 @@
   {
     "date": "2023.03.07",
     "contents": "RADIO",
-    "title": "【特別番組】美咲×朱里のがるらじ 後編",
+    "title": "【特別番組】美咲＆朱里のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/lucky2radio/761887103779865830",
     "groups": [
       "MSK","AKR"
@@ -18707,7 +18641,7 @@
   {
     "date": "2023.03.06",
     "contents": "RADIO",
-    "title": "【特別番組】美咲×朱里のがるらじ 前編",
+    "title": "【特別番組】美咲＆朱里のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/lucky2radio/761886964705133613",
     "groups": [
       "MSK","AKR"
@@ -19312,7 +19246,7 @@
   {
     "date": "2022.01.23",
     "contents": "RADIO",
-    "title": "【特別番組】永山椿×比嘉優和「沖縄コンビの！うちな〜と〜く〜!!」",
+    "title": "【特別番組】永山椿＆比嘉優和「沖縄コンビの！うちな〜と〜く〜!!」",
     "url": "https://girls2-fc.jp/page/lucky2radio/613604996524540969",
     "groups": [
       "TBK","YUW"
@@ -19323,7 +19257,7 @@
   {
     "date": "2022.01.16",
     "contents": "RADIO",
-    "title": "【特別番組】山口莉愛×佐藤栞奈「かんりなの！初めてのお弁当作り〜〜！！」",
+    "title": "【特別番組】山口莉愛＆佐藤栞奈「かんりなの！初めてのお弁当作り〜〜！！」",
     "url": "https://girls2-fc.jp/page/lucky2radio/611868320068535099",
     "groups": [
       "RIN","KAN"
@@ -19334,7 +19268,7 @@
   {
     "date": "2022.01.10",
     "contents": "RADIO",
-    "title": "【特別番組】深澤日彩×比嘉優和「優和と！日彩の！仲良しトーク！」",
+    "title": "【特別番組】深澤日彩＆比嘉優和「優和と！日彩の！仲良しトーク！」",
     "url": "https://girls2-fc.jp/page/lucky2radio/608580122974356283",
     "groups": [
       "HIR","YUW"
@@ -19345,7 +19279,7 @@
   {
     "date": "2022.01.02",
     "contents": "RADIO",
-    "title": "【特別番組】山口莉愛×杉浦優來「”りなゆら”の、のんびりおしゃべりTime～！」",
+    "title": "【特別番組】山口莉愛＆杉浦優來「”りなゆら”の、のんびりおしゃべりTime～！」",
     "url": "https://girls2-fc.jp/page/lucky2radio/606558285620839227",
     "groups": [
       "RIN","YUR"
@@ -19642,7 +19576,7 @@
   {
     "date": "2026.08.20",
     "contents": "RADIO",
-    "title": "【特別番組】隅谷百花＆鶴屋美咲のがるらじ ≪後編≫",
+    "title": "【特別番組】隅谷百花＆鶴屋美咲のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/girls2radio/1217742866235785217",
     "groups": [
       "MMK","MSK"
@@ -19653,7 +19587,7 @@
   {
     "date": "2026.08.10",
     "contents": "RADIO",
-    "title": "【特別番組】隅谷百花＆鶴屋美咲のがるらじ ≪前編≫",
+    "title": "【特別番組】隅谷百花＆鶴屋美咲のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/girls2radio/1214857630774722562",
     "groups": [
       "MMK","MSK"
@@ -19664,7 +19598,7 @@
   {
     "date": "2026.07.20",
     "contents": "RADIO",
-    "title": "【特別番組】小田柚葉＆山口綺羅のがるらじ ≪後編≫",
+    "title": "【特別番組】小田柚葉＆山口綺羅のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/girls2radio/1207890542629748736",
     "groups": [
       "YZH","KIR"
@@ -19675,7 +19609,7 @@
   {
     "date": "2026.07.10",
     "contents": "RADIO",
-    "title": "【特別番組】小田柚葉＆山口綺羅のがるらじ ≪前編≫",
+    "title": "【特別番組】小田柚葉＆山口綺羅のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/girls2radio/1203959537501995010",
     "groups": [
       "YZH","KIR"
@@ -19686,7 +19620,7 @@
   {
     "date": "2026.06.20",
     "contents": "RADIO",
-    "title": "【特別番組】増田來亜＆菱田未渚美のがるらじ ≪後編≫",
+    "title": "【特別番組】増田來亜＆菱田未渚美のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/girls2radio/1194894320079994880",
     "groups": [
       "KUR","MNM"
@@ -19697,7 +19631,7 @@
   {
     "date": "2026.06.10",
     "contents": "RADIO",
-    "title": "【特別番組】増田來亜＆菱田未渚美のがるらじ ≪前編≫",
+    "title": "【特別番組】増田來亜＆菱田未渚美のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/girls2radio/1192325189212307458",
     "groups": [
       "KUR","MNM"
@@ -19708,7 +19642,7 @@
   {
     "date": "2026.05.20",
     "contents": "RADIO",
-    "title": "【特別番組】鶴屋美咲＆小川桜花のがるらじ ≪後編≫",
+    "title": "【特別番組】鶴屋美咲＆小川桜花のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/girls2radio/1185053012448509954",
     "groups": [
       "MSK","YOK"
@@ -19719,7 +19653,7 @@
   {
     "date": "2026.05.10",
     "contents": "RADIO",
-    "title": "【特別番組】鶴屋美咲＆小川桜花のがるらじ ≪前編≫",
+    "title": "【特別番組】鶴屋美咲＆小川桜花のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/girls2radio/1182148139612635137",
     "groups": [
       "MSK","YOK"
@@ -19730,7 +19664,7 @@
   {
     "date": "2026.04.20",
     "contents": "RADIO",
-    "title": "【特別番組】小田柚葉＆隅谷百花のがるらじ ≪後編≫",
+    "title": "【特別番組】小田柚葉＆隅谷百花のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/girls2radio/1174932604651044864",
     "groups": [
       "YZH","MMK"
@@ -19741,7 +19675,7 @@
   {
     "date": "2026.04.10",
     "contents": "RADIO",
-    "title": "【特別番組】小田柚葉＆隅谷百花のがるらじ ≪前編≫",
+    "title": "【特別番組】小田柚葉＆隅谷百花のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/girls2radio/1171405639612628994",
     "groups": [
       "YZH","MMK"
@@ -19928,7 +19862,7 @@
   {
     "date": "2025.07.04",
     "contents": "RADIO",
-    "title": "【特別番組】スペシャル版「Girls² LIVE TOUR 2025 -ガルガルエイト-」連動企画皆さまからの応援メッセージに動画で返信！ 後編",
+    "title": "【特別番組】「LIVE TOUR 2025 -ガルガルエイト-」連動企画皆さまからの応援メッセージに動画で返信！ 後編",
     "url": "https://girls2-fc.jp/page/girls2radio/1069413867450269698",
     "groups": [
       "MSK","YOK","MNM","KIR"
@@ -19939,7 +19873,7 @@
   {
     "date": "2025.07.03",
     "contents": "RADIO",
-    "title": "【特別番組】スペシャル版「Girls² LIVE TOUR 2025 -ガルガルエイト-」連動企画皆さまからの応援メッセージに動画で返信！ 前編",
+    "title": "【特別番組】「LIVE TOUR 2025 -ガルガルエイト-」連動企画皆さまからの応援メッセージに動画で返信！ 前編",
     "url": "https://girls2-fc.jp/page/girls2radio/1069413436925935618",
     "groups": [
       "YZH","MMK","KUR","TOA"
@@ -20170,7 +20104,7 @@
   {
     "date": "2024.08.28",
     "contents": "RADIO",
-    "title": "【特別番組】百花&未渚美のがるらじ 番外編！",
+    "title": "【特別番組】隅谷百花＆菱田未渚美のがるらじ 番外編！",
     "url": "https://girls2-fc.jp/page/girls2radio/958622304965754882",
     "groups": [
       "MMK","MNM"
@@ -20181,7 +20115,7 @@
   {
     "date": "2024.08.26",
     "contents": "RADIO",
-    "title": "【特別番組】美咲&桜花のがるらじ 番外編！",
+    "title": "【特別番組】鶴屋美咲＆小川桜花のがるらじ 番外編！",
     "url": "https://girls2-fc.jp/page/girls2radio/957599430880526337",
     "groups": [
       "MSK","YOK"
@@ -20192,7 +20126,7 @@
   {
     "date": "2024.08.24",
     "contents": "RADIO",
-    "title": "【特別番組】綺羅&都愛のがるらじ 番外編！",
+    "title": "【特別番組】山口綺羅＆原田都愛のがるらじ 番外編！",
     "url": "https://girls2-fc.jp/page/girls2radio/957122155412193282",
     "groups": [
       "KIR","TOA"
@@ -20203,7 +20137,7 @@
   {
     "date": "2024.08.22",
     "contents": "RADIO",
-    "title": "【特別番組】柚葉&來亜のがるらじ 番外編！",
+    "title": "【特別番組】小田柚葉＆増田來亜のがるらじ 番外編！",
     "url": "https://girls2-fc.jp/page/girls2radio/956141449592700929",
     "groups": [
       "YZH","KUR"
@@ -20566,7 +20500,7 @@
   {
     "date": "2023.04.03",
     "contents": "RADIO",
-    "title": "【特別番組】綺羅×優和のがるらじ",
+    "title": "【特別番組】綺羅＆優和のがるらじ",
     "url": "https://girls2-fc.jp/page/girls2radio/771986617643566213",
     "groups": [
       "KIR","YUW"
@@ -20610,7 +20544,7 @@
   {
     "date": "2023.03.07",
     "contents": "RADIO",
-    "title": "【特別番組】美咲×朱里のがるらじ 後編",
+    "title": "【特別番組】美咲＆朱里のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/girls2radio/761886268253537317",
     "groups": [
       "MSK","AKR"
@@ -20621,7 +20555,7 @@
   {
     "date": "2023.03.06",
     "contents": "RADIO",
-    "title": "【特別番組】美咲×朱里のがるらじ 前編",
+    "title": "【特別番組】美咲＆朱里のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/girls2radio/761885985188348965",
     "groups": [
       "MSK","AKR"
@@ -20819,7 +20753,7 @@
   {
     "date": "2022.12.12",
     "contents": "RADIO",
-    "title": "【特別番組】石井蘭の「出張！がるらじ ～広島グルメレポート～」",
+    "title": "【特別番組】石井蘭の出張！がるらじ ～広島グルメレポート～",
     "url": "https://girls2-fc.jp/page/girls2radio/731173493336442036",
     "groups": [
       "RAN"
@@ -21226,7 +21160,7 @@
   {
     "date": "2022.01.15",
     "contents": "RADIO",
-    "title": "【特別番組】小田柚葉×隅谷百花×原田都愛「共通点どこ？」",
+    "title": "【特別番組】小田柚葉＆隅谷百花＆原田都愛「共通点どこ？」",
     "url": "https://girls2-fc.jp/page/girls2radio/611864116251853761",
     "groups": [
       "YZH","MMK","TOA"
@@ -21237,7 +21171,7 @@
   {
     "date": "2022.01.09",
     "contents": "RADIO",
-    "title": "【特別番組】増田來亜×山口綺羅「最近何してた？」",
+    "title": "【特別番組】増田來亜＆山口綺羅「最近何してた？」",
     "url": "https://girls2-fc.jp/page/girls2radio/608602303187911617",
     "groups": [
       "KUR","KIR"
@@ -21248,7 +21182,7 @@
   {
     "date": "2022.01.05",
     "contents": "RADIO",
-    "title": "【特別番組】小川桜花×菱田未渚美「たこやき New Good（具） 」",
+    "title": "【特別番組】小川桜花＆菱田未渚美「たこやき New Good (具)」",
     "url": "https://girls2-fc.jp/page/girls2radio/608169252037329857",
     "groups": [
       "YOK","MNM"
@@ -21259,7 +21193,7 @@
   {
     "date": "2022.01.01",
     "contents": "RADIO",
-    "title": "【特別番組】鶴屋美咲×石井蘭「新春！気まぐれクイズ！」",
+    "title": "【特別番組】鶴屋美咲＆石井蘭「新春！気まぐれクイズ！」",
     "url": "https://girls2-fc.jp/page/girls2radio/605726169718850497",
     "groups": [
       "MSK","RAN"
@@ -21270,7 +21204,7 @@
   {
     "date": "2021.12.30",
     "contents": "RADIO",
-    "title": "【特別番組】美咲×未渚美×蘭「がるらじ忘年会 2021」後編",
+    "title": "【特別番組】美咲＆未渚美＆蘭「がるらじ忘年会 2021」後編",
     "url": "https://girls2-fc.jp/page/girls2radio/605999783697449921",
     "groups": [
       "MSK","MNM","RAN"
@@ -21281,7 +21215,7 @@
   {
     "date": "2021.12.30",
     "contents": "RADIO",
-    "title": "【特別番組】美咲×未渚美×蘭「がるらじ忘年会 2021」前編",
+    "title": "【特別番組】美咲＆未渚美＆蘭「がるらじ忘年会 2021」前編",
     "url": "https://girls2-fc.jp/page/girls2radio/603554087656490025",
     "groups": [
       "MSK","MNM","RAN"
