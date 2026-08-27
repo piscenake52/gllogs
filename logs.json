@@ -1,6 +1,112 @@
 [
   {
     "date": "2026.08.28",
+    "contents": "EVENT",
+    "title": "NATSLIVE「Lakiガチャクッキング」 #013 一般会員先行観覧申込受付締切",
+    "display": "Lakiガチャクッキング #013 一般会員観覧申込受付締切",
+    "url": "https://natslive.jp/episodes/18053",
+    "groups": [
+      "L2",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": ["NATSLIVE","Lakiガチャクッキング"]
+  },
+  {
+    "date": "2026.08.28",
+    "contents": "EVENT",
+    "title": "Girls²「EASY」発売記念 メンバー個別オンライントーク会 当選発表",
+    "display": "Girls²「EASY」メンバー個別オンライントーク会 当選発表",
+    "url": "https://girls2-fc.jp/page/news/1220576408795873281",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.08.28",
+    "contents": "EVENT",
+    "title": "「WORK≒LiFE」発売記念オンライントーク会",
+    "display": "Laki「WORK≒LiFE」オンライントーク会",
+    "url": "https://girls2-fc.jp/page/familyNews/1216626460287041537",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": ["リミスタ"]
+  },
+  {
+    "date": "2026.08.28",
+    "contents": "EVENT",
+    "title": "Laki「WORK≒LiFE」発売記念リミスタサイン会",
+    "display": "Laki「WORK≒LiFE」リミスタサイン会",
+    "url": "https://girls2-fc.jp/page/familyNews/1216626460287041537",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": ["リミスタ"]
+  },
+  {
+    "date": "2026.08.28",
+    "contents": "EVENT",
+    "title": "Girls² 第65回マジカルテレフォン",
+    "display": "Girls² マジカルテレフォン",
+    "url": "https://girls2-fc.jp/page/magicaltelephone/Girls2_65",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.08.28",
+    "contents": "SNS",
+    "title": "あかりんごの元気モリモリール #116",
+    "display": "あかりんごの元気モリモリール #116",
+    "url": "https://www.instagram.com/laki_official0922",
+    "groups": [
+      "AKR"
+    ],
+    "relations": [],
+    "tags": ["あかりんごの元気モリモリール","ダンスは遊びじゃない！"]
+  },
+  {
+    "date": "2026.08.28",
     "contents": "GTUBE",
     "title": "#745　Girls² 江戸川区さわやか運動会＠スピアーズえどがわフィールド",
     "display": "#745　Girls² 江戸川区さわやか運動会",
@@ -463,7 +569,7 @@
     "date": "2026.06.09",
     "contents": "GTUBE",
     "title": "#722  Laki(Lucky²)「こくご・さんすう・りか・恋愛！」 発売記念トークイベント「ラキラキ夏期講習！」",
-    "display": "#722  Laki(Lucky²)「こくご・さんすう・りか・恋愛！」 発売記念トークイベント「ラキラキ夏期講習！」",
+    "display": "#722  Laki(Lucky²)「こくご・さんすう・りか・恋愛！」 トークイベント「ラキラキ夏期講習！」",
     "url": "https://girls2-fc.jp/page/gtube/1189825348259282945",
     "groups": [
       "L2",
@@ -1183,7 +1289,7 @@
     "date": "2026.02.03",
     "contents": "GTUBE",
     "title": "#686 Laki(Lucky²)「ずっとずっとずっと」発売記念 個別サイン会・個別スマホ写真撮影会イベント＠HMV&BOOKS SHIBUYA",
-    "display": "#686 Laki(Lucky²)「ずっとずっとずっと」発売記念 個別サイン会・個別スマホ写真撮影会イベント＠HMV&BOOKS SHIBUYA",
+    "display": "#686 Laki(Lucky²)「ずっとずっとずっと」個別サイン会・個別スマホ写真撮影会イベント＠HMV&BOOKS SHIBUYA",
     "url": "https://girls2-fc.jp/page/gtube/1148138071254892546",
     "groups": [
       "L2",
@@ -1203,7 +1309,7 @@
     "date": "2026.01.30",
     "contents": "GTUBE",
     "title": "#685 Laki(Lucky²)「ずっとずっとずっと」発売記念 オンライン個別トーク会",
-    "display": "#685 Laki(Lucky²)「ずっとずっとずっと」発売記念 オンライン個別トーク会",
+    "display": "#685 Laki(Lucky²)「ずっとずっとずっと」オンライン個別トーク会",
     "url": "https://girls2-fc.jp/page/gtube/1138674153553920002",
     "groups": [
       "L2",
@@ -1243,7 +1349,7 @@
     "date": "2026.01.23",
     "contents": "GTUBE",
     "title": "#683 Girls² アルバム「We are Girls² - Ⅱ -」発売記念リリースイベント＠イオンモール幕張新都心",
-    "display": "#683 Girls² アルバム「We are Girls² - Ⅱ -」発売記念リリースイベント＠イオンモール幕張新都心",
+    "display": "#683 Girls² アルバム「We are Girls² - Ⅱ -」リリースイベント＠イオンモール幕張新都心",
     "url": "https://girls2-fc.jp/page/gtube/1137958016562233345",
     "groups": [
       "G2",
@@ -1303,7 +1409,7 @@
     "date": "2026.01.13",
     "contents": "GTUBE",
     "title": "#680  Laki(Lucky²)「ずっとずっとずっと」発売記念リリースイベント＠流山おおたかの森",
-    "display": "#680  Laki(Lucky²)「ずっとずっとずっと」発売記念リリースイベント＠流山おおたかの森",
+    "display": "#680  Laki(Lucky²)「ずっとずっとずっと」リリースイベント＠流山おおたかの森",
     "url": "https://girls2-fc.jp/page/gtube/1137947221061271552",
     "groups": [
       "L2",
@@ -1423,7 +1529,7 @@
     "date": "2025.12.23",
     "contents": "GTUBE",
     "title": "#674  Laki(Lucky²)「ずっとずっとずっと」発売記念リリースイベント＠ららぽーと横浜",
-    "display": "#674  Laki(Lucky²)「ずっとずっとずっと」発売記念リリースイベント＠ららぽーと横浜",
+    "display": "#674  Laki(Lucky²)「ずっとずっとずっと」リリースイベント＠ららぽーと横浜",
     "url": "https://girls2-fc.jp/page/gtube/1132561526184476673",
     "groups": [
       "L2",
@@ -1543,7 +1649,7 @@
     "date": "2025.12.02",
     "contents": "GTUBE",
     "title": "#668  Girls²「アクセラレイト」発売記念 個別サイン会撮影会 Day-2",
-    "display": "#668  Girls²「アクセラレイト」発売記念 個別サイン会撮影会 Day-2",
+    "display": "#668  Girls²「アクセラレイト」個別サイン会撮影会 Day-2",
     "url": "https://girls2-fc.jp/page/gtube/1122821154134818817",
     "groups": [
       "G2",
@@ -1563,7 +1669,7 @@
     "date": "2025.11.28",
     "contents": "GTUBE",
     "title": "#667  Girls²「アクセラレイト」発売記念 個別サイン会撮影会 Day-1",
-    "display": "#667  Girls²「アクセラレイト」発売記念 個別サイン会撮影会 Day-1",
+    "display": "#667  Girls²「アクセラレイト」個別サイン会撮影会 Day-1",
     "url": "https://girls2-fc.jp/page/gtube/1122815515144749058",
     "groups": [
       "G2",
@@ -1823,7 +1929,7 @@
     "date": "2025.10.14",
     "contents": "GTUBE",
     "title": "#654  Laki【Day2】「夢空に羽」発売記念 個別サイン会・個別スマホ写真撮影会イベント＠HMV&BOOKS SHIBUYA",
-    "display": "#654  Laki【Day2】「夢空に羽」発売記念 個別サイン会・個別スマホ写真撮影会イベント＠HMV&BOOKS SHIBUYA",
+    "display": "#654  Laki【Day2】「夢空に羽」個別サイン会・個別スマホ写真撮影会イベント＠HMV&BOOKS SHIBUYA",
     "url": "https://girls2-fc.jp/page/gtube/1106108423423918082",
     "groups": [
       "L2",
@@ -1843,7 +1949,7 @@
     "date": "2025.10.10",
     "contents": "GTUBE",
     "title": "#653  Laki【Day1】「夢空に羽」発売記念 個別サイン会・個別スマホ写真撮影会イベント＠HMV&BOOKS SHIBUYA",
-    "display": "#653  Laki【Day1】「夢空に羽」発売記念 個別サイン会・個別スマホ写真撮影会イベント＠HMV&BOOKS SHIBUYA",
+    "display": "#653  Laki【Day1】「夢空に羽」個別サイン会・個別スマホ写真撮影会イベント＠HMV&BOOKS SHIBUYA",
     "url": "https://girls2-fc.jp/page/gtube/1104023697397645314",
     "groups": [
       "L2",
@@ -1983,7 +2089,7 @@
     "date": "2025.09.16",
     "contents": "GTUBE",
     "title": "#646  Lucky²「夢空に羽」発売記念リリースイベント＠ららぽーと立川立飛",
-    "display": "#646  Lucky²「夢空に羽」発売記念リリースイベント＠ららぽーと立川立飛",
+    "display": "#646  Lucky²「夢空に羽」リリースイベント＠ららぽーと立川立飛",
     "url": "https://girls2-fc.jp/page/gtube/1097489361315823617",
     "groups": [
       "L2",
@@ -2083,7 +2189,7 @@
     "date": "2025.08.29",
     "contents": "GTUBE",
     "title": "#641  Lucky²「夢空に羽」発売記念リリースイベント＠モラージュ菖蒲",
-    "display": "#641  Lucky²「夢空に羽」発売記念リリースイベント＠モラージュ菖蒲",
+    "display": "#641  Lucky²「夢空に羽」リリースイベント＠モラージュ菖蒲",
     "url": "https://girls2-fc.jp/page/gtube/1089123865918963712",
     "groups": [
       "L2",
@@ -2663,7 +2769,7 @@
     "date": "2025.05.20",
     "contents": "GTUBE",
     "title": "#612  Girls²「Countdown」発売記念 個別サイン会Day-2＠HMV&BOOKS SHIBUYA",
-    "display": "#612  Girls²「Countdown」発売記念 個別サイン会Day-2＠HMV&BOOKS SHIBUYA",
+    "display": "#612  Girls²「Countdown」個別サイン会Day-2＠HMV&BOOKS SHIBUYA",
     "url": "https://girls2-fc.jp/page/gtube/1047809300946223104",
     "groups": [
       "G2",
@@ -2683,7 +2789,7 @@
     "date": "2025.05.16",
     "contents": "GTUBE",
     "title": "#611  Girls²「Countdown」発売記念 個別サイン会Day-1＠HMV&BOOKS SHIBUYA",
-    "display": "#611  Girls²「Countdown」発売記念 個別サイン会Day-1＠HMV&BOOKS SHIBUYA",
+    "display": "#611  Girls²「Countdown」個別サイン会Day-1＠HMV&BOOKS SHIBUYA",
     "url": "https://girls2-fc.jp/page/gtube/1047779125638463489",
     "groups": [
       "G2",
@@ -2983,7 +3089,7 @@
     "date": "2025.03.25",
     "contents": "GTUBE",
     "title": "#596  Lucky²「ラキラキLOVE!」発売記念 個別サイン会@HMV&BOOKS SHIBUYA",
-    "display": "#596  Lucky²「ラキラキLOVE!」発売記念 個別サイン会@HMV&BOOKS SHIBUYA",
+    "display": "#596  Lucky²「ラキラキLOVE!」個別サイン会@HMV&BOOKS SHIBUYA",
     "url": "https://girls2-fc.jp/page/gtube/1030328181598453761",
     "groups": [
       "L2",
@@ -6667,7 +6773,7 @@
     "date": "2023.06.16",
     "contents": "GTUBE",
     "title": "#411 Lucky²「キミすき」発売記念トーク＆ミニライブイベント",
-    "display": "#411 Lucky²「キミすき」発売記念トーク＆ミニライブイベント",
+    "display": "#411 Lucky²「キミすき」トーク＆ミニライブイベント",
     "url": "https://girls2-fc.jp/page/gtube/794145365350679562",
     "groups": [
       "L2",
@@ -6687,7 +6793,7 @@
     "date": "2023.06.13",
     "contents": "GTUBE",
     "title": "#410 Lucky²「キミすき」発売記念オンライン個別トーク会",
-    "display": "#410 Lucky²「キミすき」発売記念オンライン個別トーク会",
+    "display": "#410 Lucky²「キミすき」オンライン個別トーク会",
     "url": "https://girls2-fc.jp/page/gtube/794144997279532042",
     "groups": [
       "L2",
@@ -7003,7 +7109,7 @@
     "date": "2023.04.14",
     "contents": "GTUBE",
     "title": "#393　Lucky²「Fun!Fun!Fun!～夢∞～」発売記念トーク＆ミニライブイベント",
-    "display": "#393　Lucky²「Fun!Fun!Fun!～夢∞～」発売記念トーク＆ミニライブイベント",
+    "display": "#393　Lucky²「Fun!Fun!Fun!～夢∞～」トーク＆ミニライブイベント",
     "url": "https://girls2-fc.jp/page/gtube/771972215095690355",
     "groups": [
       "L2",
@@ -7179,7 +7285,7 @@
     "date": "2023.03.10",
     "contents": "GTUBE",
     "title": "#383　Girls²「Enjoy / Good Days」発売記念トーク＆ミニライブイベント",
-    "display": "#383　Girls²「Enjoy / Good Days」発売記念トーク＆ミニライブイベント",
+    "display": "#383　Girls²「Enjoy / Good Days」トーク＆ミニライブイベント",
     "url": "https://girls2-fc.jp/page/gtube/757574603311678559",
     "groups": [
       "G2",
@@ -7275,7 +7381,7 @@
     "date": "2023.02.17",
     "contents": "GTUBE",
     "title": "#377　Girls²「Enjoy / Good Days」発売記念オンライン個別トーク会",
-    "display": "#377　Girls²「Enjoy / Good Days」発売記念オンライン個別トーク会",
+    "display": "#377　Girls²「Enjoy / Good Days」オンライン個別トーク会",
     "url": "https://girls2-fc.jp/page/gtube/745914625056310367",
     "groups": [
       "G2",
@@ -7339,7 +7445,7 @@
     "date": "2023.02.03",
     "contents": "GTUBE",
     "title": "#373　Girls²「Enjoy / Good Days」発売記念トーク＆ミニライブイベント",
-    "display": "#373　Girls²「Enjoy / Good Days」発売記念トーク＆ミニライブイベント",
+    "display": "#373　Girls²「Enjoy / Good Days」トーク＆ミニライブイベント",
     "url": "https://girls2-fc.jp/page/gtube/739768026785645748",
     "groups": [
       "G2",
@@ -9423,7 +9529,7 @@
     "date": "2021.10.26",
     "contents": "GTUBE",
     "title": "#240　lovely²「〇×△　～まる・ばつ・さんかく～」発売記念オンラインリリースイベント",
-    "display": "#240　lovely²「〇×△　～まる・ばつ・さんかく～」発売記念オンラインリリースイベント",
+    "display": "#240　lovely²「〇×△　～まる・ばつ・さんかく～」オンラインリリースイベント",
     "url": "https://girls2-fc.jp/page/gtube/573358831350842171",
     "groups": [
       "ETC"
@@ -11734,8 +11840,8 @@
   {
     "date": "2020.04.03",
     "contents": "GTUBE",
-    "title": "＃72 Girls²×「TEG TEG」ビジュアル撮影",
-    "display": "＃72 Girls²×「TEG TEG」ビジュアル撮影",
+    "title": "#72 Girls²×「TEG TEG」ビジュアル撮影",
+    "display": "#72 Girls²×「TEG TEG」ビジュアル撮影",
     "url": "https://girls2-fc.jp/page/gtube/376968266616144918",
     "groups": [
       "G2",
@@ -12660,7 +12766,7 @@
     "date": "2026.09.13",
     "contents": "EVENT",
     "title": "Girls² EP「EASY」発売記念 リリースイベント 埼玉",
-    "display": "Girls² EP「EASY」発売記念 リリースイベント 埼玉",
+    "display": "Girls² EP「EASY」リリースイベント 埼玉",
     "url": "https://girls2-fc.jp/page/familyNews/1220992081527308290",
     "groups": [
       "G2",
@@ -12685,7 +12791,7 @@
     "date": "2026.09.20",
     "contents": "EVENT",
     "title": "Girls² EP「EASY」発売記念 リリースイベント 大阪",
-    "display": "Girls² EP「EASY」発売記念 リリースイベント 大阪",
+    "display": "Girls² EP「EASY」リリースイベント 大阪",
     "url": "https://girls2-fc.jp/page/familyNews/1220992081527308290",
     "groups": [
       "G2",
@@ -12710,7 +12816,7 @@
     "date": "2026.09.27",
     "contents": "EVENT",
     "title": "Girls² EP「EASY」発売記念 リリースイベント 宮城",
-    "display": "Girls² EP「EASY」発売記念 リリースイベント 宮城",
+    "display": "Girls² EP「EASY」リリースイベント 宮城",
     "url": "https://girls2-fc.jp/page/familyNews/1220992081527308290",
     "groups": [
       "G2",
@@ -12735,7 +12841,7 @@
     "date": "2026.09.19",
     "contents": "EVENT",
     "title": "第43回 マイナビ 東京ガールズコレクション 2026 AUTUMN/WINTER",
-    "display": "第43回 マイナビ 東京ガールズコレクション 2026 AUTUMN/WINTER",
+    "display": "東京ガールズコレクション2026 AUTUMN/WINTER",
     "url": "https://girls2-fc.jp/page/familyNews/1222395568693706754",
     "groups": [
       "G2",
@@ -12751,7 +12857,7 @@
     "date": "2026.09.12",
     "contents": "EVENT",
     "title": "Girls² EP「EASY」発売記念 メンバー個別オンライントーク会",
-    "display": "Girls² EP「EASY」発売記念 メンバー個別オンライントーク会",
+    "display": "Girls² EP「EASY」個別オンライントーク会",
     "url": "https://girls2-fc.jp/page/news/1220576408795873281",
     "groups": [
       "G2",
@@ -12951,8 +13057,8 @@
   {
     "date": "2026.10.04",
     "contents": "RELEASE",
-    "title": "Girls² EP「EASY」",
-    "display": "Girls² EP「EASY」",
+    "title": "Girls² EP「EASY」リリース",
+    "display": "Girls² EP「EASY」リリース",
     "url": "https://girls2-fc.jp/page/news/1220569487942615041",
     "groups": [
       "G2",
@@ -25057,7 +25163,7 @@
     "date": "2021.08.18",
     "contents": "YOUTUBE",
     "title": "Girls² - 「Enjoy / Good Days」発売記念 forTUNE meets「オンライン個別トーク会」　紹介動画",
-    "display": "Girls² - 「Enjoy / Good Days」発売記念 forTUNE meets「オンライン個別トーク会」　紹介動画",
+    "display": "Girls² - 「Enjoy / Good Days」forTUNE meets「オンライン個別トーク会」　紹介動画",
     "url": "https://www.youtube.com/watch?v=Wtc7_kYu99k",
     "groups": [
       "G2",
@@ -27791,19 +27897,6 @@
       "KUR",
       "MNM",
       "KIR"
-    ],
-    "relations": [],
-    "tags": []
-  },
-  {
-    "date": "2020.12.10",
-    "contents": "RADIO",
-    "title": "増田來亜　「増田來亜の相談室」#1",
-    "display": "増田來亜　「増田來亜の相談室」#1",
-    "url": "https://girls2-fc.jp/page/girls2radio/466503999076434747",
-    "groups": [
-      "G2",
-      "KUR"
     ],
     "relations": [],
     "tags": []
@@ -31367,8 +31460,8 @@
   {
     "date": "2022.12.20",
     "contents": "RADIO",
-    "title": "原田都愛「This is 都愛」＃9",
-    "display": "原田都愛「This is 都愛」＃9",
+    "title": "原田都愛「This is 都愛」#9",
+    "display": "原田都愛「This is 都愛」#9",
     "url": "https://girls2-fc.jp/page/girls2radio/734095689503474868",
     "groups": [
       "G2",
@@ -31523,8 +31616,8 @@
   {
     "date": "2022.09.20",
     "contents": "RADIO",
-    "title": "原田都愛「This is 都愛」＃8",
-    "display": "原田都愛「This is 都愛」＃8",
+    "title": "原田都愛「This is 都愛」#8",
+    "display": "原田都愛「This is 都愛」#8",
     "url": "https://girls2-fc.jp/page/girls2radio/701781659518764178",
     "groups": [
       "G2",
@@ -31653,8 +31746,8 @@
   {
     "date": "2022.06.20",
     "contents": "RADIO",
-    "title": "原田都愛「This is 都愛」＃7",
-    "display": "原田都愛「This is 都愛」＃7",
+    "title": "原田都愛「This is 都愛」#7",
+    "display": "原田都愛「This is 都愛」#7",
     "url": "https://girls2-fc.jp/page/girls2radio/664460313617236929",
     "groups": [
       "G2",
@@ -31796,8 +31889,8 @@
   {
     "date": "2022.03.20",
     "contents": "RADIO",
-    "title": "原田都愛「This is 都愛」＃6",
-    "display": "原田都愛「This is 都愛」＃6",
+    "title": "原田都愛「This is 都愛」#6",
+    "display": "原田都愛「This is 都愛」#6",
     "url": "https://girls2-fc.jp/page/girls2radio/633651559535739841",
     "groups": [
       "G2",
@@ -32000,8 +32093,8 @@
   {
     "date": "2021.11.20",
     "contents": "RADIO",
-    "title": "原田都愛「This is 都愛」＃5",
-    "display": "原田都愛「This is 都愛」＃5",
+    "title": "原田都愛「This is 都愛」#5",
+    "display": "原田都愛「This is 都愛」#5",
     "url": "https://girls2-fc.jp/page/girls2radio/591545207263069225",
     "groups": [
       "G2",
@@ -32585,7 +32678,7 @@
     "tags": []
   },
   {
-    "date": "2026.09.15",
+    "date": "2026.09.25",
     "contents": "RADIO",
     "title": "【特別番組】比嘉優和＆佐藤妃希のがるらじ ≪後編≫",
     "display": "比嘉優和＆佐藤妃希のがるらじ ≪後編≫",
@@ -32602,7 +32695,7 @@
     "date": "2026.07.25",
     "contents": "EVENT",
     "title": "Laki「WORK≒LiFE」発売記念インストアイベント 愛知",
-    "display": "Laki「WORK≒LiFE」発売記念インストアイベント 愛知",
+    "display": "Laki「WORK≒LiFE」インストアイベント 愛知",
     "url": "https://girls2-fc.jp/page/familyNews/1210916023633444865",
     "groups": [
       "L2",
@@ -32626,7 +32719,7 @@
     "date": "2026.07.26",
     "contents": "EVENT",
     "title": "Laki「WORK≒LiFE」発売記念インストアイベント 大阪",
-    "display": "Laki「WORK≒LiFE」発売記念インストアイベント 大阪",
+    "display": "Laki「WORK≒LiFE」インストアイベント 大阪",
     "url": "https://girls2-fc.jp/page/familyNews/1210916023633444865",
     "groups": [
       "L2",
@@ -32650,7 +32743,7 @@
     "date": "2026.08.09",
     "contents": "EVENT",
     "title": "Laki「WORK≒LiFE」発売記念インストアイベント 宮城",
-    "display": "Laki「WORK≒LiFE」発売記念インストアイベント 宮城",
+    "display": "Laki「WORK≒LiFE」インストアイベント 宮城",
     "url": "https://girls2-fc.jp/page/familyNews/1210916023633444865",
     "groups": [
       "L2",
@@ -32674,7 +32767,7 @@
     "date": "2026.08.16",
     "contents": "EVENT",
     "title": "Laki「WORK≒LiFE」発売記念インストアイベント 神奈川",
-    "display": "Laki「WORK≒LiFE」発売記念インストアイベント 神奈川",
+    "display": "Laki「WORK≒LiFE」インストアイベント 神奈川",
     "url": "https://girls2-fc.jp/page/familyNews/1210916023633444865",
     "groups": [
       "L2",
@@ -32698,7 +32791,7 @@
     "date": "2026.09.13",
     "contents": "EVENT",
     "title": "Laki「WORK≒LiFE」発売記念インストアイベント 愛知",
-    "display": "Laki「WORK≒LiFE」発売記念インストアイベント 愛知",
+    "display": "Laki「WORK≒LiFE」インストアイベント 愛知",
     "url": "https://girls2-fc.jp/page/familyNews/1210916023633444865",
     "groups": [
       "L2",
@@ -32721,8 +32814,8 @@
   {
     "date": "2026.08.26",
     "contents": "RELEASE",
-    "title": "Laki「WORK≒LiFE」先行配信",
-    "display": "Laki「WORK≒LiFE」先行配信",
+    "title": "Laki『WORK≒LiFE』先行配信リリース",
+    "display": "Laki『WORK≒LiFE』先行配信リリース",
     "url": "https://girls2-fc.jp/page/familyNews/1222015073346650113",
     "groups": [
       "L2",
@@ -32847,8 +32940,8 @@
   {
     "date": "2026.09.30",
     "contents": "RELEASE",
-    "title": "Laki 2nd ALBUM「WORK≒LiFE」",
-    "display": "Laki 2nd ALBUM「WORK≒LiFE」",
+    "title": "Laki 2nd ALBUM「WORK≒LiFE」リリース",
+    "display": "Laki 2nd AL「WORK≒LiFE」リリース",
     "url": "https://girls2-fc.jp/page/familyNews/1202914447505489922",
     "groups": [
       "L2",
