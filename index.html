@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GL log</title>
+<style type="text/css">
+/*<![CDATA[*/
+/* ==================== カラーテーマ(ライト/ダーク共通のCSS変数) ==================== */
+:root {
+  --bg: #fff; --text: #222; --sub: #555; --muted: #888;
+  --border: #f4f4f5; --input-border: #e4e4e7; --btn-bg: #f4f4f5;
+  --btn-hover: #e4e4e7; --input-bg: #fafafa; --item-border: #f9f9f9;
+  --active-bg: #27272a; --active-color: #fff;
+}
+body.dark-mode {
+  --bg: #121212; --text: #f4f4f5; --sub: #a1a1aa; --muted: #71717a;
+  --border: #27272a; --input-border: #3f3f46; --btn-bg: #27272a;
+  --btn-hover: #3f3f46; --input-bg: #18181b; --item-border: #1f1f23;
+  --active-bg: #f4f4f5; --active-color: #121212;
+}
+* { box-sizing: border-box; }
+
+/* スマホのPC版表示対応 ＆ カクつき防止（scrollbar-gutter: stable） */
+html { 
+  overflow-y: auto; 
+  scrollbar-gutter: stable; 
+  height: auto;
+  min-height: 100%;
+}
+
+/* ==================== ページ全体のレイアウト ==================== */
+body { 
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; 
+  background: var(--bg); 
+  margin: 0; 
+  padding: 0 15px 40px; 
+  color: var(--text); 
+  transition: background-color 0.2s, color 0.2s; 
+  overflow-y: auto;
+  height: auto;
+}
+.container { max-width: 620px; margin: 0 auto; position: relative; }
+/* --- 上部固定ヘッダー(タイトル・検索・テーマ切替・フィルター開閉) --- */
+.sticky-header { position: sticky; top: 0; background: var(--bg); z-index: 100; padding: 12px 0 8px; margin-bottom: 12px; border-bottom: 1px solid var(--border); transition: background-color 0.2s; }
+.header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
+h1 { font-size: 20px; margin: 0; line-height: 1; }
+.reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; }
+.reset-link:hover { opacity: 0.8; }
+.toggle-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; padding: 4px 8px; border-radius: 12px; line-height: 1; }
+.toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
+.extra-tools-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+
+/* --- 検索ボックス(クリアボタン付き) --- */
+.search-box-wrap { flex: 1 1 150px; position: relative; display: flex; align-items: center; }
+.search-input { width: 100%; padding: 5px 28px 5px 10px; font-size: 12px; border: 1px solid var(--input-border); border-radius: 14px; outline: none; background: var(--input-bg); color: var(--text); }
+.search-input:focus { border-color: var(--text); background: var(--bg); }
+.search-clear-btn { position: absolute; right: 8px; background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 0; line-height: 1; display: none; user-select: none; }
+.search-clear-btn:hover { color: var(--text); }
+.search-box-wrap.has-text .search-clear-btn { display: block; }
+
+.tool-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 11px; cursor: pointer; padding: 5px 10px; border-radius: 14px; user-select: none; white-space: nowrap; }
+.tool-btn:hover { background-color: var(--btn-hover); }
+/* --- フィルターエリアの開閉アニメーション --- */
+.collapsible-area { max-height: 550px; opacity: 1; overflow: hidden; transition: max-height 0.3s ease, opacity 0.2s ease, margin-top 0.2s ease; }
+.sticky-header.is-initializing .collapsible-area { transition: none !important; }
+.sticky-header.collapsed .collapsible-area { max-height: 0; opacity: 0; margin-top: 0; pointer-events: none; }
+.sticky-header.collapsed { padding-bottom: 4px; margin-bottom: 8px; }
+/* --- チェックボックス群(年・メンバー・コンテンツ種別) --- */
+.checks { display: flex; flex-direction: column; row-gap: 6px; padding-top: 4px; }
+.checks-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.checks-row-years, .checks-row-other { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; gap: 6px; cursor: grab; }
+.checks-row-years::-webkit-scrollbar, .checks-row-other::-webkit-scrollbar, .active-filters-row::-webkit-scrollbar, .item-title::-webkit-scrollbar { display: none; }
+.checks-row-members { display: flex; flex-wrap: nowrap; gap: 3px; width: 100%; }
+.checks label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+
+/* 年数ボタンのサイズをメンバーボタン（.checks-row-members label）のサイズ感に統一 */
+.checks-row-years label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 8px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 16px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
+
+.checks-row-other label { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: 13px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 18px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
+.checks-row-members label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 4px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 16px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex-grow: 1; flex-shrink: 1; min-width: 0; position: relative; }
+.checks-row-members label.btn-group { flex-grow: 0; flex-shrink: 0; flex-basis: 50px; font-size: 11px; padding: 7px 0; text-align: center; letter-spacing: -0.5px; }
+.checks-row-members label:not(.btn-group) { padding: 5px 0; }
+.checks .sep { display: inline-flex; align-items: center; justify-content: center; padding: 0 1px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
+@media (hover: hover) { .checks label:hover { background-color: var(--btn-hover); } }
+.checks label:has(input:checked) { background-color: var(--active-bg); color: var(--active-color); border-color: var(--active-bg); }
+.checks label:has(input:checked)::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #38bdf8; border-radius: 50%; }
+.checks label span[title] { font-size: 14px; line-height: 1; }
+/* --- 検索結果の件数表示・並び替え・クリアボタン --- */
+.result-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; min-height: 1.2em; position: relative; }
+.result-count { font-size: 12px; color: var(--sub); letter-spacing: 0.5px; }
+.sort-arrow-btn { position: absolute; left: 50%; transform: translateX(-50%); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; border-radius: 12px; outline: none; line-height: 1.2; }
+.sort-arrow-btn:hover { background-color: var(--btn-hover); }
+.inline-clear-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--sub); font-size: 11px; cursor: pointer; padding: 3px 8px; border-radius: 12px; display: none; outline: none; letter-spacing: 0.5px; }
+.inline-clear-btn:hover { background-color: var(--btn-hover); color: var(--text); }
+/* --- 現在有効な絞り込み条件のバッジ一覧(フィルターエリア折りたたみ時に表示) --- */
+.active-filters-row { display: none; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; gap: 4px; margin-bottom: 10px; align-items: center; }
+.sticky-header.collapsed ~ .result-header-row ~ .active-filters-row { display: flex; }
+.filter-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 11px; padding: 3px 10px; border-radius: 12px; cursor: pointer; user-select: none; white-space: nowrap; flex: 0 0 auto; }
+.filter-badge:hover { background-color: var(--btn-hover); opacity: 0.8; }
+.filter-badge .badge-x { font-size: 10px; color: var(--muted); font-weight: bold; }
+.filter-badge .badge-square { display: inline-block; width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+/* --- 項目一覧(ログ本体) --- */
+.items { display: flex; flex-direction: column; align-items: flex-start; width: 100%; transition: opacity 0.25s ease, transform 0.25s ease; }
+.items.is-animating { opacity: 0; transform: translateY(6px); }
+.item { display: flex; align-items: baseline; width: 100%; font-size: 13px; line-height: 1.4; color: var(--text); padding: 6px 2px; border-bottom: 1px solid var(--item-border); animation: accordionIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(4px); }
+@keyframes accordionIn { to { opacity: 1; transform: translateY(0); } }
+
+/* 日付・コンテンツ・タイトルを並べるコンテナ（スクロールはタイトルのみに限定） */
+.item-scroll-container { display: flex; align-items: baseline; width: 100%; text-decoration: none; color: inherit; overflow: visible; }
+
+/* 日付とコンテンツ種類は固定 */
+.item-date { flex: 0 0 auto; font-size: 12px; line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; }
+
+/* PC版：最長サイズに合わせて幅を統一し、テキストを左寄せにする */
+.item-contents { 
+  flex: 0 0 8.5em; 
+  font-size: 11px; 
+  padding: 1px 5px; 
+  background: var(--btn-bg); 
+  border: 1px solid var(--input-border); 
+  border-radius: 6px; 
+  margin-right: 6px; 
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block; 
+  line-height: 1.2; 
+  color: var(--text); 
+  text-align: left; 
+}
+
+/* タイトル部分だけが通常は省略表示され、ホバーやスクロールで個別スライド（全表示）可能に */
+.item-title { 
+  flex: 1 1 auto; 
+  font-size: 13px; 
+  line-height: 1.4; 
+  white-space: nowrap; 
+  overflow-x: auto; 
+  -webkit-overflow-scrolling: touch;
+  text-overflow: ellipsis; 
+  min-width: 0; 
+  color: var(--text); 
+  text-decoration: none; 
+}
+.item-title::-webkit-scrollbar { display: none; }
+.item-title:hover,
+.item-title:focus {
+  text-overflow: clip;
+}
+
+.no-result { font-size: 13px; color: var(--muted); padding: 25px 0; text-align: center; display: none; letter-spacing: 0.5px; }
+.quick-reset-btn { display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: var(--active-bg); color: var(--active-color); font-size: 11px; border: none; border-radius: 16px; cursor: pointer; outline: none; }
+.quick-reset-btn:hover { opacity: 0.85; }
+
+/* 一番下に配置する更新日時のスタイル（中央揃え） */
+.footer-update-time { text-align: center; margin-top: 30px; font-size: 11px; color: var(--sub); letter-spacing: 0.5px; }
+
+/* トップへ移動するボタン（コンテナの右端に追従するように修正） */
+.to-top-btn { position: fixed; bottom: 24px; left: calc(50% + 310px - 40px); width: 40px; height: 40px; background-color: var(--active-bg); color: var(--active-color); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; z-index: 999; outline: none; }
+.to-top-btn.is-visible { opacity: 1; visibility: visible; }
+.to-top-btn:hover { opacity: 0.85; }
+#scrollSentinel { height: 20px; margin-top: 10px; }
+
+@media (max-width: 680px) {
+  .to-top-btn { left: auto; right: 24px; }
+}
+
+@media (max-width: 600px) {
+  .item-date { flex: 0 0 auto; margin-right: 6px; }
+  /* スマホ版：アイコンのみ表示（幅を可変に戻す） */
+  .item-contents { flex: 0 0 auto; margin-right: 8px; text-align: left; }
+}
+/*]]>*/
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="sticky-header is-initializing" id="stickyHeader">
+    <div class="header-row">
+      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
+      <button class="toggle-btn" id="toggleBtn">&#9650; FILTER</button>
+    </div>
+    <div class="collapsible-area" id="collapsibleArea">
+      <div class="extra-tools-row">
+        <div class="search-box-wrap">
+          <input type="text" id="searchInput" class="search-input" placeholder="search keywoooooooord &#3366;&#3405;&#3366;&#3391;(&#65381;&#7447;|">
+          <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear search">&#215;</button>
+        </div>
+        <button class="tool-btn" id="themeToggleBtn" title="Theme" aria-label="&#12486;&#12540;&#12510;&#20999;&#12426;&#26367;&#12360;(&#12480;&#12540;&#12463;/&#12521;&#12452;&#12488;)">BLACK</button>
+      </div>
+      <div class="checks">
+        <div class="checks-row checks-row-years" id="yearChecks"></div>
+        <div class="checks-row checks-row-members" id="memberChecks1"></div>
+        <div class="checks-row checks-row-members" id="memberChecks2"></div>
+        <div class="checks-row checks-row-other" id="otherChecks"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="result-header-row">
+    <div class="result-count" id="resultCount">LOADING...</div>
+    <button class="sort-arrow-btn" id="sortBtn">&#8595;</button>
+    <button class="inline-clear-btn" id="inlineClearBtn">CLEAR</button>
+  </div>
+  
+  <div class="active-filters-row" id="activeFiltersRow"></div>
+  <div class="items" id="items"></div>
+  <div id="scrollSentinel"></div>
+  <div class="no-result" id="noResult">NO RESULTS FOUND<br><button class="quick-reset-btn" id="quickResetBtn">CLEAR ALL FILTERS</button></div>
+  <div class="footer-update-time" id="updateTime">updated: --</div>
+  <button class="to-top-btn" id="toTopBtn">&#9650;</button>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+(() => {
+  let logs = [], filtered = [], rendered = 0, updating = false;
+  let desc = true, defaultText = '', timer = null;
+  const pageSize = 40, isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const $ = id => document.getElementById(id);
+
+  const years = [2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014];
+  const g2 = [
+    {v:'G2',t:'Girls\u00B2'},{v:'YZH',n:'YUZUHA',c:'\uD83E\uDE75'},{v:'MMK',n:'MOMOKA',c:'\uD83D\uDC99'},{v:'MSK',n:'MISAKI',c:'\uD83E\uDDE1'},
+    {v:'YOK',n:'YOKA',c:'\uD83D\uDC9C'},{v:'KUR',n:'KUREA',c:'\uD83E\uDD0D'},{v:'MNM',n:'MINAMI',c:'\uD83E\uDE77'},{v:'KIR',n:'KIRA',c:'\uD83D\uDC9B'},
+    'sep',{v:'RAN',n:'RAN',c:'\u2764\uFE0F'},{v:'TOA',n:'TOA',c:'\uD83D\uDC9A'}
+  ];
+  const l2 = [
+    {v:'L2',t:'Laki'},{v:'RIN',n:'RINA',c:'\uD83D\uDC9C'},{v:'TBK',n:'TSUBAKI',c:'\uD83E\uDDE1'},{v:'HIR',n:'HIIRO',c:'\uD83E\uDE75'},
+    {v:'YUW',n:'YUWA',c:'\u2764\uFE0F'},{v:'KAN',n:'KANNA',c:'\uD83D\uDC99'},{v:'RRK',n:'RIRIKA',c:'\uD83E\uDE77'},{v:'AKR',n:'AKARI',c:'\uD83D\uDC9A'},
+    {v:'KIK',n:'KIKI',c:'\uD83D\uDC9B'},'sep',{v:'YUR',n:'YURA',c:'\uD83E\uDD0D'}
+  ];
+  const others = ['DIARY','RADIO','GTUBE','YOUTUBE','CL','RELEASE','LIVE','EVENT','MEDIA','WEB','SNS','ETC'];
+
+  const symbols = {
+    'DIARY': '\uD83D\uDCDD', 'RADIO': '\uD83D\uDCFB\uFE0F', 'GTUBE': '\uD83C\uDF10', 'YOUTUBE': '\uD83C\uDF9E\uFE0F', 
+    'CL': '\uD83C\uDD91', 'RELEASE': '\uD83D\uDCBF\uFE0F', 'LIVE': '\uD83C\uDF99\uFE0F', 
+    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCFA\uFE0F', 'WEB': '\uD83D\uDD16', 'SNS': '\uD83D\uDCF1', 'ETC': '\uD83D\uDCCC'
+  };
+
+  const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
+
+  const formatDisplayDate = dateStr => {
+    if (!dateStr) return '';
+    const parts = dateStr.split('.');
+    if (parts.length !== 3) return dateStr;
+    const [y, m, d] = parts;
+    const dateObj = new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10));
+    if (isNaN(dateObj.getTime())) return dateStr;
+    const dayStr = dayNames[dateObj.getDay()];
+    return `${y}.${m}.${d} [${dayStr}]`;
+  };
+
+  const normalizeDateForSort = dateStr => {
+    if (!dateStr) return '';
+    const parts = dateStr.split('.');
+    if (parts.length !== 3) return dateStr;
+    const [y, m, d] = parts;
+    return y.padStart(4, '0') + '.' + m.padStart(2, '0') + '.' + d.padStart(2, '0');
+  };
+
+  const createLabel = item => {
+    if (item === 'sep') {
+      const s = document.createElement('span');
+      s.className = 'sep';
+      s.textContent = '/';
+      return s;
+    }
+    const l = document.createElement('label');
+    l.tabIndex = 0;
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.tabIndex = -1;
+    cb.value = item.v || item;
+    const sp = document.createElement('span');
+    sp.className = 'label-text';
+    if (item.n) {
+      sp.title = item.n;
+      sp.textContent = item.c;
+    } else {
+      sp.textContent = item.t || item;
+    }
+    if (item.v && item.t) l.className = 'btn-group';
+    l.append(cb, sp);
+    return l;
+  };
+
+  years.forEach(y => $('yearChecks').appendChild(createLabel(y)));
+  g2.forEach(i => $('memberChecks1').appendChild(createLabel(i)));
+  l2.forEach(i => $('memberChecks2').appendChild(createLabel(i)));
+  others.forEach(o => $('otherChecks').appendChild(createLabel(o)));
+
+  const enableHorizontalScroll = el => {
+    el.addEventListener('wheel', e => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      if (el.scrollWidth <= el.clientWidth) return;
+      e.preventDefault();
+      el.scrollLeft += e.deltaY;
+    }, { passive: false });
+
+    let isDragging = false, dragStartX = 0, dragStartScrollLeft = 0, hasDragged = false;
+    el.addEventListener('mousedown', e => {
+      isDragging = true; hasDragged = false;
+      dragStartX = e.pageX; dragStartScrollLeft = el.scrollLeft;
+      el.style.cursor = 'grabbing';
+    });
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      const dx = e.pageX - dragStartX;
+      if (Math.abs(dx) > 3) hasDragged = true;
+      el.scrollLeft = dragStartScrollLeft - dx;
+    });
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      el.style.cursor = '';
+    });
+    el.addEventListener('click', e => {
+      if (hasDragged) { e.preventDefault(); e.stopPropagation(); hasDragged = false; }
+    }, true);
+  };
+  document.querySelectorAll('.checks-row-years, .checks-row-other').forEach(enableHorizontalScroll);
+
+  const checkboxes = document.querySelectorAll('.checks input[type="checkbox"]');
+  const labels = document.querySelectorAll('.checks label:has(input)');
+  const g2Vals = ['YZH','MMK','MSK','YOK','KUR','MNM','KIR','TOA','RAN'];
+  const l2Vals = ['RIN','YUR','TBK','HIR','YUW','KAN','RRK','AKR','KIK'];
+  const allGroupVals = [...g2Vals, ...l2Vals];
+  const primaryConts = ['DIARY','RADIO','GTUBE','YOUTUBE','CL','RELEASE','LIVE','EVENT','MEDIA','WEB','SNS'];
+  const allConts = [...primaryConts, 'ETC'];
+  const cats = [{meta:'G2',values:g2Vals},{meta:'L2',values:l2Vals}];
+
+  if (localStorage.getItem('gl_log_theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    $('themeToggleBtn').textContent = 'WHITE';
+  }
+
+  $('themeToggleBtn').onclick = () => {
+    const isDark = document.body.classList.toggle('dark-mode');
+    $('themeToggleBtn').textContent = isDark ? 'WHITE' : 'BLACK';
+    localStorage.setItem('gl_log_theme', isDark ? 'dark' : 'light');
+  };
+
+  if (localStorage.getItem('gl_log_collapsed') === 'true') {
+    $('stickyHeader').classList.add('collapsed');
+    $('toggleBtn').textContent = '\u25BC FILTER';
+  }
+  requestAnimationFrame(() => $('stickyHeader').classList.remove('is-initializing'));
+
+  $('toggleBtn').onclick = () => {
+    const c = $('stickyHeader').classList.toggle('collapsed');
+    $('toggleBtn').textContent = c ? '\u25BC FILTER' : '\u25B2 FILTER';
+    localStorage.setItem('gl_log_collapsed', c);
+  };
+
+  $('sortBtn').onclick = () => {
+    desc = !desc;
+    $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
+    updateDisplay(true);
+  };
+
+  const searchInput = $('searchInput');
+  const searchClearBtn = $('searchClearBtn');
+  const searchBoxWrap = searchInput.parentElement;
+
+  const updateSearchClearState = () => {
+    if (searchInput.value.length > 0) {
+      searchBoxWrap.classList.add('has-text');
+    } else {
+      searchBoxWrap.classList.remove('has-text');
+    }
+  };
+
+  searchInput.oninput = () => {
+    updateSearchClearState();
+    clearTimeout(timer);
+    timer = setTimeout(() => updateDisplay(true), 180);
+  };
+
+  searchClearBtn.onclick = () => {
+    searchInput.value = '';
+    updateSearchClearState();
+    updateDisplay(true);
+    searchInput.focus();
+  };
+
+  window.onkeydown = e => {
+    if ((e.key === '/' || (e.ctrlKey && e.key.toLowerCase() === 'k')) && document.activeElement !== searchInput) {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
+  };
+
+  window.onscroll = () => $('toTopBtn').classList.toggle('is-visible', window.scrollY > 300);
+  $('toTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  let isMobileState = window.innerWidth <= 600;
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const nowMobile = window.innerWidth <= 600;
+      if (nowMobile !== isMobileState) {
+        isMobileState = nowMobile;
+        updateDisplay(false);
+      }
+    }, 200);
+  });
+
+  const createItemNode = item => {
+    const w = document.createElement('div');
+    w.className = 'item';
+    const sc = document.createElement('div');
+    sc.className = 'item-scroll-container';
+    
+    const d = document.createElement('span');
+    d.className = 'item-date';
+    d.textContent = formatDisplayDate(item.date);
+    
+    const ct = document.createElement('span');
+    ct.className = 'item-contents';
+    if (item.contents) {
+      // スマホ版はアイコンのみ、PC版は「アイコン + コンテンツ名」で出し分け
+      ct.textContent = isMobileState ? (symbols[item.contents] || item.contents) : ((symbols[item.contents] ? symbols[item.contents] + ' ' : '') + item.contents);
+    } else {
+      ct.textContent = '';
+    }
+
+    const t = document.createElement('a');
+    t.className = 'item-title';
+    t.href = item.url;
+    t.target = '_blank';
+    t.rel = 'noopener noreferrer';
+    t.textContent = item.title;
+
+    sc.append(d, ct, t);
+    w.append(sc);
+    return w;
+  };
+
+  const renderBatch = () => {
+    if (rendered >= filtered.length) return;
+    requestAnimationFrame(() => {
+      const frag = document.createDocumentFragment();
+      const next = Math.min(rendered + pageSize, filtered.length);
+      for (let i = rendered; i < next; i++) {
+        frag.appendChild(createItemNode(filtered[i]));
+      }
+      $('items').appendChild(frag);
+      rendered = next;
+    });
+  };
+
+  new IntersectionObserver(entries => {
+    entries.forEach(en => en.isIntersecting && renderBatch());
+  }, { rootMargin: '300px' }).observe($('scrollSentinel'));
+
+  const renderActiveBadges = (checked, kw) => {
+    $('activeFiltersRow').textContent = '';
+    const frag = document.createDocumentFragment();
+
+    const makeBadge = (text, onClick, squareColor) => {
+      const badge = document.createElement('div');
+      badge.className = 'filter-badge';
+      if (squareColor) {
+        const sq = document.createElement('span');
+        sq.className = 'badge-square';
+        sq.style.backgroundColor = squareColor;
+        badge.appendChild(sq);
+      }
+      const label = document.createElement('span');
+      label.textContent = text;
+      const x = document.createElement('span');
+      x.className = 'badge-x';
+      x.textContent = '\u00D7';
+      badge.append(label, x);
+      badge.onclick = onClick;
+      return badge;
+    };
+
+    if (kw) {
+      frag.appendChild(makeBadge('Keyword: "' + kw + '"', () => {
+        searchInput.value = '';
+        updateSearchClearState();
+        updateDisplay(true);
+      }));
+    }
+
+    checked.forEach(cb => {
+      const l = cb.closest('label');
+      const titleSpan = l.querySelector('span[title]');
+      let name;
+      if (titleSpan) {
+        name = titleSpan.textContent.trim() + ' ' + titleSpan.getAttribute('title');
+      } else if (symbols[cb.value]) {
+        name = symbols[cb.value] + ' ' + cb.value;
+      } else {
+        name = l.querySelector('.label-text').textContent.trim() || cb.value;
+      }
+      const squareColor = cb.value === 'G2' ? '#f472b6' : cb.value === 'L2' ? '#facc15' : null;
+      frag.appendChild(makeBadge(name, () => {
+        cb.checked = false;
+        updateDisplay(true);
+      }, squareColor));
+    });
+
+    $('activeFiltersRow').appendChild(frag);
+  };
+
+  const updateDisplay = (syncHash = true) => {
+    const checked = Array.from(checkboxes).filter(cb => cb.checked);
+    const cVals = new Set(checked.map(cb => cb.value));
+    const cYears = checked.filter(cb => /^\d{4}$/.test(cb.value)).map(cb => cb.value);
+    const cConts = checked.filter(cb => allConts.includes(cb.value)).map(cb => cb.value);
+    const sGroups = allGroupVals.filter(v => cVals.has(v));
+    const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
+    const rawKw = searchInput.value.trim();
+    const kw = rawKw.toLowerCase();
+
+    // 日付・年・月日クエリのパース処理
+    let isDateQuery = false;
+    let targetMonthDay = null;
+    let startDate = null, endDate = null;
+
+    const rangeMatch = rawKw.match(/^(\d{4,8})?-(\d{4,8})?$/);
+    if (rangeMatch && (rangeMatch[1] || rangeMatch[2])) {
+      isDateQuery = true;
+      if (rangeMatch[1]) {
+        const p1 = rangeMatch[1];
+        if (p1.length === 4) startDate = p1 + '0101';
+        else if (p1.length === 6) startDate = p1 + '01';
+        else startDate = p1;
+      }
+      if (rangeMatch[2]) {
+        const p2 = rangeMatch[2];
+        if (p2.length === 4) endDate = p2 + '1231';
+        else if (p2.length === 6) {
+          const y = parseInt(p2.slice(0, 4), 10);
+          const m = parseInt(p2.slice(4, 6), 10);
+          const lastDay = new Date(y, m, 0).getDate();
+          endDate = p2 + String(lastDay).padStart(2, '0');
+        } else endDate = p2;
+      }
+    } else if (/^\d{4}$/.test(rawKw)) {
+      const m = parseInt(rawKw.slice(0, 2), 10);
+      const d = parseInt(rawKw.slice(2, 4), 10);
+      const isValidMD = m >= 1 && m <= 12 && d >= 1 && d <= 31;
+
+      if (isValidMD) {
+        isDateQuery = true;
+        targetMonthDay = rawKw;
+      } else {
+        isDateQuery = true;
+        startDate = rawKw + '0101';
+        endDate = rawKw + '1231';
+      }
+    } else if (/^\d{6}$/.test(rawKw)) {
+      isDateQuery = true;
+      startDate = rawKw + '01';
+      const y = parseInt(rawKw.slice(0, 4), 10);
+      const m = parseInt(rawKw.slice(4, 6), 10);
+      const lastDay = new Date(y, m, 0).getDate();
+      endDate = rawKw + String(lastDay).padStart(2, '0');
+    } else if (/^\d{8}$/.test(rawKw)) {
+      isDateQuery = true;
+      startDate = rawKw;
+      endDate = rawKw;
+    }
+
+    filtered = logs.filter(item => {
+      const yr = item.date ? item.date.slice(0, 4) : '';
+      const itemGroups = item.groups || [];
+      const itemGroupsAndRelations = [...itemGroups, ...(item.relations || [])];
+      const ic = item.contents || '';
+      
+      const yOk = cYears.length === 0 || cYears.includes(yr);
+      
+      const gOk = sGroups.length > 0
+        ? (sGroups.length === 1 && mGroups.length === 0
+            ? sGroups.every(g => itemGroups.includes(g))
+            : sGroups.every(g => itemGroupsAndRelations.includes(g)))
+        : (mGroups.length > 0 ? mGroups.every(m => {
+            const mValues = cats.find(c => c.meta === m)?.values || [];
+            return itemGroups.some(g => mValues.includes(g));
+          }) : true);
+
+      const cOk = cConts.length === 0 || (cConts.includes('ETC') && !primaryConts.includes(ic)) || cConts.includes(ic);
+      
+      let dateOk = true;
+      if (isDateQuery) {
+        const itemDateNum = item.date ? item.date.replace(/\./g, '') : '';
+        let matchesDate = true;
+        if (targetMonthDay) {
+          const itemMD = itemDateNum.slice(4, 8);
+          matchesDate = itemMD === targetMonthDay;
+        } else {
+          if (startDate && itemDateNum < startDate) matchesDate = false;
+          if (endDate && itemDateNum > endDate) matchesDate = false;
+        }
+        // 日付検索を優先しつつ、tagsに一致するものがあればそちらも結果に含める
+        const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
+        dateOk = matchesDate || tagsMatch;
+      }
+
+      let textOk = true;
+      if (kw && !isDateQuery) {
+        textOk = (item.title + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase().includes(kw);
+      }
+      
+      return yOk && gOk && cOk && dateOk && textOk;
+    });
+
+    filtered.sort((a, b) => {
+      const na = normalizeDateForSort(a.date), nb = normalizeDateForSort(b.date);
+      return desc ? nb.localeCompare(na) : na.localeCompare(nb);
+    });
+
+    $('items').classList.add('is-animating');
+    setTimeout(() => {
+      $('items').textContent = '';
+      rendered = 0;
+      defaultText = 'RESULTS > ' + filtered.length;
+      $('resultCount').textContent = defaultText;
+      renderActiveBadges(checked, kw);
+
+      const isZero = filtered.length === 0;
+      $('noResult').style.display = isZero ? 'block' : 'none';
+      $('sortBtn').style.display = isZero ? 'none' : 'block';
+      $('inlineClearBtn').style.display = ((checked.length > 0 || kw) && !isZero) ? 'inline-block' : 'none';
+      
+      if (!isZero) renderBatch();
+      $('items').classList.remove('is-animating');
+    }, 120);
+
+    if (syncHash) {
+      updating = true;
+      const active = checked.map(cb => cb.value);
+      if (active.length > 0 || kw) window.location.hash = active.join(',');
+      else history.replaceState(null, null, window.location.pathname + window.location.search);
+      updating = false;
+    }
+  };
+
+  if (!isTouch) {
+    labels.forEach(l => {
+      const cb = l.querySelector('input');
+      if (!cb) return;
+      const val = cb.value;
+
+      l.onmouseenter = () => {
+        const checked = Array.from(checkboxes).filter(c => c.checked);
+        const cVals = new Set(checked.map(c => c.value));
+        const isChecked = cb.checked;
+        let cY = checked.filter(c => /^\d{4}$/.test(c.value)).map(c => c.value);
+        let sG = allGroupVals.filter(v => cVals.has(v));
+        let mG = cats.map(c => c.meta).filter(m => cVals.has(m));
+        let cC = checked.filter(c => allConts.includes(c.value)).map(c => c.value);
+        const kw = searchInput.value.trim().toLowerCase();
+
+        if (isChecked) {
+          if (/^\d{4}$/.test(val)) cY = cY.filter(y => y !== val);
+          if (allGroupVals.includes(val)) sG = sG.filter(g => g !== val);
+          if (cats.some(c => c.meta === val)) mG = mG.filter(m => m !== val);
+          if (allConts.includes(val)) cC = cC.filter(c => c !== val);
+        } else {
+          if (/^\d{4}$/.test(val) && !cY.includes(val)) cY.push(val);
+          if (allGroupVals.includes(val) && !sG.includes(val)) sG.push(val);
+          if (cats.some(c => c.meta === val) && !mG.includes(val)) mG.push(val);
+          if (allConts.includes(val) && !cC.includes(val)) cC.push(val);
+        }
+
+        const cnt = logs.filter(item => {
+          const yr = item.date ? item.date.slice(0, 4) : '';
+          const itemGroups = item.groups || [];
+          const itemGroupsAndRelations = [...itemGroups, ...(item.relations || [])];
+          const ic = item.contents || '';
+          
+          const gOk = sG.length > 0
+            ? (sG.length === 1 && mG.length === 0
+                ? sG.every(g => itemGroups.includes(g))
+                : sG.every(g => itemGroupsAndRelations.includes(g)))
+            : (mG.length > 0 ? mG.every(m => {
+                const mValues = cats.find(c => c.meta === m)?.values || [];
+                return itemGroups.some(g => mValues.includes(g));
+              }) : true);
+
+          return (cY.length === 0 || cY.includes(yr)) &&
+                 gOk &&
+                 (cC.length === 0 || (cC.includes('ETC') && !primaryConts.includes(ic)) || cC.includes(ic)) &&
+                 (!kw || (item.title + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase().includes(kw));
+        }).length;
+
+        const name = l.querySelector('span[title]')?.getAttribute('title') || l.querySelector('.label-text').textContent.trim();
+        $('resultCount').textContent = '[ ' + name + ' ] PREVIEW > ' + cnt;
+      };
+
+      l.onmouseleave = () => $('resultCount').textContent = defaultText;
+    });
+  }
+
+  labels.forEach(l => l.onkeydown = e => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      const cb = l.querySelector('input');
+      if (cb) {
+        cb.checked = !cb.checked;
+        updateDisplay(true);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    }
+  });
+
+  const restoreFromHash = () => {
+    if (updating) return;
+    const active = window.location.hash.replace('#', '').split(',').filter(Boolean);
+    checkboxes.forEach(cb => cb.checked = active.includes(cb.value));
+    updateSearchClearState();
+    updateDisplay(false);
+  };
+
+  window.onhashchange = restoreFromHash;
+  checkboxes.forEach(cb => cb.onchange = () => {
+    updateDisplay(true);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  });
+
+  const resetAll = e => {
+    if (e) e.preventDefault();
+    checkboxes.forEach(cb => cb.checked = false);
+    searchInput.value = '';
+    updateSearchClearState();
+    document.querySelectorAll('.checks-row-years, .checks-row-other').forEach(con => con.scrollLeft = 0);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    updateDisplay(true);
+  };
+
+  $('resetLink').onclick = resetAll;
+  $('quickResetBtn').onclick = resetAll;
+  $('inlineClearBtn').onclick = resetAll;
+
+  fetch('/feeds/posts/default?alt=json&max-results=1')
+    .then(res => res.json())
+    .then(data => {
+      const entry = data.feed.entry;
+      if (entry && entry.length > 0) {
+        const updatedStr = entry[0].updated.$t;
+        const dateObj = new Date(updatedStr);
+        const y = dateObj.getFullYear();
+        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const d = String(dateObj.getDate()).padStart(2, '0');
+        $('updateTime').textContent = `updated: ${y}.${m}.${d}`;
+      }
+    })
+    .catch(err => {
+      console.error('Failed to load blogger feed:', err);
+    });
+
+  fetch('https://cdn.jsdelivr.net/gh/piscenake52/gllogs@f5276d3d9937f85b03f0c908e5c0c7016afd8582/logs.json')
+    .then(res => {
+      if (!res.ok) throw new Error('Network response was not ok');
+      return res.json();
+    })
+    .then(data => {
+      // 日付、コンテンツ種類、タイトル、URLがすべて一致する重複データを排除
+      const seen = new Set();
+      logs = data.filter(item => {
+        const identifier = `${item.date || ''}_${item.contents || ''}_${item.title || ''}_${item.url || ''}`;
+        if (seen.has(identifier)) return false;
+        seen.add(identifier);
+        return true;
+      });
+
+      window.location.hash ? restoreFromHash() : updateDisplay(true);
+    })
+    .catch(error => {
+      console.error('Failed to load logs.json:', error);
+      $('resultCount').textContent = 'LOAD ERROR';
+    });
+})();
+//]]>
+</script>
+</body>
+</html>
