@@ -5,13 +5,19 @@
     "title": "Girls²　EP「EASY」",
     "url": "https://girls2-fc.jp/page/news/1220569487942615041",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
-    ],
-    "relation": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "tags": [
-      "EASY Nocturne","Girls² 7th Anniversary Seven×Seven in Bloom -The Live-"
-    ]
+      "EASY Nocturne",
+      "Girls² 7th Anniversary Seven×Seven in Bloom -The Live-"
+    ],
+    "relations": []
   },
   {
     "date": "2026.09.30",
@@ -19,13 +25,27 @@
     "title": "Laki　2nd ALBUM「WORK≒LiFE」",
     "url": "https://girls2-fc.jp/page/familyNews/1202914447505489922",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "relation": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "tags": [
-      "WORK≒LiFE", "Gimme 143", "Pancake", "Unicorn Dance", "Like it!!", "Starry pop Canvas", "Love is Magic", "Ladybug", "Best Friends"
-    ]
+      "WORK≒LiFE",
+      "Gimme 143",
+      "Pancake",
+      "Unicorn Dance",
+      "Like it!!",
+      "Starry pop Canvas",
+      "Love is Magic",
+      "Ladybug",
+      "Best Friends"
+    ],
+    "relations": []
   },
   {
     "date": "2026.10.27",
@@ -33,13 +53,13 @@
     "title": "BOOK ACT Z 2026",
     "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
     "groups": [
-      "G2","MSK"
-    ],
-    "relation": [
+      "MSK"
     ],
     "tags": [
-      "THEATER MILANO-Za","芸人交換日記"
-    ]
+      "THEATER MILANO-Za",
+      "芸人交換日記"
+    ],
+    "relations": []
   },
   {
     "date": "2026.10.29",
@@ -47,13 +67,13 @@
     "title": "BOOK ACT Z 2026",
     "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
     "groups": [
-      "G2","YZH"
-    ],
-    "relation": [
+      "YZH"
     ],
     "tags": [
-      "THEATER MILANO-Za","芸人交換日記"
-    ]
+      "THEATER MILANO-Za",
+      "芸人交換日記"
+    ],
+    "relations": []
   },
   {
     "date": "2026.11.29",
@@ -61,14 +81,27 @@
     "title": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-",
     "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR",
-      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "relation": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "tags": [
-      "MUFGスタジアム","国立競技場"
-    ]
+      "MUFGスタジアム",
+      "国立競技場"
+    ],
+    "relations": []
   },
   {
     "date": "2026.11.28",
@@ -76,14 +109,27 @@
     "title": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-",
     "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR",
-      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "relation": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "tags": [
-      "MUFGスタジアム","国立競技場"
-    ]
+      "MUFGスタジアム",
+      "国立競技場"
+    ],
+    "relations": []
   },
   {
     "date": "2026.10.04",
@@ -91,13 +137,19 @@
     "title": "Laki 5th Anniversary Live -L∞K UP-",
     "url": "https://girls2-fc.jp/page/events/Laki5thAnnivLP",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "relation": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "tags": [
       "ヒューリックホール東京"
-    ]
+    ],
+    "relations": []
   },
   {
     "date": "2026.10.04",
@@ -105,13 +157,18 @@
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 福岡",
     "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
-    ],
-    "relation": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "tags": [
       "福岡国際会議場 メインホール"
-    ]
+    ],
+    "relations": []
   },
   {
     "date": "2026.10.10",
@@ -119,13 +176,18 @@
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 愛知",
     "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
-    ],
-    "relation": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "tags": [
       "Niterra日本特殊陶業市民会館ビレッジホール"
-    ]
+    ],
+    "relations": []
   },
   {
     "date": "2026.10.18",
@@ -133,13 +195,18 @@
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 大阪",
     "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
-    ],
-    "relation": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "tags": [
       "NHK大阪ホール"
-    ]
+    ],
+    "relations": []
   },
   {
     "date": "2026.12.25",
@@ -147,13 +214,18 @@
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special",
     "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
-    ],
-    "relation": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "tags": [
       "Shibuya LOVEZ"
-    ]
+    ],
+    "relations": []
   },
   {
     "date": "2026.08.26",
@@ -161,13 +233,13 @@
     "title": "山口綺羅　POST",
     "url": "https://www.cl-live.com/posts/nqyETFKzXVU15zbtq6SxN8?utm_medium=referral&utm_source=referral&utm_campaign=url_share",
     "groups": [
-      "G2","KIR"
-    ],
-    "relation": [
+      "KIR"
     ],
     "tags": [
-      "DANCE HOLIC Zepp TOUR","Zepp DiverCity"
-    ]
+      "DANCE HOLIC Zepp TOUR",
+      "Zepp DiverCity"
+    ],
+    "relations": []
   },
   {
     "date": "2026.08.20",
@@ -175,10 +247,11 @@
     "title": "【特別番組】隅谷百花＆鶴屋美咲 ≪後編≫",
     "url": "https://girls2-fc.jp/page/girls2radio/1217742866235785217",
     "groups": [
-      "G2","MMK","MSK"
+      "MMK",
+      "MSK"
     ],
-    "relation": [
-    ]
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.24",
@@ -186,13 +259,15 @@
     "title": "生活丸見え！？レシート大公開してみた🧾",
     "url": "https://www.youtube.com/watch?v=gB1bCVo-nHU",
     "groups": [
-      "G2","MSK","YZH","MNM","KIR"
-    ],
-    "relation": [
+      "MSK",
+      "YZH",
+      "MNM",
+      "KIR"
     ],
     "tags": [
       "がるがるちゃんねる"
-    ]
+    ],
+    "relations": []
   },
   {
     "date": "2026.08.25",
@@ -200,10 +275,17 @@
     "title": "#744　Girls²「IDOL SQUARE 6」",
     "url": "https://girls2-fc.jp/page/gtube/1214120763250966530",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
-    "relation": [
-    ]
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2020.12.10",
@@ -211,10 +293,10 @@
     "title": "増田來亜　『増田來亜の相談室』#1",
     "url": "https://girls2-fc.jp/page/girls2radio/466503999076434747",
     "groups": [
-      "G2",
       "KUR"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2020.11.10",
@@ -222,10 +304,10 @@
     "title": "原田都愛　『This is 都愛』#1",
     "url": "https://girls2-fc.jp/page/girls2radio/455910800914121531",
     "groups": [
-      "G2",
       "TOA"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2020.11.10",
@@ -233,10 +315,10 @@
     "title": "山口綺羅　『きらとLet's take TikTok together』#1",
     "url": "https://girls2-fc.jp/page/girls2radio/455911151872508731",
     "groups": [
-      "G2",
       "KIR"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2020.11.10",
@@ -244,10 +326,10 @@
     "title": "小川桜花　『桜花のBeauty room』#1",
     "url": "https://girls2-fc.jp/page/girls2radio/455911514801439785",
     "groups": [
-      "G2",
       "YOK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2020.11.10",
@@ -255,10 +337,10 @@
     "title": "鶴屋美咲　『美咲とステキ発見』#1",
     "url": "https://girls2-fc.jp/page/girls2radio/455912103639778107",
     "groups": [
-      "G2",
       "MSK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2020.11.10",
@@ -266,10 +348,10 @@
     "title": "隅谷百花　『百花のmusic diary』#1",
     "url": "https://girls2-fc.jp/page/girls2radio/455912486411961281",
     "groups": [
-      "G2",
       "MMK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2020.11.10",
@@ -277,10 +359,10 @@
     "title": "小田柚葉　『全力タイムズ！柚ニュース！』#1",
     "url": "https://girls2-fc.jp/page/girls2radio/455913300778025921",
     "groups": [
-      "G2",
       "YZH"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.26",
@@ -288,10 +370,10 @@
     "title": "増田來亜　返信です💌",
     "url": "https://girls2-fc.jp/page/kureaBlog/1222149731904389121",
     "groups": [
-      "G2",
       "KUR"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.26",
@@ -299,10 +381,10 @@
     "title": "小田柚葉　私の夏休みPart1🇨🇳✈️",
     "url": "https://girls2-fc.jp/page/yuzuhaBlog/1222144803030958081",
     "groups": [
-      "G2",
       "YZH"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.26",
@@ -310,10 +392,10 @@
     "title": "山口綺羅　「ウエノデ.パンダビアフェスタ」",
     "url": "https://girls2-fc.jp/page/kiraBlog/1222140780685033473",
     "groups": [
-      "G2",
       "KIR"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.26",
@@ -321,10 +403,10 @@
     "title": "小川桜花　🐼🐼🐼",
     "url": "https://girls2-fc.jp/page/youkaBlog/1222145454423146497",
     "groups": [
-      "G2",
       "YOK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.25",
@@ -332,10 +414,10 @@
     "title": "菱田未渚美　まだまだ夏ですね🙂‍↕️",
     "url": "https://girls2-fc.jp/page/minamiBlog/1221766746784923648",
     "groups": [
-      "G2",
       "MNM"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.25",
@@ -343,10 +425,10 @@
     "title": "小川桜花　仲間たち",
     "url": "https://girls2-fc.jp/page/youkaBlog/1221764683430625282",
     "groups": [
-      "G2",
       "YOK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.24",
@@ -354,10 +436,10 @@
     "title": "隅谷百花　👩🏻‍🍳",
     "url": "https://girls2-fc.jp/page/momokaBlog/1221383368176828416",
     "groups": [
-      "G2",
       "MMK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.23",
@@ -365,10 +447,10 @@
     "title": "鶴屋美咲　👓🐼",
     "url": "https://girls2-fc.jp/page/misakiBlog/1220965505280507906",
     "groups": [
-      "G2",
       "MSK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.23",
@@ -376,10 +458,10 @@
     "title": "隅谷百花　おはつ",
     "url": "https://girls2-fc.jp/page/momokaBlog/1220964225149566977",
     "groups": [
-      "G2",
       "MMK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.23",
@@ -387,10 +469,10 @@
     "title": "増田來亜　黒髪なたよー",
     "url": "https://girls2-fc.jp/page/kureaBlog/1220962605846233090",
     "groups": [
-      "G2",
       "KUR"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.26",
@@ -398,10 +480,10 @@
     "title": "永山椿　数原龍友さんありがとうございます！！！",
     "url": "https://girls2-fc.jp/page/lucky2blogs/1222133621935046656",
     "groups": [
-      "L2",
       "TBK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.26",
@@ -409,10 +491,10 @@
     "title": "森朱里　リリイベすたーと💨🌳🍎💚",
     "url": "https://girls2-fc.jp/page/lucky2blogs/1222129475676798976",
     "groups": [
-      "L2",
       "AKR"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.26",
@@ -420,10 +502,10 @@
     "title": "山口莉愛　🌻夏の思い出🍉",
     "url": "https://girls2-fc.jp/page/lucky2blogs/1222137180298674176",
     "groups": [
-      "L2",
       "RIN"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.25",
@@ -431,10 +513,10 @@
     "title": "上村梨々香　海の家さいこー！",
     "url": "https://girls2-fc.jp/page/lucky2blogs/1221771867484848130",
     "groups": [
-      "L2",
       "RRK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.25",
@@ -442,10 +524,10 @@
     "title": "深澤日彩　リリイベ⭐️",
     "url": "https://girls2-fc.jp/page/lucky2blogs/1221770557901504514",
     "groups": [
-      "L2",
       "HIR"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.25",
@@ -453,10 +535,10 @@
     "title": "比嘉優和　かっこよかった？😎",
     "url": "https://girls2-fc.jp/page/lucky2blogs/1221769539369304064",
     "groups": [
-      "L2",
       "YUW"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.24",
@@ -464,10 +546,10 @@
     "title": "永山椿　「WORK≒LiFE」",
     "url": "https://girls2-fc.jp/page/lucky2blogs/1221382157348372482",
     "groups": [
-      "L2",
       "TBK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.23",
@@ -475,10 +557,10 @@
     "title": "佐藤妃希　リリイベありがとう！",
     "url": "https://girls2-fc.jp/page/lucky2blogs/1220957967310913536",
     "groups": [
-      "L2",
       "KIK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.23",
@@ -486,10 +568,10 @@
     "title": "佐藤栞奈　WORK≒LiFE💿🖤",
     "url": "https://girls2-fc.jp/page/lucky2blogs/1220960992733691905",
     "groups": [
-      "L2",
       "KAN"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2026.08.23",
@@ -497,9 +579,9 @@
     "title": "上村梨々香　リリイベ初日👊🏻",
     "url": "https://girls2-fc.jp/page/lucky2blogs/1220958913399095297",
     "groups": [
-      "L2",
       "RRK"
     ],
-    "relation": []
+    "relations": [],
+    "tags": []
   }
 ]
