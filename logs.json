@@ -1,5 +1,313 @@
 [
   {
+    "date": "2026.09.10",
+    "contents": "RADIO",
+    "title": "【特別番組】Girls²のがるらじ ～小川桜花＆増田來亜～ ≪前編≫",
+    "url": "",
+    "groups": [
+      "YOK","KUR"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.20",
+    "contents": "RADIO",
+    "title": "【特別番組】Girls²のがるらじ ～小川桜花＆増田來亜～ ≪後編≫",
+    "url": "",
+    "groups": [
+      "YOK","KUR"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.15",
+    "contents": "RADIO",
+    "title": "【特別番組】Lakiのがるらじ ～比嘉優和＆佐藤妃希～ ≪前編≫",
+    "url": "",
+    "groups": [
+      "YUW","KIK"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.15",
+    "contents": "RADIO",
+    "title": "【特別番組】Lakiのがるらじ ～比嘉優和＆佐藤妃希～ ≪後編≫",
+    "url": "",
+    "groups": [
+      "YUW","KIK"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.19",
+    "contents": "EVENT",
+    "title": "4GEEKs by SPIRALGIRL",
+    "url": "https://girls2-fc.jp/page/familyNews/1220697394081955841",
+    "groups": [
+      "KUR",
+      "MNM"
+    ],
+    "tags": [
+      "SPIRALGIRL新宿ルミネエスト店","Leopard Collection"
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.07.25",
+    "contents": "EVENT",
+    "title": "Laki「WORK≒LiFE」発売記念インストアイベント 愛知",
+    "url": "https://girls2-fc.jp/page/familyNews/1210916023633444865",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"    ],
+    "tags": [
+      "新星堂アスナル金山店","オリジナル色紙サイン会","3ショットチェキ会"
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.07.26",
+    "contents": "EVENT",
+    "title": "Laki「WORK≒LiFE」発売記念インストアイベント 大阪",
+    "url": "https://girls2-fc.jp/page/familyNews/1210916023633444865",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"    ],
+    "tags": [
+      "アリオ鳳","オリジナル色紙サイン会","3ショットチェキ会"
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.08.09",
+    "contents": "EVENT",
+    "title": "Laki「WORK≒LiFE」発売記念インストアイベント 宮城",
+    "url": "https://girls2-fc.jp/page/familyNews/1210916023633444865",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"    ],
+    "tags": [
+      "ララガーデン長町1F おとのひろば","オリジナル色紙サイン会","3ショットチェキ会"
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.08.16",
+    "contents": "EVENT",
+    "title": "Laki「WORK≒LiFE」発売記念インストアイベント 神奈川",
+    "url": "https://girls2-fc.jp/page/familyNews/1210916023633444865",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"    ],
+    "tags": [
+      "タワーレコード横浜ビブレ","オリジナル色紙サイン会","3ショットチェキ会"
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.09.13",
+    "contents": "EVENT",
+    "title": "Laki「WORK≒LiFE」発売記念インストアイベント 愛知",
+    "url": "https://girls2-fc.jp/page/familyNews/1210916023633444865",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"    ],
+    "tags": [
+      "新星堂アスナル金山店","オリジナル色紙サイン会","3ショットチェキ会"
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.09.13",
+    "contents": "EVENT",
+    "title": "Girls² EP「EASY」発売記念 リリースイベント 埼玉",
+    "url": "https://girls2-fc.jp/page/familyNews/1220992081527308290",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "大宮ステラタウン","ミニライブ","お見送り会","グループお話し会","グループチェキ会"
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.09.20",
+    "contents": "EVENT",
+    "title": "Girls² EP「EASY」発売記念 リリースイベント 大阪",
+    "url": "https://girls2-fc.jp/page/familyNews/1220992081527308290",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "あべのキューズモール","ミニライブ","お見送り会","グループお話し会","グループチェキ会"
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.09.27",
+    "contents": "EVENT",
+    "title": "Girls² EP「EASY」発売記念 リリースイベント 宮城",
+    "url": "https://girls2-fc.jp/page/familyNews/1220992081527308290",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "イオンモール新利府南館　1Fライブスクエア","ミニライブ","お見送り会","グループお話し会","グループチェキ会"
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.09.19",
+    "contents": "EVENT",
+    "title": "第43回 マイナビ 東京ガールズコレクション 2026 AUTUMN/WINTER",
+    "url": "https://girls2-fc.jp/page/familyNews/1222395568693706754",
+    "groups": [
+      "YOK"
+    ],
+    "tags": [
+      "TGC","横浜アリーナ"
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.08.26",
+    "contents": "RELEASE",
+    "title": "Laki「WORK≒LiFE」先行配信",
+    "url": "https://girls2-fc.jp/page/familyNews/1222015073346650113",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"    ],
+    "tags": [
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.08.29",
+    "contents": "LIVE",
+    "title": "Laki　超WEGO2026",
+    "url": "https://girls2-fc.jp/page/familyNews/1214912420577804288",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"    ],
+    "tags": [
+      "WEGO 1.3.5... 原宿店"
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.09.12",
+    "contents": "EVENT",
+    "title": "Girls² EP「EASY」発売記念 メンバー個別オンライントーク会",
+    "url": "https://girls2-fc.jp/page/news/1220576408795873281",
+    "groups": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      ""
+    ],
+    "relations": []
+  },
+  {
+    "date": "2026.08.27",
+    "contents": "YOUTUBE",
+    "title": "【ついに兄登場！】全部わかるよね？QUIZ中務裕太💪🔥",
+    "url": "https://youtu.be/yZu3D-56RwU?si=ZEZFPIhpQA8Cy8fZ",
+    "groups": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "がるがるちゃんねる","中務裕太","GENERATIONS"
+    ],
+    "relations": []
+  },
+  {
     "date": "2026.12.25",
     "contents": "LIVE",
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special",
