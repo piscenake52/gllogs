@@ -1,32 +1,23 @@
 [
   {
-    "date": "2027.08.15",
-    "contents": "DIARY",
-    "title": "TEST",
-    "display_pc": "TEST",
-    "display_sm": "TEST",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1218058144366723074",
-    "groups": [
-      "STF"
-    ],
-    "relations": [],
-    "tags": [
-      "STAFF"
-    ]
-  },
-  {
     "date": "2026.08.15",
     "contents": "DIARY",
     "title": "💖Girls EXPO＆ 最近の #オフラキ🍀",
     "display_pc": "💖Girls EXPO＆ 最近の #オフラキ🍀",
     "display_sm": "💖Girls EXPO＆ 最近の #オフラキ🍀",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1218058144366723074",
+    "url": "https://girls2-fc.jp/page/staffdiary/1218058144366723074",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK",
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
-      "STAFF"
+      "STAFF","Laki",
+      "Girls EXPO",
+      "LDH LIVE-EXPO",
+      "オフラキ",
+      "NATSLIVE",
+      "インストアイベント"
     ]
   },
   {
@@ -35,9 +26,9 @@
     "title": "5周年ライブ5️⃣🌈✨",
     "display_pc": "5周年ライブ5️⃣🌈✨",
     "display_sm": "5周年ライブ5️⃣🌈✨",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1217294315512922113",
+    "url": "https://girls2-fc.jp/page/staffdiary/1217294315512922113",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -50,9 +41,10 @@
     "title": "✨💗Girls EXPO💗✨",
     "display_pc": "✨💗Girls EXPO💗✨",
     "display_sm": "✨💗Girls EXPO💗✨",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1215474923036737536",
+    "url": "https://girls2-fc.jp/page/staffdiary/1215474923036737536",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK",
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -65,9 +57,9 @@
     "title": "6月26日💐",
     "display_pc": "6月26日💐",
     "display_sm": "6月26日💐",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1202069778508808192",
+    "url": "https://girls2-fc.jp/page/staffdiary/1202069778508808192",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -80,9 +72,9 @@
     "title": "インストアイベントありがとうございました❤️‍🔥✨",
     "display_pc": "インストアイベントありがとうございました❤️‍🔥✨",
     "display_sm": "インストアイベントありがとうございました❤️‍🔥✨",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1198422920867610626",
+    "url": "https://girls2-fc.jp/page/staffdiary/1198422920867610626",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -95,9 +87,9 @@
     "title": "がるまねeyes👁️💘Vol.1",
     "display_pc": "がるまねeyes👁️💘Vol.1",
     "display_sm": "がるまねeyes👁️💘Vol.1",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1196705486162886658",
+    "url": "https://girls2-fc.jp/page/staffdiary/1196705486162886658",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -110,9 +102,9 @@
     "title": "🎶CDTV ライブ！ライブ！🎶",
     "display_pc": "🎶CDTV ライブ！ライブ！🎶",
     "display_sm": "🎶CDTV ライブ！ライブ！🎶",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1194527066096140290",
+    "url": "https://girls2-fc.jp/page/staffdiary/1194527066096140290",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -125,9 +117,9 @@
     "title": "「Seven Blooms」リリースイベント",
     "display_pc": "「Seven Blooms」リリースイベント",
     "display_sm": "「Seven Blooms」リリースイベント",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1189408001291714561",
+    "url": "https://girls2-fc.jp/page/staffdiary/1189408001291714561",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -140,9 +132,9 @@
     "title": "大阪観光と横須賀の裏側🫣",
     "display_pc": "大阪観光と横須賀の裏側🫣",
     "display_sm": "大阪観光と横須賀の裏側🫣",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1189741418596270080",
+    "url": "https://girls2-fc.jp/page/staffdiary/1189741418596270080",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -155,9 +147,9 @@
     "title": "🌸咲き誇るBLOOM3🌸",
     "display_pc": "🌸咲き誇るBLOOM3🌸",
     "display_sm": "🌸咲き誇るBLOOM3🌸",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1187684476289810434",
+    "url": "https://girls2-fc.jp/page/staffdiary/1187684476289810434",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -170,9 +162,9 @@
     "title": "TikTokジャックチャレンジ  ありがとうございました🥞💞",
     "display_pc": "TikTokジャックチャレンジ  ありがとうございました🥞💞",
     "display_sm": "TikTokジャックチャレンジ  ありがとうございました🥞💞",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1186573573347606528",
+    "url": "https://girls2-fc.jp/page/staffdiary/1186573573347606528",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -185,9 +177,9 @@
     "title": "NATSLIVEの楽屋では... 👩🏻‍🍳✨",
     "display_pc": "NATSLIVEの楽屋では... 👩🏻‍🍳✨",
     "display_sm": "NATSLIVEの楽屋では... 👩🏻‍🍳✨",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1179985484886048768",
+    "url": "https://girls2-fc.jp/page/staffdiary/1179985484886048768",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -200,9 +192,9 @@
     "title": "✨🚗LAST★AICHl🍤✨",
     "display_pc": "✨🚗LAST★AICHl🍤✨",
     "display_sm": "✨🚗LAST★AICHl🍤✨",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1179609627487109121",
+    "url": "https://girls2-fc.jp/page/staffdiary/1179609627487109121",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -215,9 +207,9 @@
     "title": "愛知の一コマ",
     "display_pc": "愛知の一コマ",
     "display_sm": "愛知の一コマ",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1179607578477330432",
+    "url": "https://girls2-fc.jp/page/staffdiary/1179607578477330432",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -230,9 +222,9 @@
     "title": "神奈川公演ありがとうございました⚓",
     "display_pc": "神奈川公演ありがとうございました⚓",
     "display_sm": "神奈川公演ありがとうございました⚓",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1169104275406585857",
+    "url": "https://girls2-fc.jp/page/staffdiary/1169104275406585857",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -245,9 +237,9 @@
     "title": "✨✈️福岡2days🥐✨",
     "display_pc": "✨✈️福岡2days🥐✨",
     "display_sm": "✨✈️福岡2days🥐✨",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1168006299670020096",
+    "url": "https://girls2-fc.jp/page/staffdiary/1168006299670020096",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -260,9 +252,9 @@
     "title": "新アーティスト写真解禁🥞´-",
     "display_pc": "新アーティスト写真解禁🥞´-",
     "display_sm": "新アーティスト写真解禁🥞´-",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1167999534530297856",
+    "url": "https://girls2-fc.jp/page/staffdiary/1167999534530297856",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -275,9 +267,9 @@
     "title": "大阪2daysおおきに〜🐙🌈✨",
     "display_pc": "大阪2daysおおきに〜🐙🌈✨",
     "display_sm": "大阪2daysおおきに〜🐙🌈✨",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1167434680601935872",
+    "url": "https://girls2-fc.jp/page/staffdiary/1167434680601935872",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -290,9 +282,9 @@
     "title": "✨🚄仙台2days🐮✨",
     "display_pc": "✨🚄仙台2days🐮✨",
     "display_sm": "✨🚄仙台2days🐮✨",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1166924472825937922",
+    "url": "https://girls2-fc.jp/page/staffdiary/1166924472825937922",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -305,9 +297,9 @@
     "title": "ツアービジュアル解禁❤️‍🔥✨",
     "display_pc": "ツアービジュアル解禁❤️‍🔥✨",
     "display_sm": "ツアービジュアル解禁❤️‍🔥✨",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1161834254108196866",
+    "url": "https://girls2-fc.jp/page/staffdiary/1161834254108196866",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -320,9 +312,9 @@
     "title": "いっぱい会える３月🌸❣️",
     "display_pc": "いっぱい会える３月🌸❣️",
     "display_sm": "いっぱい会える３月🌸❣️",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1158946209142931456",
+    "url": "https://girls2-fc.jp/page/staffdiary/1158946209142931456",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -335,9 +327,9 @@
     "title": "Thank you February‼",
     "display_pc": "Thank you February‼",
     "display_sm": "Thank you February‼",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1157304643034808321",
+    "url": "https://girls2-fc.jp/page/staffdiary/1157304643034808321",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -350,9 +342,9 @@
     "title": "CL配信💃👓",
     "display_pc": "CL配信💃👓",
     "display_sm": "CL配信💃👓",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1156024300197642241",
+    "url": "https://girls2-fc.jp/page/staffdiary/1156024300197642241",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -365,9 +357,9 @@
     "title": "ハッピーバレンタイン🍫💝",
     "display_pc": "ハッピーバレンタイン🍫💝",
     "display_sm": "ハッピーバレンタイン🍫💝",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1152450708679688192",
+    "url": "https://girls2-fc.jp/page/staffdiary/1152450708679688192",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -380,9 +372,9 @@
     "title": "これが本当のオフラキ📸",
     "display_pc": "これが本当のオフラキ📸",
     "display_sm": "これが本当のオフラキ📸",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1145190004041973761",
+    "url": "https://girls2-fc.jp/page/staffdiary/1145190004041973761",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -395,9 +387,9 @@
     "title": "メルティーー！💪🏼❤️‍🔥",
     "display_pc": "メルティーー！💪🏼❤️‍🔥",
     "display_sm": "メルティーー！💪🏼❤️‍🔥",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1142269940095516672",
+    "url": "https://girls2-fc.jp/page/staffdiary/1142269940095516672",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -410,9 +402,9 @@
     "title": "2026年もGO! GO! Girls² GO! 🐎",
     "display_pc": "2026年もGO! GO! Girls² GO! 🐎",
     "display_sm": "2026年もGO! GO! Girls² GO! 🐎",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1139035293354033154",
+    "url": "https://girls2-fc.jp/page/staffdiary/1139035293354033154",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -425,9 +417,9 @@
     "title": "あけましておめでとうございます🎍✨",
     "display_pc": "あけましておめでとうございます🎍✨",
     "display_sm": "あけましておめでとうございます🎍✨",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1135948773571166210",
+    "url": "https://girls2-fc.jp/page/staffdiary/1135948773571166210",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -440,9 +432,9 @@
     "title": "🐍2025▶︎▶︎▶︎2026🎍",
     "display_pc": "🐍2025▶︎▶︎▶︎2026🎍",
     "display_sm": "🐍2025▶︎▶︎▶︎2026🎍",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1135916390809600000",
+    "url": "https://girls2-fc.jp/page/staffdiary/1135916390809600000",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -455,9 +447,9 @@
     "title": "12月❄🎤",
     "display_pc": "12月❄🎤",
     "display_sm": "12月❄🎤",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1135533599747997698",
+    "url": "https://girls2-fc.jp/page/staffdiary/1135533599747997698",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -470,9 +462,9 @@
     "title": "最近のいろいろ🎄🍳",
     "display_pc": "最近のいろいろ🎄🍳",
     "display_sm": "最近のいろいろ🎄🍳",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1135458687519817730",
+    "url": "https://girls2-fc.jp/page/staffdiary/1135458687519817730",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -485,9 +477,9 @@
     "title": "Infinity④",
     "display_pc": "Infinity④",
     "display_sm": "Infinity④",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1134148179923566594",
+    "url": "https://girls2-fc.jp/page/staffdiary/1134148179923566594",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -500,9 +492,9 @@
     "title": "❄️Girls² WINTER LIVE 2025 \"Snowflakes\" オフィシャルグッズ🛍️",
     "display_pc": "❄️Girls² WINTER LIVE 2025 \"Snowflakes\" オフィシャルグッズ🛍️",
     "display_sm": "❄️Girls² WINTER LIVE 2025 \"Snowflakes\" オフィシャルグッズ🛍️",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1131830696680095745",
+    "url": "https://girls2-fc.jp/page/staffdiary/1131830696680095745",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -515,9 +507,9 @@
     "title": "Infinity③",
     "display_pc": "Infinity③",
     "display_sm": "Infinity③",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1127070204388442112",
+    "url": "https://girls2-fc.jp/page/staffdiary/1127070204388442112",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -530,9 +522,9 @@
     "title": "❄️年末年始に向けて🍊",
     "display_pc": "❄️年末年始に向けて🍊",
     "display_sm": "❄️年末年始に向けて🍊",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1124635069957275649",
+    "url": "https://girls2-fc.jp/page/staffdiary/1124635069957275649",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -545,9 +537,9 @@
     "title": "Infinity②",
     "display_pc": "Infinity②",
     "display_sm": "Infinity②",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1122717440598343681",
+    "url": "https://girls2-fc.jp/page/staffdiary/1122717440598343681",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -560,9 +552,9 @@
     "title": "Infinity ①",
     "display_pc": "Infinity ①",
     "display_sm": "Infinity ①",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1120161716521402370",
+    "url": "https://girls2-fc.jp/page/staffdiary/1120161716521402370",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -575,9 +567,9 @@
     "title": "✨Beyond Music Festival 2025🩵",
     "display_pc": "✨Beyond Music Festival 2025🩵",
     "display_sm": "✨Beyond Music Festival 2025🩵",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1117337225592307714",
+    "url": "https://girls2-fc.jp/page/staffdiary/1117337225592307714",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -590,9 +582,9 @@
     "title": "🎤💿👗🧟",
     "display_pc": "🎤💿👗🧟",
     "display_sm": "🎤💿👗🧟",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1112032008382447616",
+    "url": "https://girls2-fc.jp/page/staffdiary/1112032008382447616",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -605,9 +597,9 @@
     "title": "9月",
     "display_pc": "9月",
     "display_sm": "9月",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1103553204781580290",
+    "url": "https://girls2-fc.jp/page/staffdiary/1103553204781580290",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -620,9 +612,9 @@
     "title": "にゅー！",
     "display_pc": "にゅー！",
     "display_sm": "にゅー！",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1103147873781940226",
+    "url": "https://girls2-fc.jp/page/staffdiary/1103147873781940226",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -635,9 +627,9 @@
     "title": "💖 New Era Release Party 🖤",
     "display_pc": "💖 New Era Release Party 🖤",
     "display_sm": "💖 New Era Release Party 🖤",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1102813452675579905",
+    "url": "https://girls2-fc.jp/page/staffdiary/1102813452675579905",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -650,9 +642,9 @@
     "title": "約11ヶ月ぶりRelease💿",
     "display_pc": "約11ヶ月ぶりRelease💿",
     "display_sm": "約11ヶ月ぶりRelease💿",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1099842590565466114",
+    "url": "https://girls2-fc.jp/page/staffdiary/1099842590565466114",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -665,9 +657,9 @@
     "title": "2025.08.31",
     "display_pc": "2025.08.31",
     "display_sm": "2025.08.31",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1091999643824291840",
+    "url": "https://girls2-fc.jp/page/staffdiary/1091999643824291840",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [],
     "tags": [
@@ -680,9 +672,9 @@
     "title": "わちゃわちゃ",
     "display_pc": "わちゃわちゃ",
     "display_sm": "わちゃわちゃ",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1091534033008984065",
+    "url": "https://girls2-fc.jp/page/staffdiary/1091534033008984065",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -695,9 +687,9 @@
     "title": "夏真っ盛りです！！☀️",
     "display_pc": "夏真っ盛りです！！☀️",
     "display_sm": "夏真っ盛りです！！☀️",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1089471219863912448",
+    "url": "https://girls2-fc.jp/page/staffdiary/1089471219863912448",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -710,9 +702,9 @@
     "title": "イベントたくさんな夏休み🌻",
     "display_pc": "イベントたくさんな夏休み🌻",
     "display_sm": "イベントたくさんな夏休み🌻",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1088250802184650754",
+    "url": "https://girls2-fc.jp/page/staffdiary/1088250802184650754",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -725,9 +717,9 @@
     "title": "盛りだくさんな夏🌻",
     "display_pc": "盛りだくさんな夏🌻",
     "display_sm": "盛りだくさんな夏🌻",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1080763982865760258",
+    "url": "https://girls2-fc.jp/page/staffdiary/1080763982865760258",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -740,9 +732,9 @@
     "title": "感謝の時間",
     "display_pc": "感謝の時間",
     "display_sm": "感謝の時間",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1081011768450351106",
+    "url": "https://girls2-fc.jp/page/staffdiary/1081011768450351106",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -755,9 +747,9 @@
     "title": "どれも美味しい。",
     "display_pc": "どれも美味しい。",
     "display_sm": "どれも美味しい。",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1078510912739999746",
+    "url": "https://girls2-fc.jp/page/staffdiary/1078510912739999746",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -770,9 +762,9 @@
     "title": "たくさんのコラボーっ👗💞",
     "display_pc": "たくさんのコラボーっ👗💞",
     "display_sm": "たくさんのコラボーっ👗💞",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1075036444331868160",
+    "url": "https://girls2-fc.jp/page/staffdiary/1075036444331868160",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -785,9 +777,9 @@
     "title": "愛と感謝☺️",
     "display_pc": "愛と感謝☺️",
     "display_sm": "愛と感謝☺️",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1069500382549377026",
+    "url": "https://girls2-fc.jp/page/staffdiary/1069500382549377026",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -800,9 +792,9 @@
     "title": "もぐもぐ",
     "display_pc": "もぐもぐ",
     "display_sm": "もぐもぐ",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1068374703531360258",
+    "url": "https://girls2-fc.jp/page/staffdiary/1068374703531360258",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -815,9 +807,9 @@
     "title": "ファイナルに向けて🎤",
     "display_pc": "ファイナルに向けて🎤",
     "display_sm": "ファイナルに向けて🎤",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1067416150805053440",
+    "url": "https://girls2-fc.jp/page/staffdiary/1067416150805053440",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -830,9 +822,9 @@
     "title": "メンバー写真館 vol.2",
     "display_pc": "メンバー写真館 vol.2",
     "display_sm": "メンバー写真館 vol.2",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1063721790297079809",
+    "url": "https://girls2-fc.jp/page/staffdiary/1063721790297079809",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -845,9 +837,9 @@
     "title": "がる²WEEKのおさらい💁🏼‍♀️",
     "display_pc": "がる²WEEKのおさらい💁🏼‍♀️",
     "display_sm": "がる²WEEKのおさらい💁🏼‍♀️",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1059656295507820546",
+    "url": "https://girls2-fc.jp/page/staffdiary/1059656295507820546",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -860,9 +852,9 @@
     "title": "メンバー写真館 vol.1",
     "display_pc": "メンバー写真館 vol.1",
     "display_sm": "メンバー写真館 vol.1",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1059369445845106688",
+    "url": "https://girls2-fc.jp/page/staffdiary/1059369445845106688",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -875,9 +867,9 @@
     "title": "ありがとうございました🍀",
     "display_pc": "ありがとうございました🍀",
     "display_sm": "ありがとうございました🍀",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1056729450915299328",
+    "url": "https://girls2-fc.jp/page/staffdiary/1056729450915299328",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -890,9 +882,9 @@
     "title": "がるWEEK、がる三昧！",
     "display_pc": "がるWEEK、がる三昧！",
     "display_sm": "がるWEEK、がる三昧！",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1055983575012212736",
+    "url": "https://girls2-fc.jp/page/staffdiary/1055983575012212736",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -905,9 +897,9 @@
     "title": "✈️🧸⛄️",
     "display_pc": "✈️🧸⛄️",
     "display_sm": "✈️🧸⛄️",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1046600824186208258",
+    "url": "https://girls2-fc.jp/page/staffdiary/1046600824186208258",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -920,9 +912,9 @@
     "title": "EXILE CUP⚽️",
     "display_pc": "EXILE CUP⚽️",
     "display_sm": "EXILE CUP⚽️",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1043073664095879168",
+    "url": "https://girls2-fc.jp/page/staffdiary/1043073664095879168",
     "groups": [
-      "STF"
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -935,9 +927,9 @@
     "title": "1歩ずつ‼️",
     "display_pc": "1歩ずつ‼️",
     "display_sm": "1歩ずつ‼️",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1041560468843397122",
+    "url": "https://girls2-fc.jp/page/staffdiary/1041560468843397122",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -950,9 +942,9 @@
     "title": "3月後半は盛りだくさん！",
     "display_pc": "3月後半は盛りだくさん！",
     "display_sm": "3月後半は盛りだくさん！",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1036257001836904452",
+    "url": "https://girls2-fc.jp/page/staffdiary/1036257001836904452",
     "groups": [
-      "STF"
+      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -965,9 +957,9 @@
     "title": "羽田から香川県まで😋",
     "display_pc": "羽田から香川県まで😋",
     "display_sm": "羽田から香川県まで😋",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1035380427528863744",
+    "url": "https://girls2-fc.jp/page/staffdiary/1035380427528863744",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -980,9 +972,9 @@
     "title": "今年初イベント！",
     "display_pc": "今年初イベント！",
     "display_sm": "今年初イベント！",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1031546017406779392",
+    "url": "https://girls2-fc.jp/page/staffdiary/1031546017406779392",
     "groups": [
-      "STF"
+      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -995,9 +987,9 @@
     "title": "3月START🌸",
     "display_pc": "3月START🌸",
     "display_sm": "3月START🌸",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1028903911680901122",
+    "url": "https://girls2-fc.jp/page/staffdiary/1028903911680901122",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1010,9 +1002,9 @@
     "title": "3月になりました🌸",
     "display_pc": "3月になりました🌸",
     "display_sm": "3月になりました🌸",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1027766075070087170",
+    "url": "https://girls2-fc.jp/page/staffdiary/1027766075070087170",
     "groups": [
-      "STF"
+      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -1025,9 +1017,9 @@
     "title": "いよいよ…🔥",
     "display_pc": "いよいよ…🔥",
     "display_sm": "いよいよ…🔥",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1025638560306298882",
+    "url": "https://girls2-fc.jp/page/staffdiary/1025638560306298882",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1040,9 +1032,9 @@
     "title": "がるらじ📻🎶",
     "display_pc": "がるらじ📻🎶",
     "display_sm": "がるらじ📻🎶",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1020659763299483650",
+    "url": "https://girls2-fc.jp/page/staffdiary/1020659763299483650",
     "groups": [
-      "STF"
+      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -1055,9 +1047,9 @@
     "title": "お久しぶりでした☺️",
     "display_pc": "お久しぶりでした☺️",
     "display_sm": "お久しぶりでした☺️",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1018463213215285249",
+    "url": "https://girls2-fc.jp/page/staffdiary/1018463213215285249",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1070,9 +1062,9 @@
     "title": "確認！確認！確認！",
     "display_pc": "確認！確認！確認！",
     "display_sm": "確認！確認！確認！",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1015256136812593153",
+    "url": "https://girls2-fc.jp/page/staffdiary/1015256136812593153",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1085,9 +1077,9 @@
     "title": "2025年よろしくお願いします🐍",
     "display_pc": "2025年よろしくお願いします🐍",
     "display_sm": "2025年よろしくお願いします🐍",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1011098142457724929",
+    "url": "https://girls2-fc.jp/page/staffdiary/1011098142457724929",
     "groups": [
-      "STF"
+      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -1100,9 +1092,9 @@
     "title": "お年玉🧧プレゼント🎁",
     "display_pc": "お年玉🧧プレゼント🎁",
     "display_sm": "お年玉🧧プレゼント🎁",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1008339409747050496",
+    "url": "https://girls2-fc.jp/page/staffdiary/1008339409747050496",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1115,9 +1107,9 @@
     "title": "良いお年を🎍",
     "display_pc": "良いお年を🎍",
     "display_sm": "良いお年を🎍",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1003984988464480257",
+    "url": "https://girls2-fc.jp/page/staffdiary/1003984988464480257",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1130,9 +1122,9 @@
     "title": "Christmas🎄からのTOUR GOODS！！！",
     "display_pc": "Christmas🎄からのTOUR GOODS！！！",
     "display_sm": "Christmas🎄からのTOUR GOODS！！！",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1002836404243267585",
+    "url": "https://girls2-fc.jp/page/staffdiary/1002836404243267585",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1145,9 +1137,9 @@
     "title": "CLOVER🍀",
     "display_pc": "CLOVER🍀",
     "display_sm": "CLOVER🍀",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/1001080578650406912",
+    "url": "https://girls2-fc.jp/page/staffdiary/1001080578650406912",
     "groups": [
-      "STF"
+      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -1160,9 +1152,9 @@
     "title": "最近のがる²✌🏻",
     "display_pc": "最近のがる²✌🏻",
     "display_sm": "最近のがる²✌🏻",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/998610869652815873",
+    "url": "https://girls2-fc.jp/page/staffdiary/998610869652815873",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1175,9 +1167,9 @@
     "title": "Lucky² たくさんのお知らせ📢💭",
     "display_pc": "Lucky² たくさんのお知らせ📢💭",
     "display_sm": "Lucky² たくさんのお知らせ📢💭",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/995947533089898496",
+    "url": "https://girls2-fc.jp/page/staffdiary/995947533089898496",
     "groups": [
-      "STF"
+      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -1190,9 +1182,9 @@
     "title": "初の海外🇹🇭後編",
     "display_pc": "初の海外🇹🇭後編",
     "display_sm": "初の海外🇹🇭後編",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/988408764430286848",
+    "url": "https://girls2-fc.jp/page/staffdiary/988408764430286848",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1205,9 +1197,9 @@
     "title": "今日からSTART♪",
     "display_pc": "今日からSTART♪",
     "display_sm": "今日からSTART♪",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/972674095223144448",
+    "url": "https://girls2-fc.jp/page/staffdiary/972674095223144448",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1220,9 +1212,9 @@
     "title": "#10 Lucky² 3周年🍀",
     "display_pc": "#10 Lucky² 3周年🍀",
     "display_sm": "#10 Lucky² 3周年🍀",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/970520442768982018",
+    "url": "https://girls2-fc.jp/page/staffdiary/970520442768982018",
     "groups": [
-      "STF"
+      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -1235,9 +1227,9 @@
     "title": "#9 第36回 マジカルテレフォン📞",
     "display_pc": "#9 第36回 マジカルテレフォン📞",
     "display_sm": "#9 第36回 マジカルテレフォン📞",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/965448921256034304",
+    "url": "https://girls2-fc.jp/page/staffdiary/965448921256034304",
     "groups": [
-      "STF"
+      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -1250,9 +1242,9 @@
     "title": "＃8 初の海外🇹🇭前編",
     "display_pc": "＃8 初の海外🇹🇭前編",
     "display_sm": "＃8 初の海外🇹🇭前編",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/960894719997509634",
+    "url": "https://girls2-fc.jp/page/staffdiary/960894719997509634",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1265,9 +1257,9 @@
     "title": "#7 エンドレスサマー2024",
     "display_pc": "#7 エンドレスサマー2024",
     "display_sm": "#7 エンドレスサマー2024",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/960019993909526530",
+    "url": "https://girls2-fc.jp/page/staffdiary/960019993909526530",
     "groups": [
-      "STF"
+      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -1280,9 +1272,9 @@
     "title": "#6 Lucky²のラッキートーク!",
     "display_pc": "#6 Lucky²のラッキートーク!",
     "display_sm": "#6 Lucky²のラッキートーク!",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/957594750414749697",
+    "url": "https://girls2-fc.jp/page/staffdiary/957594750414749697",
     "groups": [
-      "STF"
+      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -1295,9 +1287,9 @@
     "title": "#5 約1年越しの🤭",
     "display_pc": "#5 約1年越しの🤭",
     "display_sm": "#5 約1年越しの🤭",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/941084570353139712",
+    "url": "https://girls2-fc.jp/page/staffdiary/941084570353139712",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1310,9 +1302,9 @@
     "title": "#4 Lucky²のマジカルテレフォン",
     "display_pc": "#4 Lucky²のマジカルテレフォン",
     "display_sm": "#4 Lucky²のマジカルテレフォン",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/940809099216420865",
+    "url": "https://girls2-fc.jp/page/staffdiary/940809099216420865",
     "groups": [
-      "STF"
+      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
     "relations": [],
     "tags": [
@@ -1325,9 +1317,9 @@
     "title": "#3 Girls²５歳のお誕生日🎂",
     "display_pc": "#3 Girls²５歳のお誕生日🎂",
     "display_sm": "#3 Girls²５歳のお誕生日🎂",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/935908118565486594",
+    "url": "https://girls2-fc.jp/page/staffdiary/935908118565486594",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1340,9 +1332,9 @@
     "title": "#2 ガルサケからのがる シャリ² ⁉",
     "display_pc": "#2 ガルサケからのがる シャリ² ⁉",
     "display_sm": "#2 ガルサケからのがる シャリ² ⁉",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/931168384509280258",
+    "url": "https://girls2-fc.jp/page/staffdiary/931168384509280258",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
@@ -1355,9 +1347,9 @@
     "title": "#1 STAFF DIARYスタート🖋✨",
     "display_pc": "#1 STAFF DIARYスタート🖋✨",
     "display_sm": "#1 STAFF DIARYスタート🖋✨",
-    "url": "https://girls2-fc.jp/page/staffdiary/undefined/926443316038336514",
+    "url": "https://girls2-fc.jp/page/staffdiary/926443316038336514",
     "groups": [
-      "STF"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ],
     "relations": [],
     "tags": [
