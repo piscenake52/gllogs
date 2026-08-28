@@ -84,19 +84,6 @@
   },
   {
     "date": "2026.08.29",
-    "time": "1910",
-    "contents": "LIVE",
-    "title": "『超WEGO2026』出演 (19:10-19:30)",
-    "display": "『超WEGO2026』出演",
-    "display_pc": "『超WEGO2026』出演",
-    "display_sm": "『超WEGO2026』出演",
-    "url": "",
-    "groups": ["L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
-    "relations": [],
-    "tags": ["超WEGO2026", "ライブ"]
-  },
-  {
-    "date": "2026.08.29",
     "time": "2100",
     "contents": "YOUTUBE",
     "title": "『WORK≒LiFE』MV公開",
@@ -39015,9 +39002,9 @@
   },
   {
     "date": "2026.08.29",
-    "time": "1200",
+    "time": "1910",
     "contents": "LIVE",
-    "title": "Laki 超WEGO2026",
+    "title": "Laki「超WEGO2026」出演　19:10-19:30",
     "display_pc": "Laki 超WEGO2026",
     "display_sm": "Laki 超WEGO2026",
     "url": "https://girls2-fc.jp/page/familyNews/1214912420577804288",
@@ -39034,7 +39021,7 @@
     ],
     "relations": [],
     "tags": [
-      "WEGO 1.3.5... 原宿店"
+      "WEGO 1.3.5... 原宿店","超WEGO2026", "ライブ"
     ]
   },
   {
