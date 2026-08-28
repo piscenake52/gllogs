@@ -12,6 +12,7 @@
   --border: #f4f4f5; --input-border: #e4e4e7; --btn-bg: #f4f4f5;
   --btn-hover: #e4e4e7; --input-bg: #fafafa; --item-border: #f9f9f9;
   --active-bg: #27272a; --active-color: #fff;
+  --container-w: 620px;
 }
 body.dark-mode {
   --bg: #121212; --text: #f4f4f5; --sub: #a1a1aa; --muted: #71717a;
@@ -40,7 +41,7 @@ body {
   overflow-y: auto;
   height: auto;
 }
-.container { max-width: 620px; margin: 0 auto; position: relative; }
+.container { max-width: var(--container-w); margin: 0 auto; position: relative; }
 /* --- 上部固定ヘッダー(タイトル・検索・テーマ切替・フィルター開閉) --- */
 .sticky-header { position: sticky; top: 0; background: var(--bg); z-index: 100; padding: 12px 0 8px; margin-bottom: 12px; border-bottom: 1px solid var(--border); transition: background-color 0.2s; }
 .header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
@@ -49,6 +50,29 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .reset-link:hover { opacity: 0.8; }
 .toggle-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; padding: 4px 8px; border-radius: 12px; line-height: 1; }
 .toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
+.header-btn-group { display: flex; align-items: center; gap: 4px; }
+.toggle-btn.is-active { color: var(--text); background-color: var(--btn-bg); text-shadow: 0 0 0.4px currentColor, 0 0 0.4px currentColor; }
+#badgeToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+#todayToggleBtn.is-active { color: #fff; background-color: #34d399; }
+.count-badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  background: #38bdf8;
+  color: #fff;
+  font-size: 9px;
+  line-height: 1;
+  min-width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  pointer-events: none;
+  font-weight: bold;
+  z-index: 1;
+}
 .extra-tools-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
 
 /* --- 検索ボックス(クリアボタン付き) --- */
@@ -69,9 +93,9 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 /* --- チェックボックス群(年・メンバー・コンテンツ種別) --- */
 .checks { display: flex; flex-direction: column; row-gap: 6px; padding-top: 4px; }
 .checks-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.checks-row-years, .checks-row-other { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; gap: 6px; cursor: grab; }
+.checks-row-years, .checks-row-other { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-top: 6px; padding-bottom: 2px; gap: 6px; cursor: grab; }
 .checks-row-years::-webkit-scrollbar, .checks-row-other::-webkit-scrollbar, .active-filters-row::-webkit-scrollbar, .item-title::-webkit-scrollbar { display: none; }
-.checks-row-members { display: flex; flex-wrap: nowrap; gap: 3px; width: 100%; }
+.checks-row-members { display: flex; flex-wrap: nowrap; gap: 3px; width: 100%; padding-right: 4px; }
 .checks label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
 
 /* 年数ボタンのサイズをメンバーボタン（.checks-row-members label）のサイズ感に統一 */
@@ -95,7 +119,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .inline-clear-btn:hover { background-color: var(--btn-hover); color: var(--text); }
 /* --- 現在有効な絞り込み条件のバッジ一覧(フィルターエリア折りたたみ時に表示) --- */
 .active-filters-row { display: none; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; gap: 4px; margin-bottom: 10px; align-items: center; }
-.sticky-header.collapsed ~ .result-header-row ~ .active-filters-row { display: flex; }
+.sticky-header.collapsed .active-filters-row { display: flex; }
 .filter-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 11px; padding: 3px 10px; border-radius: 12px; cursor: pointer; user-select: none; white-space: nowrap; flex: 0 0 auto; }
 .filter-badge:hover { background-color: var(--btn-hover); opacity: 0.8; }
 .filter-badge .badge-x { font-size: 10px; color: var(--muted); font-weight: bold; }
@@ -147,6 +171,11 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .item-title:hover,
 .item-title:focus {
   text-overflow: clip;
+  cursor: grab;
+}
+.item-title.is-dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 
 .no-result { font-size: 13px; color: var(--muted); padding: 25px 0; text-align: center; display: none; letter-spacing: 0.5px; }
@@ -157,7 +186,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .footer-update-time { text-align: center; margin-top: 30px; font-size: 11px; color: var(--sub); letter-spacing: 0.5px; }
 
 /* トップへ移動するボタン（コンテナの右端に追従するように修正） */
-.to-top-btn { position: fixed; bottom: 24px; left: calc(50% + 310px - 40px); width: 40px; height: 40px; background-color: var(--active-bg); color: var(--active-color); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; z-index: 999; outline: none; }
+.to-top-btn { position: fixed; bottom: 24px; left: calc(50% + var(--container-w) / 2 - 40px); width: 40px; height: 40px; background-color: var(--active-bg); color: var(--active-color); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; z-index: 999; outline: none; }
 .to-top-btn.is-visible { opacity: 1; visibility: visible; }
 .to-top-btn:hover { opacity: 0.85; }
 #scrollSentinel { height: 20px; margin-top: 10px; }
@@ -180,16 +209,20 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   <div class="sticky-header is-initializing" id="stickyHeader">
     <div class="header-row">
       <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
-      <button class="toggle-btn" id="toggleBtn">&#9650; FILTER</button>
+      <div class="header-btn-group">
+        <button class="toggle-btn" id="todayToggleBtn">TODAY</button>
+        <button class="toggle-btn" id="badgeToggleBtn">BADGE</button>
+        <button class="toggle-btn" id="toggleBtn">&#9650; FILTER</button>
+      </div>
+    </div>
+    <div class="extra-tools-row">
+      <div class="search-box-wrap">
+        <input type="text" id="searchInput" class="search-input" placeholder="search keywoooooooord &#3366;&#3405;&#3366;&#3391;(&#65381;&#7447;|">
+        <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear search">&#215;</button>
+      </div>
+      <button class="tool-btn" id="themeToggleBtn" title="Theme" aria-label="&#12486;&#12540;&#12510;&#20999;&#12426;&#26367;&#12360;(&#12480;&#12540;&#12463;/&#12521;&#12452;&#12488;)">BLACK</button>
     </div>
     <div class="collapsible-area" id="collapsibleArea">
-      <div class="extra-tools-row">
-        <div class="search-box-wrap">
-          <input type="text" id="searchInput" class="search-input" placeholder="search keywoooooooord &#3366;&#3405;&#3366;&#3391;(&#65381;&#7447;|">
-          <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear search">&#215;</button>
-        </div>
-        <button class="tool-btn" id="themeToggleBtn" title="Theme" aria-label="&#12486;&#12540;&#12510;&#20999;&#12426;&#26367;&#12360;(&#12480;&#12540;&#12463;/&#12521;&#12452;&#12488;)">BLACK</button>
-      </div>
       <div class="checks">
         <div class="checks-row checks-row-years" id="yearChecks"></div>
         <div class="checks-row checks-row-members" id="memberChecks1"></div>
@@ -197,18 +230,20 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
         <div class="checks-row checks-row-other" id="otherChecks"></div>
       </div>
     </div>
+
+    <div class="result-header-row">
+      <div class="result-count" id="resultCount">LOADING...</div>
+      <button class="sort-arrow-btn" id="sortBtn">&#8595;</button>
+      <button class="inline-clear-btn" id="inlineClearBtn">CLEAR</button>
+    </div>
+
+    <div class="active-filters-row" id="activeFiltersRow"></div>
   </div>
 
-  <div class="result-header-row">
-    <div class="result-count" id="resultCount">LOADING...</div>
-    <button class="sort-arrow-btn" id="sortBtn">&#8595;</button>
-    <button class="inline-clear-btn" id="inlineClearBtn">CLEAR</button>
-  </div>
-  
-  <div class="active-filters-row" id="activeFiltersRow"></div>
   <div class="items" id="items"></div>
   <div id="scrollSentinel"></div>
   <div class="no-result" id="noResult">NO RESULTS FOUND<br><button class="quick-reset-btn" id="quickResetBtn">CLEAR ALL FILTERS</button></div>
+  <div class="no-result" id="loadError">LOAD ERROR<br><button class="quick-reset-btn" id="retryBtn">RETRY</button></div>
   <div class="footer-update-time" id="updateTime">updated: --</div>
   <button class="to-top-btn" id="toTopBtn">&#9650;</button>
 </div>
@@ -217,11 +252,9 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 //<![CDATA[
 (() => {
   let logs = [], filtered = [], rendered = 0, updating = false;
-  let desc = true, defaultText = '', timer = null;
+  let desc = true, defaultText = '', timer = null, renderTimer = null;
   const pageSize = 40, isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const $ = id => document.getElementById(id);
-
-  const years = [2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014];
   const g2 = [
     {v:'G2',t:'Girls\u00B2'},{v:'YZH',n:'YUZUHA',c:'\uD83E\uDE75'},{v:'MMK',n:'MOMOKA',c:'\uD83D\uDC99'},{v:'MSK',n:'MISAKI',c:'\uD83E\uDDE1'},
     {v:'YOK',n:'YOKA',c:'\uD83D\uDC9C'},{v:'KUR',n:'KUREA',c:'\uD83E\uDD0D'},{v:'MNM',n:'MINAMI',c:'\uD83E\uDE77'},{v:'KIR',n:'KIRA',c:'\uD83D\uDC9B'},
@@ -261,6 +294,10 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     return y.padStart(4, '0') + '.' + m.padStart(2, '0') + '.' + d.padStart(2, '0');
   };
 
+  // ソート専用のキー:date(正規化)とtime(HHMM、未設定時は"0000"扱い)を組み合わせる。
+  // timeは検索対象には含めない(検索用テキストの生成には使わない)。
+  const sortKeyFor = item => normalizeDateForSort(item.date) + '_' + (item.time || '0000');
+
   const createLabel = item => {
     if (item === 'sep') {
       const s = document.createElement('span');
@@ -283,11 +320,13 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       sp.textContent = item.t || item;
     }
     if (item.v && item.t) l.className = 'btn-group';
-    l.append(cb, sp);
+    const badge = document.createElement('span');
+    badge.className = 'count-badge';
+    badge.style.display = 'none';
+    l.append(cb, sp, badge);
     return l;
   };
 
-  years.forEach(y => $('yearChecks').appendChild(createLabel(y)));
   g2.forEach(i => $('memberChecks1').appendChild(createLabel(i)));
   l2.forEach(i => $('memberChecks2').appendChild(createLabel(i)));
   others.forEach(o => $('otherChecks').appendChild(createLabel(o)));
@@ -323,8 +362,8 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   };
   document.querySelectorAll('.checks-row-years, .checks-row-other').forEach(enableHorizontalScroll);
 
-  const checkboxes = document.querySelectorAll('.checks input[type="checkbox"]');
-  const labels = document.querySelectorAll('.checks label:has(input)');
+  let checkboxes = document.querySelectorAll('.checks input[type="checkbox"]');
+  let labels = document.querySelectorAll('.checks label:has(input)');
   const g2Vals = ['YZH','MMK','MSK','YOK','KUR','MNM','KIR','TOA','RAN'];
   const l2Vals = ['RIN','YUR','TBK','HIR','YUW','KAN','RRK','AKR','KIK'];
   const allGroupVals = [...g2Vals, ...l2Vals];
@@ -429,12 +468,18 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       ct.textContent = '';
     }
 
-    const t = document.createElement('a');
+    // http(s)始まりのURLのみリンク化する(javascript:等の危険なスキームを弾く簡易バリデーション)
+    const hasUrl = !!(item.url && /^https?:\/\//i.test(item.url.trim()));
+    const t = document.createElement(hasUrl ? 'a' : 'span');
     t.className = 'item-title';
-    t.href = item.url;
-    t.target = '_blank';
-    t.rel = 'noopener noreferrer';
-    t.textContent = item.title;
+    if (hasUrl) {
+      t.href = item.url;
+      t.target = '_blank';
+      t.rel = 'noopener noreferrer';
+    } else {
+      t.classList.add('no-url');
+    }
+    t.textContent = (isMobileState ? item.display_sm : item.display_pc) || item.title;
 
     sc.append(d, ct, t);
     w.append(sc);
@@ -457,6 +502,48 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   new IntersectionObserver(entries => {
     entries.forEach(en => en.isIntersecting && renderBatch());
   }, { rootMargin: '300px' }).observe($('scrollSentinel'));
+
+  // PC(マウス操作)でも、省略されているタイトルをドラッグで水平スクロールして見られるようにする
+  (() => {
+    let dragEl = null, startX = 0, scrollStart = 0, dragged = false;
+    const DRAG_THRESHOLD = 5;
+
+    $('items').addEventListener('mousedown', e => {
+      const target = e.target.closest('.item-title');
+      if (!target) return;
+      dragEl = target;
+      startX = e.pageX;
+      scrollStart = target.scrollLeft;
+      dragged = false;
+    });
+
+    window.addEventListener('mousemove', e => {
+      if (!dragEl) return;
+      const dx = e.pageX - startX;
+      if (Math.abs(dx) > DRAG_THRESHOLD) {
+        if (!dragged) dragEl.classList.add('is-dragging');
+        dragged = true;
+      }
+      if (dragged) {
+        dragEl.scrollLeft = scrollStart - dx;
+        e.preventDefault();
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (dragEl) dragEl.classList.remove('is-dragging');
+      dragEl = null;
+    });
+
+    // ドラッグ操作の後にリンク遷移してしまわないよう抑制する
+    $('items').addEventListener('click', e => {
+      const target = e.target.closest('.item-title');
+      if (target && dragged) {
+        e.preventDefault();
+        dragged = false;
+      }
+    }, true);
+  })();
 
   const renderActiveBadges = (checked, kw) => {
     $('activeFiltersRow').textContent = '';
@@ -607,24 +694,35 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 
       let textOk = true;
       if (kw && !isDateQuery) {
-        textOk = (item.title + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase().includes(kw);
+        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sm || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+        const tokens = kw.split(/\s+/).filter(Boolean);
+        textOk = tokens.every(tok => {
+          if (tok.length > 1 && tok.startsWith('-')) {
+            return !searchText.includes(tok.slice(1));
+          }
+          return searchText.includes(tok);
+        });
       }
       
-      return yOk && gOk && cOk && dateOk && textOk;
+      const todayOk = !todayMode || item.date === getTodayStr();
+
+      return yOk && gOk && cOk && dateOk && textOk && todayOk;
     });
 
     filtered.sort((a, b) => {
-      const na = normalizeDateForSort(a.date), nb = normalizeDateForSort(b.date);
-      return desc ? nb.localeCompare(na) : na.localeCompare(nb);
+      const ka = sortKeyFor(a), kb = sortKeyFor(b);
+      return desc ? kb.localeCompare(ka) : ka.localeCompare(kb);
     });
 
     $('items').classList.add('is-animating');
-    setTimeout(() => {
+    clearTimeout(renderTimer);
+    renderTimer = setTimeout(() => {
       $('items').textContent = '';
       rendered = 0;
       defaultText = 'RESULTS > ' + filtered.length;
       $('resultCount').textContent = defaultText;
       renderActiveBadges(checked, kw);
+      updateAllBadges();
 
       const isZero = filtered.length === 0;
       $('noResult').style.display = isZero ? 'block' : 'none';
@@ -644,74 +742,154 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     }
   };
 
-  if (!isTouch) {
-    labels.forEach(l => {
-      const cb = l.querySelector('input');
-      if (!cb) return;
-      const val = cb.value;
+  const previewCountFor = (val, isChecked) => {
+    const checked = Array.from(checkboxes).filter(c => c.checked);
+    const cVals = new Set(checked.map(c => c.value));
+    let cY = checked.filter(c => /^\d{4}$/.test(c.value)).map(c => c.value);
+    let sG = allGroupVals.filter(v => cVals.has(v));
+    let mG = cats.map(c => c.meta).filter(m => cVals.has(m));
+    let cC = checked.filter(c => allConts.includes(c.value)).map(c => c.value);
+    const kw = searchInput.value.trim().toLowerCase();
 
-      l.onmouseenter = () => {
-        const checked = Array.from(checkboxes).filter(c => c.checked);
-        const cVals = new Set(checked.map(c => c.value));
-        const isChecked = cb.checked;
-        let cY = checked.filter(c => /^\d{4}$/.test(c.value)).map(c => c.value);
-        let sG = allGroupVals.filter(v => cVals.has(v));
-        let mG = cats.map(c => c.meta).filter(m => cVals.has(m));
-        let cC = checked.filter(c => allConts.includes(c.value)).map(c => c.value);
-        const kw = searchInput.value.trim().toLowerCase();
-
-        if (isChecked) {
-          if (/^\d{4}$/.test(val)) cY = cY.filter(y => y !== val);
-          if (allGroupVals.includes(val)) sG = sG.filter(g => g !== val);
-          if (cats.some(c => c.meta === val)) mG = mG.filter(m => m !== val);
-          if (allConts.includes(val)) cC = cC.filter(c => c !== val);
-        } else {
-          if (/^\d{4}$/.test(val) && !cY.includes(val)) cY.push(val);
-          if (allGroupVals.includes(val) && !sG.includes(val)) sG.push(val);
-          if (cats.some(c => c.meta === val) && !mG.includes(val)) mG.push(val);
-          if (allConts.includes(val) && !cC.includes(val)) cC.push(val);
-        }
-
-        const cnt = logs.filter(item => {
-          const yr = item.date ? item.date.slice(0, 4) : '';
-          const itemGroups = item.groups || [];
-          const itemGroupsAndRelations = [...itemGroups, ...(item.relations || [])];
-          const ic = item.contents || '';
-          
-          const gOk = sG.length > 0
-            ? (sG.length === 1 && mG.length === 0
-                ? sG.every(g => itemGroups.includes(g))
-                : sG.every(g => itemGroupsAndRelations.includes(g)))
-            : (mG.length > 0 ? mG.every(m => {
-                const mValues = cats.find(c => c.meta === m)?.values || [];
-                return itemGroups.some(g => mValues.includes(g));
-              }) : true);
-
-          return (cY.length === 0 || cY.includes(yr)) &&
-                 gOk &&
-                 (cC.length === 0 || (cC.includes('ETC') && !primaryConts.includes(ic)) || cC.includes(ic)) &&
-                 (!kw || (item.title + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase().includes(kw));
-        }).length;
-
-        const name = l.querySelector('span[title]')?.getAttribute('title') || l.querySelector('.label-text').textContent.trim();
-        $('resultCount').textContent = '[ ' + name + ' ] PREVIEW > ' + cnt;
-      };
-
-      l.onmouseleave = () => $('resultCount').textContent = defaultText;
-    });
-  }
-
-  labels.forEach(l => l.onkeydown = e => {
-    if (e.key === ' ' || e.key === 'Enter') {
-      e.preventDefault();
-      const cb = l.querySelector('input');
-      if (cb) {
-        cb.checked = !cb.checked;
-        updateDisplay(true);
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      }
+    if (isChecked) {
+      if (/^\d{4}$/.test(val)) cY = cY.filter(y => y !== val);
+      if (allGroupVals.includes(val)) sG = sG.filter(g => g !== val);
+      if (cats.some(c => c.meta === val)) mG = mG.filter(m => m !== val);
+      if (allConts.includes(val)) cC = cC.filter(c => c !== val);
+    } else {
+      if (/^\d{4}$/.test(val) && !cY.includes(val)) cY.push(val);
+      if (allGroupVals.includes(val) && !sG.includes(val)) sG.push(val);
+      if (cats.some(c => c.meta === val) && !mG.includes(val)) mG.push(val);
+      if (allConts.includes(val) && !cC.includes(val)) cC.push(val);
     }
-  });
+
+    return logs.filter(item => {
+      const yr = item.date ? item.date.slice(0, 4) : '';
+      const itemGroups = item.groups || [];
+      const itemGroupsAndRelations = [...itemGroups, ...(item.relations || [])];
+      const ic = item.contents || '';
+
+      const gOk = sG.length > 0
+        ? (sG.length === 1 && mG.length === 0
+            ? sG.every(g => itemGroups.includes(g))
+            : sG.every(g => itemGroupsAndRelations.includes(g)))
+        : (mG.length > 0 ? mG.every(m => {
+            const mValues = cats.find(c => c.meta === m)?.values || [];
+            return itemGroups.some(g => mValues.includes(g));
+          }) : true);
+
+      const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sm || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+      const kwOk = !kw || kw.split(/\s+/).filter(Boolean).every(tok =>
+        tok.length > 1 && tok.startsWith('-') ? !searchText.includes(tok.slice(1)) : searchText.includes(tok)
+      );
+
+      const todayOk = !todayMode || item.date === getTodayStr();
+
+      return (cY.length === 0 || cY.includes(yr)) &&
+             gOk &&
+             (cC.length === 0 || (cC.includes('ETC') && !primaryConts.includes(ic)) || cC.includes(ic)) &&
+             kwOk && todayOk;
+    }).length;
+  };
+
+  // BADGEモード:各フィルターボタンに、現在の他条件と連動した件数を常時表示する
+  let badgeMode = false;
+  const CAP = 999;
+  const updateAllBadges = () => {
+    labels.forEach(l => {
+      const badge = l.querySelector('.count-badge');
+      if (!badge) return;
+      if (!badgeMode) {
+        badge.style.display = 'none';
+        return;
+      }
+      const cb = l.querySelector('input');
+      if (!cb) { badge.style.display = 'none'; return; }
+      const cnt = previewCountFor(cb.value, cb.checked);
+      badge.textContent = cnt > CAP ? String(CAP) : String(cnt);
+      badge.style.display = 'flex';
+    });
+  };
+
+  $('badgeToggleBtn').onclick = () => {
+    badgeMode = !badgeMode;
+    $('badgeToggleBtn').classList.toggle('is-active', badgeMode);
+    updateAllBadges();
+  };
+
+  // TODAYモード:システム日付(端末のローカル日付)のデータのみに絞り込む
+  let todayMode = false;
+  const getTodayStr = () => {
+    const d = new Date();
+    return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
+  };
+
+  $('todayToggleBtn').onclick = () => {
+    todayMode = !todayMode;
+    $('todayToggleBtn').classList.toggle('is-active', todayMode);
+    // TODAYをONにした時だけソートを自動的に昇順にする(OFFにした時は現在のソート順を維持)
+    if (todayMode && desc) {
+      desc = false;
+      $('sortBtn').textContent = '\u2191';
+    }
+    updateDisplay(true);
+  };
+
+  const bindCheckboxAndLabelEvents = () => {
+    if (!isTouch) {
+      labels.forEach(l => {
+        const cb = l.querySelector('input');
+        if (!cb) return;
+        const val = cb.value;
+
+        l.onmouseenter = () => {
+          const cnt = previewCountFor(val, cb.checked);
+          const name = l.querySelector('span[title]')?.getAttribute('title') || l.querySelector('.label-text').textContent.trim();
+          $('resultCount').textContent = '[ ' + name + ' ] PREVIEW > ' + cnt;
+        };
+
+        l.onmouseleave = () => $('resultCount').textContent = defaultText;
+      });
+    }
+
+    labels.forEach(l => l.onkeydown = e => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        const cb = l.querySelector('input');
+        if (cb) {
+          cb.checked = !cb.checked;
+          updateDisplay(true);
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+      }
+    });
+
+    checkboxes.forEach(cb => cb.onchange = () => {
+      updateDisplay(true);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+
+    updateAllBadges();
+  };
+  bindCheckboxAndLabelEvents();
+
+  // データロード後、実データに含まれる年(4桁)をすべて年フィルターとして動的に生成する(上限なし)
+  const refreshYearChecks = () => {
+    const yearsSet = new Set();
+    logs.forEach(item => {
+      const y = item.date ? String(item.date).slice(0, 4) : '';
+      if (/^\d{4}$/.test(y)) yearsSet.add(y);
+    });
+    const years = Array.from(yearsSet).sort((a, b) => b.localeCompare(a));
+
+    $('yearChecks').innerHTML = '';
+    years.forEach(y => $('yearChecks').appendChild(createLabel(y)));
+
+    // 年チェックボックスを再生成したので、checkboxes/labelsを再取得してイベントも再登録する
+    checkboxes = document.querySelectorAll('.checks input[type="checkbox"]');
+    labels = document.querySelectorAll('.checks label:has(input)');
+    bindCheckboxAndLabelEvents();
+  };
 
   const restoreFromHash = () => {
     if (updating) return;
@@ -722,10 +900,6 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   };
 
   window.onhashchange = restoreFromHash;
-  checkboxes.forEach(cb => cb.onchange = () => {
-    updateDisplay(true);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  });
 
   const resetAll = e => {
     if (e) e.preventDefault();
@@ -758,27 +932,112 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       console.error('Failed to load blogger feed:', err);
     });
 
-  fetch('https://cdn.jsdelivr.net/gh/piscenake52/gllogs@f5276d3d9937f85b03f0c908e5c0c7016afd8582/logs.json')
-    .then(res => {
-      if (!res.ok) throw new Error('Network response was not ok');
-      return res.json();
-    })
-    .then(data => {
-      // 日付、コンテンツ種類、タイトル、URLがすべて一致する重複データを排除
-      const seen = new Set();
-      logs = data.filter(item => {
-        const identifier = `${item.date || ''}_${item.contents || ''}_${item.title || ''}_${item.url || ''}`;
-        if (seen.has(identifier)) return false;
-        seen.add(identifier);
-        return true;
-      });
+  // logs.json取得:GitHub上の最新コミットSHAを確認し、変更があった場合のみ
+  // コミット固定のjsDelivr URL(長期キャッシュ可能)から取得しなおす。
+  // 変更がなければlocalStorageのキャッシュをそのまま使い、通信を省略する。
+  const REPO = 'piscenake52/gllogs';
+  const BRANCH = 'main';
+  const FILE = 'logs.json';
+  const VERSION_KEY = 'gl_log_sha';
+  const DATA_KEY = 'gl_log_data';
+  const CHECK_TIME_KEY = 'gl_log_checked_at';
+  const CHECK_COOLDOWN_MS = 5 * 60 * 1000; // 5分以内の再チェックはスキップ(同一端末でのAPI消費を抑制)
 
-      window.location.hash ? restoreFromHash() : updateDisplay(true);
-    })
-    .catch(error => {
-      console.error('Failed to load logs.json:', error);
-      $('resultCount').textContent = 'LOAD ERROR';
+  const applyLogs = data => {
+    // 日付、コンテンツ種類、タイトル、URLがすべて一致する重複データを排除
+    const seen = new Set();
+    logs = data.filter(item => {
+      const identifier = `${item.date || ''}_${item.contents || ''}_${item.title || ''}_${item.url || ''}`;
+      if (seen.has(identifier)) return false;
+      seen.add(identifier);
+      return true;
     });
+
+    refreshYearChecks();
+    window.location.hash ? restoreFromHash() : updateDisplay(true);
+  };
+
+  const loadFromCacheIfAny = () => {
+    const cached = localStorage.getItem(DATA_KEY);
+    if (!cached) return false;
+    try {
+      applyLogs(JSON.parse(cached));
+      return true;
+    } catch (e) {
+      // 壊れたキャッシュは無視して素通り(新規取得に進む)
+      return false;
+    }
+  };
+
+  const fetchFreshData = sha => {
+    const url = sha
+      ? `https://cdn.jsdelivr.net/gh/${REPO}@${sha}/${FILE}`
+      // SHA取得に失敗した場合の保険:キャッシュバスト付きでrawから直接取得
+      : `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${FILE}?v=${Date.now()}`;
+
+    return fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then(data => {
+        applyLogs(data);
+        localStorage.setItem(DATA_KEY, JSON.stringify(data));
+        if (sha) localStorage.setItem(VERSION_KEY, sha);
+      });
+  };
+
+  // まずキャッシュがあれば即表示(体感速度アップ)
+  const hadCache = loadFromCacheIfAny();
+
+  const showLoadError = () => {
+    $('resultCount').textContent = '';
+    $('sortBtn').style.display = 'none';
+    $('inlineClearBtn').style.display = 'none';
+    $('noResult').style.display = 'none';
+    $('loadError').style.display = 'block';
+  };
+
+  $('retryBtn').onclick = () => {
+    $('loadError').style.display = 'none';
+    $('resultCount').textContent = 'LOADING...';
+    checkForUpdates();
+  };
+
+  // 最新コミットSHAを確認し、更新があれば取り直す(初回読み込み・再試行ボタンの両方から呼ばれる)
+  const checkForUpdates = () => {
+    fetch(`https://api.github.com/repos/${REPO}/commits?path=${FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
+      .then(res => {
+        if (!res.ok) throw new Error('GitHub API error');
+        return res.json();
+      })
+      .then(commits => {
+        localStorage.setItem(CHECK_TIME_KEY, String(Date.now()));
+        const latestSha = commits[0]?.sha;
+        const cachedSha = localStorage.getItem(VERSION_KEY);
+        if (latestSha && latestSha !== cachedSha) {
+          return fetchFreshData(latestSha);
+        }
+        // 変更なし:キャッシュを表示済みでなければ念のため取得
+        if (!logs.length) return fetchFreshData(latestSha);
+      })
+      .catch(error => {
+        console.error('Failed to check logs.json version:', error);
+        // API失敗時のフォールバック:キャッシュがなければ直接取得を試みる
+        if (!logs.length) {
+          fetchFreshData(null).catch(err2 => {
+            console.error('Failed to load logs.json:', err2);
+            showLoadError();
+          });
+        }
+      });
+  };
+
+  // 直近チェックから一定時間以内なら、GitHub APIへの問い合わせ自体をスキップする
+  const lastCheckedAt = parseInt(localStorage.getItem(CHECK_TIME_KEY) || '0', 10);
+  const withinCooldown = hadCache && (Date.now() - lastCheckedAt < CHECK_COOLDOWN_MS);
+
+  if (!withinCooldown) checkForUpdates();
 })();
 //]]>
 </script>
