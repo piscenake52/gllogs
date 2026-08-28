@@ -59,7 +59,7 @@
     ],
     "relations": [],
     "tags": [
-      "STAFF","5th Anniversary Live L∞K UP","佐藤姉妹"
+      "STAFF"
     ]
   },
   {
@@ -92,7 +92,7 @@
     ],
     "relations": [],
     "tags": [
-      "STAFF","がるまね","Girls EXPO,"LDH PERFECTYEAR"
+      "STAFF"
     ]
   },
   {
@@ -116,11 +116,7 @@
     ],
     "relations": [],
     "tags": [
-      "STAFF","Girls² 7th Anniversary Seven×Seven in Bloom The Live",
-    "オープニングアクト",
-    "Pancake",
-    "Gimme 143",
-    "制服衣装"
+      "STAFF"
     ]
   },
   {
@@ -2182,8 +2178,8 @@
     "time": "0000",
     "contents": "EVENT",
     "title": "NATSLIVE「Lakiガチャクッキング」 #013 一般会員先行観覧申込受付締切",
-    "display_pc": "Lakiガチャクッキング 一般会員観覧申込受付締切",
-    "display_sm": "Lakiガチャクッキング 一般会員観覧申込受付締切",
+    "display_pc": "Lakiガチャクッキング #013 一般会員観覧申込受付締切",
+    "display_sm": "Lakiガチャクッキング #013 一般会員観覧申込受付締切",
     "url": "https://natslive.jp/episodes/18053",
     "groups": [
       "L2",
@@ -38730,6 +38726,21 @@
       "Ladybug",
       "Best Friends"
     ]
+  },
+  {
+    "date": "2026.08.26",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "森朱里　リリイベすたーと💨🌳🍎💚",
+    "display_pc": "森朱里　リリイベすたーと💨🌳🍎💚",
+    "display_sm": "森朱里　リリイベすたーと💨🌳🍎💚",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1222129475676798976",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "relations": [],
+    "tags": []
   },
   {
     "date": "2025.12.17",
