@@ -38,7 +38,6 @@ body {
   padding: 0 15px 40px; 
   color: var(--text); 
   transition: background-color 0.2s, color 0.2s; 
-  overflow-y: auto;
   height: auto;
 }
 .container { max-width: var(--container-w); margin: 0 auto; position: relative; }
@@ -51,7 +50,9 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .toggle-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; padding: 4px 8px; border-radius: 12px; line-height: 1; }
 .toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
 .header-btn-group { display: flex; align-items: center; gap: 4px; }
+.date-part-btn { padding: 4px 6px; }
 .toggle-btn.is-active { color: var(--text); background-color: var(--btn-bg); text-shadow: 0 0 0.4px currentColor, 0 0 0.4px currentColor; }
+.date-part-btn.is-active { color: #fff; background-color: #a78bfa; text-shadow: none; }
 #badgeToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #todayToggleBtn.is-active { color: #fff; background-color: #34d399; }
 .count-badge {
@@ -59,7 +60,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   top: -3px;
   right: -3px;
   background: #38bdf8;
-  color: #fff;
+  color: #042C53;
   font-size: 9px;
   line-height: 1;
   min-width: 14px;
@@ -102,6 +103,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .checks-row-years label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 8px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 16px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
 
 .checks-row-other label { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: 13px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 18px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
+.checks-row-other label.is-dragging-reorder { opacity: 0.4; }
 .checks-row-members label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 4px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 16px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex-grow: 1; flex-shrink: 1; min-width: 0; position: relative; }
 .checks-row-members label.btn-group { flex-grow: 0; flex-shrink: 0; flex-basis: 50px; font-size: 11px; padding: 7px 0; text-align: center; letter-spacing: -0.5px; }
 .checks-row-members label:not(.btn-group) { padding: 5px 0; }
@@ -109,14 +111,48 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 @media (hover: hover) { .checks label:hover { background-color: var(--btn-hover); } }
 .checks label:has(input:checked) { background-color: var(--active-bg); color: var(--active-color); border-color: var(--active-bg); }
 .checks label:has(input:checked)::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #38bdf8; border-radius: 50%; }
+/* 手動でONにしたフィルターは、右上のランプを青からやさしい赤に変更して区別する */
+.checks label:has(input:checked).is-manual-on::after { background-color: #f87171; }
 .checks label span[title] { font-size: 14px; line-height: 1; }
 /* --- 検索結果の件数表示・並び替え・クリアボタン --- */
-.result-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; min-height: 1.2em; position: relative; }
+.result-header-row { display: flex; justify-content: space-between; align-items: center; margin-top: 3px; margin-bottom: 8px; min-height: 1.2em; position: relative; }
 .result-count { font-size: 12px; color: var(--sub); letter-spacing: 0.5px; }
 .sort-arrow-btn { position: absolute; left: 50%; transform: translateX(-50%); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; border-radius: 12px; outline: none; line-height: 1.2; }
 .sort-arrow-btn:hover { background-color: var(--btn-hover); }
+.day-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
+.day-nav-btn:hover { background-color: var(--btn-hover); }
+.day-nav-btn.is-visible { display: block; }
+.day-nav-btn.is-pressed { color: #fff; background-color: #34d399; border-color: #34d399; }
+#prevDayBtn { left: calc(50% - 34px); transform: translate(-100%, -50%); }
+#nextDayBtn { left: calc(50% + 34px); transform: translate(0, -50%); }
 .inline-clear-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--sub); font-size: 11px; cursor: pointer; padding: 3px 8px; border-radius: 12px; display: none; outline: none; letter-spacing: 0.5px; }
 .inline-clear-btn:hover { background-color: var(--btn-hover); color: var(--text); }
+
+/* 錠前ボタン:OFF(既定)ではsticky-headerを画面固定せず通常スクロールにする */
+.sticky-header.unlocked { position: static; }
+.lock-toggle-btn {
+  position: absolute;
+  top: 26px;
+  right: -6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--input-border);
+  background-color: var(--btn-bg);
+  color: var(--text);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  z-index: 5;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  padding: 0;
+}
+.lock-toggle-btn:hover { background-color: var(--btn-hover); }
+.lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
+#todayToggleBtn.is-offset { color: #fff; background-color: #f59e0b; }
 /* --- 現在有効な絞り込み条件のバッジ一覧(フィルターエリア折りたたみ時に表示) --- */
 .active-filters-row { display: none; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; gap: 4px; margin-bottom: 10px; align-items: center; }
 .sticky-header.collapsed .active-filters-row { display: flex; }
@@ -167,14 +203,26 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   color: var(--text); 
   text-decoration: none; 
 }
+
+/* Girls\u00b2 / Laki 判別アイコン(コンテンツ種類とタイトルの間に表示) */
+.team-icon {
+  display: inline-block;
+  width: 11.25px;
+  height: 11.25px;
+  border-radius: 2.5px;
+  margin: 0 5px 0 1px;
+  flex-shrink: 0;
+  align-self: center;
+}
+.team-icon.team-g2 { background-color: #f472b6; }
+.team-icon.team-l2 { background-color: #facc15; }
+.team-icon.team-both { background: linear-gradient(135deg, #f472b6 50%, #facc15 50%); }
 .item-title::-webkit-scrollbar { display: none; }
 .item-title:hover,
 .item-title:focus {
   text-overflow: clip;
-  cursor: grab;
 }
 .item-title.is-dragging {
-  cursor: grabbing;
   user-select: none;
 }
 
@@ -208,8 +256,13 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 <div class="container">
   <div class="sticky-header is-initializing" id="stickyHeader">
     <div class="header-row">
-      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
+      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log - β</a></h1>
       <div class="header-btn-group">
+        <button class="toggle-btn date-part-btn" id="showYearBtn" title="&#24180;&#12398;&#34920;&#31034;&#20999;&#26367;">&#24180;</button>
+        <button class="toggle-btn date-part-btn" id="showMonthBtn" title="&#26376;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26376;</button>
+        <button class="toggle-btn date-part-btn" id="showDayBtn" title="&#26085;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26085;</button>
+        <button class="toggle-btn date-part-btn" id="showWeekdayBtn" title="&#26332;&#26085;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26332;</button>
+        <button class="toggle-btn date-part-btn" id="showTimeBtn" title="&#26178;&#20998;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26178;&#20998;</button>
         <button class="toggle-btn" id="todayToggleBtn">TODAY</button>
         <button class="toggle-btn" id="badgeToggleBtn">BADGE</button>
         <button class="toggle-btn" id="toggleBtn">&#9650; FILTER</button>
@@ -233,8 +286,11 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 
     <div class="result-header-row">
       <div class="result-count" id="resultCount">LOADING...</div>
+      <button class="day-nav-btn" id="prevDayBtn" aria-label="Previous day">&#8592;</button>
       <button class="sort-arrow-btn" id="sortBtn">&#8595;</button>
+      <button class="day-nav-btn" id="nextDayBtn" aria-label="Next day">&#8594;</button>
       <button class="inline-clear-btn" id="inlineClearBtn">CLEAR</button>
+      <button type="button" class="lock-toggle-btn" id="lockToggleBtn" title="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;" aria-label="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;(&#29694;&#22312;OFF)">&#128275;</button>
     </div>
 
     <div class="active-filters-row" id="activeFiltersRow"></div>
@@ -265,25 +321,49 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     {v:'YUW',n:'YUWA',c:'\u2764\uFE0F'},{v:'KAN',n:'KANNA',c:'\uD83D\uDC99'},{v:'RRK',n:'RIRIKA',c:'\uD83E\uDE77'},{v:'AKR',n:'AKARI',c:'\uD83D\uDC9A'},
     {v:'KIK',n:'KIKI',c:'\uD83D\uDC9B'},'sep',{v:'YUR',n:'YURA',c:'\uD83E\uDD0D'}
   ];
-  const others = ['DIARY','RADIO','GTUBE','YOUTUBE','CL','RELEASE','LIVE','EVENT','MEDIA','WEB','SNS','ETC'];
+  const others = ['DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ETC'];
 
   const symbols = {
-    'DIARY': '\uD83D\uDCDD', 'RADIO': '\uD83D\uDCFB\uFE0F', 'GTUBE': '\uD83C\uDF10', 'YOUTUBE': '\uD83C\uDF9E\uFE0F', 
+    'DIARY': '\uD83D\uDCDD', 'RADIO': '\uD83D\uDCFB\uFE0F', 'GTUBE': '\u25B6\uFE0F', 'YOUTUBE': '\uD83C\uDF9E\uFE0F', 
     'CL': '\uD83C\uDD91', 'RELEASE': '\uD83D\uDCBF\uFE0F', 'LIVE': '\uD83C\uDF99\uFE0F', 
-    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCFA\uFE0F', 'WEB': '\uD83D\uDD16', 'SNS': '\uD83D\uDCF1', 'ETC': '\uD83D\uDCCC'
+    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCFA\uFE0F', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'GOODS': '\uD83D\uDED2', 'ETC': '\uD83D\uDCCC'
   };
 
   const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
 
-  const formatDisplayDate = dateStr => {
+  // 項目左端の日付表示:年/月/日/曜日/時分をそれぞれ個別に表示on/offできる(次回訪問時も記憶)
+  const DATE_PARTS_KEY = 'gl_log_date_parts';
+  let dateParts = { year: true, month: true, day: true, weekday: true, time: false };
+  try {
+    const savedParts = JSON.parse(localStorage.getItem(DATE_PARTS_KEY) || 'null');
+    if (savedParts && typeof savedParts === 'object') dateParts = Object.assign(dateParts, savedParts);
+  } catch (e) { /* 壊れていたら既定値のまま使う */ }
+
+  const formatTimeStr = timeStr => {
+    if (!timeStr || timeStr.length !== 4) return '';
+    return timeStr.slice(0, 2) + ':' + timeStr.slice(2, 4);
+  };
+
+  const formatDisplayDate = item => {
+    const dateStr = item.date;
     if (!dateStr) return '';
     const parts = dateStr.split('.');
     if (parts.length !== 3) return dateStr;
     const [y, m, d] = parts;
     const dateObj = new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10));
-    if (isNaN(dateObj.getTime())) return dateStr;
-    const dayStr = dayNames[dateObj.getDay()];
-    return `${y}.${m}.${d} [${dayStr}]`;
+    const dayStr = isNaN(dateObj.getTime()) ? '' : dayNames[dateObj.getDay()];
+
+    const ymd = [];
+    if (dateParts.year) ymd.push(y);
+    if (dateParts.month) ymd.push(m);
+    if (dateParts.day) ymd.push(d);
+    let out = ymd.join('.');
+    if (dateParts.weekday && dayStr) out += (out ? ' ' : '') + `[${dayStr}]`;
+    if (dateParts.time) {
+      const t = formatTimeStr(item.time);
+      if (t) out += (out ? ' ' : '') + t;
+    }
+    return out;
   };
 
   const normalizeDateForSort = dateStr => {
@@ -329,7 +409,56 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 
   g2.forEach(i => $('memberChecks1').appendChild(createLabel(i)));
   l2.forEach(i => $('memberChecks2').appendChild(createLabel(i)));
+  const applySavedContentOrder = arr => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('gl_log_content_order') || 'null');
+      if (!Array.isArray(saved)) return arr;
+      const savedValid = saved.filter(v => arr.includes(v));
+      const rest = arr.filter(v => !savedValid.includes(v));
+      return [...savedValid, ...rest];
+    } catch (e) {
+      return arr;
+    }
+  };
+
+  others.splice(0, others.length, ...applySavedContentOrder(others));
   others.forEach(o => $('otherChecks').appendChild(createLabel(o)));
+
+  // コンテンツ種類ボタンのみ、ドラッグ&ドロップで並び替え可能にする(並びはlocalStorageに記憶)
+  (() => {
+    const row = $('otherChecks');
+    let draggedEl = null;
+
+    const saveOrder = () => {
+      const order = Array.from(row.querySelectorAll('label')).map(l => l.querySelector('input')?.value).filter(Boolean);
+      localStorage.setItem('gl_log_content_order', JSON.stringify(order));
+    };
+
+    Array.from(row.querySelectorAll('label')).forEach(label => {
+      label.draggable = true;
+
+      label.addEventListener('dragstart', e => {
+        draggedEl = label;
+        label.classList.add('is-dragging-reorder');
+        e.dataTransfer.effectAllowed = 'move';
+      });
+
+      label.addEventListener('dragend', () => {
+        draggedEl = null;
+        label.classList.remove('is-dragging-reorder');
+        saveOrder();
+      });
+
+      label.addEventListener('dragover', e => {
+        e.preventDefault();
+        if (!draggedEl || draggedEl === label) return;
+        const rect = label.getBoundingClientRect();
+        const before = (e.clientX - rect.left) < rect.width / 2;
+        row.insertBefore(draggedEl, before ? label : label.nextSibling);
+      });
+    });
+  })();
+
 
   const enableHorizontalScroll = el => {
     el.addEventListener('wheel', e => {
@@ -367,7 +496,25 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   const g2Vals = ['YZH','MMK','MSK','YOK','KUR','MNM','KIR','TOA','RAN'];
   const l2Vals = ['RIN','YUR','TBK','HIR','YUW','KAN','RRK','AKR','KIK'];
   const allGroupVals = [...g2Vals, ...l2Vals];
-  const primaryConts = ['DIARY','RADIO','GTUBE','YOUTUBE','CL','RELEASE','LIVE','EVENT','MEDIA','WEB','SNS'];
+
+  // groupsからGirls\u00b2(G2)/Laki(L2)どちらの予定かを判定する。
+  // 1) groupsに'G2'/'L2'のリテラルタグがあればそれを優先。
+  // 2) どちらのリテラルタグも無ければ、メンバーコードの内容からG2/L2を判定する。
+  // 3) 両方に該当する場合は'both'を返す(斜め半々アイコン用)。
+  const getTeamClass = item => {
+    const g = item.groups || [];
+    let hasG2 = g.includes('G2');
+    let hasL2 = g.includes('L2');
+    if (!hasG2 && !hasL2) {
+      hasG2 = g.some(v => g2Vals.includes(v));
+      hasL2 = g.some(v => l2Vals.includes(v));
+    }
+    if (hasG2 && hasL2) return 'both';
+    if (hasG2) return 'g2';
+    if (hasL2) return 'l2';
+    return null;
+  };
+  const primaryConts = ['DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS'];
   const allConts = [...primaryConts, 'ETC'];
   const cats = [{meta:'G2',values:g2Vals},{meta:'L2',values:l2Vals}];
 
@@ -394,6 +541,21 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     localStorage.setItem('gl_log_collapsed', c);
   };
 
+  // 錠前ボタン:既定はOFF(画面固定しない、通常スクロール)。ONにするとヘッダーが画面上部に固定される。
+  const setHeaderLocked = (locked, persist) => {
+    $('stickyHeader').classList.toggle('unlocked', !locked);
+    $('lockToggleBtn').classList.toggle('is-active', locked);
+    $('lockToggleBtn').textContent = locked ? '\uD83D\uDD12' : '\uD83D\uDD13';
+    $('lockToggleBtn').setAttribute('aria-label', locked ? '\u30D8\u30C3\u30C0\u30FC\u56FA\u5B9A\u5207\u66FF(\u73FE\u5728ON)' : '\u30D8\u30C3\u30C0\u30FC\u56FA\u5B9A\u5207\u66FF(\u73FE\u5728OFF)');
+    if (persist) localStorage.setItem('gl_log_header_locked', locked);
+  };
+
+  setHeaderLocked(localStorage.getItem('gl_log_header_locked') === 'true', false);
+
+  $('lockToggleBtn').onclick = () => {
+    setHeaderLocked(!$('lockToggleBtn').classList.contains('is-active'), true);
+  };
+
   $('sortBtn').onclick = () => {
     desc = !desc;
     $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
@@ -415,12 +577,16 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   searchInput.oninput = () => {
     updateSearchClearState();
     clearTimeout(timer);
-    timer = setTimeout(() => updateDisplay(true), 180);
+    timer = setTimeout(() => {
+      autoUpdateContentTypeFilters();
+      updateDisplay(true);
+    }, 180);
   };
 
   searchClearBtn.onclick = () => {
     searchInput.value = '';
     updateSearchClearState();
+    autoUpdateContentTypeFilters();
     updateDisplay(true);
     searchInput.focus();
   };
@@ -457,7 +623,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     
     const d = document.createElement('span');
     d.className = 'item-date';
-    d.textContent = formatDisplayDate(item.date);
+    d.textContent = formatDisplayDate(item);
     
     const ct = document.createElement('span');
     ct.className = 'item-contents';
@@ -481,7 +647,16 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     }
     t.textContent = (isMobileState ? item.display_sm : item.display_pc) || item.title;
 
-    sc.append(d, ct, t);
+    const teamClass = getTeamClass(item);
+    const children = [d, ct];
+    if (teamClass) {
+      const ti = document.createElement('span');
+      ti.className = 'team-icon team-' + teamClass;
+      children.push(ti);
+    }
+    children.push(t);
+
+    sc.append(...children);
     w.append(sc);
     return w;
   };
@@ -590,6 +765,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       const squareColor = cb.value === 'G2' ? '#f472b6' : cb.value === 'L2' ? '#facc15' : null;
       frag.appendChild(makeBadge(name, () => {
         cb.checked = false;
+        if (allConts.includes(cb.value)) manuallyTouchedConts.add(cb.value);
         updateDisplay(true);
       }, squareColor));
     });
@@ -597,46 +773,50 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     $('activeFiltersRow').appendChild(frag);
   };
 
-  const updateDisplay = (syncHash = true) => {
-    const checked = Array.from(checkboxes).filter(cb => cb.checked);
-    const cVals = new Set(checked.map(cb => cb.value));
-    const cYears = checked.filter(cb => /^\d{4}$/.test(cb.value)).map(cb => cb.value);
-    const cConts = checked.filter(cb => allConts.includes(cb.value)).map(cb => cb.value);
-    const sGroups = allGroupVals.filter(v => cVals.has(v));
-    const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
-    const rawKw = searchInput.value.trim();
-    const kw = rawKw.toLowerCase();
-
-    // 日付・年・月日クエリのパース処理
+  const parseDateQuery = rawKw => {
     let isDateQuery = false;
     let targetMonthDay = null;
+    let targetMonthDayRange = null;
     let startDate = null, endDate = null;
+
+    const isValidMD = s => {
+      if (!s || s.length !== 4) return false;
+      const m = parseInt(s.slice(0, 2), 10), d = parseInt(s.slice(2, 4), 10);
+      return m >= 1 && m <= 12 && d >= 1 && d <= 31;
+    };
 
     const rangeMatch = rawKw.match(/^(\d{4,8})?-(\d{4,8})?$/);
     if (rangeMatch && (rangeMatch[1] || rangeMatch[2])) {
       isDateQuery = true;
-      if (rangeMatch[1]) {
-        const p1 = rangeMatch[1];
-        if (p1.length === 4) startDate = p1 + '0101';
-        else if (p1.length === 6) startDate = p1 + '01';
-        else startDate = p1;
-      }
-      if (rangeMatch[2]) {
-        const p2 = rangeMatch[2];
-        if (p2.length === 4) endDate = p2 + '1231';
-        else if (p2.length === 6) {
-          const y = parseInt(p2.slice(0, 4), 10);
-          const m = parseInt(p2.slice(4, 6), 10);
-          const lastDay = new Date(y, m, 0).getDate();
-          endDate = p2 + String(lastDay).padStart(2, '0');
-        } else endDate = p2;
+      const p1 = rangeMatch[1], p2 = rangeMatch[2];
+
+      const p1IsMD = !!(p1 && isValidMD(p1));
+      const p2IsMD = !!(p2 && isValidMD(p2));
+
+      if ((p1IsMD || !p1) && (p2IsMD || !p2) && (p1IsMD || p2IsMD)) {
+        targetMonthDayRange = [p1IsMD ? p1 : '0101', p2IsMD ? p2 : '1231'];
+      } else {
+        if (p1) {
+          if (p1.length === 4) startDate = p1 + '0101';
+          else if (p1.length === 6) startDate = p1 + '01';
+          else startDate = p1;
+        }
+        if (p2) {
+          if (p2.length === 4) endDate = p2 + '1231';
+          else if (p2.length === 6) {
+            const y = parseInt(p2.slice(0, 4), 10);
+            const m = parseInt(p2.slice(4, 6), 10);
+            const lastDay = new Date(y, m, 0).getDate();
+            endDate = p2 + String(lastDay).padStart(2, '0');
+          } else endDate = p2;
+        }
       }
     } else if (/^\d{4}$/.test(rawKw)) {
       const m = parseInt(rawKw.slice(0, 2), 10);
       const d = parseInt(rawKw.slice(2, 4), 10);
-      const isValidMD = m >= 1 && m <= 12 && d >= 1 && d <= 31;
+      const isValidMD2 = m >= 1 && m <= 12 && d >= 1 && d <= 31;
 
-      if (isValidMD) {
+      if (isValidMD2) {
         isDateQuery = true;
         targetMonthDay = rawKw;
       } else {
@@ -657,6 +837,125 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       endDate = rawKw;
     }
 
+    return { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate };
+  };
+
+  // コンテンツ種類フィルターを除いた条件(年・グループ/メンバー・検索・TODAY)だけでアイテムがマッチするか判定
+  const matchesOtherFilters = (item, ctx) => {
+    const { cYears, sGroups, mGroups, kw, dq } = ctx;
+    const yr = item.date ? item.date.slice(0, 4) : '';
+    const itemGroups = item.groups || [];
+    const itemGroupsAndRelations = [...itemGroups, ...(item.relations || [])];
+
+    const yOk = cYears.length === 0 || cYears.includes(yr);
+
+    const itemHasMeta = m => {
+      if (itemGroups.includes(m)) return true; // groups/relationsに"G2"等のメタ表記そのものがある場合
+      const mValues = cats.find(c => c.meta === m)?.values || [];
+      return itemGroups.some(g => mValues.includes(g)); // 個別メンバーコードからメタ所属を推測
+    };
+    const memberOk = sGroups.length === 0 ? true
+      : (sGroups.length === 1 && mGroups.length === 0
+          ? sGroups.every(g => itemGroups.includes(g))
+          : sGroups.every(g => itemGroupsAndRelations.includes(g)));
+    const metaOk = mGroups.length === 0 ? true : mGroups.every(itemHasMeta);
+    const gOk = memberOk && metaOk;
+
+    let dateOk = true;
+    if (dq.isDateQuery) {
+      const itemDateNum = item.date ? item.date.replace(/\./g, '') : '';
+      let matchesDate = true;
+      if (dq.targetMonthDay) {
+        const itemMD = itemDateNum.slice(4, 8);
+        matchesDate = itemMD === dq.targetMonthDay;
+      } else if (dq.targetMonthDayRange) {
+        const itemMD = itemDateNum.slice(4, 8);
+        const [fromMD, toMD] = dq.targetMonthDayRange;
+        matchesDate = fromMD <= toMD
+          ? (itemMD >= fromMD && itemMD <= toMD)
+          : (itemMD >= fromMD || itemMD <= toMD);
+      } else {
+        if (dq.startDate && itemDateNum < dq.startDate) matchesDate = false;
+        if (dq.endDate && itemDateNum > dq.endDate) matchesDate = false;
+      }
+      const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
+      dateOk = matchesDate || tagsMatch;
+    }
+
+    let textOk = true;
+    if (kw && !dq.isDateQuery) {
+      const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sm || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+      const tokens = kw.split(/\s+/).filter(Boolean);
+      textOk = tokens.every(tok => {
+        if (tok.length > 1 && tok.startsWith('-')) return !searchText.includes(tok.slice(1));
+        return searchText.includes(tok);
+      });
+    }
+
+    const todayOk = isTodayDateOk(item, cYears);
+
+    return yOk && gOk && dateOk && textOk && todayOk;
+  };
+
+  // 年/グループ/メンバー/検索/TODAYで絞り込んだ結果に該当するコンテンツ種類ボタンを自動でon/offする
+  // (年・グループ・メンバー自体は自動ONにしない)
+  const manuallyTouchedConts = new Set(); // ユーザーが手動でON/OFFしたコンテンツ種類の値。これらは自動on/offの対象外にする
+
+  const autoUpdateContentTypeFilters = (isTodayTrigger = false) => {
+    const checked = Array.from(checkboxes).filter(cb => cb.checked);
+    const cVals = new Set(checked.map(cb => cb.value));
+    const cYears = checked.filter(cb => /^\d{4}$/.test(cb.value)).map(cb => cb.value);
+    const sGroups = allGroupVals.filter(v => cVals.has(v));
+    const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
+    const rawKw = searchInput.value.trim();
+    const kw = rawKw.toLowerCase();
+
+    const contentCheckboxes = Array.from(checkboxes).filter(cb => allConts.includes(cb.value));
+
+    const noOtherFilterActive = cYears.length === 0 && sGroups.length === 0 && mGroups.length === 0 && !kw && !todayMode;
+    if (noOtherFilterActive) {
+      contentCheckboxes.forEach(cb => { cb.checked = false; });
+      manuallyTouchedConts.clear(); // 絞り込みが全て解除されたら、手動操作の記録もリセットする
+      return;
+    }
+
+    const dq = parseDateQuery(rawKw);
+    const ctx = { cYears, sGroups, mGroups, kw, dq };
+
+    const matched = new Set();
+    logs.forEach(item => {
+      if (matchesOtherFilters(item, ctx)) matched.add(item.contents || '');
+    });
+
+    contentCheckboxes.forEach(cb => {
+      // TODAY/←/→がトリガーの場合、手動でOFFにしたものは保護せず自動on/offの対象に含める(手動ONのみ保護)
+      // それ以外(検索窓・年・グループ・メンバー変更)は手動ON/OFFどちらも保護し現状を維持する
+      const isProtected = isTodayTrigger
+        ? manuallyTouchedConts.has(cb.value) && cb.checked
+        : manuallyTouchedConts.has(cb.value);
+      if (isProtected) return;
+
+      const shouldBeOn = cb.value === 'ETC'
+        ? Array.from(matched).some(c => !primaryConts.includes(c))
+        : matched.has(cb.value);
+      cb.checked = shouldBeOn;
+    });
+  };
+
+  const updateDisplay = (syncHash = true) => {
+
+    const checked = Array.from(checkboxes).filter(cb => cb.checked);
+    const cVals = new Set(checked.map(cb => cb.value));
+    const cYears = checked.filter(cb => /^\d{4}$/.test(cb.value)).map(cb => cb.value);
+    const cConts = checked.filter(cb => allConts.includes(cb.value)).map(cb => cb.value);
+    const sGroups = allGroupVals.filter(v => cVals.has(v));
+    const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
+    const rawKw = searchInput.value.trim();
+    const kw = rawKw.toLowerCase();
+
+    // 日付・年・月日クエリのパース処理
+    const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = parseDateQuery(rawKw);
+
     filtered = logs.filter(item => {
       const yr = item.date ? item.date.slice(0, 4) : '';
       const itemGroups = item.groups || [];
@@ -665,14 +964,17 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       
       const yOk = cYears.length === 0 || cYears.includes(yr);
       
-      const gOk = sGroups.length > 0
-        ? (sGroups.length === 1 && mGroups.length === 0
+      const itemHasMeta = m => {
+        if (itemGroups.includes(m)) return true;
+        const mValues = cats.find(c => c.meta === m)?.values || [];
+        return itemGroups.some(g => mValues.includes(g));
+      };
+      const memberOk = sGroups.length === 0 ? true
+        : (sGroups.length === 1 && mGroups.length === 0
             ? sGroups.every(g => itemGroups.includes(g))
-            : sGroups.every(g => itemGroupsAndRelations.includes(g)))
-        : (mGroups.length > 0 ? mGroups.every(m => {
-            const mValues = cats.find(c => c.meta === m)?.values || [];
-            return itemGroups.some(g => mValues.includes(g));
-          }) : true);
+            : sGroups.every(g => itemGroupsAndRelations.includes(g)));
+      const metaOk = mGroups.length === 0 ? true : mGroups.every(itemHasMeta);
+      const gOk = memberOk && metaOk;
 
       const cOk = cConts.length === 0 || (cConts.includes('ETC') && !primaryConts.includes(ic)) || cConts.includes(ic);
       
@@ -683,6 +985,12 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
         if (targetMonthDay) {
           const itemMD = itemDateNum.slice(4, 8);
           matchesDate = itemMD === targetMonthDay;
+        } else if (targetMonthDayRange) {
+          const itemMD = itemDateNum.slice(4, 8);
+          const [fromMD, toMD] = targetMonthDayRange;
+          matchesDate = fromMD <= toMD
+            ? (itemMD >= fromMD && itemMD <= toMD)
+            : (itemMD >= fromMD || itemMD <= toMD); // 年をまたぐ範囲(例:1201-0131)にも対応
         } else {
           if (startDate && itemDateNum < startDate) matchesDate = false;
           if (endDate && itemDateNum > endDate) matchesDate = false;
@@ -704,7 +1012,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
         });
       }
       
-      const todayOk = !todayMode || item.date === getTodayStr();
+      const todayOk = isTodayDateOk(item, cYears);
 
       return yOk && gOk && cOk && dateOk && textOk && todayOk;
     });
@@ -723,11 +1031,12 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       $('resultCount').textContent = defaultText;
       renderActiveBadges(checked, kw);
       updateAllBadges();
+      updateManualIndicators();
 
       const isZero = filtered.length === 0;
       $('noResult').style.display = isZero ? 'block' : 'none';
       $('sortBtn').style.display = isZero ? 'none' : 'block';
-      $('inlineClearBtn').style.display = ((checked.length > 0 || kw) && !isZero) ? 'inline-block' : 'none';
+      $('inlineClearBtn').style.display = ((checked.length > 0 || kw || todayMode) && !isZero) ? 'inline-block' : 'none';
       
       if (!isZero) renderBatch();
       $('items').classList.remove('is-animating');
@@ -769,21 +1078,24 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       const itemGroupsAndRelations = [...itemGroups, ...(item.relations || [])];
       const ic = item.contents || '';
 
-      const gOk = sG.length > 0
-        ? (sG.length === 1 && mG.length === 0
+      const itemHasMeta = m => {
+        if (itemGroups.includes(m)) return true;
+        const mValues = cats.find(c => c.meta === m)?.values || [];
+        return itemGroups.some(g => mValues.includes(g));
+      };
+      const memberOk = sG.length === 0 ? true
+        : (sG.length === 1 && mG.length === 0
             ? sG.every(g => itemGroups.includes(g))
-            : sG.every(g => itemGroupsAndRelations.includes(g)))
-        : (mG.length > 0 ? mG.every(m => {
-            const mValues = cats.find(c => c.meta === m)?.values || [];
-            return itemGroups.some(g => mValues.includes(g));
-          }) : true);
+            : sG.every(g => itemGroupsAndRelations.includes(g)));
+      const metaOk = mG.length === 0 ? true : mG.every(itemHasMeta);
+      const gOk = memberOk && metaOk;
 
       const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sm || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
       const kwOk = !kw || kw.split(/\s+/).filter(Boolean).every(tok =>
         tok.length > 1 && tok.startsWith('-') ? !searchText.includes(tok.slice(1)) : searchText.includes(tok)
       );
 
-      const todayOk = !todayMode || item.date === getTodayStr();
+      const todayOk = isTodayDateOk(item, cY);
 
       return (cY.length === 0 || cY.includes(yr)) &&
              gOk &&
@@ -794,20 +1106,31 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 
   // BADGEモード:各フィルターボタンに、現在の他条件と連動した件数を常時表示する
   let badgeMode = false;
-  const CAP = 999;
+  const CAP = 9999;
   const updateAllBadges = () => {
     labels.forEach(l => {
       const badge = l.querySelector('.count-badge');
       if (!badge) return;
-      if (!badgeMode) {
+      const cb = l.querySelector('input');
+      if (!badgeMode || !cb || cb.checked) {
+        // 選択中のボタンは「外した場合の件数」になり分かりにくいためバッジを表示しない
         badge.style.display = 'none';
         return;
       }
-      const cb = l.querySelector('input');
-      if (!cb) { badge.style.display = 'none'; return; }
       const cnt = previewCountFor(cb.value, cb.checked);
       badge.textContent = cnt > CAP ? String(CAP) : String(cnt);
       badge.style.display = 'flex';
+    });
+  };
+
+  // 右上のランプの色を切り替える:コンテンツ種類はmanuallyTouchedContsに含まれていれば手動操作済み、
+  // 年/グループ/メンバーは自動on/offの仕組みが無いため、チェック済みであれば常に手動ONとして扱う
+  const updateManualIndicators = () => {
+    labels.forEach(l => {
+      const cb = l.querySelector('input');
+      if (!cb) return;
+      const isManual = allConts.includes(cb.value) ? manuallyTouchedConts.has(cb.value) : cb.checked;
+      l.classList.toggle('is-manual-on', isManual);
     });
   };
 
@@ -815,23 +1138,106 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     badgeMode = !badgeMode;
     $('badgeToggleBtn').classList.toggle('is-active', badgeMode);
     updateAllBadges();
+      updateManualIndicators();
   };
 
-  // TODAYモード:システム日付(端末のローカル日付)のデータのみに絞り込む
+  // 年/月/日/曜/時分:項目左端の日付表示を個別にon/offするボタン。状態はlocalStorageに保存し次回も復元する
+  const datePartButtons = {
+    year: $('showYearBtn'),
+    month: $('showMonthBtn'),
+    day: $('showDayBtn'),
+    weekday: $('showWeekdayBtn'),
+    time: $('showTimeBtn')
+  };
+  Object.keys(datePartButtons).forEach(key => {
+    datePartButtons[key].classList.toggle('is-active', dateParts[key]);
+    datePartButtons[key].onclick = () => {
+      dateParts[key] = !dateParts[key];
+      datePartButtons[key].classList.toggle('is-active', dateParts[key]);
+      localStorage.setItem(DATE_PARTS_KEY, JSON.stringify(dateParts));
+      updateDisplay(false);
+    };
+  });
+
+  // TODAYモード:システム日付(端末のローカル日付)を基準に、todayOffset日ずらしたデータのみに絞り込む
   let todayMode = false;
-  const getTodayStr = () => {
+  let todayOffset = 0; // 0=当日, 負=前日方向, 正=翌日方向
+  let preTodaySort = null; // TODAYをONにする直前のソート状態(descの値)を退避
+  const getTargetDateStr = offsetDays => {
     const d = new Date();
+    d.setDate(d.getDate() + offsetDays);
     return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
+  };
+  const getTargetMonthDayStr = offsetDays => {
+    const d = new Date();
+    d.setDate(d.getDate() + offsetDays);
+    return String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+  };
+  // TODAYモード時の日付一致判定。年フィルターがONの場合は「その年の該当月日」で一致させる(年の絞り込み自体はyOk側で行う)
+  const isTodayDateOk = (item, cYears) => {
+    if (!todayMode) return true;
+    if (cYears && cYears.length > 0) {
+      const itemDateNum = item.date ? item.date.replace(/\./g, '') : '';
+      return itemDateNum.slice(4, 8) === getTargetMonthDayStr(todayOffset);
+    }
+    return item.date === getTargetDateStr(todayOffset);
+  };
+
+  const updateTodayButtonStyle = () => {
+    const btn = $('todayToggleBtn');
+    btn.classList.toggle('is-active', todayMode && todayOffset === 0);
+    btn.classList.toggle('is-offset', todayMode && todayOffset !== 0);
+    $('prevDayBtn').classList.toggle('is-visible', todayMode);
+    $('nextDayBtn').classList.toggle('is-visible', todayMode);
+    if (todayOffset === 0) {
+      $('prevDayBtn').classList.remove('is-pressed');
+      $('nextDayBtn').classList.remove('is-pressed');
+    }
   };
 
   $('todayToggleBtn').onclick = () => {
-    todayMode = !todayMode;
-    $('todayToggleBtn').classList.toggle('is-active', todayMode);
-    // TODAYをONにした時だけソートを自動的に昇順にする(OFFにした時は現在のソート順を維持)
-    if (todayMode && desc) {
-      desc = false;
-      $('sortBtn').textContent = '\u2191';
+    if (!todayMode) {
+      // OFF -> ON(当日)。ON にする直前のソート状態を覚えておく
+      todayMode = true;
+      todayOffset = 0;
+      preTodaySort = desc;
+      // TODAYをONにした時だけソートを自動的に昇順にする
+      if (desc) {
+        desc = false;
+        $('sortBtn').textContent = '\u2191';
+      }
+    } else {
+      // ON(当日 or 前後日)状態からの押下は、常にOFFにする
+      todayMode = false;
+      todayOffset = 0;
+      if (preTodaySort !== null) {
+        desc = preTodaySort;
+        $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
+        preTodaySort = null;
+      }
     }
+    updateTodayButtonStyle();
+    autoUpdateContentTypeFilters(true);
+    updateDisplay(true);
+  };
+
+  $('prevDayBtn').onclick = () => {
+    if (!todayMode) return;
+    todayOffset -= 1;
+    $('prevDayBtn').classList.add('is-pressed');
+    $('nextDayBtn').classList.remove('is-pressed');
+    updateTodayButtonStyle();
+    autoUpdateContentTypeFilters(true);
+    updateDisplay(true);
+  };
+
+  $('nextDayBtn').onclick = () => {
+    if (!todayMode) return;
+    todayOffset += 1;
+    $('nextDayBtn').classList.add('is-pressed');
+    $('prevDayBtn').classList.remove('is-pressed');
+    updateTodayButtonStyle();
+    autoUpdateContentTypeFilters(true);
     updateDisplay(true);
   };
 
@@ -858,6 +1264,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
         const cb = l.querySelector('input');
         if (cb) {
           cb.checked = !cb.checked;
+          if (allConts.includes(cb.value)) manuallyTouchedConts.add(cb.value);
           updateDisplay(true);
           window.scrollTo({ top: 0, behavior: 'instant' });
         }
@@ -865,11 +1272,17 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     });
 
     checkboxes.forEach(cb => cb.onchange = () => {
+      if (allConts.includes(cb.value)) {
+        manuallyTouchedConts.add(cb.value);
+      } else {
+        autoUpdateContentTypeFilters();
+      }
       updateDisplay(true);
       window.scrollTo({ top: 0, behavior: 'instant' });
     });
 
     updateAllBadges();
+      updateManualIndicators();
   };
   bindCheckboxAndLabelEvents();
 
@@ -904,9 +1317,20 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   const resetAll = e => {
     if (e) e.preventDefault();
     checkboxes.forEach(cb => cb.checked = false);
+    manuallyTouchedConts.clear();
     searchInput.value = '';
     updateSearchClearState();
     document.querySelectorAll('.checks-row-years, .checks-row-other').forEach(con => con.scrollLeft = 0);
+    if (todayMode) {
+      todayMode = false;
+      todayOffset = 0;
+      if (preTodaySort !== null) {
+        desc = preTodaySort;
+        $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
+        preTodaySort = null;
+      }
+      updateTodayButtonStyle();
+    }
     window.scrollTo({ top: 0, behavior: 'instant' });
     updateDisplay(true);
   };
@@ -941,7 +1365,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   const VERSION_KEY = 'gl_log_sha';
   const DATA_KEY = 'gl_log_data';
   const CHECK_TIME_KEY = 'gl_log_checked_at';
-  const CHECK_COOLDOWN_MS = 5 * 60 * 1000; // 5分以内の再チェックはスキップ(同一端末でのAPI消費を抑制)
+  const CHECK_COOLDOWN_MS = 1 * 60 * 1000; // 5分以内の再チェックはスキップ(同一端末でのAPI消費を抑制)
 
   const applyLogs = data => {
     // 日付、コンテンツ種類、タイトル、URLがすべて一致する重複データを排除
