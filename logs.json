@@ -1,5 +1,1255 @@
 [
   {
+    "date": "2021.06.13",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "「Lucky²」結成(lovely²・キラメキパワーズ!出演者6名)",
+    "display_pc": "「Lucky²」結成(lovely²・キラメキパワーズ!出演者6名)",
+    "display_sm": "「Lucky²」結成(lovely²・キラメキパワーズ!出演者6名)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "結成"
+    ]
+  },
+  {
+    "date": "2021.07.05",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "山口莉愛・杉浦優來「おはスタ」出演スタート(見習い調査隊員)",
+    "display_pc": "山口莉愛・杉浦優來「おはスタ」出演スタート(見習い調査隊員)",
+    "display_sm": "山口莉愛・杉浦優來「おはスタ」出演スタート(見習い調査隊員)",
+    "url": "",
+    "groups": [
+      "RIN",
+      "YUR"
+    ],
+    "relations": [],
+    "tags": [
+      "おはスタ"
+    ]
+  },
+  {
+    "date": "2021.07.11",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "「ビッ友×戦士 キラメキパワーズ!」放送開始",
+    "display_pc": "「ビッ友×戦士 キラメキパワーズ!」放送開始",
+    "display_sm": "「ビッ友×戦士 キラメキパワーズ!」放送開始",
+    "url": "",
+    "groups": [
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ドラマ"
+    ]
+  },
+  {
+    "date": "2021.09.22",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "1stシングル「Fun!Fun!Fun! 〜夢∞〜」でメジャーデビュー",
+    "display_pc": "1stシングル「Fun!Fun!Fun! 〜夢∞〜」でメジャーデビュー",
+    "display_sm": "1stシングル「Fun!Fun!Fun! 〜夢∞〜」でメジャーデビュー",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "デビュー",
+      "シングル"
+    ]
+  },
+  {
+    "date": "2021.10.01",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "メンバー全員が「おはガール」としてレギュラー出演を発表",
+    "display_pc": "メンバー全員が「おはガール」としてレギュラー出演を発表",
+    "display_sm": "メンバー全員が「おはガール」としてレギュラー出演を発表",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "おはスタ",
+      "おはガール"
+    ]
+  },
+  {
+    "date": "2021.10.04",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "「おはガール from Lucky²」としておはスタレギュラー出演開始",
+    "display_pc": "「おはガール from Lucky²」としておはスタレギュラー出演開始",
+    "display_sm": "「おはガール from Lucky²」としておはスタレギュラー出演開始",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "おはスタ"
+    ]
+  },
+  {
+    "date": "2021.11.03",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "1stミニアルバム「キミすき」発売",
+    "display_pc": "1stミニアルバム「キミすき」発売",
+    "display_sm": "1stミニアルバム「キミすき」発売",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ミニアルバム"
+    ]
+  },
+  {
+    "date": "2021.11.17",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "楽曲「Lucky Time」配信開始",
+    "display_pc": "楽曲「Lucky Time」配信開始",
+    "display_sm": "楽曲「Lucky Time」配信開始",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "配信"
+    ]
+  },
+  {
+    "date": "2022.01.10",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "「ガル学。II〜Lucky Stars〜」おはスタ内で放送開始",
+    "display_pc": "「ガル学。II〜Lucky Stars〜」おはスタ内で放送開始",
+    "display_sm": "「ガル学。II〜Lucky Stars〜」おはスタ内で放送開始",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "アニメ"
+    ]
+  },
+  {
+    "date": "2022.02.27",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "EP「Brand New World! / DISCO TIME」6/1発売発表。新メンバー3名加入(9人体制へ)",
+    "display_pc": "EP「Brand New World! / DISCO TIME」6/1発売発表。新メンバー3名加入(9人体制へ)",
+    "display_sm": "EP「Brand New World! / DISCO TIME」6/1発売発表。新メンバー3名加入(9人体制へ)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "加入"
+    ]
+  },
+  {
+    "date": "2022.03.18",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "「ガル学。II〜Lucky Stars〜」完結。6名のおはガール卒業を発表",
+    "display_pc": "「ガル学。II〜Lucky Stars〜」完結。6名のおはガール卒業を発表",
+    "display_sm": "「ガル学。II〜Lucky Stars〜」完結。6名のおはガール卒業を発表",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "おはスタ"
+    ]
+  },
+  {
+    "date": "2022.03.23",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "アルバム「ガル学。II - Lucky Stars - コンプリートベスト」発売",
+    "display_pc": "アルバム「ガル学。II - Lucky Stars - コンプリートベスト」発売",
+    "display_sm": "アルバム「ガル学。II - Lucky Stars - コンプリートベスト」発売",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ベストアルバム"
+    ]
+  },
+  {
+    "date": "2022.03.25",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "6名が「おはガール」卒業。1stライブツアー開催を発表",
+    "display_pc": "6名が「おはガール」卒業。1stライブツアー開催を発表",
+    "display_sm": "6名が「おはガール」卒業。1stライブツアー開催を発表",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "卒業",
+      "おはガール"
+    ]
+  },
+  {
+    "date": "2022.06.01",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "1st EP「Brand New World! / DISCO TIME」発売。上村梨々香・森朱里・佐藤妃希が加入",
+    "display_pc": "1st EP「Brand New World! / DISCO TIME」発売。上村梨々香・森朱里・佐藤妃希が加入",
+    "display_sm": "1st EP「Brand New World! / DISCO TIME」発売。上村梨々香・森朱里・佐藤妃希が加入",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "EP",
+      "加入"
+    ]
+  },
+  {
+    "date": "2022.06.26",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "「ビッ友×戦士 キラメキパワーズ!」放送終了(全50話)",
+    "display_pc": "「ビッ友×戦士 キラメキパワーズ!」放送終了(全50話)",
+    "display_sm": "「ビッ友×戦士 キラメキパワーズ!」放送終了(全50話)",
+    "url": "",
+    "groups": [
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ドラマ"
+    ]
+  },
+  {
+    "date": "2022.07.03",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "初のライブツアー「Lucky² First Live Tour - Brand New World! -」愛知公演(Zepp Nagoya)",
+    "display_pc": "初のライブツアー「Lucky² First Live Tour - Brand New World! -」愛知公演(Zepp Nagoya)",
+    "display_sm": "初のライブツアー「Lucky² First Live Tour - Brand New World! -」愛知公演(Zepp Nagoya)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー",
+      "Zepp Nagoya"
+    ]
+  },
+  {
+    "date": "2022.07.23",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Lucky² First Live Tour - Brand New World! -」大阪公演(Zepp Namba OSAKA)",
+    "display_pc": "「Lucky² First Live Tour - Brand New World! -」大阪公演(Zepp Namba OSAKA)",
+    "display_sm": "「Lucky² First Live Tour - Brand New World! -」大阪公演(Zepp Namba OSAKA)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2022.08.09",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "「CL 2nd Anniversary CL25 Dream For All OPENING FES」出演",
+    "display_pc": "「CL 2nd Anniversary CL25 Dream For All OPENING FES」出演",
+    "display_sm": "「CL 2nd Anniversary CL25 Dream For All OPENING FES」出演",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "フェス"
+    ]
+  },
+  {
+    "date": "2022.08.20",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Lucky² First Live Tour - Brand New World! -」東京公演(Zepp DiverCity TOKYO)",
+    "display_pc": "「Lucky² First Live Tour - Brand New World! -」東京公演(Zepp DiverCity TOKYO)",
+    "display_sm": "「Lucky² First Live Tour - Brand New World! -」東京公演(Zepp DiverCity TOKYO)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2022.10.26",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "2ndシングル「アイコトバ」発売",
+    "display_pc": "2ndシングル「アイコトバ」発売",
+    "display_sm": "2ndシングル「アイコトバ」発売",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "シングル"
+    ]
+  },
+  {
+    "date": "2022.12.25",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "「リズスタ -Top of Artists!-」放送終了(全38話)",
+    "display_pc": "「リズスタ -Top of Artists!-」放送終了(全38話)",
+    "display_sm": "「リズスタ -Top of Artists!-」放送終了(全38話)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ドラマ終了"
+    ]
+  },
+  {
+    "date": "2023.02.22",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "3rdシングル「ラキラキLOVE!」発売",
+    "display_pc": "3rdシングル「ラキラキLOVE!」発売",
+    "display_sm": "3rdシングル「ラキラキLOVE!」発売",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "シングル"
+    ]
+  },
+  {
+    "date": "2023.08.05",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "2ndライブツアー「Lucky² LIVE TOUR 2023 “Happy Summer”」愛知公演(Zepp Nagoya)",
+    "display_pc": "2ndライブツアー「Lucky² LIVE TOUR 2023 “Happy Summer”」愛知公演(Zepp Nagoya)",
+    "display_sm": "2ndライブツアー「Lucky² LIVE TOUR 2023 “Happy Summer”」愛知公演(Zepp Nagoya)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.08.06",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Lucky² LIVE TOUR 2023 “Happy Summer”」大阪公演(Zepp OSAKA Bayside)",
+    "display_pc": "「Lucky² LIVE TOUR 2023 “Happy Summer”」大阪公演(Zepp OSAKA Bayside)",
+    "display_sm": "「Lucky² LIVE TOUR 2023 “Happy Summer”」大阪公演(Zepp OSAKA Bayside)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.08.13",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Lucky² LIVE TOUR 2023 “Happy Summer”」東京公演(Zepp Haneda・昼夜2公演)",
+    "display_pc": "「Lucky² LIVE TOUR 2023 “Happy Summer”」東京公演(Zepp Haneda・昼夜2公演)",
+    "display_sm": "「Lucky² LIVE TOUR 2023 “Happy Summer”」東京公演(Zepp Haneda・昼夜2公演)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.10.04",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "2nd EP「夢空に羽」発売",
+    "display_pc": "2nd EP「夢空に羽」発売",
+    "display_sm": "2nd EP「夢空に羽」発売",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2024.02.28",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "3rd EP「ずっとずっとずっと」発売",
+    "display_pc": "3rd EP「ずっとずっとずっと」発売",
+    "display_sm": "3rd EP「ずっとずっとずっと」発売",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2024.07.03",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "4th EP「こくご・さんすう・りか・恋愛!」発売",
+    "display_pc": "4th EP「こくご・さんすう・りか・恋愛!」発売",
+    "display_sm": "4th EP「こくご・さんすう・りか・恋愛!」発売",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2024.12.02",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "3rdライブツアー「Lucky² LIVE TOUR 2024 “四つ葉のクローバー”」大阪公演(BIGCAT)",
+    "display_pc": "3rdライブツアー「Lucky² LIVE TOUR 2024 “四つ葉のクローバー”」大阪公演(BIGCAT)",
+    "display_sm": "3rdライブツアー「Lucky² LIVE TOUR 2024 “四つ葉のクローバー”」大阪公演(BIGCAT)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2024.12.14",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Lucky² LIVE TOUR 2024 “四つ葉のクローバー”」名古屋公演(ボトムライン・昼夜2公演)",
+    "display_pc": "「Lucky² LIVE TOUR 2024 “四つ葉のクローバー”」名古屋公演(ボトムライン・昼夜2公演)",
+    "display_sm": "「Lucky² LIVE TOUR 2024 “四つ葉のクローバー”」名古屋公演(ボトムライン・昼夜2公演)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2024.12.18",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Lucky² LIVE TOUR 2024 “四つ葉のクローバー”」東京公演(ヒューリックホール東京)",
+    "display_pc": "「Lucky² LIVE TOUR 2024 “四つ葉のクローバー”」東京公演(ヒューリックホール東京)",
+    "display_sm": "「Lucky² LIVE TOUR 2024 “四つ葉のクローバー”」東京公演(ヒューリックホール東京)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2024.12.18",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "1stフルアルバム「CLOVER」発売",
+    "display_pc": "1stフルアルバム「CLOVER」発売",
+    "display_sm": "1stフルアルバム「CLOVER」発売",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "フルアルバム"
+    ]
+  },
+  {
+    "date": "2025.03.31",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "杉浦優來がグループを卒業",
+    "display_pc": "杉浦優來がグループを卒業",
+    "display_sm": "杉浦優來がグループを卒業",
+    "url": "",
+    "groups": [
+      "YUR"
+    ],
+    "relations": [],
+    "tags": [
+      "卒業"
+    ]
+  },
+  {
+    "date": "2025.07.13",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "配信限定シングル「Unicorn Dance」配信開始",
+    "display_pc": "配信限定シングル「Unicorn Dance」配信開始",
+    "display_sm": "配信限定シングル「Unicorn Dance」配信開始",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "配信限定シングル"
+    ]
+  },
+  {
+    "date": "2025.09.22",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "グループ名を「Laki」に改名",
+    "display_pc": "グループ名を「Laki」に改名",
+    "display_sm": "グループ名を「Laki」に改名",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "改名"
+    ]
+  },
+  {
+    "date": "2025.11.07",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "Laki改名後初のライブツアー「Laki LIVE TOUR 2025 -Infinity-」東京公演(Zepp DiverCity)",
+    "display_pc": "Laki改名後初のライブツアー「Laki LIVE TOUR 2025 -Infinity-」東京公演(Zepp DiverCity)",
+    "display_sm": "Laki改名後初のライブツアー「Laki LIVE TOUR 2025 -Infinity-」東京公演(Zepp DiverCity)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.11.09",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Laki LIVE TOUR 2025 -Infinity-」福岡公演(UNITED LAB)",
+    "display_pc": "「Laki LIVE TOUR 2025 -Infinity-」福岡公演(UNITED LAB)",
+    "display_sm": "「Laki LIVE TOUR 2025 -Infinity-」福岡公演(UNITED LAB)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.11.16",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Laki LIVE TOUR 2025 -Infinity-」大阪公演(Zepp Namba OSAKA)",
+    "display_pc": "「Laki LIVE TOUR 2025 -Infinity-」大阪公演(Zepp Namba OSAKA)",
+    "display_sm": "「Laki LIVE TOUR 2025 -Infinity-」大阪公演(Zepp Namba OSAKA)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.11.24",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Laki LIVE TOUR 2025 -Infinity-」名古屋公演(COMTEC PORTBASE)",
+    "display_pc": "「Laki LIVE TOUR 2025 -Infinity-」名古屋公演(COMTEC PORTBASE)",
+    "display_sm": "「Laki LIVE TOUR 2025 -Infinity-」名古屋公演(COMTEC PORTBASE)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.12.24",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "5th EP「Infinity」発売",
+    "display_pc": "5th EP「Infinity」発売",
+    "display_sm": "5th EP「Infinity」発売",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2026.04.11",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "配信限定シングル「Starry pop Canvas」配信開始",
+    "display_pc": "配信限定シングル「Starry pop Canvas」配信開始",
+    "display_sm": "配信限定シングル「Starry pop Canvas」配信開始",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "配信限定シングル"
+    ]
+  },
+  {
+    "date": "2026.04.18",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "配信限定シングル「Pancake」配信開始",
+    "display_pc": "配信限定シングル「Pancake」配信開始",
+    "display_sm": "配信限定シングル「Pancake」配信開始",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "配信限定シングル"
+    ]
+  },
+  {
+    "date": "2026.04.25",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "ミュージックカード「Pancake」発売、配信限定シングル「Gimme 143」配信開始",
+    "display_pc": "ミュージックカード「Pancake」発売、配信限定シングル「Gimme 143」配信開始",
+    "display_sm": "ミュージックカード「Pancake」発売、配信限定シングル「Gimme 143」配信開始",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ミュージックカード",
+      "配信限定シングル"
+    ]
+  },
+  {
+    "date": "2026.04.25",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Laki LIVE TOUR 2026 -Ambition-」愛知公演(ダイアモンドホール)",
+    "display_pc": "「Laki LIVE TOUR 2026 -Ambition-」愛知公演(ダイアモンドホール)",
+    "display_sm": "「Laki LIVE TOUR 2026 -Ambition-」愛知公演(ダイアモンドホール)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2026.04.26",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Laki LIVE TOUR 2026 -Ambition-」東京公演(ヒューリックホール東京)",
+    "display_pc": "「Laki LIVE TOUR 2026 -Ambition-」東京公演(ヒューリックホール東京)",
+    "display_sm": "「Laki LIVE TOUR 2026 -Ambition-」東京公演(ヒューリックホール東京)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2026.04.29",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Laki LIVE TOUR 2026 -Ambition-」大阪公演(なんばHatch)",
+    "display_pc": "「Laki LIVE TOUR 2026 -Ambition-」大阪公演(なんばHatch)",
+    "display_sm": "「Laki LIVE TOUR 2026 -Ambition-」大阪公演(なんばHatch)",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2026.09.30",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "2ndフルアルバム「WORK≒LiFE」発売",
+    "display_pc": "2ndフルアルバム「WORK≒LiFE」発売",
+    "display_sm": "2ndフルアルバム「WORK≒LiFE」発売",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "フルアルバム"
+    ]
+  },
+  {
+    "date": "2008.11.22",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "山口莉愛 誕生日",
+    "display_pc": "山口莉愛 誕生日",
+    "display_sm": "山口莉愛 誕生日",
+    "url": "",
+    "groups": [
+      "RIN"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2010.01.12",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "永山椿 誕生日",
+    "display_pc": "永山椿 誕生日",
+    "display_sm": "永山椿 誕生日",
+    "url": "",
+    "groups": [
+      "TBK"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2006.11.11",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "深澤日彩 誕生日",
+    "display_pc": "深澤日彩 誕生日",
+    "display_sm": "深澤日彩 誕生日",
+    "url": "",
+    "groups": [
+      "HIR"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2007.11.24",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "比嘉優和 誕生日",
+    "display_pc": "比嘉優和 誕生日",
+    "display_sm": "比嘉優和 誕生日",
+    "url": "",
+    "groups": [
+      "YUW"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2007.09.22",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "佐藤栞奈 誕生日",
+    "display_pc": "佐藤栞奈 誕生日",
+    "display_sm": "佐藤栞奈 誕生日",
+    "url": "",
+    "groups": [
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2009.05.27",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "上村梨々香 誕生日",
+    "display_pc": "上村梨々香 誕生日",
+    "display_sm": "上村梨々香 誕生日",
+    "url": "",
+    "groups": [
+      "RRK"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2008.04.17",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "森朱里 誕生日",
+    "display_pc": "森朱里 誕生日",
+    "display_sm": "森朱里 誕生日",
+    "url": "",
+    "groups": [
+      "AKR"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2009.01.25",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "佐藤妃希 誕生日",
+    "display_pc": "佐藤妃希 誕生日",
+    "display_sm": "佐藤妃希 誕生日",
+    "url": "",
+    "groups": [
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2007.01.05",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "杉浦優來 誕生日",
+    "display_pc": "杉浦優來 誕生日",
+    "display_sm": "杉浦優來 誕生日",
+    "url": "",
+    "groups": [
+      "YUR"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日",
+      "元メンバー"
+    ]
+  },
+  {
   "date": "2026.08.29",
   "time": "1800",
   "contents": "CL",
