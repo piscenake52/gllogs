@@ -1,5 +1,69 @@
 [
   {
+  "date": "2026.08.29",
+  "time": "1800",
+  "contents": "CL",
+  "title": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
+  "display": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
+  "display_pc": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
+  "display_sm": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
+  "url": "https://www.cl-live.com/programs/ondemand/gmefSCfFyLU5iMMQWiQYJJ",
+  "groups": [
+    "G2"
+  ],
+  "relations": [],
+  "tags": [
+    "Girls²",
+    "日本武道館",
+    "CL"
+  ]
+  },
+  {
+    "date": "2026.08.29",
+    "time": "1630",
+    "contents": "CL",
+    "title": "CLキャス",
+    "display_pc": "CLキャス",
+    "display_sm": "CLキャス",
+    "url": "https://www.cl-live.com/programs/cast/ekRJ15RTURG7SPqY2VB7ea?utm_medium=referral&utm_source=referral&utm_campaign=url_share",
+    "groups": [
+      "L2",
+      "TBK",
+      "HIR"
+    ],
+    "relations": ["RIN"],
+    "tags": [
+      "CL",
+      "ライブ配信"
+    ]
+  },
+  {
+    "date": "2026.08.29",
+    "time": "2030",
+    "contents": "YOUTUBE",
+    "title": "「WORK≒LiFE」Music Video公開直前生配信",
+    "display_pc": "「WORK≒LiFE」Music Video公開直前生配信",
+    "display_sm": "「WORK≒LiFE」MV公開直前生配信",
+    "url": "https://www.youtube.com/live/q86WovvdUVM?si=Wh2HSQO2CB-t2vhi",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "WORK≒LiFE",
+      "生配信"
+    ]
+  },
+  {
     "date": "2024.05.31",
     "time": "1200",
     "contents": "DIARY",
