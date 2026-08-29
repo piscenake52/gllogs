@@ -43593,8 +43593,8 @@
     "time": "1910",
     "contents": "LIVE",
     "title": "Laki「超WEGO2026」出演　19:10-19:30",
-    "display_pc": "超WEGO2026",
-    "display_sm": "超WEGO2026",
+    "display_pc": "Laki 超WEGO2026",
+    "display_sm": "Laki 超WEGO2026",
     "url": "https://girls2-fc.jp/page/familyNews/1214912420577804288",
     "groups": [
       "L2",
@@ -44199,7 +44199,7 @@
     "contents": "MEDIA",
     "title": "ENCOUNT Girls²サイン入りチェキプレゼント応募受付締切",
     "display_pc": "ENCOUNT Girls²サイン入りチェキプレゼント応募受付締切",
-    "display_sm": "ENCOUNT サイン入チェキプレゼント応募受付締切",
+    "display_sm": "ENCOUNT Girls²サイン入りチェキプレゼント応募受付締切",
     "url": "https://encount.press/archives/1025137/",
     "groups": [
       "G2",
@@ -44223,7 +44223,7 @@
     "contents": "GOODS",
     "title": "「LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-」ORDER ITEM 受注販売開始",
     "display_pc": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST- ORDER ITEM受注販売開始",
-    "display_sm": "LDH LIVE-EXPO 2026 ORDER ITEM受注販売開始",
+    "display_sm": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST- ORDER ITEM受注販売開始",
     "url": "https://girls2-fc.jp/page/familyNews/1222843017472245762",
     "groups": [
       "G2",
@@ -44277,7 +44277,7 @@
     "contents": "ETC",
     "title": "Laki 5th Anniversary Live -L∞K UP- チケット一般発売開始",
     "display_pc": "Laki 5th Anniversary Live -L∞K UP- チケット一般発売開始",
-    "display_sm": "5周年 Live -L∞K UP- チケット一般発売開始",
+    "display_sm": "Laki 5th Anniversary Live -L∞K UP- チケット一般発売開始",
     "url": "https://girls2-fc.jp/page/events/Laki5thAnnivLP",
     "groups": [
       "L2",
@@ -44303,7 +44303,7 @@
     "contents": "ETC",
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- \"Christmas Special\" GL² family・GL² friend会員抽選当選発表",
     "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special GL² family・GL² friend会員抽選当選発表",
-    "display_sm": "LIVE TOUR 2026 -Seven Blooms Beyond- Xmass SP FC会員抽選当選発表",
+    "display_sm": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special GL² family・GL² friend会員抽選当選発表",
     "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
     "groups": [
       "G2",
@@ -44321,32 +44321,13 @@
       "ファンクラブ"
     ]
   },
-{
-"date": "2026.06.26",
-"time": "1800",
-"contents": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
-"title": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
-"display": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
-"display_pc": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
-"display_sm": "7周年 Seven×Seven in Bloom -The Live- Behind The Scenes",
-"url": "https://www.cl-live.com/programs/ondemand/gmefSCfFyLU5iMMQWiQYJJ",
-"groups": [
-  "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
-],
-"relations": [],
-"tags": [
-  "Girls²",
-  "日本武道館",
-  "CL","リハーサル"
-]
-}
   {
     "date": "2026.08.29",
     "time": "1500",
     "contents": "ETC",
     "title": "NATSLIVE「Lakiガチャクッキング」 ＃013 一般会員先行観覧申込当選連絡",
-    "display_pc": "Lakiガチャクッキング ＃013 一般会員先行観覧申込当選連絡",
-    "display_sm": "Lakiガチャクッキング 一般会員観覧当選連絡",
+    "display_pc": "NATSLIVE「Lakiガチャクッキング」 ＃013 一般会員先行観覧申込当選連絡",
+    "display_sm": "NATSLIVE「Lakiガチャクッキング」 ＃013 一般会員先行観覧申込当選連絡",
     "url": "",
     "groups": [
       "L2",
@@ -44359,51 +44340,6 @@
     "tags": [
       "NATSLIVE",
       "イベント"
-    ]
-  },
-  {
-    "date": "2026.08.29",
-    "time": "1630",
-    "contents": "CL",
-    "title": "CLキャス",
-    "display_pc": "CLキャス",
-    "display_sm": "CLキャス",
-    "url": "https://www.cl-live.com/programs/cast/ekRJ15RTURG7SPqY2VB7ea?utm_medium=referral&utm_source=referral&utm_campaign=url_share",
-    "groups": [
-      "L2",
-      "TBK",
-      "HIR"
-    ],
-    "relations": ["RIN"],
-    "tags": [
-      "CL",
-      "ライブ配信"
-    ]
-  },
-  {
-    "date": "2026.08.29",
-    "time": "2030",
-    "contents": "YOUTUBE",
-    "title": "「WORK≒LiFE」Music Video公開直前生配信",
-    "display_pc": "「WORK≒LiFE」Music Video公開直前生配信",
-    "display_sm": "「WORK≒LiFE」MV公開直前生配信",
-    "url": "https://www.youtube.com/live/q86WovvdUVM?si=Wh2HSQO2CB-t2vhi",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "tags": [
-      "WORK≒LiFE",
-      "生配信"
     ]
   },
   {
@@ -44438,7 +44374,7 @@
     "contents": "ETC",
     "title": "BOOK ACT Z 2026「芸人交換日記」 GL² family・GL² friend先行チケット抽選申込受付締切",
     "display_pc": "BOOK ACT Z 2026「芸人交換日記」 GL² family・GL² friend先行チケット抽選申込受付締切",
-    "display_sm": "BOOK ACT Z 2026 GL²family・friend先行チケット抽選申込受付締切",
+    "display_sm": "BOOK ACT Z 2026「芸人交換日記」 GL² family・GL² friend先行チケット抽選申込受付締切",
     "url": "https://girls2-fc.jp/page/familyNews/1219233405481254914",
     "groups": [
       "G2",
