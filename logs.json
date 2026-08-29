@@ -1101,7 +1101,7 @@
     ],
     "relations": [],
     "tags": [
-      "フルアルバム"
+      "フルアルバム","WORKLIFE"
     ]
   },
   {
@@ -1298,7 +1298,6 @@
     "groups": [
       "L2",
       "RIN",
-      "YUR",
       "TBK",
       "HIR",
       "YUW",
@@ -1309,7 +1308,7 @@
     ],
     "relations": [],
     "tags": [
-      "WORK≒LiFE",
+      "WORK≒LiFE","WORKLIFE",
       "生配信"
     ]
   },
@@ -44769,11 +44768,10 @@
     "title": "『WORK≒LiFE』MV公開",
     "display_pc": "「WORK≒LiFE」MV公開",
     "display_sm": "「WORK≒LiFE」MV公開",
-    "url": "",
+    "url": "https://youtu.be/CmZVZRhc7kQ?si=VGueaPY8EI2iSZHX",
     "groups": [
       "L2",
       "RIN",
-      "YUR",
       "TBK",
       "HIR",
       "YUW",
@@ -44784,7 +44782,7 @@
     ],
     "relations": [],
     "tags": [
-      "MV",
+      "MV","WORKLIFE",
       "YouTube"
     ]
   },
@@ -44844,7 +44842,7 @@
       "KIK"
     ],
     "relations": [],
-    "tags": []
+    "tags": [,"WORKLIFE"]
   },
   {
     "date": "2026.09.30",
@@ -44867,7 +44865,7 @@
     ],
     "relations": [],
     "tags": [
-      "WORK≒LiFE",
+      "WORK≒LiFE","WORKLIFE",
       "Gimme 143",
       "Pancake",
       "Unicorn Dance",
@@ -45131,7 +45129,7 @@
     ],
     "relations": [],
     "tags": [
-      "新星堂アスナル金山店",
+      "WORK≒LiFE","WORKLIFE","新星堂アスナル金山店",
       "オリジナル色紙サイン会",
       "3ショットチェキ会"
     ]
@@ -45157,7 +45155,7 @@
     ],
     "relations": [],
     "tags": [
-      "アリオ鳳",
+        "WORK≒LiFE","WORKLIFE","アリオ鳳",
       "オリジナル色紙サイン会",
       "3ショットチェキ会"
     ]
@@ -45183,7 +45181,7 @@
     ],
     "relations": [],
     "tags": [
-      "ララガーデン長町1F おとのひろば",
+      "WORK≒LiFE","WORKLIFE","ララガーデン長町1F おとのひろば",
       "オリジナル色紙サイン会",
       "3ショットチェキ会"
     ]
@@ -45209,6 +45207,7 @@
     ],
     "relations": [],
     "tags": [
+      "WORK≒LiFE","WORKLIFE",
       "タワーレコード横浜ビブレ",
       "オリジナル色紙サイン会",
       "3ショットチェキ会"
@@ -45256,6 +45255,7 @@
     ],
     "relations": [],
     "tags": [
+      "WORK≒LiFE","WORKLIFE",
       "リミスタ"
     ]
   },
@@ -45280,6 +45280,7 @@
     ],
     "relations": [],
     "tags": [
+      "WORK≒LiFE","WORKLIFE",
       "リミスタ"
     ]
   },
@@ -45375,6 +45376,7 @@
     ],
     "relations": [],
     "tags": [
+      "WORK≒LiFE","WORKLIFE",
       "新星堂アスナル金山店",
       "オリジナル色紙サイン会",
       "3ショットチェキ会"
