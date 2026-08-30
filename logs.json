@@ -2294,6 +2294,75 @@
     ]
   },
   {
+    "date": "2026.10.04",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」福岡公演(福岡国際会議場)",
+    "display_pc": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」福岡公演(福岡国際会議場)",
+    "display_sm": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」福岡公演(福岡国際会議場)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2026.10.10",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」愛知公演(Niterra日本特殊陶業市民会館)",
+    "display_pc": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」愛知公演(Niterra日本特殊陶業市民会館)",
+    "display_sm": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」愛知公演(Niterra日本特殊陶業市民会館)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2026.10.18",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」大阪公演(NHK大阪ホール)",
+    "display_pc": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」大阪公演(NHK大阪ホール)",
+    "display_sm": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」大阪公演(NHK大阪ホール)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
     "date": "2004.11.07",
     "time": "0000",
     "contents": "BIRTHDAY",
@@ -3586,6 +3655,30 @@
     "relations": [],
     "tags": [
       "ライブツアー"
+    ]
+  },
+  {
+    "date": "2026.09.30",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "2ndフルアルバム「WORK≒LiFE」発売",
+    "display_pc": "2ndフルアルバム「WORK≒LiFE」発売",
+    "display_sm": "2ndフルアルバム「WORK≒LiFE」発売",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "フルアルバム"
     ]
   },
   {
@@ -47325,11 +47418,11 @@
   },
   {
     "date": "2026.09.30",
-    "time": "0000",
+    "time": "1200",
     "contents": "RELEASE",
     "title": "Laki 2nd ALBUM「WORK≒LiFE」リリース",
-    "display_pc": "Laki 2nd ALBUM「WORK≒LiFE」リリース",
-    "display_sm": "2nd AL「WORK≒LiFE」リリース",
+    "display_pc": "Laki 2nd AL「WORK≒LiFE」リリース",
+    "display_sm": "Laki 2nd AL「WORK≒LiFE」リリース",
     "url": "https://girls2-fc.jp/page/familyNews/1202914447505489922",
     "groups": [
       "L2",
@@ -47356,12 +47449,12 @@
     ]
   },
   {
-    "date": "2026.11.11",
-    "time": "0000",
+    "date": "2026.10.04",
+    "time": "1200",
     "contents": "RELEASE",
     "title": "Girls² EP「EASY」リリース",
-    "display_pc": "Girls²「EASY」リリース",
-    "display_sm": "EP「EASY」リリース",
+    "display_pc": "Girls² EP「EASY」リリース",
+    "display_sm": "Girls² EP「EASY」リリース",
     "url": "https://girls2-fc.jp/page/news/1220569487942615041",
     "groups": [
       "G2",
@@ -47375,7 +47468,7 @@
     ],
     "relations": [],
     "tags": [
-      "EASY","Nocturne","Girls PARADE"
+      "EASY Nocturne",
       "Girls² 7th Anniversary Seven×Seven in Bloom -The Live-"
     ]
   },
@@ -47407,11 +47500,11 @@
   },
   {
     "date": "2026.10.04",
-    "time": "1700",
+    "time": "1200",
     "contents": "LIVE",
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 福岡",
     "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 福岡",
-    "display_sm": "LIVE TOUR 2026 -Seven Blooms Beyond- 福岡",
+    "display_sm": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 福岡",
     "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
     "groups": [
       "G2",
@@ -47430,11 +47523,11 @@
   },
   {
     "date": "2026.10.04",
-    "time": "1700",
+    "time": "1200",
     "contents": "LIVE",
     "title": "Laki 5th Anniversary Live -L∞K UP-",
     "display_pc": "Laki 5th Anniversary Live -L∞K UP-",
-    "display_sm": "5th Anniversary Live -L∞K UP-",
+    "display_sm": "Laki 5th Anniversary Live -L∞K UP-",
     "url": "https://girls2-fc.jp/page/events/Laki5thAnnivLP",
     "groups": [
       "L2",
@@ -47454,11 +47547,11 @@
   },
   {
     "date": "2026.10.10",
-    "time": "1630",
+    "time": "1200",
     "contents": "LIVE",
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 愛知",
     "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 愛知",
-    "display_sm": "LIVE TOUR 2026 -Seven Blooms Beyond- 愛知",
+    "display_sm": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 愛知",
     "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
     "groups": [
       "G2",
@@ -47477,11 +47570,11 @@
   },
   {
     "date": "2026.10.18",
-    "time": "1630",
+    "time": "1200",
     "contents": "LIVE",
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 大阪",
     "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 大阪",
-    "display_sm": "LIVE TOUR 2026 -Seven Blooms Beyond- 大阪",
+    "display_sm": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 大阪",
     "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
     "groups": [
       "G2",
@@ -47525,7 +47618,7 @@
       "AKR",
       "KIK"
     ],
-    "relations": ["TOA"],
+    "relations": [],
     "tags": [
       "MUFGスタジアム",
       "国立競技場"
@@ -47558,7 +47651,7 @@
       "AKR",
       "KIK"
     ],
-    "relations": ["TOA"],
+    "relations": [],
     "tags": [
       "MUFGスタジアム",
       "国立競技場"
