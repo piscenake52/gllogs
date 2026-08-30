@@ -1,5 +1,68 @@
 [
   {
+    "date": "2026.08.31",
+    "time": "0000",
+    "contents": "ETC",
+    "title": "「IDOL AND READ 046」サイン入りチェキ応募受付締切",
+    "display_pc": "「IDOL AND READ 046」サイン入りチェキ応募受付締切",
+    "display_sm": "「IDOL AND READ 046」サイン入りチェキ応募受付締切",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "0000",
+    "contents": "ETC",
+    "title": "思い出共有 YUWA DAY",
+    "display_pc": "思い出共有 YUWA DAY",
+    "display_sm": "思い出共有 YUWA DAY",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "2359",
+    "contents": "ETC",
+    "title": "CL26「おもてなしモ〜ニングクッキング！」無料配信終了",
+    "display_pc": "CL26「おもてなしモ〜ニングクッキング！」無料配信終了",
+    "display_sm": "CL26「おもてなしモ〜ニングクッキング！」無料配信終了",
+    "url": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
     "date": "2026.05.09",
     "time": "1200",
     "contents": "DIARY",
@@ -13989,7 +14052,7 @@
     "url": "https://girls2-fc.jp/page/lucky2blogs/981023233442578434",
     "groups": [
       "L2",
-      "ETC"
+      "RIN"
     ],
     "relations": [],
     "tags": []
@@ -14844,7 +14907,7 @@
     "url": "https://girls2-fc.jp/page/lucky2blogs/968858689354072064",
     "groups": [
       "L2",
-      "ETC"
+      "TBK"
     ],
     "relations": [],
     "tags": []
