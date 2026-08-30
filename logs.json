@@ -1107,13 +1107,13 @@
   {
     "date": "2008.11.22",
     "time": "0000",
-    "contents": "EVENT",
+    "contents": "BIRTHDAY",
     "title": "山口莉愛 誕生日",
     "display_pc": "山口莉愛 誕生日",
     "display_sm": "山口莉愛 誕生日",
     "url": "",
     "groups": [
-      "RIN"
+      "L2","RIN"
     ],
     "relations": [],
     "tags": [
@@ -1123,13 +1123,13 @@
   {
     "date": "2010.01.12",
     "time": "0000",
-    "contents": "EVENT",
+    "contents": "BIRTHDAY",
     "title": "永山椿 誕生日",
     "display_pc": "永山椿 誕生日",
     "display_sm": "永山椿 誕生日",
     "url": "",
     "groups": [
-      "TBK"
+      "L2","TBK"
     ],
     "relations": [],
     "tags": [
@@ -1139,13 +1139,13 @@
   {
     "date": "2006.11.11",
     "time": "0000",
-    "contents": "EVENT",
+    "contents": "BIRTHDAY",
     "title": "深澤日彩 誕生日",
     "display_pc": "深澤日彩 誕生日",
     "display_sm": "深澤日彩 誕生日",
     "url": "",
     "groups": [
-      "HIR"
+      "L2","HIR"
     ],
     "relations": [],
     "tags": [
@@ -1155,13 +1155,13 @@
   {
     "date": "2007.11.24",
     "time": "0000",
-    "contents": "EVENT",
+    "contents": "BIRTHDAY",
     "title": "比嘉優和 誕生日",
     "display_pc": "比嘉優和 誕生日",
     "display_sm": "比嘉優和 誕生日",
     "url": "",
     "groups": [
-      "YUW"
+      "L2","YUW"
     ],
     "relations": [],
     "tags": [
@@ -1171,13 +1171,13 @@
   {
     "date": "2007.09.22",
     "time": "0000",
-    "contents": "EVENT",
+    "contents": "BIRTHDAY",
     "title": "佐藤栞奈 誕生日",
     "display_pc": "佐藤栞奈 誕生日",
     "display_sm": "佐藤栞奈 誕生日",
     "url": "",
     "groups": [
-      "KAN"
+      "L2","KAN"
     ],
     "relations": [],
     "tags": [
@@ -1187,13 +1187,13 @@
   {
     "date": "2009.05.27",
     "time": "0000",
-    "contents": "EVENT",
+    "contents": "BIRTHDAY",
     "title": "上村梨々香 誕生日",
     "display_pc": "上村梨々香 誕生日",
     "display_sm": "上村梨々香 誕生日",
     "url": "",
     "groups": [
-      "RRK"
+      "L2","RRK"
     ],
     "relations": [],
     "tags": [
@@ -1203,13 +1203,13 @@
   {
     "date": "2008.04.17",
     "time": "0000",
-    "contents": "EVENT",
+    "contents": "BIRTHDAY",
     "title": "森朱里 誕生日",
     "display_pc": "森朱里 誕生日",
     "display_sm": "森朱里 誕生日",
     "url": "",
     "groups": [
-      "AKR"
+      "L2","AKR"
     ],
     "relations": [],
     "tags": [
@@ -1219,13 +1219,13 @@
   {
     "date": "2009.01.25",
     "time": "0000",
-    "contents": "EVENT",
+    "contents": "BIRTHDAY",
     "title": "佐藤妃希 誕生日",
     "display_pc": "佐藤妃希 誕生日",
     "display_sm": "佐藤妃希 誕生日",
     "url": "",
     "groups": [
-      "KIK"
+      "L2","KIK"
     ],
     "relations": [],
     "tags": [
@@ -1235,13 +1235,13 @@
   {
     "date": "2007.01.05",
     "time": "0000",
-    "contents": "EVENT",
+    "contents": "BIRTHDAY",
     "title": "杉浦優來 誕生日",
     "display_pc": "杉浦優來 誕生日",
     "display_sm": "杉浦優來 誕生日",
     "url": "",
     "groups": [
-      "YUR"
+      "L2","YUR"
     ],
     "relations": [],
     "tags": [
