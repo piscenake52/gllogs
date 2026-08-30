@@ -2363,29 +2363,6 @@
     ]
   },
   {
-    "date": "2026.12.25",
-    "time": "0000",
-    "contents": "LIVE",
-    "title": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」東京公演(Shibuya LOVEZ、Christmas Special)",
-    "display_pc": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」東京公演(Shibuya LOVEZ、Christmas Special)",
-    "display_sm": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」東京公演(Shibuya LOVEZ、Christmas Special)",
-    "url": "",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "relations": [],
-    "tags": [
-      "ライブツアー"
-    ]
-  },
-  {
     "date": "2004.11.07",
     "time": "0000",
     "contents": "BIRTHDAY",
@@ -47682,11 +47659,11 @@
   },
   {
     "date": "2026.12.25",
-    "time": "1200",
+    "time": "1800",
     "contents": "LIVE",
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special",
-    "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special",
-    "display_sm": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special",
+    "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special 東京",
+    "display_sm": "LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special 東京",
     "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
     "groups": [
       "G2",
