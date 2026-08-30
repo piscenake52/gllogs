@@ -1,5 +1,75 @@
 [
   {
+    "date": "2026.08.30",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "私の夏休みPart3✈️✨️",
+    "display_pc": "小田柚葉　私の夏休みPart3✈️✨️",
+    "display_sm": "小田柚葉　私の夏休みPart3✈️✨️",
+    "url": "https://girls2-fc.jp/page/yuzuhaBlog/1223828266880598016",
+    "groups": [
+      "G2","YZH"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.08.30",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "fun:))",
+    "display_pc": "小川桜花　fun:))",
+    "display_sm": "小川桜花　fun:))",
+    "url": "https://girls2-fc.jp/page/youkaBlog/1223828901864669185",
+    "groups": [
+      "G2","YOK"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.08.30",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "可愛い系ᥬ👶🏻ᩤ",
+    "display_pc": "上村梨々香　可愛い系ᥬ👶🏻ᩤ",
+    "display_sm": "上村梨々香　可愛い系ᥬ👶🏻ᩤ",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1223588181127987202",
+    "groups": [
+      "L2","RRK"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.08.30",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "🖤パンダ🐼",
+    "display_pc": "山口莉愛　🖤パンダ🐼",
+    "display_sm": "山口莉愛　🖤パンダ🐼",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1223590006375841794",
+    "groups": [
+      "L2","RIN"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.08.30",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "みんなで出かけたい",
+    "display_pc": "永山椿　みんなで出かけたい",
+    "display_sm": "永山椿　みんなで出かけたい",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1223589189572886528",
+    "groups": [
+      "L2","TBK"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
     "date": "2021.06.13",
     "time": "0000",
     "contents": "EVENT",
@@ -1109,8 +1179,8 @@
     "time": "0000",
     "contents": "BIRTHDAY",
     "title": "山口莉愛 誕生日",
-    "display_pc": "山口莉愛 誕生日",
-    "display_sm": "山口莉愛 誕生日",
+    "display_pc": "山口莉愛　誕生日",
+    "display_sm": "山口莉愛　誕生日",
     "url": "",
     "groups": [
       "L2","RIN"
@@ -1125,8 +1195,8 @@
     "time": "0000",
     "contents": "BIRTHDAY",
     "title": "永山椿 誕生日",
-    "display_pc": "永山椿 誕生日",
-    "display_sm": "永山椿 誕生日",
+    "display_pc": "永山椿　誕生日",
+    "display_sm": "永山椿　誕生日",
     "url": "",
     "groups": [
       "L2","TBK"
@@ -1141,8 +1211,8 @@
     "time": "0000",
     "contents": "BIRTHDAY",
     "title": "深澤日彩 誕生日",
-    "display_pc": "深澤日彩 誕生日",
-    "display_sm": "深澤日彩 誕生日",
+    "display_pc": "深澤日彩　誕生日",
+    "display_sm": "深澤日彩　誕生日",
     "url": "",
     "groups": [
       "L2","HIR"
@@ -1157,8 +1227,8 @@
     "time": "0000",
     "contents": "BIRTHDAY",
     "title": "比嘉優和 誕生日",
-    "display_pc": "比嘉優和 誕生日",
-    "display_sm": "比嘉優和 誕生日",
+    "display_pc": "比嘉優和　誕生日",
+    "display_sm": "比嘉優和　誕生日",
     "url": "",
     "groups": [
       "L2","YUW"
@@ -1173,8 +1243,8 @@
     "time": "0000",
     "contents": "BIRTHDAY",
     "title": "佐藤栞奈 誕生日",
-    "display_pc": "佐藤栞奈 誕生日",
-    "display_sm": "佐藤栞奈 誕生日",
+    "display_pc": "佐藤栞奈　誕生日",
+    "display_sm": "佐藤栞奈　誕生日",
     "url": "",
     "groups": [
       "L2","KAN"
@@ -1189,8 +1259,8 @@
     "time": "0000",
     "contents": "BIRTHDAY",
     "title": "上村梨々香 誕生日",
-    "display_pc": "上村梨々香 誕生日",
-    "display_sm": "上村梨々香 誕生日",
+    "display_pc": "上村梨々香　誕生日",
+    "display_sm": "上村梨々香　誕生日",
     "url": "",
     "groups": [
       "L2","RRK"
@@ -1205,8 +1275,8 @@
     "time": "0000",
     "contents": "BIRTHDAY",
     "title": "森朱里 誕生日",
-    "display_pc": "森朱里 誕生日",
-    "display_sm": "森朱里 誕生日",
+    "display_pc": "森朱里　誕生日",
+    "display_sm": "森朱里　誕生日",
     "url": "",
     "groups": [
       "L2","AKR"
@@ -1221,8 +1291,8 @@
     "time": "0000",
     "contents": "BIRTHDAY",
     "title": "佐藤妃希 誕生日",
-    "display_pc": "佐藤妃希 誕生日",
-    "display_sm": "佐藤妃希 誕生日",
+    "display_pc": "佐藤妃希　誕生日",
+    "display_sm": "佐藤妃希　誕生日",
     "url": "",
     "groups": [
       "L2","KIK"
@@ -1237,16 +1307,15 @@
     "time": "0000",
     "contents": "BIRTHDAY",
     "title": "杉浦優來 誕生日",
-    "display_pc": "杉浦優來 誕生日",
-    "display_sm": "杉浦優來 誕生日",
+    "display_pc": "杉浦優來　誕生日",
+    "display_sm": "杉浦優來　誕生日",
     "url": "",
     "groups": [
       "L2","YUR"
     ],
     "relations": [],
     "tags": [
-      "誕生日",
-      "元メンバー"
+      "誕生日"
     ]
   },
   {
@@ -1258,32 +1327,28 @@
   "display_sm": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
   "url": "https://www.cl-live.com/programs/ondemand/gmefSCfFyLU5iMMQWiQYJJ",
   "groups": [
-    "G2"
+    "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
   ],
-  "relations": [],
+  "relations": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
   "tags": [
-    "Girls²",
-    "日本武道館",
-    "CL"
+    "日本武道館"
   ]
   },
   {
     "date": "2026.08.29",
     "time": "1630",
     "contents": "CL",
-    "title": "CLキャス",
-    "display_pc": "CLキャス",
-    "display_sm": "CLキャス",
+    "title": "CLキャス 深澤日彩",
+    "display_pc": "CLキャス　深澤日彩",
+    "display_sm": "CLキャス　深澤日彩",
     "url": "https://www.cl-live.com/programs/cast/ekRJ15RTURG7SPqY2VB7ea?utm_medium=referral&utm_source=referral&utm_campaign=url_share",
     "groups": [
       "L2",
-      "TBK",
       "HIR"
     ],
-    "relations": ["RIN"],
+    "relations": ["RIN","TBK"],
     "tags": [
-      "CL",
-      "ライブ配信"
+      "CL"
     ]
   },
   {
