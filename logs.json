@@ -2294,75 +2294,6 @@
     ]
   },
   {
-    "date": "2026.10.04",
-    "time": "0000",
-    "contents": "LIVE",
-    "title": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」福岡公演(福岡国際会議場)",
-    "display_pc": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」福岡公演(福岡国際会議場)",
-    "display_sm": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」福岡公演(福岡国際会議場)",
-    "url": "",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "relations": [],
-    "tags": [
-      "ライブツアー"
-    ]
-  },
-  {
-    "date": "2026.10.10",
-    "time": "0000",
-    "contents": "LIVE",
-    "title": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」愛知公演(Niterra日本特殊陶業市民会館)",
-    "display_pc": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」愛知公演(Niterra日本特殊陶業市民会館)",
-    "display_sm": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」愛知公演(Niterra日本特殊陶業市民会館)",
-    "url": "",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "relations": [],
-    "tags": [
-      "ライブツアー"
-    ]
-  },
-  {
-    "date": "2026.10.18",
-    "time": "0000",
-    "contents": "LIVE",
-    "title": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」大阪公演(NHK大阪ホール)",
-    "display_pc": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」大阪公演(NHK大阪ホール)",
-    "display_sm": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」大阪公演(NHK大阪ホール)",
-    "url": "",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "relations": [],
-    "tags": [
-      "ライブツアー"
-    ]
-  },
-  {
     "date": "2004.11.07",
     "time": "0000",
     "contents": "BIRTHDAY",
@@ -47500,7 +47431,7 @@
   },
   {
     "date": "2026.10.04",
-    "time": "1200",
+    "time": "1700",
     "contents": "LIVE",
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 福岡",
     "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 福岡",
@@ -47523,7 +47454,7 @@
   },
   {
     "date": "2026.10.04",
-    "time": "1200",
+    "time": "1700",
     "contents": "LIVE",
     "title": "Laki 5th Anniversary Live -L∞K UP-",
     "display_pc": "Laki 5th Anniversary Live -L∞K UP-",
@@ -47618,7 +47549,7 @@
       "AKR",
       "KIK"
     ],
-    "relations": [],
+    "relations": ["TOA"],
     "tags": [
       "MUFGスタジアム",
       "国立競技場"
@@ -47651,7 +47582,7 @@
       "AKR",
       "KIK"
     ],
-    "relations": [],
+    "relations": ["TOA"],
     "tags": [
       "MUFGスタジアム",
       "国立競技場"
