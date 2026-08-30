@@ -1,5 +1,2535 @@
 [
   {
+    "date": "2019.03.29",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "Girls²結成(miracle²+magical²+mirage²から8名)",
+    "display_pc": "Girls²結成(miracle²+magical²+mirage²から8名)",
+    "display_sm": "Girls²結成(miracle²+magical²+mirage²から8名)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "結成"
+    ]
+  },
+  {
+    "date": "2019.03.29",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「magical² SPECIAL LIVE」大阪公演にて結成・メジャーデビューを発表、初パフォーマンス",
+    "display_pc": "「magical² SPECIAL LIVE」大阪公演にて結成・メジャーデビューを発表、初パフォーマンス",
+    "display_sm": "「magical² SPECIAL LIVE」大阪公演にて結成・メジャーデビューを発表、初パフォーマンス",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブ"
+    ]
+  },
+  {
+    "date": "2019.04.08",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "5名が「おはガール from Girls²」としておはスタレギュラー出演開始",
+    "display_pc": "5名が「おはガール from Girls²」としておはスタレギュラー出演開始",
+    "display_sm": "5名が「おはガール from Girls²」としておはスタレギュラー出演開始",
+    "url": "",
+    "groups": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
+    ],
+    "relations": [],
+    "tags": [
+      "おはスタ"
+    ]
+  },
+  {
+    "date": "2019.06.26",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "1stシングル「ダイジョウブ」発売",
+    "display_pc": "1stシングル「ダイジョウブ」発売",
+    "display_sm": "1stシングル「ダイジョウブ」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "シングル"
+    ]
+  },
+  {
+    "date": "2019.07.07",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "mirage²加入の石井蘭が新メンバーとして加入、9人体制に",
+    "display_pc": "mirage²加入の石井蘭が新メンバーとして加入、9人体制に",
+    "display_sm": "mirage²加入の石井蘭が新メンバーとして加入、9人体制に",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "加入"
+    ]
+  },
+  {
+    "date": "2019.08.07",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "おはガール from Girls² 1stシングル「走れ！月火水木金曜日！」発売",
+    "display_pc": "おはガール from Girls² 1stシングル「走れ！月火水木金曜日！」発売",
+    "display_sm": "おはガール from Girls² 1stシングル「走れ！月火水木金曜日！」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "おはガール",
+      "シングル"
+    ]
+  },
+  {
+    "date": "2019.09.02",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "アルバルク東京公式応援ガールに就任",
+    "display_pc": "アルバルク東京公式応援ガールに就任",
+    "display_sm": "アルバルク東京公式応援ガールに就任",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "応援ガール"
+    ]
+  },
+  {
+    "date": "2019.10.07",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "ミサキクレアfrom Girls²「フレンドシップ No.1」発売",
+    "display_pc": "ミサキクレアfrom Girls²「フレンドシップ No.1」発売",
+    "display_sm": "ミサキクレアfrom Girls²「フレンドシップ No.1」発売",
+    "url": "",
+    "groups": [
+      "MSK",
+      "KUR"
+    ],
+    "relations": [],
+    "tags": [
+      "シングル"
+    ]
+  },
+  {
+    "date": "2019.10.30",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "1stミニアルバム「恋するカモ」発売",
+    "display_pc": "1stミニアルバム「恋するカモ」発売",
+    "display_sm": "1stミニアルバム「恋するカモ」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ミニアルバム"
+    ]
+  },
+  {
+    "date": "2019.11.17",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "映画化・初のライブツアー・E-girlsツアー参加を発表",
+    "display_pc": "映画化・初のライブツアー・E-girlsツアー参加を発表",
+    "display_sm": "映画化・初のライブツアー・E-girlsツアー参加を発表",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "発表"
+    ]
+  },
+  {
+    "date": "2019.12.18",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "おはガール from Girls² 2ndシングル「おはようのスマイル」発売",
+    "display_pc": "おはガール from Girls² 2ndシングル「おはようのスマイル」発売",
+    "display_sm": "おはガール from Girls² 2ndシングル「おはようのスマイル」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "おはガール",
+      "シングル"
+    ]
+  },
+  {
+    "date": "2020.02.19",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "おはガール from Girls² 3rdシングル「Girl meets Girl」発売",
+    "display_pc": "おはガール from Girls² 3rdシングル「Girl meets Girl」発売",
+    "display_sm": "おはガール from Girls² 3rdシングル「Girl meets Girl」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "おはガール",
+      "シングル"
+    ]
+  },
+  {
+    "date": "2020.03.27",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "「おはスタ」に4名(菱田・山口・原田・石井)も4月からおはガールとして出演することが発表",
+    "display_pc": "「おはスタ」に4名(菱田・山口・原田・石井)も4月からおはガールとして出演することが発表",
+    "display_sm": "「おはスタ」に4名(菱田・山口・原田・石井)も4月からおはガールとして出演することが発表",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "おはスタ"
+    ]
+  },
+  {
+    "date": "2020.04.06",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "オリジナルアニメ「ガル学。〜聖ガールズスクエア学院〜」放送開始",
+    "display_pc": "オリジナルアニメ「ガル学。〜聖ガールズスクエア学院〜」放送開始",
+    "display_sm": "オリジナルアニメ「ガル学。〜聖ガールズスクエア学院〜」放送開始",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "アニメ"
+    ]
+  },
+  {
+    "date": "2020.04.07",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "映画「劇場版 ひみつ×戦士 ファントミラージュ!」公開延期",
+    "display_pc": "映画「劇場版 ひみつ×戦士 ファントミラージュ!」公開延期",
+    "display_sm": "映画「劇場版 ひみつ×戦士 ファントミラージュ!」公開延期",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "映画"
+    ]
+  },
+  {
+    "date": "2020.05.20",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "2ndミニアルバム「チュワパネ！」発売",
+    "display_pc": "2ndミニアルバム「チュワパネ！」発売",
+    "display_sm": "2ndミニアルバム「チュワパネ！」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ミニアルバム"
+    ]
+  },
+  {
+    "date": "2020.06.20",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "新型コロナウイルスの影響でライブツアー全公演中止を発表",
+    "display_pc": "新型コロナウイルスの影響でライブツアー全公演中止を発表",
+    "display_sm": "新型コロナウイルスの影響でライブツアー全公演中止を発表",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "中止"
+    ]
+  },
+  {
+    "date": "2020.07.29",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "1st EP「私がモテてどうすんだ」発売",
+    "display_pc": "1st EP「私がモテてどうすんだ」発売",
+    "display_sm": "1st EP「私がモテてどうすんだ」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2020.11.15",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "生配信ライブ「Girls² Online Live 2020」開催",
+    "display_pc": "生配信ライブ「Girls² Online Live 2020」開催",
+    "display_sm": "生配信ライブ「Girls² Online Live 2020」開催",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "配信ライブ"
+    ]
+  },
+  {
+    "date": "2020.11.18",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "2nd EP「大事なモノ / #キズナプラス」発売",
+    "display_pc": "2nd EP「大事なモノ / #キズナプラス」発売",
+    "display_sm": "2nd EP「大事なモノ / #キズナプラス」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2021.01.13",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "3rd EP「ジャパニーズSTAR」発売",
+    "display_pc": "3rd EP「ジャパニーズSTAR」発売",
+    "display_sm": "3rd EP「ジャパニーズSTAR」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2021.03.24",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "「TVアニメ『ガル学。〜聖ガールズスクエア学院〜』コンプリート・ベスト」発売",
+    "display_pc": "「TVアニメ『ガル学。〜聖ガールズスクエア学院〜』コンプリート・ベスト」発売",
+    "display_sm": "「TVアニメ『ガル学。〜聖ガールズスクエア学院〜』コンプリート・ベスト」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ベストアルバム"
+    ]
+  },
+  {
+    "date": "2021.03.26",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "5名(小田・隅谷・鶴屋・小川・増田)が「おはガール」を卒業(菱田・山口・原田・石井は継続)",
+    "display_pc": "5名(小田・隅谷・鶴屋・小川・増田)が「おはガール」を卒業(菱田・山口・原田・石井は継続)",
+    "display_sm": "5名(小田・隅谷・鶴屋・小川・増田)が「おはガール」を卒業(菱田・山口・原田・石井は継続)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "卒業",
+      "おはガール"
+    ]
+  },
+  {
+    "date": "2021.03.27",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「ガル学。Anime LIVE 2021 〜ツナグツナグ〜」開催。木村昴サプライズ登場、実写ドラマ化発表",
+    "display_pc": "「ガル学。Anime LIVE 2021 〜ツナグツナグ〜」開催。木村昴サプライズ登場、実写ドラマ化発表",
+    "display_sm": "「ガル学。Anime LIVE 2021 〜ツナグツナグ〜」開催。木村昴サプライズ登場、実写ドラマ化発表",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "配信ライブ"
+    ]
+  },
+  {
+    "date": "2021.04.28",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "4th EP「Girls Revolution / Party Time!」発売",
+    "display_pc": "4th EP「Girls Revolution / Party Time!」発売",
+    "display_sm": "4th EP「Girls Revolution / Party Time!」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2021.07.01",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "「ガル学。ファンフォトブック」「ガル学。コミカライズ版」同時発売",
+    "display_pc": "「ガル学。ファンフォトブック」「ガル学。コミカライズ版」同時発売",
+    "display_sm": "「ガル学。ファンフォトブック」「ガル学。コミカライズ版」同時発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "書籍"
+    ]
+  },
+  {
+    "date": "2021.07.03",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "文化放送「Girls²のがるがるトーク！」放送開始",
+    "display_pc": "文化放送「Girls²のがるがるトーク！」放送開始",
+    "display_sm": "文化放送「Girls²のがるがるトーク！」放送開始",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ラジオ"
+    ]
+  },
+  {
+    "date": "2021.07.07",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "「ガル学。〜ガールズガーデン〜」放送開始",
+    "display_pc": "「ガル学。〜ガールズガーデン〜」放送開始",
+    "display_sm": "「ガル学。〜ガールズガーデン〜」放送開始",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ドラマ"
+    ]
+  },
+  {
+    "date": "2021.08.12",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "初のライブツアー「Girls² First Live Tour -Enjoy The Good Days-」開催決定",
+    "display_pc": "初のライブツアー「Girls² First Live Tour -Enjoy The Good Days-」開催決定",
+    "display_sm": "初のライブツアー「Girls² First Live Tour -Enjoy The Good Days-」開催決定",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "発表"
+    ]
+  },
+  {
+    "date": "2021.08.25",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "5th EP「Enjoy / Good Days」発売",
+    "display_pc": "5th EP「Enjoy / Good Days」発売",
+    "display_sm": "5th EP「Enjoy / Good Days」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2021.10.01",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "4名(菱田・山口・原田・石井)が「おはガール」を卒業",
+    "display_pc": "4名(菱田・山口・原田・石井)が「おはガール」を卒業",
+    "display_sm": "4名(菱田・山口・原田・石井)が「おはガール」を卒業",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "卒業",
+      "おはガール"
+    ]
+  },
+  {
+    "date": "2021.10.02",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² First Live Tour -Enjoy The Good Days-」大阪公演(NHK大阪ホール)",
+    "display_pc": "「Girls² First Live Tour -Enjoy The Good Days-」大阪公演(NHK大阪ホール)",
+    "display_sm": "「Girls² First Live Tour -Enjoy The Good Days-」大阪公演(NHK大阪ホール)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2021.10.30",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² First Live Tour -Enjoy The Good Days-」東京公演(東京ガーデンシアター)",
+    "display_pc": "「Girls² First Live Tour -Enjoy The Good Days-」東京公演(東京ガーデンシアター)",
+    "display_sm": "「Girls² First Live Tour -Enjoy The Good Days-」東京公演(東京ガーデンシアター)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2021.11.20",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls²ファンミーティング by GL²family」「Lucky²ファンミーティング」全国同時開催",
+    "display_pc": "「Girls²ファンミーティング by GL²family」「Lucky²ファンミーティング」全国同時開催",
+    "display_sm": "「Girls²ファンミーティング by GL²family」「Lucky²ファンミーティング」全国同時開催",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ファンミーティング"
+    ]
+  },
+  {
+    "date": "2021.11.20",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² First Live Tour -Enjoy The Good Days-」愛知公演(一宮市民会館)",
+    "display_pc": "「Girls² First Live Tour -Enjoy The Good Days-」愛知公演(一宮市民会館)",
+    "display_sm": "「Girls² First Live Tour -Enjoy The Good Days-」愛知公演(一宮市民会館)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2021.12.22",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "アニメ「ガル学。」全話・配信ライブ・「ガールズガーデン」がBlu-rayで発売",
+    "display_pc": "アニメ「ガル学。」全話・配信ライブ・「ガールズガーデン」がBlu-rayで発売",
+    "display_sm": "アニメ「ガル学。」全話・配信ライブ・「ガールズガーデン」がBlu-rayで発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "映像作品"
+    ]
+  },
+  {
+    "date": "2022.01.12",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "1stフルアルバム「We are Girls²」発売",
+    "display_pc": "1stフルアルバム「We are Girls²」発売",
+    "display_sm": "1stフルアルバム「We are Girls²」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "フルアルバム"
+    ]
+  },
+  {
+    "date": "2022.04.11",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "プロデュースコスメブランド「you know...?」発売",
+    "display_pc": "プロデュースコスメブランド「you know...?」発売",
+    "display_sm": "プロデュースコスメブランド「you know...?」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "コスメ"
+    ]
+  },
+  {
+    "date": "2022.04.27",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "6th EP「C'mon Neo Zipang!!! / Juga Juga JUNGLE」発売。3周年記念ライブ開催を発表",
+    "display_pc": "6th EP「C'mon Neo Zipang!!! / Juga Juga JUNGLE」発売。3周年記念ライブ開催を発表",
+    "display_sm": "6th EP「C'mon Neo Zipang!!! / Juga Juga JUNGLE」発売。3周年記念ライブ開催を発表",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2022.06.25",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² 3rd Anniversary Live -ダイジョウブ-」開催(横浜・ぴあアリーナMM)。Lucky²がサプライズ出演",
+    "display_pc": "「Girls² 3rd Anniversary Live -ダイジョウブ-」開催(横浜・ぴあアリーナMM)。Lucky²がサプライズ出演",
+    "display_sm": "「Girls² 3rd Anniversary Live -ダイジョウブ-」開催(横浜・ぴあアリーナMM)。Lucky²がサプライズ出演",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "記念ライブ"
+    ]
+  },
+  {
+    "date": "2022.08.05",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "「この恋イタすぎました」放送開始",
+    "display_pc": "「この恋イタすぎました」放送開始",
+    "display_sm": "「この恋イタすぎました」放送開始",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "バラエティ"
+    ]
+  },
+  {
+    "date": "2022.08.24",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "7th EP「Shangri-la」発売",
+    "display_pc": "7th EP「Shangri-la」発売",
+    "display_sm": "7th EP「Shangri-la」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2022.09.03",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² Live Tour 2022 “Shangri-la”」新潟公演(新潟テルサ)",
+    "display_pc": "「Girls² Live Tour 2022 “Shangri-la”」新潟公演(新潟テルサ)",
+    "display_sm": "「Girls² Live Tour 2022 “Shangri-la”」新潟公演(新潟テルサ)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2022.09.10",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² Live Tour 2022 “Shangri-la”」兵庫公演(神戸国際会館)",
+    "display_pc": "「Girls² Live Tour 2022 “Shangri-la”」兵庫公演(神戸国際会館)",
+    "display_sm": "「Girls² Live Tour 2022 “Shangri-la”」兵庫公演(神戸国際会館)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2022.09.17",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² Live Tour 2022 “Shangri-la”」北海道公演(札幌文化芸術劇場)",
+    "display_pc": "「Girls² Live Tour 2022 “Shangri-la”」北海道公演(札幌文化芸術劇場)",
+    "display_sm": "「Girls² Live Tour 2022 “Shangri-la”」北海道公演(札幌文化芸術劇場)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2022.10.02",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² Live Tour 2022 “Shangri-la”」福岡公演(福岡サンパレス)",
+    "display_pc": "「Girls² Live Tour 2022 “Shangri-la”」福岡公演(福岡サンパレス)",
+    "display_sm": "「Girls² Live Tour 2022 “Shangri-la”」福岡公演(福岡サンパレス)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2022.10.09",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² Live Tour 2022 “Shangri-la”」大阪公演(グランキューブ大阪)",
+    "display_pc": "「Girls² Live Tour 2022 “Shangri-la”」大阪公演(グランキューブ大阪)",
+    "display_sm": "「Girls² Live Tour 2022 “Shangri-la”」大阪公演(グランキューブ大阪)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2022.10.31",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² Live Tour 2022 “Shangri-la”」宮城公演(トークネットホール仙台)",
+    "display_pc": "「Girls² Live Tour 2022 “Shangri-la”」宮城公演(トークネットホール仙台)",
+    "display_sm": "「Girls² Live Tour 2022 “Shangri-la”」宮城公演(トークネットホール仙台)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2022.11.19",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² Live Tour 2022 “Shangri-la”」愛知公演(名古屋国際会議場)",
+    "display_pc": "「Girls² Live Tour 2022 “Shangri-la”」愛知公演(名古屋国際会議場)",
+    "display_sm": "「Girls² Live Tour 2022 “Shangri-la”」愛知公演(名古屋国際会議場)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2022.12.11",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² Live Tour 2022 “Shangri-la”」広島公演(広島上野学園ホール)",
+    "display_pc": "「Girls² Live Tour 2022 “Shangri-la”」広島公演(広島上野学園ホール)",
+    "display_sm": "「Girls² Live Tour 2022 “Shangri-la”」広島公演(広島上野学園ホール)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2022.12.21",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "8th EP「Love Genic / Bye-Bye-Bye」発売",
+    "display_pc": "8th EP「Love Genic / Bye-Bye-Bye」発売",
+    "display_sm": "8th EP「Love Genic / Bye-Bye-Bye」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2022.12.24",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² Live Tour 2022 “Shangri-la”」東京公演夜(東京ガーデンシアター)",
+    "display_pc": "「Girls² Live Tour 2022 “Shangri-la”」東京公演夜(東京ガーデンシアター)",
+    "display_sm": "「Girls² Live Tour 2022 “Shangri-la”」東京公演夜(東京ガーデンシアター)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2022.12.25",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² Live Tour 2022 “Shangri-la”」東京公演昼(東京ガーデンシアター)",
+    "display_pc": "「Girls² Live Tour 2022 “Shangri-la”」東京公演昼(東京ガーデンシアター)",
+    "display_sm": "「Girls² Live Tour 2022 “Shangri-la”」東京公演昼(東京ガーデンシアター)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.03.31",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "石井蘭がグループを卒業、SL Square LLP.を退社",
+    "display_pc": "石井蘭がグループを卒業、SL Square LLP.を退社",
+    "display_sm": "石井蘭がグループを卒業、SL Square LLP.を退社",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "卒業"
+    ]
+  },
+  {
+    "date": "2023.05.24",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "9th EP「Countdown」発売",
+    "display_pc": "9th EP「Countdown」発売",
+    "display_sm": "9th EP「Countdown」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2023.09.06",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "iScreamとのコラボシングル「Rock Steady」発売",
+    "display_pc": "iScreamとのコラボシングル「Rock Steady」発売",
+    "display_sm": "iScreamとのコラボシングル「Rock Steady」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "コラボ",
+      "シングル"
+    ]
+  },
+  {
+    "date": "2023.10.14",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2023 -activate-」北海道公演(カナモトホール)",
+    "display_pc": "「Girls² LIVE TOUR 2023 -activate-」北海道公演(カナモトホール)",
+    "display_sm": "「Girls² LIVE TOUR 2023 -activate-」北海道公演(カナモトホール)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.10.21",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2023 -activate-」大阪公演1日目(グランキューブ大阪)",
+    "display_pc": "「Girls² LIVE TOUR 2023 -activate-」大阪公演1日目(グランキューブ大阪)",
+    "display_sm": "「Girls² LIVE TOUR 2023 -activate-」大阪公演1日目(グランキューブ大阪)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.10.22",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2023 -activate-」大阪公演2日目(グランキューブ大阪)",
+    "display_pc": "「Girls² LIVE TOUR 2023 -activate-」大阪公演2日目(グランキューブ大阪)",
+    "display_sm": "「Girls² LIVE TOUR 2023 -activate-」大阪公演2日目(グランキューブ大阪)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.10.28",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2023 -activate-」宮城公演(仙台サンプラザ)",
+    "display_pc": "「Girls² LIVE TOUR 2023 -activate-」宮城公演(仙台サンプラザ)",
+    "display_sm": "「Girls² LIVE TOUR 2023 -activate-」宮城公演(仙台サンプラザ)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.11.05",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2023 -activate-」愛知公演(名古屋国際会議場)",
+    "display_pc": "「Girls² LIVE TOUR 2023 -activate-」愛知公演(名古屋国際会議場)",
+    "display_sm": "「Girls² LIVE TOUR 2023 -activate-」愛知公演(名古屋国際会議場)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.11.11",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2023 -activate-」群馬公演(ベイシア文化ホール)",
+    "display_pc": "「Girls² LIVE TOUR 2023 -activate-」群馬公演(ベイシア文化ホール)",
+    "display_sm": "「Girls² LIVE TOUR 2023 -activate-」群馬公演(ベイシア文化ホール)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.11.19",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2023 -activate-」新潟公演(新潟テルサ)",
+    "display_pc": "「Girls² LIVE TOUR 2023 -activate-」新潟公演(新潟テルサ)",
+    "display_sm": "「Girls² LIVE TOUR 2023 -activate-」新潟公演(新潟テルサ)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.11.23",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2023 -activate-」静岡公演(静岡市清水文化会館マリナート)",
+    "display_pc": "「Girls² LIVE TOUR 2023 -activate-」静岡公演(静岡市清水文化会館マリナート)",
+    "display_sm": "「Girls² LIVE TOUR 2023 -activate-」静岡公演(静岡市清水文化会館マリナート)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.12.02",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2023 -activate-」福岡公演(福岡市民会館)",
+    "display_pc": "「Girls² LIVE TOUR 2023 -activate-」福岡公演(福岡市民会館)",
+    "display_sm": "「Girls² LIVE TOUR 2023 -activate-」福岡公演(福岡市民会館)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.12.20",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "10th EP「アクセラレイト」発売",
+    "display_pc": "10th EP「アクセラレイト」発売",
+    "display_sm": "10th EP「アクセラレイト」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2023.12.23",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2023 -activate-」東京公演夜(東京ガーデンシアター)。iScreamがサプライズ出演",
+    "display_pc": "「Girls² LIVE TOUR 2023 -activate-」東京公演夜(東京ガーデンシアター)。iScreamがサプライズ出演",
+    "display_sm": "「Girls² LIVE TOUR 2023 -activate-」東京公演夜(東京ガーデンシアター)。iScreamがサプライズ出演",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2023.12.24",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2023 -activate-」東京公演昼(東京ガーデンシアター)",
+    "display_pc": "「Girls² LIVE TOUR 2023 -activate-」東京公演昼(東京ガーデンシアター)",
+    "display_sm": "「Girls² LIVE TOUR 2023 -activate-」東京公演昼(東京ガーデンシアター)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2024.03.20",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "2ndフルアルバム「We are Girls² -Ⅱ-」発売",
+    "display_pc": "2ndフルアルバム「We are Girls² -Ⅱ-」発売",
+    "display_sm": "2ndフルアルバム「We are Girls² -Ⅱ-」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "フルアルバム"
+    ]
+  },
+  {
+    "date": "2024.06.19",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "iScreamとの2ndコラボシングル「D.N.A」発売",
+    "display_pc": "iScreamとの2ndコラボシングル「D.N.A」発売",
+    "display_sm": "iScreamとの2ndコラボシングル「D.N.A」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "コラボ",
+      "シングル"
+    ]
+  },
+  {
+    "date": "2024.06.30",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² 5th anniversary We are Girls² -The Live-」開催(国立代々木競技場第一体育館)",
+    "display_pc": "「Girls² 5th anniversary We are Girls² -The Live-」開催(国立代々木競技場第一体育館)",
+    "display_sm": "「Girls² 5th anniversary We are Girls² -The Live-」開催(国立代々木競技場第一体育館)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "記念ライブ"
+    ]
+  },
+  {
+    "date": "2024.08.30",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "「バンコク日本博2024」にて海外初パフォーマンス",
+    "display_pc": "「バンコク日本博2024」にて海外初パフォーマンス",
+    "display_sm": "「バンコク日本博2024」にて海外初パフォーマンス",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "海外"
+    ]
+  },
+  {
+    "date": "2024.10.30",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "11th EP「寄り道 -Take it easy baby-」発売",
+    "display_pc": "11th EP「寄り道 -Take it easy baby-」発売",
+    "display_sm": "11th EP「寄り道 -Take it easy baby-」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2025.03.02",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR -ガルガルエイト-」石川公演(金沢市文化ホール)",
+    "display_pc": "「Girls² LIVE TOUR -ガルガルエイト-」石川公演(金沢市文化ホール)",
+    "display_sm": "「Girls² LIVE TOUR -ガルガルエイト-」石川公演(金沢市文化ホール)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.03.16",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR -ガルガルエイト-」大阪公演(南海浪切ホール)",
+    "display_pc": "「Girls² LIVE TOUR -ガルガルエイト-」大阪公演(南海浪切ホール)",
+    "display_sm": "「Girls² LIVE TOUR -ガルガルエイト-」大阪公演(南海浪切ホール)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.04.01",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "所属事務所をSL Square LLP.からLDH JAPANへ移籍。レコード会社もrhythm zoneへ移籍",
+    "display_pc": "所属事務所をSL Square LLP.からLDH JAPANへ移籍。レコード会社もrhythm zoneへ移籍",
+    "display_sm": "所属事務所をSL Square LLP.からLDH JAPANへ移籍。レコード会社もrhythm zoneへ移籍",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "移籍"
+    ]
+  },
+  {
+    "date": "2025.04.06",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR -ガルガルエイト-」北海道公演(カナモトホール)",
+    "display_pc": "「Girls² LIVE TOUR -ガルガルエイト-」北海道公演(カナモトホール)",
+    "display_sm": "「Girls² LIVE TOUR -ガルガルエイト-」北海道公演(カナモトホール)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.04.12",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR -ガルガルエイト-」大阪公演(NHK大阪ホール)",
+    "display_pc": "「Girls² LIVE TOUR -ガルガルエイト-」大阪公演(NHK大阪ホール)",
+    "display_sm": "「Girls² LIVE TOUR -ガルガルエイト-」大阪公演(NHK大阪ホール)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.04.13",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR -ガルガルエイト-」愛知公演(Niterra日本特殊陶業市民会館)",
+    "display_pc": "「Girls² LIVE TOUR -ガルガルエイト-」愛知公演(Niterra日本特殊陶業市民会館)",
+    "display_sm": "「Girls² LIVE TOUR -ガルガルエイト-」愛知公演(Niterra日本特殊陶業市民会館)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.04.29",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR -ガルガルエイト-」福岡公演(福岡国際会議場)",
+    "display_pc": "「Girls² LIVE TOUR -ガルガルエイト-」福岡公演(福岡国際会議場)",
+    "display_sm": "「Girls² LIVE TOUR -ガルガルエイト-」福岡公演(福岡国際会議場)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.05.06",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR -ガルガルエイト-」神奈川公演(パシフィコ横浜)",
+    "display_pc": "「Girls² LIVE TOUR -ガルガルエイト-」神奈川公演(パシフィコ横浜)",
+    "display_sm": "「Girls² LIVE TOUR -ガルガルエイト-」神奈川公演(パシフィコ横浜)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.05.11",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR -ガルガルエイト-」京都公演(ロームシアター京都)",
+    "display_pc": "「Girls² LIVE TOUR -ガルガルエイト-」京都公演(ロームシアター京都)",
+    "display_sm": "「Girls² LIVE TOUR -ガルガルエイト-」京都公演(ロームシアター京都)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.05.24",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR -ガルガルエイト-」宮城公演(トークネットホール仙台)",
+    "display_pc": "「Girls² LIVE TOUR -ガルガルエイト-」宮城公演(トークネットホール仙台)",
+    "display_sm": "「Girls² LIVE TOUR -ガルガルエイト-」宮城公演(トークネットホール仙台)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.06.28",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "追加公演「Girls² LIVE TOUR 2025 -ガルガルエイト- 6th Anniversary Party」東京公演(東京ガーデンシアター)",
+    "display_pc": "追加公演「Girls² LIVE TOUR 2025 -ガルガルエイト- 6th Anniversary Party」東京公演(東京ガーデンシアター)",
+    "display_sm": "追加公演「Girls² LIVE TOUR 2025 -ガルガルエイト- 6th Anniversary Party」東京公演(東京ガーデンシアター)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2025.07.15",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "原田都愛が8月末をもってグループを卒業することを発表",
+    "display_pc": "原田都愛が8月末をもってグループを卒業することを発表",
+    "display_sm": "原田都愛が8月末をもってグループを卒業することを発表",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "卒業発表"
+    ]
+  },
+  {
+    "date": "2025.08.31",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "原田都愛がグループを卒業",
+    "display_pc": "原田都愛がグループを卒業",
+    "display_sm": "原田都愛がグループを卒業",
+    "url": "",
+    "groups": [
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "卒業"
+    ]
+  },
+  {
+    "date": "2025.09.12",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "小田柚葉が体調不良のため活動休止を発表",
+    "display_pc": "小田柚葉が体調不良のため活動休止を発表",
+    "display_sm": "小田柚葉が体調不良のため活動休止を発表",
+    "url": "",
+    "groups": [
+      "YZH"
+    ],
+    "relations": [],
+    "tags": [
+      "活動休止"
+    ]
+  },
+  {
+    "date": "2025.09.24",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "12th EP「New Era」発売",
+    "display_pc": "12th EP「New Era」発売",
+    "display_sm": "12th EP「New Era」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2025.10.29",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "小田柚葉が活動再開を発表",
+    "display_pc": "小田柚葉が活動再開を発表",
+    "display_sm": "小田柚葉が活動再開を発表",
+    "url": "",
+    "groups": [
+      "YZH"
+    ],
+    "relations": [],
+    "tags": [
+      "活動再開"
+    ]
+  },
+  {
+    "date": "2025.12.24",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "両A面シングル「Snowflakes/Unmelting Snow」発売",
+    "display_pc": "両A面シングル「Snowflakes/Unmelting Snow」発売",
+    "display_sm": "両A面シングル「Snowflakes/Unmelting Snow」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "シングル"
+    ]
+  },
+  {
+    "date": "2025.12.26",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² WINTER LIVE 2025 “Snowflakes”」東京公演(東京国際フォーラム)",
+    "display_pc": "「Girls² WINTER LIVE 2025 “Snowflakes”」東京公演(東京国際フォーラム)",
+    "display_sm": "「Girls² WINTER LIVE 2025 “Snowflakes”」東京公演(東京国際フォーラム)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブ"
+    ]
+  },
+  {
+    "date": "2025.12.28",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² WINTER LIVE 2025 “Snowflakes”」大阪公演(オリックス劇場)",
+    "display_pc": "「Girls² WINTER LIVE 2025 “Snowflakes”」大阪公演(オリックス劇場)",
+    "display_sm": "「Girls² WINTER LIVE 2025 “Snowflakes”」大阪公演(オリックス劇場)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブ"
+    ]
+  },
+  {
+    "date": "2026.04.01",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "13th EP「Melty Love」発売",
+    "display_pc": "13th EP「Melty Love」発売",
+    "display_sm": "13th EP「Melty Love」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "EP"
+    ]
+  },
+  {
+    "date": "2026.06.24",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "3rdフルアルバム「Seven Blooms」発売",
+    "display_pc": "3rdフルアルバム「Seven Blooms」発売",
+    "display_sm": "3rdフルアルバム「Seven Blooms」発売",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "フルアルバム"
+    ]
+  },
+  {
+    "date": "2026.06.26",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² 7th Anniversary “Seven×Seven in Bloom -The Live-”」開催(日本武道館)",
+    "display_pc": "「Girls² 7th Anniversary “Seven×Seven in Bloom -The Live-”」開催(日本武道館)",
+    "display_sm": "「Girls² 7th Anniversary “Seven×Seven in Bloom -The Live-”」開催(日本武道館)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "記念ライブ"
+    ]
+  },
+  {
+    "date": "2026.10.04",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」福岡公演(福岡国際会議場)",
+    "display_pc": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」福岡公演(福岡国際会議場)",
+    "display_sm": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」福岡公演(福岡国際会議場)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2026.10.10",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」愛知公演(Niterra日本特殊陶業市民会館)",
+    "display_pc": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」愛知公演(Niterra日本特殊陶業市民会館)",
+    "display_sm": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」愛知公演(Niterra日本特殊陶業市民会館)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2026.10.18",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」大阪公演(NHK大阪ホール)",
+    "display_pc": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」大阪公演(NHK大阪ホール)",
+    "display_sm": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」大阪公演(NHK大阪ホール)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2026.12.25",
+    "time": "0000",
+    "contents": "LIVE",
+    "title": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」東京公演(Shibuya LOVEZ、Christmas Special)",
+    "display_pc": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」東京公演(Shibuya LOVEZ、Christmas Special)",
+    "display_sm": "「Girls² LIVE TOUR 2026 -Seven Blooms Beyond-」東京公演(Shibuya LOVEZ、Christmas Special)",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "ライブツアー"
+    ]
+  },
+  {
+    "date": "2004.11.07",
+    "time": "0000",
+    "contents": "BIRTHDAY",
+    "title": "小田柚葉 誕生日",
+    "display_pc": "小田柚　誕生日",
+    "display_sm": "小田柚葉　誕生日",
+    "url": "",
+    "groups": [
+      "YZH"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2004.11.20",
+    "time": "0000",
+    "contents": "BIRTHDAY",
+    "title": "隅谷百花 誕生日",
+    "display_pc": "隅谷百花　誕生日",
+    "display_sm": "隅谷百花　誕生日",
+    "url": "",
+    "groups": [
+      "MMK"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2003.04.18",
+    "time": "0000",
+    "contents": "BIRTHDAY",
+    "title": "鶴屋美咲 誕生日",
+    "display_pc": "鶴屋美咲　誕生日",
+    "display_sm": "鶴屋美咲　誕生日",
+    "url": "",
+    "groups": [
+      "MSK"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2004.04.02",
+    "time": "0000",
+    "contents": "BIRTHDAY",
+    "title": "小川桜花 誕生日",
+    "display_pc": "小川桜花　誕生日",
+    "display_sm": "小川桜花　誕生日",
+    "url": "",
+    "groups": [
+      "YOK"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2003.08.19",
+    "time": "0000",
+    "contents": "BIRTHDAY",
+    "title": "増田來亜 誕生日",
+    "display_pc": "増田來亜　誕生日",
+    "display_sm": "増田來亜　誕生日",
+    "url": "",
+    "groups": [
+      "KUR"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2006.12.26",
+    "time": "0000",
+    "contents": "BIRTHDAY",
+    "title": "菱田未渚美 誕生日",
+    "display_pc": "菱田未渚美　誕生日",
+    "display_sm": "菱田未渚美　誕生日",
+    "url": "",
+    "groups": [
+      "MNM"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2004.01.20",
+    "time": "0000",
+    "contents": "BIRTHDAY",
+    "title": "山口綺羅 誕生日",
+    "display_pc": "山口綺羅　誕生日",
+    "display_sm": "山口綺羅　誕生日",
+    "url": "",
+    "groups": [
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2005.04.02",
+    "time": "0000",
+    "contents": "BIRTHDAY",
+    "title": "原田都愛 誕生日",
+    "display_pc": "原田都愛　誕生日",
+    "display_sm": "原田都愛　誕生日",
+    "url": "",
+    "groups": [
+      "TOA"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
+    "date": "2004.08.07",
+    "time": "0000",
+    "contents": "BIRTHDAY",
+    "title": "石井蘭 誕生日",
+    "display_pc": "石井蘭　誕生日",
+    "display_sm": "石井蘭　誕生日",
+    "url": "",
+    "groups": [
+      "RAN"
+    ],
+    "relations": [],
+    "tags": [
+      "誕生日"
+    ]
+  },
+  {
     "date": "2026.08.30",
     "time": "1200",
     "contents": "DIARY",

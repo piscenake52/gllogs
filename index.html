@@ -42,7 +42,8 @@ body {
 }
 .container { max-width: var(--container-w); margin: 0 auto; position: relative; }
 /* --- 上部固定ヘッダー(タイトル・検索・テーマ切替・フィルター開閉) --- */
-.sticky-header { position: sticky; top: 0; background: var(--bg); z-index: 100; padding: 12px 0 8px; margin-bottom: 12px; border-bottom: 1px solid var(--border); transition: background-color 0.2s; }
+.sticky-header { position: sticky; top: 0; background: var(--bg); z-index: 100; padding: 12px 0 0; margin-bottom: 12px; border-bottom: 1px solid var(--border); transition: background-color 0.2s; }
+.sticky-header-inner { position: relative; padding-bottom: 8px; }
 .header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
 h1 { font-size: 20px; margin: 0; line-height: 1; }
 .reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; }
@@ -53,8 +54,23 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .date-part-btn { padding: 4px 6px; }
 .toggle-btn.is-active { color: var(--text); background-color: var(--btn-bg); text-shadow: 0 0 0.4px currentColor, 0 0 0.4px currentColor; }
 .date-part-btn.is-active { color: #fff; background-color: #a78bfa; text-shadow: none; }
-#badgeToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
-#todayToggleBtn.is-active { color: #fff; background-color: #34d399; }
+#badgeToggleBtn.is-active, #iconToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+#todayToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+/* FILTERボタン:データ部との境界線の中央に、線をまたぐように配置。他要素と重なる場合は横幅を縮める */
+.filter-center-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 50%);
+  z-index: 6;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  padding: 2px 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+@media (max-width: 420px) {
+  .filter-center-btn { padding: 2px 6px; }
+}
 .count-badge {
   position: absolute;
   top: -3px;
@@ -90,11 +106,16 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .collapsible-area { max-height: 550px; opacity: 1; overflow: hidden; transition: max-height 0.3s ease, opacity 0.2s ease, margin-top 0.2s ease; }
 .sticky-header.is-initializing .collapsible-area { transition: none !important; }
 .sticky-header.collapsed .collapsible-area { max-height: 0; opacity: 0; margin-top: 0; pointer-events: none; }
-.sticky-header.collapsed { padding-bottom: 4px; margin-bottom: 8px; }
+.sticky-header.collapsed { margin-bottom: 8px; }
+.sticky-header.collapsed .sticky-header-inner { padding-bottom: 4px; }
 /* --- チェックボックス群(年・メンバー・コンテンツ種別) --- */
 .checks { display: flex; flex-direction: column; row-gap: 6px; padding-top: 4px; }
 .checks-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .checks-row-years, .checks-row-other { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-top: 6px; padding-bottom: 2px; gap: 6px; cursor: grab; }
+/* PC幅では常時コンテナ幅を720pxにする(コンテンツ種類ボタンがICONモードでも1行に収まるように) */
+@media (min-width: 760px) {
+  :root { --container-w: 720px; }
+}
 .checks-row-years::-webkit-scrollbar, .checks-row-other::-webkit-scrollbar, .active-filters-row::-webkit-scrollbar, .item-title::-webkit-scrollbar { display: none; }
 .checks-row-members { display: flex; flex-wrap: nowrap; gap: 3px; width: 100%; padding-right: 4px; }
 .checks label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
@@ -110,10 +131,14 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .checks .sep { display: inline-flex; align-items: center; justify-content: center; padding: 0 1px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
 @media (hover: hover) { .checks label:hover { background-color: var(--btn-hover); } }
 .checks label:has(input:checked) { background-color: var(--active-bg); color: var(--active-color); border-color: var(--active-bg); }
-.checks label:has(input:checked)::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #38bdf8; border-radius: 50%; }
-/* 手動でONにしたフィルターは、右上のランプを青からやさしい赤に変更して区別する */
-.checks label:has(input:checked).is-manual-on::after { background-color: #f87171; }
+.checks label:has(input:checked)::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #f87171; border-radius: 50%; }
+/* 手動でONにしたフィルターは、右上のランプを赤から青に変更して区別する(自動ONは赤のまま) */
+.checks label:has(input:checked).is-manual-on::after { background-color: #38bdf8; }
 .checks label span[title] { font-size: 14px; line-height: 1; }
+/* ICONモード:コンテンツ種類ボタンの表示をテキストのみ⇔アイコンのみで切り替える */
+.label-icon-part { display: none; }
+body.icon-only-mode .checks .label-text-part { display: none; }
+body.icon-only-mode .checks .label-icon-part { display: inline; }
 /* --- 検索結果の件数表示・並び替え・クリアボタン --- */
 .result-header-row { display: flex; justify-content: space-between; align-items: center; margin-top: 3px; margin-bottom: 8px; min-height: 1.2em; position: relative; }
 .result-count { font-size: 12px; color: var(--sub); letter-spacing: 0.5px; }
@@ -130,10 +155,9 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 
 /* 錠前ボタン:OFF(既定)ではsticky-headerを画面固定せず通常スクロールにする */
 .sticky-header.unlocked { position: static; }
-.lock-toggle-btn {
-  position: absolute;
-  top: 26px;
-  right: -6px;
+/* 錠前・BLACK/WHITEテーマボタンを同じ丸ボタンサイズ・見た目に統一 */
+.lock-toggle-btn, .theme-toggle-btn {
+  flex-shrink: 0;
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -146,13 +170,57 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   justify-content: center;
   cursor: pointer;
   outline: none;
-  z-index: 5;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
   padding: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
-.lock-toggle-btn:hover { background-color: var(--btn-hover); }
+.theme-toggle-btn { overflow: hidden; }
+.lock-toggle-btn:hover, .theme-toggle-btn:hover { background-color: var(--btn-hover); }
 .lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
-#todayToggleBtn.is-offset { color: #fff; background-color: #f59e0b; }
+
+/* BLACK/WHITEボタン:文字化け対策としてCSSのみで太陽(切替先=ライト)/月(切替先=ダーク)を描画 */
+.theme-toggle-btn .icon-sun, .theme-toggle-btn .icon-moon { display: none; }
+.theme-toggle-btn.mode-to-light .icon-sun { display: block; }
+.theme-toggle-btn.mode-to-dark .icon-moon { display: block; }
+.icon-sun {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  background-color: currentColor;
+  border-radius: 50%;
+}
+.icon-sun::before, .icon-sun::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  transform: translate(-50%, -50%);
+  background:
+    linear-gradient(currentColor, currentColor) center / 1.5px 6px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 6px 1.5px no-repeat;
+}
+.icon-sun::after { transform: translate(-50%, -50%) rotate(45deg); }
+.icon-moon {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+.icon-moon::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--btn-bg);
+}
+
+#todayToggleBtn.is-offset-prev { color: #fff; background-color: #f59e0b; }
+#todayToggleBtn.is-offset-next { color: #fff; background-color: #34d399; }
 /* --- 現在有効な絞り込み条件のバッジ一覧(フィルターエリア折りたたみ時に表示) --- */
 .active-filters-row { display: none; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; gap: 4px; margin-bottom: 10px; align-items: center; }
 .sticky-header.collapsed .active-filters-row { display: flex; }
@@ -188,6 +256,11 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   line-height: 1.2; 
   color: var(--text); 
   text-align: left; 
+}
+/* ICONモードON時はテキストが無くアイコンのみになるため、固定幅をやめてアイコンサイズに合わせて縮小する */
+body.icon-only-mode .item-contents {
+  flex: 0 0 auto;
+  padding: 1px 4px;
 }
 
 /* タイトル部分だけが通常は省略表示され、ホバーやスクロールで個別スライド（全表示）可能に */
@@ -255,17 +328,18 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 
 <div class="container">
   <div class="sticky-header is-initializing" id="stickyHeader">
+    <div class="sticky-header-inner">
     <div class="header-row">
-      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log - β</a></h1>
+      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
       <div class="header-btn-group">
         <button class="toggle-btn date-part-btn" id="showYearBtn" title="&#24180;&#12398;&#34920;&#31034;&#20999;&#26367;">&#24180;</button>
         <button class="toggle-btn date-part-btn" id="showMonthBtn" title="&#26376;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26376;</button>
         <button class="toggle-btn date-part-btn" id="showDayBtn" title="&#26085;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26085;</button>
         <button class="toggle-btn date-part-btn" id="showWeekdayBtn" title="&#26332;&#26085;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26332;</button>
-        <button class="toggle-btn date-part-btn" id="showTimeBtn" title="&#26178;&#20998;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26178;&#20998;</button>
-        <button class="toggle-btn" id="todayToggleBtn">TODAY</button>
+        <button class="toggle-btn date-part-btn" id="showTimeBtn" title="&#26178;&#20998;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26178;</button>
         <button class="toggle-btn" id="badgeToggleBtn">BADGE</button>
-        <button class="toggle-btn" id="toggleBtn">&#9650; FILTER</button>
+        <button class="toggle-btn" id="iconToggleBtn" title="&#12467;&#12531;&#12486;&#12531;&#12484;&#31278;&#39006;&#12463;&#12522;&#12483;&#12463;&#12539;&#12450;&#12452;&#12467;&#12531;&#34920;&#31034;&#20999;&#26367;">ICON</button>
+        <button class="toggle-btn" id="todayToggleBtn">TODAY</button>
       </div>
     </div>
     <div class="extra-tools-row">
@@ -273,7 +347,11 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
         <input type="text" id="searchInput" class="search-input" placeholder="search keywoooooooord &#3366;&#3405;&#3366;&#3391;(&#65381;&#7447;|">
         <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear search">&#215;</button>
       </div>
-      <button class="tool-btn" id="themeToggleBtn" title="Theme" aria-label="&#12486;&#12540;&#12510;&#20999;&#12426;&#26367;&#12360;(&#12480;&#12540;&#12463;/&#12521;&#12452;&#12488;)">BLACK</button>
+      <button class="tool-btn theme-toggle-btn" id="themeToggleBtn" title="Theme" aria-label="&#12486;&#12540;&#12510;&#20999;&#12426;&#26367;&#12360;(&#12480;&#12540;&#12463;/&#12521;&#12452;&#12488;)">
+        <span class="icon-sun" aria-hidden="true"></span>
+        <span class="icon-moon" aria-hidden="true"></span>
+      </button>
+      <button type="button" class="lock-toggle-btn" id="lockToggleBtn" title="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;" aria-label="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;(&#29694;&#22312;OFF)">&#128275;</button>
     </div>
     <div class="collapsible-area" id="collapsibleArea">
       <div class="checks">
@@ -290,17 +368,19 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       <button class="sort-arrow-btn" id="sortBtn">&#8595;</button>
       <button class="day-nav-btn" id="nextDayBtn" aria-label="Next day">&#8594;</button>
       <button class="inline-clear-btn" id="inlineClearBtn">CLEAR</button>
-      <button type="button" class="lock-toggle-btn" id="lockToggleBtn" title="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;" aria-label="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;(&#29694;&#22312;OFF)">&#128275;</button>
     </div>
 
     <div class="active-filters-row" id="activeFiltersRow"></div>
+
+    <button class="toggle-btn filter-center-btn" id="toggleBtn" aria-label="FILTER">&#9650;</button>
+    </div>
   </div>
 
   <div class="items" id="items"></div>
   <div id="scrollSentinel"></div>
   <div class="no-result" id="noResult">NO RESULTS FOUND<br><button class="quick-reset-btn" id="quickResetBtn">CLEAR ALL FILTERS</button></div>
   <div class="no-result" id="loadError">LOAD ERROR<br><button class="quick-reset-btn" id="retryBtn">RETRY</button></div>
-  <div class="footer-update-time" id="updateTime">updated: --</div>
+  <div class="footer-update-time" id="updateTime">updated > --</div>
   <button class="to-top-btn" id="toTopBtn">&#9650;</button>
 </div>
 
@@ -321,12 +401,12 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     {v:'YUW',n:'YUWA',c:'\u2764\uFE0F'},{v:'KAN',n:'KANNA',c:'\uD83D\uDC99'},{v:'RRK',n:'RIRIKA',c:'\uD83E\uDE77'},{v:'AKR',n:'AKARI',c:'\uD83D\uDC9A'},
     {v:'KIK',n:'KIKI',c:'\uD83D\uDC9B'},'sep',{v:'YUR',n:'YURA',c:'\uD83E\uDD0D'}
   ];
-  const others = ['DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ETC'];
+  const others = ['DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ANNIVERSARY','BIRTHDAY','ETC'];
 
   const symbols = {
     'DIARY': '\uD83D\uDCDD', 'RADIO': '\uD83D\uDCFB\uFE0F', 'GTUBE': '\u25B6\uFE0F', 'YOUTUBE': '\uD83C\uDF9E\uFE0F', 
     'CL': '\uD83C\uDD91', 'RELEASE': '\uD83D\uDCBF\uFE0F', 'LIVE': '\uD83C\uDF99\uFE0F', 
-    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCFA\uFE0F', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'GOODS': '\uD83D\uDED2', 'ETC': '\uD83D\uDCCC'
+    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCFA\uFE0F', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'GOODS': '\uD83D\uDED2', 'ANNIVERSARY': '\uD83D\uDD16', 'BIRTHDAY': '\uD83C\uDF82', 'ETC': '\uD83D\uDCCC'
   };
 
   const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
@@ -396,6 +476,17 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     if (item.n) {
       sp.title = item.n;
       sp.textContent = item.c;
+      l.title = item.n; // ホバー範囲をアイコンだけでなくボタン全体に拡張
+    } else if (typeof item === 'string' && symbols[item] !== undefined) {
+      // コンテンツ種類ボタン:通常はテキスト、ICONモードON時はアイコンのみ表示に切り替える
+      const iconPart = document.createElement('span');
+      iconPart.className = 'label-icon-part';
+      iconPart.textContent = symbols[item];
+      const textPart = document.createElement('span');
+      textPart.className = 'label-text-part';
+      textPart.textContent = item;
+      sp.append(iconPart, textPart);
+      l.dataset.tooltipName = item; // ICONモード時のみtitleとして反映する(updateContentTooltipsで制御)
     } else {
       sp.textContent = item.t || item;
     }
@@ -514,30 +605,38 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     if (hasL2) return 'l2';
     return null;
   };
-  const primaryConts = ['DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS'];
+  const primaryConts = ['DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ANNIVERSARY','BIRTHDAY'];
   const allConts = [...primaryConts, 'ETC'];
   const cats = [{meta:'G2',values:g2Vals},{meta:'L2',values:l2Vals}];
 
+  const updateThemeButtonStyle = isDark => {
+    const btn = $('themeToggleBtn');
+    // ボタンの色は「押すと切り替わる先」の色を示す:ライト時は黒丸(押すとダークに)、ダーク時は白丸(押すとライトに)
+    btn.classList.toggle('mode-to-dark', !isDark);
+    btn.classList.toggle('mode-to-light', isDark);
+    btn.setAttribute('aria-label', isDark ? '\u30E9\u30A4\u30C8\u30E2\u30FC\u30C9\u306B\u5207\u308A\u66FF\u3048' : '\u30C0\u30FC\u30AF\u30E2\u30FC\u30C9\u306B\u5207\u308A\u66FF\u3048');
+  };
+
   if (localStorage.getItem('gl_log_theme') === 'dark') {
     document.body.classList.add('dark-mode');
-    $('themeToggleBtn').textContent = 'WHITE';
   }
+  updateThemeButtonStyle(document.body.classList.contains('dark-mode'));
 
   $('themeToggleBtn').onclick = () => {
     const isDark = document.body.classList.toggle('dark-mode');
-    $('themeToggleBtn').textContent = isDark ? 'WHITE' : 'BLACK';
+    updateThemeButtonStyle(isDark);
     localStorage.setItem('gl_log_theme', isDark ? 'dark' : 'light');
   };
 
   if (localStorage.getItem('gl_log_collapsed') === 'true') {
     $('stickyHeader').classList.add('collapsed');
-    $('toggleBtn').textContent = '\u25BC FILTER';
+    $('toggleBtn').textContent = '\u25BC';
   }
   requestAnimationFrame(() => $('stickyHeader').classList.remove('is-initializing'));
 
   $('toggleBtn').onclick = () => {
     const c = $('stickyHeader').classList.toggle('collapsed');
-    $('toggleBtn').textContent = c ? '\u25BC FILTER' : '\u25B2 FILTER';
+    $('toggleBtn').textContent = c ? '\u25BC' : '\u25B2';
     localStorage.setItem('gl_log_collapsed', c);
   };
 
@@ -628,8 +727,8 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     const ct = document.createElement('span');
     ct.className = 'item-contents';
     if (item.contents) {
-      // スマホ版はアイコンのみ、PC版は「アイコン + コンテンツ名」で出し分け
-      ct.textContent = isMobileState ? (symbols[item.contents] || item.contents) : ((symbols[item.contents] ? symbols[item.contents] + ' ' : '') + item.contents);
+      // スマホ版・ICONモードONはアイコンのみ、それ以外(PC版・ICONモードOFF)は「アイコン + コンテンツ名」で出し分け
+      ct.textContent = (isMobileState || iconMode) ? (symbols[item.contents] || item.contents) : ((symbols[item.contents] ? symbols[item.contents] + ' ' : '') + item.contents);
     } else {
       ct.textContent = '';
     }
@@ -747,6 +846,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       frag.appendChild(makeBadge('Keyword: "' + kw + '"', () => {
         searchInput.value = '';
         updateSearchClearState();
+        autoUpdateContentTypeFilters();
         updateDisplay(true);
       }));
     }
@@ -765,7 +865,11 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       const squareColor = cb.value === 'G2' ? '#f472b6' : cb.value === 'L2' ? '#facc15' : null;
       frag.appendChild(makeBadge(name, () => {
         cb.checked = false;
-        if (allConts.includes(cb.value)) manuallyTouchedConts.add(cb.value);
+        if (allConts.includes(cb.value)) {
+          manuallyTouchedConts.add(cb.value);
+        } else {
+          autoUpdateContentTypeFilters();
+        }
         updateDisplay(true);
       }, squareColor));
     });
@@ -919,6 +1023,12 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       return;
     }
 
+    if (!isTodayTrigger) {
+      // 検索窓・年・グループ・メンバーでの絞り込み変更時:コンテンツ種類が1つでもONであれば何もしない
+      const anyContentOn = contentCheckboxes.some(cb => cb.checked);
+      if (anyContentOn) return;
+    }
+
     const dq = parseDateQuery(rawKw);
     const ctx = { cYears, sGroups, mGroups, kw, dq };
 
@@ -939,6 +1049,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
         ? Array.from(matched).some(c => !primaryConts.includes(c))
         : matched.has(cb.value);
       cb.checked = shouldBeOn;
+      manuallyTouchedConts.delete(cb.value); // 自動でon/offされたら手動タッチの記録は解除する(ランプの色を正しく保つため)
     });
   };
 
@@ -1036,7 +1147,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       const isZero = filtered.length === 0;
       $('noResult').style.display = isZero ? 'block' : 'none';
       $('sortBtn').style.display = isZero ? 'none' : 'block';
-      $('inlineClearBtn').style.display = ((checked.length > 0 || kw || todayMode) && !isZero) ? 'inline-block' : 'none';
+      $('inlineClearBtn').style.display = (checked.length > 0 || kw || todayMode) ? 'inline-block' : 'none';
       
       if (!isZero) renderBatch();
       $('items').classList.remove('is-animating');
@@ -1141,6 +1252,30 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       updateManualIndicators();
   };
 
+  // ICONボタン:コンテンツ種類フィルターの表示をテキストのみ⇔アイコンのみで切り替える。次回訪問時も記憶する
+  const ICON_MODE_KEY = 'gl_log_icon_mode';
+  let iconMode = localStorage.getItem(ICON_MODE_KEY) === 'true';
+
+  // ICONモード時のみ、コンテンツ種類ボタンにツールチップ(名前)を表示する
+  const updateContentTooltips = () => {
+    document.querySelectorAll('#otherChecks label[data-tooltip-name]').forEach(l => {
+      if (iconMode) l.title = l.dataset.tooltipName;
+      else l.removeAttribute('title');
+    });
+  };
+
+  document.body.classList.toggle('icon-only-mode', iconMode);
+  $('iconToggleBtn').classList.toggle('is-active', iconMode);
+  updateContentTooltips();
+  $('iconToggleBtn').onclick = () => {
+    iconMode = !iconMode;
+    document.body.classList.toggle('icon-only-mode', iconMode);
+    $('iconToggleBtn').classList.toggle('is-active', iconMode);
+    localStorage.setItem(ICON_MODE_KEY, iconMode);
+    updateContentTooltips();
+    updateDisplay(false);
+  };
+
   // 年/月/日/曜/時分:項目左端の日付表示を個別にon/offするボタン。状態はlocalStorageに保存し次回も復元する
   const datePartButtons = {
     year: $('showYearBtn'),
@@ -1186,7 +1321,8 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   const updateTodayButtonStyle = () => {
     const btn = $('todayToggleBtn');
     btn.classList.toggle('is-active', todayMode && todayOffset === 0);
-    btn.classList.toggle('is-offset', todayMode && todayOffset !== 0);
+    btn.classList.toggle('is-offset-prev', todayMode && todayOffset < 0);
+    btn.classList.toggle('is-offset-next', todayMode && todayOffset > 0);
     $('prevDayBtn').classList.toggle('is-visible', todayMode);
     $('nextDayBtn').classList.toggle('is-visible', todayMode);
     if (todayOffset === 0) {
@@ -1218,6 +1354,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     }
     updateTodayButtonStyle();
     autoUpdateContentTypeFilters(true);
+    updateManualIndicators();
     updateDisplay(true);
   };
 
@@ -1228,6 +1365,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     $('nextDayBtn').classList.remove('is-pressed');
     updateTodayButtonStyle();
     autoUpdateContentTypeFilters(true);
+    updateManualIndicators();
     updateDisplay(true);
   };
 
@@ -1238,6 +1376,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     $('prevDayBtn').classList.remove('is-pressed');
     updateTodayButtonStyle();
     autoUpdateContentTypeFilters(true);
+    updateManualIndicators();
     updateDisplay(true);
   };
 
@@ -1265,6 +1404,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
         if (cb) {
           cb.checked = !cb.checked;
           if (allConts.includes(cb.value)) manuallyTouchedConts.add(cb.value);
+          updateManualIndicators();
           updateDisplay(true);
           window.scrollTo({ top: 0, behavior: 'instant' });
         }
@@ -1277,6 +1417,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
       } else {
         autoUpdateContentTypeFilters();
       }
+      updateManualIndicators();
       updateDisplay(true);
       window.scrollTo({ top: 0, behavior: 'instant' });
     });
@@ -1308,6 +1449,11 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
     if (updating) return;
     const active = window.location.hash.replace('#', '').split(',').filter(Boolean);
     checkboxes.forEach(cb => cb.checked = active.includes(cb.value));
+    // URLで明示的にONになっているコンテンツ種類は手動操作扱いにして保護する。OFFのものは自動on/offの対象に戻す
+    manuallyTouchedConts.clear();
+    checkboxes.forEach(cb => {
+      if (allConts.includes(cb.value) && cb.checked) manuallyTouchedConts.add(cb.value);
+    });
     updateSearchClearState();
     updateDisplay(false);
   };
@@ -1349,7 +1495,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
         const y = dateObj.getFullYear();
         const m = String(dateObj.getMonth() + 1).padStart(2, '0');
         const d = String(dateObj.getDate()).padStart(2, '0');
-        $('updateTime').textContent = `updated: ${y}.${m}.${d}`;
+        $('updateTime').textContent = `updated > ${y}.${m}.${d}`;
       }
     })
     .catch(err => {
