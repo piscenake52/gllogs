@@ -2558,12 +2558,12 @@
   },
   {
     "date": "2026.06.26",
-    "time": "0000",
+    "time": "1800",
     "contents": "LIVE",
-    "title": "「Girls² 7th Anniversary “Seven×Seven in Bloom -The Live-”」開催(日本武道館)",
-    "display_pc": "「Girls² 7th Anniversary “Seven×Seven in Bloom -The Live-”」開催(日本武道館)",
-    "display_sm": "「Girls² 7th Anniversary “Seven×Seven in Bloom -The Live-”」開催(日本武道館)",
-    "url": "",
+    "title": "「Girls² 7th Anniversary “Seven×Seven in Bloom -The Live-”」日本武道館",
+    "display_pc": "Girls² 7th Anniversary Seven×Seven in Bloom -The Live- 武道館",
+    "display_sm": "7周年 Seven×Seven in Bloom -The Live- 武道館",
+    "url": "https://girls2-fc.jp/page/events/7thAnnivLP",
     "groups": [
       "G2",
       "YZH",
@@ -2576,7 +2576,7 @@
     ],
     "relations": [],
     "tags": [
-      "記念ライブ"
+      "日本武道館"
     ]
   },
   {
