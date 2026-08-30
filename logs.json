@@ -1254,7 +1254,6 @@
   "time": "1800",
   "contents": "CL",
   "title": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
-  "display": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
   "display_pc": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
   "display_sm": "Girls² 7th Anniversary「Seven×Seven in Bloom」-The Live- Behind The Scenes",
   "url": "https://www.cl-live.com/programs/ondemand/gmefSCfFyLU5iMMQWiQYJJ",
@@ -45684,8 +45683,8 @@
     "time": "2300",
     "contents": "ETC",
     "title": "BOOK ACT Z 2026「芸人交換日記」 GL²family・GL²friend先行チケット抽選申込受付締切",
-    "display_pc": "BOOK ACT Z 2026 GL²family・friend先行チケット抽選申込受付締切",
-    "display_sm": "BOOK ACT Z 2026 GL²family・friend先行チケット抽選申込受付締切",
+    "display_pc": "BOOK ACT Z 2026　GL²family・friend先行チケット抽選申込受付締切",
+    "display_sm": "BOOK ACT Z 2026　GL²family・friend先行チケット抽選申込受付締切",
     "url": "https://girls2-fc.jp/page/familyNews/1219233405481254914",
     "groups": [
       "G2",
@@ -45702,8 +45701,8 @@
     "time": "0000",
     "contents": "ETC",
     "title": "NATSLIVE「Lakiガチャクッキング」＃001 アーカイブ配信終了予定",
-    "display_pc": "Lakiガチャクッキング #001 アーカイブ配信終了予定",
-    "display_sm": "Lakiガチャクッキング #001 アーカイブ配信終了予定",
+    "display_pc": "Lakiガチャクッキング #001　アーカイブ配信終了予定",
+    "display_sm": "Lakiガチャクッキング #001　アーカイブ配信終了予定",
     "url": "https://natslive.jp/episodes/16931",
     "groups": [
       "L2",
@@ -45714,5 +45713,89 @@
     "tags": [
       "NATSLIVE","カルボナーラハンバーグ"
     ]
+  },
+  {
+    "date": "2026.08.29",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "💙🍡",
+    "display_pc": "小川桜花　💙🍡",
+    "display_sm": "小川桜花　💙🍡",
+    "url": "https://girls2-fc.jp/page/youkaBlog/1223450958361526273",
+    "groups": [
+      "G2","YOK"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.08.29",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "ウエノデ.パンダビアフェスタ",
+    "display_pc": "増田來亜　ウエノデ.パンダビアフェスタ",
+    "display_sm": "増田來亜　ウエノデ.パンダビアフェスタ",
+    "url": "https://girls2-fc.jp/page/kureaBlog/1223450223125200897",
+    "groups": [
+      "G2","KUR"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.08.29",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "熱い2日間❤️‍🔥",
+    "display_pc": "比嘉優和　熱い2日間❤️‍🔥",
+    "display_sm": "比嘉優和　熱い2日間❤️‍🔥",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1223235059293618177",
+    "groups": [
+      "L2","YUW"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.08.29",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "海最高🌊✨🔥",
+    "display_pc": "佐藤妃希　海最高🌊✨🔥",
+    "display_sm": "佐藤妃希　海最高🌊✨🔥",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1223293216552386560",
+    "groups": [
+      "L2","KIK"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.08.29",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "海の家でーい🌊🌳🍎💚",
+    "display_pc": "森朱里　海の家でーい🌊🌳🍎💚",
+    "display_sm": "森朱里　海の家でーい🌊🌳🍎💚",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1223447307165368321",
+    "groups": [
+      "L2","AKR"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.08.29",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "海の家🩵",
+    "display_pc": "佐藤栞奈　海の家🩵",
+    "display_sm": "佐藤栞奈　海の家🩵",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1223235881914073089",
+    "groups": [
+      "L2","KAN"
+    ],
+    "relations": [],
+    "tags": []
   }
 ]
