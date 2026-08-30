@@ -25,7 +25,7 @@
   {
     "date": "2026.08.31",
     "time": "0000",
-    "contents": "ETC",
+    "contents": "EVENT",
     "title": "思い出共有 YUWA DAY",
     "display_pc": "思い出共有 YUWA DAY",
     "display_sm": "思い出共有 YUWA DAY",
@@ -51474,6 +51474,75 @@
     "relations": [],
     "tags": [
       "イオンモール大高　1Fグリーンコート"
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "2000",
+    "contents": "MEDIA",
+    "title": "文化放送「Girls²のがるがるトーク！」",
+    "display_pc": "文化放送「Girls²のがるがるトーク！」",
+    "display_sm": "文化放送「Girls²のがるがるトーク！」",
+    "url": "https://radiko.jp/share/?t=20260831200000&sid=QRR",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "2030",
+    "contents": "MEDIA",
+    "title": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
+    "display_pc": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
+    "display_sm": "QloveR「Girls²のがるがるトーク！」アーカイブ配信",
+    "url": "https://qlover.jp/girls/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "2030",
+    "contents": "MEDIA",
+    "title": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "display_pc": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "display_sm": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "url": "https://qlover.jp/girls/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "がるラー"
     ]
   },
   {
