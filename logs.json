@@ -3589,30 +3589,6 @@
     ]
   },
   {
-    "date": "2026.09.30",
-    "time": "0000",
-    "contents": "RELEASE",
-    "title": "2ndフルアルバム「WORK≒LiFE」発売",
-    "display_pc": "2ndフルアルバム「WORK≒LiFE」発売",
-    "display_sm": "2ndフルアルバム「WORK≒LiFE」発売",
-    "url": "",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "tags": [
-      "フルアルバム"
-    ]
-  },
-  {
     "date": "2008.11.22",
     "time": "0000",
     "contents": "BIRTHDAY",
@@ -47349,11 +47325,11 @@
   },
   {
     "date": "2026.09.30",
-    "time": "1200",
+    "time": "0000",
     "contents": "RELEASE",
     "title": "Laki 2nd ALBUM「WORK≒LiFE」リリース",
-    "display_pc": "Laki 2nd AL「WORK≒LiFE」リリース",
-    "display_sm": "Laki 2nd AL「WORK≒LiFE」リリース",
+    "display_pc": "Laki 2nd ALBUM「WORK≒LiFE」リリース",
+    "display_sm": "2nd AL「WORK≒LiFE」リリース",
     "url": "https://girls2-fc.jp/page/familyNews/1202914447505489922",
     "groups": [
       "L2",
@@ -47380,6 +47356,29 @@
     ]
   },
   {
+    "date": "2026.08.28",
+    "time": "1800",
+    "contents": "ETC",
+    "title": "Girls² 8月スペシャル壁紙 プレゼントキャンペーン開始",
+    "display_pc": "Girls² 8月スペシャル壁紙 プレゼントキャンペーン開始",
+    "display_sm": "8月壁紙 プレゼントキャンペーン開始",
+    "url": "https://girls2-fc.jp/page/wallpaper/1221748109609009152",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "GL²family"
+    ]
+  },
+  {
     "date": "2026.11.11",
     "time": "0000",
     "contents": "RELEASE",
@@ -47399,7 +47398,7 @@
     ],
     "relations": [],
     "tags": [
-      "EASY","Nocturne",
+      "EASY","Nocturne","Girls PARADE"
       "Girls² 7th Anniversary Seven×Seven in Bloom -The Live-"
     ]
   },
