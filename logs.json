@@ -45536,12 +45536,30 @@
   },
   {
     "date": "2026.10.27",
-    "time": "1200",
+    "time": "1400",
     "contents": "EVENT",
-    "title": "BOOK ACT Z 2026",
-    "display_pc": "BOOK ACT Z 2026",
-    "display_sm": "BOOK ACT Z 2026",
-    "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
+    "title": "BOOK ACT Z 2026「芸人交換日記」昼",
+    "display_pc": "BOOK ACT Z 2026「芸人交換日記」昼",
+    "display_sm": "BOOK ACT Z 2026「芸人交換日記」昼",
+    "url": "https://girls2-fc.jp/page/news/1219233121220689920",
+    "groups": [
+      "G2",
+      "MSK"
+    ],
+    "relations": [],
+    "tags": [
+      "THEATER MILANO-Za",
+      "芸人交換日記"
+    ]
+  },
+  {
+    "date": "2026.10.27",
+    "time": "1900",
+    "contents": "EVENT",
+    "title": "BOOK ACT Z 2026「芸人交換日記」夜",
+    "display_pc": "BOOK ACT Z 2026「芸人交換日記」夜",
+    "display_sm": "BOOK ACT Z 2026「芸人交換日記」夜",
+    "url": "https://girls2-fc.jp/page/news/1219233121220689920",
     "groups": [
       "G2",
       "MSK"
@@ -45554,12 +45572,30 @@
   },
   {
     "date": "2026.10.29",
-    "time": "1200",
+    "time": "1400",
     "contents": "EVENT",
-    "title": "BOOK ACT Z 2026",
-    "display_pc": "BOOK ACT Z 2026",
-    "display_sm": "BOOK ACT Z 2026",
-    "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
+    "title": "BOOK ACT Z 2026「芸人交換日記」昼",
+    "display_pc": "BOOK ACT Z 2026「芸人交換日記」昼",
+    "display_sm": "BOOK ACT Z 2026「芸人交換日記」昼",
+    "url": "https://girls2-fc.jp/page/news/1219233121220689920",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "relations": [],
+    "tags": [
+      "THEATER MILANO-Za",
+      "芸人交換日記"
+    ]
+  },
+  {
+    "date": "2026.10.29",
+    "time": "1900",
+    "contents": "EVENT",
+    "title": "BOOK ACT Z 2026「芸人交換日記」夜",
+    "display_pc": "BOOK ACT Z 2026「芸人交換日記」夜",
+    "display_sm": "BOOK ACT Z 2026「芸人交換日記」夜",
+    "url": "https://girls2-fc.jp/page/news/1219233121220689920",
     "groups": [
       "G2",
       "YZH"
