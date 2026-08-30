@@ -47356,57 +47356,11 @@
     ]
   },
   {
-    "date": "2026.08.28",
-    "time": "1800",
-    "contents": "ETC",
-    "title": "Girls² 8月スペシャル壁紙 プレゼントキャンペーン開始",
-    "display_pc": "Girls² 8月スペシャル壁紙 プレゼントキャンペーン開始",
-    "display_sm": "8月壁紙 プレゼントキャンペーン開始",
-    "url": "https://girls2-fc.jp/page/wallpaper/1221748109609009152",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "relations": [],
-    "tags": [
-      "GL²family"
-    ]
-  },
-  {
-    "date": "2026.08.31",
-    "time": "1800",
-    "contents": "ETC",
-    "title": "Girls² 8月スペシャル壁紙 プレゼントキャンペーン終了",
-    "display_pc": "Girls² 8月スペシャル壁紙 プレゼントキャンペーン終了",
-    "display_sm": "8月壁紙 プレゼントキャンペーン終了",
-    "url": "https://girls2-fc.jp/page/wallpaper/1221748109609009152",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "relations": [],
-    "tags": [
-      "GL²family"
-    ]
-  },
-  {
     "date": "2026.11.11",
     "time": "0000",
     "contents": "RELEASE",
     "title": "Girls² EP「EASY」リリース",
-    "display_pc": "Girls² EP「EASY」リリース",
+    "display_pc": "Girls²「EASY」リリース",
     "display_sm": "EP「EASY」リリース",
     "url": "https://girls2-fc.jp/page/news/1220569487942615041",
     "groups": [
@@ -47582,7 +47536,7 @@
     "time": "1700",
     "contents": "LIVE",
     "title": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-",
-    "display_pc": LIVE-EXPO 2026 -PERFECT YEAR BEST-",
+    "display_pc": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-",
     "display_sm": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-",
     "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
     "groups": [
