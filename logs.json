@@ -83307,14 +83307,14 @@
   {
     "date": "2026.11.01",
     "time": "1830",
-    "contents": "ETC",
+    "contents": "EVENT",
     "title": "atmoscon 2026",
     "display_pc": "atmoscon 2026",
     "display_sm": "atmoscon 2026",
     "url": "https://www.atmos-tokyo.com/lp/atmoscon",
-    "groups": ["G2"],
+    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
     "relations": [],
-    "tags": []
+    "tags": ["新宿住友ビル三角広場"]
   },
   {
     "date": "2026.08.13",
