@@ -1,6 +1,63 @@
 [
   {
     "date": "2026.08.30",
+    "time": "1810",
+    "contents": "CL",
+    "title": "CLキャス 鶴屋美咲",
+    "display_pc": "CLキャス　鶴屋美咲",
+    "display_sm": "CLキャス　鶴屋美咲",
+    "url": "https://www.cl-live.com/programs/cast/eUmYjeA8zERzyXeuNezYVZ?lang=ja",
+    "groups": [
+      "G2",
+      "MSK"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.08.30",
+    "time": "2300",
+    "contents": "ETC",
+    "title": "BOOK ACT Z 2026「芸人交換日記」 GL²family・GL²friend先行チケット抽選申込受付締切",
+    "display_pc": "BOOK ACT Z 2026　GL²family・friend先行チケット抽選申込受付締切",
+    "display_sm": "BOOK ACT Z 2026　GL²family・friend先行抽選申込受付締切",
+    "url": "https://girls2-fc.jp/page/familyNews/1219233405481254914",
+    "groups": [
+      "G2",
+      "YZH",
+      "MSK"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.08.30",
+    "time": "2359",
+    "contents": "ETC",
+    "title": "NATSLIVE「Lakiガチャクッキング」#001 アーカイブ配信終了",
+    "display_pc": "Lakiガチャクッキング #001　アーカイブ配信終了",
+    "display_sm": "Lakiガチャクッキング #001　アーカイブ配信終了",
+    "url": "https://natslive.jp/episodes/16931",
+    "groups": [
+      "L2","RIN","YUW","KAN","RRK"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "カルボナーラハンバーグ"
+    ]
+  },
+  {
+    "date": "2026.08.30",
     "time": "1200",
     "contents": "DIARY",
     "title": "がるがるちゃんねる🎥🏖",
@@ -15,7 +72,7 @@
       "YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "tags": [
-      ""
+      "がるまね","江ノ島","OFF THE MIC GALLERY"
     ]
   },
   {
