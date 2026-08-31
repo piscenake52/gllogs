@@ -277717,29 +277717,18 @@
       "GENERATIONS"
     ]
   },
-  {
-    "date": "2026.08.31",
-    "time": "1700",
-    "contents": "YOUTUBE",
-    "title": "がるがるちゃんねる",
-    "display_pc": "がるがるちゃんねる",
-    "display_sm": "がるがるちゃんねる",
-    "url": "https://www.youtube.com/@GaruGaruOfficial",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "relations": [],
-    "tags": [
-      "がるがるちゃんねる"
-    ]
-  },
+{
+"date": "2026.08.31",
+"time": "1700",
+"contents": "YouTube",
+"title": "がるがるちゃんねる",
+"display_pc": "1人だけ違う料理…！？食リポだけで見破れ！食リポ人狼🐺",
+"display_sm": "1人だけ違う料理…！？食リポだけで見破れ！食リポ人狼🐺",
+"url": "https://youtu.be/jQtBEDwonnI?si=0JkqoaSpVbrOdUEU",
+"groups": ["G2","YZH","MMK","MSK","YOK"],
+"relations": [""],
+"tags": ["がるがるちゃんねる"]
+},
   {
     "date": "2026.08.29",
     "time": "2100",
