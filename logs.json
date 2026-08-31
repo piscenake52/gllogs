@@ -8,10 +8,10 @@
     "display_sm": "STAFF　がるがるちゃんねる🎥🏖",
     "url": "https://girls2-fc.jp/page/staffdiary/1223839996859908096",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR",
+      "G2",
       "STF"
     ],
-    "relations": [],
+    "relations": ["YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
     "tags": [
       "STAFF"
     ]
@@ -236421,22 +236421,22 @@
     "date": "2026.08.15",
     "time": "1200",
     "contents": "DIARY",
-    "title": "STAFF　💖Girls EXPO＆ 最近の #オフラキ🍀",
+    "title": "💖Girls EXPO＆ 最近の #オフラキ🍀",
     "display_pc": "STAFF　💖Girls EXPO＆最近の #オフラキ🍀",
     "display_sm": "STAFF　💖Girls EXPO＆最近の #オフラキ🍀",
     "url": "https://girls2-fc.jp/page/staffdiary/1218058144366723074",
     "groups": [
       "L2",
-      "RIN",
+      "G2"
+    ],
+    "relations": ["RIN",
       "TBK",
       "HIR",
       "YUW",
       "KAN",
       "RRK",
       "AKR",
-      "KIK",
-      "G2",
-      "YZH",
+      "KIK","YZH",
       "MMK",
       "MSK",
       "YOK",
@@ -236444,16 +236444,13 @@
       "MNM",
       "KIR",
       "TOA"
-    ],
-    "relations": [],
+      ],
     "tags": [
-      "STAFF",
-      "Laki",
+      "Laki","Girls²","f5ve",
       "Girls EXPO",
       "LDH LIVE-EXPO",
       "オフラキ",
-      "NATSLIVE",
-      "インストアイベント"
+      "NATSLIVE","画伯","バブみ","牛タン"
     ]
   },
   {
