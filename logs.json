@@ -82420,13 +82420,25 @@
     "date": "2027.06.27",
     "time": "2359",
     "contents": "ETC",
-    "title": "Girls² サンスポEXTRA コンビニプリント終了",
-    "display_pc": "Girls² サンスポEXTRA コンビニプリント終了",
-    "display_sm": "サンスポEXTRA コンビニプリント終了",
+    "title": "Girls² サンスポEXTRA コンビニプリント販売終了",
+    "display_pc": "Girls² サンスポEXTRA コンビニプリント販売終了",
+    "display_sm": "サンスポEXTRA コンビニプリント販売終了",
     "url": "https://entame.e-printservice.net/content_detail/sanspo-extra",
     "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
     "relations": [],
     "tags": ["2026年6月27日付Ｇｉｒｌｓ２初の武道館公演","SAE26628"]
+  },
+  {
+    "date": "2027.12.31",
+    "time": "2359",
+    "contents": "ETC",
+    "title": "Girls² デイリースポーツ  コンビニプリント販売終了日時未定",
+    "display_pc": "Girls² デイリースポーツ  コンビニプリント販売終了日時未定",
+    "display_sm": "デイリースポーツ  コンビニプリント販売終了日時未定",
+    "url": "https://www.e-printservice.net/content_detail/daily-sports/",
+    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+    "relations": [],
+    "tags": ["20260626 Ｇｉｒｌｓ2","武道館","DSP26626 "]
   },
   {
     "date": "2026.07.11",
