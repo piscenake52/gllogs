@@ -1,4 +1,40 @@
 [
+{
+"date": "2026.10.17",
+"time": "1300",
+"contents": "LIVE",
+"title": "ZIP-FM「ENJOY LIVE」公開収録",
+"display_pc": "ZIP-FM「ENJOY LIVE」公開収録",
+"display_sm": "ZIP-FM「ENJOY LIVE」公開収録",
+"url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
+"groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+"relations": ["TOA"],
+"tags": ["ナガシマスパーランド ナガシマスパードーム"]
+},
+{
+"date": "2026.09.04",
+"time": "1000",
+"contents": "ETC",
+"title": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売開始",
+"display_pc": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売開始",
+"display_sm": "ZIP-FM「ENJOY LIVE」公開収録 前売券販売開始",
+"url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
+"groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+"relations": ["TOA"],
+"tags": ["ナガシマスパーランド ナガシマスパードーム"]
+},
+{
+"date": "2026.10.16",
+"time": "2359",
+"contents": "ETC",
+"title": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売終了",
+"display_pc": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売終了",
+"display_sm": "ZIP-FM「ENJOY LIVE」公開収録 前売券販売終了",
+"url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
+"groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+"relations": ["TOA"],
+"tags": ["ナガシマスパーランド ナガシマスパードーム"]
+},
   {
     "date": "2026.08.31",
     "time": "0000",
@@ -294,7 +330,7 @@
     "contents": "ETC",
     "title": "Girls² デイリースポーツ  コンビニプリント販売終了日時未定",
     "display_pc": "Girls² デイリースポーツ  コンビニプリント販売終了日時未定",
-    "display_sm": "デイリースポーツ  コンビニプリント販売終了日時未定",
+    "display_sm": "Dayプリ  コンビニプリント販売終了日時未定",
     "url": "https://www.e-printservice.net/content_detail/daily-sports/",
     "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
     "relations": [""],
