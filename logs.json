@@ -7,7 +7,31 @@
 "display_pc": "ZIP-FM「ENJOY LIVE」公開収録",
 "display_sm": "ZIP-FM「ENJOY LIVE」公開収録",
 "url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
-"groups": ["G2"],
+"groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+"relations": ["TOA"],
+"tags": ["ナガシマスパーランド ナガシマスパードーム"]
+},
+{
+"date": "2026.09.04",
+"time": "1000",
+"contents": "TICKET",
+"title": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売開始",
+"display_pc": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売開始",
+"display_sm": "ZIP-FM「ENJOY LIVE」公開収録 前売券販売開始",
+"url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
+"groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+"relations": ["TOA"],
+"tags": ["ナガシマスパーランド ナガシマスパードーム"]
+},
+{
+"date": "2026.10.16",
+"time": "2359",
+"contents": "CLOSE",
+"title": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売終了",
+"display_pc": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売終了",
+"display_sm": "ZIP-FM「ENJOY LIVE」公開収録 前売券販売終了",
+"url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
+"groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
 "relations": ["TOA"],
 "tags": ["ナガシマスパーランド ナガシマスパードーム"]
 },
@@ -277745,9 +277769,9 @@
     "date": "2026.08.26",
     "time": "1200",
     "contents": "CL",
-    "title": "POST　山口綺羅",
-    "display_pc": "POST　山口綺羅",
-    "display_sm": "POST　山口綺羅",
+    "title": "山口綺羅 POST",
+    "display_pc": "山口綺羅　POST",
+    "display_sm": "山口綺羅　POST",
     "url": "https://www.cl-live.com/posts/nqyETFKzXVU15zbtq6SxN8?utm_medium=referral&utm_source=referral&utm_campaign=url_share",
     "groups": [
       "G2",
@@ -277757,6 +277781,23 @@
     "tags": [
       "DANCE HOLIC Zepp TOUR",
       "Zepp DiverCity"
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "1500",
+    "contents": "CL",
+    "title": "増田來亜 POST",
+    "display_pc": "増田來亜　POST",
+    "display_sm": "増田來亜　POST",
+    "url": "https://www.cl-live.com/posts/c6f8xiNTv7NfhMpQS88Mn9?lang=ja",
+    "groups": [
+      "G2",
+      "KUR"
+    ],
+    "relations": [],
+    "tags": [
+      "髪色"
     ]
   },
   {
