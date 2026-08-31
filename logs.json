@@ -234102,7 +234102,7 @@
     "title": "CLキャス 深澤日彩",
     "display_pc": "CLキャス　深澤日彩",
     "display_sm": "CLキャス　深澤日彩",
-    "url": "https://www.cl-live.com/programs/cast/ekRJ15RTURG7SPqY2VB7ea?utm_medium=referral&utm_source=referral&utm_campaign=url_share",
+    "url": "https://www.cl-live.com/programs/cast/ekRJ15RTURG7SPqY2VB7ea?lang=ja",
     "groups": [
       "L2",
       "HIR"
@@ -234110,6 +234110,22 @@
     "relations": ["RIN","TBK"],
     "tags": [
       "CL"
+    ]
+  },
+  {
+    "date": "2026.08.30",
+    "time": "1810",
+    "contents": "CL",
+    "title": "CLキャス 鶴屋美咲",
+    "display_pc": "CLキャス　鶴屋美咲",
+    "display_sm": "CLキャス　鶴屋美咲",
+    "url": "https://www.cl-live.com/programs/cast/eUmYjeA8zERzyXeuNezYVZ?lang=ja",
+    "groups": [
+      "G2",
+      "MSK"
+    ],
+    "relations": [],
+    "tags": [
     ]
   },
   {
@@ -277639,9 +277655,9 @@
     "date": "2026.08.26",
     "time": "1200",
     "contents": "CL",
-    "title": "山口綺羅　POST",
-    "display_pc": "山口綺羅　POST",
-    "display_sm": "山口綺羅　POST",
+    "title": "POST　山口綺羅",
+    "display_pc": "POST　山口綺羅",
+    "display_sm": "POST　山口綺羅",
     "url": "https://www.cl-live.com/posts/nqyETFKzXVU15zbtq6SxN8?utm_medium=referral&utm_source=referral&utm_campaign=url_share",
     "groups": [
       "G2",
@@ -278153,11 +278169,11 @@
   {
     "date": "2026.08.28",
     "time": "1800",
-    "contents": "EVENT",
+    "contents": "YOUTUBE",
     "title": "Laki「WORK≒LiFE」発売記念リミスタサイン会",
     "display_pc": "Laki「WORK≒LiFE」リミスタサイン会",
-    "display_sm": "Laki「WORK≒LiFE」リミスタサイン会",
-    "url": "https://girls2-fc.jp/page/familyNews/1216626460287041537",
+    "display_sm": "「WORK≒LiFE」リミスタサイン会",
+    "url": "https://www.youtube.com/live/pL9s1dmuPPo?si=Rvk6wcAwR8OBKj8w",
     "groups": [
       "L2",
       "RIN",
