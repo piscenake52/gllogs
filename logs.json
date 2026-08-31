@@ -1,5 +1,258 @@
 [
   {
+    "date": "2026.08.31",
+    "time": "0000",
+    "contents": "ETC",
+    "title": "「IDOL AND READ 046」サイン入りチェキ応募受付締切",
+    "display_pc": "「IDOL AND READ 046」サイン入りチェキ応募受付締切",
+    "display_sm": "「IDOL AND READ 046」チェキ応募受付締切",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [""],
+    "tags": [
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "0000",
+    "contents": "EVENT",
+    "title": "GL²friend 思い出共有 YUWA DAY",
+    "display_pc": "GL²friend 思い出共有 YUWA DAY",
+    "display_sm": "GL²friend 思い出共有 YUWA DAY",
+    "url": "",
+    "groups": [
+      "L2","YUW"
+    ],
+    "relations": [""],
+    "tags": [
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "2359",
+    "contents": "ETC",
+    "title": "CL26「おもてなしモ～ニングクッキング！」無料配信終了",
+    "display_pc": "CL26「おもてなしモ～ニングクッキング！」無料配信終了",
+    "display_sm": "「おもてなしモ～ニングクッキング!」無配信終了",
+    "url": "https://www.cl-live.com/programs/ondemand/ad7QYBChpccBnXsH2MUv2N?lang=ja",
+    "groups": [
+      "G2",
+      "KUR",
+      "KIR"
+    ],
+    "relations": [""],
+    "tags": ["トキシラズ","夏の風物語"
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "2000",
+    "contents": "MEDIA",
+    "title": "文化放送「Girls²のがるがるトーク！」",
+    "display_pc": "文化放送「Girls²のがるがるトーク！」",
+    "display_sm": "文化放送「Girls²のがるがるトーク！」",
+    "url": "https://radiko.jp/share/?t=20260831200000&sid=QRR",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [""],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "2030",
+    "contents": "MEDIA",
+    "title": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
+    "display_pc": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
+    "display_sm": "QloveR「がるがるトーク！」アーカイブ配信",
+    "url": "https://qlover.jp/girls/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [""],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "2030",
+    "contents": "MEDIA",
+    "title": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "display_pc": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "display_sm": "QloveR「がるがるトーク！」おまけ配信",
+    "url": "https://qlover.jp/girls/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [""],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "1800",
+    "contents": "ETC",
+    "title": "Girls² 8月スペシャル壁紙 プレゼントキャンペーン終了",
+    "display_pc": "Girls² 8月スペシャル壁紙 プレゼントキャンペーン終了",
+    "display_sm": "8月壁紙 プレゼントキャンペーン終了",
+    "url": "https://girls2-fc.jp/page/wallpaper/1221748109609009152",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [""],
+    "tags": [
+      "GL²family"
+    ]
+  },
+{
+"date": "2026.08.31",
+"time": "1700",
+"contents": "YOUTUBE",
+"title": "がるがるちゃんねる",
+"display_pc": "1人だけ違う料理…！？食リポだけで見破れ！食リポ人狼🐺",
+"display_sm": "1人だけ違う料理…！？食リポだけで見破れ！食リポ人狼🐺",
+"url": "https://youtu.be/jQtBEDwonnI?si=0JkqoaSpVbrOdUEU",
+"groups": ["G2","YZH","MMK","MSK","YOK"],
+"relations": [""],
+"tags": ["がるがるちゃんねる"]
+},
+  {
+    "date": "2026.08.31",
+    "time": "1500",
+    "contents": "CL",
+    "title": "POST 増田來亜",
+    "display_pc": "POST　増田來亜",
+    "display_sm": "POST　増田來亜",
+    "url": "https://www.cl-live.com/posts/c6f8xiNTv7NfhMpQS88Mn9?lang=ja",
+    "groups": [
+      "G2",
+      "KUR"
+    ],
+    "relations": [""],
+    "tags": [
+      "髪色"
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "1500",
+    "contents": "ETC",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special プレイガイド先行受付開始",
+    "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special プレイガイド先行受付開始",
+    "display_sm": "LIVE TOUR 2026 Xmas SP PG先行受付開始",
+    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [""],
+    "tags": [
+      "クリスマス"
+    ]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "2359",
+    "contents": "ETC",
+    "title": "Girls²「EASY」発売記念 メンバー個別オンライントーク会 入金期限",
+    "display_pc": "Girls²「EASY」個別オンライントーク会 入金期限",
+    "display_sm": "「EASY」オンライントーク会 入金期限",
+    "url": "https://girls2-fc.jp/page/news/1220576408795873281",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [""],
+    "tags": [""]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "1500",
+    "contents": "ETC",
+    "title": "「LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-」プレミアムチケット抽選受付開始",
+    "display_pc": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST- プレミアムチケット抽選受付開始",
+    "display_sm": "LDH LIVE-EXPO 2026 プレミアムチケット抽選受付開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1222843017472245762",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [""],
+    "tags": [
+      ""
+    ]
+  },
+  {
     "date": "2027.09.24",
     "time": "0000",
     "contents": "ETC",
