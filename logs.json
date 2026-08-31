@@ -78351,13 +78351,13 @@
     "date": "2027.05.26",
     "time": "2359",
     "contents": "ETC",
-    "title": "スポーツ報知 コンビニプリント販売終了",
-    "display_pc": "スポーツ報知 コンビニプリント販売終了",
+    "title": "Girls² ポーツ報知 コンビニプリント販売終了",
+    "display_pc": "Girls² スポーツ報知 コンビニプリント販売終了",
     "display_sm": "スポーツ報知 コンビニプリント販売終了",
     "url": "https://entame.e-printservice.net/content_detail/hochi-print",
     "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
     "relations": [],
-    "tags": [""]
+    "tags": ["Girls2、6月26日武道館公演への思い「少女からレディーになった姿を感じて」","HCP11972"]
   },
   {
     "date": "2025.12.14",
@@ -81855,11 +81855,12 @@
     "date": "2026.12.31",
     "time": "2359",
     "contents": "ETC",
-    "title": "「LDH QuestionS」視聴者プレゼント応募受付締切",
-    "display_pc": "「LDH QuestionS」視聴者プレゼント応募受付締切",
-    "display_sm": "「LDH QuestionS」視聴者プレゼント応募受付締切",
+    "title": "CL「LDH QuestionS」視聴者プレゼント応募受付締切",
+    "display_pc": "CL「LDH QuestionS」視聴者プレゼント応募受付締切",
+    "display_sm": "LDH QuestionS視聴者プレゼント応募受付締切",
     "url": "https://girls2-fc.jp/page/forms/py2026_cl_girls2",
-    "groups": [],
+    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR",
+    "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
     "relations": [],
     "tags": []
   },
