@@ -82419,13 +82419,13 @@
     "date": "2027.06.27",
     "time": "2359",
     "contents": "ETC",
-    "title": "Girls² サンスポEXTRA コンビニプリント終了",
-    "display_pc": "Girls² サンスポEXTRA コンビニプリント終了",
-    "display_sm": "サンスポEXTRA コンビニプリント終了",
+    "title": "Girls²コンビニプリント終了",
+    "display_pc": "Girls²コンビニプリント終了",
+    "display_sm": "Girls²コンビニプリント終了",
     "url": "https://entame.e-printservice.net/content_detail/sanspo-extra",
-    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+    "groups": [],
     "relations": [],
-    "tags": ["2026年6月27日付Ｇｉｒｌｓ２初の武道館公演","SAE26628"]
+    "tags": []
   },
   {
     "date": "2026.07.11",
