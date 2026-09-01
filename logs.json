@@ -17555,18 +17555,30 @@
       "GL²family"
     ]
   },
-{
-"date": "2026.08.31",
-"time": "1700",
-"contents": "YOUTUBE",
-"title": "がるがるちゃんねる",
-"display_pc": "1人だけ違う料理…！？食リポだけで見破れ！食リポ人狼🐺",
-"display_sm": "1人だけ違う料理…！？食リポだけで見破れ！食リポ人狼🐺",
-"url": "https://youtu.be/jQtBEDwonnI?si=0JkqoaSpVbrOdUEU",
-"groups": ["G2","YZH","MMK","MSK","YOK"],
-"relations": [""],
-"tags": ["がるがるちゃんねる"]
-},
+  {
+    "date": "2026.09.03",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "display_pc": "",
+    "display_sm": "",
+    "url": "",
+    "groups": ["G2"],
+    "relations": [""],
+    "tags": [""]
+  },
+  {
+    "date": "2026.08.31",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "1人だけ違う料理…！？食リポだけで見破れ！食リポ人狼🐺",
+    "display_pc": "がるがるちゃんねる　1人だけ違う料理…！？食リポだけで見破れ！食リポ人狼🐺",
+    "display_sm": "1人だけ違う料理…！？食リポだけで見破れ！食リポ人狼🐺",
+    "url": "https://youtu.be/jQtBEDwonnI?si=0JkqoaSpVbrOdUEU",
+    "groups": ["G2","YZH","MMK","MSK","YOK"],
+    "relations": [""],
+    "tags": [""]
+  },
   {
     "date": "2026.08.31",
     "time": "1500",
