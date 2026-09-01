@@ -1,5 +1,227 @@
 [
   {
+    "date": "2026.09.27",
+    "time": "1300",
+    "contents": "EVENT",
+    "title": "Girls² EP「EASY」発売記念 リリースイベント 宮城",
+    "display_pc": "Girls² EP「EASY」リリースイベント 宮城",
+    "display_sm": "「EASY」リリースイベント 宮城",
+    "url": "https://girls2-fc.jp/page/familyNews/1220992081527308290",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      "イオンモール新利府南館　1Fライブスクエア",
+      "ミニライブ",
+      "お見送り会",
+      "グループお話し会",
+      "グループチェキ会"
+    ]
+  },
+  {
+    "date": "2026.10.27",
+    "time": "1400",
+    "contents": "EVENT",
+    "title": "BOOK ACT Z 2026「芸人交換日記」昼",
+    "display_pc": "BOOK ACT Z 2026「芸人交換日記」昼",
+    "display_sm": "BOOK ACT Z 2026「芸人交換日記」昼",
+    "url": "https://girls2-fc.jp/page/news/1219233121220689920",
+    "groups": [
+      "G2",
+      "MSK"
+    ],
+    "relations": [],
+    "tags": [
+      "THEATER MILANO-Za"
+    ]
+  },
+  {
+    "date": "2026.10.27",
+    "time": "1900",
+    "contents": "EVENT",
+    "title": "BOOK ACT Z 2026「芸人交換日記」夜",
+    "display_pc": "BOOK ACT Z 2026「芸人交換日記」夜",
+    "display_sm": "BOOK ACT Z 2026「芸人交換日記」夜",
+    "url": "https://girls2-fc.jp/page/news/1219233121220689920",
+    "groups": [
+      "G2",
+      "MSK"
+    ],
+    "relations": [],
+    "tags": [
+      "THEATER MILANO-Za"
+    ]
+  },
+  {
+    "date": "2026.10.28",
+    "time": "1400",
+    "contents": "EVENT",
+    "title": "BOOK ACT Z 2026「芸人交換日記」昼",
+    "display_pc": "BOOK ACT Z 2026「芸人交換日記」昼",
+    "display_sm": "BOOK ACT Z 2026「芸人交換日記」昼",
+    "url": "https://girls2-fc.jp/page/news/1219233121220689920",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "relations": [],
+    "tags": [
+      "THEATER MILANO-Za"
+    ]
+  },
+  {
+    "date": "2026.10.28",
+    "time": "1900",
+    "contents": "EVENT",
+    "title": "BOOK ACT Z 2026「芸人交換日記」夜",
+    "display_pc": "BOOK ACT Z 2026「芸人交換日記」夜",
+    "display_sm": "BOOK ACT Z 2026「芸人交換日記」夜",
+    "url": "https://girls2-fc.jp/page/news/1219233121220689920",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "relations": [],
+    "tags": [
+      "THEATER MILANO-Za"
+    ]
+  },
+  {
+    "date": "2026.08.29",
+    "time": "0000",
+    "contents": "MEDIA",
+    "title": "ENCOUNT Girls²サイン入りチェキプレゼント応募受付締切",
+    "display_pc": "ENCOUNT Girls²サイン入りチェキプレゼント応募受付締切",
+    "display_sm": "ENCOUNT Girls²チェキプレゼント応募受付締切",
+    "url": "https://encount.press/archives/1025137/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.08.29",
+    "time": "1200",
+    "contents": "GOODS",
+    "title": "「LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-」ORDER ITEM 受注販売開始",
+    "display_pc": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST- ORDER ITEM受注販売開始",
+    "display_sm": "LDH LIVE-EXPO 2026 ORDER ITEM受注販売開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1222843017472245762",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.05",
+    "time": "1500",
+    "contents": "EVENT",
+    "title": "映画「デス≠キル／ゲーム」SPECIAL EVENT 東京",
+    "display_pc": "映画「デス≠キル／ゲーム」SPECIAL EVENT 東京",
+    "display_sm": "「デス≠キル／ゲーム」SPECIAL EVENT 東京",
+    "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
+    "groups": ["G2","KIR"],
+    "relations": [""],
+    "tags": ["ニッショーホール"]
+  },
+  {
+    "date": "2026.09.05",
+    "time": "1815",
+    "contents": "EVENT",
+    "title": "映画「デス≠キル／ゲーム」SPECIAL EVENT 東京",
+    "display_pc": "映画「デス≠キル／ゲーム」SPECIAL EVENT 東京",
+    "display_sm": "「デス≠キル／ゲーム」SPECIAL EVENT 東京",
+    "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
+    "groups": ["G2","KIR"],
+    "relations": [""],
+    "tags": ["ニッショーホール"]
+  },
+  {
+    "date": "2026.09.06",
+    "time": "1400",
+    "contents": "EVENT",
+    "title": "映画「デス≠キル／ゲーム」SPECIAL EVENT 大阪",
+    "display_pc": "映画「デス≠キル／ゲーム」SPECIAL EVENT 大阪",
+    "display_sm": "「デス≠キル／ゲーム」SPECIAL EVENT 大阪",
+    "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
+    "groups": ["G2","KIR"],
+    "relations": [""],
+    "tags": ["松下IMPホール"]
+  },
+  {
+    "date": "2026.09.06",
+    "time": "1715",
+    "contents": "EVENT",
+    "title": "映画「デス≠キル／ゲーム」SPECIAL EVENT 大阪",
+    "display_pc": "映画「デス≠キル／ゲーム」SPECIAL EVENT 大阪",
+    "display_sm": "「デス≠キル／ゲーム」SPECIAL EVENT 大阪",
+    "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
+    "groups": ["G2","KIR"],
+    "relations": [""],
+    "tags": ["松下IMPホール"]
+  },
+  {
+    "date": "2026.09.04",
+    "time": "0000",
+    "contents": "RELEASE",
+    "title": "Girls² 『Nocturne』配信開始",
+    "display_pc": "Girls²『Nocturne』配信開始",
+    "display_sm": "『Nocturne』配信開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1200399124285882369",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [""],
+    "tags": [
+      "デス≠キル／ゲーム"
+    ]
+  },
+  {
     "date": "2026.08.25",
     "time": "1000",
     "contents": "RADIO",
@@ -3303,7 +3525,7 @@
   {
     "date": "2026.09.03",
     "time": "1800",
-    "contents": "ETC",
+    "contents": "SNS",
     "title": "Laki 「WORK≒LiFE」TikTokジャックチャレンジキャンペーン投稿受付開始",
     "display_pc": "Laki　「WORK≒LiFE」TikTokジャックチャレンジキャンペーン投稿受付開始",
     "display_sm": "「WORK≒LiFE」TikTokジャックチャレンジ投稿受付開始",
@@ -20663,7 +20885,7 @@
   {
     "date": "2026.09.07",
     "time": "2030",
-    "contents": "MEDIA",
+    "contents": "WEB",
     "title": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
     "display_pc": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
     "display_sm": "QloveR「がるがるトーク！」アーカイブ配信",
@@ -20686,7 +20908,7 @@
   {
     "date": "2026.09.07",
     "time": "2030",
-    "contents": "MEDIA",
+    "contents": "WEB",
     "title": "QloveR「Girls²のがるがるトーク！」おまけ配信",
     "display_pc": "QloveR「Girls²のがるがるトーク！」おまけ配信",
     "display_sm": "QloveR「がるがるトーク！」おまけ配信",
@@ -20743,23 +20965,17 @@
 "tags": ["ナガシマスパーランド ナガシマスパードーム"]
 },
   {
-    "date": "2026.08.31",
-    "time": "0000",
-    "contents": "CLOSE",
-    "title": "「IDOL AND READ 046」サイン入りチェキ応募受付締切",
-    "display_pc": "「IDOL AND READ 046」サイン入りチェキ応募受付締切",
-    "display_sm": "「IDOL AND READ 046」チェキ応募受付締切",
-    "url": "",
+    "date": "2026.09.07",
+    "time": "1423",
+    "contents": "MEDIA",
+    "title": "Laki e-radio「キャッチ！」",
+    "display_pc": "Laki　e-radio「キャッチ！」生出演",
+    "display_sm": "e-radio「キャッチ！」",
+    "url": "https://radiko.jp/share/?t=20260907140000&sid=E-RADIO",
     "groups": [
       "L2",
-      "RIN",
-      "TBK",
-      "HIR",
       "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
+      "KAN"
     ],
     "relations": [""],
     "tags": [
@@ -20768,7 +20984,7 @@
   {
     "date": "2026.08.31",
     "time": "0000",
-    "contents": "EVENT",
+    "contents": "GL2",
     "title": "GL²friend 思い出共有 YUWA DAY",
     "display_pc": "GL²friend 思い出共有 YUWA DAY",
     "display_sm": "GL²friend 思い出共有 YUWA DAY",
@@ -20818,7 +21034,7 @@
   {
     "date": "2026.08.31",
     "time": "2030",
-    "contents": "MEDIA",
+    "contents": "WEB",
     "title": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
     "display_pc": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
     "display_sm": "QloveR「がるがるトーク！」アーカイブ配信",
@@ -20836,7 +21052,7 @@
   {
     "date": "2026.08.31",
     "time": "2030",
-    "contents": "MEDIA",
+    "contents": "WEB",
     "title": "QloveR「Girls²のがるがるトーク！」おまけ配信",
     "display_pc": "QloveR「Girls²のがるがるトーク！」おまけ配信",
     "display_sm": "QloveR「がるがるトーク！」おまけ配信",
