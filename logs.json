@@ -1,4 +1,89 @@
 [
+  {
+    "date": "2026.09.02",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "ききの踊ってみたチャレンジ #116",
+    "display_pc": "ききの踊ってみたチャレンジ #116",
+    "display_sm": "ききの踊ってみたチャレンジ #116",
+    "url": "https://www.instagram.com/laki_official0922",
+    "groups": [
+      "L2",
+      "KIK"
+    ],
+    "relations": [""],
+    "tags": [""
+    ]
+  },
+  {
+    "date": "2026.09.07",
+    "time": "2000",
+    "contents": "MEDIA",
+    "title": "文化放送「Girls²のがるがるトーク！」",
+    "display_pc": "文化放送「Girls²のがるがるトーク！」",
+    "display_sm": "文化放送「Girls²のがるがるトーク！」",
+    "url": "https://www.joqr.co.jp/qr/program/girls/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [""],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.09.07",
+    "time": "2030",
+    "contents": "MEDIA",
+    "title": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
+    "display_pc": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
+    "display_sm": "QloveR「がるがるトーク！」アーカイブ配信",
+    "url": "https://qlover.jp/girls/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [""],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.09.07",
+    "time": "2030",
+    "contents": "MEDIA",
+    "title": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "display_pc": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "display_sm": "QloveR「がるがるトーク！」おまけ配信",
+    "url": "https://qlover.jp/girls/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [""],
+    "tags": [
+      "がるラー"
+    ]
+  },
 {
 "date": "2026.10.17",
 "time": "1300",
@@ -100,13 +185,8 @@
     "url": "https://radiko.jp/share/?t=20260831200000&sid=QRR",
     "groups": [
       "G2",
-      "YZH",
       "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
+      "YOK"
     ],
     "relations": [""],
     "tags": [
@@ -120,16 +200,11 @@
     "title": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
     "display_pc": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
     "display_sm": "QloveR「がるがるトーク！」アーカイブ配信",
-    "url": "https://qlover.jp/girls/",
+    "url": "https://qlover.jp/girls/video/smEM6mrMBwghuUWamAhm9Uto",
     "groups": [
       "G2",
-      "YZH",
       "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
+      "YOK"
     ],
     "relations": [""],
     "tags": [
@@ -143,16 +218,11 @@
     "title": "QloveR「Girls²のがるがるトーク！」おまけ配信",
     "display_pc": "QloveR「Girls²のがるがるトーク！」おまけ配信",
     "display_sm": "QloveR「がるがるトーク！」おまけ配信",
-    "url": "https://qlover.jp/girls/",
+    "url": "https://qlover.jp/girls/video/smJBVAmeyv4XSwvjmdPssC8c",
     "groups": [
       "G2",
-      "YZH",
       "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
+      "YOK"
     ],
     "relations": [""],
     "tags": [
