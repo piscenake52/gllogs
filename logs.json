@@ -1,11 +1,23 @@
 [
+{
+"date": "2026.09.04",
+"time": "1000",
+"contents": "GTUBE",
+"title": "#747 Girls²「寄り道 –Take it easy baby–」リリース記念プレミアムイベント",
+"display_pc": "#747　Girls²「寄り道 –Take it easy baby–」リリース記念プレミアムイベント",
+"display_sm": "#747　「寄り道 –Take it easy baby–」リリース記念プレミアムイベント",
+"url": "https://girls2-fc.jp/page/gtube",
+"groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"],
+"relations": [""],
+"tags": [""]
+},
   {
     "date": "2026.09.01",
     "time": "1000",
     "contents": "GTUBE",
     "title": "#746 Laki（Lucky²） 「IDOLSQUARE 6」＠TOKYO DOME CITY HALL",
-    "display_pc": "#746 Laki（Lucky²） 「IDOLSQUARE 6」＠TOKYO DOME CITY HALL",
-    "display_sm": "#746 Laki 「IDOLSQUARE 6」＠TOKYO DOME CITY HALL",
+    "display_pc": "#746　Laki（Lucky²） 「IDOLSQUARE 6」＠TOKYO DOME CITY HALL",
+    "display_sm": "#746　「IDOLSQUARE 6」＠TOKYO DOME CITY HALL",
     "url": "https://girls2-fc.jp/page/gtube/1224384608640958465",
     "groups": [
       "L2",
