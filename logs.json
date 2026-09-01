@@ -665,7 +665,7 @@
   {
     "date": "2026.08.31",
     "time": "2359",
-    "contents": "ETC",
+    "contents": "CLOSE",
     "title": "Girls²「EASY」発売記念 メンバー個別オンライントーク会 入金期限",
     "display_pc": "Girls²「EASY」個別オンライントーク会 入金期限",
     "display_sm": "「EASY」オンライントーク会 入金期限",
@@ -22054,18 +22054,123 @@
     ]
   },
   {
+    "date": "2026.07.20",
+    "time": "0000",
+    "contents": "GL2",
+    "title": "GL²friend 思い出共有 KIKI DAY",
+    "display_pc": "GL²friend 思い出共有 KIKI DAY",
+    "display_sm": "GL²friend 思い出共有 KIKI DAY",
+    "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
+    "groups": [
+      "L2","KIK"
+    ],
+    "relations": [""],
+    "tags": ["∞ DAY"
+    ]
+  },
+  {
+    "date": "2026.07.31",
+    "time": "0000",
+    "contents": "GL2",
+    "title": "GL²friend 思い出共有 AKARI DAY",
+    "display_pc": "GL²friend 思い出共有 AKARI DAY",
+    "display_sm": "GL²friend 思い出共有 AKARI DAY",
+    "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
+    "groups": [
+      "L2","AKR"
+    ],
+    "relations": [""],
+    "tags": ["∞ DAY"
+    ]
+  },
+  {
+    "date": "2026.08.10",
+    "time": "0000",
+    "contents": "GL2",
+    "title": "GL²friend 思い出共有 RIRIKA DAY",
+    "display_pc": "GL²friend 思い出共有 RIRIKA DAY",
+    "display_sm": "GL²friend 思い出共有 RIRIKA DAY",
+    "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
+    "groups": [
+      "L2","RRK"
+    ],
+    "relations": [""],
+    "tags": ["∞ DAY"
+    ]
+  },
+  {
+    "date": "2026.08.20",
+    "time": "0000",
+    "contents": "GL2",
+    "title": "GL²friend 思い出共有 KANNA DAY",
+    "display_pc": "GL²friend 思い出共有 KANNA DAY",
+    "display_sm": "GL²friend 思い出共有 KANNA DAY",
+    "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
+    "groups": [
+      "L2","KAN"
+    ],
+    "relations": [""],
+    "tags": ["∞ DAY"
+    ]
+  },
+  {
     "date": "2026.08.31",
     "time": "0000",
     "contents": "GL2",
     "title": "GL²friend 思い出共有 YUWA DAY",
     "display_pc": "GL²friend 思い出共有 YUWA DAY",
     "display_sm": "GL²friend 思い出共有 YUWA DAY",
-    "url": "",
+    "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
       "L2","YUW"
     ],
     "relations": [""],
-    "tags": [
+    "tags": ["∞ DAY"
+    ]
+  },
+  {
+    "date": "2026.09.10",
+    "time": "0000",
+    "contents": "GL2",
+    "title": "GL²friend 思い出共有 HIIRO DAY",
+    "display_pc": "GL²friend 思い出共有 HIIRO DAY",
+    "display_sm": "GL²friend 思い出共有 HIIRO DAY",
+    "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
+    "groups": [
+      "L2","HIR"
+    ],
+    "relations": [""],
+    "tags": ["∞ DAY"
+    ]
+  },
+  {
+    "date": "2026.09.20",
+    "time": "0000",
+    "contents": "GL2",
+    "title": "GL²friend 思い出共有 TSUBAKI DAY",
+    "display_pc": "GL²friend 思い出共有 TSUBAKI DAY",
+    "display_sm": "GL²friend 思い出共有 TSUBAKI DAY",
+    "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
+    "groups": [
+      "L2","TBK"
+    ],
+    "relations": [""],
+    "tags": ["∞ DAY"
+    ]
+  },
+  {
+    "date": "2026.09.20",
+    "time": "0000",
+    "contents": "GL2",
+    "title": "GL²friend 思い出共有 RINA DAY",
+    "display_pc": "GL²friend 思い出共有 RINA DAY",
+    "display_sm": "GL²friend 思い出共有 RINA DAY",
+    "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
+    "groups": [
+      "L2","RIN"
+    ],
+    "relations": [""],
+    "tags": ["∞ DAY"
     ]
   },
   {
