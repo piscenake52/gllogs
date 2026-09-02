@@ -1,28 +1,50 @@
 [
-{
-"date": "2026.09.26",
-"time": "1430",
-"contents": "MODEL",
-"title": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
-"display_pc": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
-"display_sm": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
-"url": "https://girls2-fc.jp/page/familyNews/1215500133613961216",
-"groups": ["G2","MSK","YOK","KIR","MNM"],
-"relations": [""],
-"tags": ["幕張メッセ 1-3ホール"]
-},
-{
-"date": "2026.09.26",
-"time": "1430",
-"contents": "LIVE",
-"title": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
-"display_pc": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
-"display_sm": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
-"url": "https://girls2-fc.jp/page/familyNews/1215500133613961216",
-"groups": ["G2","YZH","MMK","MSK","YOK","MNM","KIR"],
-"relations": [""],
-"tags": ["幕張メッセ 1-3ホール"]
-},
+  {
+    "date": "2026.09.26",
+    "time": "1430",
+    "contents": "MODEL",
+    "title": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
+    "display_pc": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
+    "display_sm": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
+    "url": "https://girls2-fc.jp/page/familyNews/1215500133613961216",
+    "groups": [
+      "G2",
+      "MSK",
+      "YOK",
+      "KIR",
+      "MNM"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "幕張メッセ 1-3ホール"
+    ]
+  },
+  {
+    "date": "2026.09.26",
+    "time": "1430",
+    "contents": "LIVE",
+    "title": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
+    "display_pc": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
+    "display_sm": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
+    "url": "https://girls2-fc.jp/page/familyNews/1215500133613961216",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "幕張メッセ 1-3ホール"
+    ]
+  },
   {
     "date": "2026.09.02",
     "time": "1200",
@@ -1115,7 +1137,7 @@
     "display_sm": "STAFF　がる²WEEKのおさらい💁🏼‍♀️",
     "url": "https://girls2-fc.jp/page/staffdiary/1059656295507820546",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1134,7 +1156,7 @@
     "display_sm": "STAFF　メンバー写真館 vol.1",
     "url": "https://girls2-fc.jp/page/staffdiary/1059369445845106688",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1153,7 +1175,7 @@
     "display_sm": "STAFF　ありがとうございました🍀",
     "url": "https://girls2-fc.jp/page/staffdiary/1056729450915299328",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1172,7 +1194,7 @@
     "display_sm": "STAFF　がるWEEK、がる三昧！",
     "url": "https://girls2-fc.jp/page/staffdiary/1055983575012212736",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1191,7 +1213,7 @@
     "display_sm": "STAFF　✈️🧸⛄️",
     "url": "https://girls2-fc.jp/page/staffdiary/1046600824186208258",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1210,7 +1232,7 @@
     "display_sm": "STAFF　EXILE CUP⚽️",
     "url": "https://girls2-fc.jp/page/staffdiary/1043073664095879168",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1229,7 +1251,7 @@
     "display_sm": "STAFF　1歩ずつ‼️",
     "url": "https://girls2-fc.jp/page/staffdiary/1041560468843397122",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1248,7 +1270,7 @@
     "display_sm": "STAFF　3月後半は盛りだくさん！",
     "url": "https://girls2-fc.jp/page/staffdiary/1036257001836904452",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1267,7 +1289,7 @@
     "display_sm": "STAFF　羽田から香川県まで😋",
     "url": "https://girls2-fc.jp/page/staffdiary/1035380427528863744",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1286,7 +1308,7 @@
     "display_sm": "STAFF　今年初イベント！",
     "url": "https://girls2-fc.jp/page/staffdiary/1031546017406779392",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1305,7 +1327,7 @@
     "display_sm": "STAFF　3月START🌸",
     "url": "https://girls2-fc.jp/page/staffdiary/1028903911680901122",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1324,7 +1346,7 @@
     "display_sm": "STAFF　3月になりました🌸",
     "url": "https://girls2-fc.jp/page/staffdiary/1027766075070087170",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1343,7 +1365,7 @@
     "display_sm": "STAFF　いよいよ…🔥",
     "url": "https://girls2-fc.jp/page/staffdiary/1025638560306298882",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1362,7 +1384,7 @@
     "display_sm": "STAFF　がるらじ📻🎶",
     "url": "https://girls2-fc.jp/page/staffdiary/1020659763299483650",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1381,7 +1403,7 @@
     "display_sm": "STAFF　お久しぶりでした☺️",
     "url": "https://girls2-fc.jp/page/staffdiary/1018463213215285249",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1400,7 +1422,7 @@
     "display_sm": "STAFF　確認！確認！確認！",
     "url": "https://girls2-fc.jp/page/staffdiary/1015256136812593153",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1419,7 +1441,7 @@
     "display_sm": "STAFF　2025年よろしくお願いします🐍",
     "url": "https://girls2-fc.jp/page/staffdiary/1011098142457724929",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1438,7 +1460,7 @@
     "display_sm": "STAFF　お年玉🧧プレゼント🎁",
     "url": "https://girls2-fc.jp/page/staffdiary/1008339409747050496",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1457,7 +1479,7 @@
     "display_sm": "STAFF　良いお年を🎍",
     "url": "https://girls2-fc.jp/page/staffdiary/1003984988464480257",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1476,7 +1498,7 @@
     "display_sm": "STAFF　Christmas🎄からのTOUR GOODS！！！",
     "url": "https://girls2-fc.jp/page/staffdiary/1002836404243267585",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1495,7 +1517,7 @@
     "display_sm": "STAFF　CLOVER🍀",
     "url": "https://girls2-fc.jp/page/staffdiary/1001080578650406912",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1514,7 +1536,7 @@
     "display_sm": "STAFF　最近のがる²✌🏻",
     "url": "https://girls2-fc.jp/page/staffdiary/998610869652815873",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1533,7 +1555,7 @@
     "display_sm": "STAFF　Lucky² たくさんのお知らせ📢💭",
     "url": "https://girls2-fc.jp/page/staffdiary/995947533089898496",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1552,7 +1574,7 @@
     "display_sm": "STAFF　初の海外🇹🇭後編",
     "url": "https://girls2-fc.jp/page/staffdiary/988408764430286848",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1571,7 +1593,7 @@
     "display_sm": "STAFF　今日からSTART♪",
     "url": "https://girls2-fc.jp/page/staffdiary/972674095223144448",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1590,7 +1612,7 @@
     "display_sm": "STAFF　#10 Lucky² 3周年🍀",
     "url": "https://girls2-fc.jp/page/staffdiary/970520442768982018",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1609,7 +1631,7 @@
     "display_sm": "STAFF　#9 第36回 マジカルテレフォン📞",
     "url": "https://girls2-fc.jp/page/staffdiary/965448921256034304",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1628,7 +1650,7 @@
     "display_sm": "STAFF　＃8 初の海外🇹🇭前編",
     "url": "https://girls2-fc.jp/page/staffdiary/960894719997509634",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1647,7 +1669,7 @@
     "display_sm": "STAFF　#7 エンドレスサマー2024",
     "url": "https://girls2-fc.jp/page/staffdiary/960019993909526530",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1666,7 +1688,7 @@
     "display_sm": "STAFF　#6 Lucky²のラッキートーク!",
     "url": "https://girls2-fc.jp/page/staffdiary/957594750414749697",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1685,7 +1707,7 @@
     "display_sm": "STAFF　#5 約1年越しの🤭",
     "url": "https://girls2-fc.jp/page/staffdiary/941084570353139712",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1704,7 +1726,7 @@
     "display_sm": "STAFF　#4 Lucky²のマジカルテレフォン",
     "url": "https://girls2-fc.jp/page/staffdiary/940809099216420865",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1723,7 +1745,7 @@
     "display_sm": "STAFF　#3 Girls²５歳のお誕生日🎂",
     "url": "https://girls2-fc.jp/page/staffdiary/935908118565486594",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1742,7 +1764,7 @@
     "display_sm": "STAFF　#2 ガルサケからのがる シャリ² ⁉",
     "url": "https://girls2-fc.jp/page/staffdiary/931168384509280258",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1761,7 +1783,7 @@
     "display_sm": "STAFF　#1 STAFF DIARYスタート🖋✨",
     "url": "https://girls2-fc.jp/page/staffdiary/926443316038336514",
     "groups": [
-      "STAFF",
+      "G2",
       "STF"
     ],
     "relations": [
@@ -1817,9 +1839,24 @@
     "display_pc": "「映画 きかんしゃトーマス めざせ！夢のチャンピオンカップ」公開",
     "display_sm": "「きかんしゃトーマス めざせ！夢のチャンピオンカップ」公開",
     "url": "https://www.youtube.com/watch?v=zuraQILe_vo",
-    "groups": ["L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
-    "relations": [""],
-    "tags": ["Lucky²が踊る「きかんしゃトーマス みんなでゴー！」"]
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "Lucky²が踊る「きかんしゃトーマス みんなでゴー！」"
+    ]
   },
   {
     "date": "2026.10.02",
@@ -1829,9 +1866,16 @@
     "display_pc": "映画「デス≠キル／ゲーム」公開",
     "display_sm": "「デス≠キル／ゲーム」公開",
     "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
-    "groups": ["G2","KIR"],
-    "relations": [""],
-    "tags": ["Nocturne"]
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "Nocturne"
+    ]
   },
   {
     "date": "2026.11.27",
@@ -1841,9 +1885,16 @@
     "display_pc": "映画「ワンダンス」",
     "display_sm": "映画「ワンダンス」",
     "url": "https://happinet-phantom.com/wandance/",
-    "groups": ["G2","KIR"],
-    "relations": [""],
-    "tags": [""]
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2020.07.10",
@@ -1853,9 +1904,21 @@
     "display_pc": "映画「私がモテてどうすんだ」公開",
     "display_sm": "映画「私がモテてどうすんだ」公開",
     "url": "https://www.youtube.com/watch?v=c1qPbNdds0I",
-    "groups": ["G2","MSK","YOK","KUR","KIR","RAN"],
-    "relations": [""],
-    "tags": ["私モテ","わたモテ"]
+    "groups": [
+      "G2",
+      "MSK",
+      "YOK",
+      "KUR",
+      "KIR",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "私モテ",
+      "わたモテ"
+    ]
   },
   {
     "date": "2026.09.12",
@@ -1876,7 +1939,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "イオンモール大高　1Fグリーンコート"
     ]
@@ -1900,7 +1965,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "イオンモール大高　1Fグリーンコート"
     ]
@@ -1924,7 +1991,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "イオンモール幕張新都心  グランドモール1Fグランドスクエア"
     ]
@@ -1948,7 +2017,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "イオンモール幕張新都心  グランドモール1Fグランドスクエア"
     ]
@@ -1972,7 +2043,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "大宮ステラタウン メローベ広場"
     ]
@@ -1996,7 +2069,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "大宮ステラタウン メローベ広場"
     ]
@@ -2013,7 +2088,9 @@
       "L2",
       "AKR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -2030,7 +2107,9 @@
       "L2",
       "YUW"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -2047,7 +2126,9 @@
       "L2",
       "RRK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -2064,7 +2145,9 @@
       "L2",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -2081,7 +2164,9 @@
       "L2",
       "RRK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -2098,7 +2183,9 @@
       "G2",
       "MNM"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -2115,7 +2202,9 @@
       "G2",
       "MMK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -2132,7 +2221,9 @@
       "G2",
       "YZH"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -2149,9 +2240,12 @@
       "L2",
       "AKR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
-      "ダンスは遊びじゃない！","あかりんごのファッションショー"
+      "ダンスは遊びじゃない！",
+      "あかりんごのファッションショー"
     ]
   },
   {
@@ -2162,9 +2256,23 @@
     "display_pc": "『WORK≒LIFE』　読売テレビ「音道楽√」　9月度EDテーマ初回放送",
     "display_sm": "『WORK≒LIFE』「音道楽√」EDテーマ初回放送",
     "url": "https://girls2-fc.jp/page/familyNews/1221652390000721921",
-    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
-    "relations": [""],
-    "tags": [""]
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.09.06",
@@ -2174,9 +2282,23 @@
     "display_pc": "『WORK≒LIFE』　読売テレビ「すもももももも！ピーチCAFÉ」　9月度EDテーマ初回放送",
     "display_sm": "『WORK≒LIFE』「ピーチCAFÉ」EDテーマ初回放送",
     "url": "https://girls2-fc.jp/page/familyNews/1221655238281265153",
-    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
-    "relations": [""],
-    "tags": [""]
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.09.06",
@@ -2205,7 +2327,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": ["TOA"],
+    "relations": [
+      "TOA"
+    ],
     "tags": [
       "MUFGスタジアム",
       "国立競技場"
@@ -2229,9 +2353,12 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
-      "Shibuya LOVEZ","クリスマス"
+      "Shibuya LOVEZ",
+      "クリスマス"
     ]
   },
   {
@@ -2253,7 +2380,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "セブンパーク天美1F AMAMI STADIUM"
     ]
@@ -2277,7 +2406,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "セブンパーク天美1F AMAMI STADIUM"
     ]
@@ -2294,7 +2425,9 @@
       "G2",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "DANCE HOLIC Zepp TOUR",
       "Zepp DiverCity"
@@ -2319,8 +2452,12 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
-    "tags": [""]
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.09.30",
@@ -2341,7 +2478,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "WORK≒LiFE",
       "Gimme 143",
@@ -2372,9 +2511,13 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
-      "EASY","Nocturne","Girls PARADE",
+      "EASY",
+      "Nocturne",
+      "Girls PARADE",
       "Girls² 7th Anniversary Seven×Seven in Bloom -The Live-"
     ]
   },
@@ -2397,7 +2540,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "WEGO 1.3.5... 原宿店"
     ]
@@ -2420,7 +2565,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "福岡国際会議場 メインホール"
     ]
@@ -2444,7 +2591,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "ヒューリックホール東京"
     ]
@@ -2467,7 +2616,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "Niterra日本特殊陶業市民会館ビレッジホール"
     ]
@@ -2490,7 +2641,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "NHK大阪ホール"
     ]
@@ -2522,7 +2675,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": ["TOA"],
+    "relations": [
+      "TOA"
+    ],
     "tags": [
       "MUFGスタジアム",
       "国立競技場"
@@ -2555,7 +2710,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": ["TOA"],
+    "relations": [
+      "TOA"
+    ],
     "tags": [
       "MUFGスタジアム",
       "国立競技場"
@@ -2579,9 +2736,12 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
-      "Shibuya LOVEZ","クリスマス"
+      "Shibuya LOVEZ",
+      "クリスマス"
     ]
   },
   {
@@ -2602,7 +2762,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "クリスマス"
     ]
@@ -2622,7 +2784,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "新星堂アスナル金山店",
       "オリジナル色紙サイン会"
@@ -2643,7 +2807,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "新星堂アスナル金山店",
       "3ショットチェキ会"
@@ -2668,7 +2834,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "アリオ鳳",
       "オリジナル色紙サイン会"
@@ -2693,7 +2861,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "アリオ鳳",
       "3ショットチェキ会"
@@ -2714,7 +2884,9 @@
       "HIR",
       "RRK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "ララガーデン長町1F おとのひろば",
       "オリジナル色紙サイン会"
@@ -2735,7 +2907,9 @@
       "HIR",
       "RRK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "ララガーデン長町1F おとのひろば",
       "3ショットチェキ会"
@@ -2760,7 +2934,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "タワーレコード横浜ビブレ",
       "オリジナル色紙サイン会"
@@ -2785,7 +2961,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "タワーレコード横浜ビブレ",
       "3ショットチェキ会"
@@ -2809,8 +2987,12 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
-    "tags": [""]
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.08.31",
@@ -2830,8 +3012,12 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
-    "tags": [""]
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.08.28",
@@ -2852,7 +3038,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "リミスタ"
     ]
@@ -2876,7 +3064,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "リミスタ"
     ]
@@ -2899,8 +3089,12 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
-    "tags": [""]
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.09.12",
@@ -2920,7 +3114,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -2943,7 +3139,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "大宮ステラタウン",
       "ミニライブ",
@@ -2971,7 +3169,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "新星堂アスナル金山店",
       "オリジナル色紙サイン会"
@@ -2996,7 +3196,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "新星堂アスナル金山店",
       "3ショットチェキ会"
@@ -3015,7 +3217,9 @@
       "KUR",
       "MNM"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "SPIRALGIRL新宿ルミネエスト店",
       "Leopard Collection"
@@ -3033,7 +3237,9 @@
       "G2",
       "YOK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "TGC",
       "横浜アリーナ"
@@ -3057,7 +3263,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "あべのキューズモール",
       "ミニライブ",
@@ -3085,9 +3293,12 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
-      "MV","WORKLIF"
+      "MV",
+      "WORKLIF"
     ]
   },
   {
@@ -3105,7 +3316,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "がるがるちゃんねる"
     ]
@@ -3125,7 +3338,9 @@
       "YUW",
       "KAN"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -3149,7 +3364,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "ヒューリックホール東京"
     ]
@@ -3172,7 +3389,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -3192,7 +3411,9 @@
       "YUW",
       "KAN"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -3216,7 +3437,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -3239,7 +3462,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "イオンモール新利府南館　1Fライブスクエア",
       "ミニライブ",
@@ -3260,7 +3485,9 @@
       "G2",
       "MSK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "THEATER MILANO-Za"
     ]
@@ -3277,7 +3504,9 @@
       "G2",
       "MSK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "THEATER MILANO-Za"
     ]
@@ -3294,7 +3523,9 @@
       "G2",
       "YZH"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "THEATER MILANO-Za"
     ]
@@ -3311,7 +3542,9 @@
       "G2",
       "YZH"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "THEATER MILANO-Za"
     ]
@@ -3334,7 +3567,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -3367,7 +3602,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -3380,9 +3617,16 @@
     "display_pc": "映画「デス≠キル／ゲーム」SPECIAL EVENT 東京",
     "display_sm": "「デス≠キル／ゲーム」SPECIAL EVENT 東京",
     "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
-    "groups": ["G2","KIR"],
-    "relations": [""],
-    "tags": ["ニッショーホール"]
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "ニッショーホール"
+    ]
   },
   {
     "date": "2026.09.05",
@@ -3392,9 +3636,16 @@
     "display_pc": "映画「デス≠キル／ゲーム」SPECIAL EVENT 東京",
     "display_sm": "「デス≠キル／ゲーム」SPECIAL EVENT 東京",
     "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
-    "groups": ["G2","KIR"],
-    "relations": [""],
-    "tags": ["ニッショーホール"]
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "ニッショーホール"
+    ]
   },
   {
     "date": "2026.09.06",
@@ -3404,9 +3655,16 @@
     "display_pc": "映画「デス≠キル／ゲーム」SPECIAL EVENT 大阪",
     "display_sm": "「デス≠キル／ゲーム」SPECIAL EVENT 大阪",
     "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
-    "groups": ["G2","KIR"],
-    "relations": [""],
-    "tags": ["松下IMPホール"]
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "松下IMPホール"
+    ]
   },
   {
     "date": "2026.09.06",
@@ -3416,9 +3674,16 @@
     "display_pc": "映画「デス≠キル／ゲーム」SPECIAL EVENT 大阪",
     "display_sm": "「デス≠キル／ゲーム」SPECIAL EVENT 大阪",
     "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
-    "groups": ["G2","KIR"],
-    "relations": [""],
-    "tags": ["松下IMPホール"]
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "松下IMPホール"
+    ]
   },
   {
     "date": "2026.09.04",
@@ -3438,7 +3703,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "デス≠キル／ゲーム"
     ]
@@ -3956,7 +4223,15 @@
     "display_sm": "ファンミーティング2025で観たい！楽曲人気投票ランキング発表！ 後編",
     "url": "https://girls2-fc.jp/page/lucky2radio/1072732009136128000",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "relations": [
       ""
@@ -3974,7 +4249,15 @@
     "display_sm": "ファンミーティング2025で観たい！楽曲人気投票ランキング発表！ 前編",
     "url": "https://girls2-fc.jp/page/lucky2radio/1072692665025298434",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "relations": [
       ""
@@ -5018,7 +5301,9 @@
     "display_sm": "「AKARI&KIKI SPECIAL PERFORMANCE!」#2",
     "url": "https://girls2-fc.jp/page/lucky2radio/772770809532908659",
     "groups": [
-      "L2","AKR","KIK"
+      "L2",
+      "AKR",
+      "KIK"
     ],
     "relations": [
       ""
@@ -5036,7 +5321,10 @@
     "display_sm": "山口綺羅と比嘉優和のがるらじ",
     "url": "https://girls2-fc.jp/page/lucky2radio/771987002701644858",
     "groups": [
-      "G2","KIR","L2","YUW"
+      "G2",
+      "KIR",
+      "L2",
+      "YUW"
     ],
     "relations": [
       ""
@@ -5111,7 +5399,10 @@
     "display_sm": "鶴屋美咲と森朱里のがるらじ 後編",
     "url": "https://girls2-fc.jp/page/lucky2radio/761887103779865830",
     "groups": [
-      "G2","MSK","L2","AKR"
+      "G2",
+      "MSK",
+      "L2",
+      "AKR"
     ],
     "relations": [
       ""
@@ -5129,7 +5420,10 @@
     "display_sm": "鶴屋美咲と森朱里のがるらじ 前編",
     "url": "https://girls2-fc.jp/page/lucky2radio/761886964705133613",
     "groups": [
-      "G2","MSK","L2","AKR"
+      "G2",
+      "MSK",
+      "L2",
+      "AKR"
     ],
     "relations": [
       ""
@@ -5242,7 +5536,9 @@
     "display_sm": "「Lucky²プレゼント企画 ～オリジナルミラー～」",
     "url": "https://girls2-fc.jp/page/lucky2radio/738849224669529268",
     "groups": [
-      "L2","HIR","KIK"
+      "L2",
+      "HIR",
+      "KIK"
     ],
     "relations": [
       ""
@@ -5260,7 +5556,10 @@
     "display_sm": "「新春！本気の体力測定！」",
     "url": "https://girls2-fc.jp/page/lucky2radio/738841839708144820",
     "groups": [
-      "L2","YUR","YUW","AKR"
+      "L2",
+      "YUR",
+      "YUW",
+      "AKR"
     ],
     "relations": [
       ""
@@ -5278,7 +5577,9 @@
     "display_sm": "「莉愛画伯のお絵描きチャレンジ！」",
     "url": "https://girls2-fc.jp/page/lucky2radio/738841547658757300",
     "groups": [
-      "L2","RIN","HIR"
+      "L2",
+      "RIN",
+      "HIR"
     ],
     "relations": [
       ""
@@ -5296,7 +5597,9 @@
     "display_sm": "「カラーメイクチャレンジ！」",
     "url": "https://girls2-fc.jp/page/lucky2radio/738848934729876660",
     "groups": [
-      "L2","YUW","KAN"
+      "L2",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -5314,7 +5617,9 @@
     "display_sm": "「優來のお誕生日パーティー」",
     "url": "https://girls2-fc.jp/page/lucky2radio/738848576741835862",
     "groups": [
-      "L2","YUR","KAN"
+      "L2",
+      "YUR",
+      "KAN"
     ],
     "relations": [
       ""
@@ -5332,7 +5637,9 @@
     "display_sm": "「りなつばの学力テスト☆」",
     "url": "https://girls2-fc.jp/page/lucky2radio/738841295878882377",
     "groups": [
-      "L2","RIN","TBK"
+      "L2",
+      "RIN",
+      "TBK"
     ],
     "relations": [
       ""
@@ -5350,7 +5657,9 @@
     "display_sm": "「AKARI&KIKI SPECIAL PERFORMANCE!」#1",
     "url": "https://girls2-fc.jp/page/lucky2radio/738753736125449396",
     "groups": [
-      "L2","AKR","KIK"
+      "L2",
+      "AKR",
+      "KIK"
     ],
     "relations": [
       ""
@@ -5368,7 +5677,9 @@
     "display_sm": "「Lucky²卓上ゲームマスター頂上決戦！」",
     "url": "https://girls2-fc.jp/page/lucky2radio/738724560576185417",
     "groups": [
-      "L2","TBK","RRK"
+      "L2",
+      "TBK",
+      "RRK"
     ],
     "relations": [
       ""
@@ -5386,7 +5697,10 @@
     "display_sm": "「あかりんごの！クイズに答えてYO！」後編",
     "url": "https://girls2-fc.jp/page/lucky2radio/738722525667656790",
     "groups": [
-      "L2","AKR","RIN","RRK"
+      "L2",
+      "AKR",
+      "RIN",
+      "RRK"
     ],
     "relations": [
       ""
@@ -5404,7 +5718,10 @@
     "display_sm": "「あかりんごの！クイズに答えてYO！」前編",
     "url": "https://girls2-fc.jp/page/lucky2radio/738722217482781769",
     "groups": [
-      "L2","AKR","RIN","RRK"
+      "L2",
+      "AKR",
+      "RIN",
+      "RRK"
     ],
     "relations": [
       ""
@@ -6622,7 +6939,9 @@
     "display_sm": "Lucky²のがるらじ #6",
     "url": "https://girls2-fc.jp/page/lucky2radio/550143153600987963",
     "groups": [
-      "L2","RIN","YUW"
+      "L2",
+      "RIN",
+      "YUW"
     ],
     "relations": [
       ""
@@ -6640,7 +6959,9 @@
     "display_sm": "Lucky²のがるらじ #5",
     "url": "https://girls2-fc.jp/page/lucky2radio/549953937604608827",
     "groups": [
-      "L2","YUR","KAN"
+      "L2",
+      "YUR",
+      "KAN"
     ],
     "relations": [
       ""
@@ -6658,7 +6979,9 @@
     "display_sm": "Lucky²のがるらじ #4",
     "url": "https://girls2-fc.jp/page/lucky2radio/547033719576200233",
     "groups": [
-      "L2","TBK","HIR"
+      "L2",
+      "TBK",
+      "HIR"
     ],
     "relations": [
       ""
@@ -6676,7 +6999,10 @@
     "display_sm": "Lucky²のがるらじ #3",
     "url": "https://girls2-fc.jp/page/lucky2radio/540104516817650491",
     "groups": [
-      "L2","YUR","TBK","YUW"
+      "L2",
+      "YUR",
+      "TBK",
+      "YUW"
     ],
     "relations": [
       ""
@@ -6694,7 +7020,10 @@
     "display_sm": "Lucky²のがるらじ #2",
     "url": "https://girls2-fc.jp/page/lucky2radio/540104297136784187",
     "groups": [
-      "L2","RIN","HIR","KAN"
+      "L2",
+      "RIN",
+      "HIR",
+      "KAN"
     ],
     "relations": [
       ""
@@ -6712,7 +7041,13 @@
     "display_sm": "Lucky²のがるらじ #1",
     "url": "https://girls2-fc.jp/page/lucky2radio/540101925169792041",
     "groups": [
-      "L2","RIN","YUR","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -6739,7 +7074,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "GENERATIONS"
     ]
@@ -6753,7 +7090,15 @@
     "display_sm": "「WORK≒LiFE」TikTokジャックチャレンジ投稿受付開始",
     "url": "https://girls2-fc.jp/page/lucky2news/1222448578815852545",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "relations": [
       ""
@@ -6925,7 +7270,16 @@
     "display_sm": "#241　原田都愛「東京ガールズコレクション」ウォーキングレッスン",
     "url": "https://girls2-fc.jp/page/gtube/577851354836370369",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -6943,7 +7297,16 @@
     "display_sm": "#240　lovely²「〇×△　～まる・ばつ・さんかく～」発売記念オンラインリリースイベント",
     "url": "https://girls2-fc.jp/page/gtube/573358831350842171",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -6961,7 +7324,16 @@
     "display_sm": "#239　「WEGO」コラボ商品 フィッティング",
     "url": "https://girls2-fc.jp/page/gtube/577850449411965993",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7033,7 +7405,16 @@
     "display_sm": "#236　「弾心～ダンシン～」MV撮影 part2",
     "url": "https://girls2-fc.jp/page/gtube/573328243579421499",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7051,7 +7432,16 @@
     "display_sm": "#235　「弾心～ダンシン～」MV撮影 part1",
     "url": "https://girls2-fc.jp/page/gtube/573326241122222907",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7123,7 +7513,16 @@
     "display_sm": "#232　lovely²「○×△ ～まる・ばつ・さんかく～」MV撮影",
     "url": "https://girls2-fc.jp/page/gtube/561176960114361281",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7141,7 +7540,16 @@
     "display_sm": "#231　「劇場版 ひみつ×戦士 ファントミラージュ!」舞台挨拶",
     "url": "https://girls2-fc.jp/page/gtube/561174803415827497",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7159,7 +7567,16 @@
     "display_sm": "#230　mirage²「完っ全にはじまっテレハイタッチ会」",
     "url": "https://girls2-fc.jp/page/gtube/561174291790431169",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7177,7 +7594,16 @@
     "display_sm": "#229　「mirage² DIGITAL LIVE 2020」リハーサル",
     "url": "https://girls2-fc.jp/page/gtube/561173757679371201",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7222,7 +7648,16 @@
     "display_sm": "#227　「チュワパネ!」テレハイタッチ会",
     "url": "https://girls2-fc.jp/page/gtube/561173267990184897",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7294,7 +7729,16 @@
     "display_sm": "#224　「チュワパネ!」オンラインレッスン",
     "url": "https://girls2-fc.jp/page/gtube/557921241411879739",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7366,7 +7810,16 @@
     "display_sm": "#221　「私がモテてどうすんだ」ジャケット写真撮影",
     "url": "https://girls2-fc.jp/page/gtube/558343772312699945",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7384,7 +7837,16 @@
     "display_sm": "#220　「マイナビ進学マガジン」取材",
     "url": "https://girls2-fc.jp/page/gtube/557173414746391355",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7402,7 +7864,16 @@
     "display_sm": "#219　「チュワパネ！」MV撮影",
     "url": "https://girls2-fc.jp/page/gtube/550931217533371195",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7420,7 +7891,16 @@
     "display_sm": "#218　「劇場版 ひみつ×戦士 ファントミラージュ!」取材",
     "url": "https://girls2-fc.jp/page/gtube/550930885046698811",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7438,7 +7918,16 @@
     "display_sm": "#217　mirage²「DIGITAL LIVE 2020」寸劇リハーサル",
     "url": "https://girls2-fc.jp/page/gtube/553112802747745217",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7456,7 +7945,16 @@
     "display_sm": "#216　mirage²「MUSIC BOX」リハーサル",
     "url": "https://girls2-fc.jp/page/gtube/550930482921997249",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7474,7 +7972,16 @@
     "display_sm": "#215　「ポリス戦士 ラブパトリーナ!」オープニング撮影",
     "url": "https://girls2-fc.jp/page/gtube/540052288954172353",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7492,7 +7999,16 @@
     "display_sm": "#214　「チュワパネ！」リリースイベントinラグーナテンボス",
     "url": "https://girls2-fc.jp/page/gtube/540051758441825083",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7510,7 +8026,16 @@
     "display_sm": "#213　アニメ「ガル学。～聖ガールズスクエア学院～」初アフレコ",
     "url": "https://girls2-fc.jp/page/gtube/540051118827242537",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7528,7 +8053,16 @@
     "display_sm": "#212　増田來亜「GO!GO!アトム」アフレコ",
     "url": "https://girls2-fc.jp/page/gtube/540050523588395969",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7573,7 +8107,16 @@
     "display_sm": "#210　「MelodiX! Fes 2020」PART2",
     "url": "https://girls2-fc.jp/page/gtube/540048788941702081",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7591,7 +8134,16 @@
     "display_sm": "#209　「MelodiX! Fes 2020」PART1",
     "url": "https://girls2-fc.jp/page/gtube/540048225923498945",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7609,7 +8161,16 @@
     "display_sm": "#208　「ABCDEFガール」「ぐるぐる」ダンスプラクティス撮影",
     "url": "https://girls2-fc.jp/page/gtube/540047349796307905",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7627,7 +8188,16 @@
     "display_sm": "#207　キッズステーション ファントミラージュショー",
     "url": "https://girls2-fc.jp/page/gtube/540045162563240763",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7645,7 +8215,16 @@
     "display_sm": "#206　lovely²「ポリス戦士 ラブパトリーナ!」ドラマ撮影",
     "url": "https://girls2-fc.jp/page/gtube/529961884959376425",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7663,7 +8242,16 @@
     "display_sm": "#205　劇場アニメ「映画ねこねこ日本史」\"ニャールド\"プレミア",
     "url": "https://girls2-fc.jp/page/gtube/529961289754084393",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7681,7 +8269,16 @@
     "display_sm": "#204　E-girls PERFECT LIVE オープニングアクト in 静岡エコパアリーナ",
     "url": "https://girls2-fc.jp/page/gtube/529960807564313641",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7699,7 +8296,16 @@
     "display_sm": "#203　lovely²「ポリス戦士 ラブパトリーナ!」ドラマ撮影",
     "url": "https://girls2-fc.jp/page/gtube/529960189747528507",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7717,7 +8323,16 @@
     "display_sm": "#202　「チュワパネ!」寸劇リハーサル",
     "url": "https://girls2-fc.jp/page/gtube/529959373175260201",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7735,7 +8350,16 @@
     "display_sm": "#201　「WEGO Magazine」スチール撮影",
     "url": "https://girls2-fc.jp/page/gtube/529957836759761857",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7753,7 +8377,16 @@
     "display_sm": "#200　mirage²「キセキのシークレットパーティー」",
     "url": "https://girls2-fc.jp/page/gtube/529951082181297089",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7771,7 +8404,16 @@
     "display_sm": "#199　「おはようのスマイル」シークレットパーティー",
     "url": "https://girls2-fc.jp/page/gtube/529950809719309353",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7789,7 +8431,16 @@
     "display_sm": "#198　「アルバルク東京」プライムタイムショー PART2",
     "url": "https://girls2-fc.jp/page/gtube/529211867810235433",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7807,7 +8458,16 @@
     "display_sm": "#197　「アルバルク東京」プライムタイムショー PART1",
     "url": "https://girls2-fc.jp/page/gtube/517678569317466939",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7852,7 +8512,16 @@
     "display_sm": "#195　「Girl meets Girl」リリースイベントinもりのみやキューズモールBASE",
     "url": "https://girls2-fc.jp/page/gtube/517675627801740091",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7870,7 +8539,16 @@
     "display_sm": "#194　mirage²「咲いて²」リリースイベント in 広島駅南口地下広場",
     "url": "https://girls2-fc.jp/page/gtube/517675252210205633",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7888,7 +8566,16 @@
     "display_sm": "#193　「おはようのスマイル」リリースイベントin 東京イースト21",
     "url": "https://girls2-fc.jp/page/gtube/517674926816101179",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -7987,7 +8674,16 @@
     "display_sm": "#189　「ポリス×戦士 ラブパトリーナ!」スチール撮影",
     "url": "https://girls2-fc.jp/page/gtube/508153764373332795",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8005,7 +8701,16 @@
     "display_sm": "#188　mirage²「THE STAGE OSAKA」",
     "url": "https://girls2-fc.jp/page/gtube/508153271290954555",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8023,7 +8728,16 @@
     "display_sm": "#187　「ポリス×戦士 ラブパトリーナ!」ドラマ撮影",
     "url": "https://girls2-fc.jp/page/gtube/508152672944129065",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8041,7 +8755,16 @@
     "display_sm": "#186　E-girls PERFECT LIVE オープニングアクト リハーサル",
     "url": "https://girls2-fc.jp/page/gtube/508151215830336553",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8086,7 +8809,16 @@
     "display_sm": "#184　mirage²「咲いて²」ミュージックビデオ撮影",
     "url": "https://girls2-fc.jp/page/gtube/508149797752931369",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8104,7 +8836,16 @@
     "display_sm": "#183　「おはようのスマイル」リリースイベントin アリオ橋本 PART2",
     "url": "https://girls2-fc.jp/page/gtube/508149105394975785",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8122,7 +8863,16 @@
     "display_sm": "#182　「おはようのスマイル」リリースイベントin アリオ橋本 PART1",
     "url": "https://girls2-fc.jp/page/gtube/507195133544891329",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8140,7 +8890,16 @@
     "display_sm": "#181　「ひみつ×戦士 ファントミラージュ!」in サンリオピューロランド PART2",
     "url": "https://girls2-fc.jp/page/gtube/507194292213646273",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8158,7 +8917,16 @@
     "display_sm": "#180　「ひみつ×戦士 ファントミラージュ!」in サンリオピューロランド PART1",
     "url": "https://girls2-fc.jp/page/gtube/496306065487430697",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8176,7 +8944,16 @@
     "display_sm": "#179　mirage²「咲いて²」ジャケット写真撮影",
     "url": "https://girls2-fc.jp/page/gtube/496304161785119681",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8194,7 +8971,16 @@
     "display_sm": "#178　「チュワパネ!」ダンスリハ / mirage²リリースイベントリハ",
     "url": "https://girls2-fc.jp/page/gtube/496300601840239553",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8212,7 +8998,16 @@
     "display_sm": "#177　mirage²「キセキ」リリースイベントinアリオ橋本",
     "url": "https://girls2-fc.jp/page/gtube/496297203355091771",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8230,7 +9025,16 @@
     "display_sm": "#176　「ポリス×戦士 ラブパトリーナ!」ドラマ撮影",
     "url": "https://girls2-fc.jp/page/gtube/496289737632383803",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8248,7 +9052,16 @@
     "display_sm": "#175　劇場版「ひみつ×戦士 ファントミラージュ!」ポスター撮影",
     "url": "https://girls2-fc.jp/page/gtube/496284280427643945",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8320,7 +9133,16 @@
     "display_sm": "#172　2019年12月 SPECIAL楽曲振付クラス in EXPG STUDIO KYOTO",
     "url": "https://girls2-fc.jp/page/gtube/496255551366234939",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8338,7 +9160,16 @@
     "display_sm": "#171　2019年11月 SPECIAL楽曲振付クラス in EXPG STUDIO OSAKA",
     "url": "https://girls2-fc.jp/page/gtube/494024066500395969",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8356,7 +9187,16 @@
     "display_sm": "#170　2019年11月SPECIAL楽曲振付クラスin EXPG STUDIO NAGOYA",
     "url": "https://girls2-fc.jp/page/gtube/484549196234359745",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8401,7 +9241,16 @@
     "display_sm": "#168　「ひみつ×戦士 ファントミラージュ！」スペシャルライブ・ビューイングイベント",
     "url": "https://girls2-fc.jp/page/gtube/484547861640381243",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8419,7 +9268,16 @@
     "display_sm": "#167　FILA×TEG TEG コーディネート",
     "url": "https://girls2-fc.jp/page/gtube/484547124235600833",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8437,7 +9295,16 @@
     "display_sm": "#166　YouTube「ひみつチャンネル」撮影",
     "url": "https://girls2-fc.jp/page/gtube/484546476513428417",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8455,7 +9322,16 @@
     "display_sm": "#165　「ファントミパフューム」CM撮影",
     "url": "https://girls2-fc.jp/page/gtube/484545776748331969",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8473,7 +9349,16 @@
     "display_sm": "#164　2019年11月 mirage²「キセキ」リリースイベントin東武動物公園",
     "url": "https://girls2-fc.jp/page/gtube/484544853124842537",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8491,7 +9376,16 @@
     "display_sm": "#163　2019年11月mirage²ドキ☆ドキひみつのパーティー",
     "url": "https://girls2-fc.jp/page/gtube/484544009201517609",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8509,7 +9403,16 @@
     "display_sm": "#162　mirage²「キセキ」ミュージックビデオ撮影 PART2",
     "url": "https://girls2-fc.jp/page/gtube/477806499616261057",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8527,7 +9430,16 @@
     "display_sm": "#161　mirage²「キセキ」ミュージックビデオ撮影 PART1",
     "url": "https://girls2-fc.jp/page/gtube/477805847787864891",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8545,7 +9457,16 @@
     "display_sm": "#160　「恋するカモ」リリースイベントinステラタウン大宮",
     "url": "https://girls2-fc.jp/page/gtube/477326994757911355",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8563,7 +9484,16 @@
     "display_sm": "#159　「フレンドシップNo.1」ダンスプラクティスビデオ撮影",
     "url": "https://girls2-fc.jp/page/gtube/472318215054165033",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8581,7 +9511,16 @@
     "display_sm": "#158　「私がモテてどうすんだ」ダンスレッスン",
     "url": "https://girls2-fc.jp/page/gtube/472317805908198337",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8599,7 +9538,16 @@
     "display_sm": "#157　「おはようのスマイル」ミュージックビデオ撮影 PART2",
     "url": "https://girls2-fc.jp/page/gtube/472317518682260283",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8617,7 +9565,16 @@
     "display_sm": "#156　「おはようのスマイル」ミュージックビデオ撮影 PART1",
     "url": "https://girls2-fc.jp/page/gtube/472317239337419579",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8635,7 +9592,16 @@
     "display_sm": "#155　「ひみつ×戦士 ファントミラージュ！」映画撮影クランクアップ PART2",
     "url": "https://girls2-fc.jp/page/gtube/472315987417367355",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8653,7 +9619,16 @@
     "display_sm": "#154　「ひみつ×戦士 ファントミラージュ！」映画撮影クランクアップ PART1",
     "url": "https://girls2-fc.jp/page/gtube/472315364168959017",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8671,7 +9646,16 @@
     "display_sm": "#153　「ひみつ×戦士 ファントミラージュ！」映画撮影",
     "url": "https://girls2-fc.jp/page/gtube/463567432108213185",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8689,7 +9673,16 @@
     "display_sm": "#152　「私がモテてどうすんだ」映画撮影 PART2",
     "url": "https://girls2-fc.jp/page/gtube/463566657869054779",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8707,7 +9700,16 @@
     "display_sm": "#151　「私がモテてどうすんだ」映画撮影 PART1",
     "url": "https://girls2-fc.jp/page/gtube/463563957362230075",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8725,7 +9727,16 @@
     "display_sm": "#150　mirage²「キラリ!夢のカケラ」ココミ＆ヨツバ ダンスリハーサル",
     "url": "https://girls2-fc.jp/page/gtube/463565172024279867",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8743,7 +9754,16 @@
     "display_sm": "#149　おはガール ファントミラージュ映画撮影 PART2",
     "url": "https://girls2-fc.jp/page/gtube/463568176173548585",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8761,7 +9781,16 @@
     "display_sm": "#148　おはガール ファントミラージュ映画撮影 PART1",
     "url": "https://girls2-fc.jp/page/gtube/463562979112125481",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8779,7 +9808,16 @@
     "display_sm": "#147　mirage² サキ＆セイラ「遊びましょ♪」ダンスレクチャー",
     "url": "https://girls2-fc.jp/page/gtube/463560716767462337",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8824,7 +9862,16 @@
     "display_sm": "#145　「ひみつ×戦士 ファントミラージュ！」映画撮影 PART3",
     "url": "https://girls2-fc.jp/page/gtube/454239624928166715",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8842,7 +9889,16 @@
     "display_sm": "#144　「ひみつ×戦士 ファントミラージュ！」映画撮影 PART2",
     "url": "https://girls2-fc.jp/page/gtube/454239319490560827",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8860,7 +9916,16 @@
     "display_sm": "#143　「ひみつ×戦士 ファントミラージュ！」映画撮影 PART1",
     "url": "https://girls2-fc.jp/page/gtube/454237050372097065",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8878,7 +9943,16 @@
     "display_sm": "#142　「おはようのスマイル」ダンスリハーサルPART2",
     "url": "https://girls2-fc.jp/page/gtube/454123367880983593",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8950,7 +10024,16 @@
     "display_sm": "#139　「おはようのスマイル」ダンスリハーサル　PART 1",
     "url": "https://girls2-fc.jp/page/gtube/454121881251873595",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -8968,7 +10051,16 @@
     "display_sm": "#138　mirage²「KIDSTONE TV」収録",
     "url": "https://girls2-fc.jp/page/gtube/453373523616858939",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9094,7 +10186,16 @@
     "display_sm": "#133　SPECIAL 楽曲振付クラス in EXPG STUDIO OMIYA",
     "url": "https://girls2-fc.jp/page/gtube/440846433348748091",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9112,7 +10213,16 @@
     "display_sm": "#132　第1回 マジカルテレフォン",
     "url": "https://girls2-fc.jp/page/gtube/440476914977604449",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9130,7 +10240,16 @@
     "display_sm": "#131　FMヨコハマ「RADIO MASHUP」収録",
     "url": "https://girls2-fc.jp/page/gtube/442286681966510945",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9148,7 +10267,16 @@
     "display_sm": "#130　mirage²「ドキ☆ドキ」リリースイベント in アスナル金山",
     "url": "https://girls2-fc.jp/page/gtube/440476133549409083",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9193,7 +10321,16 @@
     "display_sm": "#128　mirage²「キセキ」ジャケット写真撮影",
     "url": "https://girls2-fc.jp/page/gtube/430606158286291771",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9211,7 +10348,16 @@
     "display_sm": "#127　「ハッピーメリクリ！」「GIVE ME ♡」ダンスプラクティスビデオ撮影",
     "url": "https://girls2-fc.jp/page/gtube/430605390401504193",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9229,7 +10375,16 @@
     "display_sm": "#126　「恋するカモ」ミュージックビデオ撮影  Part 2",
     "url": "https://girls2-fc.jp/page/gtube/430604881011671905",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9247,7 +10402,16 @@
     "display_sm": "#125　「恋するカモ」ミュージックビデオ撮影  Part 1",
     "url": "https://girls2-fc.jp/page/gtube/430604505243976641",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9265,7 +10429,16 @@
     "display_sm": "#124　「フレフレ2020」ダンスプラクティスビデオ撮影",
     "url": "https://girls2-fc.jp/page/gtube/430603919316484923",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9283,7 +10456,16 @@
     "display_sm": "#123　アルバルク東京　スチール撮影",
     "url": "https://girls2-fc.jp/page/gtube/430603061061223361",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9301,7 +10483,16 @@
     "display_sm": "#122　mirage² 「THE STAGE FUKUOKA 2019」",
     "url": "https://girls2-fc.jp/page/gtube/430602492225520481",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9319,7 +10510,16 @@
     "display_sm": "#121　「ハッピーメリクリ！」ダンスリハーサル",
     "url": "https://girls2-fc.jp/page/gtube/428756600006640443",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9337,7 +10537,16 @@
     "display_sm": "#120　「EXPG STUDIO」CM撮影",
     "url": "https://girls2-fc.jp/page/gtube/428479175406388161",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9355,7 +10564,16 @@
     "display_sm": "#119　月刊EXILE「彩色写真～photo by Aya～」撮影",
     "url": "https://girls2-fc.jp/page/gtube/421295978566386491",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9373,7 +10591,16 @@
     "display_sm": "#118　mirage²「ドキ☆ドキ」リリースイベント in セブンパークアリオ柏",
     "url": "https://girls2-fc.jp/page/gtube/421294229289960385",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9391,7 +10618,16 @@
     "display_sm": "#117　mirage²「歩きだそう」ダンスリハーサル",
     "url": "https://girls2-fc.jp/page/gtube/421291580272411489",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9409,7 +10645,16 @@
     "display_sm": "#116　「恋するカモ」リリースイベント in セブンパークアリオ柏",
     "url": "https://girls2-fc.jp/page/gtube/421287776030294843",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9427,7 +10672,16 @@
     "display_sm": "#115　「恋するカモ」リリースイベント in 香川県イオンモール綾川",
     "url": "https://girls2-fc.jp/page/gtube/421290061078725473",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9445,7 +10699,16 @@
     "display_sm": "#114　ファントミラージュ　ドラマ撮影 Part 2",
     "url": "https://girls2-fc.jp/page/gtube/421130901926183873",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9463,7 +10726,16 @@
     "display_sm": "#113　ファントミラージュ　ドラマ撮影 Part 1",
     "url": "https://girls2-fc.jp/page/gtube/421125074066604993",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9481,7 +10753,16 @@
     "display_sm": "#112　モーリーファンタジーコラボ企画！クレーンゲームチャレンジ♪",
     "url": "https://girls2-fc.jp/page/gtube/420580525191726017",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9499,7 +10780,16 @@
     "display_sm": "#111　「恋するカモ」リリースイベント in モラージュ佐賀",
     "url": "https://girls2-fc.jp/page/gtube/420472536774476641",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9517,7 +10807,16 @@
     "display_sm": "#110　「シング・ア・ソング」「GIVE ME♡」ダンスリハーサル",
     "url": "https://girls2-fc.jp/page/gtube/417937570790376385",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9535,7 +10834,16 @@
     "display_sm": "#109　THE STAGE OMIYA part2",
     "url": "https://girls2-fc.jp/page/gtube/417892713405350753",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9553,7 +10861,16 @@
     "display_sm": "#108　THE STAGE OMIYA",
     "url": "https://girls2-fc.jp/page/gtube/408173582061929543",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9571,7 +10888,16 @@
     "display_sm": "#107　サマフェス おはガールスペシャルステージ Part2",
     "url": "https://girls2-fc.jp/page/gtube/408172880275178567",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9616,7 +10942,16 @@
     "display_sm": "#105　「アイスチョコチョコモ〜モ〜 with 黒糖わらびもち」CM撮影",
     "url": "https://girls2-fc.jp/page/gtube/412583442132239431",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9634,7 +10969,16 @@
     "display_sm": "#104　サマフェス おはガールスペシャルステージ",
     "url": "https://girls2-fc.jp/page/gtube/408170742706865318",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9652,7 +10996,16 @@
     "display_sm": "#103　ファントミラージュ「サマフェス ファントミステージ」part2",
     "url": "https://girls2-fc.jp/page/gtube/408170301206037670",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9670,7 +11023,16 @@
     "display_sm": "#102　ファントミラージュ「サマフェス ファントミステージ」",
     "url": "https://girls2-fc.jp/page/gtube/408169119662212262",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9688,7 +11050,16 @@
     "display_sm": "#101　mirage² 「シング・ア・ソング」「歩き出そう」ダンスリハーサル",
     "url": "https://girls2-fc.jp/page/gtube/407471294938874951",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9787,7 +11158,16 @@
     "display_sm": "#97　「SUMMER STATION 音楽LIVE」part2",
     "url": "https://girls2-fc.jp/page/gtube/401294034695357585",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9805,7 +11185,16 @@
     "display_sm": "#96　「SUMMER STATION 音楽LIVE」part1",
     "url": "https://girls2-fc.jp/page/gtube/395868989424665743",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9823,7 +11212,16 @@
     "display_sm": "#95　「走れ！月火水木金曜日！」ラストリリースイベント イオンモール木更津",
     "url": "https://girls2-fc.jp/page/gtube/395865796422665361",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9841,7 +11239,16 @@
     "display_sm": "#94　ファントミラージュ！オープニング撮影 part2",
     "url": "https://girls2-fc.jp/page/gtube/395865147815494678",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9859,7 +11266,16 @@
     "display_sm": "#93　ファントミラージュ！オープニング撮影",
     "url": "https://girls2-fc.jp/page/gtube/395862081116570767",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9904,7 +11320,16 @@
     "display_sm": "#91　ファントミラージュ！ CM撮影",
     "url": "https://girls2-fc.jp/page/gtube/395410635577361553",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9922,7 +11347,16 @@
     "display_sm": "#90　THE STAGE SAPPORO",
     "url": "https://girls2-fc.jp/page/gtube/394662043195540625",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -9994,7 +11428,16 @@
     "display_sm": "#87　「おはスタ」夏休みスペシャルロケ part2",
     "url": "https://girls2-fc.jp/page/gtube/390054660859233425",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10012,7 +11455,16 @@
     "display_sm": "#86　「おはスタ」夏休みスペシャルロケ part1",
     "url": "https://girls2-fc.jp/page/gtube/390054040249042063",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10030,7 +11482,16 @@
     "display_sm": "#85　mirage² 「ドキ⭐︎ドキ」ミュージックビデオ撮影 part2",
     "url": "https://girls2-fc.jp/page/gtube/390053431370318991",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10048,7 +11509,16 @@
     "display_sm": "#84　mirage² 「ドキ⭐︎ドキ」ミュージックビデオ撮影 part1",
     "url": "https://girls2-fc.jp/page/gtube/389473989166105743",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10093,7 +11563,16 @@
     "display_sm": "#82　「走れ！月火水木金曜日！」リリースイベント  アピタ長津田/小田原ダイナシティ",
     "url": "https://girls2-fc.jp/page/gtube/387749353445393430",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10111,7 +11590,16 @@
     "display_sm": "#81　THE STAGE YOKOHAMA part2",
     "url": "https://girls2-fc.jp/page/gtube/387042260744668182",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10129,7 +11617,16 @@
     "display_sm": "#80　THE STAGE YOKOHAMA",
     "url": "https://girls2-fc.jp/page/gtube/384679317767980054",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10147,7 +11644,16 @@
     "display_sm": "#79　ファントミラージュ！パフォーマンスショー part2",
     "url": "https://girls2-fc.jp/page/gtube/384678350368539670",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10165,7 +11671,16 @@
     "display_sm": "#78　ファントミラージュ！パフォーマンスショー",
     "url": "https://girls2-fc.jp/page/gtube/378449352793785569",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10237,7 +11752,16 @@
     "display_sm": "#75　「走れ！月火水木金曜日！」リリースイベント  イオンモール伊丹 part2",
     "url": "https://girls2-fc.jp/page/gtube/378447906878784534",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10255,7 +11779,16 @@
     "display_sm": "#74　「走れ！月火水木金曜日！」リリースイベント  イオンモール伊丹",
     "url": "https://girls2-fc.jp/page/gtube/378447150893237473",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10327,7 +11860,16 @@
     "display_sm": "#71　「ダイジョウブ」リリースイベント アリオ橋本 part2",
     "url": "https://girls2-fc.jp/page/gtube/373047585490863126",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10345,7 +11887,16 @@
     "display_sm": "#70　「ダイジョウブ」リリースイベント アリオ橋本",
     "url": "https://girls2-fc.jp/page/gtube/373047178127475937",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10390,7 +11941,16 @@
     "display_sm": "#68　「ダイジョウブ」リリースイベント アリオ蘇我",
     "url": "https://girls2-fc.jp/page/gtube/367235758039237857",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10408,7 +11968,16 @@
     "display_sm": "#67　おはガール「おはスタ スペシャルステージ」 幕張メッセ",
     "url": "https://girls2-fc.jp/page/gtube/367235440714974230",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10426,7 +11995,16 @@
     "display_sm": "#66　「ダイジョウブ」リリースイベント ステラタウン大宮 part2",
     "url": "https://girls2-fc.jp/page/gtube/367234736482944022",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10444,7 +12022,16 @@
     "display_sm": "#65　「ダイジョウブ」リリースイベント ステラタウン大宮",
     "url": "https://girls2-fc.jp/page/gtube/367234346911794401",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10462,7 +12049,13 @@
     "display_sm": "#64　「ダイジョウブ」リリースイベント ららぽーと立川立飛",
     "url": "https://girls2-fc.jp/page/gtube/365458014909498390",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10480,7 +12073,12 @@
     "display_sm": "#63　mirage² 「東京おもちゃショー ファントミステージ」 part3",
     "url": "https://girls2-fc.jp/page/gtube/362887683145467105",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10498,7 +12096,12 @@
     "display_sm": "#62　mirage² 「東京おもちゃショー ファントミステージ」 part2",
     "url": "https://girls2-fc.jp/page/gtube/362879130011698198",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10516,7 +12119,12 @@
     "display_sm": "#61　mirage² 「東京おもちゃショー ファントミステージ」",
     "url": "https://girls2-fc.jp/page/gtube/362874907761050849",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10534,7 +12142,11 @@
     "display_sm": "#60　「じゃん☆けん☆ぽん」リリースイベント ららぽーと立川立飛 part2",
     "url": "https://girls2-fc.jp/page/gtube/356794030148813846",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10552,7 +12164,11 @@
     "display_sm": "#59　「じゃん☆けん☆ぽん」リリースイベント ららぽーと立川立飛",
     "url": "https://girls2-fc.jp/page/gtube/356787724461540374",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10570,7 +12186,8 @@
     "display_sm": "#58　鶴屋美咲 初「中国語レッスン」",
     "url": "https://girls2-fc.jp/page/gtube/356783036496348385",
     "groups": [
-      "G2","MSK"
+      "G2",
+      "MSK"
     ],
     "relations": [
       ""
@@ -10588,7 +12205,11 @@
     "display_sm": "#57　「じゃん☆けん☆ぽん」リリースイベント ステラタウン大宮 part2",
     "url": "https://girls2-fc.jp/page/gtube/356782465152451606",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10606,7 +12227,11 @@
     "display_sm": "#56　「じゃん☆けん☆ぽん」リリースイベント ステラタウン大宮",
     "url": "https://girls2-fc.jp/page/gtube/352769834401924118",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10624,7 +12249,15 @@
     "display_sm": "#55　「ダイジョウブ」リリースイベント イオンモール土浦 part2",
     "url": "https://girls2-fc.jp/page/gtube/352767087740978401",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10642,7 +12275,15 @@
     "display_sm": "#54　「ダイジョウブ」リリースイベント イオンモール土浦",
     "url": "https://girls2-fc.jp/page/gtube/352766518611674134",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10660,7 +12301,11 @@
     "display_sm": "#53　「じゃん☆けん☆ぽん」リリースイベント ららぽーと名古屋みなとアクルス part2",
     "url": "https://girls2-fc.jp/page/gtube/351949569161954529",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10678,7 +12323,10 @@
     "display_sm": "#52　「アメージング チョコモ～モ～ THE SECOND」CM撮影",
     "url": "https://girls2-fc.jp/page/gtube/349107692712756449",
     "groups": [
-      "G2","MNM","TOA","RAN"
+      "G2",
+      "MNM",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -10696,7 +12344,11 @@
     "display_sm": "#51　「じゃん☆けん☆ぽん」リリースイベント ららぽーと名古屋みなとアクルス",
     "url": "https://girls2-fc.jp/page/gtube/348022006635037921",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10714,7 +12366,15 @@
     "display_sm": "#50　「ダイジョウブ」リリースイベント ダイバーシティ東京 part2",
     "url": "https://girls2-fc.jp/page/gtube/347693545542386913",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10732,7 +12392,15 @@
     "display_sm": "#49　「ダイジョウブ」リリースイベント ダイバーシティ東京",
     "url": "https://girls2-fc.jp/page/gtube/344003943434552545",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10750,7 +12418,12 @@
     "display_sm": "#48　「走れ！月火水木金曜日！」ジャケット撮影 part2",
     "url": "https://girls2-fc.jp/page/gtube/344003549954311393",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
     ],
     "relations": [
       ""
@@ -10768,7 +12441,12 @@
     "display_sm": "#47　「走れ！月火水木金曜日！」ジャケット撮影",
     "url": "https://girls2-fc.jp/page/gtube/343994261420639457",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
     ],
     "relations": [
       ""
@@ -10786,7 +12464,15 @@
     "display_sm": "#46　「ダイジョウブ」リリースイベント 阪急西宮ガーデンズ part2",
     "url": "https://girls2-fc.jp/page/gtube/343994033959339233",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10804,7 +12490,15 @@
     "display_sm": "#45　「ダイジョウブ」リリースイベント 阪急西宮ガーデンズ",
     "url": "https://girls2-fc.jp/page/gtube/335056549758108897",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10822,7 +12516,11 @@
     "display_sm": "#44　mirage² リリースイベント セブンパークアリオ柏 part2",
     "url": "https://girls2-fc.jp/page/gtube/335052848502932732",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10840,7 +12538,11 @@
     "display_sm": "#43　mirage² リリースイベント セブンパークアリオ柏",
     "url": "https://girls2-fc.jp/page/gtube/335028202550330620",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10858,7 +12560,15 @@
     "display_sm": "#42　「Ring Ring♪」「スキップ！」振り映像撮影 part2",
     "url": "https://girls2-fc.jp/page/gtube/335027902066197526",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10876,7 +12586,15 @@
     "display_sm": "#41　「Ring Ring♪」「スキップ！」振り映像撮影",
     "url": "https://girls2-fc.jp/page/gtube/335027669781447932",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10894,7 +12612,11 @@
     "display_sm": "#40　湘南ベルマーレ ハーフタイムショーに出演！",
     "url": "https://girls2-fc.jp/page/gtube/334270964743275772",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10912,7 +12634,11 @@
     "display_sm": "#39　「じゃん☆けん☆ぽん」リリースイベント",
     "url": "https://girls2-fc.jp/page/gtube/334266655418877180",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10930,7 +12656,11 @@
     "display_sm": "#38　「じゃん☆けん☆ぽん」リリース初イベント part2",
     "url": "https://girls2-fc.jp/page/gtube/329438955239900182",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10948,7 +12678,11 @@
     "display_sm": "#37　「じゃん☆けん☆ぽん」リリース初イベント",
     "url": "https://girls2-fc.jp/page/gtube/329438318083179772",
     "groups": [
-      "G2","YZH","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10966,7 +12700,15 @@
     "display_sm": "#36　「ダイジョウブ」リリースイベントin大阪 泉南 密着 part2",
     "url": "https://girls2-fc.jp/page/gtube/329437808361997537",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -10984,7 +12726,15 @@
     "display_sm": "#35　「ダイジョウブ」リリースイベントin大阪 泉南 密着",
     "url": "https://girls2-fc.jp/page/gtube/329077877251245078",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11002,7 +12752,15 @@
     "display_sm": "#34　「ダイジョウブ」リリースイベント あべのキューズモール part2",
     "url": "https://girls2-fc.jp/page/gtube/319755156948255901",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11020,7 +12778,15 @@
     "display_sm": "#33　「ダイジョウブ」リリースイベント あべのキューズモール",
     "url": "https://girls2-fc.jp/page/gtube/319753105786799185",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11038,7 +12804,12 @@
     "display_sm": "#32　magical² アルバルク東京 ホームゲーム最終戦 part3",
     "url": "https://girls2-fc.jp/page/gtube/319752716756714653",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
     ],
     "relations": [
       ""
@@ -11056,7 +12827,12 @@
     "display_sm": "#31　magical² アルバルク東京 ホームゲーム最終戦 part2",
     "url": "https://girls2-fc.jp/page/gtube/319750837410727069",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
     ],
     "relations": [
       ""
@@ -11074,7 +12850,12 @@
     "display_sm": "#30　magical² アルバルク東京 ホームゲーム最終戦",
     "url": "https://girls2-fc.jp/page/gtube/319749806190756945",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
     ],
     "relations": [
       ""
@@ -11092,7 +12873,15 @@
     "display_sm": "#29　「ダイジョウブ」リリースイベント けやきウォーク前橋 part2",
     "url": "https://girls2-fc.jp/page/gtube/319748580371858513",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11110,7 +12899,15 @@
     "display_sm": "#28　「ダイジョウブ」リリースイベント けやきウォーク前橋",
     "url": "https://girls2-fc.jp/page/gtube/315043391991710555",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11128,7 +12925,15 @@
     "display_sm": "#27　「ダイジョウブ」リリースイベント セブンパークアリオ柏 part2",
     "url": "https://girls2-fc.jp/page/gtube/315042757301240667",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11146,7 +12951,15 @@
     "display_sm": "#26　「ダイジョウブ」リリースイベント セブンパークアリオ柏",
     "url": "https://girls2-fc.jp/page/gtube/315024491778409307",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11164,7 +12977,15 @@
     "display_sm": "#25　「ダイジョウブ」リリースイベント リハーサル part2",
     "url": "https://girls2-fc.jp/page/gtube/306364473742984273",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11182,7 +13003,15 @@
     "display_sm": "#24　「ダイジョウブ」リリースイベント リハーサル",
     "url": "https://girls2-fc.jp/page/gtube/306363435191370587",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11200,7 +13029,16 @@
     "display_sm": "#23　FMヨコハマ「RADIO MASHUP」収録 part3",
     "url": "https://girls2-fc.jp/page/gtube/306362152552235867",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -11218,7 +13056,16 @@
     "display_sm": "#22　FMヨコハマ「RADIO MASHUP」収録 part2",
     "url": "https://girls2-fc.jp/page/gtube/306361456926917467",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -11236,7 +13083,16 @@
     "display_sm": "#21　FMヨコハマ「RADIO MASHUP」収録",
     "url": "https://girls2-fc.jp/page/gtube/306360756583007067",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -11254,7 +13110,11 @@
     "display_sm": "#20　ファントミラージュ! 新エンディング撮影 part3",
     "url": "https://girls2-fc.jp/page/gtube/306359785949758299",
     "groups": [
-      "G2","MNM","KIR","TOA","RAN"
+      "G2",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -11272,7 +13132,11 @@
     "display_sm": "#19　ファントミラージュ! 新エンディング撮影 part2",
     "url": "https://girls2-fc.jp/page/gtube/306359376036234397",
     "groups": [
-      "G2","MNM","KIR","TOA","RAN"
+      "G2",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -11290,7 +13154,11 @@
     "display_sm": "#18　ファントミラージュ! 新エンディング撮影",
     "url": "https://girls2-fc.jp/page/gtube/306354900676117339",
     "groups": [
-      "G2","MNM","KIR","TOA","RAN"
+      "G2",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -11308,7 +13176,16 @@
     "display_sm": "#17　ガールズガールズスペシャルイベント part2",
     "url": "https://girls2-fc.jp/page/gtube/306236652819317917",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -11326,7 +13203,16 @@
     "display_sm": "#16　ガールズガールズスペシャルイベント",
     "url": "https://girls2-fc.jp/page/gtube/304437528348329117",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -11344,7 +13230,16 @@
     "display_sm": "#15　ガールズ×戦士シリーズ バトンタッチイベント part2",
     "url": "https://girls2-fc.jp/page/gtube/303729333476787281",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -11362,7 +13257,16 @@
     "display_sm": "#14　ガールズ×戦士シリーズ バトンタッチイベント",
     "url": "https://girls2-fc.jp/page/gtube/301962668061754449",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -11380,7 +13284,13 @@
     "display_sm": "#13　おはスタ スペシャルイベント part2",
     "url": "https://girls2-fc.jp/page/gtube/300912856176526171",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11398,7 +13308,12 @@
     "display_sm": "#12　おはスタ スペシャルイベント",
     "url": "https://girls2-fc.jp/page/gtube/299497173060420443",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
     ],
     "relations": [
       ""
@@ -11416,7 +13331,15 @@
     "display_sm": "#11　「ダイジョウブ」リリース初イベント part2",
     "url": "https://girls2-fc.jp/page/gtube/298397441554646097",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11434,7 +13357,15 @@
     "display_sm": "#10　「ダイジョウブ」リリース初イベント",
     "url": "https://girls2-fc.jp/page/gtube/296590510615692369",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11452,7 +13383,12 @@
     "display_sm": "#9　「magical² スペシャルライブ」part3",
     "url": "https://girls2-fc.jp/page/gtube/294663856234431323",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
     ],
     "relations": [
       ""
@@ -11470,7 +13406,12 @@
     "display_sm": "#8　「magical² スペシャルライブ」part2",
     "url": "https://girls2-fc.jp/page/gtube/294421236212040785",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
     ],
     "relations": [
       ""
@@ -11488,7 +13429,12 @@
     "display_sm": "#7　「magical² スペシャルライブ」",
     "url": "https://girls2-fc.jp/page/gtube/278774568842167131",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
     ],
     "relations": [
       ""
@@ -11506,7 +13452,15 @@
     "display_sm": "#6　「ダイジョウブ」ミュージックビデオ撮影 part4",
     "url": "https://girls2-fc.jp/page/gtube/278773766379537489",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11524,7 +13478,15 @@
     "display_sm": "#5　「ダイジョウブ」ミュージックビデオ撮影 part3",
     "url": "https://girls2-fc.jp/page/gtube/278772900184458075",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11542,7 +13504,15 @@
     "display_sm": "#4　「ダイジョウブ」ミュージックビデオ撮影 part2",
     "url": "https://girls2-fc.jp/page/gtube/278771781144150875",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11560,7 +13530,15 @@
     "display_sm": "#3　「ダイジョウブ」ミュージックビデオ撮影",
     "url": "https://girls2-fc.jp/page/gtube/278770625575650139",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11578,7 +13556,15 @@
     "display_sm": "#2　「ダイジョウブ」スチール撮影 part2",
     "url": "https://girls2-fc.jp/page/gtube/278735795982959451",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -11596,7 +13582,15 @@
     "display_sm": "#1　「ダイジョウブ」スチール撮影",
     "url": "https://girls2-fc.jp/page/gtube/278733431074980699",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "relations": [
       ""
@@ -13723,7 +15717,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -13749,7 +15744,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -13802,7 +15798,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -13828,7 +15825,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -13854,7 +15852,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -13907,7 +15906,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -13933,7 +15933,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -13986,7 +15987,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14066,7 +16068,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14092,7 +16095,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14118,7 +16122,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14171,7 +16176,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14243,7 +16249,16 @@
     "display_sm": "#546　Girls ² CL撮影「LDH秋の大運動会」",
     "url": "https://girls2-fc.jp/page/gtube/969298672338599938",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14269,7 +16284,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14295,7 +16311,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14348,7 +16365,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14374,7 +16392,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14427,7 +16446,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14527,7 +16547,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14653,7 +16674,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14732,7 +16754,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14758,7 +16781,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14837,7 +16861,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14863,7 +16888,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14889,7 +16915,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -14969,7 +16996,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15022,7 +17050,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15048,7 +17077,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15209,7 +17239,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15262,7 +17293,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15315,7 +17347,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15362,7 +17395,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15388,7 +17422,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15462,7 +17497,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15569,7 +17605,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15676,7 +17713,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15729,7 +17767,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15755,7 +17794,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15781,7 +17821,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15807,7 +17848,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15833,7 +17875,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15940,7 +17983,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -15993,7 +18037,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16073,7 +18118,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16207,7 +18253,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16233,7 +18280,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16286,7 +18334,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16436,7 +18485,16 @@
     "display_sm": "#462　Girls2 HMVイベント",
     "url": "https://girls2-fc.jp/page/gtube/860122885111414785",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16489,7 +18547,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16542,7 +18601,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16568,7 +18628,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16594,7 +18655,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16647,7 +18709,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16673,7 +18736,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16699,7 +18763,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16725,7 +18790,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16772,7 +18838,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16846,7 +18913,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16872,7 +18940,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16919,7 +18988,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16972,7 +19042,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -16998,7 +19069,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17024,7 +19096,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17119,7 +19192,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17199,7 +19273,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17252,7 +19327,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17278,7 +19354,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17331,7 +19408,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17438,7 +19516,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17491,7 +19570,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17517,7 +19597,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17543,7 +19624,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17596,7 +19678,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17622,7 +19705,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17702,7 +19786,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17728,7 +19813,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17808,7 +19894,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17834,7 +19921,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17852,7 +19940,12 @@
     "display_sm": "#407　「ビッ友×戦士 キラメキパワーズ！」オンラインファンミーティング",
     "url": "https://girls2-fc.jp/page/gtube/794040221040641034",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -17878,7 +19971,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17923,7 +20017,16 @@
     "display_sm": "#404　「がるがるちゃんねる」撮影",
     "url": "https://girls2-fc.jp/page/gtube/782877472902349957",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17949,7 +20052,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -17975,7 +20079,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18001,7 +20106,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18054,7 +20160,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18134,7 +20241,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18160,7 +20268,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18178,7 +20287,12 @@
     "display_sm": "#394　「ビッ友×戦士 キラメキパワーズ！」ダンス撮影",
     "url": "https://girls2-fc.jp/page/gtube/771972380154135685",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -18231,7 +20345,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18249,7 +20364,16 @@
     "display_sm": "#391　「がるがるちゃんねる」撮影",
     "url": "https://girls2-fc.jp/page/gtube/771971832600331379",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18294,7 +20418,12 @@
     "display_sm": "#389　「ビッ友×戦士 キラメキパワーズ！」クランクアップ",
     "url": "https://girls2-fc.jp/page/gtube/757575557931074571",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -18320,7 +20449,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18346,7 +20476,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18364,7 +20495,16 @@
     "display_sm": "#386　「おはスタ」おはガール卒業&バトンタッチ",
     "url": "https://girls2-fc.jp/page/gtube/757575142174884875",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18390,7 +20530,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18443,7 +20584,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18488,7 +20630,12 @@
     "display_sm": "#381　「ビッ友×戦士 キラメキパワーズ！」後期オープニング撮影",
     "url": "https://girls2-fc.jp/page/gtube/757571351375512806",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -18506,7 +20653,12 @@
     "display_sm": "#380　深澤日彩「がるらじ ～GL² family RADIO～」#1　収録",
     "url": "https://girls2-fc.jp/page/gtube/745915148069241951",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -18524,7 +20676,16 @@
     "display_sm": "#379　「がるがるちゃんねる」収録",
     "url": "https://girls2-fc.jp/page/gtube/745914953763914982",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18577,7 +20738,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18622,7 +20784,16 @@
     "display_sm": "#375　「第33回 マイナビ 東京ガールズコレクション 2021　AUTUMN/WINTER」ランウェイ",
     "url": "https://girls2-fc.jp/page/gtube/745914226756814054",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18640,7 +20811,16 @@
     "display_sm": "#374　「第33回 マイナビ 東京ガールズコレクション 2021　AUTUMN/WINTER」パフォーマンス",
     "url": "https://girls2-fc.jp/page/gtube/745914069441053926",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18666,7 +20846,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18684,7 +20865,12 @@
     "display_sm": "#372　「ビッ友×戦士 キラメキパワーズ！」撮影 Part4",
     "url": "https://girls2-fc.jp/page/gtube/739767371027186868",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -18710,7 +20896,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18728,7 +20915,16 @@
     "display_sm": "#370　2021年「居酒屋えぐざいる」パフォーマンス",
     "url": "https://girls2-fc.jp/page/gtube/739760717388842164",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18800,7 +20996,12 @@
     "display_sm": "#367　「ちゃおフェスLIVEオンライン2021」",
     "url": "https://girls2-fc.jp/page/gtube/739747919153857716",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -18818,7 +21019,12 @@
     "display_sm": "#366　「ビッ友×戦士 キラメキパワーズ！」ダンス撮影",
     "url": "https://girls2-fc.jp/page/gtube/739736711180846260",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -18844,7 +21050,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18870,7 +21077,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18896,7 +21104,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18914,7 +21123,16 @@
     "display_sm": "#362　「がるがるちゃんねる」収録",
     "url": "https://girls2-fc.jp/page/gtube/724888862488265884",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18967,7 +21185,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -18985,7 +21204,12 @@
     "display_sm": "#359　「ビッ友×戦士 キラメキパワーズ！」CM撮影",
     "url": "https://girls2-fc.jp/page/gtube/724888022788605084",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -19011,7 +21235,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19037,7 +21262,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19055,7 +21281,12 @@
     "display_sm": "#356　「ビッ友×戦士 キラメキパワーズ！」撮影 Part3",
     "url": "https://girls2-fc.jp/page/gtube/724876036507960357",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -19081,7 +21312,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19099,7 +21331,12 @@
     "display_sm": "#354　「ビッ友×戦士 キラメキパワーズ！」撮影 Part2",
     "url": "https://girls2-fc.jp/page/gtube/716673156609213572",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -19117,7 +21354,12 @@
     "display_sm": "#353　「ビッ友×戦士 キラメキパワーズ！」撮影 Part1",
     "url": "https://girls2-fc.jp/page/gtube/716672664978064428",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -19143,7 +21385,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19169,7 +21412,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19222,7 +21466,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19248,7 +21493,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19274,7 +21520,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19300,7 +21547,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19318,7 +21566,11 @@
     "display_sm": "#345　増田來亜/永山椿/深澤日彩「月刊EXILE」2021年9月号 撮影",
     "url": "https://girls2-fc.jp/page/gtube/704650472060879966",
     "groups": [
-      "G2","KUR","L2","TBK","HIR"
+      "G2",
+      "KUR",
+      "L2",
+      "TBK",
+      "HIR"
     ],
     "relations": [
       ""
@@ -19344,7 +21596,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19362,7 +21615,12 @@
     "display_sm": "#343　「ビッ友×戦士 キラメキパワーズ！」新衣装スチール撮影",
     "url": "https://girls2-fc.jp/page/gtube/704650166354838743",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -19380,7 +21638,16 @@
     "display_sm": "#342　「がるがるちゃんねる」収録",
     "url": "https://girls2-fc.jp/page/gtube/704650017473823788",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19398,7 +21665,16 @@
     "display_sm": "#341　ドラマ「ガル学。〜ガールズガーデン〜」クランクアップ",
     "url": "https://girls2-fc.jp/page/gtube/704649865514190039",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19416,7 +21692,16 @@
     "display_sm": "#340　ドラマ「ガル学。〜ガールズガーデン〜」撮影Part5",
     "url": "https://girls2-fc.jp/page/gtube/704649701365908695",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19434,7 +21719,12 @@
     "display_sm": "#339　山口莉愛「ビッ友×戦士 キラメキパワーズ！」撮影",
     "url": "https://girls2-fc.jp/page/gtube/704649514933290199",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -19452,7 +21742,16 @@
     "display_sm": "#338　ドラマ「ガル学。〜ガールズガーデン〜」 エンディング撮影 Part2",
     "url": "https://girls2-fc.jp/page/gtube/704649362822661214",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19470,7 +21769,16 @@
     "display_sm": "#337　ドラマ「ガル学。〜ガールズガーデン〜」 エンディング撮影 Part1",
     "url": "https://girls2-fc.jp/page/gtube/694897685949318081",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19488,7 +21796,16 @@
     "display_sm": "#336　ドラマ「ガル学。〜ガールズガーデン〜」 撮影 Part4",
     "url": "https://girls2-fc.jp/page/gtube/694897395057558569",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19506,7 +21823,16 @@
     "display_sm": "#335　ドラマ「ガル学。〜ガールズガーデン〜」 撮影 Part3",
     "url": "https://girls2-fc.jp/page/gtube/694896378215662529",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19551,7 +21877,16 @@
     "display_sm": "#333　ドラマ「ガル学。〜ガールズガーデン〜」 撮影 Part2",
     "url": "https://girls2-fc.jp/page/gtube/694895766807774145",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19569,7 +21904,16 @@
     "display_sm": "#332　ドラマ「ガル学。〜ガールズガーデン〜」 撮影 Part1",
     "url": "https://girls2-fc.jp/page/gtube/694895482769507369",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19587,7 +21931,16 @@
     "display_sm": "#331　ドラマ「ガル学。〜ガールズガーデン〜」クランクイン Part2",
     "url": "https://girls2-fc.jp/page/gtube/694895194876675009",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19605,7 +21958,16 @@
     "display_sm": "#330　ドラマ「ガル学。〜ガールズガーデン〜」クランクイン Part1",
     "url": "https://girls2-fc.jp/page/gtube/694894863325332320",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19623,7 +21985,16 @@
     "display_sm": "#329　ドラマ「ガル学。〜ガールズガーデン〜」ビジュアル撮影 Part2",
     "url": "https://girls2-fc.jp/page/gtube/681063546179552297",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19641,7 +22012,16 @@
     "display_sm": "#328　ドラマ「ガル学。〜ガールズガーデン〜」ビジュアル撮影 Part1",
     "url": "https://girls2-fc.jp/page/gtube/681062717850649641",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19659,7 +22039,16 @@
     "display_sm": "#327　ドラマ「ガル学。〜ガールズガーデン〜」ダンスバトル　リハーサル",
     "url": "https://girls2-fc.jp/page/gtube/681062580453639105",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19677,7 +22066,16 @@
     "display_sm": "#326　ドラマ「ガル学。〜ガールズガーデン〜」本読み",
     "url": "https://girls2-fc.jp/page/gtube/681062281684976480",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19703,7 +22101,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19775,7 +22174,16 @@
     "display_sm": "#322　ドラマ「ガル学。〜ガールズガーデン〜」衣装合わせ",
     "url": "https://girls2-fc.jp/page/gtube/681061625477727273",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19847,7 +22255,12 @@
     "display_sm": "#319　「ビッ友×戦士 キラメキパワーズ！」CM撮影",
     "url": "https://girls2-fc.jp/page/gtube/672414504352482345",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -19900,7 +22313,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19918,7 +22332,12 @@
     "display_sm": "#316　増田來亜「ビッ友×戦士 キラメキパワーズ！」スチール撮影」",
     "url": "https://girls2-fc.jp/page/gtube/672407578294092737",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -19936,7 +22355,12 @@
     "display_sm": "#315　「ビッ友×戦士 キラメキパワーズ！」オープニング撮影  PART2",
     "url": "https://girls2-fc.jp/page/gtube/672404302261650369",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -19954,7 +22378,12 @@
     "display_sm": "#314　「ビッ友×戦士 キラメキパワーズ！」オープニング撮影  PART1",
     "url": "https://girls2-fc.jp/page/gtube/672402103582327849",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -19972,7 +22401,16 @@
     "display_sm": "#313　「がるがるちゃんねる」「Cugal」撮影",
     "url": "https://girls2-fc.jp/page/gtube/672400197694784449",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -19990,7 +22428,12 @@
     "display_sm": "#312　「ビッ友×戦士 キラメキパワーズ！」スチール撮影",
     "url": "https://girls2-fc.jp/page/gtube/672398207774360617",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -20008,7 +22451,12 @@
     "display_sm": "#311　「ビッ友×戦士 キラメキパワーズ！」エンディング撮影",
     "url": "https://girls2-fc.jp/page/gtube/672389159159071584",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -20026,7 +22474,16 @@
     "display_sm": "#310　「ガル学。Anime LIVE 2021 ～ツナグツナグ～」配信当日 生トーク  PART2",
     "url": "https://girls2-fc.jp/page/gtube/663607393350845280",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20044,7 +22501,16 @@
     "display_sm": "#309　「ガル学。Anime LIVE 2021 ～ツナグツナグ～」配信当日 生トーク  PART1",
     "url": "https://girls2-fc.jp/page/gtube/663607052060328897",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20062,7 +22528,16 @@
     "display_sm": "#308　「おはスタ」おはガール卒業",
     "url": "https://girls2-fc.jp/page/gtube/664024627537773408",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20080,7 +22555,12 @@
     "display_sm": "#307　「ビッ友×戦士 キラメキパワーズ！」ホノカ・コユキ クランクイン  PART2",
     "url": "https://girls2-fc.jp/page/gtube/663606715878474689",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -20098,7 +22578,12 @@
     "display_sm": "#306　「ビッ友×戦士 キラメキパワーズ！」ホノカ・コユキ クランクイン  PART1",
     "url": "https://girls2-fc.jp/page/gtube/663606528019792937",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -20124,7 +22609,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20150,7 +22636,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20168,7 +22655,16 @@
     "display_sm": "#303　「ガル学。Anime LIVE 2021　～ツナグツナグ～」収録  2日目",
     "url": "https://girls2-fc.jp/page/gtube/662154071653745601",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20186,7 +22682,16 @@
     "display_sm": "#302　「ガル学。Anime LIVE 2021　～ツナグツナグ～」収録",
     "url": "https://girls2-fc.jp/page/gtube/657441538376205249",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20212,7 +22717,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20230,7 +22736,12 @@
     "display_sm": "#300　「ビッ友×戦士 キラメキパワーズ！」360度カメラ撮影",
     "url": "https://girls2-fc.jp/page/gtube/651687998722671657",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -20248,7 +22759,16 @@
     "display_sm": "#299　「がるがるちゃんねる」収録",
     "url": "https://girls2-fc.jp/page/gtube/657141679261745979",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20266,7 +22786,16 @@
     "display_sm": "#298　「おはスタ」おはガール卒業発表",
     "url": "https://girls2-fc.jp/page/gtube/651031143365215035",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20284,7 +22813,16 @@
     "display_sm": "#297　「ガル学。Anime LIVE 2021　～ツナグツナグ～」通しリハーサル",
     "url": "https://girls2-fc.jp/page/gtube/651030824333870121",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20310,7 +22848,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20328,7 +22867,16 @@
     "display_sm": "#295　『第32回 マイナビ 東京ガールズコレクション 2021　S/S』密着",
     "url": "https://girls2-fc.jp/page/gtube/652058663460013097",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20346,7 +22894,16 @@
     "display_sm": "#294　山口綺羅 waackレッスン",
     "url": "https://girls2-fc.jp/page/gtube/651010905290572603",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20364,7 +22921,16 @@
     "display_sm": "#293　原田都愛ウォーキングレッスン",
     "url": "https://girls2-fc.jp/page/gtube/645956341977842491",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20390,7 +22956,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20408,7 +22975,12 @@
     "display_sm": "#291　「ビッ友×戦士 キラメキパワーズ！」ドラマ撮影 PART 4",
     "url": "https://girls2-fc.jp/page/gtube/639750219801560001",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -20426,7 +22998,12 @@
     "display_sm": "#290　「ビッ友×戦士 キラメキパワーズ！」攻撃ダンス撮影",
     "url": "https://girls2-fc.jp/page/gtube/639734176538428457",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -20444,7 +23021,12 @@
     "display_sm": "#289　「ビッ友×戦士 キラメキパワーズ！」変身ダンス撮影",
     "url": "https://girls2-fc.jp/page/gtube/639733209197708329",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -20462,7 +23044,12 @@
     "display_sm": "#288　「ビッ友×戦士 キラメキパワーズ！」ドラマ撮影 PART 3",
     "url": "https://girls2-fc.jp/page/gtube/642308301010240449",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -20480,7 +23067,12 @@
     "display_sm": "#287　「ビッ友×戦士 キラメキパワーズ！」ドラマ撮影 PART 2",
     "url": "https://girls2-fc.jp/page/gtube/641252665820447547",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -20498,7 +23090,12 @@
     "display_sm": "#286　「ビッ友×戦士 キラメキパワーズ！」ドラマ撮影 PART 1",
     "url": "https://girls2-fc.jp/page/gtube/640859680486196027",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -20516,7 +23113,12 @@
     "display_sm": "#285　「ビッ友×戦士 キラメキパワーズ！」ドラマ撮影初日",
     "url": "https://girls2-fc.jp/page/gtube/639498072665097153",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -20542,7 +23144,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20568,7 +23171,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20594,7 +23198,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20620,7 +23225,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20638,7 +23244,16 @@
     "display_sm": "#280　「ガル学。Anime LIVE 2021　～ツナグツナグ～」リハーサル",
     "url": "https://girls2-fc.jp/page/gtube/629607817325577257",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20656,7 +23271,16 @@
     "display_sm": "#279　「ガル学。～聖ガールズスクエア学院～」最終回アフレコ",
     "url": "https://girls2-fc.jp/page/gtube/628234347354260417",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20682,7 +23306,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20708,7 +23333,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20734,7 +23360,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20752,7 +23379,16 @@
     "display_sm": "#275　「がるがるちゃんねる」撮影",
     "url": "https://girls2-fc.jp/page/gtube/617275636112688065",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20770,7 +23406,16 @@
     "display_sm": "#274　「NYLON JAPAN」2021年3月号スチール撮影",
     "url": "https://girls2-fc.jp/page/gtube/617274440945763369",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20796,7 +23441,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20814,7 +23460,11 @@
     "display_sm": "#272　mirage²「第4回ももいろ歌合戦 〜ニッポンの底力〜」収録",
     "url": "https://girls2-fc.jp/page/gtube/617273697056588841",
     "groups": [
-      "G2","MNM","KIR","TOA","RAN"
+      "G2",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20832,7 +23482,16 @@
     "display_sm": "#271　「ガル学。」原宿竹下通りコラボ「センチメートル」MV撮影",
     "url": "https://girls2-fc.jp/page/gtube/617273303911891771",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20850,7 +23509,16 @@
     "display_sm": "#270　「がるがるちゃんねる」初回撮影",
     "url": "https://girls2-fc.jp/page/gtube/617271149264372777",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20876,7 +23544,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20894,7 +23563,9 @@
     "display_sm": "#268　「ポリス×戦士 ラブパトリーナ！」ドラマ撮影PART2",
     "url": "https://girls2-fc.jp/page/gtube/617268967647478825",
     "groups": [
-      "L2","RIN","YUR"
+      "L2",
+      "RIN",
+      "YUR"
     ],
     "relations": [
       ""
@@ -20912,7 +23583,9 @@
     "display_sm": "#267　「ポリス×戦士 ラブパトリーナ！」ドラマ撮影",
     "url": "https://girls2-fc.jp/page/gtube/606526723118334913",
     "groups": [
-      "L2","RIN","YUR"
+      "L2",
+      "RIN",
+      "YUR"
     ],
     "relations": [
       ""
@@ -20930,7 +23603,16 @@
     "display_sm": "#266　「TGC teen 2020　Winter online」",
     "url": "https://girls2-fc.jp/page/gtube/611127819598038057",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20956,7 +23638,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -20974,7 +23657,16 @@
     "display_sm": "#264　「がるらじ ～GL² family RADIO」収録",
     "url": "https://girls2-fc.jp/page/gtube/606526382394049577",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21000,7 +23692,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21026,7 +23719,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21052,7 +23746,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21078,7 +23773,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21104,7 +23800,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21122,7 +23819,12 @@
     "display_sm": "#258　「lovely² SPECIAL LIVE 2021」密着",
     "url": "https://girls2-fc.jp/page/gtube/603970314828776385",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -21140,7 +23842,12 @@
     "display_sm": "#257　映画『劇場版 ポリス×戦士 ラブパトリーナ！』撮影",
     "url": "https://girls2-fc.jp/page/gtube/603905112556962857",
     "groups": [
-      "L2","RIN","TBK","HIR","YUW","KAN"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ],
     "relations": [
       ""
@@ -21166,7 +23873,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21192,7 +23900,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21218,7 +23927,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21244,7 +23954,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21270,7 +23981,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21296,7 +24008,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21314,7 +24027,9 @@
     "display_sm": "#250　ドラマ「ポリス×戦士 ラブパトリーナ！」クランクアップ",
     "url": "https://girls2-fc.jp/page/gtube/593012587629642689",
     "groups": [
-      "L2","RIN","YUR"
+      "L2",
+      "RIN",
+      "YUR"
     ],
     "relations": [
       ""
@@ -21332,7 +24047,9 @@
     "display_sm": "#249　lovely²ミュージックビデオ撮影 2本立て",
     "url": "https://girls2-fc.jp/page/gtube/593012376689705787",
     "groups": [
-      "L2","RIN","YUR"
+      "L2",
+      "RIN",
+      "YUR"
     ],
     "relations": [
       ""
@@ -21358,7 +24075,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21384,7 +24102,8 @@
       "KUR",
       "MNM",
       "KIR",
-      "TOA","RAN"
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -21401,9 +24120,23 @@
     "display_pc": "#747　Girls²「寄り道 –Take it easy baby–」リリース記念プレミアムイベント",
     "display_sm": "#747　「寄り道 –Take it easy baby–」リリース記念プレミアムイベント",
     "url": "",
-    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"],
-    "relations": [""],
-    "tags": [""]
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.09.01",
@@ -24060,8 +26793,11 @@
       "L2",
       "KIK"
     ],
-    "relations": [""],
-    "tags": [""
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
     ]
   },
   {
@@ -24076,9 +26812,14 @@
       "L2",
       "AKR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
-      "ダンスは遊びじゃない！","あかりんごのファッションショー","Summer Vacation","GENERATIONS from EXILE TRIBE"
+      "ダンスは遊びじゃない！",
+      "あかりんごのファッションショー",
+      "Summer Vacation",
+      "GENERATIONS from EXILE TRIBE"
     ]
   },
   {
@@ -24099,7 +26840,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "がるラー"
     ]
@@ -24122,7 +26865,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "がるラー"
     ]
@@ -24145,47 +26890,88 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "がるラー"
     ]
   },
-{
-"date": "2026.10.17",
-"time": "1300",
-"contents": "LIVE",
-"title": "ZIP-FM「ENJOY LIVE」公開収録",
-"display_pc": "ZIP-FM「ENJOY LIVE」公開収録",
-"display_sm": "ZIP-FM「ENJOY LIVE」公開収録",
-"url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
-"groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
-"relations": ["TOA"],
-"tags": ["ナガシマスパーランド ナガシマスパードーム"]
-},
-{
-"date": "2026.09.04",
-"time": "1000",
-"contents": "TICKET",
-"title": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売開始",
-"display_pc": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売開始",
-"display_sm": "ZIP-FM「ENJOY LIVE」公開収録 前売券販売開始",
-"url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
-"groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
-"relations": ["TOA"],
-"tags": ["ナガシマスパーランド ナガシマスパードーム"]
-},
-{
-"date": "2026.10.16",
-"time": "2359",
-"contents": "CLOSE",
-"title": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売終了",
-"display_pc": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売終了",
-"display_sm": "ZIP-FM「ENJOY LIVE」公開収録 前売券販売終了",
-"url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
-"groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
-"relations": ["TOA"],
-"tags": ["ナガシマスパーランド ナガシマスパードーム"]
-},
+  {
+    "date": "2026.10.17",
+    "time": "1300",
+    "contents": "LIVE",
+    "title": "ZIP-FM「ENJOY LIVE」公開収録",
+    "display_pc": "ZIP-FM「ENJOY LIVE」公開収録",
+    "display_sm": "ZIP-FM「ENJOY LIVE」公開収録",
+    "url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      "TOA"
+    ],
+    "tags": [
+      "ナガシマスパーランド ナガシマスパードーム"
+    ]
+  },
+  {
+    "date": "2026.09.04",
+    "time": "1000",
+    "contents": "TICKET",
+    "title": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売開始",
+    "display_pc": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売開始",
+    "display_sm": "ZIP-FM「ENJOY LIVE」公開収録 前売券販売開始",
+    "url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      "TOA"
+    ],
+    "tags": [
+      "ナガシマスパーランド ナガシマスパードーム"
+    ]
+  },
+  {
+    "date": "2026.10.16",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売終了",
+    "display_pc": "ZIP-FM「ENJOY LIVE」公開収録 セット前売券販売終了",
+    "display_sm": "ZIP-FM「ENJOY LIVE」公開収録 前売券販売終了",
+    "url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      "TOA"
+    ],
+    "tags": [
+      "ナガシマスパーランド ナガシマスパードーム"
+    ]
+  },
   {
     "date": "2026.09.07",
     "time": "1423",
@@ -24199,9 +26985,10 @@
       "YUW",
       "KAN"
     ],
-    "relations": [""],
-    "tags": [
-    ]
+    "relations": [
+      ""
+    ],
+    "tags": []
   },
   {
     "date": "2026.07.20",
@@ -24212,10 +26999,14 @@
     "display_sm": "GL²friend 思い出共有 KIKI DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
-      "L2","KIK"
+      "L2",
+      "KIK"
     ],
-    "relations": [""],
-    "tags": ["∞ DAY"
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "∞ DAY"
     ]
   },
   {
@@ -24227,10 +27018,14 @@
     "display_sm": "GL²friend 思い出共有 AKARI DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
-      "L2","AKR"
+      "L2",
+      "AKR"
     ],
-    "relations": [""],
-    "tags": ["∞ DAY"
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "∞ DAY"
     ]
   },
   {
@@ -24242,10 +27037,14 @@
     "display_sm": "GL²friend 思い出共有 RIRIKA DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
-      "L2","RRK"
+      "L2",
+      "RRK"
     ],
-    "relations": [""],
-    "tags": ["∞ DAY"
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "∞ DAY"
     ]
   },
   {
@@ -24257,10 +27056,14 @@
     "display_sm": "GL²friend 思い出共有 KANNA DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
-      "L2","KAN"
+      "L2",
+      "KAN"
     ],
-    "relations": [""],
-    "tags": ["∞ DAY"
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "∞ DAY"
     ]
   },
   {
@@ -24272,10 +27075,14 @@
     "display_sm": "GL²friend 思い出共有 YUWA DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
-      "L2","YUW"
+      "L2",
+      "YUW"
     ],
-    "relations": [""],
-    "tags": ["∞ DAY"
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "∞ DAY"
     ]
   },
   {
@@ -24287,10 +27094,14 @@
     "display_sm": "GL²friend 思い出共有 HIIRO DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
-      "L2","HIR"
+      "L2",
+      "HIR"
     ],
-    "relations": [""],
-    "tags": ["∞ DAY"
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "∞ DAY"
     ]
   },
   {
@@ -24302,10 +27113,14 @@
     "display_sm": "GL²friend 思い出共有 TSUBAKI DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
-      "L2","TBK"
+      "L2",
+      "TBK"
     ],
-    "relations": [""],
-    "tags": ["∞ DAY"
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "∞ DAY"
     ]
   },
   {
@@ -24317,10 +27132,14 @@
     "display_sm": "GL²friend 思い出共有 RINA DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
-      "L2","RIN"
+      "L2",
+      "RIN"
     ],
-    "relations": [""],
-    "tags": ["∞ DAY"
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "∞ DAY"
     ]
   },
   {
@@ -24336,8 +27155,12 @@
       "KUR",
       "KIR"
     ],
-    "relations": [""],
-    "tags": ["トキシラズ","夏の風物語"
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "トキシラズ",
+      "夏の風物語"
     ]
   },
   {
@@ -24353,9 +27176,16 @@
       "MMK",
       "YOK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
-      "がるラー","夏休み","秩父","兵庫","バブガル","ついてない供養"
+      "がるラー",
+      "夏休み",
+      "秩父",
+      "兵庫",
+      "バブガル",
+      "ついてない供養"
     ]
   },
   {
@@ -24371,7 +27201,9 @@
       "MMK",
       "YOK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "がるラー"
     ]
@@ -24389,7 +27221,9 @@
       "MMK",
       "YOK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "がるラー"
     ]
@@ -24412,7 +27246,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "Girls² LIVE TOUR 2026-Seven Blooms Beyond-」LIVE ビジュアル GL² family Limited"
     ]
@@ -24435,7 +27271,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "Girls² LIVE TOUR 2026-Seven Blooms Beyond-」LIVE ビジュアル GL² family Limited"
     ]
@@ -24448,9 +27286,15 @@
     "display_pc": "",
     "display_sm": "",
     "url": "",
-    "groups": ["G2"],
-    "relations": [""],
-    "tags": [""]
+    "groups": [
+      "G2"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.08.31",
@@ -24460,9 +27304,19 @@
     "display_pc": "がるがるちゃんねる　1人だけ違う料理…！？食リポだけで見破れ！食リポ人狼🐺",
     "display_sm": "食リポだけで見破れ！食リポ人狼🐺",
     "url": "https://youtu.be/jQtBEDwonnI?si=0JkqoaSpVbrOdUEU",
-    "groups": ["G2","YZH","MMK","MSK","YOK"],
-    "relations": [""],
-    "tags": [""]
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.08.31",
@@ -24476,7 +27330,9 @@
       "G2",
       "KUR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "髪色"
     ]
@@ -24499,7 +27355,9 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       "クリスマス"
     ]
@@ -24522,8 +27380,12 @@
       "MNM",
       "KIR"
     ],
-    "relations": [""],
-    "tags": [""]
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.08.31",
@@ -24553,7 +27415,9 @@
       "AKR",
       "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24566,9 +27430,22 @@
     "display_pc": "Girls²「New Era」スマプラフォト PINコード有効期間終了",
     "display_sm": "「New Era」スマプラフォトコード有効期間終了",
     "url": "https://girls2-fc.jp/page/familyNews/1075903340228902912",
-    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
-    "relations": [""],
-    "tags": [""]
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2027.05.26",
@@ -24578,9 +27455,23 @@
     "display_pc": "Girls² スポーツ報知 コンビニプリント販売終了",
     "display_sm": "スポーツ報知 コンビニプリント販売終了",
     "url": "https://entame.e-printservice.net/content_detail/hochi-print",
-    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
-    "relations": [""],
-    "tags": ["Girls2、6月26日武道館公演への思い「少女からレディーになった姿を感じて」","HCP11972"]
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "Girls2、6月26日武道館公演への思い「少女からレディーになった姿を感じて」",
+      "HCP11972"
+    ]
   },
   {
     "date": "2027.06.27",
@@ -24590,9 +27481,23 @@
     "display_pc": "Girls² サンスポEXTRA コンビニプリント販売終了",
     "display_sm": "サンスポEXTRA コンビニプリント販売終了",
     "url": "https://entame.e-printservice.net/content_detail/sanspo-extra",
-    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
-    "relations": [""],
-    "tags": ["2026年6月27日付Ｇｉｒｌｓ２初の武道館公演","SAE26628"]
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "2026年6月27日付Ｇｉｒｌｓ２初の武道館公演",
+      "SAE26628"
+    ]
   },
   {
     "date": "2027.12.31",
@@ -24602,9 +27507,24 @@
     "display_pc": "Girls² デイリースポーツ  コンビニプリント販売終了日時未定",
     "display_sm": "Dayプリ  コンビニプリント販売終了日時未定",
     "url": "https://www.e-printservice.net/content_detail/daily-sports/",
-    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
-    "relations": [""],
-    "tags": ["20260626 Ｇｉｒｌｓ2","武道館","DSP26626 "]
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "20260626 Ｇｉｒｌｓ2",
+      "武道館",
+      "DSP26626 "
+    ]
   },
   {
     "date": "2004.11.07",
@@ -24617,7 +27537,9 @@
     "groups": [
       "YZH"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24633,7 +27555,9 @@
     "groups": [
       "MMK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24649,7 +27573,9 @@
     "groups": [
       "MSK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24665,7 +27591,9 @@
     "groups": [
       "YOK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24681,7 +27609,9 @@
     "groups": [
       "KUR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24697,7 +27627,9 @@
     "groups": [
       "MNM"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24713,7 +27645,9 @@
     "groups": [
       "KIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24729,7 +27663,9 @@
     "groups": [
       "TOA"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24745,7 +27681,9 @@
     "groups": [
       "RAN"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24759,9 +27697,12 @@
     "display_sm": "山口莉愛　誕生日",
     "url": "",
     "groups": [
-      "L2","RIN"
+      "L2",
+      "RIN"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24775,9 +27716,12 @@
     "display_sm": "永山椿　誕生日",
     "url": "",
     "groups": [
-      "L2","TBK"
+      "L2",
+      "TBK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24791,9 +27735,12 @@
     "display_sm": "深澤日彩　誕生日",
     "url": "",
     "groups": [
-      "L2","HIR"
+      "L2",
+      "HIR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24807,9 +27754,12 @@
     "display_sm": "比嘉優和　誕生日",
     "url": "",
     "groups": [
-      "L2","YUW"
+      "L2",
+      "YUW"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24823,9 +27773,12 @@
     "display_sm": "佐藤栞奈　誕生日",
     "url": "",
     "groups": [
-      "L2","KAN"
+      "L2",
+      "KAN"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24839,9 +27792,12 @@
     "display_sm": "上村梨々香　誕生日",
     "url": "",
     "groups": [
-      "L2","RRK"
+      "L2",
+      "RRK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24855,9 +27811,12 @@
     "display_sm": "森朱里　誕生日",
     "url": "",
     "groups": [
-      "L2","AKR"
+      "L2",
+      "AKR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24871,9 +27830,12 @@
     "display_sm": "佐藤妃希　誕生日",
     "url": "",
     "groups": [
-      "L2","KIK"
+      "L2",
+      "KIK"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -24887,9 +27849,12 @@
     "display_sm": "杉浦優來　誕生日",
     "url": "",
     "groups": [
-      "L2","YUR"
+      "L2",
+      "YUR"
     ],
-    "relations": [""],
+    "relations": [
+      ""
+    ],
     "tags": [
       ""
     ]
@@ -25287,7 +28252,8 @@
       "HIR"
     ],
     "relations": [
-      "TBK","RIN"
+      "TBK",
+      "RIN"
     ],
     "tags": [
       ""
@@ -25379,7 +28345,11 @@
     "display_sm": "Lakiガチャクッキング #001　アーカイブ配信終了",
     "url": "https://natslive.jp/episodes/16931",
     "groups": [
-      "L2","RIN","YUW","KAN","RRK"
+      "L2",
+      "RIN",
+      "YUW",
+      "KAN",
+      "RRK"
     ],
     "relations": [
       ""
@@ -25397,7 +28367,16 @@
     "display_sm": "チュワパネ!やすみじかん　#6　ツアーリハーサル完全版☆",
     "url": "https://girls2-fc.jp/page/chuwapaneDiary/414629767090799419",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -25415,7 +28394,16 @@
     "display_sm": "チュワパネ!やすみじかん　#5　ツアーリハーサル完全版☆",
     "url": "https://girls2-fc.jp/page/chuwapaneDiary/412083504977806407",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -25433,7 +28421,16 @@
     "display_sm": "チュワパネ!やすみじかん　#4　ツアーリハーサル完全版☆",
     "url": "https://girls2-fc.jp/page/chuwapaneDiary/409543749522162759",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -25451,7 +28448,16 @@
     "display_sm": "チュワパネ!やすみじかん　#3　ツアーリハーサル完全版☆",
     "url": "https://girls2-fc.jp/page/chuwapaneDiary/407003815733101664",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -25469,7 +28475,16 @@
     "display_sm": "チュワパネ!やすみじかん　#2　ツアーリハーサル完全版☆",
     "url": "https://girls2-fc.jp/page/chuwapaneDiary/404145332516029536",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -25487,7 +28502,16 @@
     "display_sm": "チュワパネ!やすみじかん　#1　ツアーリハーサル完全版☆",
     "url": "https://girls2-fc.jp/page/chuwapaneDiary/401933817192907919",
     "groups": [
-      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
