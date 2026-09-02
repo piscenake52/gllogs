@@ -1,5 +1,141 @@
 [
   {
+    "date": "2026.08.30",
+    "time": "2059",
+    "contents": "CL",
+    "title": "POST 森朱里",
+    "display_pc": "POST　森朱里",
+    "display_sm": "POST　森朱里",
+    "url": "https://www.cl-live.com/posts/5u1vgNEoceDedNxD333vkQ?lang=ja",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "relations": [""],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.08.30",
+    "time": "1906",
+    "contents": "CL",
+    "title": "POST 比嘉優和",
+    "display_pc": "POST　比嘉優和",
+    "display_sm": "POST　比嘉優和",
+    "url": "https://www.cl-live.com/posts/a59H18mEPkcky1peGZtekp?lang=ja",
+    "groups": [
+      "L2",
+      "YUW"
+    ],
+    "relations": [""],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.08.30",
+    "time": "1845",
+    "contents": "CL",
+    "title": "POST 上村梨々香",
+    "display_pc": "POST　上村梨々香",
+    "display_sm": "POST　上村梨々香",
+    "url": "https://www.cl-live.com/posts/rBBeVn53WHiaqp3t7G9S61?lang=ja",
+    "groups": [
+      "L2",
+      "RRK"
+    ],
+    "relations": [""],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.08.29",
+    "time": "2143",
+    "contents": "CL",
+    "title": "POST 佐藤妃希",
+    "display_pc": "POST　佐藤妃希",
+    "display_sm": "POST　佐藤妃希",
+    "url": "https://www.cl-live.com/posts/afRDJ2ncbqA87iX5fGd5kX?lang=ja",
+    "groups": [
+      "L2",
+      "KIK"
+    ],
+    "relations": [""],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.08.29",
+    "time": "2119",
+    "contents": "CL",
+    "title": "POST 上村梨々香",
+    "display_pc": "POST　上村梨々香",
+    "display_sm": "POST　上村梨々香",
+    "url": "https://www.cl-live.com/posts/uLFRTgXicnaELi9ULkUYw8?lang=ja",
+    "groups": [
+      "L2",
+      "RRK"
+    ],
+    "relations": [""],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.08.29",
+    "time": "2113",
+    "contents": "CL",
+    "title": "POST 菱田未渚美",
+    "display_pc": "POST　菱田未渚美",
+    "display_sm": "POST　菱田未渚美",
+    "url": "https://www.cl-live.com/posts/jqyLnxEmYefJk2MdVJcGx8?lang=ja",
+    "groups": [
+      "G2",
+      "MNM"
+    ],
+    "relations": [""],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.08.29",
+    "time": "2056",
+    "contents": "CL",
+    "title": "POST 隅谷百花",
+    "display_pc": "POST　隅谷百花",
+    "display_sm": "POST　隅谷百花",
+    "url": "https://www.cl-live.com/posts/niDi4EV1PhkiSvbvHAQuYF?lang=ja",
+    "groups": [
+      "G2",
+      "MMK"
+    ],
+    "relations": [""],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.08.29",
+    "time": "1921",
+    "contents": "CL",
+    "title": "POST 小田柚葉",
+    "display_pc": "POST　小田柚葉",
+    "display_sm": "POST　小田柚葉",
+    "url": "https://www.cl-live.com/posts/2L7pz1SDVhdfwx4MKoUqMt?lang=ja",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "relations": [""],
+    "tags": [
+      ""
+    ]
+  },
+  {
     "date": "2026.09.04",
     "time": "2000",
     "contents": "SNS",
@@ -24,6 +160,18 @@
     "display_pc": "『WORK≒LIFE』読売テレビ「音道楽√」9月度EDテーマ初回放送",
     "display_sm": "『WORK≒LIFE』読売テレビ「音道楽√」9月度EDテーマ初回放送",
     "url": "https://girls2-fc.jp/page/familyNews/1221652390000721921",
+    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "relations": [""],
+    "tags": [""]
+  },
+  {
+    "date": "2026.09.06",
+    "time": "0135",
+    "contents": "MEDIA",
+    "title": "『WORK≒LIFE』読売テレビ「すもももももも！ピーチCAFÉ」9月度EDテーマ初回放送",
+    "display_pc": "『WORK≒LIFE』読売テレビ「すもももももも！ピーチCAFÉ」9月度EDテーマ初回放送",
+    "display_sm": "『WORK≒LIFE』読売テレビ「ピーチCAFÉ」EDテーマ初回放送",
+    "url": "https://girls2-fc.jp/page/familyNews/1221655238281265153",
     "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
     "relations": [""],
     "tags": [""]
@@ -139,7 +287,7 @@
     "title": "POST 山口綺羅",
     "display_pc": "POST　山口綺羅",
     "display_sm": "POST　山口綺羅",
-    "url": "https://www.cl-live.com/posts/nqyETFKzXVU15zbtq6SxN8?utm_medium=referral&utm_source=referral&utm_campaign=url_share",
+    "url": "https://www.cl-live.com/posts/nqyETFKzXVU15zbtq6SxN8?lang=ja",
     "groups": [
       "G2",
       "KIR"
@@ -21921,7 +22069,7 @@
     "title": "あかりんごの元気モリモリール #116",
     "display_pc": "あかりんごの元気モリモリール #116",
     "display_sm": "あかりんごの元気モリモリール #116",
-    "url": "https://www.instagram.com/laki_official0922",
+    "url": "https://www.instagram.com/laki_official0922/reel/DclNL6-CQQj/",
     "groups": [
       "L2",
       "AKR"
@@ -22293,7 +22441,7 @@
   },
   {
     "date": "2026.08.31",
-    "time": "1500",
+    "time": "1453",
     "contents": "CL",
     "title": "POST 増田來亜",
     "display_pc": "POST　増田來亜",
@@ -23102,8 +23250,27 @@
     ]
   },
   {
+    "date": "2026.08.29",
+    "time": "1626",
+    "contents": "CL",
+    "title": "CLキャス 深澤日彩",
+    "display_pc": "CLキャス　深澤日彩",
+    "display_sm": "CLキャス　深澤日彩",
+    "url": "https://www.cl-live.com/programs/cast/ekRJ15RTURG7SPqY2VB7ea?lang=ja",
+    "groups": [
+      "L2",
+      "HIR"
+    ],
+    "relations": [
+      "TBK","RIN"
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
     "date": "2026.08.31",
-    "time": "1810",
+    "time": "2011",
     "contents": "CL",
     "title": "CLキャス 山口莉愛",
     "display_pc": "CLキャス　山口莉愛",
@@ -23122,7 +23289,7 @@
   },
   {
     "date": "2026.09.01",
-    "time": "1630",
+    "time": "1626",
     "contents": "CL",
     "title": "CLキャス 増田來亜",
     "display_pc": "CLキャス　増田來亜",
@@ -23141,7 +23308,7 @@
   },
   {
     "date": "2026.08.30",
-    "time": "1810",
+    "time": "1811",
     "contents": "CL",
     "title": "CLキャス 鶴屋美咲",
     "display_pc": "CLキャス　鶴屋美咲",
