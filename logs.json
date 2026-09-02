@@ -1,5 +1,91 @@
 [
   {
+    "date": "2026.09.02",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "9月すたーと🍇🌳🍎💚",
+    "display_pc": "森朱里　9月すたーと🍇🌳🍎💚",
+    "display_sm": "森朱里　9月すたーと🍇🌳🍎💚",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1224588566768648192",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.02",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "9月アニョハセヨ",
+    "display_pc": "小田柚葉　9月アニョハセヨ",
+    "display_sm": "小田柚葉　9月アニョハセヨ",
+    "url": "https://girls2-fc.jp/page/yuzuhaBlog/1224661672401043456",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2023.03.10",
+    "time": "0000",
+    "contents": "MOVIE",
+    "title": "「映画 きかんしゃトーマス めざせ！夢のチャンピオンカップ」公開",
+    "display_pc": "「映画 きかんしゃトーマス めざせ！夢のチャンピオンカップ」公開",
+    "display_sm": "「きかんしゃトーマス めざせ！夢のチャンピオンカップ」公開",
+    "url": "https://www.youtube.com/watch?v=zuraQILe_vo",
+    "groups": ["L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "relations": [""],
+    "tags": ["Lucky²が踊る「きかんしゃトーマス みんなでゴー！」"]
+  },
+  {
+    "date": "2026.10.02",
+    "time": "0000",
+    "contents": "MOVIE",
+    "title": "映画「デス≠キル／ゲーム」公開",
+    "display_pc": "映画「デス≠キル／ゲーム」公開",
+    "display_sm": "「デス≠キル／ゲーム」公開",
+    "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
+    "groups": ["G2","KIR"],
+    "relations": [""],
+    "tags": ["Nocturne"]
+  },
+  {
+    "date": "2026.11.27",
+    "time": "0000",
+    "contents": "MOVIE",
+    "title": "映画「ワンダンス」",
+    "display_pc": "映画「ワンダンス」",
+    "display_sm": "映画「ワンダンス」",
+    "url": "https://happinet-phantom.com/wandance/",
+    "groups": ["G2","KIR"],
+    "relations": [""],
+    "tags": [""]
+  },
+  {
+    "date": "2020.07.10",
+    "time": "0000",
+    "contents": "MOVIE",
+    "title": "映画「私がモテてどうすんだ」公開",
+    "display_pc": "映画「私がモテてどうすんだ」公開",
+    "display_sm": "映画「私がモテてどうすんだ」公開",
+    "url": "https://www.youtube.com/watch?v=c1qPbNdds0I",
+    "groups": ["G2","MSK","YOK","KUR","KIR","RAN"],
+    "relations": [""],
+    "tags": ["私モテ","わたモテ"]
+  },
+  {
     "date": "2026.09.12",
     "time": "1400",
     "contents": "EVENT",
@@ -18,7 +104,7 @@
       "AKR",
       "KIK"
     ],
-    "relations": [],
+    "relations": [""],
     "tags": [
       "イオンモール大高　1Fグリーンコート"
     ]
@@ -42,7 +128,7 @@
       "AKR",
       "KIK"
     ],
-    "relations": [],
+    "relations": [""],
     "tags": [
       "イオンモール大高　1Fグリーンコート"
     ]
@@ -66,7 +152,7 @@
       "AKR",
       "KIK"
     ],
-    "relations": [],
+    "relations": [""],
     "tags": [
       "イオンモール幕張新都心  グランドモール1Fグランドスクエア"
     ]
@@ -90,7 +176,7 @@
       "AKR",
       "KIK"
     ],
-    "relations": [],
+    "relations": [""],
     "tags": [
       "イオンモール幕張新都心  グランドモール1Fグランドスクエア"
     ]
@@ -114,7 +200,7 @@
       "AKR",
       "KIK"
     ],
-    "relations": [],
+    "relations": [""],
     "tags": [
       "大宮ステラタウン メローベ広場"
     ]
@@ -138,7 +224,7 @@
       "AKR",
       "KIK"
     ],
-    "relations": [],
+    "relations": [""],
     "tags": [
       "大宮ステラタウン メローベ広場"
     ]
@@ -395,7 +481,7 @@
       "AKR",
       "KIK"
     ],
-    "relations": [],
+    "relations": [""],
     "tags": [
       "セブンパーク天美1F AMAMI STADIUM"
     ]
@@ -419,7 +505,7 @@
       "AKR",
       "KIK"
     ],
-    "relations": [],
+    "relations": [""],
     "tags": [
       "セブンパーク天美1F AMAMI STADIUM"
     ]
@@ -22349,8 +22435,8 @@
     "date": "2026.07.20",
     "time": "0000",
     "contents": "GL2",
-    "title": "GL²friend 思い出共有 KIKI DAY",
-    "display_pc": "GL²friend 思い出共有 KIKI DAY",
+    "title": "GL² friend 思い出共有 KIKI DAY",
+    "display_pc": "GL²friend　思い出共有 KIKI DAY",
     "display_sm": "GL²friend 思い出共有 KIKI DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
@@ -22364,8 +22450,8 @@
     "date": "2026.07.31",
     "time": "0000",
     "contents": "GL2",
-    "title": "GL²friend 思い出共有 AKARI DAY",
-    "display_pc": "GL²friend 思い出共有 AKARI DAY",
+    "title": "GL² friend 思い出共有 AKARI DAY",
+    "display_pc": "GL²friend　思い出共有 AKARI DAY",
     "display_sm": "GL²friend 思い出共有 AKARI DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
@@ -22379,8 +22465,8 @@
     "date": "2026.08.10",
     "time": "0000",
     "contents": "GL2",
-    "title": "GL²friend 思い出共有 RIRIKA DAY",
-    "display_pc": "GL²friend 思い出共有 RIRIKA DAY",
+    "title": "GL² friend 思い出共有 RIRIKA DAY",
+    "display_pc": "GL²friend　思い出共有 RIRIKA DAY",
     "display_sm": "GL²friend 思い出共有 RIRIKA DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
@@ -22394,8 +22480,8 @@
     "date": "2026.08.20",
     "time": "0000",
     "contents": "GL2",
-    "title": "GL²friend 思い出共有 KANNA DAY",
-    "display_pc": "GL²friend 思い出共有 KANNA DAY",
+    "title": "GL² friend 思い出共有 KANNA DAY",
+    "display_pc": "GL²friend　思い出共有 KANNA DAY",
     "display_sm": "GL²friend 思い出共有 KANNA DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
@@ -22409,8 +22495,8 @@
     "date": "2026.08.31",
     "time": "0000",
     "contents": "GL2",
-    "title": "GL²friend 思い出共有 YUWA DAY",
-    "display_pc": "GL²friend 思い出共有 YUWA DAY",
+    "title": "GL² friend 思い出共有 YUWA DAY",
+    "display_pc": "GL²friend　思い出共有 YUWA DAY",
     "display_sm": "GL²friend 思い出共有 YUWA DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
@@ -22424,8 +22510,8 @@
     "date": "2026.09.10",
     "time": "0000",
     "contents": "GL2",
-    "title": "GL²friend 思い出共有 HIIRO DAY",
-    "display_pc": "GL²friend 思い出共有 HIIRO DAY",
+    "title": "GL² friend 思い出共有 HIIRO DAY",
+    "display_pc": "GL²friend　思い出共有 HIIRO DAY",
     "display_sm": "GL²friend 思い出共有 HIIRO DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
@@ -22439,8 +22525,8 @@
     "date": "2026.09.20",
     "time": "0000",
     "contents": "GL2",
-    "title": "GL²friend 思い出共有 TSUBAKI DAY",
-    "display_pc": "GL²friend 思い出共有 TSUBAKI DAY",
+    "title": "GL² friend 思い出共有 TSUBAKI DAY",
+    "display_pc": "GL²friend　思い出共有 TSUBAKI DAY",
     "display_sm": "GL²friend 思い出共有 TSUBAKI DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
@@ -22454,8 +22540,8 @@
     "date": "2026.09.20",
     "time": "0000",
     "contents": "GL2",
-    "title": "GL²friend 思い出共有 RINA DAY",
-    "display_pc": "GL²friend 思い出共有 RINA DAY",
+    "title": "GL² friend 思い出共有 RINA DAY",
+    "display_pc": "GL²friend　思い出共有 RINA DAY",
     "display_sm": "GL²friend 思い出共有 RINA DAY",
     "url": "https://girls2-fc.jp/page/lucky2news/1204987909975834624",
     "groups": [
@@ -22541,7 +22627,7 @@
     "time": "1800",
     "contents": "GL2",
     "title": "GL² family Girls² 8月スペシャル壁紙 プレゼントキャンペーン開始",
-    "display_pc": "GL² family　Girls² 8月スペシャル壁紙 プレゼントキャンペーン開始",
+    "display_pc": "GL²family　Girls² 8月スペシャル壁紙 プレゼントキャンペーン開始",
     "display_sm": "8月壁紙 プレゼントキャンペーン開始",
     "url": "https://girls2-fc.jp/page/wallpaper/1221748109609009152",
     "groups": [
@@ -22564,7 +22650,7 @@
     "time": "1800",
     "contents": "CLOSE",
     "title": "GL² family Girls² 8月スペシャル壁紙 プレゼントキャンペーン終了",
-    "display_pc": "GL² family　Girls² 8月スペシャル壁紙 プレゼントキャンペーン終了",
+    "display_pc": "GL²family　Girls² 8月スペシャル壁紙 プレゼントキャンペーン終了",
     "display_sm": "8月壁紙 プレゼントキャンペーン終了",
     "url": "https://girls2-fc.jp/page/wallpaper/1221748109609009152",
     "groups": [
