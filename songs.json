@@ -1,17 +1,32 @@
 [
   {
-    "artist": "Girls²",
-    "title": "BLOOM! BLOOM! BLOOM!",
-    "link": "https://www.youtube.com/watch?v=0YhvQXbPsJk"
-  },
-  {
     "artist": "SAMPLE ARTIST",
     "title": "SAMPLE TITLE　１２３４５６７８９０１２３４５６７８９０",
     "link": "https://www.youtube.com/"
   },
   {
+    "artist": "Girls²",
+    "title": "BLOOM! BLOOM! BLOOM!",
+    "link": "https://music.youtube.com/watch?v=B5yKz2HnBjQ&si=QXwjMyNc4Qncekba"
+  },
+  {
+    "artist": "Girls²",
+    "title": "ヒマワリ",
+    "link": "https://music.youtube.com/watch?v=zw6MSx2V4TE&si=JDnOUL8oaUS4GU6S"
+  },
+  {
     "artist": "Laki",
     "title": "WORK≒LiFE",
     "link": "https://music.youtube.com/watch?v=R2Aq3_FiavU&si=bEyKeDg0iG7JFRmO"
+  },
+  {
+    "artist": "Laki",
+    "title": "Like it!!",
+    "link": "https://music.youtube.com/watch?v=_VQhKNY5VeM&si=u2-zoJHco9eRUwAk"
+  },
+  {
+    "artist": "Laki",
+    "title": "Ladybug",
+    "link": "https://music.youtube.com/watch?v=oIHsEU3GNhY&si=WV9wFSKc5Y3FzmbP"
   }
 ]

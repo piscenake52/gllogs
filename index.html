@@ -57,6 +57,9 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 #badgeToggleBtn.is-active, #iconToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #todayToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #songToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+/* ホバー中でもis-active(青)を確実に優先させる。押した直後はカーソルがボタン上にあるため、
+   これが無いと:hoverの背景色に上書きされ、カーソルが離れるまで青くならないように見える */
+#songToggleBtn.is-active:hover { background-color: #38bdf8; }
 /* FILTERボタン:データ部との境界線の中央に、線をまたぐように配置。他要素と重なる場合は横幅を縮める */
 .filter-center-btn {
   position: absolute;
@@ -108,14 +111,12 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .song-bar { display: flex; align-items: center; gap: 10px; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0; margin-bottom: 0; transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.35s ease, margin-bottom 0.35s ease; }
 .sticky-header.is-initializing .song-bar { transition: none !important; }
 .song-bar.is-open { max-height: 44px; opacity: 1; margin-top: 2px; margin-bottom: 8px; }
-.song-play-btn { flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
+.song-play-btn { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
 .song-play-btn:hover { background-color: var(--btn-hover); }
-.song-play-btn.is-playing { color: #fff; background-color: #38bdf8; border-color: #38bdf8; }
 .song-ticker-viewport { flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; position: relative; }
 .song-ticker-text { display: inline-block; font-size: 13px; color: var(--text); white-space: nowrap; }
 .song-ticker-viewport.is-scrolling .song-ticker-text { animation-name: songTicker; animation-timing-function: linear; animation-iteration-count: infinite; }
 @keyframes songTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-#songYtPlayer { position: fixed; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* --- フィルターエリアの開閉アニメーション --- */
 .collapsible-area { max-height: 550px; opacity: 1; overflow: hidden; transition: max-height 0.3s ease, opacity 0.2s ease, margin-top 0.2s ease; }
@@ -171,7 +172,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 /* 錠前ボタン:OFF(既定)ではsticky-headerを画面固定せず通常スクロールにする */
 .sticky-header.unlocked { position: static; }
 /* 錠前・BLACK/WHITEテーマボタンを同じ丸ボタンサイズ・見た目に統一 */
-.lock-toggle-btn, .theme-toggle-btn {
+.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn {
   flex-shrink: 0;
   width: 26px;
   height: 26px;
@@ -189,7 +190,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 .theme-toggle-btn { overflow: hidden; }
-.lock-toggle-btn:hover, .theme-toggle-btn:hover { background-color: var(--btn-hover); }
+.lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover { background-color: var(--btn-hover); }
 .lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
 
 /* BLACK/WHITEボタン:文字化け対策としてCSSのみで太陽(切替先=ライト)/月(切替先=ダーク)を描画 */
@@ -358,7 +359,6 @@ body.icon-only-mode .item-contents {
         <button class="toggle-btn date-part-btn" id="showTimeBtn" title="&#26178;&#20998;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26178;</button>
         <button class="toggle-btn" id="badgeToggleBtn">BADGE</button>
         <button class="toggle-btn" id="iconToggleBtn" title="&#12467;&#12531;&#12486;&#12531;&#12484;&#31278;&#39006;&#12463;&#12522;&#12483;&#12463;&#12539;&#12450;&#12452;&#12467;&#12531;&#34920;&#31034;&#20999;&#26367;">ICON</button>
-        <button class="toggle-btn" id="songToggleBtn" title="&#26354;&#32218;&#34920;&#31034;&#20999;&#26367;">&#9834;</button>
         <button class="toggle-btn" id="todayToggleBtn">TODAY</button>
       </div>
     </div>
@@ -367,6 +367,7 @@ body.icon-only-mode .item-contents {
         <input type="text" id="searchInput" class="search-input" placeholder="search keywoooooooord &#3366;&#3405;&#3366;&#3391;(&#65381;&#7447;|">
         <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear search">&#215;</button>
       </div>
+      <button class="toggle-btn" id="songToggleBtn" title="&#26354;&#32218;&#34920;&#31034;&#20999;&#26367;">&#9834;</button>
       <button class="tool-btn theme-toggle-btn" id="themeToggleBtn" title="Theme" aria-label="&#12486;&#12540;&#12510;&#20999;&#12426;&#26367;&#12360;(&#12480;&#12540;&#12463;/&#12521;&#12452;&#12488;)">
         <span class="icon-sun" aria-hidden="true"></span>
         <span class="icon-moon" aria-hidden="true"></span>
@@ -379,7 +380,6 @@ body.icon-only-mode .item-contents {
         <span class="song-ticker-text" id="songTickerText"></span>
       </div>
     </div>
-    <div id="songYtPlayer" aria-hidden="true"></div>
     <div class="collapsible-area" id="collapsibleArea">
       <div class="checks">
         <div class="checks-row checks-row-years" id="yearChecks"></div>
@@ -1780,22 +1780,6 @@ body.icon-only-mode .item-contents {
 
   let currentSong = null;
 
-  // YouTubeのURLから動画IDを抽出する(watch?v=、youtu.be/、shorts/、embed/に対応)。取れなければnull
-  const extractYouTubeId = url => {
-    if (!url) return null;
-    try {
-      const u = new URL(url);
-      const host = u.hostname.replace(/^www\./, '').replace(/^m\./, '');
-      if (host === 'youtu.be') return u.pathname.slice(1).split('/')[0] || null;
-      if (host === 'youtube.com' || host === 'music.youtube.com') {
-        if (u.searchParams.get('v')) return u.searchParams.get('v');
-        const m = u.pathname.match(/\/(shorts|embed)\/([^/?]+)/);
-        if (m) return m[2];
-      }
-    } catch (e) { /* 不正なURLは無視してnullを返す */ }
-    return null;
-  };
-
   // テロップ:表示エリアに収まりきらない場合のみ、テキストを複製してループスクロールさせる
   const updateSongTickerScroll = () => {
     const viewport = $('songTickerViewport');
@@ -1825,84 +1809,14 @@ body.icon-only-mode .item-contents {
     });
   };
 
-  // YouTube IFrame Player API:非表示のプレイヤーで音声のみバックグラウンド再生する
-  let ytPlayer = null, ytPlayerReady = false, ytApiLoading = false;
-  let pendingVideoId = null;
-
-  const setSongPlayBtnState = playing => {
-    const btn = $('songPlayBtn');
-    btn.classList.toggle('is-playing', playing);
-    btn.innerHTML = playing ? '&#9208;' : '&#9654;';
-    btn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
-  };
-
-  const onYouTubeApiReady = () => {
-    ytPlayer = new YT.Player('songYtPlayer', {
-      height: '1', width: '1',
-      playerVars: { playsinline: 1 },
-      events: {
-        onReady: () => {
-          ytPlayerReady = true;
-          if (pendingVideoId) {
-            ytPlayer.loadVideoById(pendingVideoId);
-            pendingVideoId = null;
-          }
-        },
-        onStateChange: e => {
-          if (e.data === YT.PlayerState.PLAYING) setSongPlayBtnState(true);
-          else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) setSongPlayBtnState(false);
-        }
-      }
-    });
-  };
-
-  const ensureYouTubeApi = () => {
-    if (window.YT && window.YT.Player) { if (!ytPlayer) onYouTubeApiReady(); return; }
-    if (ytApiLoading) return;
-    ytApiLoading = true;
-    const prevReady = window.onYouTubeIframeAPIReady;
-    window.onYouTubeIframeAPIReady = () => {
-      if (typeof prevReady === 'function') prevReady();
-      onYouTubeApiReady();
-    };
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
-  };
-
+  // PLAYボタン:リンク先(YouTube等)を別タブで開いて再生する
   $('songPlayBtn').onclick = () => {
     if (!currentSong || !currentSong.link) return;
-    const videoId = extractYouTubeId(currentSong.link);
-    if (!videoId) {
-      // YouTube以外(SNS等の視聴ページURL)はバックグラウンド再生できないためリンク先に遷移する
-      window.open(currentSong.link, '_blank', 'noopener');
-      return;
-    }
-    // 同じ曲が読み込み済みなら再生/一時停止をトグル、そうでなければ新規に読み込んで再生する
-    if (ytPlayer && ytPlayerReady && currentSong._loadedVideoId === videoId) {
-      const state = ytPlayer.getPlayerState();
-      if (state === YT.PlayerState.PLAYING) {
-        ytPlayer.pauseVideo();
-        setSongPlayBtnState(false);
-      } else {
-        ytPlayer.playVideo();
-        setSongPlayBtnState(true);
-      }
-      return;
-    }
-    currentSong._loadedVideoId = videoId;
-    ensureYouTubeApi();
-    if (ytPlayerReady && ytPlayer) {
-      ytPlayer.loadVideoById(videoId);
-    } else {
-      pendingVideoId = videoId;
-    }
-    setSongPlayBtnState(true);
+    window.open(currentSong.link, '_blank', 'noopener');
   };
 
   const applySong = song => {
     currentSong = song || null;
-    setSongPlayBtnState(false);
     const textEl = $('songTickerText');
     textEl.dataset.label = currentSong ? `${currentSong.title || ''} / ${currentSong.artist || ''}` : '';
     updateSongTickerScroll();
