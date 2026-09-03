@@ -56,6 +56,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .date-part-btn.is-active { color: #fff; background-color: #a78bfa; text-shadow: none; }
 #badgeToggleBtn.is-active, #iconToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #todayToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+#songToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 /* FILTERボタン:データ部との境界線の中央に、線をまたぐように配置。他要素と重なる場合は横幅を縮める */
 .filter-center-btn {
   position: absolute;
@@ -102,6 +103,20 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 
 .tool-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 11px; cursor: pointer; padding: 5px 10px; border-radius: 14px; user-select: none; white-space: nowrap; }
 .tool-btn:hover { background-color: var(--btn-hover); }
+
+/* --- 曲紹介バー(♪ボタンで開閉。検索窓の下に表示) --- */
+.song-bar { display: flex; align-items: center; gap: 10px; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0; margin-bottom: 0; transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.35s ease, margin-bottom 0.35s ease; }
+.sticky-header.is-initializing .song-bar { transition: none !important; }
+.song-bar.is-open { max-height: 44px; opacity: 1; margin-top: 2px; margin-bottom: 8px; }
+.song-play-btn { flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
+.song-play-btn:hover { background-color: var(--btn-hover); }
+.song-play-btn.is-playing { color: #fff; background-color: #38bdf8; border-color: #38bdf8; }
+.song-ticker-viewport { flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; position: relative; }
+.song-ticker-text { display: inline-block; font-size: 13px; color: var(--text); white-space: nowrap; }
+.song-ticker-viewport.is-scrolling .song-ticker-text { animation-name: songTicker; animation-timing-function: linear; animation-iteration-count: infinite; }
+@keyframes songTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+#songYtPlayer { position: fixed; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
 /* --- フィルターエリアの開閉アニメーション --- */
 .collapsible-area { max-height: 550px; opacity: 1; overflow: hidden; transition: max-height 0.3s ease, opacity 0.2s ease, margin-top 0.2s ease; }
 .sticky-header.is-initializing .collapsible-area { transition: none !important; }
@@ -131,7 +146,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .checks .sep { display: inline-flex; align-items: center; justify-content: center; padding: 0 1px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
 @media (hover: hover) { .checks label:hover { background-color: var(--btn-hover); } }
 .checks label:has(input:checked) { background-color: var(--active-bg); color: var(--active-color); border-color: var(--active-bg); }
-.checks label:has(input:checked)::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #f87171; border-radius: 50%; }
+.checks label:has(input:checked)::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #34d399; border-radius: 50%; }
 /* 手動でONにしたフィルターは、右上のランプを赤から青に変更して区別する(自動ONは赤のまま) */
 .checks label:has(input:checked).is-manual-on::after { background-color: #38bdf8; }
 .checks label span[title] { font-size: 14px; line-height: 1; }
@@ -257,10 +272,13 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
   color: var(--text); 
   text-align: left; 
 }
-/* ICONモードON時はテキストが無くアイコンのみになるため、固定幅をやめてアイコンサイズに合わせて縮小する */
+/* ICONモードON時はテキストが無くアイコンのみになるため、固定幅にしてどのアイコンでも枠サイズが揃うようにする(PC版・スマホ版で共通の幅) */
 body.icon-only-mode .item-contents {
-  flex: 0 0 auto;
-  padding: 1px 4px;
+  flex: 0 0 28px;
+  width: 28px;
+  padding: 1px 0;
+  margin-right: 8px;
+  text-align: center;
 }
 
 /* タイトル部分だけが通常は省略表示され、ホバーやスクロールで個別スライド（全表示）可能に */
@@ -275,6 +293,7 @@ body.icon-only-mode .item-contents {
   min-width: 0; 
   color: var(--text); 
   text-decoration: none; 
+  font-feature-settings: "palt"; /* 「」などの全角約物が持つ字間の余白を詰め、見た目上の左寄せを実現 */
 }
 
 /* Girls\u00b2 / Laki 判別アイコン(コンテンツ種類とタイトルの間に表示) */
@@ -318,8 +337,8 @@ body.icon-only-mode .item-contents {
 
 @media (max-width: 600px) {
   .item-date { flex: 0 0 auto; margin-right: 6px; }
-  /* スマホ版：アイコンのみ表示（幅を可変に戻す） */
-  .item-contents { flex: 0 0 auto; margin-right: 8px; text-align: left; }
+  /* スマホ版:アイコンのみ表示(PC版のICONモードと同じ固定幅・中央揃えに統一) */
+  .item-contents { flex: 0 0 28px; width: 28px; padding: 1px 0; margin-right: 8px; text-align: center; }
 }
 /*]]>*/
 </style>
@@ -330,7 +349,7 @@ body.icon-only-mode .item-contents {
   <div class="sticky-header is-initializing" id="stickyHeader">
     <div class="sticky-header-inner">
     <div class="header-row">
-      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
+      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log β</a></h1>
       <div class="header-btn-group">
         <button class="toggle-btn date-part-btn" id="showYearBtn" title="&#24180;&#12398;&#34920;&#31034;&#20999;&#26367;">&#24180;</button>
         <button class="toggle-btn date-part-btn" id="showMonthBtn" title="&#26376;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26376;</button>
@@ -339,6 +358,7 @@ body.icon-only-mode .item-contents {
         <button class="toggle-btn date-part-btn" id="showTimeBtn" title="&#26178;&#20998;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26178;</button>
         <button class="toggle-btn" id="badgeToggleBtn">BADGE</button>
         <button class="toggle-btn" id="iconToggleBtn" title="&#12467;&#12531;&#12486;&#12531;&#12484;&#31278;&#39006;&#12463;&#12522;&#12483;&#12463;&#12539;&#12450;&#12452;&#12467;&#12531;&#34920;&#31034;&#20999;&#26367;">ICON</button>
+        <button class="toggle-btn" id="songToggleBtn" title="&#26354;&#32218;&#34920;&#31034;&#20999;&#26367;">&#9834;</button>
         <button class="toggle-btn" id="todayToggleBtn">TODAY</button>
       </div>
     </div>
@@ -353,6 +373,13 @@ body.icon-only-mode .item-contents {
       </button>
       <button type="button" class="lock-toggle-btn" id="lockToggleBtn" title="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;" aria-label="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;(&#29694;&#22312;OFF)">&#128275;</button>
     </div>
+    <div class="song-bar" id="songBar">
+      <button type="button" class="song-play-btn" id="songPlayBtn" aria-label="Play">&#9654;</button>
+      <div class="song-ticker-viewport" id="songTickerViewport">
+        <span class="song-ticker-text" id="songTickerText"></span>
+      </div>
+    </div>
+    <div id="songYtPlayer" aria-hidden="true"></div>
     <div class="collapsible-area" id="collapsibleArea">
       <div class="checks">
         <div class="checks-row checks-row-years" id="yearChecks"></div>
@@ -401,13 +428,24 @@ body.icon-only-mode .item-contents {
     {v:'YUW',n:'YUWA',c:'\u2764\uFE0F'},{v:'KAN',n:'KANNA',c:'\uD83D\uDC99'},{v:'RRK',n:'RIRIKA',c:'\uD83E\uDE77'},{v:'AKR',n:'AKARI',c:'\uD83D\uDC9A'},
     {v:'KIK',n:'KIKI',c:'\uD83D\uDC9B'},'sep',{v:'YUR',n:'YURA',c:'\uD83E\uDD0D'}
   ];
-  const others = ['DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ANNIVERSARY','BIRTHDAY','ETC'];
+  const others = ['FANCLUB','DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MODEL','MOVIE','MEDIA','WEB','TICKET','GOODS','ANNIVERSARY','BIRTHDAY','ETC'];
 
   const symbols = {
+    'FANCLUB': '\uD83D\uDCE3',
     'DIARY': '\uD83D\uDCDD', 'RADIO': '\uD83D\uDCFB\uFE0F', 'GTUBE': '\u25B6\uFE0F', 'YOUTUBE': '\uD83C\uDF9E\uFE0F', 
-    'CL': '\uD83C\uDD91', 'RELEASE': '\uD83D\uDCBF\uFE0F', 'LIVE': '\uD83C\uDF99\uFE0F', 
-    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCFA\uFE0F', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'GOODS': '\uD83D\uDED2', 'ANNIVERSARY': '\uD83D\uDD16', 'BIRTHDAY': '\uD83C\uDF82', 'ETC': '\uD83D\uDCCC'
+    'CL': '\uD83C\uDD91', 'RELEASE': '\uD83C\uDFA7', 'LIVE': '\uD83C\uDF99\uFE0F', 
+    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCFA\uFE0F', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'GOODS': '\uD83D\uDED2', 'ANNIVERSARY': '\uD83D\uDD16', 'BIRTHDAY': '\uD83C\uDF82',
+    'MODEL': '\uD83D\uDC60', 'MOVIE': '\uD83C\uDFAC\uFE0F', 'TICKET': '\uD83C\uDFAB',
+    'CLOSE': '\u2705', 'RESULT': '\uD83C\uDFAF', // フィルターボタンには表示せず、ETC選択時のみ該当させる
+    'ETC': '\uD83D\uDCCC',
+    // 以下4種類はcontentsフィルターボタンには表示しないが、フィルター判定上は"RELEASE"として扱う(normalizeContType参照)。
+    // データ部のアイコン表示ではそれぞれ専用のアイコン+コンテンツ名を表示する。
+    'CD': '\uD83D\uDCBF\uFE0F', 'DVD': '\uD83D\uDCC0\uFE0F', 'BD': '\uD83D\uDCC0\uFE0F', 'DIGITAL': '\uD83C\uDFA7'
   };
+
+  // 内部値(contents値・フィルター値)と実際の表示名が異なるものだけここに登録する(それ以外は値そのものを表示名として使う)
+  const contentDisplayNames = {};
+  const displayNameFor = v => contentDisplayNames[v] || v;
 
   const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
 
@@ -484,9 +522,9 @@ body.icon-only-mode .item-contents {
       iconPart.textContent = symbols[item];
       const textPart = document.createElement('span');
       textPart.className = 'label-text-part';
-      textPart.textContent = item;
+      textPart.textContent = displayNameFor(item);
       sp.append(iconPart, textPart);
-      l.dataset.tooltipName = item; // ICONモード時のみtitleとして反映する(updateContentTooltipsで制御)
+      l.dataset.tooltipName = displayNameFor(item); // ICONモード時のみtitleとして反映する(updateContentTooltipsで制御)
     } else {
       sp.textContent = item.t || item;
     }
@@ -605,9 +643,49 @@ body.icon-only-mode .item-contents {
     if (hasL2) return 'l2';
     return null;
   };
-  const primaryConts = ['DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ANNIVERSARY','BIRTHDAY'];
+
+  // ソート用:日付+時刻が同じ場合のタイブレーク優先順位(G2とL2両方 > G2のみ > L2のみ > STF含む > それ以外)
+  // STFが含まれる場合は、たとえgroupsにG2/L2のリテラルタグが同時にあっても常に「STF含む」枠になる
+  const groupSortRank = item => {
+    const g = item.groups || [];
+    if (g.includes('STF')) return 3;
+    const tc = getTeamClass(item);
+    if (tc === 'both') return 0;
+    if (tc === 'g2') return 1;
+    if (tc === 'l2') return 2;
+    return 4;
+  };
+  // ソート用:日付+時刻+グループも同じ場合のタイブレーク。メンバーフィルターボタンの実際の表示順
+  // (g2→l2、それぞれボタンの並び順どおり)でランク付けする。複数メンバーが該当する場合は
+  // 最も並び順が早いメンバーを代表値として使う。該当メンバーが無ければ末尾扱い。
+  const memberOrder = [...g2, ...l2]
+    .filter(i => typeof i === 'object' && i.n !== undefined)
+    .map(i => i.v);
+  const memberSortRank = item => {
+    const g = item.groups || [];
+    let best = memberOrder.length;
+    g.forEach(v => {
+      const idx = memberOrder.indexOf(v);
+      if (idx !== -1 && idx < best) best = idx;
+    });
+    return best;
+  };
+
+  const primaryConts = ['FANCLUB','DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ANNIVERSARY','BIRTHDAY','MODEL','MOVIE','TICKET'];
   const allConts = [...primaryConts, 'ETC'];
   const cats = [{meta:'G2',values:g2Vals},{meta:'L2',values:l2Vals}];
+
+  // CD/DVD/BD/DIGITALはコンテンツフィルターボタンには表示しないが、フィルター判定(年/コンテンツ種類/自動on-off/
+  // 件数プレビュー/ソート等)上は"RELEASE"の一部として扱う。データ部の表示(アイコン・コンテンツ名)には影響しない。
+  const releaseAliasConts = ['CD', 'DVD', 'BD', 'DIGITAL'];
+  const normalizeContType = c => releaseAliasConts.includes(c) ? 'RELEASE' : c;
+
+  // ソート用:日付+時刻+グループも同じ場合の最終タイブレーク。othersはコンテンツフィルターボタンの
+  // 現在の並び順(ドラッグでの並び替え結果を含む)を反映しているため、そのインデックスをそのまま使う。
+  const contentSortRank = item => {
+    const idx = others.indexOf(normalizeContType(item.contents));
+    return idx === -1 ? others.length : idx;
+  };
 
   const updateThemeButtonStyle = isDark => {
     const btn = $('themeToggleBtn');
@@ -677,7 +755,6 @@ body.icon-only-mode .item-contents {
     updateSearchClearState();
     clearTimeout(timer);
     timer = setTimeout(() => {
-      autoUpdateContentTypeFilters();
       updateDisplay(true);
     }, 180);
   };
@@ -685,7 +762,6 @@ body.icon-only-mode .item-contents {
   searchClearBtn.onclick = () => {
     searchInput.value = '';
     updateSearchClearState();
-    autoUpdateContentTypeFilters();
     updateDisplay(true);
     searchInput.focus();
   };
@@ -711,6 +787,7 @@ body.icon-only-mode .item-contents {
         isMobileState = nowMobile;
         updateDisplay(false);
       }
+      if ($('songBar').classList.contains('is-open')) updateSongTickerScroll();
     }, 200);
   });
 
@@ -728,7 +805,8 @@ body.icon-only-mode .item-contents {
     ct.className = 'item-contents';
     if (item.contents) {
       // スマホ版・ICONモードONはアイコンのみ、それ以外(PC版・ICONモードOFF)は「アイコン + コンテンツ名」で出し分け
-      ct.textContent = (isMobileState || iconMode) ? (symbols[item.contents] || item.contents) : ((symbols[item.contents] ? symbols[item.contents] + ' ' : '') + item.contents);
+      const contentsName = displayNameFor(item.contents);
+      ct.textContent = (isMobileState || iconMode) ? (symbols[item.contents] || contentsName) : ((symbols[item.contents] ? symbols[item.contents] + ' ' : '') + contentsName);
     } else {
       ct.textContent = '';
     }
@@ -744,7 +822,7 @@ body.icon-only-mode .item-contents {
     } else {
       t.classList.add('no-url');
     }
-    t.textContent = (isMobileState ? item.display_sm : item.display_pc) || item.title;
+    t.textContent = ((isMobileState ? item.display_sm : item.display_pc) || item.title || '').trim();
 
     const teamClass = getTeamClass(item);
     const children = [d, ct];
@@ -846,7 +924,6 @@ body.icon-only-mode .item-contents {
       frag.appendChild(makeBadge('Keyword: "' + kw + '"', () => {
         searchInput.value = '';
         updateSearchClearState();
-        autoUpdateContentTypeFilters();
         updateDisplay(true);
       }));
     }
@@ -858,7 +935,7 @@ body.icon-only-mode .item-contents {
       if (titleSpan) {
         name = titleSpan.textContent.trim() + ' ' + titleSpan.getAttribute('title');
       } else if (symbols[cb.value]) {
-        name = symbols[cb.value] + ' ' + cb.value;
+        name = symbols[cb.value] + ' ' + displayNameFor(cb.value);
       } else {
         name = l.querySelector('.label-text').textContent.trim() || cb.value;
       }
@@ -867,8 +944,6 @@ body.icon-only-mode .item-contents {
         cb.checked = false;
         if (allConts.includes(cb.value)) {
           manuallyTouchedConts.add(cb.value);
-        } else {
-          autoUpdateContentTypeFilters();
         }
         updateDisplay(true);
       }, squareColor));
@@ -954,16 +1029,16 @@ body.icon-only-mode .item-contents {
     const yOk = cYears.length === 0 || cYears.includes(yr);
 
     const itemHasMeta = m => {
-      if (itemGroups.includes(m)) return true; // groups/relationsに"G2"等のメタ表記そのものがある場合
+      if (itemGroupsAndRelations.includes(m)) return true; // groupsまたはrelationsに"G2"等のメタ表記そのものがある場合
       const mValues = cats.find(c => c.meta === m)?.values || [];
-      return itemGroups.some(g => mValues.includes(g)); // 個別メンバーコードからメタ所属を推測
+      return itemGroupsAndRelations.some(g => mValues.includes(g)); // 個別メンバーコードからメタ所属を推測
     };
-    const memberOk = sGroups.length === 0 ? true
-      : (sGroups.length === 1 && mGroups.length === 0
-          ? sGroups.every(g => itemGroups.includes(g))
-          : sGroups.every(g => itemGroupsAndRelations.includes(g)));
+    // 複数選択時はAND条件(それぞれについてgroupsまたはrelationsに該当すること)
+    const memberOk = sGroups.length === 0 ? true : sGroups.every(g => itemGroupsAndRelations.includes(g));
     const metaOk = mGroups.length === 0 ? true : mGroups.every(itemHasMeta);
-    const gOk = memberOk && metaOk;
+    // メンバーフィルターのみ選択時(グループフィルター未選択)は、groupsにSTFがある項目を除外する
+    const stfExcluded = sGroups.length > 0 && mGroups.length === 0 && itemGroups.includes('STF');
+    const gOk = memberOk && metaOk && !stfExcluded;
 
     let dateOk = true;
     if (dq.isDateQuery) {
@@ -1001,11 +1076,28 @@ body.icon-only-mode .item-contents {
     return yOk && gOk && dateOk && textOk && todayOk;
   };
 
-  // 年/グループ/メンバー/検索/TODAYで絞り込んだ結果に該当するコンテンツ種類ボタンを自動でon/offする
-  // (年・グループ・メンバー自体は自動ONにしない)
-  const manuallyTouchedConts = new Set(); // ユーザーが手動でON/OFFしたコンテンツ種類の値。これらは自動on/offの対象外にする
+  // TODAY/←/→ボタンが押された時のみ、コンテンツ種類ボタンを自動on/offする。
+  // それ以外(検索窓・年・グループ・メンバーの変更)では、コンテンツ種類ボタンの自動on/offは一切行わない。
+  //
+  // ・TODAYをONにした時、および←/→(TODAYモード中)を押した時:
+  //     手動on/offされているものはそのまま保護し、それ以外は現在の絞り込み(今日基準含む)に
+  //     該当する/しないに応じて自動on/offする。
+  // ・TODAYをOFFにした時:
+  //     残りのフィルタでの再判定はせず、手動on/offされているもの以外は無条件で全てOFFにする。
+  const manuallyTouchedConts = new Set(); // ユーザーが手動でON/OFFしたコンテンツ種類の値(右上ランプの色分け・保護判定用)
 
-  const autoUpdateContentTypeFilters = (isTodayTrigger = false) => {
+  const autoUpdateContentTypeFilters = () => {
+    const contentCheckboxes = Array.from(checkboxes).filter(cb => allConts.includes(cb.value));
+
+    if (!todayMode) {
+      // TODAYがOFFになった:残りのフィルタでの再判定はせず、手動on/off以外は無条件でOFFにする
+      contentCheckboxes.forEach(cb => {
+        if (manuallyTouchedConts.has(cb.value)) return;
+        cb.checked = false;
+      });
+      return;
+    }
+
     const checked = Array.from(checkboxes).filter(cb => cb.checked);
     const cVals = new Set(checked.map(cb => cb.value));
     const cYears = checked.filter(cb => /^\d{4}$/.test(cb.value)).map(cb => cb.value);
@@ -1013,43 +1105,24 @@ body.icon-only-mode .item-contents {
     const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
     const rawKw = searchInput.value.trim();
     const kw = rawKw.toLowerCase();
-
-    const contentCheckboxes = Array.from(checkboxes).filter(cb => allConts.includes(cb.value));
-
-    const noOtherFilterActive = cYears.length === 0 && sGroups.length === 0 && mGroups.length === 0 && !kw && !todayMode;
-    if (noOtherFilterActive) {
-      contentCheckboxes.forEach(cb => { cb.checked = false; });
-      manuallyTouchedConts.clear(); // 絞り込みが全て解除されたら、手動操作の記録もリセットする
-      return;
-    }
-
-    if (!isTodayTrigger) {
-      // 検索窓・年・グループ・メンバーでの絞り込み変更時:コンテンツ種類が1つでもONであれば何もしない
-      const anyContentOn = contentCheckboxes.some(cb => cb.checked);
-      if (anyContentOn) return;
-    }
-
     const dq = parseDateQuery(rawKw);
     const ctx = { cYears, sGroups, mGroups, kw, dq };
 
     const matched = new Set();
-    logs.forEach(item => {
-      if (matchesOtherFilters(item, ctx)) matched.add(item.contents || '');
+    expandTodayBirthdayItems(logs, cYears).forEach(item => {
+      if (matchesOtherFilters(item, ctx)) matched.add(normalizeContType(item.contents || ''));
     });
 
     contentCheckboxes.forEach(cb => {
-      // TODAY/←/→がトリガーの場合、手動でOFFにしたものは保護せず自動on/offの対象に含める(手動ONのみ保護)
-      // それ以外(検索窓・年・グループ・メンバー変更)は手動ON/OFFどちらも保護し現状を維持する
-      const isProtected = isTodayTrigger
-        ? manuallyTouchedConts.has(cb.value) && cb.checked
-        : manuallyTouchedConts.has(cb.value);
+      // 手動ONのものだけ保護する(手動OFFでも、該当するデータがあれば自動ONに戻す)
+      const isProtected = manuallyTouchedConts.has(cb.value) && cb.checked;
       if (isProtected) return;
 
       const shouldBeOn = cb.value === 'ETC'
         ? Array.from(matched).some(c => !primaryConts.includes(c))
         : matched.has(cb.value);
       cb.checked = shouldBeOn;
-      manuallyTouchedConts.delete(cb.value); // 自動でon/offされたら手動タッチの記録は解除する(ランプの色を正しく保つため)
+      manuallyTouchedConts.delete(cb.value);
     });
   };
 
@@ -1067,25 +1140,25 @@ body.icon-only-mode .item-contents {
     // 日付・年・月日クエリのパース処理
     const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = parseDateQuery(rawKw);
 
-    filtered = logs.filter(item => {
+    filtered = expandTodayBirthdayItems(logs, cYears).filter(item => {
       const yr = item.date ? item.date.slice(0, 4) : '';
       const itemGroups = item.groups || [];
       const itemGroupsAndRelations = [...itemGroups, ...(item.relations || [])];
-      const ic = item.contents || '';
+      const ic = normalizeContType(item.contents || '');
       
       const yOk = cYears.length === 0 || cYears.includes(yr);
       
       const itemHasMeta = m => {
-        if (itemGroups.includes(m)) return true;
+        if (itemGroupsAndRelations.includes(m)) return true;
         const mValues = cats.find(c => c.meta === m)?.values || [];
-        return itemGroups.some(g => mValues.includes(g));
+        return itemGroupsAndRelations.some(g => mValues.includes(g));
       };
-      const memberOk = sGroups.length === 0 ? true
-        : (sGroups.length === 1 && mGroups.length === 0
-            ? sGroups.every(g => itemGroups.includes(g))
-            : sGroups.every(g => itemGroupsAndRelations.includes(g)));
+      // 複数選択時はAND条件(それぞれについてgroupsまたはrelationsに該当すること)
+      const memberOk = sGroups.length === 0 ? true : sGroups.every(g => itemGroupsAndRelations.includes(g));
       const metaOk = mGroups.length === 0 ? true : mGroups.every(itemHasMeta);
-      const gOk = memberOk && metaOk;
+      // メンバーフィルターのみ選択時(グループフィルター未選択)は、groupsにSTFがある項目を除外する
+      const stfExcluded = sGroups.length > 0 && mGroups.length === 0 && itemGroups.includes('STF');
+      const gOk = memberOk && metaOk && !stfExcluded;
 
       const cOk = cConts.length === 0 || (cConts.includes('ETC') && !primaryConts.includes(ic)) || cConts.includes(ic);
       
@@ -1130,7 +1203,16 @@ body.icon-only-mode .item-contents {
 
     filtered.sort((a, b) => {
       const ka = sortKeyFor(a), kb = sortKeyFor(b);
-      return desc ? kb.localeCompare(ka) : ka.localeCompare(kb);
+      if (ka !== kb) return desc ? kb.localeCompare(ka) : ka.localeCompare(kb);
+      // 日付+時刻が同一の場合のタイブレーク:
+      // 1) グループ(G2とL2両方 > G2 > L2 > STF > それ以外)
+      const ga = groupSortRank(a), gb = groupSortRank(b);
+      if (ga !== gb) return ga - gb;
+      // 2) メンバー(フィルターボタンの並び順)
+      const ma = memberSortRank(a), mb = memberSortRank(b);
+      if (ma !== mb) return ma - mb;
+      // 3) コンテンツフィルターボタンの並び順
+      return contentSortRank(a) - contentSortRank(b);
     });
 
     $('items').classList.add('is-animating');
@@ -1158,7 +1240,12 @@ body.icon-only-mode .item-contents {
       const active = checked.map(cb => cb.value);
       if (active.length > 0 || kw) window.location.hash = active.join(',');
       else history.replaceState(null, null, window.location.pathname + window.location.search);
-      updating = false;
+      // hashchange(restoreFromHash)は非同期に発火するため、同期的にfalseへ戻すと
+      // ガード(if (updating) return;)が効かず、自前のhash更新でrestoreFromHashが
+      // 誤って再実行されてしまう(自動ON分までmanuallyTouchedContsに登録され、
+      // 以後の自動OFFが効かなくなる原因になっていた)。
+      // hashchangeが発火し終えたあとのタイミングまでresetを遅延させる。
+      setTimeout(() => { updating = false; }, 0);
     }
   };
 
@@ -1169,7 +1256,9 @@ body.icon-only-mode .item-contents {
     let sG = allGroupVals.filter(v => cVals.has(v));
     let mG = cats.map(c => c.meta).filter(m => cVals.has(m));
     let cC = checked.filter(c => allConts.includes(c.value)).map(c => c.value);
-    const kw = searchInput.value.trim().toLowerCase();
+    const rawKw = searchInput.value.trim();
+    const kw = rawKw.toLowerCase();
+    const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = parseDateQuery(rawKw);
 
     if (isChecked) {
       if (/^\d{4}$/.test(val)) cY = cY.filter(y => y !== val);
@@ -1183,35 +1272,61 @@ body.icon-only-mode .item-contents {
       if (allConts.includes(val) && !cC.includes(val)) cC.push(val);
     }
 
-    return logs.filter(item => {
+    return expandTodayBirthdayItems(logs, cY).filter(item => {
       const yr = item.date ? item.date.slice(0, 4) : '';
       const itemGroups = item.groups || [];
       const itemGroupsAndRelations = [...itemGroups, ...(item.relations || [])];
-      const ic = item.contents || '';
+      const ic = normalizeContType(item.contents || '');
 
       const itemHasMeta = m => {
-        if (itemGroups.includes(m)) return true;
+        if (itemGroupsAndRelations.includes(m)) return true;
         const mValues = cats.find(c => c.meta === m)?.values || [];
-        return itemGroups.some(g => mValues.includes(g));
+        return itemGroupsAndRelations.some(g => mValues.includes(g));
       };
-      const memberOk = sG.length === 0 ? true
-        : (sG.length === 1 && mG.length === 0
-            ? sG.every(g => itemGroups.includes(g))
-            : sG.every(g => itemGroupsAndRelations.includes(g)));
+      // 複数選択時はAND条件(それぞれについてgroupsまたはrelationsに該当すること)
+      const memberOk = sG.length === 0 ? true : sG.every(g => itemGroupsAndRelations.includes(g));
       const metaOk = mG.length === 0 ? true : mG.every(itemHasMeta);
-      const gOk = memberOk && metaOk;
+      // メンバーフィルターのみ選択時(グループフィルター未選択)は、groupsにSTFがある項目を除外する
+      const stfExcluded = sG.length > 0 && mG.length === 0 && itemGroups.includes('STF');
+      const gOk = memberOk && metaOk && !stfExcluded;
 
-      const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sm || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
-      const kwOk = !kw || kw.split(/\s+/).filter(Boolean).every(tok =>
-        tok.length > 1 && tok.startsWith('-') ? !searchText.includes(tok.slice(1)) : searchText.includes(tok)
-      );
+      let dateOk = true;
+      if (isDateQuery) {
+        const itemDateNum = item.date ? item.date.replace(/\./g, '') : '';
+        let matchesDate = true;
+        if (targetMonthDay) {
+          const itemMD = itemDateNum.slice(4, 8);
+          matchesDate = itemMD === targetMonthDay;
+        } else if (targetMonthDayRange) {
+          const itemMD = itemDateNum.slice(4, 8);
+          const [fromMD, toMD] = targetMonthDayRange;
+          matchesDate = fromMD <= toMD
+            ? (itemMD >= fromMD && itemMD <= toMD)
+            : (itemMD >= fromMD || itemMD <= toMD);
+        } else {
+          if (startDate && itemDateNum < startDate) matchesDate = false;
+          if (endDate && itemDateNum > endDate) matchesDate = false;
+        }
+        const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
+        dateOk = matchesDate || tagsMatch;
+      }
+
+      let kwOk = true;
+      if (kw && !isDateQuery) {
+        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sm || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+        const tokens = kw.split(/\s+/).filter(Boolean);
+        kwOk = tokens.every(tok =>
+          tok.length > 1 && tok.startsWith('-') ? !searchText.includes(tok.slice(1)) : searchText.includes(tok)
+        );
+      }
 
       const todayOk = isTodayDateOk(item, cY);
+      const yOk = cY.length === 0 || cY.includes(yr);
 
-      return (cY.length === 0 || cY.includes(yr)) &&
+      return yOk &&
              gOk &&
              (cC.length === 0 || (cC.includes('ETC') && !primaryConts.includes(ic)) || cC.includes(ic)) &&
-             kwOk && todayOk;
+             dateOk && kwOk && todayOk;
     }).length;
   };
 
@@ -1276,6 +1391,20 @@ body.icon-only-mode .item-contents {
     updateDisplay(false);
   };
 
+  // ♪ボタン:検索窓の下にある楽曲紹介バー(PLAYボタン+タイトル/アーティスト)の表示/非表示を切り替える。
+  // 次回訪問時も状態を記憶する。表示/非表示はCSSのmax-height/opacityで滑らかにアニメーションする
+  const SONG_MODE_KEY = 'gl_log_song_mode';
+  let songMode = localStorage.getItem(SONG_MODE_KEY) === 'true';
+  $('songToggleBtn').classList.toggle('is-active', songMode);
+  $('songBar').classList.toggle('is-open', songMode);
+  $('songToggleBtn').onclick = () => {
+    songMode = !songMode;
+    $('songToggleBtn').classList.toggle('is-active', songMode);
+    $('songBar').classList.toggle('is-open', songMode);
+    localStorage.setItem(SONG_MODE_KEY, songMode);
+    if (songMode) updateSongTickerScroll(); // 表示直後に幅が確定するよう再計測する
+  };
+
   // 年/月/日/曜/時分:項目左端の日付表示を個別にon/offするボタン。状態はlocalStorageに保存し次回も復元する
   const datePartButtons = {
     year: $('showYearBtn'),
@@ -1308,6 +1437,10 @@ body.icon-only-mode .item-contents {
     d.setDate(d.getDate() + offsetDays);
     return String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
   };
+  // BIRTHDAY/ANNIVERSARYかどうか(この2種類はTODAYモード時、登録年を問わず「同じ月日」であれば
+  // 表示対象にする特別扱いをする)
+  const isBirthdayAnniversary = item => item.contents === 'BIRTHDAY' || item.contents === 'ANNIVERSARY';
+
   // TODAYモード時の日付一致判定。年フィルターがONの場合は「その年の該当月日」で一致させる(年の絞り込み自体はyOk側で行う)
   const isTodayDateOk = (item, cYears) => {
     if (!todayMode) return true;
@@ -1316,6 +1449,35 @@ body.icon-only-mode .item-contents {
       return itemDateNum.slice(4, 8) === getTargetMonthDayStr(todayOffset);
     }
     return item.date === getTargetDateStr(todayOffset);
+  };
+
+  // TODAYモード中、BIRTHDAY/ANNIVERSARYを「表示すべき年」ごとに複製したアイテムへ展開する。
+  // - 年フィルターが選択されている場合:選択されている年のうち、登録年以降かつ月日が一致するものを
+  //   すべて複製して返す(例:1977.03.17登録で、今日が03.17、年フィルターに2027と2025が選択済みなら
+  //   2027.03.17と2025.03.17の2件を生成する)
+  // - 年フィルターが未選択の場合:登録日以降であれば「今日(offset適用後)」の年月日で1件だけ生成する
+  // BIRTHDAY/ANNIVERSARY以外、およびTODAYモードOFF時は元のアイテムをそのまま返す
+  const expandTodayBirthdayItems = (items, cYears) => {
+    if (!todayMode) return items;
+    const targetMonthDay = getTargetMonthDayStr(todayOffset);
+    const targetDateNum = getTargetDateStr(todayOffset).replace(/\./g, '');
+    const result = [];
+    items.forEach(item => {
+      if (!isBirthdayAnniversary(item)) { result.push(item); return; }
+      const itemDateNum = item.date ? item.date.replace(/\./g, '') : '';
+      if (!itemDateNum || itemDateNum.slice(4, 8) !== targetMonthDay) return; // 月日不一致は対象外
+      const registeredYear = item.date.slice(0, 4);
+      const monthDay = item.date.slice(5); // "MM.DD"
+      if (cYears && cYears.length > 0) {
+        cYears.forEach(y => {
+          if (y < registeredYear) return; // 登録年より前の年フィルターは対象外
+          result.push(Object.assign({}, item, { date: `${y}.${monthDay}` }));
+        });
+      } else if (itemDateNum <= targetDateNum) {
+        result.push(Object.assign({}, item, { date: getTargetDateStr(todayOffset) }));
+      }
+    });
+    return result;
   };
 
   const updateTodayButtonStyle = () => {
@@ -1353,7 +1515,7 @@ body.icon-only-mode .item-contents {
       }
     }
     updateTodayButtonStyle();
-    autoUpdateContentTypeFilters(true);
+    autoUpdateContentTypeFilters();
     updateManualIndicators();
     updateDisplay(true);
   };
@@ -1364,7 +1526,7 @@ body.icon-only-mode .item-contents {
     $('prevDayBtn').classList.add('is-pressed');
     $('nextDayBtn').classList.remove('is-pressed');
     updateTodayButtonStyle();
-    autoUpdateContentTypeFilters(true);
+    autoUpdateContentTypeFilters();
     updateManualIndicators();
     updateDisplay(true);
   };
@@ -1375,7 +1537,7 @@ body.icon-only-mode .item-contents {
     $('nextDayBtn').classList.add('is-pressed');
     $('prevDayBtn').classList.remove('is-pressed');
     updateTodayButtonStyle();
-    autoUpdateContentTypeFilters(true);
+    autoUpdateContentTypeFilters();
     updateManualIndicators();
     updateDisplay(true);
   };
@@ -1414,8 +1576,6 @@ body.icon-only-mode .item-contents {
     checkboxes.forEach(cb => cb.onchange = () => {
       if (allConts.includes(cb.value)) {
         manuallyTouchedConts.add(cb.value);
-      } else {
-        autoUpdateContentTypeFilters();
       }
       updateManualIndicators();
       updateDisplay(true);
@@ -1514,10 +1674,10 @@ body.icon-only-mode .item-contents {
   const CHECK_COOLDOWN_MS = 1 * 60 * 1000; // 5分以内の再チェックはスキップ(同一端末でのAPI消費を抑制)
 
   const applyLogs = data => {
-    // 日付、コンテンツ種類、タイトル、URLがすべて一致する重複データを排除
+    // 日付、時刻、コンテンツ種類、タイトル、URLがすべて一致する重複データを排除
     const seen = new Set();
     logs = data.filter(item => {
-      const identifier = `${item.date || ''}_${item.contents || ''}_${item.title || ''}_${item.url || ''}`;
+      const identifier = `${item.date || ''}_${item.time || ''}_${item.contents || ''}_${item.title || ''}_${item.url || ''}`;
       if (seen.has(identifier)) return false;
       seen.add(identifier);
       return true;
@@ -1608,6 +1768,209 @@ body.icon-only-mode .item-contents {
   const withinCooldown = hadCache && (Date.now() - lastCheckedAt < CHECK_COOLDOWN_MS);
 
   if (!withinCooldown) checkForUpdates();
+
+  // ================= 楽曲紹介バー(♪) =================
+  // songs.json(artist/title/link)取得:logs.jsonと同じ方式(GitHub上の最新コミットSHAを確認し、
+  // 変更があった場合のみコミット固定のjsDelivr URLから取得しなおす。変更がなければキャッシュを使う)。
+  // 画面が表示される(=データ取得が走る)たびに、その中から1曲をランダムに抽出して表示する。
+  const SONG_FILE = 'songs.json';
+  const SONG_VERSION_KEY = 'gl_song_sha';
+  const SONG_DATA_KEY = 'gl_song_data';
+  const SONG_CHECK_TIME_KEY = 'gl_song_checked_at';
+
+  let currentSong = null;
+
+  // YouTubeのURLから動画IDを抽出する(watch?v=、youtu.be/、shorts/、embed/に対応)。取れなければnull
+  const extractYouTubeId = url => {
+    if (!url) return null;
+    try {
+      const u = new URL(url);
+      const host = u.hostname.replace(/^www\./, '').replace(/^m\./, '');
+      if (host === 'youtu.be') return u.pathname.slice(1).split('/')[0] || null;
+      if (host === 'youtube.com' || host === 'music.youtube.com') {
+        if (u.searchParams.get('v')) return u.searchParams.get('v');
+        const m = u.pathname.match(/\/(shorts|embed)\/([^/?]+)/);
+        if (m) return m[2];
+      }
+    } catch (e) { /* 不正なURLは無視してnullを返す */ }
+    return null;
+  };
+
+  // テロップ:表示エリアに収まりきらない場合のみ、テキストを複製してループスクロールさせる
+  const updateSongTickerScroll = () => {
+    const viewport = $('songTickerViewport');
+    const textEl = $('songTickerText');
+    if (!viewport || !textEl) return;
+    const label = textEl.dataset.label || '';
+    viewport.classList.remove('is-scrolling');
+    textEl.style.animationDuration = '';
+    textEl.textContent = label;
+    if (!label) return;
+    // 表示中(is-open)でなければ幅が0のため正しく測れない。表示中のみ判定する
+    if (!$('songBar').classList.contains('is-open')) return;
+    requestAnimationFrame(() => {
+      if (textEl.scrollWidth <= viewport.clientWidth) return; // 収まっていればスクロール不要
+      textEl.textContent = '';
+      const first = document.createElement('span');
+      first.textContent = label;
+      const gap = document.createElement('span');
+      gap.textContent = '\u3000\u3000\u3000';
+      const second = document.createElement('span');
+      second.textContent = label;
+      textEl.append(first, gap, second);
+      const singleWidth = first.getBoundingClientRect().width + gap.getBoundingClientRect().width;
+      const duration = Math.max(6, singleWidth / 40); // 速度:約40px/秒、最短6秒
+      textEl.style.animationDuration = duration + 's';
+      viewport.classList.add('is-scrolling');
+    });
+  };
+
+  // YouTube IFrame Player API:非表示のプレイヤーで音声のみバックグラウンド再生する
+  let ytPlayer = null, ytPlayerReady = false, ytApiLoading = false;
+  let pendingVideoId = null;
+
+  const setSongPlayBtnState = playing => {
+    const btn = $('songPlayBtn');
+    btn.classList.toggle('is-playing', playing);
+    btn.innerHTML = playing ? '&#9208;' : '&#9654;';
+    btn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  };
+
+  const onYouTubeApiReady = () => {
+    ytPlayer = new YT.Player('songYtPlayer', {
+      height: '1', width: '1',
+      playerVars: { playsinline: 1 },
+      events: {
+        onReady: () => {
+          ytPlayerReady = true;
+          if (pendingVideoId) {
+            ytPlayer.loadVideoById(pendingVideoId);
+            pendingVideoId = null;
+          }
+        },
+        onStateChange: e => {
+          if (e.data === YT.PlayerState.PLAYING) setSongPlayBtnState(true);
+          else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) setSongPlayBtnState(false);
+        }
+      }
+    });
+  };
+
+  const ensureYouTubeApi = () => {
+    if (window.YT && window.YT.Player) { if (!ytPlayer) onYouTubeApiReady(); return; }
+    if (ytApiLoading) return;
+    ytApiLoading = true;
+    const prevReady = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      if (typeof prevReady === 'function') prevReady();
+      onYouTubeApiReady();
+    };
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+  };
+
+  $('songPlayBtn').onclick = () => {
+    if (!currentSong || !currentSong.link) return;
+    const videoId = extractYouTubeId(currentSong.link);
+    if (!videoId) {
+      // YouTube以外(SNS等の視聴ページURL)はバックグラウンド再生できないためリンク先に遷移する
+      window.open(currentSong.link, '_blank', 'noopener');
+      return;
+    }
+    // 同じ曲が読み込み済みなら再生/一時停止をトグル、そうでなければ新規に読み込んで再生する
+    if (ytPlayer && ytPlayerReady && currentSong._loadedVideoId === videoId) {
+      const state = ytPlayer.getPlayerState();
+      if (state === YT.PlayerState.PLAYING) {
+        ytPlayer.pauseVideo();
+        setSongPlayBtnState(false);
+      } else {
+        ytPlayer.playVideo();
+        setSongPlayBtnState(true);
+      }
+      return;
+    }
+    currentSong._loadedVideoId = videoId;
+    ensureYouTubeApi();
+    if (ytPlayerReady && ytPlayer) {
+      ytPlayer.loadVideoById(videoId);
+    } else {
+      pendingVideoId = videoId;
+    }
+    setSongPlayBtnState(true);
+  };
+
+  const applySong = song => {
+    currentSong = song || null;
+    setSongPlayBtnState(false);
+    const textEl = $('songTickerText');
+    textEl.dataset.label = currentSong ? `${currentSong.title || ''} / ${currentSong.artist || ''}` : '';
+    updateSongTickerScroll();
+  };
+
+  const applySongs = data => {
+    if (!Array.isArray(data) || data.length === 0) return;
+    applySong(data[Math.floor(Math.random() * data.length)]);
+  };
+
+  const loadSongsFromCacheIfAny = () => {
+    const cached = localStorage.getItem(SONG_DATA_KEY);
+    if (!cached) return false;
+    try {
+      applySongs(JSON.parse(cached));
+      return true;
+    } catch (e) {
+      return false; // 壊れたキャッシュは無視して素通り(新規取得に進む)
+    }
+  };
+
+  const fetchFreshSongs = sha => {
+    const url = sha
+      ? `https://cdn.jsdelivr.net/gh/${REPO}@${sha}/${SONG_FILE}`
+      : `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${SONG_FILE}?v=${Date.now()}`;
+    return fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then(data => {
+        applySongs(data);
+        localStorage.setItem(SONG_DATA_KEY, JSON.stringify(data));
+        if (sha) localStorage.setItem(SONG_VERSION_KEY, sha);
+      });
+  };
+
+  const hadSongCache = loadSongsFromCacheIfAny();
+
+  const checkForSongUpdates = () => {
+    fetch(`https://api.github.com/repos/${REPO}/commits?path=${SONG_FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
+      .then(res => {
+        if (!res.ok) throw new Error('GitHub API error');
+        return res.json();
+      })
+      .then(commits => {
+        localStorage.setItem(SONG_CHECK_TIME_KEY, String(Date.now()));
+        const latestSha = commits[0]?.sha;
+        const cachedSha = localStorage.getItem(SONG_VERSION_KEY);
+        if (latestSha && latestSha !== cachedSha) {
+          return fetchFreshSongs(latestSha);
+        }
+        if (!currentSong) return fetchFreshSongs(latestSha);
+      })
+      .catch(error => {
+        console.error('Failed to check songs.json version:', error);
+        if (!currentSong) {
+          fetchFreshSongs(null).catch(err2 => {
+            console.error('Failed to load songs.json:', err2);
+          });
+        }
+      });
+  };
+
+  const lastSongCheckedAt = parseInt(localStorage.getItem(SONG_CHECK_TIME_KEY) || '0', 10);
+  const withinSongCooldown = hadSongCache && (Date.now() - lastSongCheckedAt < CHECK_COOLDOWN_MS);
+
+  if (!withinSongCooldown) checkForSongUpdates();
 })();
 //]]>
 </script>
