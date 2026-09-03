@@ -1809,10 +1809,21 @@ body.icon-only-mode .item-contents {
     });
   };
 
-  // PLAYボタン:リンク先(YouTube等)を別タブで開いて再生する
+  // PLAYボタン:PCではリンク先を新しいタブで開いた直後に元のタブへフォーカスを戻すことで、
+  // ページを離れずにバックグラウンド再生させる。この手法が使えない場合(ポップアップブロック等)や
+  // タッチ操作のモバイル端末では、通常通りリンク先に遷移して再生する
+  const isPcEnvironment = () => !isMobileState && !('ontouchstart' in window) && navigator.maxTouchPoints === 0;
+
   $('songPlayBtn').onclick = () => {
     if (!currentSong || !currentSong.link) return;
-    window.open(currentSong.link, '_blank', 'noopener');
+    const link = currentSong.link;
+    if (isPcEnvironment()) {
+      // 'noopener'を付けると戻り値が常にnullになりopen成功の判定ができなくなるため、あえて付けない
+      const w = window.open(link, '_blank');
+      if (w) { window.focus(); return; } // 新しいタブは裏で再生、元の画面はそのまま
+      // ポップアップがブロックされた等で開けなかった場合は通常の遷移にフォールバックする
+    }
+    window.open(link, '_blank');
   };
 
   const applySong = song => {
