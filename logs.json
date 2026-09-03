@@ -1,5 +1,155 @@
 [
   {
+    "date": "2026.09.25",
+    "time": "0000",
+    "contents": "CAMPAIGN",
+    "title": "Girls² Digital Single『Nocturne』配信記念LINE MUSIC再生キャンペーン応募受付開始",
+    "display_pc": "Girls²　Digital Single『Nocturne』配信記念LINE MUSIC再生キャンペーン応募受付開始",
+    "display_sm": "『Nocturne』LINE MUSIC再生キャンペーン応募受付開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1225273681614209024",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.27",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "Girls² Digital Single『Nocturne』配信記念LINE MUSIC再生キャンペーン応募受付締切",
+    "display_pc": "Girls²　Digital Single『Nocturne』配信記念LINE MUSIC再生キャンペーン応募受付締切",
+    "display_sm": "『Nocturne』LINE MUSIC再生キャンペーン応募受付締切",
+    "url": "https://girls2-fc.jp/page/familyNews/1225273681614209024",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.04",
+    "time": "0000",
+    "contents": "CAMPAIGN",
+    "title": "Girls² Digital Single『Nocturne』配信記念LINE MUSIC再生キャンペーン再生対象期間開始",
+    "display_pc": "Girls²　Digital Single『Nocturne』配信記念LINE MUSIC再生キャンペーン再生対象期間開始",
+    "display_sm": "『Nocturne』LINE MUSIC再生キャンペーン対象期間開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1225273681614209024",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.24",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "Girls² Digital Single『Nocturne』配信記念LINE MUSIC再生キャンペーン再生対象期間終了",
+    "display_pc": "Girls²　Digital Single『Nocturne』配信記念LINE MUSIC再生キャンペーン再生対象期間終了",
+    "display_sm": "『Nocturne』LINE MUSIC再生キャンペーン対象期間終了",
+    "url": "https://girls2-fc.jp/page/familyNews/1225273681614209024",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.04",
+    "time": "0000",
+    "contents": "CAMPAIGN",
+    "title": "Girls² Digital Single『Nocturne』配信記念ダウンロードキャンペーン応募受付開始",
+    "display_pc": "Girls²　Digital Single『Nocturne』配信記念ダウンロードキャンペーン応募受付開始",
+    "display_sm": "『Nocturne』ダウンロードキャンペーン応募受付開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1225273681614209024",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.10",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "Girls² Digital Single『Nocturne』配信記念ダウンロードキャンペーン応募受付締切",
+    "display_pc": "Girls²　Digital Single『Nocturne』配信記念ダウンロードキャンペーン応募受付締切",
+    "display_sm": "『Nocturne』ダウンロードキャンペーン応募受付締切",
+    "url": "https://girls2-fc.jp/page/familyNews/1225273681614209024",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
     "date": "2023.09.03",
     "time": "0000",
     "contents": "ANNIVERSARY",
@@ -7470,10 +7620,10 @@
     "date": "2026.09.04",
     "time": "0000",
     "contents": "DIGITAL",
-    "title": "Girls² 『Nocturne』配信開始",
-    "display_pc": "Girls²『Nocturne』配信開始",
-    "display_sm": "『Nocturne』配信開始",
-    "url": "https://girls2-fc.jp/page/familyNews/1200399124285882369",
+    "title": "Girls² Digital Single『Nocturne』配信",
+    "display_pc": "Girls²　Digital Single『Nocturne』配信",
+    "display_sm": "『Nocturne』配信",
+    "url": "https://rhythmzone.lnk.to/nocturne",
     "groups": [
       "G2",
       "YZH",
