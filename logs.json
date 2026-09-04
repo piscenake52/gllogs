@@ -212,7 +212,15 @@
     "url": "https://girls2-fc.jp/page/ShangrilaLP",
     "groups": [
       "G2",
-      "YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "relations": [
       ""
@@ -5649,7 +5657,15 @@
       "STF"
     ],
     "relations": [
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "tags": [
       ""
@@ -5668,7 +5684,8 @@
       "STF"
     ],
     "relations": [
-      "MSK","YOK"
+      "MSK",
+      "YOK"
     ],
     "tags": [
       ""
@@ -5687,7 +5704,9 @@
       "STF"
     ],
     "relations": [
-      "TBK","KAN","AKR"
+      "TBK",
+      "KAN",
+      "AKR"
     ],
     "tags": [
       ""
@@ -5706,7 +5725,14 @@
       "STF"
     ],
     "relations": [
-      "YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "tags": [
       ""
@@ -5725,7 +5751,14 @@
       "STF"
     ],
     "relations": [
-      "YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ],
     "tags": [
       ""
@@ -5744,7 +5777,10 @@
       "STF"
     ],
     "relations": [
-      "KUR","MNM","MMK","TOA"
+      "KUR",
+      "MNM",
+      "MMK",
+      "TOA"
     ],
     "tags": [
       ""
@@ -28104,7 +28140,16 @@
     "display_sm": "#747　Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 通しRH",
     "url": "",
     "groups": [
-      "L2","RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "relations": [
       ""
@@ -30772,7 +30817,8 @@
       "YUW"
     ],
     "tags": [
-      "aespa","KISS N TELL"
+      "aespa",
+      "KISS N TELL"
     ]
   },
   {
@@ -31261,9 +31307,15 @@
     "display_pc": "",
     "display_sm": "",
     "url": "",
-    "groups": ["G2"],
-    "relations": [""],
-    "tags": [""]
+    "groups": [
+      "G2"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.09.03",
@@ -31273,9 +31325,17 @@
     "display_pc": "がるがるちゃんねる　初めてのスーパーバニーマンが難しすぎたwww",
     "display_sm": "初めてのスーパーバニーマンが難しすぎたwww",
     "url": "https://youtu.be/bbMnf16m_Z4?si=GilkFruQOiEOCXJ0",
-    "groups": ["G2","YOK","MNM"],
-    "relations": [""],
-    "tags": [""]
+    "groups": [
+      "G2",
+      "YOK",
+      "MNM"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.08.31",
@@ -31316,56 +31376,6 @@
     ],
     "tags": [
       "髪色"
-    ]
-  },
-  {
-    "date": "2026.08.31",
-    "time": "1500",
-    "contents": "TICKET",
-    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special プレイガイド先行受付開始",
-    "display_pc": "Girls² LIVE TOUR 2026　-Seven Blooms Beyond- Christmas Special プレイガイド先行受付開始",
-    "display_sm": "LIVE TOUR 2026　Xmas SP PG先行受付開始",
-    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "relations": [
-      ""
-    ],
-    "tags": [
-      "クリスマス"
-    ]
-  },
-  {
-    "date": "2026.08.31",
-    "time": "2359",
-    "contents": "CLOSE",
-    "title": "Girls²「EASY」発売記念 メンバー個別オンライントーク会 入金期限",
-    "display_pc": "Girls²「EASY」個別オンライントーク会 入金期限",
-    "display_sm": "「EASY」オンライントーク会 入金期限",
-    "url": "https://girls2-fc.jp/page/news/1220576408795873281",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "relations": [
-      ""
-    ],
-    "tags": [
-      ""
     ]
   },
   {
