@@ -310,6 +310,11 @@ body.icon-only-mode .item-contents {
 .team-icon.team-g2 { background-color: #f472b6; }
 .team-icon.team-l2 { background-color: #facc15; }
 .team-icon.team-both { background: linear-gradient(135deg, #f472b6 50%, #facc15 50%); }
+.team-icon.is-clickable { cursor: pointer; }
+/* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される */
+.team-hearts { display: inline-flex; align-items: center; gap: 2px; max-width: 0; overflow: hidden; white-space: nowrap; flex-shrink: 0; margin-left: 0; vertical-align: middle; transition: max-width 0.3s ease, margin-left 0.3s ease; }
+.team-hearts.is-open { max-width: 300px; margin-left: 4px; }
+.team-heart { display: inline-block; font-size: 12px; line-height: 1; }
 .item-title::-webkit-scrollbar { display: none; }
 .item-title:hover,
 .item-title:focus {
@@ -671,6 +676,12 @@ body.icon-only-mode .item-contents {
     return best;
   };
 
+  // データ部のG2/L2アイコンをクリックした際に表示する、メンバーコード→(名前,ハート絵文字)の対応表
+  const memberInfoByCode = {};
+  [...g2, ...l2].forEach(i => {
+    if (typeof i === 'object' && i.n !== undefined) memberInfoByCode[i.v] = { n: i.n, c: i.c };
+  });
+
   const primaryConts = ['FANCLUB','DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ANNIVERSARY','BIRTHDAY','MODEL','MOVIE','TICKET'];
   const allConts = [...primaryConts, 'ETC'];
   const cats = [{meta:'G2',values:g2Vals},{meta:'L2',values:l2Vals}];
@@ -829,7 +840,43 @@ body.icon-only-mode .item-contents {
     if (teamClass) {
       const ti = document.createElement('span');
       ti.className = 'team-icon team-' + teamClass;
-      children.push(ti);
+
+      // groups内のメンバーコードのうち、名前が判明しているものだけを表示順(g2→l2)で抽出する
+      const memberCodes = memberOrder.filter(v => (item.groups || []).includes(v));
+      if (memberCodes.length) {
+        const hearts = document.createElement('span');
+        hearts.className = 'team-hearts';
+        memberCodes.forEach(code => {
+          const info = memberInfoByCode[code];
+          if (!info) return;
+          const h = document.createElement('span');
+          h.className = 'team-heart';
+          h.textContent = info.c;
+          h.title = info.n;
+          hearts.appendChild(h);
+        });
+
+        ti.classList.add('is-clickable');
+        ti.tabIndex = 0;
+        ti.setAttribute('role', 'button');
+        ti.setAttribute('aria-expanded', 'false');
+        ti.title = 'メンバーを表示';
+        const toggleHearts = () => {
+          const isOpen = hearts.classList.toggle('is-open');
+          ti.setAttribute('aria-expanded', String(isOpen));
+        };
+        ti.addEventListener('click', toggleHearts);
+        ti.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleHearts();
+          }
+        });
+
+        children.push(ti, hearts);
+      } else {
+        children.push(ti);
+      }
     }
     children.push(t);
 
