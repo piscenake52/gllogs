@@ -315,10 +315,14 @@ body.icon-only-mode .item-contents {
 .team-icon.team-l2 { background-color: #facc15; }
 .team-icon.team-both { background: linear-gradient(135deg, #f472b6 50%, #facc15 50%); }
 .team-icon.is-clickable { cursor: pointer; }
-/* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される */
-.team-hearts { display: inline-flex; align-items: center; gap: 2px; max-width: 0; overflow-x: hidden; overflow-y: visible; white-space: nowrap; flex-shrink: 0; margin-left: 0; vertical-align: middle; transition: max-width 0.3s ease, margin-left 0.3s ease; }
+/* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される。
+   overflow-xだけhidden・overflow-yだけvisibleのように分割指定すると、ブラウザ側でvisible指定がautoとして
+   扱われてしまい(値が異なる軸ペアの自動変換仕様)、絵文字がline-heightをわずかに超えた際に不要な縦スクロールバーが
+   出てしまう。そのため軸を分割せず通常のoverflow: hiddenのままにし、代わりにline-heightを絵文字が収まる
+   高さまで広げることで、下端が欠ける問題を解消する */
+.team-hearts { display: inline-flex; align-items: center; gap: 2px; max-width: 0; overflow: hidden; white-space: nowrap; flex-shrink: 0; margin-left: 0; vertical-align: middle; line-height: 1.4; transition: max-width 0.3s ease, margin-left 0.3s ease; }
 .team-hearts.is-open { max-width: 300px; margin-left: 4px; }
-.team-heart { display: inline-block; font-size: 12px; line-height: 1; }
+.team-heart { display: inline-block; font-size: 12px; line-height: 1.4; }
 .item-title::-webkit-scrollbar { display: none; }
 .item-title:hover,
 .item-title:focus {
