@@ -1726,7 +1726,11 @@ body.icon-only-mode .item-contents {
     updateDisplay(true);
   };
 
-  $('resetLink').onclick = resetAll;
+  $('resetLink').onclick = e => {
+    resetAll(e);
+    forceReloadLogs(); // タイトルクリック時は直近チェック時刻やSHA比較を無視し、常に最新のlogs.jsonを取得し直す
+    forceReloadSongs(); // songs.json(♪の楽曲データ)も同様に強制的に取得し直す
+  };
   $('quickResetBtn').onclick = resetAll;
   $('inlineClearBtn').onclick = resetAll;
 
@@ -1853,6 +1857,27 @@ body.icon-only-mode .item-contents {
   const withinCooldown = hadCache && (Date.now() - lastCheckedAt < CHECK_COOLDOWN_MS);
 
   if (!withinCooldown) checkForUpdates();
+
+  // トップのタイトルリンク(GL log)クリック時に呼ばれる:直近チェック時刻のクールダウンや
+  // SHA比較によるスキップを行わず、常に最新コミットのlogs.jsonを取得し直す
+  const forceReloadLogs = () => {
+    fetch(`https://api.github.com/repos/${REPO}/commits?path=${FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
+      .then(res => {
+        if (!res.ok) throw new Error('GitHub API error');
+        return res.json();
+      })
+      .then(commits => {
+        localStorage.setItem(CHECK_TIME_KEY, String(Date.now()));
+        return fetchFreshData(commits[0]?.sha);
+      })
+      .catch(error => {
+        console.error('Failed to force-reload logs.json:', error);
+        fetchFreshData(null).catch(err2 => {
+          console.error('Failed to load logs.json:', err2);
+          showLoadError();
+        });
+      });
+  };
 
   // ================= 楽曲紹介バー(♪) =================
   // songs.json(artist/title/link)取得:logs.jsonと同じ方式(GitHub上の最新コミットSHAを確認し、
@@ -1981,6 +2006,26 @@ body.icon-only-mode .item-contents {
   const withinSongCooldown = hadSongCache && (Date.now() - lastSongCheckedAt < CHECK_COOLDOWN_MS);
 
   if (!withinSongCooldown) checkForSongUpdates();
+
+  // トップのタイトルリンク(GL log)クリック時に呼ばれる:直近チェック時刻のクールダウンやSHA比較による
+  // スキップを行わず、常に最新コミットのsongs.jsonを取得し直す(logs側のforceReloadLogsと同じ考え方)
+  const forceReloadSongs = () => {
+    fetch(`https://api.github.com/repos/${REPO}/commits?path=${SONG_FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
+      .then(res => {
+        if (!res.ok) throw new Error('GitHub API error');
+        return res.json();
+      })
+      .then(commits => {
+        localStorage.setItem(SONG_CHECK_TIME_KEY, String(Date.now()));
+        return fetchFreshSongs(commits[0]?.sha);
+      })
+      .catch(error => {
+        console.error('Failed to force-reload songs.json:', error);
+        fetchFreshSongs(null).catch(err2 => {
+          console.error('Failed to load songs.json:', err2);
+        });
+      });
+  };
 })();
 //]]>
 </script>
