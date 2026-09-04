@@ -57,9 +57,11 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 #badgeToggleBtn.is-active, #iconToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #todayToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #songToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+#heartToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 /* ホバー中でもis-active(青)を確実に優先させる。押した直後はカーソルがボタン上にあるため、
    これが無いと:hoverの背景色に上書きされ、カーソルが離れるまで青くならないように見える */
 #songToggleBtn.is-active:hover { background-color: #38bdf8; }
+#heartToggleBtn.is-active:hover { background-color: #38bdf8; }
 /* FILTERボタン:データ部との境界線の中央に、線をまたぐように配置。他要素と重なる場合は横幅を縮める */
 .filter-center-btn {
   position: absolute;
@@ -172,7 +174,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 /* 錠前ボタン:OFF(既定)ではsticky-headerを画面固定せず通常スクロールにする */
 .sticky-header.unlocked { position: static; }
 /* 錠前・BLACK/WHITEテーマボタンを同じ丸ボタンサイズ・見た目に統一 */
-.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn {
+.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn {
   flex-shrink: 0;
   width: 26px;
   height: 26px;
@@ -190,7 +192,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 .theme-toggle-btn { overflow: hidden; }
-.lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover { background-color: var(--btn-hover); }
+.lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover { background-color: var(--btn-hover); }
 .lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
 
 /* BLACK/WHITEボタン:文字化け対策としてCSSのみで太陽(切替先=ライト)/月(切替先=ダーク)を描画 */
@@ -312,7 +314,7 @@ body.icon-only-mode .item-contents {
 .team-icon.team-both { background: linear-gradient(135deg, #f472b6 50%, #facc15 50%); }
 .team-icon.is-clickable { cursor: pointer; }
 /* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される */
-.team-hearts { display: inline-flex; align-items: center; gap: 2px; max-width: 0; overflow: hidden; white-space: nowrap; flex-shrink: 0; margin-left: 0; vertical-align: middle; transition: max-width 0.3s ease, margin-left 0.3s ease; }
+.team-hearts { display: inline-flex; align-items: center; gap: 2px; max-width: 0; overflow-x: hidden; overflow-y: visible; white-space: nowrap; flex-shrink: 0; margin-left: 0; vertical-align: middle; transition: max-width 0.3s ease, margin-left 0.3s ease; }
 .team-hearts.is-open { max-width: 300px; margin-left: 4px; }
 .team-heart { display: inline-block; font-size: 12px; line-height: 1; }
 .item-title::-webkit-scrollbar { display: none; }
@@ -373,6 +375,7 @@ body.icon-only-mode .item-contents {
         <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear search">&#215;</button>
       </div>
       <button class="toggle-btn" id="songToggleBtn" title="&#26354;&#32218;&#34920;&#31034;&#20999;&#26367;">&#9834;</button>
+      <button class="toggle-btn" id="heartToggleBtn" title="&#12513;&#12531;&#12496;&#12540;&#12495;&#12540;&#12488;&#12398;&#19968;&#25324;&#34920;&#31034;&#20999;&#26367;">&#128158;</button>
       <button class="tool-btn theme-toggle-btn" id="themeToggleBtn" title="Theme" aria-label="&#12486;&#12540;&#12510;&#20999;&#12426;&#26367;&#12360;(&#12480;&#12540;&#12463;/&#12521;&#12452;&#12488;)">
         <span class="icon-sun" aria-hidden="true"></span>
         <span class="icon-moon" aria-hidden="true"></span>
@@ -682,6 +685,15 @@ body.icon-only-mode .item-contents {
     if (typeof i === 'object' && i.n !== undefined) memberInfoByCode[i.v] = { n: i.n, c: i.c };
   });
 
+  // 💞ボタン(ハートモード):データ部のハート表示を一括で展開/縮小する。
+  // 個別のG2/L2アイコンでの開閉とも連動し、ひとつでも展開されていればON、ひとつも展開されていなければOFFとする。
+  // フィルター変更や追加読み込みで行が再描画された場合も、ON中は新しく表示される行のハートを自動的に展開状態で生成する。
+  let heartModeOn = false;
+  const refreshHeartModeState = () => {
+    heartModeOn = !!$('items').querySelector('.team-hearts.is-open');
+    $('heartToggleBtn').classList.toggle('is-active', heartModeOn);
+  };
+
   const primaryConts = ['FANCLUB','DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ANNIVERSARY','BIRTHDAY','MODEL','MOVIE','TICKET'];
   const allConts = [...primaryConts, 'ETC'];
   const cats = [{meta:'G2',values:g2Vals},{meta:'L2',values:l2Vals}];
@@ -861,9 +873,14 @@ body.icon-only-mode .item-contents {
         ti.setAttribute('role', 'button');
         ti.setAttribute('aria-expanded', 'false');
         ti.title = 'メンバーを表示';
+        if (heartModeOn) {
+          hearts.classList.add('is-open');
+          ti.setAttribute('aria-expanded', 'true');
+        }
         const toggleHearts = () => {
           const isOpen = hearts.classList.toggle('is-open');
           ti.setAttribute('aria-expanded', String(isOpen));
+          refreshHeartModeState();
         };
         ti.addEventListener('click', toggleHearts);
         ti.addEventListener('keydown', e => {
@@ -1450,6 +1467,18 @@ body.icon-only-mode .item-contents {
     $('songBar').classList.toggle('is-open', songMode);
     localStorage.setItem(SONG_MODE_KEY, songMode);
     if (songMode) updateSongTickerScroll(); // 表示直後に幅が確定するよう再計測する
+  };
+
+  // 💞ボタン:現在表示中の全行のハートを一括で展開/縮小する(押した時点の集約状態を反転させる)
+  $('heartToggleBtn').onclick = () => {
+    const nextOpen = !heartModeOn;
+    $('items').querySelectorAll('.team-hearts').forEach(hearts => {
+      hearts.classList.toggle('is-open', nextOpen);
+      const icon = hearts.previousElementSibling;
+      if (icon && icon.classList.contains('team-icon')) icon.setAttribute('aria-expanded', String(nextOpen));
+    });
+    heartModeOn = nextOpen;
+    $('heartToggleBtn').classList.toggle('is-active', heartModeOn);
   };
 
   // 年/月/日/曜/時分:項目左端の日付表示を個別にon/offするボタン。状態はlocalStorageに保存し次回も復元する
