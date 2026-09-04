@@ -314,6 +314,8 @@ body.icon-only-mode .item-contents {
 .team-icon.team-g2 { background-color: #f472b6; }
 .team-icon.team-l2 { background-color: #facc15; }
 .team-icon.team-both { background: linear-gradient(135deg, #f472b6 50%, #facc15 50%); }
+.map-pin { margin: 0 4px 0 2px; text-decoration: none; font-size: 12px; line-height: 1.4; vertical-align: middle; }
+.map-pin:not(a) { display: none; } /* mapに値が無い行はアイコンを表示しない(空白) */
 .team-icon.is-clickable { cursor: pointer; }
 /* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される。
    overflow-xだけhidden・overflow-yだけvisibleのように分割指定すると、ブラウザ側でvisible指定がautoとして
@@ -370,6 +372,7 @@ body.icon-only-mode .item-contents {
         <button class="toggle-btn date-part-btn" id="showDayBtn" title="&#26085;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26085;</button>
         <button class="toggle-btn date-part-btn" id="showWeekdayBtn" title="&#26332;&#26085;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26332;</button>
         <button class="toggle-btn date-part-btn" id="showTimeBtn" title="&#26178;&#20998;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26178;</button>
+        <button class="toggle-btn date-part-btn" id="mapToggleBtn" title="&#22320;&#22259;&#12522;&#12531;&#12463;&#34920;&#31034;&#20999;&#26367;">&#128205;</button>
         <button class="toggle-btn" id="badgeToggleBtn">BADGE</button>
         <button class="toggle-btn" id="iconToggleBtn" title="&#12467;&#12531;&#12486;&#12531;&#12484;&#31278;&#39006;&#12463;&#12522;&#12483;&#12463;&#12539;&#12450;&#12452;&#12467;&#12531;&#34920;&#31034;&#20999;&#26367;">ICON</button>
         <button class="toggle-btn" id="todayToggleBtn">TODAY</button>
@@ -854,7 +857,22 @@ body.icon-only-mode .item-contents {
     t.textContent = ((isMobileState ? item.display_sm : item.display_pc) || item.title || '').trim();
 
     const teamClass = getTeamClass(item);
-    const children = [d, ct];
+    // MAPモードON時のみ、mapに有効なhttp(s)リンクがある場合に📍アイコンをリンク化して表示する(値が無ければ何も表示しない)
+    let mp = null;
+    if (mapMode) {
+      const hasMap = !!(item.map && /^https?:\/\//i.test(item.map.trim()));
+      mp = document.createElement(hasMap ? 'a' : 'span');
+      mp.className = 'map-pin';
+      if (hasMap) {
+        mp.href = item.map;
+        mp.target = '_blank';
+        mp.rel = 'noopener noreferrer';
+        mp.title = '地図を開く';
+        mp.textContent = '\uD83D\uDCCD';
+      }
+    }
+
+    const children = mp ? [d, mp, ct] : [d, ct];
     if (teamClass) {
       const ti = document.createElement('span');
       ti.className = 'team-icon team-' + teamClass;
@@ -1463,6 +1481,18 @@ body.icon-only-mode .item-contents {
 
   // ♪ボタン:検索窓の下にある楽曲紹介バー(PLAYボタン+タイトル/アーティスト)の表示/非表示を切り替える。
   // 次回訪問時も状態を記憶する。表示/非表示はCSSのmax-height/opacityで滑らかにアニメーションする
+
+  // 📍ボタン(MAPモード):ONの間、データ部の日付/時刻表示の右にmap属性へのリンクアイコンを表示する。
+  // 次回訪問時も状態を記憶する
+  const MAP_MODE_KEY = 'gl_log_map_mode';
+  let mapMode = localStorage.getItem(MAP_MODE_KEY) === 'true';
+  $('mapToggleBtn').classList.toggle('is-active', mapMode);
+  $('mapToggleBtn').onclick = () => {
+    mapMode = !mapMode;
+    $('mapToggleBtn').classList.toggle('is-active', mapMode);
+    localStorage.setItem(MAP_MODE_KEY, mapMode);
+    updateDisplay(false);
+  };
   const SONG_MODE_KEY = 'gl_log_song_mode';
   let songMode = localStorage.getItem(SONG_MODE_KEY) === 'true';
   $('songToggleBtn').classList.toggle('is-active', songMode);
