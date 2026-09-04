@@ -291,6 +291,8 @@ body.icon-only-mode .item-contents {
   line-height: 1.4; 
   white-space: nowrap; 
   overflow-x: auto; 
+  overflow-y: hidden; /* overflow-xのみ指定するとブラウザがoverflow-yも自動的にautoとして扱い、
+                         ハート表示等で行の高さがわずかに変動した際に不要な縦スクロールバーが出てしまうための対策 */
   -webkit-overflow-scrolling: touch;
   text-overflow: ellipsis; 
   min-width: 0; 
@@ -1713,6 +1715,9 @@ body.icon-only-mode .item-contents {
       }
       updateTodayButtonStyle();
     }
+    // CLEARでハートモードもOFFにする(再描画される行が展開済みの状態で作られないようにする)
+    heartModeOn = false;
+    $('heartToggleBtn').classList.remove('is-active');
     window.scrollTo({ top: 0, behavior: 'instant' });
     updateDisplay(true);
   };
