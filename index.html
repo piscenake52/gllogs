@@ -314,8 +314,8 @@ body.icon-only-mode .item-contents {
 .team-icon.team-g2 { background-color: #f472b6; }
 .team-icon.team-l2 { background-color: #facc15; }
 .team-icon.team-both { background: linear-gradient(135deg, #f472b6 50%, #facc15 50%); }
-.map-pin { margin: 0 4px 0 2px; text-decoration: none; font-size: 12px; line-height: 1.4; vertical-align: middle; }
-.map-pin:not(a) { display: none; } /* mapに値が無い行はアイコンを表示しない(空白) */
+.map-pin { display: inline-block; margin: 0 4px 0 2px; text-decoration: none; font-size: 12px; line-height: 1.4; vertical-align: middle; }
+.map-pin:not(a) { visibility: hidden; } /* mapに値が無い行は、アイコン分の幅は保ったまま見た目だけブランクにする */
 .team-icon.is-clickable { cursor: pointer; }
 /* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される。
    overflow-xだけhidden・overflow-yだけvisibleのように分割指定すると、ブラウザ側でvisible指定がautoとして
@@ -365,7 +365,7 @@ body.icon-only-mode .item-contents {
   <div class="sticky-header is-initializing" id="stickyHeader">
     <div class="sticky-header-inner">
     <div class="header-row">
-      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log β</a></h1>
+      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
       <div class="header-btn-group">
         <button class="toggle-btn date-part-btn" id="showYearBtn" title="&#24180;&#12398;&#34920;&#31034;&#20999;&#26367;">&#24180;</button>
         <button class="toggle-btn date-part-btn" id="showMonthBtn" title="&#26376;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26376;</button>
@@ -863,12 +863,12 @@ body.icon-only-mode .item-contents {
       const hasMap = !!(item.map && /^https?:\/\//i.test(item.map.trim()));
       mp = document.createElement(hasMap ? 'a' : 'span');
       mp.className = 'map-pin';
+      mp.textContent = '\uD83D\uDCCD'; // map値の有無にかかわらず同じ幅を確保するため、常にアイコン文字を入れておく
       if (hasMap) {
         mp.href = item.map;
         mp.target = '_blank';
         mp.rel = 'noopener noreferrer';
         mp.title = '地図を開く';
-        mp.textContent = '\uD83D\uDCCD';
       }
     }
 
