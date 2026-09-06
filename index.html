@@ -46,13 +46,17 @@ body {
 .sticky-header-inner { position: relative; padding-bottom: 8px; }
 .header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
 h1 { font-size: 20px; margin: 0; line-height: 1; }
-.reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; }
+.reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; letter-spacing: -2px; }
 .reset-link:hover { opacity: 0.8; }
 .toggle-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; padding: 4px 8px; border-radius: 12px; line-height: 1; }
 .toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
-.header-btn-group { display: flex; align-items: center; gap: 4px; }
+.header-btn-group { display: flex; align-items: center; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; cursor: grab; min-width: 0; }
+.header-btn-group::-webkit-scrollbar { display: none; }
+.header-btn-group > * { flex-shrink: 0; }
 .date-part-btn { padding: 4px 6px; }
 .toggle-btn.is-active { color: var(--text); background-color: var(--btn-bg); text-shadow: 0 0 0.4px currentColor, 0 0 0.4px currentColor; }
+.toggle-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.toggle-btn:disabled:hover { background: none; color: var(--muted); }
 .date-part-btn.is-active { color: #fff; background-color: #a78bfa; text-shadow: none; }
 #badgeToggleBtn.is-active, #iconToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #todayToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
@@ -105,6 +109,10 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .search-clear-btn { position: absolute; right: 8px; background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 0; line-height: 1; display: none; user-select: none; }
 .search-clear-btn:hover { color: var(--text); }
 .search-box-wrap.has-text .search-clear-btn { display: block; }
+.search-suggestions { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 10px; z-index: 20; overflow: hidden; display: none; }
+.search-suggestions.is-open { display: block; }
+.search-suggestions button { display: block; width: 100%; text-align: left; background: none; border: none; color: var(--text); font-size: 13px; padding: 7px 12px; cursor: pointer; }
+.search-suggestions button:hover, .search-suggestions button.is-highlighted { background: var(--btn-hover); }
 
 .tool-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 11px; cursor: pointer; padding: 5px 10px; border-radius: 14px; user-select: none; white-space: nowrap; }
 .tool-btn:hover { background-color: var(--btn-hover); }
@@ -115,8 +123,8 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .song-bar.is-open { max-height: 44px; opacity: 1; margin-top: 2px; margin-bottom: 8px; }
 .song-play-btn { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
 .song-play-btn:hover { background-color: var(--btn-hover); }
-.song-ticker-viewport { flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; position: relative; }
-.song-ticker-text { display: inline-block; font-size: 13px; color: var(--text); white-space: nowrap; }
+.song-ticker-viewport { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; position: relative; }
+.song-ticker-text { display: inline-block; font-size: 13px; line-height: 1.2; color: var(--text); white-space: nowrap; }
 .song-ticker-viewport.is-scrolling .song-ticker-text { animation-name: songTicker; animation-timing-function: linear; animation-iteration-count: infinite; }
 @keyframes songTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
@@ -322,9 +330,22 @@ body.icon-only-mode .item-contents {
    扱われてしまい(値が異なる軸ペアの自動変換仕様)、絵文字がline-heightをわずかに超えた際に不要な縦スクロールバーが
    出てしまう。そのため軸を分割せず通常のoverflow: hiddenのままにし、代わりにline-heightを絵文字が収まる
    高さまで広げることで、下端が欠ける問題を解消する */
-.team-hearts { display: inline-flex; align-items: center; gap: 2px; max-width: 0; overflow: hidden; white-space: nowrap; flex-shrink: 0; margin-left: 0; vertical-align: middle; line-height: 1.4; transition: max-width 0.3s ease, margin-left 0.3s ease; }
-.team-hearts.is-open { max-width: 300px; margin-left: 4px; }
-.team-heart { display: inline-block; font-size: 12px; line-height: 1.4; }
+.team-hearts { display: inline-flex; align-items: center; align-self: center; gap: 2px; max-width: 0; overflow: hidden; white-space: nowrap; flex-shrink: 0; margin-left: 0; vertical-align: middle; line-height: 1.4; transition: max-width 0.3s ease, margin-left 0.3s ease; }
+.team-hearts.is-open { max-width: 480px; margin-left: 4px; }
+.team-heart { position: relative; display: inline-block; font-size: 12px; line-height: 1.4; }
+/* both(G2/L2混在)の行のみ、各グループの先頭ハートの左下に色付きバッジを重ねて表示する。
+   ハート自体の位置・幅には影響しないため、四角の有無でハートの並びがずれない */
+.team-heart.group-start-g2::before, .team-heart.group-start-l2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.team-heart.group-start-g2::before { background-color: #f472b6; }
+.team-heart.group-start-l2::before { background-color: #facc15; }
 .item-title::-webkit-scrollbar { display: none; }
 .item-title:hover,
 .item-title:focus {
@@ -367,29 +388,31 @@ body.icon-only-mode .item-contents {
     <div class="header-row">
       <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
       <div class="header-btn-group">
-        <button class="toggle-btn date-part-btn" id="showYearBtn" title="&#24180;&#12398;&#34920;&#31034;&#20999;&#26367;">&#24180;</button>
-        <button class="toggle-btn date-part-btn" id="showMonthBtn" title="&#26376;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26376;</button>
-        <button class="toggle-btn date-part-btn" id="showDayBtn" title="&#26085;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26085;</button>
-        <button class="toggle-btn date-part-btn" id="showWeekdayBtn" title="&#26332;&#26085;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26332;</button>
-        <button class="toggle-btn date-part-btn" id="showTimeBtn" title="&#26178;&#20998;&#12398;&#34920;&#31034;&#20999;&#26367;">&#26178;</button>
-        <button class="toggle-btn date-part-btn" id="mapToggleBtn" title="&#22320;&#22259;&#12522;&#12531;&#12463;&#34920;&#31034;&#20999;&#26367;">&#128205;</button>
+        <button class="toggle-btn date-part-btn" id="showYearBtn">&#24180;</button>
+        <button class="toggle-btn date-part-btn" id="showMonthBtn">&#26376;</button>
+        <button class="toggle-btn date-part-btn" id="showDayBtn">&#26085;</button>
+        <button class="toggle-btn date-part-btn" id="showWeekdayBtn">&#26332;</button>
+        <button class="toggle-btn date-part-btn" id="showTimeBtn">&#26178;</button>
+        <button class="toggle-btn date-part-btn" id="mapToggleBtn">&#128205;</button>
         <button class="toggle-btn" id="badgeToggleBtn">BADGE</button>
-        <button class="toggle-btn" id="iconToggleBtn" title="&#12467;&#12531;&#12486;&#12531;&#12484;&#31278;&#39006;&#12463;&#12522;&#12483;&#12463;&#12539;&#12450;&#12452;&#12467;&#12531;&#34920;&#31034;&#20999;&#26367;">ICON</button>
+        <button class="toggle-btn" id="iconToggleBtn">ICON</button>
         <button class="toggle-btn" id="todayToggleBtn">TODAY</button>
       </div>
     </div>
     <div class="extra-tools-row">
+      <button class="toggle-btn" id="songToggleBtn">&#9834;</button>
       <div class="search-box-wrap">
         <input type="text" id="searchInput" class="search-input" placeholder="search keywoooooooord &#3366;&#3405;&#3366;&#3391;(&#65381;&#7447;|">
         <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear search">&#215;</button>
+        <div class="search-suggestions" id="searchSuggestions"></div>
       </div>
-      <button class="toggle-btn" id="songToggleBtn" title="&#26354;&#32218;&#34920;&#31034;&#20999;&#26367;">&#9834;</button>
-      <button class="toggle-btn" id="heartToggleBtn" title="&#12513;&#12531;&#12496;&#12540;&#12495;&#12540;&#12488;&#12398;&#19968;&#25324;&#34920;&#31034;&#20999;&#26367;">&#128158;</button>
-      <button class="tool-btn theme-toggle-btn" id="themeToggleBtn" title="Theme" aria-label="&#12486;&#12540;&#12510;&#20999;&#12426;&#26367;&#12360;(&#12480;&#12540;&#12463;/&#12521;&#12452;&#12488;)">
+      <button class="toggle-btn" id="setlistToggleBtn" disabled>&#128203;&#65039;</button>
+      <button class="toggle-btn" id="heartToggleBtn">&#128158;</button>
+      <button class="tool-btn theme-toggle-btn" id="themeToggleBtn" aria-label="&#12486;&#12540;&#12510;&#20999;&#12426;&#26367;&#12360;(&#12480;&#12540;&#12463;/&#12521;&#12452;&#12488;)">
         <span class="icon-sun" aria-hidden="true"></span>
         <span class="icon-moon" aria-hidden="true"></span>
       </button>
-      <button type="button" class="lock-toggle-btn" id="lockToggleBtn" title="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;" aria-label="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;(&#29694;&#22312;OFF)">&#128275;</button>
+      <button type="button" class="lock-toggle-btn" id="lockToggleBtn" aria-label="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;(&#29694;&#22312;OFF)">&#128275;</button>
     </div>
     <div class="song-bar" id="songBar">
       <button type="button" class="song-play-btn" id="songPlayBtn" aria-label="Play">&#9654;</button>
@@ -635,7 +658,7 @@ body.icon-only-mode .item-contents {
       if (hasDragged) { e.preventDefault(); e.stopPropagation(); hasDragged = false; }
     }, true);
   };
-  document.querySelectorAll('.checks-row-years, .checks-row-other').forEach(enableHorizontalScroll);
+  document.querySelectorAll('.checks-row-years, .checks-row-other, .header-btn-group').forEach(enableHorizontalScroll);
 
   let checkboxes = document.querySelectorAll('.checks input[type="checkbox"]');
   let labels = document.querySelectorAll('.checks label:has(input)');
@@ -702,6 +725,10 @@ body.icon-only-mode .item-contents {
     heartModeOn = !!$('items').querySelector('.team-hearts.is-open');
     $('heartToggleBtn').classList.toggle('is-active', heartModeOn);
   };
+
+  // team-both(G2/L2両方)の行でハートを一括表示する際、どちらのグループのメンバーかを判定するための集合
+  const g2MemberCodes = new Set(g2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
+  const l2MemberCodes = new Set(l2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
 
   const primaryConts = ['FANCLUB','DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ANNIVERSARY','BIRTHDAY','MODEL','MOVIE','TICKET'];
   const allConts = [...primaryConts, 'ETC'];
@@ -774,6 +801,7 @@ body.icon-only-mode .item-contents {
   const searchInput = $('searchInput');
   const searchClearBtn = $('searchClearBtn');
   const searchBoxWrap = searchInput.parentElement;
+  const searchSuggestions = $('searchSuggestions');
 
   const updateSearchClearState = () => {
     if (searchInput.value.length > 0) {
@@ -783,13 +811,69 @@ body.icon-only-mode .item-contents {
     }
   };
 
+  // 検索窓:直近使った検索ワードを最大5件まで記憶し、フォーカス時に候補として表示する
+  const RECENT_SEARCH_KEY = 'gl_log_recent_searches';
+  const MAX_RECENT_SEARCHES = 5;
+  const getRecentSearches = () => {
+    try {
+      const arr = JSON.parse(localStorage.getItem(RECENT_SEARCH_KEY) || '[]');
+      return Array.isArray(arr) ? arr : [];
+    } catch {
+      return [];
+    }
+  };
+  const saveRecentSearch = kw => {
+    const trimmed = kw.trim();
+    if (!trimmed) return;
+    const list = getRecentSearches().filter(v => v !== trimmed);
+    list.unshift(trimmed);
+    localStorage.setItem(RECENT_SEARCH_KEY, JSON.stringify(list.slice(0, MAX_RECENT_SEARCHES)));
+  };
+  const renderSearchSuggestions = () => {
+    const list = getRecentSearches();
+    searchSuggestions.textContent = '';
+    if (!list.length) {
+      searchSuggestions.classList.remove('is-open');
+      return;
+    }
+    list.forEach(term => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = term;
+      // mousedownで反応させる(inputのblurより先に発火させ、候補クリックが確実に効くようにするため)
+      btn.onmousedown = e => {
+        e.preventDefault();
+        searchInput.value = term;
+        updateSearchClearState();
+        saveRecentSearch(term);
+        searchSuggestions.classList.remove('is-open');
+        updateDisplay(true);
+      };
+      searchSuggestions.appendChild(btn);
+    });
+    searchSuggestions.classList.add('is-open');
+  };
+  searchInput.addEventListener('focus', () => {
+    if (!searchInput.value) renderSearchSuggestions();
+  });
+  searchInput.addEventListener('blur', () => {
+    searchSuggestions.classList.remove('is-open');
+    if (searchInput.value.trim()) saveRecentSearch(searchInput.value);
+  });
+
   searchInput.oninput = () => {
     updateSearchClearState();
+    searchSuggestions.classList.remove('is-open'); // 入力し始めたら候補は引っ込める(ライブ検索と競合しないように)
     clearTimeout(timer);
     timer = setTimeout(() => {
       updateDisplay(true);
     }, 180);
   };
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && searchInput.value.trim()) {
+      saveRecentSearch(searchInput.value);
+    }
+  });
 
   searchClearBtn.onclick = () => {
     searchInput.value = '';
@@ -868,7 +952,6 @@ body.icon-only-mode .item-contents {
         mp.href = item.map;
         mp.target = '_blank';
         mp.rel = 'noopener noreferrer';
-        mp.title = '地図を開く';
       }
     }
 
@@ -882,13 +965,24 @@ body.icon-only-mode .item-contents {
       if (memberCodes.length) {
         const hearts = document.createElement('span');
         hearts.className = 'team-hearts';
+        // 四角(マーカー)はteam-both(G2/L2混在)の行のみ、G2/L2それぞれの最初のハートに直接クラスを付けて
+        // CSSでバッジのように重ねて表示する(独立した別枠にすると、四角の有無でハートの位置がずれてしまうため)
+        let g2MarkerAdded = false, l2MarkerAdded = false;
         memberCodes.forEach(code => {
           const info = memberInfoByCode[code];
           if (!info) return;
           const h = document.createElement('span');
           h.className = 'team-heart';
+          if (teamClass === 'both') {
+            if (!g2MarkerAdded && g2MemberCodes.has(code)) {
+              h.classList.add('group-start-g2');
+              g2MarkerAdded = true;
+            } else if (!l2MarkerAdded && l2MemberCodes.has(code)) {
+              h.classList.add('group-start-l2');
+              l2MarkerAdded = true;
+            }
+          }
           h.textContent = info.c;
-          h.title = info.n;
           hearts.appendChild(h);
         });
 
@@ -896,7 +990,6 @@ body.icon-only-mode .item-contents {
         ti.tabIndex = 0;
         ti.setAttribute('role', 'button');
         ti.setAttribute('aria-expanded', 'false');
-        ti.title = 'メンバーを表示';
         if (heartModeOn) {
           hearts.classList.add('is-open');
           ti.setAttribute('aria-expanded', 'true');
