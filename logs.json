@@ -1,5 +1,681 @@
 [
   {
+    "date": "2021.07.07",
+    "time": "1755",
+    "contents": "TV",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page01「卒業試験は突然に」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page01「卒業試験は突然に」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page01",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2021.09.14",
+    "time": "1755",
+    "contents": "TV",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page02「放課後コーデ・コレクション」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page02「放課後コーデ・コレクション」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page02",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2021.07.21",
+    "time": "1755",
+    "contents": "TV",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page03「こころ、飾る」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page03「こころ、飾る」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page03",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN",
+      "L2",
+      "RIN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2021.07.28",
+    "time": "1755",
+    "contents": "TV",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page04「原宿ダンスコンテスト！」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page04「原宿ダンスコンテスト！」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page04",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2021.08.11",
+    "time": "1755",
+    "contents": "TV",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page05「学院七不思議」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page05「学院七不思議」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page05",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2021.08.18",
+    "time": "1755",
+    "contents": "TV",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page06「スイーツの女神」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page06「スイーツの女神」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page06",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2021.08.25",
+    "time": "1755",
+    "contents": "TV",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page07「君にとどけ！コーデ大作戦！」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page07「君にとどけ！コーデ大作戦！」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page07",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2021.09.01",
+    "time": "1755",
+    "contents": "TV",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page08「原宿ラビリンス」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page08「原宿ラビリンス」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page08",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2021.09.08",
+    "time": "1755",
+    "contents": "TV",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page09「Girls²解散!? ～最後の編集会議～」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page09「Girls²解散!? ～最後の編集会議～」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page09",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2021.09.15",
+    "time": "1755",
+    "contents": "TV",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page10「原宿ネバーランド」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page10「原宿ネバーランド」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page10",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2021.09.22",
+    "time": "1755",
+    "contents": "TV",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page11「Bad Days」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page11「Bad Days」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page11
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2021.09.29",
+    "time": "1755",
+    "contents": "TV",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page12「Good Days」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page12「Good Days」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page12",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2022.07.07",
+    "time": "0000",
+    "contents": "ANNIVERSARY",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page01「卒業試験は突然に」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page01「卒業試験は突然に」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page01",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2022.09.14",
+    "time": "0000",
+    "contents": "ANNIVERSARY",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page02「放課後コーデ・コレクション」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page02「放課後コーデ・コレクション」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page02",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2022.07.21",
+    "time": "0000",
+    "contents": "ANNIVERSARY",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page03「こころ、飾る」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page03「こころ、飾る」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page03",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN",
+      "L2",
+      "RIN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2022.07.28",
+    "time": "0000",
+    "contents": "ANNIVERSARY",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page04「原宿ダンスコンテスト！」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page04「原宿ダンスコンテスト！」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page04",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2022.08.11",
+    "time": "0000",
+    "contents": "ANNIVERSARY",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page05「学院七不思議」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page05「学院七不思議」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page05",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2022.08.18",
+    "time": "0000",
+    "contents": "ANNIVERSARY",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page06「スイーツの女神」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page06「スイーツの女神」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page06",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2022.08.25",
+    "time": "0000",
+    "contents": "ANNIVERSARY",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page07「君にとどけ！コーデ大作戦！」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page07「君にとどけ！コーデ大作戦！」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page07",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2022.09.01",
+    "time": "0000",
+    "contents": "ANNIVERSARY",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page08「原宿ラビリンス」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page08「原宿ラビリンス」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page08",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2022.09.08",
+    "time": "0000",
+    "contents": "ANNIVERSARY",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page09「Girls²解散!? ～最後の編集会議～」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page09「Girls²解散!? ～最後の編集会議～」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page09",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2022.09.15",
+    "time": "0000",
+    "contents": "ANNIVERSARY",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page10「原宿ネバーランド」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page10「原宿ネバーランド」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page10放送記念日",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2022.09.22",
+    "time": "0000",
+    "contents": "ANNIVERSARY",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page11「Bad Days」放送記念日",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page11「Bad Days」放送記念日",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page11
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2022.09.29",
+    "time": "0000",
+    "contents": "ANNIVERSARY",
+    "title": "ドラマ「ガル学。～ガールズガーデン～」 page12「Good Days」",
+    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page12「Good Days」",
+    "display_sm": "「ガル学。～ガールズガーデン～」 page12",
+    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
     "date": "2026.09.14",
     "time": "2000",
     "contents": "RADIO",
