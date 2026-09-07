@@ -1,5 +1,57 @@
 [
   {
+    "date": "2026.09.15",
+    "time": "1000",
+    "contents": "GLRADIO",
+    "title": "【特別番組】比嘉優和＆佐藤妃希のがるらじ ≪前編≫",
+    "display_pc": "比嘉優和と佐藤妃希のがるらじ ～GL²family RADIO～ 前編",
+    "display_sm": "比嘉優和と佐藤妃希のがるらじ 前編",
+    "url": "https://girls2-fc.jp/page/lucky2radio",
+    "groups": [
+      "L2",
+      "YUW",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.15",
+    "time": "1500",
+    "contents": "TICKET",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- \"Christmas Special\" GL² family・GL² friend会員2次抽選受付開始",
+    "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- \"Christmas Special\" GL²family・friend会員2次抽選受付開始",
+    "display_sm": "LIVE TOUR 2026 Xmas SP FC会員2次抽選受付開始",
+    "url": "https://girls2-fc.jp/page/news/1212297459129122816",
+    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.15",
+    "time": "1500",
+    "contents": "TICKET",
+    "title": "BOOK ACT Z 2026「芸人交換日記」 ticketbook先行チケット抽選申込受付開始",
+    "display_pc": "BOOK ACT Z 2026「芸人交換日記」 ticketbook先行チケット抽選申込受付開始",
+    "display_sm": "BOOK ACT Z 2026 ticketbook先行抽選申込受付開始",
+    "url": "https://m.tribe-m.jp/news/detail?news_id=55247",
+    "groups": ["G2","YZH","MSK"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.15",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "Laki 『WORK≒LiFE』先行配信記念LINE MUSIC再生キャンペーン再生対象期間終了",
+    "display_pc": "Laki 『WORK≒LiFE』先行配信記念 LINE MUSIC再生キャンペーン再生対象期間終了",
+    "display_sm": "『WORK≒LiFE』LINE MUSIC再生対象期間終了",
+    "url": "https://girls2-fc.jp/page/lucky2news/1222001778615123970",
+    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "relations": [],
+    "tags": []
+  },
+  {
     "date": "2026.09.08",
     "time": "1000",
     "contents": "GTUBE",
