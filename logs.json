@@ -1211,7 +1211,7 @@
   },
   {
     "date": "20260920",
-    "time": "0000",
+    "time": "",
     "contents": "FANCLUB",
     "title": "GL² friend 思い出共有 RINA DAY",
     "display_pc": "GL²friend　思い出共有 RINA DAY",
@@ -1465,7 +1465,7 @@
   },
   {
     "date": "20260915",
-    "time": "0000",
+    "time": "",
     "contents": "FANCLUB",
     "title": "GL² friend 思い出共有 TSUBAKI DAY",
     "display_pc": "GL²friend　思い出共有 TSUBAKI DAY",
@@ -1712,7 +1712,7 @@
     "time": "1130",
     "contents": "CLOSE",
     "title": "Girls² EP「EASY」発売記念 メンバー個別オンライントーク会 追加先着販売締切",
-    "display_pc": "Girls² EP「EASY」個別オンライントーク会　追加先着販売締切",
+    "display_pc": "Girls² EP「EASY」個別オンライントーク会 追加先着販売締切",
     "display_sm": "「EASY」個別オンライントーク会追加先着販売締切",
     "url": "https://girls2-fc.jp/page/familyNews/1225769907287752705",
     "groups": [
@@ -1781,7 +1781,7 @@
     "time": "2359",
     "contents": "CLOSE",
     "title": "Girls² Digital Single『Nocturne』配信記念ダウンロードキャンペーン応募受付締切",
-    "display_pc": "Girls²　Digital Single『Nocturne』配信記念ダウンロードキャンペーン応募受付締切",
+    "display_pc": "Girls² Digital Single『Nocturne』 配信記念ダウンロードキャンペーン応募受付締切",
     "display_sm": "『Nocturne』ダウンロードCP応募受付締切",
     "url": "https://girls2-fc.jp/page/familyNews/1225273681614209024",
     "groups": [
@@ -1844,7 +1844,7 @@
   },
   {
     "date": "20260910",
-    "time": "0000",
+    "time": "",
     "contents": "FANCLUB",
     "title": "GL² friend 思い出共有 HIIRO DAY",
     "display_pc": "GL²friend　思い出共有 HIIRO DAY",
@@ -1915,9 +1915,9 @@
     "date": "20260909",
     "time": "1900",
     "contents": "GOODS",
-    "title": "NATSLIVE「Lakiガチャクッキング」 レシピカード販売開始",
-    "display_pc": "NATSLIVE「Lakiガチャクッキング」 レシピカード販売開始",
-    "display_sm": "Lakiガチャクッキング レシピカード販売開始",
+    "title": "NATSLIVE「Lakiガチャクッキング」 #013 レシピカード販売開始",
+    "display_pc": "NATSLIVE「Lakiガチャクッキング」 #013 レシピカード販売開始",
+    "display_sm": "Lakiガチャクッキング #013 レシピカード販売開始",
     "url": "https://natslive.jp/episodes/18053",
     "groups": [
       "L2",
@@ -3180,7 +3180,7 @@
   },
   {
     "date": "20260831",
-    "time": "0000",
+    "time": "",
     "contents": "FANCLUB",
     "title": "GL² friend 思い出共有 YUWA DAY",
     "display_pc": "GL²friend　思い出共有 YUWA DAY",
@@ -4485,7 +4485,7 @@
   },
   {
     "date": "20260820",
-    "time": "0000",
+    "time": "",
     "contents": "FANCLUB",
     "title": "GL² friend 思い出共有 KANNA DAY",
     "display_pc": "GL²friend　思い出共有 KANNA DAY",
@@ -5042,7 +5042,7 @@
   },
   {
     "date": "20260810",
-    "time": "0000",
+    "time": "",
     "contents": "FANCLUB",
     "title": "GL² friend 思い出共有 RIRIKA DAY",
     "display_pc": "GL²friend　思い出共有 RIRIKA DAY",
@@ -5547,7 +5547,7 @@
   },
   {
     "date": "20260731",
-    "time": "0000",
+    "time": "",
     "contents": "FANCLUB",
     "title": "GL² friend 思い出共有 AKARI DAY",
     "display_pc": "GL²friend　思い出共有 AKARI DAY",
@@ -6264,7 +6264,7 @@
   },
   {
     "date": "20260720",
-    "time": "0000",
+    "time": "",
     "contents": "FANCLUB",
     "title": "GL² friend 思い出共有 KIKI DAY",
     "display_pc": "GL²friend　思い出共有 KIKI DAY",
