@@ -247,6 +247,8 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 
 #todayToggleBtn.is-offset-prev { color: #fff; background-color: #f59e0b; }
 #todayToggleBtn.is-offset-next { color: #fff; background-color: #34d399; }
+/* TODAYモード中に年フィルターが選択されている間は、前後日移動をしても黄色を優先して表示する */
+#todayToggleBtn.is-year-filtered { color: #111; background-color: #facc15; }
 /* --- 現在有効な絞り込み条件のバッジ一覧(フィルターエリア折りたたみ時に表示) --- */
 .active-filters-row { display: none; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; gap: 4px; margin-bottom: 10px; align-items: center; }
 .sticky-header.collapsed .active-filters-row { display: flex; }
@@ -468,13 +470,13 @@ body.icon-only-mode .item-contents {
     {v:'YUW',n:'YUWA',c:'\u2764\uFE0F'},{v:'KAN',n:'KANNA',c:'\uD83D\uDC99'},{v:'RRK',n:'RIRIKA',c:'\uD83E\uDE77'},{v:'AKR',n:'AKARI',c:'\uD83D\uDC9A'},
     {v:'KIK',n:'KIKI',c:'\uD83D\uDC9B'},'sep',{v:'YUR',n:'YURA',c:'\uD83E\uDD0D'}
   ];
-  const others = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MODEL','MOVIE','MEDIA','WEB','TICKET','GOODS','ANNIVERSARY','BIRTHDAY','ETC'];
+  const others = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MODEL','MOVIE','MEDIA','WEB','TICKET','SALES','ANNIVERSARY','BIRTHDAY','ETC'];
 
   const symbols = {
     'FANCLUB': '\uD83D\uDCE3',
     'DIARY': '\uD83D\uDCDD', 'GLRADIO': '\uD83D\uDD0A', 'GTUBE': '\u25B6\uFE0F', 'YOUTUBE': '\uD83C\uDF9E\uFE0F', 
     'CL': '\uD83C\uDD91', 'RELEASE': '\uD83C\uDFA7', 'LIVE': '\uD83C\uDF99\uFE0F', 
-    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCE1', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'GOODS': '\uD83D\uDED2', 'ANNIVERSARY': '\uD83D\uDD16', 'BIRTHDAY': '\uD83C\uDF82',
+    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCE1', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'SALES': '\uD83D\uDED2', 'ANNIVERSARY': '\uD83D\uDD16', 'BIRTHDAY': '\uD83C\uDF82',
     'MODEL': '\uD83D\uDC60', 'MOVIE': '\uD83C\uDFAC\uFE0F', 'TICKET': '\uD83C\uDFAB',
     'CLOSE': '\u2705', 'RESULT': '\uD83C\uDFAF', 'CAMPAIGN': '\uD83D\uDCE8', 'PLAYING': '\uD83C\uDFB6', // フィルターボタンには表示せず、ETC選択時のみ該当させる
     'ETC': '\uD83D\uDCCC',
@@ -484,7 +486,9 @@ body.icon-only-mode .item-contents {
     // 以下5種類はフィルターボタンには表示せず、フィルター判定上は"MEDIA"として扱う(normalizeContType参照)
     'TV': '\uD83D\uDCFA\uFE0F', 'RADIO': '\uD83D\uDCFB\uFE0F', 'MAGAZINE': '\uD83D\uDCD6', 'BOOK': '\uD83D\uDCDA', 'NEWSPAPER': '\uD83D\uDCF0',
     // 以下2種類はフィルターボタンには表示せず、フィルター判定上は"WEB"として扱う(normalizeContType参照)
-    'STREAMING': '\uD83D\uDCF6', 'PODCAST': '\uD83C\uDFA4'
+    'STREAMING': '\uD83D\uDCF6', 'PODCAST': '\uD83C\uDFA4',
+    // GOODSはフィルターボタンには表示せず、フィルター判定上は"SALES"として扱う(normalizeContType参照)
+    'GOODS': '\uD83D\uDED2'
   };
 
   // 内部値(contents値・フィルター値)と実際の表示名が異なるものだけここに登録する(それ以外は値そのものを表示名として使う)
@@ -734,7 +738,7 @@ body.icon-only-mode .item-contents {
   const g2MemberCodes = new Set(g2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
   const l2MemberCodes = new Set(l2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
 
-  const primaryConts = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ANNIVERSARY','BIRTHDAY','MODEL','MOVIE','TICKET'];
+  const primaryConts = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','SALES','ANNIVERSARY','BIRTHDAY','MODEL','MOVIE','TICKET'];
   const allConts = [...primaryConts, 'ETC'];
   const cats = [{meta:'G2',values:g2Vals},{meta:'L2',values:l2Vals}];
 
@@ -743,10 +747,12 @@ body.icon-only-mode .item-contents {
   const releaseAliasConts = ['CD', 'DVD', 'BD', 'DIGITAL'];
   const mediaAliasConts = ['TV', 'RADIO', 'MAGAZINE', 'BOOK', 'NEWSPAPER'];
   const webAliasConts = ['STREAMING', 'PODCAST'];
+  const salesAliasConts = ['GOODS'];
   const normalizeContType = c =>
     releaseAliasConts.includes(c) ? 'RELEASE' :
     mediaAliasConts.includes(c) ? 'MEDIA' :
-    webAliasConts.includes(c) ? 'WEB' : c;
+    webAliasConts.includes(c) ? 'WEB' :
+    salesAliasConts.includes(c) ? 'SALES' : c;
 
   // ソート用:日付+時刻+グループも同じ場合の最終タイブレーク。othersはコンテンツフィルターボタンの
   // 現在の並び順(ドラッグでの並び替え結果を含む)を反映しているため、そのインデックスをそのまま使う。
@@ -1755,6 +1761,8 @@ body.icon-only-mode .item-contents {
     btn.classList.toggle('is-active', todayMode && todayOffset === 0);
     btn.classList.toggle('is-offset-prev', todayMode && todayOffset < 0);
     btn.classList.toggle('is-offset-next', todayMode && todayOffset > 0);
+    // 年フィルターが選択されている間は、前後日移動(offset)の色より黄色を優先する。年フィルターが外れたら通常の色に戻る
+    btn.classList.toggle('is-year-filtered', todayMode && !!$('yearChecks').querySelector('input:checked'));
     $('prevDayBtn').classList.toggle('is-visible', todayMode);
     $('nextDayBtn').classList.toggle('is-visible', todayMode);
     if (todayOffset === 0) {
@@ -1837,6 +1845,7 @@ body.icon-only-mode .item-contents {
           cb.checked = !cb.checked;
           if (allConts.includes(cb.value)) manuallyTouchedConts.add(cb.value);
           updateManualIndicators();
+          updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
           updateDisplay(true);
           window.scrollTo({ top: 0, behavior: 'instant' });
         }
@@ -1848,6 +1857,7 @@ body.icon-only-mode .item-contents {
         manuallyTouchedConts.add(cb.value);
       }
       updateManualIndicators();
+      updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
       updateDisplay(true);
       window.scrollTo({ top: 0, behavior: 'instant' });
     });
