@@ -814,8 +814,7 @@ body.icon-only-mode .item-contents {
   // 検索窓:直近使った検索ワードを最大5件まで記憶し、フォーカス時に候補として表示する
   const RECENT_SEARCH_KEY = 'gl_log_recent_searches';
   const MAX_RECENT_SEARCHES = 5;
-  let suggestionButtons = [];
-  let highlightedIndex = -1;
+  let highlightedSuggestionIndex = -1;
   const getRecentSearches = () => {
     try {
       const arr = JSON.parse(localStorage.getItem(RECENT_SEARCH_KEY) || '[]');
@@ -831,11 +830,21 @@ body.icon-only-mode .item-contents {
     list.unshift(trimmed);
     localStorage.setItem(RECENT_SEARCH_KEY, JSON.stringify(list.slice(0, MAX_RECENT_SEARCHES)));
   };
-  const setHighlightedIndex = idx => {
-    highlightedIndex = idx;
-    suggestionButtons.forEach((btn, i) => btn.classList.toggle('is-highlighted', i === highlightedIndex));
+  const removeRecentSearch = kw => {
+    const list = getRecentSearches().filter(v => v !== kw);
+    localStorage.setItem(RECENT_SEARCH_KEY, JSON.stringify(list));
   };
-  const selectSuggestion = term => {
+  const getSuggestionButtons = () => Array.from(searchSuggestions.querySelectorAll('button'));
+  const highlightSuggestion = index => {
+    const btns = getSuggestionButtons();
+    highlightedSuggestionIndex = index;
+    btns.forEach(b => b.classList.remove('is-highlighted'));
+    if (index >= 0 && index < btns.length) {
+      btns[index].classList.add('is-highlighted');
+      try { btns[index].scrollIntoView({ block: 'nearest' }); } catch {}
+    }
+  };
+  const applySuggestion = term => {
     searchInput.value = term;
     updateSearchClearState();
     saveRecentSearch(term);
@@ -845,8 +854,7 @@ body.icon-only-mode .item-contents {
   const renderSearchSuggestions = () => {
     const list = getRecentSearches();
     searchSuggestions.textContent = '';
-    suggestionButtons = [];
-    highlightedIndex = -1;
+    highlightedSuggestionIndex = -1;
     if (!list.length) {
       searchSuggestions.classList.remove('is-open');
       return;
@@ -858,10 +866,9 @@ body.icon-only-mode .item-contents {
       // mousedownで反応させる(inputのblurより先に発火させ、候補クリックが確実に効くようにするため)
       btn.onmousedown = e => {
         e.preventDefault();
-        selectSuggestion(term);
+        applySuggestion(term);
       };
       searchSuggestions.appendChild(btn);
-      suggestionButtons.push(btn);
     });
     searchSuggestions.classList.add('is-open');
   };
@@ -883,26 +890,42 @@ body.icon-only-mode .item-contents {
   };
   searchInput.addEventListener('keydown', e => {
     const isOpen = searchSuggestions.classList.contains('is-open');
-    if (isOpen && suggestionButtons.length > 0 && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+    const btns = getSuggestionButtons();
+
+    if (isOpen && btns.length && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
       e.preventDefault();
-      const dir = e.key === 'ArrowDown' ? 1 : -1;
-      let next = highlightedIndex + dir;
-      if (next < 0) next = suggestionButtons.length - 1;
-      if (next >= suggestionButtons.length) next = 0;
-      setHighlightedIndex(next);
+      const next = e.key === 'ArrowDown'
+        ? (highlightedSuggestionIndex < btns.length - 1 ? highlightedSuggestionIndex + 1 : 0)
+        : (highlightedSuggestionIndex > 0 ? highlightedSuggestionIndex - 1 : btns.length - 1);
+      highlightSuggestion(next);
       return;
     }
+
+    if (isOpen && highlightedSuggestionIndex >= 0 && btns[highlightedSuggestionIndex]) {
+      // ハイライト中の候補をDeleteキーで削除する
+      if (e.key === 'Delete') {
+        e.preventDefault();
+        const targetIndex = highlightedSuggestionIndex;
+        removeRecentSearch(btns[targetIndex].textContent);
+        renderSearchSuggestions();
+        const newBtns = getSuggestionButtons();
+        if (newBtns.length) highlightSuggestion(Math.min(targetIndex, newBtns.length - 1));
+        return;
+      }
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        applySuggestion(btns[highlightedSuggestionIndex].textContent);
+        return;
+      }
+    }
+
     if (e.key === 'Escape' && isOpen) {
       searchSuggestions.classList.remove('is-open');
       return;
     }
-    if (e.key === 'Enter') {
-      if (isOpen && highlightedIndex >= 0) {
-        e.preventDefault();
-        selectSuggestion(suggestionButtons[highlightedIndex].textContent);
-        return;
-      }
-      if (searchInput.value.trim()) saveRecentSearch(searchInput.value);
+
+    if (e.key === 'Enter' && searchInput.value.trim()) {
+      saveRecentSearch(searchInput.value);
     }
   });
 
@@ -962,6 +985,7 @@ body.icon-only-mode .item-contents {
     const hasUrl = !!(item.url && /^https?:\/\//i.test(item.url.trim()));
     const t = document.createElement(hasUrl ? 'a' : 'span');
     t.className = 'item-title';
+    t.tabIndex = -1; // データ部の文章はTab移動の対象にしない(クリック/タップでは従来通り操作可能)
     if (hasUrl) {
       t.href = item.url;
       t.target = '_blank';
@@ -978,6 +1002,7 @@ body.icon-only-mode .item-contents {
       const hasMap = !!(item.map && /^https?:\/\//i.test(item.map.trim()));
       mp = document.createElement(hasMap ? 'a' : 'span');
       mp.className = 'map-pin';
+      mp.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない
       mp.textContent = '\uD83D\uDCCD'; // map値の有無にかかわらず同じ幅を確保するため、常にアイコン文字を入れておく
       if (hasMap) {
         mp.href = item.map;
@@ -1018,7 +1043,7 @@ body.icon-only-mode .item-contents {
         });
 
         ti.classList.add('is-clickable');
-        ti.tabIndex = 0;
+        ti.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない(クリック/タップでは従来通り開閉可能)
         ti.setAttribute('role', 'button');
         ti.setAttribute('aria-expanded', 'false');
         if (heartModeOn) {
