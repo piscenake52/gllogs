@@ -1,5 +1,60 @@
 [
   {
+    "date": "2026.09.10",
+    "time": "1000",
+    "contents": "GLRADIO",
+    "title": "【特別番組】小川桜花＆増田來亜のがるらじ ≪前編≫",
+    "display_pc": "小川桜花と増田來亜のがるらじ ～GL²family RADIO～ 前編",
+    "display_sm": "小川桜花と増田來亜のがるらじ 前編",
+    "url": "",
+    "groups": [
+      "G2",
+      "YOK",
+      "KUR"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.10",
+    "time": "1900",
+    "contents": "CLOSE",
+    "title": "NATSLIVE「Lakiガチャクッキング」 #013 レシピカード販売終了",
+    "display_pc": "NATSLIVE「Lakiガチャクッキング」 #013 レシピカード販売終了",
+    "display_sm": "Lakiガチャクッキング #013 レシピカード販売終了",
+    "url": "https://natslive.jp/episodes/18053",
+    "groups": ["L2","TBK","HIR","YUW","KAN"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.10",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "Laki 「WORK≒LiFE」TikTokジャックチャレンジキャンペーン集計期間終了",
+    "display_pc": "Laki　「WORK≒LiFE」TikTokジャックチャレンジキャンペーン集計期間終了",
+    "display_sm": "「WORK≒LiFE」TikTokジャック集計期間終了",
+    "url": "https://girls2-fc.jp/page/lucky2news/1222448578815852545",
+    "map": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
     "date": "2026.09.11",
     "time": "2000",
     "contents": "SNS",
@@ -109858,6 +109913,27 @@
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #113",
     "display_pc": "TOKYO HEADLINE WEB「柚葉24じ」　#113",
     "display_sm": "柚葉24じ　#113",
+    "url": "https://www.tokyoheadline.com/category/column/girls2yuzuha24h/",
+    "map": "",
+    "setlistid": "",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.10.13",
+    "time": "1200",
+    "contents": "WEB",
+    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #114",
+    "display_pc": "TOKYO HEADLINE WEB「柚葉24じ」　#114",
+    "display_sm": "柚葉24じ　#114",
     "url": "https://www.tokyoheadline.com/category/column/girls2yuzuha24h/",
     "map": "",
     "setlistid": "",
