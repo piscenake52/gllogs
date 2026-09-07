@@ -71,7 +71,6 @@ body {
 .header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
 h1 { font-size: 20px; margin: 0; line-height: 1; }
 .reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; letter-spacing: -2px; }
-.reset-link sup { font-size: 0.67em; }
 .reset-link:hover { opacity: 0.8; }
 .toggle-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; padding: 4px 8px; border-radius: 12px; line-height: 1; }
 .toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
@@ -146,8 +145,8 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .song-bar { display: flex; align-items: center; gap: 10px; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0; margin-bottom: 0; transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.35s ease, margin-bottom 0.35s ease; }
 .sticky-header.is-initializing .song-bar { transition: none !important; }
 .song-bar.is-open { max-height: 44px; opacity: 1; margin-top: 2px; margin-bottom: 8px; }
-.song-play-btn { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
-.song-play-btn:hover { background-color: var(--btn-hover); }
+.song-play-btn { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--input-border); background: #fff; color: #121212; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
+.song-play-btn:hover { background-color: #eee; }
 .song-ticker-viewport { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; position: relative; }
 .song-ticker-text { display: inline-block; font-size: 13px; line-height: 1.2; color: var(--text); white-space: nowrap; }
 .song-ticker-viewport.is-scrolling .song-ticker-text { animation-name: songTicker; animation-timing-function: linear; animation-iteration-count: infinite; }
@@ -418,7 +417,7 @@ body.icon-only-mode .item-contents {
   <div class="sticky-header is-initializing" id="stickyHeader">
     <div class="sticky-header-inner">
     <div class="header-row">
-      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log <sup>&#946;</sup></a></h1>
+      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
       <div class="header-btn-group">
         <button class="toggle-btn date-part-btn" id="showYearBtn">&#24180;</button>
         <button class="toggle-btn date-part-btn" id="showMonthBtn">&#26376;</button>
@@ -447,7 +446,7 @@ body.icon-only-mode .item-contents {
       <button type="button" class="lock-toggle-btn" id="lockToggleBtn" aria-label="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;(&#29694;&#22312;OFF)">&#128275;</button>
     </div>
     <div class="song-bar" id="songBar">
-      <button type="button" class="song-play-btn" id="songPlayBtn" aria-label="Play">&#9654;</button>
+      <button type="button" class="song-play-btn" id="songPlayBtn" aria-label="Play">&#9655;</button>
       <div class="song-ticker-viewport" id="songTickerViewport">
         <span class="song-ticker-text" id="songTickerText"></span>
       </div>
