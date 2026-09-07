@@ -814,6 +814,8 @@ body.icon-only-mode .item-contents {
   // 検索窓:直近使った検索ワードを最大5件まで記憶し、フォーカス時に候補として表示する
   const RECENT_SEARCH_KEY = 'gl_log_recent_searches';
   const MAX_RECENT_SEARCHES = 5;
+  let suggestionButtons = [];
+  let highlightedIndex = -1;
   const getRecentSearches = () => {
     try {
       const arr = JSON.parse(localStorage.getItem(RECENT_SEARCH_KEY) || '[]');
@@ -829,9 +831,22 @@ body.icon-only-mode .item-contents {
     list.unshift(trimmed);
     localStorage.setItem(RECENT_SEARCH_KEY, JSON.stringify(list.slice(0, MAX_RECENT_SEARCHES)));
   };
+  const setHighlightedIndex = idx => {
+    highlightedIndex = idx;
+    suggestionButtons.forEach((btn, i) => btn.classList.toggle('is-highlighted', i === highlightedIndex));
+  };
+  const selectSuggestion = term => {
+    searchInput.value = term;
+    updateSearchClearState();
+    saveRecentSearch(term);
+    searchSuggestions.classList.remove('is-open');
+    updateDisplay(true);
+  };
   const renderSearchSuggestions = () => {
     const list = getRecentSearches();
     searchSuggestions.textContent = '';
+    suggestionButtons = [];
+    highlightedIndex = -1;
     if (!list.length) {
       searchSuggestions.classList.remove('is-open');
       return;
@@ -843,13 +858,10 @@ body.icon-only-mode .item-contents {
       // mousedownで反応させる(inputのblurより先に発火させ、候補クリックが確実に効くようにするため)
       btn.onmousedown = e => {
         e.preventDefault();
-        searchInput.value = term;
-        updateSearchClearState();
-        saveRecentSearch(term);
-        searchSuggestions.classList.remove('is-open');
-        updateDisplay(true);
+        selectSuggestion(term);
       };
       searchSuggestions.appendChild(btn);
+      suggestionButtons.push(btn);
     });
     searchSuggestions.classList.add('is-open');
   };
@@ -870,8 +882,27 @@ body.icon-only-mode .item-contents {
     }, 180);
   };
   searchInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && searchInput.value.trim()) {
-      saveRecentSearch(searchInput.value);
+    const isOpen = searchSuggestions.classList.contains('is-open');
+    if (isOpen && suggestionButtons.length > 0 && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+      e.preventDefault();
+      const dir = e.key === 'ArrowDown' ? 1 : -1;
+      let next = highlightedIndex + dir;
+      if (next < 0) next = suggestionButtons.length - 1;
+      if (next >= suggestionButtons.length) next = 0;
+      setHighlightedIndex(next);
+      return;
+    }
+    if (e.key === 'Escape' && isOpen) {
+      searchSuggestions.classList.remove('is-open');
+      return;
+    }
+    if (e.key === 'Enter') {
+      if (isOpen && highlightedIndex >= 0) {
+        e.preventDefault();
+        selectSuggestion(suggestionButtons[highlightedIndex].textContent);
+        return;
+      }
+      if (searchInput.value.trim()) saveRecentSearch(searchInput.value);
     }
   });
 
