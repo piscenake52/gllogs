@@ -290,11 +290,14 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .item-scroll-container { display: flex; align-items: baseline; width: 100%; text-decoration: none; color: inherit; overflow: visible; }
 
 /* 日付とコンテンツ種類は固定 */
-.item-date { flex: 0 0 auto; font-size: 12px; line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; }
+.item-date { flex: 0 0 auto; font-size: 12px; line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
+.item-date:has(+ .item-time) { margin-right: 4px; } /* 時刻が続く場合は日付との間隔を1文字分程度に詰める */
+.item-time { flex: 0 0 auto; font-size: 12px; line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
+.item-time.is-blank { visibility: hidden; } /* time未設定の行も"00:00"と同じ幅を確保したまま見た目だけブランクにする */
 
 /* PC版：最長サイズに合わせて幅を統一し、テキストを左寄せにする */
 .item-contents { 
-  flex: 0 0 8.5em; 
+  flex: 0 0 10.5em; 
   font-size: 11px; 
   padding: 1px 5px; 
   background: var(--btn-bg); 
@@ -400,6 +403,8 @@ body.icon-only-mode .item-contents {
 
 @media (max-width: 600px) {
   .item-date { flex: 0 0 auto; margin-right: 6px; }
+  .item-date:has(+ .item-time) { margin-right: 3px; }
+  .item-time { flex: 0 0 auto; margin-right: 6px; }
   /* スマホ版:アイコンのみ表示(PC版のICONモードと同じ固定幅・中央揃えに統一) */
   .item-contents { flex: 0 0 28px; width: 28px; padding: 1px 0; margin-right: 8px; text-align: center; }
 }
@@ -559,10 +564,6 @@ body.icon-only-mode .item-contents {
     if (dateParts.day) ymd.push(d);
     let out = ymd.join('.');
     if (dateParts.weekday && dayStr) out += (out ? ' ' : '') + `[${dayStr}]`;
-    if (dateParts.time) {
-      const t = formatTimeStr(item.time);
-      if (t) out += (out ? ' ' : '') + t;
-    }
     return out;
   };
 
@@ -1019,6 +1020,17 @@ body.icon-only-mode .item-contents {
     const d = document.createElement('span');
     d.className = 'item-date';
     d.textContent = formatDisplayDate(item);
+
+    // 時刻は日付と別要素にして、未設定の行でも"00:00"と同じ幅を確保したまま見た目だけブランクにする
+    // (幅を確保しないと、後ろのコンテンツ種類アイコン等が左にずれて見えるため)
+    let tm = null;
+    if (dateParts.time) {
+      const t = formatTimeStr(item.time);
+      tm = document.createElement('span');
+      tm.className = 'item-time';
+      tm.textContent = t || '00:00';
+      if (!t) tm.classList.add('is-blank');
+    }
     
     const ct = document.createElement('span');
     ct.className = 'item-contents';
@@ -1060,7 +1072,8 @@ body.icon-only-mode .item-contents {
       }
     }
 
-    const children = mp ? [d, mp, ct] : [d, ct];
+    const dateChildren = tm ? [d, tm] : [d];
+    const children = mp ? [...dateChildren, mp, ct] : [...dateChildren, ct];
     if (teamClass) {
       const ti = document.createElement('span');
       ti.className = 'team-icon team-' + teamClass;
