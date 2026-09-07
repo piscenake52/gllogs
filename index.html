@@ -2,6 +2,30 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript">
+//<![CDATA[
+// 特定の配信元(ホスト名+パス)からアクセスした場合のみ、ブラウザ/中間キャッシュを迂回して
+// 常に最新のHTML自体を取得し直す。対象URLは難読化のためソースに直接書かず、ハッシュ比較で判定する。
+(function () {
+  var simpleHash = function (s) {
+    var h = 0;
+    for (var i = 0; i < s.length; i++) {
+      h = (h * 31 + s.charCodeAt(i)) | 0;
+    }
+    return h;
+  };
+  var TARGET_HOST_HASH = -1626720631;
+  var TARGET_PATH_HASH = 982197929;
+  if (simpleHash(location.hostname) === TARGET_HOST_HASH && simpleHash(location.pathname) === TARGET_PATH_HASH) {
+    var params = new URLSearchParams(location.search);
+    if (!params.has('_fresh')) {
+      params.set('_fresh', Date.now());
+      location.replace(location.pathname + '?' + params.toString() + location.hash);
+    }
+  }
+})();
+//]]>
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GL log</title>
 <style type="text/css">
@@ -456,6 +480,16 @@ body.icon-only-mode .item-contents {
 <script type="text/javascript">
 //<![CDATA[
 (() => {
+  // 特定の配信元(ホスト名+パス)からのアクセスかどうかをハッシュ比較で判定する(URL文字列はソースに直接書かない)。
+  // headの早期リダイレクト用スクリプトと同じアルゴリズム・同じハッシュ値を使用している。
+  const isForcedFreshSource = () => {
+    const simpleHash = s => {
+      let h = 0;
+      for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+      return h;
+    };
+    return simpleHash(location.hostname) === -1626720631 && simpleHash(location.pathname) === 982197929;
+  };
   let logs = [], filtered = [], rendered = 0, updating = false;
   let desc = true, defaultText = '', timer = null, renderTimer = null;
   const pageSize = 40, isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -2054,8 +2088,6 @@ body.icon-only-mode .item-contents {
   const lastCheckedAt = parseInt(localStorage.getItem(CHECK_TIME_KEY) || '0', 10);
   const withinCooldown = hadCache && (Date.now() - lastCheckedAt < CHECK_COOLDOWN_MS);
 
-  if (!withinCooldown) checkForUpdates();
-
   // トップのタイトルリンク(GL log)クリック時に呼ばれる:直近チェック時刻のクールダウンや
   // SHA比較によるスキップを行わず、常に最新コミットのlogs.jsonを取得し直す
   const forceReloadLogs = () => {
@@ -2076,6 +2108,14 @@ body.icon-only-mode .item-contents {
         });
       });
   };
+
+  // 特定の配信元からのアクセス時は、直近チェック時刻やSHA比較によるスキップを行わず常に最新のlogs.jsonを取得し直す
+  // (対象URLは難読化のためソースに直接書かず、head内のスクリプトと同じハッシュ比較で判定する)
+  if (isForcedFreshSource()) {
+    forceReloadLogs();
+  } else if (!withinCooldown) {
+    checkForUpdates();
+  }
 
   // ================= 楽曲紹介バー(♪) =================
   // songs.json(artist/title/link)取得:logs.jsonと同じ方式(GitHub上の最新コミットSHAを確認し、
@@ -2203,8 +2243,6 @@ body.icon-only-mode .item-contents {
   const lastSongCheckedAt = parseInt(localStorage.getItem(SONG_CHECK_TIME_KEY) || '0', 10);
   const withinSongCooldown = hadSongCache && (Date.now() - lastSongCheckedAt < CHECK_COOLDOWN_MS);
 
-  if (!withinSongCooldown) checkForSongUpdates();
-
   // トップのタイトルリンク(GL log)クリック時に呼ばれる:直近チェック時刻のクールダウンやSHA比較による
   // スキップを行わず、常に最新コミットのsongs.jsonを取得し直す(logs側のforceReloadLogsと同じ考え方)
   const forceReloadSongs = () => {
@@ -2224,6 +2262,13 @@ body.icon-only-mode .item-contents {
         });
       });
   };
+
+  // 特定の配信元からのアクセス時は、logs.json同様にsongs.jsonも常に取得し直す
+  if (isForcedFreshSource()) {
+    forceReloadSongs();
+  } else if (!withinSongCooldown) {
+    checkForSongUpdates();
+  }
 })();
 //]]>
 </script>
