@@ -71,7 +71,6 @@ body {
 .header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
 h1 { font-size: 20px; margin: 0; line-height: 1; }
 .reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; letter-spacing: -2px; }
-.reset-link sup { font-size: 0.67em; }
 .reset-link:hover { opacity: 0.8; }
 .toggle-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; padding: 4px 8px; border-radius: 12px; line-height: 1; }
 .toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
@@ -418,7 +417,7 @@ body.icon-only-mode .item-contents {
   <div class="sticky-header is-initializing" id="stickyHeader">
     <div class="sticky-header-inner">
     <div class="header-row">
-      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log <sup>&#946;</sup></a></h1>
+      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
       <div class="header-btn-group">
         <button class="toggle-btn date-part-btn" id="showYearBtn">&#24180;</button>
         <button class="toggle-btn date-part-btn" id="showMonthBtn">&#26376;</button>
@@ -447,7 +446,7 @@ body.icon-only-mode .item-contents {
       <button type="button" class="lock-toggle-btn" id="lockToggleBtn" aria-label="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;(&#29694;&#22312;OFF)">&#128275;</button>
     </div>
     <div class="song-bar" id="songBar">
-      <button type="button" class="song-play-btn" id="songPlayBtn" aria-label="Play">&#9655;</button>
+      <button type="button" class="song-play-btn" id="songPlayBtn" aria-label="Play">&#9654;</button>
       <div class="song-ticker-viewport" id="songTickerViewport">
         <span class="song-ticker-text" id="songTickerText"></span>
       </div>
