@@ -549,15 +549,16 @@ body.icon-only-mode .item-contents {
     return timeStr.slice(0, 2) + ':' + timeStr.slice(2, 4);
   };
 
+  // dateは「20260908」のような8桁(年4桁+月2桁+日2桁)の文字列を想定
   const formatDisplayDate = item => {
     const dateStr = item.date;
     if (!dateStr) return '';
-    const parts = dateStr.split('.');
-    if (parts.length !== 3) return dateStr;
-    const [y, m, d] = parts;
+    if (!/^\d{8}$/.test(dateStr)) return dateStr; // 想定外フォーマットはそのまま表示
+    const y = dateStr.slice(0, 4), m = dateStr.slice(4, 6), d = dateStr.slice(6, 8);
     const dateObj = new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10));
     const dayStr = isNaN(dateObj.getTime()) ? '' : dayNames[dateObj.getDay()];
 
+    // 画面表示は従来通り「年.月.日」のドット区切りにする(データ格納形式とは切り離す)
     const ymd = [];
     if (dateParts.year) ymd.push(y);
     if (dateParts.month) ymd.push(m);
@@ -567,13 +568,8 @@ body.icon-only-mode .item-contents {
     return out;
   };
 
-  const normalizeDateForSort = dateStr => {
-    if (!dateStr) return '';
-    const parts = dateStr.split('.');
-    if (parts.length !== 3) return dateStr;
-    const [y, m, d] = parts;
-    return y.padStart(4, '0') + '.' + m.padStart(2, '0') + '.' + d.padStart(2, '0');
-  };
+  // 8桁のYYYYMMDD形式は既にゼロ埋め済みなので、そのまま文字列比較でソート可能
+  const normalizeDateForSort = dateStr => dateStr || '';
 
   // ソート専用のキー:date(正規化)とtime(HHMM、未設定時は"0000"扱い)を組み合わせる。
   // timeは検索対象には含めない(検索用テキストの生成には使わない)。
@@ -899,6 +895,7 @@ body.icon-only-mode .item-contents {
     updateSearchClearState();
     saveRecentSearch(term);
     searchSuggestions.classList.remove('is-open');
+    syncTodayModeFromSearch(); // 年月日8桁の候補が選ばれた場合もTODAYモードに反映する
     updateDisplay(true);
   };
   const renderSearchSuggestions = () => {
@@ -933,6 +930,7 @@ body.icon-only-mode .item-contents {
   searchInput.oninput = () => {
     updateSearchClearState();
     searchSuggestions.classList.remove('is-open'); // 入力し始めたら候補は引っ込める(ライブ検索と競合しないように)
+    syncTodayModeFromSearch(); // 年月日8桁の入力/削除に応じてTODAYモードをON/OFFする
     clearTimeout(timer);
     timer = setTimeout(() => {
       updateDisplay(true);
@@ -982,6 +980,7 @@ body.icon-only-mode .item-contents {
   searchClearBtn.onclick = () => {
     searchInput.value = '';
     updateSearchClearState();
+    syncTodayModeFromSearch(); // クリアで日付ではなくなるのでTODAYモードもOFFに戻す
     updateDisplay(true);
     searchInput.focus();
   };
@@ -1223,6 +1222,7 @@ body.icon-only-mode .item-contents {
       frag.appendChild(makeBadge('Keyword: "' + kw + '"', () => {
         searchInput.value = '';
         updateSearchClearState();
+        syncTodayModeFromSearch(); // 検索ワード削除でTODAYモードもOFFに戻す
         updateDisplay(true);
       }));
     }
@@ -1341,7 +1341,7 @@ body.icon-only-mode .item-contents {
 
     let dateOk = true;
     if (dq.isDateQuery) {
-      const itemDateNum = item.date ? item.date.replace(/\./g, '') : '';
+      const itemDateNum = item.date || '';
       let matchesDate = true;
       if (dq.targetMonthDay) {
         const itemMD = itemDateNum.slice(4, 8);
@@ -1463,7 +1463,7 @@ body.icon-only-mode .item-contents {
       
       let dateOk = true;
       if (isDateQuery) {
-        const itemDateNum = item.date ? item.date.replace(/\./g, '') : '';
+        const itemDateNum = item.date || '';
         let matchesDate = true;
         if (targetMonthDay) {
           const itemMD = itemDateNum.slice(4, 8);
@@ -1591,7 +1591,7 @@ body.icon-only-mode .item-contents {
 
       let dateOk = true;
       if (isDateQuery) {
-        const itemDateNum = item.date ? item.date.replace(/\./g, '') : '';
+        const itemDateNum = item.date || '';
         let matchesDate = true;
         if (targetMonthDay) {
           const itemMD = itemDateNum.slice(4, 8);
@@ -1750,15 +1750,80 @@ body.icon-only-mode .item-contents {
   let todayMode = false;
   let todayOffset = 0; // 0=当日, 負=前日方向, 正=翌日方向
   let preTodaySort = null; // TODAYをONにする直前のソート状態(descの値)を退避
+  let searchDateTodayActive = false; // 検索窓への日付入力によってTODAYモードがONにされている状態かどうか
   const getTargetDateStr = offsetDays => {
     const d = new Date();
     d.setDate(d.getDate() + offsetDays);
-    return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
+    // item.dateと直接比較するため、ドット無しの8桁(YYYYMMDD)形式で返す
+    return String(d.getFullYear()) + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
   };
   const getTargetMonthDayStr = offsetDays => {
     const d = new Date();
     d.setDate(d.getDate() + offsetDays);
     return String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+  };
+
+  // 検索窓の文字列が「年月日8桁(例:20260907)」として完全な実在日付になっているかを判定する。
+  // 該当すればその日付のDateオブジェクトを、そうでなければnullを返す
+  const getExactSearchDate = rawKw => {
+    if (!/^\d{8}$/.test(rawKw)) return null;
+    const y = parseInt(rawKw.slice(0, 4), 10);
+    const m = parseInt(rawKw.slice(4, 6), 10);
+    const d = parseInt(rawKw.slice(6, 8), 10);
+    if (m < 1 || m > 12 || d < 1 || d > 31) return null;
+    const dt = new Date(y, m - 1, d);
+    if (dt.getFullYear() !== y || dt.getMonth() !== m - 1 || dt.getDate() !== d) return null; // 2/31等の実在しない日付を弾く
+    return dt;
+  };
+
+  // 検索窓に実在する年月日8桁が入力された時、その日付を基準にTODAYモードをONにする
+  // (todayOffsetを「今日からその日付までの日数差」に設定し、ボタン色を該当日にあった状態にする)
+  const enableTodayFromSearchDate = dt => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    dt.setHours(0, 0, 0, 0);
+    const diffDays = Math.round((dt - today) / 86400000);
+    if (!todayMode) {
+      todayMode = true;
+      preTodaySort = desc;
+      // TODAYをONにした時だけソートを自動的に昇順にする(手動でTODAYをONにした時と同じ挙動)
+      if (desc) {
+        desc = false;
+        $('sortBtn').textContent = '\u2191';
+      }
+    }
+    todayOffset = diffDays;
+    searchDateTodayActive = true;
+    updateTodayButtonStyle();
+    autoUpdateContentTypeFilters();
+    updateManualIndicators();
+  };
+
+  // 検索窓の日付入力によってONにされていたTODAYモードをOFFに戻す
+  const disableTodayFromSearchDate = () => {
+    if (!searchDateTodayActive) return;
+    searchDateTodayActive = false;
+    todayMode = false;
+    todayOffset = 0;
+    if (preTodaySort !== null) {
+      desc = preTodaySort;
+      $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
+      preTodaySort = null;
+    }
+    updateTodayButtonStyle();
+    autoUpdateContentTypeFilters();
+    updateManualIndicators();
+  };
+
+  // 検索窓の現在の内容を見て、日付ならTODAYモードをON、日付でなくなった(変更・削除された)ならOFFにする
+  const syncTodayModeFromSearch = () => {
+    const rawKw = searchInput.value.trim();
+    const exactDate = getExactSearchDate(rawKw);
+    if (exactDate) {
+      enableTodayFromSearchDate(exactDate);
+    } else {
+      disableTodayFromSearchDate();
+    }
   };
   // BIRTHDAY/ANNIVERSARYかどうか(この2種類はTODAYモード時、登録年を問わず「同じ月日」であれば
   // 表示対象にする特別扱いをする)
@@ -1768,7 +1833,7 @@ body.icon-only-mode .item-contents {
   const isTodayDateOk = (item, cYears) => {
     if (!todayMode) return true;
     if (cYears && cYears.length > 0) {
-      const itemDateNum = item.date ? item.date.replace(/\./g, '') : '';
+      const itemDateNum = item.date || '';
       return itemDateNum.slice(4, 8) === getTargetMonthDayStr(todayOffset);
     }
     return item.date === getTargetDateStr(todayOffset);
@@ -1776,25 +1841,25 @@ body.icon-only-mode .item-contents {
 
   // TODAYモード中、BIRTHDAY/ANNIVERSARYを「表示すべき年」ごとに複製したアイテムへ展開する。
   // - 年フィルターが選択されている場合:選択されている年のうち、登録年以降かつ月日が一致するものを
-  //   すべて複製して返す(例:1977.03.17登録で、今日が03.17、年フィルターに2027と2025が選択済みなら
-  //   2027.03.17と2025.03.17の2件を生成する)
+  //   すべて複製して返す(例:19770317登録で、今日が0317、年フィルターに2027と2025が選択済みなら
+  //   20270317と20250317の2件を生成する)
   // - 年フィルターが未選択の場合:登録日以降であれば「今日(offset適用後)」の年月日で1件だけ生成する
   // BIRTHDAY/ANNIVERSARY以外、およびTODAYモードOFF時は元のアイテムをそのまま返す
   const expandTodayBirthdayItems = (items, cYears) => {
     if (!todayMode) return items;
     const targetMonthDay = getTargetMonthDayStr(todayOffset);
-    const targetDateNum = getTargetDateStr(todayOffset).replace(/\./g, '');
+    const targetDateNum = getTargetDateStr(todayOffset);
     const result = [];
     items.forEach(item => {
       if (!isBirthdayAnniversary(item)) { result.push(item); return; }
-      const itemDateNum = item.date ? item.date.replace(/\./g, '') : '';
+      const itemDateNum = item.date || '';
       if (!itemDateNum || itemDateNum.slice(4, 8) !== targetMonthDay) return; // 月日不一致は対象外
-      const registeredYear = item.date.slice(0, 4);
-      const monthDay = item.date.slice(5); // "MM.DD"
+      const registeredYear = itemDateNum.slice(0, 4);
+      const monthDay = itemDateNum.slice(4, 8); // "MMDD"
       if (cYears && cYears.length > 0) {
         cYears.forEach(y => {
           if (y < registeredYear) return; // 登録年より前の年フィルターは対象外
-          result.push(Object.assign({}, item, { date: `${y}.${monthDay}` }));
+          result.push(Object.assign({}, item, { date: `${y}${monthDay}` }));
         });
       } else if (itemDateNum <= targetDateNum) {
         result.push(Object.assign({}, item, { date: getTargetDateStr(todayOffset) }));
@@ -1833,6 +1898,7 @@ body.icon-only-mode .item-contents {
       // ON(当日 or 前後日)状態からの押下は、常にOFFにする
       todayMode = false;
       todayOffset = 0;
+      searchDateTodayActive = false; // 手動でOFFにした場合は検索窓連動フラグもリセットする
       if (preTodaySort !== null) {
         desc = preTodaySort;
         $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
@@ -1957,6 +2023,7 @@ body.icon-only-mode .item-contents {
     if (todayMode) {
       todayMode = false;
       todayOffset = 0;
+      searchDateTodayActive = false; // CLEARで検索窓も空になるため連動フラグもリセットする
       if (preTodaySort !== null) {
         desc = preTodaySort;
         $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
