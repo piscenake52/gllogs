@@ -180191,6 +180191,26 @@
     ]
   },
   {
+    "date": "2026.09.06",
+    "time": "2200",
+    "contents": "CL",
+    "title": "POST 森朱里",
+    "display_pc": "POST　森朱里",
+    "display_sm": "POST　森朱里",
+    "url": "https://www.cl-live.com/posts/ihcb6a7CUeNmtTjLyL58Cq?lang=ja",
+    "map": "",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
     "date": "2026.08.30",
     "time": "1906",
     "contents": "CL",
@@ -207439,6 +207459,26 @@
     ],
     "relations": [
       "KAN"
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.08",
+    "time": "0000",
+    "contents": "CL",
+    "title": "CLキャス？ 小川桜花",
+    "display_pc": "CLキャス？　小川桜花",
+    "display_sm": "CLキャス？　小川桜花",
+    "url": "https://www.cl-live.com/artists/ogawa_yoka?lang=ja",
+    "map": "",
+    "groups": [
+      "G2",
+      "YOK"
+    ],
+    "relations": [
+      ""
     ],
     "tags": [
       ""
