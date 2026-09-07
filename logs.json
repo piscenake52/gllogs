@@ -1,5 +1,53 @@
 [
   {
+    "date": "2026.09.16",
+    "time": "0000",
+    "contents": "CAMPAIGN",
+    "title": "Laki 『WORK≒LiFE』先行配信記念 LINE MUSIC再生キャンペーン応募受付開始",
+    "display_pc": "Laki 『WORK≒LiFE』先行配信記念 LINE MUSIC再生キャンペーン応募受付開始",
+    "display_sm": "『WORK≒LiFE』LINE MUSIC再生CP応募受付開始",
+    "url": "https://girls2-fc.jp/page/lucky2news/1222001778615123970",
+    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.22",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "Laki 『WORK≒LiFE』先行配信記念 LINE MUSIC再生キャンペーン応募受付締切",
+    "display_pc": "Laki 『WORK≒LiFE』先行配信記念 LINE MUSIC再生キャンペーン応募受付締切",
+    "display_sm": "『WORK≒LiFE』LINE MUSIC再生CP応募受付締切",
+    "url": "https://girls2-fc.jp/page/lucky2news/1222001778615123970",
+    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.16",
+    "time": "",
+    "contents": "RESULT",
+    "title": "Laki 「WORK≒LiFE」購入特典 L∞K UP終演後記念撮影会 当選発表",
+    "display_pc": "Laki 「WORK≒LiFE」購入特典 L∞K UP終演後記念撮影会 当選発表",
+    "display_sm": "「WORK≒LiFE」終演後記念撮影会当選発表",
+    "url": "https://girls2-fc.jp/page/familyNews/1202914447505489922",
+    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.16",
+    "time": "",
+    "contents": "RESULT",
+    "title": "Laki 「WORK≒LiFE」購入特典 L∞K UP終演後 1on1サイン会&トーク会 当選発表",
+    "display_pc": "Laki 「WORK≒LiFE」購入特典 L∞K UP終演後 1on1サイン会&トーク会 当選発表",
+    "display_sm": "「WORK≒LiFE」終演後サイン会&トーク会当選発表",
+    "url": "https://girls2-fc.jp/page/familyNews/1202914447505489922",
+    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "relations": [],
+    "tags": []
+  },
+  {
     "date": "2025.07.22",
     "time": "1200",
     "contents": "WEB",
@@ -286,12 +334,52 @@
     "tags": []
   },
   {
+    "date": "2026.09.25",
+    "time": "1000",
+    "contents": "GLRADIO",
+    "title": "【特別番組】比嘉優和＆佐藤妃希のがるらじ ≪後編≫",
+    "display_pc": "比嘉優和と佐藤妃希のがるらじ ～GL²family RADIO～ 後編",
+    "display_sm": "比嘉優和と佐藤妃希のがるらじ 後編",
+    "url": "https://girls2-fc.jp/page/lucky2radio",
+    "groups": [
+      "L2",
+      "YUW",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": []
+  },
+  {
     "date": "2026.09.15",
     "time": "1500",
     "contents": "TICKET",
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- \"Christmas Special\" GL² family・GL² friend会員2次抽選受付開始",
     "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- \"Christmas Special\" GL²family・friend会員2次抽選受付開始",
     "display_sm": "LIVE TOUR 2026 Xmas SP FC会員2次抽選受付開始",
+    "url": "https://girls2-fc.jp/page/news/1212297459129122816",
+    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.23",
+    "time": "2300",
+    "contents": "CLOSE",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- \"Christmas Special\" GL² family・GL² friend会員2次抽選受付締切",
+    "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- \"Christmas Special\" GL²family・friend会員2次抽選受付締切",
+    "display_sm": "LIVE TOUR 2026 Xmas SP FC会員2次抽選受付締切",
+    "url": "https://girls2-fc.jp/page/news/1212297459129122816",
+    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2026.09.30",
+    "time": "1500",
+    "contents": "RESULT",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- \"Christmas Special\" GL² family・GL² friend会員2次抽選当選発表",
+    "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- \"Christmas Special\" GL²family・friend会員2次抽選当選発表",
+    "display_sm": "LIVE TOUR 2026 Xmas SP FC会員2次抽選当選発表",
     "url": "https://girls2-fc.jp/page/news/1212297459129122816",
     "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
     "relations": [],
@@ -310,12 +398,24 @@
     "tags": []
   },
   {
+    "date": "2026.09.23",
+    "time": "2300",
+    "contents": "CLOSE",
+    "title": "BOOK ACT Z 2026「芸人交換日記」 ticketbook先行チケット抽選申込受付締切",
+    "display_pc": "BOOK ACT Z 2026「芸人交換日記」 ticketbook先行チケット抽選申込受付締切",
+    "display_sm": "BOOK ACT Z 2026 ticketbook先行抽選申込受付締切",
+    "url": "https://m.tribe-m.jp/news/detail?news_id=55247",
+    "groups": ["G2","YZH","MSK"],
+    "relations": [],
+    "tags": []
+  },
+  {
     "date": "2026.09.15",
     "time": "2359",
     "contents": "CLOSE",
     "title": "Laki 『WORK≒LiFE』先行配信記念LINE MUSIC再生キャンペーン再生対象期間終了",
     "display_pc": "Laki 『WORK≒LiFE』先行配信記念 LINE MUSIC再生キャンペーン再生対象期間終了",
-    "display_sm": "『WORK≒LiFE』LINE MUSIC再生対象期間終了",
+    "display_sm": "『WORK≒LiFE』LINE MUSIC再生CP対象期間終了",
     "url": "https://girls2-fc.jp/page/lucky2news/1222001778615123970",
     "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
     "relations": [],
@@ -504,7 +604,34 @@
     "contents": "CLOSE",
     "title": "Laki 「WORK≒LiFE」TikTokジャックチャレンジキャンペーン集計期間終了",
     "display_pc": "Laki　「WORK≒LiFE」TikTokジャックチャレンジキャンペーン集計期間終了",
-    "display_sm": "「WORK≒LiFE」TikTokジャック集計期間終了",
+    "display_sm": "「WORK≒LiFE」TikTokジャックCP集計期間終了",
+    "url": "https://girls2-fc.jp/page/lucky2news/1222448578815852545",
+    "map": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.30",
+    "time": "1900",
+    "contents": "EVENT",
+    "title": "Laki 「WORK≒LiFE」TikTokジャックチャレンジキャンペーン Laki全メンバー 1 on 1 オンライントーク",
+    "display_pc": "Laki　「WORK≒LiFE」TikTokジャックチャレンジキャンペーン 1on1オンライントーク",
+    "display_sm": "「WORK≒LiFE」TikTokジャックCP1on1オンライントーク",
     "url": "https://girls2-fc.jp/page/lucky2news/1222448578815852545",
     "map": "",
     "groups": [
@@ -187424,7 +187551,7 @@
     "contents": "CAMPAIGN",
     "title": "Laki 「WORK≒LiFE」TikTokジャックチャレンジキャンペーン投稿受付開始",
     "display_pc": "Laki　「WORK≒LiFE」TikTokジャックチャレンジキャンペーン投稿受付開始",
-    "display_sm": "「WORK≒LiFE」TikTokジャック投稿受付開始",
+    "display_sm": "「WORK≒LiFE」TikTokジャックCP投稿受付開始",
     "url": "https://girls2-fc.jp/page/lucky2news/1222448578815852545",
     "map": "",
     "groups": [
@@ -187451,7 +187578,7 @@
     "contents": "CLOSE",
     "title": "Laki 「WORK≒LiFE」TikTokジャックチャレンジキャンペーン投稿受付締切",
     "display_pc": "Laki　「WORK≒LiFE」TikTokジャックチャレンジキャンペーン投稿受付締切",
-    "display_sm": "「WORK≒LiFE」TikTokジャック投稿受付締切",
+    "display_sm": "「WORK≒LiFE」TikTokジャックCP投稿受付締切",
     "url": "https://girls2-fc.jp/page/lucky2news/1222448578815852545",
     "map": "",
     "groups": [
