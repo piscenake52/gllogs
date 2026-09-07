@@ -468,23 +468,27 @@ body.icon-only-mode .item-contents {
     {v:'YUW',n:'YUWA',c:'\u2764\uFE0F'},{v:'KAN',n:'KANNA',c:'\uD83D\uDC99'},{v:'RRK',n:'RIRIKA',c:'\uD83E\uDE77'},{v:'AKR',n:'AKARI',c:'\uD83D\uDC9A'},
     {v:'KIK',n:'KIKI',c:'\uD83D\uDC9B'},'sep',{v:'YUR',n:'YURA',c:'\uD83E\uDD0D'}
   ];
-  const others = ['FANCLUB','DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MODEL','MOVIE','MEDIA','WEB','TICKET','GOODS','ANNIVERSARY','BIRTHDAY','ETC'];
+  const others = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MODEL','MOVIE','MEDIA','WEB','TICKET','GOODS','ANNIVERSARY','BIRTHDAY','ETC'];
 
   const symbols = {
     'FANCLUB': '\uD83D\uDCE3',
-    'DIARY': '\uD83D\uDCDD', 'RADIO': '\uD83D\uDCFB\uFE0F', 'GTUBE': '\u25B6\uFE0F', 'YOUTUBE': '\uD83C\uDF9E\uFE0F', 
+    'DIARY': '\uD83D\uDCDD', 'GLRADIO': '\uD83D\uDD0A', 'GTUBE': '\u25B6\uFE0F', 'YOUTUBE': '\uD83C\uDF9E\uFE0F', 
     'CL': '\uD83C\uDD91', 'RELEASE': '\uD83C\uDFA7', 'LIVE': '\uD83C\uDF99\uFE0F', 
-    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCFA\uFE0F', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'GOODS': '\uD83D\uDED2', 'ANNIVERSARY': '\uD83D\uDD16', 'BIRTHDAY': '\uD83C\uDF82',
+    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCE1', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'GOODS': '\uD83D\uDED2', 'ANNIVERSARY': '\uD83D\uDD16', 'BIRTHDAY': '\uD83C\uDF82',
     'MODEL': '\uD83D\uDC60', 'MOVIE': '\uD83C\uDFAC\uFE0F', 'TICKET': '\uD83C\uDFAB',
     'CLOSE': '\u2705', 'RESULT': '\uD83C\uDFAF', 'CAMPAIGN': '\uD83D\uDCE8', 'PLAYING': '\uD83C\uDFB6', // フィルターボタンには表示せず、ETC選択時のみ該当させる
     'ETC': '\uD83D\uDCCC',
     // 以下4種類はcontentsフィルターボタンには表示しないが、フィルター判定上は"RELEASE"として扱う(normalizeContType参照)。
     // データ部のアイコン表示ではそれぞれ専用のアイコン+コンテンツ名を表示する。
-    'CD': '\uD83D\uDCBF\uFE0F', 'DVD': '\uD83D\uDCC0\uFE0F', 'BD': '\uD83D\uDCC0\uFE0F', 'DIGITAL': '\uD83C\uDFA7'
+    'CD': '\uD83D\uDCBF\uFE0F', 'DVD': '\uD83D\uDCC0\uFE0F', 'BD': '\uD83D\uDCC0\uFE0F', 'DIGITAL': '\uD83C\uDFA7',
+    // 以下5種類はフィルターボタンには表示せず、フィルター判定上は"MEDIA"として扱う(normalizeContType参照)
+    'TV': '\uD83D\uDCFA\uFE0F', 'RADIO': '\uD83D\uDCFB\uFE0F', 'MAGAZINE': '\uD83D\uDCD6', 'BOOK': '\uD83D\uDCDA', 'NEWSPAPER': '\uD83D\uDCF0',
+    // 以下2種類はフィルターボタンには表示せず、フィルター判定上は"WEB"として扱う(normalizeContType参照)
+    'STREAMING': '\uD83D\uDCF6', 'PODCAST': '\uD83C\uDFA4'
   };
 
   // 内部値(contents値・フィルター値)と実際の表示名が異なるものだけここに登録する(それ以外は値そのものを表示名として使う)
-  const contentDisplayNames = {};
+  const contentDisplayNames = { 'GLRADIO': 'GL\u00B2RADIO' };
   const displayNameFor = v => contentDisplayNames[v] || v;
 
   const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
@@ -730,14 +734,19 @@ body.icon-only-mode .item-contents {
   const g2MemberCodes = new Set(g2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
   const l2MemberCodes = new Set(l2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
 
-  const primaryConts = ['FANCLUB','DIARY','RADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ANNIVERSARY','BIRTHDAY','MODEL','MOVIE','TICKET'];
+  const primaryConts = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','GOODS','ANNIVERSARY','BIRTHDAY','MODEL','MOVIE','TICKET'];
   const allConts = [...primaryConts, 'ETC'];
   const cats = [{meta:'G2',values:g2Vals},{meta:'L2',values:l2Vals}];
 
   // CD/DVD/BD/DIGITALはコンテンツフィルターボタンには表示しないが、フィルター判定(年/コンテンツ種類/自動on-off/
   // 件数プレビュー/ソート等)上は"RELEASE"の一部として扱う。データ部の表示(アイコン・コンテンツ名)には影響しない。
   const releaseAliasConts = ['CD', 'DVD', 'BD', 'DIGITAL'];
-  const normalizeContType = c => releaseAliasConts.includes(c) ? 'RELEASE' : c;
+  const mediaAliasConts = ['TV', 'RADIO', 'MAGAZINE', 'BOOK', 'NEWSPAPER'];
+  const webAliasConts = ['STREAMING', 'PODCAST'];
+  const normalizeContType = c =>
+    releaseAliasConts.includes(c) ? 'RELEASE' :
+    mediaAliasConts.includes(c) ? 'MEDIA' :
+    webAliasConts.includes(c) ? 'WEB' : c;
 
   // ソート用:日付+時刻+グループも同じ場合の最終タイブレーク。othersはコンテンツフィルターボタンの
   // 現在の並び順(ドラッグでの並び替え結果を含む)を反映しているため、そのインデックスをそのまま使う。
