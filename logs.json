@@ -1,5 +1,334 @@
 [
   {
+    "date": "2026.09.14",
+    "time": "2000",
+    "contents": "RADIO",
+    "title": "文化放送「Girls²のがるがるトーク！」",
+    "display_pc": "文化放送「Girls²のがるがるトーク！」",
+    "display_sm": "文化放送「Girls²のがるがるトーク！」",
+    "url": "https://www.joqr.co.jp/qr/program/girls/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.09.14",
+    "time": "2030",
+    "contents": "WEB",
+    "title": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
+    "display_pc": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
+    "display_sm": "QloveR「がるがるトーク！」アーカイブ配信",
+    "url": "https://qlover.jp/girls/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.09.14",
+    "time": "2030",
+    "contents": "WEB",
+    "title": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "display_pc": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "display_sm": "QloveR「がるがるトーク！」おまけ配信",
+    "url": "https://qlover.jp/girls/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.09.21",
+    "time": "2000",
+    "contents": "RADIO",
+    "title": "文化放送「Girls²のがるがるトーク！」",
+    "display_pc": "文化放送「Girls²のがるがるトーク！」",
+    "display_sm": "文化放送「Girls²のがるがるトーク！」",
+    "url": "https://www.joqr.co.jp/qr/program/girls/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.09.21",
+    "time": "2030",
+    "contents": "WEB",
+    "title": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
+    "display_pc": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
+    "display_sm": "QloveR「がるがるトーク！」アーカイブ配信",
+    "url": "https://qlover.jp/girls/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.09.21",
+    "time": "2030",
+    "contents": "WEB",
+    "title": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "display_pc": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "display_sm": "QloveR「がるがるトーク！」おまけ配信",
+    "url": "https://qlover.jp/girls/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.09.28",
+    "time": "2000",
+    "contents": "RADIO",
+    "title": "文化放送「Girls²のがるがるトーク！」",
+    "display_pc": "文化放送「Girls²のがるがるトーク！」",
+    "display_sm": "文化放送「Girls²のがるがるトーク！」",
+    "url": "https://www.joqr.co.jp/qr/program/girls/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.09.28",
+    "time": "2030",
+    "contents": "WEB",
+    "title": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
+    "display_pc": "QloveR「Girls²のがるがるトーク！」映像付きアーカイブ配信",
+    "display_sm": "QloveR「がるがるトーク！」アーカイブ配信",
+    "url": "https://qlover.jp/girls/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.09.28",
+    "time": "2030",
+    "contents": "WEB",
+    "title": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "display_pc": "QloveR「Girls²のがるがるトーク！」おまけ配信",
+    "display_sm": "QloveR「がるがるトーク！」おまけ配信",
+    "url": "https://qlover.jp/girls/",
+    "map": "",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      "がるラー"
+    ]
+  },
+  {
+    "date": "2026.09.14",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "display_pc": "",
+    "display_sm": "",
+    "url": "",
+    "map": "",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.17",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "display_pc": "",
+    "display_sm": "",
+    "url": "",
+    "map": "",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.21",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "display_pc": "",
+    "display_sm": "",
+    "url": "",
+    "map": "",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.24",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "display_pc": "",
+    "display_sm": "",
+    "url": "",
+    "map": "",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.28",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "display_pc": "",
+    "display_sm": "",
+    "url": "",
+    "map": "",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
     "date": "2026.09.07",
     "time": "1200",
     "contents": "DIARY",
@@ -206641,7 +206970,26 @@
     "url": "",
     "map": "",
     "groups": [
-      "G2"
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
+  },
+  {
+    "date": "2026.09.10",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "display_pc": "",
+    "display_sm": "",
+    "url": "",
+    "map": "",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
     ],
     "relations": [
       ""
