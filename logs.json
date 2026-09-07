@@ -7,9 +7,17 @@
     "display_pc": "Girls²のがるがるトーク！ メッセージ募集受付締切",
     "display_sm": "Girls²のがるがるトーク！ メッセージ募集受付締切",
     "url": "",
-    "groups": ["G2","KUR","KIR"],
-    "relations": [""],
-    "tags": [""]
+    "groups": [
+      "G2",
+      "KUR",
+      "KIR"
+    ],
+    "relations": [
+      ""
+    ],
+    "tags": [
+      ""
+    ]
   },
   {
     "date": "2026.09.02",
@@ -174061,7 +174069,7 @@
   {
     "date": "2026.08.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "【特別番組】 Girls²の「がるらじ ～GL² family RADIO～」 ～隅谷百花＆鶴屋美咲～ ≪後編≫",
     "display_pc": "Girls²のがるらじ ～GL²family RADIO～ ～隅谷百花＆鶴屋美咲～ 後編",
     "display_sm": "Girls²のがるらじ ～隅谷百花＆鶴屋美咲～ 後編",
@@ -174082,7 +174090,7 @@
   {
     "date": "2026.08.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "【特別番組】 Girls²の「がるらじ ～GL² family RADIO～」 ～隅谷百花＆鶴屋美咲～ ≪前編≫",
     "display_pc": "Girls²のがるらじ ～GL²family RADIO～ ～隅谷百花＆鶴屋美咲～ 前編",
     "display_sm": "Girls²のがるらじ ～隅谷百花＆鶴屋美咲～ 前編",
@@ -174103,7 +174111,7 @@
   {
     "date": "2026.07.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】 Girls²の「がるらじ ～GL² family RADIO～」 ～小田柚葉＆山口綺羅～ ≪後編≫",
     "display_pc": "Girls²のがるらじ ～GL²family RADIO～ ～小田柚葉＆山口綺羅～ 後編",
     "display_sm": "Girls²のがるらじ ～小田柚葉＆山口綺羅～ 後編",
@@ -174124,7 +174132,7 @@
   {
     "date": "2026.07.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】 Girls²の「がるらじ ～GL² family RADIO～」 ～小田柚葉＆山口綺羅～ ≪前編≫",
     "display_pc": "Girls²のがるらじ ～GL²family RADIO～ ～小田柚葉＆山口綺羅～ 前編",
     "display_sm": "Girls²のがるらじ ～小田柚葉＆山口綺羅～ 前編",
@@ -174145,7 +174153,7 @@
   {
     "date": "2026.06.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】 Girls²の「がるらじ ～GL² family RADIO～」 ～増田來亜＆菱田未渚美～ ≪後編≫",
     "display_pc": "Girls²のがるらじ ～GL²family RADIO～ ～増田來亜＆菱田未渚美～ 後編",
     "display_sm": "Girls²のがるらじ ～増田來亜＆菱田未渚美～ 後編",
@@ -174166,7 +174174,7 @@
   {
     "date": "2026.06.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】 Girls²の「がるらじ ～GL² family RADIO～」 ～増田來亜＆菱田未渚美～ ≪前編≫",
     "display_pc": "Girls²のがるらじ ～GL²family RADIO～ ～増田來亜＆菱田未渚美～ 前編",
     "display_sm": "Girls²のがるらじ ～増田來亜＆菱田未渚美～ 前編",
@@ -174187,7 +174195,7 @@
   {
     "date": "2026.05.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】 Girls²の「がるらじ ～GL² family RADIO～」 ～鶴屋美咲＆小川桜花～ ≪後編≫",
     "display_pc": "Girls²のがるらじ ～GL²family RADIO～ ～鶴屋美咲＆小川桜花～ 後編",
     "display_sm": "Girls²のがるらじ ～鶴屋美咲＆小川桜花～ 後編",
@@ -174208,7 +174216,7 @@
   {
     "date": "2026.05.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】 Girls²の「がるらじ ～GL² family RADIO～」 ～鶴屋美咲＆小川桜花～ ≪前編≫",
     "display_pc": "Girls²のがるらじ ～GL²family RADIO～ ～鶴屋美咲＆小川桜花～ 前編",
     "display_sm": "Girls²のがるらじ ～鶴屋美咲＆小川桜花～ 前編",
@@ -174229,7 +174237,7 @@
   {
     "date": "2026.04.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】 Girls²の「がるらじ ～GL² family RADIO～」 ～小田柚葉＆隅谷百花～ ≪後編≫",
     "display_pc": "Girls²のがるらじ ～GL²family RADIO～ ～小田柚葉＆隅谷百花～ 後編",
     "display_sm": "Girls²のがるらじ ～小田柚葉＆隅谷百花～ 後編",
@@ -174250,7 +174258,7 @@
   {
     "date": "2026.04.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】 Girls²の「がるらじ ～GL² family RADIO～」 ～小田柚葉＆隅谷百花～ ≪前編≫",
     "display_pc": "Girls²のがるらじ ～GL²family RADIO～ ～小田柚葉＆隅谷百花～ 前編",
     "display_sm": "Girls²のがるらじ ～小田柚葉＆隅谷百花～ 前編",
@@ -174271,7 +174279,7 @@
   {
     "date": "2026.03.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 山口綺羅の「がるらじ ～GL² family RADIO～」 #18",
     "display_pc": "山口綺羅のがるらじ ～GL²family RADIO～ #18",
     "display_sm": "山口綺羅のがるらじ #18",
@@ -174291,7 +174299,7 @@
   {
     "date": "2026.03.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 菱田未渚美の「がるらじ ～GL² family RADIO～」 #18",
     "display_pc": "菱田未渚美のがるらじ ～GL²family RADIO～ #18",
     "display_sm": "菱田未渚美のがるらじ #18",
@@ -174311,7 +174319,7 @@
   {
     "date": "2026.02.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 増田來亜の「がるらじ ～GL² family RADIO～」 #18",
     "display_pc": "増田來亜のがるらじ ～GL²family RADIO～ #18",
     "display_sm": "増田來亜のがるらじ #18",
@@ -174331,7 +174339,7 @@
   {
     "date": "2026.02.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 小川桜花の「がるらじ ～GL² family RADIO～」 #18",
     "display_pc": "小川桜花のがるらじ ～GL²family RADIO～ #18",
     "display_sm": "小川桜花のがるらじ #18",
@@ -174351,7 +174359,7 @@
   {
     "date": "2026.01.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 鶴屋美咲の「がるらじ ～GL² family RADIO～」 #18",
     "display_pc": "鶴屋美咲のがるらじ ～GL²family RADIO～ #18",
     "display_sm": "鶴屋美咲のがるらじ #18",
@@ -174371,7 +174379,7 @@
   {
     "date": "2026.01.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 隅谷百花の「がるらじ ～GL² family RADIO～」 #18",
     "display_pc": "隅谷百花のがるらじ ～GL²family RADIO～ #18",
     "display_sm": "隅谷百花のがるらじ #18",
@@ -174391,7 +174399,7 @@
   {
     "date": "2025.12.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 小田柚葉の「がるらじ ～GL² family RADIO～」 #18",
     "display_pc": "小田柚葉のがるらじ ～GL²family RADIO～ #18",
     "display_sm": "小田柚葉のがるらじ #18",
@@ -174411,7 +174419,7 @@
   {
     "date": "2025.12.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 山口綺羅の「がるらじ ～GL² family RADIO～」 #17",
     "display_pc": "山口綺羅のがるらじ ～GL²family RADIO～ #17",
     "display_sm": "山口綺羅のがるらじ #17",
@@ -174431,7 +174439,7 @@
   {
     "date": "2025.11.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 菱田未渚美の「がるらじ ～GL² family RADIO～」 #17",
     "display_pc": "菱田未渚美のがるらじ ～GL²family RADIO～ #17",
     "display_sm": "菱田未渚美のがるらじ #17",
@@ -174451,7 +174459,7 @@
   {
     "date": "2025.11.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 増田來亜の「がるらじ ～GL² family RADIO～」 #17",
     "display_pc": "増田來亜のがるらじ ～GL²family RADIO～ #17",
     "display_sm": "増田來亜のがるらじ #17",
@@ -174471,7 +174479,7 @@
   {
     "date": "2025.10.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 小川桜花の「がるらじ ～GL² family RADIO～」 #17",
     "display_pc": "小川桜花のがるらじ ～GL²family RADIO～ #17",
     "display_sm": "小川桜花のがるらじ #17",
@@ -174491,7 +174499,7 @@
   {
     "date": "2025.10.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 鶴屋美咲の「がるらじ ～GL² family RADIO～」 #17",
     "display_pc": "鶴屋美咲のがるらじ ～GL²family RADIO～ #17",
     "display_sm": "鶴屋美咲のがるらじ #17",
@@ -174511,7 +174519,7 @@
   {
     "date": "2025.09.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 隅谷百花の「がるらじ ～GL² family RADIO～」 #17",
     "display_pc": "隅谷百花のがるらじ ～GL²family RADIO～ #17",
     "display_sm": "隅谷百花のがるらじ #17",
@@ -174531,7 +174539,7 @@
   {
     "date": "2025.09.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 小田柚葉の「がるらじ ～GL² family RADIO～」 #17",
     "display_pc": "小田柚葉のがるらじ ～GL²family RADIO～ #17",
     "display_sm": "小田柚葉のがるらじ #17",
@@ -174551,7 +174559,7 @@
   {
     "date": "2025.08.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 原田都愛の「がるらじ ～GL² family RADIO～」 #16",
     "display_pc": "原田都愛のがるらじ ～GL²family RADIO～ #16",
     "display_sm": "原田都愛のがるらじ #16",
@@ -174571,7 +174579,7 @@
   {
     "date": "2025.08.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 山口綺羅の「がるらじ ～GL² family RADIO～」 #16",
     "display_pc": "山口綺羅のがるらじ ～GL²family RADIO～ #16",
     "display_sm": "山口綺羅のがるらじ #16",
@@ -174591,7 +174599,7 @@
   {
     "date": "2025.07.04",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【Girls²】スペシャル版 後編：「Girls² LIVE TOUR 2025 -ガルガルエイト-」連動企画皆さまからの応援メッセージに動画で返信！",
     "display_pc": "【Girls²】スペシャル版 後編：「Girls² LIVE TOUR 2025 -ガルガルエイト-」連動企画皆さまからの応援メッセージに動画で返信！",
     "display_sm": "【Girls²】スペシャル版 後編：「Girls² LIVE TOUR 2025 -ガルガルエイト-」連動企画皆さまからの応援メッセージに動画で返信！",
@@ -174610,7 +174618,7 @@
   {
     "date": "2025.07.03",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【Girls²】スペシャル版 前編：「Girls² LIVE TOUR 2025 -ガルガルエイト-」連動企画皆さまからの応援メッセージに動画で返信！",
     "display_pc": "【Girls²】スペシャル版 前編：「Girls² LIVE TOUR 2025 -ガルガルエイト-」連動企画皆さまからの応援メッセージに動画で返信！",
     "display_sm": "【Girls²】スペシャル版 前編：「Girls² LIVE TOUR 2025 -ガルガルエイト-」連動企画皆さまからの応援メッセージに動画で返信！",
@@ -174629,7 +174637,7 @@
   {
     "date": "2025.06.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 菱田未渚美の「がるらじ ～GL² family RADIO～」 #16",
     "display_pc": "菱田未渚美のがるらじ ～GL²family RADIO～ #16",
     "display_sm": "菱田未渚美のがるらじ #16",
@@ -174649,7 +174657,7 @@
   {
     "date": "2025.06.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 増田來亜の「がるらじ ～GL² family RADIO～」 #16",
     "display_pc": "増田來亜のがるらじ ～GL²family RADIO～ #16",
     "display_sm": "増田來亜のがるらじ #16",
@@ -174669,7 +174677,7 @@
   {
     "date": "2025.05.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 小川桜花の「がるらじ ～GL² family RADIO～」 #16",
     "display_pc": "小川桜花のがるらじ ～GL²family RADIO～ #16",
     "display_sm": "小川桜花のがるらじ #16",
@@ -174689,7 +174697,7 @@
   {
     "date": "2025.05.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 鶴屋美咲の「がるらじ ～GL² family RADIO～」 #16",
     "display_pc": "鶴屋美咲のがるらじ ～GL²family RADIO～ #16",
     "display_sm": "鶴屋美咲のがるらじ #16",
@@ -174709,7 +174717,7 @@
   {
     "date": "2025.04.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 隅谷百花の「がるらじ ～GL² family RADIO～」 #16",
     "display_pc": "隅谷百花のがるらじ ～GL²family RADIO～ #16",
     "display_sm": "隅谷百花のがるらじ #16",
@@ -174729,7 +174737,7 @@
   {
     "date": "2025.04.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 小田柚葉の「がるらじ ～GL² family RADIO～」 #16",
     "display_pc": "小田柚葉のがるらじ ～GL²family RADIO～ #16",
     "display_sm": "小田柚葉のがるらじ #16",
@@ -174749,7 +174757,7 @@
   {
     "date": "2025.03.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 原田都愛の「がるらじ ～GL² family RADIO～」 #15",
     "display_pc": "原田都愛のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "原田都愛のがるらじ #15",
@@ -174769,7 +174777,7 @@
   {
     "date": "2025.03.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 山口綺羅の「がるらじ ～GL² family RADIO～」 #15",
     "display_pc": "山口綺羅のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "山口綺羅のがるらじ #15",
@@ -174789,7 +174797,7 @@
   {
     "date": "2025.02.24",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 菱田未渚美の「がるらじ ～GL² family RADIO～」 #15",
     "display_pc": "菱田未渚美のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "菱田未渚美のがるらじ #15",
@@ -174809,7 +174817,7 @@
   {
     "date": "2025.02.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 増田來亜の「がるらじ ～GL² family RADIO～」 #15",
     "display_pc": "増田來亜のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "増田來亜のがるらじ #15",
@@ -174829,7 +174837,7 @@
   {
     "date": "2025.01.28",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 小川桜花の「がるらじ ～GL² family RADIO～」 #15",
     "display_pc": "小川桜花のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "小川桜花のがるらじ #15",
@@ -174849,7 +174857,7 @@
   {
     "date": "2025.01.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 鶴屋美咲の「がるらじ ～GL² family RADIO～」 #15",
     "display_pc": "鶴屋美咲のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "鶴屋美咲のがるらじ #15",
@@ -174869,7 +174877,7 @@
   {
     "date": "2024.12.16",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 隅谷百花の「がるらじ ～GL² family RADIO～」 #15",
     "display_pc": "隅谷百花のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "隅谷百花のがるらじ #15",
@@ -174889,7 +174897,7 @@
   {
     "date": "2024.12.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 小田柚葉の「がるらじ ～GL² family RADIO～」 #15",
     "display_pc": "小田柚葉のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "小田柚葉のがるらじ #15",
@@ -174909,7 +174917,7 @@
   {
     "date": "2024.11.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 原田都愛の「がるらじ ～GL² family RADIO～」 #14",
     "display_pc": "原田都愛のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "原田都愛のがるらじ #14",
@@ -174929,7 +174937,7 @@
   {
     "date": "2024.11.21",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅の「がるらじ ～GL² family RADIO～」 #14",
     "display_pc": "山口綺羅のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "山口綺羅のがるらじ #14",
@@ -174949,7 +174957,7 @@
   {
     "date": "2024.10.23",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 菱田未渚美の「がるらじ ～GL² family RADIO～」 #14",
     "display_pc": "菱田未渚美のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "菱田未渚美のがるらじ #14",
@@ -174969,7 +174977,7 @@
   {
     "date": "2024.10.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 増田來亜の「がるらじ ～GL² family RADIO～」 #14",
     "display_pc": "増田來亜のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "増田來亜のがるらじ #14",
@@ -174989,7 +174997,7 @@
   {
     "date": "2024.09.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 小川桜花の「がるらじ ～GL² family RADIO～」 #14",
     "display_pc": "小川桜花のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "小川桜花のがるらじ #14",
@@ -175009,7 +175017,7 @@
   {
     "date": "2024.09.13",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 鶴屋美咲の「がるらじ ～GL² family RADIO～」 #14",
     "display_pc": "鶴屋美咲のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "鶴屋美咲のがるらじ #14",
@@ -175029,7 +175037,7 @@
   {
     "date": "2024.08.28",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 「がるらじ ～GL² family RADIO～」 番外編！(百花&未渚美)",
     "display_pc": "がるらじ ～GL²family RADIO～ 番外編！(百花&未渚美)",
     "display_sm": "がるらじ 番外編！(百花&未渚美)",
@@ -175048,7 +175056,7 @@
   {
     "date": "2024.08.26",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 「がるらじ ～GL² family RADIO～」 番外編！(美咲&桜花)",
     "display_pc": "がるらじ ～GL²family RADIO～ 番外編！(美咲&桜花)",
     "display_sm": "がるらじ 番外編！(美咲&桜花)",
@@ -175067,7 +175075,7 @@
   {
     "date": "2024.08.24",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 「がるらじ ～GL² family RADIO～」 番外編！(綺羅&都愛)",
     "display_pc": "がるらじ ～GL²family RADIO～ 番外編！(綺羅&都愛)",
     "display_sm": "がるらじ 番外編！(綺羅&都愛)",
@@ -175086,7 +175094,7 @@
   {
     "date": "2024.08.22",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 「がるらじ ～GL² family RADIO～」 番外編！(柚葉&來亜)",
     "display_pc": "がるらじ ～GL²family RADIO～ 番外編！(柚葉&來亜)",
     "display_sm": "がるらじ 番外編！(柚葉&來亜)",
@@ -175105,7 +175113,7 @@
   {
     "date": "2024.07.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 隅谷百花の「がるらじ ～GL² family RADIO～」 #14",
     "display_pc": "隅谷百花のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "隅谷百花のがるらじ #14",
@@ -175125,7 +175133,7 @@
   {
     "date": "2024.07.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 小田柚葉の「がるらじ ～GL² family RADIO～」 #14",
     "display_pc": "小田柚葉のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "小田柚葉のがるらじ #14",
@@ -175145,7 +175153,7 @@
   {
     "date": "2024.06.12",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 原田都愛 の「がるらじ ～GL² family RADIO～」 #13",
     "display_pc": "原田都愛 のがるらじ ～GL²family RADIO～ #13",
     "display_sm": "原田都愛 のがるらじ #13",
@@ -175165,7 +175173,7 @@
   {
     "date": "2024.06.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 山口綺羅の「がるらじ ～GL² family RADIO～」 #13",
     "display_pc": "山口綺羅のがるらじ ～GL²family RADIO～ #13",
     "display_sm": "山口綺羅のがるらじ #13",
@@ -175185,7 +175193,7 @@
   {
     "date": "2024.05.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 菱田未渚美の「がるらじ ～GL² family RADIO～」 #13",
     "display_pc": "菱田未渚美のがるらじ ～GL²family RADIO～ #13",
     "display_sm": "菱田未渚美のがるらじ #13",
@@ -175205,7 +175213,7 @@
   {
     "date": "2024.05.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 増田來亜の「がるらじ ～GL² family RADIO～」 #13",
     "display_pc": "増田來亜のがるらじ ～GL²family RADIO～ #13",
     "display_sm": "増田來亜のがるらじ #13",
@@ -175225,7 +175233,7 @@
   {
     "date": "2024.04.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 小川桜花の「がるらじ ～GL² family RADIO～」#13",
     "display_pc": "小川桜花のがるらじ ～GL²family RADIO～#13",
     "display_sm": "小川桜花のがるらじ #13",
@@ -175245,7 +175253,7 @@
   {
     "date": "2024.04.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 鶴屋美咲の「がるらじ ～GL² family RADIO～」#13",
     "display_pc": "鶴屋美咲のがるらじ ～GL²family RADIO～#13",
     "display_sm": "鶴屋美咲のがるらじ #13",
@@ -175265,7 +175273,7 @@
   {
     "date": "2024.03.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 隅谷百花の「がるらじ ～GL² family RADIO～」#13",
     "display_pc": "隅谷百花のがるらじ ～GL²family RADIO～#13",
     "display_sm": "隅谷百花のがるらじ #13",
@@ -175285,7 +175293,7 @@
   {
     "date": "2024.03.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 小田柚葉の「がるらじ ～GL² family RADIO～」#13",
     "display_pc": "小田柚葉のがるらじ ～GL²family RADIO～#13",
     "display_sm": "小田柚葉のがるらじ #13",
@@ -175305,7 +175313,7 @@
   {
     "date": "2024.02.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 原田都愛の「がるらじ ～GL² family RADIO～」#12",
     "display_pc": "原田都愛のがるらじ ～GL²family RADIO～#12",
     "display_sm": "原田都愛のがるらじ #12",
@@ -175325,7 +175333,7 @@
   {
     "date": "2024.02.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅の「がるらじ ～GL² family RADIO～」#12",
     "display_pc": "山口綺羅のがるらじ ～GL²family RADIO～#12",
     "display_sm": "山口綺羅のがるらじ #12",
@@ -175345,7 +175353,7 @@
   {
     "date": "2024.01.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 菱田未渚美の「がるらじ ～GL² family RADIO～」#12",
     "display_pc": "菱田未渚美のがるらじ ～GL²family RADIO～#12",
     "display_sm": "菱田未渚美のがるらじ #12",
@@ -175365,7 +175373,7 @@
   {
     "date": "2024.01.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 増田來亜の「がるらじ ～GL² family RADIO～」#12",
     "display_pc": "増田來亜のがるらじ ～GL²family RADIO～#12",
     "display_sm": "増田來亜のがるらじ #12",
@@ -175385,7 +175393,7 @@
   {
     "date": "2023.12.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 小川桜花の「がるらじ ～GL² family RADIO～」#12",
     "display_pc": "小川桜花のがるらじ ～GL²family RADIO～#12",
     "display_sm": "小川桜花のがるらじ #12",
@@ -175405,7 +175413,7 @@
   {
     "date": "2023.12.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 鶴屋美咲の「がるらじ ～GL² family RADIO～」#12",
     "display_pc": "鶴屋美咲のがるらじ ～GL²family RADIO～#12",
     "display_sm": "鶴屋美咲のがるらじ #12",
@@ -175425,7 +175433,7 @@
   {
     "date": "2023.11.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 隅谷百花の「がるらじ ～GL² family RADIO～」#12",
     "display_pc": "隅谷百花のがるらじ ～GL²family RADIO～#12",
     "display_sm": "隅谷百花のがるらじ #12",
@@ -175445,7 +175453,7 @@
   {
     "date": "2023.11.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 小田柚葉の「がるらじ ～GL² family RADIO～」#12",
     "display_pc": "小田柚葉のがるらじ ～GL²family RADIO～#12",
     "display_sm": "小田柚葉のがるらじ #12",
@@ -175465,7 +175473,7 @@
   {
     "date": "2023.10.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 原田都愛の「がるらじ ～GL² family RADIO～」 #11公開♪",
     "display_pc": "原田都愛のがるらじ ～GL²family RADIO～ #11公開♪",
     "display_sm": "原田都愛のがるらじ #11公開♪",
@@ -175485,7 +175493,7 @@
   {
     "date": "2023.10.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 山口綺羅の「がるらじ ～GL² family RADIO～」 #11",
     "display_pc": "山口綺羅のがるらじ ～GL²family RADIO～ #11",
     "display_sm": "山口綺羅のがるらじ #11",
@@ -175505,7 +175513,7 @@
   {
     "date": "2023.09.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 菱田未渚美の「がるらじ ～GL² family RADIO～」#11 公開♪",
     "display_pc": "菱田未渚美のがるらじ ～GL²family RADIO～#11 公開♪",
     "display_sm": "菱田未渚美のがるらじ #11 公開♪",
@@ -175525,7 +175533,7 @@
   {
     "date": "2023.09.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 増田來亜の「がるらじ ～GL² family RADIO～」#11 公開♪",
     "display_pc": "増田來亜のがるらじ ～GL²family RADIO～#11 公開♪",
     "display_sm": "増田來亜のがるらじ #11 公開♪",
@@ -175545,7 +175553,7 @@
   {
     "date": "2023.08.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 小川桜花の「がるらじ ～GL² family RADIO～」#11 公開♪",
     "display_pc": "小川桜花のがるらじ ～GL²family RADIO～#11 公開♪",
     "display_sm": "小川桜花のがるらじ #11 公開♪",
@@ -175565,7 +175573,7 @@
   {
     "date": "2023.08.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 鶴屋美咲の「がるらじ ～GL² family RADIO～」#11 公開♪",
     "display_pc": "鶴屋美咲のがるらじ ～GL²family RADIO～#11 公開♪",
     "display_sm": "鶴屋美咲のがるらじ #11 公開♪",
@@ -175585,7 +175593,7 @@
   {
     "date": "2023.07.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 隅谷百花の「がるらじ ～GL² family RADIO～」#11 公開♪",
     "display_pc": "隅谷百花のがるらじ ～GL²family RADIO～#11 公開♪",
     "display_sm": "隅谷百花のがるらじ #11 公開♪",
@@ -175605,7 +175613,7 @@
   {
     "date": "2023.07.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 小田柚葉の「がるらじ ～GL² family RADIO～」#11",
     "display_pc": "小田柚葉のがるらじ ～GL²family RADIO～#11",
     "display_sm": "小田柚葉のがるらじ #11",
@@ -175625,7 +175633,7 @@
   {
     "date": "2023.06.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 原田都愛 の 『 This is 都愛 』 #10",
     "display_pc": "原田都愛 の 「 This is 都愛 」 #10",
     "display_sm": "原田都愛 の 「 This is 都愛 」 #10",
@@ -175645,7 +175653,7 @@
   {
     "date": "2023.06.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 『きらとLet's take TikTok together』#10",
     "display_pc": "山口綺羅 「きらとLet's take TikTok together」#10",
     "display_sm": "山口綺羅 「きらとLet's take TikTok together」#10",
@@ -175665,7 +175673,7 @@
   {
     "date": "2023.05.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 『みーのけんきゅうじょ\"FREELY\"』#10",
     "display_pc": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#10",
     "display_sm": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#10",
@@ -175685,7 +175693,7 @@
   {
     "date": "2023.05.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 『増田來亜の相談室』#10",
     "display_pc": "増田來亜 「増田來亜の相談室」#10",
     "display_sm": "増田來亜 「増田來亜の相談室」#10",
@@ -175705,7 +175713,7 @@
   {
     "date": "2023.04.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 『桜花のBeauty room』#10",
     "display_pc": "小川桜花 「桜花のBeauty room」#10",
     "display_sm": "小川桜花 「桜花のBeauty room」#10",
@@ -175725,7 +175733,7 @@
   {
     "date": "2023.04.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 『美咲とステキ発見』#10",
     "display_pc": "鶴屋美咲 「美咲とステキ発見」#10",
     "display_sm": "鶴屋美咲 「美咲とステキ発見」#10",
@@ -175745,7 +175753,7 @@
   {
     "date": "2023.04.03",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 「がるらじ ～GL² family RADIO～」綺羅×優和の特別番組",
     "display_pc": "がるらじ ～GL²family RADIO～綺羅×優和の",
     "display_sm": "がるらじ 綺羅×優和の",
@@ -175764,7 +175772,7 @@
   {
     "date": "2023.03.30",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 「がるらじ ～GL² family RADIO～」石井蘭 卒業特番！",
     "display_pc": "がるらじ ～GL²family RADIO～石井蘭 卒業特番！",
     "display_sm": "がるらじ 石井蘭 卒業特番！",
@@ -175784,7 +175792,7 @@
   {
     "date": "2023.03.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 『百花のmusic diary』#10",
     "display_pc": "隅谷百花 「百花のmusic diary」#10",
     "display_sm": "隅谷百花 「百花のmusic diary」#10",
@@ -175804,7 +175812,7 @@
   {
     "date": "2023.03.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 『全力タイムズ！柚ニュース！』#10",
     "display_pc": "小田柚葉 「全力タイムズ！柚ニュース！」#10",
     "display_sm": "小田柚葉 「全力タイムズ！柚ニュース！」#10",
@@ -175824,7 +175832,7 @@
   {
     "date": "2023.03.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 「がるらじ ～GL² family RADIO～」美咲×朱里の特別番組 後編",
     "display_pc": "がるらじ ～GL²family RADIO～美咲×朱里の 後編",
     "display_sm": "がるらじ 美咲×朱里の 後編",
@@ -175843,7 +175851,7 @@
   {
     "date": "2023.03.06",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 「がるらじ ～GL² family RADIO～」美咲×朱里の特別番組 前編",
     "display_pc": "がるらじ ～GL²family RADIO～美咲×朱里の 前編",
     "display_sm": "がるらじ 美咲×朱里の 前編",
@@ -175862,7 +175870,7 @@
   {
     "date": "2023.02.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "石井蘭 『蘭のDance floor』#9",
     "display_pc": "石井蘭 「蘭のDance floor」#9",
     "display_sm": "石井蘭 「蘭のDance floor」#9",
@@ -175882,7 +175890,7 @@
   {
     "date": "2023.02.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 『みーのけんきゅうじょ\"FREELY\"』#9",
     "display_pc": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#9",
     "display_sm": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#9",
@@ -175902,7 +175910,7 @@
   {
     "date": "2023.02.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 『美咲とステキ発見』#9",
     "display_pc": "鶴屋美咲 「美咲とステキ発見」#9",
     "display_sm": "鶴屋美咲 「美咲とステキ発見」#9",
@@ -175922,7 +175930,7 @@
   {
     "date": "2023.01.09",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『ミラクルパス連動！Girls²プレゼント企画 ～折り紙カモシくん～』",
     "display_pc": "「ミラクルパス連動！Girls²プレゼント企画 ～折り紙カモシくん～」",
     "display_sm": "「ミラクルパス連動！Girls²プレゼント企画 ～折り紙カモシくん～」",
@@ -175941,7 +175949,7 @@
   {
     "date": "2023.01.08",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『蘭の日記連動！釣り堀に行ってきた』",
     "display_pc": "「蘭の日記連動！釣り堀に行ってきた」",
     "display_sm": "「蘭の日記連動！釣り堀に行ってきた」",
@@ -175960,7 +175968,7 @@
   {
     "date": "2023.01.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『7Daysコーデ♪』",
     "display_pc": "「7Daysコーデ♪」",
     "display_sm": "「7Daysコーデ♪」",
@@ -175979,7 +175987,7 @@
   {
     "date": "2023.01.06",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『お絵描き推理対決！』",
     "display_pc": "「お絵描き推理対決！」",
     "display_sm": "「お絵描き推理対決！」",
@@ -175998,7 +176006,7 @@
   {
     "date": "2023.01.05",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『ゆずちゃん＆とあちゃんのお料理番組』",
     "display_pc": "「ゆずちゃん＆とあちゃんのお料理番組」",
     "display_sm": "「ゆずちゃん＆とあちゃんのお料理番組」",
@@ -176017,7 +176025,7 @@
   {
     "date": "2023.01.04",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『美咲と來亜のデート ～ガラス工房体験～』",
     "display_pc": "「美咲と來亜のデート ～ガラス工房体験～」",
     "display_sm": "「美咲と來亜のデート ～ガラス工房体験～」",
@@ -176036,7 +176044,7 @@
   {
     "date": "2023.01.03",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『紙風船で全力体育祭！』",
     "display_pc": "「紙風船で全力体育祭！」",
     "display_sm": "「紙風船で全力体育祭！」",
@@ -176055,7 +176063,7 @@
   {
     "date": "2023.01.02",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『こたつでお餅食べよう！』後編",
     "display_pc": "「こたつでお餅食べよう！」後編",
     "display_sm": "「こたつでお餅食べよう！」後編",
@@ -176074,7 +176082,7 @@
   {
     "date": "2023.01.02",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『こたつでお餅食べよう！』前編",
     "display_pc": "「こたつでお餅食べよう！」前編",
     "display_sm": "「こたつでお餅食べよう！」前編",
@@ -176093,7 +176101,7 @@
   {
     "date": "2023.01.01",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『真のGirls²は誰だ？！Girls²検定 メンバー大会』",
     "display_pc": "「真のGirls²は誰だ？！Girls²検定 メンバー大会」",
     "display_sm": "「真のGirls²は誰だ？！Girls²検定 メンバー大会」",
@@ -176112,7 +176120,7 @@
   {
     "date": "2022.12.29",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『2022年 がるらじ忘年会』後編",
     "display_pc": "「2022年 がるらじ忘年会」後編",
     "display_sm": "「2022年 がるらじ忘年会」後編",
@@ -176131,7 +176139,7 @@
   {
     "date": "2022.12.28",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『2022年 がるらじ忘年会』前編",
     "display_pc": "「2022年 がるらじ忘年会」前編",
     "display_sm": "「2022年 がるらじ忘年会」前編",
@@ -176150,7 +176158,7 @@
   {
     "date": "2022.12.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 『This is 都愛』＃9",
     "display_pc": "原田都愛 「This is 都愛」#9",
     "display_sm": "原田都愛 「This is 都愛」#9",
@@ -176170,7 +176178,7 @@
   {
     "date": "2022.12.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 『増田來亜の相談室』#9",
     "display_pc": "増田來亜 「増田來亜の相談室」#9",
     "display_sm": "増田來亜 「増田來亜の相談室」#9",
@@ -176190,7 +176198,7 @@
   {
     "date": "2022.12.12",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "石井蘭 石井蘭の特別番組『出張！がるらじ ～広島グルメレポート～』",
     "display_pc": "石井蘭の「出張！がるらじ ～広島グルメレポート～」",
     "display_sm": "石井蘭の「出張！がるらじ ～広島グルメレポート～」",
@@ -176210,7 +176218,7 @@
   {
     "date": "2022.12.11",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 『百花のmusic diary』#9 ★おまけ★",
     "display_pc": "隅谷百花 「百花のmusic diary」#9 ★おまけ★",
     "display_sm": "隅谷百花 「百花のmusic diary」#9 ★おまけ★",
@@ -176230,7 +176238,7 @@
   {
     "date": "2022.12.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 『百花のmusic diary』#9",
     "display_pc": "隅谷百花 「百花のmusic diary」#9",
     "display_sm": "隅谷百花 「百花のmusic diary」#9",
@@ -176250,7 +176258,7 @@
   {
     "date": "2022.11.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 『きらとLet's take TikTok together』#9",
     "display_pc": "山口綺羅 「きらとLet's take TikTok together」#9",
     "display_sm": "山口綺羅 「きらとLet's take TikTok together」#9",
@@ -176270,7 +176278,7 @@
   {
     "date": "2022.11.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 『桜花のBeauty room』#9",
     "display_pc": "小川桜花 「桜花のBeauty room」#9",
     "display_sm": "小川桜花 「桜花のBeauty room」#9",
@@ -176290,7 +176298,7 @@
   {
     "date": "2022.11.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 『全力タイムズ！柚ニュース！』#9",
     "display_pc": "小田柚葉 「全力タイムズ！柚ニュース！」#9",
     "display_sm": "小田柚葉 「全力タイムズ！柚ニュース！」#9",
@@ -176310,7 +176318,7 @@
   {
     "date": "2022.10.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "石井蘭 『蘭のDance floor』#8",
     "display_pc": "石井蘭 「蘭のDance floor」#8",
     "display_sm": "石井蘭 「蘭のDance floor」#8",
@@ -176330,7 +176338,7 @@
   {
     "date": "2022.10.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 『みーのけんきゅうじょ\"FREELY\"』#8",
     "display_pc": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#8",
     "display_sm": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#8",
@@ -176350,7 +176358,7 @@
   {
     "date": "2022.10.11",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 『美咲とステキ発見』#8 おまけ",
     "display_pc": "鶴屋美咲 「美咲とステキ発見」#8 おまけ",
     "display_sm": "鶴屋美咲 「美咲とステキ発見」#8 おまけ",
@@ -176370,7 +176378,7 @@
   {
     "date": "2022.10.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 『美咲とステキ発見』#8",
     "display_pc": "鶴屋美咲 「美咲とステキ発見」#8",
     "display_sm": "鶴屋美咲 「美咲とステキ発見」#8",
@@ -176390,7 +176398,7 @@
   {
     "date": "2022.09.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 『This is 都愛』＃8",
     "display_pc": "原田都愛 「This is 都愛」#8",
     "display_sm": "原田都愛 「This is 都愛」#8",
@@ -176410,7 +176418,7 @@
   {
     "date": "2022.09.16",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 『増田來亜の相談室』#8 おまけ☆",
     "display_pc": "増田來亜 「増田來亜の相談室」#8 おまけ☆",
     "display_sm": "増田來亜 「増田來亜の相談室」#8 おまけ☆",
@@ -176430,7 +176438,7 @@
   {
     "date": "2022.09.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 『増田來亜の相談室』#8",
     "display_pc": "増田來亜 「増田來亜の相談室」#8",
     "display_sm": "増田來亜 「増田來亜の相談室」#8",
@@ -176450,7 +176458,7 @@
   {
     "date": "2022.09.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 『百花のmusic diary』#8",
     "display_pc": "隅谷百花 「百花のmusic diary」#8",
     "display_sm": "隅谷百花 「百花のmusic diary」#8",
@@ -176470,7 +176478,7 @@
   {
     "date": "2022.08.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 『きらとLet's take TikTok together』#8",
     "display_pc": "山口綺羅 「きらとLet's take TikTok together」#8",
     "display_sm": "山口綺羅 「きらとLet's take TikTok together」#8",
@@ -176490,7 +176498,7 @@
   {
     "date": "2022.08.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 『桜花のBeauty room』#8",
     "display_pc": "小川桜花 「桜花のBeauty room」#8",
     "display_sm": "小川桜花 「桜花のBeauty room」#8",
@@ -176510,7 +176518,7 @@
   {
     "date": "2022.08.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 『全力タイムズ！柚ニュース！』#8",
     "display_pc": "小田柚葉 「全力タイムズ！柚ニュース！」#8",
     "display_sm": "小田柚葉 「全力タイムズ！柚ニュース！」#8",
@@ -176530,7 +176538,7 @@
   {
     "date": "2022.07.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "石井蘭 『蘭のDance floor』#7",
     "display_pc": "石井蘭 「蘭のDance floor」#7",
     "display_sm": "石井蘭 「蘭のDance floor」#7",
@@ -176550,7 +176558,7 @@
   {
     "date": "2022.07.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 『みーのけんきゅうじょ\"FREELY\"』#7",
     "display_pc": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#7",
     "display_sm": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#7",
@@ -176570,7 +176578,7 @@
   {
     "date": "2022.07.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 『美咲とステキ発見』#7",
     "display_pc": "鶴屋美咲 「美咲とステキ発見」#7",
     "display_sm": "鶴屋美咲 「美咲とステキ発見」#7",
@@ -176590,7 +176598,7 @@
   {
     "date": "2022.06.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 『This is 都愛』＃7",
     "display_pc": "原田都愛 「This is 都愛」#7",
     "display_sm": "原田都愛 「This is 都愛」#7",
@@ -176610,7 +176618,7 @@
   {
     "date": "2022.06.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 『増田來亜の相談室』#7",
     "display_pc": "増田來亜 「増田來亜の相談室」#7",
     "display_sm": "増田來亜 「増田來亜の相談室」#7",
@@ -176630,7 +176638,7 @@
   {
     "date": "2022.06.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 『百花のmusic diary』#7",
     "display_pc": "隅谷百花 「百花のmusic diary」#7",
     "display_sm": "隅谷百花 「百花のmusic diary」#7",
@@ -176650,7 +176658,7 @@
   {
     "date": "2022.05.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 『きらとLet's take TikTok together』#7",
     "display_pc": "山口綺羅 「きらとLet's take TikTok together」#7",
     "display_sm": "山口綺羅 「きらとLet's take TikTok together」#7",
@@ -176670,7 +176678,7 @@
   {
     "date": "2022.05.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 『桜花のBeauty room』#7",
     "display_pc": "小川桜花 「桜花のBeauty room」#7",
     "display_sm": "小川桜花 「桜花のBeauty room」#7",
@@ -176690,7 +176698,7 @@
   {
     "date": "2022.05.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 『全力タイムズ！柚ニュース！』#7",
     "display_pc": "小田柚葉 「全力タイムズ！柚ニュース！」#7",
     "display_sm": "小田柚葉 「全力タイムズ！柚ニュース！」#7",
@@ -176710,7 +176718,7 @@
   {
     "date": "2022.04.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 『みーのけんきゅうじょ\"FREELY\"』#6",
     "display_pc": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#6",
     "display_sm": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#6",
@@ -176730,7 +176738,7 @@
   {
     "date": "2022.04.18",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 【特別番組】菱田未渚美の『出張！がるらじ ～GL² family RADIO～』in仙台",
     "display_pc": "菱田未渚美の「出張！がるらじ ～GL² family RADIO～」in仙台",
     "display_sm": "菱田未渚美の「出張！がるらじ ～GL² family RADIO～」in仙台",
@@ -176750,7 +176758,7 @@
   {
     "date": "2022.04.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "石井蘭 『蘭のDance floor』#6",
     "display_pc": "石井蘭 「蘭のDance floor」#6",
     "display_sm": "石井蘭 「蘭のDance floor」#6",
@@ -176770,7 +176778,7 @@
   {
     "date": "2022.04.11",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 『美咲とステキ発見』#6 後編",
     "display_pc": "鶴屋美咲 「美咲とステキ発見」#6 後編",
     "display_sm": "鶴屋美咲 「美咲とステキ発見」#6 後編",
@@ -176790,7 +176798,7 @@
   {
     "date": "2022.04.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 『美咲とステキ発見』#6 前編",
     "display_pc": "鶴屋美咲 「美咲とステキ発見」#6 前編",
     "display_sm": "鶴屋美咲 「美咲とステキ発見」#6 前編",
@@ -176810,7 +176818,7 @@
   {
     "date": "2022.03.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 『This is 都愛』＃6",
     "display_pc": "原田都愛 「This is 都愛」#6",
     "display_sm": "原田都愛 「This is 都愛」#6",
@@ -176830,7 +176838,7 @@
   {
     "date": "2022.03.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 『増田來亜の相談室』#6",
     "display_pc": "増田來亜 「増田來亜の相談室」#6",
     "display_sm": "増田來亜 「増田來亜の相談室」#6",
@@ -176850,7 +176858,7 @@
   {
     "date": "2022.03.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 『百花のmusic diary』#6",
     "display_pc": "隅谷百花 「百花のmusic diary」#6",
     "display_sm": "隅谷百花 「百花のmusic diary」#6",
@@ -176870,7 +176878,7 @@
   {
     "date": "2022.02.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 『きらとLet's take TikTok together』#6",
     "display_pc": "山口綺羅 「きらとLet's take TikTok together」#6",
     "display_sm": "山口綺羅 「きらとLet's take TikTok together」#6",
@@ -176890,7 +176898,7 @@
   {
     "date": "2022.02.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 『桜花のBeauty room』#6",
     "display_pc": "小川桜花 「桜花のBeauty room」#6",
     "display_sm": "小川桜花 「桜花のBeauty room」#6",
@@ -176910,7 +176918,7 @@
   {
     "date": "2022.02.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 『全力タイムズ！柚ニュース！』#6",
     "display_pc": "小田柚葉 「全力タイムズ！柚ニュース！」#6",
     "display_sm": "小田柚葉 「全力タイムズ！柚ニュース！」#6",
@@ -176930,7 +176938,7 @@
   {
     "date": "2022.01.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組 小田柚葉×隅谷百花×原田都愛『共通点どこ？』",
     "display_pc": "小田柚葉×隅谷百花×原田都愛「共通点どこ？」",
     "display_sm": "小田柚葉×隅谷百花×原田都愛「共通点どこ？」",
@@ -176952,7 +176960,7 @@
   {
     "date": "2022.01.09",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組 増田來亜×山口綺羅『最近何してた？』",
     "display_pc": "増田來亜×山口綺羅「最近何してた？」",
     "display_sm": "増田來亜×山口綺羅「最近何してた？」",
@@ -176973,7 +176981,7 @@
   {
     "date": "2022.01.05",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組 小川桜花×菱田未渚美『たこやき New Good（具） 』",
     "display_pc": "小川桜花×菱田未渚美「たこやき New Good（具） 」",
     "display_sm": "小川桜花×菱田未渚美「たこやき New Good（具） 」",
@@ -176994,7 +177002,7 @@
   {
     "date": "2022.01.01",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組 鶴屋美咲×石井蘭『新春！気まぐれクイズ！』",
     "display_pc": "鶴屋美咲×石井蘭「新春！気まぐれクイズ！」",
     "display_sm": "鶴屋美咲×石井蘭「新春！気まぐれクイズ！」",
@@ -177015,7 +177023,7 @@
   {
     "date": "2021.12.30",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組 美咲×未渚美×蘭『がるらじ忘年会 2021』後編",
     "display_pc": "美咲×未渚美×蘭「がるらじ忘年会 2021」後編",
     "display_sm": "美咲×未渚美×蘭「がるらじ忘年会 2021」後編",
@@ -177034,7 +177042,7 @@
   {
     "date": "2021.12.30",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組 美咲×未渚美×蘭『がるらじ忘年会 2021』前編",
     "display_pc": "美咲×未渚美×蘭「がるらじ忘年会 2021」前編",
     "display_sm": "美咲×未渚美×蘭「がるらじ忘年会 2021」前編",
@@ -177053,7 +177061,7 @@
   {
     "date": "2021.12.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "石井蘭 『蘭のDance floor』#5",
     "display_pc": "石井蘭 「蘭のDance floor」#5",
     "display_sm": "石井蘭 「蘭のDance floor」#5",
@@ -177073,7 +177081,7 @@
   {
     "date": "2021.12.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 『みーのけんきゅうじょ\"FREELY\"』#5",
     "display_pc": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#5",
     "display_sm": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#5",
@@ -177093,7 +177101,7 @@
   {
     "date": "2021.12.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 『美咲とステキ発見』#5",
     "display_pc": "鶴屋美咲 「美咲とステキ発見」#5",
     "display_sm": "鶴屋美咲 「美咲とステキ発見」#5",
@@ -177113,7 +177121,7 @@
   {
     "date": "2021.11.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 『This is 都愛』＃5",
     "display_pc": "原田都愛 「This is 都愛」#5",
     "display_sm": "原田都愛 「This is 都愛」#5",
@@ -177133,7 +177141,7 @@
   {
     "date": "2021.11.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 『増田來亜の相談室』#5",
     "display_pc": "増田來亜 「増田來亜の相談室」#5",
     "display_sm": "増田來亜 「増田來亜の相談室」#5",
@@ -177153,7 +177161,7 @@
   {
     "date": "2021.11.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 『百花のmusic diary』#5",
     "display_pc": "隅谷百花 「百花のmusic diary」#5",
     "display_sm": "隅谷百花 「百花のmusic diary」#5",
@@ -177173,7 +177181,7 @@
   {
     "date": "2021.10.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 『きらとLet's take TikTok together』#5 後編",
     "display_pc": "山口綺羅 「きらとLet's take TikTok together」#5 後編",
     "display_sm": "山口綺羅 「きらとLet's take TikTok together」#5 後編",
@@ -177193,7 +177201,7 @@
   {
     "date": "2021.10.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 『きらとLet's take TikTok together』#5 前編 (無料公開)",
     "display_pc": "山口綺羅 「きらとLet's take TikTok together」#5 前編 (無料公開)",
     "display_sm": "山口綺羅 「きらとLet's take TikTok together」#5 前編 (無料公開)",
@@ -177213,7 +177221,7 @@
   {
     "date": "2021.10.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 『桜花のBeauty room』#5",
     "display_pc": "小川桜花 「桜花のBeauty room」#5",
     "display_sm": "小川桜花 「桜花のBeauty room」#5",
@@ -177233,7 +177241,7 @@
   {
     "date": "2021.10.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 『全力タイムズ！柚ニュース！』#5",
     "display_pc": "小田柚葉 「全力タイムズ！柚ニュース！」#5",
     "display_sm": "小田柚葉 「全力タイムズ！柚ニュース！」#5",
@@ -177253,7 +177261,7 @@
   {
     "date": "2021.09.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "石井蘭 『蘭のDance floor』#4",
     "display_pc": "石井蘭 「蘭のDance floor」#4",
     "display_sm": "石井蘭 「蘭のDance floor」#4",
@@ -177273,7 +177281,7 @@
   {
     "date": "2021.09.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 『みーのけんきゅうじょ\"FREELY\"』#4 後編",
     "display_pc": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#4 後編",
     "display_sm": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#4 後編",
@@ -177293,7 +177301,7 @@
   {
     "date": "2021.09.14",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 『みーのけんきゅうじょ\"FREELY\"』#4 前編 【無料公開！】",
     "display_pc": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#4 前編 【無料公開！】",
     "display_sm": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#4 前編 【無料公開！】",
@@ -177313,7 +177321,7 @@
   {
     "date": "2021.09.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 『美咲とステキ発見』#4",
     "display_pc": "鶴屋美咲 「美咲とステキ発見」#4",
     "display_sm": "鶴屋美咲 「美咲とステキ発見」#4",
@@ -177333,7 +177341,7 @@
   {
     "date": "2021.08.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 『This is 都愛』#4",
     "display_pc": "原田都愛 「This is 都愛」#4",
     "display_sm": "原田都愛 「This is 都愛」#4",
@@ -177353,7 +177361,7 @@
   {
     "date": "2021.08.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 『増田來亜の相談室』#4",
     "display_pc": "増田來亜 「増田來亜の相談室」#4",
     "display_sm": "増田來亜 「増田來亜の相談室」#4",
@@ -177373,7 +177381,7 @@
   {
     "date": "2021.08.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 『百花のmusic diary』#4",
     "display_pc": "隅谷百花 「百花のmusic diary」#4",
     "display_sm": "隅谷百花 「百花のmusic diary」#4",
@@ -177393,7 +177401,7 @@
   {
     "date": "2021.07.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 『きらとLet's take TikTok together』#4",
     "display_pc": "山口綺羅 「きらとLet's take TikTok together」#4",
     "display_sm": "山口綺羅 「きらとLet's take TikTok together」#4",
@@ -177413,7 +177421,7 @@
   {
     "date": "2021.07.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 『桜花のBeauty room』#4",
     "display_pc": "小川桜花 「桜花のBeauty room」#4",
     "display_sm": "小川桜花 「桜花のBeauty room」#4",
@@ -177433,7 +177441,7 @@
   {
     "date": "2021.07.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 『全力タイムズ！柚ニュース！』#4",
     "display_pc": "小田柚葉 「全力タイムズ！柚ニュース！」#4",
     "display_sm": "小田柚葉 「全力タイムズ！柚ニュース！」#4",
@@ -177453,7 +177461,7 @@
   {
     "date": "2021.06.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 『みーのけんきゅうじょ\"FREELY\"』#3",
     "display_pc": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#3",
     "display_sm": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#3",
@@ -177473,7 +177481,7 @@
   {
     "date": "2021.06.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 『美咲とステキ発見』#3",
     "display_pc": "鶴屋美咲 「美咲とステキ発見」#3",
     "display_sm": "鶴屋美咲 「美咲とステキ発見」#3",
@@ -177493,7 +177501,7 @@
   {
     "date": "2021.06.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "石井蘭 『蘭のDance floor』#3",
     "display_pc": "石井蘭 「蘭のDance floor」#3",
     "display_sm": "石井蘭 「蘭のDance floor」#3",
@@ -177513,7 +177521,7 @@
   {
     "date": "2021.05.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 『This is 都愛』#3",
     "display_pc": "原田都愛 「This is 都愛」#3",
     "display_sm": "原田都愛 「This is 都愛」#3",
@@ -177533,7 +177541,7 @@
   {
     "date": "2021.05.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 『増田來亜の相談室』#3",
     "display_pc": "増田來亜 「増田來亜の相談室」#3",
     "display_sm": "増田來亜 「増田來亜の相談室」#3",
@@ -177553,7 +177561,7 @@
   {
     "date": "2021.05.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 『百花のmusic diary』#3",
     "display_pc": "隅谷百花 「百花のmusic diary」#3",
     "display_sm": "隅谷百花 「百花のmusic diary」#3",
@@ -177573,7 +177581,7 @@
   {
     "date": "2021.04.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 『きらとLet's take TikTok together』#3",
     "display_pc": "山口綺羅 「きらとLet's take TikTok together」#3",
     "display_sm": "山口綺羅 「きらとLet's take TikTok together」#3",
@@ -177593,7 +177601,7 @@
   {
     "date": "2021.04.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 『桜花のBeauty room』#3",
     "display_pc": "小川桜花 「桜花のBeauty room」#3",
     "display_sm": "小川桜花 「桜花のBeauty room」#3",
@@ -177613,7 +177621,7 @@
   {
     "date": "2021.04.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 『全力タイムズ！柚ニュース！』#3",
     "display_pc": "小田柚葉 「全力タイムズ！柚ニュース！」#3",
     "display_sm": "小田柚葉 「全力タイムズ！柚ニュース！」#3",
@@ -177633,7 +177641,7 @@
   {
     "date": "2021.03.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "石井蘭 『蘭のDance floor』#2",
     "display_pc": "石井蘭 「蘭のDance floor」#2",
     "display_sm": "石井蘭 「蘭のDance floor」#2",
@@ -177653,7 +177661,7 @@
   {
     "date": "2021.03.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 『みーのけんきゅうじょ\"FREELY\"』#2",
     "display_pc": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#2",
     "display_sm": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#2",
@@ -177673,7 +177681,7 @@
   {
     "date": "2021.03.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 『美咲とステキ発見』#2",
     "display_pc": "鶴屋美咲 「美咲とステキ発見」#2",
     "display_sm": "鶴屋美咲 「美咲とステキ発見」#2",
@@ -177693,7 +177701,7 @@
   {
     "date": "2021.02.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 『This is 都愛』#2",
     "display_pc": "原田都愛 「This is 都愛」#2",
     "display_sm": "原田都愛 「This is 都愛」#2",
@@ -177713,7 +177721,7 @@
   {
     "date": "2021.02.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 『増田來亜の相談室』#2",
     "display_pc": "増田來亜 「増田來亜の相談室」#2",
     "display_sm": "増田來亜 「増田來亜の相談室」#2",
@@ -177733,7 +177741,7 @@
   {
     "date": "2021.02.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 『百花のmusic diary』#2",
     "display_pc": "隅谷百花 「百花のmusic diary」#2",
     "display_sm": "隅谷百花 「百花のmusic diary」#2",
@@ -177753,7 +177761,7 @@
   {
     "date": "2021.01.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 『きらとLet's take TikTok together』#2",
     "display_pc": "山口綺羅 「きらとLet's take TikTok together」#2",
     "display_sm": "山口綺羅 「きらとLet's take TikTok together」#2",
@@ -177773,7 +177781,7 @@
   {
     "date": "2021.01.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 『桜花のBeauty room』#2",
     "display_pc": "小川桜花 「桜花のBeauty room」#2",
     "display_sm": "小川桜花 「桜花のBeauty room」#2",
@@ -177793,7 +177801,7 @@
   {
     "date": "2021.01.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 『全力タイムズ！柚ニュース！』#2",
     "display_pc": "小田柚葉 「全力タイムズ！柚ニュース！」#2",
     "display_sm": "小田柚葉 「全力タイムズ！柚ニュース！」#2",
@@ -177813,7 +177821,7 @@
   {
     "date": "2020.12.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "石井蘭 『蘭のDance floor』#1",
     "display_pc": "石井蘭 「蘭のDance floor」#1",
     "display_sm": "石井蘭 「蘭のDance floor」#1",
@@ -177833,7 +177841,7 @@
   {
     "date": "2020.12.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "菱田未渚美 『みーのけんきゅうじょ\"FREELY\"』#1",
     "display_pc": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#1",
     "display_sm": "菱田未渚美 「みーのけんきゅうじょ\"FREELY\"」#1",
@@ -177853,7 +177861,7 @@
   {
     "date": "2020.12.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "増田來亜 『増田來亜の相談室』#1",
     "display_pc": "増田來亜 「増田來亜の相談室」#1",
     "display_sm": "増田來亜 「増田來亜の相談室」#1",
@@ -177873,7 +177881,7 @@
   {
     "date": "2020.11.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "原田都愛 『This is 都愛』#1",
     "display_pc": "原田都愛 「This is 都愛」#1",
     "display_sm": "原田都愛 「This is 都愛」#1",
@@ -177893,7 +177901,7 @@
   {
     "date": "2020.11.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口綺羅 『きらとLet's take TikTok together』#1",
     "display_pc": "山口綺羅 「きらとLet's take TikTok together」#1",
     "display_sm": "山口綺羅 「きらとLet's take TikTok together」#1",
@@ -177913,7 +177921,7 @@
   {
     "date": "2020.11.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小川桜花 『桜花のBeauty room』#1",
     "display_pc": "小川桜花 「桜花のBeauty room」#1",
     "display_sm": "小川桜花 「桜花のBeauty room」#1",
@@ -177933,7 +177941,7 @@
   {
     "date": "2020.11.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "鶴屋美咲 『美咲とステキ発見』#1",
     "display_pc": "鶴屋美咲 「美咲とステキ発見」#1",
     "display_sm": "鶴屋美咲 「美咲とステキ発見」#1",
@@ -177953,7 +177961,7 @@
   {
     "date": "2020.11.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "隅谷百花 『百花のmusic diary』#1",
     "display_pc": "隅谷百花 「百花のmusic diary」#1",
     "display_sm": "隅谷百花 「百花のmusic diary」#1",
@@ -177973,7 +177981,7 @@
   {
     "date": "2020.11.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "小田柚葉 『全力タイムズ！柚ニュース！』#1",
     "display_pc": "小田柚葉 「全力タイムズ！柚ニュース！」#1",
     "display_sm": "小田柚葉 「全力タイムズ！柚ニュース！」#1",
@@ -180388,7 +180396,7 @@
   {
     "date": "2026.09.04",
     "time": "0035",
-    "contents": "MEDIA",
+    "contents": "TV",
     "title": "『WORK≒LIFE』読売テレビ「音道楽√」9月度EDテーマ初回放送",
     "display_pc": "『WORK≒LIFE』　読売テレビ「音道楽√」　9月度EDテーマ初回放送",
     "display_sm": "『WORK≒LIFE』「音道楽√」EDテーマ初回放送",
@@ -180415,7 +180423,7 @@
   {
     "date": "2026.09.06",
     "time": "0135",
-    "contents": "MEDIA",
+    "contents": "TV",
     "title": "Laki 『WORK≒LIFE』読売テレビ「すもももももも！ピーチCAFÉ」9月度EDテーマ初回放送",
     "display_pc": "Laki 『WORK≒LIFE』　読売テレビ「すもももももも！ピーチCAFÉ」　9月度EDテーマ初回放送",
     "display_sm": "『WORK≒LIFE』「ピーチCAFÉ」EDテーマ初回放送",
@@ -181976,7 +181984,7 @@
   {
     "date": "2026.08.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 Lakiの「がるらじ ～GL² family RADIO～」 ～深澤日彩＆上村梨々香～ ≪後編≫",
     "display_pc": "深澤日彩と上村梨々香のがるらじ ～GL²family RADIO～ 後編",
     "display_sm": "深澤日彩と上村梨々香のがるらじ 後編",
@@ -181997,7 +182005,7 @@
   {
     "date": "2026.08.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 Lakiの「がるらじ ～GL² family RADIO～」 ～深澤日彩＆上村梨々香～ ≪前編≫",
     "display_pc": "深澤日彩と上村梨々香のがるらじ ～GL²family RADIO～ 前編",
     "display_sm": "深澤日彩と上村梨々香のがるらじ 前編",
@@ -182018,7 +182026,7 @@
   {
     "date": "2026.07.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】Lakiの「がるらじ～GL² family RADIO～」 ～山口莉愛＆永山椿～ ≪後編≫",
     "display_pc": "山口莉愛と永山椿のがるらじ ～GL²family RADIO～ 後編",
     "display_sm": "山口莉愛と永山椿のがるらじ 後編",
@@ -182039,7 +182047,7 @@
   {
     "date": "2026.07.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】Lakiの「がるらじ～GL² family RADIO～」 ～山口莉愛＆永山椿～ ≪前編≫",
     "display_pc": "山口莉愛と永山椿のがるらじ ～GL²family RADIO～ 前編",
     "display_sm": "山口莉愛と永山椿のがるらじ 前編",
@@ -182060,7 +182068,7 @@
   {
     "date": "2026.06.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】Lakiの「がるらじ～GL² family RADIO～」 ～森朱里＆佐藤妃希～ ≪後編≫",
     "display_pc": "森朱里と佐藤妃希のがるらじ ～GL²family RADIO～ 後編",
     "display_sm": "森朱里と佐藤妃希のがるらじ 後編",
@@ -182081,7 +182089,7 @@
   {
     "date": "2026.06.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】Lakiの「がるらじ～GL² family RADIO～」 ～森朱里＆佐藤妃希～ ≪前編≫",
     "display_pc": "森朱里と佐藤妃希のがるらじ ～GL²family RADIO～ 前編",
     "display_sm": "森朱里と佐藤妃希のがるらじ 前編",
@@ -182102,7 +182110,7 @@
   {
     "date": "2026.05.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】Lakiの「がるらじ～GL² family RADIO～」 ～佐藤栞奈＆上村梨々香～ ≪後編≫",
     "display_pc": "佐藤栞奈と上村梨々香のがるらじ ～GL²family RADIO～ 後編",
     "display_sm": "佐藤栞奈と上村梨々香のがるらじ 後編",
@@ -182123,7 +182131,7 @@
   {
     "date": "2026.05.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】Lakiの「がるらじ～GL² family RADIO～」 ～佐藤栞奈＆上村梨々香～ ≪前編≫",
     "display_pc": "佐藤栞奈と上村梨々香のがるらじ ～GL²family RADIO～ 前編",
     "display_sm": "佐藤栞奈と上村梨々香のがるらじ 前編",
@@ -182144,7 +182152,7 @@
   {
     "date": "2026.04.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】Lakiの「がるらじ～GL² family RADIO～」 ～深澤日彩＆比嘉優和～ ≪後編≫",
     "display_pc": "深澤日彩と比嘉優和のがるらじ ～GL²family RADIO～ 後編",
     "display_sm": "深澤日彩と比嘉優和のがるらじ 後編",
@@ -182165,7 +182173,7 @@
   {
     "date": "2026.04.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【特別番組】Lakiの「がるらじ～GL² family RADIO～」 ～深澤日彩＆比嘉優和～ ≪前編≫",
     "display_pc": "深澤日彩と比嘉優和のがるらじ ～GL²family RADIO～ 前編",
     "display_sm": "深澤日彩と比嘉優和のがるらじ 前編",
@@ -182186,7 +182194,7 @@
   {
     "date": "2026.03.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 永山 椿の「がるらじ ～GL² family RADIO～」 #16 公開♪",
     "display_pc": "永山椿のがるらじ ～GL²family RADIO～ #16",
     "display_sm": "永山椿のがるらじ #16",
@@ -182206,7 +182214,7 @@
   {
     "date": "2026.03.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 山口莉愛の「がるらじ ～GL² family RADIO～」#16 公開♪",
     "display_pc": "山口莉愛のがるらじ ～GL²family RADIO～ #16",
     "display_sm": "山口莉愛のがるらじ #16",
@@ -182226,7 +182234,7 @@
   {
     "date": "2026.02.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤妃希 佐藤妃希の「がるらじ ～GL² family RADIO～」#11公開♪",
     "display_pc": "佐藤妃希のがるらじ ～GL²family RADIO～ #011",
     "display_sm": "佐藤妃希のがるらじ #11",
@@ -182246,7 +182254,7 @@
   {
     "date": "2026.02.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "森朱里 森 朱里の「がるらじ ～GL² family RADIO～」 #11 公開♪",
     "display_pc": "森朱里のがるらじ ～GL²family RADIO～ #11",
     "display_sm": "森朱里のがるらじ #11",
@@ -182266,7 +182274,7 @@
   {
     "date": "2026.01.30",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "上村梨々香 上村梨々香の「がるらじ ～GL² family RADIO～」 #11 公開♪",
     "display_pc": "上村梨々香のがるらじ ～GL²family RADIO～ #11",
     "display_sm": "上村梨々香のがるらじ #11",
@@ -182286,7 +182294,7 @@
   {
     "date": "2026.01.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 佐藤栞奈の「がるらじ ～GL² family RADIO～」 #15 公開♪",
     "display_pc": "佐藤栞奈のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "佐藤栞奈のがるらじ #15",
@@ -182306,7 +182314,7 @@
   {
     "date": "2025.12.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 比嘉優和の「がるらじ ～GL² family RADIO～」 #15公開♪",
     "display_pc": "比嘉優和のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "比嘉優和のがるらじ #15",
@@ -182326,7 +182334,7 @@
   {
     "date": "2025.12.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 深澤日彩の「がるらじ ～GL² family RADIO～」 #15 公開♪",
     "display_pc": "深澤日彩のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "深澤日彩のがるらじ #15",
@@ -182346,7 +182354,7 @@
   {
     "date": "2025.11.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 永山 椿の「がるらじ ～GL² family RADIO～」 #15 公開♪",
     "display_pc": "永山椿のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "永山椿のがるらじ #15",
@@ -182366,7 +182374,7 @@
   {
     "date": "2025.11.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛の「がるらじ ～GL² family RADIO～」#15 公開♪",
     "display_pc": "山口莉愛のがるらじ ～GL²family RADIO～ #15",
     "display_sm": "山口莉愛のがるらじ #15",
@@ -182386,7 +182394,7 @@
   {
     "date": "2025.10.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤妃希 佐藤妃希の「がるらじ ～GL² family RADIO～」#10 公開♪",
     "display_pc": "佐藤妃希のがるらじ ～GL²family RADIO～ #010",
     "display_sm": "佐藤妃希のがるらじ #10",
@@ -182406,7 +182414,7 @@
   {
     "date": "2025.10.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "森朱里 森 朱里の「がるらじ ～GL² family RADIO～」 #10公開♪",
     "display_pc": "森朱里のがるらじ ～GL²family RADIO～ #10",
     "display_sm": "森朱里のがるらじ #10",
@@ -182426,7 +182434,7 @@
   {
     "date": "2025.09.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "上村梨々香 上村梨々香の「がるらじ ～GL² family RADIO～」 #10 公開♪",
     "display_pc": "上村梨々香のがるらじ ～GL²family RADIO～ #10",
     "display_sm": "上村梨々香のがるらじ #10",
@@ -182446,7 +182454,7 @@
   {
     "date": "2025.09.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 佐藤栞奈の「がるらじ ～GL² family RADIO～」 #14 公開♪",
     "display_pc": "佐藤栞奈のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "佐藤栞奈のがるらじ #14",
@@ -182466,7 +182474,7 @@
   {
     "date": "2025.08.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 深澤日彩の「がるらじ ～GL² family RADIO～」 #14  公開♪",
     "display_pc": "深澤日彩のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "深澤日彩のがるらじ #14",
@@ -182486,7 +182494,7 @@
   {
     "date": "2025.08.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 比嘉優和の「がるらじ ～GL² family RADIO～」 #14公開♪",
     "display_pc": "比嘉優和のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "比嘉優和のがるらじ #14",
@@ -182506,7 +182514,7 @@
   {
     "date": "2025.07.11",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【Lucky²】スペシャル版：後編 「Lucky² ファンミーティング 2025」で観たい！楽曲人気投票ランキング発表！",
     "display_pc": "「Lucky² ファンミーティング 2025」で観たい！楽曲人気投票ランキング発表！ 後編",
     "display_sm": "ファンミーティング2025で観たい！楽曲人気投票ランキング発表！ 後編",
@@ -182533,7 +182541,7 @@
   {
     "date": "2025.07.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 【Lucky²】スペシャル版：前編 「Lucky² ファンミーティング 2025」で観たい！楽曲人気投票ランキング発表！",
     "display_pc": "「Lucky² ファンミーティング 2025」で観たい！楽曲人気投票ランキング発表！ 前編",
     "display_sm": "ファンミーティング2025で観たい！楽曲人気投票ランキング発表！ 前編",
@@ -182560,7 +182568,7 @@
   {
     "date": "2025.06.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 永山 椿の「がるらじ ～GL² family RADIO～」 #14 公開♪",
     "display_pc": "永山椿のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "永山椿のがるらじ #14",
@@ -182580,7 +182588,7 @@
   {
     "date": "2025.06.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 山口莉愛の「がるらじ ～GL² family RADIO～」#14 公開♪",
     "display_pc": "山口莉愛のがるらじ ～GL²family RADIO～ #14",
     "display_sm": "山口莉愛のがるらじ #14",
@@ -182600,7 +182608,7 @@
   {
     "date": "2025.05.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤妃希 佐藤妃希の「がるらじ ～GL² family RADIO～」#9♪",
     "display_pc": "佐藤妃希のがるらじ ～GL²family RADIO～ #09",
     "display_sm": "佐藤妃希のがるらじ #09",
@@ -182620,7 +182628,7 @@
   {
     "date": "2025.05.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "森朱里 森 朱里の「がるらじ ～GL² family RADIO～」 #9♪",
     "display_pc": "森朱里のがるらじ ～GL²family RADIO～ #09",
     "display_sm": "森朱里のがるらじ #09",
@@ -182640,7 +182648,7 @@
   {
     "date": "2025.04.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "上村梨々香 上村梨々香の「がるらじ ～GL² family RADIO～」 #9♪",
     "display_pc": "上村梨々香のがるらじ ～GL²family RADIO～ #09",
     "display_sm": "上村梨々香のがるらじ #09",
@@ -182660,7 +182668,7 @@
   {
     "date": "2025.04.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 佐藤栞奈の「がるらじ ～GL² family RADIO～」 #13 公開♪",
     "display_pc": "佐藤栞奈のがるらじ ～GL²family RADIO～ #13",
     "display_sm": "佐藤栞奈のがるらじ #13",
@@ -182680,7 +182688,7 @@
   {
     "date": "2025.03.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 比嘉優和の「がるらじ ～GL² family RADIO～」 #13 公開♪",
     "display_pc": "比嘉優和のがるらじ ～GL²family RADIO～ #13",
     "display_sm": "比嘉優和のがるらじ #13",
@@ -182700,7 +182708,7 @@
   {
     "date": "2025.03.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 深澤日彩の「がるらじ ～GL² family RADIO～」 #13  公開♪",
     "display_pc": "深澤日彩のがるらじ ～GL²family RADIO～ #13",
     "display_sm": "深澤日彩のがるらじ #13",
@@ -182720,7 +182728,7 @@
   {
     "date": "2025.02.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 永山 椿の「がるらじ ～GL² family RADIO～」 #13 公開♪",
     "display_pc": "永山椿のがるらじ ～GL²family RADIO～ #13",
     "display_sm": "永山椿のがるらじ #13",
@@ -182740,7 +182748,7 @@
   {
     "date": "2025.02.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 杉浦優來の「がるらじ ～GL² family RADIO～」#13 公開♪",
     "display_pc": "杉浦優來のがるらじ ～GL²family RADIO～ #13",
     "display_sm": "杉浦優來のがるらじ #13",
@@ -182760,7 +182768,7 @@
   {
     "date": "2025.01.29",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 山口莉愛の「がるらじ ～GL² family RADIO～」#13公開♪",
     "display_pc": "山口莉愛のがるらじ ～GL²family RADIO～ #13",
     "display_sm": "山口莉愛のがるらじ #13",
@@ -182780,7 +182788,7 @@
   {
     "date": "2025.01.26",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤妃希 佐藤妃希の「がるらじ ～GL² family RADIO～」#8 公開♪",
     "display_pc": "佐藤妃希のがるらじ ～GL²family RADIO～ #08",
     "display_sm": "佐藤妃希のがるらじ #08",
@@ -182800,7 +182808,7 @@
   {
     "date": "2024.12.20",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "森朱里 森 朱里の「がるらじ ～GL² family RADIO～」 #8♪",
     "display_pc": "森朱里のがるらじ ～GL²family RADIO～ #08",
     "display_sm": "森朱里のがるらじ #08",
@@ -182820,7 +182828,7 @@
   {
     "date": "2024.12.14",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "上村梨々香 上村梨々香の「がるらじ ～GL² family RADIO～」 #8♪",
     "display_pc": "上村梨々香のがるらじ ～GL²family RADIO～ #08",
     "display_sm": "上村梨々香のがるらじ #08",
@@ -182840,7 +182848,7 @@
   {
     "date": "2024.11.30",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 佐藤栞奈の「がるらじ ～GL² family RADIO～」 #12♪",
     "display_pc": "佐藤栞奈のがるらじ ～GL²family RADIO～ #12",
     "display_sm": "佐藤栞奈のがるらじ #12",
@@ -182860,7 +182868,7 @@
   {
     "date": "2024.11.23",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 比嘉優和の「がるらじ ～GL² family RADIO～」 #12♪",
     "display_pc": "比嘉優和のがるらじ ～GL²family RADIO～ #12",
     "display_sm": "比嘉優和のがるらじ #12",
@@ -182880,7 +182888,7 @@
   {
     "date": "2024.10.26",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 深澤日彩の「がるらじ ～GL² family RADIO～」 #12♪",
     "display_pc": "深澤日彩のがるらじ ～GL²family RADIO～ #12",
     "display_sm": "深澤日彩のがるらじ #12",
@@ -182900,7 +182908,7 @@
   {
     "date": "2024.10.18",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 永山 椿の「がるらじ ～GL² family RADIO～」 #12",
     "display_pc": "永山椿のがるらじ ～GL²family RADIO～ #12",
     "display_sm": "永山椿のがるらじ #12",
@@ -182920,7 +182928,7 @@
   {
     "date": "2024.09.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 杉浦優來の「がるらじ ～GL² family RADIO～」#12公開♪",
     "display_pc": "杉浦優來のがるらじ ～GL²family RADIO～ #12",
     "display_sm": "杉浦優來のがるらじ #12",
@@ -182940,7 +182948,7 @@
   {
     "date": "2024.09.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 山口莉愛の「がるらじ ～GL² family RADIO～」#12公開♪",
     "display_pc": "山口莉愛のがるらじ ～GL²family RADIO～ #12",
     "display_sm": "山口莉愛のがるらじ #12",
@@ -182960,7 +182968,7 @@
   {
     "date": "2024.08.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤妃希 佐藤妃希の「がるらじ ～GL² family RADIO～」#7公開♪",
     "display_pc": "佐藤妃希のがるらじ ～GL²family RADIO～ #07",
     "display_sm": "佐藤妃希のがるらじ #07",
@@ -182980,7 +182988,7 @@
   {
     "date": "2024.08.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "森朱里 森 朱里の「がるらじ ～GL² family RADIO～」#7公開♪",
     "display_pc": "森朱里のがるらじ ～GL²family RADIO～ #07",
     "display_sm": "森朱里のがるらじ #07",
@@ -183000,7 +183008,7 @@
   {
     "date": "2024.07.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "上村梨々香 上村梨々香の「がるらじ ～GL² family RADIO～」#7公開♪",
     "display_pc": "上村梨々香のがるらじ ～GL²family RADIO～ #07",
     "display_sm": "上村梨々香のがるらじ #07",
@@ -183020,7 +183028,7 @@
   {
     "date": "2024.07.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 佐藤栞奈の「がるらじ ～GL² family RADIO～」#11公開♪",
     "display_pc": "佐藤栞奈のがるらじ ～GL²family RADIO～ #11",
     "display_sm": "佐藤栞奈のがるらじ #11",
@@ -183040,7 +183048,7 @@
   {
     "date": "2024.06.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 比嘉優和の「がるらじ ～GL² family RADIO～」 #11",
     "display_pc": "比嘉優和のがるらじ ～GL²family RADIO～ #11",
     "display_sm": "比嘉優和のがるらじ #11",
@@ -183060,7 +183068,7 @@
   {
     "date": "2024.06.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 深澤日彩の「がるらじ ～GL² family RADIO～」#11公開♪",
     "display_pc": "深澤日彩のがるらじ ～GL²family RADIO～ #11",
     "display_sm": "深澤日彩のがるらじ #11",
@@ -183080,7 +183088,7 @@
   {
     "date": "2024.05.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 永山椿の「がるらじ ～GL² family RADIO～」#11公開♪",
     "display_pc": "永山椿のがるらじ ～GL²family RADIO～ #11",
     "display_sm": "永山椿のがるらじ #11",
@@ -183100,7 +183108,7 @@
   {
     "date": "2024.05.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 杉浦優來の「がるらじ ～GL² family RADIO～」#11公開♪",
     "display_pc": "杉浦優來のがるらじ ～GL²family RADIO～ #11",
     "display_sm": "杉浦優來のがるらじ #11",
@@ -183120,7 +183128,7 @@
   {
     "date": "2024.04.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 山口莉愛の「がるらじ ～GL² family RADIO～」#11公開♪",
     "display_pc": "山口莉愛のがるらじ ～GL²family RADIO～ #11",
     "display_sm": "山口莉愛のがるらじ #11",
@@ -183140,7 +183148,7 @@
   {
     "date": "2024.04.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤妃希 佐藤妃希の「がるらじ ～GL² family RADIO～」#6公開♪",
     "display_pc": "佐藤妃希のがるらじ ～GL²family RADIO～ #06",
     "display_sm": "佐藤妃希のがるらじ #06",
@@ -183160,7 +183168,7 @@
   {
     "date": "2024.03.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "森朱里 森 朱里の「がるらじ ～GL² family RADIO～」#6公開♪",
     "display_pc": "森朱里のがるらじ ～GL²family RADIO～ #06",
     "display_sm": "森朱里のがるらじ #06",
@@ -183180,7 +183188,7 @@
   {
     "date": "2024.03.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "上村梨々香 上村梨々香の「がるらじ ～GL² family RADIO～」#6公開♪",
     "display_pc": "上村梨々香のがるらじ ～GL²family RADIO～ #06",
     "display_sm": "上村梨々香のがるらじ #06",
@@ -183200,7 +183208,7 @@
   {
     "date": "2024.02.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 佐藤栞奈の「がるらじ ～GL² family RADIO～」#10公開♪",
     "display_pc": "佐藤栞奈のがるらじ ～GL²family RADIO～ #10",
     "display_sm": "佐藤栞奈のがるらじ #10",
@@ -183220,7 +183228,7 @@
   {
     "date": "2024.02.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和の「がるらじ ～GL² family RADIO～」#10公開♪",
     "display_pc": "比嘉優和のがるらじ ～GL²family RADIO～ #10",
     "display_sm": "比嘉優和のがるらじ #10",
@@ -183240,7 +183248,7 @@
   {
     "date": "2024.01.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 深澤日彩の「がるらじ ～GL² family RADIO～」#10公開♪",
     "display_pc": "深澤日彩のがるらじ ～GL²family RADIO～ #10",
     "display_sm": "深澤日彩のがるらじ #10",
@@ -183260,7 +183268,7 @@
   {
     "date": "2024.01.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 永山 椿の「がるらじ ～GL² family RADIO～」#10公開♪",
     "display_pc": "永山椿のがるらじ ～GL²family RADIO～ #10",
     "display_sm": "永山椿のがるらじ #10",
@@ -183280,7 +183288,7 @@
   {
     "date": "2023.12.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 杉浦優來の「がるらじ ～GL² family RADIO～」#10公開♪",
     "display_pc": "杉浦優來のがるらじ ～GL²family RADIO～ #10",
     "display_sm": "杉浦優來のがるらじ #10",
@@ -183300,7 +183308,7 @@
   {
     "date": "2023.12.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 山口莉愛の「がるらじ ～GL² family RADIO～」#10公開♪",
     "display_pc": "山口莉愛のがるらじ ～GL²family RADIO～ #10",
     "display_sm": "山口莉愛のがるらじ #10",
@@ -183320,7 +183328,7 @@
   {
     "date": "2023.11.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤妃希 佐藤妃希の「がるらじ ～GL² family RADIO～」#5公開♪",
     "display_pc": "佐藤妃希のがるらじ ～GL²family RADIO～ #05",
     "display_sm": "佐藤妃希のがるらじ #05",
@@ -183340,7 +183348,7 @@
   {
     "date": "2023.11.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "森朱里 森 朱里の「がるらじ ～GL² family RADIO～」#5公開♪",
     "display_pc": "森朱里のがるらじ ～GL²family RADIO～ #05",
     "display_sm": "森朱里のがるらじ #05",
@@ -183360,7 +183368,7 @@
   {
     "date": "2023.10.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "上村梨々香 上村梨々香の「がるらじ ～GL² family RADIO～」#5公開♪",
     "display_pc": "上村梨々香のがるらじ ～GL²family RADIO～ #05",
     "display_sm": "上村梨々香のがるらじ #05",
@@ -183380,7 +183388,7 @@
   {
     "date": "2023.10.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 佐藤栞奈の「がるらじ ～GL² family RADIO～」#9公開♪",
     "display_pc": "佐藤栞奈のがるらじ ～GL²family RADIO～ #09",
     "display_sm": "佐藤栞奈のがるらじ #09",
@@ -183400,7 +183408,7 @@
   {
     "date": "2023.09.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 比嘉優和の「がるらじ ～GL² family RADIO～」#9公開♪",
     "display_pc": "比嘉優和のがるらじ ～GL²family RADIO～ #09",
     "display_sm": "比嘉優和のがるらじ #09",
@@ -183420,7 +183428,7 @@
   {
     "date": "2023.09.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 深澤日彩の「がるらじ ～GL² family RADIO～」#9公開♪",
     "display_pc": "深澤日彩のがるらじ ～GL²family RADIO～ #09",
     "display_sm": "深澤日彩のがるらじ #9",
@@ -183440,7 +183448,7 @@
   {
     "date": "2023.08.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 永山 椿の「がるらじ ～GL² family RADIO～」#9公開♪",
     "display_pc": "永山椿のがるらじ ～GL²family RADIO～ #09",
     "display_sm": "永山椿のがるらじ #09",
@@ -183460,7 +183468,7 @@
   {
     "date": "2023.08.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 杉浦優來の「がるらじ ～GL² family RADIO～」#9公開♪",
     "display_pc": "杉浦優來のがるらじ ～GL²family RADIO～ #09",
     "display_sm": "杉浦優來のがるらじ #09",
@@ -183480,7 +183488,7 @@
   {
     "date": "2023.07.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 山口莉愛の『がるらじ ～GL² familyRADIO～』#9",
     "display_pc": "山口莉愛のがるらじ～GL² family RADIO～ #09",
     "display_sm": "山口莉愛のがるらじ #09",
@@ -183500,7 +183508,7 @@
   {
     "date": "2023.07.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤妃希 佐藤妃希の『がるらじ ～GL² familyRADIO～』#4",
     "display_pc": "佐藤妃希のがるらじ ～GL²family RADIO～ #04",
     "display_sm": "佐藤妃希のがるらじ #04",
@@ -183520,7 +183528,7 @@
   {
     "date": "2023.06.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "森朱里 『あかりと一緒にLet's think!』＃4",
     "display_pc": "森朱里「あかりと一緒にLet's think!」#04",
     "display_sm": "森朱里「あかりと一緒にLet's think!」#04",
@@ -183540,7 +183548,7 @@
   {
     "date": "2023.06.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "上村梨々香 『梨々香の好いとっTalk!!』#4",
     "display_pc": "上村梨々香「梨々香の好いとっTalk!!」#04",
     "display_sm": "上村梨々香「梨々香の好いとっTalk!!」#04",
@@ -183560,7 +183568,7 @@
   {
     "date": "2023.05.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 『パティシエかんなのmaking sweets』# 8",
     "display_pc": "佐藤栞奈「パティシエかんなのmaking sweets」#08",
     "display_sm": "佐藤栞奈「パティシエかんなのmaking sweets」#08",
@@ -183580,7 +183588,7 @@
   {
     "date": "2023.05.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 『YuwaのFirst Challenge!!』# 8",
     "display_pc": "比嘉優和「YuwaのFirst Challenge!!」#08",
     "display_sm": "比嘉優和「YuwaのFirst Challenge!!」#08",
@@ -183600,7 +183608,7 @@
   {
     "date": "2023.04.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 『日彩のColor every day』# 8",
     "display_pc": "深澤日彩「日彩のColor every day」#08",
     "display_sm": "深澤日彩「日彩のColor every day」#08",
@@ -183620,7 +183628,7 @@
   {
     "date": "2023.04.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 『Tsubakiのイラスト屋! Lucky』# 8",
     "display_pc": "永山椿「Tsubakiのイラスト屋! Lucky」#08",
     "display_sm": "永山椿「Tsubakiのイラスト屋! Lucky」#08",
@@ -183640,7 +183648,7 @@
   {
     "date": "2023.04.08",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『AKARI＆KIKI SPECIAL PERFORMANCE！』#2",
     "display_pc": "「AKARI&KIKI SPECIAL PERFORMANCE!」#2",
     "display_sm": "「AKARI&KIKI SPECIAL PERFORMANCE!」#2",
@@ -183661,7 +183669,7 @@
   {
     "date": "2023.04.03",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 「がるらじ ～GL² family RADIO～」綺羅×優和の特別番組",
     "display_pc": "山口綺羅と比嘉優和のがるらじ ～GL²family RADIO～",
     "display_sm": "山口綺羅と比嘉優和のがるらじ",
@@ -183683,7 +183691,7 @@
   {
     "date": "2023.03.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 『ゆ～らとのんびりTea Time』＃8",
     "display_pc": "杉浦優來「ゆ～らとのんびりTea Time」#08",
     "display_sm": "杉浦優來「ゆ～らとのんびりTea Time」#08",
@@ -183703,7 +183711,7 @@
   {
     "date": "2023.03.16",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 『ビストロりな』＃8 おまけ♪",
     "display_pc": "山口莉愛「ビストロりな」#08　おまけ♪",
     "display_sm": "山口莉愛「ビストロりな」#08　おまけ♪",
@@ -183723,7 +183731,7 @@
   {
     "date": "2023.03.15",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 『ビストロりな』＃8",
     "display_pc": "山口莉愛「ビストロりな」#08",
     "display_sm": "山口莉愛「ビストロりな」#08",
@@ -183743,7 +183751,7 @@
   {
     "date": "2023.03.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 「がるらじ ～GL² family RADIO～」美咲×朱里の特別番組 後編",
     "display_pc": "鶴屋美咲と森朱里のがるらじ ～GL²family RADIO～ 後編",
     "display_sm": "鶴屋美咲と森朱里のがるらじ 後編",
@@ -183765,7 +183773,7 @@
   {
     "date": "2023.03.06",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 「がるらじ ～GL² family RADIO～」美咲×朱里の特別番組 前編",
     "display_pc": "鶴屋美咲と森朱里のがるらじ ～GL²family RADIO～ 前編",
     "display_sm": "鶴屋美咲と森朱里のがるらじ 前編",
@@ -183787,7 +183795,7 @@
   {
     "date": "2023.02.28",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤妃希 『ききのFind a good！』#3 後編",
     "display_pc": "佐藤妃希「ききのFind a good！」#03　後編",
     "display_sm": "佐藤妃希「ききのFind a good！」#03　後編",
@@ -183807,7 +183815,7 @@
   {
     "date": "2023.02.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤妃希 『ききのFind a good！』#3 前編",
     "display_pc": "佐藤妃希「ききのFind a good！」#03　前編",
     "display_sm": "佐藤妃希「ききのFind a good！」#03　前編",
@@ -183827,7 +183835,7 @@
   {
     "date": "2023.02.18",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "森朱里 『あかりと一緒にLet's think!』＃3 後編",
     "display_pc": "森朱里「あかりと一緒にLet's think!」#03　後編",
     "display_sm": "森朱里「あかりと一緒にLet's think!」#03　後編",
@@ -183847,7 +183855,7 @@
   {
     "date": "2023.02.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "森朱里 『あかりと一緒にLet's think!』＃3 前編",
     "display_pc": "森朱里「あかりと一緒にLet's think!」#03　前編",
     "display_sm": "森朱里「あかりと一緒にLet's think!」#03　前編",
@@ -183867,7 +183875,7 @@
   {
     "date": "2023.02.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "上村梨々香 『梨々香の好いとっTalk!!』# 3",
     "display_pc": "上村梨々香「梨々香の好いとっTalk!!」#03",
     "display_sm": "上村梨々香「梨々香の好いとっTalk!!」#03",
@@ -183887,7 +183895,7 @@
   {
     "date": "2023.01.09",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『ミラクルパス連動！Lucky²プレゼント企画 ～オリジナルミラー～』",
     "display_pc": "「ミラクルパス連動！Lucky²プレゼント企画 ～オリジナルミラー～」",
     "display_sm": "「Lucky²プレゼント企画 ～オリジナルミラー～」",
@@ -183908,7 +183916,7 @@
   {
     "date": "2023.01.08",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『新春！本気の体力測定！』",
     "display_pc": "「新春！本気の体力測定！」",
     "display_sm": "「新春！本気の体力測定！」",
@@ -183930,7 +183938,7 @@
   {
     "date": "2023.01.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『莉愛画伯のお絵描きチャレンジ！』",
     "display_pc": "「莉愛画伯のお絵描きチャレンジ！」",
     "display_sm": "「莉愛画伯のお絵描きチャレンジ！」",
@@ -183951,7 +183959,7 @@
   {
     "date": "2023.01.06",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『カラーメイクチャレンジ！』",
     "display_pc": "「カラーメイクチャレンジ！」",
     "display_sm": "「カラーメイクチャレンジ！」",
@@ -183972,7 +183980,7 @@
   {
     "date": "2023.01.05",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『優來のお誕生日パーティー』",
     "display_pc": "「優來のお誕生日パーティー」",
     "display_sm": "「優來のお誕生日パーティー」",
@@ -183993,7 +184001,7 @@
   {
     "date": "2023.01.04",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『りなつばの学力テスト☆』",
     "display_pc": "「りなつばの学力テスト☆」",
     "display_sm": "「りなつばの学力テスト☆」",
@@ -184014,7 +184022,7 @@
   {
     "date": "2023.01.03",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『AKARI＆KIKI SPECIAL PERFORMANCE！』",
     "display_pc": "「AKARI&KIKI SPECIAL PERFORMANCE!」#1",
     "display_sm": "「AKARI&KIKI SPECIAL PERFORMANCE!」#1",
@@ -184035,7 +184043,7 @@
   {
     "date": "2023.01.02",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『Lucky²卓上ゲームマスター頂上決戦！』",
     "display_pc": "「Lucky²卓上ゲームマスター頂上決戦！」",
     "display_sm": "「Lucky²卓上ゲームマスター頂上決戦！」",
@@ -184056,7 +184064,7 @@
   {
     "date": "2023.01.01",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『「あかりんごの！クイズに答えてYO！』後編",
     "display_pc": "「あかりんごの！クイズに答えてYO！」後編",
     "display_sm": "「あかりんごの！クイズに答えてYO！」後編",
@@ -184078,7 +184086,7 @@
   {
     "date": "2023.01.01",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 特別番組『「あかりんごの！クイズに答えてYO！』前編",
     "display_pc": "「あかりんごの！クイズに答えてYO！」前編",
     "display_sm": "「あかりんごの！クイズに答えてYO！」前編",
@@ -184100,7 +184108,7 @@
   {
     "date": "2022.12.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 『パティシエかんなのmaking sweets』# 7",
     "display_pc": "佐藤栞奈「パティシエかんなのmaking sweets」#07",
     "display_sm": "佐藤栞奈「パティシエかんなのmaking sweets」#07",
@@ -184120,7 +184128,7 @@
   {
     "date": "2022.12.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 『YuwaのFirst Challenge!!』# 7",
     "display_pc": "比嘉優和「YuwaのFirst Challenge!!」#07",
     "display_sm": "比嘉優和「YuwaのFirst Challenge!!」#07",
@@ -184140,7 +184148,7 @@
   {
     "date": "2022.12.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 『日彩のColor every day』# 7",
     "display_pc": "深澤日彩「日彩のColor every day」#07",
     "display_sm": "深澤日彩「日彩のColor every day」#07",
@@ -184160,7 +184168,7 @@
   {
     "date": "2022.11.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 『Tsubakiのイラスト屋! Lucky』# 7",
     "display_pc": "永山椿「Tsubakiのイラスト屋! Lucky」#07",
     "display_sm": "永山椿「Tsubakiのイラスト屋! Lucky」#07",
@@ -184180,7 +184188,7 @@
   {
     "date": "2022.11.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 『ゆ～らとのんびりTea Time』＃7",
     "display_pc": "杉浦優來「ゆ～らとのんびりTea Time」#07",
     "display_sm": "杉浦優來「ゆ～らとのんびりTea Time」#07",
@@ -184200,7 +184208,7 @@
   {
     "date": "2022.11.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 『ビストロりな』＃7",
     "display_pc": "山口莉愛「ビストロりな」#07",
     "display_sm": "山口莉愛「ビストロりな」#07",
@@ -184220,7 +184228,7 @@
   {
     "date": "2022.10.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤妃希 『ききのFind a good！』#2",
     "display_pc": "佐藤妃希「ききのFind a good！」#02",
     "display_sm": "佐藤妃希「ききのFind a good！」#02",
@@ -184240,7 +184248,7 @@
   {
     "date": "2022.10.22",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 杉浦優來 特別番組！『ゆ～らのウクレレCafé』＃2",
     "display_pc": "杉浦優來「ゆ～らのウクレレCafé」#2",
     "display_sm": "杉浦優來「ゆ～らのウクレレCafé」#2",
@@ -184260,7 +184268,7 @@
   {
     "date": "2022.10.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "森朱里 『あかりと一緒にLet's think!』＃2",
     "display_pc": "森朱里「あかりと一緒にLet's think!」#02",
     "display_sm": "森朱里「あかりと一緒にLet's think!」#02",
@@ -184280,7 +184288,7 @@
   {
     "date": "2022.10.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "上村梨々香 『梨々香の好いとっTalk!!』# 2",
     "display_pc": "上村梨々香「梨々香の好いとっTalk!!」#02",
     "display_sm": "上村梨々香「梨々香の好いとっTalk!!」#02",
@@ -184300,7 +184308,7 @@
   {
     "date": "2022.10.05",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 『日彩の\"study with me！\"』# 2 ＜20分＞",
     "display_pc": "深澤日彩「日彩の\"study with me！\"」#2 <20分>",
     "display_sm": "深澤日彩「日彩のstudy with me！」#2",
@@ -184320,7 +184328,7 @@
   {
     "date": "2022.10.04",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 『日彩の\"study with me！\"』# 1 ＜15分＞",
     "display_pc": "深澤日彩「日彩の\"study with me！\"」#1 <15分>",
     "display_sm": "深澤日彩「日彩のstudy with me！」#1",
@@ -184340,7 +184348,7 @@
   {
     "date": "2022.09.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 『パティシエかんなのmaking sweets』# 6",
     "display_pc": "佐藤栞奈「パティシエかんなのmaking sweets」#06",
     "display_sm": "佐藤栞奈「パティシエかんなのmaking sweets」#06",
@@ -184360,7 +184368,7 @@
   {
     "date": "2022.09.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 『YuwaのFirst Challenge!!』# 6",
     "display_pc": "比嘉優和「YuwaのFirst Challenge!!」#06",
     "display_sm": "比嘉優和「YuwaのFirst Challenge!!」#06",
@@ -184380,7 +184388,7 @@
   {
     "date": "2022.09.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 『日彩のColor every day』# 6",
     "display_pc": "深澤日彩「日彩のColor every day」#06",
     "display_sm": "深澤日彩「日彩のColor every day」#06",
@@ -184400,7 +184408,7 @@
   {
     "date": "2022.08.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 『Tsubakiのイラスト屋! Lucky』# 6",
     "display_pc": "永山椿「Tsubakiのイラスト屋! Lucky」#06",
     "display_sm": "永山椿「Tsubakiのイラスト屋! Lucky」#06",
@@ -184420,7 +184428,7 @@
   {
     "date": "2022.08.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 『ゆ～らとのんびりTea Time』＃6",
     "display_pc": "杉浦優來「ゆ～らとのんびりTea Time」#06",
     "display_sm": "杉浦優來「ゆ～らとのんびりTea Time」#06",
@@ -184440,7 +184448,7 @@
   {
     "date": "2022.08.11",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 杉浦優來『がるらじ ～GL² family RADIO～』特別番組＃1",
     "display_pc": "杉浦優來「ゆ～らのウクレレCafé」#1",
     "display_sm": "杉浦優來「ゆ～らのウクレレCafé」#1",
@@ -184460,7 +184468,7 @@
   {
     "date": "2022.08.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 『ビストロりな』＃6",
     "display_pc": "山口莉愛「ビストロりな」#06",
     "display_sm": "山口莉愛「ビストロりな」#06",
@@ -184480,7 +184488,7 @@
   {
     "date": "2022.07.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤妃希 『ききのFind a good！』#1",
     "display_pc": "佐藤妃希「ききのFind a good！」#01",
     "display_sm": "佐藤妃希「ききのFind a good！」#01",
@@ -184500,7 +184508,7 @@
   {
     "date": "2022.07.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "森朱里 『あかりと一緒にLet's think!』＃1",
     "display_pc": "森朱里「あかりと一緒にLet's think!」#01",
     "display_sm": "森朱里「あかりと一緒にLet's think!」#01",
@@ -184520,7 +184528,7 @@
   {
     "date": "2022.07.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "上村梨々香 『梨々香の好いとっTalk!!』# 1",
     "display_pc": "上村梨々香「梨々香の好いとっTalk!!」#01",
     "display_sm": "上村梨々香「梨々香の好いとっTalk!!」#01",
@@ -184540,7 +184548,7 @@
   {
     "date": "2022.06.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 Lucky²新メンバーの「がるらじ ～GL² family RADIO～」#3",
     "display_pc": "Lucky²新メンバーのがるらじ ～GL²family RADIO～ #3",
     "display_sm": "Lucky²新メンバーのがるらじ #3",
@@ -184559,7 +184567,7 @@
   {
     "date": "2022.06.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 Lucky²新メンバーの「がるらじ ～GL² family RADIO～」#2",
     "display_pc": "Lucky²新メンバーのがるらじ ～GL²family RADIO～ #2",
     "display_sm": "Lucky²新メンバーのがるらじ #2",
@@ -184578,7 +184586,7 @@
   {
     "date": "2022.06.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 Lucky²新メンバーの「がるらじ ～GL² family RADIO～」#1",
     "display_pc": "Lucky²新メンバーのがるらじ ～GL²family RADIO～ #1",
     "display_sm": "Lucky²新メンバーのがるらじ #1",
@@ -184597,7 +184605,7 @@
   {
     "date": "2022.06.05",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 深澤日彩「がるらじ ～GL² family RADIO～」特別番組 [前編・後編]",
     "display_pc": "深澤日彩のがるらじ ～GL²family RADIO～ 前編・後編",
     "display_sm": "深澤日彩のがるらじ 前編・後編",
@@ -184617,7 +184625,7 @@
   {
     "date": "2022.05.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 『パティシエかんなのmaking sweets』# 5",
     "display_pc": "佐藤栞奈「パティシエかんなのmaking sweets」#05",
     "display_sm": "佐藤栞奈「パティシエかんなのmaking sweets」#05",
@@ -184637,7 +184645,7 @@
   {
     "date": "2022.05.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 『YuwaのFirst Challenge!!』# 5",
     "display_pc": "比嘉優和「YuwaのFirst Challenge!!」#05",
     "display_sm": "比嘉優和「YuwaのFirst Challenge!!」#05",
@@ -184657,7 +184665,7 @@
   {
     "date": "2022.05.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 『日彩のColor every day』# 5",
     "display_pc": "深澤日彩「日彩のColor every day」#05",
     "display_sm": "深澤日彩「日彩のColor every day」#05",
@@ -184677,7 +184685,7 @@
   {
     "date": "2022.04.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 『Tsubakiのイラスト屋! Lucky』# 5",
     "display_pc": "永山椿「Tsubakiのイラスト屋! Lucky」#05",
     "display_sm": "永山椿「Tsubakiのイラスト屋! Lucky」#05",
@@ -184697,7 +184705,7 @@
   {
     "date": "2022.04.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 『ゆ～らとのんびりTea Time』＃5",
     "display_pc": "杉浦優來「ゆ～らとのんびりTea Time」#05",
     "display_sm": "杉浦優來「ゆ～らとのんびりTea Time」#05",
@@ -184717,7 +184725,7 @@
   {
     "date": "2022.04.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 『ビストロりな』＃5",
     "display_pc": "山口莉愛「ビストロりな」#05",
     "display_sm": "山口莉愛「ビストロりな」#05",
@@ -184737,7 +184745,7 @@
   {
     "date": "2022.03.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 『パティシエかんなのmaking sweets』# 4",
     "display_pc": "佐藤栞奈「パティシエかんなのmaking sweets」#04",
     "display_sm": "佐藤栞奈「パティシエかんなのmaking sweets」#04",
@@ -184757,7 +184765,7 @@
   {
     "date": "2022.03.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 『YuwaのFirst Challenge!!』# 4",
     "display_pc": "比嘉優和「YuwaのFirst Challenge!!」#04",
     "display_sm": "比嘉優和「YuwaのFirst Challenge!!」#04",
@@ -184777,7 +184785,7 @@
   {
     "date": "2022.03.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 『日彩のColor every day』# 4",
     "display_pc": "深澤日彩「日彩のColor every day」#04",
     "display_sm": "深澤日彩「日彩のColor every day」#04",
@@ -184797,7 +184805,7 @@
   {
     "date": "2022.02.27",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 『Tsubakiのイラスト屋! Lucky』# 4",
     "display_pc": "永山椿「Tsubakiのイラスト屋! Lucky」#04",
     "display_sm": "永山椿「Tsubakiのイラスト屋! Lucky」#04",
@@ -184817,7 +184825,7 @@
   {
     "date": "2022.02.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 『ゆ～らとのんびりTea Time』＃4",
     "display_pc": "杉浦優來「ゆ～らとのんびりTea Time」#04",
     "display_sm": "杉浦優來「ゆ～らとのんびりTea Time」#04",
@@ -184837,7 +184845,7 @@
   {
     "date": "2022.02.14",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 『ビストロりな』＃4 バレンタインのおまけ♡",
     "display_pc": "山口莉愛「ビストロりな」#04　バレンタインのおまけ♡",
     "display_sm": "山口莉愛「ビストロりな」#04　バレンタインのおまけ♡",
@@ -184857,7 +184865,7 @@
   {
     "date": "2022.02.13",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 『ビストロりな』＃4",
     "display_pc": "山口莉愛「ビストロりな」#04",
     "display_sm": "山口莉愛「ビストロりな」#04",
@@ -184877,7 +184885,7 @@
   {
     "date": "2022.01.23",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 永山椿×比嘉優和「沖縄コンビの！うちな〜と〜く〜!!」",
     "display_pc": "永山椿×比嘉優和「沖縄コンビの！うちな〜と〜く〜!!」",
     "display_sm": "「沖縄コンビの！うちな〜と〜く〜!!」",
@@ -184898,7 +184906,7 @@
   {
     "date": "2022.01.16",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 山口莉愛×佐藤栞奈「かんりなの！初めてのお弁当作り〜〜！！」",
     "display_pc": "山口莉愛×佐藤栞奈「かんりなの！初めてのお弁当作り〜〜！！」",
     "display_sm": "「かんりなの！初めてのお弁当作り〜〜！！」",
@@ -184919,7 +184927,7 @@
   {
     "date": "2022.01.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 深澤日彩×比嘉優和「優和と！日彩の！仲良しトーク！」",
     "display_pc": "深澤日彩×比嘉優和「優和と！日彩の！仲良しトーク！」",
     "display_sm": "「優和と！日彩の！仲良しトーク！」",
@@ -184940,7 +184948,7 @@
   {
     "date": "2022.01.02",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 山口莉愛×杉浦優來「”りなゆら”の，のんびりおしゃべりTime～！」",
     "display_pc": "山口莉愛×杉浦優來「りなゆら の、のんびりおしゃべりTime～！」",
     "display_sm": "「りなゆら の、のんびりおしゃべりTime～！」",
@@ -184961,7 +184969,7 @@
   {
     "date": "2021.12.26",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 『パティシエかんなのmaking sweets』# 3",
     "display_pc": "佐藤栞奈「パティシエかんなのmaking sweets」#03",
     "display_sm": "佐藤栞奈「パティシエかんなのmaking sweets」#03",
@@ -184981,7 +184989,7 @@
   {
     "date": "2021.12.19",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 『YuwaのFirst Challenge!!』# 3",
     "display_pc": "比嘉優和「YuwaのFirst Challenge!!」#03",
     "display_sm": "比嘉優和「YuwaのFirst Challenge!!」#03",
@@ -185001,7 +185009,7 @@
   {
     "date": "2021.12.12",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 『日彩のColor every day』# 3",
     "display_pc": "深澤日彩「日彩のColor every day」#03",
     "display_sm": "深澤日彩「日彩のColor every day」#03",
@@ -185021,7 +185029,7 @@
   {
     "date": "2021.12.05",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 『Tsubakiのイラスト屋! Lucky』# 3",
     "display_pc": "永山椿「Tsubakiのイラスト屋! Lucky」#03",
     "display_sm": "永山椿「Tsubakiのイラスト屋! Lucky」#03",
@@ -185041,7 +185049,7 @@
   {
     "date": "2021.11.28",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 『ゆ～らとのんびりTea Time』＃3",
     "display_pc": "杉浦優來「ゆ～らとのんびりTea Time」#03",
     "display_sm": "杉浦優來「ゆ～らとのんびりTea Time」#03",
@@ -185061,7 +185069,7 @@
   {
     "date": "2021.11.28",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 『ビストロりな』＃3",
     "display_pc": "山口莉愛「ビストロりな」#03",
     "display_sm": "山口莉愛「ビストロりな」#03",
@@ -185081,7 +185089,7 @@
   {
     "date": "2021.11.21",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 山口莉愛＆杉浦優來「がるらじ ～GL² family RADIO～」特別番組 #2",
     "display_pc": "山口莉愛と杉浦優來のがるらじ ～GL²family RADIO～ #2",
     "display_sm": "山口莉愛と杉浦優來のがるらじ #2",
@@ -185102,7 +185110,7 @@
   {
     "date": "2021.11.14",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 『パティシエかんなのmaking sweets』# 2",
     "display_pc": "佐藤栞奈「パティシエかんなのmaking sweets」#02",
     "display_sm": "佐藤栞奈「パティシエかんなのmaking sweets」#02",
@@ -185122,7 +185130,7 @@
   {
     "date": "2021.11.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "特別番組 山口莉愛＆杉浦優來「がるらじ ～GL² family RADIO～」特別番組 #1",
     "display_pc": "山口莉愛と杉浦優來のがるらじ ～GL²family RADIO～",
     "display_sm": "山口莉愛と杉浦優來のがるらじ",
@@ -185143,7 +185151,7 @@
   {
     "date": "2021.11.07",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 『YuwaのFirst Challenge!!』# 2",
     "display_pc": "比嘉優和「YuwaのFirst Challenge!!」#02",
     "display_sm": "比嘉優和「YuwaのFirst Challenge!!」#02",
@@ -185163,7 +185171,7 @@
   {
     "date": "2021.10.31",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 『日彩のColor every day』# 2",
     "display_pc": "深澤日彩「日彩のColor every day」#02",
     "display_sm": "深澤日彩「日彩のColor every day」#02",
@@ -185183,7 +185191,7 @@
   {
     "date": "2021.10.24",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 『Tsubakiのイラスト屋! Lucky』# 2",
     "display_pc": "永山椿「Tsubakiのイラスト屋! Lucky」#02",
     "display_sm": "永山椿「Tsubakiのイラスト屋! Lucky」#02",
@@ -185203,7 +185211,7 @@
   {
     "date": "2021.10.17",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 『ゆ～らとのんびりTea Time』＃2",
     "display_pc": "杉浦優來「ゆ～らとのんびりTea Time」#02",
     "display_sm": "杉浦優來「ゆ～らとのんびりTea Time」#02",
@@ -185223,7 +185231,7 @@
   {
     "date": "2021.10.10",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 『ビストロりな』＃2",
     "display_pc": "山口莉愛「ビストロりな」#02",
     "display_sm": "山口莉愛「ビストロりな」#02",
@@ -185243,7 +185251,7 @@
   {
     "date": "2021.09.26",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "佐藤栞奈 『パティシエかんなのmaking sweets』# 1",
     "display_pc": "佐藤栞奈「パティシエかんなのmaking sweets」#01",
     "display_sm": "佐藤栞奈「パティシエかんなのmaking sweets」#01",
@@ -185263,7 +185271,7 @@
   {
     "date": "2021.09.19",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "比嘉優和 『YuwaのFirst Challenge!!』# 1",
     "display_pc": "比嘉優和「YuwaのFirst Challenge!!」#01",
     "display_sm": "比嘉優和「YuwaのFirst Challenge!!」#01",
@@ -185283,7 +185291,7 @@
   {
     "date": "2021.09.12",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "深澤日彩 『日彩のColor every day』# 1",
     "display_pc": "深澤日彩「日彩のColor every day」#01",
     "display_sm": "深澤日彩「日彩のColor every day」#01",
@@ -185303,7 +185311,7 @@
   {
     "date": "2021.09.05",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "永山椿 『Tsubakiのイラスト屋! Lucky』# 1",
     "display_pc": "永山椿「Tsubakiのイラスト屋! Lucky」#01",
     "display_sm": "永山椿「Tsubakiのイラスト屋! Lucky」#01",
@@ -185323,7 +185331,7 @@
   {
     "date": "2021.08.29",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "杉浦優來 『ゆ～らとのんびりTea Time』＃1",
     "display_pc": "杉浦優來「ゆ～らとのんびりTea Time」#01",
     "display_sm": "杉浦優來「ゆ～らとのんびりTea Time」#01",
@@ -185343,7 +185351,7 @@
   {
     "date": "2021.08.22",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "山口莉愛 『ビストロりな』＃1",
     "display_pc": "山口莉愛「ビストロりな」#01",
     "display_sm": "山口莉愛「ビストロりな」#01",
@@ -185363,7 +185371,7 @@
   {
     "date": "2021.08.08",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "#6 Lucky²の「がるらじ〜GL² family RADIO〜」",
     "display_pc": "Lucky²のがるらじ ～GL²family RADIO～ #6",
     "display_sm": "Lucky²のがるらじ #6",
@@ -185384,7 +185392,7 @@
   {
     "date": "2021.08.01",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "#5 Lucky²の「がるらじ〜GL² family RADIO〜」",
     "display_pc": "Lucky²のがるらじ ～GL²family RADIO～ #5",
     "display_sm": "Lucky²のがるらじ #5",
@@ -185405,7 +185413,7 @@
   {
     "date": "2021.07.25",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "#４ Lucky²の「がるらじ〜GL² family RADIO〜」",
     "display_pc": "Lucky²のがるらじ ～GL²family RADIO～ #4",
     "display_sm": "Lucky²のがるらじ #4",
@@ -185426,7 +185434,7 @@
   {
     "date": "2021.07.11",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "#3 Lucky²の「がるらじ〜GL² family RADIO〜」",
     "display_pc": "Lucky²のがるらじ ～GL²family RADIO～ #3",
     "display_sm": "Lucky²のがるらじ #3",
@@ -185448,7 +185456,7 @@
   {
     "date": "2021.07.04",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "#2 Lucky²の「がるらじ〜GL² family RADIO〜」",
     "display_pc": "Lucky²のがるらじ ～GL²family RADIO～ #2",
     "display_sm": "Lucky²のがるらじ #2",
@@ -185470,7 +185478,7 @@
   {
     "date": "2021.07.01",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "#1 Lucky²の「がるらじ〜GL² family RADIO～」",
     "display_pc": "Lucky²のがるらじ ～GL²family RADIO～ #1",
     "display_sm": "Lucky²のがるらじ #1",
@@ -206042,7 +206050,7 @@
   {
     "date": "2026.09.07",
     "time": "2000",
-    "contents": "MEDIA",
+    "contents": "RADIO",
     "title": "文化放送「Girls²のがるがるトーク！」",
     "display_pc": "文化放送「Girls²のがるがるトーク！」",
     "display_sm": "文化放送「Girls²のがるがるトーク！」",
@@ -206199,7 +206207,7 @@
   {
     "date": "2026.09.07",
     "time": "1423",
-    "contents": "MEDIA",
+    "contents": "RADIO",
     "title": "Laki e-radio「キャッチ！」",
     "display_pc": "Laki　e-radio「キャッチ！」生出演",
     "display_sm": "e-radio「キャッチ！」",
@@ -206400,7 +206408,7 @@
   {
     "date": "2026.08.31",
     "time": "2000",
-    "contents": "MEDIA",
+    "contents": "RADIO",
     "title": "文化放送「Girls²のがるがるトーク！」",
     "display_pc": "文化放送「Girls²のがるがるトーク！」",
     "display_sm": "文化放送「Girls²のがるがるトーク！」",
