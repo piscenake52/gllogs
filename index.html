@@ -6,9 +6,12 @@
 //<![CDATA[
 // ダークモード設定を、CSS読み込み・描画より前に同期的に反映する(初期表示が一瞬ライトモードになる
 // チラつき(FOUC)を防止するため)。<body>がまだ存在しないタイミングなので<html>にクラスを付与する。
-if (localStorage.getItem('gl_log_theme') === 'dark') {
-  document.documentElement.classList.add('dark-mode');
-}
+// localStorageが使えない環境(プライベートモード等)でも処理全体が止まらないようtry/catchで保護する
+try {
+  if (localStorage.getItem('gl_log_theme') === 'dark') {
+    document.documentElement.classList.add('dark-mode');
+  }
+} catch (e) {}
 //]]>
 </script>
 <script type="text/javascript">
@@ -128,55 +131,80 @@ if (localStorage.getItem('gl_log_theme') === 'dark') {
   const VERSION_KEY = 'gl_script_sha';
   const CHECK_TIME_KEY = 'gl_script_checked_at';
   const CHECK_COOLDOWN_MS = 1 * 60 * 1000; // 1分以内の再チェックはスキップ(同一端末でのAPI消費を抑制)
+  const SCRIPT_LOAD_TIMEOUT_MS = 8000; // jsDelivrへの反映待ち等で固まらないよう、一定時間で諦めて次の手段に進む
+
+  // localStorageが使えない環境(プライベートモード等のSecurityError)でも処理全体が止まらないよう保護する
+  const safeGet = key => { try { return localStorage.getItem(key); } catch (e) { return null; } };
+  const safeSet = (key, value) => { try { localStorage.setItem(key, value); } catch (e) {} };
 
   const showBootError = () => {
+    console.error('script.js の読み込みに失敗しました(SCRIPT LOAD ERROR)');
     var el = document.getElementById('loadError');
     if (el) el.style.display = 'block';
     var rc = document.getElementById('resultCount');
     if (rc) rc.textContent = '';
   };
 
+  // <script src>タグを使って読み込む。onload/onerrorに加え、一定時間応答が無い場合もタイムアウトとして扱う
   const loadScriptTag = src => new Promise((resolve, reject) => {
+    let settled = false;
     const tag = document.createElement('script');
     tag.src = src;
-    tag.onload = resolve;
-    tag.onerror = reject;
+    const timer = setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      reject(new Error('timeout: ' + src));
+    }, SCRIPT_LOAD_TIMEOUT_MS);
+    tag.onload = () => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      resolve();
+    };
+    tag.onerror = () => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      reject(new Error('failed to load: ' + src));
+    };
     document.body.appendChild(tag);
   });
 
-  const loadBySha = sha => {
-    const url = sha
-      ? `https://cdn.jsdelivr.net/gh/${REPO}@${sha}/${FILE}`
-      // SHA取得に失敗した場合の保険:キャッシュバスト付きでrawから直接取得
-      : `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${FILE}?v=${Date.now()}`;
-    return loadScriptTag(url);
+  // SHA指定のjsDelivr URLで読み込みを試み、失敗した場合(pushした直後でjsDelivrにまだ
+  // ミラーされていない場合や一時的な不調を含む)は必ずraw.githubusercontent.comへ自動フォールバックする
+  const loadWithFallback = sha => {
+    const rawUrl = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${FILE}?v=${Date.now()}`;
+    if (!sha) return loadScriptTag(rawUrl);
+    const jsDelivrUrl = `https://cdn.jsdelivr.net/gh/${REPO}@${sha}/${FILE}`;
+    return loadScriptTag(jsDelivrUrl).catch(error => {
+      console.error('jsDelivr経由の読み込みに失敗、rawにフォールバックします:', error);
+      return loadScriptTag(rawUrl);
+    });
   };
 
-  const cachedSha = localStorage.getItem(VERSION_KEY);
-  const lastCheckedAt = parseInt(localStorage.getItem(CHECK_TIME_KEY) || '0', 10);
+  const cachedSha = safeGet(VERSION_KEY);
+  const lastCheckedAt = parseInt(safeGet(CHECK_TIME_KEY) || '0', 10);
   const withinCooldown = cachedSha && (Date.now() - lastCheckedAt < CHECK_COOLDOWN_MS);
 
   // 直近チェックから間もない場合は、GitHub APIへの問い合わせを省略してキャッシュ済みSHAでそのまま読み込む
   if (withinCooldown) {
-    loadBySha(cachedSha).catch(() => {
-      console.error('Failed to load cached script.js, falling back to raw.');
-      loadBySha(null).catch(showBootError);
-    });
+    loadWithFallback(cachedSha).catch(showBootError);
   } else {
     fetch(`https://api.github.com/repos/${REPO}/commits?path=${FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
       .then(res => {
-        if (!res.ok) throw new Error('GitHub API error');
+        if (!res.ok) throw new Error('GitHub API error: ' + res.status);
         return res.json();
       })
       .then(commits => {
-        localStorage.setItem(CHECK_TIME_KEY, String(Date.now()));
+        safeSet(CHECK_TIME_KEY, String(Date.now()));
         const latestSha = commits[0]?.sha;
-        if (latestSha) localStorage.setItem(VERSION_KEY, latestSha);
-        return loadBySha(latestSha || cachedSha || null);
+        if (latestSha) safeSet(VERSION_KEY, latestSha);
+        return loadWithFallback(latestSha || cachedSha || null);
       })
       .catch(error => {
-        console.error('Failed to check script.js version:', error);
-        loadBySha(cachedSha || null).catch(showBootError);
+        console.error('script.jsのバージョン確認に失敗:', error);
+        // API側の失敗(レート制限等)でも、キャッシュ済みSHAまたはrawへのフォールバックで読み込みを試みる
+        loadWithFallback(cachedSha || null).catch(showBootError);
       });
   }
 })();

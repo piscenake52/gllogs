@@ -1,4 +1,10 @@
 (() => {
+  // localStorageが使えない/制限された環境(プライベートモードや一部のAndroid設定等でSecurityErrorになる場合)
+  // でも、アプリ全体が読み込みエラーで止まってしまわないよう、必ずこの安全なラッパー経由でアクセスする。
+  // 失敗時はキャッシュ・設定の保存/復元を諦めるだけで、致命的なエラーにはしない。
+  const lsGet = key => { try { return localStorage.getItem(key); } catch (e) { return null; } };
+  const lsSet = (key, value) => { try { localStorage.setItem(key, value); } catch (e) {} };
+
   // 特定の配信元(ホスト名+パス)からのアクセスかどうかをハッシュ比較で判定する(URL文字列はソースに直接書かない)。
   // headの早期リダイレクト用スクリプトと同じアルゴリズム・同じハッシュ値を使用している。
   const isForcedFreshSource = () => {
@@ -63,7 +69,7 @@
   const DATE_PARTS_KEY = 'gl_log_date_parts';
   let dateParts = { year: true, month: true, day: true, weekday: true, time: false };
   try {
-    const savedParts = JSON.parse(localStorage.getItem(DATE_PARTS_KEY) || 'null');
+    const savedParts = JSON.parse(lsGet(DATE_PARTS_KEY) || 'null');
     if (savedParts && typeof savedParts === 'object') dateParts = Object.assign(dateParts, savedParts);
   } catch (e) { /* 壊れていたら既定値のまま使う */ }
 
@@ -142,7 +148,7 @@
   l2.forEach(i => $('memberChecks2').appendChild(createLabel(i)));
   const applySavedContentOrder = arr => {
     try {
-      const saved = JSON.parse(localStorage.getItem('gl_log_content_order') || 'null');
+      const saved = JSON.parse(lsGet('gl_log_content_order') || 'null');
       if (!Array.isArray(saved)) return arr;
       const savedValid = saved.filter(v => arr.includes(v));
       const rest = arr.filter(v => !savedValid.includes(v));
@@ -162,7 +168,7 @@
 
     const saveOrder = () => {
       const order = Array.from(row.querySelectorAll('label')).map(l => l.querySelector('input')?.value).filter(Boolean);
-      localStorage.setItem('gl_log_content_order', JSON.stringify(order));
+      lsSet('gl_log_content_order', JSON.stringify(order));
     };
 
     Array.from(row.querySelectorAll('label')).forEach(label => {
@@ -332,10 +338,10 @@
   $('themeToggleBtn').onclick = () => {
     const isDark = document.documentElement.classList.toggle('dark-mode');
     updateThemeButtonStyle(isDark);
-    localStorage.setItem('gl_log_theme', isDark ? 'dark' : 'light');
+    lsSet('gl_log_theme', isDark ? 'dark' : 'light');
   };
 
-  if (localStorage.getItem('gl_log_collapsed') === 'true') {
+  if (lsGet('gl_log_collapsed') === 'true') {
     $('stickyHeader').classList.add('collapsed');
     $('toggleBtn').textContent = '\u25BC';
   }
@@ -344,7 +350,7 @@
   $('toggleBtn').onclick = () => {
     const c = $('stickyHeader').classList.toggle('collapsed');
     $('toggleBtn').textContent = c ? '\u25BC' : '\u25B2';
-    localStorage.setItem('gl_log_collapsed', c);
+    lsSet('gl_log_collapsed', c);
   };
 
   // 錠前ボタン:既定はOFF(画面固定しない、通常スクロール)。ONにするとヘッダーが画面上部に固定される。
@@ -353,10 +359,10 @@
     $('lockToggleBtn').classList.toggle('is-active', locked);
     $('lockToggleBtn').textContent = locked ? '\uD83D\uDD12' : '\uD83D\uDD13';
     $('lockToggleBtn').setAttribute('aria-label', locked ? '\u30D8\u30C3\u30C0\u30FC\u56FA\u5B9A\u5207\u66FF(\u73FE\u5728ON)' : '\u30D8\u30C3\u30C0\u30FC\u56FA\u5B9A\u5207\u66FF(\u73FE\u5728OFF)');
-    if (persist) localStorage.setItem('gl_log_header_locked', locked);
+    if (persist) lsSet('gl_log_header_locked', locked);
   };
 
-  setHeaderLocked(localStorage.getItem('gl_log_header_locked') === 'true', false);
+  setHeaderLocked(lsGet('gl_log_header_locked') === 'true', false);
 
   $('lockToggleBtn').onclick = () => {
     setHeaderLocked(!$('lockToggleBtn').classList.contains('is-active'), true);
@@ -397,7 +403,7 @@
   const getRecentSearchKey = () => setlistMode ? SETLIST_RECENT_SEARCH_KEY : RECENT_SEARCH_KEY;
   const getRecentSearches = () => {
     try {
-      const arr = JSON.parse(localStorage.getItem(getRecentSearchKey()) || '[]');
+      const arr = JSON.parse(lsGet(getRecentSearchKey()) || '[]');
       return Array.isArray(arr) ? arr : [];
     } catch {
       return [];
@@ -409,12 +415,12 @@
     const key = getRecentSearchKey();
     const list = getRecentSearches().filter(v => v !== trimmed);
     list.unshift(trimmed);
-    localStorage.setItem(key, JSON.stringify(list.slice(0, MAX_RECENT_SEARCHES)));
+    lsSet(key, JSON.stringify(list.slice(0, MAX_RECENT_SEARCHES)));
   };
   const removeRecentSearch = kw => {
     const key = getRecentSearchKey();
     const list = getRecentSearches().filter(v => v !== kw);
-    localStorage.setItem(key, JSON.stringify(list));
+    lsSet(key, JSON.stringify(list));
   };
   const getSuggestionButtons = () => Array.from(searchSuggestions.querySelectorAll('button'));
   const highlightSuggestion = index => {
@@ -1392,7 +1398,7 @@
 
   // ICONボタン:コンテンツ種類フィルターの表示をテキストのみ⇔アイコンのみで切り替える。次回訪問時も記憶する
   const ICON_MODE_KEY = 'gl_log_icon_mode';
-  let iconMode = localStorage.getItem(ICON_MODE_KEY) === 'true';
+  let iconMode = lsGet(ICON_MODE_KEY) === 'true';
 
   // ICONモード時のみ、コンテンツ種類ボタンにツールチップ(名前)を表示する
   const updateContentTooltips = () => {
@@ -1409,7 +1415,7 @@
     iconMode = !iconMode;
     document.body.classList.toggle('icon-only-mode', iconMode);
     $('iconToggleBtn').classList.toggle('is-active', iconMode);
-    localStorage.setItem(ICON_MODE_KEY, iconMode);
+    lsSet(ICON_MODE_KEY, iconMode);
     updateContentTooltips();
     updateDisplay(false);
   };
@@ -1420,23 +1426,23 @@
   // 📍ボタン(MAPモード):ONの間、データ部の日付/時刻表示の右にmap属性へのリンクアイコンを表示する。
   // 次回訪問時も状態を記憶する
   const MAP_MODE_KEY = 'gl_log_map_mode';
-  let mapMode = localStorage.getItem(MAP_MODE_KEY) === 'true';
+  let mapMode = lsGet(MAP_MODE_KEY) === 'true';
   $('mapToggleBtn').classList.toggle('is-active', mapMode);
   $('mapToggleBtn').onclick = () => {
     mapMode = !mapMode;
     $('mapToggleBtn').classList.toggle('is-active', mapMode);
-    localStorage.setItem(MAP_MODE_KEY, mapMode);
+    lsSet(MAP_MODE_KEY, mapMode);
     updateDisplay(false);
   };
   const SONG_MODE_KEY = 'gl_log_song_mode';
-  let songMode = localStorage.getItem(SONG_MODE_KEY) === 'true';
+  let songMode = lsGet(SONG_MODE_KEY) === 'true';
   $('songToggleBtn').classList.toggle('is-active', songMode);
   $('songBar').classList.toggle('is-open', songMode);
   $('songToggleBtn').onclick = () => {
     songMode = !songMode;
     $('songToggleBtn').classList.toggle('is-active', songMode);
     $('songBar').classList.toggle('is-open', songMode);
-    localStorage.setItem(SONG_MODE_KEY, songMode);
+    lsSet(SONG_MODE_KEY, songMode);
     if (songMode) updateSongTickerScroll(); // 表示直後に幅が確定するよう再計測する
   };
 
@@ -1465,7 +1471,7 @@
     datePartButtons[key].onclick = () => {
       dateParts[key] = !dateParts[key];
       datePartButtons[key].classList.toggle('is-active', dateParts[key]);
-      localStorage.setItem(DATE_PARTS_KEY, JSON.stringify(dateParts));
+      lsSet(DATE_PARTS_KEY, JSON.stringify(dateParts));
       updateDisplay(false);
     };
   });
@@ -1837,7 +1843,7 @@
   };
 
   const loadFromCacheIfAny = () => {
-    const cached = localStorage.getItem(DATA_KEY);
+    const cached = lsGet(DATA_KEY);
     if (!cached) return false;
     try {
       applyLogs(JSON.parse(cached));
@@ -1861,8 +1867,8 @@
       })
       .then(data => {
         applyLogs(data);
-        localStorage.setItem(DATA_KEY, JSON.stringify(data));
-        if (sha) localStorage.setItem(VERSION_KEY, sha);
+        lsSet(DATA_KEY, JSON.stringify(data));
+        if (sha) lsSet(VERSION_KEY, sha);
       });
   };
 
@@ -1891,9 +1897,9 @@
         return res.json();
       })
       .then(commits => {
-        localStorage.setItem(CHECK_TIME_KEY, String(Date.now()));
+        lsSet(CHECK_TIME_KEY, String(Date.now()));
         const latestSha = commits[0]?.sha;
-        const cachedSha = localStorage.getItem(VERSION_KEY);
+        const cachedSha = lsGet(VERSION_KEY);
         if (latestSha && latestSha !== cachedSha) {
           return fetchFreshData(latestSha);
         }
@@ -1913,7 +1919,7 @@
   };
 
   // 直近チェックから一定時間以内なら、GitHub APIへの問い合わせ自体をスキップする
-  const lastCheckedAt = parseInt(localStorage.getItem(CHECK_TIME_KEY) || '0', 10);
+  const lastCheckedAt = parseInt(lsGet(CHECK_TIME_KEY) || '0', 10);
   const withinCooldown = hadCache && (Date.now() - lastCheckedAt < CHECK_COOLDOWN_MS);
 
   // トップのタイトルリンク(GL log)クリック時に呼ばれる:直近チェック時刻のクールダウンや
@@ -1925,7 +1931,7 @@
         return res.json();
       })
       .then(commits => {
-        localStorage.setItem(CHECK_TIME_KEY, String(Date.now()));
+        lsSet(CHECK_TIME_KEY, String(Date.now()));
         return fetchFreshData(commits[0]?.sha);
       })
       .catch(error => {
@@ -2011,7 +2017,7 @@
   };
 
   const loadSongsFromCacheIfAny = () => {
-    const cached = localStorage.getItem(SONG_DATA_KEY);
+    const cached = lsGet(SONG_DATA_KEY);
     if (!cached) return false;
     try {
       applySongs(JSON.parse(cached));
@@ -2032,8 +2038,8 @@
       })
       .then(data => {
         applySongs(data);
-        localStorage.setItem(SONG_DATA_KEY, JSON.stringify(data));
-        if (sha) localStorage.setItem(SONG_VERSION_KEY, sha);
+        lsSet(SONG_DATA_KEY, JSON.stringify(data));
+        if (sha) lsSet(SONG_VERSION_KEY, sha);
       });
   };
 
@@ -2046,9 +2052,9 @@
         return res.json();
       })
       .then(commits => {
-        localStorage.setItem(SONG_CHECK_TIME_KEY, String(Date.now()));
+        lsSet(SONG_CHECK_TIME_KEY, String(Date.now()));
         const latestSha = commits[0]?.sha;
-        const cachedSha = localStorage.getItem(SONG_VERSION_KEY);
+        const cachedSha = lsGet(SONG_VERSION_KEY);
         if (latestSha && latestSha !== cachedSha) {
           return fetchFreshSongs(latestSha);
         }
@@ -2064,7 +2070,7 @@
       });
   };
 
-  const lastSongCheckedAt = parseInt(localStorage.getItem(SONG_CHECK_TIME_KEY) || '0', 10);
+  const lastSongCheckedAt = parseInt(lsGet(SONG_CHECK_TIME_KEY) || '0', 10);
   const withinSongCooldown = hadSongCache && (Date.now() - lastSongCheckedAt < CHECK_COOLDOWN_MS);
 
   // トップのタイトルリンク(GL log)クリック時に呼ばれる:直近チェック時刻のクールダウンやSHA比較による
@@ -2076,7 +2082,7 @@
         return res.json();
       })
       .then(commits => {
-        localStorage.setItem(SONG_CHECK_TIME_KEY, String(Date.now()));
+        lsSet(SONG_CHECK_TIME_KEY, String(Date.now()));
         return fetchFreshSongs(commits[0]?.sha);
       })
       .catch(error => {
@@ -2112,7 +2118,7 @@
   };
 
   const loadSetlistFromCacheIfAny = () => {
-    const cached = localStorage.getItem(SETLIST_DATA_KEY);
+    const cached = lsGet(SETLIST_DATA_KEY);
     if (!cached) return false;
     try {
       applySetlistData(JSON.parse(cached));
@@ -2133,8 +2139,8 @@
       })
       .then(data => {
         applySetlistData(data);
-        localStorage.setItem(SETLIST_DATA_KEY, JSON.stringify(data));
-        if (sha) localStorage.setItem(SETLIST_VERSION_KEY, sha);
+        lsSet(SETLIST_DATA_KEY, JSON.stringify(data));
+        if (sha) lsSet(SETLIST_VERSION_KEY, sha);
       });
   };
 
@@ -2147,9 +2153,9 @@
         return res.json();
       })
       .then(commits => {
-        localStorage.setItem(SETLIST_CHECK_TIME_KEY, String(Date.now()));
+        lsSet(SETLIST_CHECK_TIME_KEY, String(Date.now()));
         const latestSha = commits[0]?.sha;
-        const cachedSha = localStorage.getItem(SETLIST_VERSION_KEY);
+        const cachedSha = lsGet(SETLIST_VERSION_KEY);
         if (latestSha && latestSha !== cachedSha) {
           return fetchFreshSetlist(latestSha);
         }
@@ -2165,7 +2171,7 @@
       });
   };
 
-  const lastSetlistCheckedAt = parseInt(localStorage.getItem(SETLIST_CHECK_TIME_KEY) || '0', 10);
+  const lastSetlistCheckedAt = parseInt(lsGet(SETLIST_CHECK_TIME_KEY) || '0', 10);
   const withinSetlistCooldown = hadSetlistCache && (Date.now() - lastSetlistCheckedAt < CHECK_COOLDOWN_MS);
 
   // トップのタイトルリンク(GL log)クリック時に呼ばれる:logs.json/songs.json同様にsetlist.jsonも常に取得し直す
@@ -2176,7 +2182,7 @@
         return res.json();
       })
       .then(commits => {
-        localStorage.setItem(SETLIST_CHECK_TIME_KEY, String(Date.now()));
+        lsSet(SETLIST_CHECK_TIME_KEY, String(Date.now()));
         return fetchFreshSetlist(commits[0]?.sha);
       })
       .catch(error => {
