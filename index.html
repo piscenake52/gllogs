@@ -356,6 +356,7 @@ body.icon-only-mode .item-contents {
 .team-icon.team-both { background: linear-gradient(135deg, #f472b6 50%, #facc15 50%); }
 .map-pin { display: inline-block; margin: 0 4px 0 2px; text-decoration: none; font-size: 12px; line-height: 1.4; vertical-align: middle; }
 .map-pin:not(a) { visibility: hidden; } /* mapに値が無い行は、アイコン分の幅は保ったまま見た目だけブランクにする */
+.setlist-icon { display: inline-block; margin: 0 4px 0 2px; font-size: 12px; line-height: 1.4; vertical-align: middle; cursor: pointer; }
 .team-icon.is-clickable { cursor: pointer; }
 /* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される。
    overflow-xだけhidden・overflow-yだけvisibleのように分割指定すると、ブラウザ側でvisible指定がautoとして
@@ -411,6 +412,29 @@ body.icon-only-mode .item-contents {
   /* スマホ版:アイコンのみ表示(PC版のICONモードと同じ固定幅・中央揃えに統一) */
   .item-contents { flex: 0 0 28px; width: 28px; padding: 1px 0; margin-right: 8px; text-align: center; }
 }
+
+/* セットリストポップアップ(SETLISTアイコン押下時に表示) */
+.setlist-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+.setlist-modal-overlay.is-open { display: flex; }
+.setlist-modal { position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.setlist-modal-close { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.setlist-modal-close:hover { background-color: var(--btn-hover); }
+.setlist-modal-title { font-size: 15px; font-weight: bold; margin: 0 26px 4px 0; line-height: 1.4; }
+.setlist-modal-artist { font-size: 12px; font-weight: 600; color: var(--sub); margin-bottom: 4px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.setlist-modal-hearts { display: inline-flex; gap: 2px; }
+.setlist-heart { font-size: 12px; line-height: 1; }
+.setlist-modal-datetime { font-size: 12px; color: var(--sub); margin-bottom: 2px; }
+.setlist-modal-venue { font-size: 12px; color: var(--sub); margin-bottom: 14px; }
+.setlist-modal-songlist { list-style: none; margin: 0; padding: 0; }
+.setlist-modal-songlist li { display: flex; align-items: baseline; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.setlist-modal-songlist li:last-child { border-bottom: none; }
+.setlist-song-order { flex: 0 0 22px; color: var(--muted); font-size: 11px; text-align: right; }
+.setlist-song-play-btn { flex: 0 0 auto; width: 18px; height: 18px; border-radius: 50%; background: #fff; color: #121212; font-size: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; border: 1px solid var(--input-border); }
+.setlist-song-play-btn.is-hidden { visibility: hidden; cursor: default; }
+.setlist-song-title { flex: 1 1 auto; }
+.setlist-song-type { flex: 0 0 auto; font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
+.setlist-song-notes { flex-basis: 100%; font-size: 11px; color: var(--sub); margin-top: 2px; }
+.setlist-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
 /*]]>*/
 </style>
 </head>
@@ -485,6 +509,13 @@ body.icon-only-mode .item-contents {
   <button class="to-top-btn" id="toTopBtn">&#9650;</button>
 </div>
 
+<div class="setlist-modal-overlay" id="setlistModalOverlay">
+  <div class="setlist-modal" id="setlistModal" role="dialog" aria-modal="true">
+    <button type="button" class="setlist-modal-close" id="setlistModalCloseBtn" aria-label="Close">&#215;</button>
+    <div class="setlist-modal-body" id="setlistModalBody"></div>
+  </div>
+</div>
+
 <script type="text/javascript">
 //<![CDATA[
 (() => {
@@ -501,9 +532,13 @@ body.icon-only-mode .item-contents {
   let logs = [], filtered = [], rendered = 0, updating = false;
   let desc = true, defaultText = '', timer = null, renderTimer = null;
   let setlistData = []; // setlist.json(公演ごとのセットリスト)のキャッシュ
+  let songsData = []; // songs.json(artist/title/link)のキャッシュ。SETLISTポップアップの再生ボタンにも使う
   let setlistMode = false; // SETLISTボタンでON/OFFする「セトリ検索モード」
   const pageSize = 40, isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const $ = id => document.getElementById(id);
+  // メンバーコード対応表(氏名:コード)
+  // G2: 小田柚葉:YZH、隅谷百花:MMK、鶴屋美咲:MSK、小川桜花:YOK、増田來亜:KUR、菱田未渚美:MNM、山口綺羅:KIR、原田都愛:TOA、石井蘭:RAN
+  // L2: 山口莉愛:RIN、杉浦優來:YUR、永山椿:TBK、深澤日彩:HIR、比嘉優和:YUW、佐藤栞奈:KAN、上村梨々香:RRK、森朱里:AKR、佐藤妃希:KIK
   const g2 = [
     {v:'G2',t:'Girls\u00B2'},{v:'YZH',n:'YUZUHA',c:'\uD83E\uDE75'},{v:'MMK',n:'MOMOKA',c:'\uD83D\uDC99'},{v:'MSK',n:'MISAKI',c:'\uD83E\uDDE1'},
     {v:'YOK',n:'YOKA',c:'\uD83D\uDC9C'},{v:'KUR',n:'KUREA',c:'\uD83E\uDD0D'},{v:'MNM',n:'MINAMI',c:'\uD83E\uDE77'},{v:'KIR',n:'KIRA',c:'\uD83D\uDC9B'},
@@ -531,8 +566,12 @@ body.icon-only-mode .item-contents {
     'TV': '\uD83D\uDCFA\uFE0F', 'RADIO': '\uD83D\uDCFB\uFE0F', 'MAGAZINE': '\uD83D\uDCD6', 'BOOK': '\uD83D\uDCDA', 'NEWSPAPER': '\uD83D\uDCF0',
     // 以下2種類はフィルターボタンには表示せず、フィルター判定上は"WEB"として扱う(normalizeContType参照)
     'STREAMING': '\uD83D\uDCF6', 'PODCAST': '\uD83C\uDFA4',
+    // COLUMNはフィルターボタンには表示せず、フィルター判定上は"WEB"として扱う(normalizeContType参照)
+    'COLUMN': '\uD83C\uDF10',
     // GOODSはフィルターボタンには表示せず、フィルター判定上は"SALES"として扱う(normalizeContType参照)
-    'GOODS': '\uD83D\uDED2'
+    'GOODS': '\uD83D\uDED2',
+    // 以下2種類はフィルターボタンには表示せず、フィルター判定上は"EVENT"として扱う(normalizeContType参照)
+    'STAGE': '\uD83C\uDFAD', 'COOKING': '\uD83C\uDF7D\uFE0F'
   };
 
   // 内部値(contents値・フィルター値)と実際の表示名が異なるものだけここに登録する(それ以外は値そのものを表示名として使う)
@@ -782,13 +821,15 @@ body.icon-only-mode .item-contents {
   // 件数プレビュー/ソート等)上は"RELEASE"の一部として扱う。データ部の表示(アイコン・コンテンツ名)には影響しない。
   const releaseAliasConts = ['CD', 'DVD', 'BD', 'DIGITAL'];
   const mediaAliasConts = ['TV', 'RADIO', 'MAGAZINE', 'BOOK', 'NEWSPAPER'];
-  const webAliasConts = ['STREAMING', 'PODCAST'];
+  const webAliasConts = ['STREAMING', 'PODCAST', 'COLUMN'];
   const salesAliasConts = ['GOODS'];
+  const eventAliasConts = ['STAGE', 'COOKING'];
   const normalizeContType = c =>
     releaseAliasConts.includes(c) ? 'RELEASE' :
     mediaAliasConts.includes(c) ? 'MEDIA' :
     webAliasConts.includes(c) ? 'WEB' :
-    salesAliasConts.includes(c) ? 'SALES' : c;
+    salesAliasConts.includes(c) ? 'SALES' :
+    eventAliasConts.includes(c) ? 'EVENT' : c;
 
   // ソート用:日付+時刻+グループも同じ場合の最終タイブレーク。othersはコンテンツフィルターボタンの
   // 現在の並び順(ドラッグでの並び替え結果を含む)を反映しているため、そのインデックスをそのまま使う。
@@ -1101,8 +1142,23 @@ body.icon-only-mode .item-contents {
       }
     }
 
+    // セトリ検索モード中、setlistidを持つ行にのみ📍の右にSETLISTアイコンを表示する。押すとセットリストをポップアップ表示する
+    let sl = null;
+    if (setlistMode && item.setlistid) {
+      sl = document.createElement('span');
+      sl.className = 'setlist-icon';
+      sl.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない
+      sl.textContent = '\uD83D\uDCCB\uFE0F';
+      sl.setAttribute('role', 'button');
+      sl.setAttribute('aria-label', 'Setlist');
+      sl.onclick = e => {
+        e.stopPropagation();
+        openSetlistModal(item.setlistid);
+      };
+    }
+
     const dateChildren = tm ? [d, tm] : [d];
-    const children = mp ? [...dateChildren, mp, ct] : [...dateChildren, ct];
+    const children = [...dateChildren, ...(mp ? [mp] : []), ...(sl ? [sl] : []), ct];
     if (teamClass) {
       const ti = document.createElement('span');
       ti.className = 'team-icon team-' + teamClass;
@@ -1357,7 +1413,7 @@ body.icon-only-mode .item-contents {
   const getMatchedSetlistIds = kw => {
     const result = new Set();
     setlistData.forEach(entry => {
-      const hit = (entry.songs || []).some(s => (s.title || '').toLowerCase().includes(kw));
+      const hit = (Array.isArray(entry.songs) ? entry.songs : []).some(s => (s.title || '').toLowerCase().includes(kw));
       if (hit) result.add(entry.setlistid);
     });
     return result;
@@ -1370,6 +1426,107 @@ body.icon-only-mode .item-contents {
     if (!kw) return true;
     return setlistIds.has(item.setlistid);
   };
+
+  // SETLISTアイコン押下時のポップアップ:setlistidに紐づくsetlist.jsonのデータを整形して表示する
+  const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  // songsのtype値と実際の表示文言が異なるものだけここに登録する(それ以外はtype値そのものを表示する)
+  const setlistTypeDisplayNames = {
+    'allow': '\u64AE\u5F71\u53EF\u80FD',
+    'mc': 'MC',
+    'encore': '\u30A2\u30F3\u30B3\u30FC\u30EB',
+    'cover': '\u30AB\u30D0\u30FC',
+    'dt': '\u30C0\u30F3\u30B9\u30C8\u30E9\u30C3\u30AF',
+    'medley': '\u30E1\u30C9\u30EC\u30FC'
+  };
+  const displayNameForSetlistType = t => setlistTypeDisplayNames[t] || t;
+  // setlistidは"YYYYMMDDHHMM"(公演の開演日時)形式。データ部と同じ表示形式(年.月.日 [曜]、時:分)に分解する
+  const formatSetlistDateTime = setlistid => {
+    if (!/^\d{12}$/.test(setlistid || '')) return { dateStr: '', timeStr: '' };
+    const y = setlistid.slice(0, 4), m = setlistid.slice(4, 6), d = setlistid.slice(6, 8);
+    const hh = setlistid.slice(8, 10), mm = setlistid.slice(10, 12);
+    const dateObj = new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10));
+    const dayStr = isNaN(dateObj.getTime()) ? '' : dayNames[dateObj.getDay()];
+    const dateStr = `${y}.${m}.${d}` + (dayStr ? ` [${dayStr}]` : '');
+    const timeStr = `${hh}:${mm}`;
+    return { dateStr, timeStr };
+  };
+  // type:songの曲名でsongs.jsonを完全一致検索し(前後空白・大小文字は無視)、Youtube等へのlinkを取得する
+  const findSongLinkByTitle = title => {
+    const norm = t => (t || '').trim().toLowerCase();
+    const target = norm(title);
+    if (!target) return null;
+    const found = songsData.find(s => norm(s.title) === target);
+    return found && found.link ? found.link : null;
+  };
+  const setlistModalOverlay = $('setlistModalOverlay');
+  const setlistModalBody = $('setlistModalBody');
+  // ポップアップ内はinnerHTMLで再生成するため、再生ボタンのクリックはイベント委譲で拾う
+  setlistModalBody.addEventListener('click', e => {
+    const btn = e.target.closest('.setlist-song-play-btn[data-link]');
+    if (!btn) return;
+    e.stopPropagation();
+    openSongLink(btn.dataset.link);
+  });
+  const openSetlistModal = setlistid => {
+    const entry = setlistData.find(e => e.setlistid === setlistid);
+    if (!entry) {
+      setlistModalBody.innerHTML = '<div class="setlist-modal-empty">SETLIST NOT FOUND</div>';
+      setlistModalOverlay.classList.add('is-open');
+      return;
+    }
+    try {
+      const songsHtml = (Array.isArray(entry.songs) ? entry.songs : [])
+        // 文字列だけの要素(""など)や、titleが空のオブジェクトは「曲ではない」として除外する
+        .filter(s => s && typeof s === 'object' && String(s.title || '').trim() !== '')
+        .slice()
+        .sort((a, b) => (a.order || 0) - (b.order || 0))
+        .map(s => {
+          const isSong = !s.type || s.type === 'song';
+          // song以外の行(allow等)も同じ幅の枠を確保し、曲名の開始位置がずれないようにする
+          const link = isSong ? findSongLinkByTitle(s.title) : null;
+          const playBtnHtml = link
+            ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>`
+            : `<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>`;
+          const typeBadge = s.type && s.type !== 'song' ? `<span class="setlist-song-type">${escapeHtml(displayNameForSetlistType(s.type))}</span>` : '';
+          const notesHtml = s.notes ? `<span class="setlist-song-notes">${escapeHtml(s.notes)}</span>` : '';
+          const titleText = s.original ? `${escapeHtml(s.title || '')}\uFF08${escapeHtml(s.original)}\uFF09` : escapeHtml(s.title || '');
+          return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-title">${titleText}</span>${typeBadge}${notesHtml}</li>`;
+        })
+        .join('');
+      setlistModalBody.innerHTML =
+        `<div class="setlist-modal-title">${escapeHtml(entry.title || '')}</div>` +
+        (() => {
+          const memberList = Array.isArray(entry.member) ? entry.member : [];
+          const memberCodes = memberOrder.filter(v => memberList.includes(v));
+          const heartsHtml = memberCodes.map(code => {
+            const info = memberInfoByCode[code];
+            return info ? `<span class="setlist-heart">${info.c}</span>` : '';
+          }).join('');
+          if (!entry.artist && !heartsHtml) return '';
+          return `<div class="setlist-modal-artist">${entry.artist ? escapeHtml(entry.artist) : ''}${heartsHtml ? `<span class="setlist-modal-hearts">${heartsHtml}</span>` : ''}</div>`;
+        })() +
+        (() => {
+          const { dateStr, timeStr } = formatSetlistDateTime(entry.setlistid);
+          if (!dateStr && !timeStr) return '';
+          return `<div class="setlist-modal-datetime">${escapeHtml(dateStr)}${timeStr ? ` \u958B\u6F14 ${escapeHtml(timeStr)}` : ''}</div>`;
+        })() +
+        (entry.venue ? `<div class="setlist-modal-venue">${escapeHtml(entry.venue)}</div>` : '') +
+        (songsHtml ? `<ul class="setlist-modal-songlist">${songsHtml}</ul>` : '<div class="setlist-modal-empty">no songs</div>');
+    } catch (err) {
+      // データ形状が想定外でも、ポップアップ自体は必ず開いてエラー内容が分かるようにする
+      console.error('Failed to render setlist modal:', err);
+      setlistModalBody.innerHTML = '<div class="setlist-modal-empty">LOAD ERROR</div>';
+    }
+    setlistModalOverlay.classList.add('is-open');
+  };
+  const closeSetlistModal = () => setlistModalOverlay.classList.remove('is-open');
+  $('setlistModalCloseBtn').onclick = closeSetlistModal;
+  setlistModalOverlay.onclick = e => {
+    if (e.target === setlistModalOverlay) closeSetlistModal(); // オーバーレイ部分クリックで閉じる(中身のクリックでは閉じない)
+  };
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && setlistModalOverlay.classList.contains('is-open')) closeSetlistModal();
+  });
 
   // コンテンツ種類フィルターを除いた条件(年・グループ/メンバー・検索・TODAY・セトリ検索)だけでアイテムがマッチするか判定
   const matchesOtherFilters = (item, ctx) => {
@@ -2340,9 +2497,8 @@ body.icon-only-mode .item-contents {
   // タッチ操作のモバイル端末では、通常通りリンク先に遷移して再生する
   const isPcEnvironment = () => !isMobileState && !('ontouchstart' in window) && navigator.maxTouchPoints === 0;
 
-  $('songPlayBtn').onclick = () => {
-    if (!currentSong || !currentSong.link) return;
-    const link = currentSong.link;
+  const openSongLink = link => {
+    if (!link) return;
     if (isPcEnvironment()) {
       // 'noopener'を付けると戻り値が常にnullになりopen成功の判定ができなくなるため、あえて付けない
       const w = window.open(link, '_blank');
@@ -2350,6 +2506,11 @@ body.icon-only-mode .item-contents {
       // ポップアップがブロックされた等で開けなかった場合は通常の遷移にフォールバックする
     }
     window.open(link, '_blank');
+  };
+
+  $('songPlayBtn').onclick = () => {
+    if (!currentSong || !currentSong.link) return;
+    openSongLink(currentSong.link);
   };
 
   const applySong = song => {
@@ -2360,7 +2521,9 @@ body.icon-only-mode .item-contents {
   };
 
   const applySongs = data => {
-    if (!Array.isArray(data) || data.length === 0) return;
+    if (!Array.isArray(data)) return;
+    songsData = data; // SETLISTポップアップの曲名照合用に全件保持しておく
+    if (data.length === 0) return;
     applySong(data[Math.floor(Math.random() * data.length)]);
   };
 
