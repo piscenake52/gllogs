@@ -99,11 +99,11 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 
 /* --- 検索ボックス(クリアボタン付き) --- */
 .search-box-wrap { flex: 1 1 150px; position: relative; display: flex; align-items: center; }
-.search-input { width: 100%; padding: 5px 28px 5px 28px; font-size: 12px; border: 1px solid var(--input-border); border-radius: 10px; outline: none; background: var(--input-bg); color: var(--text); }
+.search-input { width: 100%; padding: 5px 28px 5px 32px; font-size: 12px; border: 1px solid var(--input-border); border-radius: 10px; outline: none; background: var(--input-bg); color: var(--text); }
 .search-input:focus { border-color: var(--text); background: var(--bg); }
-/* SETLISTモード切替アイコン(検索窓の左側に内包)。検索窓の丸み(border-radius)に隠れて見切れないよう
-   アイコン自体を少し小さくし、角の丸まった部分にかからない位置に配置する */
-.search-setlist-btn { position: absolute; left: 4px; width: 19px; height: 19px; border-radius: 50%; background: none; border: none; color: var(--muted); font-size: 10px; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; user-select: none; }
+/* SETLISTモード切替アイコン(検索窓の左側に内包)。検索窓の角の丸み(border-radius)にかからないよう、
+   左オフセットをborder-radius以上確保してから配置する */
+.search-setlist-btn { position: absolute; left: 9px; width: 19px; height: 19px; border-radius: 50%; background: none; border: none; color: var(--muted); font-size: 10px; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; user-select: none; }
 .search-setlist-btn:hover { background-color: var(--btn-hover); }
 .search-clear-btn { position: absolute; right: 8px; background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 0; line-height: 1; display: none; user-select: none; }
 .search-clear-btn:hover { color: var(--text); }
