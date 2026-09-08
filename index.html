@@ -87,10 +87,12 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 #todayToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #songToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #heartToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+#setlistToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 /* ホバー中でもis-active(青)を確実に優先させる。押した直後はカーソルがボタン上にあるため、
    これが無いと:hoverの背景色に上書きされ、カーソルが離れるまで青くならないように見える */
 #songToggleBtn.is-active:hover { background-color: #38bdf8; }
 #heartToggleBtn.is-active:hover { background-color: #38bdf8; }
+#setlistToggleBtn.is-active:hover { background-color: #38bdf8; }
 /* FILTERボタン:データ部との境界線の中央に、線をまたぐように配置。他要素と重なる場合は横幅を縮める */
 .filter-center-btn {
   position: absolute;
@@ -433,12 +435,12 @@ body.icon-only-mode .item-contents {
     </div>
     <div class="extra-tools-row">
       <button class="toggle-btn" id="songToggleBtn">&#9834;</button>
+      <button class="toggle-btn" id="setlistToggleBtn">&#128203;&#65039;</button>
       <div class="search-box-wrap">
         <input type="text" id="searchInput" class="search-input" placeholder="search keywoooooooord &#3366;&#3405;&#3366;&#3391;(&#65381;&#7447;|">
         <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear search">&#215;</button>
         <div class="search-suggestions" id="searchSuggestions"></div>
       </div>
-      <button class="toggle-btn" id="setlistToggleBtn" disabled>&#128203;&#65039;</button>
       <button class="toggle-btn" id="heartToggleBtn">&#128158;</button>
       <button class="tool-btn theme-toggle-btn" id="themeToggleBtn" aria-label="&#12486;&#12540;&#12510;&#20999;&#12426;&#26367;&#12360;(&#12480;&#12540;&#12463;/&#12521;&#12452;&#12488;)">
         <span class="icon-sun" aria-hidden="true"></span>
@@ -498,6 +500,8 @@ body.icon-only-mode .item-contents {
   };
   let logs = [], filtered = [], rendered = 0, updating = false;
   let desc = true, defaultText = '', timer = null, renderTimer = null;
+  let setlistData = []; // setlist.json(公演ごとのセットリスト)のキャッシュ
+  let setlistMode = false; // SETLISTボタンでON/OFFする「セトリ検索モード」
   const pageSize = 40, isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const $ = id => document.getElementById(id);
   const g2 = [
@@ -859,12 +863,15 @@ body.icon-only-mode .item-contents {
   };
 
   // 検索窓:直近使った検索ワードを最大5件まで記憶し、フォーカス時に候補として表示する
+  // セトリ検索モード中に入力された検索ワードは、通常検索とは別のキーで保存する(要件により分離)
   const RECENT_SEARCH_KEY = 'gl_log_recent_searches';
+  const SETLIST_RECENT_SEARCH_KEY = 'gl_log_recent_setlist_searches';
   const MAX_RECENT_SEARCHES = 5;
   let highlightedSuggestionIndex = -1;
+  const getRecentSearchKey = () => setlistMode ? SETLIST_RECENT_SEARCH_KEY : RECENT_SEARCH_KEY;
   const getRecentSearches = () => {
     try {
-      const arr = JSON.parse(localStorage.getItem(RECENT_SEARCH_KEY) || '[]');
+      const arr = JSON.parse(localStorage.getItem(getRecentSearchKey()) || '[]');
       return Array.isArray(arr) ? arr : [];
     } catch {
       return [];
@@ -873,13 +880,15 @@ body.icon-only-mode .item-contents {
   const saveRecentSearch = kw => {
     const trimmed = kw.trim();
     if (!trimmed) return;
+    const key = getRecentSearchKey();
     const list = getRecentSearches().filter(v => v !== trimmed);
     list.unshift(trimmed);
-    localStorage.setItem(RECENT_SEARCH_KEY, JSON.stringify(list.slice(0, MAX_RECENT_SEARCHES)));
+    localStorage.setItem(key, JSON.stringify(list.slice(0, MAX_RECENT_SEARCHES)));
   };
   const removeRecentSearch = kw => {
+    const key = getRecentSearchKey();
     const list = getRecentSearches().filter(v => v !== kw);
-    localStorage.setItem(RECENT_SEARCH_KEY, JSON.stringify(list));
+    localStorage.setItem(key, JSON.stringify(list));
   };
   const getSuggestionButtons = () => Array.from(searchSuggestions.querySelectorAll('button'));
   const highlightSuggestion = index => {
@@ -897,6 +906,10 @@ body.icon-only-mode .item-contents {
     saveRecentSearch(term);
     searchSuggestions.classList.remove('is-open');
     syncTodayModeFromSearch(); // 年月日8桁の候補が選ばれた場合もTODAYモードに反映する
+    if (setlistMode) {
+      autoUpdateContentTypeFilters();
+      updateManualIndicators();
+    }
     updateDisplay(true);
   };
   const renderSearchSuggestions = () => {
@@ -934,6 +947,11 @@ body.icon-only-mode .item-contents {
     syncTodayModeFromSearch(); // 年月日8桁の入力/削除に応じてTODAYモードをON/OFFする
     clearTimeout(timer);
     timer = setTimeout(() => {
+      // セトリ検索モード中は、検索ワードの変化に応じてコンテンツ種類フィルターも自動on/offする
+      if (setlistMode) {
+        autoUpdateContentTypeFilters();
+        updateManualIndicators();
+      }
       updateDisplay(true);
     }, 180);
   };
@@ -982,6 +1000,10 @@ body.icon-only-mode .item-contents {
     searchInput.value = '';
     updateSearchClearState();
     syncTodayModeFromSearch(); // クリアで日付ではなくなるのでTODAYモードもOFFに戻す
+    if (setlistMode) {
+      autoUpdateContentTypeFilters();
+      updateManualIndicators();
+    }
     updateDisplay(true);
     searchInput.focus();
   };
@@ -1220,10 +1242,15 @@ body.icon-only-mode .item-contents {
     };
 
     if (kw) {
-      frag.appendChild(makeBadge('Keyword: "' + kw + '"', () => {
+      const badgeLabel = (setlistMode ? 'Setlist: "' : 'Keyword: "') + kw + '"';
+      frag.appendChild(makeBadge(badgeLabel, () => {
         searchInput.value = '';
         updateSearchClearState();
         syncTodayModeFromSearch(); // 検索ワード削除でTODAYモードもOFFに戻す
+        if (setlistMode) {
+          autoUpdateContentTypeFilters();
+          updateManualIndicators();
+        }
         updateDisplay(true);
       }));
     }
@@ -1319,9 +1346,27 @@ body.icon-only-mode .item-contents {
     return { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate };
   };
 
-  // コンテンツ種類フィルターを除いた条件(年・グループ/メンバー・検索・TODAY)だけでアイテムがマッチするか判定
+  // セトリ検索モード:setlist.jsonのsongs[].titleをkwで部分一致検索し、該当する公演のsetlistidの集合を返す
+  const getMatchedSetlistIds = kw => {
+    const result = new Set();
+    setlistData.forEach(entry => {
+      const hit = (entry.songs || []).some(s => (s.title || '').toLowerCase().includes(kw));
+      if (hit) result.add(entry.setlistid);
+    });
+    return result;
+  };
+
+  // セトリ検索モード中のアイテム判定:setlistidを持つデータのみが対象。
+  // キーワード未入力時は「setlistidを持つデータすべて」、入力時は該当曲を含む公演のみに絞り込む
+  const isSetlistOk = (item, kw, setlistIds) => {
+    if (!item.setlistid) return false;
+    if (!kw) return true;
+    return setlistIds.has(item.setlistid);
+  };
+
+  // コンテンツ種類フィルターを除いた条件(年・グループ/メンバー・検索・TODAY・セトリ検索)だけでアイテムがマッチするか判定
   const matchesOtherFilters = (item, ctx) => {
-    const { cYears, sGroups, mGroups, kw, dq } = ctx;
+    const { cYears, sGroups, mGroups, kw, dq, setlistIds } = ctx;
     const yr = item.date ? item.date.slice(0, 4) : '';
     const itemGroups = item.groups || [];
     const itemGroupsAndRelations = [...itemGroups, ...(item.relations || [])];
@@ -1341,56 +1386,62 @@ body.icon-only-mode .item-contents {
     const gOk = memberOk && metaOk && !stfExcluded;
 
     let dateOk = true;
-    if (dq.isDateQuery) {
-      const itemDateNum = item.date || '';
-      let matchesDate = true;
-      if (dq.targetMonthDay) {
-        const itemMD = itemDateNum.slice(4, 8);
-        matchesDate = itemMD === dq.targetMonthDay;
-      } else if (dq.targetMonthDayRange) {
-        const itemMD = itemDateNum.slice(4, 8);
-        const [fromMD, toMD] = dq.targetMonthDayRange;
-        matchesDate = fromMD <= toMD
-          ? (itemMD >= fromMD && itemMD <= toMD)
-          : (itemMD >= fromMD || itemMD <= toMD);
-      } else {
-        if (dq.startDate && itemDateNum < dq.startDate) matchesDate = false;
-        if (dq.endDate && itemDateNum > dq.endDate) matchesDate = false;
-      }
-      const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
-      dateOk = matchesDate || tagsMatch;
-    }
-
     let textOk = true;
-    if (kw && !dq.isDateQuery) {
-      const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sm || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
-      const tokens = kw.split(/\s+/).filter(Boolean);
-      textOk = tokens.every(tok => {
-        if (tok.length > 1 && tok.startsWith('-')) return !searchText.includes(tok.slice(1));
-        return searchText.includes(tok);
-      });
+    let setlistOk = true;
+    if (setlistMode) {
+      // セトリ検索モード中は、通常の日付検索・テキスト検索の代わりにsetlistidベースの判定を行う
+      setlistOk = isSetlistOk(item, kw, setlistIds);
+    } else {
+      if (dq.isDateQuery) {
+        const itemDateNum = item.date || '';
+        let matchesDate = true;
+        if (dq.targetMonthDay) {
+          const itemMD = itemDateNum.slice(4, 8);
+          matchesDate = itemMD === dq.targetMonthDay;
+        } else if (dq.targetMonthDayRange) {
+          const itemMD = itemDateNum.slice(4, 8);
+          const [fromMD, toMD] = dq.targetMonthDayRange;
+          matchesDate = fromMD <= toMD
+            ? (itemMD >= fromMD && itemMD <= toMD)
+            : (itemMD >= fromMD || itemMD <= toMD);
+        } else {
+          if (dq.startDate && itemDateNum < dq.startDate) matchesDate = false;
+          if (dq.endDate && itemDateNum > dq.endDate) matchesDate = false;
+        }
+        const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
+        dateOk = matchesDate || tagsMatch;
+      }
+
+      if (kw && !dq.isDateQuery) {
+        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sm || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+        const tokens = kw.split(/\s+/).filter(Boolean);
+        textOk = tokens.every(tok => {
+          if (tok.length > 1 && tok.startsWith('-')) return !searchText.includes(tok.slice(1));
+          return searchText.includes(tok);
+        });
+      }
     }
 
     const todayOk = isTodayDateOk(item, cYears);
 
-    return yOk && gOk && dateOk && textOk && todayOk;
+    return yOk && gOk && dateOk && textOk && setlistOk && todayOk;
   };
 
-  // TODAY/←/→ボタンが押された時のみ、コンテンツ種類ボタンを自動on/offする。
-  // それ以外(検索窓・年・グループ・メンバーの変更)では、コンテンツ種類ボタンの自動on/offは一切行わない。
+  // TODAY/←/→ボタン、またはセトリ検索モードでの検索条件変化があった時のみ、コンテンツ種類ボタンを自動on/offする。
+  // それ以外(通常検索・年・グループ・メンバーの変更)では、コンテンツ種類ボタンの自動on/offは一切行わない。
   //
-  // ・TODAYをONにした時、および←/→(TODAYモード中)を押した時:
-  //     手動on/offされているものはそのまま保護し、それ以外は現在の絞り込み(今日基準含む)に
+  // ・TODAYまたはセトリ検索モードをONにした時、および関連する条件(←/→、検索ワード等)が変化した時:
+  //     手動on/offされているものはそのまま保護し、それ以外は現在の絞り込み(今日基準・セトリ検索結果含む)に
   //     該当する/しないに応じて自動on/offする。
-  // ・TODAYをOFFにした時:
+  // ・TODAY・セトリ検索モードの両方がOFFの時:
   //     残りのフィルタでの再判定はせず、手動on/offされているもの以外は無条件で全てOFFにする。
   const manuallyTouchedConts = new Set(); // ユーザーが手動でON/OFFしたコンテンツ種類の値(右上ランプの色分け・保護判定用)
 
   const autoUpdateContentTypeFilters = () => {
     const contentCheckboxes = Array.from(checkboxes).filter(cb => allConts.includes(cb.value));
 
-    if (!todayMode) {
-      // TODAYがOFFになった:残りのフィルタでの再判定はせず、手動on/off以外は無条件でOFFにする
+    if (!todayMode && !setlistMode) {
+      // TODAY・セトリ検索モードともにOFF:残りのフィルタでの再判定はせず、手動on/off以外は無条件でOFFにする
       contentCheckboxes.forEach(cb => {
         if (manuallyTouchedConts.has(cb.value)) return;
         cb.checked = false;
@@ -1405,8 +1456,9 @@ body.icon-only-mode .item-contents {
     const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
     const rawKw = searchInput.value.trim();
     const kw = rawKw.toLowerCase();
-    const dq = parseDateQuery(rawKw);
-    const ctx = { cYears, sGroups, mGroups, kw, dq };
+    const dq = setlistMode ? null : parseDateQuery(rawKw);
+    const setlistIds = setlistMode && kw ? getMatchedSetlistIds(kw) : null;
+    const ctx = { cYears, sGroups, mGroups, kw, dq, setlistIds };
 
     const matched = new Set();
     expandTodayBirthdayItems(logs, cYears).forEach(item => {
@@ -1437,8 +1489,12 @@ body.icon-only-mode .item-contents {
     const rawKw = searchInput.value.trim();
     const kw = rawKw.toLowerCase();
 
-    // 日付・年・月日クエリのパース処理
-    const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = parseDateQuery(rawKw);
+    // 日付・年・月日クエリのパース処理(セトリ検索モード中はkwを曲名検索に使うため不要)
+    const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = setlistMode
+      ? { isDateQuery: false, targetMonthDay: null, targetMonthDayRange: null, startDate: null, endDate: null }
+      : parseDateQuery(rawKw);
+    // セトリ検索モード中、キーワードがあればsetlist.jsonから該当するsetlistidを検索しておく
+    const setlistIds = setlistMode && kw ? getMatchedSetlistIds(kw) : null;
 
     filtered = expandTodayBirthdayItems(logs, cYears).filter(item => {
       const yr = item.date ? item.date.slice(0, 4) : '';
@@ -1463,42 +1519,49 @@ body.icon-only-mode .item-contents {
       const cOk = cConts.length === 0 || (cConts.includes('ETC') && !primaryConts.includes(ic)) || cConts.includes(ic);
       
       let dateOk = true;
-      if (isDateQuery) {
-        const itemDateNum = item.date || '';
-        let matchesDate = true;
-        if (targetMonthDay) {
-          const itemMD = itemDateNum.slice(4, 8);
-          matchesDate = itemMD === targetMonthDay;
-        } else if (targetMonthDayRange) {
-          const itemMD = itemDateNum.slice(4, 8);
-          const [fromMD, toMD] = targetMonthDayRange;
-          matchesDate = fromMD <= toMD
-            ? (itemMD >= fromMD && itemMD <= toMD)
-            : (itemMD >= fromMD || itemMD <= toMD); // 年をまたぐ範囲(例:1201-0131)にも対応
-        } else {
-          if (startDate && itemDateNum < startDate) matchesDate = false;
-          if (endDate && itemDateNum > endDate) matchesDate = false;
-        }
-        // 日付検索を優先しつつ、tagsに一致するものがあればそちらも結果に含める
-        const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
-        dateOk = matchesDate || tagsMatch;
-      }
-
       let textOk = true;
-      if (kw && !isDateQuery) {
-        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sm || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
-        const tokens = kw.split(/\s+/).filter(Boolean);
-        textOk = tokens.every(tok => {
-          if (tok.length > 1 && tok.startsWith('-')) {
-            return !searchText.includes(tok.slice(1));
+      let setlistOk = true;
+
+      if (setlistMode) {
+        // セトリ検索モード:通常の日付検索・テキスト検索の代わりにsetlistidベースで判定する
+        setlistOk = isSetlistOk(item, kw, setlistIds);
+      } else {
+        if (isDateQuery) {
+          const itemDateNum = item.date || '';
+          let matchesDate = true;
+          if (targetMonthDay) {
+            const itemMD = itemDateNum.slice(4, 8);
+            matchesDate = itemMD === targetMonthDay;
+          } else if (targetMonthDayRange) {
+            const itemMD = itemDateNum.slice(4, 8);
+            const [fromMD, toMD] = targetMonthDayRange;
+            matchesDate = fromMD <= toMD
+              ? (itemMD >= fromMD && itemMD <= toMD)
+              : (itemMD >= fromMD || itemMD <= toMD); // 年をまたぐ範囲(例:1201-0131)にも対応
+          } else {
+            if (startDate && itemDateNum < startDate) matchesDate = false;
+            if (endDate && itemDateNum > endDate) matchesDate = false;
           }
-          return searchText.includes(tok);
-        });
+          // 日付検索を優先しつつ、tagsに一致するものがあればそちらも結果に含める
+          const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
+          dateOk = matchesDate || tagsMatch;
+        }
+
+        if (kw && !isDateQuery) {
+          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sm || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+          const tokens = kw.split(/\s+/).filter(Boolean);
+          textOk = tokens.every(tok => {
+            if (tok.length > 1 && tok.startsWith('-')) {
+              return !searchText.includes(tok.slice(1));
+            }
+            return searchText.includes(tok);
+          });
+        }
       }
       
       const todayOk = isTodayDateOk(item, cYears);
 
-      return yOk && gOk && cOk && dateOk && textOk && todayOk;
+      return yOk && gOk && cOk && dateOk && textOk && setlistOk && todayOk;
     });
 
     filtered.sort((a, b) => {
@@ -1529,7 +1592,7 @@ body.icon-only-mode .item-contents {
       const isZero = filtered.length === 0;
       $('noResult').style.display = isZero ? 'block' : 'none';
       $('sortBtn').style.display = isZero ? 'none' : 'block';
-      $('inlineClearBtn').style.display = (checked.length > 0 || kw || todayMode) ? 'inline-block' : 'none';
+      $('inlineClearBtn').style.display = (checked.length > 0 || kw || todayMode || setlistMode) ? 'inline-block' : 'none';
       
       if (!isZero) renderBatch();
       $('items').classList.remove('is-animating');
@@ -1558,7 +1621,10 @@ body.icon-only-mode .item-contents {
     let cC = checked.filter(c => allConts.includes(c.value)).map(c => c.value);
     const rawKw = searchInput.value.trim();
     const kw = rawKw.toLowerCase();
-    const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = parseDateQuery(rawKw);
+    const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = setlistMode
+      ? { isDateQuery: false, targetMonthDay: null, targetMonthDayRange: null, startDate: null, endDate: null }
+      : parseDateQuery(rawKw);
+    const setlistIds = setlistMode && kw ? getMatchedSetlistIds(kw) : null;
 
     if (isChecked) {
       if (/^\d{4}$/.test(val)) cY = cY.filter(y => y !== val);
@@ -1591,33 +1657,39 @@ body.icon-only-mode .item-contents {
       const gOk = memberOk && metaOk && !stfExcluded;
 
       let dateOk = true;
-      if (isDateQuery) {
-        const itemDateNum = item.date || '';
-        let matchesDate = true;
-        if (targetMonthDay) {
-          const itemMD = itemDateNum.slice(4, 8);
-          matchesDate = itemMD === targetMonthDay;
-        } else if (targetMonthDayRange) {
-          const itemMD = itemDateNum.slice(4, 8);
-          const [fromMD, toMD] = targetMonthDayRange;
-          matchesDate = fromMD <= toMD
-            ? (itemMD >= fromMD && itemMD <= toMD)
-            : (itemMD >= fromMD || itemMD <= toMD);
-        } else {
-          if (startDate && itemDateNum < startDate) matchesDate = false;
-          if (endDate && itemDateNum > endDate) matchesDate = false;
-        }
-        const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
-        dateOk = matchesDate || tagsMatch;
-      }
-
       let kwOk = true;
-      if (kw && !isDateQuery) {
-        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sm || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
-        const tokens = kw.split(/\s+/).filter(Boolean);
-        kwOk = tokens.every(tok =>
-          tok.length > 1 && tok.startsWith('-') ? !searchText.includes(tok.slice(1)) : searchText.includes(tok)
-        );
+      let setlistOk = true;
+
+      if (setlistMode) {
+        setlistOk = isSetlistOk(item, kw, setlistIds);
+      } else {
+        if (isDateQuery) {
+          const itemDateNum = item.date || '';
+          let matchesDate = true;
+          if (targetMonthDay) {
+            const itemMD = itemDateNum.slice(4, 8);
+            matchesDate = itemMD === targetMonthDay;
+          } else if (targetMonthDayRange) {
+            const itemMD = itemDateNum.slice(4, 8);
+            const [fromMD, toMD] = targetMonthDayRange;
+            matchesDate = fromMD <= toMD
+              ? (itemMD >= fromMD && itemMD <= toMD)
+              : (itemMD >= fromMD || itemMD <= toMD);
+          } else {
+            if (startDate && itemDateNum < startDate) matchesDate = false;
+            if (endDate && itemDateNum > endDate) matchesDate = false;
+          }
+          const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
+          dateOk = matchesDate || tagsMatch;
+        }
+
+        if (kw && !isDateQuery) {
+          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sm || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+          const tokens = kw.split(/\s+/).filter(Boolean);
+          kwOk = tokens.every(tok =>
+            tok.length > 1 && tok.startsWith('-') ? !searchText.includes(tok.slice(1)) : searchText.includes(tok)
+          );
+        }
       }
 
       const todayOk = isTodayDateOk(item, cY);
@@ -1626,7 +1698,7 @@ body.icon-only-mode .item-contents {
       return yOk &&
              gOk &&
              (cC.length === 0 || (cC.includes('ETC') && !primaryConts.includes(ic)) || cC.includes(ic)) &&
-             dateOk && kwOk && todayOk;
+             dateOk && kwOk && setlistOk && todayOk;
     }).length;
   };
 
@@ -1934,6 +2006,16 @@ body.icon-only-mode .item-contents {
     updateDisplay(true);
   };
 
+  // SETLISTボタン:セトリ検索モードのON/OFF。検索窓の文字列はモード切替時もクリアしない
+  $('setlistToggleBtn').onclick = () => {
+    setlistMode = !setlistMode;
+    $('setlistToggleBtn').classList.toggle('is-active', setlistMode);
+    searchSuggestions.classList.remove('is-open'); // モード切替時は検索候補ポップアップを一旦閉じる
+    autoUpdateContentTypeFilters();
+    updateManualIndicators();
+    updateDisplay(true);
+  };
+
   const bindCheckboxAndLabelEvents = () => {
     if (!isTouch) {
       labels.forEach(l => {
@@ -2035,6 +2117,11 @@ body.icon-only-mode .item-contents {
     // CLEARでハートモードもOFFにする(再描画される行が展開済みの状態で作られないようにする)
     heartModeOn = false;
     $('heartToggleBtn').classList.remove('is-active');
+    // CLEARでセトリ検索モードもOFFに戻す
+    if (setlistMode) {
+      setlistMode = false;
+      $('setlistToggleBtn').classList.remove('is-active');
+    }
     window.scrollTo({ top: 0, behavior: 'instant' });
     updateDisplay(true);
   };
@@ -2043,6 +2130,7 @@ body.icon-only-mode .item-contents {
     resetAll(e);
     forceReloadLogs(); // タイトルクリック時は直近チェック時刻やSHA比較を無視し、常に最新のlogs.jsonを取得し直す
     forceReloadSongs(); // songs.json(♪の楽曲データ)も同様に強制的に取得し直す
+    forceReloadSetlist(); // setlist.json(セトリ検索用データ)も同様に強制的に取得し直す
   };
   $('quickResetBtn').onclick = resetAll;
   $('inlineClearBtn').onclick = resetAll;
@@ -2349,6 +2437,106 @@ body.icon-only-mode .item-contents {
     forceReloadSongs();
   } else if (!withinSongCooldown) {
     checkForSongUpdates();
+  }
+
+  // ================= セトリ検索モード(SETLIST) =================
+  // setlist.json(公演ごとのセットリスト)取得:logs.json/songs.jsonと同じ方式
+  const SETLIST_FILE = 'setlist.json';
+  const SETLIST_VERSION_KEY = 'gl_setlist_sha';
+  const SETLIST_DATA_KEY = 'gl_setlist_data';
+  const SETLIST_CHECK_TIME_KEY = 'gl_setlist_checked_at';
+
+  const applySetlistData = data => {
+    setlistData = Array.isArray(data) ? data : [];
+    // 既にセトリ検索モード中に読み込みが完了した場合は、結果を反映するため再描画する
+    if (setlistMode) {
+      autoUpdateContentTypeFilters();
+      updateManualIndicators();
+      updateDisplay(true);
+    }
+  };
+
+  const loadSetlistFromCacheIfAny = () => {
+    const cached = localStorage.getItem(SETLIST_DATA_KEY);
+    if (!cached) return false;
+    try {
+      applySetlistData(JSON.parse(cached));
+      return true;
+    } catch (e) {
+      return false; // 壊れたキャッシュは無視して素通り(新規取得に進む)
+    }
+  };
+
+  const fetchFreshSetlist = sha => {
+    const url = sha
+      ? `https://cdn.jsdelivr.net/gh/${REPO}@${sha}/${SETLIST_FILE}`
+      : `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${SETLIST_FILE}?v=${Date.now()}`;
+    return fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then(data => {
+        applySetlistData(data);
+        localStorage.setItem(SETLIST_DATA_KEY, JSON.stringify(data));
+        if (sha) localStorage.setItem(SETLIST_VERSION_KEY, sha);
+      });
+  };
+
+  const hadSetlistCache = loadSetlistFromCacheIfAny();
+
+  const checkForSetlistUpdates = () => {
+    fetch(`https://api.github.com/repos/${REPO}/commits?path=${SETLIST_FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
+      .then(res => {
+        if (!res.ok) throw new Error('GitHub API error');
+        return res.json();
+      })
+      .then(commits => {
+        localStorage.setItem(SETLIST_CHECK_TIME_KEY, String(Date.now()));
+        const latestSha = commits[0]?.sha;
+        const cachedSha = localStorage.getItem(SETLIST_VERSION_KEY);
+        if (latestSha && latestSha !== cachedSha) {
+          return fetchFreshSetlist(latestSha);
+        }
+        if (!setlistData.length) return fetchFreshSetlist(latestSha);
+      })
+      .catch(error => {
+        console.error('Failed to check setlist.json version:', error);
+        if (!setlistData.length) {
+          fetchFreshSetlist(null).catch(err2 => {
+            console.error('Failed to load setlist.json:', err2);
+          });
+        }
+      });
+  };
+
+  const lastSetlistCheckedAt = parseInt(localStorage.getItem(SETLIST_CHECK_TIME_KEY) || '0', 10);
+  const withinSetlistCooldown = hadSetlistCache && (Date.now() - lastSetlistCheckedAt < CHECK_COOLDOWN_MS);
+
+  // トップのタイトルリンク(GL log)クリック時に呼ばれる:logs.json/songs.json同様にsetlist.jsonも常に取得し直す
+  const forceReloadSetlist = () => {
+    fetch(`https://api.github.com/repos/${REPO}/commits?path=${SETLIST_FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
+      .then(res => {
+        if (!res.ok) throw new Error('GitHub API error');
+        return res.json();
+      })
+      .then(commits => {
+        localStorage.setItem(SETLIST_CHECK_TIME_KEY, String(Date.now()));
+        return fetchFreshSetlist(commits[0]?.sha);
+      })
+      .catch(error => {
+        console.error('Failed to force-reload setlist.json:', error);
+        fetchFreshSetlist(null).catch(err2 => {
+          console.error('Failed to load setlist.json:', err2);
+        });
+      });
+  };
+
+  // 特定の配信元からのアクセス時は、logs.json/songs.json同様にsetlist.jsonも常に取得し直す
+  if (isForcedFreshSource()) {
+    forceReloadSetlist();
+  } else if (!withinSetlistCooldown) {
+    checkForSetlistUpdates();
   }
 })();
 //]]>
