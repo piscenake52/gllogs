@@ -1,0 +1,405 @@
+/* ==================== カラーテーマ(ライト/ダーク共通のCSS変数) ==================== */
+:root {
+  --bg: #fff; --text: #222; --sub: #555; --muted: #888;
+  --border: #f4f4f5; --input-border: #e4e4e7; --btn-bg: #f4f4f5;
+  --btn-hover: #e4e4e7; --input-bg: #fafafa; --item-border: #f9f9f9;
+  --active-bg: #27272a; --active-color: #fff;
+  --container-w: 620px;
+}
+body.dark-mode {
+  --bg: #121212; --text: #f4f4f5; --sub: #a1a1aa; --muted: #71717a;
+  --border: #27272a; --input-border: #3f3f46; --btn-bg: #27272a;
+  --btn-hover: #3f3f46; --input-bg: #18181b; --item-border: #1f1f23;
+  --active-bg: #f4f4f5; --active-color: #121212;
+}
+* { box-sizing: border-box; }
+
+/* スマホのPC版表示対応 ＆ カクつき防止（scrollbar-gutter: stable） */
+html { 
+  overflow-y: auto; 
+  scrollbar-gutter: stable; 
+  height: auto;
+  min-height: 100%;
+}
+
+/* ==================== ページ全体のレイアウト ==================== */
+body { 
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; 
+  background: var(--bg); 
+  margin: 0; 
+  padding: 0 15px 40px; 
+  color: var(--text); 
+  transition: background-color 0.2s, color 0.2s; 
+  height: auto;
+}
+.container { max-width: var(--container-w); margin: 0 auto; position: relative; }
+/* --- 上部固定ヘッダー(タイトル・検索・テーマ切替・フィルター開閉) --- */
+.sticky-header { position: sticky; top: 0; background: var(--bg); z-index: 100; padding: 12px 0 0; margin-bottom: 12px; border-bottom: 1px solid var(--border); transition: background-color 0.2s; }
+.sticky-header-inner { position: relative; padding-bottom: 8px; }
+.header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
+h1 { font-size: 20px; margin: 0; line-height: 1; }
+.reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; letter-spacing: -2px; }
+.reset-link sup { font-size: 0.67em; }
+.reset-link:hover { opacity: 0.8; }
+.toggle-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; padding: 4px 8px; border-radius: 12px; line-height: 1; }
+.toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
+.header-btn-group { display: flex; align-items: center; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; cursor: grab; min-width: 0; }
+.header-btn-group::-webkit-scrollbar { display: none; }
+.header-btn-group > * { flex-shrink: 0; }
+.date-part-btn { padding: 4px 6px; }
+.toggle-btn.is-active { color: var(--text); background-color: var(--btn-bg); text-shadow: 0 0 0.4px currentColor, 0 0 0.4px currentColor; }
+.toggle-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.toggle-btn:disabled:hover { background: none; color: var(--muted); }
+.date-part-btn.is-active { color: #fff; background-color: #a78bfa; text-shadow: none; }
+#badgeToggleBtn.is-active, #iconToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+#todayToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+#songToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+#heartToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+#setlistToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+/* ホバー中でもis-active(青)を確実に優先させる。押した直後はカーソルがボタン上にあるため、
+   これが無いと:hoverの背景色に上書きされ、カーソルが離れるまで青くならないように見える */
+#songToggleBtn.is-active:hover { background-color: #38bdf8; }
+#heartToggleBtn.is-active:hover { background-color: #38bdf8; }
+#setlistToggleBtn.is-active:hover { background-color: #38bdf8; }
+/* FILTERボタン:データ部との境界線の中央に、線をまたぐように配置。他要素と重なる場合は横幅を縮める */
+.filter-center-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 50%);
+  z-index: 6;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  padding: 2px 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+@media (max-width: 420px) {
+  .filter-center-btn { padding: 2px 6px; }
+}
+.count-badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  background: #38bdf8;
+  color: #042C53;
+  font-size: 9px;
+  line-height: 1;
+  min-width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  pointer-events: none;
+  font-weight: bold;
+  z-index: 1;
+}
+.extra-tools-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+
+/* --- 検索ボックス(クリアボタン付き) --- */
+.search-box-wrap { flex: 1 1 150px; position: relative; display: flex; align-items: center; }
+.search-input { width: 100%; padding: 5px 28px 5px 10px; font-size: 12px; border: 1px solid var(--input-border); border-radius: 14px; outline: none; background: var(--input-bg); color: var(--text); }
+.search-input:focus { border-color: var(--text); background: var(--bg); }
+.search-clear-btn { position: absolute; right: 8px; background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 0; line-height: 1; display: none; user-select: none; }
+.search-clear-btn:hover { color: var(--text); }
+.search-box-wrap.has-text .search-clear-btn { display: block; }
+.search-suggestions { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 10px; z-index: 20; overflow: hidden; display: none; }
+.search-suggestions.is-open { display: block; }
+.search-suggestions button { display: block; width: 100%; text-align: left; background: none; border: none; color: var(--text); font-size: 13px; padding: 7px 12px; cursor: pointer; }
+.search-suggestions button:hover, .search-suggestions button.is-highlighted { background: var(--btn-hover); }
+
+.tool-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 11px; cursor: pointer; padding: 5px 10px; border-radius: 14px; user-select: none; white-space: nowrap; }
+.tool-btn:hover { background-color: var(--btn-hover); }
+
+/* --- 曲紹介バー(♪ボタンで開閉。検索窓の下に表示) --- */
+.song-bar { display: flex; align-items: center; gap: 10px; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0; margin-bottom: 0; transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.35s ease, margin-bottom 0.35s ease; }
+.sticky-header.is-initializing .song-bar { transition: none !important; }
+.song-bar.is-open { max-height: 44px; opacity: 1; margin-top: 2px; margin-bottom: 8px; }
+.song-play-btn { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--input-border); background: #fff; color: #121212; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
+.song-play-btn:hover { background-color: #eee; }
+.song-ticker-viewport { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; position: relative; }
+.song-ticker-text { display: inline-block; font-size: 13px; line-height: 1.2; color: var(--text); white-space: nowrap; }
+.song-ticker-viewport.is-scrolling .song-ticker-text { animation-name: songTicker; animation-timing-function: linear; animation-iteration-count: infinite; }
+@keyframes songTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* --- フィルターエリアの開閉アニメーション --- */
+.collapsible-area { max-height: 550px; opacity: 1; overflow: hidden; transition: max-height 0.3s ease, opacity 0.2s ease, margin-top 0.2s ease; }
+.sticky-header.is-initializing .collapsible-area { transition: none !important; }
+.sticky-header.collapsed .collapsible-area { max-height: 0; opacity: 0; margin-top: 0; pointer-events: none; }
+.sticky-header.collapsed { margin-bottom: 8px; }
+.sticky-header.collapsed .sticky-header-inner { padding-bottom: 4px; }
+/* --- チェックボックス群(年・メンバー・コンテンツ種別) --- */
+.checks { display: flex; flex-direction: column; row-gap: 6px; padding-top: 4px; }
+.checks-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.checks-row-years, .checks-row-other { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-top: 6px; padding-bottom: 2px; gap: 6px; cursor: grab; }
+/* PC幅では常時コンテナ幅を720pxにする(コンテンツ種類ボタンがICONモードでも1行に収まるように) */
+@media (min-width: 760px) {
+  :root { --container-w: 720px; }
+}
+.checks-row-years::-webkit-scrollbar, .checks-row-other::-webkit-scrollbar, .active-filters-row::-webkit-scrollbar, .item-title::-webkit-scrollbar { display: none; }
+.checks-row-members { display: flex; flex-wrap: nowrap; gap: 3px; width: 100%; padding-right: 4px; }
+.checks label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+
+/* 年数ボタンのサイズをメンバーボタン（.checks-row-members label）のサイズ感に統一 */
+.checks-row-years label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 8px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 16px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
+
+.checks-row-other label { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: 13px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 18px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
+.checks-row-other label.is-dragging-reorder { opacity: 0.4; }
+.checks-row-members label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 4px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 16px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex-grow: 1; flex-shrink: 1; min-width: 0; position: relative; }
+.checks-row-members label.btn-group { flex-grow: 0; flex-shrink: 0; flex-basis: 50px; font-size: 11px; padding: 7px 0; text-align: center; letter-spacing: -0.5px; }
+.checks-row-members label:not(.btn-group) { padding: 5px 0; }
+.checks .sep { display: inline-flex; align-items: center; justify-content: center; padding: 0 1px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
+@media (hover: hover) { .checks label:hover { background-color: var(--btn-hover); } }
+.checks label:has(input:checked) { background-color: var(--active-bg); color: var(--active-color); border-color: var(--active-bg); }
+.checks label:has(input:checked)::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #34d399; border-radius: 50%; }
+/* 手動でONにしたフィルターは、右上のランプを赤から青に変更して区別する(自動ONは赤のまま) */
+.checks label:has(input:checked).is-manual-on::after { background-color: #38bdf8; }
+.checks label span[title] { font-size: 14px; line-height: 1; }
+/* ICONモード:コンテンツ種類ボタンの表示をテキストのみ⇔アイコンのみで切り替える */
+.label-icon-part { display: none; }
+body.icon-only-mode .checks .label-text-part { display: none; }
+body.icon-only-mode .checks .label-icon-part { display: inline; }
+/* --- 検索結果の件数表示・並び替え・クリアボタン --- */
+.result-header-row { display: flex; justify-content: space-between; align-items: center; margin-top: 3px; margin-bottom: 8px; min-height: 1.2em; position: relative; }
+.result-count { font-size: 12px; color: var(--sub); letter-spacing: 0.5px; }
+.sort-arrow-btn { position: absolute; left: 50%; transform: translateX(-50%); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; border-radius: 12px; outline: none; line-height: 1.2; }
+.sort-arrow-btn:hover { background-color: var(--btn-hover); }
+.day-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
+.day-nav-btn:hover { background-color: var(--btn-hover); }
+.day-nav-btn.is-visible { display: block; }
+.day-nav-btn.is-pressed { color: #fff; background-color: #34d399; border-color: #34d399; }
+#prevDayBtn { left: calc(50% - 34px); transform: translate(-100%, -50%); }
+#nextDayBtn { left: calc(50% + 34px); transform: translate(0, -50%); }
+.inline-clear-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--sub); font-size: 11px; cursor: pointer; padding: 3px 8px; border-radius: 12px; display: none; outline: none; letter-spacing: 0.5px; }
+.inline-clear-btn:hover { background-color: var(--btn-hover); color: var(--text); }
+
+/* 錠前ボタン:OFF(既定)ではsticky-headerを画面固定せず通常スクロールにする */
+.sticky-header.unlocked { position: static; }
+/* 錠前・BLACK/WHITEテーマボタンを同じ丸ボタンサイズ・見た目に統一 */
+.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn, #setlistToggleBtn {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--input-border);
+  background-color: var(--btn-bg);
+  color: var(--text);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+.theme-toggle-btn { overflow: hidden; }
+.lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #setlistToggleBtn:hover { background-color: var(--btn-hover); }
+.lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
+
+/* BLACK/WHITEボタン:文字化け対策としてCSSのみで太陽(切替先=ライト)/月(切替先=ダーク)を描画 */
+.theme-toggle-btn .icon-sun, .theme-toggle-btn .icon-moon { display: none; }
+.theme-toggle-btn.mode-to-light .icon-sun { display: block; }
+.theme-toggle-btn.mode-to-dark .icon-moon { display: block; }
+.icon-sun {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  background-color: currentColor;
+  border-radius: 50%;
+}
+.icon-sun::before, .icon-sun::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  transform: translate(-50%, -50%);
+  background:
+    linear-gradient(currentColor, currentColor) center / 1.5px 6px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 6px 1.5px no-repeat;
+}
+.icon-sun::after { transform: translate(-50%, -50%) rotate(45deg); }
+.icon-moon {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+.icon-moon::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--btn-bg);
+}
+
+#todayToggleBtn.is-offset-prev { color: #fff; background-color: #f59e0b; }
+#todayToggleBtn.is-offset-next { color: #fff; background-color: #34d399; }
+/* TODAYモード中に年フィルターが選択されている間は、前後日移動をしても黄色を優先して表示する */
+#todayToggleBtn.is-year-filtered { color: #111; background-color: #facc15; }
+/* --- 現在有効な絞り込み条件のバッジ一覧(フィルターエリア折りたたみ時に表示) --- */
+.active-filters-row { display: none; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; gap: 4px; margin-bottom: 10px; align-items: center; }
+.sticky-header.collapsed .active-filters-row { display: flex; }
+.filter-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 11px; padding: 3px 10px; border-radius: 12px; cursor: pointer; user-select: none; white-space: nowrap; flex: 0 0 auto; }
+.filter-badge:hover { background-color: var(--btn-hover); opacity: 0.8; }
+.filter-badge .badge-x { font-size: 10px; color: var(--muted); font-weight: bold; }
+.filter-badge .badge-square { display: inline-block; width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+/* --- 項目一覧(ログ本体) --- */
+.items { display: flex; flex-direction: column; align-items: flex-start; width: 100%; transition: opacity 0.25s ease, transform 0.25s ease; }
+.items.is-animating { opacity: 0; transform: translateY(6px); }
+.item { display: flex; align-items: baseline; width: 100%; font-size: 13px; line-height: 1.4; color: var(--text); padding: 6px 2px; border-bottom: 1px solid var(--item-border); animation: accordionIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(4px); }
+@keyframes accordionIn { to { opacity: 1; transform: translateY(0); } }
+
+/* 日付・コンテンツ・タイトルを並べるコンテナ（スクロールはタイトルのみに限定） */
+.item-scroll-container { display: flex; align-items: baseline; width: 100%; text-decoration: none; color: inherit; overflow: visible; }
+
+/* 日付とコンテンツ種類は固定 */
+.item-date { flex: 0 0 auto; font-size: 12px; line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
+.item-date:has(+ .item-time) { margin-right: 4px; } /* 時刻が続く場合は日付との間隔を1文字分程度に詰める */
+.item-time { flex: 0 0 auto; font-size: 12px; line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
+.item-time.is-blank { visibility: hidden; } /* time未設定の行も"00:00"と同じ幅を確保したまま見た目だけブランクにする */
+
+/* PC版：最長サイズに合わせて幅を統一し、テキストを左寄せにする */
+.item-contents { 
+  flex: 0 0 10.5em; 
+  font-size: 11px; 
+  padding: 1px 5px; 
+  background: var(--btn-bg); 
+  border: 1px solid var(--input-border); 
+  border-radius: 6px; 
+  margin-right: 6px; 
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block; 
+  line-height: 1.2; 
+  color: var(--text); 
+  text-align: left; 
+}
+/* ICONモードON時はテキストが無くアイコンのみになるため、固定幅にしてどのアイコンでも枠サイズが揃うようにする(PC版・スマホ版で共通の幅) */
+body.icon-only-mode .item-contents {
+  flex: 0 0 28px;
+  width: 28px;
+  padding: 1px 0;
+  margin-right: 8px;
+  text-align: center;
+}
+
+/* タイトル部分だけが通常は省略表示され、ホバーやスクロールで個別スライド（全表示）可能に */
+.item-title { 
+  flex: 1 1 auto; 
+  font-size: 13px; 
+  line-height: 1.4; 
+  white-space: nowrap; 
+  overflow-x: auto; 
+  overflow-y: hidden; /* overflow-xのみ指定するとブラウザがoverflow-yも自動的にautoとして扱い、
+                         ハート表示等で行の高さがわずかに変動した際に不要な縦スクロールバーが出てしまうための対策 */
+  -webkit-overflow-scrolling: touch;
+  text-overflow: ellipsis; 
+  min-width: 0; 
+  color: var(--text); 
+  text-decoration: none; 
+  font-feature-settings: "palt"; /* 「」などの全角約物が持つ字間の余白を詰め、見た目上の左寄せを実現 */
+}
+
+/* Girls\u00b2 / Laki 判別アイコン(コンテンツ種類とタイトルの間に表示) */
+.team-icon {
+  display: inline-block;
+  width: 11.25px;
+  height: 11.25px;
+  border-radius: 2.5px;
+  margin: 0 5px 0 1px;
+  flex-shrink: 0;
+  align-self: center;
+}
+.team-icon.team-g2 { background-color: #f472b6; }
+.team-icon.team-l2 { background-color: #facc15; }
+.team-icon.team-both { background: linear-gradient(135deg, #f472b6 50%, #facc15 50%); }
+.map-pin { display: inline-block; margin: 0 4px 0 2px; text-decoration: none; font-size: 12px; line-height: 1.4; vertical-align: middle; }
+.map-pin:not(a) { visibility: hidden; } /* mapに値が無い行は、アイコン分の幅は保ったまま見た目だけブランクにする */
+.setlist-icon { display: inline-block; margin: 0 4px 0 2px; font-size: 12px; line-height: 1.4; vertical-align: middle; cursor: pointer; }
+.team-icon.is-clickable { cursor: pointer; }
+/* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される。
+   overflow-xだけhidden・overflow-yだけvisibleのように分割指定すると、ブラウザ側でvisible指定がautoとして
+   扱われてしまい(値が異なる軸ペアの自動変換仕様)、絵文字がline-heightをわずかに超えた際に不要な縦スクロールバーが
+   出てしまう。そのため軸を分割せず通常のoverflow: hiddenのままにし、代わりにline-heightを絵文字が収まる
+   高さまで広げることで、下端が欠ける問題を解消する */
+.team-hearts { display: inline-flex; align-items: center; align-self: center; gap: 2px; max-width: 0; overflow: hidden; white-space: nowrap; flex-shrink: 0; margin-left: 0; vertical-align: middle; line-height: 1.4; transition: max-width 0.3s ease, margin-left 0.3s ease; }
+.team-hearts.is-open { max-width: 480px; margin-left: 4px; }
+.team-heart { position: relative; display: inline-block; font-size: 12px; line-height: 1.4; }
+/* both(G2/L2混在)の行のみ、各グループの先頭ハートの左下に色付きバッジを重ねて表示する。
+   ハート自体の位置・幅には影響しないため、四角の有無でハートの並びがずれない */
+.team-heart.group-start-g2::before, .team-heart.group-start-l2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.team-heart.group-start-g2::before { background-color: #f472b6; }
+.team-heart.group-start-l2::before { background-color: #facc15; }
+.item-title::-webkit-scrollbar { display: none; }
+.item-title:hover,
+.item-title:focus {
+  text-overflow: clip;
+}
+.item-title.is-dragging {
+  user-select: none;
+}
+
+.no-result { font-size: 13px; color: var(--muted); padding: 25px 0; text-align: center; display: none; letter-spacing: 0.5px; }
+.quick-reset-btn { display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: var(--active-bg); color: var(--active-color); font-size: 11px; border: none; border-radius: 16px; cursor: pointer; outline: none; }
+.quick-reset-btn:hover { opacity: 0.85; }
+
+/* 一番下に配置する更新日時のスタイル（中央揃え） */
+.footer-update-time { text-align: center; margin-top: 30px; font-size: 11px; color: var(--sub); letter-spacing: 0.5px; }
+
+/* トップへ移動するボタン（コンテナの右端に追従するように修正） */
+.to-top-btn { position: fixed; bottom: 24px; left: calc(50% + var(--container-w) / 2 - 40px); width: 40px; height: 40px; background-color: var(--active-bg); color: var(--active-color); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; z-index: 999; outline: none; }
+.to-top-btn.is-visible { opacity: 1; visibility: visible; }
+.to-top-btn:hover { opacity: 0.85; }
+#scrollSentinel { height: 20px; margin-top: 10px; }
+
+@media (max-width: 680px) {
+  .to-top-btn { left: auto; right: 24px; }
+}
+
+@media (max-width: 600px) {
+  .item-date { flex: 0 0 auto; margin-right: 6px; }
+  .item-date:has(+ .item-time) { margin-right: 3px; }
+  .item-time { flex: 0 0 auto; margin-right: 6px; }
+  /* スマホ版:アイコンのみ表示(PC版のICONモードと同じ固定幅・中央揃えに統一) */
+  .item-contents { flex: 0 0 28px; width: 28px; padding: 1px 0; margin-right: 8px; text-align: center; }
+}
+
+/* セットリストポップアップ(SETLISTアイコン押下時に表示) */
+.setlist-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+.setlist-modal-overlay.is-open { display: flex; }
+.setlist-modal { position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.setlist-modal-close { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.setlist-modal-close:hover { background-color: var(--btn-hover); }
+.setlist-modal-title { font-size: 15px; font-weight: bold; margin: 0 26px 4px 0; line-height: 1.4; }
+.setlist-modal-artist { font-size: 12px; font-weight: 600; color: var(--sub); margin-bottom: 4px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.setlist-modal-hearts { display: inline-flex; gap: 2px; }
+.setlist-heart { font-size: 12px; line-height: 1; }
+.setlist-modal-datetime { font-size: 12px; color: var(--sub); margin-bottom: 2px; }
+.setlist-modal-venue { font-size: 12px; color: var(--sub); margin-bottom: 14px; }
+.setlist-modal-songlist { list-style: none; margin: 0; padding: 0; }
+.setlist-modal-songlist li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.setlist-modal-songlist li:last-child { border-bottom: none; }
+.setlist-song-order { flex: 0 0 22px; color: var(--muted); font-size: 11px; text-align: right; }
+.setlist-song-play-btn { flex: 0 0 auto; width: 14.4px; height: 14.4px; border-radius: 50%; background: #fff; color: #121212; font-size: 6.4px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; border: 1px solid var(--input-border); }
+.setlist-song-play-btn.is-hidden { visibility: hidden; cursor: default; }
+.setlist-song-title { flex: 1 1 auto; }
+.setlist-song-type { flex: 0 0 auto; font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
+.setlist-song-notes { flex-basis: 100%; font-size: 11px; color: var(--sub); margin-top: 2px; }
+.setlist-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
