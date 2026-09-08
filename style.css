@@ -6,7 +6,7 @@
   --active-bg: #27272a; --active-color: #fff;
   --container-w: 620px;
 }
-html.dark-mode {
+html.dark-mode, body.dark-mode {
   --bg: #121212; --text: #f4f4f5; --sub: #a1a1aa; --muted: #71717a;
   --border: #27272a; --input-border: #3f3f46; --btn-bg: #27272a;
   --btn-hover: #3f3f46; --input-bg: #18181b; --item-border: #1f1f23;
