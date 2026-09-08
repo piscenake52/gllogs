@@ -99,8 +99,11 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 
 /* --- 検索ボックス(クリアボタン付き) --- */
 .search-box-wrap { flex: 1 1 150px; position: relative; display: flex; align-items: center; }
-.search-input { width: 100%; padding: 5px 28px 5px 10px; font-size: 12px; border: 1px solid var(--input-border); border-radius: 14px; outline: none; background: var(--input-bg); color: var(--text); }
+.search-input { width: 100%; padding: 5px 28px 5px 30px; font-size: 12px; border: 1px solid var(--input-border); border-radius: 14px; outline: none; background: var(--input-bg); color: var(--text); }
 .search-input:focus { border-color: var(--text); background: var(--bg); }
+/* SETLISTモード切替アイコン(検索窓の左側に内包) */
+.search-setlist-btn { position: absolute; left: 4px; width: 22px; height: 22px; border-radius: 50%; background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; user-select: none; }
+.search-setlist-btn:hover { background-color: var(--btn-hover); }
 .search-clear-btn { position: absolute; right: 8px; background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 0; line-height: 1; display: none; user-select: none; }
 .search-clear-btn:hover { color: var(--text); }
 .search-box-wrap.has-text .search-clear-btn { display: block; }
@@ -177,7 +180,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 /* 錠前ボタン:OFF(既定)ではsticky-headerを画面固定せず通常スクロールにする */
 .sticky-header.unlocked { position: static; }
 /* 錠前・BLACK/WHITEテーマボタンを同じ丸ボタンサイズ・見た目に統一 */
-.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn, #setlistToggleBtn {
+.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn {
   flex-shrink: 0;
   width: 26px;
   height: 26px;
@@ -195,7 +198,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 .theme-toggle-btn { overflow: hidden; }
-.lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #setlistToggleBtn:hover { background-color: var(--btn-hover); }
+.lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover { background-color: var(--btn-hover); }
 .lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
 
 /* BLACK/WHITEボタン:文字化け対策としてCSSのみで太陽(切替先=ライト)/月(切替先=ダーク)を描画 */
