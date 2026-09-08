@@ -536,7 +536,6 @@ body.icon-only-mode .item-contents {
   let setlistMode = false; // SETLISTボタンでON/OFFする「セトリ検索モード」
   const pageSize = 40, isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const $ = id => document.getElementById(id);
-  // メンバーコード対応表(氏名:コード)
   // G2: 小田柚葉:YZH、隅谷百花:MMK、鶴屋美咲:MSK、小川桜花:YOK、増田來亜:KUR、菱田未渚美:MNM、山口綺羅:KIR、原田都愛:TOA、石井蘭:RAN
   // L2: 山口莉愛:RIN、杉浦優來:YUR、永山椿:TBK、深澤日彩:HIR、比嘉優和:YUW、佐藤栞奈:KAN、上村梨々香:RRK、森朱里:AKR、佐藤妃希:KIK
   const g2 = [
@@ -1529,11 +1528,20 @@ body.icon-only-mode .item-contents {
   });
 
   // コンテンツ種類フィルターを除いた条件(年・グループ/メンバー・検索・TODAY・セトリ検索)だけでアイテムがマッチするか判定
+  // セトリ検索モード中は、メンバーフィルターの判定元をlogs.json側のgroups/relationsではなく、
+  // そのデータのsetlistidに紐づくsetlist.json側のmemberに切り替える
+  const getFilterGroupsForItem = item => {
+    if (setlistMode && item.setlistid) {
+      const entry = setlistData.find(e => e.setlistid === item.setlistid);
+      return (entry && Array.isArray(entry.member)) ? entry.member : [];
+    }
+    return [...(item.groups || []), ...(item.relations || [])];
+  };
   const matchesOtherFilters = (item, ctx) => {
     const { cYears, sGroups, mGroups, kw, dq, setlistIds } = ctx;
     const yr = item.date ? item.date.slice(0, 4) : '';
-    const itemGroups = item.groups || [];
-    const itemGroupsAndRelations = [...itemGroups, ...(item.relations || [])];
+    const itemGroupsAndRelations = getFilterGroupsForItem(item);
+    const itemGroups = itemGroupsAndRelations; // STF除外判定もセトリ検索モード中は同じ配列(member)を参照する
 
     const yOk = cYears.length === 0 || cYears.includes(yr);
 
@@ -1662,8 +1670,8 @@ body.icon-only-mode .item-contents {
 
     filtered = expandTodayBirthdayItems(logs, cYears).filter(item => {
       const yr = item.date ? item.date.slice(0, 4) : '';
-      const itemGroups = item.groups || [];
-      const itemGroupsAndRelations = [...itemGroups, ...(item.relations || [])];
+      const itemGroupsAndRelations = getFilterGroupsForItem(item);
+      const itemGroups = itemGroupsAndRelations; // STF除外判定もセトリ検索モード中は同じ配列(member)を参照する
       const ic = normalizeContType(item.contents || '');
       
       const yOk = cYears.length === 0 || cYears.includes(yr);
@@ -1804,8 +1812,8 @@ body.icon-only-mode .item-contents {
 
     return expandTodayBirthdayItems(logs, cY).filter(item => {
       const yr = item.date ? item.date.slice(0, 4) : '';
-      const itemGroups = item.groups || [];
-      const itemGroupsAndRelations = [...itemGroups, ...(item.relations || [])];
+      const itemGroupsAndRelations = getFilterGroupsForItem(item);
+      const itemGroups = itemGroupsAndRelations; // STF除外判定もセトリ検索モード中は同じ配列(member)を参照する
       const ic = normalizeContType(item.contents || '');
 
       const itemHasMeta = m => {
@@ -2121,6 +2129,12 @@ body.icon-only-mode .item-contents {
   };
 
   $('todayToggleBtn').onclick = () => {
+    // セトリ検索モード中にTODAYボタンが押されたら、セトリ検索モードはOFFにする(逆方向は現状維持)
+    if (setlistMode) {
+      setlistMode = false;
+      $('setlistToggleBtn').classList.remove('is-active');
+      updateSearchPlaceholder();
+    }
     if (!todayMode) {
       // OFF -> ON(当日)。ON にする直前のソート状態を覚えておく
       todayMode = true;
@@ -2492,19 +2506,9 @@ body.icon-only-mode .item-contents {
     });
   };
 
-  // PLAYボタン:PCではリンク先を新しいタブで開いた直後に元のタブへフォーカスを戻すことで、
-  // ページを離れずにバックグラウンド再生させる。この手法が使えない場合(ポップアップブロック等)や
-  // タッチ操作のモバイル端末では、通常通りリンク先に遷移して再生する
-  const isPcEnvironment = () => !isMobileState && !('ontouchstart' in window) && navigator.maxTouchPoints === 0;
-
+  // PC/モバイル問わず、PLAYボタンはリンク先を新しいタブで開くだけ(元のタブへのフォーカス復帰は行わない)
   const openSongLink = link => {
     if (!link) return;
-    if (isPcEnvironment()) {
-      // 'noopener'を付けると戻り値が常にnullになりopen成功の判定ができなくなるため、あえて付けない
-      const w = window.open(link, '_blank');
-      if (w) { window.focus(); return; } // 新しいタブは裏で再生、元の画面はそのまま
-      // ポップアップがブロックされた等で開けなかった場合は通常の遷移にフォールバックする
-    }
     window.open(link, '_blank');
   };
 
