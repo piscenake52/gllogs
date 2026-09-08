@@ -209,7 +209,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 /* 錠前ボタン:OFF(既定)ではsticky-headerを画面固定せず通常スクロールにする */
 .sticky-header.unlocked { position: static; }
 /* 錠前・BLACK/WHITEテーマボタンを同じ丸ボタンサイズ・見た目に統一 */
-.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn {
+.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn, #setlistToggleBtn {
   flex-shrink: 0;
   width: 26px;
   height: 26px;
@@ -227,7 +227,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 .theme-toggle-btn { overflow: hidden; }
-.lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover { background-color: var(--btn-hover); }
+.lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #setlistToggleBtn:hover { background-color: var(--btn-hover); }
 .lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
 
 /* BLACK/WHITEボタン:文字化け対策としてCSSのみで太陽(切替先=ライト)/月(切替先=ダーク)を描画 */
@@ -860,6 +860,13 @@ body.icon-only-mode .item-contents {
     } else {
       searchBoxWrap.classList.remove('has-text');
     }
+  };
+
+  // セトリ検索モード中は検索窓のプレースホルダーの「keywoooooooord」部分を「soooooooong」に切り替える
+  const SEARCH_PLACEHOLDER_NORMAL = 'search keywoooooooord \u0d26\u0d4d\u0d26\u0d3f(\uff65\u1d17|';
+  const SEARCH_PLACEHOLDER_SETLIST = 'search soooooooong \u0d26\u0d4d\u0d26\u0d3f(\uff65\u1d17|';
+  const updateSearchPlaceholder = () => {
+    searchInput.placeholder = setlistMode ? SEARCH_PLACEHOLDER_SETLIST : SEARCH_PLACEHOLDER_NORMAL;
   };
 
   // 検索窓:直近使った検索ワードを最大5件まで記憶し、フォーカス時に候補として表示する
@@ -2011,6 +2018,7 @@ body.icon-only-mode .item-contents {
     setlistMode = !setlistMode;
     $('setlistToggleBtn').classList.toggle('is-active', setlistMode);
     searchSuggestions.classList.remove('is-open'); // モード切替時は検索候補ポップアップを一旦閉じる
+    updateSearchPlaceholder();
     autoUpdateContentTypeFilters();
     updateManualIndicators();
     updateDisplay(true);
@@ -2121,6 +2129,7 @@ body.icon-only-mode .item-contents {
     if (setlistMode) {
       setlistMode = false;
       $('setlistToggleBtn').classList.remove('is-active');
+      updateSearchPlaceholder();
     }
     window.scrollTo({ top: 0, behavior: 'instant' });
     updateDisplay(true);
