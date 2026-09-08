@@ -552,6 +552,27 @@
     ]
   },
   {
+    "date": "20260912",
+    "time": "1000",
+    "contents": "TICKET",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- チケット一般発売開始",
+    "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- チケット一般発売開始",
+    "display_sm": "LIVE TOUR 2026 -Seven Blooms Beyond- チケット一般発売",
+    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+    ]
+  },
+  {
     "date": "20261003",
     "time": "1630",
     "contents": "EVENT",
@@ -1732,7 +1753,7 @@
       "AKR",
       "KIK"
     ],
-    "setlistid": "",
+    "setlistid": "202609121630",
     "tags": [
       "イオンモール大高　1Fグリーンコート"
     ]
@@ -1757,7 +1778,7 @@
       "AKR",
       "KIK"
     ],
-    "setlistid": "",
+    "setlistid": "202609121400",
     "tags": [
       "イオンモール大高　1Fグリーンコート"
     ]
@@ -2315,6 +2336,41 @@
     ]
   },
   {
+    "date": "20260912",
+    "time": "",
+    "contents": "RESULT",
+    "title": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST- プレミアムチケット当選発表",
+    "display_pc": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST- プレミアムチケット当選発表",
+    "display_sm": "LDH LIVE-EXPO 2026　プレミアムチケット当選発表",
+    "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [
+      "TOA"
+    ],
+    "tags": [
+      "MUFGスタジアム",
+      "国立競技場"
+    ]
+  },
+  {
     "date": "20260906",
     "time": "2300",
     "contents": "CLOSE",
@@ -2347,6 +2403,29 @@
     "tags": [
       "MUFGスタジアム",
       "国立競技場"
+    ]
+  },
+  {
+    "date": "20260911",
+    "time": "1500",
+    "contents": "RESULT",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- \"Christmas Special\" プレイガイド先行当選発表",
+    "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- \"Christmas Special\" プレイガイド先行当選発表",
+    "display_sm": "LIVE TOUR 2026 Xmas SP PG先行当選発表",
+    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "Shibuya LOVEZ",
+      "クリスマス"
     ]
   },
   {
