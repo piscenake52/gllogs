@@ -3,9 +3,9 @@
     "date": "20260914",
     "time": "",
     "contents": "MAGAZINE",
-    "title": "「BEEEEM」vol.3",
-    "display_pc": "「BEEEEM」vol.3",
-    "display_sm": "「BEEEEM」vol.3",
+    "title": "「BEEEEM」 vol.3",
+    "display_pc": "「BEEEEM」 vol.3",
+    "display_sm": "「BEEEEM」 vol.3",
     "url": "https://beeeem.com/",
     "groups": [
       "G2",
@@ -2258,12 +2258,25 @@
     ]
   },
   {
+    "date": "20260908",
+    "time": "1722",
+    "contents": "CL",
+    "title": "CLキャス 永山椿",
+    "display_pc": "CLキャス　永山椿",
+    "display_sm": "CLキャス　永山椿",
+    "url": "",
+    "groups": [
+      "L2",
+      "TBK"
+    ]
+  },
+  {
     "date": "20260907",
     "time": "1835",
     "contents": "CL",
     "title": "CLキャス 永山椿・深澤日彩・上村梨々香",
     "display_pc": "CLキャス　永山椿・深澤日彩・上村梨々香",
-    "display_sm": "CLキャス 永山椿・深澤日彩・上村梨々香",
+    "display_sm": "CLキャス　永山椿・深澤日彩・上村梨々香",
     "url": "https://www.cl-live.com/programs/cast/fZ7J8XLfnpfEHLFUgjZanF?lang=ja",
     "groups": [
       "L2",
@@ -2493,6 +2506,19 @@
     "tags": [
       "Shibuya LOVEZ",
       "クリスマス"
+    ]
+  },
+  {
+    "date": "20260908",
+    "time": "1730",
+    "contents": "CL",
+    "title": "POST Laki",
+    "display_pc": "POST　Laki",
+    "display_sm": "POST　Laki",
+    "url": "https://www.cl-live.com/posts/wpBRUewBjkvpcRkok1sxJ5?lang=ja",
+    "groups": [
+      "L2",
+      "TBK"
     ]
   },
   {
