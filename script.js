@@ -325,13 +325,12 @@
     btn.setAttribute('aria-label', isDark ? '\u30E9\u30A4\u30C8\u30E2\u30FC\u30C9\u306B\u5207\u308A\u66FF\u3048' : '\u30C0\u30FC\u30AF\u30E2\u30FC\u30C9\u306B\u5207\u308A\u66FF\u3048');
   };
 
-  if (localStorage.getItem('gl_log_theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-  }
-  updateThemeButtonStyle(document.body.classList.contains('dark-mode'));
+  // ダークモードのクラス付与はhead内の同期スクリプトで既に完了している(初期表示のチラつき防止のため)。
+  // ここではボタンの見た目を現在の状態に合わせて初期化するだけ
+  updateThemeButtonStyle(document.documentElement.classList.contains('dark-mode'));
 
   $('themeToggleBtn').onclick = () => {
-    const isDark = document.body.classList.toggle('dark-mode');
+    const isDark = document.documentElement.classList.toggle('dark-mode');
     updateThemeButtonStyle(isDark);
     localStorage.setItem('gl_log_theme', isDark ? 'dark' : 'light');
   };

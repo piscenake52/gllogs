@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <script type="text/javascript">
 //<![CDATA[
+// ダークモード設定を、CSS読み込み・描画より前に同期的に反映する(初期表示が一瞬ライトモードになる
+// チラつき(FOUC)を防止するため)。<body>がまだ存在しないタイミングなので<html>にクラスを付与する。
+if (localStorage.getItem('gl_log_theme') === 'dark') {
+  document.documentElement.classList.add('dark-mode');
+}
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
 // 特定の配信元(ホスト名+パス)からアクセスした場合のみ、ブラウザ/中間キャッシュを迂回して
 // 常に最新のHTML自体を取得し直す。対象URLは難読化のためソースに直接書かず、ハッシュ比較で判定する。
 (function () {
