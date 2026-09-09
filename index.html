@@ -169,16 +169,27 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .checks { display: flex; flex-direction: column; row-gap: 6px; padding-top: 4px; }
 .checks-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .checks-row-years, .checks-row-other { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-top: 6px; padding-bottom: 2px; gap: 6px; cursor: grab; }
+/* 月フィルターは、年フィルターが1つ以上選択されている時だけ表示する。display切替だと一瞬でパッと
+   出入りしてしまうため、max-height/opacityをアニメーションさせて滑らかに開閉させる */
+.checks-row-months {
+  display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;
+  gap: 6px; cursor: grab;
+  max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; pointer-events: none;
+  transition: max-height 0.25s ease, opacity 0.2s ease, padding-top 0.25s ease, padding-bottom 0.25s ease;
+}
+.checks-row-months.is-visible { max-height: 60px; opacity: 1; padding-top: 6px; padding-bottom: 2px; pointer-events: auto; }
 /* PC幅では常時コンテナ幅を720pxにする(コンテンツ種類ボタンがICONモードでも1行に収まるように) */
 @media (min-width: 760px) {
   :root { --container-w: 720px; }
 }
-.checks-row-years::-webkit-scrollbar, .checks-row-other::-webkit-scrollbar, .active-filters-row::-webkit-scrollbar, .item-title::-webkit-scrollbar { display: none; }
+.checks-row-years::-webkit-scrollbar, .checks-row-other::-webkit-scrollbar, .checks-row-months::-webkit-scrollbar, .active-filters-row::-webkit-scrollbar, .item-title::-webkit-scrollbar { display: none; }
 .checks-row-members { display: flex; flex-wrap: nowrap; gap: 3px; width: 100%; padding-right: 4px; }
 .checks label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
 
 /* 年数ボタンのサイズをメンバーボタン（.checks-row-members label）のサイズ感に統一 */
-.checks-row-years label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 8px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 16px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
+.checks-row-years label, .checks-row-months label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 8px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 16px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
+/* 月は"1"〜"12"と年より桁数が少なく文字幅で自然に小さくなってしまうため、年ボタンと同じ見た目の大きさになるよう最小幅を揃える */
+.checks-row-months label { min-width: 42px; }
 
 .checks-row-other label { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: 13px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 18px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
 .checks-row-other label.is-dragging-reorder { opacity: 0.4; }
@@ -485,6 +496,7 @@ body.icon-only-mode .item-contents {
     <div class="collapsible-area" id="collapsibleArea">
       <div class="checks">
         <div class="checks-row checks-row-years" id="yearChecks"></div>
+        <div class="checks-row checks-row-months" id="monthChecks"></div>
         <div class="checks-row checks-row-members" id="memberChecks1"></div>
         <div class="checks-row checks-row-members" id="memberChecks2"></div>
         <div class="checks-row checks-row-other" id="otherChecks"></div>
@@ -664,6 +676,10 @@ body.icon-only-mode .item-contents {
 
   g2.forEach(i => $('memberChecks1').appendChild(createLabel(i)));
   l2.forEach(i => $('memberChecks2').appendChild(createLabel(i)));
+  // 月フィルター(1〜12月)。年フィルターと違い実データに依存しない固定の選択肢なので、ここで一度だけ生成する
+  for (let m = 1; m <= 12; m++) {
+    $('monthChecks').appendChild(createLabel({ v: String(m).padStart(2, '0'), t: String(m) }));
+  }
   const applySavedContentOrder = arr => {
     try {
       const saved = JSON.parse(localStorage.getItem('gl_log_content_order') || 'null');
@@ -744,7 +760,7 @@ body.icon-only-mode .item-contents {
       if (hasDragged) { e.preventDefault(); e.stopPropagation(); hasDragged = false; }
     }, true);
   };
-  document.querySelectorAll('.checks-row-years, .checks-row-other, .header-btn-group').forEach(enableHorizontalScroll);
+  document.querySelectorAll('.checks-row-years, .checks-row-other, .checks-row-months, .header-btn-group').forEach(enableHorizontalScroll);
 
   let checkboxes = document.querySelectorAll('.checks input[type="checkbox"]');
   let labels = document.querySelectorAll('.checks label:has(input)');
@@ -1542,12 +1558,14 @@ body.icon-only-mode .item-contents {
     return [...(item.groups || []), ...(item.relations || [])];
   };
   const matchesOtherFilters = (item, ctx) => {
-    const { cYears, sGroups, mGroups, kw, dq, setlistIds } = ctx;
+    const { cYears, cMonths, sGroups, mGroups, kw, dq, setlistIds } = ctx;
     const yr = item.date ? item.date.slice(0, 4) : '';
+    const mo = item.date ? item.date.slice(4, 6) : '';
     const itemGroupsAndRelations = getFilterGroupsForItem(item);
     const itemGroups = itemGroupsAndRelations; // STF除外判定もセトリ検索モード中は同じ配列(member)を参照する
 
     const yOk = cYears.length === 0 || cYears.includes(yr);
+    const monthOk = cMonths.length === 0 || cMonths.includes(mo);
 
     const itemHasMeta = m => {
       if (itemGroupsAndRelations.includes(m)) return true; // groupsまたはrelationsに"G2"等のメタ表記そのものがある場合
@@ -1600,7 +1618,7 @@ body.icon-only-mode .item-contents {
 
     const todayOk = isTodayDateOk(item, cYears);
 
-    return yOk && gOk && dateOk && textOk && setlistOk && todayOk;
+    return yOk && monthOk && gOk && dateOk && textOk && setlistOk && todayOk;
   };
 
   // TODAY/←/→ボタン、またはセトリ検索モードでの検索条件変化があった時のみ、コンテンツ種類ボタンを自動on/offする。
@@ -1612,6 +1630,17 @@ body.icon-only-mode .item-contents {
   // ・TODAY・セトリ検索モードの両方がOFFの時:
   //     残りのフィルタでの再判定はせず、手動on/offされているもの以外は無条件で全てOFFにする。
   const manuallyTouchedConts = new Set(); // ユーザーが手動でON/OFFしたコンテンツ種類の値(右上ランプの色分け・保護判定用)
+
+  // 月フィルター(1〜12月)は、年フィルターが1つ以上選択されている時だけ表示する。
+  // 年フィルターが全て外れた場合は、意味を持たなくなる月フィルターの選択状態もクリアする
+  const updateMonthFilterVisibility = () => {
+    const monthRow = $('monthChecks');
+    const anyYearChecked = Array.from($('yearChecks').querySelectorAll('input[type="checkbox"]')).some(cb => cb.checked);
+    monthRow.classList.toggle('is-visible', anyYearChecked);
+    if (!anyYearChecked) {
+      monthRow.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+    }
+  };
 
   const autoUpdateContentTypeFilters = () => {
     const contentCheckboxes = Array.from(checkboxes).filter(cb => allConts.includes(cb.value));
@@ -1628,13 +1657,14 @@ body.icon-only-mode .item-contents {
     const checked = Array.from(checkboxes).filter(cb => cb.checked);
     const cVals = new Set(checked.map(cb => cb.value));
     const cYears = checked.filter(cb => /^\d{4}$/.test(cb.value)).map(cb => cb.value);
+    const cMonths = checked.filter(cb => /^\d{2}$/.test(cb.value)).map(cb => cb.value);
     const sGroups = allGroupVals.filter(v => cVals.has(v));
     const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
     const rawKw = searchInput.value.trim();
     const kw = rawKw.toLowerCase();
     const dq = setlistMode ? null : parseDateQuery(rawKw);
     const setlistIds = setlistMode && kw ? getMatchedSetlistIds(kw) : null;
-    const ctx = { cYears, sGroups, mGroups, kw, dq, setlistIds };
+    const ctx = { cYears, cMonths, sGroups, mGroups, kw, dq, setlistIds };
 
     const matched = new Set();
     expandTodayBirthdayItems(logs, cYears).forEach(item => {
@@ -1659,6 +1689,7 @@ body.icon-only-mode .item-contents {
     const checked = Array.from(checkboxes).filter(cb => cb.checked);
     const cVals = new Set(checked.map(cb => cb.value));
     const cYears = checked.filter(cb => /^\d{4}$/.test(cb.value)).map(cb => cb.value);
+    const cMonths = checked.filter(cb => /^\d{2}$/.test(cb.value)).map(cb => cb.value);
     const cConts = checked.filter(cb => allConts.includes(cb.value)).map(cb => cb.value);
     const sGroups = allGroupVals.filter(v => cVals.has(v));
     const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
@@ -1674,11 +1705,13 @@ body.icon-only-mode .item-contents {
 
     filtered = expandTodayBirthdayItems(logs, cYears).filter(item => {
       const yr = item.date ? item.date.slice(0, 4) : '';
+      const mo = item.date ? item.date.slice(4, 6) : '';
       const itemGroupsAndRelations = getFilterGroupsForItem(item);
       const itemGroups = itemGroupsAndRelations; // STF除外判定もセトリ検索モード中は同じ配列(member)を参照する
       const ic = normalizeContType(item.contents || '');
       
       const yOk = cYears.length === 0 || cYears.includes(yr);
+      const monthOk = cMonths.length === 0 || cMonths.includes(mo);
       
       const itemHasMeta = m => {
         if (itemGroupsAndRelations.includes(m)) return true;
@@ -1737,7 +1770,7 @@ body.icon-only-mode .item-contents {
       
       const todayOk = isTodayDateOk(item, cYears);
 
-      return yOk && gOk && cOk && dateOk && textOk && setlistOk && todayOk;
+      return yOk && monthOk && gOk && cOk && dateOk && textOk && setlistOk && todayOk;
     });
 
     filtered.sort((a, b) => {
@@ -1792,6 +1825,7 @@ body.icon-only-mode .item-contents {
     const checked = Array.from(checkboxes).filter(c => c.checked);
     const cVals = new Set(checked.map(c => c.value));
     let cY = checked.filter(c => /^\d{4}$/.test(c.value)).map(c => c.value);
+    let cM = checked.filter(c => /^\d{2}$/.test(c.value)).map(c => c.value);
     let sG = allGroupVals.filter(v => cVals.has(v));
     let mG = cats.map(c => c.meta).filter(m => cVals.has(m));
     let cC = checked.filter(c => allConts.includes(c.value)).map(c => c.value);
@@ -1804,11 +1838,13 @@ body.icon-only-mode .item-contents {
 
     if (isChecked) {
       if (/^\d{4}$/.test(val)) cY = cY.filter(y => y !== val);
+      if (/^\d{2}$/.test(val)) cM = cM.filter(m => m !== val);
       if (allGroupVals.includes(val)) sG = sG.filter(g => g !== val);
       if (cats.some(c => c.meta === val)) mG = mG.filter(m => m !== val);
       if (allConts.includes(val)) cC = cC.filter(c => c !== val);
     } else {
       if (/^\d{4}$/.test(val) && !cY.includes(val)) cY.push(val);
+      if (/^\d{2}$/.test(val) && !cM.includes(val)) cM.push(val);
       if (allGroupVals.includes(val) && !sG.includes(val)) sG.push(val);
       if (cats.some(c => c.meta === val) && !mG.includes(val)) mG.push(val);
       if (allConts.includes(val) && !cC.includes(val)) cC.push(val);
@@ -1816,6 +1852,7 @@ body.icon-only-mode .item-contents {
 
     return expandTodayBirthdayItems(logs, cY).filter(item => {
       const yr = item.date ? item.date.slice(0, 4) : '';
+      const mo = item.date ? item.date.slice(4, 6) : '';
       const itemGroupsAndRelations = getFilterGroupsForItem(item);
       const itemGroups = itemGroupsAndRelations; // STF除外判定もセトリ検索モード中は同じ配列(member)を参照する
       const ic = normalizeContType(item.contents || '');
@@ -1870,8 +1907,10 @@ body.icon-only-mode .item-contents {
 
       const todayOk = isTodayDateOk(item, cY);
       const yOk = cY.length === 0 || cY.includes(yr);
+      const monthOk = cM.length === 0 || cM.includes(mo);
 
       return yOk &&
+             monthOk &&
              gOk &&
              (cC.length === 0 || (cC.includes('ETC') && !primaryConts.includes(ic)) || cC.includes(ic)) &&
              dateOk && kwOk && setlistOk && todayOk;
@@ -2224,6 +2263,7 @@ body.icon-only-mode .item-contents {
           cb.checked = !cb.checked;
           if (allConts.includes(cb.value)) manuallyTouchedConts.add(cb.value);
           updateManualIndicators();
+          updateMonthFilterVisibility(); // 年フィルターの選択状態が変わるので月フィルターの表示/非表示も再評価
           updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
           updateDisplay(true);
           window.scrollTo({ top: 0, behavior: 'instant' });
@@ -2236,6 +2276,7 @@ body.icon-only-mode .item-contents {
         manuallyTouchedConts.add(cb.value);
       }
       updateManualIndicators();
+      updateMonthFilterVisibility(); // 年フィルターの選択状態が変わるので月フィルターの表示/非表示も再評価
       updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
       updateDisplay(true);
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -2274,6 +2315,7 @@ body.icon-only-mode .item-contents {
       if (allConts.includes(cb.value) && cb.checked) manuallyTouchedConts.add(cb.value);
     });
     updateSearchClearState();
+    updateMonthFilterVisibility(); // URL復元時も、年フィルターの状態に応じて月フィルターの表示/非表示を合わせる
     updateDisplay(false);
   };
 
@@ -2283,9 +2325,10 @@ body.icon-only-mode .item-contents {
     if (e) e.preventDefault();
     checkboxes.forEach(cb => cb.checked = false);
     manuallyTouchedConts.clear();
+    updateMonthFilterVisibility(); // 年フィルターも全解除されるため、月フィルター行も非表示に戻す
     searchInput.value = '';
     updateSearchClearState();
-    document.querySelectorAll('.checks-row-years, .checks-row-other').forEach(con => con.scrollLeft = 0);
+    document.querySelectorAll('.checks-row-years, .checks-row-other, .checks-row-months').forEach(con => con.scrollLeft = 0);
     if (todayMode) {
       todayMode = false;
       todayOffset = 0;
