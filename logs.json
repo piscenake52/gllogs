@@ -1,5 +1,373 @@
 [
   {
+    "date": "20210922",
+    "time": "",
+    "contents": "CD",
+    "title": "Lucky² 1stシングル「Fun!Fun!Fun! ～夢∞～」 リリース",
+    "display_pc": "Lucky² 1st SINGLE「Fun!Fun!Fun! ～夢∞～」 リリース",
+    "display_sm": "Lucky² 1st SG「Fun!Fun!Fun! ～夢∞～」 リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20211103",
+    "time": "",
+    "contents": "CD",
+    "title": "Lucky² 1stミニアルバム「キミすき」 リリース",
+    "display_pc": "Lucky² 1st MINI ALBUM「キミすき」 リリース",
+    "display_sm": "Lucky² 1st MINI AL「キミすき」 リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20211117",
+    "time": "",
+    "contents": "DEGITAL",
+    "title": "おはガール from Lucky²「Lucky Time」配信リリース",
+    "display_pc": "おはガール from Lucky²「Lucky Time」 配信リリース",
+    "display_sm": "おはガール from Lucky²「Lucky Time」 配信リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20220323",
+    "time": "",
+    "contents": "CD",
+    "title": "アルバム「ガル学。II - Lucky Stars - コンプリートベスト」 リリース",
+    "display_pc": "ALBUM「ガル学。II - Lucky Stars - コンプリートベスト」 リリース",
+    "display_sm": "AL「ガル学。II - Lucky Stars - コンプリートベスト」 リリース",
+    "url": "",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN",
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20220601",
+    "time": "",
+    "contents": "CD",
+    "title": "Lucky² 1st EP「Brand New World! / DISCO TIME」 リリース",
+    "display_pc": "Lucky² 1st EP「Brand New World! / DISCO TIME」 リリース",
+    "display_sm": "Lucky² 1st EP「Brand New World! / DISCO TIME」 リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20221026",
+    "time": "",
+    "contents": "CD",
+    "title": "Lucky² 2ndシングル「アイコトバ」リリース",
+    "display_pc": "Lucky² 2nd SINGLE「アイコトバ」 リリース",
+    "display_sm": "Lucky² 2nd SG「アイコトバ」 リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20230222",
+    "time": "",
+    "contents": "CD",
+    "title": "Lucky² 3rdシングル「ラキラキLOVE!」 リリース",
+    "display_pc": "Lucky² 3rd SINGLE「ラキラキLOVE!」 リリース",
+    "display_sm": "Lucky² 3rd SG「ラキラキLOVE!」 リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20231004",
+    "time": "",
+    "contents": "CD",
+    "title": "Lucky² 2nd EP「夢空に羽」 リリース",
+    "display_pc": "Lucky² 2nd EP「夢空に羽」 リリース",
+    "display_sm": "Lucky² 2nd EP「夢空に羽」 リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20240228",
+    "time": "",
+    "contents": "CD",
+    "title": "Lucky² 3rd EP「ずっとずっとずっと」 リリース",
+    "display_pc": "Lucky² 3rd EP「ずっとずっとずっと」 リリース",
+    "display_sm": "Lucky² 3rd EP「ずっとずっとずっと」 リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20240703",
+    "time": "",
+    "contents": "CD",
+    "title": "Lucky² 4th EP「こくご・さんすう・りか・恋愛!」 リリース",
+    "display_pc": "Lucky² 4th EP「こくご・さんすう・りか・恋愛!」 リリース",
+    "display_sm": "Lucky² 4th EP「こくご・さんすう・りか・恋愛!」 リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20241218",
+    "time": "",
+    "contents": "CD",
+    "title": "Lucky² 1stフルアルバム「CLOVER」 リリース",
+    "display_pc": "Lucky² 1st ALBUM「CLOVER」 リリース",
+    "display_sm": "Lucky² 1st AL「CLOVER」 リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20250713",
+    "time": "",
+    "contents": "DEGITAL",
+    "title": "Lucky² 配信限定シングル「Unicorn Dance」 リリース",
+    "display_pc": "Lucky² DEGITAL SINGLE「Unicorn Dance」 リリース",
+    "display_sm": "Lucky² DEGITAL SG「Unicorn Dance」 リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20251224",
+    "time": "",
+    "contents": "CD",
+    "title": "Laki 5th EP「Infinity」 リリース",
+    "display_pc": "Laki 5th EP「Infinity」 リリース",
+    "display_sm": "Laki 5th EP「Infinity」 リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20260411",
+    "time": "",
+    "contents": "DEGITAL",
+    "title": "Laki 配信限定シングル「Starry pop Canvas」配信リリース",
+    "display_pc": "Laki DEGITAL SINGLE「Starry pop Canvas」配信リリース",
+    "display_sm": "Laki DEGITAL SG「Starry pop Canvas」配信リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20260418",
+    "time": "",
+    "contents": "DEGITAL",
+    "title": "Laki 配信限定シングル「Pancake」配信リリース",
+    "display_pc": "Laki DEGITAL SINGLE「Pancake」配信リリース",
+    "display_sm": "Laki DEGITAL SG「Pancake」配信リリース",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20260911",
+    "time": "1800",
+    "contents": "TICKET",
+    "title": "Laki 5th Anniversary Live -L∞K UP- チケット追加販売開始",
+    "display_pc": "Laki 5th Anniversary Live -L∞K UP- チケット追加販売開始",
+    "display_sm": "Laki 5th Anniversary Live -L∞K UP- チケット追加販売",
+    "url": "https://girls2-fc.jp/page/familyNews/1177892187824717825",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
     "date": "20270425",
     "time": "",
     "contents": "ANNIVERSARY",
@@ -93,7 +461,7 @@
   },
   {
     "date": "20260927",
-    "time": "",
+    "time": "1630",
     "contents": "LIVE",
     "title": "エンタパークフェス2026",
     "display_pc": "エンタパークフェス2026",
@@ -1701,7 +2069,7 @@
     "contents": "LIVE",
     "title": "Laki 5th Anniversary Live -L∞K UP-",
     "display_pc": "Laki 5th Anniversary Live -L∞K UP-",
-    "display_sm": "5th Anniversary Live -L∞K UP-",
+    "display_sm": "Laki 5th Anniversary Live -L∞K UP-",
     "url": "https://girls2-fc.jp/page/events/Laki5thAnnivLP",
     "map": "https://maps.app.goo.gl/D63G3hVNuBT5H1hm6",
     "groups": [
@@ -4442,7 +4810,7 @@
     "contents": "TICKET",
     "title": "Laki 5th Anniversary Live -L∞K UP- チケット一般発売開始",
     "display_pc": "Laki 5th Anniversary Live -L∞K UP- チケット一般発売開始",
-    "display_sm": "5th Anniversary Live -L∞K UP- チケット一般発売開始",
+    "display_sm": "Laki 5th Anniversary Live -L∞K UP- チケット一般発売",
     "url": "https://girls2-fc.jp/page/events/Laki5thAnnivLP",
     "groups": [
       "L2",
