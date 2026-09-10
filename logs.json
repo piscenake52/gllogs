@@ -1,6 +1,20 @@
 [
   {
     "date": "20260910",
+    "time": "1900",
+    "contents": "CL",
+    "title": "「Girls EXPO 2026」 Behind the Scenes",
+    "display_pc": "「Girls EXPO 2026」 Behind the Scenes",
+    "display_sm": "「Girls EXPO 2026」 Behind the Scenes",
+    "url": "https://www.cl-live.com/programs/ondemand/8svRj8BiCXFX4PBDEYqbPW?utm_medium=referral&utm_source=referral&utm_campaign=url_share",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR",
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+    ],
+    "relations": ["TOA"]
+  },
+  {
+    "date": "20260910",
     "time": "1200",
     "contents": "DIARY",
     "title": "関西🐙",
@@ -37,6 +51,36 @@
       "G2",
       "YOK",
       "KUR"
+    ]
+  },
+  {
+    "date": "20210613",
+    "time": "",
+    "contents": "FORMATION",
+    "title": "Lucky² 結成",
+    "display_pc": "Lucky²　結成",
+    "display_sm": "Lucky²　結成",
+    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/530110",
+    "groups": [
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK","YUR"
+    ],
+    "tags": [
+      "Laki"
+    ]
+  },
+  {
+    "date": "20220613",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "title": "Lucky² 結成記念日",
+    "display_pc": "Lucky²　結成記念日",
+    "display_sm": "Lucky²　結成記念日",
+    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/530110",
+    "groups": [
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK","YUR"
+    ],
+    "tags": [
+      "Laki"
     ]
   },
   {
@@ -2243,9 +2287,10 @@
     "date": "20260910",
     "time": "1700",
     "contents": "YOUTUBE",
-    "title": "がるがるちゃんねる",
-    "display_pc": "",
-    "display_sm": "",
+    "title": "がるがるちゃんねる がるがるの夏休み🌻 江ノ島食べ歩き対決！！",
+    "display_pc": "がるがるの夏休み🌻 江ノ島食べ歩き対決！！",
+    "display_sm": "がるがるの夏休み🌻 江ノ島食べ歩き対決！！",
+    "url": "https://www.youtube.com/watch?v=-BHvZvTVuFg",
     "groups": [
       "G2",
       "YZH",
