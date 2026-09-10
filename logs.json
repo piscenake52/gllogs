@@ -1,5 +1,32 @@
 [
   {
+    "date": "20260425",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "ミュージックカード「Pancake」発売、配信限定シングル「Gimme 143」配信開始",
+    "display_pc": "ミュージックカード「Pancake」発売、配信限定シングル「Gimme 143」配信開始",
+    "display_sm": "ミュージックカード「Pancake」発売、配信限定シングル「Gimme 143」配信開始",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ミュージックカード",
+      "配信限定シングル"
+    ]
+  }
+  
+  
+  {
     "date": "20260927",
     "time": "",
     "contents": "LIVE",
@@ -717,12 +744,37 @@
     ]
   },
   {
+    "date": "20271111",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "title": "Girls² EP「EASY」リリース記念日",
+    "display_pc": "Girls² EP「EASY」 リリース記念日",
+    "display_sm": "Girls²「EASY」リリース記念日",
+    "url": "https://girls2-fc.jp/page/news/1220569487942615041",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "EASY",
+      "Nocturne",
+      "Girls PARADE",
+      "Girls² 7th Anniversary Seven×Seven in Bloom -The Live-"
+    ]
+  },
+  {
     "date": "20261111",
     "time": "",
     "contents": "CD",
     "title": "Girls² EP「EASY」リリース",
-    "display_pc": "Girls²「EASY」リリース",
-    "display_sm": "EP「EASY」リリース",
+    "display_pc": "Girls² EP「EASY」 リリース",
+    "display_sm": "Girls²「EASY」リリース",
     "url": "https://girls2-fc.jp/page/news/1220569487942615041",
     "groups": [
       "G2",
@@ -1124,11 +1176,30 @@
     ]
   },
   {
+    "date": "20270930",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "title": "Laki 2nd Album「WORK≒LiFE」リリース記念日",
+    "display_pc": "Laki 2nd Album「WORK≒LiFE」　リリース記念日",
+    "display_sm": "Laki AL「WORK≒LiFE」リリース記念日",
+    "url": "https://girls2-fc.jp/page/familyNews/1202914447505489922",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+  {
     "date": "20260930",
     "time": "",
     "contents": "CD",
-    "title": "Laki 2nd ALBUM「WORK≒LiFE」リリース",
-    "display_pc": "Laki 2nd ALBUM「WORK≒LiFE」リリース",
+    "title": "Laki 2nd Album「WORK≒LiFE」リリース",
+    "display_pc": "Laki 2nd Album「WORK≒LiFE」リリース",
     "display_sm": "2nd AL「WORK≒LiFE」リリース",
     "url": "https://girls2-fc.jp/page/familyNews/1202914447505489922",
     "groups": [
