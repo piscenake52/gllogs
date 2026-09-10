@@ -2,7 +2,7 @@
   {
     "date": "20260910",
     "time": "1000",
-    "contents": "RADIO",
+    "contents": "GLRADIO",
     "title": "Girls²の「がるらじ ～GL² family RADIO～」 ～小川桜花＆増田來亜～ ≪前編≫",
     "display_pc": "小川桜花と増田來亜のがるらじ ～GL² family RADIO～ 前編",
     "display_sm": "小川桜花と増田來亜のがるらじ 前編",
@@ -1607,19 +1607,6 @@
       "お見送り会",
       "グループお話し会",
       "グループチェキ会"
-    ]
-  },
-  {
-    "date": "20260920",
-    "time": "1000",
-    "contents": "GLRADIO",
-    "title": "【特別番組】小川桜花＆増田來亜のがるらじ ≪後編≫",
-    "display_pc": "小川桜花と増田來亜のがるらじ ～GL²family RADIO～ 後編",
-    "display_sm": "小川桜花と増田來亜のがるらじ 後編",
-    "groups": [
-      "G2",
-      "YOK",
-      "KUR"
     ]
   },
   {
