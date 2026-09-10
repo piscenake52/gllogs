@@ -1,12 +1,12 @@
 [
   {
-    "date": "20260425",
+    "date": "20270425",
     "time": "",
-    "contents": "RELEASE",
-    "title": "ミュージックカード「Pancake」発売、配信限定シングル「Gimme 143」配信開始",
-    "display_pc": "ミュージックカード「Pancake」発売、配信限定シングル「Gimme 143」配信開始",
-    "display_sm": "ミュージックカード「Pancake」発売、配信限定シングル「Gimme 143」配信開始",
-    "url": "",
+    "contents": "ANNIVERSARY",
+    "title": "Laki ミュージックカード「Pancake」リリース記念日",
+    "display_pc": "Laki MU-CA「Pancake」 リリース記念日",
+    "display_sm": "Laki MU-CA「Pancake」 リリース記念日",
+    "url": "https://girls2-fc.jp/page/lucky2news/1160506878766088194",
     "groups": [
       "L2",
       "RIN",
@@ -20,12 +20,77 @@
     ],
     "relations": [],
     "tags": [
-      "ミュージックカード",
-      "配信限定シングル"
     ]
-  }
-  
-  
+  },
+  {
+    "date": "20270425",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "title": "Laki 配信限定シングル「Gimme 143」配信リリース記念日",
+    "display_pc": "Laki DEGITAL SINGLE「Gimme 143」 配信リリース記念日",
+    "display_sm": "Laki SG「Gimme 143」 配信リリース記念日",
+    "url": "https://girls2-fc.jp/page/lucky2news/1160506878766088194",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20260425",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "Laki ミュージックカード「Pancake」リリース",
+    "display_pc": "Laki MU-CA「Pancake」 リリース",
+    "display_sm": "Laki MU-CA「Pancake」 リリース",
+    "url": "https://girls2-fc.jp/page/lucky2news/1160506878766088194",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20260425",
+    "time": "",
+    "contents": "DEGITAL",
+    "title": "Laki 配信限定シングル「Gimme 143」配信リリース",
+    "display_pc": "Laki DEGITAL SINGLE「Gimme 143」 配信リリース",
+    "display_sm": "Laki SG「Gimme 143」 配信リリース",
+    "url": "https://girls2-fc.jp/page/lucky2news/1160506878766088194",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+    ]
+  },
   {
     "date": "20260927",
     "time": "",
