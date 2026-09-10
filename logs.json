@@ -1,11 +1,41 @@
 [
   {
+    "date": "20210922",
+    "time": "",
+    "contents": "BIRTHDAY",
+    "title": "Lucky² デビュー",
+    "display_pc": "Lucky²　デビュー",
+    "display_sm": "Lucky²　デビュー",
+    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/530110",
+    "groups": [
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK","YUR"
+    ],
+    "tags": [
+      "Laki"
+    ]
+  },
+  {
+    "date": "20220922",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "title": "Laki デビュー記念日",
+    "display_pc": "Laki　デビュー記念日",
+    "display_sm": "Laki　デビュー記念日",
+    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/530110",
+    "groups": [
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK","YUR"
+    ],
+    "tags": [
+      "Lucky²"
+    ]
+  },
+  {
     "date": "20190626",
     "time": "",
     "contents": "BIRTHDAY",
     "title": "Girls² デビュー",
-    "display_pc": "Girls² デビュー",
-    "display_sm": "Girls² デビュー",
+    "display_pc": "Girls²　デビュー",
+    "display_sm": "Girls²　デビュー",
     "url": "https://www.sonymusic.co.jp/artist/girls2/info/505432",
     "groups": [
       "G2",
@@ -27,8 +57,8 @@
     "time": "",
     "contents": "ANNIVERSARY",
     "title": "Girls² デビュー記念日",
-    "display_pc": "Girls² デビュー記念日",
-    "display_sm": "Girls² デビュー記念日",
+    "display_pc": "Girls²　デビュー記念日",
+    "display_sm": "Girls²　デビュー記念日",
     "url": "https://www.sonymusic.co.jp/artist/girls2/info/505432",
     "groups": [
       "G2",
