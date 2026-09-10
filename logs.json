@@ -1,8 +1,22 @@
 [
   {
+    "date": "20260910",
+    "time": "1000",
+    "contents": "RADIO",
+    "title": "Girls²の「がるらじ ～GL² family RADIO～」 ～小川桜花＆増田來亜～ ≪前編≫",
+    "display_pc": "小川桜花と増田來亜のがるらじ ～GL² family RADIO～ 前編",
+    "display_sm": "小川桜花と増田來亜のがるらじ 前編",
+    "url": "https://girls2-fc.jp/page/girls2radio/1225401972367032322",
+    "groups": [
+      "G2",
+      "YOK",
+      "KUR"
+    ]
+  },
+  {
     "date": "20210922",
     "time": "",
-    "contents": "BIRTHDAY",
+    "contents": "DEBUT",
     "title": "Lucky² デビュー",
     "display_pc": "Lucky²　デビュー",
     "display_sm": "Lucky²　デビュー",
@@ -32,7 +46,7 @@
   {
     "date": "20190626",
     "time": "",
-    "contents": "BIRTHDAY",
+    "contents": "DEBUT",
     "title": "Girls² デビュー",
     "display_pc": "Girls²　デビュー",
     "display_sm": "Girls²　デビュー",
