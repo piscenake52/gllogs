@@ -2147,9 +2147,11 @@ body.icon-only-mode .item-contents {
   // コンテンツ種類の判定そのものを行うヘルパー。BIRTHDAY/ANNIVERSARY(DEBUT/FORMATIONのエイリアス含む)は
   // フィルターボタンを持たないため、通常のコンテンツ種類フィルター(cConts)の対象から完全に外し、
   // 代わりに「年/年月フィルター・TODAYモード・日付検索・専用キーワード」のいずれかでのみ表示する。
-  // (他のコンテンツ種類がTODAYモードで自動ON/OFFされても、その影響を受けなくなる)
+  // ただし、他のコンテンツ種類フィルターが1つでも選択されている間は(その種類を絞り込みたい意図のため)
+  // BIRTHDAY/ANNIVERSARYは一切表示しない。コンテンツ種類フィルターが何も選択されていない時だけが対象
   const isContentTypeOk = (item, ic, cConts, cYears, todayMode, isDateQuery, kw) => {
     if (isBirthdayLikeType(ic)) {
+      if (cConts.length > 0) return false;
       return cYears.length > 0 || todayMode || isDateQuery || birthdayKeywordMatch(item, kw);
     }
     return cConts.length === 0 || (cConts.includes('ETC') && !primaryConts.includes(ic)) || cConts.includes(ic);
