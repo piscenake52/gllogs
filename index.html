@@ -1613,6 +1613,8 @@ body.icon-only-mode .item-contents {
         }
         const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
         dateOk = matchesDate || tagsMatch;
+        // ANNIVERSARYは登録年自体を検索でも見せない(翌年以降のみ、日付検索でも同じ扱いにする)
+        if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, itemDateNum.slice(0, 4))) dateOk = false;
       }
 
       if (kw && !dq.isDateQuery) {
@@ -1763,6 +1765,8 @@ body.icon-only-mode .item-contents {
           // 日付検索を優先しつつ、tagsに一致するものがあればそちらも結果に含める
           const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
           dateOk = matchesDate || tagsMatch;
+          // ANNIVERSARYは登録年自体を検索でも見せない(翌年以降のみ、日付検索でも同じ扱いにする)
+          if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, itemDateNum.slice(0, 4))) dateOk = false;
         }
 
         if (kw && !isDateQuery) {
@@ -1903,6 +1907,8 @@ body.icon-only-mode .item-contents {
           }
           const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
           dateOk = matchesDate || tagsMatch;
+          // ANNIVERSARYは登録年自体を検索でも見せない(翌年以降のみ、日付検索でも同じ扱いにする)
+          if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, itemDateNum.slice(0, 4))) dateOk = false;
         }
 
         if (kw && !isDateQuery) {
@@ -2159,15 +2165,20 @@ body.icon-only-mode .item-contents {
     return item.date === getTargetDateStr(todayOffset);
   };
 
+  // ANNIVERSARYは登録年自体を「記念日」としては数えず、翌年以降から毎年恒例の対象とする
+  // (例:date:20190329登録なら2019年では出さず、2020年以降で表示する)。BIRTHDAYは登録年からそのまま対象
+  const minRecurrenceYear = (item, registeredYear) =>
+    item.contents === 'ANNIVERSARY' ? String(parseInt(registeredYear, 10) + 1) : registeredYear;
+
   // BIRTHDAY/ANNIVERSARYを「表示すべき年」ごとに複製したアイテムへ展開する。年フィルターが無ければ
   // 何もしない(高速パス)。以下2つのケースで展開する:
-  // - TODAYモード中:選択年フィルターがあれば、登録年以降かつ月日がTODAY基準日と一致するものを、
-  //   選択された各年に複製する(例:19770317登録で、今日が0317、年フィルターに2027と2025が選択済み
-  //   なら20270317と20250317の2件を生成する)。年フィルターが無ければ、登録日以降であれば
-  //   「今日(offset適用後)」の年月日で1件だけ生成する
+  // - TODAYモード中:選択年フィルターがあれば、登録年(ANNIVERSARYは翌年)以降かつ月日がTODAY基準日と
+  //   一致するものを、選択された各年に複製する(例:19770317登録で、今日が0317、年フィルターに2027と
+  //   2025が選択済みなら20270317と20250317の2件を生成する)。年フィルターが無ければ、登録日以降で
+  //   あれば「今日(offset適用後)」の年月日で1件だけ生成する
   // - TODAYモードOFFでも年フィルターが選択されている場合:2010年以前の古い年はボタンが無く選択できない
-  //   ため、年をまたいだ「毎年恒例」の月日一致とみなし、登録年以降かつ選択されている各年に複製する
-  //   (月フィルターが併用されていれば、登録月がそれに一致するものだけを対象にする)
+  //   ため、年をまたいだ「毎年恒例」の月日一致とみなし、登録年(ANNIVERSARYは翌年)以降かつ選択されて
+  //   いる各年に複製する(月フィルターが併用されていれば、登録月がそれに一致するものだけを対象にする)
   // BIRTHDAY/ANNIVERSARY以外、および年フィルターも無くTODAYモードもOFFの場合は元のアイテムをそのまま返す
   const expandTodayBirthdayItems = (items, cYears, cMonths) => {
     if (!todayMode && (!cYears || cYears.length === 0)) return items;
@@ -2179,6 +2190,7 @@ body.icon-only-mode .item-contents {
       const itemDateNum = item.date || '';
       if (!itemDateNum) return;
       const registeredYear = itemDateNum.slice(0, 4);
+      const minYear = minRecurrenceYear(item, registeredYear);
       const monthDay = itemDateNum.slice(4, 8); // "MMDD"
       const registeredMonth = itemDateNum.slice(4, 6); // "MM"
 
@@ -2186,17 +2198,17 @@ body.icon-only-mode .item-contents {
         if (monthDay !== targetMonthDay) return; // 月日不一致は対象外
         if (cYears && cYears.length > 0) {
           cYears.forEach(y => {
-            if (y < registeredYear) return; // 登録年より前の年フィルターは対象外
+            if (y < minYear) return; // 登録年(ANNIVERSARYは翌年)より前の年フィルターは対象外
             result.push(Object.assign({}, item, { date: `${y}${monthDay}` }));
           });
-        } else if (itemDateNum <= targetDateNum) {
+        } else if (itemDateNum <= targetDateNum && targetDateNum.slice(0, 4) >= minYear) {
           result.push(Object.assign({}, item, { date: getTargetDateStr(todayOffset) }));
         }
       } else {
         // TODAYモードOFFでも、年フィルター(+月フィルター)の組み合わせで毎年恒例の月日一致とみなして展開する
         if (cMonths && cMonths.length > 0 && !cMonths.includes(registeredMonth)) return; // 月フィルターと不一致なら対象外
         cYears.forEach(y => {
-          if (y < registeredYear) return; // 登録年より前の年フィルターは対象外
+          if (y < minYear) return; // 登録年(ANNIVERSARYは翌年)より前の年フィルターは対象外
           result.push(Object.assign({}, item, { date: `${y}${monthDay}` }));
         });
       }
