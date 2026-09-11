@@ -1,5 +1,31 @@
 [
   {
+    "date": "20261101",
+    "time": "1830",
+    "contents": "LIVE",
+    "title": "atmoscon 2026",
+    "display_pc": "atmoscon 2026",
+    "display_sm": "atmoscon 2026",
+    "url": "https://girls2-fc.jp/page/familyNews/1227926050164441090",
+    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+    "relations": [],
+    "tags": ["新宿住友ビル三角広場"]
+  },
+  {
+    "date": "20261101",
+    "time": "",
+    "contents": "MODEL",
+    "title": "atmoscon 2026 atmos pink SPECIAL RUNWAY",
+    "display_pc": "atmoscon 2026 atmos pink SPECIAL RUNWAY",
+    "display_sm": "atmoscon 2026 atmos pink SPECIAL RUNWAY",
+    "url": "https://girls2-fc.jp/page/familyNews/1227926050164441090",
+    "groups": [
+      "G2","MSK","YOK","MNM","KIR"
+    ],
+    "relations": [],
+    "tags": ["新宿住友ビル三角広場"]
+  },
+  {
     "date": "20210922",
     "time": "",
     "contents": "CD",
@@ -3124,6 +3150,22 @@
       "L2",
       "YUW",
       "KAN"
+    ]
+  },
+  {
+    "date": "20260911",
+    "time": "2000",
+    "contents": "CL",
+    "title": "CLキャス 隅谷百花",
+    "display_pc": "CLキャス　隅谷百花",
+    "display_sm": "CLキャス　隅谷百花",
+    "url": "https://www.cl-live.com/artists/girls2?lang=ja",
+    "groups": [
+      "G2",
+      "MMK"
+    ],
+    "tags": [
+      "SWEET REVENGE"
     ]
   },
   {
