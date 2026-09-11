@@ -1,5 +1,29 @@
 [
   {
+    "date": "20261030",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "atmoscon 2026 チケット一般販売終了",
+    "display_pc": "atmoscon 2026 チケット一般販売終了",
+    "display_sm": "atmoscon 2026 チケット一般販売終了",
+    "url": "https://www.atmos-tokyo.com/lp/atmoscon-ticket",
+    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "20260816",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "atmoscon 2026 atmos会員限定チケット販売終了",
+    "display_pc": "atmoscon 2026 atmos会員限定チケット販売終了",
+    "display_sm": "atmoscon 2026 atmos会員限定チケット販売終了",
+    "url": "https://www.atmos-tokyo.com/lp/atmoscon-ticket",
+    "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+    "relations": [],
+    "tags": []
+  },
+  {
     "date": "20261101",
     "time": "1830",
     "contents": "LIVE",
