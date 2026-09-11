@@ -47,6 +47,9 @@ body.dark-mode {
 * { box-sizing: border-box; }
 
 /* スマホのPC版表示対応 ＆ カクつき防止（scrollbar-gutter: stable） */
+/* 「PC版サイト」表示時、横幅が広い仮想ビューポートになることで指の縦ドラッグが横パン(2本指的な
+   自由パン)と誤認識され、縦スクロールが効かなくなることがあるための対策 */
+/* スマホのPC版表示対応 ＆ カクつき防止（scrollbar-gutter: stable） */
 html { 
   overflow-y: auto; 
   scrollbar-gutter: stable; 
@@ -565,7 +568,7 @@ body.icon-only-mode .item-contents {
     {v:'YUW',n:'YUWA',c:'\u2764\uFE0F'},{v:'KAN',n:'KANNA',c:'\uD83D\uDC99'},{v:'RRK',n:'RIRIKA',c:'\uD83E\uDE77'},{v:'AKR',n:'AKARI',c:'\uD83D\uDC9A'},
     {v:'KIK',n:'KIKI',c:'\uD83D\uDC9B'},'sep',{v:'YUR',n:'YURA',c:'\uD83E\uDD0D'}
   ];
-  const others = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MODEL','MOVIE','MEDIA','WEB','TICKET','SALES','ANNIVERSARY','BIRTHDAY','ETC'];
+  const others = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MODEL','MOVIE','MEDIA','WEB','TICKET','SALES','ETC'];
 
   const symbols = {
     'FANCLUB': '\uD83D\uDCE3',
@@ -575,9 +578,9 @@ body.icon-only-mode .item-contents {
     'MODEL': '\uD83D\uDC60', 'MOVIE': '\uD83C\uDFAC\uFE0F', 'TICKET': '\uD83C\uDFAB',
     'CLOSE': '\u2705', 'RESULT': '\uD83C\uDFAF', 'CAMPAIGN': '\uD83D\uDCE8', 'PLAYING': '\uD83C\uDFB6', // フィルターボタンには表示せず、ETC選択時のみ該当させる
     'ETC': '\uD83D\uDCCC',
-    // 以下4種類はcontentsフィルターボタンには表示しないが、フィルター判定上は"RELEASE"として扱う(normalizeContType参照)。
+    // 以下5種類はcontentsフィルターボタンには表示しないが、フィルター判定上は"RELEASE"として扱う(normalizeContType参照)。
     // データ部のアイコン表示ではそれぞれ専用のアイコン+コンテンツ名を表示する。
-    'CD': '\uD83D\uDCBF\uFE0F', 'DVD': '\uD83D\uDCC0\uFE0F', 'BD': '\uD83D\uDCC0\uFE0F', 'DIGITAL': '\uD83C\uDFA7',
+    'CD': '\uD83D\uDCBF\uFE0F', 'DVD': '\uD83D\uDCC0\uFE0F', 'BD': '\uD83D\uDCC0\uFE0F', 'DIGITAL': '\uD83C\uDFA7', 'MUSICCARD': '\uD83C\uDFA7',
     // 以下5種類はフィルターボタンには表示せず、フィルター判定上は"MEDIA"として扱う(normalizeContType参照)
     'TV': '\uD83D\uDCFA\uFE0F', 'RADIO': '\uD83D\uDCFB\uFE0F', 'MAGAZINE': '\uD83D\uDCD6', 'BOOK': '\uD83D\uDCDA', 'NEWSPAPER': '\uD83D\uDCF0',
     // 以下2種類はフィルターボタンには表示せず、フィルター判定上は"WEB"として扱う(normalizeContType参照)
@@ -587,7 +590,10 @@ body.icon-only-mode .item-contents {
     // GOODSはフィルターボタンには表示せず、フィルター判定上は"SALES"として扱う(normalizeContType参照)
     'GOODS': '\uD83D\uDED2',
     // 以下2種類はフィルターボタンには表示せず、フィルター判定上は"EVENT"として扱う(normalizeContType参照)
-    'STAGE': '\uD83C\uDFAD', 'COOKING': '\uD83C\uDF7D\uFE0F'
+    'STAGE': '\uD83C\uDFAD', 'COOKING': '\uD83C\uDF7D\uFE0F',
+    // DEBUT/FORMATIONはフィルターボタンには表示せず、フィルター判定上は"BIRTHDAY"として扱う(normalizeContType参照)。
+    // ただしBIRTHDAYと違い、isBirthdayAnniversaryの対象外なので年をまたいだ月日一致では表示されない
+    'DEBUT': '\uD83C\uDF82', 'FORMATION': '\uD83D\uDD17'
   };
 
   // 内部値(contents値・フィルター値)と実際の表示名が異なるものだけここに登録する(それ以外は値そのものを表示名として使う)
@@ -839,17 +845,19 @@ body.icon-only-mode .item-contents {
 
   // CD/DVD/BD/DIGITALはコンテンツフィルターボタンには表示しないが、フィルター判定(年/コンテンツ種類/自動on-off/
   // 件数プレビュー/ソート等)上は"RELEASE"の一部として扱う。データ部の表示(アイコン・コンテンツ名)には影響しない。
-  const releaseAliasConts = ['CD', 'DVD', 'BD', 'DIGITAL'];
+  const releaseAliasConts = ['CD', 'DVD', 'BD', 'DIGITAL', 'MUSICCARD'];
   const mediaAliasConts = ['TV', 'RADIO', 'MAGAZINE', 'BOOK', 'NEWSPAPER'];
   const webAliasConts = ['STREAMING', 'PODCAST', 'COLUMN'];
   const salesAliasConts = ['GOODS'];
   const eventAliasConts = ['STAGE', 'COOKING'];
+  const birthdayAliasConts = ['DEBUT', 'FORMATION'];
   const normalizeContType = c =>
     releaseAliasConts.includes(c) ? 'RELEASE' :
     mediaAliasConts.includes(c) ? 'MEDIA' :
     webAliasConts.includes(c) ? 'WEB' :
     salesAliasConts.includes(c) ? 'SALES' :
-    eventAliasConts.includes(c) ? 'EVENT' : c;
+    eventAliasConts.includes(c) ? 'EVENT' :
+    birthdayAliasConts.includes(c) ? 'BIRTHDAY' : c;
 
   // ソート用:日付+時刻+グループも同じ場合の最終タイブレーク。othersはコンテンツフィルターボタンの
   // 現在の並び順(ドラッグでの並び替え結果を含む)を反映しているため、そのインデックスをそのまま使う。
@@ -1668,7 +1676,7 @@ body.icon-only-mode .item-contents {
     const ctx = { cYears, cMonths, sGroups, mGroups, kw, dq, setlistIds };
 
     const matched = new Set();
-    expandTodayBirthdayItems(logs, cYears).forEach(item => {
+    expandTodayBirthdayItems(logs, cYears, cMonths).forEach(item => {
       if (matchesOtherFilters(item, ctx)) matched.add(normalizeContType(item.contents || ''));
     });
 
@@ -1704,7 +1712,7 @@ body.icon-only-mode .item-contents {
     // セトリ検索モード中、キーワードがあればsetlist.jsonから該当するsetlistidを検索しておく
     const setlistIds = setlistMode && kw ? getMatchedSetlistIds(kw) : null;
 
-    filtered = expandTodayBirthdayItems(logs, cYears).filter(item => {
+    filtered = expandTodayBirthdayItems(logs, cYears, cMonths).filter(item => {
       const yr = item.date ? item.date.slice(0, 4) : '';
       const mo = item.date ? item.date.slice(4, 6) : '';
       const itemGroupsAndRelations = getFilterGroupsForItem(item);
@@ -1726,7 +1734,7 @@ body.icon-only-mode .item-contents {
       const stfExcluded = sGroups.length > 0 && mGroups.length === 0 && itemGroups.includes('STF');
       const gOk = memberOk && metaOk && !stfExcluded;
 
-      const cOk = cConts.length === 0 || (cConts.includes('ETC') && !primaryConts.includes(ic)) || cConts.includes(ic);
+      const cOk = isContentTypeOk(item, ic, cConts, cYears, todayMode, isDateQuery, kw);
       
       let dateOk = true;
       let textOk = true;
@@ -1851,7 +1859,7 @@ body.icon-only-mode .item-contents {
       if (allConts.includes(val) && !cC.includes(val)) cC.push(val);
     }
 
-    return expandTodayBirthdayItems(logs, cY).filter(item => {
+    return expandTodayBirthdayItems(logs, cY, cM).filter(item => {
       const yr = item.date ? item.date.slice(0, 4) : '';
       const mo = item.date ? item.date.slice(4, 6) : '';
       const itemGroupsAndRelations = getFilterGroupsForItem(item);
@@ -1909,11 +1917,12 @@ body.icon-only-mode .item-contents {
       const todayOk = isTodayDateOk(item, cY);
       const yOk = cY.length === 0 || cY.includes(yr);
       const monthOk = cM.length === 0 || cM.includes(mo);
+      const cOk = isContentTypeOk(item, ic, cC, cY, todayMode, isDateQuery, kw);
 
       return yOk &&
              monthOk &&
              gOk &&
-             (cC.length === 0 || (cC.includes('ETC') && !primaryConts.includes(ic)) || cC.includes(ic)) &&
+             cOk &&
              dateOk && kwOk && setlistOk && todayOk;
     }).length;
   };
@@ -2118,6 +2127,28 @@ body.icon-only-mode .item-contents {
   // 表示対象にする特別扱いをする)
   const isBirthdayAnniversary = item => item.contents === 'BIRTHDAY' || item.contents === 'ANNIVERSARY';
 
+  // BIRTHDAY/ANNIVERSARY(及びそのエイリアスのDEBUT/FORMATION)はフィルターボタンを持たないため、
+  // 通常のコンテンツ種類フィルターの対象から外し、代わりに専用の表示条件を設ける:
+  // 「誕生日」「記念日」でのキーワード検索、日付そのものの検索、年/年月フィルター、TODAYモードの
+  // いずれかに該当する場合のみ表示する(それ以外の通常閲覧では一覧に出てこない)
+  const isBirthdayLikeType = ic => ic === 'BIRTHDAY' || ic === 'ANNIVERSARY';
+  const birthdayKeywordMatch = (item, kw) => {
+    if (!kw) return false;
+    if (item.contents === 'BIRTHDAY' && kw.includes('\u8a95\u751f\u65e5')) return true;
+    if (item.contents === 'ANNIVERSARY' && kw.includes('\u8a18\u5ff5\u65e5')) return true;
+    return false;
+  };
+  // コンテンツ種類の判定そのものを行うヘルパー。BIRTHDAY/ANNIVERSARY(DEBUT/FORMATIONのエイリアス含む)は
+  // フィルターボタンを持たないため、通常のコンテンツ種類フィルター(cConts)の対象から完全に外し、
+  // 代わりに「年/年月フィルター・TODAYモード・日付検索・専用キーワード」のいずれかでのみ表示する。
+  // (他のコンテンツ種類がTODAYモードで自動ON/OFFされても、その影響を受けなくなる)
+  const isContentTypeOk = (item, ic, cConts, cYears, todayMode, isDateQuery, kw) => {
+    if (isBirthdayLikeType(ic)) {
+      return cYears.length > 0 || todayMode || isDateQuery || birthdayKeywordMatch(item, kw);
+    }
+    return cConts.length === 0 || (cConts.includes('ETC') && !primaryConts.includes(ic)) || cConts.includes(ic);
+  };
+
   // TODAYモード時の日付一致判定。年フィルターがONの場合は「その年の該当月日」で一致させる(年の絞り込み自体はyOk側で行う)
   const isTodayDateOk = (item, cYears) => {
     if (!todayMode) return true;
@@ -2128,30 +2159,46 @@ body.icon-only-mode .item-contents {
     return item.date === getTargetDateStr(todayOffset);
   };
 
-  // TODAYモード中、BIRTHDAY/ANNIVERSARYを「表示すべき年」ごとに複製したアイテムへ展開する。
-  // - 年フィルターが選択されている場合:選択されている年のうち、登録年以降かつ月日が一致するものを
-  //   すべて複製して返す(例:19770317登録で、今日が0317、年フィルターに2027と2025が選択済みなら
-  //   20270317と20250317の2件を生成する)
-  // - 年フィルターが未選択の場合:登録日以降であれば「今日(offset適用後)」の年月日で1件だけ生成する
-  // BIRTHDAY/ANNIVERSARY以外、およびTODAYモードOFF時は元のアイテムをそのまま返す
-  const expandTodayBirthdayItems = (items, cYears) => {
-    if (!todayMode) return items;
-    const targetMonthDay = getTargetMonthDayStr(todayOffset);
-    const targetDateNum = getTargetDateStr(todayOffset);
+  // BIRTHDAY/ANNIVERSARYを「表示すべき年」ごとに複製したアイテムへ展開する。年フィルターが無ければ
+  // 何もしない(高速パス)。以下2つのケースで展開する:
+  // - TODAYモード中:選択年フィルターがあれば、登録年以降かつ月日がTODAY基準日と一致するものを、
+  //   選択された各年に複製する(例:19770317登録で、今日が0317、年フィルターに2027と2025が選択済み
+  //   なら20270317と20250317の2件を生成する)。年フィルターが無ければ、登録日以降であれば
+  //   「今日(offset適用後)」の年月日で1件だけ生成する
+  // - TODAYモードOFFでも年フィルターが選択されている場合:2010年以前の古い年はボタンが無く選択できない
+  //   ため、年をまたいだ「毎年恒例」の月日一致とみなし、登録年以降かつ選択されている各年に複製する
+  //   (月フィルターが併用されていれば、登録月がそれに一致するものだけを対象にする)
+  // BIRTHDAY/ANNIVERSARY以外、および年フィルターも無くTODAYモードもOFFの場合は元のアイテムをそのまま返す
+  const expandTodayBirthdayItems = (items, cYears, cMonths) => {
+    if (!todayMode && (!cYears || cYears.length === 0)) return items;
+    const targetMonthDay = todayMode ? getTargetMonthDayStr(todayOffset) : null;
+    const targetDateNum = todayMode ? getTargetDateStr(todayOffset) : null;
     const result = [];
     items.forEach(item => {
       if (!isBirthdayAnniversary(item)) { result.push(item); return; }
       const itemDateNum = item.date || '';
-      if (!itemDateNum || itemDateNum.slice(4, 8) !== targetMonthDay) return; // 月日不一致は対象外
+      if (!itemDateNum) return;
       const registeredYear = itemDateNum.slice(0, 4);
       const monthDay = itemDateNum.slice(4, 8); // "MMDD"
-      if (cYears && cYears.length > 0) {
+      const registeredMonth = itemDateNum.slice(4, 6); // "MM"
+
+      if (todayMode) {
+        if (monthDay !== targetMonthDay) return; // 月日不一致は対象外
+        if (cYears && cYears.length > 0) {
+          cYears.forEach(y => {
+            if (y < registeredYear) return; // 登録年より前の年フィルターは対象外
+            result.push(Object.assign({}, item, { date: `${y}${monthDay}` }));
+          });
+        } else if (itemDateNum <= targetDateNum) {
+          result.push(Object.assign({}, item, { date: getTargetDateStr(todayOffset) }));
+        }
+      } else {
+        // TODAYモードOFFでも、年フィルター(+月フィルター)の組み合わせで毎年恒例の月日一致とみなして展開する
+        if (cMonths && cMonths.length > 0 && !cMonths.includes(registeredMonth)) return; // 月フィルターと不一致なら対象外
         cYears.forEach(y => {
           if (y < registeredYear) return; // 登録年より前の年フィルターは対象外
           result.push(Object.assign({}, item, { date: `${y}${monthDay}` }));
         });
-      } else if (itemDateNum <= targetDateNum) {
-        result.push(Object.assign({}, item, { date: getTargetDateStr(todayOffset) }));
       }
     });
     return result;
@@ -2295,7 +2342,8 @@ body.icon-only-mode .item-contents {
       const y = item.date ? String(item.date).slice(0, 4) : '';
       if (/^\d{4}$/.test(y)) yearsSet.add(y);
     });
-    const years = Array.from(yearsSet).sort((a, b) => b.localeCompare(a));
+    // 2010年以前はボタンとしては表示しない(データ自体は検索や日付クエリで引き続き閲覧可能)
+    const years = Array.from(yearsSet).filter(y => parseInt(y, 10) > 2010).sort((a, b) => b.localeCompare(a));
 
     $('yearChecks').innerHTML = '';
     years.forEach(y => $('yearChecks').appendChild(createLabel(y)));
