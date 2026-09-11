@@ -192,8 +192,8 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 /* 年数ボタンのサイズをメンバーボタン（.checks-row-members label）のサイズ感に統一 */
 .checks-row-years label, .checks-row-months label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 8px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 16px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
 /* 月は"1"〜"12"と年より桁数が少なく文字幅で自然に小さくなってしまうため、年ボタンと同じ見た目の大きさになるよう最小幅を揃える */
-/* 月フィルターは年フィルターの0.7倍のサイズにする */
-.checks-row-months label { padding: 3.5px 5.6px; font-size: 8.4px; border-radius: 11.2px; min-height: 23.8px; min-width: 29.4px; }
+/* 月フィルターは年フィルターの0.7倍のサイズにする(文字だけは視認性のため大きめにする) */
+.checks-row-months label { padding: 3.5px 5.6px; font-size: 11px; border-radius: 11.2px; min-height: 23.8px; min-width: 29.4px; }
 
 .checks-row-other label { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: 13px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 18px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
 .checks-row-other label.is-dragging-reorder { opacity: 0.4; }
