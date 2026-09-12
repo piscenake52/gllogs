@@ -103,6 +103,41 @@
     "title": "「WORK≒LiFE」発売記念リリースイベント 愛知",
     "venue": "イオンモール大高 1F グリーンコート",
     "songs": [
+      {
+        "order": 1,
+        "title": "Like it!!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "WORK≒LiFE",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Pancake",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
     ]
   },
   {
@@ -112,6 +147,41 @@
     "title": "「WORK≒LiFE」発売記念リリースイベント 愛知",
     "venue": "イオンモール大高 1F グリーンコート",
     "songs": [
+      {
+        "order": 1,
+        "title": "Gimme 143",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "WORK≒LiFE",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Starry pop Canvas",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
     ]
   }
 ]
