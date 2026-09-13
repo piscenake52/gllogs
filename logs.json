@@ -1,11 +1,24 @@
 [
   {
+    "date": "20210525",
+    "time": "0700",
+    "contents": "COLUMN",
+    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #002",
+    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#002",
+    "display_sp": "柚葉24じ　#002",
+    "url": "https://www.tokyoheadline.com/554319/",
+    "groups": [
+      "G2",
+      "YZH"
+    ]
+  },
+  {
     "date": "20210511",
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #001",
     "display_pc": "TOKYO HEADLINE「柚葉24じ」　#001",
-    "display_sp": "柚葉24じ　#113",
+    "display_sp": "柚葉24じ　#001",
     "url": "https://www.tokyoheadline.com/549611/",
     "groups": [
       "G2",
