@@ -1,21 +1,5 @@
 [
   {
-    "date": "20210511",
-    "time": "1200",
-    "contents": "YOUTUBE",
-    "title": "Girls² 小田柚葉、1日のルーティンをお見せします！",
-    "display_pc": "Girls² 小田柚葉、1日のルーティンをお見せします！",
-    "display_sp": "Girls² 小田柚葉、1日のルーティンをお見せします！",
-    "url": "https://www.youtube.com/watch?v=QI9S9_wxE-0",
-    "groups": [
-      "G2","YZH"
-    ],
-    "relations": [],
-    "tags": [
-      "TOKYO HEADLINE"
-    ]
-  },
-  {
     "date": "20260914",
     "time": "1200",
     "contents": "DIARY",
@@ -2614,6 +2598,19 @@
     ]
   },
   {
+    "date": "20261208",
+    "time": "1200",
+    "contents": "COLUMN",
+    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #116",
+    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#116",
+    "display_sp": "柚葉24じ　#116",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH"
+    ]
+  },
+  {
     "date": "20261129",
     "time": "1700",
     "contents": "LIVE",
@@ -2760,6 +2757,19 @@
       "Nocturne",
       "Girls PARADE",
       "Girls² 7th Anniversary Seven×Seven in Bloom -The Live-"
+    ]
+  },
+  {
+    "date": "20261110",
+    "time": "1200",
+    "contents": "COLUMN",
+    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #115",
+    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#115",
+    "display_sp": "柚葉24じ　#115",
+    "url": "",
+    "groups": [
+      "G2",
+      "YZH"
     ]
   },
   {
