@@ -13,7 +13,28 @@
     ],
     "title": "EP「EASY」発売記念 リリースイベント 埼玉",
     "venue": "大宮ステラタウン  1F屋外 メローペ広場",
-    "songs": [""
+    "songs": [
+      {
+        "order": 1,
+        "title": "Nocturne",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "Eagle Eyes",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "ヒマワリ",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
     ]
   },
   {
