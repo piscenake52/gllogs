@@ -1,5 +1,95 @@
 [
   {
+    "date": "20261010",
+    "time": "1000",
+    "contents": "GLRADIO",
+    "title": "【特別番組】菱田未渚美＆山口綺羅のがるらじ ≪前編≫",
+    "display_pc": "菱田未渚美と山口綺羅のがるらじ ～GL²family RADIO～ 前編",
+    "display_sp": "菱田未渚美と山口綺羅のがるらじ 前編",
+    "url": "",
+    "groups": [
+      "G2",
+      "MIN",
+      "KIR"
+    ]
+  },
+  {
+    "date": "20261020",
+    "time": "1000",
+    "contents": "GLRADIO",
+    "title": "【特別番組】菱田未渚美＆山口綺羅のがるらじ ≪後編≫",
+    "display_pc": "菱田未渚美と山口綺羅のがるらじ ～GL²family RADIO～ 後編",
+    "display_sp": "菱田未渚美と山口綺羅のがるらじ 後編",
+    "url": "",
+    "groups": [
+      "G2",
+      "MIN",
+      "KIR"
+    ]
+  },
+  {
+    "date": "20261015",
+    "time": "1000",
+    "contents": "GLRADIO",
+    "title": "【特別番組】山口莉愛＆佐藤栞奈のがるらじ ≪前編≫",
+    "display_pc": "山口莉愛と佐藤栞奈のがるらじ ～GL²family RADIO～ 前編",
+    "display_sp": "山口莉愛と佐藤栞奈のがるらじ 前編",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "KAN"
+    ]
+  },
+  {
+    "date": "20261025",
+    "time": "1000",
+    "contents": "GLRADIO",
+    "title": "【特別番組】山口莉愛＆佐藤栞奈のがるらじ ≪後編≫",
+    "display_pc": "山口莉愛と佐藤栞奈のがるらじ ～GL²family RADIO～ 後編",
+    "display_sp": "山口莉愛と佐藤栞奈のがるらじ 後編",
+    "url": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "KAN"
+    ]
+  },
+  {
+    "date": "20260914",
+    "time": "1800",
+    "contents": "CAMPAIGN",
+    "title": "「がるらじ ～GL² family RADIO～」　2026年10月公開エピソード募集🎉応募受付開始",
+    "display_pc": "がるらじ ～GL² family RADIO～　10月エピソード募集受付開始",
+    "display_sp": "がるらじ　10月エピソード募集受付開始",
+    "url": "https://girls2-fc.jp/page/forms/garuraji_2026_October",
+    "groups": [
+      "G2",
+      "MIN",
+      "KIR",
+      "L2",
+      "RIN",
+      "KAN"
+    ]
+  },
+  {
+    "date": "20260917",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "「がるらじ ～GL² family RADIO～」　2026年10月公開エピソード募集🎉応募受付締切",
+    "display_pc": "がるらじ ～GL² family RADIO～　10月エピソード募集受付締切",
+    "display_sp": "がるらじ　10月エピソード募集受付締切",
+    "url": "https://girls2-fc.jp/page/forms/garuraji_2026_October",
+    "groups": [
+      "G2",
+      "MIN",
+      "KIR",
+      "L2",
+      "RIN",
+      "KAN"
+    ]
+  },
+  {
     "date": "20210511",
     "time": "1200",
     "contents": "YOUTUBE",
