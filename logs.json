@@ -1,5 +1,44 @@
 [
   {
+    "date": "20260914",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "オンライントーク会🗣💬",
+    "display_pc": "小田柚葉　オンライントーク会🗣💬",
+    "display_sp": "小田柚葉　オンライントーク会🗣💬",
+    "url": "https://girls2-fc.jp/page/yuzuhaBlog/1229217751503994882",
+    "groups": [
+      "G2",
+      "YZH"
+    ]
+  },
+  {
+    "date": "20260914",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "grandma",
+    "display_pc": "隅谷百花　grandma",
+    "display_sp": "隅谷百花　grandma",
+    "url": "https://girls2-fc.jp/page/momokaBlog/1229218738650218497",
+    "groups": [
+      "G2",
+      "MMK"
+    ]
+  },
+  {
+    "date": "20260914",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "一度きりだよ！！❤️‍🔥",
+    "display_pc": "比嘉優和　一度きりだよ！！❤️‍🔥",
+    "display_sp": "比嘉優和　一度きりだよ！！❤️‍🔥",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1229216934256443393",
+    "groups": [
+      "L2",
+      "YUW"
+    ]
+  },
+  {
     "date": "20250114",
     "time": "0700",
     "contents": "COLUMN",
@@ -75,9 +114,9 @@
     "date": "20250422",
     "time": "0700",
     "contents": "COLUMN",
-    "title": "柚葉24じ ♯",
-    "display_pc": "柚葉24じ ",
-    "display_sp": "柚葉24じ ",
+    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #096",
+    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#096",
+    "display_sp": "柚葉24じ　#096",
     "url": "https://www.tokyoheadline.com/category/column/girls2yuzuha24h/",
     "groups": ["G2","YZH"],
     "relations": [],
@@ -232,9 +271,9 @@
     "date": "20260310",
     "time": "1200",
     "contents": "COLUMN",
-    "title": "柚葉24じ ♯？",
-    "display_pc": "柚葉24じ ？",
-    "display_sp": "柚葉24じ ？",
+    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #107",
+    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#107",
+    "display_sp": "柚葉24じ　#107",
     "url": "https://www.tokyoheadline.com/category/column/girls2yuzuha24h/",
     "groups": ["G2","YZH"],
     "relations": [],
@@ -244,9 +283,9 @@
     "date": "20260414",
     "time": "1200",
     "contents": "COLUMN",
-    "title": "柚葉24じ ♯？",
-    "display_pc": "柚葉24じ ？",
-    "display_sp": "柚葉24じ ？",
+    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #108",
+    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#108",
+    "display_sp": "柚葉24じ　#108",
     "url": "https://www.tokyoheadline.com/851998/",
     "groups": ["G2","YZH"],
     "relations": [],
