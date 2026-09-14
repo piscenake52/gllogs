@@ -4682,7 +4682,7 @@
     "contents": "CLOSE",
     "title": "NATSLIVE「Lakiガチャクッキング」 #013 レシピカード販売終了",
     "display_pc": "NATSLIVE「Lakiガチャクッキング」　#013 レシピカード販売終了",
-    "display_sp": "Lakiガチャクッキング #013 レシピカード販売終了",
+    "display_sp": "Lakiガチャクッキング レシピカード販売終了",
     "url": "https://natslive.jp/episodes/18053",
     "groups": [
       "L2",
@@ -4786,7 +4786,7 @@
     "contents": "GOODS",
     "title": "NATSLIVE「Lakiガチャクッキング」 #013 レシピカード販売開始",
     "display_pc": "NATSLIVE「Lakiガチャクッキング」　#013 レシピカード販売開始",
-    "display_sp": "Lakiガチャクッキング #013 レシピカード販売開始",
+    "display_sp": "Lakiガチャクッキング レシピカード販売開始",
     "url": "https://natslive.jp/episodes/18053",
     "groups": [
       "L2",
@@ -4802,7 +4802,7 @@
     "contents": "COOKING",
     "title": "NATSLIVE「Lakiガチャクッキング」 #013",
     "display_pc": "NATSLIVE「Lakiガチャクッキング」　#013",
-    "display_sp": "Lakiガチャクッキング #013",
+    "display_sp": "Lakiガチャクッキング　#013",
     "url": "https://natslive.jp/episodes/18053",
     "map": "https://maps.app.goo.gl/Y6db33ndDKLsmErs6",
     "groups": [
@@ -23206,12 +23206,31 @@
     ]
   },
   {
+    "date": "20261025",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "NATSLIVE「Lakiガチャクッキング」#002 アーカイブ配信終了",
+    "display_pc": "NATSLIVE「Lakiガチャクッキング」　#002　アーカイブ配信終了",
+    "display_sp": "Lakiガチャクッキング　#002 アーカイブ配信終了",
+    "url": "https://natslive.jp/episodes/17169",
+    "groups": [
+      "L2",
+      "TBK",
+      "RIN",
+      "AKR",
+      "KIK"
+    ],
+    "tags": [
+      "焼売中華丼"
+    ]
+  },
+  {
     "date": "20251025",
     "time": "1900",
     "contents": "COOKING",
     "title": "NATSLIVE「Lakiガチャクッキング」 #002",
     "display_pc": "NATSLIVE「Lakiガチャクッキング」　#002",
-    "display_sp": "Lakiガチャクッキング #002",
+    "display_sp": "Lakiガチャクッキング　#002",
     "url": "https://natslive.jp/episodes/17169",
     "map": "https://maps.app.goo.gl/Y6db33ndDKLsmErs6",
     "groups": [
