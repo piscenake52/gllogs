@@ -350,6 +350,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
   line-height: 1.2; 
   color: var(--text); 
   text-align: left; 
+  transition: flex-basis 0.3s ease;
 }
 /* ICONモードON時はテキストが無くアイコンのみになるため、固定幅にしてどのアイコンでも枠サイズが揃うようにする(PC版・スマホ版で共通の幅) */
 body.icon-only-mode .item-contents {
@@ -360,26 +361,15 @@ body.icon-only-mode .item-contents {
   text-align: center;
 }
 .item-contents.is-clickable { cursor: pointer; }
-/* コンテンツアイコンをクリックした時にコンテンツ名をアコーディオン展開する領域。
-   四角いグループアイコン押下時のteam-heartsと同じ考え方(max-width transitionで開閉)。 */
-.item-contents-expand {
-  display: inline-flex;
-  align-items: center;
-  flex: 0 0 auto;
-  max-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  font-size: calc(var(--data-font-scale) * 11px);
-  line-height: 1.2;
-  color: var(--text);
-  background: var(--btn-bg);
-  border: 1px solid var(--input-border);
-  border-radius: 6px;
-  padding: 0;
-  margin-right: 0;
-  transition: max-width 0.3s ease, margin-right 0.3s ease, padding 0.3s ease;
+/* コンテンツアイコンをクリックした時、隣に別枠を出すのではなく、このアイコン枠自体を広げて
+   コンテンツ名を表示する(枠の背景・境界線はそのまま)。実際の幅はコンテンツ名の長さに応じてJS側で
+   計測して都度style.widthに反映する(下のmax-widthは計測前後の保険的な上限)。
+   body.icon-only-mode .item-contents (bodyタグ分だけ詳細度が高い)より必ず優先させるため、
+   同じくbodyを付けて詳細度を揃え、CSS上で後に置くことで確実に上書きする。 */
+body .item-contents.is-content-open {
+  max-width: 11.5em;
+  text-align: left;
 }
-.item-contents-expand.is-open { max-width: 220px; margin-right: 6px; padding: 1px 6px; }
 
 /* タイトル部分だけが通常は省略表示され、ホバーやスクロールで個別スライド（全表示）可能に */
 .item-title { 
@@ -882,6 +872,28 @@ body.icon-only-mode .item-contents {
   const itemKeyFor = item => `${item.date || ''}_${item.time || ''}_${item.contents || ''}_${item.title || ''}_${item.url || ''}`;
   let expandedContentKeys = new Set();
 
+  // 展開時の幅を「コンテンツ名の長さ」に合わせて計測する(上限はRELEASEEVENT等の最長級でも収まるよう11.5em)。
+  // 一時的にflex-basisの制約を外して自然な横幅(scrollWidth)を測り、パディング分を差し引いてから
+  // 元の値に戻す(実際の反映は呼び出し側でstyle.flexBasisに設定する)。widthは併用せずflex-basisのみで
+  // サイズを決める(flex-shrink:0のためflex-basisがそのまま表示幅になり、左端の位置がぶれない)。
+  // 計測値ぴったりだと文字がぎりぎりで見切れることがあるため、少し余裕(CONTENT_OPEN_BUFFER_PX)を足す。
+  const MAX_CONTENT_OPEN_EM = 11.5;
+  const CONTENT_OPEN_BUFFER_PX = 8;
+  const measureContentOpenWidthPx = el => {
+    const cs = getComputedStyle(el);
+    const paddingH = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    const fontSizePx = parseFloat(cs.fontSize);
+    const prevBasis = el.style.flexBasis;
+    const prevMaxWidth = el.style.maxWidth;
+    el.style.flexBasis = 'auto';
+    el.style.maxWidth = 'none'; // 計測中はCSS側のmax-width(11.5em)の影響を受けないようにする
+    const naturalContentWidth = Math.ceil(el.scrollWidth - paddingH) + CONTENT_OPEN_BUFFER_PX;
+    el.style.flexBasis = prevBasis;
+    el.style.maxWidth = prevMaxWidth;
+    const maxContentWidth = fontSizePx * MAX_CONTENT_OPEN_EM;
+    return Math.min(naturalContentWidth, maxContentWidth);
+  };
+
   // team-both(G2/L2両方)の行でハートを一括表示する際、どちらのグループのメンバーかを判定するための集合
   const g2MemberCodes = new Set(g2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
   const l2MemberCodes = new Set(l2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
@@ -1199,33 +1211,53 @@ body.icon-only-mode .item-contents {
     
     const ct = document.createElement('span');
     ct.className = 'item-contents';
-    // コンテンツアイコンクリック時にコンテンツ名をアコーディオン展開する要素(item.contentsが無い行には作らない)
-    let ctExpand = null;
     if (item.contents) {
       // スマホ版・ICONモードONはアイコンのみ、それ以外(PC版・ICONモードOFF)は「アイコン + コンテンツ名」で出し分け
       // (この出し分け自体はアコーディオン機能の有無に関わらず従来通り。スマホ版はICONモードのON/OFFに関係なく常にアイコンのみ)
       const contentsName = displayNameFor(item.contents);
-      ct.textContent = (isMobileState || iconMode) ? (symbols[item.contents] || contentsName) : ((symbols[item.contents] ? symbols[item.contents] + ' ' : '') + contentsName);
-
-      ctExpand = document.createElement('span');
-      ctExpand.className = 'item-contents-expand';
-      ctExpand.textContent = contentsName;
+      const collapsedText = (isMobileState || iconMode) ? (symbols[item.contents] || contentsName) : ((symbols[item.contents] ? symbols[item.contents] + ' ' : '') + contentsName);
+      // 展開時はモードに関わらず「アイコン + コンテンツ名」を、このアイコン枠自体を広げて表示する
+      const expandedText = (symbols[item.contents] ? symbols[item.contents] + ' ' : '') + contentsName;
+      ct.textContent = collapsedText;
 
       ct.classList.add('is-clickable');
       ct.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない(クリック/タップでは従来通り開閉可能)
       ct.setAttribute('role', 'button');
       ct.setAttribute('aria-expanded', 'false');
       const contentKey = itemKeyFor(item);
-      if (expandedContentKeys.has(contentKey)) {
-        ctExpand.classList.add('is-open');
+
+      // 開く:テキストをコンテンツ名に切り替えた上で、その文字列の実際の横幅を計測し、
+      // ちょうど収まる幅(上限11.5em)まで枠を広げる。DOM挿入直後は幅の計測ができないため、
+      // 描画完了後の次フレームで計測する(通常クリック時は体感できない遅延)。
+      const openContentBox = () => {
+        ct.classList.add('is-content-open');
+        ct.textContent = expandedText;
         ct.setAttribute('aria-expanded', 'true');
-      }
+        requestAnimationFrame(() => {
+          if (!ct.isConnected || !ct.classList.contains('is-content-open')) return;
+          const targetPx = measureContentOpenWidthPx(ct);
+          ct.style.flexBasis = targetPx + 'px';
+        });
+      };
+      // 閉じる:元の表示に戻し、幅の指定も解除して現在の表示モード基準の幅に戻す
+      const closeContentBox = () => {
+        ct.classList.remove('is-content-open');
+        ct.textContent = collapsedText;
+        ct.style.flexBasis = '';
+        ct.setAttribute('aria-expanded', 'false');
+      };
+
+      if (expandedContentKeys.has(contentKey)) openContentBox();
+
       const toggleContentExpand = () => {
-        const isOpen = ctExpand.classList.toggle('is-open');
-        ct.setAttribute('aria-expanded', String(isOpen));
         // この行だけの開閉状態をキーで記録する(他の行の展開状態には影響しない)
-        if (isOpen) expandedContentKeys.add(contentKey);
-        else expandedContentKeys.delete(contentKey);
+        if (ct.classList.contains('is-content-open')) {
+          closeContentBox();
+          expandedContentKeys.delete(contentKey);
+        } else {
+          openContentBox();
+          expandedContentKeys.add(contentKey);
+        }
       };
       ct.addEventListener('click', toggleContentExpand);
       ct.addEventListener('keydown', e => {
@@ -1285,7 +1317,7 @@ body.icon-only-mode .item-contents {
     }
 
     const dateChildren = tm ? [d, tm] : [d];
-    const children = [...dateChildren, ...(mp ? [mp] : []), ...(sl ? [sl] : []), ct, ...(ctExpand ? [ctExpand] : [])];
+    const children = [...dateChildren, ...(mp ? [mp] : []), ...(sl ? [sl] : []), ct];
     if (teamClass) {
       const ti = document.createElement('span');
       ti.className = 'team-icon team-' + teamClass;
