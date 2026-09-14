@@ -1640,9 +1640,8 @@ body .item-contents.is-content-open {
         .slice()
         .sort((a, b) => (a.order || 0) - (b.order || 0))
         .map(s => {
-          const isSong = !s.type || s.type === 'song';
-          // song以外の行(allow等)も同じ幅の枠を確保し、曲名の開始位置がずれないようにする
-          const link = isSong ? findSongLinkByTitle(s.title) : null;
+          // typeに関わらず、songs.jsonとのタイトル一致だけで再生ボタンの有無を決める
+          const link = findSongLinkByTitle(s.title);
           const playBtnHtml = link
             ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>`
             : `<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>`;

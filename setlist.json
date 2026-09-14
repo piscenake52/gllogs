@@ -222,4 +222,101 @@
       }
     ]
   }
+  {
+    "setlistid": "202608201400",
+    "artist": "Laki",
+    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "title": "「WORK≒LiFE」発売記念リリースイベント 埼玉",
+    "venue": "コクーンシティ コクーンひろば",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Starry pop Canvas",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "WORK≒LiFE",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Love is Magic",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202608201630",
+    "artist": "Laki",
+    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "title": "「WORK≒LiFE」発売記念リリースイベント 埼玉",
+    "venue": "コクーンシティ コクーンひろば",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Unicorn Dance",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "WORK≒LiFE",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Love is Magic",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202608291910",
+    "artist": "Laki",
+    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "title": "超WEGO2026",
+    "venue": "WEGO 1.3.5... 原宿店",
+    "songs": [
+    ]
+  }
 ]
