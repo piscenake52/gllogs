@@ -1,5 +1,35 @@
 [
   {
+    "date": "20260926",
+    "time": "1000",
+    "contents": "TICKET",
+    "title": "映画「デス≠キル／ゲーム」 初日舞台挨拶 チケット発券開始",
+    "display_pc": "映画「デス≠キル／ゲーム」 初日舞台挨拶チケット発券開始",
+    "display_sp": "「デス≠キル／ゲーム」 舞台挨拶チケット発券開始",
+    "url": "https://amg.cinemanews.jp/deathkillgame/post-674/",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20260918",
+    "time": "1500",
+    "contents": "RESULT",
+    "title": "映画「デス≠キル／ゲーム」 初日舞台挨拶 チケット先行抽選当選発表",
+    "display_pc": "映画「デス≠キル／ゲーム」 初日舞台挨拶チケット先行抽選当選発表",
+    "display_sp": "「デス≠キル／ゲーム」 舞台挨拶チケット当選発表",
+    "url": "https://amg.cinemanews.jp/deathkillgame/post-674/",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+    ]
+  },
+  {
     "date": "20260916",
     "time": "2359",
     "contents": "CLOSE",
