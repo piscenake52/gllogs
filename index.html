@@ -98,7 +98,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .toggle-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .toggle-btn:disabled:hover { background: none; color: var(--muted); }
 .date-part-btn.is-active { color: #fff; background-color: #a78bfa; text-shadow: none; }
-#badgeToggleBtn.is-active, #iconToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+#badgeToggleBtn.is-active, #iconToggleBtn.is-active, #filterSummaryToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #todayToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #songToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #heartToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
@@ -242,6 +242,7 @@ body.icon-only-mode .checks .label-text-part { display: none; }
 body.icon-only-mode .checks .label-icon-part { display: inline; }
 /* --- 検索結果の件数表示・並び替え・クリアボタン --- */
 .result-header-row { display: flex; justify-content: space-between; align-items: center; margin-top: 3px; margin-bottom: 8px; min-height: 1.2em; position: relative; }
+.result-count-group { display: flex; align-items: center; gap: 6px; }
 .result-count { font-size: 12px; color: var(--sub); letter-spacing: 0.5px; }
 .sort-arrow-btn { position: absolute; left: 50%; transform: translateX(-50%); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; border-radius: 12px; outline: none; line-height: 1.2; }
 .sort-arrow-btn:hover { background-color: var(--btn-hover); }
@@ -327,7 +328,8 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 #todayToggleBtn.is-year-filtered { color: #111; background-color: #facc15; }
 /* --- 現在有効な絞り込み条件のバッジ一覧(フィルターエリア折りたたみ時に表示) --- */
 .active-filters-row { display: none; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; gap: 4px; margin-bottom: 10px; align-items: center; }
-.sticky-header.collapsed .active-filters-row { display: flex; }
+/* FILTERボタンのON/OFF(is-open)だけで表示・非表示を決める(フィルターエリアの開閉状態からは独立) */
+.active-filters-row.is-open { display: flex; }
 .filter-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 11px; padding: 3px 10px; border-radius: 12px; cursor: pointer; user-select: none; white-space: nowrap; flex: 0 0 auto; }
 .filter-badge:hover { background-color: var(--btn-hover); opacity: 0.8; }
 .filter-badge .badge-x { font-size: 10px; color: var(--muted); font-weight: bold; }
@@ -572,7 +574,10 @@ body .item-contents.is-content-open {
     </div>
 
     <div class="result-header-row">
-      <div class="result-count" id="resultCount">LOADING...</div>
+      <div class="result-count-group">
+        <button class="toggle-btn" id="filterSummaryToggleBtn" aria-label="&#29694;&#22312;&#12398;&#12501;&#12451;&#12523;&#12479;&#12540;&#19968;&#35239;&#12434;&#34920;&#31034;">FILTER</button>
+        <div class="result-count" id="resultCount">LOADING...</div>
+      </div>
       <button class="day-nav-btn" id="prevDayBtn" aria-label="Previous day">&#8592;</button>
       <button class="sort-arrow-btn" id="sortBtn">&#8595;</button>
       <button class="day-nav-btn" id="nextDayBtn" aria-label="Next day">&#8594;</button>
@@ -981,6 +986,8 @@ body .item-contents.is-content-open {
   if (localStorage.getItem('gl_log_collapsed') === 'true') {
     $('stickyHeader').classList.add('collapsed');
     $('toggleBtn').textContent = '\u25BC';
+    $('activeFiltersRow').classList.add('is-open');
+    $('filterSummaryToggleBtn').classList.add('is-active');
   }
   requestAnimationFrame(() => $('stickyHeader').classList.remove('is-initializing'));
 
@@ -988,6 +995,19 @@ body .item-contents.is-content-open {
     const c = $('stickyHeader').classList.toggle('collapsed');
     $('toggleBtn').textContent = c ? '\u25BC' : '\u25B2';
     localStorage.setItem('gl_log_collapsed', c);
+    // フィルターエリアを閉じた時は、これまで通り「現在のフィルター一覧」を自動表示する(FILTERボタンをON扱いに)。
+    // 開いた時はFILTERボタンの状態はそのままにする(閉じていても開いていてもFILTERボタンで独立にON/OFFできる)
+    if (c) {
+      $('activeFiltersRow').classList.add('is-open');
+      $('filterSummaryToggleBtn').classList.add('is-active');
+    }
+  };
+
+  // FILTERボタン:フィルターエリアが閉じている時に自動表示される「現在のフィルター一覧」を、
+  // 開いている時でも任意のタイミングで表示/非表示できるようにする(フィルターエリアの開閉状態とは独立)
+  $('filterSummaryToggleBtn').onclick = () => {
+    const open = $('activeFiltersRow').classList.toggle('is-open');
+    $('filterSummaryToggleBtn').classList.toggle('is-active', open);
   };
 
   // 錠前ボタン:既定はOFF(画面固定しない、通常スクロール)。ONにするとヘッダーが画面上部に固定される。
@@ -1562,9 +1582,14 @@ body .item-contents.is-content-open {
   };
 
   // 検索キーワードのAND/NOT/OR判定:スペース区切りでAND、先頭に「-」でNOT、「|」区切りでOR。
-  // 例:"A B|C" は「(AかつB) または C」として判定する(OR優先度が最も低い)。
+  // 加えて単語区切りの" AND "/" and "/" OR "/" or "も同じ意味の演算子として使えるようにする
+  // (" and "はスペース区切りと同じ意味なので読み飛ばすだけ、" or "は"|"に変換する)。
+  // 例:"A B|C" も "A AND B OR C" も「(AかつB) または C」として判定する(OR優先度が最も低い)。
   const matchesSearchKeyword = (searchText, kw) => {
-    const orGroups = kw.split('|').map(g => g.trim()).filter(Boolean);
+    const normalizedKw = kw
+      .replace(/(^|\s)or(?=\s|$)/gi, '$1|')
+      .replace(/(^|\s)and(?=\s|$)/gi, '$1');
+    const orGroups = normalizedKw.split('|').map(g => g.trim()).filter(Boolean);
     return orGroups.some(group => {
       const tokens = group.split(/\s+/).filter(Boolean);
       return tokens.every(tok =>
@@ -1638,6 +1663,23 @@ body .item-contents.is-content-open {
     }
 
     return { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate };
+  };
+
+  // rawKwの中から「日付として解釈できる1トークン」を空白区切りで探して抜き出し、日付クエリ(dq)と
+  // 残りのキーワード文字列(remainingKw)に分割する。日付トークンが見つからなければdq.isDateQueryは
+  // falseのままで、remainingKwには元の文字列全体が入る(＝従来通りの単純なテキスト検索)。
+  // 例:"20260101-20260102 -あけまして" → 日付範囲(1/1〜1/2) + 残りキーワード"-あけまして"(NOT検索)
+  const extractDateQuery = rawKw => {
+    const tokens = rawKw.split(/\s+/).filter(Boolean);
+    let dq = { isDateQuery: false, targetMonthDay: null, targetMonthDayRange: null, startDate: null, endDate: null };
+    let dateToken = '';
+    let dateTokenIndex = -1;
+    for (let i = 0; i < tokens.length; i++) {
+      const candidate = parseDateQuery(tokens[i]);
+      if (candidate.isDateQuery) { dq = candidate; dateToken = tokens[i]; dateTokenIndex = i; break; }
+    }
+    const remainingKw = (dateTokenIndex === -1 ? tokens : tokens.filter((_, i) => i !== dateTokenIndex)).join(' ').toLowerCase();
+    return { dq, dateToken: dateToken.toLowerCase(), remainingKw };
   };
 
   // セトリ検索モード:setlist.jsonのsongs[].titleをkwで部分一致検索し、該当する公演のsetlistidの集合を返す
@@ -1769,7 +1811,7 @@ body .item-contents.is-content-open {
     return [...(item.groups || []), ...(item.relations || [])];
   };
   const matchesOtherFilters = (item, ctx) => {
-    const { cYears, cMonths, sGroups, mGroups, kw, dq, setlistIds } = ctx;
+    const { cYears, cMonths, sGroups, mGroups, kw, dq, dateToken, setlistIds } = ctx;
     const yr = item.date ? item.date.slice(0, 4) : '';
     const mo = item.date ? item.date.slice(4, 6) : '';
     const itemGroupsAndRelations = getFilterGroupsForItem(item);
@@ -1813,13 +1855,13 @@ body .item-contents.is-content-open {
           if (dq.startDate && itemDateNum < dq.startDate) matchesDate = false;
           if (dq.endDate && itemDateNum > dq.endDate) matchesDate = false;
         }
-        const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
+        const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(dateToken)));
         dateOk = matchesDate || tagsMatch;
         // ANNIVERSARYは登録年自体を検索でも見せない(翌年以降のみ、日付検索でも同じ扱いにする)
         if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, itemDateNum.slice(0, 4))) dateOk = false;
       }
 
-      if (kw && !dq.isDateQuery) {
+      if (kw) {
         const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
         textOk = matchesSearchKeyword(searchText, kw);
       }
@@ -1870,10 +1912,13 @@ body .item-contents.is-content-open {
     const sGroups = allGroupVals.filter(v => cVals.has(v));
     const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
     const rawKw = searchInput.value.trim();
-    const kw = rawKw.toLowerCase();
-    const dq = setlistMode ? null : parseDateQuery(rawKw);
-    const setlistIds = setlistMode && kw ? getMatchedSetlistIds(kw) : null;
-    const ctx = { cYears, cMonths, sGroups, mGroups, kw, dq, setlistIds };
+    const fullKw = rawKw.toLowerCase();
+    // セトリ検索モード中は日付抽出を行わず、kwはそのまま曲名検索に使う
+    const { dq, dateToken, remainingKw } = setlistMode
+      ? { dq: null, dateToken: '', remainingKw: fullKw }
+      : extractDateQuery(rawKw);
+    const setlistIds = setlistMode && fullKw ? getMatchedSetlistIds(fullKw) : null;
+    const ctx = { cYears, cMonths, sGroups, mGroups, kw: remainingKw, dq, dateToken, setlistIds };
 
     const matched = new Set();
     expandTodayBirthdayItems(logs, cYears, cMonths).forEach(item => {
@@ -1907,14 +1952,18 @@ body .item-contents.is-content-open {
     const sGroups = allGroupVals.filter(v => cVals.has(v));
     const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
     const rawKw = searchInput.value.trim();
-    const kw = rawKw.toLowerCase();
+    const fullKw = rawKw.toLowerCase();
 
-    // 日付・年・月日クエリのパース処理(セトリ検索モード中はkwを曲名検索に使うため不要)
-    const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = setlistMode
-      ? { isDateQuery: false, targetMonthDay: null, targetMonthDayRange: null, startDate: null, endDate: null }
-      : parseDateQuery(rawKw);
+    // 日付・年・月日クエリのパース処理(セトリ検索モード中はkwを曲名検索に使うため不要)。
+    // rawKwの中に日付として解釈できるトークンがあれば抜き出し、残りは通常のAND/OR/NOTキーワード検索として扱う
+    // (例:"20260101-20260102 -あけまして" → 1/1〜1/2の範囲 かつ 「あけまして」を含まない)
+    const { dq, dateToken, remainingKw } = setlistMode
+      ? { dq: { isDateQuery: false }, dateToken: '', remainingKw: fullKw }
+      : extractDateQuery(rawKw);
+    const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = dq;
+    const kw = remainingKw;
     // セトリ検索モード中、キーワードがあればsetlist.jsonから該当するsetlistidを検索しておく
-    const setlistIds = setlistMode && kw ? getMatchedSetlistIds(kw) : null;
+    const setlistIds = setlistMode && fullKw ? getMatchedSetlistIds(fullKw) : null;
 
     filtered = expandTodayBirthdayItems(logs, cYears, cMonths).filter(item => {
       const yr = item.date ? item.date.slice(0, 4) : '';
@@ -1938,7 +1987,7 @@ body .item-contents.is-content-open {
       const stfExcluded = sGroups.length > 0 && mGroups.length === 0 && itemGroups.includes('STF');
       const gOk = memberOk && metaOk && !stfExcluded;
 
-      const cOk = isContentTypeOk(item, ic, cConts, cYears, todayMode, isDateQuery, kw);
+      const cOk = isContentTypeOk(item, ic, cConts, cYears, todayMode, isDateQuery, fullKw);
       
       let dateOk = true;
       let textOk = true;
@@ -1965,13 +2014,13 @@ body .item-contents.is-content-open {
             if (endDate && itemDateNum > endDate) matchesDate = false;
           }
           // 日付検索を優先しつつ、tagsに一致するものがあればそちらも結果に含める
-          const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
+          const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(dateToken)));
           dateOk = matchesDate || tagsMatch;
           // ANNIVERSARYは登録年自体を検索でも見せない(翌年以降のみ、日付検索でも同じ扱いにする)
           if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, itemDateNum.slice(0, 4))) dateOk = false;
         }
 
-        if (kw && !isDateQuery) {
+        if (kw) {
           const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
           textOk = matchesSearchKeyword(searchText, kw);
         }
@@ -2001,9 +2050,9 @@ body .item-contents.is-content-open {
     renderTimer = setTimeout(() => {
       $('items').textContent = '';
       rendered = 0;
-      defaultText = 'RESULTS > ' + filtered.length;
+      defaultText = '> ' + filtered.length;
       $('resultCount').textContent = defaultText;
-      renderActiveBadges(checked, kw);
+      renderActiveBadges(checked, fullKw);
       updateAllBadges();
       updateManualIndicators();
 
@@ -2039,11 +2088,13 @@ body .item-contents.is-content-open {
     let mG = cats.map(c => c.meta).filter(m => cVals.has(m));
     let cC = checked.filter(c => allConts.includes(c.value)).map(c => c.value);
     const rawKw = searchInput.value.trim();
-    const kw = rawKw.toLowerCase();
-    const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = setlistMode
-      ? { isDateQuery: false, targetMonthDay: null, targetMonthDayRange: null, startDate: null, endDate: null }
-      : parseDateQuery(rawKw);
-    const setlistIds = setlistMode && kw ? getMatchedSetlistIds(kw) : null;
+    const fullKw = rawKw.toLowerCase();
+    const { dq, dateToken, remainingKw } = setlistMode
+      ? { dq: { isDateQuery: false }, dateToken: '', remainingKw: fullKw }
+      : extractDateQuery(rawKw);
+    const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = dq;
+    const kw = remainingKw;
+    const setlistIds = setlistMode && fullKw ? getMatchedSetlistIds(fullKw) : null;
 
     if (isChecked) {
       if (/^\d{4}$/.test(val)) cY = cY.filter(y => y !== val);
@@ -2101,13 +2152,13 @@ body .item-contents.is-content-open {
             if (startDate && itemDateNum < startDate) matchesDate = false;
             if (endDate && itemDateNum > endDate) matchesDate = false;
           }
-          const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(kw)));
+          const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(dateToken)));
           dateOk = matchesDate || tagsMatch;
           // ANNIVERSARYは登録年自体を検索でも見せない(翌年以降のみ、日付検索でも同じ扱いにする)
           if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, itemDateNum.slice(0, 4))) dateOk = false;
         }
 
-        if (kw && !isDateQuery) {
+        if (kw) {
           const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
           kwOk = matchesSearchKeyword(searchText, kw);
         }
@@ -2116,7 +2167,7 @@ body .item-contents.is-content-open {
       const todayOk = isTodayDateOk(item, cY);
       const yOk = cY.length === 0 || cY.includes(yr);
       const monthOk = cM.length === 0 || cM.includes(mo);
-      const cOk = isContentTypeOk(item, ic, cC, cY, todayMode, isDateQuery, kw);
+      const cOk = isContentTypeOk(item, ic, cC, cY, todayMode, isDateQuery, fullKw);
 
       return yOk &&
              monthOk &&
