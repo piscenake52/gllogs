@@ -47,6 +47,17 @@ body.dark-mode {
 }
 * { box-sizing: border-box; }
 
+/* キーボード操作時のフォーカス表示。各所でoutline: noneにしているボタン・リンク・入力欄・role="button"の
+   要素すべてに対して、マウスクリック時は出さずキーボード操作時だけ共通の枠を表示する(:focus-visible)。 */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
 /* スマホのPC版表示対応 ＆ カクつき防止（scrollbar-gutter: stable） */
 /* 「PC版サイト」表示時、横幅が広い仮想ビューポートになることで指の縦ドラッグが横パン(2本指的な
    自由パン)と誤認識され、縦スクロールが効かなくなることがあるための対策 */
@@ -217,6 +228,9 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .checks-row-members label:not(.btn-group) { padding: 5px 0; }
 .checks .sep { display: inline-flex; align-items: center; justify-content: center; padding: 0 1px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
 @media (hover: hover) { .checks label:hover { background-color: var(--btn-hover); } }
+/* checkboxは非表示(opacity:0/幅高さ0)にしているため、input自体ではなく見た目上のlabel側に
+   フォーカスリングを出す(inputは0x0でリングが実質見えなくなるため) */
+.checks label:has(input:focus-visible) { outline: 2px solid #38bdf8; outline-offset: 2px; }
 .checks label:has(input:checked) { background-color: var(--active-bg); color: var(--active-color); border-color: var(--active-bg); }
 .checks label:has(input:checked)::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #34d399; border-radius: 50%; }
 /* 手動でONにしたフィルターは、右上のランプを赤から青に変更して区別する(自動ONは赤のまま) */
@@ -263,8 +277,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .theme-toggle-btn { overflow: hidden; }
 .lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #textSizeDownBtn:hover, #textSizeUpBtn:hover { background-color: var(--btn-hover); }
 .lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
-/* 「-」「+」ボタン自体の文字サイズ・ボタンサイズも、現在のデータ部拡大縮小率に連動して一緒に縮小・拡大する */
-#textSizeDownBtn, #textSizeUpBtn { transform: scale(var(--data-font-scale)); }
+/* 「-」「+」ボタン自体の大きさは変えず、データ部の文字サイズだけを拡大縮小する */
 
 /* BLACK/WHITEボタン:文字化け対策としてCSSのみで太陽(切替先=ライト)/月(切替先=ダーク)を描画 */
 .theme-toggle-btn .icon-sun, .theme-toggle-btn .icon-moon { display: none; }
@@ -350,7 +363,8 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
   line-height: 1.2; 
   color: var(--text); 
   text-align: left; 
-  transition: flex-basis 0.3s ease;
+  transition: flex-basis 0.38s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: flex-basis;
 }
 /* アイコン本体を置く箱。幅を常に固定にして中央寄せすることで、枠(item-contents)の開閉・展開状態に関わらず
    アイコン自体の描画位置が絶対にずれないようにする(text-alignによる位置ズレを避けるための専用の箱)。
@@ -626,7 +640,7 @@ body .item-contents.is-content-open {
     'CL': '\uD83C\uDD91', 'RELEASE': '\uD83C\uDFA7', 'LIVE': '\uD83C\uDF99\uFE0F', 
     'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCE1', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'SALES': '\uD83D\uDED2', 'ANNIVERSARY': '\uD83D\uDD16', 'BIRTHDAY': '\uD83C\uDF82',
     'MODEL': '\uD83D\uDC60', 'MOVIE': '\uD83C\uDFAC\uFE0F', 'TICKET': '\uD83C\uDFAB',
-    'CLOSE': '\u2705', 'RESULT': '\uD83C\uDFAF', 'CAMPAIGN': '\uD83D\uDCE8', 'PLAYING': '\uD83C\uDFB6', // フィルターボタンには表示せず、ETC選択時のみ該当させる
+    'CLOSE': '\u2705', 'RESULT': '\uD83C\uDFAF', 'CAMPAIGN': '\uD83D\uDCE8', 'PLAYING': '\uD83C\uDFB6', 'MESSAGE': '\uD83D\uDCE8', // フィルターボタンには表示せず、ETC選択時のみ該当させる
     'ETC': '\uD83D\uDCCC',
     // 以下5種類はcontentsフィルターボタンには表示しないが、フィルター判定上は"RELEASE"として扱う(normalizeContType参照)。
     // データ部のアイコン表示ではそれぞれ専用のアイコン+コンテンツ名を表示する。
@@ -1547,6 +1561,18 @@ body .item-contents.is-content-open {
     $('activeFiltersRow').appendChild(frag);
   };
 
+  // 検索キーワードのAND/NOT/OR判定:スペース区切りでAND、先頭に「-」でNOT、「|」区切りでOR。
+  // 例:"A B|C" は「(AかつB) または C」として判定する(OR優先度が最も低い)。
+  const matchesSearchKeyword = (searchText, kw) => {
+    const orGroups = kw.split('|').map(g => g.trim()).filter(Boolean);
+    return orGroups.some(group => {
+      const tokens = group.split(/\s+/).filter(Boolean);
+      return tokens.every(tok =>
+        tok.length > 1 && tok.startsWith('-') ? !searchText.includes(tok.slice(1)) : searchText.includes(tok)
+      );
+    });
+  };
+
   const parseDateQuery = rawKw => {
     let isDateQuery = false;
     let targetMonthDay = null;
@@ -1686,9 +1712,8 @@ body .item-contents.is-content-open {
         .slice()
         .sort((a, b) => (a.order || 0) - (b.order || 0))
         .map(s => {
-          const isSong = !s.type || s.type === 'song';
-          // song以外の行(allow等)も同じ幅の枠を確保し、曲名の開始位置がずれないようにする
-          const link = isSong ? findSongLinkByTitle(s.title) : null;
+          // typeに関わらずtitle一致だけで再生ボタンの有無を決める
+          const link = findSongLinkByTitle(s.title);
           const playBtnHtml = link
             ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>`
             : `<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>`;
@@ -1796,11 +1821,7 @@ body .item-contents.is-content-open {
 
       if (kw && !dq.isDateQuery) {
         const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
-        const tokens = kw.split(/\s+/).filter(Boolean);
-        textOk = tokens.every(tok => {
-          if (tok.length > 1 && tok.startsWith('-')) return !searchText.includes(tok.slice(1));
-          return searchText.includes(tok);
-        });
+        textOk = matchesSearchKeyword(searchText, kw);
       }
     }
 
@@ -1952,13 +1973,7 @@ body .item-contents.is-content-open {
 
         if (kw && !isDateQuery) {
           const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
-          const tokens = kw.split(/\s+/).filter(Boolean);
-          textOk = tokens.every(tok => {
-            if (tok.length > 1 && tok.startsWith('-')) {
-              return !searchText.includes(tok.slice(1));
-            }
-            return searchText.includes(tok);
-          });
+          textOk = matchesSearchKeyword(searchText, kw);
         }
       }
       
@@ -2094,10 +2109,7 @@ body .item-contents.is-content-open {
 
         if (kw && !isDateQuery) {
           const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
-          const tokens = kw.split(/\s+/).filter(Boolean);
-          kwOk = tokens.every(tok =>
-            tok.length > 1 && tok.startsWith('-') ? !searchText.includes(tok.slice(1)) : searchText.includes(tok)
-          );
+          kwOk = matchesSearchKeyword(searchText, kw);
         }
       }
 
@@ -2213,44 +2225,42 @@ body .item-contents.is-content-open {
     $('heartToggleBtn').classList.toggle('is-active', heartModeOn);
   };
 
-  // 「-」「+」ボタン:データ部(ログ一覧)の文字サイズを段階的に縮小/拡大する。
-  // 現在の表示(等倍)を段階0とし、1段階につきTEXT_SIZE_STEP_PERCENT(%)ずつ変化する。
-  // ボタンを1回押すと2段階分まとめて変化する(「-」で2段階縮小、「+」で2段階拡大)。
-  // 縮小は現在の約半分(50%)、拡大は現在の倍(200%)を上限・下限とし、そこに達した側のボタンは
-  // 色(青)はそのままに押せなくする(disabled)。段階は次回訪問時も維持するためlocalStorageに保存する。
-  const TEXT_SIZE_STEP_PERCENT = 0.25; // 1段階あたりの拡大縮小量(%)
-  const TEXT_SIZE_MIN_SCALE = 0.5; // 縮小の下限:現在の約半分
-  const TEXT_SIZE_MAX_SCALE = 2; // 拡大の上限:現在の倍
-  const TEXT_SIZE_MIN_LEVEL = Math.round((TEXT_SIZE_MIN_SCALE - 1) * 100 / TEXT_SIZE_STEP_PERCENT);
-  const TEXT_SIZE_MAX_LEVEL = Math.round((TEXT_SIZE_MAX_SCALE - 1) * 100 / TEXT_SIZE_STEP_PERCENT);
-  const clampTextSizeLevel = lv => Math.max(TEXT_SIZE_MIN_LEVEL, Math.min(TEXT_SIZE_MAX_LEVEL, lv));
-  const TEXT_SIZE_LEVEL_KEY = 'gl_log_text_size_level';
-  let textSizeLevel = parseInt(localStorage.getItem(TEXT_SIZE_LEVEL_KEY) || '0', 10);
-  if (!Number.isFinite(textSizeLevel)) textSizeLevel = 0;
-  textSizeLevel = clampTextSizeLevel(textSizeLevel);
+  // 「-」「+」ボタン:データ部(ログ一覧)の文字サイズを5%刻みで拡大縮小する。等倍(100%)を基準に、
+  // 縮小は50%、拡大は200%を上下限とし、達した側は色(青)はそのままに押せなくする。
+  // 長押しで等倍(100%)にリセットできる。状態はlocalStorageに保存し次回も復元する。
+  const TEXT_SIZE_STEP = 5;
+  const TEXT_SIZE_MIN = -50;
+  const TEXT_SIZE_MAX = 100;
+  const clampTextSize = v => Math.max(TEXT_SIZE_MIN, Math.min(TEXT_SIZE_MAX, v));
+  const TEXT_SIZE_KEY = 'gl_log_text_size_percent';
+  let textSizePercent = clampTextSize(parseInt(localStorage.getItem(TEXT_SIZE_KEY) || '0', 10) || 0);
 
-  const applyTextSizeLevel = () => {
-    const scale = 1 + (textSizeLevel * TEXT_SIZE_STEP_PERCENT / 100);
-    document.documentElement.style.setProperty('--data-font-scale', String(scale));
-    // 段階0(等倍)の間はどちらのボタンも無色。0から外れた方向のボタンだけ青くする
-    $('textSizeDownBtn').classList.toggle('is-active', textSizeLevel < 0);
-    $('textSizeUpBtn').classList.toggle('is-active', textSizeLevel > 0);
-    // 下限/上限に達した側は押せなくする(色は上のis-active指定のまま維持される)
-    $('textSizeDownBtn').disabled = textSizeLevel <= TEXT_SIZE_MIN_LEVEL;
-    $('textSizeUpBtn').disabled = textSizeLevel >= TEXT_SIZE_MAX_LEVEL;
+  const applyTextSize = () => {
+    document.documentElement.style.setProperty('--data-font-scale', String(1 + textSizePercent / 100));
+    $('textSizeDownBtn').classList.toggle('is-active', textSizePercent < 0);
+    $('textSizeUpBtn').classList.toggle('is-active', textSizePercent > 0);
+    $('textSizeDownBtn').disabled = textSizePercent <= TEXT_SIZE_MIN;
+    $('textSizeUpBtn').disabled = textSizePercent >= TEXT_SIZE_MAX;
+    localStorage.setItem(TEXT_SIZE_KEY, String(textSizePercent));
   };
-  applyTextSizeLevel();
+  applyTextSize();
 
-  $('textSizeDownBtn').onclick = () => {
-    textSizeLevel = clampTextSizeLevel(textSizeLevel - 2);
-    localStorage.setItem(TEXT_SIZE_LEVEL_KEY, String(textSizeLevel));
-    applyTextSizeLevel();
-  };
-  $('textSizeUpBtn').onclick = () => {
-    textSizeLevel = clampTextSizeLevel(textSizeLevel + 2);
-    localStorage.setItem(TEXT_SIZE_LEVEL_KEY, String(textSizeLevel));
-    applyTextSizeLevel();
-  };
+  const changeTextSize = step => { textSizePercent = clampTextSize(textSizePercent + step); applyTextSize(); };
+  const resetTextSize = () => { textSizePercent = 0; applyTextSize(); };
+
+  [[$('textSizeDownBtn'), -TEXT_SIZE_STEP], [$('textSizeUpBtn'), TEXT_SIZE_STEP]].forEach(([btn, step]) => {
+    let pressTimer = null;
+    let longPressed = false;
+    const start = () => { longPressed = false; pressTimer = setTimeout(() => { longPressed = true; resetTextSize(); }, 600); };
+    const cancel = () => clearTimeout(pressTimer);
+    btn.addEventListener('mousedown', start);
+    btn.addEventListener('touchstart', start, { passive: true });
+    btn.addEventListener('mouseup', cancel);
+    btn.addEventListener('mouseleave', cancel);
+    btn.addEventListener('touchend', cancel);
+    btn.addEventListener('touchcancel', cancel);
+    btn.addEventListener('click', () => { if (longPressed) return; changeTextSize(step); });
+  });
 
   // 年/月/日/曜/時分:項目左端の日付表示を個別にon/offするボタン。状態はlocalStorageに保存し次回も復元する
   const datePartButtons = {
