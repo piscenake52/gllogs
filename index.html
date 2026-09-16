@@ -352,23 +352,42 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
   text-align: left; 
   transition: flex-basis 0.3s ease;
 }
+/* アイコン本体を置く箱。幅を常に固定にして中央寄せすることで、枠(item-contents)の開閉・展開状態に関わらず
+   アイコン自体の描画位置が絶対にずれないようにする(text-alignによる位置ズレを避けるための専用の箱)。
+   PC通常表示ではコンテンツ名がすぐ右に続くので控えめな幅、アイコンのみ表示(ICONモードON/スマホ)では
+   枠(28px)いっぱいに広げて、閉じている間も枠の中央にアイコンが来るようにする。 */
+.item-contents-icon {
+  display: inline-block;
+  width: 1.5em;
+  text-align: center;
+  vertical-align: top;
+}
+body.icon-only-mode .item-contents-icon {
+  width: 28px;
+}
+/* コンテンツ名部分。アイコンの右側に続けて表示する。閉じている間はJS側でdisplay:noneにする */
+.item-contents-name {
+  display: inline;
+  white-space: nowrap;
+  margin-left: 2px;
+}
 /* ICONモードON時はテキストが無くアイコンのみになるため、固定幅にしてどのアイコンでも枠サイズが揃うようにする(PC版・スマホ版で共通の幅) */
 body.icon-only-mode .item-contents {
   flex: 0 0 28px;
   width: 28px;
   padding: 1px 0;
   margin-right: 8px;
-  text-align: center;
 }
 .item-contents.is-clickable { cursor: pointer; }
 /* コンテンツアイコンをクリックした時、隣に別枠を出すのではなく、このアイコン枠自体を広げて
    コンテンツ名を表示する(枠の背景・境界線はそのまま)。実際の幅はコンテンツ名の長さに応じてJS側で
-   計測して都度style.widthに反映する(下のmax-widthは計測前後の保険的な上限)。
+   計測して都度style.flexBasisに反映する(下のmax-widthは計測前後の保険的な上限)。
+   アイコン自体は.item-contents-icon側の固定幅で中央寄せしているため、この枠が広がってもアイコンの
+   描画位置は動かず、コンテンツ名だけがアイコンの右側に伸びて出てくる。
    body.icon-only-mode .item-contents (bodyタグ分だけ詳細度が高い)より必ず優先させるため、
    同じくbodyを付けて詳細度を揃え、CSS上で後に置くことで確実に上書きする。 */
 body .item-contents.is-content-open {
   max-width: 11.5em;
-  text-align: left;
 }
 
 /* タイトル部分だけが通常は省略表示され、ホバーやスクロールで個別スライド（全表示）可能に */
@@ -457,7 +476,8 @@ body .item-contents.is-content-open {
   .item-date:has(+ .item-time) { margin-right: 3px; }
   .item-time { flex: 0 0 auto; margin-right: 6px; }
   /* スマホ版:アイコンのみ表示(PC版のICONモードと同じ固定幅・中央揃えに統一) */
-  .item-contents { flex: 0 0 28px; width: 28px; padding: 1px 0; margin-right: 8px; text-align: center; }
+  .item-contents { flex: 0 0 28px; width: 28px; padding: 1px 0; margin-right: 8px; }
+  .item-contents-icon { width: 28px; }
 }
 
 /* セットリストポップアップ(SETLISTアイコン押下時に表示) */
@@ -1212,60 +1232,86 @@ body .item-contents.is-content-open {
     const ct = document.createElement('span');
     ct.className = 'item-contents';
     if (item.contents) {
-      // スマホ版・ICONモードONはアイコンのみ、それ以外(PC版・ICONモードOFF)は「アイコン + コンテンツ名」で出し分け
-      // (この出し分け自体はアコーディオン機能の有無に関わらず従来通り。スマホ版はICONモードのON/OFFに関係なく常にアイコンのみ)
+      // アイコンは常に専用の固定幅の箱(item-contents-icon)に入れる。この箱の幅・中央寄せは開閉状態に
+      // 関わらず常に同じなので、枠(item-contents)自体が広がってもアイコンの描画位置はずれない。
+      // コンテンツ名はアイコンの右側に続くitem-contents-nameに入れ、閉じている間はDOM上に置かない。
       const contentsName = displayNameFor(item.contents);
-      const collapsedText = (isMobileState || iconMode) ? (symbols[item.contents] || contentsName) : ((symbols[item.contents] ? symbols[item.contents] + ' ' : '') + contentsName);
-      // 展開時はモードに関わらず「アイコン + コンテンツ名」を、このアイコン枠自体を広げて表示する
-      const expandedText = (symbols[item.contents] ? symbols[item.contents] + ' ' : '') + contentsName;
-      ct.textContent = collapsedText;
+      const iconText = symbols[item.contents] || contentsName; // 絵文字が無い種類は名前そのものをアイコン代わりに使う(従来仕様通り)
+      const hasSymbol = !!symbols[item.contents];
+      // スマホ版・ICONモードONはアイコンのみ、それ以外(PC版・ICONモードOFF)は「アイコン + コンテンツ名」を常時表示
+      const showNameByDefault = !(isMobileState || iconMode) && hasSymbol;
+
+      const ctIcon = document.createElement('span');
+      ctIcon.className = 'item-contents-icon';
+      ctIcon.textContent = iconText;
+      ct.appendChild(ctIcon);
+
+      let ctName = null;
+      if (hasSymbol) {
+        ctName = document.createElement('span');
+        ctName.className = 'item-contents-name';
+        ctName.textContent = contentsName;
+        ctName.style.display = showNameByDefault ? '' : 'none';
+        ct.appendChild(ctName);
+      }
 
       ct.classList.add('is-clickable');
       ct.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない(クリック/タップでは従来通り開閉可能)
       ct.setAttribute('role', 'button');
-      ct.setAttribute('aria-expanded', 'false');
+      ct.setAttribute('aria-expanded', String(showNameByDefault));
       const contentKey = itemKeyFor(item);
 
-      // 開く:テキストをコンテンツ名に切り替えた上で、その文字列の実際の横幅を計測し、
-      // ちょうど収まる幅(上限11.5em)まで枠を広げる。DOM挿入直後は幅の計測ができないため、
-      // 描画完了後の次フレームで計測する(通常クリック時は体感できない遅延)。
-      const openContentBox = () => {
-        ct.classList.add('is-content-open');
-        ct.textContent = expandedText;
-        ct.setAttribute('aria-expanded', 'true');
-        requestAnimationFrame(() => {
-          if (!ct.isConnected || !ct.classList.contains('is-content-open')) return;
-          const targetPx = measureContentOpenWidthPx(ct);
-          ct.style.flexBasis = targetPx + 'px';
+      // PC通常表示(ICONモードOFF)は既に常時コンテンツ名を表示しているため、これ以上開閉させる意味が無い。
+      // 絵文字が無い種類も、アイコン枠に名前をそのまま表示済みで追加表示するものが無いため、対象外とする。
+      const canToggle = hasSymbol && !showNameByDefault;
+
+      if (canToggle) {
+        // 開く:コンテンツ名を表示した上で、枠全体の実際の横幅を計測し、ちょうど収まる幅(上限11.5em)まで
+        // 枠を広げる。DOM挿入直後は幅の計測ができないため、描画完了後の次フレームで計測する
+        // (通常クリック時は体感できない遅延)。アイコン自体はitem-contents-iconの固定幅内で動かない。
+        const openContentBox = () => {
+          ct.classList.add('is-content-open');
+          ctName.style.display = '';
+          ct.setAttribute('aria-expanded', 'true');
+          requestAnimationFrame(() => {
+            if (!ct.isConnected || !ct.classList.contains('is-content-open')) return;
+            const targetPx = measureContentOpenWidthPx(ct);
+            ct.style.flexBasis = targetPx + 'px';
+          });
+        };
+        // 閉じる:コンテンツ名を隠し、幅の指定も解除して現在の表示モード基準の幅に戻す
+        const closeContentBox = () => {
+          ct.classList.remove('is-content-open');
+          ctName.style.display = 'none';
+          ct.style.flexBasis = '';
+          ct.setAttribute('aria-expanded', 'false');
+        };
+
+        if (expandedContentKeys.has(contentKey)) openContentBox();
+
+        const toggleContentExpand = () => {
+          // この行だけの開閉状態をキーで記録する(他の行の展開状態には影響しない)
+          if (ct.classList.contains('is-content-open')) {
+            closeContentBox();
+            expandedContentKeys.delete(contentKey);
+          } else {
+            openContentBox();
+            expandedContentKeys.add(contentKey);
+          }
+        };
+        ct.addEventListener('click', toggleContentExpand);
+        ct.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleContentExpand();
+          }
         });
-      };
-      // 閉じる:元の表示に戻し、幅の指定も解除して現在の表示モード基準の幅に戻す
-      const closeContentBox = () => {
-        ct.classList.remove('is-content-open');
-        ct.textContent = collapsedText;
-        ct.style.flexBasis = '';
-        ct.setAttribute('aria-expanded', 'false');
-      };
-
-      if (expandedContentKeys.has(contentKey)) openContentBox();
-
-      const toggleContentExpand = () => {
-        // この行だけの開閉状態をキーで記録する(他の行の展開状態には影響しない)
-        if (ct.classList.contains('is-content-open')) {
-          closeContentBox();
-          expandedContentKeys.delete(contentKey);
-        } else {
-          openContentBox();
-          expandedContentKeys.add(contentKey);
-        }
-      };
-      ct.addEventListener('click', toggleContentExpand);
-      ct.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggleContentExpand();
-        }
-      });
+      } else {
+        ct.classList.remove('is-clickable');
+        ct.removeAttribute('role');
+        ct.removeAttribute('aria-expanded');
+        ct.removeAttribute('tabindex');
+      }
     } else {
       ct.textContent = '';
     }
@@ -1640,8 +1686,9 @@ body .item-contents.is-content-open {
         .slice()
         .sort((a, b) => (a.order || 0) - (b.order || 0))
         .map(s => {
-          // typeに関わらず、songs.jsonとのタイトル一致だけで再生ボタンの有無を決める
-          const link = findSongLinkByTitle(s.title);
+          const isSong = !s.type || s.type === 'song';
+          // song以外の行(allow等)も同じ幅の枠を確保し、曲名の開始位置がずれないようにする
+          const link = isSong ? findSongLinkByTitle(s.title) : null;
           const playBtnHtml = link
             ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>`
             : `<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>`;
