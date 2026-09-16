@@ -1,5 +1,18 @@
 [
   {
+    "date": "20260917",
+    "time": "1100",
+    "contents": "WEB",
+    "title": "EVRIS 2026 AUTUMN/WINTER MOVIE LOOK",
+    "display_pc": "EVRIS 2026 AUTUMN/WINTER MOVIE LOOK",
+    "display_sp": "EVRIS 2026 AUTUMN/WINTER MOVIE LOOK",
+    "url": " runway-webstore.com/evris",
+    "groups": [
+      "G2",
+      "YOK"
+    ]
+  },
+  {
     "date": "20260916",
     "time": "1200",
     "contents": "DIARY",
@@ -3467,6 +3480,32 @@
     "tags": [
       "MUFGスタジアム",
       "国立競技場"
+    ]
+  },
+  {
+    "date": "20261126",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "映画「ワンダンス」 ムビチケ販売終了",
+    "display_pc": "映画「ワンダンス」 ムビチケ販売終了",
+    "display_sp": "映画「ワンダンス」 ムビチケ販売終了",
+    "url": "https://happinet-phantom.com/wandance/news/72/",
+    "groups": [
+      "G2",
+      "KIR"
+    ]
+  },
+  {
+    "date": "20260918",
+    "time": "1000",
+    "contents": "TICKET",
+    "title": "映画「ワンダンス」 ムビチケ販売開始",
+    "display_pc": "映画「ワンダンス」 ムビチケ販売開始",
+    "display_sp": "映画「ワンダンス」 ムビチケ販売開始",
+    "url": "https://happinet-phantom.com/wandance/news/72/",
+    "groups": [
+      "G2",
+      "KIR"
     ]
   },
   {
