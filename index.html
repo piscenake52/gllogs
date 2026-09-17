@@ -83,7 +83,7 @@ body {
 /* --- 上部固定ヘッダー(タイトル・検索・テーマ切替・フィルター開閉) --- */
 .sticky-header { position: sticky; top: 0; background: var(--bg); z-index: 100; padding: 12px 0 0; margin-bottom: 12px; border-bottom: 1px solid var(--border); transition: background-color 0.2s; }
 .sticky-header-inner { position: relative; padding-bottom: 8px; }
-.header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
+.header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 14px; }
 h1 { font-size: 20px; margin: 0; line-height: 1; }
 .reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; letter-spacing: -2px; }
 .reset-link sup { font-size: 0.67em; }
@@ -485,6 +485,25 @@ body .item-contents.is-content-open {
 
 /* 一番下に配置する更新日時のスタイル（中央揃え） */
 .footer-update-time { text-align: center; margin-top: 30px; font-size: 11px; color: var(--sub); letter-spacing: 0.5px; }
+/* updated表示の下に出すヘルプ(?)ボタン。他の丸ボタン群と同じ見た目に揃える */
+.help-btn {
+  display: flex;
+  margin: 10px auto 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--input-border);
+  background-color: var(--btn-bg);
+  color: var(--text);
+  font-size: 12px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+.help-btn:hover { background-color: var(--btn-hover); }
 
 /* トップへ移動するボタン（コンテナの右端に追従するように修正） */
 .to-top-btn { position: fixed; bottom: 24px; left: calc(50% + var(--container-w) / 2 - 40px); width: 40px; height: 40px; background-color: var(--active-bg); color: var(--active-color); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; z-index: 999; outline: none; }
@@ -605,6 +624,7 @@ body .item-contents.is-content-open {
   <div class="no-result" id="noResult">NO RESULTS FOUND<br><button class="quick-reset-btn" id="quickResetBtn">CLEAR ALL FILTERS</button></div>
   <div class="no-result" id="loadError">LOAD ERROR<br><button class="quick-reset-btn" id="retryBtn">RETRY</button></div>
   <div class="footer-update-time" id="updateTime">updated > --</div>
+  <button type="button" class="help-btn" id="helpBtn" aria-label="&#12504;&#12523;&#12503;&#12434;&#34920;&#31034;">?</button>
   <button class="to-top-btn" id="toTopBtn">&#9650;</button>
 </div>
 
@@ -1038,13 +1058,18 @@ body .item-contents.is-content-open {
   }
   requestAnimationFrame(() => $('stickyHeader').classList.remove('is-initializing'));
 
+  // FILTERボタンをユーザーが手動でOFFにしたかどうか。初期表示時の自動ONは対象外(falseのまま)で、
+  // 手動でOFFにした後は、フィルターエリアを閉じても自動では再表示しないようにするためのフラグ
+  let filterSummaryManuallyOff = false;
+
   $('toggleBtn').onclick = () => {
     const c = $('stickyHeader').classList.toggle('collapsed');
     $('toggleBtn').textContent = c ? '\u25BC' : '\u25B2';
     localStorage.setItem('gl_log_collapsed', c);
     // フィルターエリアを閉じた時は、これまで通り「現在のフィルター一覧」を自動表示する(FILTERボタンをON扱いに)。
+    // ただし、ユーザーが手動でFILTERボタンをOFFにしていた場合はその意思を尊重し、自動では表示しない。
     // 開いた時はFILTERボタンの状態はそのままにする(閉じていても開いていてもFILTERボタンで独立にON/OFFできる)
-    if (c) {
+    if (c && !filterSummaryManuallyOff) {
       $('activeFiltersRow').classList.add('is-open');
       $('filterSummaryToggleBtn').classList.add('is-active');
     }
@@ -1055,6 +1080,7 @@ body .item-contents.is-content-open {
   $('filterSummaryToggleBtn').onclick = () => {
     const open = $('activeFiltersRow').classList.toggle('is-open');
     $('filterSummaryToggleBtn').classList.toggle('is-active', open);
+    filterSummaryManuallyOff = !open;
   };
 
   // 錠前ボタン:既定はOFF(画面固定しない、通常スクロール)。ONにするとヘッダーが画面上部に固定される。
@@ -1274,6 +1300,11 @@ body .item-contents.is-content-open {
 
   window.onscroll = () => $('toTopBtn').classList.toggle('is-visible', window.scrollY > 300);
   $('toTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // ヘルプ(?)ボタン:簡単なヘルプポップアップを表示する想定だが、ポップアップ自体は未実装
+  $('helpBtn').onclick = () => {
+    // TODO: 簡単なヘルプポップアップを実装する
+  };
 
   let isMobileState = window.innerWidth <= 600;
   let resizeTimer = null;
@@ -1872,8 +1903,10 @@ body .item-contents.is-content-open {
       const mValues = cats.find(c => c.meta === m)?.values || [];
       return itemGroupsAndRelations.some(g => mValues.includes(g)); // 個別メンバーコードからメタ所属を推測
     };
-    // 複数選択時はAND条件(それぞれについてgroupsまたはrelationsに該当すること)
-    const memberOk = sGroups.length === 0 ? true : sGroups.every(g => itemGroupsAndRelations.includes(g));
+    // メンバー同士は通常AND(すべて含む)だが、グループフィルター(G2/L2)も選択されている時はOR(いずれか含む)に切り替える
+    const memberOk = sGroups.length === 0 ? true : (mGroups.length > 0
+      ? sGroups.some(g => itemGroupsAndRelations.includes(g))
+      : sGroups.every(g => itemGroupsAndRelations.includes(g)));
     const metaOk = mGroups.length === 0 ? true : mGroups.every(itemHasMeta);
     // メンバーフィルターのみ選択時(グループフィルター未選択)は、groupsにSTFがある項目を除外する
     const stfExcluded = sGroups.length > 0 && mGroups.length === 0 && itemGroups.includes('STF');
@@ -2027,8 +2060,10 @@ body .item-contents.is-content-open {
         const mValues = cats.find(c => c.meta === m)?.values || [];
         return itemGroupsAndRelations.some(g => mValues.includes(g));
       };
-      // 複数選択時はAND条件(それぞれについてgroupsまたはrelationsに該当すること)
-      const memberOk = sGroups.length === 0 ? true : sGroups.every(g => itemGroupsAndRelations.includes(g));
+      // メンバー同士は通常AND(すべて含む)だが、グループフィルター(G2/L2)も選択されている時はOR(いずれか含む)に切り替える
+      const memberOk = sGroups.length === 0 ? true : (mGroups.length > 0
+        ? sGroups.some(g => itemGroupsAndRelations.includes(g))
+        : sGroups.every(g => itemGroupsAndRelations.includes(g)));
       const metaOk = mGroups.length === 0 ? true : mGroups.every(itemHasMeta);
       // メンバーフィルターのみ選択時(グループフィルター未選択)は、groupsにSTFがある項目を除外する
       const stfExcluded = sGroups.length > 0 && mGroups.length === 0 && itemGroups.includes('STF');
@@ -2169,8 +2204,10 @@ body .item-contents.is-content-open {
         const mValues = cats.find(c => c.meta === m)?.values || [];
         return itemGroupsAndRelations.some(g => mValues.includes(g));
       };
-      // 複数選択時はAND条件(それぞれについてgroupsまたはrelationsに該当すること)
-      const memberOk = sG.length === 0 ? true : sG.every(g => itemGroupsAndRelations.includes(g));
+      // メンバー同士は通常AND(すべて含む)だが、グループフィルター(G2/L2)も選択されている時はOR(いずれか含む)に切り替える
+      const memberOk = sG.length === 0 ? true : (mG.length > 0
+        ? sG.some(g => itemGroupsAndRelations.includes(g))
+        : sG.every(g => itemGroupsAndRelations.includes(g)));
       const metaOk = mG.length === 0 ? true : mG.every(itemHasMeta);
       // メンバーフィルターのみ選択時(グループフィルター未選択)は、groupsにSTFがある項目を除外する
       const stfExcluded = sG.length > 0 && mG.length === 0 && itemGroups.includes('STF');
@@ -2668,9 +2705,25 @@ body .item-contents.is-content-open {
       if (allConts.includes(cb.value)) {
         manuallyTouchedConts.add(cb.value);
       }
+      // TODAYモード中に(年フィルターで表示された)月フィルターが押された場合、TODAYモードと月フィルターの
+      // 組み合わせには意味が無いため、TODAYモード自体を解除する(押されたその月フィルターは選択されたままにする)
+      if (/^\d{2}$/.test(cb.value) && todayMode) {
+        todayMode = false;
+        todayOffset = 0;
+        searchDateTodayActive = false; // 検索窓連動フラグもリセットする
+        if (preTodaySort !== null) {
+          desc = preTodaySort;
+          $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
+          preTodaySort = null;
+        }
+      }
       updateManualIndicators();
       updateMonthFilterVisibility(); // 年フィルターの選択状態が変わるので月フィルターの表示/非表示も再評価
       updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
+      // TODAY+年フィルター(TODAYボタンが黄色の状態)は「その年の同じ月日」を意味するため、年フィルターの
+      // ON/OFFに応じて該当するコンテンツフィルターを自動で切り替える(年を外せば通常TODAYのコンテンツに戻る)。
+      // 月フィルターでTODAYモードを解除した場合も、コンテンツフィルターを通常状態に戻すため再計算する
+      if (/^\d{4}$/.test(cb.value) || /^\d{2}$/.test(cb.value)) autoUpdateContentTypeFilters();
       updateDisplay(true);
       window.scrollTo({ top: 0, behavior: 'instant' });
     });
