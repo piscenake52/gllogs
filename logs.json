@@ -5010,6 +5010,62 @@
     ]
   },
   {
+    "date": "20261025",
+    "time": "1300",
+    "contents": "RELEASEEVENT",
+    "title": "Girls² EP「EASY」発売記念 リリースイベント 東京",
+    "display_pc": "Girls² EP「EASY」リリースイベント 東京",
+    "display_sp": "「EASY」リリースイベント 東京",
+    "url": "https://girls2-fc.jp/page/news/1230362497219821570",
+    "map": "https://maps.app.goo.gl/b4kEwCvaKgyb9Mua6",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "setlistid": "202610251300",
+    "tags": [
+      "汐留シオサイト　地下歩道屋",
+      "ミニライブ",
+      "お見送り会",
+      "グループお話し会",
+      "グループチェキ会"
+    ]
+  },
+  {
+    "date": "20261011",
+    "time": "1300",
+    "contents": "RELEASEEVENT",
+    "title": "Girls² EP「EASY」発売記念 リリースイベント 愛知",
+    "display_pc": "Girls² EP「EASY」リリースイベント 愛知",
+    "display_sp": "「EASY」リリースイベント 愛知",
+    "url": "https://girls2-fc.jp/page/news/1230357942394421249",
+    "map": "https://maps.app.goo.gl/mUR6MFL9FrAZ3bjo8",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "setlistid": "202610111300",
+    "tags": [
+      "エアポートウォーク名古屋",
+      "ミニライブ",
+      "お見送り会",
+      "グループお話し会",
+      "グループチェキ会"
+    ]
+  },
+  {
     "date": "20260920",
     "time": "1300",
     "contents": "RELEASEEVENT",
