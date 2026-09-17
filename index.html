@@ -198,6 +198,15 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .checks { display: flex; flex-direction: column; row-gap: 6px; padding-top: 4px; }
 .checks-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .checks-row-years, .checks-row-other { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-top: 6px; padding-bottom: 2px; gap: 6px; cursor: grab; }
+/* コンテンツ種類ボタンの2段目:ボタンをドラッグして下に落とすと現れる。中身が無い間は折りたたんでおき、
+   ドラッグ中(drag-target-active)だけ薄く広げてドロップ先として掴めるようにする。中身が入ったら(has-items)
+   通常表示、無くなったら自動的にまた折りたたまれる */
+.checks-row-other-2 {
+  max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; overflow-y: hidden; pointer-events: none;
+  transition: max-height 0.2s ease, opacity 0.2s ease, padding-top 0.2s ease, padding-bottom 0.2s ease;
+}
+.checks-row-other-2.drag-target-active { max-height: 50px; opacity: 0.5; padding-top: 6px; padding-bottom: 2px; pointer-events: auto; }
+.checks-row-other-2.has-items { max-height: 50px; opacity: 1; padding-top: 6px; padding-bottom: 2px; pointer-events: auto; }
 /* 月フィルターは、年フィルターが1つ以上選択されている時だけ表示する。display切替だと一瞬でパッと
    出入りしてしまうため、max-height/opacityをアニメーションさせて滑らかに開閉させる */
 .checks-row-months {
@@ -570,6 +579,7 @@ body .item-contents.is-content-open {
         <div class="checks-row checks-row-members" id="memberChecks1"></div>
         <div class="checks-row checks-row-members" id="memberChecks2"></div>
         <div class="checks-row checks-row-other" id="otherChecks"></div>
+        <div class="checks-row checks-row-other checks-row-other-2" id="otherChecks2"></div>
       </div>
     </div>
 
@@ -756,43 +766,68 @@ body .item-contents.is-content-open {
   for (let m = 1; m <= 12; m++) {
     $('monthChecks').appendChild(createLabel({ v: String(m).padStart(2, '0'), t: String(m) }));
   }
+  // コンテンツ種類ボタンの並び順・段(1段目/2段目)をlocalStorageから復元する。
+  // 旧形式(フラットな配列=1段目のみ)が保存されている場合はそのまま1段目として扱う(後方互換)。
   const applySavedContentOrder = arr => {
     try {
       const saved = JSON.parse(localStorage.getItem('gl_log_content_order') || 'null');
-      if (!Array.isArray(saved)) return arr;
-      const savedValid = saved.filter(v => arr.includes(v));
-      const rest = arr.filter(v => !savedValid.includes(v));
-      return [...savedValid, ...rest];
+      if (Array.isArray(saved)) {
+        const savedValid = saved.filter(v => arr.includes(v));
+        const rest = arr.filter(v => !savedValid.includes(v));
+        return { row1: [...savedValid, ...rest], row2: [] };
+      }
+      if (saved && Array.isArray(saved.row1) && Array.isArray(saved.row2)) {
+        const savedValid1 = saved.row1.filter(v => arr.includes(v));
+        const savedValid2 = saved.row2.filter(v => arr.includes(v) && !savedValid1.includes(v));
+        const rest = arr.filter(v => !savedValid1.includes(v) && !savedValid2.includes(v));
+        return { row1: [...savedValid1, ...rest], row2: savedValid2 };
+      }
+      return { row1: arr, row2: [] };
     } catch (e) {
-      return arr;
+      return { row1: arr, row2: [] };
     }
   };
 
-  others.splice(0, others.length, ...applySavedContentOrder(others));
-  others.forEach(o => $('otherChecks').appendChild(createLabel(o)));
+  const savedContentRows = applySavedContentOrder(others);
+  others.splice(0, others.length, ...savedContentRows.row1, ...savedContentRows.row2);
+  savedContentRows.row1.forEach(o => $('otherChecks').appendChild(createLabel(o)));
+  savedContentRows.row2.forEach(o => $('otherChecks2').appendChild(createLabel(o)));
+  if (savedContentRows.row2.length > 0) $('otherChecks2').classList.add('has-items');
 
-  // コンテンツ種類ボタンのみ、ドラッグ&ドロップで並び替え可能にする(並びはlocalStorageに記憶)
+  // コンテンツ種類ボタンのみ、ドラッグ&ドロップで並び替え・2段目への移動ができるようにする(並び・段はlocalStorageに記憶)。
+  // 1段目のボタンを下にドラッグすると2段目(otherChecks2)がプレビュー表示され、そこにドロップすると
+  // 実際に2段目に移動する。2段目の中身が無くなったら多段表示は自動的に解除される。
   (() => {
-    const row = $('otherChecks');
+    const row1 = $('otherChecks');
+    const row2 = $('otherChecks2');
     let draggedEl = null;
 
     const saveOrder = () => {
-      const order = Array.from(row.querySelectorAll('label')).map(l => l.querySelector('input')?.value).filter(Boolean);
-      localStorage.setItem('gl_log_content_order', JSON.stringify(order));
+      const row1Vals = Array.from(row1.querySelectorAll('label')).map(l => l.querySelector('input')?.value).filter(Boolean);
+      const row2Vals = Array.from(row2.querySelectorAll('label')).map(l => l.querySelector('input')?.value).filter(Boolean);
+      localStorage.setItem('gl_log_content_order', JSON.stringify({ row1: row1Vals, row2: row2Vals }));
     };
 
-    Array.from(row.querySelectorAll('label')).forEach(label => {
+    const updateRow2Visibility = () => {
+      row2.classList.toggle('has-items', row2.children.length > 0);
+    };
+
+    const attachLabelDnD = (label, ownerRow) => {
       label.draggable = true;
 
       label.addEventListener('dragstart', e => {
         draggedEl = label;
         label.classList.add('is-dragging-reorder');
         e.dataTransfer.effectAllowed = 'move';
+        // 2段目がまだ空の場合、ドラッグ中だけ半透明でドロップ先候補として見せる(実際に入れると本表示になる)
+        if (row2.children.length === 0) row2.classList.add('drag-target-active');
       });
 
       label.addEventListener('dragend', () => {
         draggedEl = null;
         label.classList.remove('is-dragging-reorder');
+        row2.classList.remove('drag-target-active');
+        updateRow2Visibility();
         saveOrder();
       });
 
@@ -801,7 +836,19 @@ body .item-contents.is-content-open {
         if (!draggedEl || draggedEl === label) return;
         const rect = label.getBoundingClientRect();
         const before = (e.clientX - rect.left) < rect.width / 2;
-        row.insertBefore(draggedEl, before ? label : label.nextSibling);
+        ownerRow.insertBefore(draggedEl, before ? label : label.nextSibling);
+      });
+    };
+
+    Array.from(row1.querySelectorAll('label')).forEach(label => attachLabelDnD(label, row1));
+    Array.from(row2.querySelectorAll('label')).forEach(label => attachLabelDnD(label, row2));
+
+    // ラベルの無い余白(段の右端や、まだ何も無い2段目そのもの)にドロップされた場合の受け皿
+    [row1, row2].forEach(rowEl => {
+      rowEl.addEventListener('dragover', e => e.preventDefault());
+      rowEl.addEventListener('drop', e => {
+        e.preventDefault();
+        if (draggedEl && !rowEl.contains(draggedEl)) rowEl.appendChild(draggedEl);
       });
     });
   })();
