@@ -90,7 +90,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .reset-link:hover { opacity: 0.8; }
 .toggle-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; padding: 4px 8px; border-radius: 12px; line-height: 1; }
 .toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
-.header-btn-group { display: flex; align-items: center; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; cursor: grab; min-width: 0; }
+.header-btn-group { display: flex; align-items: center; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; min-width: 0; }
 .header-btn-group::-webkit-scrollbar { display: none; }
 .header-btn-group > * { flex-shrink: 0; }
 .date-part-btn { padding: 4px 6px; }
@@ -197,7 +197,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 /* --- チェックボックス群(年・メンバー・コンテンツ種別) --- */
 .checks { display: flex; flex-direction: column; row-gap: 6px; padding-top: 4px; }
 .checks-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.checks-row-years, .checks-row-other { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-top: 6px; padding-bottom: 2px; gap: 6px; cursor: grab; }
+.checks-row-years, .checks-row-other { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-top: 6px; padding-bottom: 2px; gap: 6px; }
 /* コンテンツ種類ボタンの2段目:ボタンをドラッグして下に落とすと現れる。中身が無い間は折りたたんでおき、
    ドラッグ中(drag-target-active)だけ薄く広げてドロップ先として掴めるようにする。中身が入ったら(has-items)
    通常表示、無くなったら自動的にまた折りたたまれる */
@@ -205,13 +205,13 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; overflow-y: hidden; pointer-events: none;
   transition: max-height 0.2s ease, opacity 0.2s ease, padding-top 0.2s ease, padding-bottom 0.2s ease;
 }
-.checks-row-other-2.drag-target-active { max-height: 50px; opacity: 0.5; padding-top: 6px; padding-bottom: 2px; pointer-events: auto; }
-.checks-row-other-2.has-items { max-height: 50px; opacity: 1; padding-top: 6px; padding-bottom: 2px; pointer-events: auto; }
+.checks-row-other-2.drag-target-active { max-height: 50px; opacity: 0.5; padding-top: 0; padding-bottom: 2px; pointer-events: auto; }
+.checks-row-other-2.has-items { max-height: 50px; opacity: 1; padding-top: 0; padding-bottom: 2px; pointer-events: auto; }
 /* 月フィルターは、年フィルターが1つ以上選択されている時だけ表示する。display切替だと一瞬でパッと
    出入りしてしまうため、max-height/opacityをアニメーションさせて滑らかに開閉させる */
 .checks-row-months {
   display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;
-  gap: 6px; cursor: grab;
+  gap: 6px;
   max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; pointer-events: none;
   transition: max-height 0.25s ease, opacity 0.2s ease, padding-top 0.25s ease, padding-bottom 0.25s ease;
 }
@@ -253,14 +253,14 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .result-header-row { display: flex; justify-content: space-between; align-items: center; margin-top: 3px; margin-bottom: 8px; min-height: 1.2em; position: relative; }
 .result-count-group { display: flex; align-items: center; gap: 6px; }
 .result-count { font-size: 12px; color: var(--sub); letter-spacing: 0.5px; }
-.sort-arrow-btn { position: absolute; left: 50%; transform: translateX(-50%); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; border-radius: 12px; outline: none; line-height: 1.2; }
+.sort-arrow-btn { position: absolute; left: 50%; transform: translateX(-50%); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 24px; border-radius: 12px; outline: none; line-height: 1.2; }
 .sort-arrow-btn:hover { background-color: var(--btn-hover); }
-.day-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
+.day-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 24px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
 .day-nav-btn:hover { background-color: var(--btn-hover); }
 .day-nav-btn.is-visible { display: block; }
 .day-nav-btn.is-pressed { color: #fff; background-color: #34d399; border-color: #34d399; }
-#prevDayBtn { left: calc(50% - 34px); transform: translate(-100%, -50%); }
-#nextDayBtn { left: calc(50% + 34px); transform: translate(0, -50%); }
+#prevDayBtn { left: calc(50% - 68px); transform: translate(-100%, -50%); }
+#nextDayBtn { left: calc(50% + 68px); transform: translate(0, -50%); }
 .inline-clear-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--sub); font-size: 11px; cursor: pointer; padding: 3px 8px; border-radius: 12px; display: none; outline: none; letter-spacing: 0.5px; }
 .inline-clear-btn:hover { background-color: var(--btn-hover); color: var(--text); }
 
@@ -357,6 +357,11 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .item-date:has(+ .item-time) { margin-right: 4px; } /* 時刻が続く場合は日付との間隔を1文字分程度に詰める */
 .item-time { flex: 0 0 auto; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
 .item-time.is-blank { visibility: hidden; } /* time未設定の行も"00:00"と同じ幅を確保したまま見た目だけブランクにする */
+/* 今日の日付の行を目立たせる(TODAYモード中は全行が「今日」になるため対象外)。
+   太字にすると文字幅がわずかに変わり右側の要素がずれるため、色だけを変える */
+.item-date.is-today-date, .item-time.is-today-date {
+  color: #0ea5e9;
+}
 
 /* PC版：最長サイズに合わせて幅を統一し、テキストを左寄せにする */
 .item-contents { 
@@ -516,6 +521,8 @@ body .item-contents.is-content-open {
 }
 
 @media (max-width: 600px) {
+  /* 画面表示幅を左右それぞれ4px広くする(bodyの左右paddingを15px→11pxに) */
+  body { padding-left: 11px; padding-right: 11px; }
   .item-date { flex: 0 0 auto; margin-right: 6px; }
   .item-date:has(+ .item-time) { margin-right: 3px; }
   .item-time { flex: 0 0 auto; margin-right: 6px; }
@@ -1059,16 +1066,17 @@ body .item-contents.is-content-open {
   requestAnimationFrame(() => $('stickyHeader').classList.remove('is-initializing'));
 
   // FILTERボタンをユーザーが手動でOFFにしたかどうか。初期表示時の自動ONは対象外(falseのまま)で、
-  // 手動でOFFにした後は、フィルターエリアを閉じても自動では再表示しないようにするためのフラグ
+  // 一度でも手動でOFFにした後は、フィルターエリアを閉じても自動では再表示しないようにするためのフラグ
   let filterSummaryManuallyOff = false;
 
   $('toggleBtn').onclick = () => {
     const c = $('stickyHeader').classList.toggle('collapsed');
     $('toggleBtn').textContent = c ? '\u25BC' : '\u25B2';
     localStorage.setItem('gl_log_collapsed', c);
-    // フィルターエリアを閉じた時は、これまで通り「現在のフィルター一覧」を自動表示する(FILTERボタンをON扱いに)。
-    // ただし、ユーザーが手動でFILTERボタンをOFFにしていた場合はその意思を尊重し、自動では表示しない。
-    // 開いた時はFILTERボタンの状態はそのままにする(閉じていても開いていてもFILTERボタンで独立にON/OFFできる)
+    // フィルターエリアを閉じた時は、一度も手動でFILTERボタンをOFFにしたことが無ければ「現在のフィルター
+    // 一覧」を自動表示する(FILTERボタンをON扱いに)。一度でも手動でOFFにしていたら、その意思を尊重して
+    // 自動では表示しない。開いた時はFILTERボタンの状態はそのままにする(閉じても開いてもFILTERボタンで
+    // 独立にON/OFFできる)
     if (c && !filterSummaryManuallyOff) {
       $('activeFiltersRow').classList.add('is-open');
       $('filterSummaryToggleBtn').classList.add('is-active');
@@ -1330,6 +1338,11 @@ body .item-contents.is-content-open {
     d.className = 'item-date';
     d.textContent = formatDisplayDate(item);
 
+    // 今日の日付の行を目立たせる(チップ風の背景)。TODAYモード中は全行が「今日」になり意味が無いため対象外。
+    // 年月日曜日をすべて非表示にしていて文字が空の場合は、空のチップが出ないよう対象外にする
+    const isTodayDate = !todayMode && item.date === getTargetDateStr(0) && d.textContent !== '';
+    if (isTodayDate) d.classList.add('is-today-date');
+
     // 時刻は日付と別要素にして、未設定の行でも"00:00"と同じ幅を確保したまま見た目だけブランクにする
     // (幅を確保しないと、後ろのコンテンツ種類アイコン等が左にずれて見えるため)
     let tm = null;
@@ -1339,6 +1352,7 @@ body .item-contents.is-content-open {
       tm.className = 'item-time';
       tm.textContent = t || '00:00';
       if (!t) tm.classList.add('is-blank');
+      if (isTodayDate) tm.classList.add('is-today-date');
     }
     
     const ct = document.createElement('span');
