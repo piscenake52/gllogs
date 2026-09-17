@@ -2311,7 +2311,7 @@
     ],
     "relations": [],
     "tags": [
-      "Fun!Fun!Fun! ～夢∞～","Shake!Shake!Shake!"
+      "Fun!Fun!Fun! ～夢∞～","Shake!Shake!Shake!","ビッ友×戦士　キラメキパワーズ！"
     ]
   },
   {
@@ -2333,7 +2333,7 @@
     ],
     "relations": [],
     "tags": [
-      "Fun!Fun!Fun! ～夢∞～","Shake!Shake!Shake!"
+      "Fun!Fun!Fun! ～夢∞～","Shake!Shake!Shake!","ビッ友×戦士　キラメキパワーズ！"
     ]
   },
   {
@@ -2426,11 +2426,11 @@
   {
     "date": "20220601",
     "time": "",
-    "contents": "CD",
-    "title": "Lucky² 1st EP「Brand New World! / DISCO TIME」 リリース",
-    "display_pc": "Lucky² 1st EP 「Brand New World! / DISCO TIME」 リリース",
-    "display_sp": "Lucky² 1st EP 「Brand New World! / DISCO TIME」 リリース",
-    "url": "",
+    "contents": "ANNIVERSARY",
+    "title": "Lucky² 1st EP「Brand New World! / DISCO TIME」 リリース記念日",
+    "display_pc": "Lucky²　1st EP 「Brand New World! / DISCO TIME」 リリース記念日",
+    "display_sp": "Lucky²　1st EP 「Brand New World! / DISCO TIME」 リリース記念日",
+    "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4246",
     "groups": [
       "L2",
       "RIN",
@@ -2445,6 +2445,32 @@
     ],
     "relations": [],
     "tags": [
+      "Brand New World!","君はダーリン","DISCO TIME","ビッ友×戦士 キラメキパワーズ︕","リズスタ -Top of Artists!-"
+    ]
+  },
+  {
+    "date": "20220601",
+    "time": "",
+    "contents": "CD",
+    "title": "Lucky² 1st EP「Brand New World! / DISCO TIME」 リリース",
+    "display_pc": "Lucky²　1st EP 「Brand New World! / DISCO TIME」 リリース",
+    "display_sp": "Lucky²　1st EP 「Brand New World! / DISCO TIME」 リリース",
+    "url": "https://girls2-fc.jp/page/lucky2news/652732341461975867",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "Brand New World!","君はダーリン","DISCO TIME","ビッ友×戦士 キラメキパワーズ︕","リズスタ -Top of Artists!-"
     ]
   },
   {
@@ -2550,11 +2576,11 @@
   {
     "date": "20231004",
     "time": "",
-    "contents": "CD",
-    "title": "Lucky² 2nd EP「夢空に羽」 リリース",
-    "display_pc": "Lucky² 2nd EP 「夢空に羽」 リリース",
-    "display_sp": "Lucky² 2nd EP 「夢空に羽」 リリース",
-    "url": "",
+    "contents": "ANNIVERSARY",
+    "title": "Lucky² 2nd EP「夢空に羽」 リリース記念日",
+    "display_pc": "Lucky²　2nd EP 「夢空に羽」 リリース記念日",
+    "display_sp": "Lucky²　2nd EP 「夢空に羽」 リリース記念日",
+    "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4403",
     "groups": [
       "L2",
       "RIN",
@@ -2569,6 +2595,57 @@
     ],
     "relations": [],
     "tags": [
+      "夢空に羽","夏の魔法","Shooting Star","Lucky² First Live Tour- Brand New World! -"
+    ]
+  },
+  {
+    "date": "20231004",
+    "time": "",
+    "contents": "CD",
+    "title": "Lucky² 2nd EP「夢空に羽」 リリース",
+    "display_pc": "Lucky²　2nd EP 「夢空に羽」 リリース",
+    "display_sp": "Lucky²　2nd EP 「夢空に羽」 リリース",
+    "url": "https://girls2-fc.jp/page/lucky2news/812968454964379650",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "夢空に羽","夏の魔法","Shooting Star","Lucky² First Live Tour- Brand New World! -"
+    ]
+  },
+  {
+    "date": "20240228",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "title": "Lucky² 3rd EP「ずっとずっとずっと」 リリース記念日",
+    "display_pc": "Lucky²　3rd EP 「ずっとずっとずっと」 リリース記念日",
+    "display_sp": "Lucky²　3rd EP 「ずっとずっとずっと」 リリース記念日",
+    "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4526",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [],
+    "tags": [
+      "ずっとずっとずっと","Dreams, Stand Up!","まっさら","Lucky² LIVE TOUR 2023 Happy Summer"
     ]
   },
   {
@@ -2576,9 +2653,9 @@
     "time": "",
     "contents": "CD",
     "title": "Lucky² 3rd EP「ずっとずっとずっと」 リリース",
-    "display_pc": "Lucky² 3rd EP 「ずっとずっとずっと」 リリース",
-    "display_sp": "Lucky² 3rd EP 「ずっとずっとずっと」 リリース",
-    "url": "",
+    "display_pc": "Lucky²　3rd EP 「ずっとずっとずっと」 リリース",
+    "display_sp": "Lucky²　3rd EP 「ずっとずっとずっと」 リリース",
+    "url": "https://girls2-fc.jp/page/lucky2news/874564444665937922",
     "groups": [
       "L2",
       "RIN",
@@ -2593,6 +2670,7 @@
     ],
     "relations": [],
     "tags": [
+      "ずっとずっとずっと","Dreams, Stand Up!","まっさら","Lucky² LIVE TOUR 2023 Happy Summer"
     ]
   },
   {
