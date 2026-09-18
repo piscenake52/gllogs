@@ -250,17 +250,16 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 body.icon-only-mode .checks .label-text-part { display: none; }
 body.icon-only-mode .checks .label-icon-part { display: inline; }
 /* --- 検索結果の件数表示・並び替え・クリアボタン --- */
-.result-header-row { display: flex; justify-content: space-between; align-items: center; margin-top: 3px; margin-bottom: 8px; min-height: 1.2em; position: relative; }
+.result-header-row { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; margin-bottom: 8px; min-height: 1.2em; position: relative; }
 .result-count-group { display: flex; align-items: center; gap: 6px; }
 .result-count { font-size: 12px; color: var(--sub); letter-spacing: 0.5px; }
-.sort-arrow-btn { position: absolute; left: 50%; transform: translateX(-50%); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 24px; border-radius: 12px; outline: none; line-height: 1.2; }
+.day-nav-group { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 4px; }
+.sort-arrow-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 16.875px; border-radius: 12px; outline: none; line-height: 1.2; }
 .sort-arrow-btn:hover { background-color: var(--btn-hover); }
-.day-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 24px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
+.day-nav-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 16.875px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
 .day-nav-btn:hover { background-color: var(--btn-hover); }
 .day-nav-btn.is-visible { display: block; }
 .day-nav-btn.is-pressed { color: #fff; background-color: #34d399; border-color: #34d399; }
-#prevDayBtn { left: calc(50% - 68px); transform: translate(-100%, -50%); }
-#nextDayBtn { left: calc(50% + 68px); transform: translate(0, -50%); }
 .inline-clear-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--sub); font-size: 11px; cursor: pointer; padding: 3px 8px; border-radius: 12px; display: none; outline: none; letter-spacing: 0.5px; }
 .inline-clear-btn:hover { background-color: var(--btn-hover); color: var(--text); }
 
@@ -580,7 +579,7 @@ body .item-contents.is-content-open {
       <button class="toggle-btn" id="heartToggleBtn">&#128158;</button>
       <div class="search-box-wrap">
         <button type="button" class="toggle-btn search-setlist-btn" id="setlistToggleBtn" aria-label="Setlist search mode">&#128203;&#65039;</button>
-        <input type="text" id="searchInput" class="search-input" placeholder="search keywoooooooord &#3366;&#3405;&#3366;&#3391;(&#65381;&#7447;|">
+        <input type="text" id="searchInput" class="search-input" placeholder="search keyword">
         <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear search">&#215;</button>
         <div class="search-suggestions" id="searchSuggestions"></div>
       </div>
@@ -614,9 +613,11 @@ body .item-contents.is-content-open {
         <button class="toggle-btn" id="filterSummaryToggleBtn" aria-label="&#29694;&#22312;&#12398;&#12501;&#12451;&#12523;&#12479;&#12540;&#19968;&#35239;&#12434;&#34920;&#31034;">FILTER</button>
         <div class="result-count" id="resultCount">LOADING...</div>
       </div>
-      <button class="day-nav-btn" id="prevDayBtn" aria-label="Previous day">&#8592;</button>
-      <button class="sort-arrow-btn" id="sortBtn">&#8595;</button>
-      <button class="day-nav-btn" id="nextDayBtn" aria-label="Next day">&#8594;</button>
+      <div class="day-nav-group" id="dayNavGroup">
+        <button class="day-nav-btn" id="prevDayBtn" aria-label="Previous day">&#8592;</button>
+        <button class="sort-arrow-btn" id="sortBtn">&#8595;</button>
+        <button class="day-nav-btn" id="nextDayBtn" aria-label="Next day">&#8594;</button>
+      </div>
       <button class="inline-clear-btn" id="inlineClearBtn">CLEAR</button>
     </div>
 
@@ -674,21 +675,21 @@ body .item-contents.is-content-open {
     {v:'YUW',n:'YUWA',c:'\u2764\uFE0F'},{v:'KAN',n:'KANNA',c:'\uD83D\uDC99'},{v:'RRK',n:'RIRIKA',c:'\uD83E\uDE77'},{v:'AKR',n:'AKARI',c:'\uD83D\uDC9A'},
     {v:'KIK',n:'KIKI',c:'\uD83D\uDC9B'},'sep',{v:'YUR',n:'YURA',c:'\uD83E\uDD0D'}
   ];
-  const others = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MODEL','MOVIE','MEDIA','WEB','TICKET','SALES','ETC'];
+  const others = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MODEL','MOVIE','MEDIA','MAGAZINE','WEB','TICKET','SALES','ETC'];
 
   const symbols = {
     'FANCLUB': '\uD83D\uDCE3',
     'DIARY': '\uD83D\uDCDD', 'GLRADIO': '\uD83D\uDD0A', 'GTUBE': '\u25B6\uFE0F', 'YOUTUBE': '\uD83C\uDF9E\uFE0F', 
     'CL': '\uD83C\uDD91', 'RELEASE': '\uD83C\uDFA7', 'LIVE': '\uD83C\uDF99\uFE0F', 
-    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCE1', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'SALES': '\uD83D\uDED2', 'ANNIVERSARY': '\uD83D\uDD16', 'BIRTHDAY': '\uD83C\uDF82',
+    'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCE1', 'MAGAZINE': '\uD83D\uDCD6', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'SALES': '\uD83D\uDED2', 'ANNIVERSARY': '\uD83D\uDD16', 'BIRTHDAY': '\uD83C\uDF82',
     'MODEL': '\uD83D\uDC60', 'MOVIE': '\uD83C\uDFAC\uFE0F', 'TICKET': '\uD83C\uDFAB',
     'CLOSE': '\u2705', 'RESULT': '\uD83C\uDFAF', 'CAMPAIGN': '\uD83D\uDCE8', 'PLAYING': '\uD83C\uDFB6', 'MESSAGE': '\uD83D\uDCE8', // フィルターボタンには表示せず、ETC選択時のみ該当させる
     'ETC': '\uD83D\uDCCC',
     // 以下5種類はcontentsフィルターボタンには表示しないが、フィルター判定上は"RELEASE"として扱う(normalizeContType参照)。
     // データ部のアイコン表示ではそれぞれ専用のアイコン+コンテンツ名を表示する。
     'CD': '\uD83D\uDCBF\uFE0F', 'DVD': '\uD83D\uDCC0\uFE0F', 'BD': '\uD83D\uDCC0\uFE0F', 'DIGITAL': '\uD83C\uDFA7', 'MUSICCARD': '\uD83C\uDFA7',
-    // 以下5種類はフィルターボタンには表示せず、フィルター判定上は"MEDIA"として扱う(normalizeContType参照)
-    'TV': '\uD83D\uDCFA\uFE0F', 'RADIO': '\uD83D\uDCFB\uFE0F', 'MAGAZINE': '\uD83D\uDCD6', 'BOOK': '\uD83D\uDCDA', 'NEWSPAPER': '\uD83D\uDCF0',
+    // 以下4種類はフィルターボタンには表示せず、フィルター判定上は"MEDIA"として扱う(normalizeContType参照)
+    'TV': '\uD83D\uDCFA\uFE0F', 'RADIO': '\uD83D\uDCFB\uFE0F', 'BOOK': '\uD83D\uDCDA', 'NEWSPAPER': '\uD83D\uDCF0',
     // 以下2種類はフィルターボタンには表示せず、フィルター判定上は"WEB"として扱う(normalizeContType参照)
     'STREAMING': '\uD83D\uDCF6', 'PODCAST': '\uD83C\uDFA4',
     // COLUMNはフィルターボタンには表示せず、フィルター判定上は"WEB"として扱う(normalizeContType参照)
@@ -839,7 +840,7 @@ body .item-contents.is-content-open {
       row2.classList.toggle('has-items', row2.children.length > 0);
     };
 
-    const attachLabelDnD = (label, ownerRow) => {
+    const attachLabelDnD = label => {
       label.draggable = true;
 
       label.addEventListener('dragstart', e => {
@@ -863,12 +864,14 @@ body .item-contents.is-content-open {
         if (!draggedEl || draggedEl === label) return;
         const rect = label.getBoundingClientRect();
         const before = (e.clientX - rect.left) < rect.width / 2;
-        ownerRow.insertBefore(draggedEl, before ? label : label.nextSibling);
+        // 段をまたいで移動済みのラベルでも常に現在の実際の親要素に挿入する(段移動直後は
+        // attachLabelDnD時点の行と実際の所属行がズレるため、都度parentElementを参照する)
+        label.parentElement.insertBefore(draggedEl, before ? label : label.nextSibling);
       });
     };
 
-    Array.from(row1.querySelectorAll('label')).forEach(label => attachLabelDnD(label, row1));
-    Array.from(row2.querySelectorAll('label')).forEach(label => attachLabelDnD(label, row2));
+    Array.from(row1.querySelectorAll('label')).forEach(attachLabelDnD);
+    Array.from(row2.querySelectorAll('label')).forEach(attachLabelDnD);
 
     // ラベルの無い余白(段の右端や、まだ何も無い2段目そのもの)にドロップされた場合の受け皿
     [row1, row2].forEach(rowEl => {
@@ -1011,14 +1014,14 @@ body .item-contents.is-content-open {
   const g2MemberCodes = new Set(g2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
   const l2MemberCodes = new Set(l2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
 
-  const primaryConts = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','WEB','SALES','ANNIVERSARY','BIRTHDAY','MODEL','MOVIE','TICKET'];
+  const primaryConts = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','MAGAZINE','WEB','SALES','ANNIVERSARY','BIRTHDAY','MODEL','MOVIE','TICKET'];
   const allConts = [...primaryConts, 'ETC'];
   const cats = [{meta:'G2',values:g2Vals},{meta:'L2',values:l2Vals}];
 
   // CD/DVD/BD/DIGITALはコンテンツフィルターボタンには表示しないが、フィルター判定(年/コンテンツ種類/自動on-off/
   // 件数プレビュー/ソート等)上は"RELEASE"の一部として扱う。データ部の表示(アイコン・コンテンツ名)には影響しない。
   const releaseAliasConts = ['CD', 'DVD', 'BD', 'DIGITAL', 'MUSICCARD'];
-  const mediaAliasConts = ['TV', 'RADIO', 'MAGAZINE', 'BOOK', 'NEWSPAPER'];
+  const mediaAliasConts = ['TV', 'RADIO', 'BOOK', 'NEWSPAPER'];
   const webAliasConts = ['STREAMING', 'PODCAST', 'COLUMN'];
   const salesAliasConts = ['GOODS'];
   const eventAliasConts = ['STAGE', 'COOKING', 'RELEASEEVENT'];
@@ -1125,9 +1128,9 @@ body .item-contents.is-content-open {
     }
   };
 
-  // セトリ検索モード中は検索窓のプレースホルダーの「keywoooooooord」部分を「soooooooong」に切り替える
-  const SEARCH_PLACEHOLDER_NORMAL = 'search keywoooooooord \u0d26\u0d4d\u0d26\u0d3f(\uff65\u1d17|';
-  const SEARCH_PLACEHOLDER_SETLIST = 'search setlist soooooooong \u0d26\u0d4d\u0d26\u0d3f(\uff65\u1d17|';
+  // セトリ検索モード中は検索窓のプレースホルダーの「keyword」部分を「song」に切り替える
+  const SEARCH_PLACEHOLDER_NORMAL = 'search keyword';
+  const SEARCH_PLACEHOLDER_SETLIST = 'search setlist song';
   const updateSearchPlaceholder = () => {
     searchInput.placeholder = setlistMode ? SEARCH_PLACEHOLDER_SETLIST : SEARCH_PLACEHOLDER_NORMAL;
   };
