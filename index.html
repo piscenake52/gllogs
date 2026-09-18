@@ -341,7 +341,12 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .filter-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 11px; padding: 3px 10px; border-radius: 12px; cursor: pointer; user-select: none; white-space: nowrap; flex: 0 0 auto; }
 .filter-badge:hover { background-color: var(--btn-hover); opacity: 0.8; }
 .filter-badge .badge-x { font-size: 10px; color: var(--muted); font-weight: bold; }
-.filter-badge .badge-square { display: inline-block; width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+.badge-square { display: inline-block; width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+/* PREVIEW表示(#resultCount)専用のアイコン。既存の.badge-square(アクティブフィルターバッジ用)とは
+   大きさの要件が異なるため別クラスにし、他の箇所には影響しないようにする */
+.preview-icon-name { display: inline-flex; align-items: center; gap: 4px; }
+.preview-icon { display: inline-flex; align-items: center; justify-content: center; line-height: 1; flex-shrink: 0; }
+.preview-square-icon { width: 11px; height: 11px; border-radius: 2px; }
 /* --- 項目一覧(ログ本体) --- */
 .items { display: flex; flex-direction: column; align-items: flex-start; width: 100%; transition: opacity 0.25s ease, transform 0.25s ease; }
 .items.is-animating { opacity: 0; transform: translateY(6px); }
@@ -668,12 +673,12 @@ body .item-contents.is-content-open {
   const g2 = [
     {v:'G2',t:'Girls\u00B2'},{v:'YZH',n:'YUZUHA',c:'\uD83E\uDE75'},{v:'MMK',n:'MOMOKA',c:'\uD83D\uDC99'},{v:'MSK',n:'MISAKI',c:'\uD83E\uDDE1'},
     {v:'YOK',n:'YOKA',c:'\uD83D\uDC9C'},{v:'KUR',n:'KUREA',c:'\uD83E\uDD0D'},{v:'MNM',n:'MINAMI',c:'\uD83E\uDE77'},{v:'KIR',n:'KIRA',c:'\uD83D\uDC9B'},
-    'sep',{v:'RAN',n:'RAN',c:'\u2764\uFE0F'},{v:'TOA',n:'TOA',c:'\uD83D\uDC9A'}
+    'sep',{v:'TOA',n:'TOA',c:'\u2764\uFE0F'},{v:'RAN',n:'RAN',c:'\uD83D\uDC9A'}
   ];
   const l2 = [
-    {v:'L2',t:'Laki'},{v:'RIN',n:'RINA',c:'\uD83D\uDC9C'},{v:'TBK',n:'TSUBAKI',c:'\uD83E\uDDE1'},{v:'HIR',n:'HIIRO',c:'\uD83E\uDE75'},
+    {v:'L2',t:'Laki'},{v:'RIN',n:'RINA',c:'\uD83D\uDC9C'},{v:'YUR',n:'YURA',c:'\uD83E\uDD0D'},{v:'TBK',n:'TSUBAKI',c:'\uD83E\uDDE1'},{v:'HIR',n:'HIIRO',c:'\uD83E\uDE75'},
     {v:'YUW',n:'YUWA',c:'\u2764\uFE0F'},{v:'KAN',n:'KANNA',c:'\uD83D\uDC99'},{v:'RRK',n:'RIRIKA',c:'\uD83E\uDE77'},{v:'AKR',n:'AKARI',c:'\uD83D\uDC9A'},
-    {v:'KIK',n:'KIKI',c:'\uD83D\uDC9B'},'sep',{v:'YUR',n:'YURA',c:'\uD83E\uDD0D'}
+    {v:'KIK',n:'KIKI',c:'\uD83D\uDC9B'}
   ];
   const others = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MODEL','MOVIE','MEDIA','MAGAZINE','WEB','TICKET','SALES','ETC'];
 
@@ -971,6 +976,9 @@ body .item-contents.is-content-open {
   [...g2, ...l2].forEach(i => {
     if (typeof i === 'object' && i.n !== undefined) memberInfoByCode[i.v] = { n: i.n, c: i.c };
   });
+
+  // グループ(G2/L2)フィルターボタン用の色。既存のアクティブフィルターバッジと同じ四角(badge-square)で表示する
+  const groupSquareColorByCode = { G2: '#f472b6', L2: '#facc15' };
 
   // 💞ボタン(ハートモード):データ部のハート表示を一括で展開/縮小する。
   // 個別のG2/L2アイコンでの開閉とも連動し、ひとつでも展開されていればON、ひとつも展開されていなければOFFとする。
@@ -2694,8 +2702,26 @@ body .item-contents.is-content-open {
 
         l.onmouseenter = () => {
           const cnt = previewCountFor(val, cb.checked);
-          const name = l.querySelector('span[title]')?.getAttribute('title') || l.querySelector('.label-text').textContent.trim();
-          $('resultCount').textContent = '[ ' + name + ' ] PREVIEW > ' + cnt;
+          // メンバーフィルターボタンはそのメンバーの色付きハート、グループ(G2/L2)フィルターボタンは色付き四角、
+          // コンテンツ種類ボタンはそのアイコンを、それぞれ名前の左横に統一した間隔・大きさで添える
+          const memberInfo = memberInfoByCode[val];
+          const groupColor = groupSquareColorByCode[val];
+          const contentIcon = symbols[val];
+          let name, iconHtml = '';
+          if (memberInfo) {
+            name = memberInfo.n;
+            iconHtml = '<span class="preview-icon">' + memberInfo.c + '</span>';
+          } else if (groupColor) {
+            name = l.querySelector('.label-text').textContent.trim();
+            iconHtml = '<span class="preview-icon preview-square-icon" style="background-color:' + groupColor + '"></span>';
+          } else if (contentIcon !== undefined) {
+            name = displayNameFor(val);
+            iconHtml = '<span class="preview-icon">' + contentIcon + '</span>';
+          } else {
+            name = l.querySelector('span[title]')?.getAttribute('title') || l.querySelector('.label-text').textContent.trim();
+          }
+          const inner = iconHtml ? '<span class="preview-icon-name">' + iconHtml + '<span>' + escapeHtml(name) + '</span></span>' : escapeHtml(name);
+          $('resultCount').innerHTML = '[ ' + inner + ' ] PREVIEW > ' + cnt;
         };
 
         l.onmouseleave = () => $('resultCount').textContent = defaultText;
