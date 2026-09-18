@@ -215,7 +215,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; pointer-events: none;
   transition: max-height 0.25s ease, opacity 0.2s ease, padding-top 0.25s ease, padding-bottom 0.25s ease;
 }
-.checks-row-months.is-visible { max-height: 60px; opacity: 1; padding-top: 6px; padding-bottom: 2px; pointer-events: auto; }
+.checks-row-months.is-visible { max-height: 60px; opacity: 1; padding-top: 0; padding-bottom: 2px; pointer-events: auto; }
 /* PC幅では常時コンテナ幅を720pxにする(コンテンツ種類ボタンがICONモードでも1行に収まるように) */
 @media (min-width: 760px) {
   :root { --container-w: 720px; }
@@ -253,6 +253,14 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .result-header-row { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; margin-bottom: 8px; min-height: 1.2em; position: relative; }
 .result-count-group { display: flex; align-items: center; gap: 6px; }
 .result-count { font-size: 12px; color: var(--sub); letter-spacing: 0.5px; }
+/* メンバー/グループフィルターホバー時のPREVIEW表示専用アイコン。データ部のteam-icon(11.25px固定)は
+   ハートより小さく見えるため流用せず、ここではハート・四角どちらも見た目の大きさ・名前との間隔を揃える */
+/* メンバー/グループ/コンテンツ種類、いずれのフィルターをホバーした時もPREVIEW内のアイコンが同じ幅の
+   枠(1em)・同じ間隔(4px)になるようにする専用クラス。アイコンの種類によらず、名前の開始位置が揃う */
+.preview-icon { display: inline-block; width: 1em; text-align: center; margin-right: 4px; vertical-align: middle; line-height: 1; }
+.preview-icon-square { width: 1em; height: 1em; border-radius: 2px; }
+.preview-icon-square.team-g2 { background-color: #f472b6; }
+.preview-icon-square.team-l2 { background-color: #facc15; }
 .day-nav-group { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 4px; }
 .sort-arrow-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 16.875px; border-radius: 12px; outline: none; line-height: 1.2; }
 .sort-arrow-btn:hover { background-color: var(--btn-hover); }
@@ -668,7 +676,7 @@ body .item-contents.is-content-open {
   const g2 = [
     {v:'G2',t:'Girls\u00B2'},{v:'YZH',n:'YUZUHA',c:'\uD83E\uDE75'},{v:'MMK',n:'MOMOKA',c:'\uD83D\uDC99'},{v:'MSK',n:'MISAKI',c:'\uD83E\uDDE1'},
     {v:'YOK',n:'YOKA',c:'\uD83D\uDC9C'},{v:'KUR',n:'KUREA',c:'\uD83E\uDD0D'},{v:'MNM',n:'MINAMI',c:'\uD83E\uDE77'},{v:'KIR',n:'KIRA',c:'\uD83D\uDC9B'},
-    'sep',{v:'RAN',n:'RAN',c:'\u2764\uFE0F'},{v:'TOA',n:'TOA',c:'\uD83D\uDC9A'}
+    'sep',{v:'TOA',n:'TOA',c:'\uD83D\uDC9A'},{v:'RAN',n:'RAN',c:'\u2764\uFE0F'}
   ];
   const l2 = [
     {v:'L2',t:'Laki'},{v:'RIN',n:'RINA',c:'\uD83D\uDC9C'},{v:'TBK',n:'TSUBAKI',c:'\uD83E\uDDE1'},{v:'HIR',n:'HIIRO',c:'\uD83E\uDE75'},
@@ -956,6 +964,12 @@ body .item-contents.is-content-open {
   const memberOrder = [...g2, ...l2]
     .filter(i => typeof i === 'object' && i.n !== undefined)
     .map(i => i.v);
+  // データ部のハート表示(グループアイコン押下時・ハートモード)の並び順。フィルターボタンの並び替えや
+  // 表示順(memberOrder、上記)とは完全に独立した固定の順序
+  const heartOrder = [
+    'YZH', 'MMK', 'MSK', 'YOK', 'KUR', 'MNM', 'KIR', 'TOA', 'RAN',
+    'RIN', 'YUR', 'TBK', 'HIR', 'YUW', 'KAN', 'RRK', 'AKR', 'KIK'
+  ];
   const memberSortRank = item => {
     const g = item.groups || [];
     let best = memberOrder.length;
@@ -1497,8 +1511,8 @@ body .item-contents.is-content-open {
       const ti = document.createElement('span');
       ti.className = 'team-icon team-' + teamClass;
 
-      // groups内のメンバーコードのうち、名前が判明しているものだけを表示順(g2→l2)で抽出する
-      const memberCodes = memberOrder.filter(v => (item.groups || []).includes(v));
+      // groups内のメンバーコードのうち、名前が判明しているものだけを固定の表示順(heartOrder)で抽出する
+      const memberCodes = heartOrder.filter(v => (item.groups || []).includes(v));
       if (memberCodes.length) {
         const hearts = document.createElement('span');
         hearts.className = 'team-hearts';
@@ -1864,7 +1878,7 @@ body .item-contents.is-content-open {
         `<div class="setlist-modal-title">${escapeHtml(entry.title || '')}</div>` +
         (() => {
           const memberList = Array.isArray(entry.member) ? entry.member : [];
-          const memberCodes = memberOrder.filter(v => memberList.includes(v));
+          const memberCodes = heartOrder.filter(v => memberList.includes(v));
           const heartsHtml = memberCodes.map(code => {
             const info = memberInfoByCode[code];
             return info ? `<span class="setlist-heart">${info.c}</span>` : '';
@@ -2694,8 +2708,34 @@ body .item-contents.is-content-open {
 
         l.onmouseenter = () => {
           const cnt = previewCountFor(val, cb.checked);
-          const name = l.querySelector('span[title]')?.getAttribute('title') || l.querySelector('.label-text').textContent.trim();
-          $('resultCount').textContent = '[ ' + name + ' ] PREVIEW > ' + cnt;
+          const rc = $('resultCount');
+          rc.textContent = '';
+          rc.append('[ ');
+          // メンバーはハート、グループ(G2/L2)は四角、コンテンツ種類は絵文字シンボルを、名前の左に
+          // 同じ幅・同じ間隔(preview-icon)で添える。名前側もアイコン文字を含まない純粋なテキストにする
+          const memberInfo = memberInfoByCode[val];
+          let name;
+          if (memberInfo) {
+            const heart = document.createElement('span');
+            heart.className = 'preview-icon';
+            heart.textContent = memberInfo.c;
+            rc.appendChild(heart);
+            name = memberInfo.n;
+          } else if (val === 'G2' || val === 'L2') {
+            const sq = document.createElement('span');
+            sq.className = 'preview-icon preview-icon-square team-' + val.toLowerCase();
+            rc.appendChild(sq);
+            name = l.querySelector('.label-text').textContent.trim();
+          } else if (symbols[val] !== undefined) {
+            const icon = document.createElement('span');
+            icon.className = 'preview-icon';
+            icon.textContent = symbols[val];
+            rc.appendChild(icon);
+            name = displayNameFor(val);
+          } else {
+            name = l.querySelector('.label-text').textContent.trim(); // 年・月フィルターなどアイコンが無いもの
+          }
+          rc.append(name + ' ] PREVIEW > ' + cnt);
         };
 
         l.onmouseleave = () => $('resultCount').textContent = defaultText;
