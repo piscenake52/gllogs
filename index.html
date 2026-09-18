@@ -136,7 +136,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 }
 .count-badge {
   position: absolute;
-  top: -3px;
+  top: 0;
   right: -3px;
   background: #38bdf8;
   color: #042C53;
@@ -195,7 +195,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .sticky-header.collapsed { margin-bottom: 8px; }
 .sticky-header.collapsed .sticky-header-inner { padding-bottom: 4px; }
 /* --- チェックボックス群(年・メンバー・コンテンツ種別) --- */
-.checks { display: flex; flex-direction: column; row-gap: 6px; padding-top: 4px; }
+.checks { display: flex; flex-direction: column; row-gap: 5px; padding-top: 4px; }
 .checks-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .checks-row-years, .checks-row-other { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-top: 6px; padding-bottom: 2px; gap: 6px; }
 /* コンテンツ種類ボタンの2段目:ボタンをドラッグして下に落とすと現れる。中身が無い間は折りたたんでおき、
@@ -1472,7 +1472,9 @@ body .item-contents.is-content-open {
       t.classList.add('no-url');
     }
     // 表示テキストの優先順位:スマホ版はdisplay_sp→display_pc→title、PC版はdisplay_pc→titleの順にフォールバックする
-    t.textContent = (isMobileState ? (item.display_sp || item.display_pc || item.title) : (item.display_pc || item.title) || '').trim();
+    const rawDisplayText = (isMobileState ? (item.display_sp || item.display_pc || item.title) : (item.display_pc || item.title) || '');
+    // BIRTHDAYの年別複製アイテム(_birthYear付き)の場合のみ、「名前　誕生日」を「名前　N歳の誕生日」に置換する
+    t.textContent = applyBirthdayAgeText(item, rawDisplayText).trim();
 
     const teamClass = getTeamClass(item);
     // MAPモードON時のみ、mapに有効なhttp(s)リンクがある場合に📍アイコンをリンク化して表示する(値が無ければ何も表示しない)
@@ -2529,6 +2531,19 @@ body .item-contents.is-content-open {
   // 表示対象にする特別扱いをする)
   const isBirthdayAnniversary = item => item.contents === 'BIRTHDAY' || item.contents === 'ANNIVERSARY';
 
+  // BIRTHDAYの年別複製アイテム(expandTodayBirthdayItemsで_birthYearが付与されたもの)のみ対象に、
+  // 表示年(item.dateの先頭4桁)と_birthYearの差から年齢を算出し、テキスト中の「誕生日」を
+  // 「N歳の誕生日」に置換する(本人の登録元アイテムやANNIVERSARYなどは対象外なのでそのまま返す)。
+  const applyBirthdayAgeText = (item, text) => {
+    if (item.contents !== 'BIRTHDAY' || !item._birthYear || !text) return text;
+    const dispYear = parseInt(String(item.date || '').slice(0, 4), 10);
+    const birthYear = parseInt(item._birthYear, 10);
+    if (!Number.isFinite(dispYear) || !Number.isFinite(birthYear)) return text;
+    const age = dispYear - birthYear;
+    if (age < 0 || !text.includes('誕生日')) return text;
+    return text.replace('誕生日', `${age}歳の誕生日`);
+  };
+
   // BIRTHDAY/ANNIVERSARY(及びそのエイリアスのDEBUT/FORMATION)はフィルターボタンを持たないため、
   // 通常のコンテンツ種類フィルターの対象から外し、代わりに専用の表示条件を設ける:
   // 「誕生日」「記念日」でのキーワード検索、日付そのものの検索、年/年月フィルター、TODAYモードの
@@ -2571,6 +2586,12 @@ body .item-contents.is-content-open {
   const minRecurrenceYear = (item, registeredYear) =>
     item.contents === 'ANNIVERSARY' ? String(parseInt(registeredYear, 10) + 1) : registeredYear;
 
+  // BIRTHDAYのみ対象に、複製した年別アイテムに元の登録年(=生年)を _birthYear として付与する。
+  // 表示時(buildRowText側)でこの値と複製先の表示年を比較し、「年齢」を計算するためのもの。
+  // ANNIVERSARYは年齢表示の対象外なので付与しない（空オブジェクトを返し、Object.assignで何も上書きしない）。
+  const birthdayAgeProps = (item, registeredYear) =>
+    item.contents === 'BIRTHDAY' ? { _birthYear: registeredYear } : {};
+
   // BIRTHDAY/ANNIVERSARYを「表示すべき年」ごとに複製したアイテムへ展開する。年フィルターが無ければ
   // 何もしない(高速パス)。以下2つのケースで展開する:
   // - TODAYモード中:選択年フィルターがあれば、登録年(ANNIVERSARYは翌年)以降かつ月日がTODAY基準日と
@@ -2600,17 +2621,20 @@ body .item-contents.is-content-open {
         if (cYears && cYears.length > 0) {
           cYears.forEach(y => {
             if (y < minYear) return; // 登録年(ANNIVERSARYは翌年)より前の年フィルターは対象外
-            result.push(Object.assign({}, item, { date: `${y}${monthDay}` }));
+            result.push(Object.assign({}, item, { date: `${y}${monthDay}` }, birthdayAgeProps(item, registeredYear)));
           });
         } else if (itemDateNum <= targetDateNum && targetDateNum.slice(0, 4) >= minYear) {
-          result.push(Object.assign({}, item, { date: getTargetDateStr(todayOffset) }));
+          result.push(Object.assign({}, item, { date: getTargetDateStr(todayOffset) }, birthdayAgeProps(item, registeredYear)));
         }
       } else {
+        // ANNIVERSARYは「年フィルターだけ(+月フィルター)」の毎年恒例展開の対象外とする(年および月日まで一致した場合のみ表示したいため、
+        // TODAYモード(上のif側)や完全一致の日付検索経由でのみ展開させる)。BIRTHDAYはこれまで通り年フィルターだけでも展開する
+        if (item.contents === 'ANNIVERSARY') return;
         // TODAYモードOFFでも、年フィルター(+月フィルター)の組み合わせで毎年恒例の月日一致とみなして展開する
         if (cMonths && cMonths.length > 0 && !cMonths.includes(registeredMonth)) return; // 月フィルターと不一致なら対象外
         cYears.forEach(y => {
           if (y < minYear) return; // 登録年(ANNIVERSARYは翌年)より前の年フィルターは対象外
-          result.push(Object.assign({}, item, { date: `${y}${monthDay}` }));
+          result.push(Object.assign({}, item, { date: `${y}${monthDay}` }, birthdayAgeProps(item, registeredYear)));
         });
       }
     });
