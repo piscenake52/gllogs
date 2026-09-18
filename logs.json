@@ -1,5 +1,119 @@
 [
   {
+    "date": "20261003",
+    "time": "1000",
+    "contents": "TV",
+    "title": "CSテレ朝チャンネル「テレ朝サマフェス音楽LIVEイッキ見！」",
+    "display_pc": "CSテレ朝チャンネル 「テレ朝サマフェス音楽LIVEイッキ見！」",
+    "display_sp": "CSテレ朝 「テレ朝サマフェス音楽LIVEイッキ見！」",
+    "url": "https://girls2-fc.jp/page/familyNews/1230720479862456321",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR",
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+    ]
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "20261004",
+    "time": "1000",
+    "contents": "TV",
+    "title": "CSテレ朝チャンネル「テレ朝サマフェス音楽LIVEイッキ見！」",
+    "display_pc": "CSテレ朝チャンネル 「テレ朝サマフェス音楽LIVEイッキ見！」",
+    "display_sp": "CSテレ朝 「テレ朝サマフェス音楽LIVEイッキ見！」",
+    "url": "https://girls2-fc.jp/page/familyNews/1230720479862456321",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR",
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+    ]
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "20260925",
+    "time": "1000",
+    "contents": "WEB",
+    "title": "Rolling Stone Japan × JR東海 特設サイト公開",
+    "display_pc": "Rolling Stone Japan × JR東海 特設サイト公開",
+    "display_sp": "Rolling Stone Japan × JR東海 特設サイト公開",
+    "url": "https://girls2-fc.jp/page/familyNews/1230720479862456321",
+    "groups": [
+      "G2","MSK","YOK"
+    ]
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "20260926",
+    "time": "",
+    "contents": "WEB",
+    "title": "Rolling Stone Japan × JR東海 東海道新幹線車内限定スペシャルコンテンツ配信開始",
+    "display_pc": "Rolling Stone Japan × JR東海 東海道新幹線車内限定スペシャルコンテンツ配信開始",
+    "display_sp": "Rolling Stone Japan × JR東海 SPコンテンツ配信開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1230720479862456321",
+    "groups": [
+      "G2","MSK","YOK"
+    ]
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "20260919",
+    "time": "1000",
+    "contents": "TICKET",
+    "title": "a-nation 2026 チケット一般発売開始",
+    "display_pc": "a-nation 2026 チケット一般発売開始",
+    "display_sp": "a-nation 2026 チケット一般発売開始",
+    "url": "https://a-nation.net/",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ]
+    "relations": [],
+    "tags": ["お台場 a-nation特設会場"]
+  },
+  {
+    "date": "20261003",
+    "time": "0959",
+    "contents": "CLOSE",
+    "title": "a-nation 2026 チケットオフィシャル先着先行受付締切",
+    "display_pc": "a-nation 2026 チケットオフィシャル先着先行受付締切",
+    "display_sp": "a-nation 2026 チケットオフィシャル先着締切",
+    "url": "https://a-nation.net/",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ]
+    "relations": [],
+    "tags": ["お台場 a-nation特設会場"]
+  },
+  {
+    "date": "20261003",
+    "time": "1300",
+    "contents": "LIVE",
+    "title": "a-nation 2026",
+    "display_pc": "a-nation 2026",
+    "display_sp": "a-nation 2026",
+    "url": "https://girls2-fc.jp/page/familyNews/1230804077818937344",
+    "map" : "https://maps.app.goo.gl/b2mC6cZjA84NTcHF7"
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"
+    ]
+    "setlistid": "",
+    "relations": [],
+    "tags": ["お台場 a-nation特設会場"]
+  },
+  {
+    "date": "20260918",
+    "time": "1800",
+    "contents": "WEB",
+    "title": "Trepo",
+    "display_pc": "Trepo",
+    "display_sp": "Trepo",
+    "url": "https://trepo.jp/interview/354429/",
+    "groups": [
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+    ]
+  },
+  {
     "date": "20251204",
     "time": "2100",
     "contents": "WEB",
@@ -507,9 +621,39 @@
     "date": "20260926",
     "time": "1000",
     "contents": "TICKET",
+    "title": "映画「デス≠キル／ゲーム」 初日16:15の回舞台挨拶 チケット一般発売",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日16:15の回舞台挨拶チケット一般発売開始",
+    "display_sp": "映画 「デス≠キル／ゲーム」 16:15回舞台挨拶チケット一般発売開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20260919",
+    "time": "1000",
+    "contents": "TICKET",
+    "title": "映画「デス≠キル／ゲーム」 初日舞台挨拶 チケット一般発売",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日舞台挨拶チケット一般発売開始",
+    "display_sp": "映画 「デス≠キル／ゲーム」 舞台挨拶チケット一般発売開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20260926",
+    "time": "1000",
+    "contents": "TICKET",
     "title": "映画「デス≠キル／ゲーム」 初日舞台挨拶 チケット発券開始",
-    "display_pc": "映画「デス≠キル／ゲーム」 初日舞台挨拶チケット発券開始",
-    "display_sp": "「デス≠キル／ゲーム」 舞台挨拶チケット発券開始",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日舞台挨拶チケット発券開始",
+    "display_sp": "映画 「デス≠キル／ゲーム」 舞台挨拶チケット発券開始",
     "url": "https://amg.cinemanews.jp/deathkillgame/post-674/",
     "groups": [
       "G2",
@@ -523,8 +667,8 @@
     "time": "1500",
     "contents": "RESULT",
     "title": "映画「デス≠キル／ゲーム」 初日舞台挨拶 チケット先行抽選当選発表",
-    "display_pc": "映画「デス≠キル／ゲーム」 初日舞台挨拶チケット先行抽選当選発表",
-    "display_sp": "「デス≠キル／ゲーム」 舞台挨拶チケット当選発表",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日舞台挨拶チケット先行抽選当選発表",
+    "display_sp": "映画 「デス≠キル／ゲーム」 舞台挨拶チケット当選発表",
     "url": "https://amg.cinemanews.jp/deathkillgame/post-674/",
     "groups": [
       "G2",
@@ -538,9 +682,54 @@
     "time": "2359",
     "contents": "CLOSE",
     "title": "映画「デス≠キル／ゲーム」 初日舞台挨拶 チケット先行抽選受付締切",
-    "display_pc": "映画「デス≠キル／ゲーム」 初日舞台挨拶チケット先行抽選受付締切",
-    "display_sp": "「デス≠キル／ゲーム」 舞台挨拶チケット先行受付締切",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日舞台挨拶チケット先行抽選受付締切",
+    "display_sp": "映画 「デス≠キル／ゲーム」 舞台挨拶チケット先行受付締切",
     "url": "https://amg.cinemanews.jp/deathkillgame/post-674/",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20260918",
+    "time": "1800",
+    "contents": "TICKET",
+    "title": "映画「デス≠キル／ゲーム」 初日16:15の回舞台挨拶 チケット先行抽選受付開始",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日16:15の回舞台挨拶チケット先行抽選受付開始",
+    "display_sp": "映画 「デス≠キル／ゲーム」 16:15の回舞台挨拶チケット先行受付開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20260923",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "映画「デス≠キル／ゲーム」 初日16:15の回舞台挨拶 チケット先行抽選受付締切",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日16:15の回舞台挨拶チケット先行抽選受付締切",
+    "display_sp": "映画 「デス≠キル／ゲーム」 16:15回舞台挨拶チケット先行受付締切",
+    "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20260925",
+    "time": "1500",
+    "contents": "RESULT",
+    "title": "映画「デス≠キル／ゲーム」 初日16:15の回舞台挨拶 チケット先行抽選当選発表",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日16:15の回舞台挨拶チケット先行抽選当選発表",
+    "display_sp": "映画 「デス≠キル／ゲーム」 16:15回舞台挨拶チケット当選発表",
+    "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
     "groups": [
       "G2",
       "KIR"
@@ -4425,8 +4614,40 @@
     "time": "",
     "contents": "MOVIE",
     "title": "映画「デス≠キル／ゲーム」公開",
-    "display_pc": "映画「デス≠キル／ゲーム」公開",
-    "display_sp": "映画「デス≠キル／ゲーム」公開",
+    "display_pc": "映画 「デス≠キル／ゲーム」 公開",
+    "display_sp": "映画 「デス≠キル／ゲーム」 公開",
+    "url": "https://deathkillgame.com",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+      "Nocturne"
+    ]
+  },
+  {
+    "date": "20261002",
+    "time": "1615",
+    "contents": "EVENT",
+    "title": "映画「デス≠キル／ゲーム」初日舞台挨拶",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日舞台挨拶",
+    "display_sp": "映画 「デス≠キル／ゲーム」 初日舞台挨拶",
+    "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+      "Nocturne"
+    ]
+  },
+  {
+    "date": "20261002",
+    "time": "1900",
+    "contents": "EVENT",
+    "title": "映画「デス≠キル／ゲーム」初日舞台挨拶",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日舞台挨拶",
+    "display_sp": "映画 「デス≠キル／ゲーム」 初日舞台挨拶",
     "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
     "groups": [
       "G2",
