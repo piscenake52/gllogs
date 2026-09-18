@@ -5111,8 +5111,8 @@
     "date": "20260925",
     "time": "2000",
     "contents": "SNS",
-    "title": "あかりんごの元気モリモリール",
-    "display_pc": "",
+    "title": "あかりんごの元気モリモリール #120",
+    "display_pc": "あかりんごの元気モリモリール　#120",
     "display_sp": "",
     "url": "",
     "groups": [
@@ -5511,6 +5511,24 @@
   },
   {
     "date": "20260919",
+    "time": "1310",
+    "contents": "STREAMING",
+    "title": "ABEMA 第43回 マイナビ 東京ガールズコレクション 2026 AUTUMN/WINTER",
+    "display_pc": "ABEMA 東京ガールズコレクション2026 AUTUMN/WINTER",
+    "display_sp": "ABEMA 東京ガールズコレクション2026 AUTUMN/WINTER",
+    "url": "https://abema.go.link/44ycm",
+    "map": "",
+    "groups": [
+      "G2",
+      "YOK"
+    ],
+    "tags": [
+      "TGC",
+      "横浜アリーナ"
+    ]
+  },
+  {
+    "date": "20260919",
     "time": "1400",
     "contents": "MODEL",
     "title": "第43回 マイナビ 東京ガールズコレクション 2026 AUTUMN/WINTER",
@@ -5529,7 +5547,7 @@
   },
   {
     "date": "20260919",
-    "time": "",
+    "time": "1830",
     "contents": "EVENT",
     "title": "4GEEKs by SPIRALGIRL",
     "display_pc": "4GEEKs by SPIRALGIRL",
@@ -5553,14 +5571,15 @@
     "title": "あかりんごの元気モリモリール #119",
     "display_pc": "あかりんごの元気モリモリール　#119",
     "display_sp": "あかりんごの元気モリモリール　#119",
-    "url": "",
+    "url": "https://www.instagram.com/reel/DdbRz5qCbaX/?stkn=MXFrN3N3bWY4eWFx",
     "groups": [
       "L2",
       "AKR"
     ],
     "tags": [
       "ダンスは遊びじゃない！",
-      "あかりんごのファッションショー"
+      "あかりんごのファッションショー",
+      "Attention","THE JET BOY BANGERZ"
     ]
   },
   {
