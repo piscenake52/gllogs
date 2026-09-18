@@ -1,12 +1,85 @@
 [
-{
+  {
+    "date": "2024.08.22",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "Hiiro's Makeup #001",
+    "display_pc": "Hiiro's Makeup　#001",
+    "display_sp": "Hiiro's Makeup　#001",
+    "url": "https://www.instagram.com/reel/C--JI3esctp/?igsh=dG83eWRwMW1mZXRu",
+    "groups": ["L2","HIR"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2024.09.05",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "Hiiro's Makeup #002",
+    "display_pc": "Hiiro's Makeup　#002",
+    "display_sp": "Hiiro's Makeup　#002",
+    "url": "https://www.instagram.com/reel/C_iOp-aN-p-/?igsh=MXJwNW1waW04MDNmMg==",
+    "groups": ["L2","HIR"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2024.09.19",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "Hiiro's Makeup #003",
+    "display_pc": "Hiiro's Makeup　#003",
+    "display_sp": "Hiiro's Makeup　#003",
+    "url": "https://www.instagram.com/reel/DAGPIlrs--p/?igsh=eWVhMGVwaXF5Zzhn",
+    "groups": ["L2","HIR"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2024.10.03",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "Hiiro's Makeup #004",
+    "display_pc": "Hiiro's Makeup　#004",
+    "display_sp": "Hiiro's Makeup　#004",
+    "url": "https://www.instagram.com/reel/DAqQOIOunNd/?igsh=bDYxbzB6ZTVjMmds",
+    "groups": ["L2","HIR"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2024.10.17",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "Hiiro's Makeup #005",
+    "display_pc": "Hiiro's Makeup　#005",
+    "display_sp": "Hiiro's Makeup　#005",
+    "url": "https://www.instagram.com/reel/DBOQgoos45J/?igsh=MTlxbHFuYmQ1bjdzNA==",
+    "groups": ["L2","HIR"],
+    "relations": [],
+    "tags": []
+  },
+  {
+    "date": "2024.10.31",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "Hiiro's Makeup #006",
+    "display_pc": "Hiiro's Makeup　#006",
+    "display_sp": "Hiiro's Makeup　#006",
+    "url": "https://www.instagram.com/reel/DBx3RmoRrng/?igsh=dHJscWVsMzh1Yjc4",
+    "groups": ["L2","HIR"],
+    "relations": [],
+    "tags": []
+  },
+
+  {
     "date": "20190918",
     "time": "",
     "contents": "ANNIVERSARY",
     "title": "mirage² 2nd シングル 「ドキ☆ドキ」 リリース記念日",
     "display_pc": "mirage²　2nd SINGLE 「ドキ☆ドキ」 リリース記念日",
     "display_sp": "mirage²　2nd SG 「ドキ☆ドキ」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/mirage2/discography/AICL-3768",
+    "url": "https://www.mirage2.jp/disco/archive/?AICL-3768",
     "groups": [
       "G2",
       "MNM",
@@ -26,7 +99,7 @@
     "title": "mirage² 2nd シングル 「ドキ☆ドキ」 リリース",
     "display_pc": "mirage²　2nd SINGLE 「ドキ☆ドキ」 リリース",
     "display_sp": "mirage²　2nd SG 「ドキ☆ドキ」 リリース",
-    "url": "https://www.sonymusic.co.jp/artist/mirage2/info/508257",
+    "url": "https://www.mirage2.jp/info/archive/?508257",
     "groups": [
       "G2",
       "MNM",
