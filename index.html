@@ -499,6 +499,24 @@ body .item-contents.is-content-open {
   user-select: none;
 }
 
+/* 操作要素の無い場所を長押ししてTODAYモードを切り替えた際、押した位置に一瞬表示するフィードバック */
+.longpress-ripple {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: #38bdf8;
+  pointer-events: none;
+  z-index: 9999;
+  animation: longpress-ripple-anim 0.5s ease-out forwards;
+}
+@keyframes longpress-ripple-anim {
+  0% { transform: scale(0.3); opacity: 0.9; }
+  100% { transform: scale(6); opacity: 0; }
+}
+
 .no-result { font-size: 13px; color: var(--muted); padding: 25px 0; text-align: center; display: none; letter-spacing: 0.5px; }
 .quick-reset-btn { display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: var(--active-bg); color: var(--active-color); font-size: 11px; border: none; border-radius: 16px; cursor: pointer; outline: none; }
 .quick-reset-btn:hover { opacity: 0.85; }
@@ -1214,7 +1232,7 @@ body .item-contents.is-content-open {
 
   // 検索窓:直近使った検索ワードを最大5件まで記憶し、フォーカス時に候補として表示する
   // セトリ検索モード中に入力された検索ワードは、通常検索とは別のキーで保存する(要件により分離)
-  // 各ワードは🗝(固定)アイコンで固定でき、固定中は個別削除(×)が効かず、保存上限による
+  // 各ワードは🔑(固定)アイコンで固定でき、固定中は個別削除(×)が効かず、保存上限による
   // 自動的な押し出し(間引き)からも保護される。固定できる件数も保存上限と同じ5件まで。
   const RECENT_SEARCH_KEY = 'gl_log_recent_searches';
   const SETLIST_RECENT_SEARCH_KEY = 'gl_log_recent_setlist_searches';
@@ -1254,7 +1272,7 @@ body .item-contents.is-content-open {
     if (entry && entry.pinned) return; // 固定中は削除不可
     setRecentSearches(list.filter(v => v.term !== term));
   };
-  // 🗝(固定)⇔🔐(固定中、押すと解除)の切り替え。固定は最大5件まで
+  // 🔑(固定)⇔🔐(固定中、押すと解除)の切り替え。固定は最大5件まで
   const togglePinRecentSearch = term => {
     const list = getRecentSearches();
     const idx = list.findIndex(v => v.term === term);
@@ -1303,11 +1321,11 @@ body .item-contents.is-content-open {
       const row = document.createElement('div');
       row.className = 'search-suggestion-row' + (pinned ? ' is-pinned' : '');
 
-      // 固定(🗝)⇔固定中(🔐)アイコン:押すと固定状態をトグルする(検索は実行しない)
+      // 固定(🔑)⇔固定中(🔐)アイコン:押すと固定状態をトグルする(検索は実行しない)
       const pinBtn = document.createElement('button');
       pinBtn.type = 'button';
       pinBtn.className = 'search-suggestion-pin';
-      pinBtn.textContent = pinned ? '\uD83D\uDD10' : '\uD83D\uDDDD\uFE0F';
+      pinBtn.textContent = pinned ? '\uD83D\uDD10' : '\uD83D\uDD11';
       pinBtn.setAttribute('aria-label', pinned ? '\u56FA\u5B9A\u3092\u89E3\u9664' : '\u56FA\u5B9A\u3059\u308B');
       pinBtn.onmousedown = e => {
         e.preventDefault(); // inputのblurを起こさない
@@ -2347,6 +2365,7 @@ body .item-contents.is-content-open {
       
       if (!isZero) renderBatch();
       $('items').classList.remove('is-animating');
+      updateItemsMinHeight();
     }, 120);
 
     if (syncHash) {
@@ -2891,6 +2910,24 @@ body .item-contents.is-content-open {
   const DAY_SWAP_WAIT_MS = 150;  // データ切替(updateDisplay内部の120msフェード)を画面外で待つ時間
   let daySlideAnimating = false; // 演出の多重発火防止(演出中は新たな操作を受け付けない)
 
+  // TODAYモード中は、表示件数が少なくデータ部(#items)の実高さが画面より低い場合でも、
+  // 画面(ビューポート)の下端までフリック可能な領域として扱えるよう min-height を伸ばす。
+  // TODAYモードOFF時は元に戻す(通常表示で不要な余白ができないようにする)。
+  const updateItemsMinHeight = () => {
+    if (!todayMode) {
+      itemsEl.style.minHeight = '';
+      return;
+    }
+    const top = itemsEl.getBoundingClientRect().top;
+    const extra = window.innerHeight - top;
+    itemsEl.style.minHeight = extra > 0 ? extra + 'px' : '';
+  };
+  window.addEventListener('resize', () => { if (todayMode) updateItemsMinHeight(); });
+  window.addEventListener('orientationchange', () => { if (todayMode) setTimeout(updateItemsMinHeight, 200); });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', () => { if (todayMode) updateItemsMinHeight(); });
+  }
+
   const setItemsTransform = (dx, withTransition) => {
     itemsEl.style.transition = withTransition ? `transform ${DAY_SLIDE_MS}ms ease-out` : 'none';
     itemsEl.style.transform = dx === 0 ? '' : `translateX(${dx}px)`;
@@ -3011,6 +3048,73 @@ body .item-contents.is-content-open {
       if (axisLock === 'h' && !daySlideAnimating) setItemsTransform(0, true);
       axisLock = null;
     });
+  })();
+
+  // ================= 操作要素の無い場所の長押しでTODAYモードをON/OFF =================
+  // ボタン・リンク・チェックボックス・アクティブフィルターバッジ・モーダル等の「操作要素」、および
+  // データ行(.item。タイトルリンクやハート等のタップ操作、フリックと競合するため除外)以外の場所を、
+  // 一定距離以上動かさずに約600ms押し続けると、TODAYボタンと同じ処理でTODAYモードをトグルする。
+  // データ部(#items)自体の背景(データ行の無い余白・TODAYモードでの画面下までの拡張領域を含む)は
+  // 対象に含める。フリックは「動かす」操作、長押しは「動かさない」操作のため、同じ領域でも競合しない。
+  (() => {
+    const INTERACTIVE_SELECTOR = 'button, a, input, label, [role="button"], [role="dialog"], .filter-badge, .popup-overlay, .setlist-modal-overlay, .item';
+    const MOVE_CANCEL_PX = 10; // この距離以上動いたら長押しをキャンセルする(スクロール・フリック操作との誤動作防止)
+    const HOLD_MS = 600;
+
+    let timer = null, startX = 0, startY = 0, holding = false;
+
+    const showRipple = (x, y) => {
+      const dot = document.createElement('div');
+      dot.className = 'longpress-ripple';
+      dot.style.left = x + 'px';
+      dot.style.top = y + 'px';
+      document.body.appendChild(dot);
+      dot.addEventListener('animationend', () => dot.remove());
+    };
+
+    const clearHold = () => {
+      clearTimeout(timer);
+      timer = null;
+      holding = false;
+    };
+
+    const startHold = (x, y, target) => {
+      if (target.closest(INTERACTIVE_SELECTOR)) return; // 操作要素の上では発火させない
+      startX = x;
+      startY = y;
+      holding = true;
+      timer = setTimeout(() => {
+        if (!holding) return;
+        holding = false;
+        showRipple(x, y);
+        $('todayToggleBtn').click();
+      }, HOLD_MS);
+    };
+
+    const moveHold = (x, y) => {
+      if (!holding) return;
+      if (Math.abs(x - startX) > MOVE_CANCEL_PX || Math.abs(y - startY) > MOVE_CANCEL_PX) clearHold();
+    };
+
+    document.addEventListener('touchstart', e => {
+      if (e.touches.length !== 1) { clearHold(); return; }
+      startHold(e.touches[0].clientX, e.touches[0].clientY, e.target);
+    }, { passive: true });
+    document.addEventListener('touchmove', e => {
+      if (e.touches.length !== 1) return;
+      moveHold(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+    document.addEventListener('touchend', clearHold);
+    document.addEventListener('touchcancel', clearHold);
+
+    // PC(マウス操作)でも同様に、左ボタン押しっぱなしで長押し扱いにする
+    document.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      startHold(e.clientX, e.clientY, e.target);
+    });
+    document.addEventListener('mousemove', e => moveHold(e.clientX, e.clientY));
+    document.addEventListener('mouseup', clearHold);
+    document.addEventListener('mouseleave', clearHold);
   })();
 
   // SETLISTボタン:セトリ検索モードのON/OFF。検索窓の文字列はモード切替時もクリアしない
