@@ -171,6 +171,9 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .search-suggestion-row { display: flex; align-items: stretch; }
 .search-suggestion-row:hover, .search-suggestion-row.is-highlighted { background: var(--btn-hover); }
 .search-suggestion-term { flex: 1 1 auto; min-width: 0; display: block; text-align: left; background: none; border: none; color: var(--text); font-size: 13px; padding: 7px 12px; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search-suggestion-pin { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 30px; background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer; padding: 0; }
+.search-suggestion-pin:hover { color: var(--text); }
+.search-suggestion-row.is-pinned .search-suggestion-delete { display: none; }
 .search-suggestion-delete { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 34px; background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 0; }
 .search-suggestion-delete:hover { color: var(--text); }
 
@@ -230,7 +233,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 /* 月フィルターは年フィルターの0.7倍のサイズにする(文字だけは視認性のため大きめにする) */
 .checks-row-months label { padding: 3.5px 5.6px; font-size: 11px; border-radius: 11.2px; min-height: 23.8px; min-width: 29.4px; }
 
-.checks-row-other label { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: 13px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 18px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
+.checks-row-other label { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 18px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
 .checks-row-other label.is-dragging-reorder { opacity: 0.4; }
 .checks-row-members label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 4px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 16px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex-grow: 1; flex-shrink: 1; min-width: 0; position: relative; }
 .checks-row-members label.btn-group { flex-grow: 0; flex-shrink: 0; flex-basis: 50px; font-size: 11px; padding: 7px 0; text-align: center; letter-spacing: -0.5px; }
@@ -244,6 +247,10 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .checks label:has(input:checked)::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #34d399; border-radius: 50%; }
 /* 手動でONにしたフィルターは、右上のランプを赤から青に変更して区別する(自動ONは赤のまま) */
 .checks label:has(input:checked).is-manual-on::after { background-color: #38bdf8; }
+/* ダブルクリック/ダブルタップで除外指定したボタン:薄い色にして、そのフィルター値に該当するデータが
+   常に非表示になっていることが視覚的にわかるようにする */
+.checks label.is-excluded { opacity: 0.35; }
+@media (hover: hover) { .checks label.is-excluded:hover { background-color: var(--btn-hover); opacity: 0.5; } }
 .checks label span[title] { font-size: 14px; line-height: 1; }
 /* ICONモード:コンテンツ種類ボタンの表示をテキストのみ⇔アイコンのみで切り替える */
 .label-icon-part { display: none; }
@@ -467,7 +474,7 @@ body .item-contents.is-content-open {
    出てしまう。そのため軸を分割せず通常のoverflow: hiddenのままにし、代わりにline-heightを絵文字が収まる
    高さまで広げることで、下端が欠ける問題を解消する */
 .team-hearts { display: inline-flex; align-items: center; align-self: center; gap: 2px; max-width: 0; overflow: hidden; white-space: nowrap; flex-shrink: 0; margin-left: 0; vertical-align: middle; line-height: 1.4; transition: max-width 0.3s ease, margin-left 0.3s ease; }
-.team-hearts.is-open { max-width: 480px; margin-left: 4px; }
+.team-hearts.is-open { max-width: 480px; margin-left: 2px; margin-right: 2px; }
 .team-heart { position: relative; display: inline-block; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; }
 /* both(G2/L2混在)の行のみ、各グループの先頭ハートの左下に色付きバッジを重ねて表示する。
    ハート自体の位置・幅には影響しないため、四角の有無でハートの並びがずれない */
@@ -497,10 +504,11 @@ body .item-contents.is-content-open {
 
 /* 一番下に配置する更新日時のスタイル（中央揃え） */
 .footer-update-time { text-align: center; margin-top: 30px; font-size: 11px; color: var(--sub); letter-spacing: 0.5px; }
-/* updated表示の下に出すヘルプ(?)ボタン。他の丸ボタン群と同じ見た目に揃える */
+/* updated表示の下に出すヘルプ(?)・設定(⚙)ボタンの行。2つを横並びでセンタリングする */
+.footer-btn-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 10px; }
+/* ヘルプ・設定ボタン共通スタイル。他の丸ボタン群と同じ見た目に揃える */
 .help-btn {
   display: flex;
-  margin: 10px auto 0;
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -516,6 +524,28 @@ body .item-contents.is-content-open {
   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 .help-btn:hover { background-color: var(--btn-hover); }
+
+/* 汎用ポップアップ(HELP/SETTINGなど、中身がまだ無いものも含む)。セットリストポップアップと同じく
+   display:none/flexの瞬時切替ではなく、opacity/visibility + transform:scale()でフェード+ズームイン/
+   アウトさせる(常時flexにしてopacity等で見た目上の表示切替を行う)。 */
+.popup-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000;
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.popup-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+.popup-box {
+  position: relative; background: var(--bg); color: var(--text); border-radius: 12px;
+  max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transform: scale(0.9); transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.popup-overlay.is-open .popup-box { transform: scale(1); }
+.popup-close { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.popup-close:hover { background-color: var(--btn-hover); }
+.popup-title { font-size: 15px; font-weight: bold; margin: 0 0 4px; line-height: 1.4; text-align: center; }
+.popup-body { font-size: 11px; line-height: 1.6; color: var(--muted); text-align: center; padding: 10px 0; }
 
 /* トップへ移動するボタン（コンテナの右端に追従するように修正） */
 .to-top-btn { position: fixed; bottom: 24px; left: calc(50% + var(--container-w) / 2 - 40px); width: 40px; height: 40px; background-color: var(--active-bg); color: var(--active-color); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; z-index: 999; outline: none; }
@@ -538,10 +568,18 @@ body .item-contents.is-content-open {
   .item-contents-icon { width: 28px; }
 }
 
-/* セットリストポップアップ(SETLISTアイコン押下時に表示) */
-.setlist-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
-.setlist-modal-overlay.is-open { display: flex; }
-.setlist-modal { position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+/* セットリストポップアップ(SETLISTアイコン押下時に表示)。display:none/flexの瞬時切替ではなく、
+   opacity/visibility + transform:scale()のtransitionでフェード+ズームイン/アウトさせる
+   (display:noneのままだと閉じる時のアニメーションができないため、常時flexにしてopacity等で見た目を制御する) */
+.setlist-modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000;
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.setlist-modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+.setlist-modal { position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.setlist-modal-overlay.is-open .setlist-modal { transform: scale(1); }
 .setlist-modal-close { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
 .setlist-modal-close:hover { background-color: var(--btn-hover); }
 .setlist-modal-title { font-size: 15px; font-weight: bold; margin: 0 26px 4px 0; line-height: 1.4; }
@@ -569,7 +607,7 @@ body .item-contents.is-content-open {
   <div class="sticky-header is-initializing" id="stickyHeader">
     <div class="sticky-header-inner">
     <div class="header-row">
-      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log <sup>&#946;</sup></a></h1>
+      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log <sup>&#947;</sup></a></h1>
       <div class="header-btn-group">
         <button class="toggle-btn date-part-btn" id="showYearBtn">&#24180;</button>
         <button class="toggle-btn date-part-btn" id="showMonthBtn">&#26376;</button>
@@ -640,8 +678,27 @@ body .item-contents.is-content-open {
   <div class="no-result" id="noResult">NO RESULTS FOUND<br><button class="quick-reset-btn" id="quickResetBtn">CLEAR ALL FILTERS</button></div>
   <div class="no-result" id="loadError">LOAD ERROR<br><button class="quick-reset-btn" id="retryBtn">RETRY</button></div>
   <div class="footer-update-time" id="updateTime">updated > --</div>
-  <button type="button" class="help-btn" id="helpBtn" aria-label="&#12504;&#12523;&#12503;&#12434;&#34920;&#31034;">?</button>
+  <div class="footer-btn-row">
+    <button type="button" class="help-btn" id="helpBtn" aria-label="&#12504;&#12523;&#12503;&#12434;&#34920;&#31034;">?</button>
+    <button type="button" class="help-btn" id="settingsBtn" aria-label="&#35373;&#23450;&#12434;&#34920;&#31034;">&#9881;&#65039;</button>
+  </div>
   <button class="to-top-btn" id="toTopBtn">&#9650;</button>
+</div>
+
+<div class="popup-overlay" id="helpModalOverlay">
+  <div class="popup-box" id="helpModal" role="dialog" aria-modal="true">
+    <button type="button" class="popup-close" id="helpModalCloseBtn" aria-label="Close">&#215;</button>
+    <div class="popup-title">HELP</div>
+    <div class="popup-body" id="helpModalBody">準備中</div>
+  </div>
+</div>
+
+<div class="popup-overlay" id="settingsModalOverlay">
+  <div class="popup-box" id="settingsModal" role="dialog" aria-modal="true">
+    <button type="button" class="popup-close" id="settingsModalCloseBtn" aria-label="Close">&#215;</button>
+    <div class="popup-title">SETTING</div>
+    <div class="popup-body" id="settingsModalBody">準備中</div>
+  </div>
 </div>
 
 <div class="setlist-modal-overlay" id="setlistModalOverlay">
@@ -1048,6 +1105,11 @@ body .item-contents.is-content-open {
     eventAliasConts.includes(c) ? 'EVENT' :
     birthdayAliasConts.includes(c) ? 'BIRTHDAY' : c;
 
+  // 検索窓の"-コンテンツ種類名"(例:"-DIARY"、または"-RELEASE"のような正規化後の総称名)でその種類を
+  // 非表示にできるよう、各アイテムのsearchTextにはitem.contentsの生の値に加えてnormalizeContType後の
+  // 正規化名も含める(下記3箇所のsearchText構築を参照)。これによりCD/DVD/BD等のエイリアスも
+  // "-RELEASE"一つで一括除外でき、種類ごとに個別のエイリアス名を意識する必要が無くなる。
+
   // ソート用:日付+時刻+グループも同じ場合の最終タイブレーク。othersはコンテンツフィルターボタンの
   // 現在の並び順(ドラッグでの並び替え結果を含む)を反映しているため、そのインデックスをそのまま使う。
   const contentSortRank = item => {
@@ -1151,31 +1213,58 @@ body .item-contents.is-content-open {
 
   // 検索窓:直近使った検索ワードを最大5件まで記憶し、フォーカス時に候補として表示する
   // セトリ検索モード中に入力された検索ワードは、通常検索とは別のキーで保存する(要件により分離)
+  // 各ワードは🗝(固定)アイコンで固定でき、固定中は個別削除(×)が効かず、保存上限による
+  // 自動的な押し出し(間引き)からも保護される。固定できる件数も保存上限と同じ5件まで。
   const RECENT_SEARCH_KEY = 'gl_log_recent_searches';
   const SETLIST_RECENT_SEARCH_KEY = 'gl_log_recent_setlist_searches';
   const MAX_RECENT_SEARCHES = 5;
+  const MAX_PINNED_SEARCHES = 5;
   let highlightedSuggestionIndex = -1;
   const getRecentSearchKey = () => setlistMode ? SETLIST_RECENT_SEARCH_KEY : RECENT_SEARCH_KEY;
+  // 旧形式(文字列の配列)で保存されている場合は{term, pinned:false}へ読み込み時に変換する(後方互換)
   const getRecentSearches = () => {
     try {
       const arr = JSON.parse(localStorage.getItem(getRecentSearchKey()) || '[]');
-      return Array.isArray(arr) ? arr : [];
+      if (!Array.isArray(arr)) return [];
+      return arr.map(v => typeof v === 'string' ? { term: v, pinned: false } : { term: v.term, pinned: !!v.pinned });
     } catch {
       return [];
     }
   };
+  const setRecentSearches = list => localStorage.setItem(getRecentSearchKey(), JSON.stringify(list));
   const saveRecentSearch = kw => {
     const trimmed = kw.trim();
     if (!trimmed) return;
-    const key = getRecentSearchKey();
-    const list = getRecentSearches().filter(v => v !== trimmed);
-    list.unshift(trimmed);
-    localStorage.setItem(key, JSON.stringify(list.slice(0, MAX_RECENT_SEARCHES)));
+    const list = getRecentSearches();
+    const existing = list.find(v => v.term === trimmed);
+    if (existing && existing.pinned) return; // 固定済みのワードは再検索されても順序・状態を変えない
+    const pinnedList = list.filter(v => v.pinned);
+    const unpinnedList = list.filter(v => !v.pinned && v.term !== trimmed);
+    unpinnedList.unshift({ term: trimmed, pinned: false });
+    // 保存上限(5件)を超えたら、固定されていないものだけを末尾から間引く(固定分は削らない)
+    while (pinnedList.length + unpinnedList.length > MAX_RECENT_SEARCHES && unpinnedList.length) {
+      unpinnedList.pop();
+    }
+    setRecentSearches([...pinnedList, ...unpinnedList]);
   };
-  const removeRecentSearch = kw => {
-    const key = getRecentSearchKey();
-    const list = getRecentSearches().filter(v => v !== kw);
-    localStorage.setItem(key, JSON.stringify(list));
+  const removeRecentSearch = term => {
+    const list = getRecentSearches();
+    const entry = list.find(v => v.term === term);
+    if (entry && entry.pinned) return; // 固定中は削除不可
+    setRecentSearches(list.filter(v => v.term !== term));
+  };
+  // 🗝(固定)⇔🔐(固定中、押すと解除)の切り替え。固定は最大5件まで
+  const togglePinRecentSearch = term => {
+    const list = getRecentSearches();
+    const idx = list.findIndex(v => v.term === term);
+    if (idx === -1) return;
+    const willPin = !list[idx].pinned;
+    if (willPin && list.filter(v => v.pinned).length >= MAX_PINNED_SEARCHES) return;
+    list[idx] = { term: list[idx].term, pinned: willPin };
+    // 固定済みを常に上側にまとめて表示する(固定/解除どちらの操作でも並びを整える)
+    const pinnedList = list.filter(v => v.pinned);
+    const unpinnedList = list.filter(v => !v.pinned);
+    setRecentSearches([...pinnedList, ...unpinnedList]);
   };
   const getSuggestionButtons = () => Array.from(searchSuggestions.querySelectorAll('.search-suggestion-term'));
   const highlightSuggestion = index => {
@@ -1207,9 +1296,25 @@ body .item-contents.is-content-open {
       searchSuggestions.classList.remove('is-open');
       return;
     }
-    list.forEach(term => {
+    list.forEach(entry => {
+      const term = entry.term;
+      const pinned = entry.pinned;
       const row = document.createElement('div');
-      row.className = 'search-suggestion-row';
+      row.className = 'search-suggestion-row' + (pinned ? ' is-pinned' : '');
+
+      // 固定(🗝)⇔固定中(🔐)アイコン:押すと固定状態をトグルする(検索は実行しない)
+      const pinBtn = document.createElement('button');
+      pinBtn.type = 'button';
+      pinBtn.className = 'search-suggestion-pin';
+      pinBtn.textContent = pinned ? '\uD83D\uDD10' : '\uD83D\uDDDD\uFE0F';
+      pinBtn.setAttribute('aria-label', pinned ? '\u56FA\u5B9A\u3092\u89E3\u9664' : '\u56FA\u5B9A\u3059\u308B');
+      pinBtn.onmousedown = e => {
+        e.preventDefault(); // inputのblurを起こさない
+        e.stopPropagation();
+        togglePinRecentSearch(term);
+        renderSearchSuggestions();
+        searchInput.focus(); // 操作後も検索窓のフォーカス・候補表示を維持する
+      };
 
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -1221,7 +1326,7 @@ body .item-contents.is-content-open {
         applySuggestion(term);
       };
 
-      // 個別削除ボタン:タップ/クリックでその履歴だけを削除する(検索は実行しない)
+      // 個別削除ボタン:タップ/クリックでその履歴だけを削除する(検索は実行しない)。固定中は非表示(CSS側で制御)
       const delBtn = document.createElement('button');
       delBtn.type = 'button';
       delBtn.className = 'search-suggestion-delete';
@@ -1235,7 +1340,7 @@ body .item-contents.is-content-open {
         searchInput.focus(); // 削除後も検索窓のフォーカス・候補表示を維持する
       };
 
-      row.append(btn, delBtn);
+      row.append(pinBtn, btn, delBtn);
       searchSuggestions.appendChild(row);
     });
     searchSuggestions.classList.add('is-open');
@@ -1326,10 +1431,24 @@ body .item-contents.is-content-open {
   window.onscroll = () => $('toTopBtn').classList.toggle('is-visible', window.scrollY > 300);
   $('toTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // ヘルプ(?)ボタン:簡単なヘルプポップアップを表示する想定だが、ポップアップ自体は未実装
-  $('helpBtn').onclick = () => {
-    // TODO: 簡単なヘルプポップアップを実装する
+  // ヘルプ(?)・設定(⚙)ボタン:どちらもセットリストポップアップと同じズーム+フェードで開閉する
+  // 汎用ポップアップ。中身(popup-body)は現時点では空のままでよい。
+  const bindSimplePopup = (btnId, overlayId, closeBtnId) => {
+    const overlay = $(overlayId);
+    const open = () => overlay.classList.add('is-open');
+    const close = () => overlay.classList.remove('is-open');
+    $(btnId).onclick = open;
+    $(closeBtnId).onclick = close;
+    overlay.onclick = e => {
+      if (e.target === overlay) close(); // オーバーレイ部分クリックで閉じる(中身のクリックでは閉じない)
+    };
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+    });
+    return close;
   };
+  bindSimplePopup('helpBtn', 'helpModalOverlay', 'helpModalCloseBtn');
+  bindSimplePopup('settingsBtn', 'settingsModalOverlay', 'settingsModalCloseBtn');
 
   let isMobileState = window.innerWidth <= 600;
   let resizeTimer = null;
@@ -1921,6 +2040,45 @@ body .item-contents.is-content-open {
     }
     return [...(item.groups || []), ...(item.relations || [])];
   };
+  // フィルターボタンのダブルクリック/ダブルタップによる「除外」機能。除外されたボタンの値に該当する
+  // データは、他のフィルター条件に関わらず常に非表示にする(複数の除外はOR結合:いずれか一つでも
+  // 該当すれば非表示)。状態はlocalStorageに保存し、次回訪問時も復元する。
+  const EXCLUDED_FILTERS_KEY = 'gl_log_excluded_filters';
+  const loadExcludedFilters = () => {
+    try {
+      const arr = JSON.parse(localStorage.getItem(EXCLUDED_FILTERS_KEY) || '[]');
+      return new Set(Array.isArray(arr) ? arr : []);
+    } catch {
+      return new Set();
+    }
+  };
+  const excludedFilterValues = loadExcludedFilters();
+  const saveExcludedFilters = () => localStorage.setItem(EXCLUDED_FILTERS_KEY, JSON.stringify(Array.from(excludedFilterValues)));
+
+  // アイテムが、除外指定されたいずれかのフィルター値(年/月/グループ/メンバー/コンテンツ種類)に
+  // 該当するかどうかを判定する。コンテンツ種類はCD→RELEASE等のエイリアスも正規化した上で判定する。
+  const isExcludedByFilter = item => {
+    if (!excludedFilterValues.size) return false;
+    const yr = item.date ? item.date.slice(0, 4) : '';
+    const mo = item.date ? item.date.slice(4, 6) : '';
+    if (excludedFilterValues.has(yr) || excludedFilterValues.has(mo)) return true;
+    const itemGroupsAndRelations = getFilterGroupsForItem(item);
+    // グループ(G2/L2):メタ表記そのもの、または該当グループの個別メンバーコードのいずれかで判定する
+    const itemHasMeta = m => {
+      if (itemGroupsAndRelations.includes(m)) return true;
+      const mValues = cats.find(c => c.meta === m)?.values || [];
+      return itemGroupsAndRelations.some(g => mValues.includes(g));
+    };
+    if (cats.some(c => excludedFilterValues.has(c.meta) && itemHasMeta(c.meta))) return true;
+    // メンバー個別:itemGroupsAndRelationsに含まれる値がそのまま除外指定されていれば該当
+    if (itemGroupsAndRelations.some(v => excludedFilterValues.has(v))) return true;
+    // コンテンツ種類:エイリアスも含めた正規化後の値で判定する(ETCは主要種類に含まれないもの全て)
+    const ic = normalizeContType(item.contents || '');
+    if (excludedFilterValues.has(ic)) return true;
+    if (excludedFilterValues.has('ETC') && !primaryConts.includes(ic)) return true;
+    return false;
+  };
+
   const matchesOtherFilters = (item, ctx) => {
     const { cYears, cMonths, sGroups, mGroups, kw, dq, dateToken, setlistIds } = ctx;
     const yr = item.date ? item.date.slice(0, 4) : '';
@@ -1975,14 +2133,14 @@ body .item-contents.is-content-open {
       }
 
       if (kw) {
-        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
         textOk = matchesSearchKeyword(searchText, kw);
       }
     }
 
     const todayOk = isTodayDateOk(item, cYears);
 
-    return yOk && monthOk && gOk && dateOk && textOk && setlistOk && todayOk;
+    return yOk && monthOk && gOk && dateOk && textOk && setlistOk && todayOk && !isExcludedByFilter(item);
   };
 
   // TODAY/←/→ボタン、またはセトリ検索モードでの検索条件変化があった時のみ、コンテンツ種類ボタンを自動on/offする。
@@ -2012,6 +2170,7 @@ body .item-contents.is-content-open {
     if (!todayMode && !setlistMode) {
       // TODAY・セトリ検索モードともにOFF:残りのフィルタでの再判定はせず、手動on/off以外は無条件でOFFにする
       contentCheckboxes.forEach(cb => {
+        if (excludedFilterValues.has(cb.value)) { cb.checked = false; return; } // 除外中は常にOFF
         if (manuallyTouchedConts.has(cb.value)) return;
         cb.checked = false;
       });
@@ -2039,6 +2198,11 @@ body .item-contents.is-content-open {
     });
 
     contentCheckboxes.forEach(cb => {
+      // 除外指定中のコンテンツ種類は自動on/offの対象から外し、常にOFF(非表示)のままにする
+      if (excludedFilterValues.has(cb.value)) {
+        cb.checked = false;
+        return;
+      }
       // 手動ONのものだけ保護する(手動OFFでも、該当するデータがあれば自動ONに戻す)
       const isProtected = manuallyTouchedConts.has(cb.value) && cb.checked;
       if (isProtected) return;
@@ -2136,14 +2300,14 @@ body .item-contents.is-content-open {
         }
 
         if (kw) {
-          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
           textOk = matchesSearchKeyword(searchText, kw);
         }
       }
       
       const todayOk = isTodayDateOk(item, cYears);
 
-      return yOk && monthOk && gOk && cOk && dateOk && textOk && setlistOk && todayOk;
+      return yOk && monthOk && gOk && cOk && dateOk && textOk && setlistOk && todayOk && !isExcludedByFilter(item);
     });
 
     filtered.sort((a, b) => {
@@ -2156,7 +2320,11 @@ body .item-contents.is-content-open {
       // 2) メンバー(フィルターボタンの並び順)
       const ma = memberSortRank(a), mb = memberSortRank(b);
       if (ma !== mb) return ma - mb;
-      // 3) コンテンツフィルターボタンの並び順
+      // 3) 誕生日(BIRTHDAY)は記念日(ANNIVERSARY)より上に表示する
+      const babRank = item => item.contents === 'BIRTHDAY' ? 0 : item.contents === 'ANNIVERSARY' ? 1 : 2;
+      const ba = babRank(a), bb = babRank(b);
+      if (ba !== bb) return ba - bb;
+      // 4) コンテンツフィルターボタンの並び順
       return contentSortRank(a) - contentSortRank(b);
     });
 
@@ -2276,7 +2444,7 @@ body .item-contents.is-content-open {
         }
 
         if (kw) {
-          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
           kwOk = matchesSearchKeyword(searchText, kw);
         }
       }
@@ -2290,7 +2458,7 @@ body .item-contents.is-content-open {
              monthOk &&
              gOk &&
              cOk &&
-             dateOk && kwOk && setlistOk && todayOk;
+             dateOk && kwOk && setlistOk && todayOk && !isExcludedByFilter(item);
     }).length;
   };
 
@@ -2410,6 +2578,15 @@ body .item-contents.is-content-open {
     $('textSizeDownBtn').disabled = textSizePercent <= TEXT_SIZE_MIN;
     $('textSizeUpBtn').disabled = textSizePercent >= TEXT_SIZE_MAX;
     localStorage.setItem(TEXT_SIZE_KEY, String(textSizePercent));
+    // 既に展開中のコンテンツ名ボックスは、文字サイズ変更前のpx幅(flexBasis)のまま固定されて
+    // しまうため、新しいフォントサイズを反映した幅に再計測して更新する(見切れ防止)。
+    // CSS変数の反映を待つため次フレームで計測する。
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.item-contents.is-content-open').forEach(ct => {
+        const targetPx = measureContentOpenWidthPx(ct);
+        ct.style.flexBasis = targetPx + 'px';
+      });
+    });
   };
   applyTextSize();
 
@@ -2723,6 +2900,36 @@ body .item-contents.is-content-open {
     updateDisplay(true);
   };
 
+  // 除外中のラベルに薄い色のスタイル(is-excluded)を適用/解除する。除外は通常のチェックON状態とは
+  // 排他的に扱うため、is-excludedが付く時点でそのcheckboxは常にfalseになっている想定。
+  const applyExcludedStyles = () => {
+    labels.forEach(l => {
+      const cb = l.querySelector('input');
+      if (!cb) return;
+      l.classList.toggle('is-excluded', excludedFilterValues.has(cb.value));
+    });
+  };
+
+  // 除外状態をトグルする。除外にする場合、選択中(checked)だったら解除し既存のchangeロジックも発火させる
+  const toggleExcludedForLabel = cb => {
+    const val = cb.value;
+    if (excludedFilterValues.has(val)) {
+      excludedFilterValues.delete(val);
+    } else {
+      excludedFilterValues.add(val);
+      manuallyTouchedConts.delete(val); // 除外指定は手動ON保護より優先させる
+      if (cb.checked) {
+        cb.checked = false;
+        cb.dispatchEvent(new Event('change'));
+      }
+    }
+    saveExcludedFilters();
+    applyExcludedStyles();
+    if (allConts.includes(val) || /^\d{4}$/.test(val) || /^\d{2}$/.test(val)) autoUpdateContentTypeFilters();
+    updateManualIndicators();
+    updateDisplay(true);
+  };
+
   const bindCheckboxAndLabelEvents = () => {
     if (!isTouch) {
       labels.forEach(l => {
@@ -2771,6 +2978,7 @@ body .item-contents.is-content-open {
         e.preventDefault();
         const cb = l.querySelector('input');
         if (cb) {
+          if (excludedFilterValues.has(cb.value)) return; // 除外中はキーボード操作でのON/OFFも無効化する
           cb.checked = !cb.checked;
           if (allConts.includes(cb.value)) manuallyTouchedConts.add(cb.value);
           updateManualIndicators();
@@ -2780,6 +2988,31 @@ body .item-contents.is-content-open {
           window.scrollTo({ top: 0, behavior: 'instant' });
         }
       }
+    });
+
+    // フィルターボタンのダブルクリック/ダブルタップ:そのボタンの値を「除外」指定に切り替える(再度で解除)。
+    // ネイティブのlabelクリック挙動(クリックのたびにチェックボックスをトグル)を常にpreventDefaultで止め、
+    // シングル/ダブルの判定を自前のタイマーで行う(マウス・タッチどちらも'click'イベントで統一的に扱えるため)。
+    const DBLCLICK_THRESHOLD_MS = 300;
+    labels.forEach(l => {
+      const cb = l.querySelector('input');
+      if (!cb) return;
+      let clickTimer = null;
+      l.onclick = e => {
+        e.preventDefault();
+        if (clickTimer) {
+          clearTimeout(clickTimer);
+          clickTimer = null;
+          toggleExcludedForLabel(cb);
+          return;
+        }
+        clickTimer = setTimeout(() => {
+          clickTimer = null;
+          if (excludedFilterValues.has(cb.value)) return; // 除外中はシングルクリックでのON/OFFも無効化する
+          cb.checked = !cb.checked;
+          cb.dispatchEvent(new Event('change')); // 既存のcb.onchangeロジック(manuallyTouchedConts等)を発火させる
+        }, DBLCLICK_THRESHOLD_MS);
+      };
     });
 
     checkboxes.forEach(cb => cb.onchange = () => {
@@ -2811,6 +3044,7 @@ body .item-contents.is-content-open {
 
     updateAllBadges();
       updateManualIndicators();
+      applyExcludedStyles(); // ラベル再生成(年フィルター等)後も除外中の見た目(薄い色)を再適用する
   };
   bindCheckboxAndLabelEvents();
 
@@ -2836,13 +3070,15 @@ body .item-contents.is-content-open {
   const restoreFromHash = () => {
     if (updating) return;
     const active = window.location.hash.replace('#', '').split(',').filter(Boolean);
-    checkboxes.forEach(cb => cb.checked = active.includes(cb.value));
+    // 除外指定中の値は、URLで明示的にONと指定されていても常にOFFのままにする(除外との矛盾を防止)
+    checkboxes.forEach(cb => cb.checked = active.includes(cb.value) && !excludedFilterValues.has(cb.value));
     // URLで明示的にONになっているコンテンツ種類は手動操作扱いにして保護する。OFFのものは自動on/offの対象に戻す
     manuallyTouchedConts.clear();
     checkboxes.forEach(cb => {
       if (allConts.includes(cb.value) && cb.checked) manuallyTouchedConts.add(cb.value);
     });
     updateSearchClearState();
+    applyExcludedStyles();
     updateMonthFilterVisibility(); // URL復元時も、年フィルターの状態に応じて月フィルターの表示/非表示を合わせる
     updateDisplay(false);
   };
@@ -2853,6 +3089,10 @@ body .item-contents.is-content-open {
     if (e) e.preventDefault();
     checkboxes.forEach(cb => cb.checked = false);
     manuallyTouchedConts.clear();
+    // CLEARで除外指定(ダブルクリック/ダブルタップで設定したもの)もあわせてリセットする
+    excludedFilterValues.clear();
+    saveExcludedFilters();
+    applyExcludedStyles();
     updateMonthFilterVisibility(); // 年フィルターも全解除されるため、月フィルター行も非表示に戻す
     searchInput.value = '';
     updateSearchClearState();
