@@ -357,11 +357,10 @@
 
   {
     "date": "20190918",
-    "time": "",
     "contents": "ANNIVERSARY",
     "title": "mirage² 2nd シングル 「ドキ☆ドキ」 リリース記念日",
-    "display_pc": "mirage²　2nd SINGLE 「ドキ☆ドキ」 リリース記念日",
-    "display_sp": "mirage²　2nd SG 「ドキ☆ドキ」 リリース記念日",
+    "display_pc": "mirage² 2nd SINGLE 「ドキ☆ドキ」 リリース記念日",
+    "display_sp": "mirage² 2nd SG 「ドキ☆ドキ」 リリース記念日",
     "url": "https://www.mirage2.jp/disco/archive/?AICL-3768",
     "groups": [
       "G2",
@@ -370,18 +369,16 @@
       "TOA",
       "RAN"
     ],
-    "relations": [],
     "tags": [
       "ドキ☆ドキ","シング・ア・ソング","ひみつ×戦士 ファントミラージュ！","ひみつ×戦士 ファントミラージュ！"
     ]
   },
   {
     "date": "20190918",
-    "time": "",
     "contents": "CD",
     "title": "mirage² 2nd シングル 「ドキ☆ドキ」 リリース",
-    "display_pc": "mirage²　2nd SINGLE 「ドキ☆ドキ」 リリース",
-    "display_sp": "mirage²　2nd SG 「ドキ☆ドキ」 リリース",
+    "display_pc": "mirage² 2nd SINGLE 「ドキ☆ドキ」 リリース",
+    "display_sp": "mirage² 2nd SG 「ドキ☆ドキ」 リリース",
     "url": "https://www.mirage2.jp/info/archive/?508257",
     "groups": [
       "G2",
@@ -390,7 +387,6 @@
       "TOA",
       "RAN"
     ],
-    "relations": [],
     "tags": [
       "ドキ☆ドキ","シング・ア・ソング","ひみつ×戦士 ファントミラージュ！","ひみつ×戦士 ファントミラージュ！"
     ]
@@ -1887,34 +1883,24 @@
   },
   {
     "date": "20250722",
-    "time": "",
     "contents": "ANNIVERSARY",
-    "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 連載開始記念日",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」 連載開始記念日",
+    "title": "TOKYO HEADLINE WEB 「あかりんごの元気モリモリDiary🌳🍎💚」 連載開始記念日",
     "display_sp": "「あかりんごの元気モリモリDiary🌳🍎💚」 連載開始記念日",
     "url": "https://www.tokyoheadline.com/category/column/akaringo/",
     "groups": [
       "L2",
       "AKR"
-    ],
-    "relations": [],
-    "tags": [
     ]
   },
   {
     "date": "20210511",
-    "time": "",
     "contents": "ANNIVERSARY",
-    "title": "TOKYO HEADLINE WEB「柚葉24じ」 連載開始記念日",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」 連載開始記念日",
+    "title": "TOKYO HEADLINE WEB 「柚葉24じ」 連載開始記念日",
     "display_sp": "「柚葉24じ」 連載開始記念日",
     "url": "https://www.tokyoheadline.com/category/column/girls2yuzuha24h/",
     "groups": [
       "G2",
       "YZH"
-    ],
-    "relations": [],
-    "tags": [
     ]
   },
   {
