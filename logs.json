@@ -82,6 +82,34 @@
     "tags": []
   },
   {
+    "date": "20260816",
+    "time": "1900",
+    "contents": "CL",
+    "title": "KEY MUSIC 〜数原龍友×隅谷百花 Vol.1〜",
+    "display_pc": "KEY MUSIC 〜数原龍友×隅谷百花 Vol.1〜",
+    "display_sp": "KEY MUSIC ～RURI×鶴屋美咲×RUI Vol.2～",
+    "url": "https://www.cl-live.com/programs/ondemand/7z9Ni9NypQdmHLTNdYuKDg",
+    "groups": [
+      "G2","MMK"
+    ],
+    "relations": [],
+    "tags": ["GENERATIONS","KAZ","Avocado feat. Airi Suzuki"]
+  },
+  {
+    "date": "20260919",
+    "time": "1800",
+    "contents": "CL",
+    "title": "KEY MUSIC 〜RURI×鶴屋美咲×RUI Vol.2〜",
+    "display_pc": "KEY MUSIC ～RURI×鶴屋美咲×RUI Vol.2～",
+    "display_sp": "KEY MUSIC ～RURI×鶴屋美咲×RUI Vol.2～",
+    "url": "https://www.cl-live.com/programs/ondemand/hzsyjjnD9uXZJCk1CpXbza",
+    "groups": [
+      "G2","MSK"
+    ],
+    "relations": [],
+    "tags": ["f5ve","iScream","THE RAMPAGE","Starlight"]
+  },
+  {
     "date": "20260925",
     "time": "1000",
     "contents": "WEB",
@@ -152,6 +180,30 @@
     "setlistid": "202610031300",
     "relations": [],
     "tags": ["お台場 a-nation特設会場"]
+  },
+  {
+    "date": "20260919",
+    "time": "1200",
+    "contents": "WEB",
+    "title": "encore",
+    "display_pc": "encore",
+    "display_sp": "encore",
+    "url": "https://e.usen.com/interview/interview-original/laki-work-life.html",
+    "groups": [
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+    ]
+  },
+  {
+    "date": "20260919",
+    "time": "1900",
+    "contents": "WEB",
+    "title": "リアルサウンド",
+    "display_pc": "リアルサウンド",
+    "display_sp": "リアルサウンド",
+    "url": "https://realsound.jp/2026/09/post-2529774.html",
+    "groups": [
+      "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+    ]
   },
   {
     "date": "20260918",
