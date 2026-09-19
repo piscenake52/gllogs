@@ -3677,17 +3677,25 @@
   },
   {
     "date": "20190329",
+    "time": "",
     "contents": "ANNIVERSARY",
     "title": "Girls² 結成記念日",
+    "display_pc": "Girls²　結成記念日",
+    "display_sp": "Girls²　結成記念日",
     "url": "https://x.com/Girls2_official/status/1111508861125455872",
     "groups": [
       "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
     ],
+    "tags": [
+    ]
   },
   {
     "date": "20210613",
+    "time": "",
     "contents": "FORMATION",
     "title": "Lucky² 結成",
+    "display_pc": "Lucky²　結成",
+    "display_sp": "Lucky²　結成",
     "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/530110",
     "groups": [
       "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK","YUR"
@@ -3698,8 +3706,11 @@
   },
   {
     "date": "20210613",
+    "time": "",
     "contents": "ANNIVERSARY",
     "title": "Laki 結成記念日",
+    "display_pc": "Laki 結成記念日",
+    "display_sp": "Laki 結成記念日",
     "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/530110",
     "groups": [
       "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK","YUR"
@@ -3710,8 +3721,11 @@
   },
   {
     "date": "20210922",
+    "time": "",
     "contents": "DEBUT",
     "title": "Lucky² デビュー",
+    "display_pc": "Lucky²デビュー",
+    "display_sp": "Lucky²デビュー",
     "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/530110",
     "groups": [
       "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK","YUR"
@@ -3722,8 +3736,11 @@
   },
   {
     "date": "20210922",
+    "time": "",
     "contents": "ANNIVERSARY",
     "title": "Laki デビュー記念日",
+    "display_pc": "Laki　デビュー記念日",
+    "display_sp": "Laki　デビュー記念日",
     "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/530110",
     "groups": [
       "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK","YUR"
@@ -3734,8 +3751,11 @@
   },
   {
     "date": "20190626",
+    "time": "",
     "contents": "DEBUT",
     "title": "Girls² デビュー",
+    "display_pc": "Girls²　デビュー",
+    "display_sp": "Girls²　デビュー",
     "url": "https://www.sonymusic.co.jp/artist/girls2/info/505432",
     "groups": [
       "G2",
@@ -3749,6 +3769,8 @@
       "TOA",
       "RAN"
     ],
+    "tags": [
+    ]
   },
   {
     "date": "20190626",
