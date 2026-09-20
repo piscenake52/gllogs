@@ -3910,30 +3910,6 @@
     ]
   },
   {
-    "date": "20260921",
-    "time": "1830",
-    "contents": "LIVE",
-    "title": "HiGH&LOW 10th ANNIVERSARY FEVER",
-    "display_pc": "HiGH&LOW 10th ANNIVERSARY FEVER",
-    "display_sp": "HiGH&LOW 10th ANNIVERSARY FEVER",
-    "url": "https://girls2-fc.jp/page/familyNews/1227165681103929345",
-    "map": "https://maps.app.goo.gl/u2hHigQS8wrjY7WS8",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "setlistid": "202609211830",
-    "tags": [
-      "Kアリーナ横浜"
-    ]
-  },
-  {
     "date": "20260922",
     "time": "1830",
     "contents": "LIVE",
@@ -3955,6 +3931,49 @@
     "setlistid": "202609221830",
     "tags": [
       "Kアリーナ横浜"
+    ]
+  },
+  {
+    "date": "20260923",
+    "time": "1830",
+    "contents": "LIVE",
+    "title": "HiGH&LOW 10th ANNIVERSARY FEVER",
+    "display_pc": "HiGH&LOW 10th ANNIVERSARY FEVER",
+    "display_sp": "HiGH&LOW 10th ANNIVERSARY FEVER",
+    "url": "https://girls2-fc.jp/page/familyNews/1227165681103929345",
+    "map": "https://maps.app.goo.gl/u2hHigQS8wrjY7WS8",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "setlistid": "202609231830",
+    "tags": [
+      "Kアリーナ横浜"
+    ]
+  },
+  {
+    "date": "20260921",
+    "time": "1800",
+    "contents": "TICKET",
+    "title": "HiGH&LOW 10th ANNIVERSARY FEVER チケット直前販売",
+    "display_pc": "HiGH&LOW 10th ANNIVERSARY FEVER チケット直前販売",
+    "display_sp": "HiGH&LOW 10th ANNIVERSARY FEVER チケット直前販売",
+    "url": "https://e-ticketbook.com/high-low10th-live/2606-tb/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ]
   },
   {
