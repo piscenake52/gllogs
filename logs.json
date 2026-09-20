@@ -2846,6 +2846,7 @@
     "url": "https://girls2-fc.jp/page/familyNews/1227926050164441090",
     "map": "https://maps.app.goo.gl/bdFbh92Je7oDr5y78",
     "groups": ["G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR"],
+    "setlistid": "202611011830",
     "relations": [],
     "tags": ["新宿住友ビル三角広場"]
   },
@@ -3713,6 +3714,7 @@
     "groups": [
       "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
     ],
+    "setlistid": "202609271630",
     "relations": [""]
   },
   {
@@ -4340,7 +4342,7 @@
       "MNM",
       "KIR"
     ],
-    "setlistid": "",
+    "setlistid": "202612251800",
     "tags": [
       "Shibuya LOVEZ",
       "クリスマス"
@@ -4390,7 +4392,7 @@
     "relations": [
       "TOA"
     ],
-    "setlistid": "",
+    "setlistid": "202611291700",
     "tags": [
       "MUFGスタジアム",
       "国立競技場"
@@ -4424,6 +4426,7 @@
       "AKR",
       "KIK"
     ],
+    "setlistid": "202611281730",
     "relations": [
       "TOA"
     ],
@@ -4634,7 +4637,7 @@
       "MNM",
       "KIR"
     ],
-    "setlistid": "",
+    "setlistid": "202610181630",
     "tags": [
       "NHK大阪ホール"
     ]
@@ -4661,7 +4664,7 @@
     "relations": [
       "TOA"
     ],
-    "setlistid": "",
+    "setlistid": "202610171300",
     "tags": [
       "ナガシマスパーランド ナガシマスパードーム"
     ]
@@ -4723,7 +4726,7 @@
       "MNM",
       "KIR"
     ],
-    "setlistid": "",
+    "setlistid": "202610101630",
     "tags": [
       "Niterra日本特殊陶業市民会館ビレッジホール"
     ]
@@ -4747,7 +4750,7 @@
       "MNM",
       "KIR"
     ],
-    "setlistid": "",
+    "setlistid": "202610041700",
     "tags": [
       "福岡国際会議場 メインホール"
     ]
@@ -4805,7 +4808,7 @@
       "AKR",
       "KIK"
     ],
-    "setlistid": "",
+    "setlistid": "202610031630",
     "tags": [
       "大宮ステラタウン メローベ広場"
     ]
@@ -4830,7 +4833,7 @@
       "AKR",
       "KIK"
     ],
-    "setlistid": "",
+    "setlistid": "202610031400",
     "tags": [
       "大宮ステラタウン メローベ広場"
     ]
@@ -5224,7 +5227,7 @@
       "MNM",
       "KIR"
     ],
-    "setlistid": "",
+    "setlistid": "202609271300",
     "tags": [
       "イオンモール新利府南館　1Fライブスクエア",
       "ミニライブ",
@@ -5253,7 +5256,7 @@
       "AKR",
       "KIK"
     ],
-    "setlistid": "",
+    "setlistid": "202609261630",
     "tags": [
       "イオンモール幕張新都心  グランドモール1Fグランドスクエア"
     ]
@@ -5297,7 +5300,7 @@
       "MNM",
       "KIR"
     ],
-    "setlistid": "",
+    "setlistid": "202609261430",
     "tags": [
       "幕張メッセ国際展示場 1-3ホール"
     ]
@@ -5322,7 +5325,7 @@
       "AKR",
       "KIK"
     ],
-    "setlistid": "",
+    "setlistid": "202609261400",
     "tags": [
       "イオンモール幕張新都心  グランドモール1Fグランドスクエア"
     ]
@@ -5331,9 +5334,7 @@
     "date": "20260925",
     "time": "2000",
     "contents": "SNS",
-    "title": "あかりんごの元気モリモリール #120",
-    "display_pc": "あかりんごの元気モリモリール　#120",
-    "display_sp": "",
+    "title": "あかりんごの元気モリモリール",
     "url": "",
     "groups": [
       "L2",
@@ -5348,9 +5349,7 @@
     "date": "20260925",
     "time": "1000",
     "contents": "GTUBE",
-    "title": "#753 ",
-    "display_pc": "#753　G TUBE",
-    "display_sp": "#753　G TUBE",
+    "title": "#753　G TUBE",
     "url": "",
     "groups": [
       "G2",
@@ -5714,13 +5713,15 @@
     "map": "https://maps.app.goo.gl/MBZtjMJmkAGrREi46",
     "groups": [
       "G2",
-      "YZH",
       "MMK",
       "MSK",
       "YOK",
       "KUR",
       "MNM",
       "KIR"
+    ],
+    "relations": [
+      "YZH"
     ],
     "setlistid": "202609201300",
     "tags": [
