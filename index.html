@@ -389,6 +389,14 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .filter-badge .badge-x { font-size: 10px; color: var(--muted); font-weight: bold; }
 .filter-badge .badge-square { display: inline-block; width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
 /* --- 項目一覧(ログ本体) --- */
+/* TODAYモードのフリック時に#items(データ行)と#noResult(NO DATA表示)をまとめてスライドさせるための外枠。
+   レイアウトに影響しないよう幅のみ指定し、余白・装飾は持たせない */
+.day-slide-area { width: 100%; }
+/* NO DATA表示時、メッセージの表示位置(=NO RESULTS FOUND時と同じ位置)は変えずに、
+   その下の余白部分だけをフリック可能にするための透明な当たり判定。
+   position:fixedでドキュメントの流れから外れるため、他要素(updated>やフッター)を押し下げない。
+   z-index:-1で通常の要素(テキストやボタン)より背面に置くことで、それらのクリック/タップは妨げない */
+#dayFlickFill { position: fixed; left: 0; right: 0; z-index: -1; display: none; }
 .items { display: flex; flex-direction: column; align-items: flex-start; width: 100%; transition: opacity 0.25s ease, transform 0.25s ease; }
 .items.is-animating { opacity: 0; transform: translateY(6px); }
 .item { display: flex; align-items: baseline; width: 100%; font-size: 13px; line-height: 1.4; color: var(--text); padding: 6px 2px; border-bottom: 1px solid var(--item-border); animation: accordionIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(4px); }
@@ -731,12 +739,15 @@ body .item-contents.is-content-open {
     </div>
   </div>
 
+  <div class="day-slide-area" id="daySlideArea">
   <div class="items" id="items"></div>
   <div id="scrollSentinel"></div>
   <div class="no-result" id="noResult"><span id="noResultText">NO RESULTS FOUND</span><br><button class="quick-reset-btn" id="quickResetBtn">CLEAR ALL FILTERS</button></div>
+  </div>
+  <div id="dayFlickFill"></div>
   <div class="no-result" id="loadError">LOAD ERROR<br><button class="quick-reset-btn" id="retryBtn">RETRY</button></div>
   <div class="footer-update-time" id="updateTime">updated > --</div>
-  <div class="footer-btn-row">
+  <div class="footer-btn-row" id="footerBtnRow">
     <button type="button" class="help-btn" id="helpBtn" aria-label="&#12504;&#12523;&#12503;&#12434;&#34920;&#31034;">?</button>
     <button type="button" class="help-btn" id="settingsBtn" aria-label="&#35373;&#23450;&#12434;&#34920;&#31034;">&#9881;&#65039;</button>
   </div>
@@ -2202,7 +2213,7 @@ body .item-contents.is-content-open {
         const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(dateToken)));
         dateOk = matchesDate || tagsMatch;
         // ANNIVERSARYは登録年自体を検索でも見せない(翌年以降のみ、日付検索でも同じ扱いにする)
-        if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, itemDateNum.slice(0, 4))) dateOk = false;
+        if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, anniversaryRegisteredYear(item, itemDateNum))) dateOk = false;
       }
 
       if (kw) {
@@ -2369,7 +2380,7 @@ body .item-contents.is-content-open {
           const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(dateToken)));
           dateOk = matchesDate || tagsMatch;
           // ANNIVERSARYは登録年自体を検索でも見せない(翌年以降のみ、日付検索でも同じ扱いにする)
-          if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, itemDateNum.slice(0, 4))) dateOk = false;
+          if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, anniversaryRegisteredYear(item, itemDateNum))) dateOk = false;
         }
 
         if (kw) {
@@ -2423,13 +2434,9 @@ body .item-contents.is-content-open {
       
       if (!isZero) renderBatch();
       $('items').classList.remove('is-animating');
-      // 0件の場合、items用に伸ばしたmin-heightをそのままにするとNO DATA/NO RESULTS FOUNDが
-      // 画面下の方まで押し下げられてしまうため解除する(0件でなければ従来通りフリック用に伸ばす)
-      if (isZero) {
-        $('items').style.minHeight = '';
-      } else {
-        updateItemsMinHeight();
-      }
+      // 0件時もupdateItemsMinHeight内で分岐して処理する(表示位置は変えず、
+      // その下の余白を#dayFlickFillでフリック対象にする)
+      updateItemsMinHeight();
     }, 120);
 
     if (syncHash) {
@@ -2524,7 +2531,7 @@ body .item-contents.is-content-open {
           const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(dateToken)));
           dateOk = matchesDate || tagsMatch;
           // ANNIVERSARYは登録年自体を検索でも見せない(翌年以降のみ、日付検索でも同じ扱いにする)
-          if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, itemDateNum.slice(0, 4))) dateOk = false;
+          if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, anniversaryRegisteredYear(item, itemDateNum))) dateOk = false;
         }
 
         if (kw) {
@@ -2904,9 +2911,17 @@ body .item-contents.is-content-open {
 
   // BIRTHDAYのみ対象に、複製した年別アイテムに元の登録年(=生年)を _birthYear として付与する。
   // 表示時(buildRowText側)でこの値と複製先の表示年を比較し、「年齢」を計算するためのもの。
-  // ANNIVERSARYは年齢表示の対象外なので付与しない（空オブジェクトを返し、Object.assignで何も上書きしない）。
+  // ANNIVERSARYは年齢表示の対象外だが、代わりに元の登録年を _registeredYear として付与する。
+  // (TODAYモードでの日付検索等でitem.dateが表示年に書き換えられた後も、「登録年自体は表示しない」
+  //  判定(下のanniversaryRegisteredYear/各所のminRecurrenceYearチェック)で本来の登録年を参照するため)
   const birthdayAgeProps = (item, registeredYear) =>
-    item.contents === 'BIRTHDAY' ? { _birthYear: registeredYear } : {};
+    item.contents === 'BIRTHDAY' ? { _birthYear: registeredYear } : { _registeredYear: registeredYear };
+
+  // ANNIVERSARYの「登録年自体は表示しない」判定に使う登録年を取得する。
+  // 展開済み(expandTodayBirthdayItemsで_registeredYearが付与された)アイテムはその値を、
+  // 未展開(元データそのまま。item.dateがまだ登録日そのもの)ならitem.dateの年をそのまま使う
+  const anniversaryRegisteredYear = (item, itemDateNum) =>
+    item._registeredYear || (itemDateNum ? itemDateNum.slice(0, 4) : '');
 
   // BIRTHDAY/ANNIVERSARYを「表示すべき年」ごとに複製したアイテムへ展開する。年フィルターが無ければ
   // 何もしない(高速パス)。以下2つのケースで展開する:
@@ -3045,20 +3060,44 @@ body .item-contents.is-content-open {
   // ←/→ボタン押下・データ部のフリックのどちらでも同じスライドイン/アウト演出を使う。
   // 翌日方向(delta>0)は左へ、前日方向(delta<0)は右へスライドアウトする向きで統一する。
   const itemsEl = $('items');
+  // フリックでのスライド演出は、データ行(#items)だけでなくNO DATA表示(#noResult)も
+  // 一緒に動かす必要があるため、両者を包む#daySlideAreaに対してtransformを適用する
+  const slideAreaEl = $('daySlideArea');
+  // NO DATA表示時、表示位置を変えずにその下の余白だけをフリック可能にするための透明な当たり判定
+  const flickFillEl = $('dayFlickFill');
   const DAY_SLIDE_MS = 220;      // スライドイン/アウトの所要時間
   const DAY_SWAP_WAIT_MS = 150;  // データ切替(updateDisplay内部の120msフェード)を画面外で待つ時間
   let daySlideAnimating = false; // 演出の多重発火防止(演出中は新たな操作を受け付けない)
 
   // TODAYモード中は、表示件数が少なくデータ部(#items)の実高さが画面より低い場合でも、
   // 画面(ビューポート)の下端までフリック可能な領域として扱えるよう min-height を伸ばす。
-  // TODAYモードOFF時は元に戻す(通常表示で不要な余白ができないようにする)。
+  // 0件(NO DATA)時は、#itemsや#noResultのmin-heightを伸ばすとNO RESULTS FOUND時より
+  // 後続のupdated>/フッターが下に押し下げられてしまうため、それらは伸ばさず、
+  // #dayFlickFillを表示位置は変えずにその下の余白へ重ねることでフリック対象にする。
+  // TODAYモードOFF時はすべて元に戻す(通常表示で不要な余白ができないようにする)。
   const updateItemsMinHeight = () => {
-    // データ0件(NO DATA表示中)の時は、min-heightを伸ばすとメッセージが画面下の方に
-    // 押し下げられてしまうため、伸ばさない(リサイズ時の再計算でも同様にガードする)
-    if (!todayMode || $('noResult').style.display === 'block') {
+    const noResultEl = $('noResult');
+    if (!todayMode) {
       itemsEl.style.minHeight = '';
+      flickFillEl.style.display = 'none';
       return;
     }
+    if (noResultEl.style.display === 'block') {
+      itemsEl.style.minHeight = '';
+      // #dayFlickFillはposition:fixedでドキュメントの流れから外れているため、
+      // ここでtop/heightを設定してもupdated>やフッターの位置には影響しない
+      const bottom = noResultEl.getBoundingClientRect().bottom;
+      const extra = window.innerHeight - bottom;
+      if (extra > 0) {
+        flickFillEl.style.top = bottom + 'px';
+        flickFillEl.style.height = extra + 'px';
+        flickFillEl.style.display = 'block';
+      } else {
+        flickFillEl.style.display = 'none';
+      }
+      return;
+    }
+    flickFillEl.style.display = 'none';
     const top = itemsEl.getBoundingClientRect().top;
     const extra = window.innerHeight - top;
     itemsEl.style.minHeight = extra > 0 ? extra + 'px' : '';
@@ -3070,12 +3109,12 @@ body .item-contents.is-content-open {
   }
 
   const setItemsTransform = (dx, withTransition) => {
-    itemsEl.style.transition = withTransition ? `transform ${DAY_SLIDE_MS}ms ease-out` : 'none';
-    itemsEl.style.transform = dx === 0 ? '' : `translateX(${dx}px)`;
+    slideAreaEl.style.transition = withTransition ? `transform ${DAY_SLIDE_MS}ms ease-out` : 'none';
+    slideAreaEl.style.transform = dx === 0 ? '' : `translateX(${dx}px)`;
   };
   const resetItemsTransform = () => {
-    itemsEl.style.transition = '';
-    itemsEl.style.transform = '';
+    slideAreaEl.style.transition = '';
+    slideAreaEl.style.transform = '';
   };
 
   // 実際の日付切替処理本体(todayOffset更新・ボタン見た目・フィルター再計算・再描画)
@@ -3096,17 +3135,17 @@ body .item-contents.is-content-open {
   };
 
   // スライドアウト→(画面外で)日付切替→スライドインを行う。フリック中の場合は現在位置(既にtranslateX(dx)済み)
-  // から続けてスライドアウトさせるため、呼び出し前のitemsElの位置はそのまま利用する
+  // から続けてスライドアウトさせるため、呼び出し前のslideAreaElの位置はそのまま利用する
   const playDaySlideChange = delta => {
     if (!todayMode || daySlideAnimating) return;
     daySlideAnimating = true;
-    const width = itemsEl.getBoundingClientRect().width || itemsEl.offsetWidth || 300;
+    const width = slideAreaEl.getBoundingClientRect().width || slideAreaEl.offsetWidth || 300;
     const exitX = delta > 0 ? -width : width; // 翌日=左へ、前日=右へ
 
-    setItemsTransform(exitX, true); // 現在の内容を画面外へスライドアウト
+    setItemsTransform(exitX, true); // 現在の内容(データ行+NO DATA表示)を画面外へスライドアウト
     const onExitEnd = ev => {
-      if (ev.target !== itemsEl || ev.propertyName !== 'transform') return;
-      itemsEl.removeEventListener('transitionend', onExitEnd);
+      if (ev.target !== slideAreaEl || ev.propertyName !== 'transform') return;
+      slideAreaEl.removeEventListener('transitionend', onExitEnd);
 
       setItemsTransform(-exitX, false); // 反対側の画面外へ瞬時に配置(この時点ではまだ見えない)
       performDayChange(delta);
@@ -3117,34 +3156,43 @@ body .item-contents.is-content-open {
       }, DAY_SWAP_WAIT_MS);
 
       const onEnterEnd = ev2 => {
-        if (ev2.target !== itemsEl || ev2.propertyName !== 'transform') return;
-        itemsEl.removeEventListener('transitionend', onEnterEnd);
+        if (ev2.target !== slideAreaEl || ev2.propertyName !== 'transform') return;
+        slideAreaEl.removeEventListener('transitionend', onEnterEnd);
         resetItemsTransform();
         daySlideAnimating = false;
       };
-      itemsEl.addEventListener('transitionend', onEnterEnd);
+      slideAreaEl.addEventListener('transitionend', onEnterEnd);
     };
-    itemsEl.addEventListener('transitionend', onExitEnd);
+    slideAreaEl.addEventListener('transitionend', onExitEnd);
   };
 
   $('prevDayBtn').onclick = () => playDaySlideChange(-1);
   $('nextDayBtn').onclick = () => playDaySlideChange(1);
 
   // ================= TODAYモード:データ部でのフリック操作 =================
-  // データ部(#items)全体で、右から左にフリック=翌日、左から右にフリック=前日へ切り替える。
+  // データ部+NO DATA表示をまとめた#daySlideArea、および画面下部の更新時刻表示(#updateTime)・
+  // ヘルプ(?)/設定(⚙)ボタン行(#footerBtnRow)を「フリック開始領域」として扱う。
+  // ボタン自体のタップ(短時間・移動量小)は従来どおりclickが発火するため、
+  // ?/⚙ボタンのタップ動作とフリック操作は干渉しない。
+  // ※これらの領域自体は見た目上は動かさず、フリックで動くのは常に#daySlideArea(データ部+NO DATA表示)側。
+  // (#itemsだけに登録すると、0件でNO DATA表示中は#items自体の高さが無くなりタッチを拾えないため、
+  //  #noResultも含む親要素の#daySlideAreaを対象にしている)
   // タイトルの独自横スクロール(.item-titleのoverflow-x:auto)より、しきい値を超えたフリックを優先する。
   (() => {
     if (!isTouch) return; // タッチ非対応環境(PCのマウス操作等)では登録しない
     const AXIS_LOCK_PX = 10;       // この移動量で横/縦どちらの操作かをロックする
     const SWIPE_DIST_PX = 70;      // 確定に必要な最小移動距離(px)
     const SWIPE_VELOCITY = 0.35;   // 確定に必要な最小速度(px/ms)。距離が足りなくても素早いフリックなら確定させる
+    // フリック開始を受け付ける領域。#daySlideArea以外は見た目上動かないが、
+    // ここで指を動かし始めても#daySlideArea側がスライドする
+    const flickZones = [slideAreaEl, flickFillEl, $('updateTime'), $('footerBtnRow')].filter(Boolean);
 
     let startX = 0, startY = 0, startTime = 0;
     let dragDx = 0;
     let axisLock = null; // null=未判定, 'h'=横方向確定, 'v'=縦方向確定(以降は素通しでスクロールに任せる)
     let touchOnScrollableTitle = false; // タイトルリンク(.item-title)が横スクロール可能な長さで、かつそこから触れ始めた場合true
 
-    itemsEl.addEventListener('touchstart', e => {
+    const onTouchStart = e => {
       if (!todayMode || daySlideAnimating || e.touches.length !== 1) { axisLock = null; return; }
       // データ行のタイトルリンクが長文で横スクロール可能な場合、そこをホールドしている間は
       // 日付フリックと競合しないよう、この後のtouchmoveで一切介入せずネイティブの横スクロールに任せる
@@ -3155,9 +3203,9 @@ body .item-contents.is-content-open {
       startTime = Date.now();
       dragDx = 0;
       axisLock = null;
-    }, { passive: true });
+    };
 
-    itemsEl.addEventListener('touchmove', e => {
+    const onTouchMove = e => {
       if (!todayMode || daySlideAnimating || e.touches.length !== 1 || axisLock === 'v' || touchOnScrollableTitle) return;
       const dx = e.touches[0].clientX - startX;
       const dy = e.touches[0].clientY - startY;
@@ -3168,11 +3216,12 @@ body .item-contents.is-content-open {
         if (axisLock === 'v') return; // 縦スクロールと判定:以降は何もせずブラウザ標準の縦スクロールに任せる
       }
 
-      // 横方向優位と判定:ページの縦スクロールや.item-title自身の横スクロールより、この後の確定処理を優先させる
+      // 横方向優位と判定:ページの縦スクロールや.item-title自身の横スクロール、
+      // ?/⚙ボタンのタップ判定より、この後の確定処理を優先させる
       e.preventDefault();
       dragDx = dx;
-      setItemsTransform(dx, false);
-    }, { passive: false });
+      setItemsTransform(dx, false); // 見た目が動くのは常に#daySlideArea側
+    };
 
     const finishSwipe = () => {
       touchOnScrollableTitle = false;
@@ -3191,11 +3240,17 @@ body .item-contents.is-content-open {
       playDaySlideChange(dragDx < 0 ? 1 : -1);
     };
 
-    itemsEl.addEventListener('touchend', finishSwipe);
-    itemsEl.addEventListener('touchcancel', () => {
+    const onTouchCancel = () => {
       touchOnScrollableTitle = false;
       if (axisLock === 'h' && !daySlideAnimating) setItemsTransform(0, true);
       axisLock = null;
+    };
+
+    flickZones.forEach(el => {
+      el.addEventListener('touchstart', onTouchStart, { passive: true });
+      el.addEventListener('touchmove', onTouchMove, { passive: false });
+      el.addEventListener('touchend', finishSwipe);
+      el.addEventListener('touchcancel', onTouchCancel);
     });
   })();
 
