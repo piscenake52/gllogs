@@ -104,22 +104,16 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 #songToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #heartToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #setlistToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
-/* 文字サイズ「-」「+」ボタン:現在の拡大縮小段階が既定値(0)でなければ、該当する側だけ青くする */
-#textSizeDownBtn.is-active, #textSizeUpBtn.is-active { color: #fff; background-color: #38bdf8; }
-/* 最小/最大まで達した側は押せなくする(disabled)が、色はis-active(青)のまま維持し、
-   toggle-btn共通の disabled 時の減光(opacity)は打ち消す */
-#textSizeDownBtn:disabled, #textSizeUpBtn:disabled { opacity: 1; cursor: not-allowed; }
-#textSizeDownBtn:disabled:hover, #textSizeUpBtn:disabled:hover { background-color: var(--btn-bg); }
-#textSizeDownBtn.is-active:disabled, #textSizeUpBtn.is-active:disabled,
-#textSizeDownBtn.is-active:disabled:hover, #textSizeUpBtn.is-active:disabled:hover {
-  color: #fff; background-color: #38bdf8;
-}
+/* 文字サイズ「A」ボタン:現在の拡大縮小段階が既定値(0)でなければ青くする。パネルが開いている間は
+   別途リング(box-shadow)で開いている状態を示す */
+#textSizeBtn.is-active { color: #fff; background-color: #38bdf8; }
+#textSizeBtn.is-open { box-shadow: inset 0 0 0 2px #38bdf8; }
 /* ホバー中でもis-active(青)を確実に優先させる。押した直後はカーソルがボタン上にあるため、
    これが無いと:hoverの背景色に上書きされ、カーソルが離れるまで青くならないように見える */
 #songToggleBtn.is-active:hover { background-color: #38bdf8; }
 #heartToggleBtn.is-active:hover { background-color: #38bdf8; }
 #setlistToggleBtn.is-active:hover { background-color: #38bdf8; }
-#textSizeDownBtn.is-active:hover, #textSizeUpBtn.is-active:hover { background-color: #38bdf8; }
+#textSizeBtn.is-active:hover { background-color: #38bdf8; }
 /* FILTERボタン:データ部との境界線の中央に、線をまたぐように配置。他要素と重なる場合は横幅を縮める */
 .filter-center-btn {
   position: absolute;
@@ -270,7 +264,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .preview-icon-square.team-g2 { background-color: #f472b6; }
 .preview-icon-square.team-l2 { background-color: #facc15; }
 .day-nav-group { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 4px; }
-.sort-arrow-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 16.875px; border-radius: 12px; outline: none; line-height: 1.2; }
+.sort-arrow-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; min-width: 68px; box-sizing: border-box; text-align: center; white-space: nowrap; border-radius: 12px; outline: none; line-height: 1.2; }
 .sort-arrow-btn:hover { background-color: var(--btn-hover); }
 .day-nav-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 16.875px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
 .day-nav-btn:hover { background-color: var(--btn-hover); }
@@ -282,7 +276,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 /* 錠前ボタン:OFF(既定)ではsticky-headerを画面固定せず通常スクロールにする */
 .sticky-header.unlocked { position: static; }
 /* 錠前・BLACK/WHITEテーマボタンを同じ丸ボタンサイズ・見た目に統一 */
-.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn, #textSizeDownBtn, #textSizeUpBtn {
+.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn, #textSizeBtn {
   flex-shrink: 0;
   width: 26px;
   height: 26px;
@@ -300,9 +294,42 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 .theme-toggle-btn { overflow: hidden; }
-.lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #textSizeDownBtn:hover, #textSizeUpBtn:hover { background-color: var(--btn-hover); }
+.lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #textSizeBtn:hover { background-color: var(--btn-hover); }
 .lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
-/* 「-」「+」ボタン自体の大きさは変えず、データ部の文字サイズだけを拡大縮小する */
+/* 「A」ボタン自体の大きさは変えず、データ部の文字サイズだけを拡大縮小する */
+
+/* 文字サイズ変更パネル(「A」ボタン直下に、アイコンに対して中央揃えで表示)。
+   アイコン下からなめらかに伸びるように、transform-origin:top + scaleY + opacity のtransitionで開閉する */
+.text-size-wrap { position: relative; }
+.text-size-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  width: 42px;
+  margin-left: -21px;
+  box-sizing: border-box;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  padding: 14px 8px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 25;
+  transform-origin: top center;
+  transform: scaleY(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.text-size-panel.is-open { transform: scaleY(1); opacity: 1; pointer-events: auto; }
+.text-size-panel-sign { font-size: 13px; color: var(--sub); line-height: 1; }
+.text-size-step-btn { background: none; border: none; padding: 4px 10px; margin: 0; cursor: pointer; }
+.text-size-step-btn:hover, .text-size-step-btn:active { color: var(--text); }
+/* writing-mode:vertical-lr で縦型スライダーにする(上=最小値/-50%、下=最大値/+100%) */
+.text-size-slider { writing-mode: vertical-lr; width: 2.25px; height: 140px; margin: 0; }
+.text-size-panel-pct { border-top: 1px solid var(--input-border); width: 100%; margin: 4px auto 0; padding-top: 8px; text-align: center; font-size: 9.75px; font-weight: bold; color: var(--text); white-space: nowrap; }
 
 /* BLACK/WHITEボタン:文字化け対策としてCSSのみで太陽(切替先=ライト)/月(切替先=ダーク)を描画 */
 .theme-toggle-btn .icon-sun, .theme-toggle-btn .icon-moon { display: none; }
@@ -350,6 +377,9 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 #todayToggleBtn.is-offset-next { color: #fff; background-color: #34d399; }
 /* TODAYモード中に年フィルターが選択されている間は、前後日移動をしても黄色を優先して表示する */
 #todayToggleBtn.is-year-filtered { color: #111; background-color: #facc15; }
+/* 長押しで「保持」状態にした場合の青いリング。ボタンの内側に描くため、外側に広がらず
+   .header-btn-group の他ボタン(gap:4px)とは衝突しない */
+#todayToggleBtn.is-held { box-shadow: inset 0 0 0 2px #38bdf8; }
 /* --- 現在有効な絞り込み条件のバッジ一覧(フィルターエリア折りたたみ時に表示) --- */
 .active-filters-row { display: none; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; gap: 4px; margin-bottom: 10px; align-items: center; }
 /* FILTERボタンのON/OFF(is-open)だけで表示・非表示を決める(フィルターエリアの開閉状態からは独立) */
@@ -585,6 +615,8 @@ body .item-contents.is-content-open {
   /* スマホ版:アイコンのみ表示(PC版のICONモードと同じ固定幅・中央揃えに統一) */
   .item-contents { flex: 0 0 28px; width: 28px; padding: 1px 0; margin-right: 8px; }
   .item-contents-icon { width: 28px; }
+  /* スマホ版のみ:検索窓自体は変えず、検索履歴ドロップダウンの幅だけ1.5倍に拡張する(左端は検索窓に揃える) */
+  .search-suggestions { right: auto; width: 150%; }
 }
 
 /* セットリストポップアップ(SETLISTアイコン押下時に表示)。display:none/flexの瞬時切替ではなく、
@@ -648,8 +680,15 @@ body .item-contents.is-content-open {
         <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear search">&#215;</button>
         <div class="search-suggestions" id="searchSuggestions"></div>
       </div>
-      <button type="button" class="toggle-btn text-size-btn" id="textSizeDownBtn" aria-label="&#12487;&#12540;&#12479;&#37096;&#12398;&#25991;&#23383;&#12469;&#12452;&#12474;&#12434;&#32066;&#23567;">&#8722;</button>
-      <button type="button" class="toggle-btn text-size-btn" id="textSizeUpBtn" aria-label="&#12487;&#12540;&#12479;&#37096;&#12398;&#25991;&#23383;&#12469;&#12452;&#12474;&#12434;&#25313;&#22823;">&#43;</button>
+      <div class="text-size-wrap" id="textSizeWrap">
+        <button type="button" class="text-size-btn" id="textSizeBtn" aria-label="&#12487;&#12540;&#12479;&#37096;&#12398;&#25991;&#23383;&#12469;&#12452;&#12474;&#12434;&#22793;&#26356;" aria-haspopup="true" aria-expanded="false">A</button>
+        <div class="text-size-panel" id="textSizePanel">
+          <button type="button" class="text-size-panel-sign text-size-step-btn" id="textSizeMinusBtn" data-step="-5" aria-label="&#25991;&#23383;&#12469;&#12452;&#12474;&#12434;5%&#32066;&#23567;">&#8722;</button>
+          <input type="range" id="textSizeSlider" class="text-size-slider" min="-50" max="50" step="5" value="0" aria-label="&#12487;&#12540;&#12479;&#37096;&#12398;&#25991;&#23383;&#12469;&#12452;&#12474;(&#65037;)">
+          <button type="button" class="text-size-panel-sign text-size-step-btn" id="textSizePlusBtn" data-step="5" aria-label="&#25991;&#23383;&#12469;&#12452;&#12474;&#12434;5%&#25313;&#22823;">&#43;</button>
+          <div class="text-size-panel-pct" id="textSizePanelPct">100%</div>
+        </div>
+      </div>
       <button class="tool-btn theme-toggle-btn" id="themeToggleBtn" aria-label="&#12486;&#12540;&#12510;&#20999;&#12426;&#26367;&#12360;(&#12480;&#12540;&#12463;/&#12521;&#12452;&#12488;)">
         <span class="icon-sun" aria-hidden="true"></span>
         <span class="icon-moon" aria-hidden="true"></span>
@@ -694,7 +733,7 @@ body .item-contents.is-content-open {
 
   <div class="items" id="items"></div>
   <div id="scrollSentinel"></div>
-  <div class="no-result" id="noResult">NO RESULTS FOUND<br><button class="quick-reset-btn" id="quickResetBtn">CLEAR ALL FILTERS</button></div>
+  <div class="no-result" id="noResult"><span id="noResultText">NO RESULTS FOUND</span><br><button class="quick-reset-btn" id="quickResetBtn">CLEAR ALL FILTERS</button></div>
   <div class="no-result" id="loadError">LOAD ERROR<br><button class="quick-reset-btn" id="retryBtn">RETRY</button></div>
   <div class="footer-update-time" id="updateTime">updated > --</div>
   <div class="footer-btn-row">
@@ -1206,7 +1245,7 @@ body .item-contents.is-content-open {
 
   $('sortBtn').onclick = () => {
     desc = !desc;
-    $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
+    updateSortBtnLabel();
     updateDisplay(true);
   };
 
@@ -1230,14 +1269,14 @@ body .item-contents.is-content-open {
     searchInput.placeholder = setlistMode ? SEARCH_PLACEHOLDER_SETLIST : SEARCH_PLACEHOLDER_NORMAL;
   };
 
-  // 検索窓:直近使った検索ワードを最大5件まで記憶し、フォーカス時に候補として表示する
+  // 検索窓:直近使った検索ワードを最大10件まで記憶し、フォーカス時に候補として表示する
   // セトリ検索モード中に入力された検索ワードは、通常検索とは別のキーで保存する(要件により分離)
   // 各ワードは🔑(固定)アイコンで固定でき、固定中は個別削除(×)が効かず、保存上限による
-  // 自動的な押し出し(間引き)からも保護される。固定できる件数も保存上限と同じ5件まで。
+  // 自動的な押し出し(間引き)からも保護される。固定できる件数も保存上限と同じ10件まで。
   const RECENT_SEARCH_KEY = 'gl_log_recent_searches';
   const SETLIST_RECENT_SEARCH_KEY = 'gl_log_recent_setlist_searches';
-  const MAX_RECENT_SEARCHES = 5;
-  const MAX_PINNED_SEARCHES = 5;
+  const MAX_RECENT_SEARCHES = 10;
+  const MAX_PINNED_SEARCHES = 10;
   let highlightedSuggestionIndex = -1;
   const getRecentSearchKey = () => setlistMode ? SETLIST_RECENT_SEARCH_KEY : RECENT_SEARCH_KEY;
   // 旧形式(文字列の配列)で保存されている場合は{term, pinned:false}へ読み込み時に変換する(後方互換)
@@ -1260,7 +1299,7 @@ body .item-contents.is-content-open {
     const pinnedList = list.filter(v => v.pinned);
     const unpinnedList = list.filter(v => !v.pinned && v.term !== trimmed);
     unpinnedList.unshift({ term: trimmed, pinned: false });
-    // 保存上限(5件)を超えたら、固定されていないものだけを末尾から間引く(固定分は削らない)
+    // 保存上限(10件)を超えたら、固定されていないものだけを末尾から間引く(固定分は削らない)
     while (pinnedList.length + unpinnedList.length > MAX_RECENT_SEARCHES && unpinnedList.length) {
       unpinnedList.pop();
     }
@@ -1272,7 +1311,7 @@ body .item-contents.is-content-open {
     if (entry && entry.pinned) return; // 固定中は削除不可
     setRecentSearches(list.filter(v => v.term !== term));
   };
-  // 🔑(固定)⇔🔐(固定中、押すと解除)の切り替え。固定は最大5件まで
+  // 🔑(固定)⇔🔐(固定中、押すと解除)の切り替え。固定は最大10件まで
   const togglePinRecentSearch = term => {
     const list = getRecentSearches();
     const idx = list.findIndex(v => v.term === term);
@@ -1839,12 +1878,27 @@ body .item-contents.is-content-open {
       .replace(/(^|\s)or(?=\s|$)/gi, '$1|')
       .replace(/(^|\s)and(?=\s|$)/gi, '$1');
     const orGroups = normalizedKw.split('|').map(g => g.trim()).filter(Boolean);
-    return orGroups.some(group => {
-      const tokens = group.split(/\s+/).filter(Boolean);
-      return tokens.every(tok =>
-        tok.length > 1 && tok.startsWith('-') ? !searchText.includes(tok.slice(1)) : searchText.includes(tok)
-      );
-    });
+
+    // マイナス検索(-キーワード)は、OR句のどちらに書かれていても常に全体に効くようにする。
+    // 例:「A or B -C」は「(AまたはB) かつ Cを含まない」という意味にしたいが、OR句ごとに独立して
+    // 除外判定すると、-Cが書かれていない側の句(A)がマッチした場合にCの除外が効かなくなってしまう。
+    // そのため、-トークンは句を問わず全て集めてグローバルな除外条件として先に判定する。
+    const globalExcludeTokens = [];
+    const positiveGroups = orGroups
+      .map(group => {
+        const tokens = group.split(/\s+/).filter(Boolean);
+        const positiveTokens = [];
+        tokens.forEach(tok => {
+          if (tok.length > 1 && tok.startsWith('-')) globalExcludeTokens.push(tok.slice(1));
+          else positiveTokens.push(tok);
+        });
+        return positiveTokens;
+      })
+      .filter(tokens => tokens.length > 0); // マイナス検索のみだった句(プラス条件を持たない句)は除外して扱う
+
+    if (globalExcludeTokens.some(ex => searchText.includes(ex))) return false;
+    if (positiveGroups.length === 0) return true; // 全ての句がマイナス検索のみだった場合、除外条件は上で判定済み
+    return positiveGroups.some(tokens => tokens.every(tok => searchText.includes(tok)));
   };
 
   const parseDateQuery = rawKw => {
@@ -2360,12 +2414,22 @@ body .item-contents.is-content-open {
 
       const isZero = filtered.length === 0;
       $('noResult').style.display = isZero ? 'block' : 'none';
-      $('sortBtn').style.display = isZero ? 'none' : 'block';
+      // TODAYモード中は、フィルターの話ではないため「CLEAR ALL FILTERS」ボタンは出さず「NO DATA」のみ表示する
+      $('noResultText').textContent = todayMode ? 'NO DATA' : 'NO RESULTS FOUND';
+      $('quickResetBtn').style.display = todayMode ? 'none' : 'inline-block';
+      // 通常時は0件でソートボタンを隠すが、TODAYモード中は0件でも日付表示として見せ続ける
+      $('sortBtn').style.display = (isZero && !todayMode) ? 'none' : 'block';
       $('inlineClearBtn').style.display = (checked.length > 0 || kw || todayMode || setlistMode) ? 'inline-block' : 'none';
       
       if (!isZero) renderBatch();
       $('items').classList.remove('is-animating');
-      updateItemsMinHeight();
+      // 0件の場合、items用に伸ばしたmin-heightをそのままにするとNO DATA/NO RESULTS FOUNDが
+      // 画面下の方まで押し下げられてしまうため解除する(0件でなければ従来通りフリック用に伸ばす)
+      if (isZero) {
+        $('items').style.minHeight = '';
+      } else {
+        updateItemsMinHeight();
+      }
     }, 120);
 
     if (syncHash) {
@@ -2584,19 +2648,22 @@ body .item-contents.is-content-open {
   // 「-」「+」ボタン:データ部(ログ一覧)の文字サイズを5%刻みで拡大縮小する。等倍(100%)を基準に、
   // 縮小は50%、拡大は200%を上下限とし、達した側は色(青)はそのままに押せなくする。
   // 長押しで等倍(100%)にリセットできる。状態はlocalStorageに保存し次回も復元する。
-  const TEXT_SIZE_STEP = 5;
   const TEXT_SIZE_MIN = -50;
-  const TEXT_SIZE_MAX = 100;
+  const TEXT_SIZE_MAX = 50;
   const clampTextSize = v => Math.max(TEXT_SIZE_MIN, Math.min(TEXT_SIZE_MAX, v));
   const TEXT_SIZE_KEY = 'gl_log_text_size_percent';
   let textSizePercent = clampTextSize(parseInt(localStorage.getItem(TEXT_SIZE_KEY) || '0', 10) || 0);
 
+  const textSizeBtn = $('textSizeBtn');
+  const textSizePanel = $('textSizePanel');
+  const textSizeSlider = $('textSizeSlider');
+  const textSizePanelPct = $('textSizePanelPct');
+
   const applyTextSize = () => {
     document.documentElement.style.setProperty('--data-font-scale', String(1 + textSizePercent / 100));
-    $('textSizeDownBtn').classList.toggle('is-active', textSizePercent < 0);
-    $('textSizeUpBtn').classList.toggle('is-active', textSizePercent > 0);
-    $('textSizeDownBtn').disabled = textSizePercent <= TEXT_SIZE_MIN;
-    $('textSizeUpBtn').disabled = textSizePercent >= TEXT_SIZE_MAX;
+    textSizeBtn.classList.toggle('is-active', textSizePercent !== 0);
+    textSizeSlider.value = String(textSizePercent);
+    textSizePanelPct.textContent = (100 + textSizePercent) + '%';
     localStorage.setItem(TEXT_SIZE_KEY, String(textSizePercent));
     // 既に展開中のコンテンツ名ボックスは、文字サイズ変更前のpx幅(flexBasis)のまま固定されて
     // しまうため、新しいフォントサイズを反映した幅に再計測して更新する(見切れ防止)。
@@ -2610,21 +2677,58 @@ body .item-contents.is-content-open {
   };
   applyTextSize();
 
-  const changeTextSize = step => { textSizePercent = clampTextSize(textSizePercent + step); applyTextSize(); };
   const resetTextSize = () => { textSizePercent = 0; applyTextSize(); };
 
-  [[$('textSizeDownBtn'), -TEXT_SIZE_STEP], [$('textSizeUpBtn'), TEXT_SIZE_STEP]].forEach(([btn, step]) => {
+  // パネルの開閉:「A」ボタン直下に、アイコン下からなめらかに伸びる形で開閉する
+  const openTextSizePanel = () => {
+    textSizePanel.classList.add('is-open');
+    textSizeBtn.classList.add('is-open');
+    textSizeBtn.setAttribute('aria-expanded', 'true');
+  };
+  const closeTextSizePanel = () => {
+    textSizePanel.classList.remove('is-open');
+    textSizeBtn.classList.remove('is-open');
+    textSizeBtn.setAttribute('aria-expanded', 'false');
+  };
+  const toggleTextSizePanel = () => {
+    if (textSizePanel.classList.contains('is-open')) closeTextSizePanel();
+    else openTextSizePanel();
+  };
+
+  // スライダー操作:ドラッグに連動してリアルタイムに反映する
+  textSizeSlider.addEventListener('input', () => {
+    textSizePercent = clampTextSize(parseInt(textSizeSlider.value, 10) || 0);
+    applyTextSize();
+  });
+
+  // ＋／－ボタン:押すたびに5%単位で増減する
+  [$('textSizeMinusBtn'), $('textSizePlusBtn')].forEach(btn => {
+    btn.addEventListener('click', () => {
+      textSizePercent = clampTextSize(textSizePercent + parseInt(btn.dataset.step, 10));
+      applyTextSize();
+    });
+  });
+
+  // 「A」ボタン:シングルクリック/タップで即座にパネル開閉、ホールド(600ms)で100%にリセットする
+  {
     let pressTimer = null;
     let longPressed = false;
     const start = () => { longPressed = false; pressTimer = setTimeout(() => { longPressed = true; resetTextSize(); }, 600); };
     const cancel = () => clearTimeout(pressTimer);
-    btn.addEventListener('mousedown', start);
-    btn.addEventListener('touchstart', start, { passive: true });
-    btn.addEventListener('mouseup', cancel);
-    btn.addEventListener('mouseleave', cancel);
-    btn.addEventListener('touchend', cancel);
-    btn.addEventListener('touchcancel', cancel);
-    btn.addEventListener('click', () => { if (longPressed) return; changeTextSize(step); });
+    textSizeBtn.addEventListener('mousedown', start);
+    textSizeBtn.addEventListener('touchstart', start, { passive: true });
+    textSizeBtn.addEventListener('mouseup', cancel);
+    textSizeBtn.addEventListener('mouseleave', cancel);
+    textSizeBtn.addEventListener('touchend', cancel);
+    textSizeBtn.addEventListener('touchcancel', cancel);
+    textSizeBtn.addEventListener('click', () => { if (longPressed) return; toggleTextSizePanel(); });
+  }
+
+  // パネル外タップ/クリックで閉じる
+  document.addEventListener('click', e => {
+    if (!textSizePanel.classList.contains('is-open')) return;
+    if (e.target === textSizeBtn || textSizeBtn.contains(e.target)) return; // ボタン自身のclickは上のハンドラに任せる
+    if (!$('textSizeWrap').contains(e.target)) closeTextSizePanel();
   });
 
   // 年/月/日/曜/時分:項目左端の日付表示を個別にon/offするボタン。状態はlocalStorageに保存し次回も復元する
@@ -2646,9 +2750,14 @@ body .item-contents.is-content-open {
   });
 
   // TODAYモード:システム日付(端末のローカル日付)を基準に、todayOffset日ずらしたデータのみに絞り込む
-  // ON/OFFの状態はlocalStorageに保存し、次回訪問時も復元する(前後日移動のoffsetは復元せず、常に当日=0から始める)
+  // 通常クリックでのON/OFFは今回のセッション限りで、localStorageには保存しない。
+  // TODAYボタンを長押し(タップホールド)した時だけ「保持」状態をトグルし、保持ON中は次回訪問時の
+  // 初期表示も常にTODAYモードONになる(今回のセッション中に通常クリックでOFFにしても、保持状態自体は
+  // 維持され、次回訪問時は再びONから始まる)
   const TODAY_MODE_KEY = 'gl_log_today_mode';
-  let todayMode = localStorage.getItem(TODAY_MODE_KEY) === 'true';
+  let todayHeld = localStorage.getItem(TODAY_MODE_KEY) === 'true';
+  let todayMode = todayHeld; // 保持ONなら初期表示からTODAYモードON
+  let todayLongPressed = false; // TODAYボタンの長押しが発火した直後、続くclickイベントで通常のON/OFF切替を行わせないためのフラグ
   let todayOffset = 0; // 0=当日, 負=前日方向, 正=翌日方向
   let preTodaySort = null; // TODAYをONにする直前のソート状態(descの値)を退避
   let searchDateTodayActive = false; // 検索窓への日付入力によってTODAYモードがONにされている状態かどうか
@@ -2657,6 +2766,16 @@ body .item-contents.is-content-open {
     d.setDate(d.getDate() + offsetDays);
     // item.dateと直接比較するため、ドット無しの8桁(YYYYMMDD)形式で返す
     return String(d.getFullYear()) + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+  };
+  // ソート矢印ボタン(sortBtn)の表示切替:TODAYモード中は矢印の代わりに現在表示中の日付(2000.01.01形式)を
+  // 表示する(押した時の並び替え機能自体は変わらない)。TODAYモードでない時は従来通り矢印を表示する
+  const updateSortBtnLabel = () => {
+    if (todayMode) {
+      const s = getTargetDateStr(todayOffset);
+      $('sortBtn').textContent = s.slice(0, 4) + '.' + s.slice(4, 6) + '.' + s.slice(6, 8);
+    } else {
+      $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
+    }
   };
   const getTargetMonthDayStr = offsetDays => {
     const d = new Date();
@@ -2688,14 +2807,11 @@ body .item-contents.is-content-open {
       todayMode = true;
       preTodaySort = desc;
       // TODAYをONにした時だけソートを自動的に昇順にする(手動でTODAYをONにした時と同じ挙動)
-      if (desc) {
-        desc = false;
-        $('sortBtn').textContent = '\u2191';
-      }
+      if (desc) desc = false;
     }
     todayOffset = diffDays;
     searchDateTodayActive = true;
-    localStorage.setItem(TODAY_MODE_KEY, 'true');
+    updateSortBtnLabel();
     updateTodayButtonStyle();
     autoUpdateContentTypeFilters();
     updateManualIndicators();
@@ -2707,12 +2823,11 @@ body .item-contents.is-content-open {
     searchDateTodayActive = false;
     todayMode = false;
     todayOffset = 0;
-    localStorage.setItem(TODAY_MODE_KEY, 'false');
     if (preTodaySort !== null) {
       desc = preTodaySort;
-      $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
       preTodaySort = null;
     }
+    updateSortBtnLabel();
     updateTodayButtonStyle();
     autoUpdateContentTypeFilters();
     updateManualIndicators();
@@ -2860,14 +2975,27 @@ body .item-contents.is-content-open {
   // 保存されていたON状態を復元する場合、手動でONにした時と同じ挙動(ソートを自動的に昇順にする)を適用する
   if (todayMode) {
     preTodaySort = desc;
-    if (desc) {
-      desc = false;
-      $('sortBtn').textContent = '\u2191';
-    }
+    if (desc) desc = false;
   }
   updateTodayButtonStyle();
+  updateSortBtnLabel();
+
+  // 保持(hold)状態の見た目(青枠)を反映する。保持ON中は次回訪問時もTODAYモードがONから始まる
+  const applyTodayHeldStyle = () => {
+    $('todayToggleBtn').classList.toggle('is-held', todayHeld);
+  };
+  applyTodayHeldStyle();
+
+  // 長押し(タップホールド)で保持状態そのものをトグルする(保持ON中に再度長押しすると保持OFFに戻る)。
+  // 今回のセッション中の通常クリックによるON/OFF(todayMode)には影響しない
+  const toggleTodayHeld = () => {
+    todayHeld = !todayHeld;
+    localStorage.setItem(TODAY_MODE_KEY, todayHeld);
+    applyTodayHeldStyle();
+  };
 
   $('todayToggleBtn').onclick = () => {
+    if (todayLongPressed) { todayLongPressed = false; return; } // 長押し発火直後のclickは無視する
     // セトリ検索モード中にTODAYボタンが押されたら、セトリ検索モードはOFFにする(逆方向は現状維持)
     if (setlistMode) {
       setlistMode = false;
@@ -2880,10 +3008,7 @@ body .item-contents.is-content-open {
       todayOffset = 0;
       preTodaySort = desc;
       // TODAYをONにした時だけソートを自動的に昇順にする
-      if (desc) {
-        desc = false;
-        $('sortBtn').textContent = '\u2191';
-      }
+      if (desc) desc = false;
     } else {
       // ON(当日 or 前後日)状態からの押下は、常にOFFにする
       todayMode = false;
@@ -2891,16 +3016,30 @@ body .item-contents.is-content-open {
       searchDateTodayActive = false; // 手動でOFFにした場合は検索窓連動フラグもリセットする
       if (preTodaySort !== null) {
         desc = preTodaySort;
-        $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
         preTodaySort = null;
       }
     }
-    localStorage.setItem(TODAY_MODE_KEY, todayMode);
+    // 通常クリックでのON/OFFは今回のセッション限り。保持(localStorage)はここでは書き換えない
+    updateSortBtnLabel();
     updateTodayButtonStyle();
     autoUpdateContentTypeFilters();
     updateManualIndicators();
     updateDisplay(true);
   };
+
+  // 長押し(600ms)検出:「A」ボタン(文字サイズ)と同じ方式で、押しっぱなしを判定する
+  {
+    let pressTimer = null;
+    const btn = $('todayToggleBtn');
+    const start = () => { todayLongPressed = false; pressTimer = setTimeout(() => { todayLongPressed = true; toggleTodayHeld(); }, 600); };
+    const cancel = () => clearTimeout(pressTimer);
+    btn.addEventListener('mousedown', start);
+    btn.addEventListener('touchstart', start, { passive: true });
+    btn.addEventListener('mouseup', cancel);
+    btn.addEventListener('mouseleave', cancel);
+    btn.addEventListener('touchend', cancel);
+    btn.addEventListener('touchcancel', cancel);
+  }
 
   // ================= TODAYモード:日付切替の共通アニメーション =================
   // ←/→ボタン押下・データ部のフリックのどちらでも同じスライドイン/アウト演出を使う。
@@ -2914,7 +3053,9 @@ body .item-contents.is-content-open {
   // 画面(ビューポート)の下端までフリック可能な領域として扱えるよう min-height を伸ばす。
   // TODAYモードOFF時は元に戻す(通常表示で不要な余白ができないようにする)。
   const updateItemsMinHeight = () => {
-    if (!todayMode) {
+    // データ0件(NO DATA表示中)の時は、min-heightを伸ばすとメッセージが画面下の方に
+    // 押し下げられてしまうため、伸ばさない(リサイズ時の再計算でも同様にガードする)
+    if (!todayMode || $('noResult').style.display === 'block') {
       itemsEl.style.minHeight = '';
       return;
     }
@@ -2948,6 +3089,7 @@ body .item-contents.is-content-open {
       $('prevDayBtn').classList.remove('is-pressed');
     }
     updateTodayButtonStyle();
+    updateSortBtnLabel();
     autoUpdateContentTypeFilters();
     updateManualIndicators();
     updateDisplay(true);
@@ -3000,9 +3142,14 @@ body .item-contents.is-content-open {
     let startX = 0, startY = 0, startTime = 0;
     let dragDx = 0;
     let axisLock = null; // null=未判定, 'h'=横方向確定, 'v'=縦方向確定(以降は素通しでスクロールに任せる)
+    let touchOnScrollableTitle = false; // タイトルリンク(.item-title)が横スクロール可能な長さで、かつそこから触れ始めた場合true
 
     itemsEl.addEventListener('touchstart', e => {
       if (!todayMode || daySlideAnimating || e.touches.length !== 1) { axisLock = null; return; }
+      // データ行のタイトルリンクが長文で横スクロール可能な場合、そこをホールドしている間は
+      // 日付フリックと競合しないよう、この後のtouchmoveで一切介入せずネイティブの横スクロールに任せる
+      const titleEl = e.target.closest ? e.target.closest('.item-title') : null;
+      touchOnScrollableTitle = !!(titleEl && titleEl.scrollWidth > titleEl.clientWidth + 1);
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
       startTime = Date.now();
@@ -3011,7 +3158,7 @@ body .item-contents.is-content-open {
     }, { passive: true });
 
     itemsEl.addEventListener('touchmove', e => {
-      if (!todayMode || daySlideAnimating || e.touches.length !== 1 || axisLock === 'v') return;
+      if (!todayMode || daySlideAnimating || e.touches.length !== 1 || axisLock === 'v' || touchOnScrollableTitle) return;
       const dx = e.touches[0].clientX - startX;
       const dy = e.touches[0].clientY - startY;
 
@@ -3028,6 +3175,7 @@ body .item-contents.is-content-open {
     }, { passive: false });
 
     const finishSwipe = () => {
+      touchOnScrollableTitle = false;
       if (axisLock !== 'h') { axisLock = null; return; }
       const elapsed = Math.max(1, Date.now() - startTime);
       const velocity = Math.abs(dragDx) / elapsed;
@@ -3045,6 +3193,7 @@ body .item-contents.is-content-open {
 
     itemsEl.addEventListener('touchend', finishSwipe);
     itemsEl.addEventListener('touchcancel', () => {
+      touchOnScrollableTitle = false;
       if (axisLock === 'h' && !daySlideAnimating) setItemsTransform(0, true);
       axisLock = null;
     });
@@ -3253,12 +3402,11 @@ body .item-contents.is-content-open {
         todayMode = false;
         todayOffset = 0;
         searchDateTodayActive = false; // 検索窓連動フラグもリセットする
-        localStorage.setItem(TODAY_MODE_KEY, 'false');
         if (preTodaySort !== null) {
           desc = preTodaySort;
-          $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
           preTodaySort = null;
         }
+        updateSortBtnLabel();
       }
       updateManualIndicators();
       updateMonthFilterVisibility(); // 年フィルターの選択状態が変わるので月フィルターの表示/非表示も再評価
@@ -3332,9 +3480,9 @@ body .item-contents.is-content-open {
       searchDateTodayActive = false; // CLEARで検索窓も空になるため連動フラグもリセットする
       if (preTodaySort !== null) {
         desc = preTodaySort;
-        $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
         preTodaySort = null;
       }
+      updateSortBtnLabel();
       updateTodayButtonStyle();
     }
     // CLEARでハートモードもOFFにする(再描画される行が展開済みの状態で作られないようにする)
