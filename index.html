@@ -2430,7 +2430,7 @@ body .item-contents.is-content-open {
       $('quickResetBtn').style.display = todayMode ? 'none' : 'inline-block';
       // 通常時は0件でソートボタンを隠すが、TODAYモード中は0件でも日付表示として見せ続ける
       $('sortBtn').style.display = (isZero && !todayMode) ? 'none' : 'block';
-      $('inlineClearBtn').style.display = (checked.length > 0 || kw || todayMode || setlistMode) ? 'inline-block' : 'none';
+      $('inlineClearBtn').style.display = (checked.length > 0 || fullKw || todayMode || setlistMode) ? 'inline-block' : 'none';
       
       if (!isZero) renderBatch();
       $('items').classList.remove('is-animating');
@@ -2442,7 +2442,7 @@ body .item-contents.is-content-open {
     if (syncHash) {
       updating = true;
       const active = checked.map(cb => cb.value);
-      if (active.length > 0 || kw) window.location.hash = active.join(',');
+      if (active.length > 0 || fullKw) window.location.hash = active.join(',');
       else history.replaceState(null, null, window.location.pathname + window.location.search);
       // hashchange(restoreFromHash)は非同期に発火するため、同期的にfalseへ戻すと
       // ガード(if (updating) return;)が効かず、自前のhash更新でrestoreFromHashが
@@ -2774,12 +2774,27 @@ body .item-contents.is-content-open {
     // item.dateと直接比較するため、ドット無しの8桁(YYYYMMDD)形式で返す
     return String(d.getFullYear()) + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
   };
-  // ソート矢印ボタン(sortBtn)の表示切替:TODAYモード中は矢印の代わりに現在表示中の日付(2000.01.01形式)を
-  // 表示する(押した時の並び替え機能自体は変わらない)。TODAYモードでない時は従来通り矢印を表示する
+  // 年フィルターのチェック状態を取得する(4桁の年チェックボックスのみを対象とする#yearChecks配下)
+  const getCheckedYears = () => Array.from($('yearChecks').querySelectorAll('input:checked')).map(cb => cb.value);
+
+  // ソート矢印ボタン(sortBtn)の表示切替:TODAYモード中は矢印の代わりに現在表示中の日付を表示する
+  // (押した時の並び替え機能自体は変わらない)。TODAYモードでない時は従来通り矢印を表示する。
+  // 年フィルターが1つだけ選択されている場合は、実際の今日の年ではなくその選択年+月日を表示する
+  // (年フィルター選択時は選択年の該当月日データが表示されるため、実日付の年をそのまま出すと食い違うため)。
+  // 年フィルターが2つ以上選択されている場合は、表示中のデータが複数年にまたがり単一の日付で
+  // 言い表せないため、日付表示はせず通常の矢印表示に戻す
   const updateSortBtnLabel = () => {
     if (todayMode) {
-      const s = getTargetDateStr(todayOffset);
-      $('sortBtn').textContent = s.slice(0, 4) + '.' + s.slice(4, 6) + '.' + s.slice(6, 8);
+      const checkedYears = getCheckedYears();
+      if (checkedYears.length === 1) {
+        const md = getTargetMonthDayStr(todayOffset);
+        $('sortBtn').textContent = checkedYears[0] + '.' + md.slice(0, 2) + '.' + md.slice(2, 4);
+      } else if (checkedYears.length > 1) {
+        $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
+      } else {
+        const s = getTargetDateStr(todayOffset);
+        $('sortBtn').textContent = s.slice(0, 4) + '.' + s.slice(4, 6) + '.' + s.slice(6, 8);
+      }
     } else {
       $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
     }
@@ -2979,8 +2994,10 @@ body .item-contents.is-content-open {
     btn.classList.toggle('is-offset-next', todayMode && todayOffset > 0);
     // 年フィルターが選択されている間は、前後日移動(offset)の色より黄色を優先する。年フィルターが外れたら通常の色に戻る
     btn.classList.toggle('is-year-filtered', todayMode && !!$('yearChecks').querySelector('input:checked'));
-    $('prevDayBtn').classList.toggle('is-visible', todayMode);
-    $('nextDayBtn').classList.toggle('is-visible', todayMode);
+    // 検索窓の日付入力でTODAYモードがONになっている間は、日付検索の絞り込み(検索文字列そのままの
+    // 固定日付)と前後日移動が両立せずヒット件数が0になりやすいため、前後日ボタン自体を隠す
+    $('prevDayBtn').classList.toggle('is-visible', todayMode && !searchDateTodayActive);
+    $('nextDayBtn').classList.toggle('is-visible', todayMode && !searchDateTodayActive);
     if (todayOffset === 0) {
       $('prevDayBtn').classList.remove('is-pressed');
       $('nextDayBtn').classList.remove('is-pressed');
@@ -3065,8 +3082,8 @@ body .item-contents.is-content-open {
   const slideAreaEl = $('daySlideArea');
   // NO DATA表示時、表示位置を変えずにその下の余白だけをフリック可能にするための透明な当たり判定
   const flickFillEl = $('dayFlickFill');
-  const DAY_SLIDE_MS = 220;      // スライドイン/アウトの所要時間
-  const DAY_SWAP_WAIT_MS = 150;  // データ切替(updateDisplay内部の120msフェード)を画面外で待つ時間
+  const DAY_SLIDE_MS = 150;      // スライドイン/アウトの所要時間(体感速度優先でやや短めに調整)
+  const DAY_SWAP_WAIT_MS = 130;  // データ切替(updateDisplay内部の120msフェード)を画面外で待つ時間(120msに10msの安全マージンのみ持たせる)
   let daySlideAnimating = false; // 演出の多重発火防止(演出中は新たな操作を受け付けない)
 
   // TODAYモード中は、表示件数が少なくデータ部(#items)の実高さが画面より低い場合でも、
@@ -3137,7 +3154,8 @@ body .item-contents.is-content-open {
   // スライドアウト→(画面外で)日付切替→スライドインを行う。フリック中の場合は現在位置(既にtranslateX(dx)済み)
   // から続けてスライドアウトさせるため、呼び出し前のslideAreaElの位置はそのまま利用する
   const playDaySlideChange = delta => {
-    if (!todayMode || daySlideAnimating) return;
+    // 検索窓の日付入力でTODAYモードがONの間は、前後日ボタンと同じ理由でフリックによる日送りも無効化する
+    if (!todayMode || searchDateTodayActive || daySlideAnimating) return;
     daySlideAnimating = true;
     const width = slideAreaEl.getBoundingClientRect().width || slideAreaEl.offsetWidth || 300;
     const exitX = delta > 0 ? -width : width; // 翌日=左へ、前日=右へ
@@ -3193,7 +3211,8 @@ body .item-contents.is-content-open {
     let touchOnScrollableTitle = false; // タイトルリンク(.item-title)が横スクロール可能な長さで、かつそこから触れ始めた場合true
 
     const onTouchStart = e => {
-      if (!todayMode || daySlideAnimating || e.touches.length !== 1) { axisLock = null; return; }
+      // 検索窓の日付入力でTODAYモードがONの間は日送り自体が無効なので、ドラッグの見た目追従も始めない
+      if (!todayMode || searchDateTodayActive || daySlideAnimating || e.touches.length !== 1) { axisLock = null; return; }
       // データ行のタイトルリンクが長文で横スクロール可能な場合、そこをホールドしている間は
       // 日付フリックと競合しないよう、この後のtouchmoveで一切介入せずネイティブの横スクロールに任せる
       const titleEl = e.target.closest ? e.target.closest('.item-title') : null;
@@ -3206,7 +3225,7 @@ body .item-contents.is-content-open {
     };
 
     const onTouchMove = e => {
-      if (!todayMode || daySlideAnimating || e.touches.length !== 1 || axisLock === 'v' || touchOnScrollableTitle) return;
+      if (!todayMode || searchDateTodayActive || daySlideAnimating || e.touches.length !== 1 || axisLock === 'v' || touchOnScrollableTitle) return;
       const dx = e.touches[0].clientX - startX;
       const dy = e.touches[0].clientY - startY;
 
@@ -3416,6 +3435,7 @@ body .item-contents.is-content-open {
           updateManualIndicators();
           updateMonthFilterVisibility(); // 年フィルターの選択状態が変わるので月フィルターの表示/非表示も再評価
           updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
+          updateSortBtnLabel(); // 年フィルターの選択状態が変わるので、TODAYモード中の日付表示も再評価
           updateDisplay(true);
           window.scrollTo({ top: 0, behavior: 'instant' });
         }
@@ -3466,6 +3486,7 @@ body .item-contents.is-content-open {
       updateManualIndicators();
       updateMonthFilterVisibility(); // 年フィルターの選択状態が変わるので月フィルターの表示/非表示も再評価
       updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
+      updateSortBtnLabel(); // 年フィルターの選択状態が変わるので、TODAYモード中の日付表示も再評価
       // TODAY+年フィルター(TODAYボタンが黄色の状態)は「その年の同じ月日」を意味するため、年フィルターの
       // ON/OFFに応じて該当するコンテンツフィルターを自動で切り替える(年を外せば通常TODAYのコンテンツに戻る)。
       // 月フィルターでTODAYモードを解除した場合も、コンテンツフィルターを通常状態に戻すため再計算する
@@ -3512,6 +3533,8 @@ body .item-contents.is-content-open {
     updateSearchClearState();
     applyExcludedStyles();
     updateMonthFilterVisibility(); // URL復元時も、年フィルターの状態に応じて月フィルターの表示/非表示を合わせる
+    updateTodayButtonStyle(); // URL復元時も、年フィルターの状態に応じてTODAYボタンの色を合わせる
+    updateSortBtnLabel(); // URL復元時も、年フィルターの状態に応じてTODAYモード中の日付表示を合わせる
     updateDisplay(false);
   };
 
