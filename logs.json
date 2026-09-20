@@ -2891,12 +2891,40 @@
     ]
   },
   {
+    "date": "20200923",
+    "contents": "ANNIVERSARY",
+    "title": "おはスタALLSTARS！ シングル 「明日をつくろう」 リリース記念日",
+    "display_pc": "おはスタALLSTARS！ SINGLE 「明日をつくろう」 リリース記念日",
+    "display_sp": "SG 「明日をつくろう」 リリース記念日",
+    "url": "https://www.sonymusic.co.jp/artist/ohasuta/discography/AICL-3929",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+    ],
+    "tags": [
+      "おはガール from Girls²","おはスタ"
+    ]
+  },
+  {
+    "date": "20200923",
+    "contents": "CD",
+    "title": "おはスタALLSTARS！ シングル 「明日をつくろう」 リリース",
+    "display_pc": "おはスタALLSTARS！ SINGLE 「明日をつくろう」 リリース",
+    "display_sp": "SG 「明日をつくろう」 リリース",
+    "url": "https://www.sonymusic.co.jp/artist/ohasuta/discography/AICL-3929",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA","RAN"
+    ],
+    "tags": [
+      "おはガール from Girls²","おはスタ"
+    ]
+  },
+  {
     "date": "20210922",
     "time": "",
     "contents": "ANNIVERSARY",
     "title": "Lucky² 1stシングル「Fun!Fun!Fun! ～夢∞～」 リリース記念日",
-    "display_pc": "Lucky²　1st SINGLE 「Fun!Fun!Fun! ～夢∞～」 リリース記念日",
-    "display_sp": "Lucky²　1st SG 「Fun!Fun!Fun! ～夢∞～」 リリース記念日",
+    "display_pc": "Lucky² 1st SINGLE 「Fun!Fun!Fun! ～夢∞～」 リリース記念日",
+    "display_sp": "Lucky² 1st SG 「Fun!Fun!Fun! ～夢∞～」 リリース記念日",
     "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4113",
     "groups": [
       "L2",
