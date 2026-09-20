@@ -1,4 +1,14 @@
 [
+  {
+    "date": "20260924",
+    "contents": "MAGAZINE",
+    "title": "CanCam 11月号",
+    "url": "https://cancam.jp/",
+    "groups": [
+      "G2",
+      "YOK"
+    ]
+  },
     {
     "date": "20260920",
     "time": "1200",
@@ -787,8 +797,8 @@
     "date": "20260926",
     "time": "1000",
     "contents": "TICKET",
-    "title": "映画「デス≠キル／ゲーム」 初日16:15の回舞台挨拶 チケット一般発売",
-    "display_pc": "映画 「デス≠キル／ゲーム」 初日16:15の回舞台挨拶チケット一般発売開始",
+    "title": "映画「デス≠キル／ゲーム」 初日16:15回 舞台挨拶 チケット一般発売",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日16:15回 舞台挨拶チケット一般発売開始",
     "display_sp": "映画 「デス≠キル／ゲーム」 16:15回舞台挨拶チケット一般発売開始",
     "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
     "groups": [
@@ -862,9 +872,9 @@
     "date": "20260918",
     "time": "1800",
     "contents": "TICKET",
-    "title": "映画「デス≠キル／ゲーム」 初日16:15の回舞台挨拶 チケット先行抽選受付開始",
-    "display_pc": "映画 「デス≠キル／ゲーム」 初日16:15の回舞台挨拶チケット先行抽選受付開始",
-    "display_sp": "映画 「デス≠キル／ゲーム」 16:15の回舞台挨拶チケット先行受付開始",
+    "title": "映画「デス≠キル／ゲーム」 初日16:15回 舞台挨拶 チケット先行抽選受付開始",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日16:15回 舞台挨拶チケット先行抽選受付開始",
+    "display_sp": "映画 「デス≠キル／ゲーム」 16:15回舞台挨拶チケット先行受付開始",
     "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
     "groups": [
       "G2",
@@ -877,8 +887,8 @@
     "date": "20260923",
     "time": "2359",
     "contents": "CLOSE",
-    "title": "映画「デス≠キル／ゲーム」 初日16:15の回舞台挨拶 チケット先行抽選受付締切",
-    "display_pc": "映画 「デス≠キル／ゲーム」 初日16:15の回舞台挨拶チケット先行抽選受付締切",
+    "title": "映画「デス≠キル／ゲーム」 初日16:15回 舞台挨拶 チケット先行抽選受付締切",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日16:15回 舞台挨拶チケット先行抽選受付締切",
     "display_sp": "映画 「デス≠キル／ゲーム」 16:15回舞台挨拶チケット先行受付締切",
     "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
     "groups": [
@@ -892,8 +902,8 @@
     "date": "20260925",
     "time": "1500",
     "contents": "RESULT",
-    "title": "映画「デス≠キル／ゲーム」 初日16:15の回舞台挨拶 チケット先行抽選当選発表",
-    "display_pc": "映画 「デス≠キル／ゲーム」 初日16:15の回舞台挨拶チケット先行抽選当選発表",
+    "title": "映画「デス≠キル／ゲーム」 初日16:15回 舞台挨拶 チケット先行抽選当選発表",
+    "display_pc": "映画 「デス≠キル／ゲーム」 初日16:15回 舞台挨拶チケット先行抽選当選発表",
     "display_sp": "映画 「デス≠キル／ゲーム」 16:15回舞台挨拶チケット当選発表",
     "url": "https://girls2-fc.jp/page/familyNews/1192381336623513601",
     "groups": [
@@ -2870,6 +2880,38 @@
     "tags": [
       "おはガール from Girls²","走れ！月火水木金曜日！","School Happiness","おはようのスマイル","フレンドシップNo.1 –ミサキクレア from Girls² -",
       "Girl meets Girl","SUPER☆OHA☆TIME!","SUPER☆OHA☆TIME! 2021","おはガール from Lucky²","Lucky Time","おはスタ"
+    ]
+  },
+  {
+    "date": "20180926",
+    "contents": "ANNIVERSARY",
+    "title": "magical² シングル 「晴れるさ☀」 リリース記念日",
+    "display_pc": "magical² SINGLE 「晴れるさ☀」 リリース記念日",
+    "display_sp": "magical² SG 「晴れるさ☀」 リリース記念日",
+    "url": "https://www.sonymusic.co.jp/artist/magical2/discography/AICL-3570",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK"
+    ],
+    "relations": ["KUR"],
+    "tags": [
+      "晴れるさ☀","絶対友情宣言！","magical dream - ミツキ＆シオリ -","最強友情girl - モモカ＆リン -","愛について♡ - パワーアップ バージョン -",
+      "ガールズ×戦士","魔法×戦士 マジマジョピュアーズ!"
+    ]
+  },
+  {
+    "date": "20180926",
+    "contents": "CD",
+    "title": "magical² シングル 「晴れるさ☀」 リリース",
+    "display_pc": "magical² SINGLE 「晴れるさ☀」 リリース",
+    "display_sp": "magical² SG 「晴れるさ☀」 リリース",
+    "url": "https://www.sonymusic.co.jp/artist/magical2/discography/AICL-3570",
+    "groups": [
+      "G2","YZH","MMK","MSK","YOK"
+    ],
+    "relations": ["KUR"],
+    "tags": [
+      "晴れるさ☀","絶対友情宣言！","magical dream - ミツキ＆シオリ -","最強友情girl - モモカ＆リン -","愛について♡ - パワーアップ バージョン -",
+      "ガールズ×戦士","魔法×戦士 マジマジョピュアーズ!"
     ]
   },
   {
@@ -5672,13 +5714,15 @@
     "map": "https://maps.app.goo.gl/MBZtjMJmkAGrREi46",
     "groups": [
       "G2",
-      "YZH",
       "MMK",
       "MSK",
       "YOK",
       "KUR",
       "MNM",
       "KIR"
+    ],
+    "relations": [
+      "YZH"
     ],
     "setlistid": "202609201300",
     "tags": [
