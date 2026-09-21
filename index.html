@@ -1178,13 +1178,22 @@ body .item-contents.is-content-open {
   const salesAliasConts = ['GOODS'];
   const eventAliasConts = ['STAGE', 'COOKING', 'RELEASEEVENT'];
   const birthdayAliasConts = ['DEBUT', 'FORMATION'];
-  const normalizeContType = c =>
-    releaseAliasConts.includes(c) ? 'RELEASE' :
-    mediaAliasConts.includes(c) ? 'MEDIA' :
-    webAliasConts.includes(c) ? 'WEB' :
-    salesAliasConts.includes(c) ? 'SALES' :
-    eventAliasConts.includes(c) ? 'EVENT' :
-    birthdayAliasConts.includes(c) ? 'BIRTHDAY' : c;
+  const normalizeContTypeCache = new Map();
+  // logs.jsonの実データではcontents(コンテンツ種類の生値)は数十種類程度しかなく、同じ値が何度も
+  // 出現するため、毎回エイリアス配列を線形チェックするのではなく、値ごとに1回計算した結果をキャッシュする。
+  // エイリアス配列(releaseAliasConts等)は実行中に変化しないため、キャッシュが古くなる心配は無い
+  const normalizeContType = c => {
+    if (normalizeContTypeCache.has(c)) return normalizeContTypeCache.get(c);
+    const result =
+      releaseAliasConts.includes(c) ? 'RELEASE' :
+      mediaAliasConts.includes(c) ? 'MEDIA' :
+      webAliasConts.includes(c) ? 'WEB' :
+      salesAliasConts.includes(c) ? 'SALES' :
+      eventAliasConts.includes(c) ? 'EVENT' :
+      birthdayAliasConts.includes(c) ? 'BIRTHDAY' : c;
+    normalizeContTypeCache.set(c, result);
+    return result;
+  };
 
   // 検索窓の"-コンテンツ種類名"(例:"-DIARY"、または"-RELEASE"のような正規化後の総称名)でその種類を
   // 非表示にできるよう、各アイテムのsearchTextにはitem.contentsの生の値に加えてnormalizeContType後の
@@ -2247,13 +2256,21 @@ body .item-contents.is-content-open {
 
   // コンテンツ種類フィルターを除いた条件(年・グループ/メンバー・検索・TODAY・セトリ検索)だけでアイテムがマッチするか判定
   // セトリ検索モード中は、メンバーフィルターの判定元をlogs.json側のgroups/relationsではなく、
-  // そのデータのsetlistidに紐づくsetlist.json側のmemberに切り替える
+  // そのデータのsetlistidに紐づくsetlist.json側のmemberに切り替える。setlistid→member配列は
+  // setlistDataが更新されるたびにMap化しておき(setlistIdToMemberMap)、毎回の線形探索(find)を避ける
+  let setlistIdToMemberMap = new Map();
+  const rebuildSetlistIdToMemberMap = () => {
+    setlistIdToMemberMap = new Map(setlistData.filter(e => e && e.setlistid).map(e => [e.setlistid, Array.isArray(e.member) ? e.member : []]));
+  };
   const getFilterGroupsForItem = item => {
     if (setlistMode && item.setlistid) {
-      const entry = setlistData.find(e => e.setlistid === item.setlistid);
-      return (entry && Array.isArray(entry.member)) ? entry.member : [];
+      return setlistIdToMemberMap.get(item.setlistid) || [];
     }
-    return [...(item.groups || []), ...(item.relations || [])];
+    // relationsを持つデータは全体のごく一部(実データでは数%程度)のため、それ以外は毎回配列を
+    // スプレッド構文でコピーせず、item.groupsをそのまま返す(呼び出し元はincludes/some/everyの
+    // 読み取り専用でしか使わないため、参照をそのまま返しても安全)
+    if (!item.relations || item.relations.length === 0) return item.groups || [];
+    return [...(item.groups || []), ...item.relations];
   };
   // フィルターボタンのダブルクリック/ダブルタップによる「除外」機能。除外されたボタンの値に該当する
   // データは、他のフィルター条件に関わらず常に非表示にする(複数の除外はOR結合:いずれか一つでも
@@ -2272,12 +2289,14 @@ body .item-contents.is-content-open {
 
   // アイテムが、除外指定されたいずれかのフィルター値(年/月/グループ/メンバー/コンテンツ種類)に
   // 該当するかどうかを判定する。コンテンツ種類はCD→RELEASE等のエイリアスも正規化した上で判定する。
-  const isExcludedByFilter = item => {
+  // precomputedGroupsを渡すと、呼び出し元で既に計算済みのgetFilterGroupsForItem(item)の結果を再利用し、
+  // 同じアイテムに対する重複計算(配列生成)を避けられる(渡さなければ従来通りここで計算する)
+  const isExcludedByFilter = (item, precomputedGroups) => {
     if (!excludedFilterValues.size) return false;
     const yr = item.date ? item.date.slice(0, 4) : '';
     const mo = item.date ? item.date.slice(4, 6) : '';
     if (excludedFilterValues.has(yr) || excludedFilterValues.has(mo)) return true;
-    const itemGroupsAndRelations = getFilterGroupsForItem(item);
+    const itemGroupsAndRelations = precomputedGroups || getFilterGroupsForItem(item);
     // グループ(G2/L2):メタ表記そのもの、または該当グループの個別メンバーコードのいずれかで判定する
     const itemHasMeta = m => {
       if (itemGroupsAndRelations.includes(m)) return true;
@@ -2355,7 +2374,7 @@ body .item-contents.is-content-open {
 
     const todayOk = isTodayDateOk(item, cYears);
 
-    return yOk && monthOk && gOk && dateOk && textOk && setlistOk && todayOk && !isExcludedByFilter(item);
+    return yOk && monthOk && gOk && dateOk && textOk && setlistOk && todayOk && !isExcludedByFilter(item, itemGroupsAndRelations);
   };
 
   // TODAY/←/→ボタン、またはセトリ検索モードでの検索条件変化があった時のみ、コンテンツ種類ボタンを自動on/offする。
@@ -2522,25 +2541,40 @@ body .item-contents.is-content-open {
       
       const todayOk = isTodayDateOk(item, cYears);
 
-      return yOk && monthOk && gOk && cOk && dateOk && textOk && setlistOk && todayOk && !isExcludedByFilter(item);
+      return yOk && monthOk && gOk && cOk && dateOk && textOk && setlistOk && todayOk && !isExcludedByFilter(item, itemGroupsAndRelations);
     });
 
+    // ソート比較のたびに同じ計算をやり直さないよう、各アイテムのソートキーを1回だけ計算してキャッシュする
+    // (decorate-sort-undecorate)。sort()の比較回数はO(n log n)で件数が多いほど比較回数計算回数を大きく
+    // 上回るため、比較のたびに毎回計算し直すと無駄が大きい。判定内容・並び順自体は変更しない
+    const sortKeyCache = new Map();
+    const getSortKeys = item => {
+      let keys = sortKeyCache.get(item);
+      if (!keys) {
+        keys = {
+          dateKey: sortKeyFor(item),
+          groupRank: groupSortRank(item),
+          memberRank: memberSortRank(item),
+          // 誕生日(BIRTHDAY)は記念日(ANNIVERSARY)より上に表示する
+          babRank: item.contents === 'BIRTHDAY' ? 0 : item.contents === 'ANNIVERSARY' ? 1 : 2,
+          contentRank: contentSortRank(item)
+        };
+        sortKeyCache.set(item, keys);
+      }
+      return keys;
+    };
     filtered.sort((a, b) => {
-      const ka = sortKeyFor(a), kb = sortKeyFor(b);
-      if (ka !== kb) return desc ? kb.localeCompare(ka) : ka.localeCompare(kb);
+      const ka = getSortKeys(a), kb = getSortKeys(b);
+      if (ka.dateKey !== kb.dateKey) return desc ? kb.dateKey.localeCompare(ka.dateKey) : ka.dateKey.localeCompare(kb.dateKey);
       // 日付+時刻が同一の場合のタイブレーク:
       // 1) グループ(G2とL2両方 > G2 > L2 > STF > それ以外)
-      const ga = groupSortRank(a), gb = groupSortRank(b);
-      if (ga !== gb) return ga - gb;
+      if (ka.groupRank !== kb.groupRank) return ka.groupRank - kb.groupRank;
       // 2) メンバー(フィルターボタンの並び順)
-      const ma = memberSortRank(a), mb = memberSortRank(b);
-      if (ma !== mb) return ma - mb;
+      if (ka.memberRank !== kb.memberRank) return ka.memberRank - kb.memberRank;
       // 3) 誕生日(BIRTHDAY)は記念日(ANNIVERSARY)より上に表示する
-      const babRank = item => item.contents === 'BIRTHDAY' ? 0 : item.contents === 'ANNIVERSARY' ? 1 : 2;
-      const ba = babRank(a), bb = babRank(b);
-      if (ba !== bb) return ba - bb;
+      if (ka.babRank !== kb.babRank) return ka.babRank - kb.babRank;
       // 4) コンテンツフィルターボタンの並び順
-      return contentSortRank(a) - contentSortRank(b);
+      return ka.contentRank - kb.contentRank;
     });
 
     $('items').classList.add('is-animating');
@@ -2680,7 +2714,7 @@ body .item-contents.is-content-open {
              monthOk &&
              gOk &&
              cOk &&
-             dateOk && kwOk && setlistOk && todayOk && !isExcludedByFilter(item);
+             dateOk && kwOk && setlistOk && todayOk && !isExcludedByFilter(item, itemGroupsAndRelations);
     }).length;
   };
 
@@ -3566,6 +3600,9 @@ body .item-contents.is-content-open {
     updateDisplay(true);
   };
 
+  // ホバーによる件数プレビュー用のデバウンスタイマー。マウスが複数のボタンを素早く通過しただけで
+  // 都度previewCountFor(ログ全件のフィルタ処理)が走らないよう、一定時間ホバーが継続した時だけ計算する
+  let hoverPreviewTimer = null;
   const bindCheckboxAndLabelEvents = () => {
     if (!isTouch) {
       labels.forEach(l => {
@@ -3574,38 +3611,44 @@ body .item-contents.is-content-open {
         const val = cb.value;
 
         l.onmouseenter = () => {
-          const cnt = previewCountFor(val, cb.checked);
-          const rc = $('resultCount');
-          rc.textContent = '';
-          rc.append('[ ');
-          // メンバーはハート、グループ(G2/L2)は四角、コンテンツ種類は絵文字シンボルを、名前の左に
-          // 同じ幅・同じ間隔(preview-icon)で添える。名前側もアイコン文字を含まない純粋なテキストにする
-          const memberInfo = memberInfoByCode[val];
-          let name;
-          if (memberInfo) {
-            const heart = document.createElement('span');
-            heart.className = 'preview-icon';
-            heart.textContent = memberInfo.c;
-            rc.appendChild(heart);
-            name = memberInfo.n;
-          } else if (val === 'G2' || val === 'L2') {
-            const sq = document.createElement('span');
-            sq.className = 'preview-icon preview-icon-square team-' + val.toLowerCase();
-            rc.appendChild(sq);
-            name = l.querySelector('.label-text').textContent.trim();
-          } else if (symbols[val] !== undefined) {
-            const icon = document.createElement('span');
-            icon.className = 'preview-icon';
-            icon.textContent = symbols[val];
-            rc.appendChild(icon);
-            name = displayNameFor(val);
-          } else {
-            name = l.querySelector('.label-text').textContent.trim(); // 年・月フィルターなどアイコンが無いもの
-          }
-          rc.append(name + ' ] PREVIEW > ' + cnt);
+          if (hoverPreviewTimer) clearTimeout(hoverPreviewTimer);
+          hoverPreviewTimer = setTimeout(() => {
+            const cnt = previewCountFor(val, cb.checked);
+            const rc = $('resultCount');
+            rc.textContent = '';
+            rc.append('[ ');
+            // メンバーはハート、グループ(G2/L2)は四角、コンテンツ種類は絵文字シンボルを、名前の左に
+            // 同じ幅・同じ間隔(preview-icon)で添える。名前側もアイコン文字を含まない純粋なテキストにする
+            const memberInfo = memberInfoByCode[val];
+            let name;
+            if (memberInfo) {
+              const heart = document.createElement('span');
+              heart.className = 'preview-icon';
+              heart.textContent = memberInfo.c;
+              rc.appendChild(heart);
+              name = memberInfo.n;
+            } else if (val === 'G2' || val === 'L2') {
+              const sq = document.createElement('span');
+              sq.className = 'preview-icon preview-icon-square team-' + val.toLowerCase();
+              rc.appendChild(sq);
+              name = l.querySelector('.label-text').textContent.trim();
+            } else if (symbols[val] !== undefined) {
+              const icon = document.createElement('span');
+              icon.className = 'preview-icon';
+              icon.textContent = symbols[val];
+              rc.appendChild(icon);
+              name = displayNameFor(val);
+            } else {
+              name = l.querySelector('.label-text').textContent.trim(); // 年・月フィルターなどアイコンが無いもの
+            }
+            rc.append(name + ' ] PREVIEW > ' + cnt);
+          }, 150);
         };
 
-        l.onmouseleave = () => $('resultCount').textContent = defaultText;
+        l.onmouseleave = () => {
+          if (hoverPreviewTimer) clearTimeout(hoverPreviewTimer);
+          $('resultCount').textContent = defaultText;
+        };
       });
     }
 
@@ -4082,6 +4125,7 @@ body .item-contents.is-content-open {
 
   const applySetlistData = data => {
     setlistData = Array.isArray(data) ? data : [];
+    rebuildSetlistIdToMemberMap();
     // 既にセトリ検索モード中に読み込みが完了した場合は、結果を反映するため再描画する
     if (setlistMode) {
       autoUpdateContentTypeFilters();
