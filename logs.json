@@ -1,28 +1,63 @@
 [
   {
+    "date": "20260922",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "GL² family 佐藤栞奈お祝いメッセージ受付締切",
+    "display_pc": "GL²family 佐藤栞奈お祝いメッセージ受付締切",
+    "display_sp": "佐藤栞奈お祝いメッセージ受付締切",
+    "url": "https://girls2-fc.jp/page/familyNews/1229704955867168768",
+    "groups": ["L2","KAN"],
+    "tags": []
+  },
+  {
+    "date": "20260922",
+    "time": "1330",
+    "contents": "FANCLUB",
+    "title": "Laki 5th Anniversary Live -L∞K UP- ファンクラブ連動プレゼント受付開始",
+    "display_pc": "Laki 5th Anniversary Live -L∞K UP- FC連動プレゼント受付開始",
+    "display_sp": "5th Anniversary Live FCプレゼント受付開始",
+    "url": "https://girls2-fc.jp/page/lucky2news/1229281042746048513",
+    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "tags": []
+  },
+  {
+    "date": "20260922",
+    "time": "1330",
+    "contents": "SALE",
+    "title": "Laki 5th Anniversary Live -L∞K UP- CD販売開始",
+    "display_pc": "Laki 5th Anniversary Live -L∞K UP- CD販売開始",
+    "display_sp": "5th Anniversary Live CD販売開始",
+    "url": "https://girls2-fc.jp/page/lucky2news/1229312696428527618",
+    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "tags": []
+  },
+  {
+    "date": "20260922",
+    "time": "1330",
+    "contents": "SALE",
+    "title": "Laki 5th Anniversary Live -L∞K UP- グッズ販売開始",
+    "display_pc": "Laki 5th Anniversary Live -L∞K UP- グッズ販売開始",
+    "display_sp": "5th Anniversary Live グッズ販売開始",
+    "url": "https://girls2-fc.jp/page/lucky2news/1229337122255667201",
+    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "tags": []
+  },
+  {
     "date": "20260921",
     "time": "2000",
     "contents": "WEB",
     "title": "Girls News",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://girlsnews.tv/unit/506326",
     "groups": ["L2","RIN","TBK","AKR","KIK"],
-    "setlistid":"",
-    "relations": [""],
     "tags": [""]
   },
   {
     "date": "20260926",
-    "time": "",
     "contents": "MAGAZINE",
     "title": "B-PASS 2026年11月号",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://b-pass.online/news/1033",
     "groups": ["L2","RRK"],
-    "setlistid":"",
-    "relations": [""],
     "tags": ["YOUR PET SHOW"]
   },
   {
@@ -30,11 +65,8 @@
     "time": "1947",
     "contents": "CL",
     "title": "POST　佐藤栞奈",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://www.cl-live.com/posts/cYKZtp1oYmzcwz2P5LvZo4?lang=ja",
     "groups": ["L2","KAN"],
-    "relations": [""],
     "tags": [""]
   },
   {
@@ -42,11 +74,8 @@
     "time": "2127",
     "contents": "CL",
     "title": "POST　森朱里",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://www.cl-live.com/posts/4gB64ucAaSerZTVjH8Kv4h?lang=ja",
     "groups": ["L2","AKR"],
-    "relations": [""],
     "tags": [""]
   },
   {
@@ -54,11 +83,8 @@
     "time": "2127",
     "contents": "CL",
     "title": "POST　佐藤妃希",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://www.cl-live.com/posts/fDfcrMbzgjK7doEKdfKhtp?lang=ja",
     "groups": ["L2","KIK"],
-    "relations": [""],
     "tags": [""]
   },
   {
@@ -66,11 +92,8 @@
     "time": "2134",
     "contents": "CL",
     "title": "POST　佐藤妃希",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://www.cl-live.com/posts/r4XVVTjoC4MV23dg51ubHh",
     "groups": ["L2","KIK"],
-    "relations": [""],
     "tags": [""]
   },
   {
@@ -78,11 +101,8 @@
     "time": "2055",
     "contents": "CL",
     "title": "POST　深澤日彩",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://www.cl-live.com/posts/8jUZegAkY8ZoXDxb7Kaexq",
     "groups": ["L2","HIR"],
-    "relations": [""],
     "tags": [""]
   },
   {
