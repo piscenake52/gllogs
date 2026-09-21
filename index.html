@@ -506,6 +506,7 @@ body .item-contents.is-content-open {
 .map-pin { display: inline-block; margin: 0 4px 0 2px; text-decoration: none; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; }
 .map-pin:not(a) { visibility: hidden; } /* mapに値が無い行は、アイコン分の幅は保ったまま見た目だけブランクにする */
 .setlist-icon { display: inline-block; margin: 0 4px 0 2px; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; }
+.setlist-icon.is-blank { visibility: hidden; cursor: default; } /* setlistidが無い行は、アイコン分の幅は保ったまま見た目だけブランクにする(setlistIconMode時) */
 .team-icon.is-clickable { cursor: pointer; }
 /* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される。
    overflow-xだけhidden・overflow-yだけvisibleのように分割指定すると、ブラウザ側でvisible指定がautoとして
@@ -674,6 +675,7 @@ body .item-contents.is-content-open {
         <button class="toggle-btn date-part-btn" id="showWeekdayBtn">&#26332;</button>
         <button class="toggle-btn date-part-btn" id="showTimeBtn">&#26178;</button>
         <button class="toggle-btn date-part-btn" id="mapToggleBtn">&#128205;</button>
+        <button class="toggle-btn date-part-btn" id="setlistIconToggleBtn">&#128203;&#65039;</button>
         <button class="toggle-btn" id="badgeToggleBtn">BADGE</button>
         <button class="toggle-btn" id="iconToggleBtn">ICON</button>
         <button class="toggle-btn" id="todayToggleBtn">TODAY</button>
@@ -795,6 +797,10 @@ body .item-contents.is-content-open {
   let setlistData = []; // setlist.json(公演ごとのセットリスト)のキャッシュ
   let songsData = []; // songs.json(artist/title/link)のキャッシュ。SETLISTポップアップの再生ボタンにも使う
   let setlistMode = false; // SETLISTボタンでON/OFFする「セトリ検索モード」
+  // セトリ検索モードに入る直前のTODAY状態(todayMode/todayOffset/desc/preTodaySort)のスナップショット。
+  // セトリ検索モード中のTODAYは通常時とは別管理(独立してON/OFFできる)とし、セトリ検索モードを
+  // 終了した時にここへ完全復元する。セトリ検索モード中でなければnull。
+  let setlistTodaySavedState = null;
   const pageSize = 40, isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const $ = id => document.getElementById(id);
   // G2: 小田柚葉:YZH、隅谷百花:MMK、鶴屋美咲:MSK、小川桜花:YOK、増田來亜:KUR、菱田未渚美:MNM、山口綺羅:KIR、原田都愛:TOA、石井蘭:RAN
@@ -1680,9 +1686,26 @@ body .item-contents.is-content-open {
       }
     }
 
-    // セトリ検索モード中、setlistidを持つ行にのみ📍の右にSETLISTアイコンを表示する。押すとセットリストをポップアップ表示する
+    // SETLISTアイコン表示:①セトリ検索モード中(従来通り)、②📋️ボタン(setlistIconMode)ON中、のいずれかで
+    // 📍の右に表示する。押すとセットリストをポップアップ表示する。
+    // setlistIconMode時は📍(mapMode)と同じ考え方で、setlistidが無い行もアイコン要素自体は作り、
+    // 幅だけ確保して見た目を隠す(is-blank)。セトリ検索モードのみがONの場合は従来通りsetlistidが無い行は要素を作らない。
     let sl = null;
-    if (setlistMode && item.setlistid) {
+    if (setlistIconMode) {
+      const hasSetlistId = !!item.setlistid;
+      sl = document.createElement('span');
+      sl.className = 'setlist-icon' + (hasSetlistId ? '' : ' is-blank');
+      sl.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない
+      sl.textContent = '\uD83D\uDCCB\uFE0F'; // setlistidの有無にかかわらず同じ幅を確保するため、常にアイコン文字を入れておく
+      if (hasSetlistId) {
+        sl.setAttribute('role', 'button');
+        sl.setAttribute('aria-label', 'Setlist');
+        sl.onclick = e => {
+          e.stopPropagation();
+          openSetlistModal(item.setlistid);
+        };
+      }
+    } else if (setlistMode && item.setlistid) {
       sl = document.createElement('span');
       sl.className = 'setlist-icon';
       sl.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない
@@ -2628,6 +2651,21 @@ body .item-contents.is-content-open {
     localStorage.setItem(MAP_MODE_KEY, mapMode);
     updateDisplay(false);
   };
+
+  // 📋️ボタン(SETLISTアイコン表示モード):セトリ検索モードとは別物の独立したON/OFF。ONの間、データ部の
+  // 日付/時刻表示の右(📍の右)にSETLISTアイコンを表示する。基本的な動作は📍(mapMode)と同じ考え方で、
+  // setlistidを持たない行でもアイコン要素自体は常に作り、見た目だけ隠して幅を確保する。
+  // アイコン押下時の処理(セットリストポップアップを開く)はセトリ検索モード中の表示と共通。
+  // 次回訪問時も状態を記憶する
+  const SETLIST_ICON_MODE_KEY = 'gl_log_setlist_icon_mode';
+  let setlistIconMode = localStorage.getItem(SETLIST_ICON_MODE_KEY) === 'true';
+  $('setlistIconToggleBtn').classList.toggle('is-active', setlistIconMode);
+  $('setlistIconToggleBtn').onclick = () => {
+    setlistIconMode = !setlistIconMode;
+    $('setlistIconToggleBtn').classList.toggle('is-active', setlistIconMode);
+    localStorage.setItem(SETLIST_ICON_MODE_KEY, setlistIconMode);
+    updateDisplay(false);
+  };
   const SONG_MODE_KEY = 'gl_log_song_mode';
   let songMode = localStorage.getItem(SONG_MODE_KEY) === 'true';
   $('songToggleBtn').classList.toggle('is-active', songMode);
@@ -3028,12 +3066,7 @@ body .item-contents.is-content-open {
 
   $('todayToggleBtn').onclick = () => {
     if (todayLongPressed) { todayLongPressed = false; return; } // 長押し発火直後のclickは無視する
-    // セトリ検索モード中にTODAYボタンが押されたら、セトリ検索モードはOFFにする(逆方向は現状維持)
-    if (setlistMode) {
-      setlistMode = false;
-      $('setlistToggleBtn').classList.remove('is-active');
-      updateSearchPlaceholder();
-    }
+    // セトリ検索モード中のTODAYは通常時と別管理の独立したON/OFFのため、ここではセトリ検索モードには一切触れない
     if (!todayMode) {
       // OFF -> ON(当日)。ON にする直前のソート状態を覚えておく
       todayMode = true;
@@ -3346,6 +3379,31 @@ body .item-contents.is-content-open {
     $('setlistToggleBtn').classList.toggle('is-active', setlistMode);
     searchSuggestions.classList.remove('is-open'); // モード切替時は検索候補ポップアップを一旦閉じる
     updateSearchPlaceholder();
+    if (setlistMode) {
+      // セトリ検索モードへ突入:直前のTODAY状態をまるごと保存した上で、TODAYモードは一旦OFFにする
+      // (セトリ検索モード中のTODAYはここから独立して別管理になる)
+      setlistTodaySavedState = { todayMode, todayOffset, desc, preTodaySort };
+      if (todayMode) {
+        todayMode = false;
+        todayOffset = 0;
+        searchDateTodayActive = false;
+        if (preTodaySort !== null) {
+          desc = preTodaySort;
+          preTodaySort = null;
+        }
+        updateSortBtnLabel();
+        updateTodayButtonStyle();
+      }
+    } else if (setlistTodaySavedState) {
+      // セトリ検索モードを終了:突入直前のTODAY状態(ON/OFF・前後日オフセット・ソート順)へ完全復元する
+      todayMode = setlistTodaySavedState.todayMode;
+      todayOffset = setlistTodaySavedState.todayOffset;
+      desc = setlistTodaySavedState.desc;
+      preTodaySort = setlistTodaySavedState.preTodaySort;
+      setlistTodaySavedState = null;
+      updateSortBtnLabel();
+      updateTodayButtonStyle();
+    }
     autoUpdateContentTypeFilters();
     updateManualIndicators();
     updateDisplay(true);
@@ -3552,7 +3610,18 @@ body .item-contents.is-content-open {
     searchInput.value = '';
     updateSearchClearState();
     document.querySelectorAll('.checks-row-years, .checks-row-other, .checks-row-months').forEach(con => con.scrollLeft = 0);
-    if (todayMode) {
+    if (setlistMode && setlistTodaySavedState) {
+      // セトリ検索モード中のCLEARは、TODAYを単純OFFにするのではなく、セトリ検索モードに突入する
+      // 直前のTODAY状態(ON/OFF・前後日オフセット・ソート順)へ完全復元する
+      todayMode = setlistTodaySavedState.todayMode;
+      todayOffset = setlistTodaySavedState.todayOffset;
+      desc = setlistTodaySavedState.desc;
+      preTodaySort = setlistTodaySavedState.preTodaySort;
+      setlistTodaySavedState = null;
+      searchDateTodayActive = false; // CLEARで検索窓も空になるため連動フラグはリセットする
+      updateSortBtnLabel();
+      updateTodayButtonStyle();
+    } else if (todayMode) {
       todayMode = false;
       todayOffset = 0;
       searchDateTodayActive = false; // CLEARで検索窓も空になるため連動フラグもリセットする
@@ -3568,7 +3637,7 @@ body .item-contents.is-content-open {
     $('heartToggleBtn').classList.remove('is-active');
     // CLEARでコンテンツ名アコーディオンも全行分OFFにする(同上。updateDisplay側でも既定でクリアされるが明示しておく)
     expandedContentKeys.clear();
-    // CLEARでセトリ検索モードもOFFに戻す
+    // CLEARでセトリ検索モードもOFFに戻す(TODAY状態の復元は上で済ませてあるので、ここではフラグとボタン表示のみ)
     if (setlistMode) {
       setlistMode = false;
       $('setlistToggleBtn').classList.remove('is-active');
