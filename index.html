@@ -211,7 +211,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;
   gap: 6px;
   max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; pointer-events: none;
-  transition: max-height 0.25s ease, opacity 0.2s ease, padding-top 0.25s ease, padding-bottom 0.25s ease;
+  transition: max-height 0.15s ease, opacity 0.12s ease, padding-top 0.15s ease, padding-bottom 0.15s ease;
 }
 .checks-row-months.is-visible { max-height: 60px; opacity: 1; padding-top: 0; padding-bottom: 2px; pointer-events: auto; }
 /* PC幅では常時コンテナ幅を720pxにする(コンテンツ種類ボタンがICONモードでも1行に収まるように) */
@@ -1193,6 +1193,22 @@ body .item-contents.is-content-open {
       birthdayAliasConts.includes(c) ? 'BIRTHDAY' : c;
     normalizeContTypeCache.set(c, result);
     return result;
+  };
+
+  // キーワード検索用の連結文字列(searchText)は、タイトル・タグ等データが変わらない限り
+  // アイテムごとに常に同じ結果になるため、初回計算時にWeakMapへキャッシュし使い回す。
+  // updateDisplay/previewCountFor/autoUpdateContentTypeFiltersの3箇所すべてで、検索・フィルター操作の
+  // たびに全件(約1万件)ぶんの文字列連結+toLowerCaseをやり直していたのを避けるための最適化。
+  // WeakMapなので、データ更新でlogs配列が丸ごと新しいオブジェクトに入れ替わった場合も、
+  // 古いアイテムへの参照が無くなればエントリごと自動的にGCされ、明示的なキャッシュクリアは不要
+  const searchTextCache = new WeakMap();
+  const getSearchText = item => {
+    let text = searchTextCache.get(item);
+    if (text === undefined) {
+      text = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+      searchTextCache.set(item, text);
+    }
+    return text;
   };
 
   // 検索窓の"-コンテンツ種類名"(例:"-DIARY"、または"-RELEASE"のような正規化後の総称名)でその種類を
@@ -2367,7 +2383,7 @@ body .item-contents.is-content-open {
       }
 
       if (kw) {
-        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+        const searchText = getSearchText(item);
         textOk = matchesSearchKeyword(searchText, kw);
       }
     }
@@ -2534,7 +2550,7 @@ body .item-contents.is-content-open {
         }
 
         if (kw) {
-          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+          const searchText = getSearchText(item);
           textOk = matchesSearchKeyword(searchText, kw);
         }
       }
@@ -2700,7 +2716,7 @@ body .item-contents.is-content-open {
         }
 
         if (kw) {
-          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+          const searchText = getSearchText(item);
           kwOk = matchesSearchKeyword(searchText, kw);
         }
       }
@@ -3673,6 +3689,10 @@ body .item-contents.is-content-open {
     // フィルターボタンのダブルクリック/ダブルタップ:そのボタンの値を「除外」指定に切り替える(再度で解除)。
     // ネイティブのlabelクリック挙動(クリックのたびにチェックボックスをトグル)を常にpreventDefaultで止め、
     // シングル/ダブルの判定を自前のタイマーで行う(マウス・タッチどちらも'click'イベントで統一的に扱えるため)。
+    // シングルクリックの反映を(ダブルクリックか判定できるまで)待たせると、押すたびに体感速度が悪化するため、
+    // クリックのたびに即座にトグルし、一定時間内に2回目のクリックが来た場合だけ後から除外トグルで補正する。
+    // (2回連続でトグルした結果は必ずクリック前の状態に戻るため、そこから除外トグルすれば、最終的な状態は
+    // 「反映を遅らせてダブルクリックか確定してから1回だけ判定する」場合と常に一致する)
     const DBLCLICK_THRESHOLD_MS = 300;
     labels.forEach(l => {
       const cb = l.querySelector('input');
@@ -3681,17 +3701,19 @@ body .item-contents.is-content-open {
       l.onclick = e => {
         e.preventDefault();
         if (clickTimer) {
+          // 2回目のクリック(ダブルクリック確定):1回目のクリックで即座に反映済みのチェック状態を、
+          // 除外トグルで補正する
           clearTimeout(clickTimer);
           clickTimer = null;
           toggleExcludedForLabel(cb);
           return;
         }
-        clickTimer = setTimeout(() => {
-          clickTimer = null;
-          if (excludedFilterValues.has(cb.value)) return; // 除外中はシングルクリックでのON/OFFも無効化する
+        // 1回目のクリック:ダブルクリックかどうかに関わらず、シングルクリックの動作を即座に反映する
+        if (!excludedFilterValues.has(cb.value)) { // 除外中はシングルクリックでのON/OFFも無効化する
           cb.checked = !cb.checked;
           cb.dispatchEvent(new Event('change')); // 既存のcb.onchangeロジック(manuallyTouchedConts等)を発火させる
-        }, DBLCLICK_THRESHOLD_MS);
+        }
+        clickTimer = setTimeout(() => { clickTimer = null; }, DBLCLICK_THRESHOLD_MS);
       };
     });
 
