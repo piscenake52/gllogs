@@ -1,5 +1,31 @@
 [
   {
+    "date": "20260921",
+    "time": "2000",
+    "contents": "WEB",
+    "title": "Girls News",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://girlsnews.tv/unit/506326",
+    "groups": ["L2","RIN","TBK","AKR","KIK"],
+    "setlistid":"",
+    "relations": [""],
+    "tags": [""]
+  },
+  {
+    "date": "20260926",
+    "time": "",
+    "contents": "MAGAZINE",
+    "title": "B-PASS 2026年11月号",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://b-pass.online/news/1033",
+    "groups": ["L2","RRK"],
+    "setlistid":"",
+    "relations": [""],
+    "tags": ["YOUR PET SHOW"]
+  },
+  {
 "date": "20260921",
 "time": "1947",
 "contents": "CL",
@@ -8,6 +34,18 @@
 "display_sp": "",
 "url": "https://www.cl-live.com/posts/cYKZtp1oYmzcwz2P5LvZo4?lang=ja",
 "groups": ["L2","KAN"],
+"relations": [""],
+"tags": [""]
+},
+  {
+"date": "20260921",
+"time": "2055",
+"contents": "CL",
+"title": "POST　深澤日彩",
+"display_pc": "",
+"display_sp": "",
+"url": "https://www.cl-live.com/posts/8jUZegAkY8ZoXDxb7Kaexq",
+"groups": ["L2","HIR"],
 "relations": [""],
 "tags": [""]
 },
