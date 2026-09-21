@@ -624,8 +624,6 @@ body .item-contents.is-content-open {
   /* スマホ版:アイコンのみ表示(PC版のICONモードと同じ固定幅・中央揃えに統一) */
   .item-contents { flex: 0 0 28px; width: 28px; padding: 1px 0; margin-right: 8px; }
   .item-contents-icon { width: 28px; }
-  /* スマホ版のみ:検索窓自体は変えず、検索履歴ドロップダウンの幅だけ1.5倍に拡張する(左端は検索窓に揃える) */
-  .search-suggestions { right: auto; width: 150%; }
 }
 
 /* セットリストポップアップ(SETLISTアイコン押下時に表示)。display:none/flexの瞬時切替ではなく、
@@ -801,6 +799,14 @@ body .item-contents.is-content-open {
   // セトリ検索モード中のTODAYは通常時とは別管理(独立してON/OFFできる)とし、セトリ検索モードを
   // 終了した時にここへ完全復元する。セトリ検索モード中でなければnull。
   let setlistTodaySavedState = null;
+  // セトリ検索モード中、コンテンツフィルターの LIVE/EVENT 以外を「ダブルクリックした時と同じ除外状態」に
+  // 一括で強制する。対象は SETLIST_ALLOWED_CONTS(許可する種類)以外を allConts から動的に算出するため、
+  // 今後コンテンツ種類が追加/削除されてもこのロジックを変更する必要はない。
+  const SETLIST_ALLOWED_CONTS = ['LIVE', 'EVENT'];
+  const setlistExcludedConts = () => allConts.filter(v => !SETLIST_ALLOWED_CONTS.includes(v));
+  // セトリ検索モードに入る直前の除外状態(excludedFilterValues)のスナップショット。セトリ検索モードを
+  // 終了した時にここへ完全復元する。セトリ検索モード中でなければnull。
+  let setlistExcludedSavedState = null;
   const pageSize = 40, isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const $ = id => document.getElementById(id);
   // G2: 小田柚葉:YZH、隅谷百花:MMK、鶴屋美咲:MSK、小川桜花:YOK、増田來亜:KUR、菱田未渚美:MNM、山口綺羅:KIR、原田都愛:TOA、石井蘭:RAN
@@ -1363,15 +1369,102 @@ body .item-contents.is-content-open {
     }
     updateDisplay(true);
   };
+  // 入力中のデータサジェスト:クエリ文字列で前方一致する候補を最大MAX_DATA_SUGGESTIONS件集める。
+  // 通常検索モード中はログのtitle/tagsを、セトリ検索モード中はsongs.jsonの曲名(title)を候補ソースとする。
+  // 大文字小文字は区別しない。先頭からPREFIX_DEDUPE_LEN文字が一致するものは重複とみなして除外する
+  // (seenPrefixesに含まれる先頭一致分〈履歴側で採用済みのもの等〉も同様に除外)。
+  const MAX_DATA_SUGGESTIONS = 5;
+  const PREFIX_DEDUPE_LEN = 10;
+  const dedupePrefixKey = s => s.toLowerCase().slice(0, PREFIX_DEDUPE_LEN);
+  // 文字列中の最初の「#」以降、末尾まで数値で終わっている場合、その「#...数値」部分を候補表示から除外し、
+  // #より前の部分だけを残す(例:「新春ライブ#2026」→「新春ライブ」。#の後ろが数値で終わっていない
+  // 場合は変更しない)
+  const stripHashNumberSuffix = s => {
+    const idx = s.indexOf('#');
+    if (idx === -1) return s;
+    const after = s.slice(idx).trim();
+    if (/^#\S*\d$/.test(after)) return s.slice(0, idx).trim();
+    return s;
+  };
+  const collectDataSuggestions = (query, seenPrefixes) => {
+    const result = [];
+    const seen = new Set(seenPrefixes);
+    const tryAdd = term => {
+      if (!term) return false;
+      const t = stripHashNumberSuffix(String(term).trim());
+      if (!t) return false;
+      const lower = t.toLowerCase();
+      if (!lower.startsWith(query)) return false;
+      const key = dedupePrefixKey(t);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      result.push(t);
+      return result.length >= MAX_DATA_SUGGESTIONS;
+    };
+    if (setlistMode) {
+      for (const s of songsData) {
+        if (tryAdd(s.title)) break;
+      }
+    } else {
+      outer:
+      for (const item of logs) {
+        if (tryAdd(item.title)) break outer;
+        if (Array.isArray(item.tags)) {
+          for (const tag of item.tags) {
+            if (tryAdd(tag)) break outer;
+          }
+        }
+      }
+    }
+    return result;
+  };
+
+  // データサジェスト用の候補行(クリックで即検索実行するのみ。固定/削除ボタンは無し)を生成する
+  const createDataSuggestionRow = term => {
+    const row = document.createElement('div');
+    row.className = 'search-suggestion-row';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'search-suggestion-term';
+    btn.textContent = term;
+    btn.onmousedown = e => {
+      e.preventDefault();
+      applySuggestion(term);
+    };
+    row.appendChild(btn);
+    return row;
+  };
+
   const renderSearchSuggestions = () => {
-    const list = getRecentSearches();
-    searchSuggestions.textContent = '';
-    highlightedSuggestionIndex = -1;
-    if (!list.length) {
+    // フォーカスが外れている間の遅延実行(デバウンス後)で誤って再表示しないようにする
+    if (document.activeElement !== searchInput) {
       searchSuggestions.classList.remove('is-open');
       return;
     }
-    list.forEach(entry => {
+    const rawQuery = searchInput.value.trim();
+    const query = rawQuery.toLowerCase();
+    const historyList = getRecentSearches();
+    // 入力が空でも入力中でも、履歴は先頭からPREFIX_DEDUPE_LEN文字が同じものを重複とみなして先着(固定済みが
+    // 先頭に来る並び順のため、固定済み優先)のものだけ残す。入力中はさらに前方一致するものだけに絞り込む。
+    // その後、データサジェストを「履歴→データ」の順で混ぜて表示する(データサジェストも同じ基準で重複除外)
+    const seenPrefixes = new Set();
+    const filteredHistory = [];
+    historyList.forEach(entry => {
+      if (query && !entry.term.toLowerCase().startsWith(query)) return;
+      const key = dedupePrefixKey(entry.term);
+      if (seenPrefixes.has(key)) return;
+      seenPrefixes.add(key);
+      filteredHistory.push(entry);
+    });
+    const dataSuggestions = query ? collectDataSuggestions(query, seenPrefixes) : [];
+
+    searchSuggestions.textContent = '';
+    highlightedSuggestionIndex = -1;
+    if (!filteredHistory.length && !dataSuggestions.length) {
+      searchSuggestions.classList.remove('is-open');
+      return;
+    }
+    filteredHistory.forEach(entry => {
       const term = entry.term;
       const pinned = entry.pinned;
       const row = document.createElement('div');
@@ -1418,10 +1511,13 @@ body .item-contents.is-content-open {
       row.append(pinBtn, btn, delBtn);
       searchSuggestions.appendChild(row);
     });
+    dataSuggestions.forEach(term => {
+      searchSuggestions.appendChild(createDataSuggestionRow(term));
+    });
     searchSuggestions.classList.add('is-open');
   };
   searchInput.addEventListener('focus', () => {
-    if (!searchInput.value) renderSearchSuggestions();
+    renderSearchSuggestions();
   });
   searchInput.addEventListener('blur', () => {
     searchSuggestions.classList.remove('is-open');
@@ -1430,10 +1526,11 @@ body .item-contents.is-content-open {
 
   searchInput.oninput = () => {
     updateSearchClearState();
-    searchSuggestions.classList.remove('is-open'); // 入力し始めたら候補は引っ込める(ライブ検索と競合しないように)
+    searchSuggestions.classList.remove('is-open'); // 入力の度に一旦候補を閉じ、デバウンス後に最新の内容で再表示する
     syncTodayModeFromSearch(); // 年月日8桁の入力/削除に応じてTODAYモードをON/OFFする
     clearTimeout(timer);
     timer = setTimeout(() => {
+      renderSearchSuggestions(); // 履歴の前方一致分＋データサジェストを入力内容に応じて再表示する
       // セトリ検索モード中は、検索ワードの変化に応じてコンテンツ種類フィルターも自動on/offする
       if (setlistMode) {
         autoUpdateContentTypeFilters();
@@ -1456,19 +1553,24 @@ body .item-contents.is-content-open {
     }
 
     if (isOpen && highlightedSuggestionIndex >= 0 && btns[highlightedSuggestionIndex]) {
-      // ハイライト中の候補をDeleteキーで削除する
+      // ハイライト中の候補をDeleteキーで削除する(履歴由来の候補のみ対象。データサジェスト行には削除ボタンが
+      // 無いため、そのことを目印に判定し、データサジェストの場合は何もしない)
       if (e.key === 'Delete') {
         e.preventDefault();
         const targetIndex = highlightedSuggestionIndex;
-        removeRecentSearch(btns[targetIndex].textContent);
-        renderSearchSuggestions();
-        const newBtns = getSuggestionButtons();
-        if (newBtns.length) highlightSuggestion(Math.min(targetIndex, newBtns.length - 1));
+        const targetRow = btns[targetIndex].parentElement;
+        if (targetRow.querySelector('.search-suggestion-delete')) {
+          removeRecentSearch(btns[targetIndex].textContent);
+          renderSearchSuggestions();
+          const newBtns = getSuggestionButtons();
+          if (newBtns.length) highlightSuggestion(Math.min(targetIndex, newBtns.length - 1));
+        }
         return;
       }
       if (e.key === 'Enter') {
         e.preventDefault();
         applySuggestion(btns[highlightedSuggestionIndex].textContent);
+        searchInput.blur(); // スマホの仮想キーボードも閉じる
         return;
       }
     }
@@ -1480,6 +1582,12 @@ body .item-contents.is-content-open {
 
     if (e.key === 'Enter' && searchInput.value.trim()) {
       saveRecentSearch(searchInput.value);
+    }
+    // Enter(スマホ版の仮想キーボードの→/決定キーも同じキーイベントとして届く)で検索履歴・サジェスト候補を
+    // 閉じ、スマホの仮想キーボードも閉じる
+    if (e.key === 'Enter') {
+      searchSuggestions.classList.remove('is-open');
+      searchInput.blur();
     }
   });
 
@@ -2661,6 +2769,9 @@ body .item-contents.is-content-open {
   let setlistIconMode = localStorage.getItem(SETLIST_ICON_MODE_KEY) === 'true';
   $('setlistIconToggleBtn').classList.toggle('is-active', setlistIconMode);
   $('setlistIconToggleBtn').onclick = () => {
+    // セトリ検索モード中はこのボタンが強制ON表示(色つき)で固定されるため、通常のON/OFF操作は受け付けない
+    // (セトリ検索モード中の強制ON状態は setlistIconMode の保存値とは別管理で、ここでは一切変更しない)
+    if (setlistMode) return;
     setlistIconMode = !setlistIconMode;
     $('setlistIconToggleBtn').classList.toggle('is-active', setlistIconMode);
     localStorage.setItem(SETLIST_ICON_MODE_KEY, setlistIconMode);
@@ -2877,18 +2988,24 @@ body .item-contents.is-content-open {
     updateManualIndicators();
   };
 
-  // 検索窓の日付入力によってONにされていたTODAYモードをOFFに戻す
-  const disableTodayFromSearchDate = () => {
-    if (!searchDateTodayActive) return;
-    searchDateTodayActive = false;
+  // TODAYモードをOFFに戻す共通処理(ON→OFF時の状態リセット本体のみ。呼び出し側の事情に応じて
+  // autoUpdateContentTypeFilters()等の後続処理は各呼び出し元で必要に応じて行う)
+  const turnOffTodayMode = () => {
     todayMode = false;
     todayOffset = 0;
+    searchDateTodayActive = false;
     if (preTodaySort !== null) {
       desc = preTodaySort;
       preTodaySort = null;
     }
     updateSortBtnLabel();
     updateTodayButtonStyle();
+  };
+
+  // 検索窓の日付入力によってONにされていたTODAYモードをOFFに戻す
+  const disableTodayFromSearchDate = () => {
+    if (!searchDateTodayActive) return;
+    turnOffTodayMode();
     autoUpdateContentTypeFilters();
     updateManualIndicators();
   };
@@ -3074,19 +3191,13 @@ body .item-contents.is-content-open {
       preTodaySort = desc;
       // TODAYをONにした時だけソートを自動的に昇順にする
       if (desc) desc = false;
+      updateSortBtnLabel();
+      updateTodayButtonStyle();
     } else {
       // ON(当日 or 前後日)状態からの押下は、常にOFFにする
-      todayMode = false;
-      todayOffset = 0;
-      searchDateTodayActive = false; // 手動でOFFにした場合は検索窓連動フラグもリセットする
-      if (preTodaySort !== null) {
-        desc = preTodaySort;
-        preTodaySort = null;
-      }
+      turnOffTodayMode();
     }
     // 通常クリックでのON/OFFは今回のセッション限り。保持(localStorage)はここでは書き換えない
-    updateSortBtnLabel();
-    updateTodayButtonStyle();
     autoUpdateContentTypeFilters();
     updateManualIndicators();
     updateDisplay(true);
@@ -3379,21 +3490,30 @@ body .item-contents.is-content-open {
     $('setlistToggleBtn').classList.toggle('is-active', setlistMode);
     searchSuggestions.classList.remove('is-open'); // モード切替時は検索候補ポップアップを一旦閉じる
     updateSearchPlaceholder();
+    // 上部の📋️ボタン(setlistIconMode)は、セトリ検索モード中は強制ONの色つき表示で固定し、クリックも
+    // 受け付けない(setlistIconModeの保存値そのものは変更しない、別管理)。セトリ検索モードを抜けたら
+    // 保存されているsetlistIconModeの値に応じた通常表示に戻す
+    $('setlistIconToggleBtn').classList.toggle('is-active', setlistMode || setlistIconMode);
     if (setlistMode) {
       // セトリ検索モードへ突入:直前のTODAY状態をまるごと保存した上で、TODAYモードは一旦OFFにする
       // (セトリ検索モード中のTODAYはここから独立して別管理になる)
       setlistTodaySavedState = { todayMode, todayOffset, desc, preTodaySort };
-      if (todayMode) {
-        todayMode = false;
-        todayOffset = 0;
-        searchDateTodayActive = false;
-        if (preTodaySort !== null) {
-          desc = preTodaySort;
-          preTodaySort = null;
+      if (todayMode) turnOffTodayMode();
+      // 直前の除外状態をまるごと保存した上で、LIVE/EVENT以外のコンテンツ種類をダブルクリックと同じ
+      // 除外状態にする(年/グループ等、コンテンツ種類以外の既存の除外指定はそのまま維持する)
+      setlistExcludedSavedState = new Set(excludedFilterValues);
+      const checkboxArr = Array.from(checkboxes);
+      setlistExcludedConts().forEach(v => {
+        if (excludedFilterValues.has(v)) return; // 既に除外済みならそのまま(重複追加しない)
+        excludedFilterValues.add(v);
+        manuallyTouchedConts.delete(v); // 除外指定は手動ON保護より優先させる
+        const cb = checkboxArr.find(c => c.value === v);
+        if (cb && cb.checked) {
+          cb.checked = false;
+          cb.dispatchEvent(new Event('change'));
         }
-        updateSortBtnLabel();
-        updateTodayButtonStyle();
-      }
+      });
+      applyExcludedStyles();
     } else if (setlistTodaySavedState) {
       // セトリ検索モードを終了:突入直前のTODAY状態(ON/OFF・前後日オフセット・ソート順)へ完全復元する
       todayMode = setlistTodaySavedState.todayMode;
@@ -3403,6 +3523,13 @@ body .item-contents.is-content-open {
       setlistTodaySavedState = null;
       updateSortBtnLabel();
       updateTodayButtonStyle();
+      // 突入直前の除外状態(コンテンツ種類含む)へ完全復元する
+      if (setlistExcludedSavedState) {
+        excludedFilterValues.clear();
+        setlistExcludedSavedState.forEach(v => excludedFilterValues.add(v));
+        setlistExcludedSavedState = null;
+        applyExcludedStyles();
+      }
     }
     autoUpdateContentTypeFilters();
     updateManualIndicators();
@@ -3602,47 +3729,32 @@ body .item-contents.is-content-open {
     if (e) e.preventDefault();
     checkboxes.forEach(cb => cb.checked = false);
     manuallyTouchedConts.clear();
-    // CLEARで除外指定(ダブルクリック/ダブルタップで設定したもの)もあわせてリセットする
-    excludedFilterValues.clear();
-    saveExcludedFilters();
+    if (setlistMode) {
+      // セトリ検索モード中のCLEARは、除外指定を「セトリモードの初期表示状態」(LIVE/EVENT以外を除外)に
+      // 戻すだけにする。セトリモード突入前の除外状態(setlistExcludedSavedState)はここでは変更しない
+      // (復元はセトリボタンでモードを抜けた時のみ行う)。一時的な状態のためlocalStorageへの保存も行わない。
+      excludedFilterValues.clear();
+      setlistExcludedConts().forEach(v => excludedFilterValues.add(v));
+    } else {
+      // CLEARで除外指定(ダブルクリック/ダブルタップで設定したもの)もあわせてリセットする
+      excludedFilterValues.clear();
+      saveExcludedFilters();
+    }
     applyExcludedStyles();
     updateMonthFilterVisibility(); // 年フィルターも全解除されるため、月フィルター行も非表示に戻す
     searchInput.value = '';
     updateSearchClearState();
     document.querySelectorAll('.checks-row-years, .checks-row-other, .checks-row-months').forEach(con => con.scrollLeft = 0);
-    if (setlistMode && setlistTodaySavedState) {
-      // セトリ検索モード中のCLEARは、TODAYを単純OFFにするのではなく、セトリ検索モードに突入する
-      // 直前のTODAY状態(ON/OFF・前後日オフセット・ソート順)へ完全復元する
-      todayMode = setlistTodaySavedState.todayMode;
-      todayOffset = setlistTodaySavedState.todayOffset;
-      desc = setlistTodaySavedState.desc;
-      preTodaySort = setlistTodaySavedState.preTodaySort;
-      setlistTodaySavedState = null;
-      searchDateTodayActive = false; // CLEARで検索窓も空になるため連動フラグはリセットする
-      updateSortBtnLabel();
-      updateTodayButtonStyle();
-    } else if (todayMode) {
-      todayMode = false;
-      todayOffset = 0;
-      searchDateTodayActive = false; // CLEARで検索窓も空になるため連動フラグもリセットする
-      if (preTodaySort !== null) {
-        desc = preTodaySort;
-        preTodaySort = null;
-      }
-      updateSortBtnLabel();
-      updateTodayButtonStyle();
-    }
+    // TODAY(セトリ検索モード中は独立管理のローカルなTODAY)は、モードに関わらず単純にOFFへ戻す。
+    // セトリ検索モード中でも、セトリモード突入前の状態への復元はここでは行わない(復元はセトリボタンで
+    // モードを抜けた時のみ行う。CLEARは「セトリモードの初期表示状態」に戻すだけ)
+    if (todayMode) turnOffTodayMode();
     // CLEARでハートモードもOFFにする(再描画される行が展開済みの状態で作られないようにする)
     heartModeOn = false;
     $('heartToggleBtn').classList.remove('is-active');
     // CLEARでコンテンツ名アコーディオンも全行分OFFにする(同上。updateDisplay側でも既定でクリアされるが明示しておく)
     expandedContentKeys.clear();
-    // CLEARでセトリ検索モードもOFFに戻す(TODAY状態の復元は上で済ませてあるので、ここではフラグとボタン表示のみ)
-    if (setlistMode) {
-      setlistMode = false;
-      $('setlistToggleBtn').classList.remove('is-active');
-      updateSearchPlaceholder();
-    }
+    // セトリ検索モードはCLEARでは終了しない。抜けるのはセトリボタン(setlistToggleBtn)押下時のみ。
     window.scrollTo({ top: 0, behavior: 'instant' });
     updateDisplay(true);
   };
