@@ -1,5 +1,17 @@
 [
   {
+"date": "20260921",
+"time": "0000",
+"contents": "CLOSE",
+"title": "TEST",
+"display_pc": "",
+"display_sm": "",
+"url": "",
+"groups": [""],
+"relations": [""],
+"tags": [""]
+},
+  {
     "date": "20261004",
     "time": "2254",
     "contents": "CLOSE",
@@ -3854,7 +3866,6 @@
     "display_pc": "小川桜花と増田來亜のがるらじ ～GL² family RADIO～　後編",
     "display_sp": "小川桜花と増田來亜のがるらじ　後編",
     "url": "https://girls2-fc.jp/page/girls2radio/1230008862505959424",
-    "url": "",
     "groups": [
       "G2",
       "YOK",
