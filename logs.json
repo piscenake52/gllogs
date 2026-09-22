@@ -5531,13 +5531,18 @@
     "date": "20260925",
     "time": "1000",
     "contents": "GTUBE",
-    "title": "#753 ",
-    "display_pc": "#753　G TUBE",
-    "display_sp": "#753　G TUBE",
+    "title": "#753　Girls² インターネットサイン会 〜Xmas Special〜 2024.12.24",
+    "display_sp": "#753　Girls² ネットサイン会 Xmas Special",
     "url": "",
     "groups": [
       "G2",
-      "L2"
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ]
   },
   {
@@ -5742,9 +5747,7 @@
     "time": "1000",
     "contents": "GTUBE",
     "title": "#752 Girls² 「ゴンチャ FAN BOOK」 撮影",
-    "display_pc": "#752　Girls² 「ゴンチャ FAN BOOK」 撮影",
-    "display_sp": "#752　Girls² 「ゴンチャ FAN BOOK」 撮影",
-    "url": "",
+    "url": "https://girls2-fc.jp/page/gtube/1224621166048575489",
     "groups": [
       "G2","YZH","MMK","MSK","YOK","KUR","MNM","KIR","TOA"
     ]
