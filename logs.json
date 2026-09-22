@@ -5800,6 +5800,125 @@
   },
   {
     "date": "20260922",
+    "time": "1930",
+    "contents": "TICKET",
+    "title": "Laki LIVE TOUR 2027 -LINK UP- W会員先行チケット抽選受付開始",
+    "display_pc": "Laki LIVE TOUR 2027 -LINK UP- W会員先行チケット抽選受付開始",
+    "display_sp": "LIVE TOUR 2027 -LINK UP- W会員先行受付開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1231858087841759233",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20261004",
+    "time": "2300",
+    "contents": "CLOSE",
+    "title": "Laki LIVE TOUR 2027 -LINK UP- W会員先行チケット抽選受付締切",
+    "display_pc": "Laki LIVE TOUR 2027 -LINK UP- W会員先行チケット抽選受付締切",
+    "display_sp": "LIVE TOUR 2027 -LINK UP- W会員先行受付締切",
+    "url": "https://girls2-fc.jp/page/familyNews/1231858087841759233",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "tags": [
+    ]
+  },
+  {
+    "date": "20270123",
+    "time": "1730",
+    "contents": "LIVE",
+    "title": "Laki LIVE TOUR 2027 -LINK UP- 大阪公演",
+    "display_pc": "Laki LIVE TOUR 2027 -LINK UP- 大阪公演",
+    "display_sp": "LIVE TOUR 2027 -LINK UP- 大阪",
+    "url": "https://girls2-fc.jp/page/familyNews/1231858087841759233",
+    "map": "https://maps.app.goo.gl/4HwNtVk2qMp5sJBK6",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202701231730",
+    "tags": [
+      "BIGCAT"
+    ]
+  },
+  {
+    "date": "20270211",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "Laki LIVE TOUR 2027 -LINK UP- 東京公演",
+    "display_pc": "Laki LIVE TOUR 2027 -LINK UP- 東京公演",
+    "display_sp": "LIVE TOUR 2027 -LINK UP- 東京",
+    "url": "https://girls2-fc.jp/page/familyNews/1231858087841759233",
+    "map": "https://maps.app.goo.gl/pbx3YTVwQpvR2yLT6",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202702111700",
+    "tags": [
+      "大手町三井ホール"
+    ]
+  },
+  {
+    "date": "20270321",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "Laki LIVE TOUR 2027 -LINK UP- 愛知公演",
+    "display_pc": "Laki LIVE TOUR 2027 -LINK UP- 愛知公演",
+    "display_sp": "LIVE TOUR 2027 -LINK UP- 愛知",
+    "url": "https://girls2-fc.jp/page/familyNews/1231858087841759233",
+    "map": "https://maps.app.goo.gl/Rb361DnzercZ4YCE9",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202703211700",
+    "tags": [
+      "ダイアモンドホール"
+    ]
+  },
+  {
+    "date": "20260922",
     "time": "1700",
     "contents": "LIVE",
     "title": "Laki 5th Anniversary Live -L∞K UP-",
