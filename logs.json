@@ -431,7 +431,7 @@
     "date": "20260922",
     "time": "1200",
     "contents": "WEB",
-    "title": "TOKYO HEADLINE WEB",
+    "title": "TOKYO HEADLINE WEB　5周年を迎えたLaki",
     "url": "https://www.tokyoheadline.com/871937/",
     "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
     "tags": [""]
@@ -440,7 +440,9 @@
     "date": "20260921",
     "time": "2000",
     "contents": "WEB",
-    "title": "Girls News",
+    "title": "Girls News　【Lakiインタビュー Part.1】 5年間の活動を経て",
+    "display_pc": "Girls News　【Lakiインタビュー Part.1】 5年間の活動を経て",
+    "display_sp": "Girls News　Part.2 5年間の活動を経て",
     "url": "https://girlsnews.tv/unit/506326",
     "groups": ["L2","RIN","TBK","AKR","KIK"],
     "tags": [""]
@@ -449,7 +451,9 @@
     "date": "20260922",
     "time": "1000",
     "contents": "WEB",
-    "title": "Girls News",
+    "title": "Girls News　【Lakiインタビュー Part.2】改名から1年",
+    "display_pc": "Girls News　【Lakiインタビュー Part.2】 改名から1年",
+    "display_sp": "Girls News　Part.2 改名から1年",
     "url": "https://girlsnews.tv/unit/506329",
     "groups": ["L2","HIR","YUW","KAN","RRK"],
     "tags": [""]
@@ -862,9 +866,9 @@
     "date": "20260919",
     "time": "1200",
     "contents": "WEB",
-    "title": "encore",
-    "display_pc": "encore",
-    "display_sp": "encore",
+    "title": "encore　Lucky²からLakiへと進化した5年間",
+    "display_pc": "encore　Lucky²からLakiへと進化した5年間",
+    "display_sp": "encore　進化した5年間",
     "url": "https://e.usen.com/interview/interview-original/laki-work-life.html",
     "groups": [
       "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
@@ -874,9 +878,9 @@
     "date": "20260919",
     "time": "1900",
     "contents": "WEB",
-    "title": "リアルサウンド",
-    "display_pc": "リアルサウンド",
-    "display_sp": "リアルサウンド",
+    "title": "リアルサウンド　改名から1年で見つけた\“自分たちらしさ\”",
+    "display_pc": "リアルサウンド　改名から1年で見つけた\“自分たちらしさ\"",
+    "display_sp": "リアルサウンド　自分たちらしさ",
     "url": "https://realsound.jp/2026/09/post-2529774.html",
     "groups": [
       "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
@@ -886,9 +890,9 @@
     "date": "20260918",
     "time": "1800",
     "contents": "WEB",
-    "title": "Trepo",
-    "display_pc": "Trepo",
-    "display_sp": "Trepo",
+    "title": "Trepo　新曲MV撮影の裏話からこだわりのメイクポイントまで",
+    "display_pc": "Trepo　新曲MV撮影の裏話からこだわりのメイクポイントまで",
+    "display_sp": "Trepo　新曲MV撮影の裏話",
     "url": "https://trepo.jp/interview/354429/",
     "groups": [
       "L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
@@ -898,9 +902,9 @@
     "date": "20251204",
     "time": "2100",
     "contents": "WEB",
-    "title": "日刊エンタメクリップ",
-    "display_pc": "日刊エンタメクリップ",
-    "display_sp": "日刊エンタメクリップ",
+    "title": "日刊エンタメクリップ　クリスマスの楽しみ方とは？",
+    "display_pc": "日刊エンタメクリップ　クリスマスの楽しみ方とは？",
+    "display_sp": "日刊エンタメクリップ　クリスマスの楽しみ方",
     "url": "https://entameclip.com/news/463004/",
     "groups": [
       "L2",
@@ -911,9 +915,9 @@
     "date": "20260917",
     "time": "2100",
     "contents": "WEB",
-    "title": "日刊エンタメクリップ",
-    "display_pc": "日刊エンタメクリップ",
-    "display_sp": "日刊エンタメクリップ",
+    "title": "日刊エンタメクリップ　ニューアルバムの表題曲の推しポイントやMV撮影の裏話",
+    "display_pc": "日刊エンタメクリップ　ニューアルバムの表題曲の推しポイントやMV撮影の裏話",
+    "display_sp": "日刊エンタメクリップ　推しポイントやMV撮影の裏話",
     "url": "https://entameclip.com/news/488311/",
     "groups": [
       "L2",
