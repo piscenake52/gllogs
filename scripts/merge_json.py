@@ -42,6 +42,7 @@ def process_target(target):
                 if not isinstance(main_data, list):
                     main_data = []
             except json.JSONDecodeError:
+                print(f"警告: メインファイル {main_file} のJSON形式が不正です。空のリストとして初期化します。")
                 main_data = []
     else:
         main_data = []
@@ -52,33 +53,45 @@ def process_target(target):
         return False
 
     processed_count = 0
+    valid_files_to_remove = []
+
     for file_path in json_files:
-        with open(file_path, "r", encoding="utf-8") as f:
-            try:
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
                 new_items = json.load(f)
-                if isinstance(new_items, dict):
-                    new_items = [new_items]
-                elif not isinstance(new_items, list):
+            
+            # 辞書型ならリストに変換
+            if isinstance(new_items, dict):
+                new_items = [new_items]
+            elif not isinstance(new_items, list):
+                print(f"スキップ: {file_path} の中身がオブジェクトまたは配列ではありません。")
+                continue
+            
+            for new_item in new_items:
+                if not isinstance(new_item, dict):
                     continue
                 
-                for new_item in new_items:
-                    # 既存データの中から同じキーを持つ要素を探す
-                    found = False
-                    for i, existing_item in enumerate(main_data):
-                        if is_same_item(existing_item, new_item):
-                            # 一致する場合は新しい内容で更新（上書き）
-                            main_data[i] = new_item
-                            found = True
-                            break
-                    
-                    # 見つからなかった場合は新規追加
-                    if not found:
-                        main_data.append(new_item)
-                    
-                    processed_count += 1
+                # 既存データの中から同じキーを持つ要素を探す（Upsert処理）
+                found = False
+                for i, existing_item in enumerate(main_data):
+                    if is_same_item(existing_item, new_item):
+                        main_data[i] = new_item
+                        found = True
+                        break
+                
+                if not found:
+                    main_data.append(new_item)
+                
+                processed_count += 1
+            
+            # 正常に処理できたファイルは削除リストに追加
+            valid_files_to_remove.append(file_path)
 
-            except Exception as e:
-                print(f"ファイルの読み込みに失敗しました {file_path}: {e}")
+        except json.JSONDecodeError as e:
+            # ★不正なJSON（構文エラーなど）を弾き落としてログに残す
+            print(f"【エラー】不正なJSON形式のためファイルをスキップします: {file_path} -> 詳細: {e}")
+        except Exception as e:
+            print(f"【エラー】ファイルの処理中に予期せぬエラーが発生しました {file_path} -> 詳細: {e}")
 
     if processed_count == 0:
         return False
@@ -94,8 +107,8 @@ def process_target(target):
     with open(main_file, "w", encoding="utf-8") as f:
         json.dump(main_data, f, ensure_ascii=False, indent=2)
 
-    # 5. 処理済みの個別ファイルを削除
-    for file_path in json_files:
+    # 5. 正常に処理できた個別ファイルだけを削除（不正なファイルは調査用に残す、または安全に処理）
+    for file_path in valid_files_to_remove:
         os.remove(file_path)
 
     print(f"[{target['name']}] {processed_count}件のデータを統合・更新しました。")
@@ -108,7 +121,7 @@ def main():
             updated = True
     
     if not updated:
-        print("新規に追加されたデータはありませんでした。")
+        print("新規に追加された有効なデータはありませんでした。")
 
 if __name__ == "__main__":
     main()
