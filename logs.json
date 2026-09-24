@@ -455,6 +455,23 @@
     "tags": []
   },
   {
+    "date": "20260923",
+    "time": "",
+    "contents": "WEB",
+    "title": "WWS channel　デビュー5周年ライブで全36曲披露",
+    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "tags": [""]
+  },
+  {
+    "date": "20260923",
+    "time": "1400",
+    "contents": "WEB",
+    "title": "TOKYO HEADLINE WEB　【デビュー5周年をファンとお祝い】",
+    "url": "https://www.tokyoheadline.com/872430/",
+    "groups": ["L2","RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "tags": [""]
+  },
+  {
     "date": "20260922",
     "time": "1200",
     "contents": "WEB",
@@ -6161,14 +6178,16 @@
     "date": "20260923",
     "time": "2000",
     "contents": "SNS",
-    "title": "ききの踊ってみたチャレンジ",
+    "title": "ききの踊ってみたチャレンジ　＃119",
     "display_pc": "",
     "display_sp": "",
-    "url": "",
+    "url": "https://www.instagram.com/reel/DdoNKTMJyFd/?stkn=MTFpYjg5YzhlNmx6Nw==",
     "groups": [
       "L2",
       "KIK"
-    ]
+    ],
+  "relations": ["RIN"],
+    "tags": ["Lucky²","Fun!Fun!Fun! 〜夢∞〜"]
   },
   {
     "date": "20260922",
@@ -6429,7 +6448,7 @@
     "contents": "STREAMING",
     "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
     "display_sp": "QloveR 「がるがるトーク！」 アーカイブ配信",
-    "url": "",
+    "url": "https://qlover.jp/girls/video/smk55bdTeSEKyVYbarsvmwKi",
     "groups": [
       "G2",
       "YZH",
@@ -6445,7 +6464,7 @@
     "contents": "STREAMING",
     "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
     "display_sp": "QloveR 「がるがるトーク！」 おまけ配信",
-    "url": "",
+    "url": "https://qlover.jp/girls/video/sm7ixBX3Ey2AZRR9ucMHSmPX",
     "groups": [
       "G2",
       "YZH",
