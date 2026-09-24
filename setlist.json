@@ -55,6 +55,124 @@
     ]
   },
   {
+    "setlistid": "202609221830",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "title": "HiGH & LOW 10th ANNIVERSARY FEVER",
+    "venue": "Kアリーナ横浜",
+    "songs": [
+      {
+        "order": 5,
+        "title": "WHITEOUT:",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 6,
+        "title": "STRAWBERRY サディスティック",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+     {
+        "order": 24,
+        "title": "BLOOM! BLOOM! BLOOM!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+     {
+        "order": 25,
+        "title": "Eagle Eyes",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+     {
+        "order": 34,
+        "title": "Going Crazy",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 35,
+        "title": "HIGHER GROUND",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+{
+    "setlistid": "202609231830",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "title": "HiGH & LOW 10th ANNIVERSARY FEVER",
+    "venue": "Kアリーナ横浜",
+    "songs": [
+      {
+        "order": 5,
+        "title": "WHITEOUT:",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 6,
+        "title": "STRAWBERRY サディスティック",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+     {
+        "order": 24,
+        "title": "BLOOM! BLOOM! BLOOM!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+     {
+        "order": 25,
+        "title": "Eagle Eyes",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+     {
+        "order": 34,
+        "title": "Going Crazy",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 35,
+        "title": "HIGHER GROUND",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
     "setlistid": "202609221700",
     "artist": "Laki",
     "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
