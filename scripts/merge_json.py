@@ -1,26 +1,29 @@
 import os
 import json
 import glob
+import shutil
 
 TARGETS = [
     {
         "name": "logs",
         "queue_dir": "data/logs/queue/",
+        "processed_dir": "data/logs/processed/",
         "main_file": "data/logs/logs.json"
     },
     {
         "name": "setlist",
         "queue_dir": "data/setlist/queue/",
+        "processed_dir": "data/setlist/processed/",
         "main_file": "data/setlist/setlist.json"
     },
     {
         "name": "songs",
         "queue_dir": "data/songs/queue/",
+        "processed_dir": "data/songs/processed/",
         "main_file": "data/songs/songs.json"
     },
 ]
 
-# 一致判定に使うキーのリスト
 UNIQUE_KEYS = ["date", "time", "contents", "title"]
 
 def is_same_item(item1, item2):
@@ -32,6 +35,7 @@ def is_same_item(item1, item2):
 
 def process_target(target):
     queue_dir = target["queue_dir"]
+    processed_dir = target["processed_dir"]
     main_file = target["main_file"]
 
     # 1. メインデータの読み込み
@@ -53,14 +57,13 @@ def process_target(target):
         return False
 
     processed_count = 0
-    valid_files_to_remove = []
+    successfully_processed_files = []
 
     for file_path in json_files:
         try:
             with open(file_path, "r", encoding="utf-8") as f:
                 new_items = json.load(f)
             
-            # 辞書型ならリストに変換
             if isinstance(new_items, dict):
                 new_items = [new_items]
             elif not isinstance(new_items, list):
@@ -71,7 +74,7 @@ def process_target(target):
                 if not isinstance(new_item, dict):
                     continue
                 
-                # 既存データの中から同じキーを持つ要素を探す（Upsert処理）
+                # Upsert処理（一致すれば更新、なければ追加）
                 found = False
                 for i, existing_item in enumerate(main_data):
                     if is_same_item(existing_item, new_item):
@@ -84,11 +87,10 @@ def process_target(target):
                 
                 processed_count += 1
             
-            # 正常に処理できたファイルは削除リストに追加
-            valid_files_to_remove.append(file_path)
+            # 正常に処理できたファイルパスを記録
+            successfully_processed_files.append(file_path)
 
         except json.JSONDecodeError as e:
-            # ★不正なJSON（構文エラーなど）を弾き落としてログに残す
             print(f"【エラー】不正なJSON形式のためファイルをスキップします: {file_path} -> 詳細: {e}")
         except Exception as e:
             print(f"【エラー】ファイルの処理中に予期せぬエラーが発生しました {file_path} -> 詳細: {e}")
@@ -96,7 +98,7 @@ def process_target(target):
     if processed_count == 0:
         return False
 
-    # 3. 日付や時間などのキーがあればソート
+    # 3. ソート処理
     try:
         main_data.sort(key=lambda x: (x.get("date", ""), x.get("time", "")), reverse=True)
     except Exception:
@@ -107,11 +109,19 @@ def process_target(target):
     with open(main_file, "w", encoding="utf-8") as f:
         json.dump(main_data, f, ensure_ascii=False, indent=2)
 
-    # 5. 正常に処理できた個別ファイルだけを削除（不正なファイルは調査用に残す、または安全に処理）
-    for file_path in valid_files_to_remove:
-        os.remove(file_path)
+    # 5. ★処理済みフォルダが存在しない場合は作成し、そこにファイルを移動する
+    os.makedirs(processed_dir, exist_ok=True)
+    for file_path in successfully_processed_files:
+        file_name = os.path.basename(file_path)
+        dest_path = os.path.join(processed_dir, file_name)
+        
+        # 同名のファイルがすでにprocessedにある場合は上書きまたは別名にする（ここでは上書き）
+        if os.path.exists(dest_path):
+            os.remove(dest_path)
+            
+        shutil.move(file_path, dest_path)
 
-    print(f"[{target['name']}] {processed_count}件のデータを統合・更新しました。")
+    print(f"[{target['name']}] {processed_count}件のデータを統合・更新し、ファイルを processed フォルダへ移動しました。")
     return True
 
 def main():
@@ -122,6 +132,9 @@ def main():
     
     if not updated:
         print("新規に追加された有効なデータはありませんでした。")
+
+if __name__ ==0: # 修正ミス防止の安全策
+    pass
 
 if __name__ == "__main__":
     main()
