@@ -1,1 +1,681 @@
-[]
+[
+  {
+    "setlistid": "202609201300",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "title": "EP「EASY」発売記念 リリースイベント 埼玉",
+    "venue": "あべのキューズモール 3Fスカイコート",
+    "songs": [
+    ]
+  },
+  {
+    "setlistid": "202609131300",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "title": "EP「EASY」発売記念 リリースイベント 埼玉",
+    "venue": "大宮ステラタウン  1F屋外 メローペ広場",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Nocturne",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "Eagle Eyes",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "ヒマワリ",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202609221830",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "title": "HiGH & LOW 10th ANNIVERSARY FEVER",
+    "venue": "Kアリーナ横浜",
+    "songs": [
+      {
+        "order": 5,
+        "title": "WHITEOUT",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 6,
+        "title": "STRAWBERRY サディスティック",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+     {
+        "order": 24,
+        "title": "BLOOM! BLOOM! BLOOM!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+     {
+        "order": 25,
+        "title": "Eagle Eyes",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+     {
+        "order": 34,
+        "title": "Going Crazy",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 35,
+        "title": "HIGHER GROUND",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+{
+    "setlistid": "202609231830",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "title": "HiGH & LOW 10th ANNIVERSARY FEVER",
+    "venue": "Kアリーナ横浜",
+    "songs": [
+      {
+        "order": 5,
+        "title": "WHITEOUT",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 6,
+        "title": "STRAWBERRY サディスティック",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+     {
+        "order": 24,
+        "title": "BLOOM! BLOOM! BLOOM!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+     {
+        "order": 25,
+        "title": "Eagle Eyes",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+     {
+        "order": 34,
+        "title": "Going Crazy",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 35,
+        "title": "HIGHER GROUND",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202609221700",
+    "artist": "Laki",
+    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "title": "Laki 5th Anniversary Live -L∞K UP-",
+    "venue": "ヒューリックホール東京",
+    "songs": [
+      {
+        "order": 1,
+        "title": "OPENING",
+        "type": "",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "Fun!Fun!Fun! ～夢∞～",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "キミすき",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Brand New World!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "DISCO TIME",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 6,
+        "title": "アイコトバ",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 7,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 8,
+        "title": "ichigo 〜一期一会〜",
+        "type": "medley",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 9,
+        "title": "シュワシュワ",
+        "type": "medley",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 10,
+        "title": "Poppin' pop party（ポピポパ）",
+        "type": "medley",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 11,
+        "title": "ベストフレンド",
+        "type": "medley",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 12,
+        "title": "LOVE MEETS GIRL",
+        "type": "medley",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 13,
+        "title": "Lucky Time",
+        "type": "medley",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 14,
+        "title": "こくご・さんすう・りか・恋愛！",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 15,
+        "title": "Dub♡Love!!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 16,
+        "title": "バグって急接近！？",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 17,
+        "title": "ずっとずっとずっと",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 18,
+        "title": "神様Noでも僕らはYes",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 19,
+        "title": "Shooting Star",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 20,
+        "title": "まっさら",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 21,
+        "title": "夢空に羽",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 22,
+        "title": "Song for you",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 23,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 24,
+        "title": "EXILE medley",
+        "type": "medley",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 25,
+        "title": "Love is Magic",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 26,
+        "title": "Pancake",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 27,
+        "title": "Starry pop Canvas",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 28,
+        "title": "Unicorn Dance Remix ver.",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 29,
+        "title": "Like It!!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 30,
+        "title": "Gimme 143",
+        "type": "encore",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 31,
+        "title": "Best Friends",
+        "type": "encore",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 32,
+        "title": "Ladybug",
+        "type": "encore",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202609061400",
+    "artist": "Laki",
+    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "title": "「WORK≒LiFE」発売記念リリースイベント 大阪",
+    "venue": "セブンパーク天美 1F AMAMI STADIUM",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Like it!!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "WORK≒LiFE",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Pancake",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202609061630",
+    "artist": "Laki",
+    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "title": "「WORK≒LiFE」発売記念リリースイベント 大阪",
+    "venue": "セブンパーク天美 1F AMAMI STADIUM",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Gimme 143",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "WORK≒LiFE",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Starry pop Canvas",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202609121400",
+    "artist": "Laki",
+    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "title": "「WORK≒LiFE」発売記念リリースイベント 愛知",
+    "venue": "イオンモール大高 1F グリーンコート",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Like it!!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "WORK≒LiFE",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Pancake",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202609121630",
+    "artist": "Laki",
+    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "title": "「WORK≒LiFE」発売記念リリースイベント 愛知",
+    "venue": "イオンモール大高 1F グリーンコート",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Gimme 143",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "WORK≒LiFE",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Starry pop Canvas",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202608201400",
+    "artist": "Laki",
+    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "title": "「WORK≒LiFE」発売記念リリースイベント 埼玉",
+    "venue": "コクーンシティ コクーンひろば",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Starry pop Canvas",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "WORK≒LiFE",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Love is Magic",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202608201630",
+    "artist": "Laki",
+    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "title": "「WORK≒LiFE」発売記念リリースイベント 埼玉",
+    "venue": "コクーンシティ コクーンひろば",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Unicorn Dance",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "WORK≒LiFE",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Love is Magic",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202608291910",
+    "artist": "Laki",
+    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "title": "超WEGO2026",
+    "venue": "WEGO 1.3.5... 原宿店",
+    "songs": [
+    ]
+  }
+]
