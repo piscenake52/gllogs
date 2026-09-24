@@ -74,20 +74,21 @@ def process_target(target):
                 if not isinstance(new_item, dict):
                     continue
                 
-                # Upsert処理（一致すれば更新、なければ追加）
+                # 一致する既存データを探す
                 found = False
                 for i, existing_item in enumerate(main_data):
                     if is_same_item(existing_item, new_item):
-                        main_data[i] = new_item
+                        # ★部分更新（マージ）：既存の属性を残しつつ、新しいファイルにあるキーだけを上書き・追加する
+                        existing_item.update(new_item)
                         found = True
                         break
                 
+                # 見つからなかった場合は新規追加
                 if not found:
                     main_data.append(new_item)
                 
                 processed_count += 1
             
-            # 正常に処理できたファイルパスを記録
             successfully_processed_files.append(file_path)
 
         except json.JSONDecodeError as e:
@@ -109,19 +110,18 @@ def process_target(target):
     with open(main_file, "w", encoding="utf-8") as f:
         json.dump(main_data, f, ensure_ascii=False, indent=2)
 
-    # 5. ★処理済みフォルダが存在しない場合は作成し、そこにファイルを移動する
+    # 5. 処理済みファイルを processed フォルダへ移動
     os.makedirs(processed_dir, exist_ok=True)
     for file_path in successfully_processed_files:
         file_name = os.path.basename(file_path)
         dest_path = os.path.join(processed_dir, file_name)
         
-        # 同名のファイルがすでにprocessedにある場合は上書きまたは別名にする（ここでは上書き）
         if os.path.exists(dest_path):
             os.remove(dest_path)
             
         shutil.move(file_path, dest_path)
 
-    print(f"[{target['name']}] {processed_count}件のデータを統合・更新し、ファイルを processed フォルダへ移動しました。")
+    print(f"[{target['name']}] {processed_count}件のデータを統合・部分更新し、ファイルを processed フォルダへ移動しました。")
     return True
 
 def main():
@@ -132,9 +132,6 @@ def main():
     
     if not updated:
         print("新規に追加された有効なデータはありませんでした。")
-
-if __name__ ==0: # 修正ミス防止の安全策
-    pass
 
 if __name__ == "__main__":
     main()
