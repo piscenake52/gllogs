@@ -1264,6 +1264,19 @@
   },
   {
     "date": "20261010",
+    "time": "2000",
+    "contents": "RADIO",
+    "title": "FM福岡 「SATURDAY SONIC STYLE」",
+    "url": "https://fmfukuoka.co.jp/program/sss/",
+    "groups": [
+      "L2",
+      "KAN",
+      "RRK"
+    ],
+    "tags": []
+  },
+  {
+    "date": "20261010",
     "time": "1630",
     "contents": "LIVE",
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 愛知公演",
@@ -1344,6 +1357,19 @@
   },
   {
     "date": "20261009",
+    "time": "2055",
+    "contents": "RADIO",
+    "title": "FM沖縄 「インフォミュージック」",
+    "url": "https://www.fmokinawa.co.jp/program/info-music/",
+    "groups": [
+      "L2",
+      "TBK",
+      "YUW"
+    ],
+    "tags": []
+  },
+  {
+    "date": "20261009",
     "time": "1500",
     "contents": "RESULT",
     "title": "「いきなり本読み！ in LDH」 EXILE TRIBE FC先行抽選当選発表",
@@ -1359,6 +1385,45 @@
     ],
     "relations": [],
     "setlistid": "",
+    "tags": []
+  },
+  {
+    "date": "20261008",
+    "time": "2055",
+    "contents": "RADIO",
+    "title": "FM沖縄 「インフォミュージック」",
+    "url": "https://www.fmokinawa.co.jp/program/info-music/",
+    "groups": [
+      "L2",
+      "TBK",
+      "YUW"
+    ],
+    "tags": []
+  },
+  {
+    "date": "20261008",
+    "time": "1930",
+    "contents": "RADIO",
+    "title": "FM NORTH WAVE 「RADIO GROOVE」",
+    "url": "https://www.fmnorth.co.jp/radiogroove/",
+    "groups": [
+      "L2",
+      "TBK",
+      "HIR"
+    ],
+    "tags": []
+  },
+  {
+    "date": "20261007",
+    "time": "2055",
+    "contents": "RADIO",
+    "title": "FM沖縄 「インフォミュージック」",
+    "url": "https://www.fmokinawa.co.jp/program/info-music/",
+    "groups": [
+      "L2",
+      "TBK",
+      "YUW"
+    ],
     "tags": []
   },
   {
@@ -1378,6 +1443,32 @@
     ],
     "relations": [],
     "setlistid": "",
+    "tags": []
+  },
+  {
+    "date": "20261006",
+    "time": "2055",
+    "contents": "RADIO",
+    "title": "FM沖縄 「インフォミュージック」",
+    "url": "https://www.fmokinawa.co.jp/program/info-music/",
+    "groups": [
+      "L2",
+      "TBK",
+      "YUW"
+    ],
+    "tags": []
+  },
+  {
+    "date": "20261005",
+    "time": "2055",
+    "contents": "RADIO",
+    "title": "FM沖縄 「インフォミュージック」",
+    "url": "https://www.fmokinawa.co.jp/program/info-music/",
+    "groups": [
+      "L2",
+      "TBK",
+      "YUW"
+    ],
     "tags": []
   },
   {
@@ -1741,6 +1832,19 @@
   },
   {
     "date": "20261002",
+    "time": "1330",
+    "contents": "RADIO",
+    "title": "FM-NIIGATA 「SOUND SPLASH」",
+    "url": "https://www.fmniigata.com/program/15",
+    "groups": [
+      "L2",
+      "YUW",
+      "KAN"
+    ],
+    "tags": []
+  },
+  {
+    "date": "20261002",
     "time": "",
     "contents": "MOVIE",
     "title": "映画「デス≠キル／ゲーム」公開",
@@ -1754,6 +1858,19 @@
     "tags": [
       "Nocturne"
     ]
+  },
+  {
+    "date": "20261001",
+    "time": "1700",
+    "contents": "RADIO",
+    "title": "FM大分 「Oita Sunset Groove」",
+    "url": "https://www.fmoita.co.jp/",
+    "groups": [
+      "L2",
+      "RRK",
+      "AKR"
+    ],
+    "tags": []
   },
   {
     "date": "20260930",
@@ -1787,6 +1904,32 @@
       "AKR",
       "KIK"
     ]
+  },
+  {
+    "date": "20260930",
+    "time": "1800",
+    "contents": "RADIO",
+    "title": "LOVE FM 「music x serendipity」",
+    "url": "https://lovefm.co.jp/music_serendipity/programs/more",
+    "groups": [
+      "L2",
+      "YUW",
+      "KIK"
+    ],
+    "tags": []
+  },
+  {
+    "date": "20260930",
+    "time": "1727",
+    "contents": "RADIO",
+    "title": "FM AICHI 「EVENING STREET」 内 「ONE LOVEのI LOVE DOG」",
+    "url": "https://fma.co.jp/f/prg/dog/",
+    "groups": [
+      "L2",
+      "RIN",
+      "HIR"
+    ],
+    "tags": []
   },
   {
     "date": "20260930",
@@ -2038,6 +2181,19 @@
     "tags": [
       "がるラー"
     ]
+  },
+  {
+    "date": "20260928",
+    "time": "1830",
+    "contents": "RADIO",
+    "title": "FM佐賀 「CHANGE」",
+    "url": "https://www.fmsaga.co.jp/",
+    "groups": [
+      "L2",
+      "YUW",
+      "RRK"
+    ],
+    "tags": []
   },
   {
     "date": "20260928",
