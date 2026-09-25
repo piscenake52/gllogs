@@ -56,11 +56,9 @@ jobs:
               print("必須項目が見つかりませんでした。処理をスキップします。")
               exit(0)
 
-          # 配列データのパース処理（カンマや改行区切りをリストに変換）
           def parse_list(raw_str):
-              if not raw_str:
+              if not raw_str or raw_str == "なし":
                   return []
-              # JSON配列っぽければそのままロードを試みる
               if raw_str.startswith("[") and raw_str.endswith("]"):
                   try:
                       parsed = json.loads(raw_str)
@@ -68,7 +66,6 @@ jobs:
                           return parsed
                   except:
                       pass
-              # カンマや改行で分割
               items = re.split(r"[,\n]", raw_str)
               return [item.strip() for item in items if item.strip()]
 
@@ -76,27 +73,24 @@ jobs:
           relations = parse_list(relations_raw)
           tags = parse_list(tags_raw)
 
-          # 構築するJSONデータ（ご指定のテンプレート構造に完全準拠）
           data = {
               "date": date,
               "time": time if time else "0000",
               "contents": contents,
               "title": title,
-              "display_pc": display_pc if display_pc else "",
-              "display_sp": display_sp if display_sp else "",
-              "url": url if url else "",
-              "map": map_val if map_val else "",
+              "display_pc": display_pc if display_pc and display_pc != "なし" else "",
+              "display_sp": display_sp if display_sp and display_sp != "なし" else "",
+              "url": url if url and url != "なし" else "",
+              "map": map_val if map_val and map_val != "なし" else "",
               "groups": groups,
               "relations": relations,
-              "setlistid": setlistid if setlistid else "",
+              "setlistid": setlistid if setlistid and setlistid != "なし" else "",
               "tags": tags
           }
 
-          # 格納先ディレクトリ
           queue_dir = f"data/{target_type}/queue"
           os.makedirs(queue_dir, exist_ok=True)
 
-          # 一意なファイル名を作成
           safe_title = re.sub(r'[\\/*?:"<>|]', "", title) if title else "notitle"
           filename = f"{date}_{time}_{safe_title[:10]}.json"
           file_path = os.path.join(queue_dir, filename)
