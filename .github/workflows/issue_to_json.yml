@@ -1,0 +1,115 @@
+name: Issue to JSON Queue (Detailed)
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  convert-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Convert Issue to JSON
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          python -c '
+          import os
+          import json
+          import re
+
+          body = os.environ.get("ISSUE_BODY", "")
+          
+          def extract_field(label, text):
+              pattern = rf"### {label}\s*\n+\s*(.*?)(?=\n+###|\Z)"
+              match = re.search(pattern, text, re.DOTALL)
+              if match:
+                  return match.group(1).strip()
+              return ""
+
+          target_type = extract_field("データの種類 \\(Type / logs, setlist, songs\\)", body)
+          date = extract_field("日付 \\(date\\)", body)
+          time = extract_field("時間 \\(time\\)", body)
+          contents = extract_field("コンテンツ種別 \\(contents\\)", body)
+          title = extract_field("タイトル \\(title\\)", body)
+          display_pc = extract_field("display_pc", body)
+          display_sp = extract_field("display_sp", body)
+          url = extract_field("URL \\(url\\)", body)
+          map_val = extract_field("マップ情報 \\(map\\)", body)
+          setlistid = extract_field("セットリストID \\(setlistid\\)", body)
+          groups_raw = extract_field("グループ/メンバー \\(groups - カンマ区切りまたは改行区切り\\)", body)
+          relations_raw = extract_field("関連情報 \\(relations - JSON配列またはカンマ区切り\\)", body)
+          tags_raw = extract_field("タグ \\(tags - カンマ区切り\\)", body)
+
+          if not target_type or not date:
+              print("必須項目が見つかりませんでした。処理をスキップします。")
+              exit(0)
+
+          # 配列データのパース処理（カンマや改行区切りをリストに変換）
+          def parse_list(raw_str):
+              if not raw_str:
+                  return []
+              # JSON配列っぽければそのままロードを試みる
+              if raw_str.startswith("[") and raw_str.endswith("]"):
+                  try:
+                      parsed = json.loads(raw_str)
+                      if isinstance(parsed, list):
+                          return parsed
+                  except:
+                      pass
+              # カンマや改行で分割
+              items = re.split(r"[,\n]", raw_str)
+              return [item.strip() for item in items if item.strip()]
+
+          groups = parse_list(groups_raw)
+          relations = parse_list(relations_raw)
+          tags = parse_list(tags_raw)
+
+          # 構築するJSONデータ（ご指定のテンプレート構造に完全準拠）
+          data = {
+              "date": date,
+              "time": time if time else "0000",
+              "contents": contents,
+              "title": title,
+              "display_pc": display_pc if display_pc else "",
+              "display_sp": display_sp if display_sp else "",
+              "url": url if url else "",
+              "map": map_val if map_val else "",
+              "groups": groups,
+              "relations": relations,
+              "setlistid": setlistid if setlistid else "",
+              "tags": tags
+          }
+
+          # 格納先ディレクトリ
+          queue_dir = f"data/{target_type}/queue"
+          os.makedirs(queue_dir, exist_ok=True)
+
+          # 一意なファイル名を作成
+          safe_title = re.sub(r'[\\/*?:"<>|]', "", title) if title else "notitle"
+          filename = f"{date}_{time}_{safe_title[:10]}.json"
+          file_path = os.path.join(queue_dir, filename)
+
+          with open(file_path, "w", encoding="utf-8") as f:
+              json.dump(data, f, ensure_ascii=False, indent=2)
+
+          print(f"JSONファイルを生成しました: {file_path}")
+          '
+
+      - name: Commit and push generated JSON
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Add detailed JSON fragment from Issue form" && git push)
