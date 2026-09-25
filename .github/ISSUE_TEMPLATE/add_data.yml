@@ -1,0 +1,97 @@
+name: データ追加・更新フォーム (詳細版)
+description: gllogsの構造化データ（logs, setlist, songs）を追加・更新します
+title: "[DATA]: "
+body:
+  - type: dropdown
+    id: target_type
+    attributes:
+      label: データの種類 (Type / logs, setlist, songs)
+      options:
+        - logs
+        - setlist
+        - songs
+    validations:
+      required: true
+
+  - type: input
+    id: date
+    attributes:
+      label: 日付 (date)
+      description: 8桁の数字 (例: 20260924)
+      placeholder: "20260924"
+    validations:
+      required: true
+
+  - type: input
+    id: time
+    attributes:
+      label: 時間 (time)
+      description: 4桁の数字 (例: 1200)
+      placeholder: "1200"
+
+  - type: input
+    id: contents
+    attributes:
+      label: コンテンツ種別 (contents)
+      description: 例: DIARY, RADIO, EVENT など
+      placeholder: "DIARY"
+    validations:
+      required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: タイトル (title)
+      placeholder: "イベント名や記事タイトル"
+    validations:
+      required: true
+
+  - type: input
+    id: display_pc
+    attributes:
+      label: display_pc
+      placeholder: ""
+
+  - type: input
+    id: display_sp
+    attributes:
+      label: display_sp
+      placeholder: ""
+
+  - type: input
+    id: url
+    attributes:
+      label: URL (url)
+      placeholder: "https://..."
+
+  - type: input
+    id: map
+    attributes:
+      label: マップ情報 (map)
+      placeholder: ""
+
+  - type: input
+    id: setlistid
+    attributes:
+      label: セットリストID (setlistid)
+      placeholder: ""
+
+  - type: textarea
+    id: groups
+    attributes:
+      label: グループ/メンバー (groups - カンマ区切りまたは改行区切り)
+      description: デフォルトでよく使うコードが入る場合はそのまま、必要に応じて書き換えてください
+      value: |
+        G2, YZH, MMK, MSK, YOK, KUR, MNM, KIR, L2, RIN, TBK, HIR, YUW, KAN, RRK, AKR, KIK
+
+  - type: textarea
+    id: relations
+    attributes:
+      label: 関連情報 (relations - JSON配列またはカンマ区切り)
+      value: "[]"
+
+  - type: textarea
+    id: tags
+    attributes:
+      label: タグ (tags - カンマ区切り)
+      placeholder: "tag1, tag2, tag3"
