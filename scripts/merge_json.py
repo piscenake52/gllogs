@@ -24,8 +24,9 @@ TARGETS = [
     },
 ]
 
-UNIQUE_KEYS = ["date", "time", "contents", "title"]
-MAX_PROCESSED_FILES = 30  # ★ processedフォルダで保持する最大ファイル数
+# ★ date, time, contents の3つを一致判定のキーにする
+UNIQUE_KEYS = ["date", "time", "contents"]
+MAX_PROCESSED_FILES = 30
 
 def is_same_item(item1, item2):
     """指定されたキーの値がすべて一致するか判定する"""
@@ -39,17 +40,11 @@ def cleanup_processed_dir(processed_dir):
     if not os.path.exists(processed_dir):
         return
 
-    # processed内のすべての.jsonファイルを取得
     files = glob.glob(os.path.join(processed_dir, "*.json"))
-    
     if len(files) <= MAX_PROCESSED_FILES:
         return
 
-    # ファイルの「変更日時（mtime）」が古い順、またはファイル名順にソート
-    # ここでは確実に古いものから消すためにファイルの更新日時を使用します
     files.sort(key=lambda x: os.path.getmtime(x))
-
-    # 30個を超える分のファイルリストを作成
     excess_files = files[:-MAX_PROCESSED_FILES]
 
     for file_path in excess_files:
@@ -100,18 +95,24 @@ def process_target(target):
                 if not isinstance(new_item, dict):
                     continue
                 
-                # Partials / Upsert更新処理
-                found = False
+                # ★ メインデータの中から同じキー (date, time, contents) を持つ要素をすべて探す
+                matching_indices = []
                 for i, existing_item in enumerate(main_data):
                     if is_same_item(existing_item, new_item):
-                        existing_item.update(new_item)
-                        found = True
-                        break
+                        matching_indices.append(i)
                 
-                if not found:
+                if len(matching_indices) == 1:
+                    # 1つだけ見つかった場合：安全に部分更新（Upsert）する
+                    idx = matching_indices[0]
+                    main_data[idx].update(new_item)
+                    processed_count += 1
+                elif len(matching_indices) > 1:
+                    # ★ 2つ以上見つかった場合：重複エラーとして更新をスキップ
+                    print(f"【警告】date, time, contentsが一致するデータがメインファイルに複数存在するため、競合を避けてスキップします: {new_item.get('date')}, {new_item.get('time')}, {new_item.get('contents')}")
+                else:
+                    # 見つからなかった場合：新規追加
                     main_data.append(new_item)
-                
-                processed_count += 1
+                    processed_count += 1
             
             successfully_processed_files.append(file_path)
 
@@ -145,10 +146,10 @@ def process_target(target):
             
         shutil.move(file_path, dest_path)
 
-    # 6. ★ processed フォルダ内の保持数を最大30個に制限し、古いものを削除
+    # 6. processed フォルダの保持数制限（最大30個）
     cleanup_processed_dir(processed_dir)
 
-    print(f"[{target['name']}] {processed_count}件のデータを統合・更新し、ファイルを processed フォルダへ移動しました（保持数制限適用）。")
+    print(f"[{target['name']}] {processed_count}件のデータを統合・更新し、ファイルを processed フォルダへ移動しました。")
     return True
 
 def main():
