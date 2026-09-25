@@ -24,12 +24,12 @@ TARGETS = [
     },
 ]
 
-# ★ date, time, contents の3つを一致判定のキーにする
-UNIQUE_KEYS = ["date", "time", "contents"]
+# ★ date, time, contents, title の4つを一致判定のキーに戻す
+UNIQUE_KEYS = ["date", "time", "contents", "title"]
 MAX_PROCESSED_FILES = 30
 
 def is_same_item(item1, item2):
-    """指定されたキーの値がすべて一致するか判定する"""
+    """指定された4つのキーの値がすべて一致するか判定する"""
     for key in UNIQUE_KEYS:
         if item1.get(key) != item2.get(key):
             return False
@@ -95,7 +95,7 @@ def process_target(target):
                 if not isinstance(new_item, dict):
                     continue
                 
-                # ★ メインデータの中から同じキー (date, time, contents) を持つ要素をすべて探す
+                # ★ メインデータの中から同じ4つのキーを持つ要素をすべて探す
                 matching_indices = []
                 for i, existing_item in enumerate(main_data):
                     if is_same_item(existing_item, new_item):
@@ -107,8 +107,8 @@ def process_target(target):
                     main_data[idx].update(new_item)
                     processed_count += 1
                 elif len(matching_indices) > 1:
-                    # ★ 2つ以上見つかった場合：重複エラーとして更新をスキップ
-                    print(f"【警告】date, time, contentsが一致するデータがメインファイルに複数存在するため、競合を避けてスキップします: {new_item.get('date')}, {new_item.get('time')}, {new_item.get('contents')}")
+                    # 2つ以上見つかった場合：重複エラーとして安全にスキップ
+                    print(f"【警告】date, time, contents, titleが完全に一致するデータがメインファイルに複数存在するため、競合を避けてスキップします: {new_item.get('date')}, {new_item.get('time')}, {new_item.get('contents')}, {new_item.get('title')}")
                 else:
                     # 見つからなかった場合：新規追加
                     main_data.append(new_item)
