@@ -1,147 +1,36 @@
 [
   {
-    "date": "20260930",
-    "time": "2000",
-    "contents": "SNS",
-    "title": "ききの踊ってみたチャレンジ",
-    "display_pc": "ききの踊ってみたチャレンジ　#120",
-    "url": "",
+    "date": "20260925",
+    "time": "2015",
+    "contents": "YOUTUBE",
+    "title": "Laki 「WORK≒LiFE」 発売記念リミスタサイン会 2部",
+    "display_pc": "Laki 「WORK≒LiFE」 リミスタサイン会 2部",
+    "display_sp": "「WORK≒LiFE」 リミスタサイン会 2部",
+    "url": "https://www.youtube.com/watch?v=BfbD2uvfCSE",
     "groups": [
       "L2",
+      "YUW",
+      "KAN",
+      "AKR",
       "KIK"
-    ]
-  },
-  {
-    "date": "20261007",
-    "time": "2000",
-    "contents": "SNS",
-    "title": "ききの踊ってみたチャレンジ #121",
-    "display_pc": "ききの踊ってみたチャレンジ　#121",
-    "url": "",
-    "groups": [
-      "L2",
-      "KIK"
-    ]
-  },
-  {
-    "date": "20261014",
-    "time": "2000",
-    "contents": "SNS",
-    "title": "ききの踊ってみたチャレンジ #122",
-    "display_pc": "ききの踊ってみたチャレンジ　#122",
-    "url": "",
-    "groups": [
-      "L2",
-      "KIK"
-    ]
-  },
-  {
-    "date": "20261021",
-    "time": "2000",
-    "contents": "SNS",
-    "title": "ききの踊ってみたチャレンジ #123",
-    "display_pc": "ききの踊ってみたチャレンジ　#123",
-    "url": "",
-    "groups": [
-      "L2",
-      "KIK"
-    ]
-  },
-  {
-    "date": "20261028",
-    "time": "2000",
-    "contents": "SNS",
-    "title": "ききの踊ってみたチャレンジ #124",
-    "display_pc": "ききの踊ってみたチャレンジ　#124",
-    "url": "",
-    "groups": [
-      "L2",
-      "KIK"
-    ]
-  },
-  {
-    "date": "20261002",
-    "time": "2000",
-    "contents": "SNS",
-    "title": "あかりんごの元気モリモリール #121",
-    "display_pc": "あかりんごの元気モリモリール　#121",
-    "display_sp": "",
-    "url": "",
-    "groups": [
-      "L2",
-      "AKR"
     ],
-    "tags": [
-      "ダンスは遊びじゃない！",
-      "あかりんごのファッションショー"
-    ]
+    "tags": []
   },
   {
-    "date": "20261009",
-    "time": "2000",
-    "contents": "SNS",
-    "title": "あかりんごの元気モリモリール #122",
-    "display_pc": "あかりんごの元気モリモリール　#122",
-    "display_sp": "",
-    "url": "",
+    "date": "20260925",
+    "time": "1900",
+    "contents": "YOUTUBE",
+    "title": "Laki 「WORK≒LiFE」 発売記念リミスタサイン会 1部",
+    "display_pc": "Laki 「WORK≒LiFE」 リミスタサイン会 1部",
+    "display_sp": "「WORK≒LiFE」 リミスタサイン会 1部",
+    "url": "https://www.youtube.com/watch?v=BfbD2uvfCSE",
     "groups": [
       "L2",
-      "AKR"
+      "RIN",
+      "TBK",
+      "HIR",
+      "RRK"
     ],
-    "tags": [
-      "ダンスは遊びじゃない！",
-      "あかりんごのファッションショー"
-    ]
-  },
-  {
-    "date": "20261016",
-    "time": "2000",
-    "contents": "SNS",
-    "title": "あかりんごの元気モリモリール #123",
-    "display_pc": "あかりんごの元気モリモリール　#123",
-    "display_sp": "",
-    "url": "",
-    "groups": [
-      "L2",
-      "AKR"
-    ],
-    "tags": [
-      "ダンスは遊びじゃない！",
-      "あかりんごのファッションショー"
-    ]
-  },
-  {
-    "date": "20261023",
-    "time": "2000",
-    "contents": "SNS",
-    "title": "あかりんごの元気モリモリール #124",
-    "display_pc": "あかりんごの元気モリモリール　#124",
-    "display_sp": "",
-    "url": "",
-    "groups": [
-      "L2",
-      "AKR"
-    ],
-    "tags": [
-      "ダンスは遊びじゃない！",
-      "あかりんごのファッションショー"
-    ]
-  },
-  {
-    "date": "20261030",
-    "time": "2000",
-    "contents": "SNS",
-    "title": "あかりんごの元気モリモリール #125",
-    "display_pc": "あかりんごの元気モリモリール　#125",
-    "display_sp": "",
-    "url": "",
-    "groups": [
-      "L2",
-      "AKR"
-    ],
-    "tags": [
-      "ダンスは遊びじゃない！",
-      "あかりんごのファッションショー"
-    ]
+    "tags": []
   }
 ]
