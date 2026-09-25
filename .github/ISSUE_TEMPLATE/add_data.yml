@@ -80,9 +80,7 @@ body:
     id: groups
     attributes:
       label: グループ/メンバー (groups - カンマ区切りまたは改行区切り)
-      description: デフォルトでよく使うコードが入る場合はそのまま、必要に応じて書き換えてください
-      value: |
-        G2, YZH, MMK, MSK, YOK, KUR, MNM, KIR, L2, RIN, TBK, HIR, YUW, KAN, RRK, AKR, KIK
+      value: "G2, YZH, MMK, MSK, YOK, KUR, MNM, KIR, L2, RIN, TBK, HIR, YUW, KAN, RRK, AKR, KIK"
 
   - type: textarea
     id: relations
