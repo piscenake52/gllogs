@@ -1,36 +1,18 @@
 [
-  {
+{
     "date": "20260925",
-    "time": "1900",
-    "contents": "YOUTUBE",
-    "title": "Laki 「WORK≒LiFE」 発売記念リミスタサイン会",
-    "display_pc": "Laki 「WORK≒LiFE」 リミスタサイン会",
-    "display_sp": "「WORK≒LiFE」 リミスタサイン会",
-    "url": "",
+    "time": "1800",
+    "contents": "WEB",
+    "title": "Rolling Stone Japan × JR東海 特設サイト公開",
+    "display_pc": "Rolling Stone Japan × JR東海 特設サイト公開",
+    "display_sp": "Rolling Stone Japan × JR東海 特設サイト公開",
+    "url": "https://girls2-fc.jp/page/familyNews/1230720479862456321",
     "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "RRK"
+      "G2",
+      "MSK",
+      "YOK"
     ],
-    "tags": []
-  },
-  {
-    "date": "20260925",
-    "time": "2015",
-    "contents": "YOUTUBE",
-    "title": "Laki 「WORK≒LiFE」 発売記念リミスタサイン会",
-    "display_pc": "Laki 「WORK≒LiFE」 リミスタサイン会",
-    "display_sp": "「WORK≒LiFE」 リミスタサイン会",
-    "url": "",
-    "groups": [
-      "L2",
-      "YUW",
-      "KAN",
-      "AKR",
-      "KIK"
-    ],
+    "relations": [],
     "tags": []
   }
 ]
