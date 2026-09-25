@@ -211,7 +211,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
   display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;
   gap: 6px;
   max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; pointer-events: none;
-  transition: max-height 0.15s ease, opacity 0.12s ease, padding-top 0.15s ease, padding-bottom 0.15s ease;
+  transition: max-height 0.25s ease, opacity 0.2s ease, padding-top 0.25s ease, padding-bottom 0.25s ease;
 }
 .checks-row-months.is-visible { max-height: 60px; opacity: 1; padding-top: 0; padding-bottom: 2px; pointer-events: auto; }
 /* PC幅では常時コンテナ幅を720pxにする(コンテンツ種類ボタンがICONモードでも1行に収まるように) */
@@ -242,6 +242,9 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .checks label:has(input:checked)::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #34d399; border-radius: 50%; }
 /* 手動でONにしたフィルターは、右上のランプを赤から青に変更して区別する(自動ONは赤のまま) */
 .checks label:has(input:checked).is-manual-on::after { background-color: #38bdf8; }
+/* 年/月/グループ/メンバーでフィルターした時、実際にはチェックせず、該当データがあるコンテンツ種類の
+   ボタンにだけ「ランプ」を点ける(チェックはしないのでcheckedの::afterとは別に用意する) */
+.checks label.has-data-lamp::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #fbbf24; border-radius: 50%; }
 /* ダブルクリック/ダブルタップで除外指定したボタン:薄い色にして、そのフィルター値に該当するデータが
    常に非表示になっていることが視覚的にわかるようにする */
 .checks label.is-excluded { opacity: 0.35; }
@@ -397,7 +400,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
    position:fixedでドキュメントの流れから外れるため、他要素(updated>やフッター)を押し下げない。
    z-index:-1で通常の要素(テキストやボタン)より背面に置くことで、それらのクリック/タップは妨げない */
 #dayFlickFill { position: fixed; left: 0; right: 0; z-index: -1; display: none; }
-.items { display: flex; flex-direction: column; align-items: flex-start; width: 100%; transition: opacity 0.25s ease, transform 0.25s ease; }
+.items { display: flex; flex-direction: column; align-items: flex-start; width: 100%; transition: opacity 0.15s ease, transform 0.15s ease; }
 .items.is-animating { opacity: 0; transform: translateY(6px); }
 .item { display: flex; align-items: baseline; width: 100%; font-size: 13px; line-height: 1.4; color: var(--text); padding: 6px 2px; border-bottom: 1px solid var(--item-border); animation: accordionIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(4px); }
 @keyframes accordionIn { to { opacity: 1; transform: translateY(0); } }
@@ -649,10 +652,10 @@ body .item-contents.is-content-open {
 .setlist-modal-songlist { list-style: none; margin: 0; padding: 0; }
 .setlist-modal-songlist li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
 .setlist-modal-songlist li:last-child { border-bottom: none; }
-.setlist-song-order { flex: 0 0 22px; color: var(--muted); font-size: 11px; text-align: right; }
+.setlist-song-order { flex: 0 0 22px; color: var(--muted); font-size: 11px; text-align: left; }
 .setlist-song-play-btn { flex: 0 0 auto; width: 14.4px; height: 14.4px; border-radius: 50%; background: #fff; color: #121212; font-size: 6.4px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; border: 1px solid var(--input-border); }
 .setlist-song-play-btn.is-hidden { visibility: hidden; cursor: default; }
-.setlist-song-title { flex: 1 1 auto; }
+.setlist-song-title { flex: 1 1 auto; font-size: calc(var(--data-font-scale) * 13px); }
 .setlist-song-type { flex: 0 0 auto; font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
 .setlist-song-notes { flex-basis: 100%; font-size: 11px; color: var(--sub); margin-top: 2px; }
 .setlist-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
@@ -791,7 +794,7 @@ body .item-contents.is-content-open {
     return simpleHash(location.hostname) === -1626720631 && simpleHash(location.pathname) === 982197929;
   };
   let logs = [], filtered = [], rendered = 0, updating = false;
-  let desc = true, defaultText = '', timer = null, renderTimer = null;
+  let desc = true, defaultText = '', timer = null, renderFrame = null;
   let setlistData = []; // setlist.json(公演ごとのセットリスト)のキャッシュ
   let songsData = []; // songs.json(artist/title/link)のキャッシュ。SETLISTポップアップの再生ボタンにも使う
   let setlistMode = false; // SETLISTボタンでON/OFFする「セトリ検索モード」
@@ -809,6 +812,12 @@ body .item-contents.is-content-open {
   let setlistExcludedSavedState = null;
   const pageSize = 40, isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const $ = id => document.getElementById(id);
+  // ボタン/checkboxを押した直後の見た目の変化(:has(input:checked)によるボタンの色変化等)を先に
+  // ブラウザへ描画させてから、その後に続く重い処理(全件フィルタリング・再描画等)を実行するためのヘルパー。
+  // checkboxの:checked状態自体は純粋なCSSで駆動されているため本来即座に反映されるが、同じタスク内で重い
+  // 処理を続けて呼ぶと、ブラウザがその処理を終えるまで描画を後回しにしてしまい、色の変化が一瞬遅れて見える。
+  // 判定内容・結果は変えず、実行タイミングだけを次フレームにずらす
+  const deferHeavyUpdate = fn => requestAnimationFrame(fn);
   // G2: 小田柚葉:YZH、隅谷百花:MMK、鶴屋美咲:MSK、小川桜花:YOK、増田來亜:KUR、菱田未渚美:MNM、山口綺羅:KIR、原田都愛:TOA、石井蘭:RAN
   // L2: 山口莉愛:RIN、杉浦優來:YUR、永山椿:TBK、深澤日彩:HIR、比嘉優和:YUW、佐藤栞奈:KAN、上村梨々香:RRK、森朱里:AKR、佐藤妃希:KIK
   const g2 = [
@@ -1195,22 +1204,6 @@ body .item-contents.is-content-open {
     return result;
   };
 
-  // キーワード検索用の連結文字列(searchText)は、タイトル・タグ等データが変わらない限り
-  // アイテムごとに常に同じ結果になるため、初回計算時にWeakMapへキャッシュし使い回す。
-  // updateDisplay/previewCountFor/autoUpdateContentTypeFiltersの3箇所すべてで、検索・フィルター操作の
-  // たびに全件(約1万件)ぶんの文字列連結+toLowerCaseをやり直していたのを避けるための最適化。
-  // WeakMapなので、データ更新でlogs配列が丸ごと新しいオブジェクトに入れ替わった場合も、
-  // 古いアイテムへの参照が無くなればエントリごと自動的にGCされ、明示的なキャッシュクリアは不要
-  const searchTextCache = new WeakMap();
-  const getSearchText = item => {
-    let text = searchTextCache.get(item);
-    if (text === undefined) {
-      text = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
-      searchTextCache.set(item, text);
-    }
-    return text;
-  };
-
   // 検索窓の"-コンテンツ種類名"(例:"-DIARY"、または"-RELEASE"のような正規化後の総称名)でその種類を
   // 非表示にできるよう、各アイテムのsearchTextにはitem.contentsの生の値に加えてnormalizeContType後の
   // 正規化名も含める(下記3箇所のsearchText構築を参照)。これによりCD/DVD/BD等のエイリアスも
@@ -1317,22 +1310,34 @@ body .item-contents.is-content-open {
     searchInput.placeholder = setlistMode ? SEARCH_PLACEHOLDER_SETLIST : SEARCH_PLACEHOLDER_NORMAL;
   };
 
-  // 検索窓:直近使った検索ワードを最大10件まで記憶し、フォーカス時に候補として表示する
+  // 検索窓:直近使った検索ワードを最大8件まで記憶し、フォーカス時に候補として表示する
   // セトリ検索モード中に入力された検索ワードは、通常検索とは別のキーで保存する(要件により分離)
   // 各ワードは🔑(固定)アイコンで固定でき、固定中は個別削除(×)が効かず、保存上限による
-  // 自動的な押し出し(間引き)からも保護される。固定できる件数も保存上限と同じ10件まで。
+  // 自動的な押し出し(間引き)からも保護される。固定できる件数も保存上限と同じ8件まで。
   const RECENT_SEARCH_KEY = 'gl_log_recent_searches';
   const SETLIST_RECENT_SEARCH_KEY = 'gl_log_recent_setlist_searches';
-  const MAX_RECENT_SEARCHES = 10;
-  const MAX_PINNED_SEARCHES = 10;
+  const MAX_RECENT_SEARCHES = 8;
+  const MAX_PINNED_SEARCHES = 8;
   let highlightedSuggestionIndex = -1;
   const getRecentSearchKey = () => setlistMode ? SETLIST_RECENT_SEARCH_KEY : RECENT_SEARCH_KEY;
-  // 旧形式(文字列の配列)で保存されている場合は{term, pinned:false}へ読み込み時に変換する(後方互換)
+  // 旧形式(文字列の配列)で保存されている場合は{term, pinned:false}へ読み込み時に変換する(後方互換)。
+  // 保存件数の上限(8件)は本来saveRecentSearch側で保っているが、上限導入前に保存された古いデータ等、
+  // localStorage側に上限を超える件数が残っている可能性があるため、読み込み時にも上限を適用し直し、
+  // 超過していた場合は補正結果を保存し直す(次回以降は補正の必要が無くなる)
   const getRecentSearches = () => {
     try {
       const arr = JSON.parse(localStorage.getItem(getRecentSearchKey()) || '[]');
       if (!Array.isArray(arr)) return [];
-      return arr.map(v => typeof v === 'string' ? { term: v, pinned: false } : { term: v.term, pinned: !!v.pinned });
+      const list = arr.map(v => typeof v === 'string' ? { term: v, pinned: false } : { term: v.term, pinned: !!v.pinned });
+      let pinnedList = list.filter(v => v.pinned);
+      let unpinnedList = list.filter(v => !v.pinned);
+      if (pinnedList.length > MAX_PINNED_SEARCHES) pinnedList = pinnedList.slice(0, MAX_PINNED_SEARCHES);
+      while (pinnedList.length + unpinnedList.length > MAX_RECENT_SEARCHES && unpinnedList.length) {
+        unpinnedList.pop();
+      }
+      const trimmed = [...pinnedList, ...unpinnedList];
+      if (trimmed.length !== list.length) setRecentSearches(trimmed); // 上限超過を補正した結果を保存し直す
+      return trimmed;
     } catch {
       return [];
     }
@@ -1347,7 +1352,7 @@ body .item-contents.is-content-open {
     const pinnedList = list.filter(v => v.pinned);
     const unpinnedList = list.filter(v => !v.pinned && v.term !== trimmed);
     unpinnedList.unshift({ term: trimmed, pinned: false });
-    // 保存上限(10件)を超えたら、固定されていないものだけを末尾から間引く(固定分は削らない)
+    // 保存上限(8件)を超えたら、固定されていないものだけを末尾から間引く(固定分は削らない)
     while (pinnedList.length + unpinnedList.length > MAX_RECENT_SEARCHES && unpinnedList.length) {
       unpinnedList.pop();
     }
@@ -1359,7 +1364,7 @@ body .item-contents.is-content-open {
     if (entry && entry.pinned) return; // 固定中は削除不可
     setRecentSearches(list.filter(v => v.term !== term));
   };
-  // 🔑(固定)⇔🔐(固定中、押すと解除)の切り替え。固定は最大10件まで
+  // 🔑(固定)⇔🔐(固定中、押すと解除)の切り替え。固定は最大8件まで
   const togglePinRecentSearch = term => {
     const list = getRecentSearches();
     const idx = list.findIndex(v => v.term === term);
@@ -1388,10 +1393,9 @@ body .item-contents.is-content-open {
     saveRecentSearch(term);
     searchSuggestions.classList.remove('is-open');
     syncTodayModeFromSearch(); // 年月日8桁の候補が選ばれた場合もTODAYモードに反映する
-    if (setlistMode) {
-      autoUpdateContentTypeFilters();
-      updateManualIndicators();
-    }
+    // 検索ワードが確定したタイミングなので、ヒットしたデータのコンテンツ種類フィルターを自動更新する
+    autoUpdateContentTypeFilters();
+    updateManualIndicators();
     updateDisplay(true);
   };
   // 入力中のデータサジェスト:クエリ文字列で前方一致する候補を最大MAX_DATA_SUGGESTIONS件集める。
@@ -1547,6 +1551,10 @@ body .item-contents.is-content-open {
   searchInput.addEventListener('blur', () => {
     searchSuggestions.classList.remove('is-open');
     if (searchInput.value.trim()) saveRecentSearch(searchInput.value);
+    // 検索ワードが確定したタイミング(サジェスト/履歴ウインドウが閉じたタイミング)なので、
+    // ヒットしたデータのコンテンツ種類フィルターを自動更新する
+    autoUpdateContentTypeFilters();
+    updateManualIndicators();
   });
 
   searchInput.oninput = () => {
@@ -1602,6 +1610,10 @@ body .item-contents.is-content-open {
 
     if (e.key === 'Escape' && isOpen) {
       searchSuggestions.classList.remove('is-open');
+      // 検索ワードが確定したタイミング(サジェスト/履歴ウインドウが閉じたタイミング)なので、
+      // ヒットしたデータのコンテンツ種類フィルターを自動更新する
+      autoUpdateContentTypeFilters();
+      updateManualIndicators();
       return;
     }
 
@@ -1609,7 +1621,8 @@ body .item-contents.is-content-open {
       saveRecentSearch(searchInput.value);
     }
     // Enter(スマホ版の仮想キーボードの→/決定キーも同じキーイベントとして届く)で検索履歴・サジェスト候補を
-    // 閉じ、スマホの仮想キーボードも閉じる
+    // 閉じ、スマホの仮想キーボードも閉じる。blur()がblurイベントリスナーを連鎖発火させ、そちらで
+    // コンテンツ種類フィルターの自動更新も行われるため、ここで重複して呼ぶ必要は無い
     if (e.key === 'Enter') {
       searchSuggestions.classList.remove('is-open');
       searchInput.blur();
@@ -2383,7 +2396,7 @@ body .item-contents.is-content-open {
       }
 
       if (kw) {
-        const searchText = getSearchText(item);
+        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
         textOk = matchesSearchKeyword(searchText, kw);
       }
     }
@@ -2416,10 +2429,22 @@ body .item-contents.is-content-open {
 
   const autoUpdateContentTypeFilters = () => {
     const contentCheckboxes = Array.from(checkboxes).filter(cb => allConts.includes(cb.value));
+    const checkedAll = Array.from(checkboxes).filter(cb => cb.checked);
+    // 検索ワードが確定した時(サジェスト/履歴ウインドウが閉じたタイミング)、またはグループ/メンバー
+    // フィルターが選択されている時も、TODAY/セトリ検索モードと同様にヒットしたデータのコンテンツ種類の
+    // 集計は行う(グループ/メンバーは「年でも月でもコンテンツ種類でもない」チェックとして判定する)。
+    // ただし実際にチェックをON/OFFする(=表示結果を絞り込む)のはTODAY/セトリ検索モード/検索ワードの
+    // 時だけとし、年/月/グループ/メンバーだけの場合はチェックはせず、該当コンテンツ種類のボタンに
+    // 「ランプ」を点けるだけにとどめる(フィルター結果自体は変えずに、どの種類にデータがあるかだけ示す)
+    const hasSearchKeyword = searchInput.value.trim().length > 0;
+    const hasGroupOrMemberFilter = checkedAll.some(cb => !/^\d{4}$/.test(cb.value) && !/^\d{2}$/.test(cb.value) && !allConts.includes(cb.value));
+    const shouldAutoCheck = todayMode || setlistMode || hasSearchKeyword;
 
-    if (!todayMode && !setlistMode) {
-      // TODAY・セトリ検索モードともにOFF:残りのフィルタでの再判定はせず、手動on/off以外は無条件でOFFにする
+    if (!shouldAutoCheck && !hasGroupOrMemberFilter) {
+      // 何も条件が無い:残りのフィルタでの再判定はせず、手動on/off以外は無条件でOFFにし、ランプも消す
       contentCheckboxes.forEach(cb => {
+        const label = cb.closest('label');
+        if (label) label.classList.remove('has-data-lamp');
         if (excludedFilterValues.has(cb.value)) { cb.checked = false; return; } // 除外中は常にOFF
         if (manuallyTouchedConts.has(cb.value)) return;
         cb.checked = false;
@@ -2427,7 +2452,7 @@ body .item-contents.is-content-open {
       return;
     }
 
-    const checked = Array.from(checkboxes).filter(cb => cb.checked);
+    const checked = checkedAll;
     const cVals = new Set(checked.map(cb => cb.value));
     const cYears = checked.filter(cb => /^\d{4}$/.test(cb.value)).map(cb => cb.value);
     const cMonths = checked.filter(cb => /^\d{2}$/.test(cb.value)).map(cb => cb.value);
@@ -2448,18 +2473,29 @@ body .item-contents.is-content-open {
     });
 
     contentCheckboxes.forEach(cb => {
+      const label = cb.closest('label');
       // 除外指定中のコンテンツ種類は自動on/offの対象から外し、常にOFF(非表示)のままにする
       if (excludedFilterValues.has(cb.value)) {
         cb.checked = false;
+        if (label) label.classList.remove('has-data-lamp');
         return;
       }
-      // 手動ONのものだけ保護する(手動OFFでも、該当するデータがあれば自動ONに戻す)
-      const isProtected = manuallyTouchedConts.has(cb.value) && cb.checked;
-      if (isProtected) return;
-
       const shouldBeOn = cb.value === 'ETC'
         ? Array.from(matched).some(c => !primaryConts.includes(c))
         : matched.has(cb.value);
+
+      if (!shouldAutoCheck) {
+        // 年/月/グループ/メンバーのみが条件:チェックはせず、該当データがあればランプだけ点ける
+        // (既にチェック済みのボタンは、通常のON表示があるためランプは不要)
+        if (label) label.classList.toggle('has-data-lamp', shouldBeOn && !cb.checked);
+        return;
+      }
+
+      // TODAY/セトリ検索モード/検索ワードあり:従来通り実際にチェックをON/OFFする
+      if (label) label.classList.remove('has-data-lamp'); // 実チェックしている間はランプ表示不要
+      // 手動ONのものだけ保護する(手動OFFでも、該当するデータがあれば自動ONに戻す)
+      const isProtected = manuallyTouchedConts.has(cb.value) && cb.checked;
+      if (isProtected) return;
       cb.checked = shouldBeOn;
       manuallyTouchedConts.delete(cb.value);
     });
@@ -2550,7 +2586,7 @@ body .item-contents.is-content-open {
         }
 
         if (kw) {
-          const searchText = getSearchText(item);
+          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
           textOk = matchesSearchKeyword(searchText, kw);
         }
       }
@@ -2562,7 +2598,7 @@ body .item-contents.is-content-open {
 
     // ソート比較のたびに同じ計算をやり直さないよう、各アイテムのソートキーを1回だけ計算してキャッシュする
     // (decorate-sort-undecorate)。sort()の比較回数はO(n log n)で件数が多いほど比較回数計算回数を大きく
-    // 上回るため、比較のたびに毎回計算し直すと無駄が大きい。判定内容・並び順自体は変更しない
+    // 上回るため、比較のたびに毎回計算し直すと無駄が大きい。
     const sortKeyCache = new Map();
     const getSortKeys = item => {
       let keys = sortKeyCache.get(item);
@@ -2583,42 +2619,49 @@ body .item-contents.is-content-open {
       const ka = getSortKeys(a), kb = getSortKeys(b);
       if (ka.dateKey !== kb.dateKey) return desc ? kb.dateKey.localeCompare(ka.dateKey) : ka.dateKey.localeCompare(kb.dateKey);
       // 日付+時刻が同一の場合のタイブレーク:
-      // 1) グループ(G2とL2両方 > G2 > L2 > STF > それ以外)
-      if (ka.groupRank !== kb.groupRank) return ka.groupRank - kb.groupRank;
-      // 2) メンバー(フィルターボタンの並び順)
-      if (ka.memberRank !== kb.memberRank) return ka.memberRank - kb.memberRank;
-      // 3) 誕生日(BIRTHDAY)は記念日(ANNIVERSARY)より上に表示する
+      // 1) 誕生日(BIRTHDAY)は記念日(ANNIVERSARY)より上に表示する(コンテンツ種類より優先する特別扱い)
       if (ka.babRank !== kb.babRank) return ka.babRank - kb.babRank;
-      // 4) コンテンツフィルターボタンの並び順
-      return ka.contentRank - kb.contentRank;
+      // 2) コンテンツフィルターボタンの並び順(同じコンテンツ種類でまとまるようにする)
+      if (ka.contentRank !== kb.contentRank) return ka.contentRank - kb.contentRank;
+      // 3) グループ(G2とL2両方 > G2 > L2 > STF > それ以外)
+      if (ka.groupRank !== kb.groupRank) return ka.groupRank - kb.groupRank;
+      // 4) メンバー(フィルターボタンの並び順)
+      return ka.memberRank - kb.memberRank;
     });
 
+    // フェードアウトは廃止(案C)。旧内容を待たせて消すのではなく、新しい内容の描画をできるだけ即座に始め、
+    // 新しい内容が出そろった後のフェードインだけを行う(体感の「待たされ感」を減らすため)。
+    // is-animating(opacity:0)を先に付けてから中身を差し替えるので、差し替え中の一瞬は見えない状態のまま
+    // 進み、差し替え完了後に次フレームでis-animatingを外してフェードインさせる
     $('items').classList.add('is-animating');
-    clearTimeout(renderTimer);
-    renderTimer = setTimeout(() => {
-      $('items').textContent = '';
-      rendered = 0;
-      defaultText = '> ' + filtered.length;
-      $('resultCount').textContent = defaultText;
-      renderActiveBadges(checked, fullKw);
-      updateAllBadges();
-      updateManualIndicators();
+    if (renderFrame) cancelAnimationFrame(renderFrame); // 連続してフィルター操作された場合、前回分の描画待ちは打ち切る
+    $('items').textContent = '';
+    rendered = 0;
+    defaultText = '> ' + filtered.length;
+    $('resultCount').textContent = defaultText;
+    renderActiveBadges(checked, fullKw);
+    updateAllBadges();
+    updateManualIndicators();
 
-      const isZero = filtered.length === 0;
-      $('noResult').style.display = isZero ? 'block' : 'none';
-      // TODAYモード中は、フィルターの話ではないため「CLEAR ALL FILTERS」ボタンは出さず「NO DATA」のみ表示する
-      $('noResultText').textContent = todayMode ? 'NO DATA' : 'NO RESULTS FOUND';
-      $('quickResetBtn').style.display = todayMode ? 'none' : 'inline-block';
-      // 通常時は0件でソートボタンを隠すが、TODAYモード中は0件でも日付表示として見せ続ける
-      $('sortBtn').style.display = (isZero && !todayMode) ? 'none' : 'block';
-      $('inlineClearBtn').style.display = (checked.length > 0 || fullKw || todayMode || setlistMode) ? 'inline-block' : 'none';
-      
-      if (!isZero) renderBatch();
+    const isZero = filtered.length === 0;
+    $('noResult').style.display = isZero ? 'block' : 'none';
+    // TODAYモード中は、フィルターの話ではないため「CLEAR ALL FILTERS」ボタンは出さず「NO DATA」のみ表示する
+    $('noResultText').textContent = todayMode ? 'NO DATA' : 'NO RESULTS FOUND';
+    $('quickResetBtn').style.display = todayMode ? 'none' : 'inline-block';
+    // 通常時は0件でソートボタンを隠すが、TODAYモード中は0件でも日付表示として見せ続ける
+    $('sortBtn').style.display = (isZero && !todayMode) ? 'none' : 'block';
+    $('inlineClearBtn').style.display = (checked.length > 0 || fullKw || todayMode || setlistMode) ? 'inline-block' : 'none';
+
+    if (!isZero) renderBatch();
+    // 0件時もupdateItemsMinHeight内で分岐して処理する(表示位置は変えず、
+    // その下の余白を#dayFlickFillでフリック対象にする)
+    updateItemsMinHeight();
+    // 新しい内容のフェードインを発火させる。is-animating付与と同フレームでremoveすると
+    // transitionが発火しないブラウザがあるため、次フレームまで待ってから外す
+    renderFrame = requestAnimationFrame(() => {
+      renderFrame = null;
       $('items').classList.remove('is-animating');
-      // 0件時もupdateItemsMinHeight内で分岐して処理する(表示位置は変えず、
-      // その下の余白を#dayFlickFillでフリック対象にする)
-      updateItemsMinHeight();
-    }, 120);
+    });
 
     if (syncHash) {
       updating = true;
@@ -2716,7 +2759,7 @@ body .item-contents.is-content-open {
         }
 
         if (kw) {
-          const searchText = getSearchText(item);
+          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
           kwOk = matchesSearchKeyword(searchText, kw);
         }
       }
@@ -2767,8 +2810,10 @@ body .item-contents.is-content-open {
   $('badgeToggleBtn').onclick = () => {
     badgeMode = !badgeMode;
     $('badgeToggleBtn').classList.toggle('is-active', badgeMode);
-    updateAllBadges();
+    deferHeavyUpdate(() => {
+      updateAllBadges();
       updateManualIndicators();
+    });
   };
 
   // ICONボタン:コンテンツ種類フィルターの表示をテキストのみ⇔アイコンのみで切り替える。次回訪問時も記憶する
@@ -2792,7 +2837,7 @@ body .item-contents.is-content-open {
     $('iconToggleBtn').classList.toggle('is-active', iconMode);
     localStorage.setItem(ICON_MODE_KEY, iconMode);
     updateContentTooltips();
-    updateDisplay(false);
+    deferHeavyUpdate(() => updateDisplay(false));
   };
 
   // ♪ボタン:検索窓の下にある楽曲紹介バー(PLAYボタン+タイトル/アーティスト)の表示/非表示を切り替える。
@@ -2807,7 +2852,7 @@ body .item-contents.is-content-open {
     mapMode = !mapMode;
     $('mapToggleBtn').classList.toggle('is-active', mapMode);
     localStorage.setItem(MAP_MODE_KEY, mapMode);
-    updateDisplay(false);
+    deferHeavyUpdate(() => updateDisplay(false));
   };
 
   // 📋️ボタン(SETLISTアイコン表示モード):セトリ検索モードとは別物の独立したON/OFF。ONの間、データ部の
@@ -2825,7 +2870,7 @@ body .item-contents.is-content-open {
     setlistIconMode = !setlistIconMode;
     $('setlistIconToggleBtn').classList.toggle('is-active', setlistIconMode);
     localStorage.setItem(SETLIST_ICON_MODE_KEY, setlistIconMode);
-    updateDisplay(false);
+    deferHeavyUpdate(() => updateDisplay(false));
   };
   const SONG_MODE_KEY = 'gl_log_song_mode';
   let songMode = localStorage.getItem(SONG_MODE_KEY) === 'true';
@@ -2951,7 +2996,7 @@ body .item-contents.is-content-open {
       dateParts[key] = !dateParts[key];
       datePartButtons[key].classList.toggle('is-active', dateParts[key]);
       localStorage.setItem(DATE_PARTS_KEY, JSON.stringify(dateParts));
-      updateDisplay(false, true);
+      deferHeavyUpdate(() => updateDisplay(false, true));
     };
   });
 
@@ -2963,7 +3008,6 @@ body .item-contents.is-content-open {
   const TODAY_MODE_KEY = 'gl_log_today_mode';
   let todayHeld = localStorage.getItem(TODAY_MODE_KEY) === 'true';
   let todayMode = todayHeld; // 保持ONなら初期表示からTODAYモードON
-  let todayLongPressed = false; // TODAYボタンの長押しが発火した直後、続くclickイベントで通常のON/OFF切替を行わせないためのフラグ
   let todayOffset = 0; // 0=当日, 負=前日方向, 正=翌日方向
   let preTodaySort = null; // TODAYをONにする直前のソート状態(descの値)を退避
   let searchDateTodayActive = false; // 検索窓への日付入力によってTODAYモードがONにされている状態かどうか
@@ -3231,8 +3275,39 @@ body .item-contents.is-content-open {
     applyTodayHeldStyle();
   };
 
+  // ダブルクリック/ダブルタップ(300ms以内の連続クリック)検出:フィルターボタンの除外機能と同じ方式で、
+  // 保持(hold)状態そのものをトグルする(保持ON中に再度ダブルクリックすると保持OFFに戻る)
+  const TODAY_DBLCLICK_THRESHOLD_MS = 300;
+  let todayClickTimer = null;
+  let todayClickSnapshot = null;
+
   $('todayToggleBtn').onclick = () => {
-    if (todayLongPressed) { todayLongPressed = false; return; } // 長押し発火直後のclickは無視する
+    if (todayClickTimer) {
+      // 2回目のクリック(ダブルクリック確定):固定状態をトグルし、1回目のクリック直前のTODAY状態へ
+      // 正確に戻す(セトリ検索モード突入時と同じ、スナップショットを丸ごと保存/復元する方式)
+      clearTimeout(todayClickTimer);
+      todayClickTimer = null;
+      if (todayClickSnapshot) {
+        todayMode = todayClickSnapshot.todayMode;
+        todayOffset = todayClickSnapshot.todayOffset;
+        desc = todayClickSnapshot.desc;
+        preTodaySort = todayClickSnapshot.preTodaySort;
+        todayClickSnapshot = null;
+        updateSortBtnLabel();
+        updateTodayButtonStyle();
+      }
+      toggleTodayHeld();
+      deferHeavyUpdate(() => {
+        autoUpdateContentTypeFilters();
+        updateManualIndicators();
+        updateDisplay(true);
+      });
+      return;
+    }
+    // 1回目のクリック:ダブルクリックの確定を待たず、即座に通常のON/OFFを行う(体感速度優先)。
+    // 直前の状態を保存しておき、直後に2回目のクリックが来てダブルクリックが確定した場合は
+    // そこへ正確に戻す(このクリック単独の通常ON/OFFは無かったことにする)
+    todayClickSnapshot = { todayMode, todayOffset, desc, preTodaySort };
     // セトリ検索モード中のTODAYは通常時と別管理の独立したON/OFFのため、ここではセトリ検索モードには一切触れない
     if (!todayMode) {
       // OFF -> ON(当日)。ON にする直前のソート状態を覚えておく
@@ -3248,24 +3323,17 @@ body .item-contents.is-content-open {
       turnOffTodayMode();
     }
     // 通常クリックでのON/OFFは今回のセッション限り。保持(localStorage)はここでは書き換えない
-    autoUpdateContentTypeFilters();
-    updateManualIndicators();
-    updateDisplay(true);
+    // ボタンの見た目の変化(updateTodayButtonStyle等)を先に描画させてから重い処理を行う
+    deferHeavyUpdate(() => {
+      autoUpdateContentTypeFilters();
+      updateManualIndicators();
+      updateDisplay(true);
+    });
+    todayClickTimer = setTimeout(() => {
+      todayClickTimer = null;
+      todayClickSnapshot = null;
+    }, TODAY_DBLCLICK_THRESHOLD_MS);
   };
-
-  // 長押し(600ms)検出:「A」ボタン(文字サイズ)と同じ方式で、押しっぱなしを判定する
-  {
-    let pressTimer = null;
-    const btn = $('todayToggleBtn');
-    const start = () => { todayLongPressed = false; pressTimer = setTimeout(() => { todayLongPressed = true; toggleTodayHeld(); }, 600); };
-    const cancel = () => clearTimeout(pressTimer);
-    btn.addEventListener('mousedown', start);
-    btn.addEventListener('touchstart', start, { passive: true });
-    btn.addEventListener('mouseup', cancel);
-    btn.addEventListener('mouseleave', cancel);
-    btn.addEventListener('touchend', cancel);
-    btn.addEventListener('touchcancel', cancel);
-  }
 
   // ================= TODAYモード:日付切替の共通アニメーション =================
   // ←/→ボタン押下・データ部のフリックのどちらでも同じスライドイン/アウト演出を使う。
@@ -3581,9 +3649,12 @@ body .item-contents.is-content-open {
         applyExcludedStyles();
       }
     }
-    autoUpdateContentTypeFilters();
-    updateManualIndicators();
-    updateDisplay(true);
+    // ボタンの見た目の変化(is-active切り替え等)を先に描画させてから重い処理を行う
+    deferHeavyUpdate(() => {
+      autoUpdateContentTypeFilters();
+      updateManualIndicators();
+      updateDisplay(true);
+    });
   };
 
   // 除外中のラベルに薄い色のスタイル(is-excluded)を適用/解除する。除外は通常のチェックON状態とは
@@ -3676,12 +3747,19 @@ body .item-contents.is-content-open {
           if (excludedFilterValues.has(cb.value)) return; // 除外中はキーボード操作でのON/OFFも無効化する
           cb.checked = !cb.checked;
           if (allConts.includes(cb.value)) manuallyTouchedConts.add(cb.value);
-          updateManualIndicators();
           updateMonthFilterVisibility(); // 年フィルターの選択状態が変わるので月フィルターの表示/非表示も再評価
           updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
           updateSortBtnLabel(); // 年フィルターの選択状態が変わるので、TODAYモード中の日付表示も再評価
-          updateDisplay(true);
           window.scrollTo({ top: 0, behavior: 'instant' });
+          // updateManualIndicatorsはフィルターボタン全部(60〜80個規模)に対して毎回querySelectorする
+          // 重い処理のため、ボタンの見た目の変化を先に描画させてから次フレームで行う
+          deferHeavyUpdate(() => {
+            updateManualIndicators();
+            // マウス操作時と同様、コンテンツ種類以外(年/月/グループ/メンバー)のチェック変更時は、
+            // 紐づくコンテンツ種類を自動で切り替える対象に含める
+            if (!allConts.includes(cb.value)) autoUpdateContentTypeFilters();
+            updateDisplay(true);
+          });
         }
       }
     });
@@ -3689,10 +3767,9 @@ body .item-contents.is-content-open {
     // フィルターボタンのダブルクリック/ダブルタップ:そのボタンの値を「除外」指定に切り替える(再度で解除)。
     // ネイティブのlabelクリック挙動(クリックのたびにチェックボックスをトグル)を常にpreventDefaultで止め、
     // シングル/ダブルの判定を自前のタイマーで行う(マウス・タッチどちらも'click'イベントで統一的に扱えるため)。
-    // シングルクリックの反映を(ダブルクリックか判定できるまで)待たせると、押すたびに体感速度が悪化するため、
-    // クリックのたびに即座にトグルし、一定時間内に2回目のクリックが来た場合だけ後から除外トグルで補正する。
-    // (2回連続でトグルした結果は必ずクリック前の状態に戻るため、そこから除外トグルすれば、最終的な状態は
-    // 「反映を遅らせてダブルクリックか確定してから1回だけ判定する」場合と常に一致する)
+    // ダブルクリックの判定自体はDBLCLICK_THRESHOLD_MSの間待つ必要があるが、大多数を占めるシングルクリックの
+    // 体感速度を優先し、1回目のクリックの時点で即座にトグルしてしまう(除外中でない場合のみ)。もし直後に
+    // 2回目のクリックが来てダブルクリックが確定したら、1回目のトグルを打ち消してから除外に切り替える
     const DBLCLICK_THRESHOLD_MS = 300;
     labels.forEach(l => {
       const cb = l.querySelector('input');
@@ -3701,19 +3778,27 @@ body .item-contents.is-content-open {
       l.onclick = e => {
         e.preventDefault();
         if (clickTimer) {
-          // 2回目のクリック(ダブルクリック確定):1回目のクリックで即座に反映済みのチェック状態を、
-          // 除外トグルで補正する
+          // 2回目のクリック(ダブルクリック確定)
           clearTimeout(clickTimer);
           clickTimer = null;
+          if (!excludedFilterValues.has(cb.value)) {
+            // 1回目のクリックで即座にトグルした内容を打ち消してから、除外へ切り替える
+            cb.checked = !cb.checked;
+            cb.dispatchEvent(new Event('change'));
+          }
           toggleExcludedForLabel(cb);
           return;
         }
-        // 1回目のクリック:ダブルクリックかどうかに関わらず、シングルクリックの動作を即座に反映する
-        if (!excludedFilterValues.has(cb.value)) { // 除外中はシングルクリックでのON/OFFも無効化する
+        // 1回目のクリック:除外中でなければ、ダブルクリックの確定を待たず即座にトグルする(体感速度優先)。
+        // ダブルクリックの検出自体は除外中かどうかに関わらず必ずタイマーで行う(除外解除のダブルクリックも
+        // 検出できるようにするため)
+        if (!excludedFilterValues.has(cb.value)) {
           cb.checked = !cb.checked;
           cb.dispatchEvent(new Event('change')); // 既存のcb.onchangeロジック(manuallyTouchedConts等)を発火させる
         }
-        clickTimer = setTimeout(() => { clickTimer = null; }, DBLCLICK_THRESHOLD_MS);
+        clickTimer = setTimeout(() => {
+          clickTimer = null;
+        }, DBLCLICK_THRESHOLD_MS);
       };
     });
 
@@ -3733,16 +3818,24 @@ body .item-contents.is-content-open {
         }
         updateSortBtnLabel();
       }
-      updateManualIndicators();
       updateMonthFilterVisibility(); // 年フィルターの選択状態が変わるので月フィルターの表示/非表示も再評価
       updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
       updateSortBtnLabel(); // 年フィルターの選択状態が変わるので、TODAYモード中の日付表示も再評価
-      // TODAY+年フィルター(TODAYボタンが黄色の状態)は「その年の同じ月日」を意味するため、年フィルターの
-      // ON/OFFに応じて該当するコンテンツフィルターを自動で切り替える(年を外せば通常TODAYのコンテンツに戻る)。
-      // 月フィルターでTODAYモードを解除した場合も、コンテンツフィルターを通常状態に戻すため再計算する
-      if (/^\d{4}$/.test(cb.value) || /^\d{2}$/.test(cb.value)) autoUpdateContentTypeFilters();
-      updateDisplay(true);
       window.scrollTo({ top: 0, behavior: 'instant' });
+      // ボタン自体の色変化(:has(input:checked)によるCSS)を先に描画させてから、重い処理(全件フィルタリング・
+      // 再描画)を行う。updateManualIndicatorsも、フィルターボタン全部(60〜80個規模)に対して毎回
+      // querySelectorする重い処理のため、ここに含めて次フレームに回す。判定内容・結果は変えず、
+      // 実行タイミングだけを次フレームにずらす
+      deferHeavyUpdate(() => {
+        updateManualIndicators();
+        // TODAY+年フィルター(TODAYボタンが黄色の状態)は「その年の同じ月日」を意味するため、年フィルターの
+        // ON/OFFに応じて該当するコンテンツフィルターを自動で切り替える(年を外せば通常TODAYのコンテンツに戻る)。
+        // 月フィルターでTODAYモードを解除した場合も、コンテンツフィルターを通常状態に戻すため再計算する。
+        // グループ/メンバーフィルターの場合も、紐づくコンテンツ種類を自動で切り替える対象に含める
+        // (コンテンツ種類自身の変更では、他のコンテンツ種類の判定に影響しないため呼ばない)
+        if (!allConts.includes(cb.value)) autoUpdateContentTypeFilters();
+        updateDisplay(true);
+      });
     });
 
     updateAllBadges();
@@ -3775,16 +3868,26 @@ body .item-contents.is-content-open {
     const active = window.location.hash.replace('#', '').split(',').filter(Boolean);
     // 除外指定中の値は、URLで明示的にONと指定されていても常にOFFのままにする(除外との矛盾を防止)
     checkboxes.forEach(cb => cb.checked = active.includes(cb.value) && !excludedFilterValues.has(cb.value));
-    // URLで明示的にONになっているコンテンツ種類は手動操作扱いにして保護する。OFFのものは自動on/offの対象に戻す
+    // URLで明示的にONになっているコンテンツ種類は手動操作扱いにして保護する。OFFのものは自動on/offの対象に戻す。
+    // ただし、TODAY/セトリ検索モード中は、コンテンツ種類フィルターの一部がシステムによる自動ON/OFFの対象になり、
+    // その自動ONの状態もそのままURLハッシュに残ってしまうため、ハッシュ経由で復元しただけのチェック状態を
+    // 「手動選択」として扱ってはいけない(手動扱いにしてしまうと、BIRTHDAY/ANNIVERSARYが「他のコンテンツ種類を
+    // 手動で絞り込んでいる」と誤判定されて常に非表示になってしまう等の不具合につながる)。この場合は
+    // manuallyTouchedContsには入れず、直後のautoUpdateContentTypeFiltersで実データに基づき再計算させる
     manuallyTouchedConts.clear();
-    checkboxes.forEach(cb => {
-      if (allConts.includes(cb.value) && cb.checked) manuallyTouchedConts.add(cb.value);
-    });
+    if (!todayMode && !setlistMode) {
+      checkboxes.forEach(cb => {
+        if (allConts.includes(cb.value) && cb.checked) manuallyTouchedConts.add(cb.value);
+      });
+    }
     updateSearchClearState();
     applyExcludedStyles();
     updateMonthFilterVisibility(); // URL復元時も、年フィルターの状態に応じて月フィルターの表示/非表示を合わせる
     updateTodayButtonStyle(); // URL復元時も、年フィルターの状態に応じてTODAYボタンの色を合わせる
     updateSortBtnLabel(); // URL復元時も、年フィルターの状態に応じてTODAYモード中の日付表示を合わせる
+    // TODAY/セトリ検索モード中は、コンテンツ種類フィルターを実データに基づき自動で正しく再計算する
+    // (上でmanuallyTouchedContsに入れなかった分を、ここで正しくON/OFFし直す)
+    if (todayMode || setlistMode) autoUpdateContentTypeFilters();
     updateDisplay(false);
   };
 
@@ -3794,6 +3897,7 @@ body .item-contents.is-content-open {
     if (e) e.preventDefault();
     checkboxes.forEach(cb => cb.checked = false);
     manuallyTouchedConts.clear();
+    document.querySelectorAll('.checks label.has-data-lamp').forEach(l => l.classList.remove('has-data-lamp')); // CLEARでランプも消す
     if (setlistMode) {
       // セトリ検索モード中のCLEARは、除外指定を「セトリモードの初期表示状態」(LIVE/EVENT以外を除外)に
       // 戻すだけにする。セトリモード突入前の除外状態(setlistExcludedSavedState)はここでは変更しない
@@ -3855,7 +3959,7 @@ body .item-contents.is-content-open {
   // 変更がなければlocalStorageのキャッシュをそのまま使い、通信を省略する。
   const REPO = 'piscenake52/gllogs';
   const BRANCH = 'main';
-  const FILE = 'logs.json';
+  const FILE = 'data/logs/logs.json';
   const VERSION_KEY = 'gl_log_sha';
   const DATA_KEY = 'gl_log_data';
   const CHECK_TIME_KEY = 'gl_log_checked_at';
@@ -3872,12 +3976,17 @@ body .item-contents.is-content-open {
     });
 
     refreshYearChecks();
-    // ページ読込時にTODAYモードがON状態で復元されている場合、実データを踏まえてコンテンツ種類フィルターを再計算する
-    if (todayMode) {
-      autoUpdateContentTypeFilters();
-      updateManualIndicators();
+    if (window.location.hash) {
+      // ハッシュがある場合は、TODAY/セトリ検索モードに応じたコンテンツ種類フィルターの再計算も含めて
+      // restoreFromHash側で行う(ここで先にautoUpdateContentTypeFiltersを呼んでも、直後にrestoreFromHashが
+      // チェック状態を上書きしてしまい無駄になるため呼ばない)
+      restoreFromHash();
+    } else {
+      // ページ読込時にTODAYモードがON状態で復元されている場合、実データを踏まえてコンテンツ種類フィルターを
+      // 再計算する(updateManualIndicatorsはこの後のupdateDisplay内で呼ばれるため、ここで個別に呼ぶ必要はない)
+      if (todayMode) autoUpdateContentTypeFilters();
+      updateDisplay(true);
     }
-    window.location.hash ? restoreFromHash() : updateDisplay(true);
   };
 
   const loadFromCacheIfAny = () => {
@@ -3993,7 +4102,7 @@ body .item-contents.is-content-open {
   // songs.json(artist/title/link)取得:logs.jsonと同じ方式(GitHub上の最新コミットSHAを確認し、
   // 変更があった場合のみコミット固定のjsDelivr URLから取得しなおす。変更がなければキャッシュを使う)。
   // 画面が表示される(=データ取得が走る)たびに、その中から1曲をランダムに抽出して表示する。
-  const SONG_FILE = 'songs.json';
+  const SONG_FILE = 'data/songs/songs.json';
   const SONG_VERSION_KEY = 'gl_song_sha';
   const SONG_DATA_KEY = 'gl_song_data';
   const SONG_CHECK_TIME_KEY = 'gl_song_checked_at';
@@ -4140,7 +4249,7 @@ body .item-contents.is-content-open {
 
   // ================= セトリ検索モード(SETLIST) =================
   // setlist.json(公演ごとのセットリスト)取得:logs.json/songs.jsonと同じ方式
-  const SETLIST_FILE = 'setlist.json';
+  const SETLIST_FILE = 'data/setlist/setlist.json';
   const SETLIST_VERSION_KEY = 'gl_setlist_sha';
   const SETLIST_DATA_KEY = 'gl_setlist_data';
   const SETLIST_CHECK_TIME_KEY = 'gl_setlist_checked_at';
