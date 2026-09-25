@@ -48,13 +48,13 @@ body:
     id: display_pc
     attributes:
       label: "display_pc"
-      placeholder: ""
+      placeholder: "なし"
 
   - type: input
     id: display_sp
     attributes:
       label: "display_sp"
-      placeholder: ""
+      placeholder: "なし"
 
   - type: input
     id: url
@@ -66,13 +66,13 @@ body:
     id: map
     attributes:
       label: "マップ情報 (map)"
-      placeholder: ""
+      placeholder: "なし"
 
   - type: input
     id: setlistid
     attributes:
       label: "セットリストID (setlistid)"
-      placeholder: ""
+      placeholder: "なし"
 
   - type: textarea
     id: groups
