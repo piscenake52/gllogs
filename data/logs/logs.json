@@ -1655,14 +1655,19 @@
     "date": "20260929",
     "time": "1000",
     "contents": "GTUBE",
-    "title": "#754 ",
-    "display_pc": "#754　G TUBE",
-    "display_sp": "#754　G TUBE",
+    "title": "#754 Girls² インターネットサイン会 ～Xmas Special～ 2024.12.25",
+    "display_pc": "#754　Girls² インターネットサイン会 ～Xmas Special～ 2024.12.25",
+    "display_sp": "#754　Girls² ネットサイン会 Xmas Special 2024.12.25",
     "url": "",
     "groups": [
       "G2",
-      "L2"
-    ]
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"    ]
   },
   {
     "date": "20260929",
@@ -2080,38 +2085,6 @@
       "G2",
       "KIR"
     ],
-    "tags": []
-  },
-  {
-    "date": "20260925",
-    "time": "1100",
-    "contents": "ETC",
-    "title": "TEST",
-    "display_pc": "",
-    "display_sp": "",
-    "url": "",
-    "map": "",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
