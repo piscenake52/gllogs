@@ -960,6 +960,25 @@
     ]
   },
   {
+    "date": "20261024",
+    "time": "1000",
+    "contents": "TICKET",
+    "title": "「いきなり本読み！ in LDH」 チケット一般発売開始",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://girls2-fc.jp/page/news/1232540443045003264",
+    "map": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "",
+    "tags": []
+  },
+  {
     "date": "20261023",
     "time": "",
     "contents": "RESULT",
@@ -978,6 +997,44 @@
       "AKR",
       "KIK"
     ],
+    "tags": []
+  },
+  {
+    "date": "20261021",
+    "time": "2300",
+    "contents": "CLOSE",
+    "title": "「いきなり本読み！ in LDH」 ticketbook2次先行先着受付締切",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://girls2-fc.jp/page/news/1232540443045003264",
+    "map": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "",
+    "tags": []
+  },
+  {
+    "date": "20261020",
+    "time": "1500",
+    "contents": "TICKET",
+    "title": "「いきなり本読み！ in LDH」 ticketbook2次先行先着受付開始",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://girls2-fc.jp/page/news/1232540443045003264",
+    "map": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "",
     "tags": []
   },
   {
@@ -1038,6 +1095,25 @@
     "tags": [
       "NHK大阪ホール"
     ]
+  },
+  {
+    "date": "20261017",
+    "time": "1500",
+    "contents": "RESULT",
+    "title": "「いきなり本読み！ in LDH」 ticketbook先行抽選当選発表",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://girls2-fc.jp/page/news/1232540443045003264",
+    "map": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "",
+    "tags": []
   },
   {
     "date": "20261017",
@@ -1138,6 +1214,25 @@
       "G2",
       "YZH"
     ]
+  },
+  {
+    "date": "20261012",
+    "time": "2300",
+    "contents": "CLOSE",
+    "title": "「いきなり本読み！ in LDH」 ticketbook先行抽選予約受付締切",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://girls2-fc.jp/page/news/1232540443045003264",
+    "map": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "",
+    "tags": []
   },
   {
     "date": "20261011",
@@ -1248,6 +1343,44 @@
     "tags": []
   },
   {
+    "date": "20261009",
+    "time": "1500",
+    "contents": "RESULT",
+    "title": "「いきなり本読み！ in LDH」 EXILE TRIBE FC先行抽選当選発表",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://girls2-fc.jp/page/news/1232540443045003264",
+    "map": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "",
+    "tags": []
+  },
+  {
+    "date": "20261007",
+    "time": "1500",
+    "contents": "TICKET",
+    "title": "「いきなり本読み！ in LDH」 ticketbook先行抽選予約受付開始",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://girls2-fc.jp/page/news/1232540443045003264",
+    "map": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "",
+    "tags": []
+  },
+  {
     "date": "20261004",
     "time": "2359",
     "contents": "CLOSE",
@@ -1270,22 +1403,20 @@
     "date": "20261004",
     "time": "2300",
     "contents": "CLOSE",
-    "title": "Laki LIVE TOUR 2027 -LINK UP- W会員先行チケット抽選受付締切",
-    "display_pc": "Laki LIVE TOUR 2027 -LINK UP- W会員先行チケット抽選受付締切",
-    "display_sp": "LIVE TOUR 2027 -LINK UP- W会員先行受付締切",
-    "url": "https://girls2-fc.jp/page/familyNews/1231858087841759233",
+    "title": "「いきなり本読み！ in LDH」 EXILE TRIBE FC先行抽選予約受付締切",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://girls2-fc.jp/page/news/1232540443045003264",
     "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
-    "tags": []
+    "tags": [],
+    "map": "",
+    "relations": [],
+    "setlistid": ""
   },
   {
     "date": "20261004",
@@ -1453,6 +1584,25 @@
     "tags": [
       "大宮ステラタウン メローベ広場"
     ]
+  },
+  {
+    "date": "20261003",
+    "time": "1500",
+    "contents": "RESULT",
+    "title": "「いきなり本読み！ in LDH」 GL²family・GL²friend先行抽選当選発表",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://girls2-fc.jp/page/news/1232540443045003264",
+    "map": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "",
+    "tags": []
   },
   {
     "date": "20261003",
@@ -1659,6 +1809,25 @@
   },
   {
     "date": "20260930",
+    "time": "1500",
+    "contents": "TICKET",
+    "title": "「いきなり本読み！ in LDH」 EXILE TRIBE FC先行抽選予約受付開始",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://girls2-fc.jp/page/news/1232540443045003264",
+    "map": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "",
+    "tags": []
+  },
+  {
+    "date": "20260930",
     "time": "",
     "contents": "ANNIVERSARY",
     "title": "Girls² 2nd Album「WORK≒LiFE」リリース記念日",
@@ -1707,6 +1876,25 @@
       "Ladybug",
       "Best Friends"
     ]
+  },
+  {
+    "date": "20260929",
+    "time": "2300",
+    "contents": "CLOSE",
+    "title": "「いきなり本読み！ in LDH」 GL²family・GL²friend先行抽選予約受付締切",
+    "display_pc": "",
+    "display_sp": "",
+    "url": "https://girls2-fc.jp/page/news/1232540443045003264",
+    "map": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "",
+    "tags": []
   },
   {
     "date": "20260929",
@@ -2178,7 +2366,7 @@
     "date": "20260925",
     "time": "1500",
     "contents": "TICKET",
-    "title": "「いきなり本読み！in LDH」 GL²family・GL²friend先行抽選予約受付開始",
+    "title": "「いきなり本読み！ in LDH」 GL²family・GL²friend先行抽選予約受付開始",
     "display_pc": "",
     "display_sp": "",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
