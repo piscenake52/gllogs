@@ -6,11 +6,15 @@ def extract_field(label, text):
     pattern = rf"### {label}\s*\n+\s*(.*?)(?=\n+###|\Z)"
     match = re.search(pattern, text, re.DOTALL)
     if match:
-        return match.group(1).strip()
+        val = match.group(1).strip()
+        # GitHubが自動挿入する "_No response_" や設定した "なし" は空文字に変換する
+        if val == "_No response_" or val == "なし":
+            return ""
+        return val
     return ""
 
 def parse_list(raw_str):
-    if not raw_str or raw_str == "なし":
+    if not raw_str:
         return []
     if raw_str.startswith("[") and raw_str.endswith("]"):
         try:
@@ -52,13 +56,13 @@ def main():
         "time": time if time else "0000",
         "contents": contents,
         "title": title,
-        "display_pc": display_pc if display_pc and display_pc != "なし" else "",
-        "display_sp": display_sp if display_sp and display_sp != "なし" else "",
-        "url": url if url and url != "なし" else "",
-        "map": map_val if map_val and map_val != "なし" else "",
+        "display_pc": display_pc,
+        "display_sp": display_sp,
+        "url": url,
+        "map": map_val,
         "groups": groups,
         "relations": relations,
-        "setlistid": setlistid if setlistid and setlistid != "なし" else "",
+        "setlistid": setlistid,
         "tags": tags
     }
 
