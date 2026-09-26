@@ -2448,6 +2448,29 @@
     "tags": []
   },
   {
+    "logid": "202609281800CLOSE",
+    "date": "20260928",
+    "time": "1800",
+    "contents": "CLOSE",
+    "title": "GL²family Laki9月スペシャル壁紙プレゼントキャンペーン終了",
+    "display_pc": "GL²family　9月Lakiスペシャル壁紙プレゼントキャンペーン終了",
+    "display_sp": "GL²family　9月Laki SP壁紙プレゼント終了",
+    "url": "https://girls2-fc.jp/page/wallpaper/1232961638563315713",
+    "map": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "tags": []
+  },
+  {
     "logid": "20260928_1700_YOUTUBE",
     "date": "20260928",
     "time": "1700",
@@ -2861,6 +2884,29 @@
       "YOK"
     ],
     "relations": [],
+    "tags": []
+  },
+  {
+    "logid": "202609251800FANCLUB",
+    "date": "20260925",
+    "time": "1800",
+    "contents": "FANCLUB",
+    "title": "GL²family Laki9月スペシャル壁紙プレゼントキャンペーン開始",
+    "display_pc": "GL²family　9月Lakiスペシャル壁紙プレゼントキャンペーン開始",
+    "display_sp": "GL²family　9月Laki SP壁紙プレゼント開始",
+    "url": "https://girls2-fc.jp/page/wallpaper/1232961638563315713",
+    "map": "",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
     "tags": []
   },
   {
