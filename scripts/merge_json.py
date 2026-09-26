@@ -2,6 +2,7 @@ import os
 import json
 import glob
 import shutil
+import uuid
 
 TARGETS = [
     {
@@ -24,16 +25,20 @@ TARGETS = [
     },
 ]
 
-# ★ date, time, contents, title の4つを一致判定のキーに戻す
-UNIQUE_KEYS = ["date", "time", "contents", "title"]
 MAX_PROCESSED_FILES = 30
 
 def is_same_item(item1, item2):
-    """指定された4つのキーの値がすべて一致するか判定する"""
-    for key in UNIQUE_KEYS:
-        if item1.get(key) != item2.get(key):
-            return False
-    return True
+    """logidが設定されており、かつ一致するか判定する"""
+    logid1 = item1.get("logid")
+    logid2 = item2.get("logid")
+    # 空文字やNoneでないことを確認した上で比較する
+    if logid1 and logid2 and logid1 == logid2:
+        return True
+    return False
+
+def generate_logid():
+    """新規のlogidを生成する（UUIDを使用）"""
+    return f"log-{str(uuid.uuid4())[:8]}"
 
 def cleanup_processed_dir(processed_dir):
     """processed フォルダ内のファイルを新しい順に並べ、30個を超える古いものを削除する"""
@@ -95,7 +100,14 @@ def process_target(target):
                 if not isinstance(new_item, dict):
                     continue
                 
-                # ★ メインデータの中から同じ4つのキーを持つ要素をすべて探す
+                # logidを持たない場合、新規追加として扱う。ここでlogidを発行。
+                if not new_item.get("logid"):
+                    new_item["logid"] = generate_logid()
+                    main_data.append(new_item)
+                    processed_count += 1
+                    continue
+
+                # メインデータの中から同じlogidを持つ要素をすべて探す
                 matching_indices = []
                 for i, existing_item in enumerate(main_data):
                     if is_same_item(existing_item, new_item):
@@ -108,9 +120,9 @@ def process_target(target):
                     processed_count += 1
                 elif len(matching_indices) > 1:
                     # 2つ以上見つかった場合：重複エラーとして安全にスキップ
-                    print(f"【警告】date, time, contents, titleが完全に一致するデータがメインファイルに複数存在するため、競合を避けてスキップします: {new_item.get('date')}, {new_item.get('time')}, {new_item.get('contents')}, {new_item.get('title')}")
+                    print(f"【警告】logidが完全に一致するデータがメインファイルに複数存在するため、競合を避けてスキップします: {new_item.get('logid')}")
                 else:
-                    # 見つからなかった場合：新規追加
+                    # ユーザーが指定したlogidが見つからなかった場合：そのまま新規追加
                     main_data.append(new_item)
                     processed_count += 1
             
