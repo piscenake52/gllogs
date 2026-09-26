@@ -30,6 +30,7 @@ def main():
     body = os.environ.get("ISSUE_BODY", "")
     
     target_type = extract_field(r"データの種類 \(Type / logs, setlist, songs\)", body)
+    logid = extract_field(r"ログID \(logid\)", body)
     date = extract_field(r"日付 \(date\)", body)
     time = extract_field(r"時間 \(time\)", body)
     contents = extract_field(r"コンテンツ種別 \(contents\)", body)
@@ -52,6 +53,7 @@ def main():
     tags = parse_list(tags_raw)
 
     data = {
+        "logid": logid,
         "date": date,
         "time": time if time else "0000",
         "contents": contents,
