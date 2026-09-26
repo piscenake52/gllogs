@@ -14,6 +14,13 @@ body:
       required: true
 
   - type: input
+    id: logid
+    attributes:
+      label: "ログID (logid)"
+      description: "更新する場合は既存のlogidを入力してください。新規追加時は空欄にします。"
+      placeholder: "log-12345"
+
+  - type: input
     id: date
     attributes:
       label: "日付 (date)"
