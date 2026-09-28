@@ -3,7 +3,6 @@
     "setlistid": "202609201300",
     "artist": "Girls²",
     "member": [
-      "YZH",
       "MMK",
       "MSK",
       "YOK",
@@ -11,10 +10,9 @@
       "MNM",
       "KIR"
     ],
-    "title": "EP「EASY」発売記念 リリースイベント 埼玉",
+    "title": "EP「EASY」発売記念 リリースイベント 大阪",
     "venue": "あべのキューズモール 3Fスカイコート",
-    "songs": [
-    ]
+    "songs": []
   },
   {
     "setlistid": "202609131300",
@@ -66,7 +64,7 @@
       "MNM",
       "KIR"
     ],
-    "title": "HiGH & LOW 10th ANNIVERSARY FEVER",
+    "title": "HiGH&LOW 10th ANNIVERSARY FEVER",
     "venue": "Kアリーナ横浜",
     "songs": [
       {
@@ -83,21 +81,21 @@
         "original": "",
         "notes": ""
       },
-     {
+      {
         "order": 24,
         "title": "BLOOM! BLOOM! BLOOM!",
         "type": "song",
         "original": "",
         "notes": ""
       },
-     {
+      {
         "order": 25,
         "title": "Eagle Eyes",
         "type": "song",
         "original": "",
         "notes": ""
       },
-     {
+      {
         "order": 34,
         "title": "Going Crazy",
         "type": "song",
@@ -113,7 +111,7 @@
       }
     ]
   },
-{
+  {
     "setlistid": "202609231830",
     "artist": "Girls²",
     "member": [
@@ -125,7 +123,7 @@
       "MNM",
       "KIR"
     ],
-    "title": "HiGH & LOW 10th ANNIVERSARY FEVER",
+    "title": "HiGH&LOW 10th ANNIVERSARY FEVER",
     "venue": "Kアリーナ横浜",
     "songs": [
       {
@@ -142,21 +140,21 @@
         "original": "",
         "notes": ""
       },
-     {
+      {
         "order": 24,
         "title": "BLOOM! BLOOM! BLOOM!",
         "type": "song",
         "original": "",
         "notes": ""
       },
-     {
+      {
         "order": 25,
         "title": "Eagle Eyes",
         "type": "song",
         "original": "",
         "notes": ""
       },
-     {
+      {
         "order": 34,
         "title": "Going Crazy",
         "type": "song",
@@ -175,7 +173,16 @@
   {
     "setlistid": "202609221700",
     "artist": "Laki",
-    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "member": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
     "title": "Laki 5th Anniversary Live -L∞K UP-",
     "venue": "ヒューリックホール東京",
     "songs": [
@@ -408,7 +415,16 @@
   {
     "setlistid": "202609061400",
     "artist": "Laki",
-    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "member": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
     "title": "「WORK≒LiFE」発売記念リリースイベント 大阪",
     "venue": "セブンパーク天美 1F AMAMI STADIUM",
     "songs": [
@@ -452,7 +468,16 @@
   {
     "setlistid": "202609061630",
     "artist": "Laki",
-    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "member": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
     "title": "「WORK≒LiFE」発売記念リリースイベント 大阪",
     "venue": "セブンパーク天美 1F AMAMI STADIUM",
     "songs": [
@@ -496,7 +521,16 @@
   {
     "setlistid": "202609121400",
     "artist": "Laki",
-    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "member": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
     "title": "「WORK≒LiFE」発売記念リリースイベント 愛知",
     "venue": "イオンモール大高 1F グリーンコート",
     "songs": [
@@ -540,7 +574,16 @@
   {
     "setlistid": "202609121630",
     "artist": "Laki",
-    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "member": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
     "title": "「WORK≒LiFE」発売記念リリースイベント 愛知",
     "venue": "イオンモール大高 1F グリーンコート",
     "songs": [
@@ -584,7 +627,16 @@
   {
     "setlistid": "202608201400",
     "artist": "Laki",
-    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "member": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
     "title": "「WORK≒LiFE」発売記念リリースイベント 埼玉",
     "venue": "コクーンシティ コクーンひろば",
     "songs": [
@@ -628,7 +680,16 @@
   {
     "setlistid": "202608201630",
     "artist": "Laki",
-    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "member": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
     "title": "「WORK≒LiFE」発売記念リリースイベント 埼玉",
     "venue": "コクーンシティ コクーンひろば",
     "songs": [
@@ -672,10 +733,18 @@
   {
     "setlistid": "202608291910",
     "artist": "Laki",
-    "member": ["RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"],
+    "member": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
     "title": "超WEGO2026",
     "venue": "WEGO 1.3.5... 原宿店",
-    "songs": [
-    ]
+    "songs": []
   }
 ]
