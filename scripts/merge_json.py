@@ -6,6 +6,7 @@ import shutil
 
 MAX_PROCESSED_FILES = 30
 CLEAR = "!clear"  # 既存値を消したいときにIssueへ入力する特別な値
+ARTIST_JOIN = " × "  # 複数アーティストの連結文字（issue_to_json.py と揃える）
 ISSUE_MAP_FILE = "data/issue_map.json"  # {Issue番号: logid}  Issue再編集時に同じログを更新するための対応表
 
 DEFAULT_GROUPS = [
@@ -37,7 +38,7 @@ TARGETS = [
         "main_file": "data/setlist/setlist.json",
         "key_fields": ["setlistid"],
         "order": ["setlistid", "artist", "member", "title", "venue", "songs"],
-        "clear_to_empty_list": ["member", "songs"],
+        "clear_to_empty_list": [],
         "sort_key": lambda x: x.get("setlistid") or "",
         "sort_reverse": True,
     },
@@ -138,12 +139,15 @@ def finalize_new(target, item, main_data):
         if not item.get("artist") or not item.get("title"):
             print(f"【スキップ】setlistの新規追加にはartistとtitleが必要です: {item}")
             return None
-        item.setdefault("member", list(DEFAULT_MEMBERS.get(item["artist"], [])))
-        item.setdefault("venue", "")
-        item.setdefault("songs", [])
-
-    elif name == "songs":
-        item.setdefault("link", "")
+        # member は artist が Girls² / Laki のときだけ既定値を補完（それ以外は属性を作らない）
+        # 「Girls² × Laki」のように複数の場合は、該当グループの全員を合わせる
+        if "member" not in item:
+            default_member = []
+            for a in item["artist"].split(ARTIST_JOIN):
+                default_member += DEFAULT_MEMBERS.get(a.strip(), [])
+            if default_member:
+                item["member"] = default_member
+        # venue / songs は空なら属性を作らない
 
     return reorder(target, item)
 

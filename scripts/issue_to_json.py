@@ -24,10 +24,12 @@ LABELS_LOGS = {
 # add_setlist_songs.yml
 LABELS_SS = {
     "setlistid": "セットリストID (setlistid / setlist用)",
-    "artist": "アーティスト (artist)",
+    "artist_check": "アーティスト (artist / 選択)",
+    "artist_free": "アーティスト (artist / 自由入力・入力するとこちらを優先)",
     "title": "タイトル (title / setlist名 または 曲名)",
     "link": "楽曲リンク (link / songs用)",
-    "member": "出演メンバー (member / setlist用 - カンマ区切り)",
+    "member_g2": "出演メンバー Girls² (member)",
+    "member_l2": "出演メンバー Laki (member)",
     "venue": "会場 (venue / setlist用)",
     "songs": "曲目 (songs / setlist用 - 1行1曲)",
 }
@@ -35,6 +37,7 @@ LABELS_SS = {
 LEGACY_MARKER = "### データの種類 (Type / logs, setlist, songs)"
 
 CLEAR = "!clear"  # 既存値を消したいときに入力する特別な値
+ARTIST_JOIN = " × "  # アーティストを複数選択したときの連結文字（merge_json.py と揃える）
 
 
 def is_blank(v):
@@ -121,6 +124,13 @@ def parse_songs(raw_str):
     return songs
 
 
+def resolve_artist(f):
+    """自由入力を優先。空なら選択したものを ARTIST_JOIN でつなぐ（複数選択可）"""
+    if f["artist_free"]:
+        return f["artist_free"]
+    return ARTIST_JOIN.join(parse_checked(f["artist_check"]))
+
+
 def build_logs(f):
     data = {
         "logid": f["logid"],
@@ -144,7 +154,7 @@ def build_setlist(f):
     return {
         "setlistid": f["setlistid"],
         "artist": f["artist"],
-        "member": parse_list(f["member"]),
+        "member": parse_checked(f["member_g2"]) + parse_checked(f["member_l2"]),
         "title": f["title"],
         "venue": f["venue"],
         "songs": parse_songs(f["songs"]),
@@ -181,8 +191,9 @@ def main():
         return
 
     # フォームの種類は、本文に含まれる見出しで判別する
-    if f"### {LABELS_SS['artist']}" in body:
+    if f"### {LABELS_SS['artist_free']}" in body:
         f = {key: extract_field(label, body) for key, label in LABELS_SS.items()}
+        f["artist"] = resolve_artist(f)
         target_type = "setlist" if f["setlistid"] else "songs"
     else:
         f = {key: extract_field(label, body) for key, label in LABELS_LOGS.items()}
