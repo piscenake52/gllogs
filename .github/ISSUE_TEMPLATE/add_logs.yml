@@ -8,6 +8,8 @@ body:
         - **更新のとき**: logid を入力し、**変更したい項目だけ**入力してください。空欄・未選択の項目は既存の値がそのまま残ります。
         - **項目を消したいとき**: 入力欄に `!clear` と入力してください（グループ/メンバーのチェックは消せません）。
         - **新規のとき**: 日付だけ必須です。種別が未選択なら ETC、時間が空欄なら 0000、グループが未選択なら全員になります。
+        - **数字の入力**: 全角で入力しても半角に直します。日付は8桁、時間は4桁、セットリストIDは12桁で入力してください（違うとIssueにコメントが付き、処理されません）。
+        - **グループ**: G2だけ、またはL2だけにチェックしたときは、メンバー（G2: YZH〜KIR、L2: RIN〜KIK）を自動で追加します。メンバーも個別にチェックしたときは、チェックしたものだけになります。
 
   - type: input
     id: logid
@@ -20,14 +22,14 @@ body:
     id: date
     attributes:
       label: "日付 (date)"
-      description: "新規追加で必須。8桁の数字 (例: 20260924)"
+      description: "新規追加で必須。8桁の半角数字 (例: 20260924)。全角で入力しても半角に直します。"
       placeholder: "20260924"
 
   - type: input
     id: time
     attributes:
       label: "時間 (time)"
-      description: "4桁の数字 (例: 1200)。新規で空欄なら 0000"
+      description: "4桁の半角数字 (例: 1200)。新規で空欄なら 0000"
       placeholder: "1200"
 
   - type: dropdown
@@ -106,14 +108,14 @@ body:
     id: setlistid
     attributes:
       label: "セットリストID (setlistid)"
-      description: "関連するセットリストがあれば、そのID（12桁: 日付+開演時刻）"
+      description: "関連するセットリストがあれば、そのID（12桁の半角数字: 日付+開演時刻）"
       placeholder: "202609221830"
 
   - type: checkboxes
     id: groups_g2
     attributes:
       label: "グループ/メンバー Girls² (groups)"
-      description: "logsの新規追加で、Girls²・Lakiどちらも未選択なら全員を自動設定します。更新時に未選択なら既存値を維持します。"
+      description: "logsの新規追加で、Girls²・Lakiどちらも未選択なら全員を自動設定します。更新時に未選択なら既存値を維持します。G2だけ（または下のL2だけ）にチェックしたときは、YZH〜KIR（RIN〜KIK）を自動で追加します。"
       options:
         - label: "G2"
         - label: "YZH"
