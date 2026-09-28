@@ -3,9 +3,9 @@ import json
 import re
 from datetime import datetime, timedelta, timezone
 
-# add_data.yml のフォームラベルと完全一致させること
-LABELS = {
-    "type": "データの種類 (Type / logs, setlist, songs)",
+# フォームのラベルと完全一致させること
+# add_logs.yml
+LABELS_LOGS = {
     "logid": "ログID (logid)",
     "date": "日付 (date)",
     "time": "時間 (time)",
@@ -20,13 +20,20 @@ LABELS = {
     "groups_l2": "グループ/メンバー Laki (groups)",
     "relations": "関連情報 (relations - JSON配列またはカンマ区切り)",
     "tags": "タグ (tags - カンマ区切り)",
-    "artist": "アーティスト (artist / setlist・songs用)",
+}
+# add_setlist_songs.yml
+LABELS_SS = {
+    "setlistid": "セットリストID (setlistid / setlist用)",
+    "artist": "アーティスト (artist)",
+    "title": "タイトル (title / setlist名 または 曲名)",
+    "link": "楽曲リンク (link / songs用)",
     "member": "出演メンバー (member / setlist用 - カンマ区切り)",
     "venue": "会場 (venue / setlist用)",
     "songs": "曲目 (songs / setlist用 - 1行1曲)",
 }
+# 旧フォーム(データの種類ドロップダウンあり)のIssueを誤って処理しないための目印
+LEGACY_MARKER = "### データの種類 (Type / logs, setlist, songs)"
 
-VALID_TYPES = ("logs", "setlist", "songs")
 CLEAR = "!clear"  # 既存値を消したいときに入力する特別な値
 
 
@@ -148,7 +155,7 @@ def build_songs(f):
     return {
         "artist": f["artist"],
         "title": f["title"],
-        "link": f["url"],
+        "link": f["link"],
     }
 
 
@@ -169,19 +176,22 @@ def main():
     body = os.environ.get("ISSUE_BODY", "").replace("\r\n", "\n")
     issue_number = os.environ.get("ISSUE_NUMBER", "").strip()
 
-    f = {key: extract_field(label, body) for key, label in LABELS.items()}
-    # 未選択のドロップダウンは "None" として届くことがあるため空扱いにする
-    for key in ("type", "contents"):
-        if f[key] == "None":
-            f[key] = ""
-    target_type = f["type"]
-
-    # パス組み立てに使うため、必ず許可リストで検証する
-    if target_type not in VALID_TYPES:
-        print(f"データの種類が不正です ({target_type!r})。処理をスキップします。")
+    if LEGACY_MARKER in body:
+        print("旧フォームのIssueは処理しません。新しいフォームから作成し直してください。")
         return
 
+    # フォームの種類は、本文に含まれる見出しで判別する
+    if f"### {LABELS_SS['artist']}" in body:
+        f = {key: extract_field(label, body) for key, label in LABELS_SS.items()}
+        target_type = "setlist" if f["setlistid"] else "songs"
+    else:
+        f = {key: extract_field(label, body) for key, label in LABELS_LOGS.items()}
+        target_type = "logs"
+
     if target_type == "logs":
+        # 未選択のドロップダウンは "None" として届くことがあるため空扱いにする
+        if f["contents"] == "None":
+            f["contents"] = ""
         data = build_logs(f)
         if issue_number:
             # 同じIssueの再編集を、同じレコードの更新として扱うための目印（mergeで取り除く）
