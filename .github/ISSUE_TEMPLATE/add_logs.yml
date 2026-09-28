@@ -5,25 +5,22 @@ body:
   - type: input
     id: logid
     attributes:
-      label: "ログID (logid)"
-      placeholder: "a1b2c3d4e5f6（更新のときだけ入力。新規は空欄）"
+      label: "logid"
 
   - type: input
     id: date
     attributes:
-      label: "日付 (date)"
-      placeholder: "20260928（8桁・半角。新規追加では必須）"
-
+      label: "date"
+      
   - type: input
     id: time
     attributes:
-      label: "時間 (time)"
-      placeholder: "1200（4桁・半角。新規で空欄なら 0000）"
+      label: "time"
 
   - type: dropdown
     id: contents
     attributes:
-      label: "コンテンツ種別 (contents)"
+      label: "contents"
       options:
         - DIARY
         - GTUBE
@@ -64,44 +61,37 @@ body:
   - type: input
     id: title
     attributes:
-      label: "タイトル (title)"
-      placeholder: "イベント名や記事タイトル"
+      label: "title"
 
   - type: input
     id: display_pc
     attributes:
       label: "display_pc"
-      placeholder: "なし"
 
   - type: input
     id: display_sp
     attributes:
       label: "display_sp"
-      placeholder: "なし"
 
   - type: input
     id: url
     attributes:
-      label: "URL (url)"
-      placeholder: "https://..."
+      label: "url"
 
   - type: input
     id: map
     attributes:
-      label: "マップ情報 (map)"
-      placeholder: "なし"
+      label: "map"
 
   - type: input
     id: setlistid
     attributes:
-      label: "セットリストID (setlistid)"
-      placeholder: "202609221830（12桁・半角。関連するセットリストがあれば）"
+      label: "setlistid"
 
   - type: dropdown
     id: groups_g2
     attributes:
-      label: "グループ/メンバー Girls² (groups)"
-      description: "G2だけ／L2だけを選ぶと、メンバーを自動で追加します。Girls²・Lakiとも未選択なら、新規は全員になります。"
+      label: "groups / Girls²"
       multiple: true
       options:
         - G2
@@ -118,7 +108,7 @@ body:
   - type: dropdown
     id: groups_l2
     attributes:
-      label: "グループ/メンバー Laki (groups)"
+      label: "groups / Laki"
       multiple: true
       options:
         - L2
@@ -135,14 +125,12 @@ body:
   - type: input
     id: relations
     attributes:
-      label: "関連情報 (relations - JSON配列またはカンマ区切り)"
-      placeholder: "TOA, KUR"
+      label: "relations"
 
   - type: input
     id: tags
     attributes:
-      label: "タグ (tags - カンマ区切り)"
-      placeholder: "tag1, tag2, tag3"
+      label: "tags"
 
   - type: markdown
     attributes:
