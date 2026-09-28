@@ -13,8 +13,8 @@ body:
     id: logid
     attributes:
       label: "ログID (logid)"
-      description: "更新する場合は既存のlogidを入力。新規追加時は空欄（日付_時間_種別 で自動発行）。"
-      placeholder: "20260924_1200_DIARY"
+      description: "更新する場合は既存のlogidを入力。新規追加時は空欄（12桁のIDを自動発行）。"
+      placeholder: "a1b2c3d4e5f6"
 
   - type: input
     id: date
