@@ -105,6 +105,51 @@
     ]
   },
   {
+    "setlistid": "202609261430",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "title": "Rakuten GirlsAward 2026 AUTUMN/WINTER",
+    "venue": "幕張メッセ 1-3ホール",
+    "songs": [
+      {
+        "order": 1,
+        "title": "BLOOM! BLOOM! BLOOM!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "Melty Love",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "ヒマワリ",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "LET ME GO",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
     "setlistid": "202609261400",
     "artist": "Laki",
     "member": [
