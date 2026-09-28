@@ -165,13 +165,20 @@ def to_halfwidth(s):
     return unicodedata.normalize("NFKC", s or "").strip()
 
 
-def expand_groups(checked):
-    """G2だけ／L2だけにチェックがあるときに限り、メンバーを補完する。それ以外はチェックのまま"""
-    if checked == ["G2"]:
-        return ["G2"] + G2_MEMBERS
-    if checked == ["L2"]:
-        return ["L2"] + L2_MEMBERS
-    return checked
+def expand_groups(picked, group, members):
+    """グループ名(G2/L2)だけを選んだドロップダウンは、そのグループの全メンバーを補完する。個別に選んだときは選んだものだけ"""
+    if picked == [group]:
+        return [group] + members
+    return picked
+
+
+def expand_members(picked, group, members):
+    """setlist用: グループ名(G2/L2)は配列に入れない。グループ名だけを選んだときはそのグループの全メンバーに置き換え、
+    個別メンバーも選んだときは、選んだメンバーだけにする"""
+    rest = [p for p in picked if p != group]
+    if not rest and group in picked:
+        return list(members)
+    return rest
 
 
 def normalize_and_validate_logs(f):
@@ -219,8 +226,8 @@ def build_logs(f):
         "display_sp": f["display_sp"],
         "url": f["url"],
         "map": f["map"],
-        "groups": expand_groups(parse_selected(f["groups_g2"], G2_OPTIONS)
-                                + parse_selected(f["groups_l2"], L2_OPTIONS)),
+        "groups": expand_groups(parse_selected(f["groups_g2"], G2_OPTIONS), "G2", G2_MEMBERS)
+                  + expand_groups(parse_selected(f["groups_l2"], L2_OPTIONS), "L2", L2_MEMBERS),
         "relations": parse_list(f["relations"]),
         "setlistid": f["setlistid"],
         "tags": parse_list(f["tags"]),
@@ -232,8 +239,8 @@ def build_setlist(f):
     return {
         "setlistid": f["setlistid"],
         "artist": f["artist"],
-        "member": parse_selected(f["member_g2"], G2_OPTIONS[1:])
-                  + parse_selected(f["member_l2"], L2_OPTIONS[1:]),
+        "member": expand_members(parse_selected(f["member_g2"], G2_OPTIONS), "G2", G2_MEMBERS)
+                  + expand_members(parse_selected(f["member_l2"], L2_OPTIONS), "L2", L2_MEMBERS),
         "title": f["title"],
         "venue": f["venue"],
         "songs": parse_songs(f["songs"]),
