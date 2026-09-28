@@ -1,0 +1,64 @@
+name: "setlist / songs 追加・更新"
+description: "セットリストと楽曲リストを追加・更新します"
+title: "[DATA] setlist / songs"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        - **セットリストID を入力 → setlist として登録**します。**空欄 → songs（楽曲リスト）として登録**します。
+        - **更新のとき**: 識別キー（setlist=セットリストID / songs=アーティスト+タイトル）を入力し、**変更したい項目だけ**入力してください。空欄の項目は既存の値がそのまま残ります。
+        - **項目を消したいとき**: 入力欄に `!clear` と入力してください。
+
+  - type: input
+    id: setlistid
+    attributes:
+      label: "セットリストID (setlistid / setlist用)"
+      description: "入力すると setlist として扱います。12桁: 日付+開演時刻。空欄なら songs として扱います。"
+      placeholder: "202609221830"
+
+  - type: input
+    id: artist
+    attributes:
+      label: "アーティスト (artist)"
+      description: "setlistの新規追加ではタイトルとともに必須。songsは アーティスト+タイトル が識別キーです。"
+      placeholder: "Girls² / Laki"
+
+  - type: input
+    id: title
+    attributes:
+      label: "タイトル (title / setlist名 または 曲名)"
+      placeholder: "公演名、または曲名"
+
+  - type: input
+    id: link
+    attributes:
+      label: "楽曲リンク (link / songs用)"
+      placeholder: "https://music.youtube.com/watch?v=..."
+
+  - type: input
+    id: member
+    attributes:
+      label: "出演メンバー (member / setlist用 - カンマ区切り)"
+      description: "新規で空欄なら artist が Girls² / Laki のとき全員を自動設定します。"
+      placeholder: "YZH, MMK, MSK, YOK, KUR, MNM, KIR"
+
+  - type: input
+    id: venue
+    attributes:
+      label: "会場 (venue / setlist用)"
+      placeholder: "Kアリーナ横浜"
+
+  - type: textarea
+    id: songs
+    attributes:
+      label: "曲目 (songs / setlist用 - 1行1曲)"
+      description: |
+        書式: `[順番:] 曲名 | type | original | notes`
+        順番を省略すると前の曲+1。typeを省略すると song（allow / encore / medley も可、空にしたいときは - ）。
+        入力すると曲目全体が**置き換わります**（空欄なら既存の曲目を維持）。
+      placeholder: |
+        1: OPENING | -
+        2: Fun!Fun!Fun! ～夢∞～
+        3: キミすき
+        4: ichigo 〜一期一会〜 | medley
+        5: Gimme 143 | encore

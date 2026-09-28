@@ -1,1 +1,155 @@
+name: "logs 追加・更新"
+description: "ログ（DIARY, LIVE, EVENT など）を追加・更新します"
+title: "[DATA] logs"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        - **更新のとき**: logid を入力し、**変更したい項目だけ**入力してください。空欄・未選択の項目は既存の値がそのまま残ります。
+        - **項目を消したいとき**: 入力欄に `!clear` と入力してください（グループ/メンバーのチェックは消せません）。
+        - **新規のとき**: 日付だけ必須です。種別が未選択なら ETC、時間が空欄なら 0000、グループが未選択なら全員になります。
 
+  - type: input
+    id: logid
+    attributes:
+      label: "ログID (logid)"
+      description: "更新する場合は既存のlogidを入力。新規追加時は空欄（日付_時間_種別 で自動発行）。"
+      placeholder: "20260924_1200_DIARY"
+
+  - type: input
+    id: date
+    attributes:
+      label: "日付 (date)"
+      description: "新規追加で必須。8桁の数字 (例: 20260924)"
+      placeholder: "20260924"
+
+  - type: input
+    id: time
+    attributes:
+      label: "時間 (time)"
+      description: "4桁の数字 (例: 1200)。新規で空欄なら 0000"
+      placeholder: "1200"
+
+  - type: dropdown
+    id: contents
+    attributes:
+      label: "コンテンツ種別 (contents)"
+      description: "未選択の場合、新規追加は ETC になります。更新時は既存値を維持します（変えたいときだけ選択）。"
+      options:
+        - DIARY
+        - GTUBE
+        - GLRADIO
+        - COLUMN
+        - CL
+        - CLOSE
+        - YOUTUBE
+        - ANNIVERSARY
+        - FANCLUB
+        - SNS
+        - TICKET
+        - EVENT
+        - CD
+        - WEB
+        - RESULT
+        - LIVE
+        - RADIO
+        - BIRTHDAY
+        - RELEASEEVENT
+        - TV
+        - COOKING
+        - STREAMING
+        - DIGITAL
+        - STAGE
+        - GOODS
+        - MOVIE
+        - CAMPAIGN
+        - MODEL
+        - ETC
+        - MAGAZINE
+        - DEBUT
+        - FORMATION
+        - MESSAGE
+        - PLAYING
+        - MUSICCARD
+
+  - type: input
+    id: title
+    attributes:
+      label: "タイトル (title)"
+      placeholder: "イベント名や記事タイトル"
+
+  - type: input
+    id: display_pc
+    attributes:
+      label: "display_pc"
+      placeholder: "なし"
+
+  - type: input
+    id: display_sp
+    attributes:
+      label: "display_sp"
+      placeholder: "なし"
+
+  - type: input
+    id: url
+    attributes:
+      label: "URL (url)"
+      placeholder: "https://..."
+
+  - type: input
+    id: map
+    attributes:
+      label: "マップ情報 (map)"
+      placeholder: "なし"
+
+  - type: input
+    id: setlistid
+    attributes:
+      label: "セットリストID (setlistid)"
+      description: "関連するセットリストがあれば、そのID（12桁: 日付+開演時刻）"
+      placeholder: "202609221830"
+
+  - type: checkboxes
+    id: groups_g2
+    attributes:
+      label: "グループ/メンバー Girls² (groups)"
+      description: "logsの新規追加で、Girls²・Lakiどちらも未選択なら全員を自動設定します。更新時に未選択なら既存値を維持します。"
+      options:
+        - label: "G2"
+        - label: "YZH"
+        - label: "MMK"
+        - label: "MSK"
+        - label: "YOK"
+        - label: "KUR"
+        - label: "MNM"
+        - label: "KIR"
+        - label: "TOA"
+        - label: "RAN"
+
+  - type: checkboxes
+    id: groups_l2
+    attributes:
+      label: "グループ/メンバー Laki (groups)"
+      options:
+        - label: "L2"
+        - label: "RIN"
+        - label: "TBK"
+        - label: "HIR"
+        - label: "YUW"
+        - label: "KAN"
+        - label: "RRK"
+        - label: "AKR"
+        - label: "KIK"
+        - label: "YUR"
+
+  - type: textarea
+    id: relations
+    attributes:
+      label: "関連情報 (relations - JSON配列またはカンマ区切り)"
+      placeholder: "TOA, KUR"
+
+  - type: textarea
+    id: tags
+    attributes:
+      label: "タグ (tags - カンマ区切り)"
+      placeholder: "tag1, tag2, tag3"
