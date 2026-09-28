@@ -2,25 +2,15 @@ name: "setlist / songs 追加・更新"
 description: "セットリストと楽曲リストを追加・更新します"
 title: "[DATA] setlist / songs"
 body:
-  - type: markdown
-    attributes:
-      value: |
-        - **セットリストID を入力 → setlist として登録**します。**空欄 → songs（楽曲リスト）として登録**します。
-        - **更新のとき**: 識別キー（setlist=セットリストID / songs=アーティスト+タイトル）を入力し、**変更したい項目だけ**入力してください。空欄の項目は既存の値がそのまま残ります。
-        - **項目を消したいとき**: 入力欄に `!clear` と入力してください（チェックボックスの項目は消せません）。
-
   - type: input
     id: setlistid
     attributes:
-      label: "セットリストID (setlistid / setlist用)"
-      description: "入力すると setlist として扱います。12桁: 日付+開演時刻。空欄なら songs として扱います。"
-      placeholder: "202609221830"
+      label: "setlistid"
 
   - type: checkboxes
     id: artist_check
     attributes:
-      label: "アーティスト (artist / 選択)"
-      description: "Girls² / Laki はこちらで選択（両方チェックも可。両方の場合は「Girls² × Laki」になります）。それ以外は下の自由入力欄に入力してください。setlistの新規追加ではタイトルとともに必須。songsは アーティスト+タイトル が識別キーです。"
+      label: "artist / 選択"
       options:
         - label: "Girls²"
         - label: "Laki"
@@ -28,58 +18,54 @@ body:
   - type: input
     id: artist_free
     attributes:
-      label: "アーティスト (artist / 自由入力・入力するとこちらを優先)"
-      description: "例: mirage² / おはガール from Girls² / Laki - リナ＆ユウラ - など"
-      placeholder: "mirage²"
+      label: "artist / 自由入力"
 
   - type: input
     id: title
     attributes:
-      label: "タイトル (title / setlist名 または 曲名)"
-      placeholder: "公演名、または曲名"
+      label: "title"
 
   - type: input
     id: link
     attributes:
-      label: "楽曲リンク (link / songs用)"
-      placeholder: "https://music.youtube.com/watch?v=..."
+      label: "link"
 
-  - type: checkboxes
+  - type: dropdown
     id: member_g2
     attributes:
-      label: "出演メンバー Girls² (member)"
-      description: "setlist用。新規追加で Girls² / Laki を選び、メンバーが未選択なら、そのグループの全メンバー（TOA・RAN・YURを除く）を自動設定します（両方選択なら両グループ分）。更新時に未選択なら既存値を維持します。"
+      label: "member / Girls²"
+      multiple: true
       options:
-        - label: "YZH"
-        - label: "MMK"
-        - label: "MSK"
-        - label: "YOK"
-        - label: "KUR"
-        - label: "MNM"
-        - label: "KIR"
-        - label: "TOA"
-        - label: "RAN"
+        - YZH
+        - MMK
+        - MSK
+        - YOK
+        - KUR
+        - MNM
+        - KIR
+        - TOA
+        - RAN
 
-  - type: checkboxes
+  - type: dropdown
     id: member_l2
     attributes:
-      label: "出演メンバー Laki (member)"
+      label: "member / Laki"
+      multiple: true
       options:
-        - label: "RIN"
-        - label: "TBK"
-        - label: "HIR"
-        - label: "YUW"
-        - label: "KAN"
-        - label: "RRK"
-        - label: "AKR"
-        - label: "KIK"
-        - label: "YUR"
+        - RIN
+        - TBK
+        - HIR
+        - YUW
+        - KAN
+        - RRK
+        - AKR
+        - KIK
+        - YUR
 
   - type: input
     id: venue
     attributes:
-      label: "会場 (venue / setlist用)"
-      placeholder: "Kアリーナ横浜"
+      label: "venue"
 
   - type: textarea
     id: songs
@@ -95,3 +81,13 @@ body:
         3: キミすき
         4: ichigo 〜一期一会〜 | medley
         5: Gimme 143 | encore
+
+  - type: markdown
+    attributes:
+      value: |
+        **種別**: setlistid を入力 → setlist として登録します。空欄 → songs（楽曲リスト）として登録します。
+        **更新のとき**: 識別キー（setlist=setlistid / songs=artist+title）を入力し、変更したい項目だけ入力します。空欄・未選択の項目は既存の値のままです。消したい項目は `!clear` と入力します（artist の選択・member の選択は消せません）。
+        **setlistid**: 12桁（日付+開演時刻。例: 202609221830）。
+        **artist**: Girls² / Laki は選択で入力します（両方選ぶと「Girls² × Laki」）。それ以外は自由入力に入力します（自由入力があればそちらを優先）。setlist の新規追加では artist と title が必須、songs は artist+title が識別キーです。
+        **member**: setlist 用です。新規追加で Girls² / Laki を選び、member が未選択なら、そのグループの全メンバー（TOA・RAN・YURを除く）を自動設定します（両方選択なら両グループ分）。更新時に未選択なら既存値を維持します。
+        **link**: songs 用です。 **venue / 曲目**: setlist 用です。
