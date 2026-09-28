@@ -1,0 +1,59 @@
+{
+  "setlistid": "202609271630",
+  "artist": "Laki",
+  "member": [
+    "RIN",
+    "HIR",
+    "YUW",
+    "KAN",
+    "RRK",
+    "AKR",
+    "KIK"
+  ],
+  "title": "エンタパークフェス2026",
+  "venue": "イオンモールむさし村山",
+  "songs": [
+    {
+      "order": 1,
+      "title": "WORK≒LiFE",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    },
+    {
+      "order": 2,
+      "title": "ずっとずっとずっと",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    },
+    {
+      "order": 3,
+      "title": "バグって急接近！？",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    },
+    {
+      "order": 4,
+      "title": "Starry pop Canvas",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    },
+    {
+      "order": 5,
+      "title": "Gimme 143",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    },
+    {
+      "order": 6,
+      "title": "ラキラキLOVE!",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    }
+  ]
+}

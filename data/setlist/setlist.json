@@ -1,51 +1,57 @@
 [
   {
-    "setlistid": "202609201300",
-    "artist": "Girls²",
+    "setlistid": "202609271630",
+    "artist": "Laki",
     "member": [
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
+      "RIN",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
-    "title": "EP「EASY」発売記念 リリースイベント 大阪",
-    "venue": "あべのキューズモール 3Fスカイコート",
-    "songs": []
-  },
-  {
-    "setlistid": "202609131300",
-    "artist": "Girls²",
-    "member": [
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "title": "EP「EASY」発売記念 リリースイベント 埼玉",
-    "venue": "大宮ステラタウン  1F屋外 メローペ広場",
+    "title": "エンタパークフェス2026",
+    "venue": "イオンモールむさし村山",
     "songs": [
       {
         "order": 1,
-        "title": "Nocturne",
+        "title": "WORK≒LiFE",
         "type": "song",
         "original": "",
         "notes": ""
       },
       {
         "order": 2,
-        "title": "Eagle Eyes",
-        "type": "allow",
+        "title": "ずっとずっとずっと",
+        "type": "song",
         "original": "",
         "notes": ""
       },
       {
         "order": 3,
-        "title": "ヒマワリ",
+        "title": "バグって急接近！？",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Starry pop Canvas",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "Gimme 143",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 6,
+        "title": "ラキラキLOVE!",
         "type": "song",
         "original": "",
         "notes": ""
@@ -53,7 +59,7 @@
     ]
   },
   {
-    "setlistid": "202609221830",
+    "setlistid": "202609231830",
     "artist": "Girls²",
     "member": [
       "YZH",
@@ -112,7 +118,7 @@
     ]
   },
   {
-    "setlistid": "202609231830",
+    "setlistid": "202609221830",
     "artist": "Girls²",
     "member": [
       "YZH",
@@ -413,52 +419,52 @@
     ]
   },
   {
-    "setlistid": "202609061400",
-    "artist": "Laki",
+    "setlistid": "202609201300",
+    "artist": "Girls²",
     "member": [
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
-    "title": "「WORK≒LiFE」発売記念リリースイベント 大阪",
-    "venue": "セブンパーク天美 1F AMAMI STADIUM",
+    "title": "EP「EASY」発売記念 リリースイベント 大阪",
+    "venue": "あべのキューズモール 3Fスカイコート",
+    "songs": []
+  },
+  {
+    "setlistid": "202609131300",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "title": "EP「EASY」発売記念 リリースイベント 埼玉",
+    "venue": "大宮ステラタウン  1F屋外 メローペ広場",
     "songs": [
       {
         "order": 1,
-        "title": "Like it!!",
+        "title": "Nocturne",
         "type": "song",
         "original": "",
         "notes": ""
       },
       {
         "order": 2,
-        "title": "WORK≒LiFE",
-        "type": "song",
-        "original": "",
-        "notes": ""
-      },
-      {
-        "order": 3,
-        "title": "WORK≒LiFE",
+        "title": "Eagle Eyes",
         "type": "allow",
         "original": "",
         "notes": ""
       },
       {
-        "order": 4,
-        "title": "Pancake",
-        "type": "song",
-        "original": "",
-        "notes": ""
-      },
-      {
-        "order": 5,
-        "title": "ラキラキLOVE!",
+        "order": 3,
+        "title": "ヒマワリ",
         "type": "song",
         "original": "",
         "notes": ""
@@ -466,7 +472,7 @@
     ]
   },
   {
-    "setlistid": "202609061630",
+    "setlistid": "202609121630",
     "artist": "Laki",
     "member": [
       "RIN",
@@ -478,8 +484,8 @@
       "AKR",
       "KIK"
     ],
-    "title": "「WORK≒LiFE」発売記念リリースイベント 大阪",
-    "venue": "セブンパーク天美 1F AMAMI STADIUM",
+    "title": "「WORK≒LiFE」発売記念リリースイベント 愛知",
+    "venue": "イオンモール大高 1F グリーンコート",
     "songs": [
       {
         "order": 1,
@@ -572,7 +578,7 @@
     ]
   },
   {
-    "setlistid": "202609121630",
+    "setlistid": "202609061630",
     "artist": "Laki",
     "member": [
       "RIN",
@@ -584,8 +590,8 @@
       "AKR",
       "KIK"
     ],
-    "title": "「WORK≒LiFE」発売記念リリースイベント 愛知",
-    "venue": "イオンモール大高 1F グリーンコート",
+    "title": "「WORK≒LiFE」発売記念リリースイベント 大阪",
+    "venue": "セブンパーク天美 1F AMAMI STADIUM",
     "songs": [
       {
         "order": 1,
@@ -611,6 +617,129 @@
       {
         "order": 4,
         "title": "Starry pop Canvas",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202609061400",
+    "artist": "Laki",
+    "member": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "title": "「WORK≒LiFE」発売記念リリースイベント 大阪",
+    "venue": "セブンパーク天美 1F AMAMI STADIUM",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Like it!!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "WORK≒LiFE",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Pancake",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ラキラキLOVE!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "setlistid": "202608291910",
+    "artist": "Laki",
+    "member": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "title": "超WEGO2026",
+    "venue": "WEGO 1.3.5... 原宿店",
+    "songs": []
+  },
+  {
+    "setlistid": "202608201630",
+    "artist": "Laki",
+    "member": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "title": "「WORK≒LiFE」発売記念リリースイベント 埼玉",
+    "venue": "コクーンシティ コクーンひろば",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Unicorn Dance",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "WORK≒LiFE",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Love is Magic",
         "type": "song",
         "original": "",
         "notes": ""
@@ -676,75 +805,5 @@
         "notes": ""
       }
     ]
-  },
-  {
-    "setlistid": "202608201630",
-    "artist": "Laki",
-    "member": [
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "title": "「WORK≒LiFE」発売記念リリースイベント 埼玉",
-    "venue": "コクーンシティ コクーンひろば",
-    "songs": [
-      {
-        "order": 1,
-        "title": "Unicorn Dance",
-        "type": "song",
-        "original": "",
-        "notes": ""
-      },
-      {
-        "order": 2,
-        "title": "WORK≒LiFE",
-        "type": "song",
-        "original": "",
-        "notes": ""
-      },
-      {
-        "order": 3,
-        "title": "WORK≒LiFE",
-        "type": "allow",
-        "original": "",
-        "notes": ""
-      },
-      {
-        "order": 4,
-        "title": "Love is Magic",
-        "type": "song",
-        "original": "",
-        "notes": ""
-      },
-      {
-        "order": 5,
-        "title": "ラキラキLOVE!",
-        "type": "song",
-        "original": "",
-        "notes": ""
-      }
-    ]
-  },
-  {
-    "setlistid": "202608291910",
-    "artist": "Laki",
-    "member": [
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "title": "超WEGO2026",
-    "venue": "WEGO 1.3.5... 原宿店",
-    "songs": []
   }
 ]
