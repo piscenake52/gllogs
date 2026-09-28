@@ -608,6 +608,41 @@ body .item-contents.is-content-open {
 .popup-title { font-size: 15px; font-weight: bold; margin: 0 0 4px; line-height: 1.4; text-align: center; }
 .popup-body { font-size: 11px; line-height: 1.6; color: var(--muted); text-align: center; padding: 10px 0; }
 
+/* SETTINGポップアップ内の「表示/非表示スイッチ」一覧(グループ・メンバー・コンテンツ種類) */
+.settings-body { text-align: left; color: var(--text); font-size: 12px; line-height: 1.4; padding: 8px 0 0; }
+.settings-section { margin-top: 18px; }
+.settings-section:first-child { margin-top: 6px; }
+.settings-section-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.settings-section-title { font-size: 11px; font-weight: bold; letter-spacing: 0.08em; color: var(--sub); }
+.settings-count { margin-left: 6px; font-weight: normal; letter-spacing: 0; color: var(--muted); }
+.settings-bulk { display: flex; gap: 4px; flex-shrink: 0; }
+.settings-bulk button { background: var(--btn-bg); border: none; color: var(--sub); font-size: 10px; line-height: 1.2; padding: 3px 8px; border-radius: 10px; cursor: pointer; }
+.settings-bulk button:hover { background: var(--btn-hover); color: var(--text); }
+.settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
+.settings-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
+.settings-col { min-width: 0; }
+.set-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 0; min-width: 0; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; transition: opacity 0.18s; }
+.set-row.is-group { padding: 9px 0; margin-bottom: 2px; font-size: 13px; font-weight: bold; border-bottom: 1px solid var(--border); }
+.set-row.is-disabled { opacity: 0.35; pointer-events: none; }
+.set-row-label { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.set-row-icon { flex: 0 0 auto; width: 1.5em; text-align: center; }
+.set-row-count { flex: 0 0 auto; font-size: 11px; font-weight: normal; color: var(--muted); }
+.settings-group-bulk { display: flex; justify-content: flex-end; gap: 4px; padding: 6px 0 2px; }
+.settings-group-bulk button { background: var(--btn-bg); border: none; color: var(--sub); font-size: 10px; line-height: 1.2; padding: 3px 8px; border-radius: 10px; cursor: pointer; }
+.settings-group-bulk button:hover { background: var(--btn-hover); color: var(--text); }
+.set-row-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.set-switch { position: relative; flex: 0 0 auto; width: 34px; height: 20px; }
+.set-switch input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; outline: none; }
+.set-switch-track { position: absolute; inset: 0; border-radius: 10px; background: var(--input-border); transition: background-color 0.18s; pointer-events: none; }
+.set-switch-track::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.3); transition: transform 0.18s; }
+.set-switch input:checked + .set-switch-track { background: #38bdf8; }
+.set-switch input:checked + .set-switch-track::after { transform: translateX(14px); }
+.set-switch input:focus-visible + .set-switch-track { outline: 2px solid #38bdf8; outline-offset: 2px; }
+.settings-reset { display: block; margin: 20px auto 4px; background: var(--btn-bg); border: none; color: var(--sub); font-size: 11px; padding: 6px 22px; border-radius: 14px; cursor: pointer; }
+.settings-reset:hover { background: var(--btn-hover); color: var(--text); }
+/* SETTINGで「非表示」にした項目のフィルターボタン(および中身が全て非表示になった段) */
+.vis-hidden { display: none !important; }
+
 /* トップへ移動するボタン（コンテナの右端に追従するように修正） */
 .to-top-btn { position: fixed; bottom: 24px; left: calc(50% + var(--container-w) / 2 - 40px); width: 40px; height: 40px; background-color: var(--active-bg); color: var(--active-color); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; z-index: 999; outline: none; }
 .to-top-btn.is-visible { opacity: 1; visibility: visible; }
@@ -769,7 +804,7 @@ body .item-contents.is-content-open {
   <div class="popup-box" id="settingsModal" role="dialog" aria-modal="true">
     <button type="button" class="popup-close" id="settingsModalCloseBtn" aria-label="Close">&#215;</button>
     <div class="popup-title">SETTING</div>
-    <div class="popup-body" id="settingsModalBody">準備中</div>
+    <div class="popup-body settings-body" id="settingsModalBody"></div>
   </div>
 </div>
 
@@ -1670,6 +1705,236 @@ body .item-contents.is-content-open {
   };
   bindSimplePopup('helpBtn', 'helpModalOverlay', 'helpModalCloseBtn');
   bindSimplePopup('settingsBtn', 'settingsModalOverlay', 'settingsModalCloseBtn');
+
+  // ==================== SETTING:表示/非表示スイッチ ====================
+  // グループ・メンバー・コンテンツ種類ごとに、表示/非表示をスイッチで選べる。
+  // 保存するのは「非表示にしたもの」だけ(あとから種類やメンバーが増えても自動で表示扱いになる)。
+  // 非表示にした項目は、(1)フィルターボタンを出さない (2)データ部にも出さない(logsから取り除く)。
+  //  - グループを非表示にすると、そのグループのメンバーも非表示扱い(メンバー個別の設定は保持したまま)。
+  //  - データが複数グループ/複数メンバーに紐づく場合は、1つでも表示中のものがあれば表示する。
+  //  - グループ/メンバーを1つでも非表示にしている間は、表示中のグループ/メンバーに紐づかないデータは表示しない。
+  //  - コンテンツ種類はフィルター同様、別名(CD→RELEASE等)は親の種類に従う。
+  const VISIBILITY_KEY = 'gl_log_visibility';
+  const visibility = { groups: new Set(), members: new Set(), contents: new Set() }; // 各Setに「非表示」の値を入れる
+  try {
+    const savedVis = JSON.parse(localStorage.getItem(VISIBILITY_KEY) || 'null');
+    if (savedVis && typeof savedVis === 'object') {
+      Object.keys(visibility).forEach(k => {
+        if (Array.isArray(savedVis[k])) savedVis[k].forEach(v => visibility[k].add(v));
+      });
+    }
+  } catch (e) { /* 壊れていたら全て表示のまま */ }
+  const isVisibleSetting = (kind, value) => !visibility[kind].has(value);
+  const memberGroupOf = new Map();
+  g2Vals.forEach(v => memberGroupOf.set(v, 'G2'));
+  l2Vals.forEach(v => memberGroupOf.set(v, 'L2'));
+  let lastDedupedLogs = []; // applyLogsで重複排除した直後の全データ(設定変更時に絞り込み直すための元データ)
+
+  // データ1件が、現在の設定で表示対象かどうか
+  const isItemVisibleBySettings = item => {
+    if (visibility.contents.size) {
+      const ic = normalizeContType(item.contents || '');
+      if (visibility.contents.has(ic)) return false;
+      if (visibility.contents.has('ETC') && !primaryConts.includes(ic)) return false;
+    }
+    if (!visibility.groups.size && !visibility.members.size) return true;
+    const tags = (item.relations && item.relations.length) ? [...(item.groups || []), ...item.relations] : (item.groups || []);
+    for (const g of ['G2', 'L2']) {
+      if (visibility.groups.has(g)) continue;
+      const vals = g === 'G2' ? g2Vals : l2Vals;
+      const members = tags.filter(v => vals.includes(v));
+      if (members.length) {
+        if (members.some(v => !visibility.members.has(v))) return true;
+      } else if (tags.includes(g)) {
+        return true;
+      }
+    }
+    return false;
+  };
+  const applyVisibilityToLogs = deduped => {
+    lastDedupedLogs = deduped;
+    logs = deduped.filter(isItemVisibleBySettings);
+  };
+
+  // フィルターボタン(グループ/メンバー/コンテンツ種類)の表示・非表示を設定に合わせる。
+  // 非表示にしたボタンが選択中・除外中だった場合は、見えない条件が残らないよう解除する。
+  const updateFilterButtonVisibility = () => {
+    const isHiddenValue = v => {
+      if (v === 'G2' || v === 'L2') return visibility.groups.has(v);
+      if (memberGroupOf.has(v)) return visibility.groups.has(memberGroupOf.get(v)) || visibility.members.has(v);
+      if (others.includes(v)) return visibility.contents.has(v);
+      return false;
+    };
+    let excludedChanged = false;
+    document.querySelectorAll('#memberChecks1 label, #memberChecks2 label, #otherChecks label, #otherChecks2 label').forEach(l => {
+      const cb = l.querySelector('input');
+      if (!cb) return;
+      const hidden = isHiddenValue(cb.value);
+      l.classList.toggle('vis-hidden', hidden);
+      if (hidden) {
+        cb.checked = false;
+        if (excludedFilterValues.delete(cb.value)) excludedChanged = true;
+        l.classList.remove('is-excluded');
+      }
+    });
+    if (excludedChanged) saveExcludedFilters();
+    ['memberChecks1', 'memberChecks2', 'otherChecks', 'otherChecks2'].forEach(id => {
+      const row = $(id);
+      const kids = Array.from(row.children);
+      const isShown = k => !k.classList.contains('sep') && !k.classList.contains('vis-hidden');
+      kids.forEach((k, i) => {
+        if (k.classList.contains('sep')) {
+          k.classList.toggle('vis-hidden', !(kids.slice(0, i).some(isShown) && kids.slice(i + 1).some(isShown)));
+        }
+      });
+      row.classList.toggle('vis-hidden', !kids.some(isShown));
+    });
+  };
+
+  // 設定変更時:データとボタンを絞り込み直して再描画する(選択中の年フィルターは維持)
+  const reapplyVisibility = () => {
+    logs = lastDedupedLogs.filter(isItemVisibleBySettings);
+    updateFilterButtonVisibility();
+    const prevYears = new Set(Array.from(document.querySelectorAll('#yearChecks input:checked')).map(c => c.value));
+    refreshYearChecks();
+    document.querySelectorAll('#yearChecks input').forEach(c => { if (prevYears.has(c.value)) c.checked = true; });
+    updateDisplay(true);
+  };
+  const saveVisibility = () => {
+    try {
+      localStorage.setItem(VISIBILITY_KEY, JSON.stringify({
+        groups: Array.from(visibility.groups),
+        members: Array.from(visibility.members),
+        contents: Array.from(visibility.contents)
+      }));
+    } catch (e) { /* 保存できない環境では、このページ表示中のみ有効 */ }
+    reapplyVisibility();
+  };
+
+  const buildSettingsUI = () => {
+    const body = $('settingsModalBody');
+    body.textContent = '';
+    const memberDefs = arr => arr.filter(i => typeof i === 'object' && i.n !== undefined);
+    const groupDefs = [
+      { v: 'G2', name: 'Girls\u00B2', members: memberDefs(g2) },
+      { v: 'L2', name: 'Laki', members: memberDefs(l2) }
+    ];
+    const rows = []; // { kind, value, group, input, row }
+    const countEls = []; // 表示数の表示欄 { el, key }
+    const el = (tag, cls, text) => {
+      const e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text !== undefined) e.textContent = text;
+      return e;
+    };
+
+    // スイッチ1行(行のどこを押しても切り替わる)
+    const makeRow = ({ kind, value, group, icon, name, tip, isGroup, countKey }) => {
+      const row = el('label', 'set-row' + (isGroup ? ' is-group' : ''));
+      if (tip) row.title = tip;
+      const label = el('span', 'set-row-label');
+      if (icon) label.appendChild(el('span', 'set-row-icon', icon));
+      label.appendChild(el('span', 'set-row-name', name));
+      if (countKey) {
+        const cEl = el('span', 'set-row-count', '');
+        label.appendChild(cEl);
+        countEls.push({ el: cEl, key: countKey });
+      }
+      const sw = el('span', 'set-switch');
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.setAttribute('role', 'switch');
+      sw.append(input, el('span', 'set-switch-track'));
+      row.append(label, sw);
+      input.onchange = () => {
+        if (input.checked) visibility[kind].delete(value); else visibility[kind].add(value);
+        refresh();
+        saveVisibility();
+      };
+      rows.push({ kind, value, group, input, row });
+      return row;
+    };
+
+    // ALL ON / ALL OFF ボタン一式(bulk: 対象スイッチの { kind, value } の配列)
+    const makeBulkButtons = (cls, bulk) => {
+      const box = el('span', cls);
+      [['ALL ON', true], ['ALL OFF', false]].forEach(([label, on]) => {
+        const b = el('button', '', label);
+        b.type = 'button';
+        b.onclick = () => {
+          bulk.forEach(r => { if (on) visibility[r.kind].delete(r.value); else visibility[r.kind].add(r.value); });
+          refresh();
+          saveVisibility();
+        };
+        box.appendChild(b);
+      });
+      return box;
+    };
+    // セクション見出し(タイトル + 必要なら表示数 + ALL ON/OFF)
+    const makeHead = (title, countKey, bulk) => {
+      const head = el('div', 'settings-section-head');
+      const t = el('span', 'settings-section-title', title);
+      if (countKey) {
+        const c = el('span', 'settings-count', '');
+        t.appendChild(c);
+        countEls.push({ el: c, key: countKey });
+      }
+      head.appendChild(t);
+      if (bulk) head.appendChild(makeBulkButtons('settings-bulk', bulk));
+      return head;
+    };
+
+    // --- GROUP / MEMBER:グループを列(Girls² | Laki)にして、その下にメンバーを縦に並べる ---
+    // 表示数とALL ON/OFFはグループ単位(ALL ON/OFFはそのグループのスイッチとメンバー全員が対象)
+    const secGM = el('div', 'settings-section');
+    secGM.appendChild(makeHead('GROUP / MEMBER'));
+    const cols = el('div', 'settings-cols');
+    groupDefs.forEach(g => {
+      const col = el('div', 'settings-col');
+      col.appendChild(makeRow({ kind: 'groups', value: g.v, icon: '', name: g.name, isGroup: true, countKey: 'g:' + g.v }));
+      const bulk = [{ kind: 'groups', value: g.v }, ...g.members.map(m => ({ kind: 'members', value: m.v }))];
+      col.appendChild(makeBulkButtons('settings-group-bulk', bulk));
+      g.members.forEach(m => col.appendChild(makeRow({ kind: 'members', value: m.v, group: g.v, icon: m.c, name: m.n, tip: m.v })));
+      cols.appendChild(col);
+    });
+    secGM.appendChild(cols);
+    body.appendChild(secGM);
+
+    // --- CONTENTS(フィルターボタンと同じ並び順・アイコン) ---
+    const secCont = el('div', 'settings-section');
+    secCont.appendChild(makeHead('CONTENTS', 'contents', others.map(v => ({ kind: 'contents', value: v }))));
+    const gridCont = el('div', 'settings-grid');
+    others.forEach(v => gridCont.appendChild(makeRow({ kind: 'contents', value: v, icon: symbols[v] || '', name: displayNameFor(v) })));
+    secCont.appendChild(gridCont);
+    body.appendChild(secCont);
+
+    // --- RESET ---
+    const resetBtn = el('button', 'settings-reset', 'RESET');
+    resetBtn.type = 'button';
+    resetBtn.onclick = () => {
+      Object.keys(visibility).forEach(k => visibility[k].clear());
+      refresh();
+      saveVisibility();
+    };
+    body.appendChild(resetBtn);
+
+    // スイッチの状態・グループOFF時のメンバー無効表示・表示数を、現在の設定に合わせて更新する
+    const refresh = () => {
+      rows.forEach(r => {
+        r.input.checked = isVisibleSetting(r.kind, r.value);
+        if (r.kind === 'members') r.row.classList.toggle('is-disabled', !isVisibleSetting('groups', r.group));
+      });
+      const shown = {};
+      groupDefs.forEach(g => {
+        const gOn = isVisibleSetting('groups', g.v);
+        shown['g:' + g.v] = g.members.filter(m => gOn && isVisibleSetting('members', m.v)).length + '/' + g.members.length;
+      });
+      shown.contents = others.filter(v => isVisibleSetting('contents', v)).length + '/' + others.length;
+      countEls.forEach(c => { c.el.textContent = shown[c.key]; });
+    };
+    refresh();
+  };
+  buildSettingsUI();
 
   let isMobileState = window.innerWidth <= 600;
   let resizeTimer = null;
@@ -3968,12 +4233,14 @@ body .item-contents.is-content-open {
   const applyLogs = data => {
     // 日付、時刻、コンテンツ種類、タイトル、URLがすべて一致する重複データを排除
     const seen = new Set();
-    logs = data.filter(item => {
+    // SETTINGで非表示にした項目のデータは、重複排除後にここで取り除く(設定変更時はreapplyVisibilityで再計算)
+    applyVisibilityToLogs(data.filter(item => {
       const identifier = `${item.date || ''}_${item.time || ''}_${item.contents || ''}_${item.title || ''}_${item.url || ''}`;
       if (seen.has(identifier)) return false;
       seen.add(identifier);
       return true;
-    });
+    }));
+    updateFilterButtonVisibility(); // SETTINGで非表示にした項目のフィルターボタンを隠す
 
     refreshYearChecks();
     if (window.location.hash) {
