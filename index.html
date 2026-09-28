@@ -412,6 +412,12 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .item-date { flex: 0 0 auto; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
 .item-date:has(+ .item-time) { margin-right: 4px; } /* 時刻が続く場合は日付との間隔を1文字分程度に詰める */
 .item-time { flex: 0 0 auto; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
+.item-date, .item-time { touch-action: manipulation; } /* 日付/時刻のダブルタップ(logid表示)で、ページが拡大されないようにする */
+.items.logid-gesture .item-date, .items.logid-gesture .item-time { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; } /* logid表示が有効な間は、ダブルタップで文字が選択されコピーメニューが出るのを防ぐ */
+.logid-toast { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 10000; max-width: calc(100vw - 24px); box-sizing: border-box; padding: 8px 14px; border-radius: 10px; background: var(--text); color: var(--bg); font-size: 12px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px 8px; box-shadow: 0 2px 10px rgba(0,0,0,.3); user-select: text; -webkit-user-select: text; }
+.logid-toast[hidden] { display: none; }
+.logid-toast .logid-value { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; letter-spacing: .5px; }
+.logid-toast .logid-note { opacity: .75; font-size: 11px; }
 .item-time.is-blank { visibility: hidden; } /* time未設定の行も"00:00"と同じ幅を確保したまま見た目だけブランクにする */
 /* 今日の日付の行を目立たせる(TODAYモード中は全行が「今日」になるため対象外)。
    太字にすると文字幅がわずかに変わり右側の要素がずれるため、色だけを変える */
@@ -1773,6 +1779,7 @@ body .item-contents.is-content-open {
       l.classList.toggle('vis-hidden', hidden);
       if (hidden) {
         cb.checked = false;
+        manuallyTouchedConts.delete(cb.value);
         if (excludedFilterValues.delete(cb.value)) excludedChanged = true;
         l.classList.remove('is-excluded');
       }
@@ -1798,6 +1805,10 @@ body .item-contents.is-content-open {
     const prevYears = new Set(Array.from(document.querySelectorAll('#yearChecks input:checked')).map(c => c.value));
     refreshYearChecks();
     document.querySelectorAll('#yearChecks input').forEach(c => { if (prevYears.has(c.value)) c.checked = true; });
+    // TODAY/セトリ検索/検索ワードの間は、コンテンツ種類フィルターが「表示中のデータ」から自動でON/OFFされる。
+    // 設定を戻して非表示だった種類のデータが復活しても、ここで再計算しないと、その種類のフィルターがOFFのまま残り、
+    // 他の種類だけが絞り込み表示されて「ONにしたのに表示されない」状態になる(applyLogsと同じ再計算をここでも行う)
+    autoUpdateContentTypeFilters();
     updateDisplay(true);
   };
   const saveVisibility = () => {
@@ -1953,6 +1964,7 @@ body .item-contents.is-content-open {
   const createItemNode = item => {
     const w = document.createElement('div');
     w.className = 'item';
+    if (item.logid) w.dataset.logid = item.logid; // 日付/時刻のダブルタップでlogidを表示する機能用(通常は画面に出さない)
     const sc = document.createElement('div');
     sc.className = 'item-scroll-container';
     
@@ -2251,6 +2263,108 @@ body .item-contents.is-content-open {
         dragged = false;
       }
     }, true);
+  })();
+
+  // 【隠し機能】年・月・日・曜日・時刻の表示と、📍・📋️の表示がすべてONの間だけ有効。
+  // データ行の日付/時刻部分をダブルタップ(ダブルクリック)すると、その行のlogidをクリップボードにコピーし、
+  // 画面下に表示する(Issueフォームで既存ログを更新するときにlogidを調べる用)。
+  (() => {
+    const DOUBLE_TAP_MS = 350;
+    let lastRow = null, lastTime = 0, hideTimer = null, toast = null;
+
+    const isEnabled = () =>
+      dateParts.year && dateParts.month && dateParts.day && dateParts.weekday && dateParts.time && mapMode && setlistIconMode;
+
+    // 有効な間だけ、日付/時刻の文字選択を止めるクラスを付ける(スマホのダブルタップで単語が選択され、
+    // コピー/共有メニューが出てしまうのを防ぐ)。1回目のタップ(click)の時点で反映するので、2回目のタップに間に合う。
+    // ※ mapMode などはこのコードより後ろで宣言されるため、読み込み時には呼ばず、クリック時にだけ呼ぶ。
+    const syncGestureClass = () => $('items').classList.toggle('logid-gesture', !!isEnabled());
+
+    const copyText = text => {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text).then(() => true, () => false);
+      }
+      try { // クリップボードAPIが使えない環境向けの代替(execCommand)
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0;';
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        return Promise.resolve(ok);
+      } catch (_) {
+        return Promise.resolve(false);
+      }
+    };
+
+    const showToast = (logid, note, ms) => {
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.className = 'logid-toast';
+        toast.setAttribute('role', 'status');
+        document.body.appendChild(toast);
+      }
+      toast.textContent = '';
+      if (logid) {
+        const label = document.createElement('span');
+        label.className = 'logid-note';
+        label.textContent = 'logid';
+        const value = document.createElement('span');
+        value.className = 'logid-value';
+        value.textContent = logid;
+        toast.append(label, value);
+      }
+      const n = document.createElement('span');
+      n.className = 'logid-note';
+      n.textContent = note;
+      toast.appendChild(n);
+      toast.hidden = false;
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => { toast.hidden = true; }, ms);
+    };
+
+    const showLogid = row => {
+      const logid = row.dataset.logid || '';
+      if (!logid) {
+        showToast('', 'この行にはlogidがありません', 2500);
+        return;
+      }
+      copyText(logid).then(ok => {
+        if (ok) showToast(logid, 'コピーしました', 3000);
+        else showToast(logid, 'コピーできませんでした(長押しで選択してコピー)', 6000);
+      });
+    };
+
+    // PCのダブルクリックで、日付/時刻の文字が選択されてしまうのを防ぐ
+    $('items').addEventListener('mousedown', e => {
+      if (e.detail > 1 && isEnabled() && e.target.closest('.item-date, .item-time')) e.preventDefault();
+    });
+
+    // スマホのダブルタップによる文字選択(単語選択+コピーメニュー)も止める
+    $('items').addEventListener('selectstart', e => {
+      const el = e.target && e.target.nodeType === 3 ? e.target.parentElement : e.target;
+      if (el && el.closest && isEnabled() && el.closest('.item-date, .item-time')) e.preventDefault();
+    });
+
+    // タップ/クリックの間隔で判定する(スマホではdblclickイベントが発生しないことがあるため)
+    $('items').addEventListener('click', e => {
+      syncGestureClass();
+      const cell = e.target.closest('.item-date, .item-time');
+      const row = cell && cell.closest('.item');
+      if (!row || !isEnabled()) { lastRow = null; return; }
+      const now = Date.now();
+      if (row === lastRow && now - lastTime <= DOUBLE_TAP_MS) {
+        lastRow = null;
+        if (window.getSelection) window.getSelection().removeAllRanges();
+        showLogid(row);
+      } else {
+        lastRow = row;
+        lastTime = now;
+      }
+    });
   })();
 
   const renderActiveBadges = (checked, kw) => {
