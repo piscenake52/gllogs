@@ -44,6 +44,10 @@ ARTIST_JOIN = " × "  # アーティストを複数選択したときの連結�
 G2_MEMBERS = ["YZH", "MMK", "MSK", "YOK", "KUR", "MNM", "KIR"]
 L2_MEMBERS = ["RIN", "TBK", "HIR", "YUW", "KAN", "RRK", "AKR", "KIK"]
 
+# フォーム(add_logs.yml)のグループ選択肢。並び順をそろえるために使う
+G2_OPTIONS = ["G2", "YZH", "MMK", "MSK", "YOK", "KUR", "MNM", "KIR", "TOA", "RAN"]
+L2_OPTIONS = ["L2", "RIN", "TBK", "HIR", "YUW", "KAN", "RRK", "AKR", "KIK", "YUR"]
+
 # 入力エラーの内容をIssueにコメントするための一時ファイル（ワークフローが読み取る。コミットはされない）
 ERROR_FILE = "issue_error.md"
 
@@ -86,6 +90,23 @@ def parse_checked(raw_str):
         return []
     return [m.group(1).strip()
             for m in re.finditer(r"^\s*-\s*\[[xX]\]\s*(.+?)\s*$", raw_str, re.MULTILINE)]
+
+
+def parse_selected(raw_str, options):
+    """
+    グループ/メンバー欄から、選ばれた項目名を取り出す。
+    複数選択ドロップダウン（G2, YZH, KUR）とチェックボックス（- [x] G2）の両方に対応し、
+    結果はフォームの並び順（options）にそろえる。
+    """
+    if not raw_str:
+        return []
+    if re.search(r"^\s*-\s*\[[ xX]\]", raw_str, re.MULTILINE):
+        picked = parse_checked(raw_str)
+    else:
+        picked = [s.strip() for s in re.split(r"[,、\n]", raw_str)
+                  if s.strip() and s.strip() not in ("None", "_No response_")]
+    picked = list(dict.fromkeys(picked))  # 重複を除く
+    return [o for o in options if o in picked] + [p for p in picked if p not in options]
 
 
 def parse_songs(raw_str):
@@ -198,7 +219,8 @@ def build_logs(f):
         "display_sp": f["display_sp"],
         "url": f["url"],
         "map": f["map"],
-        "groups": expand_groups(parse_checked(f["groups_g2"]) + parse_checked(f["groups_l2"])),
+        "groups": expand_groups(parse_selected(f["groups_g2"], G2_OPTIONS)
+                                + parse_selected(f["groups_l2"], L2_OPTIONS)),
         "relations": parse_list(f["relations"]),
         "setlistid": f["setlistid"],
         "tags": parse_list(f["tags"]),
