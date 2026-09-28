@@ -16,7 +16,8 @@ LABELS = {
     "url": "URL (url)",
     "map": "マップ情報 (map)",
     "setlistid": "セットリストID (setlistid)",
-    "groups": "グループ/メンバー (groups - カンマ区切りまたは改行区切り)",
+    "groups_g2": "グループ/メンバー Girls² (groups)",
+    "groups_l2": "グループ/メンバー Laki (groups)",
     "relations": "関連情報 (relations - JSON配列またはカンマ区切り)",
     "tags": "タグ (tags - カンマ区切り)",
     "artist": "アーティスト (artist / setlist・songs用)",
@@ -59,6 +60,14 @@ def parse_list(raw_str):
             pass
     items = re.split(r"[,、\n]", raw_str)
     return [item.strip() for item in items if item.strip()]
+
+
+def parse_checked(raw_str):
+    """チェックボックス欄から、チェックされた項目名だけを取り出す（- [x] 名前）"""
+    if not raw_str:
+        return []
+    return [m.group(1).strip()
+            for m in re.finditer(r"^\s*-\s*\[[xX]\]\s*(.+?)\s*$", raw_str, re.MULTILINE)]
 
 
 def parse_songs(raw_str):
@@ -116,7 +125,7 @@ def build_logs(f):
         "display_sp": f["display_sp"],
         "url": f["url"],
         "map": f["map"],
-        "groups": parse_list(f["groups"]),
+        "groups": parse_checked(f["groups_g2"]) + parse_checked(f["groups_l2"]),
         "relations": parse_list(f["relations"]),
         "setlistid": f["setlistid"],
         "tags": parse_list(f["tags"]),
@@ -161,6 +170,10 @@ def main():
     issue_number = os.environ.get("ISSUE_NUMBER", "").strip()
 
     f = {key: extract_field(label, body) for key, label in LABELS.items()}
+    # 未選択のドロップダウンは "None" として届くことがあるため空扱いにする
+    for key in ("type", "contents"):
+        if f[key] == "None":
+            f[key] = ""
     target_type = f["type"]
 
     # パス組み立てに使うため、必ず許可リストで検証する
@@ -173,7 +186,7 @@ def main():
         if issue_number:
             # 同じIssueの再編集を、同じレコードの更新として扱うための目印（mergeで取り除く）
             data["_issue"] = issue_number
-        must = bool(f["logid"]) or (f["date"] and f["contents"])
+        must = bool(f["logid"] or f["date"])
     elif target_type == "setlist":
         data = build_setlist(f)
         must = bool(f["setlistid"])
