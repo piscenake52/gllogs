@@ -36,6 +36,7 @@ body:
       label: "member / Girls²"
       multiple: true
       options:
+        - G2
         - YZH
         - MMK
         - MSK
@@ -52,6 +53,7 @@ body:
       label: "member / Laki"
       multiple: true
       options:
+        - L2
         - RIN
         - TBK
         - HIR
@@ -89,5 +91,5 @@ body:
         **更新のとき**: 識別キー（setlist=setlistid / songs=artist+title）を入力し、変更したい項目だけ入力します。空欄・未選択の項目は既存の値のままです。消したい項目は `!clear` と入力します（artist の選択・member の選択は消せません）。
         **setlistid**: 12桁（日付+開演時刻。例: 202609221830）。
         **artist**: Girls² / Laki は選択で入力します（両方選ぶと「Girls² × Laki」）。それ以外は自由入力に入力します（自由入力があればそちらを優先）。setlist の新規追加では artist と title が必須、songs は artist+title が識別キーです。
-        **member**: setlist 用です。新規追加で Girls² / Laki を選び、member が未選択なら、そのグループの全メンバー（TOA・RAN・YURを除く）を自動設定します（両方選択なら両グループ分）。更新時に未選択なら既存値を維持します。
+        **member**: setlist 用です。G2 だけ、または L2 だけを選ぶと、メンバー（G2: YZH〜KIR、L2: RIN〜KIK）を自動で設定します（両方のドロップダウンで選べば両グループ分）。メンバーも個別に選んだときは、選んだメンバーだけになります。G2 / L2 という名前自体は member には入りません。新規追加で Girls² / Laki を選び、member が未選択なら、そのグループの全メンバー（TOA・RAN・YURを除く）を自動設定します（両方選択なら両グループ分）。更新時に未選択なら既存値を維持します。
         **link**: songs 用です。 **venue / 曲目**: setlist 用です。
