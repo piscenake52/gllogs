@@ -1,53 +1,5 @@
 [
   {
-    "date": "20260928",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "Amazing",
-    "display_pc": "隅谷百花　Amazing",
-    "url": "https://girls2-fc.jp/page/momokaBlog/1234309254958022657",
-    "groups": [
-      "G2",
-      "MMK"
-    ]
-  },
-  {
-    "date": "20260928",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "EVRIS",
-    "display_pc": "小川桜花　EVRIS",
-    "url": "https://girls2-fc.jp/page/youkaBlog/1234307824754884610",
-    "groups": [
-      "G2",
-      "YOK"
-    ]
-  },
-  {
-    "date": "20260928",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "10周年。✨️",
-    "display_pc": "菱田未渚美　10周年。✨️",
-    "url": "https://girls2-fc.jp/page/minamiBlog/1234321679526658050",
-    "groups": [
-      "G2",
-      "MNM"
-    ]
-  },
-  {
-    "date": "20260928",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "ガルアワ⭐️",
-    "display_pc": "山口綺羅　ガルアワ⭐️",
-    "url": "https://girls2-fc.jp/page/kiraBlog/1234049992369373185",
-    "groups": [
-      "G2",
-      "KIR"
-    ]
-  },
-  {
     "logid": "20271231_0000_CLOSE",
     "date": "20271231",
     "time": "",
@@ -2549,6 +2501,106 @@
     ]
   },
   {
+    "date": "20260928",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "Amazing",
+    "display_pc": "隅谷百花　Amazing",
+    "url": "https://girls2-fc.jp/page/momokaBlog/1234309254958022657",
+    "groups": [
+      "G2",
+      "MMK"
+    ]
+  },
+  {
+    "date": "20260928",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "EVRIS",
+    "display_pc": "小川桜花　EVRIS",
+    "url": "https://girls2-fc.jp/page/youkaBlog/1234307824754884610",
+    "groups": [
+      "G2",
+      "YOK"
+    ]
+  },
+  {
+    "date": "20260928",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "10周年。✨️",
+    "display_pc": "菱田未渚美　10周年。✨️",
+    "url": "https://girls2-fc.jp/page/minamiBlog/1234321679526658050",
+    "groups": [
+      "G2",
+      "MNM"
+    ]
+  },
+  {
+    "date": "20260928",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "ガルアワ⭐️",
+    "display_pc": "山口綺羅　ガルアワ⭐️",
+    "url": "https://girls2-fc.jp/page/kiraBlog/1234049992369373185",
+    "groups": [
+      "G2",
+      "KIR"
+    ]
+  },
+  {
+    "logid": "20260928_1200_DIARY",
+    "date": "20260928",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "Amazing",
+    "display_pc": "隅谷百花　Amazing",
+    "url": "https://girls2-fc.jp/page/momokaBlog/1234309254958022657",
+    "groups": [
+      "G2",
+      "MMK"
+    ]
+  },
+  {
+    "logid": "20260928_1200_DIARY_02",
+    "date": "20260928",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "EVRIS",
+    "display_pc": "小川桜花　EVRIS",
+    "url": "https://girls2-fc.jp/page/youkaBlog/1234307824754884610",
+    "groups": [
+      "G2",
+      "YOK"
+    ]
+  },
+  {
+    "logid": "20260928_1200_DIARY_03",
+    "date": "20260928",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "10周年。✨️",
+    "display_pc": "菱田未渚美　10周年。✨️",
+    "url": "https://girls2-fc.jp/page/minamiBlog/1234321679526658050",
+    "groups": [
+      "G2",
+      "MNM"
+    ]
+  },
+  {
+    "logid": "20260928_1200_DIARY_04",
+    "date": "20260928",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "ガルアワ⭐️",
+    "display_pc": "山口綺羅　ガルアワ⭐️",
+    "url": "https://girls2-fc.jp/page/kiraBlog/1234049992369373185",
+    "groups": [
+      "G2",
+      "KIR"
+    ]
+  },
+  {
     "logid": "20260927_2359_CLOSE",
     "date": "20260927",
     "time": "2359",
@@ -2557,6 +2609,25 @@
     "display_pc": "Girls² Digital Single『Nocturne』配信記念LINE MUSIC再生キャンペーン応募受付締切",
     "display_sp": "『Nocturne』LINE MUSIC再生CP応募受付締切",
     "url": "https://girls2-fc.jp/page/familyNews/1225273681614209024",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ]
+  },
+  {
+    "logid": "20260927_1800_FANCLUB",
+    "date": "20260927",
+    "time": "1800",
+    "contents": "FANCLUB",
+    "title": "Girls² 9月スペシャル壁紙プレゼントキャンペーン開始",
+    "display_sp": "Girls² 9月SP壁紙プレゼント開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1233341702337462274",
     "groups": [
       "G2",
       "YZH",
