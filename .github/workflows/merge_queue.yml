@@ -1,0 +1,49 @@
+name: Merge Queue Files
+
+# data/*/queue/ に JSON ファイルが push されたら、自動でメインファイルへマージする
+# 例: data/logs/queue/0928.json → data/logs/logs.json
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/logs/queue/**'
+      - 'data/setlist/queue/**'
+      - 'data/songs/queue/**'
+  workflow_dispatch:  # Actions画面から手動実行も可能（queueに残っているファイルをまとめて処理）
+
+# Issue処理(auto_merge.yml)と同じグループにして、同時実行によるコミット衝突を防ぐ
+concurrency:
+  group: gllogs-data-merge
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run merge script (Queue to Main & Processed)
+        run: python scripts/merge_json.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "変更なし"
+            exit 0
+          fi
+          git commit -m "Merge queue files into main JSON"
+          # 実行中に別のpushがあっても取り込んでから反映する
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
