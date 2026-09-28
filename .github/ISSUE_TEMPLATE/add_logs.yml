@@ -2,41 +2,22 @@ name: "logs 追加・更新"
 description: "ログ（DIARY, LIVE, EVENT など）を追加・更新します"
 title: "[DATA] logs"
 body:
-  - type: markdown
-    attributes:
-      value: |
-        - **更新のとき**: logid を入力し、**変更したい項目だけ**入力してください。空欄・未選択の項目は既存の値がそのまま残ります。
-        - **項目を消したいとき**: 入力欄に `!clear` と入力してください（グループ/メンバーのチェックは消せません）。
-        - **新規のとき**: 日付だけ必須です。種別が未選択なら ETC、時間が空欄なら 0000、グループが未選択なら全員になります。
-        - **数字の入力**: 全角で入力しても半角に直します。日付は8桁、時間は4桁、セットリストIDは12桁で入力してください（違うとIssueにコメントが付き、処理されません）。
-        - **グループ**: G2だけ、またはL2だけにチェックしたときは、メンバー（G2: YZH〜KIR、L2: RIN〜KIK）を自動で追加します。メンバーも個別にチェックしたときは、チェックしたものだけになります。
-
-  - type: input
-    id: logid
-    attributes:
-      label: "ログID (logid)"
-      description: "更新する場合は既存のlogidを入力。新規追加時は空欄（12桁のIDを自動発行）。"
-      placeholder: "a1b2c3d4e5f6"
-
   - type: input
     id: date
     attributes:
       label: "日付 (date)"
-      description: "新規追加で必須。8桁の半角数字 (例: 20260924)。全角で入力しても半角に直します。"
-      placeholder: "20260924"
+      placeholder: "20260928（8桁・半角。新規追加では必須）"
 
   - type: input
     id: time
     attributes:
       label: "時間 (time)"
-      description: "4桁の半角数字 (例: 1200)。新規で空欄なら 0000"
-      placeholder: "1200"
+      placeholder: "1200（4桁・半角。新規で空欄なら 0000）"
 
   - type: dropdown
     id: contents
     attributes:
       label: "コンテンツ種別 (contents)"
-      description: "未選択の場合、新規追加は ETC になります。更新時は既存値を維持します（変えたいときだけ選択）。"
       options:
         - DIARY
         - GTUBE
@@ -108,50 +89,65 @@ body:
     id: setlistid
     attributes:
       label: "セットリストID (setlistid)"
-      description: "関連するセットリストがあれば、そのID（12桁の半角数字: 日付+開演時刻）"
-      placeholder: "202609221830"
+      placeholder: "202609221830（12桁・半角。関連するセットリストがあれば）"
 
-  - type: checkboxes
+  - type: dropdown
     id: groups_g2
     attributes:
       label: "グループ/メンバー Girls² (groups)"
-      description: "logsの新規追加で、Girls²・Lakiどちらも未選択なら全員を自動設定します。更新時に未選択なら既存値を維持します。G2だけ（または下のL2だけ）にチェックしたときは、YZH〜KIR（RIN〜KIK）を自動で追加します。"
+      description: "G2だけ／L2だけを選ぶと、メンバーを自動で追加します。Girls²・Lakiとも未選択なら、新規は全員になります。"
+      multiple: true
       options:
-        - label: "G2"
-        - label: "YZH"
-        - label: "MMK"
-        - label: "MSK"
-        - label: "YOK"
-        - label: "KUR"
-        - label: "MNM"
-        - label: "KIR"
-        - label: "TOA"
-        - label: "RAN"
+        - G2
+        - YZH
+        - MMK
+        - MSK
+        - YOK
+        - KUR
+        - MNM
+        - KIR
+        - TOA
+        - RAN
 
-  - type: checkboxes
+  - type: dropdown
     id: groups_l2
     attributes:
       label: "グループ/メンバー Laki (groups)"
+      multiple: true
       options:
-        - label: "L2"
-        - label: "RIN"
-        - label: "TBK"
-        - label: "HIR"
-        - label: "YUW"
-        - label: "KAN"
-        - label: "RRK"
-        - label: "AKR"
-        - label: "KIK"
-        - label: "YUR"
+        - L2
+        - RIN
+        - TBK
+        - HIR
+        - YUW
+        - KAN
+        - RRK
+        - AKR
+        - KIK
+        - YUR
 
-  - type: textarea
+  - type: input
     id: relations
     attributes:
       label: "関連情報 (relations - JSON配列またはカンマ区切り)"
       placeholder: "TOA, KUR"
 
-  - type: textarea
+  - type: input
     id: tags
     attributes:
       label: "タグ (tags - カンマ区切り)"
       placeholder: "tag1, tag2, tag3"
+
+  - type: markdown
+    attributes:
+      value: |
+        **更新のとき**: 下の logid を入力し、変更したい項目だけ入力します。空欄・未選択の項目は既存の値のままです。消したい項目は `!clear` と入力します（グループ/メンバーの選択は消せません）。
+        **新規のとき**: 日付だけ必須です。種別が未選択なら ETC、時間が空欄なら 0000、グループが未選択なら全員になります。
+        **数字**: 全角で入力しても半角に直します。日付は8桁、時間は4桁、セットリストIDは12桁です（違うと処理されず、Issueにコメントが付きます）。
+        **グループ**: G2だけ、またはL2だけを選ぶと、メンバー（G2: YZH〜KIR、L2: RIN〜KIK）を自動で追加します。メンバーも個別に選んだときは、選んだものだけになります。
+
+  - type: input
+    id: logid
+    attributes:
+      label: "ログID (logid)"
+      placeholder: "a1b2c3d4e5f6（更新のときだけ入力。新規は空欄）"
