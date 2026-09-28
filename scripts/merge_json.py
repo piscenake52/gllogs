@@ -3,10 +3,12 @@ import re
 import json
 import glob
 import shutil
+import uuid
 
 MAX_PROCESSED_FILES = 30
 CLEAR = "!clear"  # 既存値を消したいときにIssueへ入力する特別な値
 ARTIST_JOIN = " × "  # 複数アーティストの連結文字（issue_to_json.py と揃える）
+LOGID_LENGTH = 12  # logid の桁数（UUIDの先頭から取る16進数）
 ISSUE_MAP_FILE = "data/issue_map.json"  # {Issue番号: logid}  Issue再編集時に同じログを更新するための対応表
 
 DEFAULT_GROUPS = [
@@ -83,15 +85,12 @@ def reorder(target, item):
 
 
 def generate_logid(item, main_data):
-    """既存の命名規則 {date}_{time}_{contents} で発行。衝突時は _02, _03 ... を付ける"""
-    base = f"{item['date']}_{item['time']}_{item['contents']}"
+    """12桁の短いUUID(16進数)を発行。既存のlogidと重複したら振り直す"""
     existing = {e.get("logid") for e in main_data}
-    if base not in existing:
-        return base
-    n = 2
-    while f"{base}_{n:02d}" in existing:
-        n += 1
-    return f"{base}_{n:02d}"
+    while True:
+        new_id = uuid.uuid4().hex[:LOGID_LENGTH]
+        if new_id not in existing:
+            return new_id
 
 
 # ---------- 更新・新規追加 ----------
