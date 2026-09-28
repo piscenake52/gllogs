@@ -1,7 +1,6 @@
 name: "データ追加・更新フォーム (詳細版)"
 description: "gllogsの構造化データ（logs, setlist, songs）を追加・更新します"
-title: "データ登録"
-labels: ["data"]
+title: "[DATA]"
 body:
   - type: markdown
     attributes:
