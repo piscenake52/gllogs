@@ -45,12 +45,47 @@ body:
       description: "4桁の数字 (例: 1200)。新規で空欄なら 0000"
       placeholder: "1200"
 
-  - type: input
+  - type: dropdown
     id: contents
     attributes:
       label: "コンテンツ種別 (contents)"
-      description: "logsの新規追加で必須。例: DIARY, RADIO, EVENT など"
-      placeholder: "DIARY"
+      description: "未選択の場合、新規追加は ETC になります。更新時は既存値を維持します（変えたいときだけ選択）。"
+      options:
+        - DIARY
+        - GTUBE
+        - GLRADIO
+        - COLUMN
+        - CL
+        - CLOSE
+        - YOUTUBE
+        - ANNIVERSARY
+        - FANCLUB
+        - SNS
+        - TICKET
+        - EVENT
+        - CD
+        - WEB
+        - RESULT
+        - LIVE
+        - RADIO
+        - BIRTHDAY
+        - RELEASEEVENT
+        - TV
+        - COOKING
+        - STREAMING
+        - DIGITAL
+        - STAGE
+        - GOODS
+        - MOVIE
+        - CAMPAIGN
+        - MODEL
+        - ETC
+        - MAGAZINE
+        - DEBUT
+        - FORMATION
+        - MESSAGE
+        - PLAYING
+        - MUSICCARD
 
   - type: input
     id: title
@@ -91,12 +126,35 @@ body:
       description: "logsでは関連するセットリストのID、setlistでは登録するセットリスト自身のID（12桁: 日付+開演時刻）"
       placeholder: "202609221830"
 
-  - type: textarea
-    id: groups
+  - type: checkboxes
+    id: groups_g2
     attributes:
-      label: "グループ/メンバー (groups - カンマ区切りまたは改行区切り)"
-      description: "logsの新規追加で空欄なら全員(G2, L2 と全メンバー)を自動設定します。更新時に空欄なら既存値を維持します。"
-      placeholder: "G2, YZH, MMK, MSK, YOK, KUR, MNM, KIR"
+      label: "グループ/メンバー Girls² (groups)"
+      description: "logsの新規追加で、Girls²・Lakiどちらも未選択なら全員を自動設定します。更新時に未選択なら既存値を維持します。"
+      options:
+        - label: "G2"
+        - label: "YZH"
+        - label: "MMK"
+        - label: "MSK"
+        - label: "YOK"
+        - label: "KUR"
+        - label: "MNM"
+        - label: "KIR"
+
+  - type: checkboxes
+    id: groups_l2
+    attributes:
+      label: "グループ/メンバー Laki (groups)"
+      options:
+        - label: "L2"
+        - label: "RIN"
+        - label: "TBK"
+        - label: "HIR"
+        - label: "YUW"
+        - label: "KAN"
+        - label: "RRK"
+        - label: "AKR"
+        - label: "KIK"
 
   - type: textarea
     id: relations
