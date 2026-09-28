@@ -7,31 +7,31 @@ from datetime import datetime, timedelta, timezone
 # フォームのラベルと完全一致させること
 # add_logs.yml
 LABELS_LOGS = {
-    "logid": "ログID (logid)",
-    "date": "日付 (date)",
-    "time": "時間 (time)",
-    "contents": "コンテンツ種別 (contents)",
-    "title": "タイトル (title)",
+    "logid": "logid",
+    "date": "date",
+    "time": "time",
+    "contents": "contents",
+    "title": "title",
     "display_pc": "display_pc",
     "display_sp": "display_sp",
-    "url": "URL (url)",
-    "map": "マップ情報 (map)",
-    "setlistid": "セットリストID (setlistid)",
-    "groups_g2": "グループ/メンバー Girls² (groups)",
-    "groups_l2": "グループ/メンバー Laki (groups)",
-    "relations": "関連情報 (relations - JSON配列またはカンマ区切り)",
-    "tags": "タグ (tags - カンマ区切り)",
+    "url": "url",
+    "map": "map",
+    "setlistid": "setlistid",
+    "groups_g2": "groups / Girls²",
+    "groups_l2": "groups / Laki",
+    "relations": "relations",
+    "tags": "tags",
 }
 # add_setlist_songs.yml
 LABELS_SS = {
-    "setlistid": "セットリストID (setlistid / setlist用)",
-    "artist_check": "アーティスト (artist / 選択)",
-    "artist_free": "アーティスト (artist / 自由入力・入力するとこちらを優先)",
-    "title": "タイトル (title / setlist名 または 曲名)",
-    "link": "楽曲リンク (link / songs用)",
-    "member_g2": "出演メンバー Girls² (member)",
-    "member_l2": "出演メンバー Laki (member)",
-    "venue": "会場 (venue / setlist用)",
+    "setlistid": "setlistid",
+    "artist_check": "artist / 選択",
+    "artist_free": "artist / 自由入力",
+    "title": "title",
+    "link": "link",
+    "member_g2": "member / Girls²",
+    "member_l2": "member / Laki",
+    "venue": "venue",
     "songs": "曲目 (songs / setlist用 - 1行1曲)",
 }
 # 旧フォーム(データの種類ドロップダウンあり)のIssueを誤って処理しないための目印
@@ -232,7 +232,8 @@ def build_setlist(f):
     return {
         "setlistid": f["setlistid"],
         "artist": f["artist"],
-        "member": parse_checked(f["member_g2"]) + parse_checked(f["member_l2"]),
+        "member": parse_selected(f["member_g2"], G2_OPTIONS[1:])
+                  + parse_selected(f["member_l2"], L2_OPTIONS[1:]),
         "title": f["title"],
         "venue": f["venue"],
         "songs": parse_songs(f["songs"]),
