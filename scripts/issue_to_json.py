@@ -1,6 +1,7 @@
 import os
 import json
 import re
+import unicodedata
 from datetime import datetime, timedelta, timezone
 
 # フォームのラベルと完全一致させること
@@ -38,6 +39,13 @@ LEGACY_MARKER = "### データの種類 (Type / logs, setlist, songs)"
 
 CLEAR = "!clear"  # 既存値を消したいときに入力する特別な値
 ARTIST_JOIN = " × "  # アーティストを複数選択したときの連結文字（merge_json.py と揃える）
+
+# G2だけ／L2だけにチェックがあるときに補完するメンバー（フォームの並び順）
+G2_MEMBERS = ["YZH", "MMK", "MSK", "YOK", "KUR", "MNM", "KIR"]
+L2_MEMBERS = ["RIN", "TBK", "HIR", "YUW", "KAN", "RRK", "AKR", "KIK"]
+
+# 入力エラーの内容をIssueにコメントするための一時ファイル（ワークフローが読み取る。コミットはされない）
+ERROR_FILE = "issue_error.md"
 
 
 def is_blank(v):
@@ -131,6 +139,54 @@ def resolve_artist(f):
     return ARTIST_JOIN.join(parse_checked(f["artist_check"]))
 
 
+def to_halfwidth(s):
+    """全角の英数字・記号を半角にそろえ、前後の空白を取り除く（例: ２０２６０９２８ → 20260928）"""
+    return unicodedata.normalize("NFKC", s or "").strip()
+
+
+def expand_groups(checked):
+    """G2だけ／L2だけにチェックがあるときに限り、メンバーを補完する。それ以外はチェックのまま"""
+    if checked == ["G2"]:
+        return ["G2"] + G2_MEMBERS
+    if checked == ["L2"]:
+        return ["L2"] + L2_MEMBERS
+    return checked
+
+
+def normalize_and_validate_logs(f):
+    """logsフォームの数値項目を半角にそろえて検証する。戻り値: エラー内容のリスト（空なら問題なし）"""
+    for key in ("logid", "date", "time", "setlistid"):
+        f[key] = to_halfwidth(f[key])
+    f["logid"] = f["logid"].lower()  # logid は小文字の16進数（大文字で入力されても一致するように）
+
+    # (項目, 表示名, 正規表現, 説明, !clear を許可するか)
+    rules = [
+        ("date", "日付 (date)", r"[0-9]{8}", "8桁の半角数字（例: 20260928）", False),
+        ("time", "時間 (time)", r"[0-9]{4}", "4桁の半角数字（例: 1200）", True),
+        ("setlistid", "セットリストID (setlistid)", r"[0-9]{12}", "12桁の半角数字（例: 202609221830）", True),
+    ]
+    errors = []
+    for key, label, pattern, hint, allow_clear in rules:
+        v = f[key]
+        if not v or (allow_clear and v == CLEAR):
+            continue
+        if not re.fullmatch(pattern, v):
+            shown = v.replace("`", "'")
+            errors.append(f"- **{label}**: {hint}で入力してください（入力値: `{shown}`）")
+
+    if not f["logid"] and not f["date"]:
+        errors.append("- **ログID (logid) または 日付 (date)**: 更新するときはlogid、新規追加のときは日付を入力してください")
+    return errors
+
+
+def write_error(errors):
+    body = ("⚠️ 入力内容に問題があるため、このIssueは処理されませんでした。\n\n"
+            + "\n".join(errors)
+            + "\n\n入力を修正してIssueを編集すると、自動で再処理されます。\n")
+    with open(ERROR_FILE, "w", encoding="utf-8") as fp:
+        fp.write(body)
+
+
 def build_logs(f):
     data = {
         "logid": f["logid"],
@@ -142,7 +198,7 @@ def build_logs(f):
         "display_sp": f["display_sp"],
         "url": f["url"],
         "map": f["map"],
-        "groups": parse_checked(f["groups_g2"]) + parse_checked(f["groups_l2"]),
+        "groups": expand_groups(parse_checked(f["groups_g2"]) + parse_checked(f["groups_l2"])),
         "relations": parse_list(f["relations"]),
         "setlistid": f["setlistid"],
         "tags": parse_list(f["tags"]),
@@ -203,6 +259,12 @@ def main():
         # 未選択のドロップダウンは "None" として届くことがあるため空扱いにする
         if f["contents"] == "None":
             f["contents"] = ""
+        # 数値項目を半角にそろえ、桁数などを検証する（問題があればIssueにコメントして終了）
+        errors = normalize_and_validate_logs(f)
+        if errors:
+            write_error(errors)
+            print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
+            return
         data = build_logs(f)
         if issue_number:
             # 同じIssueの再編集を、同じレコードの更新として扱うための目印（mergeで取り除く）
