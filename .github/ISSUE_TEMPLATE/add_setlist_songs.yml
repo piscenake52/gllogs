@@ -7,7 +7,7 @@ body:
       value: |
         - **セットリストID を入力 → setlist として登録**します。**空欄 → songs（楽曲リスト）として登録**します。
         - **更新のとき**: 識別キー（setlist=セットリストID / songs=アーティスト+タイトル）を入力し、**変更したい項目だけ**入力してください。空欄の項目は既存の値がそのまま残ります。
-        - **項目を消したいとき**: 入力欄に `!clear` と入力してください。
+        - **項目を消したいとき**: 入力欄に `!clear` と入力してください（チェックボックスの項目は消せません）。
 
   - type: input
     id: setlistid
@@ -16,12 +16,21 @@ body:
       description: "入力すると setlist として扱います。12桁: 日付+開演時刻。空欄なら songs として扱います。"
       placeholder: "202609221830"
 
-  - type: input
-    id: artist
+  - type: checkboxes
+    id: artist_check
     attributes:
-      label: "アーティスト (artist)"
-      description: "setlistの新規追加ではタイトルとともに必須。songsは アーティスト+タイトル が識別キーです。"
-      placeholder: "Girls² / Laki"
+      label: "アーティスト (artist / 選択)"
+      description: "Girls² / Laki はこちらで選択（両方チェックも可。両方の場合は「Girls² × Laki」になります）。それ以外は下の自由入力欄に入力してください。setlistの新規追加ではタイトルとともに必須。songsは アーティスト+タイトル が識別キーです。"
+      options:
+        - label: "Girls²"
+        - label: "Laki"
+
+  - type: input
+    id: artist_free
+    attributes:
+      label: "アーティスト (artist / 自由入力・入力するとこちらを優先)"
+      description: "例: mirage² / おはガール from Girls² / Laki - リナ＆ユウラ - など"
+      placeholder: "mirage²"
 
   - type: input
     id: title
@@ -35,12 +44,36 @@ body:
       label: "楽曲リンク (link / songs用)"
       placeholder: "https://music.youtube.com/watch?v=..."
 
-  - type: input
-    id: member
+  - type: checkboxes
+    id: member_g2
     attributes:
-      label: "出演メンバー (member / setlist用 - カンマ区切り)"
-      description: "新規で空欄なら artist が Girls² / Laki のとき全員を自動設定します。"
-      placeholder: "YZH, MMK, MSK, YOK, KUR, MNM, KIR"
+      label: "出演メンバー Girls² (member)"
+      description: "setlist用。新規追加で Girls² / Laki を選び、メンバーが未選択なら、そのグループの全メンバー（TOA・RAN・YURを除く）を自動設定します（両方選択なら両グループ分）。更新時に未選択なら既存値を維持します。"
+      options:
+        - label: "YZH"
+        - label: "MMK"
+        - label: "MSK"
+        - label: "YOK"
+        - label: "KUR"
+        - label: "MNM"
+        - label: "KIR"
+        - label: "TOA"
+        - label: "RAN"
+
+  - type: checkboxes
+    id: member_l2
+    attributes:
+      label: "出演メンバー Laki (member)"
+      options:
+        - label: "RIN"
+        - label: "TBK"
+        - label: "HIR"
+        - label: "YUW"
+        - label: "KAN"
+        - label: "RRK"
+        - label: "AKR"
+        - label: "KIK"
+        - label: "YUR"
 
   - type: input
     id: venue
