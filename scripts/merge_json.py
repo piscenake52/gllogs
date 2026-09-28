@@ -177,6 +177,8 @@ def apply_item(target, main_data, raw, issue_map):
             return "conflict"
         if len(matches) == 1:
             apply_update(target, main_data[matches[0]], item)
+            # 更新で属性が追加された場合も、決まった並び順の位置に入るよう整える
+            main_data[matches[0]] = reorder(target, main_data[matches[0]])
             return "updated"
 
     new_item = finalize_new(target, clean_new(item), main_data)
