@@ -1390,7 +1390,7 @@
   {
     "logid": "log-6d30e29f",
     "date": "20261012",
-    "time": "0000",
+    "time": "",
     "contents": "RELEASEEVENT",
     "title": "Laki「WORK≒LiFE」ラストリリースイベント",
     "display_pc": "Laki 「WORK≒LiFE」 ラストリリースイベント",
@@ -2145,16 +2145,7 @@
       "YOK",
       "KUR",
       "MNM",
-      "KIR",
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
+      "KIR"
     ],
     "relations": [],
     "setlistid": "",
@@ -2707,23 +2698,8 @@
     "url": "https://www.cl-live.com/posts/woRPw6p3V1VQcrqjgEip8o",
     "map": "",
     "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
       "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
+      "HIR"
     ],
     "relations": [],
     "setlistid": "",
@@ -7694,20 +7670,6 @@
     ]
   },
   {
-    "logid": "20260902_1200_DIARY_G2_YZH_02",
-    "date": "20260902",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "9月アニョハセヨ",
-    "display_pc": "小田柚葉　9月アニョハセヨ",
-    "display_sp": "小田柚葉　9月アニョハセヨ",
-    "url": "https://girls2-fc.jp/page/yuzuhaBlog/1224661672401043456",
-    "groups": [
-      "G2",
-      "YZH"
-    ]
-  },
-  {
     "logid": "20260901_1626_CL",
     "date": "20260901",
     "time": "1626",
@@ -8119,34 +8081,6 @@
     ]
   },
   {
-    "logid": "20260831_1200_DIARY_G2_KUR_02",
-    "date": "20260831",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "訪店イベント",
-    "display_pc": "増田來亜　訪店イベント",
-    "display_sp": "増田來亜　訪店イベント",
-    "url": "https://girls2-fc.jp/page/kureaBlog/1223955562950033408",
-    "groups": [
-      "G2",
-      "KUR"
-    ]
-  },
-  {
-    "logid": "20260831_1200_DIARY_G2_MMK_02",
-    "date": "20260831",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "☔️",
-    "display_pc": "隅谷百花　☔️",
-    "display_sp": "隅谷百花　☔️",
-    "url": "https://girls2-fc.jp/page/momokaBlog/1223955043443539968",
-    "groups": [
-      "G2",
-      "MMK"
-    ]
-  },
-  {
     "logid": "20260831_0000_FANCLUB",
     "date": "20260831",
     "time": "",
@@ -8336,34 +8270,6 @@
     "groups": [
       "L2",
       "TBK"
-    ]
-  },
-  {
-    "logid": "20260830_1200_DIARY_G2_YOK_02",
-    "date": "20260830",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "fun:))",
-    "display_pc": "小川桜花　fun:))",
-    "display_sp": "小川桜花　fun:))",
-    "url": "https://girls2-fc.jp/page/youkaBlog/1223828901864669185",
-    "groups": [
-      "G2",
-      "YOK"
-    ]
-  },
-  {
-    "logid": "20260830_1200_DIARY_G2_YZH_02",
-    "date": "20260830",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "私の夏休みPart3✈️✨️",
-    "display_pc": "小田柚葉　私の夏休みPart3✈️✨️",
-    "display_sp": "小田柚葉　私の夏休みPart3✈️✨️",
-    "url": "https://girls2-fc.jp/page/yuzuhaBlog/1223828266880598016",
-    "groups": [
-      "G2",
-      "YZH"
     ]
   },
   {
@@ -8676,34 +8582,6 @@
     ]
   },
   {
-    "logid": "20260829_1200_DIARY_G2_KUR_02",
-    "date": "20260829",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "ウエノデ.パンダビアフェスタ",
-    "display_pc": "増田來亜　ウエノデ.パンダビアフェスタ",
-    "display_sp": "増田來亜　ウエノデ.パンダビアフェスタ",
-    "url": "https://girls2-fc.jp/page/kureaBlog/1223450223125200897",
-    "groups": [
-      "G2",
-      "KUR"
-    ]
-  },
-  {
-    "logid": "20260829_1200_DIARY_G2_YOK_02",
-    "date": "20260829",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "💙🍡",
-    "display_pc": "小川桜花　💙🍡",
-    "display_sp": "小川桜花　💙🍡",
-    "url": "https://girls2-fc.jp/page/youkaBlog/1223450958361526273",
-    "groups": [
-      "G2",
-      "YOK"
-    ]
-  },
-  {
     "logid": "20260829_1000_TICKET",
     "date": "20260829",
     "time": "1000",
@@ -8917,20 +8795,6 @@
     "groups": [
       "G2",
       "MNM"
-    ]
-  },
-  {
-    "logid": "20260828_1200_DIARY_G2_KUR_02",
-    "date": "20260828",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "返信💌　part2",
-    "display_pc": "増田來亜　返信💌　part2",
-    "display_sp": "増田來亜　返信💌　part2",
-    "url": "https://girls2-fc.jp/page/kureaBlog/1222771935193071618",
-    "groups": [
-      "G2",
-      "KUR"
     ]
   },
   {
