@@ -644,10 +644,22 @@ body .item-contents.is-content-open {
 .set-switch input:checked + .set-switch-track { background: #38bdf8; }
 .set-switch input:checked + .set-switch-track::after { transform: translateX(14px); }
 .set-switch input:focus-visible + .set-switch-track { outline: 2px solid #38bdf8; outline-offset: 2px; }
-.settings-reset { display: block; margin: 20px auto 4px; background: var(--btn-bg); border: none; color: var(--sub); font-size: 11px; padding: 6px 22px; border-radius: 14px; cursor: pointer; }
+.settings-reset { position: absolute; top: 10px; left: 10px; height: 26px; box-sizing: border-box; padding: 0 12px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--sub); font-size: 11px; line-height: 1; border-radius: 13px; cursor: pointer; }
 .settings-reset:hover { background: var(--btn-hover); color: var(--text); }
+/* 下部のOKボタン: 設定一覧が長くスクロールしても、常にポップアップの下端に表示する */
+.settings-footer { position: sticky; bottom: -18px; margin: 14px -18px -18px; padding: 10px 18px 16px; background: var(--bg); border-top: 1px solid var(--border); }
+.settings-ok { display: block; width: 100%; max-width: 220px; margin: 0 auto; padding: 9px 0; border: none; border-radius: 18px; background: #38bdf8; color: #fff; font-size: 13px; font-weight: bold; letter-spacing: 0.06em; cursor: pointer; }
+.settings-ok:hover { filter: brightness(1.08); }
 /* SETTINGで「非表示」にした項目のフィルターボタン(および中身が全て非表示になった段) */
 .vis-hidden { display: none !important; }
+.checks-row-other-extra:not(.has-items):not(.drag-target-active) { display: none; }
+.checks-row-other-2.vis-hidden.drag-target-active { display: flex !important; }
+/* メンバーを非表示にした行:残ったボタンの横幅は全員表示時と同じに保ち、左に詰めて並べる。
+   (通常は空き幅を残りのボタンで分け合って広がるため、非表示がある行だけ幅を固定する)
+   全員表示時の1ボタン幅 = (行の幅 - グループボタン50px - 隙間3px×(要素数-1) - 区切り"/"の幅×個数) / メンバー数 */
+.checks-row-members.has-vis-hidden label:not(.btn-group) {
+  flex: 0 1 calc((100% - 50px - (var(--m-items) - 1) * 3px - var(--m-seps) * 5.34px) / var(--m-n));
+}
 
 /* トップへ移動するボタン（コンテナの右端に追従するように修正） */
 .to-top-btn { position: fixed; bottom: 24px; left: calc(50% + var(--container-w) / 2 - 40px); width: 40px; height: 40px; background-color: var(--active-bg); color: var(--active-color); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; z-index: 999; outline: none; }
@@ -871,7 +883,7 @@ body .item-contents.is-content-open {
     {v:'YUW',n:'YUWA',c:'\u2764\uFE0F'},{v:'KAN',n:'KANNA',c:'\uD83D\uDC99'},{v:'RRK',n:'RIRIKA',c:'\uD83E\uDE77'},{v:'AKR',n:'AKARI',c:'\uD83D\uDC9A'},
     {v:'KIK',n:'KIKI',c:'\uD83D\uDC9B'},'sep',{v:'YUR',n:'YURA',c:'\uD83E\uDD0D'}
   ];
-  const others = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MODEL','MOVIE','MEDIA','MAGAZINE','WEB','TICKET','SALES','ETC'];
+  const others = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','COOKING','MODEL','MOVIE','MEDIA','TV','RADIO','MAGAZINE','WEB','TICKET','SALES','ETC'];
 
   const symbols = {
     'FANCLUB': '\uD83D\uDCE3',
@@ -884,7 +896,7 @@ body .item-contents.is-content-open {
     // 以下5種類はcontentsフィルターボタンには表示しないが、フィルター判定上は"RELEASE"として扱う(normalizeContType参照)。
     // データ部のアイコン表示ではそれぞれ専用のアイコン+コンテンツ名を表示する。
     'CD': '\uD83D\uDCBF\uFE0F', 'DVD': '\uD83D\uDCC0\uFE0F', 'BD': '\uD83D\uDCC0\uFE0F', 'DIGITAL': '\uD83C\uDFA7', 'MUSICCARD': '\uD83C\uDFA7',
-    // 以下4種類はフィルターボタンには表示せず、フィルター判定上は"MEDIA"として扱う(normalizeContType参照)
+    // BOOK/NEWSPAPERはフィルターボタンには表示せず、フィルター判定上は"MEDIA"として扱う(normalizeContType参照)。TV/RADIOは独立したフィルターボタン
     'TV': '\uD83D\uDCFA\uFE0F', 'RADIO': '\uD83D\uDCFB\uFE0F', 'BOOK': '\uD83D\uDCDA', 'NEWSPAPER': '\uD83D\uDCF0',
     // 以下2種類はフィルターボタンには表示せず、フィルター判定上は"WEB"として扱う(normalizeContType参照)
     'STREAMING': '\uD83D\uDCF6', 'PODCAST': '\uD83C\uDFA4',
@@ -892,7 +904,7 @@ body .item-contents.is-content-open {
     'COLUMN': '\uD83C\uDF10',
     // GOODSはフィルターボタンには表示せず、フィルター判定上は"SALES"として扱う(normalizeContType参照)
     'GOODS': '\uD83D\uDED2',
-    // 以下2種類はフィルターボタンには表示せず、フィルター判定上は"EVENT"として扱う(normalizeContType参照)
+    // STAGE/RELEASEEVENTはフィルターボタンには表示せず、フィルター判定上は"EVENT"として扱う(normalizeContType参照)。COOKINGは独立したフィルターボタン
     'STAGE': '\uD83C\uDFAD', 'COOKING': '\uD83C\uDF7D\uFE0F', 'RELEASEEVENT': '\uD83C\uDFA4',
     // DEBUT/FORMATIONはフィルターボタンには表示せず、フィルター判定上は"BIRTHDAY"として扱う(normalizeContType参照)。
     // ただしBIRTHDAYと違い、isBirthdayAnniversaryの対象外なので年をまたいだ月日一致では表示されない
@@ -990,50 +1002,77 @@ body .item-contents.is-content-open {
   for (let m = 1; m <= 12; m++) {
     $('monthChecks').appendChild(createLabel({ v: String(m).padStart(2, '0'), t: String(m) }));
   }
-  // コンテンツ種類ボタンの並び順・段(1段目/2段目)をlocalStorageから復元する。
-  // 旧形式(フラットな配列=1段目のみ)が保存されている場合はそのまま1段目として扱う(後方互換)。
+  // コンテンツ種類ボタンの並び順・段をlocalStorageから復元する。段数は最大MAX_CONTENT_ROWS段(3段以上も可)。
+  // 保存形式: { rows: [[...],[...],...], row1: [...], row2: [...] }(row1/row2は旧バージョンとの互換用)。
+  // 旧形式(フラットな配列=1段目のみ、または {row1,row2})も読み込める(後方互換)。
+  const MAX_CONTENT_ROWS = 6;
+  const contentRows = [$('otherChecks'), $('otherChecks2')];
+  for (let i = 3; i <= MAX_CONTENT_ROWS; i++) { // 3段目以降はここで生成(中身が入るまで、またはドロップ先になるまで非表示)
+    const r = document.createElement('div');
+    r.className = 'checks-row checks-row-other checks-row-other-2 checks-row-other-extra';
+    r.id = 'otherChecks' + i;
+    contentRows[contentRows.length - 1].after(r);
+    contentRows.push(r);
+  }
+
   const applySavedContentOrder = arr => {
     try {
       const saved = JSON.parse(localStorage.getItem('gl_log_content_order') || 'null');
-      if (Array.isArray(saved)) {
-        const savedValid = saved.filter(v => arr.includes(v));
-        const rest = arr.filter(v => !savedValid.includes(v));
-        return { row1: [...savedValid, ...rest], row2: [] };
+      let rows;
+      if (Array.isArray(saved)) rows = [saved];
+      else if (saved && Array.isArray(saved.rows)) rows = saved.rows.filter(Array.isArray);
+      else if (saved && Array.isArray(saved.row1) && Array.isArray(saved.row2)) rows = [saved.row1, saved.row2];
+      else return [arr];
+      if (!rows.length) return [arr];
+      const seen = new Set();
+      rows = rows.slice(0, MAX_CONTENT_ROWS).map(r => r.filter(v => arr.includes(v) && !seen.has(v) && seen.add(v)));
+      const rest = arr.filter(v => !seen.has(v));
+      if (rest.length) {
+        // 保存後に増えたボタンは、ETCがある段ではその手前に、なければ1段目の末尾に入れる
+        const idx = Math.max(0, rows.findIndex(r => r.includes('ETC')));
+        const list = rows[idx];
+        const i = list.indexOf('ETC');
+        rows[idx] = i === -1 ? [...list, ...rest] : [...list.slice(0, i), ...rest, ...list.slice(i)];
       }
-      if (saved && Array.isArray(saved.row1) && Array.isArray(saved.row2)) {
-        const savedValid1 = saved.row1.filter(v => arr.includes(v));
-        const savedValid2 = saved.row2.filter(v => arr.includes(v) && !savedValid1.includes(v));
-        const rest = arr.filter(v => !savedValid1.includes(v) && !savedValid2.includes(v));
-        return { row1: [...savedValid1, ...rest], row2: savedValid2 };
-      }
-      return { row1: arr, row2: [] };
+      return rows;
     } catch (e) {
-      return { row1: arr, row2: [] };
+      return [arr];
     }
   };
 
   const savedContentRows = applySavedContentOrder(others);
-  others.splice(0, others.length, ...savedContentRows.row1, ...savedContentRows.row2);
-  savedContentRows.row1.forEach(o => $('otherChecks').appendChild(createLabel(o)));
-  savedContentRows.row2.forEach(o => $('otherChecks2').appendChild(createLabel(o)));
-  if (savedContentRows.row2.length > 0) $('otherChecks2').classList.add('has-items');
+  others.splice(0, others.length, ...savedContentRows.flat());
+  savedContentRows.forEach((vals, i) => vals.forEach(o => contentRows[i].appendChild(createLabel(o))));
+  contentRows.forEach((r, i) => { if (i > 0) r.classList.toggle('has-items', r.children.length > 0); });
 
-  // コンテンツ種類ボタンのみ、ドラッグ&ドロップで並び替え・2段目への移動ができるようにする(並び・段はlocalStorageに記憶)。
-  // 1段目のボタンを下にドラッグすると2段目(otherChecks2)がプレビュー表示され、そこにドロップすると
-  // 実際に2段目に移動する。2段目の中身が無くなったら多段表示は自動的に解除される。
+  // コンテンツ種類ボタンのみ、ドラッグ&ドロップで並び替え・別の段への移動ができるようにする(並び・段はlocalStorageに記憶)。
+  // ドラッグを始めると、使用中の最後の段の1つ下の段が、ドロップ先としてプレビュー表示される(最大MAX_CONTENT_ROWS段)。
+  // そこにドロップすると新しい段が実際に作られ、段の中身が無くなったら、上に詰めて自動的に折りたたまれる。
   (() => {
-    const row1 = $('otherChecks');
-    const row2 = $('otherChecks2');
+    const rows = contentRows;
     let draggedEl = null;
 
+    const valsOf = r => Array.from(r.querySelectorAll('label')).map(l => l.querySelector('input')?.value).filter(Boolean);
     const saveOrder = () => {
-      const row1Vals = Array.from(row1.querySelectorAll('label')).map(l => l.querySelector('input')?.value).filter(Boolean);
-      const row2Vals = Array.from(row2.querySelectorAll('label')).map(l => l.querySelector('input')?.value).filter(Boolean);
-      localStorage.setItem('gl_log_content_order', JSON.stringify({ row1: row1Vals, row2: row2Vals }));
+      const all = rows.map(valsOf);
+      while (all.length > 1 && all[all.length - 1].length === 0) all.pop();
+      localStorage.setItem('gl_log_content_order', JSON.stringify({ rows: all, row1: all[0] || [], row2: all[1] || [] }));
     };
 
-    const updateRow2Visibility = () => {
-      row2.classList.toggle('has-items', row2.children.length > 0);
+    // 空になった段を詰める(中身のある段を、上から順に並べ直す)
+    const compactRows = () => {
+      const lists = rows.map(r => Array.from(r.children)).filter(a => a.length);
+      rows.forEach((r, i) => (lists[i] || []).forEach(l => r.appendChild(l)));
+    };
+    const updateRowsVisibility = () => {
+      rows.forEach((r, i) => { if (i > 0) r.classList.toggle('has-items', r.children.length > 0); });
+    };
+
+    // ドロップ先として見せる段:表示中のボタンがある最後の段の、1つ下の段(もう段が無ければnull)
+    const pickDropRow = () => {
+      let last = 0;
+      rows.forEach((r, i) => { if (Array.from(r.children).some(l => !l.classList.contains('vis-hidden'))) last = i; });
+      return rows[last + 1] || null;
     };
 
     const attachLabelDnD = label => {
@@ -1043,16 +1082,18 @@ body .item-contents.is-content-open {
         draggedEl = label;
         label.classList.add('is-dragging-reorder');
         e.dataTransfer.effectAllowed = 'move';
-        // 2段目がまだ空の場合、ドラッグ中だけ半透明でドロップ先候補として見せる(実際に入れると本表示になる)
-        if (row2.children.length === 0) row2.classList.add('drag-target-active');
+        const target = pickDropRow();
+        if (target) target.classList.add('drag-target-active');
       });
 
       label.addEventListener('dragend', () => {
         draggedEl = null;
         label.classList.remove('is-dragging-reorder');
-        row2.classList.remove('drag-target-active');
-        updateRow2Visibility();
+        rows.forEach(r => r.classList.remove('drag-target-active'));
+        compactRows();
+        updateRowsVisibility();
         saveOrder();
+        updateFilterButtonVisibility(); // SETTINGで非表示にしたボタンだけの段になった場合などに、段の表示を合わせる
       });
 
       label.addEventListener('dragover', e => {
@@ -1066,17 +1107,19 @@ body .item-contents.is-content-open {
       });
     };
 
-    Array.from(row1.querySelectorAll('label')).forEach(attachLabelDnD);
-    Array.from(row2.querySelectorAll('label')).forEach(attachLabelDnD);
+    rows.forEach(r => Array.from(r.querySelectorAll('label')).forEach(attachLabelDnD));
 
-    // ラベルの無い余白(段の右端や、まだ何も無い2段目そのもの)にドロップされた場合の受け皿
-    [row1, row2].forEach(rowEl => {
+    // ラベルの無い余白(段の右端や、まだ何も無い段そのもの)にドロップされた場合の受け皿
+    rows.forEach(rowEl => {
       rowEl.addEventListener('dragover', e => e.preventDefault());
       rowEl.addEventListener('drop', e => {
         e.preventDefault();
         if (draggedEl && !rowEl.contains(draggedEl)) rowEl.appendChild(draggedEl);
       });
     });
+
+    compactRows();
+    updateRowsVisibility();
   })();
 
 
@@ -1216,17 +1259,17 @@ body .item-contents.is-content-open {
   const g2MemberCodes = new Set(g2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
   const l2MemberCodes = new Set(l2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
 
-  const primaryConts = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','MEDIA','MAGAZINE','WEB','SALES','ANNIVERSARY','BIRTHDAY','MODEL','MOVIE','TICKET'];
+  const primaryConts = ['FANCLUB','DIARY','GLRADIO','GTUBE','YOUTUBE','CL','SNS','RELEASE','LIVE','EVENT','COOKING','MEDIA','TV','RADIO','MAGAZINE','WEB','SALES','ANNIVERSARY','BIRTHDAY','MODEL','MOVIE','TICKET'];
   const allConts = [...primaryConts, 'ETC'];
   const cats = [{meta:'G2',values:g2Vals},{meta:'L2',values:l2Vals}];
 
   // CD/DVD/BD/DIGITALはコンテンツフィルターボタンには表示しないが、フィルター判定(年/コンテンツ種類/自動on-off/
   // 件数プレビュー/ソート等)上は"RELEASE"の一部として扱う。データ部の表示(アイコン・コンテンツ名)には影響しない。
   const releaseAliasConts = ['CD', 'DVD', 'BD', 'DIGITAL', 'MUSICCARD'];
-  const mediaAliasConts = ['TV', 'RADIO', 'BOOK', 'NEWSPAPER'];
+  const mediaAliasConts = ['BOOK', 'NEWSPAPER']; // TV/RADIOは独立したフィルターボタンになった
   const webAliasConts = ['STREAMING', 'PODCAST', 'COLUMN'];
   const salesAliasConts = ['GOODS'];
-  const eventAliasConts = ['STAGE', 'COOKING', 'RELEASEEVENT'];
+  const eventAliasConts = ['STAGE', 'RELEASEEVENT']; // COOKINGは独立したフィルターボタンになった
   const birthdayAliasConts = ['DEBUT', 'FORMATION'];
   const normalizeContTypeCache = new Map();
   // logs.jsonの実データではcontents(コンテンツ種類の生値)は数十種類程度しかなく、同じ値が何度も
@@ -1710,7 +1753,7 @@ body .item-contents.is-content-open {
     return close;
   };
   bindSimplePopup('helpBtn', 'helpModalOverlay', 'helpModalCloseBtn');
-  bindSimplePopup('settingsBtn', 'settingsModalOverlay', 'settingsModalCloseBtn');
+  const closeSettingsPopup = bindSimplePopup('settingsBtn', 'settingsModalOverlay', 'settingsModalCloseBtn');
 
   // ==================== SETTING:表示/非表示スイッチ ====================
   // グループ・メンバー・コンテンツ種類ごとに、表示/非表示をスイッチで選べる。
@@ -1772,7 +1815,7 @@ body .item-contents.is-content-open {
       return false;
     };
     let excludedChanged = false;
-    document.querySelectorAll('#memberChecks1 label, #memberChecks2 label, #otherChecks label, #otherChecks2 label').forEach(l => {
+    document.querySelectorAll('#memberChecks1 label, #memberChecks2 label, .checks-row-other label').forEach(l => {
       const cb = l.querySelector('input');
       if (!cb) return;
       const hidden = isHiddenValue(cb.value);
@@ -1785,8 +1828,7 @@ body .item-contents.is-content-open {
       }
     });
     if (excludedChanged) saveExcludedFilters();
-    ['memberChecks1', 'memberChecks2', 'otherChecks', 'otherChecks2'].forEach(id => {
-      const row = $(id);
+    [$('memberChecks1'), $('memberChecks2'), ...document.querySelectorAll('.checks-row-other')].forEach(row => {
       const kids = Array.from(row.children);
       const isShown = k => !k.classList.contains('sep') && !k.classList.contains('vis-hidden');
       kids.forEach((k, i) => {
@@ -1794,7 +1836,15 @@ body .item-contents.is-content-open {
           k.classList.toggle('vis-hidden', !(kids.slice(0, i).some(isShown) && kids.slice(i + 1).some(isShown)));
         }
       });
-      row.classList.toggle('vis-hidden', !kids.some(isShown));
+      // ボタンが1つ以上あり、全て非表示のときだけ段ごと隠す(空の2段目はドラッグ&ドロップの受け皿なので隠さない)
+      row.classList.toggle('vis-hidden', kids.length > 0 && !kids.some(isShown));
+      if (row.classList.contains('checks-row-members')) {
+        // 全員表示時の並びを基準にした幅計算用の値(要素数・区切り数・メンバー数)
+        row.style.setProperty('--m-items', kids.length);
+        row.style.setProperty('--m-seps', kids.filter(k => k.classList.contains('sep')).length);
+        row.style.setProperty('--m-n', row.querySelectorAll('label:not(.btn-group)').length);
+        row.classList.toggle('has-vis-hidden', kids.some(k => k.tagName === 'LABEL' && k.classList.contains('vis-hidden')));
+      }
     });
   };
 
@@ -1919,7 +1969,7 @@ body .item-contents.is-content-open {
     secCont.appendChild(gridCont);
     body.appendChild(secCont);
 
-    // --- RESET ---
+    // --- RESET(ポップアップ左上) ---
     const resetBtn = el('button', 'settings-reset', 'RESET');
     resetBtn.type = 'button';
     resetBtn.onclick = () => {
@@ -1927,7 +1977,15 @@ body .item-contents.is-content-open {
       refresh();
       saveVisibility();
     };
-    body.appendChild(resetBtn);
+    $('settingsModal').appendChild(resetBtn);
+
+    // --- OK(下部。押すとポップアップを閉じる。設定はスイッチを切り替えた時点で反映・保存済み) ---
+    const footer = el('div', 'settings-footer');
+    const okBtn = el('button', 'settings-ok', 'OK');
+    okBtn.type = 'button';
+    okBtn.onclick = () => closeSettingsPopup();
+    footer.appendChild(okBtn);
+    body.appendChild(footer);
 
     // スイッチの状態・グループOFF時のメンバー無効表示・表示数を、現在の設定に合わせて更新する
     const refresh = () => {
@@ -3201,7 +3259,7 @@ body .item-contents.is-content-open {
 
   // ICONモード時のみ、コンテンツ種類ボタンにツールチップ(名前)を表示する
   const updateContentTooltips = () => {
-    document.querySelectorAll('#otherChecks label[data-tooltip-name]').forEach(l => {
+    document.querySelectorAll('.checks-row-other label[data-tooltip-name]').forEach(l => {
       if (iconMode) l.title = l.dataset.tooltipName;
       else l.removeAttribute('title');
     });
