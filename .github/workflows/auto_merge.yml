@@ -1,15 +1,24 @@
-name: Auto Merge JSON Data
+name: Issue to JSON & Auto Merge
 
 on:
-  push:
-    paths:
-      - 'data/**/queue/**'
+  issues:
+    types: [opened, edited]
+
+# 同時に複数のIssueが処理されても、コミットが衝突しないよう直列に実行する
+concurrency:
+  group: gllogs-data-merge
+  cancel-in-progress: false
 
 jobs:
-  merge:
+  process-issue:
+    # data ラベル付き（または旧形式の [DATA] タイトル）のIssueのみ、かつリポジトリ関係者の投稿のみ処理する
+    if: >-
+      (contains(github.event.issue.labels.*.name, 'data') || startsWith(github.event.issue.title, '[DATA]')) &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association)
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
 
     steps:
       - name: Checkout repository
@@ -20,14 +29,19 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Run merge script
+      - name: Run convert script (Issue to Queue)
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_CREATED_AT: ${{ github.event.issue.created_at }}
+        run: python scripts/issue_to_json.py
+
+      - name: Run merge script (Queue to Main & Processed)
         run: python scripts/merge_json.py
 
-      - name: Commit and push changes
+      - name: Commit and push all changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
           git add data/
-
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-merge fragments into logs, setlist, and songs" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Process issue #${{ github.event.issue.number }}, merge JSON" && git push)
