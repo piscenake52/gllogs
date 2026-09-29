@@ -58,36 +58,6 @@ body:
         - PLAYING
         - MUSICCARD
 
-  - type: input
-    id: title
-    attributes:
-      label: "title"
-
-  - type: input
-    id: display_pc
-    attributes:
-      label: "display_pc"
-
-  - type: input
-    id: display_sp
-    attributes:
-      label: "display_sp"
-
-  - type: input
-    id: url
-    attributes:
-      label: "url"
-
-  - type: input
-    id: map
-    attributes:
-      label: "map"
-
-  - type: input
-    id: setlistid
-    attributes:
-      label: "setlistid"
-
   - type: dropdown
     id: groups_g2
     attributes:
@@ -130,9 +100,66 @@ body:
         - label: "STF"
 
   - type: input
-    id: relations
+    id: title
     attributes:
-      label: "relations"
+      label: "title"
+
+  - type: input
+    id: display_pc
+    attributes:
+      label: "display_pc"
+
+  - type: input
+    id: display_sp
+    attributes:
+      label: "display_sp"
+
+  - type: input
+    id: url
+    attributes:
+      label: "url"
+
+  - type: input
+    id: map
+    attributes:
+      label: "map"
+
+  - type: input
+    id: setlistid
+    attributes:
+      label: "setlistid"
+
+  - type: dropdown
+    id: relations_g2
+    attributes:
+      label: "relations / Girls²"
+      multiple: true
+      options:
+        - YZH
+        - MMK
+        - MSK
+        - YOK
+        - KUR
+        - MNM
+        - KIR
+        - TOA
+        - RAN
+
+  - type: dropdown
+    id: relations_l2
+    attributes:
+      label: "relations / Laki"
+      multiple: true
+      options:
+        - RIN
+        - TBK
+        - HIR
+        - YUW
+        - KAN
+        - RRK
+        - AKR
+        - KIK
+        - YUR
 
   - type: input
     id: tags
@@ -142,8 +169,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        **更新のとき**: 一番上の logid を入力し、変更したい項目だけ入力します。空欄・未選択の項目は既存の値のままです。消したい項目は `!clear` と入力します（グループ/メンバーの選択は消せません）。
+        **更新のとき**: 一番上の logid を入力し、変更したい項目だけ入力します。空欄・未選択の項目は既存の値のままです。消したい項目は `!clear` と入力します（グループ/メンバー・関連の選択は消せません）。
         **新規のとき**: 日付だけ必須です。種別が未選択なら ETC、時間は空欄ならそのまま空欄で登録されます、グループが未選択なら全員になります。
         **数字**: 全角で入力しても半角に直します。日付は8桁、時間は4桁、セットリストIDは12桁です（違うと処理されず、Issueにコメントが付きます）。
         **グループ**: G2だけ、またはL2だけを選ぶと、メンバー（G2: YZH〜KIR、L2: RIN〜KIK）を自動で追加します（G2とL2をそれぞれ単独で選べば両方追加されます）。メンバーも個別に選んだときは、選んだものだけになります。
         **STF**: チェックすると、グループ選択（G2/L2）があってもメンバーへの自動展開は行われず、選んだ内容（通常はG2またはL2のみ）に "STF" を加えた状態で登録されます。
+        **relations**: 関連するメンバーを選択します（グループ全体を表すG2/L2という選択肢はありません）。
