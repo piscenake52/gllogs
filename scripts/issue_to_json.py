@@ -19,6 +19,7 @@ LABELS_LOGS = {
     "setlistid": "setlistid",
     "groups_g2": "groups / Girls²",
     "groups_l2": "groups / Laki",
+    "stf": "STF",
     "relations": "relations",
     "tags": "tags",
 }
@@ -216,6 +217,15 @@ def write_error(errors):
 
 
 def build_logs(f):
+    is_stf = "STF" in parse_checked(f["stf"])
+    g2_picked = parse_selected(f["groups_g2"], G2_OPTIONS)
+    l2_picked = parse_selected(f["groups_l2"], L2_OPTIONS)
+    if is_stf:
+        # STFはスタッフ目線のログ等を示す印。G2/L2を選んでいてもメンバーへは自動展開せず、
+        # 選んだ内容(通常はグループ名のみ)に "STF" を加えるだけにする
+        groups = g2_picked + l2_picked + ["STF"]
+    else:
+        groups = expand_groups(g2_picked, "G2", G2_MEMBERS) + expand_groups(l2_picked, "L2", L2_MEMBERS)
     data = {
         "logid": f["logid"],
         "date": f["date"],
@@ -226,8 +236,7 @@ def build_logs(f):
         "display_sp": f["display_sp"],
         "url": f["url"],
         "map": f["map"],
-        "groups": expand_groups(parse_selected(f["groups_g2"], G2_OPTIONS), "G2", G2_MEMBERS)
-                  + expand_groups(parse_selected(f["groups_l2"], L2_OPTIONS), "L2", L2_MEMBERS),
+        "groups": groups,
         "relations": parse_list(f["relations"]),
         "setlistid": f["setlistid"],
         "tags": parse_list(f["tags"]),
