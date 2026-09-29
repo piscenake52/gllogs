@@ -166807,6 +166807,91 @@
     ]
   },
   {
+    "logid": "3c3a8cfdcbd5",
+    "date": "20180330",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "miracle² SPECIAL LIVE 大阪公演",
+    "display_sp": "miracle² SPECIAL LIVE 大阪",
+    "map": "https://maps.app.goo.gl/3hLEzHeL7kkAHrh86",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "setlistid": "201803301700",
+    "tags": [
+      "Zepp Namba"
+    ]
+  },
+  {
+    "logid": "62c61d2e99de",
+    "date": "20180330",
+    "time": "1300",
+    "contents": "LIVE",
+    "title": "miracle² SPECIAL LIVE 大阪公演",
+    "display_sp": "miracle² SPECIAL LIVE 大阪",
+    "map": "https://maps.app.goo.gl/3hLEzHeL7kkAHrh86",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "setlistid": "201803301300",
+    "tags": [
+      "Zepp Namba"
+    ]
+  },
+  {
+    "logid": "e6975f641a27",
+    "date": "20180328",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "miracle² SPECIAL LIVE 東京公演",
+    "display_sp": "miracle² SPECIAL LIVE 東京",
+    "map": "https://maps.app.goo.gl/RzynMqKfndUZHdv47",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "setlistid": "201803281700",
+    "tags": [
+      "Zepp DiverCity (TOKYO)"
+    ]
+  },
+  {
+    "logid": "a27947c8150b",
+    "date": "20180328",
+    "time": "1300",
+    "contents": "LIVE",
+    "title": "miracle² SPECIAL LIVE 東京公演",
+    "display_sp": "miracle² SPECIAL LIVE 東京",
+    "map": "https://maps.app.goo.gl/RzynMqKfndUZHdv47",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "setlistid": "201803281300",
+    "tags": [
+      "Zepp DiverCity (TOKYO)"
+    ]
+  },
+  {
+    "logid": "20554f483854",
+    "date": "20180326",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "miracle² SPECIAL LIVE 愛知公演",
+    "display_sp": "miracle² SPECIAL LIVE 愛知",
+    "map": "https://maps.app.goo.gl/g2rTEASAVmRRKQb36",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "setlistid": "201803261700",
+    "tags": [
+      "Zepp Nagoya"
+    ]
+  },
+  {
     "logid": "bd65843a3e01",
     "date": "20180326",
     "time": "1300",
