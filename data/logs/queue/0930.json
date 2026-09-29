@@ -1,0 +1,70 @@
+[
+  {
+    "date": "20230805",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "Lucky² LIVE TOUR 2023 \"Happy Summer\" 愛知公演",
+    "display_sp": "Lucky² LIVE TOUR 2023 \"Happy Summer\" 愛知",
+    "url": "https://girls2-fc.jp/page/lucky2news/774154774223258739",
+    "map": "https://maps.app.goo.gl/g2rTEASAVmRRKQb36",
+    "groups": [
+      "L2",
+      "RIN","TBK","HIR","YUW","KAN","YUR","RRK","AKR","KIK"
+    ],
+    "setlistid": "202308051700",
+    "tags": [
+      "Zepp Nagoya"
+    ]
+  },
+  {
+    "date": "20230806",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "Lucky² LIVE TOUR 2023 \"Happy Summer\" 大阪公演",
+    "display_sp": "Lucky² LIVE TOUR 2023 \"Happy Summer\" 大阪",
+    "url": "https://girls2-fc.jp/page/lucky2news/774154774223258739",
+    "map": "https://maps.app.goo.gl/89mMoimGAdqWrdhe6",
+    "groups": [
+      "L2",
+      "RIN","TBK","HIR","YUW","KAN","YUR","RRK","AKR","KIK"
+    ],
+    "setlistid": "202308061700",
+    "tags": [
+      "Zepp Osaka Bayside"
+    ]
+  },
+  {
+    "date": "20230813",
+    "time": "1230",
+    "contents": "LIVE",
+    "title": "Lucky² LIVE TOUR 2023 \"Happy Summer\" 東京公演",
+    "display_sp": "Lucky² LIVE TOUR 2023 \"Happy Summer\" 東京",
+    "url": "https://girls2-fc.jp/page/lucky2news/774154774223258739",
+    "map": "https://maps.app.goo.gl/CGzNYH9tnsoqyMhk9",
+    "groups": [
+      "L2",
+      "RIN","TBK","HIR","YUW","KAN","YUR","RRK","AKR","KIK"
+    ],
+    "setlistid": "202308131230",
+    "tags": [
+      "Zepp Haneda TOKYO"
+    ]
+  },
+  {
+    "date": "20230813",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "Lucky² LIVE TOUR 2023 \"Happy Summer\" 東京公演",
+    "display_sp": "Lucky² LIVE TOUR 2023 \"Happy Summer\" 東京",
+    "url": "https://girls2-fc.jp/page/lucky2news/774154774223258739",
+    "map": "https://maps.app.goo.gl/CGzNYH9tnsoqyMhk9",
+    "groups": [
+      "L2",
+      "RIN","TBK","HIR","YUW","KAN","YUR","RRK","AKR","KIK"
+    ],
+    "setlistid": "202308131700",
+    "tags": [
+      "Zepp Haneda TOKYO"
+    ]
+  }
+]
