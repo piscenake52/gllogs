@@ -1,0 +1,71 @@
+[
+  {
+    "date": "20241202",
+    "time": "1800",
+    "contents": "LIVE",
+    "title": "Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 大阪公演",
+    "display_sp": "Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 大阪",
+    "url": "https://girls2-fc.jp/page/fourleafclover",
+    "map": "https://maps.app.goo.gl/3fJJcySNR9JUy85s9",
+    "groups": [
+      "L2",
+      "RIN","TBK","HIR","YUW","KAN","YUR","RRK","AKR","KIK"
+    ],
+    "setlistid": "202412021800",
+    "tags": [
+      "BIGCAT"
+    ]
+  },
+  {
+    "date": "20241214",
+    "time": "1300",
+    "contents": "LIVE",
+    "title": "Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 愛知公演",
+    "display_sp": "Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 愛知",
+    "url": "https://girls2-fc.jp/page/fourleafclover",
+    "map": "https://maps.app.goo.gl/WZqtjsrotWoNjXJq5",
+    "groups": [
+      "L2",
+      "RIN","TBK","HIR","YUW","KAN","YUR","RRK","AKR","KIK"
+    ],
+    "setlistid": "202412141300",
+    "tags": [
+      "ボトムライン"
+    ]
+  },
+  {
+    "date": "20241214",
+    "time": "1800",
+    "contents": "LIVE",
+    "title": "Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 愛知公演",
+    "display_sp": "Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 愛知",
+    "url": "https://girls2-fc.jp/page/fourleafclover",
+    "map": "https://maps.app.goo.gl/WZqtjsrotWoNjXJq5",
+    "groups": [
+      "L2",
+      "RIN","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
+    ],
+    "setlistid": "202412141800",
+    "relations": ["YUR"],
+    "tags": [
+      "ボトムライン"
+    ]
+  },
+  {
+    "date": "20241218",
+    "time": "1800",
+    "contents": "LIVE",
+    "title": "Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 東京公演",
+    "display_sp": "Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 東京",
+    "url": "https://girls2-fc.jp/page/fourleafclover",
+    "map": "https://maps.app.goo.gl/ddAmkfwKi2bmqpqRA",
+    "groups": [
+      "L2",
+      "RIN","TBK","HIR","YUW","KAN","YUR","RRK","AKR","KIK"
+    ],
+    "setlistid": "202412181800",
+    "tags": [
+      "ヒューリックホール東京"
+    ]
+  }
+]
