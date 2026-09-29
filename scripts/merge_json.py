@@ -118,15 +118,15 @@ def finalize_new(target, item, main_data):
     if name == "logs":
         date = item.get("date", "")
         contents = item.get("contents", "") or "ETC"  # 未選択ならETC
-        time = item.get("time", "") or "0000"
+        time = item.get("time", "")
         if not re.fullmatch(r"\d{8}", date):
             print(f"【スキップ】logsの新規追加には8桁のdateが必要です: {item}")
             return None
         item["contents"] = contents
-        if not re.fullmatch(r"\d{4}", time):
+        if time and not re.fullmatch(r"\d{4}", time):
             print(f"【スキップ】timeは4桁の数字で指定してください: {item}")
             return None
-        item["time"] = time
+        item["time"] = time  # 空欄ならそのまま空で登録する(0000には補完しない)
         item.setdefault("groups", list(DEFAULT_GROUPS))
         if not item.get("logid"):
             item["logid"] = generate_logid(item, main_data)
