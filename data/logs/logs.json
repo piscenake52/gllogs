@@ -154835,6 +154835,27 @@
     ]
   },
   {
+    "logid": "e9a712bf248b",
+    "date": "20200308",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2020 ～チュワパネ！～ 大阪公演 ※中止",
+    "display_sp": "Girls² LIVE TOUR 2020 ～チュワパネ！～ 大阪 ※中止",
+    "url": "https://girls2-fc.jp/page/news/400551949008634902",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ]
+  },
+  {
     "logid": "4c9db70a2a59",
     "date": "20200308",
     "time": "1200",
@@ -154873,6 +154894,48 @@
     "url": "https://girls2-fc.jp/page/ranBlog/366657997696402454",
     "groups": [
       "G2",
+      "RAN"
+    ]
+  },
+  {
+    "logid": "761c24b8f58c",
+    "date": "20200308",
+    "time": "1100",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2020 ～チュワパネ！～ 大阪公演 ※中止",
+    "display_sp": "Girls² LIVE TOUR 2020 ～チュワパネ！～ 大阪 ※中止",
+    "url": "https://girls2-fc.jp/page/news/400551949008634902",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ]
+  },
+  {
+    "logid": "b3fc859b6d68",
+    "date": "20200307",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2020 ～チュワパネ！～ 大阪公演 ※中止",
+    "display_sp": "Girls² LIVE TOUR 2020 ～チュワパネ！～ 大阪 ※中止",
+    "url": "https://girls2-fc.jp/page/news/400551949008634902",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
       "RAN"
     ]
   },
