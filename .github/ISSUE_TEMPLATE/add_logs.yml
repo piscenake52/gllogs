@@ -47,6 +47,7 @@ body:
         - DIGITAL
         - STAGE
         - GOODS
+        - SALES
         - MOVIE
         - CAMPAIGN
         - MODEL
