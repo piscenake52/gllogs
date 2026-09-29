@@ -95827,6 +95827,60 @@
     ]
   },
   {
+    "logid": "b4a6c7a88749",
+    "date": "20220820",
+    "time": "1730",
+    "contents": "LIVE",
+    "title": "Lucky² First Live Tour -Brand New World!- 東京公演",
+    "display_sp": "Lucky² First Live Tour -Brand New World!- 東京",
+    "map": "https://maps.app.goo.gl/RzynMqKfndUZHdv47",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "YUW"
+    ],
+    "relations": [
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202208201730",
+    "tags": [
+      "Zepp DiverCity TOKYO"
+    ]
+  },
+  {
+    "logid": "4196234c038c",
+    "date": "20220820",
+    "time": "1300",
+    "contents": "LIVE",
+    "title": "Lucky² First Live Tour -Brand New World!- 東京公演",
+    "display_sp": "Lucky² First Live Tour -Brand New World!- 東京",
+    "map": "https://maps.app.goo.gl/RzynMqKfndUZHdv47",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "YUW"
+    ],
+    "relations": [
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202208201300",
+    "tags": [
+      "Zepp DiverCity TOKYO"
+    ]
+  },
+  {
     "logid": "79b6276acc5a",
     "date": "20220820",
     "time": "1200",
@@ -97865,6 +97919,28 @@
     ]
   },
   {
+    "logid": "220fe99f7524",
+    "date": "20220723",
+    "time": "1730",
+    "contents": "LIVE",
+    "title": "Lucky² First Live Tour -Brand New World!- 大阪公演",
+    "display_sp": "Lucky² First Live Tour -Brand New World!- 大阪",
+    "map": "https://maps.app.goo.gl/3hLEzHeL7kkAHrh86",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "YUW"
+    ],
+    "setlistid": "202207231730",
+    "tags": [
+      "Zepp Namba"
+    ]
+  },
+  {
     "logid": "387d3c27ad04",
     "date": "20220723",
     "time": "1200",
@@ -99744,6 +99820,54 @@
     "groups": [
       "L2",
       "TBK"
+    ]
+  },
+  {
+    "logid": "d7061b423be7",
+    "date": "20220703",
+    "time": "1730",
+    "contents": "LIVE",
+    "title": "Lucky² First Live Tour -Brand New World!- 愛知公演",
+    "display_sp": "Lucky² First Live Tour -Brand New World!- 愛知",
+    "map": "https://maps.app.goo.gl/g2rTEASAVmRRKQb36",
+    "groups": [
+      "L2",
+      "TBK",
+      "HIR",
+      "YUW",
+      "YUW"
+    ],
+    "relations": [
+      "RIN",
+      "KAN"
+    ],
+    "setlistid": "202207031730",
+    "tags": [
+      "Zepp Nagoya"
+    ]
+  },
+  {
+    "logid": "65d3128e47d0",
+    "date": "20220703",
+    "time": "1300",
+    "contents": "LIVE",
+    "title": "Lucky² First Live Tour -Brand New World!- 愛知公演",
+    "display_sp": "Lucky² First Live Tour -Brand New World!- 愛知",
+    "map": "https://maps.app.goo.gl/g2rTEASAVmRRKQb36",
+    "groups": [
+      "L2",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "YUW"
+    ],
+    "relations": [
+      "RIN"
+    ],
+    "setlistid": "202207031300",
+    "tags": [
+      "Zepp Nagoya"
     ]
   },
   {
