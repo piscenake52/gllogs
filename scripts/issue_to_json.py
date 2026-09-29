@@ -20,7 +20,8 @@ LABELS_LOGS = {
     "groups_g2": "groups / Girls²",
     "groups_l2": "groups / Laki",
     "stf": "STF",
-    "relations": "relations",
+    "relations_g2": "relations / Girls²",
+    "relations_l2": "relations / Laki",
     "tags": "tags",
 }
 # add_setlist_songs.yml
@@ -237,7 +238,8 @@ def build_logs(f):
         "url": f["url"],
         "map": f["map"],
         "groups": groups,
-        "relations": parse_list(f["relations"]),
+        "relations": parse_selected(f["relations_g2"], G2_OPTIONS[1:])
+                     + parse_selected(f["relations_l2"], L2_OPTIONS[1:]),
         "setlistid": f["setlistid"],
         "tags": parse_list(f["tags"]),
     }
