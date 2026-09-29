@@ -1,12 +1,11 @@
 {
-  "logid": "65d3128e47d0",
+  "logid": "d7061b423be7",
   "groups": [
     "L2",
     "TBK",
     "HIR",
     "YUW",
-    "KAN",
     "YUR"
   ],
-  "_issue": "168"
+  "_issue": "169"
 }
