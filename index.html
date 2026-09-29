@@ -105,6 +105,9 @@ body {
   transition: background-color 0.2s, color 0.2s; 
   height: auto;
   overflow-x: hidden; /* TODAYモードのフリック(スライド)演出でデータ部が画面外へ一時的にはみ出すため、横スクロールバーの発生を防ぐ */
+  /* 暗い背景+太字の組み合わせで文字の縁に色にじみが出るのを抑える(HELP/SETTING等のタイトルで顕著) */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .container { max-width: var(--container-w); margin: 0 auto; position: relative; }
 /* --- 上部固定ヘッダー(タイトル・検索・テーマ切替・フィルター開閉) --- */
@@ -255,6 +258,9 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .checks-row-months label { padding: 3.5px 5.6px; font-size: 11px; border-radius: 11.2px; min-height: 23.8px; min-width: 29.4px; }
 
 .checks-row-other label { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 18px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
+/* アイコン表示モード時は、アイコンの文字幅によってボタンごとの横幅がばらつく(多段時に段によって大きさが揃わない)のを防ぐため、
+   幅・高さを固定して常に同じ大きさの円形ボタンにする */
+body.icon-only-mode .checks-row-other label { width: 34px; min-width: 34px; padding: 0; }
 .checks-row-other label.is-dragging-reorder { opacity: 0.4; }
 .checks-row-members label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 4px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 16px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex-grow: 1; flex-shrink: 1; min-width: 0; position: relative; }
 .checks-row-members label.btn-group { flex-grow: 0; flex-shrink: 0; flex-basis: 50px; font-size: 11px; padding: 7px 0; text-align: center; letter-spacing: -0.5px; }
@@ -648,7 +654,7 @@ body .item-contents.is-content-open {
 .help-sec-title { font-size: 10px; font-weight: bold; letter-spacing: 0.08em; color: var(--sub); padding-bottom: 2px; margin-bottom: 3px; border-bottom: 1px solid var(--border); }
 .help-row { display: grid; grid-template-columns: 66px 1fr; column-gap: 6px; align-items: baseline; padding: 1.5px 0; }
 .help-key { justify-self: start; white-space: nowrap; font-size: 10px; font-weight: bold; line-height: 1.4; padding: 0 6px; border-radius: 8px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); }
-.help-desc { color: var(--sub); }
+.help-desc { color: var(--text); }
 .help-key-icon { display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; }
 .help-key-icon .icon-sun, .help-key-icon .icon-moon { display: block !important; }
 
@@ -1023,9 +1029,9 @@ body .item-contents.is-content-open {
   // 8桁のYYYYMMDD形式は既にゼロ埋め済みなので、そのまま文字列比較でソート可能
   const normalizeDateForSort = dateStr => dateStr || '';
 
-  // ソート専用のキー:date(正規化)とtime(HHMM、未設定時は"0000"扱い)を組み合わせる。
-  // timeは検索対象には含めない(検索用テキストの生成には使わない)。
-  const sortKeyFor = item => normalizeDateForSort(item.date) + '_' + (item.time || '0000');
+  // ソート専用のキー:date(正規化)。時刻は別途getSortKeysでhasTime/timeValとして扱う
+  // (空欄の項目を常に"0000"より前に置くため、日付キーには含めない)。
+  const sortKeyFor = item => normalizeDateForSort(item.date);
 
   const createLabel = item => {
     if (item === 'sep') {
@@ -3113,6 +3119,8 @@ body .item-contents.is-content-open {
       if (!keys) {
         keys = {
           dateKey: sortKeyFor(item),
+          hasTime: !!item.time,
+          timeVal: item.time || '',
           groupRank: groupSortRank(item),
           memberRank: memberSortRank(item),
           // 誕生日(BIRTHDAY)は記念日(ANNIVERSARY)より上に表示する
@@ -3126,6 +3134,10 @@ body .item-contents.is-content-open {
     filtered.sort((a, b) => {
       const ka = getSortKeys(a), kb = getSortKeys(b);
       if (ka.dateKey !== kb.dateKey) return desc ? kb.dateKey.localeCompare(ka.dateKey) : ka.dateKey.localeCompare(kb.dateKey);
+      // 同じ日付内:時間が空欄の項目は、並び順(desc/asc)によらず常に時刻ありの項目より前に表示する
+      if (ka.hasTime !== kb.hasTime) return ka.hasTime ? 1 : -1;
+      // 時間が両方とも指定されている場合は、日付と同じ並び順(desc/asc)で比較する
+      if (ka.hasTime && ka.timeVal !== kb.timeVal) return desc ? kb.timeVal.localeCompare(ka.timeVal) : ka.timeVal.localeCompare(kb.timeVal);
       // 日付+時刻が同一の場合のタイブレーク:
       // 1) 誕生日(BIRTHDAY)は記念日(ANNIVERSARY)より上に表示する(コンテンツ種類より優先する特別扱い)
       if (ka.babRank !== kb.babRank) return ka.babRank - kb.babRank;
