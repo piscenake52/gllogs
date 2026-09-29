@@ -19,10 +19,13 @@ LABELS_LOGS = {
     "setlistid": "setlistid",
     "groups_g2": "groups / Girls²",
     "groups_l2": "groups / Laki",
+    "groups_free": "groups / 自由入力",
     "stf": "STF",
     "relations_g2": "relations / Girls²",
     "relations_l2": "relations / Laki",
     "tags": "tags",
+    "delete": "削除",
+    "clear": "値の削除（更新時）",
 }
 # add_setlist_songs.yml
 LABELS_SS = {
@@ -33,8 +36,11 @@ LABELS_SS = {
     "link": "link",
     "member_g2": "member / Girls²",
     "member_l2": "member / Laki",
+    "member_free": "member / 自由入力",
     "venue": "venue",
     "songs": "曲目 (songs / setlist用 - 1行1曲)",
+    "delete": "削除",
+    "clear": "値の削除（更新時）",
 }
 # 旧フォーム(データの種類ドロップダウンあり)のIssueを誤って処理しないための目印
 LEGACY_MARKER = "### データの種類 (Type / logs, setlist, songs)"
@@ -52,6 +58,17 @@ L2_OPTIONS = ["L2", "RIN", "TBK", "HIR", "YUW", "KAN", "RRK", "AKR", "KIK", "YUR
 
 # 入力エラーの内容をIssueにコメントするための一時ファイル（ワークフローが読み取る。コミットはされない）
 ERROR_FILE = "issue_error.md"
+
+# 「値の削除（更新時）」チェックボックスで消せる項目（識別キーは除く。フォームの選択肢名と揃える）
+CLEARABLE = {
+    "logs": ["time", "contents", "title", "display_pc", "display_sp", "url", "map",
+             "groups", "relations", "setlistid", "tags"],
+    "setlist": ["artist", "title", "member", "venue", "songs"],
+    "songs": ["link"],
+}
+
+# 削除チェックボックスの選択肢名（add_logs.yml / add_setlist_songs.yml と揃える）
+DELETE_OPTION = "削除する"
 
 
 def is_blank(v):
@@ -209,6 +226,39 @@ def normalize_and_validate_logs(f):
     return errors
 
 
+def is_delete_requested(f):
+    """「削除」チェックボックスにチェックがあるか"""
+    return DELETE_OPTION in parse_checked(f.get("delete", ""))
+
+
+def apply_clear_checks(target_type, f, data):
+    """「値の削除（更新時）」でチェックされた項目を !clear にする（入力値があってもチェックを優先）"""
+    for name in parse_checked(f.get("clear", "")):
+        if name in CLEARABLE[target_type]:
+            data[name] = CLEAR
+
+
+def build_delete(target_type, f):
+    """削除指示（識別キー + _delete）を作る。戻り値: (データ, エラー内容のリスト)"""
+    if target_type == "logs":
+        logid = to_halfwidth(f["logid"]).lower()
+        if not logid or logid == CLEAR:
+            return None, ["- **ログID (logid)**: 削除するときはlogidを入力してください"]
+        data = {"logid": logid}
+    elif target_type == "setlist":
+        sid = to_halfwidth(f["setlistid"])
+        if not re.fullmatch(r"[0-9]{12}", sid):
+            shown = sid.replace("`", "'")
+            return None, [f"- **セットリストID (setlistid)**: 12桁の半角数字で入力してください（入力値: `{shown}`）"]
+        data = {"setlistid": sid}
+    else:
+        if not f["artist"] or not f["title"]:
+            return None, ["- **artist / title**: songsを削除するときは、artistとtitleを入力してください"]
+        data = {"artist": f["artist"], "title": f["title"]}
+    data["_delete"] = True  # mergeで削除として扱い、取り除く
+    return data, []
+
+
 def write_error(errors):
     body = ("⚠️ 入力内容に問題があるため、このIssueは処理されませんでした。\n\n"
             + "\n".join(errors)
@@ -221,7 +271,11 @@ def build_logs(f):
     is_stf = "STF" in parse_checked(f["stf"])
     g2_picked = parse_selected(f["groups_g2"], G2_OPTIONS)
     l2_picked = parse_selected(f["groups_l2"], L2_OPTIONS)
-    if is_stf:
+    free = parse_list(f["groups_free"])
+    if not g2_picked and not l2_picked and free:
+        # プルダウンが未選択のときだけ自由入力を使う（そのままの値。G2/L2のメンバー展開はしない）
+        groups = free if (free == [CLEAR] or not is_stf) else free + ["STF"]
+    elif is_stf:
         # STFはスタッフ目線のログ等を示す印。G2/L2を選んでいてもメンバーへは自動展開せず、
         # 選んだ内容(通常はグループ名のみ)に "STF" を加えるだけにする
         groups = g2_picked + l2_picked + ["STF"]
@@ -247,11 +301,15 @@ def build_logs(f):
 
 
 def build_setlist(f):
+    member = (expand_members(parse_selected(f["member_g2"], G2_OPTIONS), "G2", G2_MEMBERS)
+              + expand_members(parse_selected(f["member_l2"], L2_OPTIONS), "L2", L2_MEMBERS))
+    if not member:
+        # プルダウンが未選択のときだけ自由入力を使う（そのままの値）
+        member = parse_list(f["member_free"])
     return {
         "setlistid": f["setlistid"],
         "artist": f["artist"],
-        "member": expand_members(parse_selected(f["member_g2"], G2_OPTIONS), "G2", G2_MEMBERS)
-                  + expand_members(parse_selected(f["member_l2"], L2_OPTIONS), "L2", L2_MEMBERS),
+        "member": member,
         "title": f["title"],
         "venue": f["venue"],
         "songs": parse_songs(f["songs"]),
@@ -296,7 +354,15 @@ def main():
         f = {key: extract_field(label, body) for key, label in LABELS_LOGS.items()}
         target_type = "logs"
 
-    if target_type == "logs":
+    if is_delete_requested(f):
+        # 削除チェックあり: 識別キーだけの削除指示を出力する（他の入力項目は使わない）
+        data, errors = build_delete(target_type, f)
+        if errors:
+            write_error(errors)
+            print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
+            return
+        must = True
+    elif target_type == "logs":
         # 未選択のドロップダウンは "None" として届くことがあるため空扱いにする
         if f["contents"] == "None":
             f["contents"] = ""
@@ -321,6 +387,9 @@ def main():
     if not must:
         print(f"[{target_type}] 必須項目が見つかりませんでした。処理をスキップします。")
         return
+
+    if not is_delete_requested(f):
+        apply_clear_checks(target_type, f, data)
 
     # 空の項目は出力しない（既存値を残す方針。mergeは空値を無視する）
     data = {k: v for k, v in data.items() if not is_blank(v)}

@@ -9,15 +9,15 @@ MAX_PROCESSED_FILES = 30
 CLEAR = "!clear"  # 既存値を消したいときにIssueへ入力する特別な値
 ARTIST_JOIN = " × "  # 複数アーティストの連結文字（issue_to_json.py と揃える）
 LOGID_LENGTH = 12  # logid の桁数（UUIDの先頭から取る16進数）
+NOTICE_FILE = "merge_notice.md"  # 削除対象が見つからなかった等をIssueにコメントするための一時ファイル（コミットされない）
+NOTICES = []
 ISSUE_MAP_FILE = "data/issue_map.json"  # {Issue番号: logid}  Issue再編集時に同じログを更新するための対応表
 
-DEFAULT_GROUPS = [
-    "G2", "YZH", "MMK", "MSK", "YOK", "KUR", "MNM", "KIR",
-    "L2", "RIN", "TBK", "HIR", "YUW", "KAN", "RRK", "AKR", "KIK",
-]
-DEFAULT_MEMBERS = {
-    "Girls²": ["YZH", "MMK", "MSK", "YOK", "KUR", "MNM", "KIR"],
-    "Laki": ["RIN", "TBK", "HIR", "YUW", "KAN", "RRK", "AKR", "KIK"],
+# 新規追加で groups / member が何も入力されなかったときの既定値
+DEFAULT_GROUPS = ["G2", "L2"]
+DEFAULT_MEMBERS = {  # setlist: artist ごとの既定値
+    "Girls²": ["G2"],
+    "Laki": ["L2"],
 }
 
 TARGETS = [
@@ -139,7 +139,7 @@ def finalize_new(target, item, main_data):
             print(f"【スキップ】setlistの新規追加にはartistとtitleが必要です: {item}")
             return None
         # member は artist が Girls² / Laki のときだけ既定値を補完（それ以外は属性を作らない）
-        # 「Girls² × Laki」のように複数の場合は、該当グループの全員を合わせる
+        # 「Girls² × Laki」のように複数の場合は、該当分を合わせる（G2, L2）
         if "member" not in item:
             default_member = []
             for a in item["artist"].split(ARTIST_JOIN):
@@ -157,11 +157,40 @@ def clean_new(item):
             if not k.startswith("_") and not is_blank(v) and not is_clear(v)}
 
 
+def apply_delete(target, main_data, item, issue_map):
+    """識別キーが一致するレコードを削除する。戻り値: deleted / notfound / conflict / invalid"""
+    key = key_of(target, item)
+    label = "+".join(target["key_fields"])
+    if key is None:
+        print(f"【スキップ】削除には識別キー({label})が必要です: {item}")
+        return "invalid"
+    shown = " / ".join(str(v) for v in key)
+    matches = [i for i, e in enumerate(main_data) if key_of(target, e) == key]
+    if len(matches) > 1:
+        print(f"【警告】{key} がメインファイルに複数存在するため競合を避けて削除をスキップします")
+        NOTICES.append(f"- **{target['name']}**: `{shown}` が複数存在するため削除できませんでした")
+        return "conflict"
+    if not matches:
+        print(f"【スキップ】削除対象が見つかりません({label}: {shown})")
+        NOTICES.append(f"- **{target['name']}**: 削除対象が見つかりませんでした（{label}: `{shown}`）")
+        return "notfound"
+    del main_data[matches[0]]
+    if target["name"] == "logs":
+        # 削除したlogidを指すIssue対応を消す（残すと、元Issueの再編集で存在しないlogidの更新扱いになるため）
+        for iss in [k for k, v in issue_map.items() if v == key[0]]:
+            del issue_map[iss]
+    print(f"【削除】{target['name']}: {shown}")
+    return "deleted"
+
+
 def apply_item(target, main_data, raw, issue_map):
-    """戻り値: added / updated / conflict / invalid"""
+    """戻り値: added / updated / deleted / notfound / conflict / invalid"""
     name = target["name"]
     item = dict(raw)
     issue = str(item.pop("_issue", "") or "")
+
+    if item.pop("_delete", False):
+        return apply_delete(target, main_data, item, issue_map)
 
     # 同じIssueの再編集は、発行済みlogidの更新として扱う
     if name == "logs" and not item.get("logid") and issue and issue in issue_map:
@@ -235,7 +264,7 @@ def process_target(target, issue_map):
 
     main_data = load_json_list(main_file, "メインファイル")
 
-    stats = {"added": 0, "updated": 0, "conflict": 0, "invalid": 0}
+    stats = {"added": 0, "updated": 0, "deleted": 0, "notfound": 0, "conflict": 0, "invalid": 0}
     parsed_files = []
 
     for file_path in json_files:
@@ -261,7 +290,7 @@ def process_target(target, issue_map):
             stats[apply_item(target, main_data, raw, issue_map)] += 1
         parsed_files.append(file_path)
 
-    changed = stats["added"] + stats["updated"]
+    changed = stats["added"] + stats["updated"] + stats["deleted"]
 
     if changed:
         if target["sort_key"]:
@@ -281,6 +310,7 @@ def process_target(target, issue_map):
         cleanup_processed_dir(processed_dir)
 
     print(f"[{target['name']}] 追加{stats['added']}件 / 更新{stats['updated']}件 / "
+          f"削除{stats['deleted']}件 / 削除対象なし{stats['notfound']}件 / "
           f"競合スキップ{stats['conflict']}件 / 不正スキップ{stats['invalid']}件")
     return changed > 0
 
@@ -304,6 +334,11 @@ def main():
         os.makedirs(os.path.dirname(ISSUE_MAP_FILE), exist_ok=True)
         with open(ISSUE_MAP_FILE, "w", encoding="utf-8") as f:
             json.dump(issue_map, f, ensure_ascii=False, indent=2)
+
+    if NOTICES:
+        with open(NOTICE_FILE, "w", encoding="utf-8") as f:
+            f.write("⚠️ 一部の削除を実行できませんでした。\n\n" + "\n".join(NOTICES)
+                    + "\n\nIDを確認して、Issueを編集すると再処理されます。\n")
 
     if not updated:
         print("新規に追加・更新された有効なデータはありませんでした。")
