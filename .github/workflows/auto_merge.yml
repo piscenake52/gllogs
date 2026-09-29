@@ -46,6 +46,13 @@ jobs:
       - name: Run merge script (Queue to Main & Processed)
         run: python scripts/merge_json.py
 
+      - name: Comment merge notices on the issue
+        # 削除対象が見つからなかったときなど、merge_json.py が出した通知をIssueにコメントする
+        if: ${{ hashFiles('merge_notice.md') != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue comment "${{ github.event.issue.number }}" --body-file merge_notice.md
+
       - name: Commit and push all changes
         run: |
           git config --global user.name "github-actions[bot]"
