@@ -30,6 +30,7 @@ TARGETS = [
         "order": ["logid", "date", "time", "contents", "title", "display_pc", "display_sp",
                   "url", "map", "groups", "relations", "setlistid", "tags"],
         "clear_to_empty_list": [],
+        "append_lists": ["tags"],  # 更新時は上書きせず、既存の値に新しいものだけ追記する
         "sort_key": lambda x: (x.get("date") or "", x.get("time") or ""),
         "sort_reverse": True,
     },
@@ -96,7 +97,7 @@ def generate_logid(item, main_data):
 # ---------- 更新・新規追加 ----------
 
 def apply_update(target, existing, new_item):
-    """空の項目は既存値を残す。値が !clear の項目だけ消す"""
+    """空の項目は既存値を残す。値が !clear の項目だけ消す。append_lists の項目は既存値に追記する"""
     for k, v in new_item.items():
         if k in target["key_fields"]:
             continue
@@ -107,6 +108,14 @@ def apply_update(target, existing, new_item):
                 existing.pop(k, None)
             continue
         if is_blank(v):
+            continue
+        if k in target.get("append_lists", []) and isinstance(v, list):
+            merged = existing[k] if isinstance(existing.get(k), list) else []
+            merged = list(merged)
+            for t in v:
+                if t not in merged:  # 既にあるものは重ねない（Issueの再編集でも増えない）
+                    merged.append(t)
+            existing[k] = merged
             continue
         existing[k] = v
 
