@@ -981,8 +981,8 @@ body .item-contents.is-content-open {
     'PODCAST': '\uD83C\uDFA4', 'STREAMING': '\uD83D\uDCF6', 'COLUMN': '\uD83D\uDD8A',
     // GOODSはフィルターボタンには表示せず、フィルター判定上は"SALES"として扱う(normalizeContType参照)
     'GOODS': '\uD83D\uDED2',
-    // RELEASEEVENTはフィルターボタンには表示せず、フィルター判定上は"EVENT"として扱う(normalizeContType参照)。COOKING/STAGEは独立したフィルターボタン
-    'COOKING': '\uD83C\uDF7D\uFE0F', 'RELEASEEVENT': '\uD83C\uDFA4', 'STAGE': '\uD83C\uDFAD',
+    // RELEASEEVENT/FANMEETINGはフィルターボタンには表示せず、フィルター判定上は"EVENT"として扱う(normalizeContType参照)。COOKING/STAGEは独立したフィルターボタン
+    'COOKING': '\uD83C\uDF7D\uFE0F', 'RELEASEEVENT': '\uD83C\uDFA4', 'FANMEETING': '\uD83C\uDFA4', 'STAGE': '\uD83C\uDFAD',
     // DEBUT/FORMATIONはフィルターボタンには表示せず、フィルター判定上は"BIRTHDAY"として扱う(normalizeContType参照)。
     // ただしBIRTHDAYと違い、isBirthdayAnniversaryの対象外なので年をまたいだ月日一致では表示されない
     'DEBUT': '\uD83C\uDF82', 'FORMATION': '\uD83D\uDD17'
@@ -1346,7 +1346,7 @@ body .item-contents.is-content-open {
   const mediaAliasConts = ['BOOK', 'NEWSPAPER']; // TV/RADIOは独立したフィルターボタンになった
   const webAliasConts = ['PODCAST']; // STREAMING/COLUMNは独立したフィルターボタンになった
   const salesAliasConts = ['GOODS'];
-  const eventAliasConts = ['RELEASEEVENT']; // COOKING/STAGEは独立したフィルターボタンになった
+  const eventAliasConts = ['RELEASEEVENT', 'FANMEETING']; // COOKING/STAGEは独立したフィルターボタンになった
   const birthdayAliasConts = ['DEBUT', 'FORMATION'];
   const normalizeContTypeCache = new Map();
   // logs.jsonの実データではcontents(コンテンツ種類の生値)は数十種類程度しかなく、同じ値が何度も
@@ -2703,10 +2703,10 @@ body .item-contents.is-content-open {
   const setlistTypeDisplayNames = {
     'allow': '\u64AE\u5F71\u53EF\u80FD',
     'mc': 'MC',
-    'encore': '\u30A2\u30F3\u30B3\u30FC\u30EB',
-    'cover': '\u30AB\u30D0\u30FC',
-    'dt': '\u30C0\u30F3\u30B9\u30C8\u30E9\u30C3\u30AF',
-    'medley': '\u30E1\u30C9\u30EC\u30FC'
+    'encore': 'ENCORE',
+    'cover': 'COVER',
+    'dt': 'DT',
+    'medley': 'MEDLEY'
   };
   const displayNameForSetlistType = t => setlistTypeDisplayNames[t] || t;
   // setlistidは"YYYYMMDDHHMM"(公演の開演日時)形式。データ部と同じ表示形式(年.月.日 [曜]、時:分)に分解する
