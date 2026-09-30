@@ -94,7 +94,7 @@ body:
     id: clear
     attributes:
       label: "値の削除（更新時）"
-      description: "チェックした項目の既存の値を消します（入力欄に値があってもチェックが優先されます）。"
+      description: "チェックした項目の既存の値を削除"
       options:
         - label: "artist"
         - label: "title"
@@ -109,14 +109,3 @@ body:
       label: "削除"
       options:
         - label: "削除する"
-
-  - type: markdown
-    attributes:
-      value: |
-        **削除のとき**: 「削除」にチェックします（他の項目は無視されます）。setlist は setlistid、songs は artist と title を入力します。見つからなければIssueにコメントが付きます。
-        **種別**: setlistid を入力 → setlist として登録します。空欄 → songs（楽曲リスト）として登録します。
-        **更新のとき**: 識別キー（setlist=setlistid / songs=artist+title）を入力し、変更したい項目だけ入力します。空欄・未選択の項目は既存の値のままです。消したい項目は「値の削除（更新時）」にチェックします（artist・member もここで消せます。入力欄に `!clear` と入力しても消せます）。setlist で消せるのは artist / title / member / venue / songs、songs で消せるのは link です（識別キーは消せません）。
-        **setlistid**: 12桁（日付+開演時刻。例: 202609221830）。
-        **artist**: Girls² / Laki は選択で入力します（両方選ぶと「Girls² × Laki」）。それ以外は自由入力に入力します（自由入力があればそちらを優先）。setlist の新規追加では artist と title が必須、songs は artist+title が識別キーです。
-        **member**: setlist 用です。G2 だけ、または L2 だけを選ぶと、メンバー（G2: YZH〜KIR、L2: RIN〜KIK）を自動で設定します（両方のドロップダウンで選べば両グループ分）。メンバーも個別に選んだときは、選んだメンバーだけになります。プルダウンで選んだ G2 / L2 という名前自体は member には入りません。**member の自由入力**: プルダウンが優先です。プルダウンが両方とも未選択のときだけ自由入力を使い、入力した値をそのまま登録します（`!clear` で消せます）。新規追加で Girls² / Laki を選び、member がプルダウンも自由入力も未入力なら、Girls² は G2、Laki は L2 を設定します（両方選択なら G2 と L2）。更新時に未選択なら既存値を維持します。
-        **link**: songs 用です。 **venue / 曲目**: setlist 用です。
