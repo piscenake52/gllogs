@@ -7,12 +7,7 @@
     "KAN",
     "RRK",
     "AKR",
-    "KIK",
-    "YUR"
+    "KIK"
   ],
-  "relations": [
-    "TBK",
-    "HIR"
-  ],
-  "_issue": "188"
+  "_issue": "189"
 }
