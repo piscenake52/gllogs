@@ -1,5 +1,5 @@
 name: "setlist / songs"
-description: "セットリスト・楽曲"
+description: "insert / update / delete"
 title: "[DATA] setlist / songs"
 body:
   - type: input
