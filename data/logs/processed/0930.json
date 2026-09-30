@@ -1,274 +1,110 @@
 [
   {
-    "date": "20220226",
-    "time": "1700",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING by GL²family 福岡公演",
-    "display_sp": "Lucky² FAN MEETING 福岡公演",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/535763",
-    "map": "https://maps.app.goo.gl/sYfGXktKuTpoVErf9",
+    "date": "20260930",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "GirlsAward🤎",
+    "display_pc": "鶴屋美咲　GirlsAward🤎",
+    "url": "https://girls2-fc.jp/page/misakiBlog/1234830607570173954",
     "groups": [
-      "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN"
-    ],
-    "setlistid": "202202261700",
-    "tags": [
-      "DRUM LOGOS"
+      "G2",
+      "MSK"
     ]
   },
   {
-    "date": "20220308",
-    "time": "1800",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING by GL²family 大阪公演",
-    "display_sp": "Lucky² FAN MEETING 大阪公演",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/535763",
-    "map": "https://maps.app.goo.gl/LLJEg4YxuBLdDZvb9",
+    "date": "20260930",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "EVRIS 2",
+    "display_pc": "小川桜花　EVRIS 2",
+    "url": "https://girls2-fc.jp/page/youkaBlog/1234829760287211522",
     "groups": [
-      "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN"
-    ],
-    "setlistid": "202203081800",
-    "tags": [
-      "なんばHatch"
+      "G2",
+      "YOK"
     ]
   },
   {
-    "date": "20220311",
-    "time": "1800",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING by GL²family 愛知公演",
-    "display_sp": "Lucky² FAN MEETING 愛知公演",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/535763",
-    "map": "https://maps.app.goo.gl/WBx9dofX7wVpvgEA8",
+    "date": "20260930",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "ANNA SUI NYC COSMETICS🪞🪄",
+    "display_pc": "山口綺羅　ANNA SUI NYC COSMETICS🪞🪄",
+    "url": "https://girls2-fc.jp/page/kiraBlog/1234831966029742081",
     "groups": [
-      "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN"
-    ],
-    "setlistid": "202203111800",
-    "tags": [
-      "Zepp Nagoya"
+      "G2",
+      "KIR"
     ]
   },
   {
-    "date": "20220325",
-    "time": "1800",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING by GL²family 東京公演",
-    "display_sp": "Lucky² FAN MEETING 東京公演",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/535763",
-    "map": "https://maps.app.goo.gl/Zw8iFXmW7ZRDhrZZ8",
+    "date": "20260930",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "麻辣湯",
+    "display_pc": "隅谷百花　麻辣湯",
+    "url": "https://girls2-fc.jp/page/momokaBlog/1234833022197432321",
     "groups": [
-      "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN"
-    ],
-    "setlistid": "202203251800",
-    "tags": [
-      "品川ステラボール"
+      "G2",
+      "MMK"
     ]
   },
   {
-    "date": "20230204",
-    "time": "1700",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING 2023 by GL²family 東京公演",
-    "display_sp": "Lucky² FAN MEETING 2023 東京公演",
-    "url": "https://girls2-fc.jp/page/lucky2news/728254238236345381",
-    "map": "https://maps.app.goo.gl/7ZNVo9PdGqJEmiSA8",
+    "date": "20260930",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "ありがとうございました❤️‍🔥",
+    "display_pc": "比嘉優和　ありがとうございました❤️‍🔥",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1234823921606328320",
     "groups": [
       "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "setlistid": "202302041700",
-    "tags": [
-      "Zepp DiverCity TOKYO"
+      "YUW"
     ]
   },
   {
-    "date": "20230206",
-    "time": "1800",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING 2023 by GL²family 福岡公演",
-    "display_sp": "Lucky² FAN MEETING 2023 福岡公演",
-    "url": "https://girls2-fc.jp/page/lucky2news/728254238236345381",
-    "map": "https://maps.app.goo.gl/dDvfcP9fJWXGbsGT6",
+    "date": "20260930",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "Thank you🍒L∞K UP🌳🍎💚",
+    "display_pc": "森朱里　Thank you🍒L∞K UP🌳🍎💚",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1234826233070485506",
     "groups": [
       "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "setlistid": "202302061800",
-    "tags": [
-      "福岡トヨタホールスカラエスパシオ"
+      "AKR"
     ]
   },
   {
-    "date": "20230208",
-    "time": "1800",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING 2023 by GL²family 愛知公演",
-    "display_sp": "Lucky² FAN MEETING 2023 愛知公演",
-    "url": "https://girls2-fc.jp/page/lucky2news/728254238236345381",
-    "map": "https://maps.app.goo.gl/6iwLGMh8qn9bU5dy6",
+    "date": "20260930",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "お返事1️⃣",
+    "display_pc": "佐藤栞奈　お返事1️⃣",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1234824133917802498",
     "groups": [
       "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "setlistid": "202302081800",
-    "tags": [
-      "ダイアモンドホール"
+      "KAN"
     ]
   },
   {
-    "date": "20230209",
-    "time": "1800",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING 2023 by GL²family 大阪公演",
-    "display_sp": "Lucky² FAN MEETING 2023 大阪公演",
-    "url": "https://girls2-fc.jp/page/lucky2news/728254238236345381",
-    "map": "https://maps.app.goo.gl/Cmn8iSVHu6Wis1PJA",
+    "date": "20260930",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "応援広告ありがとう🥹💖",
+    "display_pc": "佐藤妃希　応援広告ありがとう🥹💖",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1234828331988287488",
     "groups": [
       "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "setlistid": "202302091800",
-    "tags": [
-      "なんばHatch"
+      "KIK"
     ]
   },
   {
-    "date": "20240212",
-    "time": "1800",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING 2024 by GL²family 大阪公演",
-    "display_sp": "Lucky² FAN MEETING 2024 大阪公演",
-    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2024",
-    "map": "https://maps.app.goo.gl/NRsPqVVme33MY2p78",
+    "date": "20260930",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "Best Friends",
+    "display_pc": "永山椿　Best Friends",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1234823041528102914",
     "groups": [
       "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "setlistid": "202402121800",
-    "tags": [
-      "GORILLA HALL OSAKA"
-    ]
-  },
-  {
-    "date": "20240213",
-    "time": "1800",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING 2024 by GL²family 東京公演",
-    "display_sp": "Lucky² FAN MEETING 2024 東京公演",
-    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2024",
-    "map": "https://maps.app.goo.gl/pSPfvRTFJKSTmY226",
-    "groups": [
-      "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "setlistid": "202402131800",
-    "tags": [
-      "豊洲PIT"
-    ]
-  },
-  {
-    "date": "20240217",
-    "time": "1400",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING 2024 by GL²family 愛知公演",
-    "display_sp": "Lucky² FAN MEETING 2024 愛知公演",
-    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2024",
-    "map": "https://maps.app.goo.gl/FE8eMB5BrjAcZK3x7",
-    "groups": [
-      "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "setlistid": "202402171400",
-    "tags": [
-      "名古屋クラブクアトロ"
-    ]
-  },
-  {
-    "date": "20240217",
-    "time": "1800",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING 2024 by GL²family 愛知公演",
-    "display_sp": "Lucky² FAN MEETING 2024 愛知公演",
-    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2024",
-    "map": "https://maps.app.goo.gl/FE8eMB5BrjAcZK3x7",
-    "groups": [
-      "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "setlistid": "202402171800",
-    "tags": [
-      "名古屋クラブクアトロ"
-    ]
-  },
-  {
-    "date": "20250713",
-    "time": "1700",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING 2024 by GL²family 愛知公演",
-    "display_sp": "Lucky² FAN MEETING 2024 愛知公演",
-    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2025",
-    "map": "https://maps.app.goo.gl/dCtWkJfXQq7xf1N66",
-    "groups": [
-      "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "setlistid": "202507131700",
-    "tags": [
-      "COMTEC PORTBASE"
-    ]
-  },
-  {
-    "date": "20250721",
-    "time": "1700",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING 2024 by GL²family 福岡公演",
-    "display_sp": "Lucky² FAN MEETING 2024 福岡公演",
-    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2025",
-    "map": "https://maps.app.goo.gl/CAeWzyYoWSmnwseD6",
-    "groups": [
-      "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "setlistid": "202507211700",
-    "tags": [
-      "DRUM LOGOS"
-    ]
-  },
-  {
-    "date": "20250723",
-    "time": "1800",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING 2024 by GL²family 東京公演",
-    "display_sp": "Lucky² FAN MEETING 2024 東京公演",
-    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2025",
-    "map": "https://maps.app.goo.gl/bRY3vi5tsZixvxjn7",
-    "groups": [
-      "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "setlistid": "202507231800",
-    "tags": [
-      "ヒューリックホール東京"
-    ]
-  },
-  {
-    "date": "20250725",
-    "time": "1800",
-    "contents": "FANMEETING",
-    "title": "Lucky² FAN MEETING 2024 by GL²family 大阪公演",
-    "display_sp": "Lucky² FAN MEETING 2024 大阪公演",
-    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2025",
-    "map": "https://maps.app.goo.gl/NRsPqVVme33MY2p78",
-    "groups": [
-      "L2",
-      "RIN","YUR","TBK","HIR","YUW","KAN","RRK","AKR","KIK"
-    ],
-    "setlistid": "202507251800",
-    "tags": [
-      "GORILLA HALL OSAKA"
+      "TBK"
     ]
   }
 ]
