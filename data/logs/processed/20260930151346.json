@@ -1,0 +1,18 @@
+{
+  "logid": "7d8255ae2323",
+  "groups": [
+    "L2",
+    "RIN",
+    "YUW",
+    "KAN",
+    "RRK",
+    "AKR",
+    "KIK",
+    "YUR"
+  ],
+  "relations": [
+    "TBK",
+    "HIR"
+  ],
+  "_issue": "188"
+}
