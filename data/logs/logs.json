@@ -34363,6 +34363,32 @@
     ]
   },
   {
+    "logid": "44a575d1aa8b",
+    "date": "20250725",
+    "time": "1800",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING 2024 by GL²family 大阪公演",
+    "display_sp": "Lucky² FAN MEETING 2024 大阪公演",
+    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2025",
+    "map": "https://maps.app.goo.gl/NRsPqVVme33MY2p78",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202507251800",
+    "tags": [
+      "GORILLA HALL OSAKA"
+    ]
+  },
+  {
     "logid": "5cd8c562887f",
     "date": "20250725",
     "time": "1200",
@@ -34524,6 +34550,32 @@
     ]
   },
   {
+    "logid": "a6e4369e0b78",
+    "date": "20250723",
+    "time": "1800",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING 2024 by GL²family 東京公演",
+    "display_sp": "Lucky² FAN MEETING 2024 東京公演",
+    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2025",
+    "map": "https://maps.app.goo.gl/bRY3vi5tsZixvxjn7",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202507231800",
+    "tags": [
+      "ヒューリックホール東京"
+    ]
+  },
+  {
     "logid": "032249bb2bb8",
     "date": "20250723",
     "time": "1200",
@@ -34652,6 +34704,32 @@
       "MMK",
       "MNM",
       "KIR"
+    ]
+  },
+  {
+    "logid": "bd699ae42604",
+    "date": "20250721",
+    "time": "1700",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING 2024 by GL²family 福岡公演",
+    "display_sp": "Lucky² FAN MEETING 2024 福岡公演",
+    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2025",
+    "map": "https://maps.app.goo.gl/CAeWzyYoWSmnwseD6",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202507211700",
+    "tags": [
+      "DRUM LOGOS"
     ]
   },
   {
@@ -35123,6 +35201,32 @@
     "groups": [
       "L2",
       "YUW"
+    ]
+  },
+  {
+    "logid": "1b1683560829",
+    "date": "20250713",
+    "time": "1700",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING 2024 by GL²family 愛知公演",
+    "display_sp": "Lucky² FAN MEETING 2024 愛知公演",
+    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2025",
+    "map": "https://maps.app.goo.gl/dCtWkJfXQq7xf1N66",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202507131700",
+    "tags": [
+      "COMTEC PORTBASE"
     ]
   },
   {
@@ -69168,6 +69272,58 @@
     ]
   },
   {
+    "logid": "91a69a266528",
+    "date": "20240217",
+    "time": "1800",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING 2024 by GL²family 愛知公演",
+    "display_sp": "Lucky² FAN MEETING 2024 愛知公演",
+    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2024",
+    "map": "https://maps.app.goo.gl/FE8eMB5BrjAcZK3x7",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202402171800",
+    "tags": [
+      "名古屋クラブクアトロ"
+    ]
+  },
+  {
+    "logid": "3c8f74acbf2c",
+    "date": "20240217",
+    "time": "1400",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING 2024 by GL²family 愛知公演",
+    "display_sp": "Lucky² FAN MEETING 2024 愛知公演",
+    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2024",
+    "map": "https://maps.app.goo.gl/FE8eMB5BrjAcZK3x7",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202402171400",
+    "tags": [
+      "名古屋クラブクアトロ"
+    ]
+  },
+  {
     "logid": "cb3b5a5afbfd",
     "date": "20240217",
     "time": "1200",
@@ -69451,6 +69607,32 @@
     ]
   },
   {
+    "logid": "376b1dbe340b",
+    "date": "20240213",
+    "time": "1800",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING 2024 by GL²family 東京公演",
+    "display_sp": "Lucky² FAN MEETING 2024 東京公演",
+    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2024",
+    "map": "https://maps.app.goo.gl/pSPfvRTFJKSTmY226",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202402131800",
+    "tags": [
+      "豊洲PIT"
+    ]
+  },
+  {
     "logid": "419506089adf",
     "date": "20240213",
     "time": "1000",
@@ -69487,6 +69669,32 @@
     ],
     "relations": [],
     "tags": []
+  },
+  {
+    "logid": "f98fdcbbd512",
+    "date": "20240212",
+    "time": "1800",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING 2024 by GL²family 大阪公演",
+    "display_sp": "Lucky² FAN MEETING 2024 大阪公演",
+    "url": "https://girls2-fc.jp/page/Lucky2FanMeeting2024",
+    "map": "https://maps.app.goo.gl/NRsPqVVme33MY2p78",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202402121800",
+    "tags": [
+      "GORILLA HALL OSAKA"
+    ]
   },
   {
     "logid": "6b30c027286b",
@@ -92704,6 +92912,32 @@
     ]
   },
   {
+    "logid": "377005131cb7",
+    "date": "20230209",
+    "time": "1800",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING 2023 by GL²family 大阪公演",
+    "display_sp": "Lucky² FAN MEETING 2023 大阪公演",
+    "url": "https://girls2-fc.jp/page/lucky2news/728254238236345381",
+    "map": "https://maps.app.goo.gl/Cmn8iSVHu6Wis1PJA",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202302091800",
+    "tags": [
+      "なんばHatch"
+    ]
+  },
+  {
     "logid": "bc71279b28f2",
     "date": "20230209",
     "time": "1700",
@@ -92762,6 +92996,32 @@
     "groups": [
       "L2",
       "YUW"
+    ]
+  },
+  {
+    "logid": "3956a3da2bd2",
+    "date": "20230208",
+    "time": "1800",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING 2023 by GL²family 愛知公演",
+    "display_sp": "Lucky² FAN MEETING 2023 愛知公演",
+    "url": "https://girls2-fc.jp/page/lucky2news/728254238236345381",
+    "map": "https://maps.app.goo.gl/6iwLGMh8qn9bU5dy6",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202302081800",
+    "tags": [
+      "ダイアモンドホール"
     ]
   },
   {
@@ -92927,6 +93187,32 @@
     ]
   },
   {
+    "logid": "d12e5616a340",
+    "date": "20230206",
+    "time": "1800",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING 2023 by GL²family 福岡公演",
+    "display_sp": "Lucky² FAN MEETING 2023 福岡公演",
+    "url": "https://girls2-fc.jp/page/lucky2news/728254238236345381",
+    "map": "https://maps.app.goo.gl/dDvfcP9fJWXGbsGT6",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202302061800",
+    "tags": [
+      "福岡トヨタホールスカラエスパシオ"
+    ]
+  },
+  {
     "logid": "532096ea9aa2",
     "date": "20230206",
     "time": "1700",
@@ -93041,6 +93327,32 @@
     "groups": [
       "G2",
       "TOA"
+    ]
+  },
+  {
+    "logid": "eedf8e0731e3",
+    "date": "20230204",
+    "time": "1700",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING 2023 by GL²family 東京公演",
+    "display_sp": "Lucky² FAN MEETING 2023 東京公演",
+    "url": "https://girls2-fc.jp/page/lucky2news/728254238236345381",
+    "map": "https://maps.app.goo.gl/7ZNVo9PdGqJEmiSA8",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202302041700",
+    "tags": [
+      "Zepp DiverCity TOKYO"
     ]
   },
   {
@@ -118378,6 +118690,29 @@
     ]
   },
   {
+    "logid": "123574441ccd",
+    "date": "20220325",
+    "time": "1800",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING by GL²family 東京公演",
+    "display_sp": "Lucky² FAN MEETING 東京公演",
+    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/535763",
+    "map": "https://maps.app.goo.gl/Zw8iFXmW7ZRDhrZZ8",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "setlistid": "202203251800",
+    "tags": [
+      "品川ステラボール"
+    ]
+  },
+  {
     "logid": "5bd3bff07a20",
     "date": "20220325",
     "time": "1200",
@@ -119605,6 +119940,29 @@
     ]
   },
   {
+    "logid": "d5c40af7f6f7",
+    "date": "20220311",
+    "time": "1800",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING by GL²family 愛知公演",
+    "display_sp": "Lucky² FAN MEETING 愛知公演",
+    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/535763",
+    "map": "https://maps.app.goo.gl/WBx9dofX7wVpvgEA8",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "setlistid": "202203111800",
+    "tags": [
+      "Zepp Nagoya"
+    ]
+  },
+  {
     "logid": "f4ed7fef031c",
     "date": "20220311",
     "time": "1200",
@@ -119866,6 +120224,29 @@
     "groups": [
       "L2",
       "YUR"
+    ]
+  },
+  {
+    "logid": "d1da8928cb67",
+    "date": "20220308",
+    "time": "1800",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING by GL²family 大阪公演",
+    "display_sp": "Lucky² FAN MEETING 大阪公演",
+    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/535763",
+    "map": "https://maps.app.goo.gl/LLJEg4YxuBLdDZvb9",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "setlistid": "202203081800",
+    "tags": [
+      "なんばHatch"
     ]
   },
   {
@@ -120745,6 +121126,29 @@
     "groups": [
       "L2",
       "TBK"
+    ]
+  },
+  {
+    "logid": "69a277500a4d",
+    "date": "20220226",
+    "time": "1700",
+    "contents": "FANMEETING",
+    "title": "Lucky² FAN MEETING by GL²family 福岡公演",
+    "display_sp": "Lucky² FAN MEETING 福岡公演",
+    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/535763",
+    "map": "https://maps.app.goo.gl/sYfGXktKuTpoVErf9",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "setlistid": "202202261700",
+    "tags": [
+      "DRUM LOGOS"
     ]
   },
   {
