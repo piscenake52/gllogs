@@ -12027,6 +12027,39 @@
     ]
   },
   {
+    "logid": "b61ec53bd2de",
+    "date": "20260730",
+    "time": "1800",
+    "contents": "LIVE",
+    "title": "Girls EXPO",
+    "url": "https://girls2-fc.jp/page/familyNews/1189431953955225600",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "relations": [
+      "TOA"
+    ],
+    "tags": [
+      "SGCホール有明"
+    ]
+  },
+  {
     "logid": "fe8279fd3e88",
     "date": "20260730",
     "time": "1700",
@@ -14344,6 +14377,27 @@
     "groups": [
       "L2",
       "AKR"
+    ]
+  },
+  {
+    "logid": "e851b2943862",
+    "date": "20260626",
+    "time": "1800",
+    "contents": "LIVE",
+    "title": "Girls² 7th Anniversary \"Seven×Seven in Bloom -The Live-\"",
+    "url": "https://girls2-fc.jp/page/events/7thAnnivLP",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "日本武道館"
     ]
   },
   {
@@ -26556,6 +26610,26 @@
     ]
   },
   {
+    "logid": "fc1fda187564",
+    "date": "20251228",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² WINTER LIVE 2025 \"Snowflakes\" 大阪公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "オリックス劇場"
+    ]
+  },
+  {
     "logid": "90cd1a9824a4",
     "date": "20251227",
     "time": "1200",
@@ -26698,6 +26772,26 @@
       "MNM",
       "KIR",
       "TOA"
+    ]
+  },
+  {
+    "logid": "d7ec039871be",
+    "date": "20251226",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² WINTER LIVE 2025 \"Snowflakes\" 東京公演)",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "東京国際フォーラ"
     ]
   },
   {
@@ -38469,6 +38563,27 @@
     ]
   },
   {
+    "logid": "c52940fbd084",
+    "date": "20250628",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2025 -ガルガルエイト- 6th Anniversary Party 東京公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "東京ガーデンシアター"
+    ]
+  },
+  {
     "logid": "92f58c4930ed",
     "date": "20250627",
     "time": "2000",
@@ -41054,6 +41169,27 @@
     ]
   },
   {
+    "logid": "28e7c3d6eb07",
+    "date": "20250524",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR -ガルガルエイト- 宮城公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "トークネットホール仙台"
+    ]
+  },
+  {
     "logid": "e81fc8a5fe2f",
     "date": "20250523",
     "time": "2000",
@@ -41904,6 +42040,27 @@
     ]
   },
   {
+    "logid": "ea4c763de89c",
+    "date": "20250511",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR -ガルガルエイト- 京都公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "ロームシアター京都"
+    ]
+  },
+  {
     "logid": "0ebdf21a1819",
     "date": "20250510",
     "time": "1200",
@@ -42254,6 +42411,27 @@
       "RRK",
       "AKR",
       "KIK"
+    ]
+  },
+  {
+    "logid": "8af3cda875b6",
+    "date": "20250506",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR -ガルガルエイト- 神奈川公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "パシフィコ横浜"
     ]
   },
   {
@@ -42753,6 +42931,27 @@
       "MNM",
       "KIR",
       "TOA"
+    ]
+  },
+  {
+    "logid": "da86c5f47307",
+    "date": "20250429",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR -ガルガルエイト- 福岡公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "福岡国際会議場"
     ]
   },
   {
@@ -43956,6 +44155,27 @@
     ]
   },
   {
+    "logid": "ef2e5757b7d8",
+    "date": "20250413",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR -ガルガルエイト- 愛知公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "Niterra日本特殊陶業市民会館"
+    ]
+  },
+  {
     "logid": "f8b31ca6c3af",
     "date": "20250412",
     "time": "1200",
@@ -43995,6 +44215,27 @@
     "groups": [
       "G2",
       "MNM"
+    ]
+  },
+  {
+    "logid": "808c81c6d296",
+    "date": "20250412",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR -ガルガルエイト- 大阪公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "NHK大阪ホール"
     ]
   },
   {
@@ -44398,6 +44639,27 @@
     "groups": [
       "L2",
       "KIK"
+    ]
+  },
+  {
+    "logid": "f0eab0ef1caa",
+    "date": "20250406",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR -ガルガルエイト- 北海道公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "カナモトホール"
     ]
   },
   {
@@ -45987,6 +46249,27 @@
     ]
   },
   {
+    "logid": "59c33363ccfd",
+    "date": "20250316",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR -ガルガルエイト- 大阪公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "南海浪切ホール"
+    ]
+  },
+  {
     "logid": "da48f1c2bf22",
     "date": "20250315",
     "time": "1200",
@@ -46936,6 +47219,27 @@
     "groups": [
       "L2",
       "KAN"
+    ]
+  },
+  {
+    "logid": "aaf534a3e21a",
+    "date": "20250302",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR -ガルガルエイト- 石川公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "金沢市文化ホール"
     ]
   },
   {
@@ -64464,6 +64768,27 @@
     ]
   },
   {
+    "logid": "eceb0802aeb3",
+    "date": "20240630",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² 5th anniversary We are Girls² -The Live-",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "国立代々木競技場第一体育館"
+    ]
+  },
+  {
     "logid": "8cb3e7a19200",
     "date": "20240629",
     "time": "1200",
@@ -76500,6 +76825,27 @@
     ]
   },
   {
+    "logid": "2be1b2732814",
+    "date": "20231224",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2023 -activate- 東京公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "東京ガーデンシアター"
+    ]
+  },
+  {
     "logid": "1dc023211228",
     "date": "20231223",
     "time": "1200",
@@ -76511,6 +76857,28 @@
     "groups": [
       "L2",
       "KAN"
+    ]
+  },
+  {
+    "logid": "ed0da8642a38",
+    "date": "20231223",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2023 -activate- 東京公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "東京ガーデンシアター",
+      "iScream"
     ]
   },
   {
@@ -77715,6 +78083,27 @@
     ]
   },
   {
+    "logid": "6aece64c2858",
+    "date": "20231202",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2023 -activate- 福岡公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "福岡市民会館"
+    ]
+  },
+  {
     "logid": "02027788d08c",
     "date": "20231201",
     "time": "1200",
@@ -78339,6 +78728,27 @@
     ]
   },
   {
+    "logid": "dcf356034239",
+    "date": "20231123",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2023 -activate- 静岡公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "静岡市清水文化会館マリナート"
+    ]
+  },
+  {
     "logid": "70c21337be89",
     "date": "20231122",
     "time": "1200",
@@ -78591,6 +79001,27 @@
     "groups": [
       "L2",
       "YUR"
+    ]
+  },
+  {
+    "logid": "84678156659b",
+    "date": "20231119",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2023 -activate- 新潟公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "新潟テルサ"
     ]
   },
   {
@@ -79116,6 +79547,27 @@
     ]
   },
   {
+    "logid": "2b7dbcf2302f",
+    "date": "20231111",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2023 -activate- 群馬公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "ベイシア文化ホール"
+    ]
+  },
+  {
     "logid": "33fe55feb9cb",
     "date": "20231110",
     "time": "1200",
@@ -79586,6 +80038,27 @@
     ]
   },
   {
+    "logid": "5f21dc8f988c",
+    "date": "20231105",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2023 -activate- 愛知公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "名古屋国際会議場"
+    ]
+  },
+  {
     "logid": "b76a64d29907",
     "date": "20231103",
     "time": "1200",
@@ -79949,6 +80422,27 @@
     "groups": [
       "L2",
       "KIK"
+    ]
+  },
+  {
+    "logid": "27702c488248",
+    "date": "20231028",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2023 -activate- 宮城公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "仙台サンプラザ"
     ]
   },
   {
@@ -80358,6 +80852,27 @@
     ]
   },
   {
+    "logid": "a7f6c7afba5d",
+    "date": "20231022",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2023 -activate- 大阪公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "グランキューブ大阪"
+    ]
+  },
+  {
     "logid": "9d035248c9ca",
     "date": "20231021",
     "time": "1200",
@@ -80383,6 +80898,27 @@
     "groups": [
       "L2",
       "HIR"
+    ]
+  },
+  {
+    "logid": "732b62574d2d",
+    "date": "20231021",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2023 -activate- 大阪公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "グランキューブ大阪"
     ]
   },
   {
@@ -80843,6 +81379,27 @@
     "groups": [
       "L2",
       "HIR"
+    ]
+  },
+  {
+    "logid": "47b72c67377d",
+    "date": "20231014",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2023 -activate- 北海道公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "カナモトホール"
     ]
   },
   {
@@ -100271,6 +100828,28 @@
     ]
   },
   {
+    "logid": "408af789269b",
+    "date": "20221225",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² Live Tour 2022 \"Shangri-la\" 東京公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "東京ガーデンシアター"
+    ]
+  },
+  {
     "logid": "033c039fd268",
     "date": "20221224",
     "time": "1200",
@@ -100324,6 +100903,28 @@
     "groups": [
       "L2",
       "TBK"
+    ]
+  },
+  {
+    "logid": "996bc847a139",
+    "date": "20221224",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² Live Tour 2022 \"Shangri-la\" 東京公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "東京ガーデンシアター"
     ]
   },
   {
@@ -101187,6 +101788,28 @@
     "groups": [
       "G2",
       "MMK"
+    ]
+  },
+  {
+    "logid": "37963047d6ac",
+    "date": "20221211",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² Live Tour 2022 \"Shangri-la\" 広島公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "広島上野学園ホール"
     ]
   },
   {
@@ -102691,6 +103314,28 @@
     ]
   },
   {
+    "logid": "749bfeb785cb",
+    "date": "20221119",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² Live Tour 2022 \"Shangri-la\" 愛知公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "名古屋国際会議場"
+    ]
+  },
+  {
     "logid": "57465c445ac0",
     "date": "20221118",
     "time": "1200",
@@ -103992,6 +104637,28 @@
     "groups": [
       "L2",
       "AKR"
+    ]
+  },
+  {
+    "logid": "4453c8ed7c72",
+    "date": "20221031",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² Live Tour 2022 \"Shangri-la\" 宮城公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "トークネットホール仙台"
     ]
   },
   {
@@ -105542,6 +106209,28 @@
     ]
   },
   {
+    "logid": "4bfdd910100b",
+    "date": "20221009",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² Live Tour 2022 \"Shangri-la\" 大阪公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "グランキューブ大阪"
+    ]
+  },
+  {
     "logid": "617875eaeead",
     "date": "20221008",
     "time": "1200",
@@ -105939,6 +106628,28 @@
     "groups": [
       "L2",
       "YUR"
+    ]
+  },
+  {
+    "logid": "83758e077db1",
+    "date": "20221002",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² Live Tour 2022 \"Shangri-la\" 福岡公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "福岡サンパレス"
     ]
   },
   {
@@ -106884,6 +107595,28 @@
     ]
   },
   {
+    "logid": "8196460a0189",
+    "date": "20220917",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² Live Tour 2022 \"Shangri-la\" 北海道公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "札幌文化芸術劇場"
+    ]
+  },
+  {
     "logid": "73ef264ea96d",
     "date": "20220916",
     "time": "1200",
@@ -107390,6 +108123,28 @@
     ]
   },
   {
+    "logid": "75df9541b15b",
+    "date": "20220910",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² Live Tour 2022 \"Shangri-la\" 兵庫公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "神戸国際会館"
+    ]
+  },
+  {
     "logid": "370526fea210",
     "date": "20220909",
     "time": "1200",
@@ -107875,6 +108630,28 @@
       "KIR",
       "TOA",
       "RAN"
+    ]
+  },
+  {
+    "logid": "5b2aeaea0e76",
+    "date": "20220903",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² Live Tour 2022 \"Shangri-la\" 新潟公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "新潟テルサ"
     ]
   },
   {
@@ -113885,6 +114662,43 @@
     "groups": [
       "L2",
       "RIN"
+    ]
+  },
+  {
+    "logid": "07e95c13464c",
+    "date": "20220625",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "Girls² 3rd Anniversary Live -ダイジョウブ-",
+    "url": "https://girls2-fc.jp/page/3rdAnnivLP",
+    "map": "https://maps.app.goo.gl/YwrnkjkwsRMmGBga9",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "relations": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202206251700",
+    "tags": [
+      "ぴあアリーナMM"
     ]
   },
   {
@@ -133723,6 +134537,28 @@
     ]
   },
   {
+    "logid": "de3344c6dec4",
+    "date": "20211120",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² First Live Tour -Enjoy The Good Days- 愛知公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "一宮市民会館"
+    ]
+  },
+  {
     "logid": "2f26adeaa373",
     "date": "20211119",
     "time": "1200",
@@ -135633,6 +136469,28 @@
     "groups": [
       "L2",
       "RIN"
+    ]
+  },
+  {
+    "logid": "fb7f1e7787c5",
+    "date": "20211030",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² First Live Tour -Enjoy The Good Days- 東京公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "東京ガーデンシアター"
     ]
   },
   {
@@ -138053,6 +138911,28 @@
     "groups": [
       "L2",
       "YUW"
+    ]
+  },
+  {
+    "logid": "303c05dc7ff1",
+    "date": "20211002",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² First Live Tour -Enjoy The Good Days- 大阪公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "NHK大阪ホール"
     ]
   },
   {
@@ -152418,6 +153298,25 @@
     ]
   },
   {
+    "logid": "5eb652ebe5a3",
+    "date": "20210327",
+    "time": "",
+    "contents": "LIVE",
+    "title": "ガル学。Anime LIVE 2021 ～ツナグツナグ～",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ]
+  },
+  {
     "logid": "cc615b46d33e",
     "date": "20210326",
     "time": "1200",
@@ -159598,6 +160497,25 @@
     "groups": [
       "G2",
       "TOA"
+    ]
+  },
+  {
+    "logid": "0d3061cec1e1",
+    "date": "20201115",
+    "time": "",
+    "contents": "LIVE",
+    "title": "Girls² Online Live 2020",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ]
   },
   {
