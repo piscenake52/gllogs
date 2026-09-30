@@ -22,42 +22,50 @@ body:
     attributes:
       label: "contents"
       options:
-        - DIARY
-        - GTUBE
-        - GLRADIO
-        - COLUMN
-        - CL
-        - CLOSE
-        - YOUTUBE
         - ANNIVERSARY
-        - FANCLUB
-        - SNS
-        - TICKET
-        - EVENT
-        - CD
-        - WEB
-        - RESULT
-        - LIVE
-        - RADIO
         - BIRTHDAY
-        - RELEASEEVENT
-        - TV
-        - COOKING
-        - STREAMING
-        - DIGITAL
-        - STAGE
-        - GOODS
-        - SALES
-        - MOVIE
-        - CAMPAIGN
-        - MODEL
-        - ETC
-        - MAGAZINE
         - DEBUT
         - FORMATION
+        - CL
+        - COLUMN
+        - COOKING
+        - DIARY
+        - ETC
+        - CAMPAIGN
+        - CLOSE
         - MESSAGE
         - PLAYING
+        - RESULT
+        - EVENT
+        - FANMEETING
+        - RELEASEEVENT
+        - FANCLUB
+        - GLRADIO
+        - GTUBE
+        - LIVE
+        - MAGAZINE
+        - MEDIA
+        - BOOK
+        - NEWSPAPER
+        - MODEL
+        - MOVIE
+        - RADIO
+        - RELEASE
+        - BD
+        - CD
+        - DIGITAL
+        - DVD
         - MUSICCARD
+        - SALES
+        - GOODS
+        - SNS
+        - STAGE
+        - STREAMING
+        - TICKET
+        - TV
+        - WEB
+        - PODCAST
+        - YOUTUBE
 
   - type: dropdown
     id: groups_g2
