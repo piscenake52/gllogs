@@ -160436,6 +160436,31 @@
     ]
   },
   {
+    "logid": "0d3061cec1e1",
+    "date": "20201115",
+    "time": "1400",
+    "contents": "LIVE",
+    "title": "Girls² Online Live 2020",
+    "url": "https://www.ldh-liveschedule.jp/sys/news/6734/",
+    "map": "https://maps.app.goo.gl/Lpt15VpeXmjWA5FL9",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "tags": [
+      "ひみつのOnlineアフターショウ",
+      "1000 CLUB"
+    ]
+  },
+  {
     "logid": "d6b6933737cc",
     "date": "20201115",
     "time": "1200",
@@ -160497,25 +160522,6 @@
     "groups": [
       "G2",
       "TOA"
-    ]
-  },
-  {
-    "logid": "0d3061cec1e1",
-    "date": "20201115",
-    "time": "",
-    "contents": "LIVE",
-    "title": "Girls² Online Live 2020",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
     ]
   },
   {
