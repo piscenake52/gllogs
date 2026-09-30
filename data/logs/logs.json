@@ -31335,6 +31335,17 @@
     ]
   },
   {
+    "logid": "9676365b7a50",
+    "date": "20251029",
+    "time": "",
+    "contents": "ETC",
+    "title": "小田柚葉　活動再開",
+    "groups": [
+      "G2",
+      "YZH"
+    ]
+  },
+  {
     "logid": "0343bf156a31",
     "date": "20251028",
     "time": "1200",
@@ -34231,6 +34242,17 @@
     ]
   },
   {
+    "logid": "070277c5ad42",
+    "date": "20250912",
+    "time": "",
+    "contents": "ETC",
+    "title": "小田柚葉　活動休止",
+    "groups": [
+      "G2",
+      "YZH"
+    ]
+  },
+  {
     "logid": "746524b43c33",
     "date": "20250911",
     "time": "1700",
@@ -34805,6 +34827,17 @@
     "groups": [
       "G2",
       "STF"
+    ]
+  },
+  {
+    "logid": "046db4dac470",
+    "date": "20250831",
+    "time": "",
+    "contents": "ETC",
+    "title": "原田都愛　卒業",
+    "groups": [
+      "G2",
+      "TOA"
     ]
   },
   {
@@ -38125,6 +38158,17 @@
       "KUR",
       "MNM",
       "KIR",
+      "TOA"
+    ]
+  },
+  {
+    "logid": "29fdbc62065c",
+    "date": "20250715",
+    "time": "",
+    "contents": "ETC",
+    "title": "原田都愛　卒業発表",
+    "groups": [
+      "G2",
       "TOA"
     ]
   },
@@ -45625,6 +45669,42 @@
     "display_pc": "#598　Girls² 「Countdown」リリースイベント＠セブンパーク アリオ柏",
     "display_sp": "#598　Girls² 「Countdown」リリースイベント＠セブンパーク アリオ柏",
     "url": "https://girls2-fc.jp/page/gtube/1036124587030478884",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ]
+  },
+  {
+    "logid": "8d50b228ab12",
+    "date": "20250401",
+    "time": "",
+    "contents": "ETC",
+    "title": "SL Square LLP.からLDH JAPANへ移籍",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ]
+  },
+  {
+    "logid": "8600e8686027",
+    "date": "20250401",
+    "time": "",
+    "contents": "ETC",
+    "title": "rhythm zoneへ移籍",
     "groups": [
       "G2",
       "YZH",
@@ -61623,6 +61703,24 @@
       "RRK",
       "AKR",
       "KIK"
+    ]
+  },
+  {
+    "logid": "9b0ead05c73e",
+    "date": "20240830",
+    "time": "",
+    "contents": "LIVE",
+    "title": "バンコク日本博2024",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
     ]
   },
   {
@@ -95080,6 +95178,17 @@
     ]
   },
   {
+    "logid": "ab15507886ce",
+    "date": "20230331",
+    "time": "",
+    "contents": "ETC",
+    "title": "石井蘭　卒業",
+    "groups": [
+      "G2",
+      "RAN"
+    ]
+  },
+  {
     "logid": "4eac39eb88b6",
     "date": "20230330",
     "time": "1700",
@@ -112228,6 +112337,35 @@
     "tags": []
   },
   {
+    "logid": "44a9dbca46fb",
+    "date": "20220809",
+    "time": "",
+    "contents": "LIVE",
+    "title": "CL 2nd Anniversary CL25 Dream For All OPENING FES",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN",
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ]
+  },
+  {
     "logid": "8f85f6f81428",
     "date": "20220808",
     "time": "1900",
@@ -125256,6 +125394,22 @@
       "KIR",
       "TOA",
       "RAN"
+    ]
+  },
+  {
+    "logid": "d02c1cc82f5a",
+    "date": "20220325",
+    "time": "",
+    "contents": "ETC",
+    "title": "おはガール　卒業",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
     ]
   },
   {
@@ -140970,6 +141124,20 @@
     ]
   },
   {
+    "logid": "1f9fefaf4546",
+    "date": "20211001",
+    "time": "",
+    "contents": "ETC",
+    "title": "おはガール　卒業",
+    "groups": [
+      "G2",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ]
+  },
+  {
     "logid": "0c6911201314",
     "date": "20210930",
     "time": "1700",
@@ -155343,6 +155511,21 @@
       "KIR",
       "TOA",
       "RAN"
+    ]
+  },
+  {
+    "logid": "e4009290b8b9",
+    "date": "20210326",
+    "time": "",
+    "contents": "ETC",
+    "title": "おはガール　卒業",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
     ]
   },
   {
@@ -170354,6 +170537,25 @@
     ]
   },
   {
+    "logid": "23a610902180",
+    "date": "20200620",
+    "time": "",
+    "contents": "ETC",
+    "title": "ライブツアー全公演中止を発表",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ]
+  },
+  {
     "logid": "8855ae26e8d1",
     "date": "20200619",
     "time": "1200",
@@ -174260,6 +174462,25 @@
     "display_pc": "#73　Girls²×「TEG TEG」ビジュアル撮影 part2",
     "display_sp": "#73　Girls²×「TEG TEG」ビジュアル撮影 part2",
     "url": "https://girls2-fc.jp/page/gtube/376970261259355158",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ]
+  },
+  {
+    "logid": "9adfe7d0a1d2",
+    "date": "20200407",
+    "time": "",
+    "contents": "ETC",
+    "title": "映画「劇場版 ひみつ×戦士 ファントミラージュ!」公開延期",
     "groups": [
       "G2",
       "YZH",
@@ -180659,6 +180880,25 @@
     ]
   },
   {
+    "logid": "6e424276c45e",
+    "date": "20191117",
+    "time": "",
+    "contents": "EVENT",
+    "title": "E-girlsツアー参加を発表",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ]
+  },
+  {
     "logid": "baf0a627b903",
     "date": "20191116",
     "time": "1200",
@@ -185024,6 +185264,25 @@
     ]
   },
   {
+    "logid": "ad6bbd0c2da5",
+    "date": "20190902",
+    "time": "",
+    "contents": "ETC",
+    "title": "アルバルク東京公式応援ガールに就任",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ]
+  },
+  {
     "logid": "870e747613e3",
     "date": "20190901",
     "time": "1200",
@@ -186123,6 +186382,28 @@
       "MNM",
       "KIR",
       "TOA",
+      "RAN"
+    ]
+  },
+  {
+    "logid": "40129fb53535",
+    "date": "20190707",
+    "time": "",
+    "contents": "FORMATION",
+    "title": "石井蘭　加入",
+    "groups": [
+      "G2",
+      "RAN"
+    ]
+  },
+  {
+    "logid": "edc799836070",
+    "date": "20190707",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "title": "石井蘭　加入記念日",
+    "groups": [
+      "G2",
       "RAN"
     ]
   },
