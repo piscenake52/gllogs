@@ -105,7 +105,7 @@ body:
     id: groups_free
     attributes:
       label: "groups / 自由入力"
-      description: "カンマ区切り（例: G2, YZH）。上のプルダウンが未選択のときだけ使われ、入力した値がそのまま登録されます。"
+      description: "G2,YZH,MMK,MSK,YOK,KUR,MNM,KIR,TOA,RAN / L2,RIN,TBK,HIR,YUW,KAN,RRK,AKR,KIK,YUR"
 
   - type: checkboxes
     id: stf
@@ -185,7 +185,7 @@ body:
     id: clear
     attributes:
       label: "値の削除（更新時）"
-      description: "チェックした項目の既存の値を消します（入力欄に値があってもチェックが優先されます）。"
+      description: "チェックした項目の既存の値を削除"
       options:
         - label: "time"
         - label: "contents"
