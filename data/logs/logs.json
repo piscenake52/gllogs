@@ -1687,32 +1687,14 @@
     ]
   },
   {
-    "logid": "5be6d808ddc8",
-    "date": "20261012",
-    "time": "1200",
-    "contents": "EVENT",
-    "title": "Girls² EP 「EASY」 オンライントーク会",
-    "url": "https://shop.mu-mo.net/st/special/girls2_2611/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ]
-  },
-  {
     "logid": "6d30e29f685d",
     "date": "20261012",
-    "time": "",
+    "time": "1300",
     "contents": "RELEASEEVENT",
-    "title": "Laki「WORK≒LiFE」ラストリリースイベント",
+    "title": "「WORK≒LiFE」 ラストリリースイベント 神奈川",
     "display_pc": "Laki 「WORK≒LiFE」 ラストリリースイベント",
     "display_sp": "「WORK≒LiFE」 ラストリリースイベント",
-    "url": "",
+    "url": "https://girls2-fc.jp/page/familyNews/1234677188746280960",
     "map": "https://maps.app.goo.gl/Ku6KZX7MuSakAPDH8?g_st=ac",
     "groups": [
       "L2",
@@ -1729,6 +1711,24 @@
     "setlistid": "",
     "tags": [
       "横浜ワールドポーターズ"
+    ]
+  },
+  {
+    "logid": "5be6d808ddc8",
+    "date": "20261012",
+    "time": "1200",
+    "contents": "EVENT",
+    "title": "Girls² EP 「EASY」 オンライントーク会",
+    "url": "https://shop.mu-mo.net/st/special/girls2_2611/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ]
   },
   {
