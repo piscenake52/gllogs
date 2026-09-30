@@ -765,7 +765,7 @@ body .item-contents.is-content-open {
   <div class="sticky-header is-initializing" id="stickyHeader">
     <div class="sticky-header-inner">
     <div class="header-row">
-      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log <sup>&#947;</sup></a></h1>
+      <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
       <div class="header-btn-group">
         <button class="toggle-btn date-part-btn" id="showYearBtn">&#24180;</button>
         <button class="toggle-btn date-part-btn" id="showMonthBtn">&#26376;</button>
@@ -3897,8 +3897,13 @@ body .item-contents.is-content-open {
       return;
     }
     flickFillEl.style.display = 'none';
-    const top = itemsEl.getBoundingClientRect().top;
-    const extra = window.innerHeight - top;
+    // itemsEl.style.minHeightは通常のドキュメントフロー内の高さ指定なので、本来スクロール位置に
+    // 左右されてはいけない。しかしgetBoundingClientRect().topはビューポート基準(=現在のスクロール量
+    // に依存する)の値のため、SETTINGボタンまでスクロールした状態でSETTINGを操作すると、その
+    // スクロール量がそのまま余白として上乗せされ、操作するたびにどんどん伸びてしまっていた。
+    // window.scrollYを足してドキュメント基準(スクロール量に依存しない)の開始位置に変換してから計算する。
+    const docTop = itemsEl.getBoundingClientRect().top + window.scrollY;
+    const extra = window.innerHeight - docTop;
     itemsEl.style.minHeight = extra > 0 ? extra + 'px' : '';
   };
   window.addEventListener('resize', () => { if (todayMode) updateItemsMinHeight(); });
