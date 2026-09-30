@@ -1,5 +1,5 @@
 name: "logs"
-description: "ログ"
+description: "insert / update / delete"
 title: "[DATA] logs"
 body:
   - type: input
