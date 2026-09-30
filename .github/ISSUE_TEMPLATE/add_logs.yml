@@ -1,5 +1,5 @@
 name: "logs"
-description: ""
+description: "ログ（DIARY, LIVE, EVENT など）を追加・更新します"
 title: "[DATA] logs"
 body:
   - type: input
