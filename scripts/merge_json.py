@@ -96,6 +96,16 @@ def generate_logid(item, main_data):
 
 # ---------- 更新・新規追加 ----------
 
+def autofill_setlistid(record, explicit_clear=False):
+    """contents が LIVE で setlistid が未設定なら、date + time(12桁)を setlistid にする。
+    time が空・桁数不正のときは何もしない。setlistid を明示的に消す指定(!clear)のときも補完しない"""
+    if explicit_clear or record.get("contents") != "LIVE" or record.get("setlistid"):
+        return
+    date, time = record.get("date") or "", record.get("time") or ""
+    if re.fullmatch(r"\d{8}", date) and re.fullmatch(r"\d{4}", time):
+        record["setlistid"] = date + time
+
+
 def apply_update(target, existing, new_item):
     """空の項目は既存値を残す。値が !clear の項目だけ消す。append_lists の項目は既存値に追記する"""
     for k, v in new_item.items():
@@ -136,6 +146,7 @@ def finalize_new(target, item, main_data):
             print(f"【スキップ】timeは4桁の数字で指定してください: {item}")
             return None
         item["time"] = time  # 空欄ならそのまま空で登録する(0000には補完しない)
+        autofill_setlistid(item)  # LIVE で setlistid 未入力なら date+time を登録
         item.setdefault("groups", list(DEFAULT_GROUPS))
         if not item.get("logid"):
             item["logid"] = generate_logid(item, main_data)
@@ -218,6 +229,8 @@ def apply_item(target, main_data, raw, issue_map):
             return "conflict"
         if len(matches) == 1:
             apply_update(target, main_data[matches[0]], item)
+            if name == "logs":
+                autofill_setlistid(main_data[matches[0]], explicit_clear=is_clear(item.get("setlistid")))
             # 更新で属性が追加された場合も、決まった並び順の位置に入るよう整える
             main_data[matches[0]] = reorder(target, main_data[matches[0]])
             return "updated"
