@@ -183,6 +183,13 @@ body:
       label: "tags"
       description: "更新時は既存の値に追記"
 
+  - type: textarea
+    id: sns
+    attributes:
+      label: "sns"
+      description: |
+        1行1件: `type | url`（例: `x | https://x.com/...`）。URLだけでも可（x / instagram / youtube / tiktok は自動判定）。更新時は既存の値に追記。
+
   - type: checkboxes
     id: clear
     attributes:
@@ -200,6 +207,7 @@ body:
         - label: "relations"
         - label: "setlistid"
         - label: "tags"
+        - label: "sns"
 
   - type: checkboxes
     id: copy
