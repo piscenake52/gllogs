@@ -142230,9 +142230,8 @@
     "date": "20210922",
     "time": "",
     "contents": "CD",
-    "title": "Lucky² 1stシングル「Fun!Fun!Fun! ～夢∞～」 リリース",
-    "display_pc": "Lucky²　1st SINGLE 「Fun!Fun!Fun! ～夢∞～」 リリース",
-    "display_sp": "Lucky²　1st SG 「Fun!Fun!Fun! ～夢∞～」 リリース",
+    "title": "Lucky² 1st SINGLE 「Fun!Fun!Fun! ～夢∞～」 リリース",
+    "display_sp": "Lucky² 1st SG「Fun!Fun!Fun! ～夢∞～」 リリース",
     "url": "https://girls2-fc.jp/page/familyNews/560752707778905129",
     "groups": [
       "L2",
@@ -142243,7 +142242,11 @@
       "YUW",
       "KAN"
     ],
-    "relations": [],
+    "relations": [
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
     "tags": [
       "Fun!Fun!Fun! ～夢∞～",
       "Shake!Shake!Shake!",
