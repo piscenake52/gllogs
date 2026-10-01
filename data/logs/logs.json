@@ -3022,6 +3022,20 @@
     ]
   },
   {
+    "logid": "7eb42cc1a0df",
+    "date": "20261002",
+    "time": "1620",
+    "contents": "RADIO",
+    "title": "FM-NIIGATA 「SOUND SPLASH」",
+    "url": "https://www.fmniigata.com/program/15",
+    "groups": [
+      "L2",
+      "YUW",
+      "KAN"
+    ],
+    "tags": []
+  },
+  {
     "logid": "abc36d3f03f0",
     "date": "20261002",
     "time": "1615",
@@ -3037,20 +3051,6 @@
     "tags": [
       "Nocturne"
     ]
-  },
-  {
-    "logid": "7eb42cc1a0df",
-    "date": "20261002",
-    "time": "1330",
-    "contents": "RADIO",
-    "title": "FM-NIIGATA 「SOUND SPLASH」",
-    "url": "https://www.fmniigata.com/program/15",
-    "groups": [
-      "L2",
-      "YUW",
-      "KAN"
-    ],
-    "tags": []
   },
   {
     "logid": "bb371f921635",
