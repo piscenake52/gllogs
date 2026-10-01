@@ -3010,6 +3010,18 @@
     ]
   },
   {
+    "logid": "a5cddccdc6c2",
+    "date": "20261002",
+    "time": "1700",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　山口莉愛",
+    "url": "https://www.cl-live.com/artists/ldh_news_cast",
+    "groups": [
+      "L2",
+      "RIN"
+    ]
+  },
+  {
     "logid": "abc36d3f03f0",
     "date": "20261002",
     "time": "1615",
@@ -3137,18 +3149,6 @@
     ],
     "tags": [
       "Nocturne"
-    ]
-  },
-  {
-    "logid": "a5cddccdc6c2",
-    "date": "20261002",
-    "time": "",
-    "contents": "CL",
-    "title": "LDH NEWS CAST　山口莉愛",
-    "url": "https://www.cl-live.com/artists/ldh_news_cast",
-    "groups": [
-      "L2",
-      "RIN"
     ]
   },
   {
