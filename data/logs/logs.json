@@ -1566,6 +1566,21 @@
     "tags": []
   },
   {
+    "logid": "a5a72cf051a1",
+    "date": "20261015",
+    "time": "1900",
+    "contents": "CLOSE",
+    "title": "NATSLIVE「Lakiガチャクッキング」 #014 レシピカード販売終了",
+    "display_sp": "Lakiガチャクッキング レシピカード販売終了",
+    "groups": [
+      "L2",
+      "RIN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ]
+  },
+  {
     "logid": "8c877945a233",
     "date": "20261015",
     "time": "1700",
@@ -1618,6 +1633,21 @@
     "display_sp": "Lakiガチャクッキング　#014",
     "url": "https://natslive.jp/episodes/18161",
     "map": "https://maps.app.goo.gl/Y6db33ndDKLsmErs6",
+    "groups": [
+      "L2",
+      "RIN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ]
+  },
+  {
+    "logid": "bd211212078a",
+    "date": "20261014",
+    "time": "1900",
+    "contents": "GOODS",
+    "title": "NATSLIVE「Lakiガチャクッキング」 #014 レシピカード販売開始",
+    "display_sp": "Lakiガチャクッキング レシピカード販売開始",
     "groups": [
       "L2",
       "RIN",
@@ -2017,6 +2047,22 @@
     "tags": []
   },
   {
+    "logid": "2174f884a67a",
+    "date": "20261010",
+    "time": "",
+    "contents": "RESULT",
+    "title": "Lakiガチャクッキング 一般申込当選発表",
+    "display_sp": "Lakiガチャクッキング 一般申込当選発表",
+    "url": "https://girls2-fc.jp/page/familyNews/1235464236499468290",
+    "groups": [
+      "L2",
+      "RIN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ]
+  },
+  {
     "logid": "ff4960de1de4",
     "date": "20261009",
     "time": "2055",
@@ -2087,6 +2133,22 @@
       "HIR",
       "YUW",
       "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ]
+  },
+  {
+    "logid": "ec6a47896fe4",
+    "date": "20261009",
+    "time": "",
+    "contents": "CLOSE",
+    "title": "Lakiガチャクッキング 一般申込受付締切",
+    "display_sp": "Lakiガチャクッキング 一般申込受付締切",
+    "url": "https://girls2-fc.jp/page/familyNews/1235464236499468290",
+    "groups": [
+      "L2",
+      "RIN",
       "RRK",
       "AKR",
       "KIK"
@@ -2409,6 +2471,22 @@
     ]
   },
   {
+    "logid": "6d5f77f0c873",
+    "date": "20261004",
+    "time": "1500",
+    "contents": "TICKET",
+    "title": "Lakiガチャクッキング 一般申込受付開始",
+    "display_sp": "Lakiガチャクッキング 一般申込受付開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1235464236499468290",
+    "groups": [
+      "L2",
+      "RIN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ]
+  },
+  {
     "logid": "195a1bdf5ed9",
     "date": "20261004",
     "time": "1300",
@@ -2508,6 +2586,22 @@
       "KIK"
     ],
     "tags": []
+  },
+  {
+    "logid": "d7502db71f62",
+    "date": "20261004",
+    "time": "",
+    "contents": "RESULT",
+    "title": "Lakiガチャクッキング プラチナ会員先行当選発表",
+    "display_sp": "Lakiガチャクッキング プラチナ会員先行当選発表",
+    "url": "https://girls2-fc.jp/page/familyNews/1235464236499468290",
+    "groups": [
+      "L2",
+      "RIN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ]
   },
   {
     "logid": "c7e073660ef7",
@@ -2667,6 +2761,22 @@
     "relations": [],
     "tags": [
       "お台場 a-nation特設会場"
+    ]
+  },
+  {
+    "logid": "0cd1d95795ed",
+    "date": "20261003",
+    "time": "",
+    "contents": "CLOSE",
+    "title": "Lakiガチャクッキング プラチナ会員先行申込受付締切",
+    "display_sp": "Lakiガチャクッキング プラチナ会員先行受付締切",
+    "url": "https://girls2-fc.jp/page/familyNews/1235464236499468290",
+    "groups": [
+      "L2",
+      "RIN",
+      "RRK",
+      "AKR",
+      "KIK"
     ]
   },
   {
