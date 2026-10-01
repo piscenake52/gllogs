@@ -864,6 +864,36 @@
     ]
   },
   {
+    "logid": "d9e818c80f95",
+    "date": "20261028",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "591825df7ea0",
+    "date": "20261028",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "0186ba1f61a5",
+    "date": "20261028",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
     "logid": "3e617e84602c",
     "date": "20261028",
     "time": "2000",
@@ -1272,6 +1302,36 @@
     "tags": []
   },
   {
+    "logid": "1e16df60aed4",
+    "date": "20261021",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "b056e273cdc7",
+    "date": "20261021",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "80e43d2e8d7d",
+    "date": "20261021",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
     "logid": "e24c15355578",
     "date": "20261021",
     "time": "2000",
@@ -1610,6 +1670,36 @@
       "L2",
       "RIN",
       "KAN"
+    ]
+  },
+  {
+    "logid": "987c0f384e6f",
+    "date": "20261014",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "1b5b0bbafb21",
+    "date": "20261014",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "13d3443810e7",
+    "date": "20261014",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
     ]
   },
   {
@@ -2219,6 +2309,26 @@
     ]
   },
   {
+    "logid": "9dfc2ba793b6",
+    "date": "20261007",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "27ce273357a1",
+    "date": "20261007",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
     "logid": "88648c440619",
     "date": "20261007",
     "time": "2055",
@@ -2231,6 +2341,16 @@
       "YUW"
     ],
     "tags": []
+  },
+  {
+    "logid": "ef59d3a83707",
+    "date": "20261007",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
+    ]
   },
   {
     "logid": "478a97229c68",
