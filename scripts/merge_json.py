@@ -107,6 +107,27 @@ def autofill_setlistid(record, explicit_clear=False):
         record["setlistid"] = date + time
 
 
+def merge_sns(current, incoming):
+    """sns: typeごとに urls をまとめる。同じtypeがあれば urls に追記（同じURLは重ねない）、無ければ新しい要素を追加する"""
+    merged = []
+    for e in (current if isinstance(current, list) else []):
+        if isinstance(e, dict) and e.get("type"):
+            urls = list(e.get("urls") or ([e["url"]] if e.get("url") else []))
+            merged.append({"type": e["type"], "urls": urls})
+    for e in incoming:
+        if not (isinstance(e, dict) and e.get("type")):
+            continue
+        urls = e.get("urls") or ([e["url"]] if e.get("url") else [])
+        tgt = next((m for m in merged if m["type"] == e["type"]), None)
+        if tgt is None:
+            tgt = {"type": e["type"], "urls": []}
+            merged.append(tgt)
+        for u in urls:
+            if u not in tgt["urls"]:
+                tgt["urls"].append(u)
+    return merged
+
+
 def apply_update(target, existing, new_item):
     """空の項目は既存値を残す。値が !clear の項目だけ消す。append_lists の項目は既存値に追記する"""
     for k, v in new_item.items():
@@ -119,6 +140,9 @@ def apply_update(target, existing, new_item):
                 existing.pop(k, None)
             continue
         if is_blank(v):
+            continue
+        if k == "sns" and isinstance(v, list):
+            existing[k] = merge_sns(existing.get(k), v)
             continue
         if k in target.get("append_lists", []) and isinstance(v, list):
             merged = existing[k] if isinstance(existing.get(k), list) else []

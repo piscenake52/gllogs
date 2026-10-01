@@ -192,7 +192,7 @@ SNS_HOSTS = {
 
 
 def parse_sns(raw):
-    """sns欄（1行1件）を [{"type","url"}] にする。書式: `type | url`、またはURLだけ（x / instagram / youtube / tiktok は自動判定）。
+    """sns欄（1行1件）を [{"type","urls"}] にする（同じtypeは1つにまとめて urls に入れる）。書式: `type | url`、またはURLだけ（x / instagram / youtube / tiktok は自動判定）。
     戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
     if not raw:
         return [], []
@@ -221,9 +221,12 @@ def parse_sns(raw):
         if not re.fullmatch(r"[a-z0-9_-]+", type_):
             errors.append(f"- **sns**: typeは半角英数字・ハイフン・アンダーバーで入力してください（入力値: `{shown}`）")
             continue
-        entry = {"type": type_, "url": url}
-        if entry not in items:
-            items.append(entry)
+        # 同じtypeは1つの要素にまとめ、urlsに追加する（同じURLは重ねない）
+        grouped = next((g for g in items if g["type"] == type_), None)
+        if grouped is None:
+            items.append({"type": type_, "urls": [url]})
+        elif url not in grouped["urls"]:
+            grouped["urls"].append(url)
     return items, errors
 
 
