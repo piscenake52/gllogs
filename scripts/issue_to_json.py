@@ -26,6 +26,7 @@ LABELS_LOGS = {
     "tags": "tags",
     "delete": "削除",
     "clear": "値の削除（更新時）",
+    "copy": "コピー",
 }
 # add_setlist_songs.yml
 LABELS_SS = {
@@ -69,6 +70,7 @@ CLEARABLE = {
 
 # 削除チェックボックスの選択肢名（add_logs.yml / add_setlist_songs.yml と揃える）
 DELETE_OPTION = "削除する"
+COPY_OPTION = "コピーして新規登録"  # logs: logid のデータをコピーして新規登録
 
 
 def is_blank(v):
@@ -354,6 +356,13 @@ def main():
         f = {key: extract_field(label, body) for key, label in LABELS_LOGS.items()}
         target_type = "logs"
 
+    copy_req = target_type == "logs" and COPY_OPTION in parse_checked(f.get("copy", ""))
+    if copy_req and is_delete_requested(f):
+        errors = ["- **削除 / コピー**: 「削除する」と「コピーして新規登録」は同時に指定できません"]
+        write_error(errors)
+        print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
+        return
+
     if is_delete_requested(f):
         # 削除チェックあり: 識別キーだけの削除指示を出力する（他の入力項目は使わない）
         data, errors = build_delete(target_type, f)
@@ -373,6 +382,14 @@ def main():
             print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
             return
         data = build_logs(f)
+        if copy_req:
+            # コピー: logid は「コピー元」。入力された項目だけを上書きし、それ以外はコピー元の値を引き継ぐ（新しいlogidはmergeで発行）
+            if not f["logid"]:
+                errors = ["- **ログID (logid)**: コピーするときは、コピー元のlogidを入力してください"]
+                write_error(errors)
+                print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
+                return
+            data["_copy_from"] = data.pop("logid")
         if issue_number:
             # 同じIssueの再編集を、同じレコードの更新として扱うための目印（mergeで取り除く）
             data["_issue"] = issue_number

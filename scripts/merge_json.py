@@ -4,6 +4,7 @@ import json
 import glob
 import shutil
 import uuid
+import copy
 
 MAX_PROCESSED_FILES = 30
 CLEAR = "!clear"  # 既存値を消したいときにIssueへ入力する特別な値
@@ -203,6 +204,43 @@ def apply_delete(target, main_data, item, issue_map):
     return "deleted"
 
 
+def apply_copy(target, main_data, src_id, item, issue, issue_map):
+    """logid(src_id)のレコードをコピーして新規登録する。入力された項目だけ上書きし、!clear の項目はコピーしない。
+    戻り値: added / notfound / conflict / invalid"""
+    src = [e for e in main_data if e.get("logid") == src_id]
+    if not src:
+        print(f"【スキップ】コピー元のlogidが見つかりません: {src_id}")
+        NOTICES.append(f"- **logs**: コピー元が見つかりませんでした（logid: `{src_id}`）")
+        return "notfound"
+    if len(src) > 1:
+        print(f"【警告】コピー元 {src_id} が複数存在するためスキップします")
+        NOTICES.append(f"- **logs**: コピー元 `{src_id}` が複数存在するためコピーできませんでした")
+        return "conflict"
+
+    new = copy.deepcopy(src[0])
+    new.pop("logid", None)  # 新しいlogidを発行する
+    overrides = {k: v for k, v in item.items() if not k.startswith("_") and k != "logid"}
+    for k, v in overrides.items():
+        if is_clear(v):
+            new.pop(k, None)
+        elif not is_blank(v):
+            new[k] = v  # tags / groups なども、コピーでは追記ではなく入力値で置き換える
+    # LIVE: date / time を変えたときは、コピー元の setlistid は引き継がず date+time で振り直す（setlistid 入力時はそれを優先）
+    if new.get("contents") == "LIVE" and "setlistid" not in overrides and ("date" in overrides or "time" in overrides):
+        new.pop("setlistid", None)
+
+    new_item = finalize_new(target, new, main_data)
+    if new_item is None:
+        return "invalid"
+    if is_clear(overrides.get("setlistid")):
+        new_item.pop("setlistid", None)  # 明示的に消す指定のときは自動補完もしない
+    if issue:
+        issue_map[issue] = new_item["logid"]
+    main_data.append(new_item)
+    print(f"【コピー】logs: {src_id} -> {new_item['logid']}")
+    return "added"
+
+
 def apply_item(target, main_data, raw, issue_map):
     """戻り値: added / updated / deleted / notfound / conflict / invalid"""
     name = target["name"]
@@ -211,6 +249,13 @@ def apply_item(target, main_data, raw, issue_map):
 
     if item.pop("_delete", False):
         return apply_delete(target, main_data, item, issue_map)
+
+    # コピー指定: 初回はコピー元から新規登録。同じIssueの再編集は、発行済みの複製を更新する
+    copy_from = item.pop("_copy_from", "") if name == "logs" else ""
+    if copy_from:
+        if not (issue and issue in issue_map):
+            return apply_copy(target, main_data, copy_from, item, issue, issue_map)
+        item["logid"] = issue_map[issue]
 
     # 同じIssueの再編集は、発行済みlogidの更新として扱う
     if name == "logs" and not item.get("logid") and issue and issue in issue_map:
