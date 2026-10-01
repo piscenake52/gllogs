@@ -2674,6 +2674,32 @@
     "tags": []
   },
   {
+    "logid": "c88e0887572d",
+    "date": "20261003",
+    "time": "1455",
+    "contents": "LIVE",
+    "title": "a-nation 2026",
+    "display_pc": "a-nation 2026",
+    "display_sp": "a-nation 2026",
+    "url": "https://girls2-fc.jp/page/familyNews/1230804077818937344",
+    "map": "https://maps.app.goo.gl/b2mC6cZjA84NTcHF7",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "202610031300",
+    "tags": [
+      "お台場 a-nation特設会場"
+    ]
+  },
+  {
     "logid": "0a4d0d529724",
     "date": "20261003",
     "time": "1400",
@@ -2697,32 +2723,6 @@
     "setlistid": "202610031400",
     "tags": [
       "大宮ステラタウン メローベ広場"
-    ]
-  },
-  {
-    "logid": "c88e0887572d",
-    "date": "20261003",
-    "time": "1300",
-    "contents": "LIVE",
-    "title": "a-nation 2026",
-    "display_pc": "a-nation 2026",
-    "display_sp": "a-nation 2026",
-    "url": "https://girls2-fc.jp/page/familyNews/1230804077818937344",
-    "map": "https://maps.app.goo.gl/b2mC6cZjA84NTcHF7",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "setlistid": "202610031300",
-    "relations": [],
-    "tags": [
-      "お台場 a-nation特設会場"
     ]
   },
   {
