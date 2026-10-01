@@ -186854,13 +186854,17 @@
     "logid": "f52dce1242d4",
     "date": "20190605",
     "time": "",
-    "contents": "RELEASE",
-    "title": "mirage² 「じゃん☆けん☆ぽん」 リリース",
+    "contents": "CD",
+    "title": "mirage² 1st SINGLE 「じゃん☆けん☆ぽん」 リリース",
+    "display_sp": "mirage² 1st SG 「じゃん☆けん☆ぽん」 リリース",
     "groups": [
       "G2",
       "MNM",
       "KIR",
       "TOA"
+    ],
+    "relations": [
+      "RAN"
     ]
   },
   {
