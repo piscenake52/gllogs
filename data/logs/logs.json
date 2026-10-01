@@ -151873,6 +151873,18 @@
     ]
   },
   {
+    "logid": "d729b602a3df",
+    "date": "20210602",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "lovely² 「LOVELY☆BEST - Complete lovely² Songs -」 リリース",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR"
+    ]
+  },
+  {
     "logid": "af02d81ad129",
     "date": "20210601",
     "time": "1200",
@@ -158245,6 +158257,18 @@
     ]
   },
   {
+    "logid": "85c4ee43acdd",
+    "date": "20210210",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "lovely² 「LOVE²」 リリース",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR"
+    ]
+  },
+  {
     "logid": "0b167f9c63da",
     "date": "20210209",
     "time": "1200",
@@ -160970,6 +160994,18 @@
     "groups": [
       "G2",
       "KIR"
+    ]
+  },
+  {
+    "logid": "b1d6ce84375c",
+    "date": "20201223",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "lovely² 「とぅわりんりんたんたん」 リリース",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUR"
     ]
   },
   {
@@ -165486,6 +165522,20 @@
     "groups": [
       "G2",
       "TOA"
+    ]
+  },
+  {
+    "logid": "4a38ee31511f",
+    "date": "20201001",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "Girls² 「弾心 ～ダンシン～」 配信リリース",
+    "groups": [
+      "G2",
+      "MSK",
+      "YOK",
+      "KUR",
+      "KIR"
     ]
   },
   {
@@ -170591,6 +170641,20 @@
     "groups": [
       "G2",
       "TOA"
+    ]
+  },
+  {
+    "logid": "634c282f0638",
+    "date": "20200624",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "mirage² 「MIRAGE✩BEST-Complete mirage² Songs-」 リリース",
+    "groups": [
+      "G2",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ]
   },
   {
@@ -177329,6 +177393,20 @@
     ]
   },
   {
+    "logid": "dc4d366250ad",
+    "date": "20200205",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "mirage² 「咲いて²」 リリース",
+    "groups": [
+      "G2",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ]
+  },
+  {
     "logid": "92abb7a67fd0",
     "date": "20200204",
     "time": "1200",
@@ -179375,6 +179453,20 @@
     "groups": [
       "G2",
       "KIR"
+    ]
+  },
+  {
+    "logid": "fab52167fc01",
+    "date": "20191225",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "mirage² 「キセキ」 リリース",
+    "groups": [
+      "G2",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
     ]
   },
   {
@@ -186759,6 +186851,19 @@
     "tags": []
   },
   {
+    "logid": "f52dce1242d4",
+    "date": "20190605",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "mirage² 「じゃん☆けん☆ぽん」 リリース",
+    "groups": [
+      "G2",
+      "MNM",
+      "KIR",
+      "TOA"
+    ]
+  },
+  {
     "logid": "8adc8fe2e533",
     "date": "20190329",
     "time": "",
@@ -186803,6 +186908,36 @@
       "RAN"
     ],
     "tags": []
+  },
+  {
+    "logid": "b31845e35e22",
+    "date": "20190213",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "magical² 「MAGICAL☆BEST -Complete magical² Songs-」 リリース",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
+    ]
+  },
+  {
+    "logid": "9834aa318792",
+    "date": "20181212",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "magical² 「ミルミル〜未来ミエル〜」 リリース",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
+    ]
   },
   {
     "logid": "ca4e414e1a75",
@@ -186858,6 +186993,19 @@
       "愛について♡ - パワーアップ バージョン -",
       "ガールズ×戦士",
       "魔法×戦士 マジマジョピュアーズ!"
+    ]
+  },
+  {
+    "logid": "c3eb97e528ad",
+    "date": "20180613",
+    "time": "",
+    "contents": "RELEASE",
+    "title": "magical² 「愛について♡/超ラッキー☆」 リリース",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK"
     ]
   },
   {
