@@ -24,6 +24,7 @@ LABELS_LOGS = {
     "relations_g2": "relations / Girls²",
     "relations_l2": "relations / Laki",
     "tags": "tags",
+    "sns": "sns",
     "delete": "削除",
     "clear": "値の削除（更新時）",
     "copy": "コピー",
@@ -63,7 +64,7 @@ ERROR_FILE = "issue_error.md"
 # 「値の削除（更新時）」チェックボックスで消せる項目（識別キーは除く。フォームの選択肢名と揃える）
 CLEARABLE = {
     "logs": ["time", "contents", "title", "display_pc", "display_sp", "url", "map",
-             "groups", "relations", "setlistid", "tags"],
+             "groups", "relations", "setlistid", "tags", "sns"],
     "setlist": ["artist", "title", "member", "venue", "songs"],
     "songs": ["link"],
 }
@@ -181,6 +182,51 @@ def resolve_artist(f):
     return ARTIST_JOIN.join(parse_checked(f["artist_check"]))
 
 
+# URLだけが書かれたときの種別の判定（ドメイン → type）
+SNS_HOSTS = {
+    "x.com": "x", "twitter.com": "x",
+    "instagram.com": "instagram",
+    "youtube.com": "youtube", "youtu.be": "youtube",
+    "tiktok.com": "tiktok",
+}
+
+
+def parse_sns(raw):
+    """sns欄（1行1件）を [{"type","url"}] にする。書式: `type | url`、またはURLだけ（x / instagram / youtube / tiktok は自動判定）。
+    戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
+    if not raw:
+        return [], []
+    if raw.strip() == CLEAR:
+        return [CLEAR], []
+    items, errors = [], []
+    for line in raw.split("\n"):
+        line = unicodedata.normalize("NFKC", line).strip()
+        if not line or line.startswith("#"):
+            continue
+        if "|" in line:
+            type_, url = [s.strip() for s in line.split("|", 1)]
+            type_ = type_.lower()
+        else:
+            url, type_ = line, ""
+        shown = line.replace("`", "'")
+        if not re.fullmatch(r"https?://\S+", url):
+            errors.append(f"- **sns**: URLはhttp(s)://から始めてください（入力値: `{shown}`）")
+            continue
+        if not type_:
+            host = re.sub(r"^https?://(?:www\.|m\.|mobile\.)?([^/?#]+).*$", r"\1", url).lower()
+            type_ = SNS_HOSTS.get(host, "")
+            if not type_:
+                errors.append(f"- **sns**: 種別を判定できません。`type | url` の形で入力してください（入力値: `{shown}`）")
+                continue
+        if not re.fullmatch(r"[a-z0-9_-]+", type_):
+            errors.append(f"- **sns**: typeは半角英数字・ハイフン・アンダーバーで入力してください（入力値: `{shown}`）")
+            continue
+        entry = {"type": type_, "url": url}
+        if entry not in items:
+            items.append(entry)
+    return items, errors
+
+
 def to_halfwidth(s):
     """全角の英数字・記号を半角にそろえ、前後の空白を取り除く（例: ２０２６０９２８ → 20260928）"""
     return unicodedata.normalize("NFKC", s or "").strip()
@@ -225,6 +271,10 @@ def normalize_and_validate_logs(f):
 
     if not f["logid"] and not f["date"]:
         errors.append("- **ログID (logid) または 日付 (date)**: 更新するときはlogid、新規追加のときは日付を入力してください")
+
+    sns, sns_errors = parse_sns(f.get("sns", ""))
+    f["_sns"] = sns
+    errors += sns_errors
     return errors
 
 
@@ -298,6 +348,7 @@ def build_logs(f):
                      + parse_selected(f["relations_l2"], L2_OPTIONS[1:]),
         "setlistid": f["setlistid"],
         "tags": parse_list(f["tags"]),
+        "sns": f.get("_sns", []),
     }
     return data
 

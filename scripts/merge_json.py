@@ -29,9 +29,9 @@ TARGETS = [
         "main_file": "data/logs/logs.json",
         "key_fields": ["logid"],
         "order": ["logid", "date", "time", "contents", "title", "display_pc", "display_sp",
-                  "url", "map", "groups", "relations", "setlistid", "tags"],
+                  "url", "map", "groups", "relations", "setlistid", "tags", "sns"],
         "clear_to_empty_list": [],
-        "append_lists": ["tags"],  # 更新時は上書きせず、既存の値に新しいものだけ追記する
+        "append_lists": ["tags", "sns"],  # 更新時は上書きせず、既存の値に新しいものだけ追記する
         "sort_key": lambda x: (x.get("date") or "", x.get("time") or ""),
         "sort_reverse": True,
     },
