@@ -202,6 +202,14 @@ body:
         - label: "tags"
 
   - type: checkboxes
+    id: copy
+    attributes:
+      label: "コピー"
+      description: "logid のデータをコピーして新規登録（入力した項目は上書き）"
+      options:
+        - label: "コピーして新規登録"
+
+  - type: checkboxes
     id: delete
     attributes:
       label: "削除"
