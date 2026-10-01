@@ -138442,9 +138442,8 @@
     "date": "20211103",
     "time": "",
     "contents": "CD",
-    "title": "Lucky² 1stミニアルバム「キミすき」 リリース",
-    "display_pc": "Lucky²　1st MINI ALBUM 「キミすき」 リリース",
-    "display_sp": "Lucky²　1st MINI AL 「キミすき」 リリース",
+    "title": "Lucky² 1st MINI ALBUM 「キミすき」 リリース",
+    "display_sp": "Lucky² 1st MINI AL「キミすき」 リリース",
     "url": "https://girls2-fc.jp/page/lucky2news/571270189484606401",
     "groups": [
       "L2",
@@ -138455,7 +138454,11 @@
       "YUW",
       "KAN"
     ],
-    "relations": [],
+    "relations": [
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
     "tags": [
       "キミすき",
       "Lucky day☆ - リナ＆ユウラ -",
