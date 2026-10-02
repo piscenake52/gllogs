@@ -181,7 +181,6 @@ body:
     id: tags
     attributes:
       label: "tags"
-      description: "更新時は既存の値に追記"
 
   - type: textarea
     id: sns
@@ -194,7 +193,6 @@ body:
     id: clear
     attributes:
       label: "値の削除（更新時）"
-      description: "チェックした項目の既存の値を削除"
       options:
         - label: "time"
         - label: "contents"
@@ -212,14 +210,13 @@ body:
   - type: checkboxes
     id: copy
     attributes:
-      label: "コピー"
-      description: "logid のデータをコピーして新規登録（入力した項目は上書き）"
+      label: "COPY"
       options:
         - label: "コピーして新規登録"
 
   - type: checkboxes
     id: delete
     attributes:
-      label: "削除"
+      label: "DELETE"
       options:
         - label: "削除する"
