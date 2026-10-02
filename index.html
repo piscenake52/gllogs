@@ -27,7 +27,7 @@
 })();
 //]]>
 </script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>GL log</title>
 <meta name="description" content="Girls²・Laki(旧Lucky²)の活動ログ・スケジュール・セットリスト・楽曲情報をまとめたファン向け非公式サイト「GL log」。">
 <link rel="canonical" href="https://gl-log.blogspot.com/">
@@ -90,6 +90,10 @@ input:focus-visible,
 /* スマホのPC版表示対応 ＆ カクつき防止（scrollbar-gutter: stable） */
 html { 
   overflow-y: auto; 
+  overflow-x: hidden; /* TODAYモードのフリック(スライド)演出でデータ部が画面外へ一時的にはみ出すため、横スクロールバーの発生を防ぐ。
+    (bodyにoverflow-xだけを指定すると、overflow-yがブラウザにより暗黙的にautoとして扱われてbody自体が
+    独立したスクロールコンテナ扱いになり、sticky-headerのposition:stickyが効かなくなるため、
+    もともとoverflow-y:autoを指定しているこのhtmlに一緒に指定する) */
   scrollbar-gutter: stable; 
   height: auto;
   min-height: 100%;
@@ -104,16 +108,52 @@ body {
   color: var(--text); 
   transition: background-color 0.2s, color 0.2s; 
   height: auto;
-  overflow-x: hidden; /* TODAYモードのフリック(スライド)演出でデータ部が画面外へ一時的にはみ出すため、横スクロールバーの発生を防ぐ */
   /* 暗い背景+太字の組み合わせで文字の縁に色にじみが出るのを抑える(HELP/SETTING等のタイトルで顕著) */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 .container { max-width: var(--container-w); margin: 0 auto; position: relative; }
+/* PC幅表示の横幅リサイズハンドル(画面両端をつかんで横に伸縮させる)。760px未満では使わないので非表示 */
+.width-resize-handle {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  margin-left: -7px; /* コンテナの端を中心にハンドルの当たり判定を広げる */
+  cursor: ew-resize;
+  z-index: 90;
+  touch-action: none;
+  background: transparent;
+}
+.width-resize-handle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+  background: var(--input-border);
+  opacity: 0;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+}
+.width-resize-handle:hover::before, .width-resize-handle.is-dragging::before {
+  opacity: 1;
+  background: #0ea5e9;
+}
+.width-resize-handle.is-dragging { background: rgba(14,165,233,0.08); }
+body.is-resizing-container { cursor: ew-resize; user-select: none; }
+@media (min-width: 760px) {
+  .width-resize-handle { display: block; }
+  .width-resize-handle.left { left: calc(50% - var(--container-w) / 2); }
+  .width-resize-handle.right { left: calc(50% + var(--container-w) / 2); }
+}
 /* --- 上部固定ヘッダー(タイトル・検索・テーマ切替・フィルター開閉) --- */
 .sticky-header { position: sticky; top: 0; background: var(--bg); z-index: 100; padding: 12px 0 0; margin-bottom: 12px; border-bottom: 1px solid var(--border); transition: background-color 0.2s; }
 .sticky-header-inner { position: relative; padding-bottom: 8px; }
-.header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 14px; }
+.header-row { display: flex; justify-content: flex-start; align-items: flex-end; margin-bottom: 14px; }
 h1 { font-size: 20px; margin: 0; line-height: 1; }
 .reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; letter-spacing: -2px; }
 .reset-link sup { font-size: 0.67em; }
@@ -121,9 +161,13 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .toggle-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; padding: 4px 8px; border-radius: 12px; line-height: 1; }
 .toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
 .header-btn-group { display: flex; align-items: center; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; min-width: 0; }
+/* スマホ幅でリンクボタン分のはみ出しを減らすため、ボタン間の間隔だけ少し詰める(タップ領域自体は変わらないので操作性への影響は小さい) */
+#headerBtnGroup { gap: 3px; }
 .header-btn-group::-webkit-scrollbar { display: none; }
 .header-btn-group > * { flex-shrink: 0; }
-.date-part-btn { padding: 4px 6px; }
+.date-part-btn { padding: 4px 5px; font-size: 12px; }
+/* リンクボタン追加でスマホ幅が窮屈になるため、地図・セトリボタンは少し小さくして幅を節約する */
+#mapToggleBtn, #setlistIconToggleBtn { padding: 4px 4px; font-size: 11px; }
 .toggle-btn.is-active { color: var(--text); background-color: var(--btn-bg); text-shadow: 0 0 0.4px currentColor, 0 0 0.4px currentColor; }
 .toggle-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .toggle-btn:disabled:hover { background: none; color: var(--muted); }
@@ -453,7 +497,9 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .item-time.is-blank { visibility: hidden; } /* time未設定の行も"00:00"と同じ幅を確保したまま見た目だけブランクにする */
 /* 今日の日付の行を目立たせる(TODAYモード中は全行が「今日」になるため対象外)。
    太字にすると文字幅がわずかに変わり右側の要素がずれるため、色だけを変える */
-.item-date.is-today-date, .item-time.is-today-date {
+.item-date.is-today-date, .item-time.is-today-date,
+/* TODAYモード(当日表示時のみ)は、現在時刻以降(同じ時台なら現在時刻より前でも含む)の項目を同じ色で目立たせる */
+.item-date.is-upcoming-time, .item-time.is-upcoming-time {
   color: #0ea5e9;
 }
 
@@ -548,6 +594,8 @@ body .item-contents.is-content-open {
 .map-pin:not(a) { visibility: hidden; } /* mapに値が無い行は、アイコン分の幅は保ったまま見た目だけブランクにする */
 .setlist-icon { display: inline-block; margin: 0 4px 0 2px; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; }
 .setlist-icon.is-blank { visibility: hidden; cursor: default; } /* setlistidが無い行は、アイコン分の幅は保ったまま見た目だけブランクにする(setlistIconMode時) */
+.link-icon { display: inline-block; margin: 0 4px 0 2px; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; }
+.link-icon.is-blank { visibility: hidden; cursor: default; } /* snsが無い行は、アイコン分の幅は保ったまま見た目だけブランクにする(linkMode時) */
 .team-icon.is-clickable { cursor: pointer; }
 /* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される。
    overflow-xだけhidden・overflow-yだけvisibleのように分割指定すると、ブラウザ側でvisible指定がautoとして
@@ -756,17 +804,46 @@ body .item-contents.is-content-open {
 .setlist-song-type { flex: 0 0 auto; font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
 .setlist-song-notes { flex-basis: 100%; font-size: 11px; color: var(--sub); margin-top: 2px; }
 .setlist-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
+/* SNSリンクポップアップ(セトリポップアップと見た目を揃える) */
+.sns-modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000;
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.sns-modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+.sns-modal { position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 360px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.sns-modal-overlay.is-open .sns-modal { transform: scale(1); }
+.sns-modal-close { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.sns-modal-close:hover { background-color: var(--btn-hover); }
+.sns-modal-title { font-size: 15px; font-weight: bold; margin: 0 26px 10px 0; line-height: 1.4; }
+.sns-modal-type-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.sns-modal-type-row:last-child { border-bottom: none; }
+.sns-modal-type-label { font-size: 13px; font-weight: 600; min-width: 4.5em; flex-shrink: 0; }
+.sns-modal-links { display: flex; flex-wrap: wrap; gap: 6px; }
+.sns-modal-link, .sns-modal-link.is-invalid {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px;
+  background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text);
+  font-size: 12px; text-decoration: none; cursor: pointer;
+}
+.sns-modal-link:hover { background-color: var(--btn-hover); }
+.sns-modal-link.is-invalid { opacity: 0.4; cursor: not-allowed; pointer-events: none; } /* http(s)で始まらない不正なURL:番号は出すがクリック不可にする */
+.sns-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
 /*]]>*/
 </style>
 </head>
 <body>
+
+<div class="width-resize-handle left" id="widthHandleLeft" aria-hidden="true"></div>
+<div class="width-resize-handle right" id="widthHandleRight" aria-hidden="true"></div>
 
 <div class="container">
   <div class="sticky-header is-initializing" id="stickyHeader">
     <div class="sticky-header-inner">
     <div class="header-row">
       <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
-      <div class="header-btn-group">
+      <div class="header-btn-group" id="headerBtnGroup" style="margin-left:auto;">
         <button class="toggle-btn date-part-btn" id="showYearBtn">&#24180;</button>
         <button class="toggle-btn date-part-btn" id="showMonthBtn">&#26376;</button>
         <button class="toggle-btn date-part-btn" id="showDayBtn">&#26085;</button>
@@ -774,6 +851,9 @@ body .item-contents.is-content-open {
         <button class="toggle-btn date-part-btn" id="showTimeBtn">&#26178;</button>
         <button class="toggle-btn date-part-btn" id="mapToggleBtn">&#128205;</button>
         <button class="toggle-btn date-part-btn" id="setlistIconToggleBtn">&#128203;&#65039;</button>
+        <button class="toggle-btn date-part-btn" id="linkToggleBtn">&#128279;</button>
+      </div>
+      <div class="header-btn-group" id="headerBtnGroupRight" style="margin-left:auto;">
         <button class="toggle-btn" id="badgeToggleBtn">BADGE</button>
         <button class="toggle-btn" id="iconToggleBtn">ICON</button>
         <button class="toggle-btn" id="todayToggleBtn">TODAY</button>
@@ -905,6 +985,13 @@ body .item-contents.is-content-open {
   </div>
 </div>
 
+<div class="sns-modal-overlay" id="snsModalOverlay">
+  <div class="sns-modal" id="snsModal" role="dialog" aria-modal="true">
+    <button type="button" class="sns-modal-close" id="snsModalCloseBtn" aria-label="Close">&#215;</button>
+    <div class="sns-modal-body" id="snsModalBody"></div>
+  </div>
+</div>
+
 <div class="setlist-modal-overlay" id="setlistModalOverlay">
   <div class="setlist-modal" id="setlistModal" role="dialog" aria-modal="true">
     <button type="button" class="setlist-modal-close" id="setlistModalCloseBtn" aria-label="Close">&#215;</button>
@@ -944,6 +1031,104 @@ body .item-contents.is-content-open {
   let setlistExcludedSavedState = null;
   const pageSize = 40, isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const $ = id => document.getElementById(id);
+  // ==================== 年月日曜時等のボタン群を検索窓の左端に揃える ====================
+  // header-btn-group(年/月/日/曜/時/マップ/セトリ等)の左端が、1行下の検索窓(.search-box-wrap)の
+  // 左端と縦に揃うように、margin-leftを動的に計算する。song/heartボタンは固定幅のため、
+  // コンテナ幅が変わっても検索窓の左端オフセット自体はほぼ変わらないが、念のため
+  // ウィンドウリサイズ時・コンテナ幅ドラッグ後にも再計算する。
+  const syncHeaderBtnGroupPosition = () => {
+    const row = document.querySelector('.header-row');
+    const h1El = row ? row.querySelector('h1') : null;
+    const grp = $('headerBtnGroup');
+    const searchWrap = document.querySelector('.search-box-wrap');
+    if (!row || !h1El || !grp || !searchWrap) return;
+    const rowLeft = row.getBoundingClientRect().left;
+    const targetLeft = searchWrap.getBoundingClientRect().left - rowLeft; // 検索窓の左端(行の左端からの相対位置)
+    const h1Right = h1El.getBoundingClientRect().right - rowLeft; // タイトルの右端(同上)
+    const GUTTER_MIN = 8; // タイトルとボタン群が近すぎないよう最低限あける余白
+    grp.style.marginLeft = Math.max(targetLeft - h1Right, GUTTER_MIN) + 'px';
+  };
+  // 初期描画・フォント読み込み後の幅ズレに備えて少し遅らせても一度実行する
+  syncHeaderBtnGroupPosition();
+  setTimeout(syncHeaderBtnGroupPosition, 0);
+  window.addEventListener('resize', syncHeaderBtnGroupPosition);
+
+
+  // ==================== PC幅:コンテナ横幅のドラッグリサイズ ====================
+  // 画面両端のハンドル(left/right)をドラッグすると、中央寄せを保ったまま左右均等に伸縮する。
+  // 760px未満(スマホ幅)では使わない(CSS側で.width-resize-handleも非表示)。
+  // 選んだ幅はlocalStorageに保存し、次回訪問時も復元する。
+  (() => {
+    const MIN_CONTAINER_W = 440; // これより狭いと見出し「GL log」が2行に折り返るため
+    const CONTAINER_W_KEY = 'gl_log_container_w';
+    const PC_BREAKPOINT = 760;
+    const root = document.documentElement;
+    const leftHandle = $('widthHandleLeft');
+    const rightHandle = $('widthHandleRight');
+    if (!leftHandle || !rightHandle) return;
+
+    const getMaxContainerW = () => window.innerWidth; // 上限はウィンドウの横幅いっぱいまで
+    const currentContainerW = () => parseFloat(getComputedStyle(root).getPropertyValue('--container-w')) || 620;
+
+    // 指定した幅を上下限内に収めてCSS変数へ反映する。実際に適用された値を返す
+    const applyContainerW = w => {
+      const clamped = Math.min(Math.max(w, MIN_CONTAINER_W), getMaxContainerW());
+      root.style.setProperty('--container-w', clamped + 'px');
+      return clamped;
+    };
+
+    // 起動時、保存値があればPC幅の場合だけ復元する(スマホ幅では既定値のまま)
+    const savedW = parseFloat(localStorage.getItem(CONTAINER_W_KEY));
+    if (!isNaN(savedW) && window.innerWidth >= PC_BREAKPOINT) applyContainerW(savedW);
+
+    let dragSide = null; // 'left' | 'right' | null
+    let dragStartX = 0, dragStartW = 0;
+
+    const startDrag = (side, clientX) => {
+      if (window.innerWidth < PC_BREAKPOINT) return;
+      dragSide = side;
+      dragStartX = clientX;
+      dragStartW = currentContainerW();
+      (side === 'left' ? leftHandle : rightHandle).classList.add('is-dragging');
+      document.body.classList.add('is-resizing-container');
+    };
+    const moveDrag = clientX => {
+      if (!dragSide) return;
+      const dx = clientX - dragStartX;
+      // 中央寄せなので、片側ハンドルの移動量(dx)の2倍がコンテナ全体の幅の変化量になる。
+      // 左ハンドルは左へ動かす(dxが負)ほど広がるので符号を反転する
+      const delta = (dragSide === 'left' ? -dx : dx) * 2;
+      applyContainerW(dragStartW + delta);
+    };
+    const endDrag = () => {
+      if (!dragSide) return;
+      leftHandle.classList.remove('is-dragging');
+      rightHandle.classList.remove('is-dragging');
+      document.body.classList.remove('is-resizing-container');
+      dragSide = null;
+      localStorage.setItem(CONTAINER_W_KEY, currentContainerW());
+      syncHeaderBtnGroupPosition(); // コンテナ幅が変わったので、年月日曜時ボタン群の位置も再計算する
+    };
+
+    leftHandle.addEventListener('mousedown', e => { startDrag('left', e.clientX); e.preventDefault(); });
+    rightHandle.addEventListener('mousedown', e => { startDrag('right', e.clientX); e.preventDefault(); });
+    leftHandle.addEventListener('touchstart', e => startDrag('left', e.touches[0].clientX), { passive: true });
+    rightHandle.addEventListener('touchstart', e => startDrag('right', e.touches[0].clientX), { passive: true });
+
+    window.addEventListener('mousemove', e => moveDrag(e.clientX));
+    window.addEventListener('touchmove', e => {
+      if (!dragSide) return;
+      moveDrag(e.touches[0].clientX);
+      e.preventDefault(); // ドラッグ中はページ自体のスクロールを止める
+    }, { passive: false });
+    window.addEventListener('mouseup', endDrag);
+    window.addEventListener('touchend', endDrag);
+    window.addEventListener('touchcancel', endDrag);
+
+    // ウィンドウが縮んで上限を超えた場合などに再度クランプする
+    window.addEventListener('resize', () => applyContainerW(currentContainerW()));
+  })();
+
   // ボタン/checkboxを押した直後の見た目の変化(:has(input:checked)によるボタンの色変化等)を先に
   // ブラウザへ描画させてから、その後に続く重い処理(全件フィルタリング・再描画等)を実行するためのヘルパー。
   // checkboxの:checked状態自体は純粋なCSSで駆動されているため本来即座に反映されるが、同じタスク内で重い
@@ -2112,6 +2297,14 @@ body .item-contents.is-content-open {
     const isTodayDate = !todayMode && item.date === getTargetDateStr(0) && d.textContent !== '';
     if (isTodayDate) d.classList.add('is-today-date');
 
+    // TODAYモードで当日(todayOffset===0)を表示中は、代わりに「現在時刻以降」の項目を目立たせる。
+    // 時台(時の部分)だけで比較するため、例えば現在13:45なら13:00(1300)の項目も対象に含む
+    // (分単位で厳密に絞ると、開始済みでもまだ関係がある予定がすぐ対象外になってしまうため)。
+    // time未設定の項目は比較しようがないため対象外。
+    const isUpcomingTime = todayMode && todayOffset === 0 && !!item.time
+      && parseInt(item.time.slice(0, 2), 10) >= new Date().getHours();
+    if (isUpcomingTime) d.classList.add('is-upcoming-time');
+
     // 時刻は日付と別要素にして、未設定の行でも"00:00"と同じ幅を確保したまま見た目だけブランクにする
     // (幅を確保しないと、後ろのコンテンツ種類アイコン等が左にずれて見えるため)
     let tm = null;
@@ -2122,6 +2315,7 @@ body .item-contents.is-content-open {
       tm.textContent = t || '00:00';
       if (!t) tm.classList.add('is-blank');
       if (isTodayDate) tm.classList.add('is-today-date');
+      if (isUpcomingTime) tm.classList.add('is-upcoming-time');
     }
     
     const ct = document.createElement('span');
@@ -2276,8 +2470,27 @@ body .item-contents.is-content-open {
       };
     }
 
+    // 🔗ボタン(linkMode)ON時のみ、📋️の右にSNSリンクアイコンを表示する。考え方は📍・📋️と同じで、
+    // sns属性が無い/空の行もアイコン要素自体は作り、幅だけ確保して見た目を隠す(is-blank)。
+    let lk = null;
+    if (linkMode) {
+      const hasSns = Array.isArray(item.sns) && item.sns.some(e => e && Array.isArray(e.urls) && e.urls.length);
+      lk = document.createElement('span');
+      lk.className = 'link-icon' + (hasSns ? '' : ' is-blank');
+      lk.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない
+      lk.textContent = '\uD83D\uDD17'; // snsの有無にかかわらず同じ幅を確保するため、常にアイコン文字を入れておく
+      if (hasSns) {
+        lk.setAttribute('role', 'button');
+        lk.setAttribute('aria-label', 'SNS Links');
+        lk.onclick = e => {
+          e.stopPropagation();
+          openSnsModal(item.sns);
+        };
+      }
+    }
+
     const dateChildren = tm ? [d, tm] : [d];
-    const children = [...dateChildren, ...(mp ? [mp] : []), ...(sl ? [sl] : []), ct];
+    const children = [...dateChildren, ...(mp ? [mp] : []), ...(sl ? [sl] : []), ...(lk ? [lk] : []), ct];
     if (teamClass) {
       const ti = document.createElement('span');
       ti.className = 'team-icon team-' + teamClass;
@@ -2797,6 +3010,50 @@ body .item-contents.is-content-open {
     if (e.key === 'Escape' && setlistModalOverlay.classList.contains('is-open')) closeSetlistModal();
   });
 
+  // SNSリンクポップアップ:sns属性([{type, urls}, ...])をtypeごとに見出し+連番リンクで表示する。
+  // 連番はtypeごとに1から数え直す。http(s)で始まらない不正なURLは番号だけ出してクリック不可にする。
+  // sns.typeの生の値(x/instagram/youtube等)を、見た目の良い表示名に変換する。
+  // 未知のtypeはそのまま表示する(先頭だけ大文字にする)
+  const SNS_TYPE_DISPLAY_NAMES = { x: 'X', instagram: 'Instagram', youtube: 'YouTube', tiktok: 'TikTok', threads: 'Threads', line: 'LINE' };
+  const displayNameForSnsType = type => {
+    const key = String(type || '').trim().toLowerCase();
+    if (SNS_TYPE_DISPLAY_NAMES[key]) return SNS_TYPE_DISPLAY_NAMES[key];
+    return key ? key.charAt(0).toUpperCase() + key.slice(1) : '';
+  };
+  const snsModalOverlay = $('snsModalOverlay');
+  const snsModalBody = $('snsModalBody');
+  const openSnsModal = sns => {
+    try {
+      const list = Array.isArray(sns) ? sns : [];
+      const rowsHtml = list
+        .filter(entry => entry && typeof entry === 'object' && Array.isArray(entry.urls) && entry.urls.length)
+        .map(entry => {
+          const linksHtml = entry.urls.map((url, i) => {
+            const n = i + 1;
+            const isValid = typeof url === 'string' && /^https?:\/\//i.test(url.trim());
+            return isValid
+              ? `<a class="sns-modal-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${n}</a>`
+              : `<span class="sns-modal-link is-invalid" aria-disabled="true">${n}</span>`;
+          }).join('');
+          return `<div class="sns-modal-type-row"><span class="sns-modal-type-label">${escapeHtml(displayNameForSnsType(entry.type))}</span><span class="sns-modal-links">${linksHtml}</span></div>`;
+        })
+        .join('');
+      snsModalBody.innerHTML = rowsHtml || '<div class="sns-modal-empty">NO LINKS</div>';
+    } catch (err) {
+      console.error('Failed to render sns modal:', err);
+      snsModalBody.innerHTML = '<div class="sns-modal-empty">LOAD ERROR</div>';
+    }
+    snsModalOverlay.classList.add('is-open');
+  };
+  const closeSnsModal = () => snsModalOverlay.classList.remove('is-open');
+  $('snsModalCloseBtn').onclick = closeSnsModal;
+  snsModalOverlay.onclick = e => {
+    if (e.target === snsModalOverlay) closeSnsModal();
+  };
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && snsModalOverlay.classList.contains('is-open')) closeSnsModal();
+  });
+
   // コンテンツ種類フィルターを除いた条件(年・グループ/メンバー・検索・TODAY・セトリ検索)だけでアイテムがマッチするか判定
   // セトリ検索モード中は、メンバーフィルターの判定元をlogs.json側のgroups/relationsではなく、
   // そのデータのsetlistidに紐づくsetlist.json側のmemberに切り替える。setlistid→member配列は
@@ -2944,17 +3201,20 @@ body .item-contents.is-content-open {
   const autoUpdateContentTypeFilters = () => {
     const contentCheckboxes = Array.from(checkboxes).filter(cb => allConts.includes(cb.value));
     const checkedAll = Array.from(checkboxes).filter(cb => cb.checked);
-    // 検索ワードが確定した時(サジェスト/履歴ウインドウが閉じたタイミング)、またはグループ/メンバー
-    // フィルターが選択されている時も、TODAY/セトリ検索モードと同様にヒットしたデータのコンテンツ種類の
-    // 集計は行う(グループ/メンバーは「年でも月でもコンテンツ種類でもない」チェックとして判定する)。
-    // ただし実際にチェックをON/OFFする(=表示結果を絞り込む)のはTODAY/セトリ検索モード/検索ワードの
-    // 時だけとし、年/月/グループ/メンバーだけの場合はチェックはせず、該当コンテンツ種類のボタンに
+    // 検索ワードが確定した時(サジェスト/履歴ウインドウが閉じたタイミング)、年/月フィルター、または
+    // グループ/メンバーフィルターが選択されている時も、TODAY/セトリ検索モードと同様にヒットしたデータの
+    // コンテンツ種類の集計は行う(グループ/メンバーは「年でも月でもコンテンツ種類でもない」チェックとして判定する)。
+    // ただし実際にチェックをON/OFFする(=表示結果を絞り込む)のはTODAY/セトリ検索モードの時だけとし、
+    // 年/月/グループ/メンバー/検索ワードの場合はチェックはせず、該当コンテンツ種類のボタンに
     // 「ランプ」を点けるだけにとどめる(フィルター結果自体は変えずに、どの種類にデータがあるかだけ示す)
     const hasSearchKeyword = searchInput.value.trim().length > 0;
     const hasGroupOrMemberFilter = checkedAll.some(cb => !/^\d{4}$/.test(cb.value) && !/^\d{2}$/.test(cb.value) && !allConts.includes(cb.value));
-    const shouldAutoCheck = todayMode || setlistMode || hasSearchKeyword;
+    const hasYearOrMonthFilter = checkedAll.some(cb => /^\d{4}$/.test(cb.value) || /^\d{2}$/.test(cb.value));
+    // 検索ワードは実際のON/OFF(絞り込み)は行わず、年/月/グループ/メンバーと同じく「ランプ」表示のみの対象にする
+    const shouldAutoCheck = todayMode || setlistMode;
+    const hasLampCondition = hasGroupOrMemberFilter || hasYearOrMonthFilter || hasSearchKeyword;
 
-    if (!shouldAutoCheck && !hasGroupOrMemberFilter) {
+    if (!shouldAutoCheck && !hasLampCondition) {
       // 何も条件が無い:残りのフィルタでの再判定はせず、手動on/off以外は無条件でOFFにし、ランプも消す
       contentCheckboxes.forEach(cb => {
         const label = cb.closest('label');
@@ -3005,7 +3265,7 @@ body .item-contents.is-content-open {
         return;
       }
 
-      // TODAY/セトリ検索モード/検索ワードあり:従来通り実際にチェックをON/OFFする
+      // TODAY/セトリ検索モード:従来通り実際にチェックをON/OFFする
       if (label) label.classList.remove('has-data-lamp'); // 実チェックしている間はランプ表示不要
       // 手動ONのものだけ保護する(手動OFFでも、該当するデータがあれば自動ONに戻す)
       const isProtected = manuallyTouchedConts.has(cb.value) && cb.checked;
@@ -3392,6 +3652,18 @@ body .item-contents.is-content-open {
     localStorage.setItem(SETLIST_ICON_MODE_KEY, setlistIconMode);
     deferHeavyUpdate(() => updateDisplay(false));
   };
+  // 🔗ボタン(SNSリンク表示モード):ONの間、データ部の日付/時刻表示の右(📋️の右)にSNSリンクアイコンを
+  // 表示する。基本的な動作は📍(mapMode)・📋️(setlistIconMode)と同じ考え方で、sns属性を持たない行でも
+  // アイコン要素自体は常に作り、見た目だけ隠して幅を確保する。次回訪問時も状態を記憶する
+  const LINK_MODE_KEY = 'gl_log_link_mode';
+  let linkMode = localStorage.getItem(LINK_MODE_KEY) === 'true';
+  $('linkToggleBtn').classList.toggle('is-active', linkMode);
+  $('linkToggleBtn').onclick = () => {
+    linkMode = !linkMode;
+    $('linkToggleBtn').classList.toggle('is-active', linkMode);
+    localStorage.setItem(LINK_MODE_KEY, linkMode);
+    deferHeavyUpdate(() => updateDisplay(false));
+  };
   const SONG_MODE_KEY = 'gl_log_song_mode';
   let songMode = localStorage.getItem(SONG_MODE_KEY) === 'true';
   $('songToggleBtn').classList.toggle('is-active', songMode);
@@ -3765,8 +4037,8 @@ body .item-contents.is-content-open {
     btn.classList.toggle('is-year-filtered', todayMode && !!$('yearChecks').querySelector('input:checked'));
     // 検索窓の日付入力でTODAYモードがONになっている間は、日付検索の絞り込み(検索文字列そのままの
     // 固定日付)と前後日移動が両立せずヒット件数が0になりやすいため、前後日ボタン自体を隠す
-    $('prevDayBtn').classList.toggle('is-visible', todayMode && !searchDateTodayActive);
-    $('nextDayBtn').classList.toggle('is-visible', todayMode && !searchDateTodayActive);
+    $('prevDayBtn').classList.toggle('is-visible', todayMode);
+    $('nextDayBtn').classList.toggle('is-visible', todayMode);
     if (todayOffset === 0) {
       $('prevDayBtn').classList.remove('is-pressed');
       $('nextDayBtn').classList.remove('is-pressed');
@@ -3923,6 +4195,14 @@ body .item-contents.is-content-open {
 
   // 実際の日付切替処理本体(todayOffset更新・ボタン見た目・フィルター再計算・再描画)
   const performDayChange = delta => {
+    if (searchDateTodayActive) {
+      // 検索窓の日付入力でTODAYモードに入っていた状態から前後日ボタン/フリックで移動した場合、
+      // 検索窓の日付表示が実際の表示日とズレてしまうため、連動状態を解除して検索窓もクリアする
+      // (TODAYモード自体はONのまま維持し、通常の前後日ナビゲーションに切り替える)
+      searchDateTodayActive = false;
+      searchInput.value = '';
+      updateSearchClearState();
+    }
     todayOffset += delta;
     if (delta < 0) {
       $('prevDayBtn').classList.add('is-pressed');
@@ -3941,8 +4221,7 @@ body .item-contents.is-content-open {
   // スライドアウト→(画面外で)日付切替→スライドインを行う。フリック中の場合は現在位置(既にtranslateX(dx)済み)
   // から続けてスライドアウトさせるため、呼び出し前のslideAreaElの位置はそのまま利用する
   const playDaySlideChange = delta => {
-    // 検索窓の日付入力でTODAYモードがONの間は、前後日ボタンと同じ理由でフリックによる日送りも無効化する
-    if (!todayMode || searchDateTodayActive || daySlideAnimating) return;
+    if (!todayMode || daySlideAnimating) return;
     daySlideAnimating = true;
     const width = slideAreaEl.getBoundingClientRect().width || slideAreaEl.offsetWidth || 300;
     const exitX = delta > 0 ? -width : width; // 翌日=左へ、前日=右へ
@@ -3998,8 +4277,7 @@ body .item-contents.is-content-open {
     let touchOnScrollableTitle = false; // タイトルリンク(.item-title)が横スクロール可能な長さで、かつそこから触れ始めた場合true
 
     const onTouchStart = e => {
-      // 検索窓の日付入力でTODAYモードがONの間は日送り自体が無効なので、ドラッグの見た目追従も始めない
-      if (!todayMode || searchDateTodayActive || daySlideAnimating || e.touches.length !== 1) { axisLock = null; return; }
+      if (!todayMode || daySlideAnimating || e.touches.length !== 1) { axisLock = null; return; }
       // データ行のタイトルリンクが長文で横スクロール可能な場合、そこをホールドしている間は
       // 日付フリックと競合しないよう、この後のtouchmoveで一切介入せずネイティブの横スクロールに任せる
       const titleEl = e.target.closest ? e.target.closest('.item-title') : null;
@@ -4012,7 +4290,7 @@ body .item-contents.is-content-open {
     };
 
     const onTouchMove = e => {
-      if (!todayMode || searchDateTodayActive || daySlideAnimating || e.touches.length !== 1 || axisLock === 'v' || touchOnScrollableTitle) return;
+      if (!todayMode || daySlideAnimating || e.touches.length !== 1 || axisLock === 'v' || touchOnScrollableTitle) return;
       const dx = e.touches[0].clientX - startX;
       const dy = e.touches[0].clientY - startY;
 
