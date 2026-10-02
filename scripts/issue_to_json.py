@@ -25,9 +25,9 @@ LABELS_LOGS = {
     "relations_l2": "relations / Laki",
     "tags": "tags",
     "sns": "sns",
-    "delete": "削除",
+    "delete": "DELETE",
     "clear": "値の削除（更新時）",
-    "copy": "コピー",
+    "copy": "COPY",
 }
 # add_setlist_songs.yml
 LABELS_SS = {
@@ -41,7 +41,7 @@ LABELS_SS = {
     "member_free": "member / 自由入力",
     "venue": "venue",
     "songs": "曲目 (songs / setlist用 - 1行1曲)",
-    "delete": "削除",
+    "delete": "DELETE",
     "clear": "値の削除（更新時）",
 }
 # 旧フォーム(データの種類ドロップダウンあり)のIssueを誤って処理しないための目印
