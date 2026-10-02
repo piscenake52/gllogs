@@ -94,7 +94,6 @@ body:
     id: clear
     attributes:
       label: "値の削除（更新時）"
-      description: "チェックした項目の既存の値を削除"
       options:
         - label: "artist"
         - label: "title"
@@ -106,6 +105,6 @@ body:
   - type: checkboxes
     id: delete
     attributes:
-      label: "削除"
+      label: "DELETE"
       options:
         - label: "削除する"
