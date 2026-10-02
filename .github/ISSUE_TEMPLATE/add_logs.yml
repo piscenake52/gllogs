@@ -143,7 +143,6 @@ body:
     id: setlistid
     attributes:
       label: "setlistid"
-      description: "LIVEで未入力の場合は date+time を自動登録"
 
   - type: dropdown
     id: relations_g2
