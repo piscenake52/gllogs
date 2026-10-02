@@ -7,6 +7,13 @@ body:
     attributes:
       label: "logid"
 
+  - type: checkboxes
+    id: copy
+    attributes:
+      label: "COPY"
+      options:
+        - label: "コピーして新規登録"
+
   - type: input
     id: date
     attributes:
@@ -205,13 +212,6 @@ body:
         - label: "setlistid"
         - label: "tags"
         - label: "sns"
-
-  - type: checkboxes
-    id: copy
-    attributes:
-      label: "COPY"
-      options:
-        - label: "コピーして新規登録"
 
   - type: checkboxes
     id: delete
