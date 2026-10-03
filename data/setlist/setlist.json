@@ -106,6 +106,58 @@
     "venue": "大宮ステラタウン メローベ広場"
   },
   {
+    "setlistid": "202610031455",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "title": "a-nation 2026",
+    "venue": "お台場 a-nation特設会場",
+    "songs": [
+      {
+        "order": 1,
+        "title": "BLOOM! BLOOM! BLOOM!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "Eagle Eyes",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "EASY",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "LET ME GO",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "ヒマワリ",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
     "setlistid": "202610031400",
     "artist": "Laki",
     "member": [
