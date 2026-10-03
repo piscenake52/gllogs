@@ -594,8 +594,16 @@ body .item-contents.is-content-open {
 .map-pin:not(a) { visibility: hidden; } /* mapに値が無い行は、アイコン分の幅は保ったまま見た目だけブランクにする */
 .setlist-icon { display: inline-block; margin: 0 4px 0 2px; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; }
 .setlist-icon.is-blank { visibility: hidden; cursor: default; } /* setlistidが無い行は、アイコン分の幅は保ったまま見た目だけブランクにする(setlistIconMode時) */
-.link-icon { display: inline-block; margin: 0 4px 0 2px; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; }
-.link-icon.is-blank { visibility: hidden; cursor: default; } /* snsが無い行は、アイコン分の幅は保ったまま見た目だけブランクにする(linkMode時) */
+/* 🔗アイコンは行の右端(タイトルの後ろ)に固定する。横スクロールするのはタイトルだけなので、文字をスクロールしてもアイコンは動かず、文字とも重ならない。
+   通常(🔗ボタンOFF)は幅0で見えない。ON(#itemsに.link-mode)で幅を確保し、右からスッとスライドして現れる(動かすのはtransform/opacityだけなので、行数が多くても軽い)。
+   OFFにしたときは、スライドして消えた後に幅を解放する(width/marginのtransition-delay) */
+.link-icon { display: inline-block; flex: 0 0 auto; width: 0; margin: 0; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer;
+  opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0.9em);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0s linear 0.28s, width 0s linear 0.28s, margin 0s linear 0.28s; }
+.items.link-mode .link-icon { width: 1.6em; margin: 0 0 0 4px; opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0s, width 0s, margin 0s; }
+.items.link-mode .link-icon.is-blank { visibility: hidden; pointer-events: none; cursor: default; } /* snsが無い行は、幅は保ったまま見た目だけブランクにする */
+@media (prefers-reduced-motion: reduce) { .link-icon, .items.link-mode .link-icon { transition: none; } }
 .team-icon.is-clickable { cursor: pointer; }
 /* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される。
    overflow-xだけhidden・overflow-yだけvisibleのように分割指定すると、ブラウザ側でvisible指定がautoとして
@@ -817,15 +825,18 @@ body .item-contents.is-content-open {
 .sns-modal-close { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
 .sns-modal-close:hover { background-color: var(--btn-hover); }
 .sns-modal-title { font-size: 15px; font-weight: bold; margin: 0 26px 10px 0; line-height: 1.4; }
-.sns-modal-type-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.sns-modal-type-row { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
 .sns-modal-type-row:last-child { border-bottom: none; }
-.sns-modal-type-label { font-size: 13px; font-weight: 600; min-width: 4.5em; flex-shrink: 0; }
-.sns-modal-links { display: flex; flex-wrap: wrap; gap: 6px; }
+/* 見出し欄(アイコン+文字)は全行同じ幅にして、右の番号ボタンが左寄せで縦にそろうようにする。高さは番号ボタンと同じ20pxにして1行目と中央をそろえる */
+.sns-modal-type-label { flex: 0 0 7.4em; display: flex; align-items: center; gap: 6px; height: 20px; font-size: 13px; font-weight: 600; }
+.sns-modal-ic { flex: 0 0 15px; width: 15px; height: 15px; display: block; } /* 単色(currentColor)なので文字色=テーマに追従する */
+.sns-modal-ic.is-ph { visibility: hidden; } /* アイコン未登録のtypeは、同じ幅の空きを置いて文字の開始位置をそろえる */
+.sns-modal-links { flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 6px; }
 .sns-modal-link, .sns-modal-link.is-invalid {
   display: inline-flex; align-items: center; justify-content: center;
-  min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px;
+  min-width: 40px; height: 20px; padding: 0 10px; border-radius: 10px; box-sizing: border-box; /* 番号だけの横長ボタン */
   background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text);
-  font-size: 12px; text-decoration: none; cursor: pointer;
+  font-size: 10px; line-height: 1; text-decoration: none; cursor: pointer;
 }
 .sns-modal-link:hover { background-color: var(--btn-hover); }
 .sns-modal-link.is-invalid { opacity: 0.4; cursor: not-allowed; pointer-events: none; } /* http(s)で始まらない不正なURL:番号は出すがクリック不可にする */
@@ -1170,7 +1181,7 @@ body .item-contents.is-content-open {
     'COOKING': '\uD83C\uDF7D\uFE0F', 'RELEASEEVENT': '\uD83C\uDFA4', 'FANMEETING': '\uD83C\uDFA4', 'STAGE': '\uD83C\uDFAD',
     // DEBUT/FORMATIONはフィルターボタンには表示せず、フィルター判定上は"BIRTHDAY"として扱う(normalizeContType参照)。
     // ただしBIRTHDAYと違い、isBirthdayAnniversaryの対象外なので年をまたいだ月日一致では表示されない
-    'DEBUT': '\uD83C\uDF82', 'FORMATION': '\uD83D\uDD17'
+    'DEBUT': '\uD83C\uDF82', 'FORMATION': '\uD83E\uDD1D'
   };
 
   // 内部値(contents値・フィルター値)と実際の表示名が異なるものだけここに登録する(それ以外は値そのものを表示名として使う)
@@ -2470,27 +2481,25 @@ body .item-contents.is-content-open {
       };
     }
 
-    // 🔗ボタン(linkMode)ON時のみ、📋️の右にSNSリンクアイコンを表示する。考え方は📍・📋️と同じで、
-    // sns属性が無い/空の行もアイコン要素自体は作り、幅だけ確保して見た目を隠す(is-blank)。
-    let lk = null;
-    if (linkMode) {
-      const hasSns = Array.isArray(item.sns) && item.sns.some(e => e && Array.isArray(e.urls) && e.urls.length);
-      lk = document.createElement('span');
-      lk.className = 'link-icon' + (hasSns ? '' : ' is-blank');
-      lk.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない
-      lk.textContent = '\uD83D\uDD17'; // snsの有無にかかわらず同じ幅を確保するため、常にアイコン文字を入れておく
-      if (hasSns) {
-        lk.setAttribute('role', 'button');
-        lk.setAttribute('aria-label', 'SNS Links');
-        lk.onclick = e => {
-          e.stopPropagation();
-          openSnsModal(item.sns);
-        };
-      }
+    // 🔗アイコン:行の右端(タイトルの後ろ)に固定する。要素は常に作り、表示/非表示と右からのスライドは
+    // #items.link-mode(🔗ボタン)のCSSで切り替える(ボタンを押しても行の再描画はしない)。
+    // sns属性が無い/空の行はis-blank(幅だけ確保して見た目を隠す)。
+    const hasSns = Array.isArray(item.sns) && item.sns.some(e => e && Array.isArray(e.urls) && e.urls.length);
+    const lk = document.createElement('span');
+    lk.className = 'link-icon' + (hasSns ? '' : ' is-blank');
+    lk.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない
+    lk.textContent = '\uD83D\uDD17'; // snsの有無にかかわらず同じ幅を確保するため、常にアイコン文字を入れておく
+    if (hasSns) {
+      lk.setAttribute('role', 'button');
+      lk.setAttribute('aria-label', 'SNS Links');
+      lk.onclick = e => {
+        e.stopPropagation();
+        openSnsModal(item.sns);
+      };
     }
 
     const dateChildren = tm ? [d, tm] : [d];
-    const children = [...dateChildren, ...(mp ? [mp] : []), ...(sl ? [sl] : []), ...(lk ? [lk] : []), ct];
+    const children = [...dateChildren, ...(mp ? [mp] : []), ...(sl ? [sl] : []), ct];
     if (teamClass) {
       const ti = document.createElement('span');
       ti.className = 'team-icon team-' + teamClass;
@@ -2547,7 +2556,7 @@ body .item-contents.is-content-open {
         children.push(ti);
       }
     }
-    children.push(t);
+    children.push(t, lk); // 🔗はタイトルの後ろ(行の右端)
 
     sc.append(...children);
     w.append(sc);
@@ -3014,7 +3023,18 @@ body .item-contents.is-content-open {
   // 連番はtypeごとに1から数え直す。http(s)で始まらない不正なURLは番号だけ出してクリック不可にする。
   // sns.typeの生の値(x/instagram/youtube等)を、見た目の良い表示名に変換する。
   // 未知のtypeはそのまま表示する(先頭だけ大文字にする)
-  const SNS_TYPE_DISPLAY_NAMES = { x: 'X', instagram: 'Instagram', youtube: 'YouTube', tiktok: 'TikTok', threads: 'Threads', line: 'LINE' };
+  const SNS_TYPE_DISPLAY_NAMES = { x: 'X', instagram: 'Instagram', youtube: 'YouTube', tiktok: 'TikTok', gl2family: 'GL\u00B2family', threads: 'Threads', line: 'LINE' };
+  // typeごとのアイコン(24x24のSVGパス。Simple Icons(CC0)より)。単色(currentColor)で描画し、テーマの文字色に追従する。
+  // ここに無いtypeはアイコンなし(文字だけ)。typeを増やすときは、このオブジェクトにパスを足す
+  const SNS_TYPE_ICON_PATHS = { x: 'M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z', instagram: 'M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077', youtube: 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z', tiktok: 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z',
+    gl2family: '<g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 4)"><path d="M10 6.2C8.9 5.3 7.6 4.8 6.2 4.8 3.5 4.8 1.5 7 1.5 10s2 5.2 4.7 5.2c1.5 0 2.8-.6 3.8-1.6v-3.2H6.5"/><path d="M13 4.8v10.4h5.2"/></g><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M18.4 3.9c.3-.9 1-1.4 2-1.4 1.1 0 1.9.8 1.9 1.8 0 .8-.5 1.3-1.1 1.8l-2.7 2.4h3.9"/>' };
+  const snsTypeIconHtml = type => {
+    const v = SNS_TYPE_ICON_PATHS[String(type || '').trim().toLowerCase()];
+    if (!v) return '<span class="sns-modal-type-icon is-empty" aria-hidden="true"></span>';
+    // '<'で始まる値は図形(複数パス/線)をそのまま、それ以外は単一パスとして塗りつぶす。いずれもcurrentColor(テーマの文字色)
+    const inner = v.charAt(0) === '<' ? v : `<path fill="currentColor" d="${v}"/>`;
+    return `<svg class="sns-modal-type-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${inner}</svg>`;
+  };
   const displayNameForSnsType = type => {
     const key = String(type || '').trim().toLowerCase();
     if (SNS_TYPE_DISPLAY_NAMES[key]) return SNS_TYPE_DISPLAY_NAMES[key];
@@ -3035,7 +3055,7 @@ body .item-contents.is-content-open {
               ? `<a class="sns-modal-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${n}</a>`
               : `<span class="sns-modal-link is-invalid" aria-disabled="true">${n}</span>`;
           }).join('');
-          return `<div class="sns-modal-type-row"><span class="sns-modal-type-label">${escapeHtml(displayNameForSnsType(entry.type))}</span><span class="sns-modal-links">${linksHtml}</span></div>`;
+          return `<div class="sns-modal-type-row"><span class="sns-modal-type-label">${snsTypeIconHtml(entry.type)}<span>${escapeHtml(displayNameForSnsType(entry.type))}</span></span><span class="sns-modal-links">${linksHtml}</span></div>`;
         })
         .join('');
       snsModalBody.innerHTML = rowsHtml || '<div class="sns-modal-empty">NO LINKS</div>';
@@ -3652,17 +3672,17 @@ body .item-contents.is-content-open {
     localStorage.setItem(SETLIST_ICON_MODE_KEY, setlistIconMode);
     deferHeavyUpdate(() => updateDisplay(false));
   };
-  // 🔗ボタン(SNSリンク表示モード):ONの間、データ部の日付/時刻表示の右(📋️の右)にSNSリンクアイコンを
-  // 表示する。基本的な動作は📍(mapMode)・📋️(setlistIconMode)と同じ考え方で、sns属性を持たない行でも
-  // アイコン要素自体は常に作り、見た目だけ隠して幅を確保する。次回訪問時も状態を記憶する
+  // 🔗ボタン(SNSリンク表示モード):ONの間、データ行の右端(タイトルの後ろ)にSNSリンクアイコンを、右からスライドして
+  // 表示する。sns属性を持たない行でもアイコン要素自体は常に作り、見た目だけ隠して幅を確保する。次回訪問時も状態を記憶する
   const LINK_MODE_KEY = 'gl_log_link_mode';
   let linkMode = localStorage.getItem(LINK_MODE_KEY) === 'true';
   $('linkToggleBtn').classList.toggle('is-active', linkMode);
+  $('items').classList.toggle('link-mode', linkMode); // 行の再描画はせず、#itemsのクラス切替だけで🔗が右からスライドして出入りする
   $('linkToggleBtn').onclick = () => {
     linkMode = !linkMode;
     $('linkToggleBtn').classList.toggle('is-active', linkMode);
     localStorage.setItem(LINK_MODE_KEY, linkMode);
-    deferHeavyUpdate(() => updateDisplay(false));
+    $('items').classList.toggle('link-mode', linkMode);
   };
   const SONG_MODE_KEY = 'gl_log_song_mode';
   let songMode = localStorage.getItem(SONG_MODE_KEY) === 'true';
