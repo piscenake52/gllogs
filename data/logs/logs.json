@@ -3451,7 +3451,7 @@
     "date": "20261003",
     "time": "",
     "contents": "SNS",
-    "title": "TikTok",
+    "title": "Instagram / TikTok",
     "groups": [
       "L2",
       "RIN",
@@ -3468,6 +3468,12 @@
         "type": "tiktok",
         "urls": [
           "https://vt.tiktok.com/ZSbm5hVWj/"
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          "https://www.instagram.com/reel/DeCAkjGJNCI/?stkn=bHo5OTFidW9uM2p5"
         ]
       }
     ]
