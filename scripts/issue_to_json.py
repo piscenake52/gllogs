@@ -182,13 +182,23 @@ def resolve_artist(f):
     return ARTIST_JOIN.join(parse_checked(f["artist_check"]))
 
 
-# URLだけが書かれたときの種別の判定（ドメイン → type）
+# URLだけが書かれたときの種別の判定（ドメイン → type）。サブドメインも同じtypeにする（www. / m. / vt.tiktok.com / vm.tiktok.com など）
 SNS_HOSTS = {
     "x.com": "x", "twitter.com": "x",
     "instagram.com": "instagram",
     "youtube.com": "youtube", "youtu.be": "youtube",
     "tiktok.com": "tiktok",
 }
+
+
+def detect_sns_type(url):
+    """URLのドメインから type を判定する。登録ドメインそのもの、またはそのサブドメインなら一致。
+    (instagram.com.example.com のような偽装や、ユーザー情報付きの x.com@example.com は一致させない)"""
+    host = re.sub(r"^https?://([^/?#]+).*$", r"\1", url).lower().split("@")[-1].split(":")[0]
+    for domain, type_ in SNS_HOSTS.items():
+        if host == domain or host.endswith("." + domain):
+            return type_
+    return ""
 
 
 def parse_sns(raw):
@@ -213,8 +223,7 @@ def parse_sns(raw):
             errors.append(f"- **sns**: URLはhttp(s)://から始めてください（入力値: `{shown}`）")
             continue
         if not type_:
-            host = re.sub(r"^https?://(?:www\.|m\.|mobile\.)?([^/?#]+).*$", r"\1", url).lower()
-            type_ = SNS_HOSTS.get(host, "")
+            type_ = detect_sns_type(url)
             if not type_:
                 errors.append(f"- **sns**: 種別を判定できません。`type | url` の形で入力してください（入力値: `{shown}`）")
                 continue
