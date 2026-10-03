@@ -3498,6 +3498,25 @@
     ]
   },
   {
+    "logid": "669cb2263a46",
+    "date": "20261003",
+    "time": "",
+    "contents": "SNS",
+    "title": "Instagram",
+    "groups": [
+      "G2",
+      "MNM"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          "https://www.instagram.com/reel/DeCK7fXJq_D/?stkn=ZDAwZTY5eWZiZDEz"
+        ]
+      }
+    ]
+  },
+  {
     "logid": "926100fd2d2d",
     "date": "20261002",
     "time": "2254",
