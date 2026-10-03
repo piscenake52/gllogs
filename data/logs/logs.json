@@ -3485,32 +3485,6 @@
     ]
   },
   {
-    "logid": "3b51fadf6806",
-    "date": "20261003",
-    "time": "",
-    "contents": "SNS",
-    "title": "TikTok2",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "sns": [
-      {
-        "type": "tiktok",
-        "urls": [
-          "https://vt.tiktok.com/ZSbmH2axM/",
-          "https://vt.tiktok.com/ZSbmHe9G2/"
-        ]
-      }
-    ]
-  },
-  {
     "logid": "926100fd2d2d",
     "date": "20261002",
     "time": "2254",
