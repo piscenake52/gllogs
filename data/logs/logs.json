@@ -143941,6 +143941,30 @@
     ]
   },
   {
+    "logid": "303c05dc7ff1",
+    "date": "20211002",
+    "time": "1730",
+    "contents": "LIVE",
+    "title": "Girls² First Live Tour -Enjoy The Good Days- 大阪公演",
+    "map": "https://maps.app.goo.gl/p4znajDfZp6HHYL87?g_st=ac",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "setlistid": "202110021730",
+    "tags": [
+      "NHK大阪ホール"
+    ]
+  },
+  {
     "logid": "d4ee75d4a7ae",
     "date": "20211002",
     "time": "1200",
@@ -144008,28 +144032,6 @@
     "groups": [
       "L2",
       "YUW"
-    ]
-  },
-  {
-    "logid": "303c05dc7ff1",
-    "date": "20211002",
-    "time": "",
-    "contents": "LIVE",
-    "title": "Girls² First Live Tour -Enjoy The Good Days- 大阪公演",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "NHK大阪ホール"
     ]
   },
   {
