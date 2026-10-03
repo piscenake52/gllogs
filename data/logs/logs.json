@@ -3032,7 +3032,7 @@
     "title": "Girls² 『EASY』 MV公開",
     "display_pc": "",
     "display_sp": "",
-    "url": "",
+    "url": "https://youtu.be/1YEh-emK8-A?si=sAg6hvsUv4gh6M_o",
     "map": "",
     "groups": [
       "G2",
@@ -3046,7 +3046,15 @@
     ],
     "relations": [],
     "setlistid": "",
-    "tags": []
+    "tags": [],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          "https://x.com/Girls2_official/status/2106338492813132116"
+        ]
+      }
+    ]
   },
   {
     "logid": "ece7e46f30c0",
