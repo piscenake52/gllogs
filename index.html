@@ -3030,10 +3030,10 @@ body .item-contents.is-content-open {
     gl2family: '<g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 4)"><path d="M10 6.2C8.9 5.3 7.6 4.8 6.2 4.8 3.5 4.8 1.5 7 1.5 10s2 5.2 4.7 5.2c1.5 0 2.8-.6 3.8-1.6v-3.2H6.5"/><path d="M13 4.8v10.4h5.2"/></g><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M18.4 3.9c.3-.9 1-1.4 2-1.4 1.1 0 1.9.8 1.9 1.8 0 .8-.5 1.3-1.1 1.8l-2.7 2.4h3.9"/>' };
   const snsTypeIconHtml = type => {
     const v = SNS_TYPE_ICON_PATHS[String(type || '').trim().toLowerCase()];
-    if (!v) return '<span class="sns-modal-type-icon is-empty" aria-hidden="true"></span>';
+    if (!v) return '<span class="sns-modal-ic is-ph" aria-hidden="true"></span>';
     // '<'で始まる値は図形(複数パス/線)をそのまま、それ以外は単一パスとして塗りつぶす。いずれもcurrentColor(テーマの文字色)
     const inner = v.charAt(0) === '<' ? v : `<path fill="currentColor" d="${v}"/>`;
-    return `<svg class="sns-modal-type-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${inner}</svg>`;
+    return `<svg class="sns-modal-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${inner}</svg>`;
   };
   const displayNameForSnsType = type => {
     const key = String(type || '').trim().toLowerCase();
@@ -3044,7 +3044,17 @@ body .item-contents.is-content-open {
   const snsModalBody = $('snsModalBody');
   const openSnsModal = sns => {
     try {
-      const list = Array.isArray(sns) ? sns : [];
+      // 表示順はデータの入力順ではなく、SNS_TYPE_DISPLAY_NAMESに定義した順番に固定する
+      // (そこに無い未知のtypeは、固定順の後ろに元の並びのまま続ける)
+      const typeOrder = Object.keys(SNS_TYPE_DISPLAY_NAMES);
+      const orderRank = type => {
+        const i = typeOrder.indexOf(String(type || '').trim().toLowerCase());
+        return i === -1 ? typeOrder.length : i;
+      };
+      const list = (Array.isArray(sns) ? sns.slice() : [])
+        .map((entry, i) => ({ entry, i }))
+        .sort((a, b) => orderRank(a.entry && a.entry.type) - orderRank(b.entry && b.entry.type) || a.i - b.i)
+        .map(x => x.entry);
       const rowsHtml = list
         .filter(entry => entry && typeof entry === 'object' && Array.isArray(entry.urls) && entry.urls.length)
         .map(entry => {
