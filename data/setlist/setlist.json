@@ -103,7 +103,37 @@
       "KIK"
     ],
     "title": "Laki 「WORK≒LiFE」 リリースイベント 埼玉",
-    "venue": "大宮ステラタウン メローベ広場"
+    "venue": "大宮ステラタウン メローベ広場",
+    "songs": [
+      {
+        "order": 1,
+        "title": "WORK≒LiFE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "Best Friends",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "Love is Magic",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Girls Revolution",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202610031455",
