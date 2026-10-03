@@ -1,0 +1,25 @@
+{
+  "date": "20261003",
+  "contents": "SNS",
+  "title": "TikTok",
+  "groups": [
+    "G2",
+    "YZH",
+    "MMK",
+    "MSK",
+    "YOK",
+    "KUR",
+    "MNM",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "tiktok",
+      "urls": [
+        "https://vt.tiktok.com/ZSbmH2axM/",
+        "https://vt.tiktok.com/ZSbmHe9G2/"
+      ]
+    }
+  ],
+  "_issue": "347"
+}
