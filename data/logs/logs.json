@@ -2762,7 +2762,6 @@
     "contents": "CLOSE",
     "title": "encore Lakiサイン入りチェキプレゼント応募受付締切",
     "display_sp": "encore サイン入りチェキプレゼント応募受付締切",
-    "url": "https://x.com/encore_inf/status/2101884158729744517",
     "groups": [
       "L2",
       "RIN",
@@ -2773,6 +2772,14 @@
       "RRK",
       "AKR",
       "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          "https://x.com/encore_inf/status/2101884158729744517"
+        ]
+      }
     ]
   },
   {
