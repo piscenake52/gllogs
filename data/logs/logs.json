@@ -3396,6 +3396,32 @@
     ]
   },
   {
+    "logid": "a28c89c34cce",
+    "date": "20261003",
+    "time": "",
+    "contents": "SNS",
+    "title": "TikTok",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          "https://vt.tiktok.com/ZSbm5hVWj/"
+        ]
+      }
+    ]
+  },
+  {
     "logid": "926100fd2d2d",
     "date": "20261002",
     "time": "2254",

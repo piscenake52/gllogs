@@ -1,0 +1,25 @@
+{
+  "date": "20261003",
+  "contents": "SNS",
+  "title": "TikTok",
+  "groups": [
+    "L2",
+    "RIN",
+    "TBK",
+    "HIR",
+    "YUW",
+    "KAN",
+    "RRK",
+    "AKR",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "tiktok",
+      "urls": [
+        "https://vt.tiktok.com/ZSbm5hVWj/"
+      ]
+    }
+  ],
+  "_issue": "343"
+}
