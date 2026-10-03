@@ -2,6 +2,11 @@ name: "logs"
 description: "insert / update / delete"
 title: "[DATA] logs"
 body:
+  - type: markdown
+    attributes:
+      value: |
+        📅 [日付・時間をカレンダーで選ぶ](https://piscenake52.github.io/gllogs/issue_helper.html) — 選んだ値が入力済みのフォームが開きます。このフォームの入力欄は、そのまま自由入力もできます。
+
   - type: input
     id: logid
     attributes:

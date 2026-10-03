@@ -2,6 +2,11 @@ name: "setlist / songs"
 description: "insert / update / delete"
 title: "[DATA] setlist / songs"
 body:
+  - type: markdown
+    attributes:
+      value: |
+        📅 [日付・開演時刻をカレンダーで選ぶ（setlistid）](https://piscenake52.github.io/gllogs/issue_helper.html#setlist) — 選んだ値が入力済みのフォームが開きます。このフォームの入力欄は、そのまま自由入力もできます。
+
   - type: input
     id: setlistid
     attributes:
