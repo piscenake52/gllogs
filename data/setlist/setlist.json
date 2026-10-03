@@ -261,7 +261,65 @@
       "KIR"
     ],
     "title": "MAGICORE",
-    "venue": "韓国・Lotte World Adventure"
+    "venue": "韓国・Lotte World Adventure",
+    "songs": [
+      {
+        "order": 1,
+        "title": "BLOOM!BLOOM!BLOOM!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "Eagle Eyes",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "Countdown",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "CLICK",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "LET ME DANCE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 6,
+        "title": "I wanna 宣言",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 7,
+        "title": "チュワパネ!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 8,
+        "title": "LET ME GO",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202609271630",
