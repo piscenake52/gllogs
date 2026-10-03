@@ -188,6 +188,7 @@ SNS_HOSTS = {
     "instagram.com": "instagram",
     "youtube.com": "youtube", "youtu.be": "youtube",
     "tiktok.com": "tiktok",
+    "girls2-fc.jp": "gl2family",  # ファンクラブ GL²family (SNSではないが、SNSリンクとして扱う)
 }
 
 
