@@ -60957,6 +60957,34 @@
     ]
   },
   {
+    "logid": "7586c4b1b92f",
+    "date": "20241013",
+    "time": "1800",
+    "contents": "FANMEETING",
+    "title": "We are Girls² -The Live- Mini! by GL² family & friend 福岡公演",
+    "display_sp": "We are Girls² -The Live- Mini! 福岡公演",
+    "url": "https://girls2-fc.jp/page/familyNews/946242279096451072",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          "https://x.com/Girls2_official/status/1807380345404403812"
+        ]
+      }
+    ]
+  },
+  {
     "logid": "48f9ff542b06",
     "date": "20241012",
     "time": "1200",
@@ -61321,34 +61349,6 @@
     ],
     "relations": [],
     "tags": []
-  },
-  {
-    "logid": "7586c4b1b92f",
-    "date": "20241007",
-    "time": "1800",
-    "contents": "FANMEETING",
-    "title": "We are Girls² -The Live- Mini! by GL² family & friend 東京公演",
-    "display_sp": "We are Girls² -The Live- Mini! 東京公演",
-    "url": "https://girls2-fc.jp/page/familyNews/946242279096451072",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          "https://x.com/Girls2_official/status/1807380345404403812"
-        ]
-      }
-    ]
   },
   {
     "logid": "d98293c4b10b",
