@@ -3055,13 +3055,21 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
-      "RRK"
+      "RRK",
+      "KIK"
     ],
     "sns": [
       {
         "type": "instagram",
         "urls": [
           "https://www.instagram.com/p/DeEXuPOCeHa/?stkn=ZGNyc29vNmdnNTFy"
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          "https://vt.tiktok.com/ZSbHcQaoV/",
+          "https://vt.tiktok.com/ZSbHcVc3q/"
         ]
       }
     ]
