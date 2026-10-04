@@ -1,0 +1,19 @@
+{
+  "date": "20261004",
+  "time": "1800",
+  "contents": "SNS",
+  "title": "Instagram",
+  "groups": [
+    "L2",
+    "RRK"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        "https://www.instagram.com/p/DeEXuPOCeHa/?stkn=ZGNyc29vNmdnNTFy"
+      ]
+    }
+  ],
+  "_issue": "390"
+}
