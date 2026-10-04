@@ -1,0 +1,120 @@
+name: "setlist"
+description: "insert / update / delete"
+title: "[DATA] setlist"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        📅 [日付・開演時刻をカレンダーで選ぶ（setlistid）](https://gl-log.blogspot.com/p/issuehelper.html#setlist) — 選んだ値が入力済みのフォームが開きます。このフォームの入力欄は、そのまま自由入力もできます。
+
+  - type: input
+    id: setlistid
+    attributes:
+      label: "setlistid"
+
+
+  - type: checkboxes
+    id: artist_check
+    attributes:
+      label: "artist / 選択"
+      options:
+        - label: "Girls²"
+        - label: "Laki"
+
+
+  - type: input
+    id: artist_free
+    attributes:
+      label: "artist / 自由入力"
+
+
+  - type: input
+    id: title
+    attributes:
+      label: "title"
+
+
+  - type: dropdown
+    id: member_g2
+    attributes:
+      label: "member / Girls²"
+      multiple: true
+      options:
+        - G2
+        - YZH
+        - MMK
+        - MSK
+        - YOK
+        - KUR
+        - MNM
+        - KIR
+        - TOA
+        - RAN
+
+
+  - type: dropdown
+    id: member_l2
+    attributes:
+      label: "member / Laki"
+      multiple: true
+      options:
+        - L2
+        - RIN
+        - TBK
+        - HIR
+        - YUW
+        - KAN
+        - RRK
+        - AKR
+        - KIK
+        - YUR
+
+
+  - type: input
+    id: member_free
+    attributes:
+      label: "member / 自由入力"
+      description: "G2,YZH,MMK,MSK,YOK,KUR,MNM,KIR,TOA,RAN / L2,RIN,TBK,HIR,YUW,KAN,RRK,AKR,KIK,YUR"
+
+
+  - type: input
+    id: venue
+    attributes:
+      label: "venue"
+
+
+  - type: textarea
+    id: songs
+    attributes:
+      label: "曲目 (1行1曲)"
+      description: |
+        書式: `[順番:] 曲名 | type | original | notes`
+        順番を省略すると前の曲+1。typeを省略すると song（allow / encore / medley も可、空にしたいときは - ）。
+        入力すると曲目全体が**置き換わります**（空欄なら既存の曲目を維持）。
+      placeholder: |
+        1: OPENING | -
+        2: Fun!Fun!Fun! ～夢∞～
+        3: キミすき
+        4: ichigo 〜一期一会〜 | medley
+        5: Gimme 143 | encore
+
+
+  - type: checkboxes
+    id: clear
+    attributes:
+      label: "値の削除（更新時）"
+      options:
+        - label: "artist"
+        - label: "title"
+        - label: "link"
+        - label: "member"
+        - label: "venue"
+        - label: "songs"
+
+
+  - type: checkboxes
+    id: delete
+    attributes:
+      label: "DELETE"
+      options:
+        - label: "削除する"

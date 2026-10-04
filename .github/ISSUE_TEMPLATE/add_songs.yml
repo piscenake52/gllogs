@@ -1,0 +1,44 @@
+name: "songs"
+description: "insert / update / delete"
+title: "[DATA] songs"
+body:
+  - type: checkboxes
+    id: artist_check
+    attributes:
+      label: "artist / 選択"
+      options:
+        - label: "Girls²"
+        - label: "Laki"
+
+
+  - type: input
+    id: artist_free
+    attributes:
+      label: "artist / 自由入力"
+
+
+  - type: input
+    id: title
+    attributes:
+      label: "title"
+
+
+  - type: input
+    id: link
+    attributes:
+      label: "link"
+
+
+  - type: checkboxes
+    id: clear
+    attributes:
+      label: "値の削除（更新時）"
+      options:
+        - label: "link"
+
+  - type: checkboxes
+    id: delete
+    attributes:
+      label: "DELETE"
+      options:
+        - label: "削除する"
