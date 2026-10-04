@@ -40,12 +40,13 @@ LABELS_SS = {
     "member_l2": "member / Laki",
     "member_free": "member / 自由入力",
     "venue": "venue",
-    "songs": "曲目 (songs / setlist用 - 1行1曲)",
+    "songs": "曲目 (1行1曲)",
     "delete": "DELETE",
     "clear": "値の削除（更新時）",
 }
 # 旧フォーム(データの種類ドロップダウンあり)のIssueを誤って処理しないための目印
 LEGACY_MARKER = "### データの種類 (Type / logs, setlist, songs)"
+LEGACY_SONGS_LABEL = "曲目 (songs / setlist用 - 1行1曲)"  # setlist / songs が1つのフォームだった頃の見出し(再編集されたIssue用)
 
 CLEAR = "!clear"  # 既存値を消したいときに入力する特別な値
 ARTIST_JOIN = " × "  # アーティストを複数選択したときの連結文字（merge_json.py と揃える）
@@ -415,7 +416,29 @@ def main():
     if f"### {LABELS_SS['artist_free']}" in body:
         f = {key: extract_field(label, body) for key, label in LABELS_SS.items()}
         f["artist"] = resolve_artist(f)
-        target_type = "setlist" if f["setlistid"] else "songs"
+        if not f["songs"]:
+            f["songs"] = extract_field(LEGACY_SONGS_LABEL, body)
+        # setlist / songs は別々のフォーム。setlistだけにある項目(venue / 曲目)かsongsだけにある項目(link)の見出しで判別する。
+        # 両方ある(旧・統合フォームのIssue)ときは、従来どおり setlistid の有無で判別する
+        has_setlist_form = any(f"### {x}" in body for x in (LABELS_SS["venue"], LABELS_SS["songs"], LEGACY_SONGS_LABEL))
+        has_songs_form = f"### {LABELS_SS['link']}" in body
+        if has_setlist_form and not has_songs_form:
+            target_type = "setlist"
+        elif has_songs_form and not has_setlist_form:
+            target_type = "songs"
+        else:
+            target_type = "setlist" if f["setlistid"] else "songs"
+        if has_setlist_form != has_songs_form:
+            # 専用フォームでは、識別キーが無いままだと黙って無視されてしまうので、Issueにコメントして知らせる
+            errors = []
+            if target_type == "setlist" and not f["setlistid"]:
+                errors.append("- **setlistid**: setlistを登録・更新・削除するときは、setlistidを入力してください")
+            if target_type == "songs" and not (f["artist"] and f["title"]):
+                errors.append("- **artist / title**: songsを登録・更新・削除するときは、artistとtitleを入力してください")
+            if errors:
+                write_error(errors)
+                print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
+                return
     else:
         f = {key: extract_field(label, body) for key, label in LABELS_LOGS.items()}
         target_type = "logs"
