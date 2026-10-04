@@ -26,30 +26,28 @@
 #glih .out code { font-size:14px; color:var(--text); background:var(--btn); border:0; border-radius:6px; padding:3px 8px; min-width:6em; text-align:center; }
 #glih a.go { display:block; text-align:center; padding:11px; border-radius:10px; background:var(--accent); color:var(--accent-text) !important; text-decoration:none !important; font-size:14px; font-weight:600; }
 #glih a.go[aria-disabled="true"] { opacity:.4; pointer-events:none; }
+#glih a.alt { display:block; text-align:center; margin-top:8px; font-size:12px; color:var(--sub) !important; text-decoration:underline !important; }
+#glih a.alt[hidden] { display:none; }
+#glih a.alt[aria-disabled="true"] { opacity:.4; pointer-events:none; }
 #glih .note { font-size:11px; color:var(--sub); margin:10px 0 0; line-height:1.6; }
 /*]]>*/
 </style>
 
-<h1>日付・時間を選んで New Issue を開く</h1>
-<p class="lead">カレンダー/時刻ピッカーで選ぶと、その値が入力済みの Issue フォームが開きます。フォーム側では、これまでどおり自由入力で書き換えられます。</p>
-
 <div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button></div>
 
 <section id="glih-p-logs">
-  <div class="field"><label for="glih-d1">date</label><input type="date" id="glih-d1"><button type="button" class="small" data-today="glih-d1">今日</button></div>
+  <div class="field"><label for="glih-d1">date</label><input type="date" id="glih-d1"><button type="button" class="small" data-today="glih-d1">today</button></div>
   <div class="field"><label for="glih-t1">time</label><input type="time" id="glih-t1" step="60"></div>
-  <label class="chk"><input type="checkbox" id="glih-n1" checked> 時間なし（time は入力しない）</label>
-  <div class="out"><span>date</span><code id="glih-o-date">&#8212;</code><button type="button" class="small" data-copy="glih-o-date">コピー</button><span>time</span><code id="glih-o-time">&#8212;</code><button type="button" class="small" data-copy="glih-o-time">コピー</button></div>
-  <a class="go" id="glih-go-logs" target="_blank" rel="noopener" aria-disabled="true">logs の New Issue を開く</a>
-  <p class="note">date は8桁（例 20261105）、time は4桁（例 1800）の形でフォームに入ります。</p>
+  <label class="chk"><input type="checkbox" id="glih-n1">anytime</label>
+  <div class="out"><span>date</span><code id="glih-o-date">&#8212;</code><span>time</span><code id="glih-o-time">&#8212;</code></div>
+  <a class="go" id="glih-go-logs" target="_blank" rel="noopener" aria-disabled="true">logs</a>
 </section>
 
 <section id="glih-p-setlist" hidden>
-  <div class="field"><label for="glih-d2">date</label><input type="date" id="glih-d2"><button type="button" class="small" data-today="glih-d2">今日</button></div>
-  <div class="field"><label for="glih-t2">開演時刻</label><input type="time" id="glih-t2" step="60"></div>
-  <div class="out"><span>setlistid</span><code id="glih-o-sid">&#8212;</code><button type="button" class="small" data-copy="glih-o-sid">コピー</button></div>
-  <a class="go" id="glih-go-setlist" target="_blank" rel="noopener" aria-disabled="true">setlist の New Issue を開く</a>
-  <p class="note">setlistid は date + 開演時刻の12桁（例 202609221830）です。date と時刻の両方を選ぶと開けます。</p>
+  <div class="field"><label for="glih-d2">date</label><input type="date" id="glih-d2"><button type="button" class="small" data-today="glih-d2">today</button></div>
+  <div class="field"><label for="glih-t2">time</label><input type="time" id="glih-t2" step="60"></div>
+  <div class="out"><span>setlistid</span><code id="glih-o-sid">&#8212;</code><button type="button" class="small" data-copy="glih-o-sid">copy</button></div>
+  <a class="go" id="glih-go-setlist" target="_blank" rel="noopener" aria-disabled="true">setlist</a>
 </section>
 
 <script>
@@ -66,18 +64,28 @@
     var q = new URLSearchParams(Object.assign({ template: tpl }, params));
     return 'https://github.com/' + REPO + '/issues/new?' + q.toString(); // the form field ids (date / time / setlistid) are used as the parameter names
   }
+  // Android only: if the GitHub app takes over github.com links (and shows its template chooser),
+  // this alternative link asks Chrome itself to open the same URL (intent:// with package=com.android.chrome).
+  var IS_ANDROID = /Android/i.test(navigator.userAgent || '');
+  function intentUrl(url) {
+    var u = new URL(url);
+    return 'intent://' + u.host + u.pathname + u.search + '#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+  }
+  function setAlt(a, url) { a.hidden = !IS_ANDROID; if (IS_ANDROID && url) { a.href = intentUrl(url); a.setAttribute('aria-disabled', 'false'); } else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); } }
   function setLink(a, url) { if (url) { a.href = url; a.setAttribute('aria-disabled', 'false'); } else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); } }
   function updateLogs() {
     var date = digits($('d1').value), noTime = $('n1').checked, time = noTime ? '' : digits($('t1').value);
     $('t1').disabled = noTime;
     $('o-date').textContent = date || DASH; $('o-time').textContent = time || DASH;
     var p = {}; if (date) p.date = date; if (time) p.time = time;
-    setLink($('go-logs'), date && (noTime || time) ? issueUrl(TPL_LOGS, p) : '');
+    var lu = date && (noTime || time) ? issueUrl(TPL_LOGS, p) : '';
+    setLink($('go-logs'), lu); setAlt($('alt-logs'), lu);
   }
   function updateSetlist() {
     var sid = digits($('d2').value) + digits($('t2').value), ok = /^\d{12}$/.test(sid);
     $('o-sid').textContent = ok ? sid : DASH;
-    setLink($('go-setlist'), ok ? issueUrl(TPL_SETLIST, { setlistid: sid }) : '');
+    var su = ok ? issueUrl(TPL_SETLIST, { setlistid: sid }) : '';
+    setLink($('go-setlist'), su); setAlt($('alt-setlist'), su);
   }
   function tab(name) {
     $('p-logs').hidden = name !== 'logs'; $('p-setlist').hidden = name !== 'setlist';
