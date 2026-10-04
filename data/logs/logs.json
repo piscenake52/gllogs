@@ -2895,25 +2895,6 @@
     "tags": []
   },
   {
-    "logid": "23162fda624b",
-    "date": "20261004",
-    "time": "1800",
-    "contents": "SNS",
-    "title": "Instagram",
-    "groups": [
-      "L2",
-      "RRK"
-    ],
-    "sns": [
-      {
-        "type": "instagram",
-        "urls": [
-          "https://www.instagram.com/p/DeEXuPOCeHa/?stkn=ZGNyc29vNmdnNTFy"
-        ]
-      }
-    ]
-  },
-  {
     "logid": "e451db6cd51f",
     "date": "20261004",
     "time": "1700",
@@ -3050,6 +3031,24 @@
     ],
     "relations": [],
     "tags": []
+  },
+  {
+    "logid": "23162fda624b",
+    "date": "20261004",
+    "contents": "SNS",
+    "title": "Instagram",
+    "groups": [
+      "L2",
+      "RRK"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          "https://www.instagram.com/p/DeEXuPOCeHa/?stkn=ZGNyc29vNmdnNTFy"
+        ]
+      }
+    ]
   },
   {
     "logid": "5ebe86da0155",
