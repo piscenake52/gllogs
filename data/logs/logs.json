@@ -3623,13 +3623,18 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "TBK",
+      "YUW",
+      "KAN",
       "AKR"
     ],
     "sns": [
       {
         "type": "tiktok",
         "urls": [
-          "https://vt.tiktok.com/ZSbm5hVWj/"
+          "https://vt.tiktok.com/ZSbm5hVWj/",
+          "https://vt.tiktok.com/ZSbHcuTbA/",
+          "https://vt.tiktok.com/ZSbHcCh41/"
         ]
       },
       {
