@@ -2666,6 +2666,17 @@
     ]
   },
   {
+    "logid": "72adf04ad736",
+    "date": "20261008",
+    "contents": "CL",
+    "title": "木曜日のフォーエイト　比嘉優和",
+    "url": "https://www.cl-live.com/artists/thursday_48?lang=ja",
+    "groups": [
+      "L2",
+      "YUW"
+    ]
+  },
+  {
     "logid": "9dfc2ba793b6",
     "date": "20261007",
     "time": "2100",
@@ -12916,17 +12927,6 @@
       "KUR",
       "MNM",
       "KIR"
-    ]
-  },
-  {
-    "logid": "72adf04ad736",
-    "date": "20260813",
-    "time": "1700",
-    "contents": "CL",
-    "title": "木曜日のフォーエイト",
-    "groups": [
-      "G2",
-      "L2"
     ]
   },
   {
