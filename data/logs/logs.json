@@ -3112,25 +3112,6 @@
     "tags": []
   },
   {
-    "logid": "08cc518ba573",
-    "date": "20261004",
-    "time": "2100",
-    "contents": "SNS",
-    "title": "ANNA SUI COSMETICS",
-    "groups": [
-      "G2",
-      "KIR"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          "https://x.com/annasuicosme/status/2106715962716082415"
-        ]
-      }
-    ]
-  },
-  {
     "logid": "e451db6cd51f",
     "date": "20261004",
     "time": "1700",
@@ -3288,6 +3269,30 @@
     ],
     "relations": [],
     "tags": []
+  },
+  {
+    "logid": "08cc518ba573",
+    "date": "20261004",
+    "contents": "SNS",
+    "title": "ANNA SUI COSMETICS",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          "https://x.com/annasuicosme/status/2106715962716082415"
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          "https://www.instagram.com/reel/DeEleSeBvDA/?stkn=ZTQ2dzltMHRvOGFu"
+        ]
+      }
+    ]
   },
   {
     "logid": "23162fda624b",
