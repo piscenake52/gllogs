@@ -5001,26 +5001,6 @@
     "tags": []
   },
   {
-    "logid": "2e4f05f0b576",
-    "date": "20260929",
-    "time": "2100",
-    "contents": "SNS",
-    "title": "ANNA SUI COSMETICS",
-    "groups": [
-      "G2",
-      "MSK",
-      "KIR"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          "https://x.com/annasuicosme/status/2104915904391991570"
-        ]
-      }
-    ]
-  },
-  {
     "logid": "c472f08626f3",
     "date": "20260929",
     "time": "2000",
@@ -5161,6 +5141,31 @@
       "KUR",
       "MNM",
       "KIR"
+    ]
+  },
+  {
+    "logid": "2e4f05f0b576",
+    "date": "20260929",
+    "contents": "SNS",
+    "title": "ANNA SUI COSMETICS",
+    "groups": [
+      "G2",
+      "MSK",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          "https://x.com/annasuicosme/status/2104915904391991570"
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          "https://www.instagram.com/reel/Dd3w2Eytqp0/?stkn=MW9oMDljOGczbjhsaA=="
+        ]
+      }
     ]
   },
   {
