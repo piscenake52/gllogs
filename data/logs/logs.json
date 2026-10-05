@@ -2805,18 +2805,6 @@
     "tags": []
   },
   {
-    "logid": "cf25aee286bd",
-    "date": "20261006",
-    "time": "1700",
-    "contents": "CL",
-    "title": "LDH NEWS CAST　森朱里",
-    "url": "https://www.cl-live.com/artists/ldh_news_cast?lang=ja",
-    "groups": [
-      "L2",
-      "AKR"
-    ]
-  },
-  {
     "logid": "67bd82641a52",
     "date": "20261006",
     "time": "1000",
@@ -2830,6 +2818,17 @@
       "HIR",
       "AKR",
       "KIK"
+    ]
+  },
+  {
+    "logid": "cf25aee286bd",
+    "date": "20261006",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　森朱里",
+    "url": "https://www.cl-live.com/artists/ldh_news_cast?lang=ja",
+    "groups": [
+      "L2",
+      "AKR"
     ]
   },
   {
