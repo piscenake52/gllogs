@@ -2858,25 +2858,6 @@
     ]
   },
   {
-    "logid": "1ca58552a1c5",
-    "date": "20261005",
-    "time": "2000",
-    "contents": "SNS",
-    "title": "SNS　Girls²",
-    "groups": [
-      "G2",
-      "KIR"
-    ],
-    "sns": [
-      {
-        "type": "instagram",
-        "urls": [
-          "https://www.instagram.com/reel/DeHDWozJDf5/?stkn=MXA0c2JvbHQwNTlxbA=="
-        ]
-      }
-    ]
-  },
-  {
     "logid": "7e13cd532ee2",
     "date": "20261005",
     "time": "1900",
@@ -2945,6 +2926,24 @@
       "KUR",
       "MNM",
       "KIR"
+    ]
+  },
+  {
+    "logid": "1ca58552a1c5",
+    "date": "20261005",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          "https://www.instagram.com/reel/DeHDWozJDf5/?stkn=MXA0c2JvbHQwNTlxbA=="
+        ]
+      }
     ]
   },
   {
