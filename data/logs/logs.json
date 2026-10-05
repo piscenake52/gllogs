@@ -2889,6 +2889,26 @@
     ]
   },
   {
+    "logid": "c3b7abea75cb",
+    "date": "20261005",
+    "time": "1500",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "KUR"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          "https://www.instagram.com/reel/DeGhBC_peIc/?stkn=MXB2ZmtmMmNidWd1bg=="
+        ]
+      }
+    ]
+  },
+  {
     "logid": "d4ab0d7cc4e5",
     "date": "20261004",
     "time": "2359",
