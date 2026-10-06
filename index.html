@@ -5,8 +5,7 @@
 <meta name="google-site-verification" content="iub5FoOVwZoAoQtbf26-fSn31NK5CnIoYllvmMlwshY" />
 <script type="text/javascript">
 //<![CDATA[
-// 特定の配信元(ホスト名+パス)からアクセスした場合のみ、ブラウザ/中間キャッシュを迂回して
-// 常に最新のHTML自体を取得し直す。対象URLは難読化のためソースに直接書かず、ハッシュ比較で判定する。
+// 特定の配信元のみ、キャッシュを迂回して最新HTMLを取得し直す(対象URLはハッシュ比較で判定)
 (function () {
   var simpleHash = function (s) {
     var h = 0;
@@ -73,8 +72,7 @@ body.dark-mode {
 }
 * { box-sizing: border-box; }
 
-/* キーボード操作時のフォーカス表示。各所でoutline: noneにしているボタン・リンク・入力欄・role="button"の
-   要素すべてに対して、マウスクリック時は出さずキーボード操作時だけ共通の枠を表示する(:focus-visible)。 */
+/* キーボード操作時のフォーカス表示 */
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
@@ -85,15 +83,11 @@ input:focus-visible,
 }
 
 /* スマホのPC版表示対応 ＆ カクつき防止（scrollbar-gutter: stable） */
-/* 「PC版サイト」表示時、横幅が広い仮想ビューポートになることで指の縦ドラッグが横パン(2本指的な
-   自由パン)と誤認識され、縦スクロールが効かなくなることがあるための対策 */
+/* 「PC版サイト」表示時、横幅が広い仮想ビューポートになることで指の縦ドラッグが横パン */
 /* スマホのPC版表示対応 ＆ カクつき防止（scrollbar-gutter: stable） */
 html { 
   overflow-y: auto; 
-  overflow-x: hidden; /* TODAYモードのフリック(スライド)演出でデータ部が画面外へ一時的にはみ出すため、横スクロールバーの発生を防ぐ。
-    (bodyにoverflow-xだけを指定すると、overflow-yがブラウザにより暗黙的にautoとして扱われてbody自体が
-    独立したスクロールコンテナ扱いになり、sticky-headerのposition:stickyが効かなくなるため、
-    もともとoverflow-y:autoを指定しているこのhtmlに一緒に指定する) */
+  overflow-x: hidden; /* TODAYモードのスライド演出ではみ出す横スクロールバーを抑止(sticky-headerのため、bodyでなくhtmlに指定) */
   scrollbar-gutter: stable; 
   height: auto;
   min-height: 100%;
@@ -177,12 +171,10 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 #songToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #heartToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #setlistToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
-/* 文字サイズ「A」ボタン:現在の拡大縮小段階が既定値(0)でなければ青くする。パネルが開いている間は
-   別途リング(box-shadow)で開いている状態を示す */
+/* 文字サイズ「A」ボタン:現在の拡大縮小段階が既定値(0)でなければ青くする */
 #textSizeBtn.is-active { color: #fff; background-color: #38bdf8; }
 #textSizeBtn.is-open { box-shadow: inset 0 0 0 2px #38bdf8; }
-/* ホバー中でもis-active(青)を確実に優先させる。押した直後はカーソルがボタン上にあるため、
-   これが無いと:hoverの背景色に上書きされ、カーソルが離れるまで青くならないように見える */
+/* ホバー中でもis-active(青)を確実に優先させる */
 #songToggleBtn.is-active:hover { background-color: #38bdf8; }
 #heartToggleBtn.is-active:hover { background-color: #38bdf8; }
 #setlistToggleBtn.is-active:hover { background-color: #38bdf8; }
@@ -227,8 +219,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .search-box-wrap { flex: 1 1 150px; position: relative; display: flex; align-items: center; }
 .search-input { width: 100%; padding: 5px 28px 5px 32px; font-size: 12px; border: 1px solid var(--input-border); border-radius: 10px; outline: none; background: var(--input-bg); color: var(--text); }
 .search-input:focus { border-color: var(--text); background: var(--bg); }
-/* SETLISTモード切替アイコン(検索窓の左側に内包)。検索窓の角の丸み(border-radius)にかからないよう、
-   左オフセットをborder-radius以上確保してから配置する */
+/* SETLISTモード切替アイコン(検索窓の左側に内包) */
 .search-setlist-btn { position: absolute; left: 9px; width: 19px; height: 19px; border-radius: 50%; background: none; border: none; color: var(--muted); font-size: 10px; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; user-select: none; }
 .search-setlist-btn:hover { background-color: var(--btn-hover); }
 .search-clear-btn { position: absolute; right: 8px; background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 0; line-height: 1; display: none; user-select: none; }
@@ -269,17 +260,14 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .checks { display: flex; flex-direction: column; row-gap: 5px; padding-top: 4px; }
 .checks-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .checks-row-years, .checks-row-other { display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-top: 6px; padding-bottom: 2px; gap: 6px; }
-/* コンテンツ種類ボタンの2段目:ボタンをドラッグして下に落とすと現れる。中身が無い間は折りたたんでおき、
-   ドラッグ中(drag-target-active)だけ薄く広げてドロップ先として掴めるようにする。中身が入ったら(has-items)
-   通常表示、無くなったら自動的にまた折りたたまれる */
+/* コンテンツ種類ボタンの2段目:ボタンをドラッグして下に落とすと現れる */
 .checks-row-other-2 {
   max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; overflow-y: hidden; pointer-events: none;
   transition: max-height 0.2s ease, opacity 0.2s ease, padding-top 0.2s ease, padding-bottom 0.2s ease;
 }
 .checks-row-other-2.drag-target-active { max-height: 50px; opacity: 0.5; padding-top: 0; padding-bottom: 2px; pointer-events: auto; }
 .checks-row-other-2.has-items { max-height: 50px; opacity: 1; padding-top: 0; padding-bottom: 2px; pointer-events: auto; }
-/* 月フィルターは、年フィルターが1つ以上選択されている時だけ表示する。display切替だと一瞬でパッと
-   出入りしてしまうため、max-height/opacityをアニメーションさせて滑らかに開閉させる */
+/* 月フィルターは、年フィルターが1つ以上選択されている時だけ表示する */
 .checks-row-months {
   display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;
   gap: 6px;
@@ -302,8 +290,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .checks-row-months label { padding: 3.5px 5.6px; font-size: 11px; border-radius: 11.2px; min-height: 23.8px; min-width: 29.4px; }
 
 .checks-row-other label { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 18px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
-/* アイコン表示モード時は、アイコンの文字幅によってボタンごとの横幅がばらつく(多段時に段によって大きさが揃わない)のを防ぐため、
-   幅・高さを固定して常に同じ大きさの円形ボタンにする */
+/* アイコン表示モード時は、アイコンの文字幅によってボタンごとの横幅がばらつく */
 body.icon-only-mode .checks-row-other label { width: 50.57px; min-width: 50.57px; padding: 0; }
 .checks-row-other label.is-dragging-reorder { opacity: 0.4; }
 .checks-row-members label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 4px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 16px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex-grow: 1; flex-shrink: 1; min-width: 0; position: relative; }
@@ -311,18 +298,15 @@ body.icon-only-mode .checks-row-other label { width: 50.57px; min-width: 50.57px
 .checks-row-members label:not(.btn-group) { padding: 5px 0; }
 .checks .sep { display: inline-flex; align-items: center; justify-content: center; padding: 0 1px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
 @media (hover: hover) { .checks label:hover { background-color: var(--btn-hover); } }
-/* checkboxは非表示(opacity:0/幅高さ0)にしているため、input自体ではなく見た目上のlabel側に
-   フォーカスリングを出す(inputは0x0でリングが実質見えなくなるため) */
+/* checkboxは非表示 */
 .checks label:has(input:focus-visible) { outline: 2px solid #38bdf8; outline-offset: 2px; }
 .checks label:has(input:checked) { background-color: var(--active-bg); color: var(--active-color); border-color: var(--active-bg); }
 .checks label:has(input:checked)::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #34d399; border-radius: 50%; }
 /* 手動でONにしたフィルターは、右上のランプを赤から青に変更して区別する(自動ONは赤のまま) */
 .checks label:has(input:checked).is-manual-on::after { background-color: #38bdf8; }
-/* 年/月/グループ/メンバーでフィルターした時、実際にはチェックせず、該当データがあるコンテンツ種類の
-   ボタンにだけ「ランプ」を点ける(チェックはしないのでcheckedの::afterとは別に用意する) */
+/* 年/月/グループ/メンバーでフィルターした時、実際にはチェックせず、該当データがあるコンテンツ種類の ボタンに */
 .checks label.has-data-lamp::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #fbbf24; border-radius: 50%; }
-/* ダブルクリック/ダブルタップで除外指定したボタン:薄い色にして、そのフィルター値に該当するデータが
-   常に非表示になっていることが視覚的にわかるようにする */
+/* ダブルクリック/ダブルタップで除外指定したボタン:薄い色にして、そのフィルター値に該当するデータが 常に非表示 */
 .checks label.is-excluded { opacity: 0.35; }
 @media (hover: hover) { .checks label.is-excluded:hover { background-color: var(--btn-hover); opacity: 0.5; } }
 .checks label span[title] { font-size: 14px; line-height: 1; }
@@ -334,10 +318,8 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .result-header-row { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; margin-bottom: 8px; min-height: 1.2em; position: relative; }
 .result-count-group { display: flex; align-items: center; gap: 6px; }
 .result-count { font-size: 12px; color: var(--sub); letter-spacing: 0.5px; }
-/* メンバー/グループフィルターホバー時のPREVIEW表示専用アイコン。データ部のteam-icon(11.25px固定)は
-   ハートより小さく見えるため流用せず、ここではハート・四角どちらも見た目の大きさ・名前との間隔を揃える */
-/* メンバー/グループ/コンテンツ種類、いずれのフィルターをホバーした時もPREVIEW内のアイコンが同じ幅の
-   枠(1em)・同じ間隔(4px)になるようにする専用クラス。アイコンの種類によらず、名前の開始位置が揃う */
+/* メンバー/グループフィルターホバー時のPREVIEW表示専用アイコン */
+/* メンバー/グループ/コンテンツ種類、いずれのフィルターをホバーした時もPREVIEW内のアイコンが同じ幅の 枠 */
 .preview-icon { display: inline-block; width: 1em; text-align: center; margin-right: 4px; vertical-align: middle; line-height: 1; }
 .preview-icon-square { width: 1em; height: 1em; border-radius: 2px; }
 .preview-icon-square.team-g2 { background-color: #f472b6; }
@@ -377,8 +359,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
 /* 「A」ボタン自体の大きさは変えず、データ部の文字サイズだけを拡大縮小する */
 
-/* 文字サイズ変更パネル(「A」ボタン直下に、アイコンに対して中央揃えで表示)。
-   アイコン下からなめらかに伸びるように、transform-origin:top + scaleY + opacity のtransitionで開閉する */
+/* 文字サイズ変更パネル(「A」ボタン直下に、アイコンに対して中央揃えで表示) */
 .text-size-wrap { position: relative; }
 .text-size-panel {
   position: absolute;
@@ -456,8 +437,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 #todayToggleBtn.is-offset-next { color: #fff; background-color: #34d399; }
 /* TODAYモード中に年フィルターが選択されている間は、前後日移動をしても黄色を優先して表示する */
 #todayToggleBtn.is-year-filtered { color: #111; background-color: #facc15; }
-/* 長押しで「保持」状態にした場合の青いリング。ボタンの内側に描くため、外側に広がらず
-   .header-btn-group の他ボタン(gap:4px)とは衝突しない */
+/* 長押しで「保持」状態にした場合の青いリング */
 #todayToggleBtn.is-held { box-shadow: inset 0 0 0 2px #38bdf8; }
 /* --- 現在有効な絞り込み条件のバッジ一覧(フィルターエリア折りたたみ時に表示) --- */
 .active-filters-row { display: none; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; gap: 4px; margin-bottom: 10px; align-items: center; }
@@ -468,13 +448,9 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .filter-badge .badge-x { font-size: 10px; color: var(--muted); font-weight: bold; }
 .filter-badge .badge-square { display: inline-block; width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
 /* --- 項目一覧(ログ本体) --- */
-/* TODAYモードのフリック時に#items(データ行)と#noResult(NO DATA表示)をまとめてスライドさせるための外枠。
-   レイアウトに影響しないよう幅のみ指定し、余白・装飾は持たせない */
+/* TODAYモードのフリック時に#items */
 .day-slide-area { width: 100%; }
-/* NO DATA表示時、メッセージの表示位置(=NO RESULTS FOUND時と同じ位置)は変えずに、
-   その下の余白部分だけをフリック可能にするための透明な当たり判定。
-   position:fixedでドキュメントの流れから外れるため、他要素(updated>やフッター)を押し下げない。
-   z-index:-1で通常の要素(テキストやボタン)より背面に置くことで、それらのクリック/タップは妨げない */
+/* NO DATA表示時、メッセージの表示位置 */
 #dayFlickFill { position: fixed; left: 0; right: 0; z-index: -1; display: none; }
 .items { display: flex; flex-direction: column; align-items: flex-start; width: 100%; transition: opacity 0.15s ease, transform 0.15s ease; }
 .items.is-animating { opacity: 0; transform: translateY(6px); }
@@ -495,8 +471,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .logid-toast .logid-value { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; letter-spacing: .5px; }
 .logid-toast .logid-note { opacity: .75; font-size: 11px; }
 .item-time.is-blank { visibility: hidden; } /* time未設定の行も"00:00"と同じ幅を確保したまま見た目だけブランクにする */
-/* 今日の日付の行を目立たせる(TODAYモード中は全行が「今日」になるため対象外)。
-   太字にすると文字幅がわずかに変わり右側の要素がずれるため、色だけを変える */
+/* 今日の日付の行を目立たせる(TODAYモード中は全行が「今日」になるため対象外) */
 .item-date.is-today-date, .item-time.is-today-date,
 /* TODAYモード(当日表示時のみ)は、現在時刻以降(同じ時台なら現在時刻より前でも含む)の項目を同じ色で目立たせる */
 .item-date.is-upcoming-time, .item-time.is-upcoming-time {
@@ -522,10 +497,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
   transition: flex-basis 0.38s cubic-bezier(0.22, 0.61, 0.36, 1);
   will-change: flex-basis;
 }
-/* アイコン本体を置く箱。幅を常に固定にして中央寄せすることで、枠(item-contents)の開閉・展開状態に関わらず
-   アイコン自体の描画位置が絶対にずれないようにする(text-alignによる位置ズレを避けるための専用の箱)。
-   PC通常表示ではコンテンツ名がすぐ右に続くので控えめな幅、アイコンのみ表示(ICONモードON/スマホ)では
-   枠(28px)いっぱいに広げて、閉じている間も枠の中央にアイコンが来るようにする。 */
+/* アイコン本体を置く箱。幅を常に固定にして中央寄せすることで、枠 */
 .item-contents-icon {
   display: inline-block;
   width: 1.5em;
@@ -541,7 +513,7 @@ body.icon-only-mode .item-contents-icon {
   white-space: nowrap;
   margin-left: 2px;
 }
-/* ICONモードON時はテキストが無くアイコンのみになるため、固定幅にしてどのアイコンでも枠サイズが揃うようにする(PC版・スマホ版で共通の幅) */
+/* ICONモードON時はテキストが無くアイコンのみになるため、固定幅にしてどのアイコンでも枠サイズが揃うようにす */
 body.icon-only-mode .item-contents {
   flex: 0 0 28px;
   width: 28px;
@@ -549,13 +521,7 @@ body.icon-only-mode .item-contents {
   margin-right: 8px;
 }
 .item-contents.is-clickable { cursor: pointer; }
-/* コンテンツアイコンをクリックした時、隣に別枠を出すのではなく、このアイコン枠自体を広げて
-   コンテンツ名を表示する(枠の背景・境界線はそのまま)。実際の幅はコンテンツ名の長さに応じてJS側で
-   計測して都度style.flexBasisに反映する(下のmax-widthは計測前後の保険的な上限)。
-   アイコン自体は.item-contents-icon側の固定幅で中央寄せしているため、この枠が広がってもアイコンの
-   描画位置は動かず、コンテンツ名だけがアイコンの右側に伸びて出てくる。
-   body.icon-only-mode .item-contents (bodyタグ分だけ詳細度が高い)より必ず優先させるため、
-   同じくbodyを付けて詳細度を揃え、CSS上で後に置くことで確実に上書きする。 */
+/* コンテンツアイコンをクリックした時、隣に別枠を出すのではなく、このアイコン枠自体を広げて コンテンツ名を表示す */
 body .item-contents.is-content-open {
   max-width: 11.5em;
 }
@@ -567,8 +533,7 @@ body .item-contents.is-content-open {
   line-height: 1.4; 
   white-space: nowrap; 
   overflow-x: auto; 
-  overflow-y: hidden; /* overflow-xのみ指定するとブラウザがoverflow-yも自動的にautoとして扱い、
-                         ハート表示等で行の高さがわずかに変動した際に不要な縦スクロールバーが出てしまうための対策 */
+  overflow-y: hidden; /* overflow-xとの暗黙auto化を防ぎ、不要な縦スクロールバーの発生を抑える */
   -webkit-overflow-scrolling: touch;
   text-overflow: ellipsis; 
   min-width: 0; 
@@ -594,9 +559,7 @@ body .item-contents.is-content-open {
 .map-pin:not(a) { visibility: hidden; } /* mapに値が無い行は、アイコン分の幅は保ったまま見た目だけブランクにする */
 .setlist-icon { display: inline-block; margin: 0 4px 0 2px; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; }
 .setlist-icon.is-blank { visibility: hidden; cursor: default; } /* setlistidが無い行は、アイコン分の幅は保ったまま見た目だけブランクにする(setlistIconMode時) */
-/* 🔗アイコンは行の右端(タイトルの後ろ)に固定する。横スクロールするのはタイトルだけなので、文字をスクロールしてもアイコンは動かず、文字とも重ならない。
-   通常(🔗ボタンOFF)は幅0で見えない。ON(#itemsに.link-mode)で幅を確保し、右からスッとスライドして現れる(動かすのはtransform/opacityだけなので、行数が多くても軽い)。
-   OFFにしたときは、スライドして消えた後に幅を解放する(width/marginのtransition-delay) */
+/* 🔗アイコンは行の右端(タイトルの後ろ)に固定する */
 .link-icon { display: inline-block; flex: 0 0 auto; width: 0; margin: 0; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer;
   opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0.9em);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0s linear 0.28s, width 0s linear 0.28s, margin 0s linear 0.28s; }
@@ -605,16 +568,11 @@ body .item-contents.is-content-open {
 .items.link-mode .link-icon.is-blank { visibility: hidden; pointer-events: none; cursor: default; } /* snsが無い行は、幅は保ったまま見た目だけブランクにする */
 @media (prefers-reduced-motion: reduce) { .link-icon, .items.link-mode .link-icon { transition: none; } }
 .team-icon.is-clickable { cursor: pointer; }
-/* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される。
-   overflow-xだけhidden・overflow-yだけvisibleのように分割指定すると、ブラウザ側でvisible指定がautoとして
-   扱われてしまい(値が異なる軸ペアの自動変換仕様)、絵文字がline-heightをわずかに超えた際に不要な縦スクロールバーが
-   出てしまう。そのため軸を分割せず通常のoverflow: hiddenのままにし、代わりにline-heightを絵文字が収まる
-   高さまで広げることで、下端が欠ける問題を解消する */
+/* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される */
 .team-hearts { display: inline-flex; align-items: center; align-self: center; gap: 2px; max-width: 0; overflow: hidden; white-space: nowrap; flex-shrink: 0; margin-left: 0; vertical-align: middle; line-height: 1.4; transition: max-width 0.3s ease, margin-left 0.3s ease; }
 .team-hearts.is-open { max-width: 480px; margin-left: 2px; margin-right: 2px; }
 .team-heart { position: relative; display: inline-block; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; }
-/* both(G2/L2混在)の行のみ、各グループの先頭ハートの左下に色付きバッジを重ねて表示する。
-   ハート自体の位置・幅には影響しないため、四角の有無でハートの並びがずれない */
+/* both(G2/L2混在)の行のみ、各グループの先頭ハートの左下に色付きバッジを重ねて表示する */
 .team-heart.group-start-g2::before, .team-heart.group-start-l2::before {
   content: '';
   position: absolute;
@@ -680,9 +638,7 @@ body .item-contents.is-content-open {
 }
 .help-btn:hover { background-color: var(--btn-hover); }
 
-/* 汎用ポップアップ(HELP/SETTINGなど、中身がまだ無いものも含む)。セットリストポップアップと同じく
-   display:none/flexの瞬時切替ではなく、opacity/visibility + transform:scale()でフェード+ズームイン/
-   アウトさせる(常時flexにしてopacity等で見た目上の表示切替を行う)。 */
+/* 汎用ポップアップ(HELP/SETTINGなど、中身がまだ無いものも含む) */
 .popup-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000;
   display: flex; align-items: center; justify-content: center; padding: 20px;
@@ -754,9 +710,7 @@ body .item-contents.is-content-open {
 .vis-hidden { display: none !important; }
 .checks-row-other-extra:not(.has-items):not(.drag-target-active) { display: none; }
 .checks-row-other-2.vis-hidden.drag-target-active { display: flex !important; }
-/* メンバーを非表示にした行:残ったボタンの横幅は全員表示時と同じに保ち、左に詰めて並べる。
-   (通常は空き幅を残りのボタンで分け合って広がるため、非表示がある行だけ幅を固定する)
-   全員表示時の1ボタン幅 = (行の幅 - グループボタン50px - 隙間3px×(要素数-1) - 区切り"/"の幅×個数) / メンバー数 */
+/* メンバーを非表示にした行:残ったボタンの横幅は全員表示時と同じに保ち、左に詰めて並べる */
 .checks-row-members.has-vis-hidden label:not(.btn-group) {
   flex: 0 1 calc((100% - 50px - (var(--m-items) - 1) * 3px - var(--m-seps) * 5.34px) / var(--m-n));
 }
@@ -782,9 +736,7 @@ body .item-contents.is-content-open {
   .item-contents-icon { width: 28px; }
 }
 
-/* セットリストポップアップ(SETLISTアイコン押下時に表示)。display:none/flexの瞬時切替ではなく、
-   opacity/visibility + transform:scale()のtransitionでフェード+ズームイン/アウトさせる
-   (display:noneのままだと閉じる時のアニメーションができないため、常時flexにしてopacity等で見た目を制御する) */
+/* セットリストポップアップ(SETLISTアイコン押下時に表示) */
 .setlist-modal-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000;
   display: flex; align-items: center; justify-content: center; padding: 20px;
@@ -827,7 +779,7 @@ body .item-contents.is-content-open {
 .sns-modal-title { font-size: 15px; font-weight: bold; margin: 0 26px 10px 0; line-height: 1.4; }
 .sns-modal-type-row { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
 .sns-modal-type-row:last-child { border-bottom: none; }
-/* 見出し欄(アイコン+文字)は全行同じ幅にして、右の番号ボタンが左寄せで縦にそろうようにする。高さは番号ボタンと同じ20pxにして1行目と中央をそろえる */
+/* 見出し欄(アイコン+文字)は全行同じ幅にして、右の番号ボタンが左寄せで縦にそろうようにする */
 .sns-modal-type-label { flex: 0 0 7.4em; display: flex; align-items: center; gap: 6px; height: 20px; font-size: 13px; font-weight: 600; }
 .sns-modal-ic { flex: 0 0 15px; width: 15px; height: 15px; display: block; } /* 単色(currentColor)なので文字色=テーマに追従する */
 .sns-modal-ic.is-ph { visibility: hidden; } /* アイコン未登録のtypeは、同じ幅の空きを置いて文字の開始位置をそろえる */
@@ -1013,8 +965,7 @@ body .item-contents.is-content-open {
 <script type="text/javascript">
 //<![CDATA[
 (() => {
-  // 特定の配信元(ホスト名+パス)からのアクセスかどうかをハッシュ比較で判定する(URL文字列はソースに直接書かない)。
-  // headの早期リダイレクト用スクリプトと同じアルゴリズム・同じハッシュ値を使用している。
+  // 特定の配信元(ホスト名+パス)からのアクセスかどうかをハッシュ比較で判定する(URL文字列はソースに書かない)
   const isForcedFreshSource = () => {
     const simpleHash = s => {
       let h = 0;
@@ -1028,25 +979,16 @@ body .item-contents.is-content-open {
   let setlistData = []; // setlist.json(公演ごとのセットリスト)のキャッシュ
   let songsData = []; // songs.json(artist/title/link)のキャッシュ。SETLISTポップアップの再生ボタンにも使う
   let setlistMode = false; // SETLISTボタンでON/OFFする「セトリ検索モード」
-  // セトリ検索モードに入る直前のTODAY状態(todayMode/todayOffset/desc/preTodaySort)のスナップショット。
-  // セトリ検索モード中のTODAYは通常時とは別管理(独立してON/OFFできる)とし、セトリ検索モードを
-  // 終了した時にここへ完全復元する。セトリ検索モード中でなければnull。
+  // セトリ検索モードに入る直前のTODAY状態のスナップショット(モード中でなければnull)
   let setlistTodaySavedState = null;
-  // セトリ検索モード中、コンテンツフィルターの LIVE/EVENT 以外を「ダブルクリックした時と同じ除外状態」に
-  // 一括で強制する。対象は SETLIST_ALLOWED_CONTS(許可する種類)以外を allConts から動的に算出するため、
-  // 今後コンテンツ種類が追加/削除されてもこのロジックを変更する必要はない。
+  // セトリ検索モード中、コンテンツフィルターの LIVE/EVENT 以外を「ダブルクリックした時と同じ除外状態」
   const SETLIST_ALLOWED_CONTS = ['LIVE', 'EVENT'];
   const setlistExcludedConts = () => allConts.filter(v => !SETLIST_ALLOWED_CONTS.includes(v));
-  // セトリ検索モードに入る直前の除外状態(excludedFilterValues)のスナップショット。セトリ検索モードを
-  // 終了した時にここへ完全復元する。セトリ検索モード中でなければnull。
+  // セトリ検索モードに入る直前の除外状態のスナップショット
   let setlistExcludedSavedState = null;
   const pageSize = 40, isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const $ = id => document.getElementById(id);
-  // ==================== 年月日曜時等のボタン群を検索窓の左端に揃える ====================
-  // header-btn-group(年/月/日/曜/時/マップ/セトリ等)の左端が、1行下の検索窓(.search-box-wrap)の
-  // 左端と縦に揃うように、margin-leftを動的に計算する。song/heartボタンは固定幅のため、
-  // コンテナ幅が変わっても検索窓の左端オフセット自体はほぼ変わらないが、念のため
-  // ウィンドウリサイズ時・コンテナ幅ドラッグ後にも再計算する。
+  // ==================== 年月日曜時等のボタン群を検索窓の左端に揃える ===========
   const syncHeaderBtnGroupPosition = () => {
     const row = document.querySelector('.header-row');
     const h1El = row ? row.querySelector('h1') : null;
@@ -1065,10 +1007,7 @@ body .item-contents.is-content-open {
   window.addEventListener('resize', syncHeaderBtnGroupPosition);
 
 
-  // ==================== PC幅:コンテナ横幅のドラッグリサイズ ====================
-  // 画面両端のハンドル(left/right)をドラッグすると、中央寄せを保ったまま左右均等に伸縮する。
-  // 760px未満(スマホ幅)では使わない(CSS側で.width-resize-handleも非表示)。
-  // 選んだ幅はlocalStorageに保存し、次回訪問時も復元する。
+  // ==================== PC幅:コンテナ横幅のドラッグリサイズ ==============
   (() => {
     const MIN_CONTAINER_W = 440; // これより狭いと見出し「GL log」が2行に折り返るため
     const CONTAINER_W_KEY = 'gl_log_container_w';
@@ -1106,8 +1045,7 @@ body .item-contents.is-content-open {
     const moveDrag = clientX => {
       if (!dragSide) return;
       const dx = clientX - dragStartX;
-      // 中央寄せなので、片側ハンドルの移動量(dx)の2倍がコンテナ全体の幅の変化量になる。
-      // 左ハンドルは左へ動かす(dxが負)ほど広がるので符号を反転する
+      // 中央寄せなので、片側ハンドルの移動量(dx)の2倍がコンテナ全体の幅の変化量になる
       const delta = (dragSide === 'left' ? -dx : dx) * 2;
       applyContainerW(dragStartW + delta);
     };
@@ -1140,14 +1078,9 @@ body .item-contents.is-content-open {
     window.addEventListener('resize', () => applyContainerW(currentContainerW()));
   })();
 
-  // ボタン/checkboxを押した直後の見た目の変化(:has(input:checked)によるボタンの色変化等)を先に
-  // ブラウザへ描画させてから、その後に続く重い処理(全件フィルタリング・再描画等)を実行するためのヘルパー。
-  // checkboxの:checked状態自体は純粋なCSSで駆動されているため本来即座に反映されるが、同じタスク内で重い
-  // 処理を続けて呼ぶと、ブラウザがその処理を終えるまで描画を後回しにしてしまい、色の変化が一瞬遅れて見える。
-  // 判定内容・結果は変えず、実行タイミングだけを次フレームにずらす
+  // ボタン/checkboxを押した直後の見た目の変化
   const deferHeavyUpdate = fn => requestAnimationFrame(fn);
-  // G2: 小田柚葉:YZH、隅谷百花:MMK、鶴屋美咲:MSK、小川桜花:YOK、増田來亜:KUR、菱田未渚美:MNM、山口綺羅:KIR、原田都愛:TOA、石井蘭:RAN
-  // L2: 山口莉愛:RIN、杉浦優來:YUR、永山椿:TBK、深澤日彩:HIR、比嘉優和:YUW、佐藤栞奈:KAN、上村梨々香:RRK、森朱里:AKR、佐藤妃希:KIK
+  // G2: 小田柚葉:YZH、隅谷百花:MMK、鶴屋美咲:MSK、小川桜花:YOK、増田來亜:KUR、菱田未渚美:
   const g2 = [
     {v:'G2',t:'Girls\u00B2'},{v:'YZH',n:'YUZUHA',c:'\uD83E\uDE75'},{v:'MMK',n:'MOMOKA',c:'\uD83D\uDC99'},{v:'MSK',n:'MISAKI',c:'\uD83E\uDDE1'},
     {v:'YOK',n:'YOKA',c:'\uD83D\uDC9C'},{v:'KUR',n:'KUREA',c:'\uD83E\uDD0D'},{v:'MNM',n:'MINAMI',c:'\uD83E\uDE77'},{v:'KIR',n:'KIRA',c:'\uD83D\uDC9B'},
@@ -1168,23 +1101,21 @@ body .item-contents.is-content-open {
     'MODEL': '\uD83D\uDC60', 'MOVIE': '\uD83C\uDFAC\uFE0F', 'TICKET': '\uD83C\uDFAB',
     'CLOSE': '\u2705', 'RESULT': '\uD83C\uDFAF', 'CAMPAIGN': '\uD83D\uDCE8', 'PLAYING': '\uD83C\uDFB6', 'MESSAGE': '\uD83D\uDCE8', // フィルターボタンには表示せず、ETC選択時のみ該当させる
     'ETC': '\uD83D\uDCCC',
-    // 以下5種類はcontentsフィルターボタンには表示しないが、フィルター判定上は"RELEASE"として扱う(normalizeContType参照)。
-    // データ部のアイコン表示ではそれぞれ専用のアイコン+コンテンツ名を表示する。
+    // 以下5種類はcontentsフィルターボタンには表示しないが、フィルター判定上は"RELEASE"として扱う
     'CD': '\uD83D\uDCBF\uFE0F', 'DVD': '\uD83D\uDCC0\uFE0F', 'BD': '\uD83D\uDCC0\uFE0F', 'DIGITAL': '\uD83C\uDFA7', 'MUSICCARD': '\uD83C\uDFA7',
-    // BOOK/NEWSPAPERはフィルターボタンには表示せず、フィルター判定上は"MEDIA"として扱う(normalizeContType参照)。TV/RADIOは独立したフィルターボタン
+    // BOOK/NEWSPAPERはフィルターボタンには表示せず、フィルター判定上は"MEDIA"として扱う
     'TV': '\uD83D\uDCFA\uFE0F', 'RADIO': '\uD83D\uDCFB\uFE0F', 'BOOK': '\uD83D\uDCDA', 'NEWSPAPER': '\uD83D\uDCF0',
-    // PODCASTはフィルターボタンには表示せず、フィルター判定上は"WEB"として扱う(normalizeContType参照)。STREAMING/COLUMNは独立したフィルターボタン
+    // PODCASTはフィルターボタンには表示せず、フィルター判定上は"WEB"として扱う
     'PODCAST': '\uD83C\uDFA4', 'STREAMING': '\uD83D\uDCF6', 'COLUMN': '\uD83D\uDD8A',
-    // GOODSはフィルターボタンには表示せず、フィルター判定上は"SALES"として扱う(normalizeContType参照)
+    // GOODSはフィルター上"SALES"として扱う(ボタンは別表示)
     'GOODS': '\uD83D\uDED2',
-    // RELEASEEVENT/FANMEETINGはフィルターボタンには表示せず、フィルター判定上は"EVENT"として扱う(normalizeContType参照)。COOKING/STAGEは独立したフィルターボタン
+    // RELEASEEVENT/FANMEETINGはフィルターボタンには表示せず、フィルター判定上は"EVENT"
     'COOKING': '\uD83C\uDF7D\uFE0F', 'RELEASEEVENT': '\uD83C\uDFA4', 'FANMEETING': '\uD83C\uDFA4', 'STAGE': '\uD83C\uDFAD',
-    // DEBUT/FORMATIONはフィルターボタンには表示せず、フィルター判定上は"BIRTHDAY"として扱う(normalizeContType参照)。
-    // ただしBIRTHDAYと違い、isBirthdayAnniversaryの対象外なので年をまたいだ月日一致では表示されない
+    // DEBUT/FORMATIONはフィルターボタンには表示せず、フィルター判定上は"BIRTHDAY"として扱う
     'DEBUT': '\uD83C\uDF82', 'FORMATION': '\uD83E\uDD1D'
   };
 
-  // 内部値(contents値・フィルター値)と実際の表示名が異なるものだけここに登録する(それ以外は値そのものを表示名として使う)
+  // 内部値と表示名が異なるものだけ登録する
   const contentDisplayNames = { 'GLRADIO': 'GL\u00B2RADIO' };
   const displayNameFor = v => contentDisplayNames[v] || v;
 
@@ -1225,8 +1156,7 @@ body .item-contents.is-content-open {
   // 8桁のYYYYMMDD形式は既にゼロ埋め済みなので、そのまま文字列比較でソート可能
   const normalizeDateForSort = dateStr => dateStr || '';
 
-  // ソート専用のキー:date(正規化)。時刻は別途getSortKeysでhasTime/timeValとして扱う
-  // (空欄の項目を常に"0000"より前に置くため、日付キーには含めない)。
+  // ソート専用のキー:date(正規化)
   const sortKeyFor = item => normalizeDateForSort(item.date);
 
   const createLabel = item => {
@@ -1275,9 +1205,7 @@ body .item-contents.is-content-open {
   for (let m = 1; m <= 12; m++) {
     $('monthChecks').appendChild(createLabel({ v: String(m).padStart(2, '0'), t: String(m) }));
   }
-  // コンテンツ種類ボタンの並び順・段をlocalStorageから復元する。段数は最大MAX_CONTENT_ROWS段(3段以上も可)。
-  // 保存形式: { rows: [[...],[...],...], row1: [...], row2: [...] }(row1/row2は旧バージョンとの互換用)。
-  // 旧形式(フラットな配列=1段目のみ、または {row1,row2})も読み込める(後方互換)。
+  // コンテンツ種類ボタンの並び順・段をlocalStorageから復元する
   const MAX_CONTENT_ROWS = 6;
   const contentRows = [$('otherChecks'), $('otherChecks2')];
   for (let i = 3; i <= MAX_CONTENT_ROWS; i++) { // 3段目以降はここで生成(中身が入るまで、またはドロップ先になるまで非表示)
@@ -1318,9 +1246,7 @@ body .item-contents.is-content-open {
   savedContentRows.forEach((vals, i) => vals.forEach(o => contentRows[i].appendChild(createLabel(o))));
   contentRows.forEach((r, i) => { if (i > 0) r.classList.toggle('has-items', r.children.length > 0); });
 
-  // コンテンツ種類ボタンのみ、ドラッグ&ドロップで並び替え・別の段への移動ができるようにする(並び・段はlocalStorageに記憶)。
-  // ドラッグを始めると、使用中の最後の段の1つ下の段が、ドロップ先としてプレビュー表示される(最大MAX_CONTENT_ROWS段)。
-  // そこにドロップすると新しい段が実際に作られ、段の中身が無くなったら、上に詰めて自動的に折りたたまれる。
+  // コンテンツ種類ボタンのみ、ドラッグ&ドロップで並び替え・別の段への移動ができるようにする
   (() => {
     const rows = contentRows;
     let draggedEl = null;
@@ -1374,8 +1300,7 @@ body .item-contents.is-content-open {
         if (!draggedEl || draggedEl === label) return;
         const rect = label.getBoundingClientRect();
         const before = (e.clientX - rect.left) < rect.width / 2;
-        // 段をまたいで移動済みのラベルでも常に現在の実際の親要素に挿入する(段移動直後は
-        // attachLabelDnD時点の行と実際の所属行がズレるため、都度parentElementを参照する)
+        // 段をまたいで移動済みのラベルでも常に現在の実際の親要素に挿入する
         label.parentElement.insertBefore(draggedEl, before ? label : label.nextSibling);
       });
     };
@@ -1433,10 +1358,7 @@ body .item-contents.is-content-open {
   const l2Vals = ['RIN','YUR','TBK','HIR','YUW','KAN','RRK','AKR','KIK'];
   const allGroupVals = [...g2Vals, ...l2Vals];
 
-  // groupsからGirls\u00b2(G2)/Laki(L2)どちらの予定かを判定する。
-  // 1) groupsに'G2'/'L2'のリテラルタグがあればそれを優先。
-  // 2) どちらのリテラルタグも無ければ、メンバーコードの内容からG2/L2を判定する。
-  // 3) 両方に該当する場合は'both'を返す(斜め半々アイコン用)。
+  // groupsからGirls\u00b2(G2)/Laki(L2)どちらの予定かを判定する
   const getTeamClass = item => {
     const g = item.groups || [];
     let hasG2 = g.includes('G2');
@@ -1451,8 +1373,7 @@ body .item-contents.is-content-open {
     return null;
   };
 
-  // ソート用:日付+時刻が同じ場合のタイブレーク優先順位(G2とL2両方 > G2のみ > L2のみ > STF含む > それ以外)
-  // STFが含まれる場合は、たとえgroupsにG2/L2のリテラルタグが同時にあっても常に「STF含む」枠になる
+  // ソート用:日付+時刻が同じ場合のタイブレーク優先順位
   const groupSortRank = item => {
     const g = item.groups || [];
     if (g.includes('STF')) return 3;
@@ -1462,14 +1383,11 @@ body .item-contents.is-content-open {
     if (tc === 'l2') return 2;
     return 4;
   };
-  // ソート用:日付+時刻+グループも同じ場合のタイブレーク。メンバーフィルターボタンの実際の表示順
-  // (g2→l2、それぞれボタンの並び順どおり)でランク付けする。複数メンバーが該当する場合は
-  // 最も並び順が早いメンバーを代表値として使う。該当メンバーが無ければ末尾扱い。
+  // ソート用:日付+時刻+グループも同じ場合のタイブレーク
   const memberOrder = [...g2, ...l2]
     .filter(i => typeof i === 'object' && i.n !== undefined)
     .map(i => i.v);
-  // データ部のハート表示(グループアイコン押下時・ハートモード)の並び順。フィルターボタンの並び替えや
-  // 表示順(memberOrder、上記)とは完全に独立した固定の順序
+  // データ部のハート表示(グループアイコン押下時・ハートモード)の並び順
   const heartOrder = [
     'YZH', 'MMK', 'MSK', 'YOK', 'KUR', 'MNM', 'KIR', 'TOA', 'RAN',
     'RIN', 'YUR', 'TBK', 'HIR', 'YUW', 'KAN', 'RRK', 'AKR', 'KIK'
@@ -1490,27 +1408,18 @@ body .item-contents.is-content-open {
     if (typeof i === 'object' && i.n !== undefined) memberInfoByCode[i.v] = { n: i.n, c: i.c };
   });
 
-  // 💞ボタン(ハートモード):データ部のハート表示を一括で展開/縮小する。
-  // 個別のG2/L2アイコンでの開閉とも連動し、ひとつでも展開されていればON、ひとつも展開されていなければOFFとする。
-  // フィルター変更や追加読み込みで行が再描画された場合も、ON中は新しく表示される行のハートを自動的に展開状態で生成する。
+  // 💞ボタン(ハートモード):データ部のハート表示を一括で展開/縮小する
   let heartModeOn = false;
   const refreshHeartModeState = () => {
     heartModeOn = !!$('items').querySelector('.team-hearts.is-open');
     $('heartToggleBtn').classList.toggle('is-active', heartModeOn);
   };
 
-  // コンテンツアイコン(item-contents)クリック時のアコーディオン展開:行ごとに独立して開閉する。
-  // 開いている行はitemKeyForで識別してexpandedContentKeysに保持し、再描画時にも復元する。
-  // 通常の再描画(検索・フィルター変更・CLEAR等)では全て閉じた状態に戻すが、年/月/日/曜/時の
-  // 表示切替ボタンによる再描画だけは、updateDisplay()の第2引数で明示的に保持する。
+  // コンテンツアイコン(item-contents)クリック時のアコーディオン展開:行ごとに独立して開閉する
   const itemKeyFor = item => `${item.date || ''}_${item.time || ''}_${item.contents || ''}_${item.title || ''}_${item.url || ''}`;
   let expandedContentKeys = new Set();
 
-  // 展開時の幅を「コンテンツ名の長さ」に合わせて計測する(上限はRELEASEEVENT等の最長級でも収まるよう11.5em)。
-  // 一時的にflex-basisの制約を外して自然な横幅(scrollWidth)を測り、パディング分を差し引いてから
-  // 元の値に戻す(実際の反映は呼び出し側でstyle.flexBasisに設定する)。widthは併用せずflex-basisのみで
-  // サイズを決める(flex-shrink:0のためflex-basisがそのまま表示幅になり、左端の位置がぶれない)。
-  // 計測値ぴったりだと文字がぎりぎりで見切れることがあるため、少し余裕(CONTENT_OPEN_BUFFER_PX)を足す。
+  // 展開時の幅を「コンテンツ名の長さ」に合わせて計測する
   const MAX_CONTENT_OPEN_EM = 11.5;
   const CONTENT_OPEN_BUFFER_PX = 8;
   const measureContentOpenWidthPx = el => {
@@ -1528,7 +1437,7 @@ body .item-contents.is-content-open {
     return Math.min(naturalContentWidth, maxContentWidth);
   };
 
-  // team-both(G2/L2両方)の行でハートを一括表示する際、どちらのグループのメンバーかを判定するための集合
+  // team-both(G2/L2両方)行でどちらのメンバーか判定する集合
   const g2MemberCodes = new Set(g2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
   const l2MemberCodes = new Set(l2.filter(i => typeof i === 'object' && i.n !== undefined).map(i => i.v));
 
@@ -1536,8 +1445,7 @@ body .item-contents.is-content-open {
   const allConts = [...primaryConts, 'ETC'];
   const cats = [{meta:'G2',values:g2Vals},{meta:'L2',values:l2Vals}];
 
-  // CD/DVD/BD/DIGITALはコンテンツフィルターボタンには表示しないが、フィルター判定(年/コンテンツ種類/自動on-off/
-  // 件数プレビュー/ソート等)上は"RELEASE"の一部として扱う。データ部の表示(アイコン・コンテンツ名)には影響しない。
+  // CD/DVD/BD/DIGITALはコンテンツフィルターボタンには表示しないが、フィルター判定
   const releaseAliasConts = ['CD', 'DVD', 'BD', 'DIGITAL', 'MUSICCARD'];
   const mediaAliasConts = ['BOOK', 'NEWSPAPER']; // TV/RADIOは独立したフィルターボタンになった
   const webAliasConts = ['PODCAST']; // STREAMING/COLUMNは独立したフィルターボタンになった
@@ -1545,9 +1453,7 @@ body .item-contents.is-content-open {
   const eventAliasConts = ['RELEASEEVENT', 'FANMEETING']; // COOKING/STAGEは独立したフィルターボタンになった
   const birthdayAliasConts = ['DEBUT', 'FORMATION'];
   const normalizeContTypeCache = new Map();
-  // logs.jsonの実データではcontents(コンテンツ種類の生値)は数十種類程度しかなく、同じ値が何度も
-  // 出現するため、毎回エイリアス配列を線形チェックするのではなく、値ごとに1回計算した結果をキャッシュする。
-  // エイリアス配列(releaseAliasConts等)は実行中に変化しないため、キャッシュが古くなる心配は無い
+  // logs.jsonの実データではcontents
   const normalizeContType = c => {
     if (normalizeContTypeCache.has(c)) return normalizeContTypeCache.get(c);
     const result =
@@ -1561,13 +1467,9 @@ body .item-contents.is-content-open {
     return result;
   };
 
-  // 検索窓の"-コンテンツ種類名"(例:"-DIARY"、または"-RELEASE"のような正規化後の総称名)でその種類を
-  // 非表示にできるよう、各アイテムのsearchTextにはitem.contentsの生の値に加えてnormalizeContType後の
-  // 正規化名も含める(下記3箇所のsearchText構築を参照)。これによりCD/DVD/BD等のエイリアスも
-  // "-RELEASE"一つで一括除外でき、種類ごとに個別のエイリアス名を意識する必要が無くなる。
+  // 検索窓の"-コンテンツ種類名"
 
-  // ソート用:日付+時刻+グループも同じ場合の最終タイブレーク。othersはコンテンツフィルターボタンの
-  // 現在の並び順(ドラッグでの並び替え結果を含む)を反映しているため、そのインデックスをそのまま使う。
+  // ソート用:日付+時刻+グループも同じ場合の最終タイブレーク
   const contentSortRank = item => {
     const idx = others.indexOf(normalizeContType(item.contents));
     return idx === -1 ? others.length : idx;
@@ -1575,7 +1477,7 @@ body .item-contents.is-content-open {
 
   const updateThemeButtonStyle = isDark => {
     const btn = $('themeToggleBtn');
-    // ボタンの色は「押すと切り替わる先」の色を示す:ライト時は黒丸(押すとダークに)、ダーク時は白丸(押すとライトに)
+  // ボタンの色は「押すと切り替わる先」を示す(ライト時黒丸/ダーク時白丸)
     btn.classList.toggle('mode-to-dark', !isDark);
     btn.classList.toggle('mode-to-light', isDark);
     btn.setAttribute('aria-label', isDark ? '\u30E9\u30A4\u30C8\u30E2\u30FC\u30C9\u306B\u5207\u308A\u66FF\u3048' : '\u30C0\u30FC\u30AF\u30E2\u30FC\u30C9\u306B\u5207\u308A\u66FF\u3048');
@@ -1600,26 +1502,21 @@ body .item-contents.is-content-open {
   }
   requestAnimationFrame(() => $('stickyHeader').classList.remove('is-initializing'));
 
-  // FILTERボタンをユーザーが手動でOFFにしたかどうか。初期表示時の自動ONは対象外(falseのまま)で、
-  // 一度でも手動でOFFにした後は、フィルターエリアを閉じても自動では再表示しないようにするためのフラグ
+  // FILTERボタンをユーザーが手動でOFFにしたかどうか
   let filterSummaryManuallyOff = false;
 
   $('toggleBtn').onclick = () => {
     const c = $('stickyHeader').classList.toggle('collapsed');
     $('toggleBtn').textContent = c ? '\u25BC' : '\u25B2';
     localStorage.setItem('gl_log_collapsed', c);
-    // フィルターエリアを閉じた時は、一度も手動でFILTERボタンをOFFにしたことが無ければ「現在のフィルター
-    // 一覧」を自動表示する(FILTERボタンをON扱いに)。一度でも手動でOFFにしていたら、その意思を尊重して
-    // 自動では表示しない。開いた時はFILTERボタンの状態はそのままにする(閉じても開いてもFILTERボタンで
-    // 独立にON/OFFできる)
+    // フィルターエリアを閉じた時は、一度も手動でFILTERボタンをOFFにしたことが無ければ「現在のフィルター 一
     if (c && !filterSummaryManuallyOff) {
       $('activeFiltersRow').classList.add('is-open');
       $('filterSummaryToggleBtn').classList.add('is-active');
     }
   };
 
-  // FILTERボタン:フィルターエリアが閉じている時に自動表示される「現在のフィルター一覧」を、
-  // 開いている時でも任意のタイミングで表示/非表示できるようにする(フィルターエリアの開閉状態とは独立)
+  // FILTERボタン:自動表示される「現在のフィルター一覧」の開閉を手動切替
   $('filterSummaryToggleBtn').onclick = () => {
     const open = $('activeFiltersRow').classList.toggle('is-open');
     $('filterSummaryToggleBtn').classList.toggle('is-active', open);
@@ -1667,20 +1564,14 @@ body .item-contents.is-content-open {
     searchInput.placeholder = setlistMode ? SEARCH_PLACEHOLDER_SETLIST : SEARCH_PLACEHOLDER_NORMAL;
   };
 
-  // 検索窓:直近使った検索ワードを最大8件まで記憶し、フォーカス時に候補として表示する
-  // セトリ検索モード中に入力された検索ワードは、通常検索とは別のキーで保存する(要件により分離)
-  // 各ワードは🔑(固定)アイコンで固定でき、固定中は個別削除(×)が効かず、保存上限による
-  // 自動的な押し出し(間引き)からも保護される。固定できる件数も保存上限と同じ8件まで。
+  // 検索窓:直近使った検索ワードを最大8件まで記憶し、フォーカス時に候補として表示する セトリ検索モード中に入力さ
   const RECENT_SEARCH_KEY = 'gl_log_recent_searches';
   const SETLIST_RECENT_SEARCH_KEY = 'gl_log_recent_setlist_searches';
   const MAX_RECENT_SEARCHES = 8;
   const MAX_PINNED_SEARCHES = 8;
   let highlightedSuggestionIndex = -1;
   const getRecentSearchKey = () => setlistMode ? SETLIST_RECENT_SEARCH_KEY : RECENT_SEARCH_KEY;
-  // 旧形式(文字列の配列)で保存されている場合は{term, pinned:false}へ読み込み時に変換する(後方互換)。
-  // 保存件数の上限(8件)は本来saveRecentSearch側で保っているが、上限導入前に保存された古いデータ等、
-  // localStorage側に上限を超える件数が残っている可能性があるため、読み込み時にも上限を適用し直し、
-  // 超過していた場合は補正結果を保存し直す(次回以降は補正の必要が無くなる)
+  // 旧形式(文字列の配列)で保存されている場合は{term, pinned:false}へ読み込み時に変換する(後
   const getRecentSearches = () => {
     try {
       const arr = JSON.parse(localStorage.getItem(getRecentSearchKey()) || '[]');
@@ -1755,16 +1646,11 @@ body .item-contents.is-content-open {
     updateManualIndicators();
     updateDisplay(true);
   };
-  // 入力中のデータサジェスト:クエリ文字列で前方一致する候補を最大MAX_DATA_SUGGESTIONS件集める。
-  // 通常検索モード中はログのtitle/tagsを、セトリ検索モード中はsongs.jsonの曲名(title)を候補ソースとする。
-  // 大文字小文字は区別しない。先頭からPREFIX_DEDUPE_LEN文字が一致するものは重複とみなして除外する
-  // (seenPrefixesに含まれる先頭一致分〈履歴側で採用済みのもの等〉も同様に除外)。
+  // 入力中のデータサジェスト:クエリ文字列で前方一致する候補を最大MAX_DATA_SUGGESTIONS件集める
   const MAX_DATA_SUGGESTIONS = 5;
   const PREFIX_DEDUPE_LEN = 10;
   const dedupePrefixKey = s => s.toLowerCase().slice(0, PREFIX_DEDUPE_LEN);
-  // 文字列中の最初の「#」以降、末尾まで数値で終わっている場合、その「#...数値」部分を候補表示から除外し、
-  // #より前の部分だけを残す(例:「新春ライブ#2026」→「新春ライブ」。#の後ろが数値で終わっていない
-  // 場合は変更しない)
+  // 文字列中の最初の「#」以降、末尾まで数値で終わっている場合、その「#...数値」部分を候補表示から除外し、 #
   const stripHashNumberSuffix = s => {
     const idx = s.indexOf('#');
     if (idx === -1) return s;
@@ -1830,9 +1716,7 @@ body .item-contents.is-content-open {
     const rawQuery = searchInput.value.trim();
     const query = rawQuery.toLowerCase();
     const historyList = getRecentSearches();
-    // 入力が空でも入力中でも、履歴は先頭からPREFIX_DEDUPE_LEN文字が同じものを重複とみなして先着(固定済みが
-    // 先頭に来る並び順のため、固定済み優先)のものだけ残す。入力中はさらに前方一致するものだけに絞り込む。
-    // その後、データサジェストを「履歴→データ」の順で混ぜて表示する(データサジェストも同じ基準で重複除外)
+    // 入力が空でも入力中でも、履歴は先頭からPREFIX_DEDUPE_LEN文字が同じものを重複とみなして先着
     const seenPrefixes = new Set();
     const filteredHistory = [];
     historyList.forEach(entry => {
@@ -1908,8 +1792,7 @@ body .item-contents.is-content-open {
   searchInput.addEventListener('blur', () => {
     searchSuggestions.classList.remove('is-open');
     if (searchInput.value.trim()) saveRecentSearch(searchInput.value);
-    // 検索ワードが確定したタイミング(サジェスト/履歴ウインドウが閉じたタイミング)なので、
-    // ヒットしたデータのコンテンツ種類フィルターを自動更新する
+    // 検索ワードが確定したタイミング
     autoUpdateContentTypeFilters();
     updateManualIndicators();
   });
@@ -1943,8 +1826,7 @@ body .item-contents.is-content-open {
     }
 
     if (isOpen && highlightedSuggestionIndex >= 0 && btns[highlightedSuggestionIndex]) {
-      // ハイライト中の候補をDeleteキーで削除する(履歴由来の候補のみ対象。データサジェスト行には削除ボタンが
-      // 無いため、そのことを目印に判定し、データサジェストの場合は何もしない)
+      // ハイライト中の候補をDeleteキーで削除する(履歴由来の候補のみ対象
       if (e.key === 'Delete') {
         e.preventDefault();
         const targetIndex = highlightedSuggestionIndex;
@@ -1967,8 +1849,7 @@ body .item-contents.is-content-open {
 
     if (e.key === 'Escape' && isOpen) {
       searchSuggestions.classList.remove('is-open');
-      // 検索ワードが確定したタイミング(サジェスト/履歴ウインドウが閉じたタイミング)なので、
-      // ヒットしたデータのコンテンツ種類フィルターを自動更新する
+      // 検索ワードが確定したタイミング
       autoUpdateContentTypeFilters();
       updateManualIndicators();
       return;
@@ -1977,9 +1858,7 @@ body .item-contents.is-content-open {
     if (e.key === 'Enter' && searchInput.value.trim()) {
       saveRecentSearch(searchInput.value);
     }
-    // Enter(スマホ版の仮想キーボードの→/決定キーも同じキーイベントとして届く)で検索履歴・サジェスト候補を
-    // 閉じ、スマホの仮想キーボードも閉じる。blur()がblurイベントリスナーを連鎖発火させ、そちらで
-    // コンテンツ種類フィルターの自動更新も行われるため、ここで重複して呼ぶ必要は無い
+    // Enter(スマホ版の仮想キーボードの→/決定キーも同じキーイベントとして届く)で検索候補を閉じて確定する
     if (e.key === 'Enter') {
       searchSuggestions.classList.remove('is-open');
       searchInput.blur();
@@ -2009,8 +1888,7 @@ body .item-contents.is-content-open {
   window.onscroll = () => $('toTopBtn').classList.toggle('is-visible', window.scrollY > 300);
   $('toTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // ヘルプ(?)・設定(⚙)ボタン:どちらもセットリストポップアップと同じズーム+フェードで開閉する
-  // 汎用ポップアップ。中身(popup-body)は現時点では空のままでよい。
+  // ヘルプ(?)・設定(⚙)ボタン:どちらもセットリストポップアップと同じズーム+フェードで開閉する 汎用ポップア
   const bindSimplePopup = (btnId, overlayId, closeBtnId) => {
     const overlay = $(overlayId);
     const open = () => overlay.classList.add('is-open');
@@ -2028,14 +1906,7 @@ body .item-contents.is-content-open {
   bindSimplePopup('helpBtn', 'helpModalOverlay', 'helpModalCloseBtn');
   const closeSettingsPopup = bindSimplePopup('settingsBtn', 'settingsModalOverlay', 'settingsModalCloseBtn');
 
-  // ==================== SETTING:表示/非表示スイッチ ====================
-  // グループ・メンバー・コンテンツ種類ごとに、表示/非表示をスイッチで選べる。
-  // 保存するのは「非表示にしたもの」だけ(あとから種類やメンバーが増えても自動で表示扱いになる)。
-  // 非表示にした項目は、(1)フィルターボタンを出さない (2)データ部にも出さない(logsから取り除く)。
-  //  - グループを非表示にすると、そのグループのメンバーも非表示扱い(メンバー個別の設定は保持したまま)。
-  //  - データが複数グループ/複数メンバーに紐づく場合は、1つでも表示中のものがあれば表示する。
-  //  - グループ/メンバーを1つでも非表示にしている間は、表示中のグループ/メンバーに紐づかないデータは表示しない。
-  //  - コンテンツ種類はフィルター同様、別名(CD→RELEASE等)は親の種類に従う。
+  // ==================== SETTING:表示/非表示スイッチ ===============
   const VISIBILITY_KEY = 'gl_log_visibility';
   const visibility = { groups: new Set(), members: new Set(), contents: new Set() }; // 各Setに「非表示」の値を入れる
   try {
@@ -2078,8 +1949,7 @@ body .item-contents.is-content-open {
     logs = deduped.filter(isItemVisibleBySettings);
   };
 
-  // フィルターボタン(グループ/メンバー/コンテンツ種類)の表示・非表示を設定に合わせる。
-  // 非表示にしたボタンが選択中・除外中だった場合は、見えない条件が残らないよう解除する。
+  // フィルターボタン(グループ/メンバー/コンテンツ種類)の表示・非表示を設定に合わせる
   const updateFilterButtonVisibility = () => {
     const isHiddenValue = v => {
       if (v === 'G2' || v === 'L2') return visibility.groups.has(v);
@@ -2128,9 +1998,7 @@ body .item-contents.is-content-open {
     const prevYears = new Set(Array.from(document.querySelectorAll('#yearChecks input:checked')).map(c => c.value));
     refreshYearChecks();
     document.querySelectorAll('#yearChecks input').forEach(c => { if (prevYears.has(c.value)) c.checked = true; });
-    // TODAY/セトリ検索/検索ワードの間は、コンテンツ種類フィルターが「表示中のデータ」から自動でON/OFFされる。
-    // 設定を戻して非表示だった種類のデータが復活しても、ここで再計算しないと、その種類のフィルターがOFFのまま残り、
-    // 他の種類だけが絞り込み表示されて「ONにしたのに表示されない」状態になる(applyLogsと同じ再計算をここでも行う)
+    // TODAY/セトリ検索/検索ワードの間は、コンテンツ種類フィルターが「表示中のデータ」から自動でON/OFFさ
     autoUpdateContentTypeFilters();
     updateDisplay(true);
   };
@@ -2189,7 +2057,7 @@ body .item-contents.is-content-open {
       return row;
     };
 
-    // ALL ON / ALL OFF ボタン一式(bulk: 対象スイッチの { kind, value } の配列)
+    // ALL ON / ALL OFF ボタン一式({ kind, value }の配列)
     const makeBulkButtons = (cls, bulk) => {
       const box = el('span', cls);
       [['ALL ON', true], ['ALL OFF', false]].forEach(([label, on]) => {
@@ -2218,8 +2086,7 @@ body .item-contents.is-content-open {
       return head;
     };
 
-    // --- GROUP / MEMBER:グループを列(Girls² | Laki)にして、その下にメンバーを縦に並べる ---
-    // 表示数とALL ON/OFFはグループ単位(ALL ON/OFFはそのグループのスイッチとメンバー全員が対象)
+    // --- GROUP / MEMBER:グループを列
     const secGM = el('div', 'settings-section');
     secGM.appendChild(makeHead('GROUP / MEMBER'));
     const cols = el('div', 'settings-cols');
@@ -2296,6 +2163,7 @@ body .item-contents.is-content-open {
     const w = document.createElement('div');
     w.className = 'item';
     if (item.logid) w.dataset.logid = item.logid; // 日付/時刻のダブルタップでlogidを表示する機能用(通常は画面に出さない)
+    if (item.setlistid) w.dataset.setlistid = item.setlistid; // 🔗ボタンまでON時、同じダブルタップでsetlistidをコピーする機能用
     const sc = document.createElement('div');
     sc.className = 'item-scroll-container';
     
@@ -2303,21 +2171,16 @@ body .item-contents.is-content-open {
     d.className = 'item-date';
     d.textContent = formatDisplayDate(item);
 
-    // 今日の日付の行を目立たせる(チップ風の背景)。TODAYモード中は全行が「今日」になり意味が無いため対象外。
-    // 年月日曜日をすべて非表示にしていて文字が空の場合は、空のチップが出ないよう対象外にする
+    // 今日の日付の行を目立たせる(チップ風の背景)
     const isTodayDate = !todayMode && item.date === getTargetDateStr(0) && d.textContent !== '';
     if (isTodayDate) d.classList.add('is-today-date');
 
-    // TODAYモードで当日(todayOffset===0)を表示中は、代わりに「現在時刻以降」の項目を目立たせる。
-    // 時台(時の部分)だけで比較するため、例えば現在13:45なら13:00(1300)の項目も対象に含む
-    // (分単位で厳密に絞ると、開始済みでもまだ関係がある予定がすぐ対象外になってしまうため)。
-    // time未設定の項目は比較しようがないため対象外。
+    // TODAYモードで当日(todayOffset===0)を表示中は、代わりに「現在時刻以降」の項目を目立たせる
     const isUpcomingTime = todayMode && todayOffset === 0 && !!item.time
       && parseInt(item.time.slice(0, 2), 10) >= new Date().getHours();
     if (isUpcomingTime) d.classList.add('is-upcoming-time');
 
     // 時刻は日付と別要素にして、未設定の行でも"00:00"と同じ幅を確保したまま見た目だけブランクにする
-    // (幅を確保しないと、後ろのコンテンツ種類アイコン等が左にずれて見えるため)
     let tm = null;
     if (dateParts.time) {
       const t = formatTimeStr(item.time);
@@ -2332,13 +2195,11 @@ body .item-contents.is-content-open {
     const ct = document.createElement('span');
     ct.className = 'item-contents';
     if (item.contents) {
-      // アイコンは常に専用の固定幅の箱(item-contents-icon)に入れる。この箱の幅・中央寄せは開閉状態に
-      // 関わらず常に同じなので、枠(item-contents)自体が広がってもアイコンの描画位置はずれない。
-      // コンテンツ名はアイコンの右側に続くitem-contents-nameに入れ、閉じている間はDOM上に置かない。
+      // アイコンは常に専用の固定幅の箱(item-contents-icon)に入れる
       const contentsName = displayNameFor(item.contents);
       const iconText = symbols[item.contents] || contentsName; // 絵文字が無い種類は名前そのものをアイコン代わりに使う(従来仕様通り)
       const hasSymbol = !!symbols[item.contents];
-      // スマホ版・ICONモードONはアイコンのみ、それ以外(PC版・ICONモードOFF)は「アイコン + コンテンツ名」を常時表示
+    // スマホ+ICONモードはアイコンのみ、それ以外はアイコン+名前を表示
       const showNameByDefault = !(isMobileState || iconMode) && hasSymbol;
 
       const ctIcon = document.createElement('span');
@@ -2361,14 +2222,11 @@ body .item-contents.is-content-open {
       ct.setAttribute('aria-expanded', String(showNameByDefault));
       const contentKey = itemKeyFor(item);
 
-      // PC通常表示(ICONモードOFF)は既に常時コンテンツ名を表示しているため、これ以上開閉させる意味が無い。
-      // 絵文字が無い種類も、アイコン枠に名前をそのまま表示済みで追加表示するものが無いため、対象外とする。
+      // PC通常表示(ICONモードOFF)は既に常時コンテンツ名を表示しているため、これ以上開閉させる意味が無い
       const canToggle = hasSymbol && !showNameByDefault;
 
       if (canToggle) {
-        // 開く:コンテンツ名を表示した上で、枠全体の実際の横幅を計測し、ちょうど収まる幅(上限11.5em)まで
-        // 枠を広げる。DOM挿入直後は幅の計測ができないため、描画完了後の次フレームで計測する
-        // (通常クリック時は体感できない遅延)。アイコン自体はitem-contents-iconの固定幅内で動かない。
+        // 開く:コンテンツ名を表示した上で、枠全体の実際の横幅を計測し、ちょうど収まる幅
         const openContentBox = () => {
           ct.classList.add('is-content-open');
           ctName.style.display = '';
@@ -2416,7 +2274,7 @@ body .item-contents.is-content-open {
       ct.textContent = '';
     }
 
-    // http(s)始まりのURLのみリンク化する(javascript:等の危険なスキームを弾く簡易バリデーション)
+  // http(s)始まりのURLのみリンク化する(危険なスキームを弾く簡易チェック)
     const hasUrl = !!(item.url && /^https?:\/\//i.test(item.url.trim()));
     const t = document.createElement(hasUrl ? 'a' : 'span');
     t.className = 'item-title';
@@ -2428,13 +2286,13 @@ body .item-contents.is-content-open {
     } else {
       t.classList.add('no-url');
     }
-    // 表示テキストの優先順位:スマホ版はdisplay_sp→display_pc→title、PC版はdisplay_pc→titleの順にフォールバックする
+    // 表示テキストの優先順位:スマホ版はdisplay_sp→display_pc→title、PC版はdispla
     const rawDisplayText = (isMobileState ? (item.display_sp || item.display_pc || item.title) : (item.display_pc || item.title) || '');
-    // BIRTHDAYの年別複製アイテム(_birthYear付き)の場合のみ、「名前　誕生日」を「名前　N歳の誕生日」に置換する
+    // BIRTHDAYの年別複製アイテムは「名前 誕生日」を「名前 N歳の誕生日」に置換
     t.textContent = applyBirthdayAgeText(item, rawDisplayText).trim();
 
     const teamClass = getTeamClass(item);
-    // MAPモードON時のみ、mapに有効なhttp(s)リンクがある場合に📍アイコンをリンク化して表示する(値が無ければ何も表示しない)
+    // MAPモードON+有効なmap URLがある行だけ📍をリンク化する
     let mp = null;
     if (mapMode) {
       const hasMap = !!(item.map && /^https?:\/\//i.test(item.map.trim()));
@@ -2449,10 +2307,7 @@ body .item-contents.is-content-open {
       }
     }
 
-    // SETLISTアイコン表示:①セトリ検索モード中(従来通り)、②📋️ボタン(setlistIconMode)ON中、のいずれかで
-    // 📍の右に表示する。押すとセットリストをポップアップ表示する。
-    // setlistIconMode時は📍(mapMode)と同じ考え方で、setlistidが無い行もアイコン要素自体は作り、
-    // 幅だけ確保して見た目を隠す(is-blank)。セトリ検索モードのみがONの場合は従来通りsetlistidが無い行は要素を作らない。
+    // SETLISTアイコン表示:①セトリ検索モード中
     let sl = null;
     if (setlistIconMode) {
       const hasSetlistId = !!item.setlistid;
@@ -2481,9 +2336,7 @@ body .item-contents.is-content-open {
       };
     }
 
-    // 🔗アイコン:行の右端(タイトルの後ろ)に固定する。要素は常に作り、表示/非表示と右からのスライドは
-    // #items.link-mode(🔗ボタン)のCSSで切り替える(ボタンを押しても行の再描画はしない)。
-    // sns属性が無い/空の行はis-blank(幅だけ確保して見た目を隠す)。
+    // 🔗アイコン:行の右端(タイトルの後ろ)に固定する
     const hasSns = Array.isArray(item.sns) && item.sns.some(e => e && Array.isArray(e.urls) && e.urls.length);
     const lk = document.createElement('span');
     lk.className = 'link-icon' + (hasSns ? '' : ' is-blank');
@@ -2504,13 +2357,12 @@ body .item-contents.is-content-open {
       const ti = document.createElement('span');
       ti.className = 'team-icon team-' + teamClass;
 
-      // groups内のメンバーコードのうち、名前が判明しているものだけを固定の表示順(heartOrder)で抽出する
+    // groups内の名前が判明しているメンバーだけ固定表示順(heartOrder)で抽出
       const memberCodes = heartOrder.filter(v => (item.groups || []).includes(v));
       if (memberCodes.length) {
         const hearts = document.createElement('span');
         hearts.className = 'team-hearts';
-        // 四角(マーカー)はteam-both(G2/L2混在)の行のみ、G2/L2それぞれの最初のハートに直接クラスを付けて
-        // CSSでバッジのように重ねて表示する(独立した別枠にすると、四角の有無でハートの位置がずれてしまうため)
+        // 四角(マーカー)はteam-both(G2/L2混在)の行のみ、G2/L2それぞれの最初のハートに付与する
         let g2MarkerAdded = false, l2MarkerAdded = false;
         memberCodes.forEach(code => {
           const info = memberInfoByCode[code];
@@ -2622,19 +2474,17 @@ body .item-contents.is-content-open {
     }, true);
   })();
 
-  // 【隠し機能】年・月・日・曜日・時刻の表示と、📍・📋️の表示がすべてONの間だけ有効。
-  // データ行の日付/時刻部分をダブルタップ(ダブルクリック)すると、その行のlogidをクリップボードにコピーし、
-  // 画面下に表示する(Issueフォームで既存ログを更新するときにlogidを調べる用)。
+  // 【隠し機能】年・月・日・曜日・時刻の表示と、📍・📋️の表示がすべてONの間だけ有効
   (() => {
     const DOUBLE_TAP_MS = 350;
     let lastRow = null, lastTime = 0, hideTimer = null, toast = null;
 
     const isEnabled = () =>
       dateParts.year && dateParts.month && dateParts.day && dateParts.weekday && dateParts.time && mapMode && setlistIconMode;
+    // 🔗ボタンまでONならlogidの代わりにsetlistidをコピーする
+    const isSetlistCopyEnabled = () => isEnabled() && linkMode;
 
-    // 有効な間だけ、日付/時刻の文字選択を止めるクラスを付ける(スマホのダブルタップで単語が選択され、
-    // コピー/共有メニューが出てしまうのを防ぐ)。1回目のタップ(click)の時点で反映するので、2回目のタップに間に合う。
-    // ※ mapMode などはこのコードより後ろで宣言されるため、読み込み時には呼ばず、クリック時にだけ呼ぶ。
+    // 有効な間だけ、日付/時刻の文字選択を止めるクラスを付ける
     const syncGestureClass = () => $('items').classList.toggle('logid-gesture', !!isEnabled());
 
     const copyText = text => {
@@ -2657,7 +2507,7 @@ body .item-contents.is-content-open {
       }
     };
 
-    const showToast = (logid, note, ms) => {
+    const showToast = (fieldLabel, value, note, ms) => {
       if (!toast) {
         toast = document.createElement('div');
         toast.className = 'logid-toast';
@@ -2665,14 +2515,14 @@ body .item-contents.is-content-open {
         document.body.appendChild(toast);
       }
       toast.textContent = '';
-      if (logid) {
+      if (value) {
         const label = document.createElement('span');
         label.className = 'logid-note';
-        label.textContent = 'logid';
-        const value = document.createElement('span');
-        value.className = 'logid-value';
-        value.textContent = logid;
-        toast.append(label, value);
+        label.textContent = fieldLabel;
+        const valueEl = document.createElement('span');
+        valueEl.className = 'logid-value';
+        valueEl.textContent = value;
+        toast.append(label, valueEl);
       }
       const n = document.createElement('span');
       n.className = 'logid-note';
@@ -2686,12 +2536,22 @@ body .item-contents.is-content-open {
     const showLogid = row => {
       const logid = row.dataset.logid || '';
       if (!logid) {
-        showToast('', 'この行にはlogidがありません', 2500);
+        showToast('', '', 'この行にはlogidがありません', 2500);
         return;
       }
       copyText(logid).then(ok => {
-        if (ok) showToast(logid, 'コピーしました', 3000);
-        else showToast(logid, 'コピーできませんでした(長押しで選択してコピー)', 6000);
+        if (ok) showToast('logid', logid, 'コピーしました', 3000);
+        else showToast('logid', logid, 'コピーできませんでした(長押しで選択してコピー)', 6000);
+      });
+    };
+
+    // 🔗ボタンまでONの場合のコピー対象。setlistidが無い行は(logidと違い)何も表示せず無反応にする
+    const showSetlistid = row => {
+      const setlistid = row.dataset.setlistid || '';
+      if (!setlistid) return;
+      copyText(setlistid).then(ok => {
+        if (ok) showToast('setlistid', setlistid, 'コピーしました', 3000);
+        else showToast('setlistid', setlistid, 'コピーできませんでした(長押しで選択してコピー)', 6000);
       });
     };
 
@@ -2716,7 +2576,8 @@ body .item-contents.is-content-open {
       if (row === lastRow && now - lastTime <= DOUBLE_TAP_MS) {
         lastRow = null;
         if (window.getSelection) window.getSelection().removeAllRanges();
-        showLogid(row);
+        if (isSetlistCopyEnabled()) showSetlistid(row);
+        else showLogid(row);
       } else {
         lastRow = row;
         lastTime = now;
@@ -2785,20 +2646,14 @@ body .item-contents.is-content-open {
     $('activeFiltersRow').appendChild(frag);
   };
 
-  // 検索キーワードのAND/NOT/OR判定:スペース区切りでAND、先頭に「-」でNOT、「|」区切りでOR。
-  // 加えて単語区切りの" AND "/" and "/" OR "/" or "も同じ意味の演算子として使えるようにする
-  // (" and "はスペース区切りと同じ意味なので読み飛ばすだけ、" or "は"|"に変換する)。
-  // 例:"A B|C" も "A AND B OR C" も「(AかつB) または C」として判定する(OR優先度が最も低い)。
+  // 検索キーワードのAND/NOT/OR判定:スペース区切りでAND、先頭に「-」でNOT、「|」区切りでOR
   const matchesSearchKeyword = (searchText, kw) => {
     const normalizedKw = kw
       .replace(/(^|\s)or(?=\s|$)/gi, '$1|')
       .replace(/(^|\s)and(?=\s|$)/gi, '$1');
     const orGroups = normalizedKw.split('|').map(g => g.trim()).filter(Boolean);
 
-    // マイナス検索(-キーワード)は、OR句のどちらに書かれていても常に全体に効くようにする。
-    // 例:「A or B -C」は「(AまたはB) かつ Cを含まない」という意味にしたいが、OR句ごとに独立して
-    // 除外判定すると、-Cが書かれていない側の句(A)がマッチした場合にCの除外が効かなくなってしまう。
-    // そのため、-トークンは句を問わず全て集めてグローバルな除外条件として先に判定する。
+    // マイナス検索(-キーワード)は、OR句のどちらに書かれていても常に全体に効くようにする
     const globalExcludeTokens = [];
     const positiveGroups = orGroups
       .map(group => {
@@ -2884,10 +2739,7 @@ body .item-contents.is-content-open {
     return { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate };
   };
 
-  // rawKwの中から「日付として解釈できる1トークン」を空白区切りで探して抜き出し、日付クエリ(dq)と
-  // 残りのキーワード文字列(remainingKw)に分割する。日付トークンが見つからなければdq.isDateQueryは
-  // falseのままで、remainingKwには元の文字列全体が入る(＝従来通りの単純なテキスト検索)。
-  // 例:"20260101-20260102 -あけまして" → 日付範囲(1/1〜1/2) + 残りキーワード"-あけまして"(NOT検索)
+  // rawKwの中から「日付として解釈できる1トークン」を空白区切りで探して抜き出し、日付クエリ
   const extractDateQuery = rawKw => {
     const tokens = rawKw.split(/\s+/).filter(Boolean);
     let dq = { isDateQuery: false, targetMonthDay: null, targetMonthDayRange: null, startDate: null, endDate: null };
@@ -2901,7 +2753,7 @@ body .item-contents.is-content-open {
     return { dq, dateToken: dateToken.toLowerCase(), remainingKw };
   };
 
-  // セトリ検索モード:setlist.jsonのsongs[].titleをkwで部分一致検索し、該当する公演のsetlistidの集合を返す
+    // セトリ検索モード:songs[].titleをkwで部分一致検索しsetlistidを返す
   const getMatchedSetlistIds = kw => {
     const result = new Set();
     setlistData.forEach(entry => {
@@ -2911,15 +2763,14 @@ body .item-contents.is-content-open {
     return result;
   };
 
-  // セトリ検索モード中のアイテム判定:setlistidを持つデータのみが対象。
-  // キーワード未入力時は「setlistidを持つデータすべて」、入力時は該当曲を含む公演のみに絞り込む
+  // セトリ検索モード中のアイテム判定:setlistidを持つデータのみが対象
   const isSetlistOk = (item, kw, setlistIds) => {
     if (!item.setlistid) return false;
     if (!kw) return true;
     return setlistIds.has(item.setlistid);
   };
 
-  // SETLISTアイコン押下時のポップアップ:setlistidに紐づくsetlist.jsonのデータを整形して表示する
+  // SETLISTアイコン押下時のポップアップ:setlistidのデータを整形表示
   const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   // songsのtype値と実際の表示文言が異なるものだけここに登録する(それ以外はtype値そのものを表示する)
   const setlistTypeDisplayNames = {
@@ -2931,7 +2782,7 @@ body .item-contents.is-content-open {
     'medley': 'MEDLEY'
   };
   const displayNameForSetlistType = t => setlistTypeDisplayNames[t] || t;
-  // setlistidは"YYYYMMDDHHMM"(公演の開演日時)形式。データ部と同じ表示形式(年.月.日 [曜]、時:分)に分解する
+    // setlistidは"YYYYMMDDHHMM"形式。データ部と同じ表示形式に分解する
   const formatSetlistDateTime = setlistid => {
     if (!/^\d{12}$/.test(setlistid || '')) return { dateStr: '', timeStr: '' };
     const y = setlistid.slice(0, 4), m = setlistid.slice(4, 6), d = setlistid.slice(6, 8);
@@ -2942,7 +2793,7 @@ body .item-contents.is-content-open {
     const timeStr = `${hh}:${mm}`;
     return { dateStr, timeStr };
   };
-  // type:songの曲名でsongs.jsonを完全一致検索し(前後空白・大小文字は無視)、Youtube等へのlinkを取得する
+    // type:songの曲名でsongs.jsonを完全一致検索しlinkを取得する
   const findSongLinkByTitle = title => {
     const norm = t => (t || '').trim().toLowerCase();
     const target = norm(title);
@@ -3019,19 +2870,15 @@ body .item-contents.is-content-open {
     if (e.key === 'Escape' && setlistModalOverlay.classList.contains('is-open')) closeSetlistModal();
   });
 
-  // SNSリンクポップアップ:sns属性([{type, urls}, ...])をtypeごとに見出し+連番リンクで表示する。
-  // 連番はtypeごとに1から数え直す。http(s)で始まらない不正なURLは番号だけ出してクリック不可にする。
-  // sns.typeの生の値(x/instagram/youtube等)を、見た目の良い表示名に変換する。
-  // 未知のtypeはそのまま表示する(先頭だけ大文字にする)
-  const SNS_TYPE_DISPLAY_NAMES = { x: 'X', instagram: 'Instagram', youtube: 'YouTube', tiktok: 'TikTok', gl2family: 'GL\u00B2family', threads: 'Threads', line: 'LINE' };
-  // typeごとのアイコン(24x24のSVGパス。Simple Icons(CC0)より)。単色(currentColor)で描画し、テーマの文字色に追従する。
-  // ここに無いtypeはアイコンなし(文字だけ)。typeを増やすときは、このオブジェクトにパスを足す
+  // SNSリンクポップアップ:sns属性
+  const SNS_TYPE_DISPLAY_NAMES = { x: 'X', instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube', gl2family: 'GL\u00B2family', threads: 'Threads', line: 'LINE' };
+  // typeごとのアイコン(24x24のSVGパス
   const SNS_TYPE_ICON_PATHS = { x: 'M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z', instagram: 'M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077', youtube: 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z', tiktok: 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z',
     gl2family: '<g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 4)"><path d="M10 6.2C8.9 5.3 7.6 4.8 6.2 4.8 3.5 4.8 1.5 7 1.5 10s2 5.2 4.7 5.2c1.5 0 2.8-.6 3.8-1.6v-3.2H6.5"/><path d="M13 4.8v10.4h5.2"/></g><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M18.4 3.9c.3-.9 1-1.4 2-1.4 1.1 0 1.9.8 1.9 1.8 0 .8-.5 1.3-1.1 1.8l-2.7 2.4h3.9"/>' };
   const snsTypeIconHtml = type => {
     const v = SNS_TYPE_ICON_PATHS[String(type || '').trim().toLowerCase()];
     if (!v) return '<span class="sns-modal-ic is-ph" aria-hidden="true"></span>';
-    // '<'で始まる値は図形(複数パス/線)をそのまま、それ以外は単一パスとして塗りつぶす。いずれもcurrentColor(テーマの文字色)
+    // '<'始まりは図形をそのまま、それ以外は単一パスとして塗る(currentColor)
     const inner = v.charAt(0) === '<' ? v : `<path fill="currentColor" d="${v}"/>`;
     return `<svg class="sns-modal-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${inner}</svg>`;
   };
@@ -3045,7 +2892,6 @@ body .item-contents.is-content-open {
   const openSnsModal = sns => {
     try {
       // 表示順はデータの入力順ではなく、SNS_TYPE_DISPLAY_NAMESに定義した順番に固定する
-      // (そこに無い未知のtypeは、固定順の後ろに元の並びのまま続ける)
       const typeOrder = Object.keys(SNS_TYPE_DISPLAY_NAMES);
       const orderRank = type => {
         const i = typeOrder.indexOf(String(type || '').trim().toLowerCase());
@@ -3084,10 +2930,7 @@ body .item-contents.is-content-open {
     if (e.key === 'Escape' && snsModalOverlay.classList.contains('is-open')) closeSnsModal();
   });
 
-  // コンテンツ種類フィルターを除いた条件(年・グループ/メンバー・検索・TODAY・セトリ検索)だけでアイテムがマッチするか判定
-  // セトリ検索モード中は、メンバーフィルターの判定元をlogs.json側のgroups/relationsではなく、
-  // そのデータのsetlistidに紐づくsetlist.json側のmemberに切り替える。setlistid→member配列は
-  // setlistDataが更新されるたびにMap化しておき(setlistIdToMemberMap)、毎回の線形探索(find)を避ける
+  // コンテンツ種類を除く条件でアイテムが一致するか判定する
   let setlistIdToMemberMap = new Map();
   const rebuildSetlistIdToMemberMap = () => {
     setlistIdToMemberMap = new Map(setlistData.filter(e => e && e.setlistid).map(e => [e.setlistid, Array.isArray(e.member) ? e.member : []]));
@@ -3096,15 +2939,11 @@ body .item-contents.is-content-open {
     if (setlistMode && item.setlistid) {
       return setlistIdToMemberMap.get(item.setlistid) || [];
     }
-    // relationsを持つデータは全体のごく一部(実データでは数%程度)のため、それ以外は毎回配列を
-    // スプレッド構文でコピーせず、item.groupsをそのまま返す(呼び出し元はincludes/some/everyの
-    // 読み取り専用でしか使わないため、参照をそのまま返しても安全)
+    // relationsを持つデータは全体のごく一部
     if (!item.relations || item.relations.length === 0) return item.groups || [];
     return [...(item.groups || []), ...item.relations];
   };
-  // フィルターボタンのダブルクリック/ダブルタップによる「除外」機能。除外されたボタンの値に該当する
-  // データは、他のフィルター条件に関わらず常に非表示にする(複数の除外はOR結合:いずれか一つでも
-  // 該当すれば非表示)。状態はlocalStorageに保存し、次回訪問時も復元する。
+  // フィルターボタンのダブルクリック/ダブルタップによる「除外」機能
   const EXCLUDED_FILTERS_KEY = 'gl_log_excluded_filters';
   const loadExcludedFilters = () => {
     try {
@@ -3117,10 +2956,7 @@ body .item-contents.is-content-open {
   const excludedFilterValues = loadExcludedFilters();
   const saveExcludedFilters = () => localStorage.setItem(EXCLUDED_FILTERS_KEY, JSON.stringify(Array.from(excludedFilterValues)));
 
-  // アイテムが、除外指定されたいずれかのフィルター値(年/月/グループ/メンバー/コンテンツ種類)に
-  // 該当するかどうかを判定する。コンテンツ種類はCD→RELEASE等のエイリアスも正規化した上で判定する。
-  // precomputedGroupsを渡すと、呼び出し元で既に計算済みのgetFilterGroupsForItem(item)の結果を再利用し、
-  // 同じアイテムに対する重複計算(配列生成)を避けられる(渡さなければ従来通りここで計算する)
+  // アイテムが、除外指定されたいずれかのフィルター値
   const isExcludedByFilter = (item, precomputedGroups) => {
     if (!excludedFilterValues.size) return false;
     const yr = item.date ? item.date.slice(0, 4) : '';
@@ -3158,7 +2994,7 @@ body .item-contents.is-content-open {
       const mValues = cats.find(c => c.meta === m)?.values || [];
       return itemGroupsAndRelations.some(g => mValues.includes(g)); // 個別メンバーコードからメタ所属を推測
     };
-    // メンバー同士は通常AND(すべて含む)だが、グループフィルター(G2/L2)も選択されている時はOR(いずれか含む)に切り替える
+      // メンバーは通常AND、グループも選択中ならORに切り替える
     const memberOk = sGroups.length === 0 ? true : (mGroups.length > 0
       ? sGroups.some(g => itemGroupsAndRelations.includes(g))
       : sGroups.every(g => itemGroupsAndRelations.includes(g)));
@@ -3207,18 +3043,10 @@ body .item-contents.is-content-open {
     return yOk && monthOk && gOk && dateOk && textOk && setlistOk && todayOk && !isExcludedByFilter(item, itemGroupsAndRelations);
   };
 
-  // TODAY/←/→ボタン、またはセトリ検索モードでの検索条件変化があった時のみ、コンテンツ種類ボタンを自動on/offする。
-  // それ以外(通常検索・年・グループ・メンバーの変更)では、コンテンツ種類ボタンの自動on/offは一切行わない。
-  //
-  // ・TODAYまたはセトリ検索モードをONにした時、および関連する条件(←/→、検索ワード等)が変化した時:
-  //     手動on/offされているものはそのまま保護し、それ以外は現在の絞り込み(今日基準・セトリ検索結果含む)に
-  //     該当する/しないに応じて自動on/offする。
-  // ・TODAY・セトリ検索モードの両方がOFFの時:
-  //     残りのフィルタでの再判定はせず、手動on/offされているもの以外は無条件で全てOFFにする。
+  // TODAY/←/→ボタン、またはセトリ検索モードでの検索条件変化があった時のみ、コンテンツ種類ボタンを自動on
   const manuallyTouchedConts = new Set(); // ユーザーが手動でON/OFFしたコンテンツ種類の値(右上ランプの色分け・保護判定用)
 
-  // 月フィルター(1〜12月)は、年フィルターが1つ以上選択されている時だけ表示する。
-  // 年フィルターが全て外れた場合は、意味を持たなくなる月フィルターの選択状態もクリアする
+  // 月フィルター(1〜12月)は、年フィルターが1つ以上選択されている時だけ表示する
   const updateMonthFilterVisibility = () => {
     const monthRow = $('monthChecks');
     const anyYearChecked = Array.from($('yearChecks').querySelectorAll('input[type="checkbox"]')).some(cb => cb.checked);
@@ -3231,16 +3059,11 @@ body .item-contents.is-content-open {
   const autoUpdateContentTypeFilters = () => {
     const contentCheckboxes = Array.from(checkboxes).filter(cb => allConts.includes(cb.value));
     const checkedAll = Array.from(checkboxes).filter(cb => cb.checked);
-    // 検索ワードが確定した時(サジェスト/履歴ウインドウが閉じたタイミング)、年/月フィルター、または
-    // グループ/メンバーフィルターが選択されている時も、TODAY/セトリ検索モードと同様にヒットしたデータの
-    // コンテンツ種類の集計は行う(グループ/メンバーは「年でも月でもコンテンツ種類でもない」チェックとして判定する)。
-    // ただし実際にチェックをON/OFFする(=表示結果を絞り込む)のはTODAY/セトリ検索モードの時だけとし、
-    // 年/月/グループ/メンバー/検索ワードの場合はチェックはせず、該当コンテンツ種類のボタンに
-    // 「ランプ」を点けるだけにとどめる(フィルター結果自体は変えずに、どの種類にデータがあるかだけ示す)
+    // 検索ワードが確定した時
     const hasSearchKeyword = searchInput.value.trim().length > 0;
     const hasGroupOrMemberFilter = checkedAll.some(cb => !/^\d{4}$/.test(cb.value) && !/^\d{2}$/.test(cb.value) && !allConts.includes(cb.value));
     const hasYearOrMonthFilter = checkedAll.some(cb => /^\d{4}$/.test(cb.value) || /^\d{2}$/.test(cb.value));
-    // 検索ワードは実際のON/OFF(絞り込み)は行わず、年/月/グループ/メンバーと同じく「ランプ」表示のみの対象にする
+    // 検索ワードは絞り込みせず、年/月/グループ/メンバーと同じくランプ表示のみ
     const shouldAutoCheck = todayMode || setlistMode;
     const hasLampCondition = hasGroupOrMemberFilter || hasYearOrMonthFilter || hasSearchKeyword;
 
@@ -3290,7 +3113,6 @@ body .item-contents.is-content-open {
 
       if (!shouldAutoCheck) {
         // 年/月/グループ/メンバーのみが条件:チェックはせず、該当データがあればランプだけ点ける
-        // (既にチェック済みのボタンは、通常のON表示があるためランプは不要)
         if (label) label.classList.toggle('has-data-lamp', shouldBeOn && !cb.checked);
         return;
       }
@@ -3306,9 +3128,7 @@ body .item-contents.is-content-open {
   };
 
   const updateDisplay = (syncHash = true, preserveContentExpand = false) => {
-    // データ部の再描画では、コンテンツ名アコーディオンの展開状態を通常は全て閉じる。
-    // 年/月/日/曜/時の表示切替ボタンからの呼び出しだけは、この後の再描画でも展開状態を保持したいため、
-    // preserveContentExpand=true を渡してクリアをスキップする。
+    // データ部の再描画では、コンテンツ名アコーディオンの展開状態を通常は全て閉じる
     if (!preserveContentExpand) expandedContentKeys.clear();
 
     const checked = Array.from(checkboxes).filter(cb => cb.checked);
@@ -3321,9 +3141,7 @@ body .item-contents.is-content-open {
     const rawKw = searchInput.value.trim();
     const fullKw = rawKw.toLowerCase();
 
-    // 日付・年・月日クエリのパース処理(セトリ検索モード中はkwを曲名検索に使うため不要)。
-    // rawKwの中に日付として解釈できるトークンがあれば抜き出し、残りは通常のAND/OR/NOTキーワード検索として扱う
-    // (例:"20260101-20260102 -あけまして" → 1/1〜1/2の範囲 かつ 「あけまして」を含まない)
+    // 日付・年・月日クエリのパース処理(セトリ検索モード中はkwを曲名検索に使うため不要)
     const { dq, dateToken, remainingKw } = setlistMode
       ? { dq: { isDateQuery: false }, dateToken: '', remainingKw: fullKw }
       : extractDateQuery(rawKw);
@@ -3347,7 +3165,7 @@ body .item-contents.is-content-open {
         const mValues = cats.find(c => c.meta === m)?.values || [];
         return itemGroupsAndRelations.some(g => mValues.includes(g));
       };
-      // メンバー同士は通常AND(すべて含む)だが、グループフィルター(G2/L2)も選択されている時はOR(いずれか含む)に切り替える
+      // メンバーは通常AND、グループも選択中ならORに切り替える
       const memberOk = sGroups.length === 0 ? true : (mGroups.length > 0
         ? sGroups.some(g => itemGroupsAndRelations.includes(g))
         : sGroups.every(g => itemGroupsAndRelations.includes(g)));
@@ -3401,8 +3219,6 @@ body .item-contents.is-content-open {
     });
 
     // ソート比較のたびに同じ計算をやり直さないよう、各アイテムのソートキーを1回だけ計算してキャッシュする
-    // (decorate-sort-undecorate)。sort()の比較回数はO(n log n)で件数が多いほど比較回数計算回数を大きく
-    // 上回るため、比較のたびに毎回計算し直すと無駄が大きい。
     const sortKeyCache = new Map();
     const getSortKeys = item => {
       let keys = sortKeyCache.get(item);
@@ -3428,8 +3244,7 @@ body .item-contents.is-content-open {
       if (ka.hasTime !== kb.hasTime) return ka.hasTime ? 1 : -1;
       // 時間が両方とも指定されている場合は、日付と同じ並び順(desc/asc)で比較する
       if (ka.hasTime && ka.timeVal !== kb.timeVal) return desc ? kb.timeVal.localeCompare(ka.timeVal) : ka.timeVal.localeCompare(kb.timeVal);
-      // 日付+時刻が同一の場合のタイブレーク:
-      // 1) 誕生日(BIRTHDAY)は記念日(ANNIVERSARY)より上に表示する(コンテンツ種類より優先する特別扱い)
+      // 日付+時刻が同一の場合のタイブレーク: 1) 誕生日
       if (ka.babRank !== kb.babRank) return ka.babRank - kb.babRank;
       // 2) コンテンツフィルターボタンの並び順(同じコンテンツ種類でまとまるようにする)
       if (ka.contentRank !== kb.contentRank) return ka.contentRank - kb.contentRank;
@@ -3439,10 +3254,7 @@ body .item-contents.is-content-open {
       return ka.memberRank - kb.memberRank;
     });
 
-    // フェードアウトは廃止(案C)。旧内容を待たせて消すのではなく、新しい内容の描画をできるだけ即座に始め、
-    // 新しい内容が出そろった後のフェードインだけを行う(体感の「待たされ感」を減らすため)。
-    // is-animating(opacity:0)を先に付けてから中身を差し替えるので、差し替え中の一瞬は見えない状態のまま
-    // 進み、差し替え完了後に次フレームでis-animatingを外してフェードインさせる
+    // フェードアウトは廃止(案C)
     $('items').classList.add('is-animating');
     if (renderFrame) cancelAnimationFrame(renderFrame); // 連続してフィルター操作された場合、前回分の描画待ちは打ち切る
     $('items').textContent = '';
@@ -3455,7 +3267,7 @@ body .item-contents.is-content-open {
 
     const isZero = filtered.length === 0;
     $('noResult').style.display = isZero ? 'block' : 'none';
-    // TODAYモード中は、フィルターの話ではないため「CLEAR ALL FILTERS」ボタンは出さず「NO DATA」のみ表示する
+    // TODAYモード中は「CLEAR ALL FILTERS」ではなく「NO DATA」のみ表示する
     $('noResultText').textContent = todayMode ? 'NO DATA' : 'NO RESULTS FOUND';
     $('quickResetBtn').style.display = todayMode ? 'none' : 'inline-block';
     // 通常時は0件でソートボタンを隠すが、TODAYモード中は0件でも日付表示として見せ続ける
@@ -3463,11 +3275,9 @@ body .item-contents.is-content-open {
     $('inlineClearBtn').style.display = (checked.length > 0 || fullKw || todayMode || setlistMode) ? 'inline-block' : 'none';
 
     if (!isZero) renderBatch();
-    // 0件時もupdateItemsMinHeight内で分岐して処理する(表示位置は変えず、
-    // その下の余白を#dayFlickFillでフリック対象にする)
+    // 0件時もupdateItemsMinHeight内で分岐して処理する
     updateItemsMinHeight();
-    // 新しい内容のフェードインを発火させる。is-animating付与と同フレームでremoveすると
-    // transitionが発火しないブラウザがあるため、次フレームまで待ってから外す
+    // 新しい内容のフェードインを発火させる
     renderFrame = requestAnimationFrame(() => {
       renderFrame = null;
       $('items').classList.remove('is-animating');
@@ -3478,11 +3288,7 @@ body .item-contents.is-content-open {
       const active = checked.map(cb => cb.value);
       if (active.length > 0 || fullKw) window.location.hash = active.join(',');
       else history.replaceState(null, null, window.location.pathname + window.location.search);
-      // hashchange(restoreFromHash)は非同期に発火するため、同期的にfalseへ戻すと
-      // ガード(if (updating) return;)が効かず、自前のhash更新でrestoreFromHashが
-      // 誤って再実行されてしまう(自動ON分までmanuallyTouchedContsに登録され、
-      // 以後の自動OFFが効かなくなる原因になっていた)。
-      // hashchangeが発火し終えたあとのタイミングまでresetを遅延させる。
+      // 検索ワードでのhash更新がhashchangeで二重処理されないよう、反映を1フレーム遅らせる
       setTimeout(() => { updating = false; }, 0);
     }
   };
@@ -3530,7 +3336,7 @@ body .item-contents.is-content-open {
         const mValues = cats.find(c => c.meta === m)?.values || [];
         return itemGroupsAndRelations.some(g => mValues.includes(g));
       };
-      // メンバー同士は通常AND(すべて含む)だが、グループフィルター(G2/L2)も選択されている時はOR(いずれか含む)に切り替える
+      // メンバーは通常AND、グループも選択中ならORに切り替える
       const memberOk = sG.length === 0 ? true : (mG.length > 0
         ? sG.some(g => itemGroupsAndRelations.includes(g))
         : sG.every(g => itemGroupsAndRelations.includes(g)));
@@ -3606,8 +3412,7 @@ body .item-contents.is-content-open {
     });
   };
 
-  // 右上のランプの色を切り替える:コンテンツ種類はmanuallyTouchedContsに含まれていれば手動操作済み、
-  // 年/グループ/メンバーは自動on/offの仕組みが無いため、チェック済みであれば常に手動ONとして扱う
+  // 右上のランプの色を切り替える:コンテンツ種類はmanuallyTouchedContsに含まれていれば手動操作
   const updateManualIndicators = () => {
     labels.forEach(l => {
       const cb = l.querySelector('input');
@@ -3650,11 +3455,9 @@ body .item-contents.is-content-open {
     deferHeavyUpdate(() => updateDisplay(false));
   };
 
-  // ♪ボタン:検索窓の下にある楽曲紹介バー(PLAYボタン+タイトル/アーティスト)の表示/非表示を切り替える。
-  // 次回訪問時も状態を記憶する。表示/非表示はCSSのmax-height/opacityで滑らかにアニメーションする
+  // ♪ボタン:検索窓の下にある楽曲紹介バー(PLAYボタン+タイトル/アーティスト)の表示/非表示を切り替える
 
-  // 📍ボタン(MAPモード):ONの間、データ部の日付/時刻表示の右にmap属性へのリンクアイコンを表示する。
-  // 次回訪問時も状態を記憶する
+  // 📍ボタン(MAPモード):ONの間、データ部にmap属性へのリンクアイコンを表示する(状態は保存)
   const MAP_MODE_KEY = 'gl_log_map_mode';
   let mapMode = localStorage.getItem(MAP_MODE_KEY) === 'true';
   $('mapToggleBtn').classList.toggle('is-active', mapMode);
@@ -3665,25 +3468,19 @@ body .item-contents.is-content-open {
     deferHeavyUpdate(() => updateDisplay(false));
   };
 
-  // 📋️ボタン(SETLISTアイコン表示モード):セトリ検索モードとは別物の独立したON/OFF。ONの間、データ部の
-  // 日付/時刻表示の右(📍の右)にSETLISTアイコンを表示する。基本的な動作は📍(mapMode)と同じ考え方で、
-  // setlistidを持たない行でもアイコン要素自体は常に作り、見た目だけ隠して幅を確保する。
-  // アイコン押下時の処理(セットリストポップアップを開く)はセトリ検索モード中の表示と共通。
-  // 次回訪問時も状態を記憶する
+  // 📋️ボタン(SETLISTアイコン表示モード):セトリ検索モードとは別物の独立したON/OFF
   const SETLIST_ICON_MODE_KEY = 'gl_log_setlist_icon_mode';
   let setlistIconMode = localStorage.getItem(SETLIST_ICON_MODE_KEY) === 'true';
   $('setlistIconToggleBtn').classList.toggle('is-active', setlistIconMode);
   $('setlistIconToggleBtn').onclick = () => {
-    // セトリ検索モード中はこのボタンが強制ON表示(色つき)で固定されるため、通常のON/OFF操作は受け付けない
-    // (セトリ検索モード中の強制ON状態は setlistIconMode の保存値とは別管理で、ここでは一切変更しない)
+    // セトリ検索モード中はこのボタンが強制ON表示
     if (setlistMode) return;
     setlistIconMode = !setlistIconMode;
     $('setlistIconToggleBtn').classList.toggle('is-active', setlistIconMode);
     localStorage.setItem(SETLIST_ICON_MODE_KEY, setlistIconMode);
     deferHeavyUpdate(() => updateDisplay(false));
   };
-  // 🔗ボタン(SNSリンク表示モード):ONの間、データ行の右端(タイトルの後ろ)にSNSリンクアイコンを、右からスライドして
-  // 表示する。sns属性を持たない行でもアイコン要素自体は常に作り、見た目だけ隠して幅を確保する。次回訪問時も状態を記憶する
+  // 🔗ボタン(SNSリンク表示モード):ONの間、データ行の右端(タイトルの後ろ)にSNSリンクアイコンを、右から
   const LINK_MODE_KEY = 'gl_log_link_mode';
   let linkMode = localStorage.getItem(LINK_MODE_KEY) === 'true';
   $('linkToggleBtn').classList.toggle('is-active', linkMode);
@@ -3718,9 +3515,7 @@ body .item-contents.is-content-open {
     $('heartToggleBtn').classList.toggle('is-active', heartModeOn);
   };
 
-  // 「-」「+」ボタン:データ部(ログ一覧)の文字サイズを5%刻みで拡大縮小する。等倍(100%)を基準に、
-  // 縮小は50%、拡大は200%を上下限とし、達した側は色(青)はそのままに押せなくする。
-  // 長押しで等倍(100%)にリセットできる。状態はlocalStorageに保存し次回も復元する。
+  // 「-」「+」ボタン:データ部(ログ一覧)の文字サイズを5%刻みで拡大縮小する
   const TEXT_SIZE_MIN = -50;
   const TEXT_SIZE_MAX = 50;
   const clampTextSize = v => Math.max(TEXT_SIZE_MIN, Math.min(TEXT_SIZE_MAX, v));
@@ -3738,9 +3533,7 @@ body .item-contents.is-content-open {
     textSizeSlider.value = String(textSizePercent);
     textSizePanelPct.textContent = (100 + textSizePercent) + '%';
     localStorage.setItem(TEXT_SIZE_KEY, String(textSizePercent));
-    // 既に展開中のコンテンツ名ボックスは、文字サイズ変更前のpx幅(flexBasis)のまま固定されて
-    // しまうため、新しいフォントサイズを反映した幅に再計測して更新する(見切れ防止)。
-    // CSS変数の反映を待つため次フレームで計測する。
+    // 既に展開中のコンテンツ名ボックスは、文字サイズ変更前のpx幅
     requestAnimationFrame(() => {
       document.querySelectorAll('.item-contents.is-content-open').forEach(ct => {
         const targetPx = measureContentOpenWidthPx(ct);
@@ -3804,7 +3597,7 @@ body .item-contents.is-content-open {
     if (!$('textSizeWrap').contains(e.target)) closeTextSizePanel();
   });
 
-  // 年/月/日/曜/時分:項目左端の日付表示を個別にon/offするボタン。状態はlocalStorageに保存し次回も復元する
+  // 年/月/日/曜/時分の表示on/offボタン。状態はlocalStorageに保存する
   const datePartButtons = {
     year: $('showYearBtn'),
     month: $('showMonthBtn'),
@@ -3822,11 +3615,7 @@ body .item-contents.is-content-open {
     };
   });
 
-  // TODAYモード:システム日付(端末のローカル日付)を基準に、todayOffset日ずらしたデータのみに絞り込む
-  // 通常クリックでのON/OFFは今回のセッション限りで、localStorageには保存しない。
-  // TODAYボタンを長押し(タップホールド)した時だけ「保持」状態をトグルし、保持ON中は次回訪問時の
-  // 初期表示も常にTODAYモードONになる(今回のセッション中に通常クリックでOFFにしても、保持状態自体は
-  // 維持され、次回訪問時は再びONから始まる)
+  // TODAYモード:todayOffset日ずらした当日データに絞り込む(長押しで次回訪問時も保持)
   const TODAY_MODE_KEY = 'gl_log_today_mode';
   let todayHeld = localStorage.getItem(TODAY_MODE_KEY) === 'true';
   let todayMode = todayHeld; // 保持ONなら初期表示からTODAYモードON
@@ -3842,12 +3631,7 @@ body .item-contents.is-content-open {
   // 年フィルターのチェック状態を取得する(4桁の年チェックボックスのみを対象とする#yearChecks配下)
   const getCheckedYears = () => Array.from($('yearChecks').querySelectorAll('input:checked')).map(cb => cb.value);
 
-  // ソート矢印ボタン(sortBtn)の表示切替:TODAYモード中は矢印の代わりに現在表示中の日付を表示する
-  // (押した時の並び替え機能自体は変わらない)。TODAYモードでない時は従来通り矢印を表示する。
-  // 年フィルターが1つだけ選択されている場合は、実際の今日の年ではなくその選択年+月日を表示する
-  // (年フィルター選択時は選択年の該当月日データが表示されるため、実日付の年をそのまま出すと食い違うため)。
-  // 年フィルターが2つ以上選択されている場合は、表示中のデータが複数年にまたがり単一の日付で
-  // 言い表せないため、日付表示はせず通常の矢印表示に戻す
+  // ソート矢印ボタン(sortBtn)の表示切替:TODAYモード中は矢印の代わりに現在表示中の日付を表示する (
   const updateSortBtnLabel = () => {
     if (todayMode) {
       const checkedYears = getCheckedYears();
@@ -3870,8 +3654,7 @@ body .item-contents.is-content-open {
     return String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
   };
 
-  // 検索窓の文字列が「年月日8桁(例:20260907)」として完全な実在日付になっているかを判定する。
-  // 該当すればその日付のDateオブジェクトを、そうでなければnullを返す
+  // 検索窓の文字列が「年月日8桁(例:20260907)」として完全な実在日付になっているかを判定する
   const getExactSearchDate = rawKw => {
     if (!/^\d{8}$/.test(rawKw)) return null;
     const y = parseInt(rawKw.slice(0, 4), 10);
@@ -3884,7 +3667,6 @@ body .item-contents.is-content-open {
   };
 
   // 検索窓に実在する年月日8桁が入力された時、その日付を基準にTODAYモードをONにする
-  // (todayOffsetを「今日からその日付までの日数差」に設定し、ボタン色を該当日にあった状態にする)
   const enableTodayFromSearchDate = dt => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -3904,8 +3686,7 @@ body .item-contents.is-content-open {
     updateManualIndicators();
   };
 
-  // TODAYモードをOFFに戻す共通処理(ON→OFF時の状態リセット本体のみ。呼び出し側の事情に応じて
-  // autoUpdateContentTypeFilters()等の後続処理は各呼び出し元で必要に応じて行う)
+  // TODAYモードをOFFに戻す共通処理(ON→OFF時の状態リセット本体のみ
   const turnOffTodayMode = () => {
     todayMode = false;
     todayOffset = 0;
@@ -3936,13 +3717,10 @@ body .item-contents.is-content-open {
       disableTodayFromSearchDate();
     }
   };
-  // BIRTHDAY/ANNIVERSARYかどうか(この2種類はTODAYモード時、登録年を問わず「同じ月日」であれば
-  // 表示対象にする特別扱いをする)
+  // BIRTHDAY/ANNIVERSARYかどうか
   const isBirthdayAnniversary = item => item.contents === 'BIRTHDAY' || item.contents === 'ANNIVERSARY';
 
-  // BIRTHDAYの年別複製アイテム(expandTodayBirthdayItemsで_birthYearが付与されたもの)のみ対象に、
-  // 表示年(item.dateの先頭4桁)と_birthYearの差から年齢を算出し、テキスト中の「誕生日」を
-  // 「N歳の誕生日」に置換する(本人の登録元アイテムやANNIVERSARYなどは対象外なのでそのまま返す)。
+  // BIRTHDAYの年別複製アイテム
   const applyBirthdayAgeText = (item, text) => {
     if (item.contents !== 'BIRTHDAY' || !item._birthYear || !text) return text;
     const dispYear = parseInt(String(item.date || '').slice(0, 4), 10);
@@ -3953,10 +3731,7 @@ body .item-contents.is-content-open {
     return text.replace('誕生日', `${age}歳の誕生日`);
   };
 
-  // BIRTHDAY/ANNIVERSARY(及びそのエイリアスのDEBUT/FORMATION)はフィルターボタンを持たないため、
-  // 通常のコンテンツ種類フィルターの対象から外し、代わりに専用の表示条件を設ける:
-  // 「誕生日」「記念日」でのキーワード検索、日付そのものの検索、年/年月フィルター、TODAYモードの
-  // いずれかに該当する場合のみ表示する(それ以外の通常閲覧では一覧に出てこない)
+  // BIRTHDAY/ANNIVERSARY
   const isBirthdayLikeType = ic => ic === 'BIRTHDAY' || ic === 'ANNIVERSARY';
   const birthdayKeywordMatch = (item, kw) => {
     if (!kw) return false;
@@ -3964,13 +3739,7 @@ body .item-contents.is-content-open {
     if (item.contents === 'ANNIVERSARY' && kw.includes('\u8a18\u5ff5\u65e5')) return true;
     return false;
   };
-  // コンテンツ種類の判定そのものを行うヘルパー。BIRTHDAY/ANNIVERSARY(DEBUT/FORMATIONのエイリアス含む)は
-  // フィルターボタンを持たないため、通常のコンテンツ種類フィルター(cConts)の対象から完全に外し、
-  // 代わりに「年/年月フィルター・TODAYモード・日付検索・専用キーワード」のいずれかでのみ表示する。
-  // ただし、他のコンテンツ種類フィルターをユーザーが手動で選択している間は(その種類だけに絞り込みたい
-  // 意図のため)BIRTHDAY/ANNIVERSARYは表示しない。TODAYモード中にシステムが自動でON/OFFしただけの
-  // コンテンツ種類フィルターは、ここでは「選択されている」扱いにしない(手動選択と区別するため
-  // manuallyTouchedContsを参照する)
+  // コンテンツ種類の判定そのものを行うヘルパー
   const isContentTypeOk = (item, ic, cConts, cYears, todayMode, isDateQuery, kw) => {
     if (isBirthdayLikeType(ic)) {
       const hasManualContentFilter = cConts.some(c => manuallyTouchedConts.has(c));
@@ -3980,7 +3749,7 @@ body .item-contents.is-content-open {
     return cConts.length === 0 || (cConts.includes('ETC') && !primaryConts.includes(ic)) || cConts.includes(ic);
   };
 
-  // TODAYモード時の日付一致判定。年フィルターがONの場合は「その年の該当月日」で一致させる(年の絞り込み自体はyOk側で行う)
+    // TODAYモード時の日付一致判定(年フィルターONなら該当月日で一致させる)
   const isTodayDateOk = (item, cYears) => {
     if (!todayMode) return true;
     if (cYears && cYears.length > 0) {
@@ -3991,34 +3760,18 @@ body .item-contents.is-content-open {
   };
 
   // ANNIVERSARYは登録年自体を「記念日」としては数えず、翌年以降から毎年恒例の対象とする
-  // (例:date:20190329登録なら2019年では出さず、2020年以降で表示する)。BIRTHDAYは登録年からそのまま対象
   const minRecurrenceYear = (item, registeredYear) =>
     item.contents === 'ANNIVERSARY' ? String(parseInt(registeredYear, 10) + 1) : registeredYear;
 
-  // BIRTHDAYのみ対象に、複製した年別アイテムに元の登録年(=生年)を _birthYear として付与する。
-  // 表示時(buildRowText側)でこの値と複製先の表示年を比較し、「年齢」を計算するためのもの。
-  // ANNIVERSARYは年齢表示の対象外だが、代わりに元の登録年を _registeredYear として付与する。
-  // (TODAYモードでの日付検索等でitem.dateが表示年に書き換えられた後も、「登録年自体は表示しない」
-  //  判定(下のanniversaryRegisteredYear/各所のminRecurrenceYearチェック)で本来の登録年を参照するため)
+  // BIRTHDAYのみ対象に、複製した年別アイテムに元の登録年(=生年)を _birthYear として付与する
   const birthdayAgeProps = (item, registeredYear) =>
     item.contents === 'BIRTHDAY' ? { _birthYear: registeredYear } : { _registeredYear: registeredYear };
 
-  // ANNIVERSARYの「登録年自体は表示しない」判定に使う登録年を取得する。
-  // 展開済み(expandTodayBirthdayItemsで_registeredYearが付与された)アイテムはその値を、
-  // 未展開(元データそのまま。item.dateがまだ登録日そのもの)ならitem.dateの年をそのまま使う
+  // ANNIVERSARYの「登録年自体は表示しない」判定に使う登録年を取得する
   const anniversaryRegisteredYear = (item, itemDateNum) =>
     item._registeredYear || (itemDateNum ? itemDateNum.slice(0, 4) : '');
 
-  // BIRTHDAY/ANNIVERSARYを「表示すべき年」ごとに複製したアイテムへ展開する。年フィルターが無ければ
-  // 何もしない(高速パス)。以下2つのケースで展開する:
-  // - TODAYモード中:選択年フィルターがあれば、登録年(ANNIVERSARYは翌年)以降かつ月日がTODAY基準日と
-  //   一致するものを、選択された各年に複製する(例:19770317登録で、今日が0317、年フィルターに2027と
-  //   2025が選択済みなら20270317と20250317の2件を生成する)。年フィルターが無ければ、登録日以降で
-  //   あれば「今日(offset適用後)」の年月日で1件だけ生成する
-  // - TODAYモードOFFでも年フィルターが選択されている場合:2010年以前の古い年はボタンが無く選択できない
-  //   ため、年をまたいだ「毎年恒例」の月日一致とみなし、登録年(ANNIVERSARYは翌年)以降かつ選択されて
-  //   いる各年に複製する(月フィルターが併用されていれば、登録月がそれに一致するものだけを対象にする)
-  // BIRTHDAY/ANNIVERSARY以外、および年フィルターも無くTODAYモードもOFFの場合は元のアイテムをそのまま返す
+  // BIRTHDAY/ANNIVERSARYを、表示すべき年ごとに複製したアイテムへ展開する
   const expandTodayBirthdayItems = (items, cYears, cMonths) => {
     if (!todayMode && (!cYears || cYears.length === 0)) return items;
     const targetMonthDay = todayMode ? getTargetMonthDayStr(todayOffset) : null;
@@ -4044,8 +3797,7 @@ body .item-contents.is-content-open {
           result.push(Object.assign({}, item, { date: getTargetDateStr(todayOffset) }, birthdayAgeProps(item, registeredYear)));
         }
       } else {
-        // ANNIVERSARYは「年フィルターだけ(+月フィルター)」の毎年恒例展開の対象外とする(年および月日まで一致した場合のみ表示したいため、
-        // TODAYモード(上のif側)や完全一致の日付検索経由でのみ展開させる)。BIRTHDAYはこれまで通り年フィルターだけでも展開する
+        // ANNIVERSARYは「年フィルターだけ
         if (item.contents === 'ANNIVERSARY') return;
         // TODAYモードOFFでも、年フィルター(+月フィルター)の組み合わせで毎年恒例の月日一致とみなして展開する
         if (cMonths && cMonths.length > 0 && !cMonths.includes(registeredMonth)) return; // 月フィルターと不一致なら対象外
@@ -4063,10 +3815,9 @@ body .item-contents.is-content-open {
     btn.classList.toggle('is-active', todayMode && todayOffset === 0);
     btn.classList.toggle('is-offset-prev', todayMode && todayOffset < 0);
     btn.classList.toggle('is-offset-next', todayMode && todayOffset > 0);
-    // 年フィルターが選択されている間は、前後日移動(offset)の色より黄色を優先する。年フィルターが外れたら通常の色に戻る
+    // 年フィルター選択中は、前後日移動の色より黄色を優先する
     btn.classList.toggle('is-year-filtered', todayMode && !!$('yearChecks').querySelector('input:checked'));
-    // 検索窓の日付入力でTODAYモードがONになっている間は、日付検索の絞り込み(検索文字列そのままの
-    // 固定日付)と前後日移動が両立せずヒット件数が0になりやすいため、前後日ボタン自体を隠す
+    // 検索窓の日付入力でTODAYモードがONになっている間は、日付検索の絞り込み
     $('prevDayBtn').classList.toggle('is-visible', todayMode);
     $('nextDayBtn').classList.toggle('is-visible', todayMode);
     if (todayOffset === 0) {
@@ -4089,24 +3840,21 @@ body .item-contents.is-content-open {
   };
   applyTodayHeldStyle();
 
-  // 長押し(タップホールド)で保持状態そのものをトグルする(保持ON中に再度長押しすると保持OFFに戻る)。
-  // 今回のセッション中の通常クリックによるON/OFF(todayMode)には影響しない
+  // 長押しで保持状態そのものをトグルする
   const toggleTodayHeld = () => {
     todayHeld = !todayHeld;
     localStorage.setItem(TODAY_MODE_KEY, todayHeld);
     applyTodayHeldStyle();
   };
 
-  // ダブルクリック/ダブルタップ(300ms以内の連続クリック)検出:フィルターボタンの除外機能と同じ方式で、
-  // 保持(hold)状態そのものをトグルする(保持ON中に再度ダブルクリックすると保持OFFに戻る)
+  // ダブルクリック/ダブルタップ
   const TODAY_DBLCLICK_THRESHOLD_MS = 300;
   let todayClickTimer = null;
   let todayClickSnapshot = null;
 
   $('todayToggleBtn').onclick = () => {
     if (todayClickTimer) {
-      // 2回目のクリック(ダブルクリック確定):固定状態をトグルし、1回目のクリック直前のTODAY状態へ
-      // 正確に戻す(セトリ検索モード突入時と同じ、スナップショットを丸ごと保存/復元する方式)
+      // ダブルクリック確定:固定状態をトグルし、1回目クリック直前のTODAY状態へ戻す
       clearTimeout(todayClickTimer);
       todayClickTimer = null;
       if (todayClickSnapshot) {
@@ -4126,11 +3874,9 @@ body .item-contents.is-content-open {
       });
       return;
     }
-    // 1回目のクリック:ダブルクリックの確定を待たず、即座に通常のON/OFFを行う(体感速度優先)。
-    // 直前の状態を保存しておき、直後に2回目のクリックが来てダブルクリックが確定した場合は
-    // そこへ正確に戻す(このクリック単独の通常ON/OFFは無かったことにする)
+    // 1回目クリックは即座に通常ON/OFFを行い、直前の状態を保存しておく
     todayClickSnapshot = { todayMode, todayOffset, desc, preTodaySort };
-    // セトリ検索モード中のTODAYは通常時と別管理の独立したON/OFFのため、ここではセトリ検索モードには一切触れない
+  // セトリ検索モード中のTODAYは独立管理(ここではセトリ検索モードに触れない)
     if (!todayMode) {
       // OFF -> ON(当日)。ON にする直前のソート状態を覚えておく
       todayMode = true;
@@ -4144,8 +3890,7 @@ body .item-contents.is-content-open {
       // ON(当日 or 前後日)状態からの押下は、常にOFFにする
       turnOffTodayMode();
     }
-    // 通常クリックでのON/OFFは今回のセッション限り。保持(localStorage)はここでは書き換えない
-    // ボタンの見た目の変化(updateTodayButtonStyle等)を先に描画させてから重い処理を行う
+    // 通常クリックでのON/OFFは今回のセッション限り
     deferHeavyUpdate(() => {
       autoUpdateContentTypeFilters();
       updateManualIndicators();
@@ -4157,25 +3902,16 @@ body .item-contents.is-content-open {
     }, TODAY_DBLCLICK_THRESHOLD_MS);
   };
 
-  // ================= TODAYモード:日付切替の共通アニメーション =================
-  // ←/→ボタン押下・データ部のフリックのどちらでも同じスライドイン/アウト演出を使う。
-  // 翌日方向(delta>0)は左へ、前日方向(delta<0)は右へスライドアウトする向きで統一する。
+  // ================= TODAYモード:日付切替の共通アニメーション =============
   const itemsEl = $('items');
-  // フリックでのスライド演出は、データ行(#items)だけでなくNO DATA表示(#noResult)も
-  // 一緒に動かす必要があるため、両者を包む#daySlideAreaに対してtransformを適用する
-  const slideAreaEl = $('daySlideArea');
+  const slideAreaEl = $('daySlideArea'); // フリックでのスライド演出の対象(データ行全体)
   // NO DATA表示時、表示位置を変えずにその下の余白だけをフリック可能にするための透明な当たり判定
   const flickFillEl = $('dayFlickFill');
   const DAY_SLIDE_MS = 150;      // スライドイン/アウトの所要時間(体感速度優先でやや短めに調整)
   const DAY_SWAP_WAIT_MS = 130;  // データ切替(updateDisplay内部の120msフェード)を画面外で待つ時間(120msに10msの安全マージンのみ持たせる)
   let daySlideAnimating = false; // 演出の多重発火防止(演出中は新たな操作を受け付けない)
 
-  // TODAYモード中は、表示件数が少なくデータ部(#items)の実高さが画面より低い場合でも、
-  // 画面(ビューポート)の下端までフリック可能な領域として扱えるよう min-height を伸ばす。
-  // 0件(NO DATA)時は、#itemsや#noResultのmin-heightを伸ばすとNO RESULTS FOUND時より
-  // 後続のupdated>/フッターが下に押し下げられてしまうため、それらは伸ばさず、
-  // #dayFlickFillを表示位置は変えずにその下の余白へ重ねることでフリック対象にする。
-  // TODAYモードOFF時はすべて元に戻す(通常表示で不要な余白ができないようにする)。
+  // TODAYモード中、表示件数が少なくても画面いっぱいまでフリック判定を効かせるための高さ調整
   const updateItemsMinHeight = () => {
     const noResultEl = $('noResult');
     if (!todayMode) {
@@ -4185,8 +3921,7 @@ body .item-contents.is-content-open {
     }
     if (noResultEl.style.display === 'block') {
       itemsEl.style.minHeight = '';
-      // #dayFlickFillはposition:fixedでドキュメントの流れから外れているため、
-      // ここでtop/heightを設定してもupdated>やフッターの位置には影響しない
+      // #dayFlickFillはposition:fixedなので、ここでtop/heightを直接指定する
       const bottom = noResultEl.getBoundingClientRect().bottom;
       const extra = window.innerHeight - bottom;
       if (extra > 0) {
@@ -4199,11 +3934,7 @@ body .item-contents.is-content-open {
       return;
     }
     flickFillEl.style.display = 'none';
-    // itemsEl.style.minHeightは通常のドキュメントフロー内の高さ指定なので、本来スクロール位置に
-    // 左右されてはいけない。しかしgetBoundingClientRect().topはビューポート基準(=現在のスクロール量
-    // に依存する)の値のため、SETTINGボタンまでスクロールした状態でSETTINGを操作すると、その
-    // スクロール量がそのまま余白として上乗せされ、操作するたびにどんどん伸びてしまっていた。
-    // window.scrollYを足してドキュメント基準(スクロール量に依存しない)の開始位置に変換してから計算する。
+    // スクロール位置に依存しないよう、ビューポート基準のtopにscrollYを足してドキュメント基準に変換する
     const docTop = itemsEl.getBoundingClientRect().top + window.scrollY;
     const extra = window.innerHeight - docTop;
     itemsEl.style.minHeight = extra > 0 ? extra + 'px' : '';
@@ -4226,9 +3957,7 @@ body .item-contents.is-content-open {
   // 実際の日付切替処理本体(todayOffset更新・ボタン見た目・フィルター再計算・再描画)
   const performDayChange = delta => {
     if (searchDateTodayActive) {
-      // 検索窓の日付入力でTODAYモードに入っていた状態から前後日ボタン/フリックで移動した場合、
-      // 検索窓の日付表示が実際の表示日とズレてしまうため、連動状態を解除して検索窓もクリアする
-      // (TODAYモード自体はONのまま維持し、通常の前後日ナビゲーションに切り替える)
+      // 検索窓の日付入力でTODAYモードに入っていた状態から前後日ボタン/フリックで移動した場合、 検索窓の日付表示
       searchDateTodayActive = false;
       searchInput.value = '';
       updateSearchClearState();
@@ -4248,8 +3977,7 @@ body .item-contents.is-content-open {
     updateDisplay(true);
   };
 
-  // スライドアウト→(画面外で)日付切替→スライドインを行う。フリック中の場合は現在位置(既にtranslateX(dx)済み)
-  // から続けてスライドアウトさせるため、呼び出し前のslideAreaElの位置はそのまま利用する
+  // スライドアウト→(画面外で)日付切替→スライドインを行う
   const playDaySlideChange = delta => {
     if (!todayMode || daySlideAnimating) return;
     daySlideAnimating = true;
@@ -4264,7 +3992,7 @@ body .item-contents.is-content-open {
       setItemsTransform(-exitX, false); // 反対側の画面外へ瞬時に配置(この時点ではまだ見えない)
       performDayChange(delta);
 
-      // updateDisplay内部のフェード切替(約120ms)が画面外で完了するのを少し待ってからスライドインする
+  // updateDisplayのフェード切替(約120ms)完了を待ってからスライドインする
       setTimeout(() => {
         requestAnimationFrame(() => setItemsTransform(0, true));
       }, DAY_SWAP_WAIT_MS);
@@ -4283,22 +4011,13 @@ body .item-contents.is-content-open {
   $('prevDayBtn').onclick = () => playDaySlideChange(-1);
   $('nextDayBtn').onclick = () => playDaySlideChange(1);
 
-  // ================= TODAYモード:データ部でのフリック操作 =================
-  // データ部+NO DATA表示をまとめた#daySlideArea、および画面下部の更新時刻表示(#updateTime)・
-  // ヘルプ(?)/設定(⚙)ボタン行(#footerBtnRow)を「フリック開始領域」として扱う。
-  // ボタン自体のタップ(短時間・移動量小)は従来どおりclickが発火するため、
-  // ?/⚙ボタンのタップ動作とフリック操作は干渉しない。
-  // ※これらの領域自体は見た目上は動かさず、フリックで動くのは常に#daySlideArea(データ部+NO DATA表示)側。
-  // (#itemsだけに登録すると、0件でNO DATA表示中は#items自体の高さが無くなりタッチを拾えないため、
-  //  #noResultも含む親要素の#daySlideAreaを対象にしている)
-  // タイトルの独自横スクロール(.item-titleのoverflow-x:auto)より、しきい値を超えたフリックを優先する。
+  // ================= TODAYモード:データ部でのフリック操作 ===============
   (() => {
     if (!isTouch) return; // タッチ非対応環境(PCのマウス操作等)では登録しない
     const AXIS_LOCK_PX = 10;       // この移動量で横/縦どちらの操作かをロックする
     const SWIPE_DIST_PX = 70;      // 確定に必要な最小移動距離(px)
     const SWIPE_VELOCITY = 0.35;   // 確定に必要な最小速度(px/ms)。距離が足りなくても素早いフリックなら確定させる
-    // フリック開始を受け付ける領域。#daySlideArea以外は見た目上動かないが、
-    // ここで指を動かし始めても#daySlideArea側がスライドする
+    // フリック開始を受け付ける領域
     const flickZones = [slideAreaEl, flickFillEl, $('updateTime'), $('footerBtnRow')].filter(Boolean);
 
     let startX = 0, startY = 0, startTime = 0;
@@ -4308,8 +4027,7 @@ body .item-contents.is-content-open {
 
     const onTouchStart = e => {
       if (!todayMode || daySlideAnimating || e.touches.length !== 1) { axisLock = null; return; }
-      // データ行のタイトルリンクが長文で横スクロール可能な場合、そこをホールドしている間は
-      // 日付フリックと競合しないよう、この後のtouchmoveで一切介入せずネイティブの横スクロールに任せる
+      // データ行のタイトルリンクが長文で横スクロール可能な場合、そこをホールドしている間は 日付フリックと競合しないよ
       const titleEl = e.target.closest ? e.target.closest('.item-title') : null;
       touchOnScrollableTitle = !!(titleEl && titleEl.scrollWidth > titleEl.clientWidth + 1);
       startX = e.touches[0].clientX;
@@ -4330,8 +4048,7 @@ body .item-contents.is-content-open {
         if (axisLock === 'v') return; // 縦スクロールと判定:以降は何もせずブラウザ標準の縦スクロールに任せる
       }
 
-      // 横方向優位と判定:ページの縦スクロールや.item-title自身の横スクロール、
-      // ?/⚙ボタンのタップ判定より、この後の確定処理を優先させる
+      // 横方向優位と判定:ページの縦スクロールや.item-title自身の横スクロール、 ?/⚙ボタンのタップ判定よ
       e.preventDefault();
       dragDx = dx;
       setItemsTransform(dx, false); // 見た目が動くのは常に#daySlideArea側
@@ -4349,8 +4066,7 @@ body .item-contents.is-content-open {
         setItemsTransform(0, true); // しきい値未満:指を離した位置から元の位置へなめらかに戻す
         return;
       }
-      // 右から左にフリック(dragDx<0)=翌日(delta:+1)、左から右にフリック(dragDx>0)=前日(delta:-1)
-      // 現在位置(既にtranslateX(dragDx)済み)からそのままスライドアウトを続ける
+      // 右から左にフリック(dragDx<0)=翌日(delta:+1)、左から右にフリック(dragDx>0)=前日
       playDaySlideChange(dragDx < 0 ? 1 : -1);
     };
 
@@ -4368,12 +4084,7 @@ body .item-contents.is-content-open {
     });
   })();
 
-  // ================= 操作要素の無い場所の長押しでTODAYモードをON/OFF =================
-  // ボタン・リンク・チェックボックス・アクティブフィルターバッジ・モーダル等の「操作要素」、および
-  // データ行(.item。タイトルリンクやハート等のタップ操作、フリックと競合するため除外)以外の場所を、
-  // 一定距離以上動かさずに約600ms押し続けると、TODAYボタンと同じ処理でTODAYモードをトグルする。
-  // データ部(#items)自体の背景(データ行の無い余白・TODAYモードでの画面下までの拡張領域を含む)は
-  // 対象に含める。フリックは「動かす」操作、長押しは「動かさない」操作のため、同じ領域でも競合しない。
+  // ================= 操作要素の無い場所の長押しでTODAYモードをON/OFF =======
   (() => {
     const INTERACTIVE_SELECTOR = 'button, a, input, label, [role="button"], [role="dialog"], .filter-badge, .popup-overlay, .setlist-modal-overlay, .item';
     const MOVE_CANCEL_PX = 10; // この距離以上動いたら長押しをキャンセルする(スクロール・フリック操作との誤動作防止)
@@ -4441,17 +4152,13 @@ body .item-contents.is-content-open {
     $('setlistToggleBtn').classList.toggle('is-active', setlistMode);
     searchSuggestions.classList.remove('is-open'); // モード切替時は検索候補ポップアップを一旦閉じる
     updateSearchPlaceholder();
-    // 上部の📋️ボタン(setlistIconMode)は、セトリ検索モード中は強制ONの色つき表示で固定し、クリックも
-    // 受け付けない(setlistIconModeの保存値そのものは変更しない、別管理)。セトリ検索モードを抜けたら
-    // 保存されているsetlistIconModeの値に応じた通常表示に戻す
+    // 上部の📋️ボタン(setlistIconMode)は、セトリ検索モード中は強制ONの色つき表示で固定し、クリッ
     $('setlistIconToggleBtn').classList.toggle('is-active', setlistMode || setlistIconMode);
     if (setlistMode) {
-      // セトリ検索モードへ突入:直前のTODAY状態をまるごと保存した上で、TODAYモードは一旦OFFにする
-      // (セトリ検索モード中のTODAYはここから独立して別管理になる)
+      // セトリ検索モードへ突入:直前のTODAY状態を保存しTODAYモードを一旦OFFにする
       setlistTodaySavedState = { todayMode, todayOffset, desc, preTodaySort };
       if (todayMode) turnOffTodayMode();
-      // 直前の除外状態をまるごと保存した上で、LIVE/EVENT以外のコンテンツ種類をダブルクリックと同じ
-      // 除外状態にする(年/グループ等、コンテンツ種類以外の既存の除外指定はそのまま維持する)
+      // 直前の除外状態を保存し、LIVE/EVENT以外のコンテンツ種類を除外状態にする
       setlistExcludedSavedState = new Set(excludedFilterValues);
       const checkboxArr = Array.from(checkboxes);
       setlistExcludedConts().forEach(v => {
@@ -4490,8 +4197,7 @@ body .item-contents.is-content-open {
     });
   };
 
-  // 除外中のラベルに薄い色のスタイル(is-excluded)を適用/解除する。除外は通常のチェックON状態とは
-  // 排他的に扱うため、is-excludedが付く時点でそのcheckboxは常にfalseになっている想定。
+  // 除外中のラベルに薄い色のスタイル(is-excluded)を適用/解除する
   const applyExcludedStyles = () => {
     labels.forEach(l => {
       const cb = l.querySelector('input');
@@ -4500,7 +4206,7 @@ body .item-contents.is-content-open {
     });
   };
 
-  // 除外状態をトグルする。除外にする場合、選択中(checked)だったら解除し既存のchangeロジックも発火させる
+  // 除外状態をトグルする(選択中なら解除しchangeロジックも発火させる)
   const toggleExcludedForLabel = cb => {
     const val = cb.value;
     if (excludedFilterValues.has(val)) {
@@ -4520,8 +4226,7 @@ body .item-contents.is-content-open {
     updateDisplay(true);
   };
 
-  // ホバーによる件数プレビュー用のデバウンスタイマー。マウスが複数のボタンを素早く通過しただけで
-  // 都度previewCountFor(ログ全件のフィルタ処理)が走らないよう、一定時間ホバーが継続した時だけ計算する
+  // ホバーによる件数プレビュー用のデバウンスタイマー
   let hoverPreviewTimer = null;
   const bindCheckboxAndLabelEvents = () => {
     if (!isTouch) {
@@ -4537,8 +4242,7 @@ body .item-contents.is-content-open {
             const rc = $('resultCount');
             rc.textContent = '';
             rc.append('[ ');
-            // メンバーはハート、グループ(G2/L2)は四角、コンテンツ種類は絵文字シンボルを、名前の左に
-            // 同じ幅・同じ間隔(preview-icon)で添える。名前側もアイコン文字を含まない純粋なテキストにする
+            // メンバーはハート、グループ
             const memberInfo = memberInfoByCode[val];
             let name;
             if (memberInfo) {
@@ -4584,12 +4288,10 @@ body .item-contents.is-content-open {
           updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
           updateSortBtnLabel(); // 年フィルターの選択状態が変わるので、TODAYモード中の日付表示も再評価
           window.scrollTo({ top: 0, behavior: 'instant' });
-          // updateManualIndicatorsはフィルターボタン全部(60〜80個規模)に対して毎回querySelectorする
-          // 重い処理のため、ボタンの見た目の変化を先に描画させてから次フレームで行う
+          // updateManualIndicatorsはフィルターボタン全部
           deferHeavyUpdate(() => {
             updateManualIndicators();
-            // マウス操作時と同様、コンテンツ種類以外(年/月/グループ/メンバー)のチェック変更時は、
-            // 紐づくコンテンツ種類を自動で切り替える対象に含める
+            // コンテンツ種類以外の変更時は、紐づくコンテンツ種類ランプも再計算する
             if (!allConts.includes(cb.value)) autoUpdateContentTypeFilters();
             updateDisplay(true);
           });
@@ -4597,12 +4299,7 @@ body .item-contents.is-content-open {
       }
     });
 
-    // フィルターボタンのダブルクリック/ダブルタップ:そのボタンの値を「除外」指定に切り替える(再度で解除)。
-    // ネイティブのlabelクリック挙動(クリックのたびにチェックボックスをトグル)を常にpreventDefaultで止め、
-    // シングル/ダブルの判定を自前のタイマーで行う(マウス・タッチどちらも'click'イベントで統一的に扱えるため)。
-    // ダブルクリックの判定自体はDBLCLICK_THRESHOLD_MSの間待つ必要があるが、大多数を占めるシングルクリックの
-    // 体感速度を優先し、1回目のクリックの時点で即座にトグルしてしまう(除外中でない場合のみ)。もし直後に
-    // 2回目のクリックが来てダブルクリックが確定したら、1回目のトグルを打ち消してから除外に切り替える
+    // フィルターボタンのダブルクリック/ダブルタップ:そのボタンの値を「除外」指定に切り替える(再度で解除)
     const DBLCLICK_THRESHOLD_MS = 300;
     labels.forEach(l => {
       const cb = l.querySelector('input');
@@ -4622,9 +4319,7 @@ body .item-contents.is-content-open {
           toggleExcludedForLabel(cb);
           return;
         }
-        // 1回目のクリック:除外中でなければ、ダブルクリックの確定を待たず即座にトグルする(体感速度優先)。
-        // ダブルクリックの検出自体は除外中かどうかに関わらず必ずタイマーで行う(除外解除のダブルクリックも
-        // 検出できるようにするため)
+        // 1回目のクリック:除外中でなければ、ダブルクリックの確定を待たず即座にトグルする(体感速度優先)
         if (!excludedFilterValues.has(cb.value)) {
           cb.checked = !cb.checked;
           cb.dispatchEvent(new Event('change')); // 既存のcb.onchangeロジック(manuallyTouchedConts等)を発火させる
@@ -4639,8 +4334,7 @@ body .item-contents.is-content-open {
       if (allConts.includes(cb.value)) {
         manuallyTouchedConts.add(cb.value);
       }
-      // TODAYモード中に(年フィルターで表示された)月フィルターが押された場合、TODAYモードと月フィルターの
-      // 組み合わせには意味が無いため、TODAYモード自体を解除する(押されたその月フィルターは選択されたままにする)
+      // 月フィルターはTODAYモードと併用しないため、押されたらTODAYモードを解除する
       if (/^\d{2}$/.test(cb.value) && todayMode) {
         todayMode = false;
         todayOffset = 0;
@@ -4655,17 +4349,10 @@ body .item-contents.is-content-open {
       updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
       updateSortBtnLabel(); // 年フィルターの選択状態が変わるので、TODAYモード中の日付表示も再評価
       window.scrollTo({ top: 0, behavior: 'instant' });
-      // ボタン自体の色変化(:has(input:checked)によるCSS)を先に描画させてから、重い処理(全件フィルタリング・
-      // 再描画)を行う。updateManualIndicatorsも、フィルターボタン全部(60〜80個規模)に対して毎回
-      // querySelectorする重い処理のため、ここに含めて次フレームに回す。判定内容・結果は変えず、
-      // 実行タイミングだけを次フレームにずらす
+      // ボタン自体の色変化(:has(input:checked)によるCSS)を先に描画させてから、重い処理(全件フ
       deferHeavyUpdate(() => {
         updateManualIndicators();
-        // TODAY+年フィルター(TODAYボタンが黄色の状態)は「その年の同じ月日」を意味するため、年フィルターの
-        // ON/OFFに応じて該当するコンテンツフィルターを自動で切り替える(年を外せば通常TODAYのコンテンツに戻る)。
-        // 月フィルターでTODAYモードを解除した場合も、コンテンツフィルターを通常状態に戻すため再計算する。
-        // グループ/メンバーフィルターの場合も、紐づくコンテンツ種類を自動で切り替える対象に含める
-        // (コンテンツ種類自身の変更では、他のコンテンツ種類の判定に影響しないため呼ばない)
+        // TODAY+年フィルター
         if (!allConts.includes(cb.value)) autoUpdateContentTypeFilters();
         updateDisplay(true);
       });
@@ -4701,12 +4388,7 @@ body .item-contents.is-content-open {
     const active = window.location.hash.replace('#', '').split(',').filter(Boolean);
     // 除外指定中の値は、URLで明示的にONと指定されていても常にOFFのままにする(除外との矛盾を防止)
     checkboxes.forEach(cb => cb.checked = active.includes(cb.value) && !excludedFilterValues.has(cb.value));
-    // URLで明示的にONになっているコンテンツ種類は手動操作扱いにして保護する。OFFのものは自動on/offの対象に戻す。
-    // ただし、TODAY/セトリ検索モード中は、コンテンツ種類フィルターの一部がシステムによる自動ON/OFFの対象になり、
-    // その自動ONの状態もそのままURLハッシュに残ってしまうため、ハッシュ経由で復元しただけのチェック状態を
-    // 「手動選択」として扱ってはいけない(手動扱いにしてしまうと、BIRTHDAY/ANNIVERSARYが「他のコンテンツ種類を
-    // 手動で絞り込んでいる」と誤判定されて常に非表示になってしまう等の不具合につながる)。この場合は
-    // manuallyTouchedContsには入れず、直後のautoUpdateContentTypeFiltersで実データに基づき再計算させる
+    // URLで明示的にONになっているコンテンツ種類は手動操作扱いにして保護する
     manuallyTouchedConts.clear();
     if (!todayMode && !setlistMode) {
       checkboxes.forEach(cb => {
@@ -4719,7 +4401,6 @@ body .item-contents.is-content-open {
     updateTodayButtonStyle(); // URL復元時も、年フィルターの状態に応じてTODAYボタンの色を合わせる
     updateSortBtnLabel(); // URL復元時も、年フィルターの状態に応じてTODAYモード中の日付表示を合わせる
     // TODAY/セトリ検索モード中は、コンテンツ種類フィルターを実データに基づき自動で正しく再計算する
-    // (上でmanuallyTouchedContsに入れなかった分を、ここで正しくON/OFFし直す)
     if (todayMode || setlistMode) autoUpdateContentTypeFilters();
     updateDisplay(false);
   };
@@ -4732,9 +4413,7 @@ body .item-contents.is-content-open {
     manuallyTouchedConts.clear();
     document.querySelectorAll('.checks label.has-data-lamp').forEach(l => l.classList.remove('has-data-lamp')); // CLEARでランプも消す
     if (setlistMode) {
-      // セトリ検索モード中のCLEARは、除外指定を「セトリモードの初期表示状態」(LIVE/EVENT以外を除外)に
-      // 戻すだけにする。セトリモード突入前の除外状態(setlistExcludedSavedState)はここでは変更しない
-      // (復元はセトリボタンでモードを抜けた時のみ行う)。一時的な状態のためlocalStorageへの保存も行わない。
+      // セトリ検索モード中のCLEARは、除外指定をセトリモードの初期表示状態に戻すだけ
       excludedFilterValues.clear();
       setlistExcludedConts().forEach(v => excludedFilterValues.add(v));
     } else {
@@ -4747,16 +4426,14 @@ body .item-contents.is-content-open {
     searchInput.value = '';
     updateSearchClearState();
     document.querySelectorAll('.checks-row-years, .checks-row-other, .checks-row-months').forEach(con => con.scrollLeft = 0);
-    // TODAY(セトリ検索モード中は独立管理のローカルなTODAY)は、モードに関わらず単純にOFFへ戻す。
-    // セトリ検索モード中でも、セトリモード突入前の状態への復元はここでは行わない(復元はセトリボタンで
-    // モードを抜けた時のみ行う。CLEARは「セトリモードの初期表示状態」に戻すだけ)
+    // TODAY(セトリ検索モード中は独立管理のローカルなTODAY)は、モードに関わらず単純にOFFへ戻す
     if (todayMode) turnOffTodayMode();
     // CLEARでハートモードもOFFにする(再描画される行が展開済みの状態で作られないようにする)
     heartModeOn = false;
     $('heartToggleBtn').classList.remove('is-active');
-    // CLEARでコンテンツ名アコーディオンも全行分OFFにする(同上。updateDisplay側でも既定でクリアされるが明示しておく)
+    // CLEARでコンテンツ名アコーディオンも全行OFFにする
     expandedContentKeys.clear();
-    // セトリ検索モードはCLEARでは終了しない。抜けるのはセトリボタン(setlistToggleBtn)押下時のみ。
+  // セトリ検索モードはCLEARでは終了しない(抜けるのはセトリボタン押下時のみ)
     window.scrollTo({ top: 0, behavior: 'instant' });
     updateDisplay(true);
   };
@@ -4787,9 +4464,7 @@ body .item-contents.is-content-open {
       console.error('Failed to load blogger feed:', err);
     });
 
-  // logs.json取得:GitHub上の最新コミットSHAを確認し、変更があった場合のみ
-  // コミット固定のjsDelivr URL(長期キャッシュ可能)から取得しなおす。
-  // 変更がなければlocalStorageのキャッシュをそのまま使い、通信を省略する。
+  // logs.json取得:GitHub上の最新コミットSHAを確認し、変更があった場合のみ コミット固定のjsD
   const REPO = 'piscenake52/gllogs';
   const BRANCH = 'main';
   const FILE = 'data/logs/logs.json';
@@ -4801,7 +4476,7 @@ body .item-contents.is-content-open {
   const applyLogs = data => {
     // 日付、時刻、コンテンツ種類、タイトル、URLがすべて一致する重複データを排除
     const seen = new Set();
-    // SETTINGで非表示にした項目のデータは、重複排除後にここで取り除く(設定変更時はreapplyVisibilityで再計算)
+    // SETTINGで非表示の項目は重複排除後にここで取り除く
     applyVisibilityToLogs(data.filter(item => {
       const identifier = `${item.date || ''}_${item.time || ''}_${item.contents || ''}_${item.title || ''}_${item.url || ''}`;
       if (seen.has(identifier)) return false;
@@ -4812,13 +4487,10 @@ body .item-contents.is-content-open {
 
     refreshYearChecks();
     if (window.location.hash) {
-      // ハッシュがある場合は、TODAY/セトリ検索モードに応じたコンテンツ種類フィルターの再計算も含めて
-      // restoreFromHash側で行う(ここで先にautoUpdateContentTypeFiltersを呼んでも、直後にrestoreFromHashが
-      // チェック状態を上書きしてしまい無駄になるため呼ばない)
+      // ハッシュがある場合は、TODAY/セトリ検索モードに応じたコンテンツ種類フィルターの再計算も含めて resto
       restoreFromHash();
     } else {
-      // ページ読込時にTODAYモードがON状態で復元されている場合、実データを踏まえてコンテンツ種類フィルターを
-      // 再計算する(updateManualIndicatorsはこの後のupdateDisplay内で呼ばれるため、ここで個別に呼ぶ必要はない)
+      // ページ読込時にTODAYモードがON状態で復元されている場合、実データを踏まえてコンテンツ種類フィルターを 再
       if (todayMode) autoUpdateContentTypeFilters();
       updateDisplay(true);
     }
@@ -4904,8 +4576,7 @@ body .item-contents.is-content-open {
   const lastCheckedAt = parseInt(localStorage.getItem(CHECK_TIME_KEY) || '0', 10);
   const withinCooldown = hadCache && (Date.now() - lastCheckedAt < CHECK_COOLDOWN_MS);
 
-  // トップのタイトルリンク(GL log)クリック時に呼ばれる:直近チェック時刻のクールダウンや
-  // SHA比較によるスキップを行わず、常に最新コミットのlogs.jsonを取得し直す
+  // トップのタイトルリンク
   const forceReloadLogs = () => {
     fetch(`https://api.github.com/repos/${REPO}/commits?path=${FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
       .then(res => {
@@ -4925,18 +4596,14 @@ body .item-contents.is-content-open {
       });
   };
 
-  // 特定の配信元からのアクセス時は、直近チェック時刻やSHA比較によるスキップを行わず常に最新のlogs.jsonを取得し直す
-  // (対象URLは難読化のためソースに直接書かず、head内のスクリプトと同じハッシュ比較で判定する)
+  // 特定の配信元からのアクセス時は、直近チェック時刻やSHA比較によるスキップを行わず常に最新のlogs.json
   if (isForcedFreshSource()) {
     forceReloadLogs();
   } else if (!withinCooldown) {
     checkForUpdates();
   }
 
-  // ================= 楽曲紹介バー(♪) =================
-  // songs.json(artist/title/link)取得:logs.jsonと同じ方式(GitHub上の最新コミットSHAを確認し、
-  // 変更があった場合のみコミット固定のjsDelivr URLから取得しなおす。変更がなければキャッシュを使う)。
-  // 画面が表示される(=データ取得が走る)たびに、その中から1曲をランダムに抽出して表示する。
+  // ================= 楽曲紹介バー
   const SONG_FILE = 'data/songs/songs.json';
   const SONG_VERSION_KEY = 'gl_song_sha';
   const SONG_DATA_KEY = 'gl_song_data';
@@ -5055,8 +4722,7 @@ body .item-contents.is-content-open {
   const lastSongCheckedAt = parseInt(localStorage.getItem(SONG_CHECK_TIME_KEY) || '0', 10);
   const withinSongCooldown = hadSongCache && (Date.now() - lastSongCheckedAt < CHECK_COOLDOWN_MS);
 
-  // トップのタイトルリンク(GL log)クリック時に呼ばれる:直近チェック時刻のクールダウンやSHA比較による
-  // スキップを行わず、常に最新コミットのsongs.jsonを取得し直す(logs側のforceReloadLogsと同じ考え方)
+  // トップのタイトルリンク
   const forceReloadSongs = () => {
     fetch(`https://api.github.com/repos/${REPO}/commits?path=${SONG_FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
       .then(res => {
@@ -5082,8 +4748,7 @@ body .item-contents.is-content-open {
     checkForSongUpdates();
   }
 
-  // ================= セトリ検索モード(SETLIST) =================
-  // setlist.json(公演ごとのセットリスト)取得:logs.json/songs.jsonと同じ方式
+  // ================= セトリ検索モード
   const SETLIST_FILE = 'data/setlist/setlist.json';
   const SETLIST_VERSION_KEY = 'gl_setlist_sha';
   const SETLIST_DATA_KEY = 'gl_setlist_data';
@@ -5157,7 +4822,7 @@ body .item-contents.is-content-open {
   const lastSetlistCheckedAt = parseInt(localStorage.getItem(SETLIST_CHECK_TIME_KEY) || '0', 10);
   const withinSetlistCooldown = hadSetlistCache && (Date.now() - lastSetlistCheckedAt < CHECK_COOLDOWN_MS);
 
-  // トップのタイトルリンク(GL log)クリック時に呼ばれる:logs.json/songs.json同様にsetlist.jsonも常に取得し直す
+  // トップのタイトルリンク
   const forceReloadSetlist = () => {
     fetch(`https://api.github.com/repos/${REPO}/commits?path=${SETLIST_FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
       .then(res => {
@@ -5176,7 +4841,7 @@ body .item-contents.is-content-open {
       });
   };
 
-  // 特定の配信元からのアクセス時は、logs.json/songs.json同様にsetlist.jsonも常に取得し直す
+  // 特定の配信元からのアクセス時はsetlist.jsonも常に取得し直す
   if (isForcedFreshSource()) {
     forceReloadSetlist();
   } else if (!withinSetlistCooldown) {
