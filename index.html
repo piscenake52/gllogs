@@ -1080,7 +1080,6 @@ body .item-contents.is-content-open {
 
   // ボタン/checkboxを押した直後の見た目の変化
   const deferHeavyUpdate = fn => requestAnimationFrame(fn);
-  // G2: 小田柚葉:YZH、隅谷百花:MMK、鶴屋美咲:MSK、小川桜花:YOK、増田來亜:KUR、菱田未渚美:
   const g2 = [
     {v:'G2',t:'Girls\u00B2'},{v:'YZH',n:'YUZUHA',c:'\uD83E\uDE75'},{v:'MMK',n:'MOMOKA',c:'\uD83D\uDC99'},{v:'MSK',n:'MISAKI',c:'\uD83E\uDDE1'},
     {v:'YOK',n:'YOKA',c:'\uD83D\uDC9C'},{v:'KUR',n:'KUREA',c:'\uD83E\uDD0D'},{v:'MNM',n:'MINAMI',c:'\uD83E\uDE77'},{v:'KIR',n:'KIRA',c:'\uD83D\uDC9B'},
@@ -1509,7 +1508,6 @@ body .item-contents.is-content-open {
     const c = $('stickyHeader').classList.toggle('collapsed');
     $('toggleBtn').textContent = c ? '\u25BC' : '\u25B2';
     localStorage.setItem('gl_log_collapsed', c);
-    // フィルターエリアを閉じた時は、一度も手動でFILTERボタンをOFFにしたことが無ければ「現在のフィルター 一
     if (c && !filterSummaryManuallyOff) {
       $('activeFiltersRow').classList.add('is-open');
       $('filterSummaryToggleBtn').classList.add('is-active');
@@ -1564,7 +1562,7 @@ body .item-contents.is-content-open {
     searchInput.placeholder = setlistMode ? SEARCH_PLACEHOLDER_SETLIST : SEARCH_PLACEHOLDER_NORMAL;
   };
 
-  // 検索窓:直近使った検索ワードを最大8件まで記憶し、フォーカス時に候補として表示する セトリ検索モード中に入力さ
+  // 検索窓:直近使った検索ワードを最大8件まで記憶し、フォーカス時に候補として表示する
   const RECENT_SEARCH_KEY = 'gl_log_recent_searches';
   const SETLIST_RECENT_SEARCH_KEY = 'gl_log_recent_setlist_searches';
   const MAX_RECENT_SEARCHES = 8;
@@ -1650,7 +1648,7 @@ body .item-contents.is-content-open {
   const MAX_DATA_SUGGESTIONS = 5;
   const PREFIX_DEDUPE_LEN = 10;
   const dedupePrefixKey = s => s.toLowerCase().slice(0, PREFIX_DEDUPE_LEN);
-  // 文字列中の最初の「#」以降、末尾まで数値で終わっている場合、その「#...数値」部分を候補表示から除外し、 #
+  // 文字列中の最初の「#」以降、末尾まで数値で終わっている場合、その「#...数値」部分を候補表示から除外
   const stripHashNumberSuffix = s => {
     const idx = s.indexOf('#');
     if (idx === -1) return s;
@@ -1716,7 +1714,7 @@ body .item-contents.is-content-open {
     const rawQuery = searchInput.value.trim();
     const query = rawQuery.toLowerCase();
     const historyList = getRecentSearches();
-    // 入力が空でも入力中でも、履歴は先頭からPREFIX_DEDUPE_LEN文字が同じものを重複とみなして先着
+    // 入力が空でも入力中でも、履歴は先頭からPREFIX_DEDUPE_LEN文字が同じものを重複とみなして
     const seenPrefixes = new Set();
     const filteredHistory = [];
     historyList.forEach(entry => {
@@ -1888,7 +1886,7 @@ body .item-contents.is-content-open {
   window.onscroll = () => $('toTopBtn').classList.toggle('is-visible', window.scrollY > 300);
   $('toTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // ヘルプ(?)・設定(⚙)ボタン:どちらもセットリストポップアップと同じズーム+フェードで開閉する 汎用ポップア
+  // ヘルプ(?)・設定(⚙)ボタン:どちらもセットリストポップアップと同じズーム+フェードで開閉する
   const bindSimplePopup = (btnId, overlayId, closeBtnId) => {
     const overlay = $(overlayId);
     const open = () => overlay.classList.add('is-open');
@@ -1998,7 +1996,7 @@ body .item-contents.is-content-open {
     const prevYears = new Set(Array.from(document.querySelectorAll('#yearChecks input:checked')).map(c => c.value));
     refreshYearChecks();
     document.querySelectorAll('#yearChecks input').forEach(c => { if (prevYears.has(c.value)) c.checked = true; });
-    // TODAY/セトリ検索/検索ワードの間は、コンテンツ種類フィルターが「表示中のデータ」から自動でON/OFFさ
+    // TODAY/セトリ検索/検索ワードの間は、コンテンツ種類フィルターが「表示中のデータ」から自動でON/OFF
     autoUpdateContentTypeFilters();
     updateDisplay(true);
   };
@@ -2481,8 +2479,8 @@ body .item-contents.is-content-open {
 
     const isEnabled = () =>
       dateParts.year && dateParts.month && dateParts.day && dateParts.weekday && dateParts.time && mapMode && setlistIconMode;
-    // 🔗ボタンまでONならlogidの代わりにsetlistidをコピーする
-    const isSetlistCopyEnabled = () => isEnabled() && linkMode;
+    // 🔗ボタンまで全部ONならlogidを、それ以外はsetlistidをコピーする
+    const isAllTogglesOn = () => isEnabled() && linkMode; // 🔗まで全部ONかどうか
 
     // 有効な間だけ、日付/時刻の文字選択を止めるクラスを付ける
     const syncGestureClass = () => $('items').classList.toggle('logid-gesture', !!isEnabled());
@@ -2576,8 +2574,8 @@ body .item-contents.is-content-open {
       if (row === lastRow && now - lastTime <= DOUBLE_TAP_MS) {
         lastRow = null;
         if (window.getSelection) window.getSelection().removeAllRanges();
-        if (isSetlistCopyEnabled()) showSetlistid(row);
-        else showLogid(row);
+        if (isAllTogglesOn()) showLogid(row);
+        else showSetlistid(row);
       } else {
         lastRow = row;
         lastTime = now;
