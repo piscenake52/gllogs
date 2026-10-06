@@ -16,19 +16,22 @@
 #glih section { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; margin:0; }
 #glih section[hidden] { display:none; }
 #glih .field { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
-#glih .field > label { flex:0 0 4.5em; font-size:12px; font-weight:600; color:var(--sub); margin:0; }
+#glih .field > label { flex:0 0 5.6em; font-size:12px; font-weight:600; color:var(--sub); margin:0; }
 #glih .field input[type=date], #glih .field input[type=time] { flex:1; min-width:0; width:auto; height:auto; margin:0; padding:8px; font:inherit; font-size:16px; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; box-shadow:none; }
 #glih .field input:disabled { opacity:.4; }
+#glih .field.top { align-items:flex-start; }
+#glih .field.top > label { padding-top:5px; }
+#glih .chips { flex:1; min-width:0; display:flex; flex-direction:column; gap:4px; }
+#glih .chips .cr { display:flex; flex-wrap:wrap; gap:4px; }
+#glih .chip { font:inherit; font-size:11px; padding:4px 7px; margin:0; border-radius:12px; border:1px solid var(--line); background:var(--btn); color:var(--text); cursor:pointer; box-shadow:none; }
+#glih .chip.on { background:var(--accent); border-color:var(--accent); color:var(--accent-text); }
 #glih .small { font:inherit; font-size:12px; padding:7px 10px; margin:0; border-radius:8px; border:1px solid var(--line); background:var(--btn); color:var(--text); cursor:pointer; white-space:nowrap; box-shadow:none; }
-#glih .chk { font-size:12px; color:var(--sub); display:flex; align-items:center; gap:6px; margin:-2px 0 10px 4.5em; }
+#glih .chk { font-size:12px; color:var(--sub); display:flex; align-items:center; gap:6px; margin:0 0 0 4px; white-space:nowrap; } /* time の値のすぐ右 */
 #glih .chk input { margin:0; }
 #glih .out { font-size:12px; color:var(--sub); margin:12px 0; display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px; }
 #glih .out code { font-size:14px; color:var(--text); background:var(--btn); border:0; border-radius:6px; padding:3px 8px; min-width:6em; text-align:center; }
 #glih a.go { display:block; text-align:center; padding:11px; border-radius:10px; background:var(--accent); color:var(--accent-text) !important; text-decoration:none !important; font-size:14px; font-weight:600; }
 #glih a.go[aria-disabled="true"] { opacity:.4; pointer-events:none; }
-#glih a.alt { display:block; text-align:center; margin-top:8px; font-size:12px; color:var(--sub) !important; text-decoration:underline !important; }
-#glih a.alt[hidden] { display:none; }
-#glih a.alt[aria-disabled="true"] { opacity:.4; pointer-events:none; }
 #glih .note { font-size:11px; color:var(--sub); margin:10px 0 0; line-height:1.6; }
 /*]]>*/
 </style>
@@ -38,8 +41,9 @@
 <section id="glih-p-logs">
   <div class="field"><label for="glih-d1">date</label><input type="date" id="glih-d1"><button type="button" class="small" data-today="glih-d1">today</button></div>
   <div class="field"><label for="glih-t1">time</label><input type="time" id="glih-t1" step="60"></div>
-  <label class="chk"><input type="checkbox" id="glih-n1">anytime</label>
-  <div class="out"><span>date</span><code id="glih-o-date">&#8212;</code><span>time</span><code id="glih-o-time">&#8212;</code></div>
+  <div class="out"><span>date</span><code id="glih-o-date">&#8212;</code><span>time</span><code id="glih-o-time">&#8212;</code><label class="chk"><input type="checkbox" id="glih-n1">anytime</label></div>
+  <div class="field top"><label>groups</label><div class="chips" id="glih-groups"><div class="cr"><button type="button" class="chip" data-v="G2">G2</button><button type="button" class="chip" data-v="YZH">YZH</button><button type="button" class="chip" data-v="MMK">MMK</button><button type="button" class="chip" data-v="MSK">MSK</button><button type="button" class="chip" data-v="YOK">YOK</button><button type="button" class="chip" data-v="KUR">KUR</button><button type="button" class="chip" data-v="MNM">MNM</button><button type="button" class="chip" data-v="KIR">KIR</button><button type="button" class="chip" data-v="TOA">TOA</button><button type="button" class="chip" data-v="RAN">RAN</button></div><div class="cr"><button type="button" class="chip" data-v="L2">L2</button><button type="button" class="chip" data-v="RIN">RIN</button><button type="button" class="chip" data-v="TBK">TBK</button><button type="button" class="chip" data-v="HIR">HIR</button><button type="button" class="chip" data-v="YUW">YUW</button><button type="button" class="chip" data-v="KAN">KAN</button><button type="button" class="chip" data-v="RRK">RRK</button><button type="button" class="chip" data-v="AKR">AKR</button><button type="button" class="chip" data-v="KIK">KIK</button><button type="button" class="chip" data-v="YUR">YUR</button></div></div></div>
+  <p class="note">groups: 選んだものがそのまま入ります（G2 / L2 だけを選んでもメンバーには展開されません）</p>
   <a class="go" id="glih-go-logs" target="_blank" rel="noopener" aria-disabled="true">logs</a>
 </section>
 
@@ -64,28 +68,23 @@
     var q = new URLSearchParams(Object.assign({ template: tpl }, params));
     return 'https://github.com/' + REPO + '/issues/new?' + q.toString(); // the form field ids (date / time / setlistid) are used as the parameter names
   }
-  // Android only: if the GitHub app takes over github.com links (and shows its template chooser),
-  // this alternative link asks Chrome itself to open the same URL (intent:// with package=com.android.chrome).
-  var IS_ANDROID = /Android/i.test(navigator.userAgent || '');
-  function intentUrl(url) {
-    var u = new URL(url);
-    return 'intent://' + u.host + u.pathname + u.search + '#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
-  }
-  function setAlt(a, url) { a.hidden = !IS_ANDROID; if (IS_ANDROID && url) { a.href = intentUrl(url); a.setAttribute('aria-disabled', 'false'); } else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); } }
   function setLink(a, url) { if (url) { a.href = url; a.setAttribute('aria-disabled', 'false'); } else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); } }
   function updateLogs() {
     var date = digits($('d1').value), noTime = $('n1').checked, time = noTime ? '' : digits($('t1').value);
     $('t1').disabled = noTime;
     $('o-date').textContent = date || DASH; $('o-time').textContent = time || DASH;
     var p = {}; if (date) p.date = date; if (time) p.time = time;
-    var lu = date && (noTime || time) ? issueUrl(TPL_LOGS, p) : '';
-    setLink($('go-logs'), lu); setAlt($('alt-logs'), lu);
+    // optional field: only a non-empty value is passed (field ids of add_logs.yml are the parameter names).
+    // groups goes to the free-input field (groups_free), whose value is used as it is (G2 / L2 are not expanded to members).
+    var extra = { groups_free: chipValues('groups') };
+    Object.keys(extra).forEach(function (k) { if (extra[k]) p[k] = extra[k]; });
+    setLink($('go-logs'), date && (noTime || time) ? issueUrl(TPL_LOGS, p) : '');
   }
+  function chipValues(id) { return [].map.call(root.querySelectorAll('#glih-' + id + ' .chip.on'), function (b) { return b.getAttribute('data-v'); }).join(','); }
   function updateSetlist() {
     var sid = digits($('d2').value) + digits($('t2').value), ok = /^\d{12}$/.test(sid);
     $('o-sid').textContent = ok ? sid : DASH;
-    var su = ok ? issueUrl(TPL_SETLIST, { setlistid: sid }) : '';
-    setLink($('go-setlist'), su); setAlt($('alt-setlist'), su);
+    setLink($('go-setlist'), ok ? issueUrl(TPL_SETLIST, { setlistid: sid }) : '');
   }
   function tab(name) {
     $('p-logs').hidden = name !== 'logs'; $('p-setlist').hidden = name !== 'setlist';
@@ -104,6 +103,7 @@
     };
   });
   ['d1', 't1', 'n1'].forEach(function (id) { $(id).addEventListener('input', updateLogs); $(id).addEventListener('change', updateLogs); });
+  [].forEach.call(root.querySelectorAll('.chip'), function (b) { b.onclick = function () { b.classList.toggle('on'); updateLogs(); }; });
   ['d2', 't2'].forEach(function (id) { $(id).addEventListener('input', updateSetlist); $(id).addEventListener('change', updateSetlist); });
   $('d1').value = today(); $('d2').value = today();
   tab(location.hash === '#setlist' ? 'setlist' : 'logs');
