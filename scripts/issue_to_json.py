@@ -333,20 +333,36 @@ def write_error(errors):
         fp.write(body)
 
 
+def ensure_group_codes(items):
+    """G2 / L2 のメンバーが1人でも入っていれば、グループのコード(G2 / L2)を自動で足す。
+    並びはフォームの並び順(G2 とそのメンバー → L2 とそのメンバー → それ以外)にそろえる。!clear のときは何もしない"""
+    if items == [CLEAR]:
+        return items
+    has = set(items)
+    if any(m in has for m in G2_OPTIONS[1:]):
+        has.add("G2")
+    if any(m in has for m in L2_OPTIONS[1:]):
+        has.add("L2")
+    ordered = [o for o in G2_OPTIONS if o in has] + [o for o in L2_OPTIONS if o in has]
+    return ordered + [x for x in items if x not in ordered]
+
+
 def build_logs(f):
     is_stf = "STF" in parse_checked(f["stf"])
     g2_picked = parse_selected(f["groups_g2"], G2_OPTIONS)
     l2_picked = parse_selected(f["groups_l2"], L2_OPTIONS)
     free = parse_list(f["groups_free"])
     if not g2_picked and not l2_picked and free:
-        # プルダウンが未選択のときだけ自由入力を使う（そのままの値。G2/L2のメンバー展開はしない）
+        # プルダウンが未選択のときだけ自由入力を使う（G2/L2のメンバー展開はしない。メンバーがいれば G2/L2 のコードは自動で足す）
+        free = ensure_group_codes(free)
         groups = free if (free == [CLEAR] or not is_stf) else free + ["STF"]
     elif is_stf:
         # STFはスタッフ目線のログ等を示す印。G2/L2を選んでいてもメンバーへは自動展開せず、
         # 選んだ内容(通常はグループ名のみ)に "STF" を加えるだけにする
-        groups = g2_picked + l2_picked + ["STF"]
+        groups = ensure_group_codes(g2_picked + l2_picked) + ["STF"]
     else:
-        groups = expand_groups(g2_picked, "G2", G2_MEMBERS) + expand_groups(l2_picked, "L2", L2_MEMBERS)
+        # G2 / L2 だけを選んだときは全メンバーに展開する。メンバーを選んだときは、選んだメンバーに G2 / L2 のコードを足す
+        groups = ensure_group_codes(expand_groups(g2_picked, "G2", G2_MEMBERS) + expand_groups(l2_picked, "L2", L2_MEMBERS))
     data = {
         "logid": f["logid"],
         "date": f["date"],
