@@ -3122,6 +3122,38 @@
     ]
   },
   {
+    "logid": "1d19e81401ab",
+    "date": "20261007",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          "https://www.instagram.com/reel/DeMGETHJMb1/?stkn=ZG1zMGFrc3d3YTg2"
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          "https://x.com/Laki922official/status/2107778482050847131"
+        ]
+      }
+    ]
+  },
+  {
     "logid": "4d69fdccf4bc",
     "date": "20261006",
     "time": "2359",
