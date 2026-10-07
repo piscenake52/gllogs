@@ -2954,7 +2954,18 @@
     "contents": "RADIO",
     "title": "文化放送 「Girls²のがるがるトーク！」",
     "groups": [
-      "G2"
+      "G2",
+      "MSK",
+      "MNM"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          "https://x.com/Girls2_official/status/2107750322378850624",
+          "https://x.com/joqrgirls/status/2107783669532545183"
+        ]
+      }
     ]
   },
   {
