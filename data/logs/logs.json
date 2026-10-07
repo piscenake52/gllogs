@@ -2268,7 +2268,7 @@
     "date": "20261012",
     "time": "1200",
     "contents": "EVENT",
-    "title": "Girls² EP 「EASY」 オンライントーク会",
+    "title": "Girls² EP 「EASY」 オンライントーク会 1部",
     "url": "https://shop.mu-mo.net/st/special/girls2_2611/",
     "groups": [
       "G2",
@@ -2279,6 +2279,14 @@
       "KUR",
       "MNM",
       "KIR"
+    ],
+    "sns": [
+      {
+        "type": "gl2family",
+        "urls": [
+          "https://girls2-fc.jp/page/familyNews/1233241529833750530"
+        ]
+      }
     ]
   },
   {
