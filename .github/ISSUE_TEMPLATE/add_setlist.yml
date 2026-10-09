@@ -29,7 +29,7 @@ body:
 
 
   - type: input
-    id: title
+    id: item_title
     attributes:
       label: "title"
 
