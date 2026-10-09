@@ -653,6 +653,52 @@
     "tags": []
   },
   {
+    "logid": "c0c02d10cd44",
+    "date": "20261115",
+    "time": "1300",
+    "contents": "RELEASEEVENT",
+    "title": "Girls² EP「EASY」発売記念 リリースイベント 千葉・松戸",
+    "display_pc": "Girls² EP「EASY」リリースイベント 千葉・松戸",
+    "display_sp": "「EASY」リリースイベント 千葉・松戸",
+    "url": "https://girls2-fc.jp/page/news/1238014635328667650",
+    "map": "https://maps.app.goo.gl/aEhgPS8DbJZMckFBA",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "setlistid": "202611151300",
+    "tags": [
+      "テラスモール松戸",
+      "こもれびステージ"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2108331608684249280",
+            "member": ""
+          }
+        ]
+      },
+      {
+        "type": "site",
+        "urls": [
+          {
+            "url": "https://terracemall.com/matsudo/",
+            "member": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "9a97d9c1792e",
     "date": "20261115",
     "time": "0915",
