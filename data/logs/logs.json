@@ -3183,7 +3183,27 @@
         "urls": [
           {
             "url": "https://x.com/Laki922official/status/2108475050198458379",
-            "member": "HIR"
+            "member": [
+              "HIR"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/6QWq1tfrUehzSFEnfyPFCK",
+            "member": [
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://www.cl-live.com/posts/i3BSVxgxo5F3SMX3VzGUPU",
+            "member": [
+              "HIR",
+              "RIN"
+            ]
           }
         ]
       }
