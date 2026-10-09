@@ -4,7 +4,7 @@
 <style>
 /*<![CDATA[*/
 #glih { --bg:#fff; --card:#fafafa; --text:#222; --sub:#666; --line:#d4d4d8; --btn:#f4f4f5; --accent:#2563eb; --accent-text:#fff;
-  box-sizing:border-box; max-width:440px; margin:0 auto; padding:14px; background:var(--bg); color:var(--text);
+  box-sizing:border-box; max-width:520px; margin:0 auto; padding:14px; background:var(--bg); color:var(--text);
   font:14px/1.5 -apple-system,"Hiragino Sans","Noto Sans JP",system-ui,sans-serif; border-radius:12px; text-align:left; }
 @media (prefers-color-scheme: dark) { #glih { --bg:#121212; --card:#1b1b1d; --text:#f4f4f5; --sub:#a1a1aa; --line:#3f3f46; --btn:#27272a; --accent:#3b82f6; } }
 #glih *, #glih *::before, #glih *::after { box-sizing:border-box; }
@@ -13,17 +13,18 @@
 #glih .tabs { display:flex; gap:6px; margin-bottom:12px; }
 #glih .tabs button { flex:1; padding:8px; border-radius:8px; border:1px solid var(--line); background:var(--btn); color:var(--text); font:inherit; font-size:13px; cursor:pointer; box-shadow:none; }
 #glih .tabs button.on { background:var(--accent); border-color:var(--accent); color:var(--accent-text); }
-#glih section { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; margin:0; }
+#glih section { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; margin:0; overflow-x:auto; }
 #glih section[hidden] { display:none; }
 #glih .field { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
 #glih .field > label { flex:0 0 5.6em; font-size:12px; font-weight:600; color:var(--sub); margin:0; }
 #glih .field input[type=date], #glih .field input[type=time] { flex:1; min-width:0; width:auto; height:auto; margin:0; padding:8px; font:inherit; font-size:16px; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; box-shadow:none; }
 #glih .field input:disabled { opacity:.4; }
 #glih .field.top { align-items:flex-start; }
-#glih .field.top > label { padding-top:5px; }
-#glih .chips { flex:1; min-width:0; display:flex; flex-direction:column; gap:4px; }
-#glih .chips .cr { display:flex; flex-wrap:wrap; gap:4px; }
-#glih .chip { font:inherit; font-size:11px; padding:4px 7px; margin:0; border-radius:12px; border:1px solid var(--line); background:var(--btn); color:var(--text); cursor:pointer; box-shadow:none; }
+#glih .field.top > label { padding-top:4px; }
+#glih .chips { flex:1; min-width:236px; display:flex; flex-direction:column; gap:4px; } /* 8列 x 最小26px + 隙間。これより狭い画面ではカードの中を横スクロールする */
+/* 全行を8列のグリッドにそろえる: 全ボタンが同じ幅になり、どの行も折り返さない。ボタン幅は表示幅に合わせて自動で変わる */
+#glih .chips .cr { display:grid; grid-template-columns:repeat(8, minmax(26px, 1fr)); gap:4px; }
+#glih .chip { width:100%; min-width:0; font:inherit; font-size:clamp(9px, 2.8vw, 11px); line-height:1.2; padding:5px 0; margin:0; text-align:center; border-radius:12px; border:1px solid var(--line); background:var(--btn); color:var(--text); cursor:pointer; box-shadow:none; }
 #glih .chip.on { background:var(--accent); border-color:var(--accent); color:var(--accent-text); }
 #glih .small { font:inherit; font-size:12px; padding:7px 10px; margin:0; border-radius:8px; border:1px solid var(--line); background:var(--btn); color:var(--text); cursor:pointer; white-space:nowrap; box-shadow:none; }
 #glih .chk { font-size:12px; color:var(--sub); display:flex; align-items:center; gap:6px; margin:0 0 0 4px; white-space:nowrap; } /* time の値のすぐ右 */
@@ -33,18 +34,28 @@
 #glih .out code { font-size:14px; color:var(--text); background:var(--btn); border:0; border-radius:6px; padding:3px 8px; min-width:6em; text-align:center; }
 #glih a.go { display:block; text-align:center; padding:11px; border-radius:10px; background:var(--accent); color:var(--accent-text) !important; text-decoration:none !important; font-size:14px; font-weight:600; }
 #glih a.go[aria-disabled="true"] { opacity:.4; pointer-events:none; }
-#glih .note { font-size:11px; color:var(--sub); margin:10px 0 0; line-height:1.6; }
+#glih .fin, #glih .fta, #glih .fsel { flex:1; min-width:0; width:auto; margin:0; padding:8px; font:inherit; font-size:16px; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; box-shadow:none; }
+#glih .fta { min-height:4.5em; resize:vertical; font-size:13px; line-height:1.4; }
+#glih .fin.ch, #glih .fta.ch { border-color:var(--accent); }
+#glih .fstat { font-size:12px; color:var(--sub); margin:0 0 10px; min-height:1.4em; }
+#glih .fnote { font-size:11px; color:var(--sub); margin:8px 0 12px; line-height:1.6; }
+#glih .jsonbox { width:100%; min-height:9em; margin:6px 0 4px; padding:8px; font:12px/1.4 ui-monospace,Menlo,Consolas,monospace; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; resize:vertical; box-shadow:none; }
+#glih .fw { flex:1; min-width:0; position:relative; display:block; }
+#glih .fw > .fin, #glih .fw > .fta { width:100%; padding-right:30px; }
+#glih .fx { position:absolute; right:5px; top:50%; transform:translateY(-50%); width:22px; height:22px; margin:0; padding:0; border:0; border-radius:50%; background:transparent; color:var(--sub); font:inherit; font-size:14px; line-height:22px; text-align:center; cursor:pointer; box-shadow:none; }
+#glih .fx.ta { top:8px; transform:none; }
+#glih .fx:hover { background:var(--btn); color:var(--text); }
+#glih .fx[hidden] { display:none; }
 /*]]>*/
 </style>
 
-<div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button></div>
+<div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="find">find</button></div>
 
 <section id="glih-p-logs">
   <div class="field"><label for="glih-d1">date</label><input type="date" id="glih-d1"><button type="button" class="small" data-today="glih-d1">today</button></div>
   <div class="field"><label for="glih-t1">time</label><input type="time" id="glih-t1" step="60"></div>
   <div class="out"><span>date/time</span><code id="glih-o-date">&#8212;</code><span></span><code id="glih-o-time">&#8212;</code><label class="chk"><input type="checkbox" id="glih-n1" checked>anytime</label></div>
-  <div class="field top"><label>groups</label><div class="chips" id="glih-groups"><div class="cr"><button type="button" class="chip" data-v="G2">G2</button><button type="button" class="chip" data-v="YZH">YZH</button><button type="button" class="chip" data-v="MMK">MMK</button><button type="button" class="chip" data-v="MSK">MSK</button><button type="button" class="chip" data-v="YOK">YOK</button><button type="button" class="chip" data-v="KUR">KUR</button><button type="button" class="chip" data-v="MNM">MNM</button><button type="button" class="chip" data-v="KIR">KIR</button><button type="button" class="chip" data-v="TOA">TOA</button><button type="button" class="chip" data-v="RAN">RAN</button></div><div class="cr"><button type="button" class="chip" data-v="L2">L2</button><button type="button" class="chip" data-v="RIN">RIN</button><button type="button" class="chip" data-v="TBK">TBK</button><button type="button" class="chip" data-v="HIR">HIR</button><button type="button" class="chip" data-v="YUW">YUW</button><button type="button" class="chip" data-v="KAN">KAN</button><button type="button" class="chip" data-v="RRK">RRK</button><button type="button" class="chip" data-v="AKR">AKR</button><button type="button" class="chip" data-v="KIK">KIK</button><button type="button" class="chip" data-v="YUR">YUR</button></div></div></div>
-  <p class="note">groups: &#12513;&#12531;&#12496;&#12540;&#12434;&#36984;&#12406;&#12392; G2 / L2 &#12399;&#33258;&#21205;&#12391;&#20837;&#12426;&#12414;&#12377;&#12290;G2 / L2 &#12384;&#12369;&#12434;&#36984;&#12435;&#12384;&#22580;&#21512;&#12399;&#12289;&#12513;&#12531;&#12496;&#12540;&#12395;&#12399;&#23637;&#38283;&#12373;&#12428;&#12414;&#12379;&#12435;&#12290;</p>
+  <div class="field top"><label>groups</label><div class="chips" id="glih-groups"><div class="cr"><button type="button" class="chip" data-v="YZH">YZH</button><button type="button" class="chip" data-v="MMK">MMK</button><button type="button" class="chip" data-v="MSK">MSK</button><button type="button" class="chip" data-v="YOK">YOK</button><button type="button" class="chip" data-v="KUR">KUR</button><button type="button" class="chip" data-v="MNM">MNM</button><button type="button" class="chip" data-v="KIR">KIR</button></div><div class="cr"><button type="button" class="chip" data-v="TOA">TOA</button><button type="button" class="chip" data-v="RAN">RAN</button></div><div class="cr"><button type="button" class="chip" data-v="RIN">RIN</button><button type="button" class="chip" data-v="TBK">TBK</button><button type="button" class="chip" data-v="HIR">HIR</button><button type="button" class="chip" data-v="YUW">YUW</button><button type="button" class="chip" data-v="KAN">KAN</button><button type="button" class="chip" data-v="RRK">RRK</button><button type="button" class="chip" data-v="AKR">AKR</button><button type="button" class="chip" data-v="KIK">KIK</button></div><div class="cr"><button type="button" class="chip" data-v="YUR">YUR</button></div></div></div>
   <a class="go" id="glih-go-logs" target="_blank" rel="noopener" aria-disabled="true">logs</a>
 </section>
 
@@ -53,6 +64,18 @@
   <div class="field"><label for="glih-t2">time</label><input type="time" id="glih-t2" step="60"></div>
   <div class="out"><span>setlistid</span><code id="glih-o-sid">&#8212;</code><button type="button" class="small" data-copy="glih-o-sid">copy</button></div>
   <a class="go" id="glih-go-setlist" target="_blank" rel="noopener" aria-disabled="true">setlist</a>
+</section>
+
+<section id="glih-p-find" hidden>
+  <div class="field"><label for="glih-fkind">type</label><select id="glih-fkind" class="fsel"><option value="logs">logs (logid)</option><option value="setlist">setlist (setlistid)</option></select></div>
+  <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fgo">&#26908;&#32034;</button></div>
+  <div class="fstat" id="glih-fstat"></div>
+  <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
+  <div id="glih-ff"></div>
+  <div class="fnote" id="glih-fnote" hidden>&#22793;&#26356;&#12375;&#12383;&#38917;&#30446;(&#38738;&#26528;)&#12384;&#12369;&#12364;Issue&#12501;&#12457;&#12540;&#12512;&#12395;&#20107;&#21069;&#20837;&#21147;&#12373;&#12428;&#12414;&#12377;&#12290;tags / sns &#12399;&#26356;&#26032;&#26178;&#12395;&#36861;&#35352;&#12289;&#31354;&#27396;&#12395;&#12375;&#12383;&#20516;&#12398;&#21066;&#38500;&#12399;&#12501;&#12457;&#12540;&#12512;&#12398;&#12304;&#20516;&#12398;&#21066;&#38500;&#12305;&#12481;&#12455;&#12483;&#12463;&#12391;&#34892;&#12356;&#12414;&#12377;&#12290;relations &#12399;&#20107;&#21069;&#20837;&#21147;&#12391;&#12365;&#12414;&#12379;&#12435;(JSON&#12391;&#30906;&#35469;)&#12290;</div>
+  <textarea id="glih-fjson" class="jsonbox" readonly hidden></textarea>
+  <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fcopy">JSON copy</button></div>
+  <a class="go" id="glih-go-find" target="_blank" rel="noopener" aria-disabled="true">Issue</a>
 </section>
 
 <script>
@@ -75,7 +98,7 @@
     $('o-date').textContent = date || DASH; $('o-time').textContent = time || DASH;
     var p = {}; if (date) p.date = date; if (time) p.time = time;
     // optional field: only a non-empty value is passed (field ids of add_logs.yml are the parameter names).
-    // groups goes to the free-input field (groups_free), whose value is used as it is (G2 / L2 are not expanded to members).
+    // groups goes to the free-input field (groups_free); G2 / L2 are added automatically by the form script when members are present.
     var extra = { groups_free: chipValues('groups') };
     Object.keys(extra).forEach(function (k) { if (extra[k]) p[k] = extra[k]; });
     setLink($('go-logs'), date && (noTime || time) ? issueUrl(TPL_LOGS, p) : '');
@@ -87,7 +110,7 @@
     setLink($('go-setlist'), ok ? issueUrl(TPL_SETLIST, { setlistid: sid }) : '');
   }
   function tab(name) {
-    $('p-logs').hidden = name !== 'logs'; $('p-setlist').hidden = name !== 'setlist';
+    $('p-logs').hidden = name !== 'logs'; $('p-setlist').hidden = name !== 'setlist'; $('p-find').hidden = name !== 'find';
     [].forEach.call(root.querySelectorAll('.tabs button'), function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === name); });
   }
   function today() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
@@ -108,8 +131,113 @@
   $('n1').addEventListener('change', function () { if ($('n1').checked) $('t1').value = ''; updateLogs(); });
   [].forEach.call(root.querySelectorAll('.chip'), function (b) { b.onclick = function () { b.classList.toggle('on'); updateLogs(); }; });
   ['d2', 't2'].forEach(function (id) { $(id).addEventListener('input', updateSetlist); $(id).addEventListener('change', updateSetlist); });
+
+  // ---- find tab: look up a logid / setlistid in the data file on GitHub (raw, always latest) and prefill the issue form with the changed fields only ----
+  var BRANCH = 'main', DATA = { logs: 'data/logs/logs.json', setlist: 'data/setlist/setlist.json' }, cache = {};
+  var DEFS = {
+    logs: { idKey: 'logid', tpl: TPL_LOGS, fields: [
+      { k: 'date' }, { k: 'time' }, { k: 'contents' }, { k: 'title', p: 'item_title' }, { k: 'display_pc' }, { k: 'display_sp' }, { k: 'url' }, { k: 'map' }, { k: 'setlistid' },
+      { k: 'groups', p: 'groups_free', list: 1 }, { k: 'tags', list: 1 }, { k: 'sns', ta: 1 } ] },
+    setlist: { idKey: 'setlistid', tpl: TPL_SETLIST, fields: [
+      { k: 'title', p: 'item_title' }, { k: 'artist', p: 'artist_free' }, { k: 'member', p: 'member_free', list: 1 }, { k: 'venue' }, { k: 'songs', ta: 1 } ] }
+  };
+  // clear (x) button at the right end of an input: empties the field and fires an input event so the preview and link update
+  function addClear(el) {
+    var wrap = document.createElement('span'); wrap.className = 'fw';
+    el.parentNode.insertBefore(wrap, el); wrap.appendChild(el);
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'fx' + (el.tagName === 'TEXTAREA' ? ' ta' : ''); b.textContent = '\u2715'; b.setAttribute('aria-label', 'clear'); b.title = 'clear';
+    var sync = function () { b.hidden = el.value === ''; };
+    b.onclick = function () { el.value = ''; el.dispatchEvent(new Event('input', { bubbles: true })); sync(); el.focus(); };
+    el.addEventListener('input', sync); sync();
+    wrap.appendChild(b);
+  }
+  var found = null, orig = {};
+  function fmtSns(a) {
+    var out = [];
+    (a || []).forEach(function (e) {
+      var us = e.urls || (e.url ? [e.url] : []);
+      us.forEach(function (u) { out.push(e.type + ' | ' + (typeof u === 'string' ? u : (u && u.url) || '')); });
+    });
+    return out.join('\n');
+  }
+  function fmtSongs(a) {
+    return (a || []).map(function (x) {
+      var t = x.type == null ? '' : x.type, parts = [x.title || ''];
+      var rest = [t === '' ? '-' : t, x.original || '', x.notes || ''];
+      while (rest.length && (rest[rest.length - 1] === '' || (rest.length === 1 && rest[0] === 'song'))) rest.pop();
+      return (x.order != null ? x.order + ': ' : '') + parts.concat(rest).join(' | ');
+    }).join('\n');
+  }
+  function toText(kind, f, row) {
+    var v = row[f.k];
+    if (f.k === 'sns') return fmtSns(v);
+    if (f.k === 'songs') return fmtSongs(v);
+    if (Array.isArray(v)) return v.join(',');
+    return v == null ? '' : String(v);
+  }
+  function fetchData(kind) {
+    if (cache[kind]) return Promise.resolve(cache[kind]);
+    var url = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + DATA[kind] + '?v=' + Date.now();
+    return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (d) { cache[kind] = d; return d; });
+  }
+  function fstat(t) { $('fstat').textContent = t; }
+  function updateFind() {
+    if (!found) { setLink($('go-find'), ''); return; }
+    var def = DEFS[found.kind], p = {}, n = 0;
+    p[def.idKey] = found.id;
+    if (found.kind === 'logs' && $('fcp').checked) p.copy_text = 'copy';
+    def.fields.forEach(function (f) {
+      var el = $('f-' + f.k), cur = el.value, ch = cur !== orig[f.k];
+      el.classList.toggle('ch', ch);
+      if (ch && cur.trim() !== '') { p[f.p || f.k] = cur; n++; }
+    });
+    var url = issueUrl(def.tpl, p);
+    setLink($('go-find'), url);
+    $('go-find').textContent = n ? 'Issue (' + n + ')' : 'Issue';
+    if (url.length > 7000) fstat('Warning: the URL is long (' + url.length + ' chars). GitHub may reject it; shorten the changed fields.');
+  }
+  function renderFound(kind, id, row) {
+    found = { kind: kind, id: id }; orig = {};
+    var box = $('ff'); box.innerHTML = '';
+    DEFS[kind].fields.forEach(function (f) {
+      var wrap = document.createElement('div'); wrap.className = 'field' + (f.ta ? ' top' : '');
+      var lb = document.createElement('label'); lb.textContent = f.k; lb.setAttribute('for', 'glih-f-' + f.k);
+      var el = document.createElement(f.ta ? 'textarea' : 'input'); el.id = 'glih-f-' + f.k; el.className = f.ta ? 'fta' : 'fin';
+      if (!f.ta) { el.type = 'text'; el.setAttribute('autocomplete', 'off'); }
+      var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
+      el.addEventListener('input', updateFind);
+      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el);
+    });
+    var jb = $('fjson'); jb.value = JSON.stringify(row, null, 2); jb.hidden = false; $('fcprow').hidden = kind !== 'logs'; $('fjrow').hidden = false; $('fnote').hidden = false;
+    updateFind();
+  }
+  function clearFound() { found = null; $('fcprow').hidden = true; $('fcp').checked = false; $('ff').innerHTML = ''; $('fjson').hidden = true; $('fjrow').hidden = true; $('fnote').hidden = true; setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; }
+  function doFind() {
+    var kind = $('fkind').value, id = $('fid').value.trim(), def = DEFS[kind];
+    clearFound();
+    if (!id) { fstat('Enter an id.'); return; }
+    fstat('Loading...');
+    fetchData(kind).then(function (d) {
+      var list = Array.isArray(d) ? d : [], row = null;
+      for (var i = 0; i < list.length; i++) { if (list[i] && String(list[i][def.idKey]) === id) { row = list[i]; break; } }
+      if (!row) { fstat('Not found: ' + id); return; }
+      fstat('Found: ' + id); renderFound(kind, id, row);
+    }).catch(function (e) { fstat('Load error: ' + e.message); });
+  }
+  $('fcp').addEventListener('change', updateFind);
+  addClear($('fid'));
+  $('fgo').onclick = doFind;
+  $('fid').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doFind(); } });
+  $('fkind').addEventListener('change', clearFound);
+  $('fcopy').onclick = function () {
+    var t = $('fjson').value, b = $('fcopy');
+    var done = function () { var o = b.textContent; b.textContent = 'OK'; setTimeout(function () { b.textContent = o; }, 900); };
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, function () {});
+    else { $('fjson').select(); try { document.execCommand('copy'); done(); } catch (e) {} }
+  };
+  $('fid').value = (location.search.match(/[?&]id=([0-9a-f]{12}|\d{12})/) || [])[1] || '';
   $('d1').value = today(); $('d2').value = today();
-  tab(location.hash === '#setlist' ? 'setlist' : 'logs');
+  tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#find' ? 'find' : 'logs');
   updateLogs(); updateSetlist();
 })();
 //]]>
