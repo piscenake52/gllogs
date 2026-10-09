@@ -3100,7 +3100,7 @@
     "date": "20261008",
     "time": "",
     "contents": "SNS",
-    "title": "SNS　深澤日彩",
+    "title": "SNS　Laki",
     "groups": [
       "L2",
       "HIR"
@@ -3109,7 +3109,10 @@
       {
         "type": "x",
         "urls": [
-          "https://x.com/Laki922official/status/2108165515386765435"
+          {
+            "url": "https://x.com/Laki922official/status/2108165515386765435",
+            "member": "HIR"
+          }
         ]
       }
     ]
