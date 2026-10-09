@@ -859,9 +859,9 @@
     "date": "20261108",
     "time": "1300",
     "contents": "RELEASEEVENT",
-    "title": "Girls² EP「EASY」発売記念 リリースイベント 大阪・松原",
-    "display_pc": "Girls² EP「EASY」リリースイベント 大阪・松原",
-    "display_sp": "「EASY」リリースイベント 大阪・松原",
+    "title": "Girls² EP「EASY」発売記念 リリースイベント 大阪・天美",
+    "display_pc": "Girls² EP「EASY」リリースイベント 大阪・天美",
+    "display_sp": "「EASY」リリースイベント 大阪・天美",
     "url": "https://girls2-fc.jp/page/news/1237992941687930882",
     "map": "https://maps.app.goo.gl/zZm8qHxWHz8ojrcV7",
     "groups": [
@@ -885,7 +885,16 @@
         "urls": [
           {
             "url": "https://x.com/Girls2_official/status/2108331608684249280",
-            "member": ""
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "site",
+        "urls": [
+          {
+            "url": "https://x.com/TOWER_AMAMI/status/2108162667022278747",
+            "member": []
           }
         ]
       }
