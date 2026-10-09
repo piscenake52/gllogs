@@ -12,6 +12,12 @@ body:
     attributes:
       label: "logid"
 
+  - type: input
+    id: copy_text
+    attributes:
+      label: "COPY / 文字入力"
+      description: "コピーして新規登録するときは copy と入力（下のCOPYにチェックでも可）"
+
   - type: checkboxes
     id: copy
     attributes:
