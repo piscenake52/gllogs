@@ -204,7 +204,7 @@ body:
     attributes:
       label: "sns"
       description: |
-        1行1件: `type | url | member`（例: `x | https://x.com/... | YZH,MMK`）。memberはgroupsと同じコードで、省略可（複数人はカンマ区切り: `YZH,MMK`）。URLだけ・`type | url` でも可（x / instagram / youtube / tiktok / girls2-fc.jp(GL²family) は自動判定）。同じtypeは1つにまとめて登録。更新時は既存の値に追記（同じURLはmemberを上書き）。
+        1行1件: `type | url | member`（例: `x | https://x.com/... | YZH,MMK`）。memberはgroupsと同じコードで、省略可（複数人はカンマ区切り: `YZH,MMK`）。URLだけ・`type | url` でも可（x / instagram / youtube / tiktok / girls2-fc.jp(GL²family) / cl-live.com(CL) は自動判定）。同じtypeは1つにまとめて登録。更新時は既存の値に追記（同じURLはmemberを上書き）。
 
   - type: checkboxes
     id: clear
