@@ -1,0 +1,28 @@
+{
+  "date": "20261009",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "RIN",
+    "TBK",
+    "HIR",
+    "YUW",
+    "KAN",
+    "RRK",
+    "AKR",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2108475050198458379",
+          "member": "HIR"
+        }
+      ]
+    }
+  ],
+  "_issue": "535"
+}
