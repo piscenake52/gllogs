@@ -204,9 +204,13 @@ def detect_sns_type(url):
     return ""
 
 
+SNS_MEMBER_CODES = set(G2_OPTIONS + L2_OPTIONS)  # urlごとのmemberに使えるコード（groupsと同じ）
+
+
 def parse_sns(raw):
-    """sns欄（1行1件）を [{"type","urls"}] にする（同じtypeは1つにまとめて urls に入れる）。書式: `type | url`、またはURLだけ（x / instagram / youtube / tiktok は自動判定）。
-    戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
+    """sns欄（1行1件）を [{"type","urls":[{"url","member"}]}] にする（同じtypeは1つにまとめて urls に入れる）。
+    書式: `type | url | member`。memberは省略可（groupsと同じコード1つ）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
+    同じURLが複数あれば、後に書いたmemberで上書きする。戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
     if not raw:
         return [], []
     if raw.strip() == CLEAR:
@@ -216,14 +220,28 @@ def parse_sns(raw):
         line = unicodedata.normalize("NFKC", line).strip()
         if not line or line.startswith("#"):
             continue
-        if "|" in line:
-            type_, url = [s.strip() for s in line.split("|", 1)]
-            type_ = type_.lower()
-        else:
-            url, type_ = line, ""
         shown = line.replace("`", "'")
+        parts = [x.strip() for x in line.split("|")]
+        type_, url, member = "", "", ""
+        if len(parts) == 1:
+            url = parts[0]
+        elif len(parts) == 2:
+            if re.match(r"https?://", parts[0], re.I):
+                url, member = parts          # url | member
+            else:
+                type_, url = parts           # type | url
+        elif len(parts) == 3:
+            type_, url, member = parts       # type | url | member
+        else:
+            errors.append(f"- **sns**: `|` が多すぎます。`type | url | member` の形で入力してください（入力値: `{shown}`）")
+            continue
+        type_ = type_.lower()
+        member = member.upper()
         if not re.fullmatch(r"https?://\S+", url):
             errors.append(f"- **sns**: URLはhttp(s)://から始めてください（入力値: `{shown}`）")
+            continue
+        if member and member not in SNS_MEMBER_CODES:
+            errors.append(f"- **sns**: memberはgroupsと同じコード1つで入力してください（入力値: `{shown}`）")
             continue
         if not type_:
             type_ = detect_sns_type(url)
@@ -233,12 +251,16 @@ def parse_sns(raw):
         if not re.fullmatch(r"[a-z0-9_-]+", type_):
             errors.append(f"- **sns**: typeは半角英数字・ハイフン・アンダーバーで入力してください（入力値: `{shown}`）")
             continue
-        # 同じtypeは1つの要素にまとめ、urlsに追加する（同じURLは重ねない）
+        # 同じtypeは1つの要素にまとめ、urlsに追加する。同じURLは重ねず、memberを新しい値で上書きする
         grouped = next((g for g in items if g["type"] == type_), None)
         if grouped is None:
-            items.append({"type": type_, "urls": [url]})
-        elif url not in grouped["urls"]:
-            grouped["urls"].append(url)
+            grouped = {"type": type_, "urls": []}
+            items.append(grouped)
+        same = next((u for u in grouped["urls"] if u["url"] == url), None)
+        if same is None:
+            grouped["urls"].append({"url": url, "member": member})
+        elif member:
+            same["member"] = member
     return items, errors
 
 

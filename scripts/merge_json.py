@@ -107,24 +107,38 @@ def autofill_setlistid(record, explicit_clear=False):
         record["setlistid"] = date + time
 
 
+def _sns_urls(e):
+    """snsの1要素から urls を [{"url","member"}] にそろえて返す（旧形式の文字列urlや {"type","url"} も読める）"""
+    raw = e.get("urls") or ([e["url"]] if e.get("url") else [])
+    out = []
+    for u in raw:
+        if isinstance(u, str):
+            out.append({"url": u, "member": ""})
+        elif isinstance(u, dict) and u.get("url"):
+            out.append({"url": u["url"], "member": u.get("member") or ""})
+    return out
+
+
 def merge_sns(current, incoming):
-    """sns: typeごとに urls をまとめる。同じtypeがあれば urls に追記（同じURLは重ねない）、無ければ新しい要素を追加する"""
+    """sns: typeごとに urls をまとめる。同じtypeがあれば urls に追記、無ければ新しい要素を追加する。
+    同じURLがあれば重ねず、新しい入力にmemberがあれば上書きする（空なら既存のmemberを残す）"""
     merged = []
     for e in (current if isinstance(current, list) else []):
         if isinstance(e, dict) and e.get("type"):
-            urls = list(e.get("urls") or ([e["url"]] if e.get("url") else []))
-            merged.append({"type": e["type"], "urls": urls})
+            merged.append({"type": e["type"], "urls": _sns_urls(e)})
     for e in incoming:
         if not (isinstance(e, dict) and e.get("type")):
             continue
-        urls = e.get("urls") or ([e["url"]] if e.get("url") else [])
         tgt = next((m for m in merged if m["type"] == e["type"]), None)
         if tgt is None:
             tgt = {"type": e["type"], "urls": []}
             merged.append(tgt)
-        for u in urls:
-            if u not in tgt["urls"]:
+        for u in _sns_urls(e):
+            same = next((x for x in tgt["urls"] if x["url"] == u["url"]), None)
+            if same is None:
                 tgt["urls"].append(u)
+            elif u["member"]:
+                same["member"] = u["member"]
     return merged
 
 
