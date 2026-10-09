@@ -829,6 +829,43 @@
     "tags": []
   },
   {
+    "logid": "42b90678ae26",
+    "date": "20261107",
+    "time": "1300",
+    "contents": "RELEASEEVENT",
+    "title": "Girls² EP「EASY」発売記念 リリースイベント 埼玉・越谷",
+    "display_pc": "Girls² EP「EASY」リリースイベント 埼玉・越谷",
+    "display_sp": "「EASY」リリースイベント 埼玉・越谷",
+    "url": "https://girls2-fc.jp/page/news/1237978881600782336",
+    "map": "https://maps.app.goo.gl/aWH6acVqwCfGzURa6",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "setlistid": "202611071300",
+    "tags": [
+      "イオンレイクタウンkaze",
+      "翼の広場"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2108331608684249280",
+            "member": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "947250606057",
     "date": "20261107",
     "time": "",
