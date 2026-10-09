@@ -113,15 +113,16 @@ def _sns_urls(e):
     out = []
     for u in raw:
         if isinstance(u, str):
-            out.append({"url": u, "member": ""})
+            out.append({"url": u, "member": []})
         elif isinstance(u, dict) and u.get("url"):
-            out.append({"url": u["url"], "member": u.get("member") or ""})
+            mem = u.get("member") or []
+            out.append({"url": u["url"], "member": [mem] if isinstance(mem, str) else list(mem)})  # 文字列1件の旧形式も配列にそろえる
     return out
 
 
 def merge_sns(current, incoming):
     """sns: typeごとに urls をまとめる。同じtypeがあれば urls に追記、無ければ新しい要素を追加する。
-    同じURLがあれば重ねず、新しい入力にmemberがあれば上書きする（空なら既存のmemberを残す）"""
+    同じURLがあれば重ねず、新しい入力にmember（配列）があれば上書きする（空なら既存のmemberを残す）"""
     merged = []
     for e in (current if isinstance(current, list) else []):
         if isinstance(e, dict) and e.get("type"):

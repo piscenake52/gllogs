@@ -209,8 +209,8 @@ SNS_MEMBER_CODES = set(G2_OPTIONS + L2_OPTIONS)  # urlごとのmemberに使え�
 
 def parse_sns(raw):
     """sns欄（1行1件）を [{"type","urls":[{"url","member"}]}] にする（同じtypeは1つにまとめて urls に入れる）。
-    書式: `type | url | member`。memberは省略可（groupsと同じコード1つ）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
-    同じURLが複数あれば、後に書いたmemberで上書きする。戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
+    書式: `type | url | member`。memberは省略可（groupsと同じコード。複数人はカンマ区切り: `YZH,MMK`）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
+    出力の member は配列（なしは []）。同じURLが複数あれば、後に書いたmemberで上書きする。戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
     if not raw:
         return [], []
     if raw.strip() == CLEAR:
@@ -236,12 +236,16 @@ def parse_sns(raw):
             errors.append(f"- **sns**: `|` が多すぎます。`type | url | member` の形で入力してください（入力値: `{shown}`）")
             continue
         type_ = type_.lower()
-        member = member.upper()
+        members = []
+        for m in re.split(r"[,、\s]+", member.upper()):
+            if m and m not in members:
+                members.append(m)
         if not re.fullmatch(r"https?://\S+", url):
             errors.append(f"- **sns**: URLはhttp(s)://から始めてください（入力値: `{shown}`）")
             continue
-        if member and member not in SNS_MEMBER_CODES:
-            errors.append(f"- **sns**: memberはgroupsと同じコード1つで入力してください（入力値: `{shown}`）")
+        bad = [m for m in members if m not in SNS_MEMBER_CODES]
+        if bad:
+            errors.append(f"- **sns**: memberはgroupsと同じコードで入力してください（複数はカンマ区切り）。不明: `{'`, `'.join(bad)}`（入力値: `{shown}`）")
             continue
         if not type_:
             type_ = detect_sns_type(url)
@@ -258,9 +262,9 @@ def parse_sns(raw):
             items.append(grouped)
         same = next((u for u in grouped["urls"] if u["url"] == url), None)
         if same is None:
-            grouped["urls"].append({"url": url, "member": member})
-        elif member:
-            same["member"] = member
+            grouped["urls"].append({"url": url, "member": members})
+        elif members:
+            same["member"] = members
     return items, errors
 
 
