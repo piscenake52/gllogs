@@ -2989,6 +2989,10 @@
       "RIN",
       "KAN"
     ],
+    "relations": [
+      "HIR",
+      "KIK"
+    ],
     "sns": [
       {
         "type": "x",
