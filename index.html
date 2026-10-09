@@ -462,7 +462,16 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 
 /* 日付とコンテンツ種類は固定 */
 .item-date { flex: 0 0 auto; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
-.item-date:has(+ .item-time) { margin-right: 4px; } /* 時刻が続く場合は日付との間隔を1文字分程度に詰める */
+/* 日付の部品(年/月/日/曜と区切り):幅は 0fr→1fr のグリッド列で、中身の幅に合わせてなめらかに伸縮する */
+.item-date.has-parts { display: flex; align-items: center; }
+.dp { display: grid; grid-template-columns: 0fr; opacity: 0; transition: grid-template-columns 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; }
+.dp-in { min-width: 0; overflow: hidden; white-space: pre; }
+.items.dp-year .dp-y, .items.dp-month .dp-m, .items.dp-day .dp-d, .items.dp-weekday .dp-w,
+.items.dp-year.dp-month .dp-sm,
+.items.dp-day.dp-year .dp-sd, .items.dp-day.dp-month .dp-sd,
+.items.dp-weekday.dp-year .dp-sw, .items.dp-weekday.dp-month .dp-sw, .items.dp-weekday.dp-day .dp-sw { grid-template-columns: 1fr; opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .dp { transition: none; } }
+.items.time-mode .item-date:has(+ .item-time) { margin-right: 4px; } /* 時刻が続く場合は日付との間隔を1文字分程度に詰める */
 .item-time { flex: 0 0 auto; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
 .item-date, .item-time { touch-action: manipulation; } /* 日付/時刻のダブルタップ(logid表示)で、ページが拡大されないようにする */
 .items.logid-gesture .item-date, .items.logid-gesture .item-time { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; } /* logid表示が有効な間は、ダブルタップで文字が選択されコピーメニューが出るのを防ぐ */
@@ -557,6 +566,15 @@ body .item-contents.is-content-open {
 .team-icon.team-both { background: linear-gradient(135deg, #f472b6 50%, #facc15 50%); }
 .map-pin { display: inline-block; margin: 0 4px 0 2px; text-decoration: none; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; }
 .map-pin:not(a) { visibility: hidden; } /* mapに値が無い行は、アイコン分の幅は保ったまま見た目だけブランクにする */
+/* 📍/📋/時刻は常に行へ作っておき、#itemsのクラス(map-mode / setlist-icon-mode / time-mode)の付け外しだけで、🔗と同じ仕組みで左からスッと出入りさせる。
+   幅と余白も同じ時間・同じイージングで動かすので、開閉に合わせて右側(タイトルなど)もなめらかに動く(autoは動かせないため、幅は文字サイズ連動のem固定) */
+.map-pin, .setlist-icon:not(.is-always), .item-time { width: 0; margin-left: 0; margin-right: 0; overflow: hidden; white-space: nowrap; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(-0.9em);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin-left 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin-right 0.28s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.28s; }
+.items.map-mode .map-pin, .items.setlist-icon-mode .setlist-icon:not(.is-always) { width: 1.3em; margin-left: 2px; margin-right: 4px; text-align: center; }
+.items.time-mode .item-time { width: 2.6em; margin-left: 0; margin-right: 8px; }
+.items.map-mode .map-pin, .items.setlist-icon-mode .setlist-icon:not(.is-always), .items.time-mode .item-time { overflow: visible; opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); transition-delay: 0s; }
+.items.map-mode .map-pin:not(a), .items.setlist-icon-mode .setlist-icon.is-blank, .items.time-mode .item-time.is-blank { visibility: hidden; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .map-pin, .setlist-icon, .item-time, .items.map-mode .map-pin, .items.setlist-icon-mode .setlist-icon, .items.time-mode .item-time { transition: none; } }
 .setlist-icon { display: inline-block; margin: 0 4px 0 2px; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; }
 .setlist-icon.is-blank { visibility: hidden; cursor: default; } /* setlistidが無い行は、アイコン分の幅は保ったまま見た目だけブランクにする(setlistIconMode時) */
 /* 🔗アイコンは行の右端(タイトルの後ろ)に固定する */
@@ -729,8 +747,8 @@ body .item-contents.is-content-open {
   /* 画面表示幅を左右それぞれ4px広くする(bodyの左右paddingを15px→11pxに) */
   body { padding-left: 11px; padding-right: 11px; }
   .item-date { flex: 0 0 auto; margin-right: 6px; }
-  .item-date:has(+ .item-time) { margin-right: 3px; }
-  .item-time { flex: 0 0 auto; margin-right: 6px; }
+  .items.time-mode .item-date:has(+ .item-time) { margin-right: 3px; }
+  .items.time-mode .item-time { flex: 0 0 auto; margin-right: 6px; }
   /* スマホ版:アイコンのみ表示(PC版のICONモードと同じ固定幅・中央揃えに統一) */
   .item-contents { flex: 0 0 28px; width: 28px; padding: 1px 0; margin-right: 8px; }
   .item-contents-icon { width: 28px; }
@@ -792,8 +810,10 @@ body .item-contents.is-content-open {
 }
 .sns-modal-link:hover { background-color: var(--btn-hover); }
 .sns-modal-link.is-invalid { opacity: 0.4; cursor: not-allowed; pointer-events: none; } /* http(s)で始まらない不正なURL:番号は出すがクリック不可にする */
-.sns-modal-link.has-member-lamp { position: relative; } /* 誰の投稿か分かるよう、投稿者のメンバーカラーで右上にランプを出す */
-.sns-modal-link.has-member-lamp::after { content: ""; position: absolute; top: -3px; right: -3px; width: 7px; height: 7px; border-radius: 50%; background-color: var(--member-lamp-color); border: 1px solid var(--bg); }
+.sns-modal-link.has-member-lamp { position: relative; } /* 誰の投稿か分かるよう、投稿者のメンバーカラーで右上にランプを出す(最大4人。2個ずつ2段で並べる) */
+.sns-modal-lamps { position: absolute; top: -3px; right: -3px; display: grid; grid-template-columns: repeat(2, 7px); gap: 1px; pointer-events: none; }
+.sns-modal-lamps.is-single { grid-template-columns: 7px; } /* 1人のときは従来どおり角に1つだけ */
+.sns-modal-lamps > i { display: block; width: 7px; height: 7px; box-sizing: border-box; border-radius: 50%; background-color: var(--lamp-color); border: 1px solid var(--bg); }
 .sns-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
 /*]]>*/
 </style>
@@ -1152,6 +1172,29 @@ body .item-contents.is-content-open {
     let out = ymd.join('.');
     if (dateParts.weekday && dayStr) out += (out ? ' ' : '') + `[${dayStr}]`;
     return out;
+  };
+
+  // 日付(年/月/日/曜)は部品ごとの要素にして常に作っておき、表示のON/OFFは#itemsのクラス(dp-year / dp-month / dp-day / dp-weekday)の付け外しだけで切り替える。
+  // 区切り(.)や空白も専用の要素にして、前後の部品の表示状態に応じたCSSで出入りさせる(行は作り直さない)
+  const fillDateParts = (el, item) => {
+    const dateStr = item.date;
+    if (!dateStr) return;
+    if (!/^\d{8}$/.test(dateStr)) { el.textContent = dateStr; return; } // 想定外フォーマットはそのまま表示
+    const y = dateStr.slice(0, 4), m = dateStr.slice(4, 6), d = dateStr.slice(6, 8);
+    const dateObj = new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10));
+    const dayStr = isNaN(dateObj.getTime()) ? '' : dayNames[dateObj.getDay()];
+    const parts = [['dp-y', y], ['dp-sep dp-sm', '.'], ['dp-m', m], ['dp-sep dp-sd', '.'], ['dp-d', d]];
+    if (dayStr) parts.push(['dp-sep dp-sw', ' '], ['dp-w', `[${dayStr}]`]);
+    el.classList.add('has-parts');
+    parts.forEach(([cls, text]) => {
+      const box = document.createElement('span');
+      box.className = 'dp ' + cls;
+      const inner = document.createElement('span');
+      inner.className = 'dp-in';
+      inner.textContent = text;
+      box.appendChild(inner);
+      el.appendChild(box);
+    });
   };
 
   // 8桁のYYYYMMDD形式は既にゼロ埋め済みなので、そのまま文字列比較でソート可能
@@ -2170,10 +2213,10 @@ body .item-contents.is-content-open {
     
     const d = document.createElement('span');
     d.className = 'item-date';
-    d.textContent = formatDisplayDate(item);
+    fillDateParts(d, item);
 
     // 今日の日付の行を目立たせる(チップ風の背景)
-    const isTodayDate = !todayMode && item.date === getTargetDateStr(0) && d.textContent !== '';
+    const isTodayDate = !todayMode && item.date === getTargetDateStr(0);
     if (isTodayDate) d.classList.add('is-today-date');
 
     // TODAYモードで当日(todayOffset===0)を表示中は、代わりに「現在時刻以降」の項目を目立たせる
@@ -2182,8 +2225,9 @@ body .item-contents.is-content-open {
     if (isUpcomingTime) d.classList.add('is-upcoming-time');
 
     // 時刻は日付と別要素にして、未設定の行でも"00:00"と同じ幅を確保したまま見た目だけブランクにする
+    // (常に作っておき、表示のON/OFFは#itemsのtime-modeクラスで切り替える)
     let tm = null;
-    if (dateParts.time) {
+    {
       const t = formatTimeStr(item.time);
       tm = document.createElement('span');
       tm.className = 'item-time';
@@ -2295,7 +2339,7 @@ body .item-contents.is-content-open {
     const teamClass = getTeamClass(item);
     // MAPモードON+有効なmap URLがある行だけ📍をリンク化する
     let mp = null;
-    if (mapMode) {
+    { // 常に作っておき、表示のON/OFFは#itemsのmap-modeクラスで切り替える
       const hasMap = !!(item.map && /^https?:\/\//i.test(item.map.trim()));
       mp = document.createElement(hasMap ? 'a' : 'span');
       mp.className = 'map-pin';
@@ -2310,7 +2354,7 @@ body .item-contents.is-content-open {
 
     // SETLISTアイコン表示:①セトリ検索モード中
     let sl = null;
-    if (setlistIconMode) {
+    if (setlistIconMode || !setlistMode) { // 📋ボタンON/OFFは#itemsのsetlist-icon-modeクラスで切り替える(常に作っておく)。セトリ検索モード単独のときだけ下の分岐
       const hasSetlistId = !!item.setlistid;
       sl = document.createElement('span');
       sl.className = 'setlist-icon' + (hasSetlistId ? '' : ' is-blank');
@@ -2326,7 +2370,7 @@ body .item-contents.is-content-open {
       }
     } else if (setlistMode && item.setlistid) {
       sl = document.createElement('span');
-      sl.className = 'setlist-icon';
+      sl.className = 'setlist-icon is-always'; // セトリ検索モード中は常に表示(アニメーションなし)
       sl.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない
       sl.textContent = '\uD83D\uDCCB\uFE0F';
       sl.setAttribute('role', 'button');
@@ -2921,14 +2965,20 @@ body .item-contents.is-content-open {
             const n = i + 1;
             // urlsの各要素は、旧形式(文字列そのもの)・新形式({url, member})のどちらも受け付ける
             const url = typeof u === 'string' ? u : (u && typeof u === 'object' ? u.url : '');
-            const member = (typeof u === 'object' && u && u.member) ? String(u.member).trim().toUpperCase() : '';
-            const lampColor = MEMBER_LAMP_COLORS[member];
-            const lampClass = lampColor ? ' has-member-lamp' : '';
-            const lampStyle = lampColor ? ` style="--member-lamp-color:${lampColor}"` : '';
+            // memberは配列(複数人)・文字列1件(旧形式)のどちらも受け付ける。色のあるコードだけを重複なしで最大4人まで使う
+            const rawMember = (typeof u === 'object' && u) ? u.member : '';
+            const memberCodes = (Array.isArray(rawMember) ? rawMember : [rawMember])
+              .map(m => String(m || '').trim().toUpperCase())
+              .filter((m, idx, arr) => MEMBER_LAMP_COLORS[m] && arr.indexOf(m) === idx)
+              .slice(0, 4);
+            const lampClass = memberCodes.length ? ' has-member-lamp' : '';
+            const lampHtml = memberCodes.length
+              ? `<span class="sns-modal-lamps${memberCodes.length === 1 ? ' is-single' : ''}" aria-hidden="true">${memberCodes.map(m => `<i style="--lamp-color:${MEMBER_LAMP_COLORS[m]}"></i>`).join('')}</span>`
+              : '';
             const isValid = typeof url === 'string' && /^https?:\/\//i.test(url.trim());
             return isValid
-              ? `<a class="sns-modal-link${lampClass}"${lampStyle} href="${escapeHtml(url)}" title="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${n}</a>`
-              : `<span class="sns-modal-link is-invalid${lampClass}"${lampStyle} aria-disabled="true" title="${escapeHtml(url || '')}">${n}</span>`;
+              ? `<a class="sns-modal-link${lampClass}" href="${escapeHtml(url)}" title="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${n}${lampHtml}</a>`
+              : `<span class="sns-modal-link is-invalid${lampClass}" aria-disabled="true" title="${escapeHtml(url || '')}">${n}${lampHtml}</span>`;
           }).join('');
           return `<div class="sns-modal-type-row"><span class="sns-modal-type-label">${snsTypeIconHtml(entry.type)}<span>${escapeHtml(displayNameForSnsType(entry.type))}</span></span><span class="sns-modal-links">${linksHtml}</span></div>`;
         })
@@ -3480,24 +3530,26 @@ body .item-contents.is-content-open {
   const MAP_MODE_KEY = 'gl_log_map_mode';
   let mapMode = localStorage.getItem(MAP_MODE_KEY) === 'true';
   $('mapToggleBtn').classList.toggle('is-active', mapMode);
+  $('items').classList.toggle('map-mode', mapMode);
   $('mapToggleBtn').onclick = () => {
     mapMode = !mapMode;
     $('mapToggleBtn').classList.toggle('is-active', mapMode);
     localStorage.setItem(MAP_MODE_KEY, mapMode);
-    deferHeavyUpdate(() => updateDisplay(false));
+    $('items').classList.toggle('map-mode', mapMode); // 行の再描画はせず、クラス切替だけで左からスライドして出入りする
   };
 
   // 📋️ボタン(SETLISTアイコン表示モード):セトリ検索モードとは別物の独立したON/OFF
   const SETLIST_ICON_MODE_KEY = 'gl_log_setlist_icon_mode';
   let setlistIconMode = localStorage.getItem(SETLIST_ICON_MODE_KEY) === 'true';
   $('setlistIconToggleBtn').classList.toggle('is-active', setlistIconMode);
+  $('items').classList.toggle('setlist-icon-mode', setlistIconMode);
   $('setlistIconToggleBtn').onclick = () => {
     // セトリ検索モード中はこのボタンが強制ON表示
     if (setlistMode) return;
     setlistIconMode = !setlistIconMode;
     $('setlistIconToggleBtn').classList.toggle('is-active', setlistIconMode);
     localStorage.setItem(SETLIST_ICON_MODE_KEY, setlistIconMode);
-    deferHeavyUpdate(() => updateDisplay(false));
+    $('items').classList.toggle('setlist-icon-mode', setlistIconMode); // 行の再描画はせず、クラス切替だけで左からスライドして出入りする
   };
   // 🔗ボタン(SNSリンク表示モード):ONの間、データ行の右端にSNSリンクアイコンを表示する
   const LINK_MODE_KEY = 'gl_log_link_mode';
@@ -3624,13 +3676,15 @@ body .item-contents.is-content-open {
     weekday: $('showWeekdayBtn'),
     time: $('showTimeBtn')
   };
+  const dateParts_CLASS = { year: 'dp-year', month: 'dp-month', day: 'dp-day', weekday: 'dp-weekday', time: 'time-mode' };
+  Object.keys(dateParts_CLASS).forEach(k => $('items').classList.toggle(dateParts_CLASS[k], !!dateParts[k]));
   Object.keys(datePartButtons).forEach(key => {
     datePartButtons[key].classList.toggle('is-active', dateParts[key]);
     datePartButtons[key].onclick = () => {
       dateParts[key] = !dateParts[key];
       datePartButtons[key].classList.toggle('is-active', dateParts[key]);
       localStorage.setItem(DATE_PARTS_KEY, JSON.stringify(dateParts));
-      deferHeavyUpdate(() => updateDisplay(false, true));
+      $('items').classList.toggle(dateParts_CLASS[key], !!dateParts[key]); // 再描画はせず、クラス切替だけでなめらかに出入りする
     };
   });
 
