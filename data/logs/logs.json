@@ -2979,14 +2979,27 @@
     "time": "2000",
     "contents": "SNS",
     "title": "あかりんごの元気モリモリール　#122",
-    "url": "",
+    "url": "https://www.instagram.com/reel/DeRWiI1CbmP/?mdxt=NG82YnM0NjdqZnFz",
     "groups": [
       "L2",
       "AKR"
     ],
     "tags": [
       "ダンスは遊びじゃない！",
-      "あかりんごのファッションショー"
+      "あかりんごのファッションショー",
+      "DANGER",
+      "MAZZEL"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DeRWiI1CbmP/?mdxt=NG82YnM0NjdqZnFz",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
