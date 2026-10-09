@@ -2075,6 +2075,35 @@
     ]
   },
   {
+    "logid": "93026f2b92d8",
+    "date": "20261015",
+    "time": "2000",
+    "contents": "RADIO",
+    "title": "interfm 「side by side」",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/sbs_897/status/2108163996100780156",
+            "member": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "a5a72cf051a1",
     "date": "20261015",
     "time": "1900",
