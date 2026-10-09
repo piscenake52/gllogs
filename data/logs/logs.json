@@ -2858,10 +2858,22 @@
     "time": "2000",
     "contents": "SNS",
     "title": "ボ部",
+    "url": "https://www.tiktok.com/@laki20210922",
     "groups": [
       "L2",
       "RIN",
       "KAN"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2108126834705797277",
+            "member": ""
+          }
+        ]
+      }
     ]
   },
   {
