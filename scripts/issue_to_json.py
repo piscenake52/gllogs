@@ -28,6 +28,7 @@ LABELS_LOGS = {
     "delete": "DELETE",
     "clear": "値の削除（更新時）",
     "copy": "COPY",
+    "copy_text": "COPY / 文字入力",
 }
 # add_setlist_songs.yml
 LABELS_SS = {
@@ -459,7 +460,11 @@ def main():
         f = {key: extract_field(label, body) for key, label in LABELS_LOGS.items()}
         target_type = "logs"
 
-    copy_req = target_type == "logs" and COPY_OPTION in parse_checked(f.get("copy", ""))
+    # コピー指定: COPYチェックがON、または文字入力欄が copy（前後の空白・大文字小文字は無視。それ以外の文字は無視する）
+    copy_req = target_type == "logs" and (
+        COPY_OPTION in parse_checked(f.get("copy", ""))
+        or f.get("copy_text", "").strip().lower() == "copy"
+    )
     if copy_req and is_delete_requested(f):
         errors = ["- **削除 / コピー**: 「削除する」と「コピーして新規登録」は同時に指定できません"]
         write_error(errors)
