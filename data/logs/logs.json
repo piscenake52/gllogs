@@ -809,6 +809,43 @@
     ]
   },
   {
+    "logid": "6e963f70686a",
+    "date": "20261108",
+    "time": "1300",
+    "contents": "RELEASEEVENT",
+    "title": "Girls² EP「EASY」発売記念 リリースイベント 大阪・松原",
+    "display_pc": "Girls² EP「EASY」リリースイベント 大阪・松原",
+    "display_sp": "「EASY」リリースイベント 大阪・松原",
+    "url": "https://girls2-fc.jp/page/news/1237992941687930882",
+    "map": "https://maps.app.goo.gl/zZm8qHxWHz8ojrcV7",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "setlistid": "202611081300",
+    "tags": [
+      "セブンパーク天美",
+      "AMAMI STADIUM"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2108331608684249280",
+            "member": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "569071028ad1",
     "date": "20261107",
     "time": "1500",
