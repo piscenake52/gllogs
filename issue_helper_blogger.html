@@ -156,7 +156,7 @@
     var out = [];
     (a || []).forEach(function (e) {
       var us = e.urls || (e.url ? [e.url] : []);
-      us.forEach(function (u) { out.push(e.type + ' | ' + (typeof u === 'string' ? u : (u && u.url) || '')); });
+      us.forEach(function (u) { var url = typeof u === 'string' ? u : (u && u.url) || '', mem = typeof u === 'string' ? '' : (u && u.member) || ''; if (Array.isArray(mem)) mem = mem.join(','); out.push(e.type + ' | ' + url + (mem ? ' | ' + mem : '')); });
     });
     return out.join('\n');
   }
