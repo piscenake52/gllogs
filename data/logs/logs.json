@@ -3351,6 +3351,69 @@
     ]
   },
   {
+    "logid": "b09c59bf622c",
+    "date": "20261009",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/6QWq1tfrUehzSFEnfyPFCK",
+            "member": [
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://www.cl-live.com/posts/i3BSVxgxo5F3SMX3VzGUPU",
+            "member": [
+              "HIR",
+              "RIN"
+            ]
+          },
+          {
+            "url": "https://www.cl-live.com/posts/6Ghdz5MmcP3o68qDpYZfD7",
+            "member": [
+              "HIR",
+              "AKR"
+            ]
+          },
+          {
+            "url": "https://www.cl-live.com/posts/nqgDDCRSx6HGbDwrE116GW",
+            "member": [
+              "RRK"
+            ]
+          },
+          {
+            "url": "https://www.cl-live.com/posts/x41m1Q1TfhDvptV7wRVueu",
+            "member": [
+              "KAN"
+            ]
+          },
+          {
+            "url": "https://www.cl-live.com/posts/9R5g1tB7CfRjSdxeMgcQD2",
+            "member": [
+              "YUW"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "1ba3e4a7528d",
     "date": "20261008",
     "time": "2359",
