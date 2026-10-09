@@ -792,6 +792,8 @@ body .item-contents.is-content-open {
 }
 .sns-modal-link:hover { background-color: var(--btn-hover); }
 .sns-modal-link.is-invalid { opacity: 0.4; cursor: not-allowed; pointer-events: none; } /* http(s)で始まらない不正なURL:番号は出すがクリック不可にする */
+.sns-modal-link.has-member-lamp { position: relative; } /* 誰の投稿か分かるよう、投稿者のメンバーカラーで右上にランプを出す */
+.sns-modal-link.has-member-lamp::after { content: ""; position: absolute; top: -3px; right: -3px; width: 7px; height: 7px; border-radius: 50%; background-color: var(--member-lamp-color); border: 1px solid var(--bg); }
 .sns-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
 /*]]>*/
 </style>
@@ -1080,7 +1082,7 @@ body .item-contents.is-content-open {
 
   // ボタン/checkboxを押した直後の見た目の変化
   const deferHeavyUpdate = fn => requestAnimationFrame(fn);
-  const g2 = [
+  const g2 = [ // Girls²メンバー。コード(v)・名前(n)・ハート絵文字(c)
     {v:'G2',t:'Girls\u00B2'},{v:'YZH',n:'YUZUHA',c:'\uD83E\uDE75'},{v:'MMK',n:'MOMOKA',c:'\uD83D\uDC99'},{v:'MSK',n:'MISAKI',c:'\uD83E\uDDE1'},
     {v:'YOK',n:'YOKA',c:'\uD83D\uDC9C'},{v:'KUR',n:'KUREA',c:'\uD83E\uDD0D'},{v:'MNM',n:'MINAMI',c:'\uD83E\uDE77'},{v:'KIR',n:'KIRA',c:'\uD83D\uDC9B'},
     'sep',{v:'TOA',n:'TOA',c:'\uD83D\uDC9A'},{v:'RAN',n:'RAN',c:'\u2764\uFE0F'}
@@ -1452,7 +1454,7 @@ body .item-contents.is-content-open {
   const eventAliasConts = ['RELEASEEVENT', 'FANMEETING']; // COOKING/STAGEは独立したフィルターボタンになった
   const birthdayAliasConts = ['DEBUT', 'FORMATION'];
   const normalizeContTypeCache = new Map();
-  // logs.jsonの実データではcontents
+  // 生のcontents値を、フィルターボタンが実際に使う種類(エイリアス統合後)に変換する
   const normalizeContType = c => {
     if (normalizeContTypeCache.has(c)) return normalizeContTypeCache.get(c);
     const result =
@@ -1508,6 +1510,7 @@ body .item-contents.is-content-open {
     const c = $('stickyHeader').classList.toggle('collapsed');
     $('toggleBtn').textContent = c ? '\u25BC' : '\u25B2';
     localStorage.setItem('gl_log_collapsed', c);
+    // フィルターエリアを閉じた時は、一度も手動でFILTERボタンをOFFにしたことが無ければ「現在のフィルター 一
     if (c && !filterSummaryManuallyOff) {
       $('activeFiltersRow').classList.add('is-open');
       $('filterSummaryToggleBtn').classList.add('is-active');
@@ -1562,7 +1565,7 @@ body .item-contents.is-content-open {
     searchInput.placeholder = setlistMode ? SEARCH_PLACEHOLDER_SETLIST : SEARCH_PLACEHOLDER_NORMAL;
   };
 
-  // 検索窓:直近使った検索ワードを最大8件まで記憶し、フォーカス時に候補として表示する
+  // 検索窓:直近使った検索ワードを最大8件まで記憶し、フォーカス時に候補として表示する セトリ検索モード中に入力さ
   const RECENT_SEARCH_KEY = 'gl_log_recent_searches';
   const SETLIST_RECENT_SEARCH_KEY = 'gl_log_recent_setlist_searches';
   const MAX_RECENT_SEARCHES = 8;
@@ -1648,7 +1651,7 @@ body .item-contents.is-content-open {
   const MAX_DATA_SUGGESTIONS = 5;
   const PREFIX_DEDUPE_LEN = 10;
   const dedupePrefixKey = s => s.toLowerCase().slice(0, PREFIX_DEDUPE_LEN);
-  // 文字列中の最初の「#」以降、末尾まで数値で終わっている場合、その「#...数値」部分を候補表示から除外
+  // 「#」以降が数値で終わる場合、その「#連番」部分を候補表示から取り除く(例:"タイトル #12"→"タイトル")
   const stripHashNumberSuffix = s => {
     const idx = s.indexOf('#');
     if (idx === -1) return s;
@@ -1714,7 +1717,7 @@ body .item-contents.is-content-open {
     const rawQuery = searchInput.value.trim();
     const query = rawQuery.toLowerCase();
     const historyList = getRecentSearches();
-    // 入力が空でも入力中でも、履歴は先頭からPREFIX_DEDUPE_LEN文字が同じものを重複とみなして
+    // 入力が空でも入力中でも、履歴は先頭からPREFIX_DEDUPE_LEN文字が同じものを重複とみなして先着
     const seenPrefixes = new Set();
     const filteredHistory = [];
     historyList.forEach(entry => {
@@ -1886,7 +1889,7 @@ body .item-contents.is-content-open {
   window.onscroll = () => $('toTopBtn').classList.toggle('is-visible', window.scrollY > 300);
   $('toTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // ヘルプ(?)・設定(⚙)ボタン:どちらもセットリストポップアップと同じズーム+フェードで開閉する
+  // ヘルプ(?)・設定(⚙)共通の汎用ポップアップ開閉(セトリポップアップと同じズーム+フェード)
   const bindSimplePopup = (btnId, overlayId, closeBtnId) => {
     const overlay = $(overlayId);
     const open = () => overlay.classList.add('is-open');
@@ -1996,7 +1999,7 @@ body .item-contents.is-content-open {
     const prevYears = new Set(Array.from(document.querySelectorAll('#yearChecks input:checked')).map(c => c.value));
     refreshYearChecks();
     document.querySelectorAll('#yearChecks input').forEach(c => { if (prevYears.has(c.value)) c.checked = true; });
-    // TODAY/セトリ検索/検索ワードの間は、コンテンツ種類フィルターが「表示中のデータ」から自動でON/OFF
+    // TODAY/セトリ検索/検索ワードの間は、コンテンツ種類フィルターが「表示中のデータ」から自動でON/OFFさ
     autoUpdateContentTypeFilters();
     updateDisplay(true);
   };
@@ -2284,7 +2287,7 @@ body .item-contents.is-content-open {
     } else {
       t.classList.add('no-url');
     }
-    // 表示テキストの優先順位:スマホ版はdisplay_sp→display_pc→title、PC版はdispla
+    // 表示テキストの優先順位:スマホはdisplay_sp→display_pc→title、PCはdisplay_pc→title
     const rawDisplayText = (isMobileState ? (item.display_sp || item.display_pc || item.title) : (item.display_pc || item.title) || '');
     // BIRTHDAYの年別複製アイテムは「名前 誕生日」を「名前 N歳の誕生日」に置換
     t.textContent = applyBirthdayAgeText(item, rawDisplayText).trim();
@@ -2870,6 +2873,18 @@ body .item-contents.is-content-open {
 
   // SNSリンクポップアップ:sns属性
   const SNS_TYPE_DISPLAY_NAMES = { x: 'X', instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube', gl2family: 'GL\u00B2family', threads: 'Threads', line: 'LINE' };
+  // SNSリンクの投稿者ランプ用の色(各メンバーのハート絵文字の色に合わせた色)
+  const MEMBER_LAMP_COLORS = {
+    YZH: '#7dd3fc', HIR: '#7dd3fc', // 水色
+    MMK: '#3b82f6', KAN: '#3b82f6', // 青
+    MSK: '#fb923c', TBK: '#fb923c', // オレンジ
+    YOK: '#a78bfa', RIN: '#a78bfa', // 紫
+    KUR: '#e5e7eb', YUR: '#e5e7eb', // 白
+    MNM: '#f472b6', RRK: '#f472b6', // ピンク
+    KIR: '#facc15', KIK: '#facc15', // 黄
+    TOA: '#4ade80', AKR: '#4ade80', // 緑
+    RAN: '#f87171', YUW: '#f87171', // 赤
+  };
   // typeごとのアイコン(24x24のSVGパス
   const SNS_TYPE_ICON_PATHS = { x: 'M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z', instagram: 'M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077', youtube: 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z', tiktok: 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z',
     gl2family: '<g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 4)"><path d="M10 6.2C8.9 5.3 7.6 4.8 6.2 4.8 3.5 4.8 1.5 7 1.5 10s2 5.2 4.7 5.2c1.5 0 2.8-.6 3.8-1.6v-3.2H6.5"/><path d="M13 4.8v10.4h5.2"/></g><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M18.4 3.9c.3-.9 1-1.4 2-1.4 1.1 0 1.9.8 1.9 1.8 0 .8-.5 1.3-1.1 1.8l-2.7 2.4h3.9"/>' };
@@ -2902,12 +2917,18 @@ body .item-contents.is-content-open {
       const rowsHtml = list
         .filter(entry => entry && typeof entry === 'object' && Array.isArray(entry.urls) && entry.urls.length)
         .map(entry => {
-          const linksHtml = entry.urls.map((url, i) => {
+          const linksHtml = entry.urls.map((u, i) => {
             const n = i + 1;
+            // urlsの各要素は、旧形式(文字列そのもの)・新形式({url, member})のどちらも受け付ける
+            const url = typeof u === 'string' ? u : (u && typeof u === 'object' ? u.url : '');
+            const member = (typeof u === 'object' && u && u.member) ? String(u.member).trim().toUpperCase() : '';
+            const lampColor = MEMBER_LAMP_COLORS[member];
+            const lampClass = lampColor ? ' has-member-lamp' : '';
+            const lampStyle = lampColor ? ` style="--member-lamp-color:${lampColor}"` : '';
             const isValid = typeof url === 'string' && /^https?:\/\//i.test(url.trim());
             return isValid
-              ? `<a class="sns-modal-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${n}</a>`
-              : `<span class="sns-modal-link is-invalid" aria-disabled="true">${n}</span>`;
+              ? `<a class="sns-modal-link${lampClass}"${lampStyle} href="${escapeHtml(url)}" title="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${n}</a>`
+              : `<span class="sns-modal-link is-invalid${lampClass}"${lampStyle} aria-disabled="true" title="${escapeHtml(url || '')}">${n}</span>`;
           }).join('');
           return `<div class="sns-modal-type-row"><span class="sns-modal-type-label">${snsTypeIconHtml(entry.type)}<span>${escapeHtml(displayNameForSnsType(entry.type))}</span></span><span class="sns-modal-links">${linksHtml}</span></div>`;
         })
@@ -3041,7 +3062,7 @@ body .item-contents.is-content-open {
     return yOk && monthOk && gOk && dateOk && textOk && setlistOk && todayOk && !isExcludedByFilter(item, itemGroupsAndRelations);
   };
 
-  // TODAY/←/→ボタン、またはセトリ検索モードでの検索条件変化があった時のみ、コンテンツ種類ボタンを自動on
+  // コンテンツ種類ボタンの自動ON/OFFは、TODAY/前後日/セトリ検索の条件変化時のみ行う
   const manuallyTouchedConts = new Set(); // ユーザーが手動でON/OFFしたコンテンツ種類の値(右上ランプの色分け・保護判定用)
 
   // 月フィルター(1〜12月)は、年フィルターが1つ以上選択されている時だけ表示する
@@ -3478,7 +3499,7 @@ body .item-contents.is-content-open {
     localStorage.setItem(SETLIST_ICON_MODE_KEY, setlistIconMode);
     deferHeavyUpdate(() => updateDisplay(false));
   };
-  // 🔗ボタン(SNSリンク表示モード):ONの間、データ行の右端(タイトルの後ろ)にSNSリンクアイコンを、右から
+  // 🔗ボタン(SNSリンク表示モード):ONの間、データ行の右端にSNSリンクアイコンを表示する
   const LINK_MODE_KEY = 'gl_log_link_mode';
   let linkMode = localStorage.getItem(LINK_MODE_KEY) === 'true';
   $('linkToggleBtn').classList.toggle('is-active', linkMode);
@@ -3629,7 +3650,7 @@ body .item-contents.is-content-open {
   // 年フィルターのチェック状態を取得する(4桁の年チェックボックスのみを対象とする#yearChecks配下)
   const getCheckedYears = () => Array.from($('yearChecks').querySelectorAll('input:checked')).map(cb => cb.value);
 
-  // ソート矢印ボタン(sortBtn)の表示切替:TODAYモード中は矢印の代わりに現在表示中の日付を表示する (
+  // ソート矢印ボタン(sortBtn):TODAYモード中は矢印の代わりに現在表示中の日付を表示する
   const updateSortBtnLabel = () => {
     if (todayMode) {
       const checkedYears = getCheckedYears();
@@ -3955,7 +3976,7 @@ body .item-contents.is-content-open {
   // 実際の日付切替処理本体(todayOffset更新・ボタン見た目・フィルター再計算・再描画)
   const performDayChange = delta => {
     if (searchDateTodayActive) {
-      // 検索窓の日付入力でTODAYモードに入っていた状態から前後日ボタン/フリックで移動した場合、 検索窓の日付表示
+      // 日付検索から入ったTODAYの連動を解除し、検索窓の表示と実際の表示日のズレを防ぐ
       searchDateTodayActive = false;
       searchInput.value = '';
       updateSearchClearState();
@@ -4025,7 +4046,7 @@ body .item-contents.is-content-open {
 
     const onTouchStart = e => {
       if (!todayMode || daySlideAnimating || e.touches.length !== 1) { axisLock = null; return; }
-      // データ行のタイトルリンクが長文で横スクロール可能な場合、そこをホールドしている間は 日付フリックと競合しないよ
+      // タイトルが横スクロール可能な行の上で触れ始めた場合は、日付フリックと競合させない
       const titleEl = e.target.closest ? e.target.closest('.item-title') : null;
       touchOnScrollableTitle = !!(titleEl && titleEl.scrollWidth > titleEl.clientWidth + 1);
       startX = e.touches[0].clientX;
@@ -4046,7 +4067,7 @@ body .item-contents.is-content-open {
         if (axisLock === 'v') return; // 縦スクロールと判定:以降は何もせずブラウザ標準の縦スクロールに任せる
       }
 
-      // 横方向優位と判定:ページの縦スクロールや.item-title自身の横スクロール、 ?/⚙ボタンのタップ判定よ
+      // 横方向優位と判定された以上はページ本来のスクロールより日付フリックを優先する
       e.preventDefault();
       dragDx = dx;
       setItemsTransform(dx, false); // 見た目が動くのは常に#daySlideArea側
@@ -4150,7 +4171,7 @@ body .item-contents.is-content-open {
     $('setlistToggleBtn').classList.toggle('is-active', setlistMode);
     searchSuggestions.classList.remove('is-open'); // モード切替時は検索候補ポップアップを一旦閉じる
     updateSearchPlaceholder();
-    // 上部の📋️ボタン(setlistIconMode)は、セトリ検索モード中は強制ONの色つき表示で固定し、クリッ
+    // セトリ検索モード中は上部の📋️ボタンを強制ONの色つき表示にする(クリック操作とは独立)
     $('setlistIconToggleBtn').classList.toggle('is-active', setlistMode || setlistIconMode);
     if (setlistMode) {
       // セトリ検索モードへ突入:直前のTODAY状態を保存しTODAYモードを一旦OFFにする
@@ -4347,7 +4368,7 @@ body .item-contents.is-content-open {
       updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
       updateSortBtnLabel(); // 年フィルターの選択状態が変わるので、TODAYモード中の日付表示も再評価
       window.scrollTo({ top: 0, behavior: 'instant' });
-      // ボタン自体の色変化(:has(input:checked)によるCSS)を先に描画させてから、重い処理(全件フ
+      // ボタンの色変化(CSS)を先に描画させてから、全件フィルター等の重い処理を次フレームで行う
       deferHeavyUpdate(() => {
         updateManualIndicators();
         // TODAY+年フィルター
@@ -4462,7 +4483,7 @@ body .item-contents.is-content-open {
       console.error('Failed to load blogger feed:', err);
     });
 
-  // logs.json取得:GitHub上の最新コミットSHAを確認し、変更があった場合のみ コミット固定のjsD
+  // logs.json取得:最新コミットSHAを確認し、変更があればコミット固定のjsDelivr URLから取得する
   const REPO = 'piscenake52/gllogs';
   const BRANCH = 'main';
   const FILE = 'data/logs/logs.json';
@@ -4485,10 +4506,10 @@ body .item-contents.is-content-open {
 
     refreshYearChecks();
     if (window.location.hash) {
-      // ハッシュがある場合は、TODAY/セトリ検索モードに応じたコンテンツ種類フィルターの再計算も含めて resto
+      // ハッシュがある場合は、コンテンツ種類フィルターの再計算も含めて復元する
       restoreFromHash();
     } else {
-      // ページ読込時にTODAYモードがON状態で復元されている場合、実データを踏まえてコンテンツ種類フィルターを 再
+      // TODAYモードがON状態で復元されている場合、実データに基づきコンテンツ種類フィルターを再計算する
       if (todayMode) autoUpdateContentTypeFilters();
       updateDisplay(true);
     }
@@ -4594,7 +4615,7 @@ body .item-contents.is-content-open {
       });
   };
 
-  // 特定の配信元からのアクセス時は、直近チェック時刻やSHA比較によるスキップを行わず常に最新のlogs.json
+  // 特定の配信元からのアクセス時は、キャッシュ判定をスキップして常に最新のlogs.jsonを取得する
   if (isForcedFreshSource()) {
     forceReloadLogs();
   } else if (!withinCooldown) {
