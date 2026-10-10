@@ -1,0 +1,35 @@
+{
+  "date": "20261010",
+  "title": "test",
+  "sns": [
+    {
+      "type": "etc",
+      "urls": [
+        {
+          "url": "https://gl-log.blogspot.com/",
+          "member": [
+            "YZH",
+            "MMK",
+            "MSK",
+            "YOK",
+            "KUR",
+            "MNM",
+            "KIR"
+          ]
+        },
+        {
+          "url": "https://tenki.jp/",
+          "member": [
+            "RIN",
+            "TBK",
+            "HIR",
+            "YUW",
+            "KAN",
+            "RRK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "576"
+}
