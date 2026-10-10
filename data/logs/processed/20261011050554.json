@@ -1,0 +1,68 @@
+{
+  "logid": "6f99f419999c",
+  "sns": [
+    {
+      "type": "youtube",
+      "urls": [
+        {
+          "url": "https://youtube.com/shorts/OnSiDxxufKI?si=vwcAbT71_-NLrqj5",
+          "member": [
+            "YZH",
+            "MMK",
+            "MSK",
+            "YOK",
+            "KUR",
+            "MNM",
+            "KIR"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DeT0fptpQgy/?vrfl=MWF2NDA0Y2QwZ25qNQ==",
+          "member": [
+            "YZH",
+            "MMK",
+            "MSK",
+            "YOK",
+            "KUR",
+            "MNM",
+            "KIR"
+          ]
+        },
+        {
+          "url": "https://www.instagram.com/reel/DeTZCuxpWlH/?xtok=MWl2NmpvZzdmbWFreg==",
+          "member": [
+            "MSK"
+          ]
+        },
+        {
+          "url": "https://www.instagram.com/p/DeUACfGlCUC/?dlrf=Z2UzazE1M290am5s",
+          "member": [
+            "MNM",
+            "YOK",
+            "MMK"
+          ]
+        },
+        {
+          "url": "https://www.instagram.com/p/DeUJae-GI1Q/?vrfl=MWFueDY3MThkejMwdg==",
+          "member": [
+            "MSK"
+          ]
+        },
+        {
+          "url": "https://www.instagram.com/p/DeUBZZZEgSi/?vrfl=MWhmOGF0a3JtbmhvcA==",
+          "member": [
+            "YZH",
+            "MMK",
+            "MSK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "608"
+}
