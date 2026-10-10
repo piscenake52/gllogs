@@ -1,0 +1,32 @@
+{
+  "logid": "521ebf60b87c",
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DeGhBC_peIc/?stkn=MXB2ZmtmMmNidWd1bg==",
+          "member": []
+        }
+      ]
+    },
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/GirlsAward/status/2108908577960382871",
+          "member": [
+            "YZH",
+            "MMK",
+            "MSK",
+            "YOK",
+            "KUR",
+            "MNM",
+            "KIR"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "598"
+}
