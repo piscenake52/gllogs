@@ -5,9 +5,11 @@
       "type": "instagram",
       "urls": [
         {
-          "url": "https://www.instagram.com/reel/DeTZCuxpWlH/?xtok=MWl2NmpvZzdmbWFreg==",
+          "url": "https://www.instagram.com/p/DeUACfGlCUC/?dlrf=Z2UzazE1M290am5s",
           "member": [
-            "MSK"
+            "MNM",
+            "YOK",
+            "MMK"
           ]
         },
         {
@@ -20,6 +22,12 @@
             "KUR",
             "MNM",
             "KIR"
+          ]
+        },
+        {
+          "url": "https://www.instagram.com/reel/DeTZCuxpWlH/?xtok=MWl2NmpvZzdmbWFreg==",
+          "member": [
+            "MSK"
           ]
         }
       ]
@@ -34,5 +42,5 @@
       ]
     }
   ],
-  "_issue": "592"
+  "_issue": "596"
 }
