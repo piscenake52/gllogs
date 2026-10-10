@@ -3140,47 +3140,6 @@
     ]
   },
   {
-    "logid": "656b1f0bf005",
-    "date": "20261010",
-    "time": "",
-    "contents": "ETC",
-    "title": "test",
-    "groups": [
-      "G2",
-      "L2"
-    ],
-    "sns": [
-      {
-        "type": "etc",
-        "urls": [
-          {
-            "url": "https://gl-log.blogspot.com/",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR"
-            ]
-          },
-          {
-            "url": "https://tenki.jp/",
-            "member": [
-              "RIN",
-              "TBK",
-              "HIR",
-              "YUW",
-              "KAN",
-              "RRK"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
     "logid": "298ab8cd839a",
     "date": "20261009",
     "time": "2359",
