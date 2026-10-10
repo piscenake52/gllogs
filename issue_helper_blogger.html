@@ -40,18 +40,26 @@
 #glih .fin { font-size:13px; line-height:1.4; } /* テキストボックスもテキストエリアと同じ文字サイズに */
 #glih #glih-f-sns { min-height:13.5em; } /* snsは複数行になりやすいので縦を3倍に */
 #glih .fin.ch, #glih .fta.ch { border-color:var(--accent); }
-#glih .fin.bad, #glih .field input.bad { border-color:#d33; }
+#glih .fin.bad, #glih .field input.bad, #glih .jsonbox.bad { border-color:#d33; }
 #glih .field input[type=date].ch, #glih .field input[type=time].ch { border-color:var(--accent); }
 #glih .fcand { margin:0 0 10px; border:1px solid var(--line); border-radius:8px; max-height:15em; overflow:auto; }
 #glih .fcand button { display:block; width:100%; text-align:left; background:none; border:0; border-bottom:1px solid var(--line); border-radius:0; padding:7px 10px; margin:0; font:inherit; font-size:12px; line-height:1.4; color:var(--text); cursor:pointer; }
 #glih .fcand button:last-child { border-bottom:0; }
 #glih .fcand button:hover { background:var(--btn); }
 #glih .fcand .m { color:var(--sub); font-size:11px; }
+#glih .fcand .m.l2 { display:block; }
 #glih .fstat { font-size:12px; color:var(--sub); margin:0 0 10px; min-height:1.4em; }
 #glih .jsonbox { width:100%; box-sizing:border-box; min-height:9em; margin:6px 0 4px; padding:8px; font:12px/1.4 ui-monospace,Menlo,Consolas,monospace; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; resize:vertical; box-shadow:none; }
 #glih .fw { flex:1; min-width:0; position:relative; display:block; }
 #glih .fw > .fin, #glih .fw > .fta { width:100%; padding-right:30px; }
 #glih .fx { position:absolute; right:5px; top:50%; transform:translateY(-50%); width:22px; height:22px; margin:0; padding:0; border:0; border-radius:50%; background:transparent; color:var(--sub); font:inherit; font-size:14px; line-height:22px; text-align:center; cursor:pointer; box-shadow:none; }
+#glih .dtw { position:relative; display:inline-flex; flex:0 0 auto; }
+#glih .dtw > .fin { flex:none; width:9.9em; padding-right:30px; } /* YYYY/MM/DD fits exactly */
+#glih .dtw.t > .fin { width:6.9em; } /* HH:MM fits exactly */
+#glih .dtb { position:absolute; right:6px; top:50%; transform:translateY(-50%); width:20px; height:20px; margin:0; padding:0; border:0; background:transparent; box-shadow:none; color:var(--sub); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+#glih .dtb:hover { color:var(--text); }
+#glih .dtb svg { width:16px; height:16px; display:block; }
+#glih .fpi { position:absolute; left:0; top:100%; width:1px; height:1px; opacity:0; pointer-events:none; border:0; padding:0; }
 #glih .fx.fr { right:28px; font-size:14px; }
 #glih .fx.fr.ta { top:8px; transform:none; }
 #glih .fx.fp { right:51px; font-size:13px; }
@@ -68,13 +76,15 @@
 #glih .snsh .fin.mid { flex:1 1 7em; }
 #glih .fcand.fsug { margin:0; max-height:12em; }
 #glih .fsug button.sel { background:var(--btn); }
+#glih a.fx { display:block; text-decoration:none !important; }
+#glih a.fx svg { width:14px; height:14px; vertical-align:middle; margin-top:-2px; }
 #glih .fx.ta { top:8px; transform:none; }
 #glih .fx:hover { background:var(--btn); color:var(--text); }
 #glih .fx[hidden] { display:none; }
 /*]]>*/
 </style>
 
-<div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="find">find</button></div>
+<div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="songs">songs</button><button type="button" data-tab="find">find</button></div>
 
 <section id="glih-p-logs">
   <div class="field"><label for="glih-d1">date</label><input type="date" id="glih-d1"><button type="button" class="small" data-today="glih-d1">today</button></div>
@@ -91,18 +101,26 @@
   <a class="go" id="glih-go-setlist" target="_blank" rel="noopener" aria-disabled="true">setlist</a>
 </section>
 
+<section id="glih-p-songs" hidden>
+  <div class="field"><label for="glih-sa">artist</label><input type="text" id="glih-sa" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+  <div class="field"><label for="glih-st">title</label><input type="text" id="glih-st" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+  <div class="field"><label for="glih-sl">link</label><input type="text" id="glih-sl" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://..."></div>
+  <div class="fstat" id="glih-sstat"></div>
+  <a class="go" id="glih-go-songs" target="_blank" rel="noopener" aria-disabled="true">songs</a>
+</section>
+
 <section id="glih-p-find" hidden>
   <div class="field"><label for="glih-fkind">type</label><select id="glih-fkind" class="fsel"><option value="logs">logs</option><option value="setlist">setlist</option></select></div>
   <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fgo">&#26908;&#32034;</button></div>
-  <div class="field"><label for="glih-fdd">date/time</label><input type="date" id="glih-fdd"><input type="time" id="glih-fdt" step="60"><button type="button" class="small" id="glih-fdx" title="clear">&#10005;</button></div>
+  <div class="field"><label for="glih-fdd">date/time</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><input type="text" id="glih-fdt" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdx" title="clear">&#10005;</button></div>
   <div class="fcand" id="glih-fdl" hidden></div>
   <div class="fstat" id="glih-fstat"></div>
   <div class="fcand" id="glih-fcand" hidden></div>
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
   <div id="glih-ff"></div>
   <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、空欄にした値の削除はフォームの【値の削除】チェックで行います。relations は事前入力できません(JSONで確認)。 -->
-  <textarea id="glih-fjson" class="jsonbox" readonly hidden></textarea>
-  <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fcopy">JSON copy</button><button type="button" class="small" id="glih-freset">reset all</button></div>
+  <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fjtog" aria-expanded="false">JSON &#9662;</button><button type="button" class="small" id="glih-fcopy">JSON copy</button><button type="button" class="small" id="glih-freset">reset all</button></div>
+  <textarea id="glih-fjson" class="jsonbox" spellcheck="false" hidden></textarea>
   <a class="go" id="glih-go-find" target="_blank" rel="noopener" aria-disabled="true">Issue</a>
 </section>
 
@@ -110,7 +128,7 @@
 //<![CDATA[
 (function () {
   // Settings: repository and issue template file names (in .github/ISSUE_TEMPLATE/)
-  var REPO = 'piscenake52/gllogs', TPL_LOGS = 'add_logs.yml', TPL_SETLIST = 'add_setlist.yml';
+  var REPO = 'piscenake52/gllogs', TPL_LOGS = 'add_logs.yml', TPL_SETLIST = 'add_setlist.yml', TPL_SONGS = 'add_songs.yml';
   var root = document.getElementById('glih');
   // NOTE: keep this script ASCII-only. Blogger converts non-ASCII characters into &#NNNN; entities, which are NOT decoded inside <script>.
   var DASH = '\u2014'; // em dash as an ASCII escape: Blogger turns a literal dash inside <script> into &#8212;, which JS does not decode
@@ -138,7 +156,7 @@
     setLink($('go-setlist'), ok ? issueUrl(TPL_SETLIST, { setlistid: sid }) : '');
   }
   function tab(name) {
-    $('p-logs').hidden = name !== 'logs'; $('p-setlist').hidden = name !== 'setlist'; $('p-find').hidden = name !== 'find';
+    $('p-logs').hidden = name !== 'logs'; $('p-setlist').hidden = name !== 'setlist'; $('p-songs').hidden = name !== 'songs'; $('p-find').hidden = name !== 'find'; if (name === 'songs') songsInit();
     [].forEach.call(root.querySelectorAll('.tabs button'), function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === name); });
   }
   function today() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
@@ -179,23 +197,62 @@
     el.addEventListener('input', sync); sync();
     wrap.appendChild(b);
   }
-  // date / time of the find tab (logs): the same native calendar / clock inputs as the logs tab. The hidden text input keeps the form format (yyyymmdd / hhmm) and the rest of the code reads it.
+  // open-in-a-new-window icon inside a url input: a plain link that follows the value (shown only for http(s) values). right: distance from the right end in px.
+  var ICON_EXT = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5h4.5V7M13.5 2.5L7.5 8.5M12 9.5v3a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h3"/></svg>';
+  function addOpen(el, right) {
+    var fw = el.parentNode;
+    var a = document.createElement('a'); a.className = 'fx'; a.style.right = right + 'px'; a.innerHTML = ICON_EXT; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.title = 'open'; a.setAttribute('aria-label', 'open in a new window');
+    el.style.paddingRight = (right + 26) + 'px';
+    var sync = function () { var v = el.value.trim(), ok = /^https?:\/\/\S+$/i.test(v); a.hidden = !ok; if (ok) a.href = v; else a.removeAttribute('href'); };
+    el.addEventListener('input', sync); sync();
+    fw.appendChild(a);
+  }
+  // YYYY/MM/DD and HH:MM text inputs for the find tab (shown the same on every device): digits are auto-formatted while typing, and a button opens the native calendar / clock.
+  function fmtDigits(d, type) {
+    d = d.replace(/\D/g, '').slice(0, type === 'date' ? 8 : 4);
+    return type === 'date' ? d.slice(0, 4) + (d.length > 4 ? '/' + d.slice(4, 6) : '') + (d.length > 6 ? '/' + d.slice(6) : '') : d.slice(0, 2) + (d.length > 2 ? ':' + d.slice(2) : '');
+  }
+  function dtText(ti, type) {
+    ti.setAttribute('inputmode', 'numeric'); ti.setAttribute('spellcheck', 'false'); ti.placeholder = type === 'date' ? 'YYYY/MM/DD' : 'HH:MM'; ti.maxLength = type === 'date' ? 10 : 5;
+    ti.addEventListener('input', function () { var f = fmtDigits(ti.value, type); if (ti.value !== f) ti.value = f; });
+  }
+  var ICON_CAL = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5 1.8v2.6M11 1.8v2.6"/></svg>';
+  var ICON_CLK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 4.5V8l2.3 1.6"/></svg>';
+  // wraps the text input in place and puts a plain (no frame) calendar / clock icon inside its right end; the icon opens the native picker
+  function dtPicker(ti, type, onOpen) {
+    var w = document.createElement('span'); w.className = 'dtw' + (type === 'time' ? ' t' : '');
+    ti.parentNode.insertBefore(w, ti); w.appendChild(ti);
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'dtb'; b.innerHTML = type === 'date' ? ICON_CAL : ICON_CLK; b.title = type; b.setAttribute('aria-label', type + ' picker');
+    var pi = document.createElement('input'); pi.type = type; pi.className = 'fpi'; pi.tabIndex = -1; pi.setAttribute('aria-hidden', 'true'); if (type === 'time') pi.step = '60';
+    b.onclick = function () {
+      if (onOpen) onOpen(); // e.g. list the candidates of the current value even if the calendar selection will not change it
+      var v = ti.value.replace(/\D/g, '');
+      if (type === 'date') pi.value = v.length === 8 ? v.slice(0, 4) + '-' + v.slice(4, 6) + '-' + v.slice(6) : '';
+      else pi.value = v.length === 4 ? v.slice(0, 2) + ':' + v.slice(2) : '';
+      try { pi.showPicker(); } catch (e) { try { pi.focus(); pi.click(); } catch (e2) {} }
+    };
+    pi.addEventListener('change', function () { if (!pi.value) return; ti.value = fmtDigits(pi.value, type); ti.dispatchEvent(new Event('input', { bubbles: true })); });
+    w.appendChild(b); w.appendChild(pi);
+    return w;
+  }
+  // date / time of the find tab (logs): YYYY/MM/DD and HH:MM text inputs + calendar / clock buttons. The hidden text input keeps the form format (yyyymmdd / hhmm) and the rest of the code reads it.
   function useNative(el, type, key) {
     var fw = el.parentNode, field = fw.parentNode;
     fw.hidden = true;
-    var pi = document.createElement('input'); pi.type = type; if (type === 'time') pi.step = '60'; pi.id = 'glih-n-' + key;
-    var lb = field.querySelector('label'); if (lb) lb.setAttribute('for', pi.id);
-    function toPi() {
-      var v = el.value.replace(/\D/g, '');
-      pi.value = type === 'date' ? (/^\d{8}$/.test(v) ? v.slice(0, 4) + '-' + v.slice(4, 6) + '-' + v.slice(6) : '') : (/^\d{4}$/.test(v) ? v.slice(0, 2) + ':' + v.slice(2) : '');
-      pi.classList.toggle('ch', el.classList.contains('ch')); pi.classList.toggle('bad', el.classList.contains('bad'));
+    var ti = document.createElement('input'); ti.type = 'text'; ti.className = 'fin'; ti.id = 'glih-n-' + key; ti.setAttribute('autocomplete', 'off');
+    dtText(ti, type);
+    var lb = field.querySelector('label'); if (lb) lb.setAttribute('for', ti.id);
+    function digitsOf(v) { return v.replace(/\D/g, ''); }
+    function toTi() {
+      if (digitsOf(ti.value) !== digitsOf(el.value)) ti.value = fmtDigits(el.value, type);
+      ti.classList.toggle('ch', el.classList.contains('ch')); ti.classList.toggle('bad', el.classList.contains('bad'));
     }
-    function fromPi() { el.value = pi.value.replace(/\D/g, ''); el.dispatchEvent(new Event('input', { bubbles: true })); }
-    pi.addEventListener('input', fromPi); pi.addEventListener('change', fromPi);
-    el.addEventListener('input', toPi); toPi();
-    field.appendChild(pi);
+    function fromTi() { el.value = digitsOf(ti.value); el.dispatchEvent(new Event('input', { bubbles: true })); }
+    ti.addEventListener('input', fromTi);
+    el.addEventListener('input', toTi); ti.value = fmtDigits(el.value, type); toTi();
+    field.appendChild(ti); dtPicker(ti, type);
     function mk(text, title, fn) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = text; b.title = title; b.onclick = fn; field.appendChild(b); return b; }
-    if (type === 'date') mk('today', 'today', function () { pi.value = today(); fromPi(); });
+    if (type === 'date') mk('today', 'today', function () { ti.value = fmtDigits(today().replace(/\D/g, ''), 'date'); fromTi(); });
     var rv = mk('\u21BA', 'revert', function () { el.value = orig[key]; el.dispatchEvent(new Event('input', { bubbles: true })); });
     var cl = mk('\u2715', 'clear', function () { el.value = ''; el.dispatchEvent(new Event('input', { bubbles: true })); });
     var sync = function () { rv.hidden = el.value === orig[key]; cl.hidden = el.value === ''; };
@@ -246,7 +303,9 @@
     ['auto', 'x', 'instagram', 'youtube', 'tiktok', 'gl2family', 'cl', 'threads', 'line', 'etc'].forEach(function (t) { var o = document.createElement('option'); o.value = t; o.textContent = t; sel.appendChild(o); });
     var url = document.createElement('input'); url.type = 'text'; url.className = 'fin'; url.placeholder = 'https://...'; url.setAttribute('autocomplete', 'off'); url.setAttribute('autocapitalize', 'off'); url.setAttribute('spellcheck', 'false');
     var add = document.createElement('button'); add.type = 'button'; add.className = 'small'; add.textContent = 'add';
-    row.appendChild(sel); row.appendChild(url); row.appendChild(add);
+    var uw = document.createElement('span'); uw.className = 'fw'; uw.appendChild(url);
+    row.appendChild(sel); row.appendChild(uw); row.appendChild(add);
+    addOpen(url, 5);
     var chips = $('groups').cloneNode(true); chips.removeAttribute('id'); box.appendChild(chips);
     [].forEach.call(chips.querySelectorAll('.chip'), function (b) { b.onclick = function () { b.classList.toggle('on'); }; });
     function urlOf(line) { var m = line.match(/https?:\/\/[^\s|]+/i); return m ? m[0] : ''; }
@@ -288,7 +347,8 @@
     (cache.setlist || []).forEach(function (r) { ((r && r.songs) || []).forEach(function (x) { if (x) addTo(m, x.title); }); });
   });
   // el: the input. optsFn: returns [{v, n, k}]. after: (optional) node the list is placed after; without it the input is wrapped (.fw) and the list goes under it.
-  function addSuggest(el, optsFn, after) {
+  // partial: also match the typed text anywhere inside a value (prefix matches come first)
+  function addSuggest(el, optsFn, after, partial) {
     var box = document.createElement('div'); box.className = 'fcand fsug'; box.hidden = true;
     if (after) { after.parentNode.insertBefore(box, after.nextSibling); }
     else {
@@ -303,11 +363,13 @@
     function show() {
       var v = el.value.trim(), q = normQ(v);
       if (!q) { hide(); return; }
-      items = optsFn().filter(function (o) { return o.k.indexOf(q) === 0 && o.v !== v; }).slice(0, 8); idx = -1;
+      var all = optsFn().filter(function (o) { return o.v !== v; });
+      var pre = all.filter(function (o) { return o.k.indexOf(q) === 0; });
+      items = (partial ? pre.concat(all.filter(function (o) { return o.k.indexOf(q) > 0; })) : pre).slice(0, 8); idx = -1;
       box.innerHTML = '';
       items.forEach(function (o, i) {
         var b = document.createElement('button'); b.type = 'button'; b.appendChild(document.createTextNode(o.v));
-        var m = document.createElement('span'); m.className = 'm'; m.textContent = '  x' + o.n; b.appendChild(m);
+        if (o.n != null) { var m = document.createElement('span'); m.className = 'm'; m.textContent = '  x' + o.n; b.appendChild(m); }
         b.onmousedown = function (e) { e.preventDefault(); pick(i); };
         box.appendChild(b);
       });
@@ -429,12 +491,68 @@
       if (!f.ta) { el.type = 'text'; el.setAttribute('autocomplete', 'off'); }
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
       el.addEventListener('input', updateFind);
-      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && f.k === 'groups') addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, contentsOptions); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions); if (kind === 'setlist' && f.k === 'artist') addSuggest(el, artistOptions); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
+      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && f.k === 'groups') addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, contentsOptions); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addSuggest(el, artistOptions); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
-    var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); jb.hidden = false; jb.style.height = 'auto'; jb.style.height = (jb.scrollHeight + 2) + 'px'; $('fcprow').hidden = kind !== 'logs'; $('fjrow').hidden = false;
+    var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = kind !== 'logs'; $('fjrow').hidden = false;
     updateFind();
   }
-  function clearFound() { found = null; $('fcprow').hidden = true; $('fcp').checked = false; $('ff').innerHTML = ''; $('fjson').hidden = true; $('fjrow').hidden = true; setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; }
+  // JSON box of the find tab: collapsed at first, opened / closed with the button, and editable. Valid JSON edits are written into the input fields (the Issue link follows); invalid JSON gets a red border and is ignored.
+  var jsonOpen = false, origJson = '';
+  function sizeJson() { var jb = $('fjson'); jb.style.height = 'auto'; jb.style.height = (jb.scrollHeight + 2) + 'px'; }
+  function setJsonOpen(open) {
+    jsonOpen = open; var jb = $('fjson'), b = $('fjtog');
+    jb.hidden = !open || !found; b.innerHTML = open ? 'JSON &#9652;' : 'JSON &#9662;'; b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open && found) sizeJson();
+  }
+  function applyJson() {
+    var jb = $('fjson'), row;
+    try { row = JSON.parse(jb.value); } catch (e) { jb.classList.add('bad'); return; }
+    if (Array.isArray(row)) row = row[0];
+    if (!row || typeof row !== 'object' || !found) { jb.classList.add('bad'); return; }
+    jb.classList.remove('bad');
+    DEFS[found.kind].fields.forEach(function (f) {
+      var el = $('f-' + f.k); if (!el) return;
+      var t = toText(found.kind, f, row);
+      if (el.value !== t) { el.value = t; el.dispatchEvent(new Event('input', { bubbles: true })); }
+    });
+  }
+  function clearFound() { found = null; $('fcprow').hidden = true; $('fcp').checked = false; $('ff').innerHTML = ''; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; }
+  // ---- songs tab: register / update one song (artist + title + link) of songs.json through the add_songs.yml form ----
+  var songsReady = false;
+  function songsInit() {
+    if (songsReady) return; songsReady = true;
+    var sa = $('sa'), st = $('st'), sl = $('sl'), match = null, auto = false, prog = false;
+    addClear(sa); addClear(st); addClear(sl); addOpen(sl, 28);
+    var artistOnly = makeOpts('artist-only', ['songs'], function (m) { (cache.songs || []).forEach(function (r) { if (r) addTo(m, r.artist); }); });
+    function titleOpts() {
+      var a = normQ(sa.value.trim()), all = (cache.songs || []).filter(function (r) { return r && typeof r.title === 'string' && r.title.trim(); });
+      var mine = a ? all.filter(function (r) { return normQ(r.artist) === a; }) : [];
+      return (mine.length ? mine : all).map(function (r) { return { v: r.title.trim(), k: normQ(r.title) }; });
+    }
+    addSuggest(sa, artistOnly, sa.closest('.field'));
+    addSuggest(st, titleOpts, st.closest('.field'));
+    function setLink(v) { prog = true; sl.value = v; sl.dispatchEvent(new Event('input', { bubbles: true })); prog = false; }
+    function upd() {
+      var a = sa.value.trim(), t = st.value.trim(), list = cache.songs;
+      if (!list) { $('sstat').textContent = 'Loading songs...'; setLink2(''); return; }
+      match = null;
+      if (a && t) list.forEach(function (r) { if (!match && r && String(r.artist || '').trim() === a && String(r.title || '').trim() === t) match = r; });
+      if (match && !sl.value.trim() && !sl._touched) { setLink(match.link || ''); auto = true; }
+      if (!match && auto) { setLink(''); auto = false; }
+      var l = sl.value.trim(), p = {};
+      if (a) p.artist_free = a; if (t) p.item_title = t;
+      if (l && !(match && l === String(match.link || '').trim())) p.link = l;
+      var ok = !!(a && t);
+      setLink2(ok ? issueUrl(TPL_SONGS, p) : '');
+      $('sstat').textContent = !ok ? 'Enter artist and title.' : match ? 'Existing song: the link is updated when changed (update).' : 'New song (insert).';
+    }
+    function setLink2(url) { var g = $('go-songs'); if (url) { g.href = url; g.setAttribute('aria-disabled', 'false'); } else { g.removeAttribute('href'); g.setAttribute('aria-disabled', 'true'); } }
+    sl.addEventListener('input', function () { if (!prog) { sl._touched = true; auto = false; } upd(); });
+    sa.addEventListener('input', upd); st.addEventListener('input', upd);
+    st.addEventListener('input', function () { if (!st.value.trim() && !prog) sl._touched = false; });
+    upd();
+    fetchData('songs').then(function () { upd(); }).catch(function (e) { $('sstat').textContent = 'Load error: ' + e.message; });
+  }
   // ---- candidate search: a keyword (date / title / contents / artist ...) in the id box lists matching rows ----
   function normQ(s) { return String(s == null ? '' : s).normalize('NFKC').toLowerCase(); }
   function flat(v) { if (v == null) return ''; if (Array.isArray(v)) return v.map(flat).join(' '); if (typeof v === 'object') return flat(v.title) + ' ' + flat(v.original); return String(v); }
@@ -453,14 +571,20 @@
   }
   function fmtD(d, t) { d = String(d || ''); t = String(t || ''); return (/^\d{8}$/.test(d) ? d.slice(0, 4) + '-' + d.slice(4, 6) + '-' + d.slice(6) : d) + (/^\d{4}$/.test(t) ? ' ' + t.slice(0, 2) + ':' + t.slice(2) : ''); }
   function hideCands() { var c = $('fcand'); c.hidden = true; c.innerHTML = ''; }
+  // one candidate button, shared by the keyword list and the date/time list. line 1: date time + contents (setlist: artist), line 2: title. The id is not shown.
+  function candButton(kind, r) {
+    var b = document.createElement('button'), l1, l2;
+    b.type = 'button';
+    if (kind === 'logs') { l1 = fmtD(r.date, r.time) + (r.contents ? '  ' + String(r.contents).slice(0, 40) : ''); l2 = String(r.title || '').slice(0, 60); }
+    else { var sid = String(r.setlistid || ''); l1 = fmtD(sid.slice(0, 8), sid.slice(8)) + (r.artist ? '  ' + flat(r.artist).slice(0, 30) : ''); l2 = String(r.title || '').slice(0, 60); }
+    b.appendChild(document.createTextNode(l1));
+    if (l2) { var m = document.createElement('span'); m.className = 'm l2'; m.textContent = l2; b.appendChild(m); }
+    return b;
+  }
   function renderCands(kind, rows) {
     var c = $('fcand'), idKey = DEFS[kind].idKey; c.innerHTML = '';
     rows.slice(0, 30).forEach(function (r) {
-      var b = document.createElement('button'); b.type = 'button';
-      var main = kind === 'logs' ? fmtD(r.date, r.time) + '  ' + String(r.title || r.contents || '').slice(0, 40)
-        : fmtD(String(r.setlistid || '').slice(0, 8), String(r.setlistid || '').slice(8)) + '  ' + String(r.title || '').slice(0, 40) + (r.artist ? '  / ' + flat(r.artist).slice(0, 20) : '');
-      b.appendChild(document.createTextNode(main));
-      var m = document.createElement('span'); m.className = 'm'; m.textContent = '  ' + r[idKey]; b.appendChild(m);
+      var b = candButton(kind, r);
       b.onclick = function () { $('fid').value = String(r[idKey]); $('fid').dispatchEvent(new Event('input', { bubbles: true })); hideCands(); doFind(); };
       c.appendChild(b);
     });
@@ -511,25 +635,36 @@
         .sort(function (a, b) { var x = rt(a), y = rt(b); return x < y ? -1 : x > y ? 1 : 0; });
       if (!rows.length) { fstat('No ' + kind + ' data on ' + fmtD(dv, tv)); return; }
       rows.forEach(function (r) {
-        var t = rt(r), b = document.createElement('button'); b.type = 'button';
-        b.appendChild(document.createTextNode((/^\d{4}$/.test(t) ? t.slice(0, 2) + ':' + t.slice(2) : '--:--') + '  ' + String(r.title || r.contents || '').slice(0, 40)));
-        var m = document.createElement('span'); m.className = 'm'; m.textContent = '  ' + r[idKey]; b.appendChild(m);
+        var b = candButton(kind, r);
         b.onclick = function () { $('fid').value = String(r[idKey]); $('fid').dispatchEvent(new Event('input', { bubbles: true })); box.hidden = true; box.innerHTML = ''; fstat('Selected: ' + r[idKey]); $('fid').focus(); };
         box.appendChild(b);
       });
       box.hidden = false; fstat(rows.length + ' on ' + fmtD(dv, tv));
     }).catch(function (e) { fstat('Load error: ' + e.message); });
   }
-  ['fdd', 'fdt'].forEach(function (id) { $(id).addEventListener('input', dtSearch); $(id).addEventListener('change', dtSearch); });
+  dtText($('fdd'), 'date'); dtText($('fdt'), 'time');
+  dtPicker($('fdd'), 'date', dtSearch); dtPicker($('fdt'), 'time', dtSearch);
+  ['fdd', 'fdt'].forEach(function (id) {
+    $(id).addEventListener('input', dtSearch); $(id).addEventListener('change', dtSearch);
+    $(id).addEventListener('focus', dtSearch); // clicking into the box lists the candidates again, even when the value is unchanged
+    $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); dtSearch(); } });
+  });
   $('fdx').onclick = function () { $('fdd').value = ''; $('fdt').value = ''; dtSearch(); };
   $('fcp').addEventListener('change', updateFind);
   addClear($('fid'));
   $('fgo').onclick = doFind;
   $('fid').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doFind(); } });
   $('fkind').addEventListener('change', function () { clearFound(); hideCands(); candidates(); dtSearch(); });
-  $('fid').addEventListener('input', function () { clearTimeout(candTimer); candTimer = setTimeout(candidates, 200); });
+  $('fid').addEventListener('input', function () {
+    clearTimeout(candTimer);
+    if ($('fid').value.trim() === '') { clearFound(); hideCands(); fstat(''); return; } // id emptied: back to the first view (loaded data, candidates and status are cleared)
+    candTimer = setTimeout(candidates, 200);
+  });
+  $('fjtog').onclick = function () { setJsonOpen(!jsonOpen); };
+  $('fjson').addEventListener('input', function () { applyJson(); sizeJson(); });
   $('freset').onclick = function () {
     if (!found) return;
+    $('fjson').value = origJson; $('fjson').classList.remove('bad'); if (jsonOpen) sizeJson();
     DEFS[found.kind].fields.forEach(function (f) { var el = $('f-' + f.k); if (el && el.value !== orig[f.k]) { el.value = orig[f.k]; el.dispatchEvent(new Event('input', { bubbles: true })); } });
   };
   $('fcopy').onclick = function () {
@@ -540,7 +675,7 @@
   };
   $('fid').value = (location.search.match(/[?&]id=([0-9a-f]{12}|\d{12})/) || [])[1] || '';
   $('d1').value = today(); $('d2').value = today();
-  tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#find' ? 'find' : 'logs');
+  tab(location.hash === '#logs' ? 'logs' : location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : 'find'); // the first view is the find tab
   updateLogs(); updateSetlist();
 })();
 //]]>
