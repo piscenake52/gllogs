@@ -1,0 +1,29 @@
+{
+  "date": "20261009",
+  "contents": "SNS",
+  "title": "SNS　Girls²",
+  "groups": [
+    "G2",
+    "YZH",
+    "MMK",
+    "MSK",
+    "YOK",
+    "KUR",
+    "MNM",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/p/DeRqeBQCb7f/?psln=MTE0Z2F3ODlxbTdyeA==",
+          "member": [
+            "MMK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "573"
+}
