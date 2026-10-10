@@ -28,14 +28,17 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>GL log</title>
+<meta name="description" content="Girls²・Laki(旧Lucky²)の活動ログ・スケジュール・セットリスト・楽曲情報をまとめたファン向け非公式サイト「GL log」。">
 <link rel="canonical" href="https://gl-log.blogspot.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="GL log">
 <meta property="og:title" content="GL log">
+<meta property="og:description" content="Girls²・Laki(旧Lucky²)の活動ログ・スケジュール・セットリスト・楽曲情報をまとめたファン向け非公式サイト「GL log」。">
 <meta property="og:url" content="https://gl-log.blogspot.com/">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GL log">
+<meta name="twitter:description" content="Girls²・Laki(旧Lucky²)の活動ログ・スケジュール・セットリスト・楽曲情報をまとめたファン向け非公式サイト「GL log」。">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -43,6 +46,7 @@
   "name": "GL log",
   "url": "https://gl-log.blogspot.com/",
   "inLanguage": "ja",
+  "description": "Girls²・Laki(旧Lucky²)の活動ログ・スケジュール・セットリスト・楽曲情報をまとめたファン向け非公式サイト。",
   "about": [
     { "@type": "MusicGroup", "name": "Girls²" },
     { "@type": "MusicGroup", "name": "Laki", "alternateName": "Lucky²" }
@@ -811,6 +815,7 @@ body .item-contents.is-content-open {
 .sns-modal-link.has-member-lamp { position: relative; } /* 誰の投稿か分かるよう、投稿者のメンバーカラーで右上にランプを出す(最大4人。2個ずつ2段で並べる) */
 .sns-modal-lamps { position: absolute; top: -3px; right: -3px; display: grid; grid-template-columns: repeat(2, 5px); gap: 1px; pointer-events: none; }
 .sns-modal-lamps.is-single { grid-template-columns: 5px; } /* 1人のときは従来どおり角に1つだけ */
+.sns-modal-lamps.is-nine { grid-template-columns: repeat(3, 5px); } /* 9人のときだけ3列×3段(大きさは同じ)。右端基準なので左へ広がり、番号に少し重なってもよい */
 .sns-modal-lamps > i { display: block; width: 5px; height: 5px; box-sizing: border-box; border-radius: 50%; background-color: var(--lamp-color); box-shadow: 0 0 0 1px var(--bg), inset 0 0 0 1px rgba(128,128,128,.45); } /* 色の部分は常に5px。縁(背景色の輪)は外側に描き、内側の薄い灰色の線で白・黄など明るい色も同じ大きさに見えるようにする */
 .sns-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
 /*]]>*/
@@ -1151,25 +1156,6 @@ body .item-contents.is-content-open {
   const formatTimeStr = timeStr => {
     if (!timeStr || timeStr.length !== 4) return '';
     return timeStr.slice(0, 2) + ':' + timeStr.slice(2, 4);
-  };
-
-  // dateは「20260908」のような8桁(年4桁+月2桁+日2桁)の文字列を想定
-  const formatDisplayDate = item => {
-    const dateStr = item.date;
-    if (!dateStr) return '';
-    if (!/^\d{8}$/.test(dateStr)) return dateStr; // 想定外フォーマットはそのまま表示
-    const y = dateStr.slice(0, 4), m = dateStr.slice(4, 6), d = dateStr.slice(6, 8);
-    const dateObj = new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10));
-    const dayStr = isNaN(dateObj.getTime()) ? '' : dayNames[dateObj.getDay()];
-
-    // 画面表示は従来通り「年.月.日」のドット区切りにする(データ格納形式とは切り離す)
-    const ymd = [];
-    if (dateParts.year) ymd.push(y);
-    if (dateParts.month) ymd.push(m);
-    if (dateParts.day) ymd.push(d);
-    let out = ymd.join('.');
-    if (dateParts.weekday && dayStr) out += (out ? ' ' : '') + `[${dayStr}]`;
-    return out;
   };
 
   // 日付(年/月/日/曜)は部品ごとの要素にして常に作っておき、表示のON/OFFは#itemsのクラス(dp-year / dp-month / dp-day / dp-weekday)の付け外しだけで切り替える。
@@ -2971,15 +2957,15 @@ body .item-contents.is-content-open {
             const n = i + 1;
             // urlsの各要素は、旧形式(文字列そのもの)・新形式({url, member})のどちらも受け付ける
             const url = typeof u === 'string' ? u : (u && typeof u === 'object' ? u.url : '');
-            // memberは配列(複数人)・文字列1件(旧形式)のどちらも受け付ける。色のあるコードだけを重複なしで最大8人まで使う
+            // memberは配列(複数人)・文字列1件(旧形式)のどちらも受け付ける。色のあるコードだけを重複なしで最大9人まで使う
             const rawMember = (typeof u === 'object' && u) ? u.member : '';
             const memberCodes = (Array.isArray(rawMember) ? rawMember : [rawMember])
               .map(m => String(m || '').trim().toUpperCase())
               .filter((m, idx, arr) => MEMBER_LAMP_COLORS[m] && arr.indexOf(m) === idx)
-              .slice(0, 8);
+              .slice(0, 9);
             const lampClass = memberCodes.length ? ' has-member-lamp' : '';
             const lampHtml = memberCodes.length
-              ? `<span class="sns-modal-lamps${memberCodes.length === 1 ? ' is-single' : ''}" aria-hidden="true">${memberCodes.map(m => `<i style="--lamp-color:${MEMBER_LAMP_COLORS[m]}"></i>`).join('')}</span>`
+              ? `<span class="sns-modal-lamps${memberCodes.length === 1 ? ' is-single' : memberCodes.length === 9 ? ' is-nine' : ''}" aria-hidden="true">${memberCodes.map(m => `<i style="--lamp-color:${MEMBER_LAMP_COLORS[m]}"></i>`).join('')}</span>`
               : '';
             const isValid = typeof url === 'string' && /^https?:\/\//i.test(url.trim());
             return isValid
