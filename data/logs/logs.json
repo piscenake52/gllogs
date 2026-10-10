@@ -3039,6 +3039,34 @@
     ]
   },
   {
+    "logid": "6f99f419999c",
+    "date": "20261010",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/OnSiDxxufKI?si=vwcAbT71_-NLrqj5",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "298ab8cd839a",
     "date": "20261009",
     "time": "2359",
