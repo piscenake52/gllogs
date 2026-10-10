@@ -210,7 +210,7 @@ SNS_MEMBER_CODES = set(G2_OPTIONS + L2_OPTIONS)  # urlごとのmemberに使え�
 
 def parse_sns(raw):
     """sns欄（1行1件）を [{"type","urls":[{"url","member"}]}] にする（同じtypeは1つにまとめて urls に入れる）。
-    書式: `type | url | member`。memberは省略可（groupsと同じコード。複数人はカンマ区切り: `YZH,MMK`）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
+    書式: `type | url | member`。memberは省略可（groupsと同じコード。複数人はカンマ区切り: `YZH,MMK`。G2 / L2 と入力するとそのグループ全員）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
     出力の member は配列（なしは []）。同じURLが複数あれば、後に書いたmemberで上書きする。戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
     if not raw:
         return [], []
@@ -248,6 +248,13 @@ def parse_sns(raw):
         if bad:
             errors.append(f"- **sns**: memberはgroupsと同じコードで入力してください（複数はカンマ区切り）。不明: `{'`, `'.join(bad)}`（入力値: `{shown}`）")
             continue
+        # G2 / L2 と入力されたら、そのグループのメンバー全員に置き換える（個別メンバーとの併用も可、重複なし）
+        expanded = []
+        for m in members:
+            for x in (G2_MEMBERS if m == "G2" else L2_MEMBERS if m == "L2" else [m]):
+                if x not in expanded:
+                    expanded.append(x)
+        members = expanded
         if not type_:
             type_ = detect_sns_type(url) or "etc"  # 判定できないURLはすべてetc
         if not re.fullmatch(r"[a-z0-9_-]+", type_):
