@@ -1,0 +1,38 @@
+{
+  "logid": "6f99f419999c",
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DeTZCuxpWlH/?xtok=MWl2NmpvZzdmbWFreg==",
+          "member": [
+            "MSK"
+          ]
+        },
+        {
+          "url": "https://www.instagram.com/reel/DeT0fptpQgy/?vrfl=MWF2NDA0Y2QwZ25qNQ==",
+          "member": [
+            "YZH",
+            "MMK",
+            "MSK",
+            "YOK",
+            "KUR",
+            "MNM",
+            "KIR"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "youtube",
+      "urls": [
+        {
+          "url": "https://youtube.com/shorts/OnSiDxxufKI?si=vwcAbT71_-NLrqj5",
+          "member": []
+        }
+      ]
+    }
+  ],
+  "_issue": "592"
+}
