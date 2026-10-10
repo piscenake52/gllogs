@@ -4652,13 +4652,23 @@
       {
         "type": "x",
         "urls": [
-          "https://x.com/annasuicosme/status/2106715962716082415"
+          {
+            "url": "https://x.com/annasuicosme/status/2106715962716082415",
+            "member": [
+              "KIR"
+            ]
+          }
         ]
       },
       {
         "type": "instagram",
         "urls": [
-          "https://www.instagram.com/reel/DeEleSeBvDA/?stkn=ZTQ2dzltMHRvOGFu"
+          {
+            "url": "https://www.instagram.com/reel/DeEleSeBvDA/?stkn=ZTQ2dzltMHRvOGFu",
+            "member": [
+              "KIR"
+            ]
+          }
         ]
       }
     ]
