@@ -62283,7 +62283,23 @@
       {
         "type": "x",
         "urls": [
-          "https://x.com/Girls2_official/status/1807380345404403812"
+          {
+            "url": "https://x.com/Girls2_official/status/1807380345404403812",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/1844730362393665664",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR",
+              "TOA"
+            ]
+          }
         ]
       }
     ]
