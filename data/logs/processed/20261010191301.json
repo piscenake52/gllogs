@@ -1,0 +1,30 @@
+{
+  "date": "20261010",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "RIN",
+    "TBK",
+    "HIR",
+    "YUW",
+    "KAN",
+    "RRK",
+    "AKR",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/p/DeT0dSiCaoJ/?img_index=6&rpxt=MTh5YmxwYXpjMDY4ag==",
+          "member": [
+            "KIK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "587"
+}
