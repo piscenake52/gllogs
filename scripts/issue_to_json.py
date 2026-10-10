@@ -249,10 +249,7 @@ def parse_sns(raw):
             errors.append(f"- **sns**: memberはgroupsと同じコードで入力してください（複数はカンマ区切り）。不明: `{'`, `'.join(bad)}`（入力値: `{shown}`）")
             continue
         if not type_:
-            type_ = detect_sns_type(url)
-            if not type_:
-                errors.append(f"- **sns**: 種別を判定できません。`type | url` の形で入力してください（入力値: `{shown}`）")
-                continue
+            type_ = detect_sns_type(url) or "etc"  # 判定できないURLはすべてetc
         if not re.fullmatch(r"[a-z0-9_-]+", type_):
             errors.append(f"- **sns**: typeは半角英数字・ハイフン・アンダーバーで入力してください（入力値: `{shown}`）")
             continue
