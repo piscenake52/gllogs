@@ -87,14 +87,14 @@
 <div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="songs">songs</button><button type="button" data-tab="find">find</button></div>
 
 <section id="glih-p-logs">
-  <div class="field"><label for="glih-d1">date</label><input type="text" id="glih-d1" class="fin" autocomplete="off"><button type="button" class="small" data-today="glih-d1">today</button></div>
+  <div class="field"><label for="glih-d1">date</label><input type="text" id="glih-d1" class="fin" autocomplete="off"><button type="button" class="small" data-today="glih-d1">today</button><button type="button" class="small" id="glih-dx1" title="clear">&#10005;</button></div>
   <div class="field"><label for="glih-t1">time</label><input type="text" id="glih-t1" class="fin" autocomplete="off"><button type="button" class="small" id="glih-tx1" title="clear">&#10005;</button></div>
   <div class="field top"><label>groups</label><div class="chips" id="glih-groups"><div class="cr"><button type="button" class="chip" data-v="G2">G2</button><button type="button" class="chip" data-v="L2">L2</button></div><div class="cr"><button type="button" class="chip" data-v="YZH">YZH</button><button type="button" class="chip" data-v="MMK">MMK</button><button type="button" class="chip" data-v="MSK">MSK</button><button type="button" class="chip" data-v="YOK">YOK</button><button type="button" class="chip" data-v="KUR">KUR</button><button type="button" class="chip" data-v="MNM">MNM</button><button type="button" class="chip" data-v="KIR">KIR</button></div><div class="cr"><button type="button" class="chip" data-v="TOA">TOA</button><button type="button" class="chip" data-v="RAN">RAN</button></div><div class="cr"><button type="button" class="chip" data-v="RIN">RIN</button><button type="button" class="chip" data-v="TBK">TBK</button><button type="button" class="chip" data-v="HIR">HIR</button><button type="button" class="chip" data-v="YUW">YUW</button><button type="button" class="chip" data-v="KAN">KAN</button><button type="button" class="chip" data-v="RRK">RRK</button><button type="button" class="chip" data-v="AKR">AKR</button><button type="button" class="chip" data-v="KIK">KIK</button></div><div class="cr"><button type="button" class="chip" data-v="YUR">YUR</button></div></div></div>
   <a class="go" id="glih-go-logs" target="_blank" rel="noopener" aria-disabled="true">logs</a>
 </section>
 
 <section id="glih-p-setlist" hidden>
-  <div class="field"><label for="glih-d2">date</label><input type="text" id="glih-d2" class="fin" autocomplete="off"><button type="button" class="small" data-today="glih-d2">today</button></div>
+  <div class="field"><label for="glih-d2">date</label><input type="text" id="glih-d2" class="fin" autocomplete="off"><button type="button" class="small" data-today="glih-d2">today</button><button type="button" class="small" id="glih-dx2" title="clear">&#10005;</button></div>
   <div class="field"><label for="glih-t2">time</label><input type="text" id="glih-t2" class="fin" autocomplete="off"><button type="button" class="small" id="glih-tx2" title="clear">&#10005;</button></div>
   <a class="go" id="glih-go-setlist" target="_blank" rel="noopener" aria-disabled="true">setlist</a>
 </section>
@@ -109,7 +109,7 @@
 <section id="glih-p-find" hidden>
   <div class="field"><label for="glih-fkind">type</label><select id="glih-fkind" class="fsel"><option value="logs">logs</option><option value="setlist">setlist</option></select></div>
   <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fgo">&#26908;&#32034;</button></div>
-  <div class="field"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdtoday">today</button></div>
+  <div class="field"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdxd" title="clear">&#10005;</button></div>
   <div class="field"><label for="glih-fdt">time</label><input type="text" id="glih-fdt" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdx" title="clear">&#10005;</button></div>
   <div class="fcand" id="glih-fdl" hidden></div>
   <div class="fstat" id="glih-fstat" hidden></div>
@@ -638,6 +638,7 @@
     $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); dtSearch(); } });
   });
   $('fdtoday').onclick = function () { $('fdd').value = fmtDigits(digits(today()), 'date'); $('fdd').dispatchEvent(new Event('input', { bubbles: true })); }; // today: lists the rows of today (the time box is left as it is)
+  $('fdxd').onclick = function () { $('fdd').value = ''; dtSearch(); };
   $('fdx').onclick = function () { $('fdt').value = ''; dtSearch(); }; // clears the time only (the same as the logs tab)
   $('fcp').addEventListener('change', updateFind);
   addClear($('fid'));
@@ -668,6 +669,8 @@
   ['t1', 't2'].forEach(function (id) { dtText($(id), 'time'); dtPicker($(id), 'time'); });
   ['d1', 't1'].forEach(function (id) { $(id).addEventListener('input', updateLogs); });
   ['d2', 't2'].forEach(function (id) { $(id).addEventListener('input', updateSetlist); });
+  $('dx1').onclick = function () { $('d1').value = ''; updateLogs(); };
+  $('dx2').onclick = function () { $('d2').value = ''; updateSetlist(); };
   $('tx1').onclick = function () { $('t1').value = ''; updateLogs(); };
   $('tx2').onclick = function () { $('t2').value = ''; updateSetlist(); };
   $('d1').value = fmtDigits(digits(today()), 'date'); $('d2').value = $('d1').value;
