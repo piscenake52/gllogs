@@ -3074,6 +3074,29 @@
     ]
   },
   {
+    "logid": "002354c7534e",
+    "date": "20261011",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/okhKQ8bXnRKR6a39LfjLGx",
+            "member": [
+              "AKR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "81e88be0bd9e",
     "date": "20261010",
     "time": "2200",
