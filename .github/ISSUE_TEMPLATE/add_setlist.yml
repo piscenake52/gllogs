@@ -106,7 +106,6 @@ body:
       options:
         - label: "artist"
         - label: "title"
-        - label: "link"
         - label: "member"
         - label: "venue"
         - label: "songs"
