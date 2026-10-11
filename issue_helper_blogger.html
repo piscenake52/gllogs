@@ -109,7 +109,8 @@
 <section id="glih-p-find" hidden>
   <div class="field"><label for="glih-fkind">type</label><select id="glih-fkind" class="fsel"><option value="logs">logs</option><option value="setlist">setlist</option></select></div>
   <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fgo">&#26908;&#32034;</button></div>
-  <div class="field"><label for="glih-fdd">date/time</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><input type="text" id="glih-fdt" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdx" title="clear">&#10005;</button></div>
+  <div class="field"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdtoday">today</button></div>
+  <div class="field"><label for="glih-fdt">time</label><input type="text" id="glih-fdt" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdx" title="clear">&#10005;</button></div>
   <div class="fcand" id="glih-fdl" hidden></div>
   <div class="fstat" id="glih-fstat" hidden></div>
   <div class="fcand" id="glih-fcand" hidden></div>
@@ -636,7 +637,8 @@
     $(id).addEventListener('click', dtSearch); // also when the box is already focused
     $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); dtSearch(); } });
   });
-  $('fdx').onclick = function () { $('fdd').value = ''; $('fdt').value = ''; dtSearch(); };
+  $('fdtoday').onclick = function () { $('fdd').value = fmtDigits(digits(today()), 'date'); $('fdd').dispatchEvent(new Event('input', { bubbles: true })); }; // today: lists the rows of today (the time box is left as it is)
+  $('fdx').onclick = function () { $('fdt').value = ''; dtSearch(); }; // clears the time only (the same as the logs tab)
   $('fcp').addEventListener('change', updateFind);
   addClear($('fid'));
   $('fgo').onclick = doFind;
