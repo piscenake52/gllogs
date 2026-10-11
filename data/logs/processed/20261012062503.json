@@ -1,0 +1,35 @@
+{
+  "logid": "ac107cebec13",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2109235464934994270",
+          "member": [
+            "RIN",
+            "TBK",
+            "HIR",
+            "YUW",
+            "KAN",
+            "RRK",
+            "AKR",
+            "KIK"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/p/DeWgcF3GlRx/?xtok=MXJsajd4Njlhd3RkeA==",
+          "member": [
+            "HIR"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "660"
+}
