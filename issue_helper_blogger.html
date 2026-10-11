@@ -1,12 +1,17 @@
 <!-- Blogger の固定ページ(HTMLビュー)に、このままコピー&貼り付けして公開する。<html>/<head>/<body> は含めない。
      CSSは #glih の中だけに効くようにしてあり、ブログのテーマには影響しない -->
+<style>
+/*<![CDATA[*/
+/* ページ全体の背景も黒にする: helper (#glih) を含む親要素すべて(body / 記事の枠など。テーマが違ってもクラス名に依存しない)の背景を黒にする */
+html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { background:#121212 !important; background-image:none !important; color-scheme:dark; }
+/*]]>*/
+</style>
 <div id="glih">
 <style>
 /*<![CDATA[*/
-#glih { --bg:#fff; --card:#fafafa; --text:#222; --sub:#666; --line:#d4d4d8; --btn:#f4f4f5; --accent:#2563eb; --accent-text:#fff;
+#glih { --bg:#121212; --card:#1b1b1d; --text:#f4f4f5; --sub:#a1a1aa; --line:#3f3f46; --btn:#27272a; --accent:#3b82f6; --accent-text:#fff; color-scheme:dark;
   box-sizing:border-box; max-width:520px; margin:0 auto; padding:14px; background:var(--bg); color:var(--text);
   font:14px/1.5 -apple-system,"Hiragino Sans","Noto Sans JP",system-ui,sans-serif; border-radius:12px; text-align:left; }
-@media (prefers-color-scheme: dark) { #glih { --bg:#121212; --card:#1b1b1d; --text:#f4f4f5; --sub:#a1a1aa; --line:#3f3f46; --btn:#27272a; --accent:#3b82f6; } }
 #glih *, #glih *::before, #glih *::after { box-sizing:border-box; }
 #glih h1 { font-size:16px; margin:0 0 4px; padding:0; color:var(--text); border:0; }
 #glih .lead { font-size:12px; color:var(--sub); margin:0 0 14px; line-height:1.6; }
@@ -50,6 +55,8 @@
 #glih .fcand button:hover { background:var(--btn); }
 #glih .fcand .m { color:var(--sub); font-size:11px; }
 #glih .fcand .m.l2 { display:block; }
+#glih .chipr { flex:1; display:flex; gap:6px; flex-wrap:wrap; }
+#glih .chipr .chip { width:auto; padding:5px 12px; font-size:12px; }
 #glih .fmode { font-size:12px; font-weight:600; color:var(--accent); margin:0 0 10px; }
 #glih .fstat { font-size:12px; color:var(--sub); margin:0 0 10px; min-height:1.4em; }
 #glih .jsonbox { width:100%; box-sizing:border-box; min-height:9em; margin:6px 0 4px; padding:8px; font:12px/1.4 ui-monospace,Menlo,Consolas,monospace; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; resize:vertical; box-shadow:none; }
@@ -100,7 +107,7 @@
 
 <section id="glih-p-find" hidden>
   <select id="glih-fkind" hidden><option value="logs">logs</option><option value="setlist">setlist</option></select>
-  <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fgo">&#26908;&#32034;</button><button type="button" class="small" id="glih-fnew" hidden>new</button></div>
+  <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fgo">find</button><button type="button" class="small" id="glih-fnew" hidden>new</button></div>
   <div class="field" id="glih-frd"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdxd" title="clear">&#10005;</button></div>
   <div class="field" id="glih-frt"><label for="glih-fdt">time</label><input type="text" id="glih-fdt" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdx" title="clear">&#10005;</button><label class="chk" id="glih-fanyl" style="margin:0"><input type="checkbox" id="glih-fany">anytime</label></div>
   <div class="fcand" id="glih-fdl" hidden></div>
@@ -147,7 +154,7 @@
   var DEFS = {
     logs: { idKey: 'logid', tpl: TPL_LOGS, fields: [
       { k: 'date' }, { k: 'time' }, { k: 'contents', p: 'contents_free' }, { k: 'title', p: 'item_title', ta: 1 }, { k: 'display_pc', ta: 1 }, { k: 'display_sp', ta: 1 }, { k: 'url' }, { k: 'map' }, { k: 'setlistid' },
-      { k: 'groups', p: 'groups_free', list: 1 }, { k: 'tags', list: 1 }, { k: 'sns', ta: 1 } ] },
+      { k: 'groups', p: 'groups_free', list: 1 }, { k: 'relations', p: 'relations_free', list: 1 }, { k: 'tags', list: 1 }, { k: 'sns', ta: 1 } ] },
     setlist: { idKey: 'setlistid', tpl: TPL_SETLIST, fields: [
       { k: 'title', p: 'item_title', ta: 1 }, { k: 'artist', p: 'artist_free' }, { k: 'member', p: 'member_free', list: 1 }, { k: 'venue' }, { k: 'songs', ta: 1 } ] }
   };
@@ -461,7 +468,7 @@
       if (!f.ta) { el.type = 'text'; el.setAttribute('autocomplete', 'off'); }
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
       el.addEventListener('input', updateFind);
-      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && f.k === 'groups') addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addSuggest(el, artistOptions); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
+      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addSuggest(el, artistOptions); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
     var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = kind !== 'logs' || !!isNew; $('fjrow').hidden = !!isNew;
     if (isNew && kind === 'logs') { ['date', 'time'].forEach(function (k) { var e = $('f-' + k); if (e) { var fl = e.closest('.field'); if (fl) fl.hidden = true; } }); } // new mode: the top date / time are used
@@ -500,7 +507,19 @@
       var mine = a ? all.filter(function (r) { return normQ(r.artist) === a; }) : [];
       return (mine.length ? mine : all).map(function (r) { return { v: r.title.trim(), k: normQ(r.title) }; });
     }
-    addSuggest(sa, artistOnly, sa.closest('.field'));
+    addSuggest(sa, function () { var v = sa.value.trim(); return v === 'Girls\u00B2' || v === 'Laki' ? [] : artistOnly(); }, sa.closest('.field')); // no candidates while an artist chip is selected
+    // artist chips: Girls2 / Laki (the same values as the artist check of the setlist form). Click sets the artist; click again clears it.
+    var arow = document.createElement('div'); arow.className = 'field'; var alb = document.createElement('label'); arow.appendChild(alb);
+    var acs = document.createElement('div'); acs.className = 'chipr'; arow.appendChild(acs);
+    var CH = ['Girls\u00B2', 'Laki'];
+    function syncArt() { [].forEach.call(acs.children, function (b) { b.classList.toggle('on', sa.value.trim() === b.getAttribute('data-v')); }); }
+    CH.forEach(function (v) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v; b.setAttribute('data-v', v);
+      b.onclick = function () { sa.value = sa.value.trim() === v ? '' : v; sa.dispatchEvent(new Event('input', { bubbles: true })); };
+      acs.appendChild(b);
+    });
+    sa.addEventListener('input', syncArt); syncArt();
+    var afield = sa.closest('.field'); afield.parentNode.insertBefore(arow, afield.nextSibling);
     addSuggest(st, titleOpts, st.closest('.field'));
     function setLink(v) { prog = true; sl.value = v; sl.dispatchEvent(new Event('input', { bubbles: true })); prog = false; }
     function upd() {
@@ -595,23 +614,25 @@
   // id helper: pick a date (and optionally a time) -> list the rows of that day (time + title + id). Picking one puts its id into the id box.
   function dtSearch() {
     var dv = $('fdd').value.replace(/\D/g, ''), tv = $('fdt').value.replace(/\D/g, ''), kind = $('fkind').value, box = $('fdl');
-    if (dv.length === 8 && !box.hidden && box._key === kind + dv + tv) return; // same list already shown: keep it (a rebuild between mousedown and mouseup would swallow the click on a candidate)
+    var noList = tv !== '' || (kind === 'logs' && $('fany').checked); // a time (logs: or anytime) means the entry is being made, so no candidates
+    if (noList) { box.hidden = true; box.innerHTML = ''; box._key = ''; return; }
+    if (dv.length === 8 && !box.hidden && box._key === kind + dv) return; // same list already shown: keep it (a rebuild between mousedown and mouseup would swallow the click on a candidate)
     box.hidden = true; box.innerHTML = ''; box._key = '';
     if (dv.length !== 8) return;
     fetchData(kind).then(function (d) {
-      if ($('fdd').value.replace(/\D/g, '') !== dv || $('fdt').value.replace(/\D/g, '') !== tv || $('fkind').value !== kind) return;
+      if ($('fdd').value.replace(/\D/g, '') !== dv || $('fkind').value !== kind || $('fdt').value !== '' || (kind === 'logs' && $('fany').checked)) return;
       var idKey = DEFS[kind].idKey;
       function rd(r) { return kind === 'logs' ? String(r.date || '') : String(r.setlistid || '').slice(0, 8); }
       function rt(r) { return kind === 'logs' ? String(r.time || '') : String(r.setlistid || '').slice(8, 12); }
-      var rows = (Array.isArray(d) ? d : []).filter(function (r) { return r && rd(r) === dv && (!tv || rt(r) === tv); })
+      var rows = (Array.isArray(d) ? d : []).filter(function (r) { return r && rd(r) === dv; })
         .sort(function (a, b) { var x = rt(a), y = rt(b); return x < y ? -1 : x > y ? 1 : 0; });
-      if (!rows.length) { fstat('No ' + kind + ' data on ' + fmtD(dv, tv)); return; }
+      if (!rows.length) { fstat('No ' + kind + ' data on ' + fmtD(dv, '')); return; }
       rows.forEach(function (r) {
         var b = candButton(kind, r);
         b.onclick = function () { $('fid').value = String(r[idKey]); box.hidden = true; box.innerHTML = ''; doFind(); };
         box.appendChild(b);
       });
-      box._key = kind + dv + tv; box.hidden = false; fstat(rows.length + ' on ' + fmtD(dv, tv));
+      box._key = kind + dv; box.hidden = false; fstat(rows.length + ' on ' + fmtD(dv, ''));
     }).catch(function (e) { fstat('Load error: ' + e.message); });
   }
   dtText($('fdd'), 'date'); dtText($('fdt'), 'time');
