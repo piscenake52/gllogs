@@ -201,6 +201,12 @@ body:
         - YUR
 
   - type: input
+    id: relations_free
+    attributes:
+      label: "relations / 自由入力"
+      description: "上のプルダウンが未選択のときだけ使われます（プルダウン優先）。カンマ区切り。G2 / L2 と入力するとそのグループ全員。例: YZH,MMK"
+
+  - type: input
     id: tags
     attributes:
       label: "tags"
