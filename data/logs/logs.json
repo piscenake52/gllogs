@@ -2734,6 +2734,29 @@
     ]
   },
   {
+    "logid": "6f47691e2d75",
+    "date": "20261011",
+    "time": "1600",
+    "contents": "RADIO",
+    "title": "FM NORTH WAVE 「FUN'S AFTERNOON」",
+    "groups": [
+      "L2",
+      "RIN",
+      "AKR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109086582200562118",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "cd6ca060b671",
     "date": "20261011",
     "time": "1300",
