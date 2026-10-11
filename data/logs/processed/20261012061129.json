@@ -1,0 +1,33 @@
+{
+  "date": "20261012",
+  "contents": "EVENT",
+  "title": "test",
+  "display_pc": "test2",
+  "display_sp": "test3",
+  "url": "https://www.cl-live.com/",
+  "groups": [
+    "G2"
+  ],
+  "relations": [
+    "YUR",
+    "RIN"
+  ],
+  "tags": [
+    "test4"
+  ],
+  "sns": [
+    {
+      "type": "cl",
+      "urls": [
+        {
+          "url": "https://www.cl-live.com/",
+          "member": [
+            "TOA",
+            "RAN"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "658"
+}
