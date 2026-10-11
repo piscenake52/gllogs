@@ -6,11 +6,15 @@ from datetime import datetime, timedelta, timezone
 
 # フォームのラベルと完全一致させること
 # add_logs.yml
+# add_logs.yml の contents プルダウンの選択肢（自由入力の判定に使う）
+CONTENTS_OPTIONS = {"ANNIVERSARY", "BIRTHDAY", "DEBUT", "FORMATION", "CL", "COLUMN", "COOKING", "DIARY", "ETC", "CAMPAIGN", "CLOSE", "MESSAGE", "PLAYING", "RESULT", "EVENT", "FANMEETING", "RELEASEEVENT", "FANCLUB", "GLRADIO", "GTUBE", "LIVE", "MAGAZINE", "MEDIA", "BOOK", "NEWSPAPER", "MODEL", "MOVIE", "RADIO", "RELEASE", "BD", "CD", "DIGITAL", "DVD", "MUSICCARD", "SALES", "GOODS", "SNS", "STAGE", "STREAMING", "TICKET", "TV", "WEB", "PODCAST", "YOUTUBE"}
+
 LABELS_LOGS = {
     "logid": "logid",
     "date": "date",
     "time": "time",
     "contents": "contents",
+    "contents_free": "contents / 自由入力",
     "title": "title",
     "display_pc": "display_pc",
     "display_sp": "display_sp",
@@ -514,6 +518,11 @@ def main():
         # 未選択のドロップダウンは "None" として届くことがあるため空扱いにする
         if f["contents"] == "None":
             f["contents"] = ""
+        # プルダウンが未選択のときは自由入力を使う（プルダウン優先）
+        if not f["contents"] and f.get("contents_free") and f["contents_free"] not in ("None", "_No response_"):
+            free = f["contents_free"].strip()
+            # 自由入力が contents の選択肢に一致すればその値、一致しなければ ETC で登録する
+            f["contents"] = free.upper() if free.upper() in CONTENTS_OPTIONS else "ETC"
         # 数値項目を半角にそろえ、桁数などを検証する（問題があればIssueにコメントして終了）
         errors = normalize_and_validate_logs(f)
         if errors:
