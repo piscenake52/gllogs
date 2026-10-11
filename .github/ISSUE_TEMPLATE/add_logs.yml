@@ -85,6 +85,12 @@ body:
         - PODCAST
         - YOUTUBE
 
+  - type: input
+    id: contents_free
+    attributes:
+      label: "contents / 自由入力"
+      description: "上のプルダウンが未選択のときだけ使われます（プルダウン優先）。プルダウンの選択肢と同じ値ならその値、それ以外は ETC で登録されます。"
+
   - type: dropdown
     id: groups_g2
     attributes:
