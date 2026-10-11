@@ -30,6 +30,8 @@
 #glih .small { font:inherit; font-size:12px; padding:7px 10px; margin:0; border-radius:8px; border:1px solid var(--line); background:var(--btn); color:var(--text); cursor:pointer; white-space:nowrap; box-shadow:none; }
 #glih .chk { font-size:12px; color:var(--sub); display:flex; align-items:center; gap:6px; margin:0 0 0 4px; white-space:nowrap; } /* time の値のすぐ右 */
 #glih .chk input { margin:0; }
+#glih .rad { flex:1; display:flex; gap:18px; align-items:center; }
+#glih .rad .chk { margin:0; font-size:13px; color:var(--text); cursor:pointer; padding:6px 0; }
 #glih .out { font-size:12px; color:var(--sub); margin:12px 0; display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px; }
 #glih .out > span:first-child { flex:0 0 5.6em; } /* 先頭のラベル(date/time, setlistid)を、上の入力項目のラベル(.field > label: 5.6em)と同じ幅にして、値の左端を入力欄の左端にそろえる */
 #glih .out code { font-size:14px; color:var(--text); background:var(--btn); border:0; border-radius:6px; padding:3px 8px; min-width:6em; text-align:center; }
@@ -107,7 +109,7 @@
 </section>
 
 <section id="glih-p-find" hidden>
-  <div class="field"><label for="glih-fkind">type</label><select id="glih-fkind" class="fsel"><option value="logs">logs</option><option value="setlist">setlist</option></select></div>
+  <div class="field"><label>type</label><span class="rad"><label class="chk"><input type="radio" name="glih-kind" value="logs" checked>logs</label><label class="chk"><input type="radio" name="glih-kind" value="setlist">setlist</label></span><select id="glih-fkind" class="fsel" hidden><option value="logs">logs</option><option value="setlist">setlist</option></select></div>
   <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fgo">&#26908;&#32034;</button></div>
   <div class="field"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdxd" title="clear">&#10005;</button></div>
   <div class="field"><label for="glih-fdt">time</label><input type="text" id="glih-fdt" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdx" title="clear">&#10005;</button></div>
@@ -591,7 +593,10 @@
       if (!found) fstat(rows.length + ' candidates' + (rows.length > 30 ? ' (showing 30)' : ''));
     }).catch(function () {});
   }
+  // type radio buttons (logs / setlist) drive the hidden select that the rest of the code reads
+  function syncKindRadios() { var v = $('fkind').value; [].forEach.call(root.querySelectorAll('input[name="glih-kind"]'), function (r) { r.checked = r.value === v; }); }
   function doFind() {
+    syncKindRadios();
     var kind = $('fkind').value, id = $('fid').value.trim(), def = DEFS[kind];
     clearFound();
     if (!id) { fstat('Enter an id.'); return; }
@@ -644,7 +649,8 @@
   addClear($('fid'));
   $('fgo').onclick = doFind;
   $('fid').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doFind(); } });
-  $('fkind').addEventListener('change', function () { clearFound(); hideCands(); candidates(); dtSearch(); });
+  [].forEach.call(root.querySelectorAll('input[name="glih-kind"]'), function (r) { r.addEventListener('change', function () { if (r.checked) { $('fkind').value = r.value; $('fkind').dispatchEvent(new Event('change')); } }); });
+  $('fkind').addEventListener('change', function () { syncKindRadios(); clearFound(); hideCands(); candidates(); dtSearch(); });
   $('fid').addEventListener('input', function () {
     clearTimeout(candTimer);
     if ($('fid').value.trim() === '') { clearFound(); hideCands(); fstat(''); return; } // id emptied: back to the first view (loaded data, candidates and status are cleared)
