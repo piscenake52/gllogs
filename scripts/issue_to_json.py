@@ -27,6 +27,7 @@ LABELS_LOGS = {
     "stf": "STF",
     "relations_g2": "relations / Girls²",
     "relations_l2": "relations / Laki",
+    "relations_free": "relations / 自由入力",
     "tags": "tags",
     "sns": "sns",
     "delete": "DELETE",
@@ -322,6 +323,14 @@ def normalize_and_validate_logs(f):
     if not f["logid"] and not f["date"]:
         errors.append("- **ログID (logid) または 日付 (date)**: 更新するときはlogid、新規追加のときは日付を入力してください")
 
+    # relations の自由入力: メンバーのコード(G2 / L2 はそのグループ全員)。!clear は削除
+    free_rel = parse_list(f.get("relations_free", ""))
+    if free_rel != [CLEAR]:
+        ok_codes = set(G2_OPTIONS + L2_OPTIONS)
+        bad = [x for x in free_rel if x.upper() not in ok_codes]
+        if bad:
+            errors.append(f"- **relations**: メンバーのコード(YZH, MMK, ... / G2 / L2)で入力してください。不明: `{'`, `'.join(bad)}`")
+
     sns, sns_errors = parse_sns(f.get("sns", ""))
     f["_sns"] = sns
     errors += sns_errors
@@ -383,6 +392,24 @@ def ensure_group_codes(items):
     return ordered + [x for x in items if x not in ordered]
 
 
+def build_relations(f):
+    """relations: プルダウンを優先。未選択のときだけ自由入力を使う(G2 / L2 はそのグループ全員に展開、重複なし)"""
+    picked = (parse_selected(f["relations_g2"], G2_OPTIONS[1:])
+              + parse_selected(f["relations_l2"], L2_OPTIONS[1:]))
+    if picked:
+        return picked
+    free = parse_list(f.get("relations_free", ""))
+    if free == [CLEAR]:
+        return free
+    out = []
+    for x in free:
+        x = x.upper()
+        for m in (G2_MEMBERS if x == "G2" else L2_MEMBERS if x == "L2" else [x]):
+            if m not in out:
+                out.append(m)
+    return out
+
+
 def build_logs(f):
     is_stf = "STF" in parse_checked(f["stf"])
     g2_picked = parse_selected(f["groups_g2"], G2_OPTIONS)
@@ -410,8 +437,7 @@ def build_logs(f):
         "url": f["url"],
         "map": f["map"],
         "groups": groups,
-        "relations": parse_selected(f["relations_g2"], G2_OPTIONS[1:])
-                     + parse_selected(f["relations_l2"], L2_OPTIONS[1:]),
+        "relations": build_relations(f),
         "setlistid": f["setlistid"],
         "tags": parse_list(f["tags"]),
         "sns": f.get("_sns", []),
