@@ -62785,6 +62785,36 @@
     "tags": []
   },
   {
+    "logid": "bb6279258069",
+    "date": "20241008",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Lucky²",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK",
+      "YUR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/1843599906281607565",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "87c5c45ca9e9",
     "date": "20241007",
     "time": "1800",
