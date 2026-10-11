@@ -28,10 +28,11 @@ body:
       label: "artist / 自由入力"
 
 
-  - type: input
+  - type: textarea
     id: item_title
     attributes:
       label: "title"
+      description: "改行を入れると、サイト側でもそのまま改行表示されます"
 
 
   - type: dropdown
