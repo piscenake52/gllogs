@@ -1637,6 +1637,35 @@
     ]
   },
   {
+    "logid": "c38682692d38",
+    "date": "20261024",
+    "time": "1815",
+    "contents": "LIVE",
+    "title": "DANCE HOLIC 2026 Tokyo FINAL",
+    "map": "https://maps.app.goo.gl/nmzQB9wvQUt1UywbA?g_st=ac",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "setlistid": "202610241815",
+    "tags": [
+      "Spotify O-EAST"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2109211333162070495",
+            "member": [
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "24f4cdf9cf1e",
     "date": "20261024",
     "time": "1000",
