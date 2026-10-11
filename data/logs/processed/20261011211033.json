@@ -1,0 +1,35 @@
+{
+  "logid": "3ced1046f755",
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DeWZNPYp41b/?exln=ZWM3Zm10dmd5d2g3",
+          "member": [
+            "YZH",
+            "MMK",
+            "MSK",
+            "KIR"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSbcsvWGg/",
+          "member": [
+            "MMK",
+            "MSK",
+            "YOK",
+            "MNM",
+            "KIR"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "651"
+}
