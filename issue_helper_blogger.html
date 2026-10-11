@@ -87,17 +87,15 @@
 <div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="songs">songs</button><button type="button" data-tab="find">find</button></div>
 
 <section id="glih-p-logs">
-  <div class="field"><label for="glih-d1">date</label><input type="date" id="glih-d1"><button type="button" class="small" data-today="glih-d1">today</button></div>
-  <div class="field"><label for="glih-t1">time</label><input type="time" id="glih-t1" step="60"></div>
-  <div class="out"><span>date/time</span><code id="glih-o-date">&#8212;</code><span></span><code id="glih-o-time">&#8212;</code><label class="chk"><input type="checkbox" id="glih-n1" checked>anytime</label></div>
+  <div class="field"><label for="glih-d1">date</label><input type="text" id="glih-d1" class="fin" autocomplete="off"><button type="button" class="small" data-today="glih-d1">today</button></div>
+  <div class="field"><label for="glih-t1">time</label><input type="text" id="glih-t1" class="fin" autocomplete="off"><button type="button" class="small" id="glih-tx1" title="clear">&#10005;</button></div>
   <div class="field top"><label>groups</label><div class="chips" id="glih-groups"><div class="cr"><button type="button" class="chip" data-v="G2">G2</button><button type="button" class="chip" data-v="L2">L2</button></div><div class="cr"><button type="button" class="chip" data-v="YZH">YZH</button><button type="button" class="chip" data-v="MMK">MMK</button><button type="button" class="chip" data-v="MSK">MSK</button><button type="button" class="chip" data-v="YOK">YOK</button><button type="button" class="chip" data-v="KUR">KUR</button><button type="button" class="chip" data-v="MNM">MNM</button><button type="button" class="chip" data-v="KIR">KIR</button></div><div class="cr"><button type="button" class="chip" data-v="TOA">TOA</button><button type="button" class="chip" data-v="RAN">RAN</button></div><div class="cr"><button type="button" class="chip" data-v="RIN">RIN</button><button type="button" class="chip" data-v="TBK">TBK</button><button type="button" class="chip" data-v="HIR">HIR</button><button type="button" class="chip" data-v="YUW">YUW</button><button type="button" class="chip" data-v="KAN">KAN</button><button type="button" class="chip" data-v="RRK">RRK</button><button type="button" class="chip" data-v="AKR">AKR</button><button type="button" class="chip" data-v="KIK">KIK</button></div><div class="cr"><button type="button" class="chip" data-v="YUR">YUR</button></div></div></div>
   <a class="go" id="glih-go-logs" target="_blank" rel="noopener" aria-disabled="true">logs</a>
 </section>
 
 <section id="glih-p-setlist" hidden>
-  <div class="field"><label for="glih-d2">date</label><input type="date" id="glih-d2"><button type="button" class="small" data-today="glih-d2">today</button></div>
-  <div class="field"><label for="glih-t2">time</label><input type="time" id="glih-t2" step="60"></div>
-  <div class="out"><span>setlistid</span><code id="glih-o-sid">&#8212;</code><button type="button" class="small" data-copy="glih-o-sid">copy</button></div>
+  <div class="field"><label for="glih-d2">date</label><input type="text" id="glih-d2" class="fin" autocomplete="off"><button type="button" class="small" data-today="glih-d2">today</button></div>
+  <div class="field"><label for="glih-t2">time</label><input type="text" id="glih-t2" class="fin" autocomplete="off"><button type="button" class="small" id="glih-tx2" title="clear">&#10005;</button></div>
   <a class="go" id="glih-go-setlist" target="_blank" rel="noopener" aria-disabled="true">setlist</a>
 </section>
 
@@ -105,7 +103,6 @@
   <div class="field"><label for="glih-sa">artist</label><input type="text" id="glih-sa" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label for="glih-st">title</label><input type="text" id="glih-st" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label for="glih-sl">link</label><input type="text" id="glih-sl" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://..."></div>
-  <div class="fstat" id="glih-sstat"></div>
   <a class="go" id="glih-go-songs" target="_blank" rel="noopener" aria-disabled="true">songs</a>
 </section>
 
@@ -114,7 +111,7 @@
   <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fgo">&#26908;&#32034;</button></div>
   <div class="field"><label for="glih-fdd">date/time</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><input type="text" id="glih-fdt" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdx" title="clear">&#10005;</button></div>
   <div class="fcand" id="glih-fdl" hidden></div>
-  <div class="fstat" id="glih-fstat"></div>
+  <div class="fstat" id="glih-fstat" hidden></div>
   <div class="fcand" id="glih-fcand" hidden></div>
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
   <div id="glih-ff"></div>
@@ -133,26 +130,29 @@
   // NOTE: keep this script ASCII-only. Blogger converts non-ASCII characters into &#NNNN; entities, which are NOT decoded inside <script>.
   var DASH = '\u2014'; // em dash as an ASCII escape: Blogger turns a literal dash inside <script> into &#8212;, which JS does not decode
   function $(id) { return document.getElementById('glih-' + id); }
-  function digits(v) { return (v || '').replace(/[-:]/g, ''); }
+  function digits(v) { return (v || '').replace(/\D/g, ''); }
+  function okDate(v) { if (!/^\d{8}$/.test(v)) return false; var y = +v.slice(0, 4), m = +v.slice(4, 6), d = +v.slice(6), t = new Date(y, m - 1, d); return t.getFullYear() === y && t.getMonth() === m - 1 && t.getDate() === d; }
+  function okTime(v) { return /^\d{4}$/.test(v) && +v.slice(0, 2) < 24 && +v.slice(2) < 60; }
   function issueUrl(tpl, params) {
     var q = new URLSearchParams(Object.assign({ template: tpl }, params));
     return 'https://github.com/' + REPO + '/issues/new?' + q.toString(); // the form field ids (date / time / setlistid) are used as the parameter names
   }
   function setLink(a, url) { if (url) { a.href = url; a.setAttribute('aria-disabled', 'false'); } else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); } }
   function updateLogs() {
-    var date = digits($('d1').value), noTime = $('n1').checked, time = noTime ? '' : digits($('t1').value);
-    $('o-date').textContent = date || DASH; $('o-time').textContent = time || DASH;
+    // time is optional: an empty time means "no time". An incomplete / invalid date or time turns the box red and disables the link.
+    var date = digits($('d1').value), time = digits($('t1').value), dOk = okDate(date), tOk = time === '' || okTime(time);
+    $('d1').classList.toggle('bad', date !== '' && !dOk); $('t1').classList.toggle('bad', !tOk);
     var p = {}; if (date) p.date = date; if (time) p.time = time;
     // optional field: only a non-empty value is passed (field ids of add_logs.yml are the parameter names).
     // groups goes to the free-input field (groups_free); G2 / L2 are added automatically by the form script when members are present.
     var extra = { groups_free: chipValues('groups') };
     Object.keys(extra).forEach(function (k) { if (extra[k]) p[k] = extra[k]; });
-    setLink($('go-logs'), date && (noTime || time) ? issueUrl(TPL_LOGS, p) : '');
+    setLink($('go-logs'), dOk && tOk ? issueUrl(TPL_LOGS, p) : '');
   }
   function chipValues(id) { return [].map.call(root.querySelectorAll('#glih-' + id + ' .chip.on'), function (b) { return b.getAttribute('data-v'); }).join(','); }
   function updateSetlist() {
-    var sid = digits($('d2').value) + digits($('t2').value), ok = /^\d{12}$/.test(sid);
-    $('o-sid').textContent = ok ? sid : DASH;
+    var date = digits($('d2').value), time = digits($('t2').value), dOk = okDate(date), tOk = okTime(time), sid = date + time, ok = dOk && tOk;
+    $('d2').classList.toggle('bad', date !== '' && !dOk); $('t2').classList.toggle('bad', time !== '' && !tOk);
     setLink($('go-setlist'), ok ? issueUrl(TPL_SETLIST, { setlistid: sid }) : '');
   }
   function tab(name) {
@@ -162,21 +162,8 @@
   function today() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
 
   [].forEach.call(root.querySelectorAll('.tabs button'), function (b) { b.onclick = function () { var n = b.getAttribute('data-tab'); tab(n); try { history.replaceState(null, '', '#' + n); } catch (e) {} }; });
-  [].forEach.call(root.querySelectorAll('[data-today]'), function (b) { b.onclick = function () { document.getElementById(b.getAttribute('data-today')).value = today(); updateLogs(); updateSetlist(); }; });
-  [].forEach.call(root.querySelectorAll('[data-copy]'), function (b) {
-    b.onclick = function () {
-      var t = document.getElementById(b.getAttribute('data-copy')).textContent; if (t === DASH) return;
-      var done = function () { var o = b.textContent; b.textContent = 'OK'; setTimeout(function () { b.textContent = o; }, 900); };
-      if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, function () {});
-      else { var x = document.createElement('textarea'); x.value = t; document.body.appendChild(x); x.select(); try { document.execCommand('copy'); done(); } catch (e) {} document.body.removeChild(x); }
-    };
-  });
-  ['d1'].forEach(function (id) { $(id).addEventListener('input', updateLogs); $(id).addEventListener('change', updateLogs); });
-  // anytime is checked at first. A valid time value unchecks it; checking it again clears the time field.
-  ['input', 'change'].forEach(function (ev) { $('t1').addEventListener(ev, function () { if ($('t1').value) $('n1').checked = false; updateLogs(); }); });
-  $('n1').addEventListener('change', function () { if ($('n1').checked) $('t1').value = ''; updateLogs(); });
+  [].forEach.call(root.querySelectorAll('[data-today]'), function (b) { b.onclick = function () { document.getElementById(b.getAttribute('data-today')).value = fmtDigits(digits(today()), 'date'); updateLogs(); updateSetlist(); }; });
   [].forEach.call(root.querySelectorAll('.chip'), function (b) { b.onclick = function () { b.classList.toggle('on'); updateLogs(); }; });
-  ['d2', 't2'].forEach(function (id) { $(id).addEventListener('input', updateSetlist); $(id).addEventListener('change', updateSetlist); });
 
   // ---- find tab: look up a logid / setlistid in the data file on GitHub (raw, always latest) and prefill the issue form with the changed fields only ----
   var BRANCH = 'main', DATA = { logs: 'data/logs/logs.json', setlist: 'data/setlist/setlist.json', songs: 'data/songs/songs.json' }, cache = {};
@@ -453,7 +440,7 @@
     var url = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + DATA[kind] + '?v=' + Date.now();
     return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (d) { cache[kind] = d; return d; });
   }
-  function fstat(t) { $('fstat').textContent = t; }
+  function fstat() {} // the status line of the find tab is not shown (kept as a no-op so the callers stay simple)
   // input check for date (yyyymmdd), time (hhmm) and setlistid (12 digits) of the find tab. Empty is allowed. Invalid fields get a red border and the Issue link is disabled.
   function validateFind(kind) {
     var errs = [];
@@ -534,7 +521,7 @@
     function setLink(v) { prog = true; sl.value = v; sl.dispatchEvent(new Event('input', { bubbles: true })); prog = false; }
     function upd() {
       var a = sa.value.trim(), t = st.value.trim(), list = cache.songs;
-      if (!list) { $('sstat').textContent = 'Loading songs...'; setLink2(''); return; }
+      if (!list) { setLink2(''); return; }
       match = null;
       if (a && t) list.forEach(function (r) { if (!match && r && String(r.artist || '').trim() === a && String(r.title || '').trim() === t) match = r; });
       if (match && !sl.value.trim() && !sl._touched) { setLink(match.link || ''); auto = true; }
@@ -544,14 +531,13 @@
       if (l && !(match && l === String(match.link || '').trim())) p.link = l;
       var ok = !!(a && t);
       setLink2(ok ? issueUrl(TPL_SONGS, p) : '');
-      $('sstat').textContent = !ok ? 'Enter artist and title.' : match ? 'Existing song: the link is updated when changed (update).' : 'New song (insert).';
     }
     function setLink2(url) { var g = $('go-songs'); if (url) { g.href = url; g.setAttribute('aria-disabled', 'false'); } else { g.removeAttribute('href'); g.setAttribute('aria-disabled', 'true'); } }
     sl.addEventListener('input', function () { if (!prog) { sl._touched = true; auto = false; } upd(); });
     sa.addEventListener('input', upd); st.addEventListener('input', upd);
     st.addEventListener('input', function () { if (!st.value.trim() && !prog) sl._touched = false; });
     upd();
-    fetchData('songs').then(function () { upd(); }).catch(function (e) { $('sstat').textContent = 'Load error: ' + e.message; });
+    fetchData('songs').then(function () { upd(); }).catch(function () {});
   }
   // ---- candidate search: a keyword (date / title / contents / artist ...) in the id box lists matching rows ----
   function normQ(s) { return String(s == null ? '' : s).normalize('NFKC').toLowerCase(); }
@@ -647,6 +633,7 @@
   ['fdd', 'fdt'].forEach(function (id) {
     $(id).addEventListener('input', dtSearch); $(id).addEventListener('change', dtSearch);
     $(id).addEventListener('focus', dtSearch); // clicking into the box lists the candidates again, even when the value is unchanged
+    $(id).addEventListener('click', dtSearch); // also when the box is already focused
     $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); dtSearch(); } });
   });
   $('fdx').onclick = function () { $('fdd').value = ''; $('fdt').value = ''; dtSearch(); };
@@ -674,7 +661,14 @@
     else { $('fjson').select(); try { document.execCommand('copy'); done(); } catch (e) {} }
   };
   $('fid').value = (location.search.match(/[?&]id=([0-9a-f]{12}|\d{12})/) || [])[1] || '';
-  $('d1').value = today(); $('d2').value = today();
+  // logs / setlist tabs: the same YYYY/MM/DD and HH:MM inputs as the find tab
+  ['d1', 'd2'].forEach(function (id) { dtText($(id), 'date'); dtPicker($(id), 'date'); });
+  ['t1', 't2'].forEach(function (id) { dtText($(id), 'time'); dtPicker($(id), 'time'); });
+  ['d1', 't1'].forEach(function (id) { $(id).addEventListener('input', updateLogs); });
+  ['d2', 't2'].forEach(function (id) { $(id).addEventListener('input', updateSetlist); });
+  $('tx1').onclick = function () { $('t1').value = ''; updateLogs(); };
+  $('tx2').onclick = function () { $('t2').value = ''; updateSetlist(); };
+  $('d1').value = fmtDigits(digits(today()), 'date'); $('d2').value = $('d1').value;
   tab(location.hash === '#logs' ? 'logs' : location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : 'find'); // the first view is the find tab
   updateLogs(); updateSetlist();
 })();
