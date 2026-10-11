@@ -57,7 +57,37 @@
       "KIR"
     ],
     "title": "Girls² EP 「EASY」 リリースイベント 愛知",
-    "venue": "エアポートウォーク名古屋 3Fイベントステージ"
+    "venue": "エアポートウォーク名古屋 3Fイベントステージ",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Nocturne",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "EASY",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "EASY",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "ヒマワリ",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202610101630",
