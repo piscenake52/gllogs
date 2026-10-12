@@ -2855,7 +2855,13 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "RIN",
+      "TBK",
+      "HIR",
       "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
       "KIK"
     ],
     "sns": [
@@ -2878,6 +2884,19 @@
             "url": "https://vt.tiktok.com/ZSbTBc1gd/",
             "member": [
               "YUW",
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbwYg4nq/",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
               "KIK"
             ]
           }
