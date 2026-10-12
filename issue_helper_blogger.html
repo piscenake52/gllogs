@@ -511,6 +511,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       else if (ch && cur.trim() !== '') { p[f.p || f.k] = cur; n++; }
     });
     var errs = validateFind(found.kind);
+    if (found.kind === 'setlist' && !found.isNew && $('fcp').checked) { // copy: setlistid = the new date + time, copy_from = the loaded one
+      var nr = topReady('setlist');
+      if (!nr || nr.d + nr.t === found.id) errs.push('copy: enter a new date and time');
+      else { p.setlistid = nr.d + nr.t; p.copy_from = found.id; }
+    }
     var url = issueUrl(def.tpl, p);
     setLink($('go-find'), errs.length ? '' : url);
     $('go-find').textContent = n ? 'Issue (' + n + ')' : 'Issue';
@@ -530,7 +535,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       el.addEventListener('input', updateFind);
       wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addSuggest(el, artistOptions); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
-    var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = kind !== 'logs' || !!isNew; $('fjrow').hidden = !!isNew;
+    var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = !!isNew; $('fjrow').hidden = !!isNew;
     if (isNew && kind === 'logs') { ['date', 'time'].forEach(function (k) { var e = $('f-' + k); if (e) { var fl = e.closest('.field'); if (fl) fl.hidden = true; } }); } // new mode: the top date / time are used
     applyModeUI(); updateFind();
   }
@@ -673,6 +678,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   // id helper: pick a date (and optionally a time) -> list the rows of that day (time + title + id). Picking one puts its id into the id box.
   function dtSearch() {
     var dv = $('fdd').value.replace(/\D/g, ''), tv = $('fdt').value.replace(/\D/g, ''), kind = $('fkind').value, box = $('fdl');
+    if (found && !found.isNew) { box.hidden = true; box.innerHTML = ''; box._key = ''; return; } // edit mode: no date candidates
     var noList = tv !== '' || (kind === 'logs' && $('fany').checked); // a time (logs: or anytime) means the entry is being made, so no candidates
     if (noList) { box.hidden = true; box.innerHTML = ''; box._key = ''; return; }
     if (dv.length === 8 && !box.hidden && box._key === kind + dv) return; // same list already shown: keep it (a rebuild between mousedown and mouseup would swallow the click on a candidate)
@@ -705,7 +711,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   $('fdtoday').onclick = function () { $('fdd').value = fmtDigits(digits(today()), 'date'); $('fdd').dispatchEvent(new Event('input', { bubbles: true })); }; // today: lists the rows of today (the time box is left as it is)
   $('fdxd').onclick = function () { $('fdd').value = ''; topChanged(); };
   $('fdx').onclick = function () { $('fdt').value = ''; topChanged(); }; // clears the time only (the same as the logs tab)
-  $('fcp').addEventListener('change', updateFind);
+  $('fcp').addEventListener('change', function () { applyModeUI(); updateFind(); }); // setlist copy: the top date / time become the new setlistid
   addClear($('fid'));
   $('fgo').onclick = doFind;
   $('fid').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doFind(); } });
@@ -739,7 +745,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     return kind === 'logs' && $('fany').checked ? { d: dv, t: '' } : null; // an empty time is allowed only for logs with anytime checked
   }
   function syncNew() {
-    if (found && !found.isNew) return;
+    if (found && !found.isNew) { updateFind(); return; } // edit mode: the top date / time only matter for the setlist copy
     var kind = $('fkind').value, r = topReady(kind);
     if (!r) { if (found) clearFound(); return; }
     var id = kind === 'setlist' ? r.d + r.t : '';
@@ -750,8 +756,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   function applyModeUI() {
     var edit = !!(found && !found.isNew), kind = $('fkind').value, md = $('fmode');
-    $('frd').hidden = edit; $('frt').hidden = edit; $('fanyl').hidden = kind !== 'logs'; $('fnew').hidden = !edit;
-    if (edit) { $('fdl').hidden = true; $('fdl').innerHTML = ''; }
+    var cp = edit && kind === 'setlist' && $('fcp').checked; // setlist copy needs the new date / time
+    $('frd').hidden = edit && !cp; $('frt').hidden = edit && !cp; $('fanyl').hidden = kind !== 'logs'; $('fnew').hidden = !edit;
+    if (edit) { $('fdl').hidden = true; $('fdl').innerHTML = ''; $('fdl')._key = ''; }
     md.hidden = !found; md.textContent = found ? (found.isNew ? 'new' : 'edit: ' + found.id) : '';
   }
   function topChanged() { dtSearch(); syncNew(); }
