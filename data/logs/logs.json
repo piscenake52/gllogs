@@ -2845,6 +2845,30 @@
     ]
   },
   {
+    "logid": "c28aeda7cfb1",
+    "date": "20261012",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbw8PUuN/",
+            "member": [
+              "YOK",
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "07457dc63f3b",
     "date": "20261011",
     "time": "2300",
