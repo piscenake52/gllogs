@@ -45,6 +45,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .fin, #glih .fta, #glih .fsel { flex:1; min-width:0; width:auto; margin:0; padding:8px; font:inherit; font-size:16px; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; box-shadow:none; }
 #glih .fta { min-height:4.5em; resize:vertical; font-size:13px; line-height:1.4; }
 #glih .fin { font-size:13px; line-height:1.4; } /* テキストボックスもテキストエリアと同じ文字サイズに */
+#glih #glih-f-songs { min-height:9em; } /* setlist songs: twice as tall */
 #glih #glih-f-sns { min-height:13.5em; } /* snsは複数行になりやすいので縦を3倍に */
 #glih .fin.ch, #glih .fta.ch { border-color:var(--accent); }
 #glih .fin.bad, #glih .field input.bad, #glih .jsonbox.bad { border-color:#d33; }
@@ -109,7 +110,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 <section id="glih-p-find" hidden>
   <select id="glih-fkind" hidden><option value="logs">logs</option><option value="setlist">setlist</option></select>
   <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fgo">find</button><button type="button" class="small" id="glih-fnew" hidden>new</button></div>
-  <div class="field" id="glih-frd"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdxd" title="clear">&#10005;</button></div>
+  <div class="field" id="glih-frd"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdprev" title="prev day">&lt;</button><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdnext" title="next day">&gt;</button><button type="button" class="small" id="glih-fdxd" title="clear">&#10005;</button></div>
   <div class="field" id="glih-frt"><label for="glih-fdt">time</label><input type="text" id="glih-fdt" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdx" title="clear">&#10005;</button><label class="chk" id="glih-fanyl" style="margin:0"><input type="checkbox" id="glih-fany">anytime</label></div>
   <div class="fcand" id="glih-fdl" hidden></div>
   <div class="fstat" id="glih-fstat" hidden></div>
@@ -157,7 +158,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       { k: 'date' }, { k: 'time' }, { k: 'contents', p: 'contents_free' }, { k: 'title', p: 'item_title', ta: 1 }, { k: 'display_pc', ta: 1 }, { k: 'display_sp', ta: 1 }, { k: 'url' }, { k: 'map' }, { k: 'setlistid' },
       { k: 'groups', p: 'groups_free', list: 1 }, { k: 'relations', p: 'relations_free', list: 1 }, { k: 'tags', list: 1 }, { k: 'sns', ta: 1 } ] },
     setlist: { idKey: 'setlistid', tpl: TPL_SETLIST, fields: [
-      { k: 'title', p: 'item_title', ta: 1 }, { k: 'artist', p: 'artist_free' }, { k: 'member', p: 'member_free', list: 1 }, { k: 'venue' }, { k: 'songs', ta: 1 } ] }
+      { k: 'title', p: 'item_title', ta: 1 }, { k: 'artist', p: 'artist_free' }, { k: 'member', p: 'member_free', list: 1 }, { k: 'venue' }, { k: 'songs', ta: 1 }, { k: 'songs_patch', ta: 1 } ] }
   };
   // clear (x) button at the right end of an input: empties the field and fires an input event so the preview and link update
   function addClear(el) {
@@ -231,11 +232,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     el.addEventListener('input', sync); sync();
   }
   // member chips under the groups input of the find tab (same chips as the logs tab): two-way synced with the comma-separated text
-  function addGroupChips(el) {
+  function addGroupChips(el, membersOnly) {
     var fw = el.parentNode, col = document.createElement('div'); col.className = 'fgcol';
     fw.parentNode.classList.add('top', 'tl'); // label aligned to the top (the input is the first row of the column)
     fw.parentNode.insertBefore(col, fw); col.appendChild(fw);
     var chips = $('groups').cloneNode(true); chips.removeAttribute('id'); col.appendChild(chips);
+    if (membersOnly) { // setlist member: members only (no G2 / L2 group chips)
+      [].forEach.call(chips.querySelectorAll('.chip[data-v="G2"], .chip[data-v="L2"]'), function (b) { b.parentNode.removeChild(b); });
+      [].forEach.call(chips.querySelectorAll('.cr'), function (r) { if (!r.children.length) r.parentNode.removeChild(r); });
+    }
     var btns = [].slice.call(chips.querySelectorAll('.chip'));
     function tokens() { return el.value.split(/[,\u3001\s]+/).filter(Boolean); }
     function sync() { var t = tokens().map(function (x) { return x.toUpperCase(); }); btns.forEach(function (b) { b.classList.toggle('on', t.indexOf(b.getAttribute('data-v')) !== -1); }); }
@@ -247,6 +252,36 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       };
     });
     el.addEventListener('input', sync); sync();
+  }
+  // setlist artist chips (Girls2 / Laki): toggle the name in the text (both on = joined with ' x ' as the form does). The members of the artist's group are switched on in the member field.
+  var G2_MEM = ['YZH', 'MMK', 'MSK', 'YOK', 'KUR', 'MNM', 'KIR'], L2_MEM = ['RIN', 'TBK', 'HIR', 'YUW', 'KAN', 'RRK', 'AKR', 'KIK'], AJOIN = ' \u00D7 ';
+  var ART_G2 = 'Girls\u00B2', ART_L2 = 'Laki', autoMember = '';
+  function artistTokens(t) { return String(t || '').split('\u00D7').map(function (x) { return x.trim(); }).filter(Boolean); }
+  function membersOfArtist(t) { var a = artistTokens(t); return (a.indexOf(ART_G2) >= 0 ? G2_MEM : []).concat(a.indexOf(ART_L2) >= 0 ? L2_MEM : []).join(','); }
+  function autoFillMember(artistEl) {
+    var m = $('f-member'); if (!m) return;
+    var next = membersOfArtist(artistEl.value);
+    if (m.value === '' || m.value === autoMember) { // only an empty member or the value set automatically before is replaced (a hand-edited member is kept)
+      autoMember = next;
+      if (m.value !== next) { m.value = next; m.dispatchEvent(new Event('input', { bubbles: true })); }
+    }
+  }
+  function addArtistChips(el) {
+    autoMember = '';
+    var fw = el.parentNode, col = fw.parentNode, row = document.createElement('div'); row.className = 'chipr'; row.style.margin = '0 0 4px';
+    [ART_G2, ART_L2].forEach(function (v) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v; b.setAttribute('data-v', v);
+      b.onclick = function () {
+        var t = artistTokens(el.value), i = t.indexOf(v);
+        if (i >= 0) t.splice(i, 1); else t.push(v);
+        t.sort(function (a, c) { return (a === ART_G2 ? 0 : a === ART_L2 ? 1 : 2) - (c === ART_G2 ? 0 : c === ART_L2 ? 1 : 2); });
+        el.value = t.join(AJOIN); el.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      row.appendChild(b);
+    });
+    col.insertBefore(row, fw.nextSibling);
+    function sync() { var t = artistTokens(el.value); [].forEach.call(row.children, function (b) { b.classList.toggle('on', t.indexOf(b.getAttribute('data-v')) >= 0); }); }
+    el.addEventListener('input', function () { sync(); autoFillMember(el); }); sync();
   }
   // revert (undo) button in each find field: appears when the value differs from the loaded one
   function addRevert(el, key) {
@@ -364,7 +399,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
   }
   // songs input helper (find tab, setlist): builds one line  [order:] title | type | original | notes  and appends it to the songs textarea (which stays as it is).
-  function addSongsHelper(el) {
+  function addSongsHelper(el, row, isNew) {
     fetchData('songs').catch(function () {}); // song titles for the suggestions (songs.json)
     var fw = el.parentNode, col = document.createElement('div'); col.className = 'fgcol';
     fw.parentNode.insertBefore(col, fw); col.appendChild(fw);
@@ -372,22 +407,59 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function mkInput(cls, ph) { var i = document.createElement('input'); i.type = 'text'; i.className = 'fin ' + cls; i.placeholder = ph; i.setAttribute('autocomplete', 'off'); i.setAttribute('spellcheck', 'false'); return i; }
     var r1 = document.createElement('div'); r1.className = 'row'; box.appendChild(r1);
     var title = mkInput('', 'title'); var add = document.createElement('button'); add.type = 'button'; add.className = 'small'; add.textContent = 'add';
+    var edit = !isNew && row && typeof row === 'object', mode = null;
+    if (edit) { // loaded setlist: the line goes to the songs_patch box (update / insert / delete one song by its order); the whole songs box is left as it is
+      mode = document.createElement('select'); mode.className = 'fsel'; mode.title = 'mode';
+      [['update', 'update #'], ['insert', 'insert at #'], ['delete', 'delete #']].forEach(function (m) { var o = document.createElement('option'); o.value = m[0]; o.textContent = m[1]; mode.appendChild(o); });
+      r1.appendChild(mode);
+    }
     r1.appendChild(title); r1.appendChild(add);
     var r2 = document.createElement('div'); r2.className = 'row wrap'; box.appendChild(r2);
     var num = mkInput('num', '#'); num.inputMode = 'numeric';
     var sel = document.createElement('select'); sel.className = 'fsel'; sel.title = 'type';
-    ['song', 'allow', 'encore', 'medley', '-'].forEach(function (t) { var o = document.createElement('option'); o.value = t; o.textContent = t; sel.appendChild(o); });
+    (edit ? ['', 'song', 'allow', 'encore', 'medley', '-'] : ['song', 'allow', 'encore', 'medley', '-']).forEach(function (t) { var o = document.createElement('option'); o.value = t; o.textContent = (t === '' ? 'type (keep)' : t); sel.appendChild(o); });
     var orig2 = mkInput('mid', 'original'), notes = mkInput('mid', 'notes');
     r2.appendChild(num); r2.appendChild(sel); r2.appendChild(orig2); r2.appendChild(notes);
     addSuggest(title, songOptions, r1);
+    function rowSong(n) { var a = (row && row.songs) || [], i; for (i = 0; i < a.length; i++) if (a[i] && a[i].order === n) return a[i]; return null; }
     function nextOrder() {
       var last = 0;
+      if (edit) { ((row && row.songs) || []).forEach(function (x) { if (x && typeof x.order === 'number' && x.order > last) last = x.order; }); return last + 1; }
       el.value.split('\n').forEach(function (l) { l = l.trim(); if (!l || l.charAt(0) === '#') return; var m = l.match(/^(\d+)\s*[:\uff1a]/); last = m ? +m[1] : last + 1; });
       return last + 1;
     }
     function syncNum() { num.placeholder = String(nextOrder()); }
     el.addEventListener('input', syncNum); syncNum();
+    function syncMode() { // shows the current song of the order as the placeholders (empty input = keep it)
+      if (!edit) return;
+      var n = +num.value.replace(/\D/g, ''), sg = n ? rowSong(n) : null;
+      title.placeholder = sg && mode.value !== 'insert' ? sg.title || 'title' : 'title';
+      orig2.placeholder = sg && mode.value === 'update' && sg.original ? sg.original : 'original';
+      notes.placeholder = sg && mode.value === 'update' && sg.notes ? sg.notes : 'notes';
+      var dl = mode.value === 'delete'; sel.hidden = orig2.hidden = notes.hidden = dl; add.textContent = mode.value;
+    }
+    if (edit) { mode.addEventListener('change', syncMode); num.addEventListener('input', syncMode); syncMode(); }
+    function doPatch() {
+      var n = num.value.replace(/\D/g, ''), t = title.value.trim(), md = mode.value, bad = null;
+      if (!n) bad = num; else if (/[|\uff5c]/.test(t)) bad = title;
+      else if (md === 'insert' && !t) bad = title;
+      else if (md === 'update' && !t && !sel.value && !orig2.value.trim() && !notes.value.trim()) bad = title;
+      else if (md !== 'insert' && !rowSong(+n)) bad = num; // there is no song with that order
+      if (bad) { bad.classList.add('bad'); bad.focus(); return; }
+      var line;
+      if (md === 'delete') line = '-' + n + ': ' + (rowSong(+n).title || '');
+      else {
+        var rest = [sel.value, orig2.value.trim(), notes.value.trim()];
+        while (rest.length && rest[rest.length - 1] === '') rest.pop();
+        line = (md === 'insert' ? '+' : '') + n + ': ' + [t].concat(rest).join(' | ');
+      }
+      var pe = $('f-songs_patch'); if (!pe) return;
+      var cur = pe.value.replace(/\s+$/, '');
+      pe.value = (cur ? cur + '\n' : '') + line; pe.dispatchEvent(new Event('input', { bubbles: true }));
+      title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = edit ? '' : 'song'; syncMode(); num.focus();
+    }
     function doAdd() {
+      if (edit) { doPatch(); return; }
       var t = title.value.trim();
       if (!t || /[|\uff5c]/.test(t)) { title.classList.add('bad'); title.focus(); return; }
       title.classList.remove('bad');
@@ -533,9 +605,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (!f.ta) { el.type = 'text'; el.setAttribute('autocomplete', 'off'); }
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
       el.addEventListener('input', updateFind);
-      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addSuggest(el, artistOptions); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
+      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') { addSuggest(el, artistOptions); addArtistChips(el); } if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
     var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = !!isNew; $('fjrow').hidden = !!isNew;
+    if (isNew && kind === 'setlist') { var spe = $('f-songs_patch'); if (spe && spe.closest('.field')) spe.closest('.field').hidden = true; } // new mode: the songs box is used as it is (the per-song edit is for the loaded setlist only)
     if (isNew && kind === 'logs') { ['date', 'time'].forEach(function (k) { var e = $('f-' + k); if (e) { var fl = e.closest('.field'); if (fl) fl.hidden = true; } }); } // new mode: the top date / time are used
     applyModeUI(); updateFind();
   }
@@ -709,6 +782,16 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); dtSearch(); } });
   });
   $('fdtoday').onclick = function () { $('fdd').value = fmtDigits(digits(today()), 'date'); $('fdd').dispatchEvent(new Event('input', { bubbles: true })); }; // today: lists the rows of today (the time box is left as it is)
+  function shiftDate(n) { // < > : moves the date by n days (an empty or incomplete date starts from today)
+    var d = digits($('fdd').value), t = new Date();
+    var base = d.length === 8 ? new Date(+d.slice(0, 4), +d.slice(4, 6) - 1, +d.slice(6, 8)) : new Date(t.getFullYear(), t.getMonth(), t.getDate());
+    if (isNaN(base.getTime())) base = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+    base.setDate(base.getDate() + n);
+    $('fdd').value = fmtDigits(base.getFullYear() + ('0' + (base.getMonth() + 1)).slice(-2) + ('0' + base.getDate()).slice(-2), 'date');
+    $('fdd').dispatchEvent(new Event('input', { bubbles: true }));
+  }
+  $('fdprev').onclick = function () { shiftDate(-1); };
+  $('fdnext').onclick = function () { shiftDate(1); };
   $('fdxd').onclick = function () { $('fdd').value = ''; topChanged(); };
   $('fdx').onclick = function () { $('fdt').value = ''; topChanged(); }; // clears the time only (the same as the logs tab)
   $('fcp').addEventListener('change', function () { applyModeUI(); updateFind(); }); // setlist copy: the top date / time become the new setlistid
