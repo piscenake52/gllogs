@@ -5,6 +5,7 @@ import glob
 import shutil
 import uuid
 import copy
+import sys
 
 MAX_PROCESSED_FILES = 30
 CLEAR = "!clear"  # 既存値を消したいときにIssueへ入力する特別な値
@@ -34,6 +35,8 @@ TARGETS = [
         "append_lists": ["tags", "sns"],  # 更新時は上書きせず、既存の値に新しいものだけ追記する
         "sort_key": lambda x: (x.get("date") or "", x.get("time") or ""),
         "sort_reverse": True,
+        "index_file": "data/logs/logs_index.json",  # 検索・候補用の軽量版（helperが先に読む）
+        "index_fields": ["logid", "date", "time", "contents", "title", "setlistid"],
     },
     {
         "name": "setlist",
@@ -45,6 +48,9 @@ TARGETS = [
         "clear_to_empty_list": [],
         "sort_key": lambda x: x.get("setlistid") or "",
         "sort_reverse": True,
+        "index_file": "data/setlist/setlist_index.json",
+        "index_fields": ["setlistid", "artist", "title", "venue"],
+        "index_song_titles": True,  # songs は曲名の配列だけを入れる
     },
     {
         "name": "songs",
@@ -397,6 +403,25 @@ def apply_item(target, main_data, raw, issue_map):
 
 # ---------- ファイル操作 ----------
 
+def write_index(target, main_data):
+    """検索・候補用の軽量インデックスを書き出す（index_file が設定されたものだけ）。
+    必要な項目だけを残し、空の項目は省く。メインファイルと同じ並びで、空白なしのJSONにする"""
+    path = target.get("index_file")
+    if not path:
+        return
+    out = []
+    for e in main_data:
+        row = {k: e[k] for k in target["index_fields"] if not is_blank(e.get(k))}
+        if target.get("index_song_titles"):
+            titles = [x.get("title") for x in (e.get("songs") or []) if isinstance(x, dict) and x.get("title")]
+            if titles:
+                row["songs"] = titles
+        out.append(row)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
+
+
 def cleanup_processed_dir(processed_dir):
     """processed フォルダ内のファイルを新しい順に並べ、30個を超える古いものを削除する"""
     if not os.path.exists(processed_dir):
@@ -471,6 +496,7 @@ def process_target(target, issue_map):
         os.makedirs(os.path.dirname(main_file), exist_ok=True)
         with open(main_file, "w", encoding="utf-8") as f:
             json.dump(main_data, f, ensure_ascii=False, indent=2)
+        write_index(target, main_data)
 
     # 読み込めたファイルは、スキップ分も含めて processed へ移動する（同じ警告を毎回出さないため）
     if parsed_files:
@@ -488,7 +514,19 @@ def process_target(target, issue_map):
     return changed > 0
 
 
+def rebuild_indexes():
+    """メインファイルから軽量インデックスだけを作り直す（初回の作成用: python merge_json.py --rebuild-index）"""
+    for target in TARGETS:
+        if target.get("index_file"):
+            data = load_json_list(target["main_file"], "メインファイル")
+            write_index(target, data)
+            print(f"[{target['name']}] インデックスを作成しました: {target['index_file']} ({len(data)}件)")
+
+
 def main():
+    if "--rebuild-index" in sys.argv:
+        rebuild_indexes()
+        return
     issue_map_raw = {}
     if os.path.exists(ISSUE_MAP_FILE):
         try:
