@@ -1646,7 +1646,15 @@
     "groups": [
       "G2",
       "KIR",
-      "L2"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "setlistid": "202610241815",
     "tags": [
@@ -1673,6 +1681,19 @@
             "url": "https://www.instagram.com/reel/DeWUFrHpp6X/?rpxt=MWFpZzZqdDdmcG9vMg==",
             "member": [
               "KIR"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/DeYr2VFyoj0/?cplk=djlpNjhoNjk0Y3F4",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
             ]
           }
         ]
