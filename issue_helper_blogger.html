@@ -57,6 +57,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .fcand .m.l2 { display:block; }
 #glih .chipr { flex:1; display:flex; gap:6px; flex-wrap:wrap; }
 #glih .chipr .chip { width:auto; padding:5px 12px; font-size:12px; }
+#glih .chipr .chip.rm { text-decoration:line-through; opacity:.55; border-color:#d33; }
 #glih .fmode { font-size:12px; font-weight:600; color:var(--accent); margin:0 0 10px; }
 #glih .fstat { font-size:12px; color:var(--sub); margin:0 0 10px; min-height:1.4em; }
 #glih .jsonbox { width:100%; box-sizing:border-box; min-height:9em; margin:6px 0 4px; padding:8px; font:12px/1.4 ui-monospace,Menlo,Consolas,monospace; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; resize:vertical; box-shadow:none; }
@@ -440,6 +441,53 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     chk('setlistid', function (v) { return /^\d{12}$/.test(v); }, 'setlistid: 12 digits');
     return errs;
   }
+  // tags / sns: individual delete. Values removed from the text are sent as `-tag` / `-URL` (the form script removes only those); only added / changed ones are sent besides.
+  function tagTokens(t) { return String(t || '').split(/[,\u3001\n]/).map(function (x) { return x.trim(); }).filter(Boolean); }
+  function snsLines(t) { return String(t || '').split('\n').map(function (l) { return l.trim(); }).filter(Boolean); }
+  function urlOfLine(l) { var m = l.match(/https?:\/\/[^\s|]+/i); return m ? m[0] : ''; }
+  function normLine(l) { return l.replace(/\s*\|\s*/g, ' | ').replace(/\s+/g, ' '); }
+  function listDiff(key, o, c) {
+    var out = [];
+    if (key === 'tags') {
+      var ot = tagTokens(o), ct = tagTokens(c);
+      ct.forEach(function (t) { if (ot.indexOf(t) < 0 && out.indexOf(t) < 0) out.push(t); });
+      ot.forEach(function (t) { if (ct.indexOf(t) < 0 && out.indexOf('-' + t) < 0) out.push('-' + t); });
+      return out.join(',');
+    }
+    var om = {}, cu = {};
+    snsLines(o).forEach(function (l) { var u = urlOfLine(l); if (u) om[u] = normLine(l); });
+    snsLines(c).forEach(function (l) { var u = urlOfLine(l); if (u) cu[u] = 1; if (!u || om[u] !== normLine(l)) out.push(l); });
+    snsLines(o).forEach(function (l) { var u = urlOfLine(l); if (u && !cu[u] && out.indexOf('-' + u) < 0) out.push('-' + u); });
+    return out.join('\n');
+  }
+  // one toggle chip per existing tag / sns url under the field: click = remove it from the text (struck through), click again = restore it
+  function addOrigToggles(el, key) {
+    var items = [];
+    if (key === 'tags') tagTokens(orig.tags).forEach(function (t) { items.push({ k: t, label: t, line: t }); });
+    else snsLines(orig.sns).forEach(function (l) {
+      var u = urlOfLine(l); if (!u) return;
+      var ty = l.indexOf(u) > 0 ? l.split('|')[0].trim() : '';
+      items.push({ k: u, label: (ty ? ty + ' ' : '') + u.replace(/^https?:\/\/(www\.)?/, '').slice(0, 30), line: l });
+    });
+    if (!items.length) return;
+    var field = el.closest('.field'), row = document.createElement('div'); row.className = 'field';
+    row.appendChild(document.createElement('label'));
+    var box = document.createElement('div'); box.className = 'chipr'; row.appendChild(box);
+    field.parentNode.insertBefore(row, field.nextSibling);
+    function present(it) { return key === 'tags' ? tagTokens(el.value).indexOf(it.k) >= 0 : snsLines(el.value).some(function (l) { return urlOfLine(l) === it.k; }); }
+    var btns = items.map(function (it) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = it.label; b.title = it.line;
+      b.onclick = function () {
+        var on = present(it);
+        if (key === 'tags') { var t = tagTokens(el.value).filter(function (x) { return x !== it.k; }); if (!on) t.push(it.k); el.value = t.join(','); }
+        else { var ls = snsLines(el.value).filter(function (l) { return urlOfLine(l) !== it.k; }); if (!on) ls.push(it.line); el.value = ls.join('\n'); }
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      box.appendChild(b); return { it: it, b: b };
+    });
+    function sync() { btns.forEach(function (x) { x.b.classList.toggle('rm', !present(x.it)); }); }
+    el.addEventListener('input', sync); sync();
+  }
   function updateFind() {
     if (!found) { setLink($('go-find'), ''); return; }
     var def = DEFS[found.kind], p = {}, n = 0;
@@ -448,7 +496,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     def.fields.forEach(function (f) {
       var el = $('f-' + f.k), cur = el.value, ch = cur !== orig[f.k];
       el.classList.toggle('ch', ch);
-      if (ch && cur.trim() !== '') { p[f.p || f.k] = cur; n++; }
+      if (found.kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) { var dv = ch ? listDiff(f.k, orig[f.k], cur) : ''; if (dv) { p[f.p || f.k] = dv; n++; } }
+      else if (ch && cur.trim() !== '') { p[f.p || f.k] = cur; n++; }
     });
     var errs = validateFind(found.kind);
     var url = issueUrl(def.tpl, p);
@@ -468,7 +517,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (!f.ta) { el.type = 'text'; el.setAttribute('autocomplete', 'off'); }
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
       el.addEventListener('input', updateFind);
-      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addSuggest(el, artistOptions); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
+      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addSuggest(el, artistOptions); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
     var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = kind !== 'logs' || !!isNew; $('fjrow').hidden = !!isNew;
     if (isNew && kind === 'logs') { ['date', 'time'].forEach(function (k) { var e = $('f-' + k); if (e) { var fl = e.closest('.field'); if (fl) fl.hidden = true; } }); } // new mode: the top date / time are used
@@ -542,12 +591,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     upd();
     fetchData('songs').then(function () { upd(); }).catch(function () {});
   }
-  // ---- candidate search: a keyword (date / title / contents / artist ...) in the id box lists matching rows ----
+  // ---- candidate search: a keyword in the id box lists the rows whose title contains it ----
   function normQ(s) { return String(s == null ? '' : s).normalize('NFKC').toLowerCase(); }
   function flat(v) { if (v == null) return ''; if (Array.isArray(v)) return v.map(flat).join(' '); if (typeof v === 'object') return flat(v.title) + ' ' + flat(v.original); return String(v); }
   function hayOf(kind, r) {
-    var a = kind === 'logs' ? [r.logid, r.date, r.time, r.contents, r.title, r.groups, r.tags, r.setlistid] : [r.setlistid, r.title, r.artist, r.member, r.venue, r.songs];
-    return normQ(a.map(flat).join(' '));
+    return normQ(flat(r.title)); // the keyword search of the id box looks at the title only (a full id still loads that row)
   }
   function sortKey(kind, r) { return kind === 'logs' ? String(r.date || '') + String(r.time || '') : String(r.setlistid || ''); }
   function searchRows(kind, list, q) {
@@ -699,9 +747,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   ['fdd', 'fdt'].forEach(function (id) { $(id).addEventListener('input', function () { if (id === 'fdt' && $('fdt').value !== '') $('fany').checked = false; syncNew(); }); $(id).addEventListener('change', syncNew); });
   $('fany').addEventListener('change', function () { if ($('fany').checked) $('fdt').value = ''; topChanged(); });
   $('fnew').onclick = function () {
-    $('fid').value = ''; hideCands(); clearFound(); $('fdd').value = fmtDigits(digits(today()), 'date'); $('fdt').value = ''; $('fany').checked = false; topChanged();
+    $('fid').value = ''; hideCands(); clearFound(); $('fdd').value = ''; $('fdt').value = ''; $('fany').checked = false; topChanged();
   };
-  $('fdd').value = fmtDigits(digits(today()), 'date');
   tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
   applyModeUI();
 })();
