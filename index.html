@@ -2860,7 +2860,8 @@ body .item-contents.is-content-open {
           const playBtnHtml = link
             ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>`
             : `<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>`;
-          const typeBadge = s.type && s.type !== 'song' ? `<span class="setlist-song-type">${escapeHtml(displayNameForSetlistType(s.type))}</span>` : '';
+          // typeはカンマ区切りで複数指定できる(例: "allow,medley")。songは表示せず、それ以外を1つずつバッジにする
+          const typeBadge = String(s.type || '').split(/[,\s]+/).filter(t => t && t !== 'song').map(t => `<span class="setlist-song-type">${escapeHtml(displayNameForSetlistType(t))}</span>`).join('');
           const notesHtml = s.notes ? `<span class="setlist-song-notes">${escapeHtml(s.notes)}</span>` : '';
           const titleText = s.original ? `${escapeHtml(s.title || '')}\uFF08${escapeHtml(s.original)}\uFF09` : escapeHtml(s.title || '');
           return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-title">${titleText}</span>${typeBadge}${notesHtml}</li>`;
@@ -4563,17 +4564,53 @@ body .item-contents.is-content-open {
     }
   };
 
-  const loadFromCacheIfAny = () => {
-    const cached = localStorage.getItem(DATA_KEY);
-    if (!cached) return false;
+  // logs.jsonのキャッシュはIndexedDBに保存する(localStorageの容量上限5MBを避けるため)。
+  // JSON文字列のまま1レコードで保存し、構造化コピーのコストを避ける。使えない環境ではnullを返して素通りする。
+  const IDB_NAME = 'gl_log_cache', IDB_STORE = 'kv';
+  const idbOpen = () => new Promise((resolve, reject) => {
     try {
-      applyLogs(JSON.parse(cached));
-      return true;
-    } catch (e) {
-      // 壊れたキャッシュは無視して素通り(新規取得に進む)
-      return false;
-    }
+      const req = indexedDB.open(IDB_NAME, 1);
+      req.onupgradeneeded = () => req.result.createObjectStore(IDB_STORE);
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+      req.onblocked = () => reject(new Error('idb blocked'));
+    } catch (e) { reject(e); }
+  });
+  const idbGet = key => idbOpen().then(db => new Promise((resolve, reject) => {
+    const r = db.transaction(IDB_STORE, 'readonly').objectStore(IDB_STORE).get(key);
+    r.onsuccess = () => { db.close(); resolve(r.result == null ? null : r.result); };
+    r.onerror = () => { db.close(); reject(r.error); };
+  }));
+  const idbSet = (key, val) => idbOpen().then(db => new Promise((resolve, reject) => {
+    const tx = db.transaction(IDB_STORE, 'readwrite');
+    tx.objectStore(IDB_STORE).put(val, key);
+    tx.oncomplete = () => { db.close(); resolve(); };
+    tx.onerror = tx.onabort = () => { db.close(); reject(tx.error || new Error('idb write failed')); };
+  }));
+
+  // キャッシュ保存。成功したらtrue。失敗(容量超過・IndexedDB不可)でも表示には影響させない
+  const saveLogsCache = data => {
+    const str = JSON.stringify(data);
+    return idbSet(DATA_KEY, str)
+      .then(() => { try { localStorage.removeItem(DATA_KEY); } catch (e) {} return true; }) // 旧localStorageキャッシュを削除して容量を空ける
+      .catch(() => {
+        try { localStorage.setItem(DATA_KEY, str); return true; } catch (e) { return false; }
+      });
   };
+
+  const loadFromCacheIfAny = () => idbGet(DATA_KEY)
+    .catch(() => null)
+    .then(cached => {
+      if (!cached) { try { cached = localStorage.getItem(DATA_KEY); } catch (e) { cached = null; } } // 旧形式からの移行
+      if (!cached) return false;
+      try {
+        applyLogs(JSON.parse(cached));
+        return true;
+      } catch (e) {
+        // 壊れたキャッシュは無視して素通り(新規取得に進む)
+        return false;
+      }
+    });
 
   const fetchFreshData = sha => {
     const url = sha
@@ -4588,13 +4625,18 @@ body .item-contents.is-content-open {
       })
       .then(data => {
         applyLogs(data);
-        localStorage.setItem(DATA_KEY, JSON.stringify(data));
-        if (sha) localStorage.setItem(VERSION_KEY, sha);
+        return saveLogsCache(data).then(ok => {
+          try {
+            // データを保存できた時だけSHAを記録する(保存失敗時に古いSHAだけ残らないように)
+            if (sha && ok) localStorage.setItem(VERSION_KEY, sha);
+            else localStorage.removeItem(VERSION_KEY);
+          } catch (e) {}
+        });
       });
   };
 
   // まずキャッシュがあれば即表示(体感速度アップ)
-  const hadCache = loadFromCacheIfAny();
+  const cacheReady = loadFromCacheIfAny().catch(() => false);
 
   const showLoadError = () => {
     $('resultCount').textContent = '';
@@ -4641,7 +4683,6 @@ body .item-contents.is-content-open {
 
   // 直近チェックから一定時間以内なら、GitHub APIへの問い合わせ自体をスキップする
   const lastCheckedAt = parseInt(localStorage.getItem(CHECK_TIME_KEY) || '0', 10);
-  const withinCooldown = hadCache && (Date.now() - lastCheckedAt < CHECK_COOLDOWN_MS);
 
   // トップのタイトルリンク
   const forceReloadLogs = () => {
@@ -4664,11 +4705,14 @@ body .item-contents.is-content-open {
   };
 
   // 特定の配信元からのアクセス時は、キャッシュ判定をスキップして常に最新のlogs.jsonを取得する
-  if (isForcedFreshSource()) {
-    forceReloadLogs();
-  } else if (!withinCooldown) {
-    checkForUpdates();
-  }
+  cacheReady.then(hadCache => {
+    const withinCooldown = hadCache && (Date.now() - lastCheckedAt < CHECK_COOLDOWN_MS);
+    if (isForcedFreshSource()) {
+      forceReloadLogs();
+    } else if (!withinCooldown) {
+      checkForUpdates();
+    }
+  });
 
   // ================= 楽曲紹介バー
   const SONG_FILE = 'data/songs/songs.json';

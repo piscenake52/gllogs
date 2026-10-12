@@ -407,44 +407,42 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function mkInput(cls, ph) { var i = document.createElement('input'); i.type = 'text'; i.className = 'fin ' + cls; i.placeholder = ph; i.setAttribute('autocomplete', 'off'); i.setAttribute('spellcheck', 'false'); return i; }
     var r1 = document.createElement('div'); r1.className = 'row'; box.appendChild(r1);
     var title = mkInput('', 'title'); var add = document.createElement('button'); add.type = 'button'; add.className = 'small'; add.textContent = 'add';
-    var edit = !isNew && row && typeof row === 'object', mode = null;
-    if (edit) { // loaded setlist: the line goes to the songs_patch box (update / insert / delete one song by its order); the whole songs box is left as it is
-      mode = document.createElement('select'); mode.className = 'fsel'; mode.title = 'mode';
-      [['update', 'update #'], ['insert', 'insert at #'], ['delete', 'delete #']].forEach(function (m) { var o = document.createElement('option'); o.value = m[0]; o.textContent = m[1]; mode.appendChild(o); });
-      r1.appendChild(mode);
-    }
+    var edit = !isNew && row && typeof row === 'object', ops = {};
     r1.appendChild(title); r1.appendChild(add);
+    if (edit) { // loaded setlist: when # is an order that already exists, insert / update / delete buttons replace add (the line goes to the songs_patch box); otherwise add works as usual
+      ['insert', 'update', 'delete'].forEach(function (m) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = m; b.hidden = true; ops[m] = b; r1.appendChild(b); });
+    }
     var r2 = document.createElement('div'); r2.className = 'row wrap'; box.appendChild(r2);
     var num = mkInput('num', '#'); num.inputMode = 'numeric';
-    var sel = document.createElement('select'); sel.className = 'fsel'; sel.title = 'type';
-    (edit ? ['', 'song', 'allow', 'encore', 'medley', '-'] : ['song', 'allow', 'encore', 'medley', '-']).forEach(function (t) { var o = document.createElement('option'); o.value = t; o.textContent = (t === '' ? 'type (keep)' : t); sel.appendChild(o); });
+    var sel = document.createElement('div'); sel.className = 'chipr'; sel.title = 'type (multiple allowed; none = song)'; // type chips: several can be ON (sent as allow,medley)
+    ['song', 'allow', 'encore', 'medley'].forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.setAttribute('data-v', t); b.textContent = t; b.onclick = function () { b.classList.toggle('on'); sel.dispatchEvent(new Event('change')); }; sel.appendChild(b); });
+    Object.defineProperty(sel, 'value', { get: function () { return [].map.call(sel.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); }).join(','); }, set: function () { [].forEach.call(sel.querySelectorAll('.chip.on'), function (b) { b.classList.remove('on'); }); } });
     var orig2 = mkInput('mid', 'original'), notes = mkInput('mid', 'notes');
     r2.appendChild(num); r2.appendChild(sel); r2.appendChild(orig2); r2.appendChild(notes);
     addSuggest(title, songOptions, r1);
     function rowSong(n) { var a = (row && row.songs) || [], i; for (i = 0; i < a.length; i++) if (a[i] && a[i].order === n) return a[i]; return null; }
     function nextOrder() {
       var last = 0;
-      if (edit) { ((row && row.songs) || []).forEach(function (x) { if (x && typeof x.order === 'number' && x.order > last) last = x.order; }); return last + 1; }
       el.value.split('\n').forEach(function (l) { l = l.trim(); if (!l || l.charAt(0) === '#') return; var m = l.match(/^(\d+)\s*[:\uff1a]/); last = m ? +m[1] : last + 1; });
       return last + 1;
     }
     function syncNum() { num.placeholder = String(nextOrder()); }
     el.addEventListener('input', syncNum); syncNum();
-    function syncMode() { // shows the current song of the order as the placeholders (empty input = keep it)
+    function hit() { var n = +num.value.replace(/\D/g, ''); return edit && n ? rowSong(n) : null; } // the existing song of the typed order
+    function syncMode() { // an existing order: show insert / update / delete (instead of add) and the current values as the placeholders (empty input = keep it)
       if (!edit) return;
-      var n = +num.value.replace(/\D/g, ''), sg = n ? rowSong(n) : null;
-      title.placeholder = sg && mode.value !== 'insert' ? sg.title || 'title' : 'title';
-      orig2.placeholder = sg && mode.value === 'update' && sg.original ? sg.original : 'original';
-      notes.placeholder = sg && mode.value === 'update' && sg.notes ? sg.notes : 'notes';
-      var dl = mode.value === 'delete'; sel.hidden = orig2.hidden = notes.hidden = dl; add.textContent = mode.value;
+      var sg = hit(), has = !!sg;
+      add.hidden = has; ops.insert.hidden = ops.update.hidden = ops.delete.hidden = !has;
+      title.placeholder = sg ? sg.title || 'title' : 'title';
+      orig2.placeholder = sg && sg.original ? sg.original : 'original';
+      notes.placeholder = sg && sg.notes ? sg.notes : 'notes';
     }
-    if (edit) { mode.addEventListener('change', syncMode); num.addEventListener('input', syncMode); syncMode(); }
-    function doPatch() {
-      var n = num.value.replace(/\D/g, ''), t = title.value.trim(), md = mode.value, bad = null;
-      if (!n) bad = num; else if (/[|\uff5c]/.test(t)) bad = title;
+    if (edit) { num.addEventListener('input', syncMode); syncMode(); }
+    function doPatch(md) {
+      var n = num.value.replace(/\D/g, ''), t = title.value.trim(), bad = null;
+      if (/[|\uff5c]/.test(t)) bad = title;
       else if (md === 'insert' && !t) bad = title;
       else if (md === 'update' && !t && !sel.value && !orig2.value.trim() && !notes.value.trim()) bad = title;
-      else if (md !== 'insert' && !rowSong(+n)) bad = num; // there is no song with that order
       if (bad) { bad.classList.add('bad'); bad.focus(); return; }
       var line;
       if (md === 'delete') line = '-' + n + ': ' + (rowSong(+n).title || '');
@@ -456,10 +454,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var pe = $('f-songs_patch'); if (!pe) return;
       var cur = pe.value.replace(/\s+$/, '');
       pe.value = (cur ? cur + '\n' : '') + line; pe.dispatchEvent(new Event('input', { bubbles: true }));
-      title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = edit ? '' : 'song'; syncMode(); num.focus();
+      title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = ''; syncMode(); num.focus();
     }
+    if (edit) ['insert', 'update', 'delete'].forEach(function (m) { ops[m].onclick = function () { doPatch(m); }; });
     function doAdd() {
-      if (edit) { doPatch(); return; }
+      if (hit()) return; // an existing order: use insert / update / delete
       var t = title.value.trim();
       if (!t || /[|\uff5c]/.test(t)) { title.classList.add('bad'); title.focus(); return; }
       title.classList.remove('bad');
@@ -469,7 +468,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var line = no + ': ' + [t].concat(rest).join(' | ');
       var cur = el.value.replace(/\s+$/, '');
       el.value = (cur ? cur + '\n' : '') + line; el.dispatchEvent(new Event('input', { bubbles: true }));
-      title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = 'song'; title.focus();
+      title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = ''; title.focus();
     }
     add.onclick = doAdd;
     [title, num, orig2, notes].forEach(function (i) { i.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.defaultPrevented) { e.preventDefault(); doAdd(); } }); i.addEventListener('input', function () { i.classList.remove('bad'); }); });
