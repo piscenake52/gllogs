@@ -3068,7 +3068,9 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YZH",
       "YOK",
+      "KUR",
       "KIR"
     ],
     "sns": [
@@ -3080,6 +3082,13 @@
             "member": [
               "YOK",
               "KIR"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbwDTsvF/",
+            "member": [
+              "YZH",
+              "KUR"
             ]
           }
         ]
@@ -3101,6 +3110,10 @@
         "urls": [
           {
             "url": "https://x.com/Girls2_official/status/2109571903296074121",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2109600932866760789",
             "member": []
           }
         ]
