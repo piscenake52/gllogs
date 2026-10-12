@@ -112968,6 +112968,38 @@
     ]
   },
   {
+    "logid": "d8334d119135",
+    "date": "20221013",
+    "time": "1900",
+    "contents": "RADIO",
+    "title": "文化放送 「Lucky²のラッキートーク！」　#003",
+    "groups": [
+      "L2",
+      "TBK",
+      "KAN",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/joqrlucky/status/1580509212966547457",
+            "member": [
+              "TBK",
+              "KAN",
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://x.com/joqrlucky/status/1580488431800492033",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "81227dfc86c0",
     "date": "20221013",
     "time": "1700",
