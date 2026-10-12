@@ -83,13 +83,20 @@
       },
       {
         "order": 4,
+        "title": "Best Friends",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
         "title": "Unicorn Dance Remix ver.",
         "type": "song",
         "original": "",
         "notes": ""
       },
       {
-        "order": 5,
+        "order": 6,
         "title": "ラキラキLOVE!",
         "type": "song",
         "original": "",
