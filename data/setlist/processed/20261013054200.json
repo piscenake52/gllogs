@@ -1,0 +1,10 @@
+{
+  "setlistid": "202609221700",
+  "songs_patch": [
+    {
+      "op": "update",
+      "order": 31,
+      "type": "allow,encore"
+    }
+  ]
+}

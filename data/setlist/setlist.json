@@ -1029,7 +1029,7 @@
       {
         "order": 31,
         "title": "Best Friends",
-        "type": "encore",
+        "type": "allow,encore",
         "original": "",
         "notes": ""
       },
