@@ -113484,6 +113484,34 @@
     ]
   },
   {
+    "logid": "004592288a7b",
+    "date": "20221006",
+    "time": "1900",
+    "contents": "RADIO",
+    "title": "文化放送 「Lucky²のラッキートーク！」　#002",
+    "groups": [
+      "L2",
+      "YUW",
+      "AKR",
+      "YUR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/joqrlucky/status/1577979166774816768",
+            "member": [
+              "YUW",
+              "AKR",
+              "YUR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "1251040003d1",
     "date": "20221006",
     "time": "1700",
