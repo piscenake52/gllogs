@@ -215,6 +215,7 @@ SNS_MEMBER_CODES = set(G2_OPTIONS + L2_OPTIONS)  # urlごとのmemberに使え�
 
 def parse_sns(raw):
     """sns欄（1行1件）を [{"type","urls":[{"url","member"}]}] にする（同じtypeは1つにまとめて urls に入れる）。
+    先頭が `-` の行は個別削除（`-URL`。戻り値の要素は {"_remove": URL}）。
     書式: `type | url | member`。memberは省略可（groupsと同じコード。複数人はカンマ区切り: `YZH,MMK`。G2 / L2 と入力するとそのグループ全員）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
     出力の member は配列（なしは []）。同じURLが複数あれば、後に書いたmemberで上書きする。戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
     if not raw:
@@ -227,6 +228,14 @@ def parse_sns(raw):
         if not line or line.startswith("#"):
             continue
         shown = line.replace("`", "'")
+        if line.startswith("-"):
+            # 個別削除: `-URL`（URLだけで、どのtypeにあっても消す）
+            m = re.search(r"https?://\S+", line)
+            if not m:
+                errors.append(f"- **sns**: 削除するときは `-URL` の形で入力してください（入力値: `{shown}`）")
+            else:
+                items.append({"_remove": m.group(0)})
+            continue
         parts = [x.strip() for x in line.split("|")]
         type_, url, member = "", "", ""
         if len(parts) == 1:
@@ -266,7 +275,7 @@ def parse_sns(raw):
             errors.append(f"- **sns**: typeは半角英数字・ハイフン・アンダーバーで入力してください（入力値: `{shown}`）")
             continue
         # 同じtypeは1つの要素にまとめ、urlsに追加する。同じURLは重ねず、memberを新しい値で上書きする
-        grouped = next((g for g in items if g["type"] == type_), None)
+        grouped = next((g for g in items if g.get("type") == type_), None)
         if grouped is None:
             grouped = {"type": type_, "urls": []}
             items.append(grouped)

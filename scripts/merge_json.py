@@ -143,8 +143,57 @@ def merge_sns(current, incoming):
     return merged
 
 
+def split_removals(key, v):
+    """tags / sns の入力を (追加分, 個別削除の指定) に分ける。
+    tags: `-タグ名` が削除指定。sns: {"_remove": URL} が削除指定（issue_to_json.py が `-URL` から作る）"""
+    if key == "tags":
+        adds = [t for t in v if not (isinstance(t, str) and t.startswith("-") and t[1:].strip())]
+        removes = [t[1:].strip() for t in v if isinstance(t, str) and t.startswith("-") and t[1:].strip()]
+    else:
+        adds = [e for e in v if not (isinstance(e, dict) and "_remove" in e)]
+        removes = [e["_remove"] for e in v if isinstance(e, dict) and e.get("_remove")]
+    return adds, removes
+
+
+def apply_removals(record, key, removes):
+    """個別削除を適用する。空になったら属性ごと取り除く。戻り値: 見つからなかった指定のリスト"""
+    cur = record.get(key)
+    missing = []
+    if key == "tags":
+        have = cur if isinstance(cur, list) else []
+        missing = [r for r in removes if r not in have]
+        left = [t for t in have if t not in removes]
+    else:
+        left, found = [], set()
+        for e in (cur if isinstance(cur, list) else []):
+            if not (isinstance(e, dict) and e.get("type")):
+                continue
+            urls = []
+            for u in _sns_urls(e):
+                if u["url"] in removes:
+                    found.add(u["url"])
+                else:
+                    urls.append(u)
+            if urls:  # URLが空になったtypeは取り除く
+                left.append({"type": e["type"], "urls": urls})
+        missing = [r for r in removes if r not in found]
+    if left:
+        record[key] = left
+    else:
+        record.pop(key, None)
+    for r in missing:
+        print(f"【注意】{key} の削除指定が既存の値にありませんでした: {r}")
+    return missing
+
+
 def apply_update(target, existing, new_item):
-    """空の項目は既存値を残す。値が !clear の項目だけ消す。append_lists の項目は既存値に追記する"""
+    """空の項目は既存値を残す。値が !clear の項目だけ消す。append_lists の項目は既存値に追記する。
+    tags / sns は個別削除（`-タグ名` / `-URL`）も受け付ける（追記のあとに適用する）"""
+    removals = {}
+    new_item = dict(new_item)
+    for k in ("tags", "sns"):
+        if isinstance(new_item.get(k), list) and not is_clear(new_item[k]):
+            new_item[k], removals[k] = split_removals(k, new_item[k])
     for k, v in new_item.items():
         if k in target["key_fields"]:
             continue
@@ -168,6 +217,9 @@ def apply_update(target, existing, new_item):
             existing[k] = merged
             continue
         existing[k] = v
+    for k, rem in removals.items():
+        if rem:
+            apply_removals(existing, k, rem)
 
 
 def finalize_new(target, item, main_data):
@@ -213,8 +265,16 @@ def finalize_new(target, item, main_data):
 
 def clean_new(item):
     """新規用: 空値・!clear・内部用キー(_始まり)を取り除く"""
-    return {k: v for k, v in item.items()
-            if not k.startswith("_") and not is_blank(v) and not is_clear(v)}
+    out = {}
+    for k, v in item.items():
+        if k.startswith("_") or is_blank(v) or is_clear(v):
+            continue
+        if k in ("tags", "sns") and isinstance(v, list):
+            v = split_removals(k, v)[0]  # 新規では個別削除の指定は無視する
+            if not v:
+                continue
+        out[k] = v
+    return out
 
 
 def apply_delete(target, main_data, item, issue_map):
@@ -263,7 +323,14 @@ def apply_copy(target, main_data, src_id, item, issue, issue_map):
         if is_clear(v):
             new.pop(k, None)
         elif not is_blank(v):
-            new[k] = v  # tags / groups なども、コピーでは追記ではなく入力値で置き換える
+            if k in ("tags", "sns") and isinstance(v, list):
+                adds, rems = split_removals(k, v)
+                if adds:
+                    new[k] = adds  # tags / groups なども、コピーでは追記ではなく入力値で置き換える
+                if rems:
+                    apply_removals(new, k, rems)  # 個別削除はコピーした値から取り除く
+            else:
+                new[k] = v  # tags / groups なども、コピーでは追記ではなく入力値で置き換える
     # LIVE: date / time を変えたときは、コピー元の setlistid は引き継がず date+time で振り直す（setlistid 入力時はそれを優先）
     if new.get("contents") == "LIVE" and "setlistid" not in overrides and ("date" in overrides or "time" in overrides):
         new.pop("setlistid", None)
