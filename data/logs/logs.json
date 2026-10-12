@@ -3162,6 +3162,37 @@
     ]
   },
   {
+    "logid": "52026a8c92e6",
+    "date": "20261012",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/vJqT4crPTGAwsJ7ZxZyj8W",
+            "member": [
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://www.cl-live.com/posts/7sr5L4V8iwkb7frmKb6E61",
+            "member": [
+              "AKR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "07457dc63f3b",
     "date": "20261011",
     "time": "2300",
