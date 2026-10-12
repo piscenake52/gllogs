@@ -1,0 +1,11 @@
+{
+  "setlistid": "202610121300",
+  "songs_patch": [
+    {
+      "op": "insert",
+      "order": 4,
+      "title": "Best Friends",
+      "type": "allow"
+    }
+  ]
+}
