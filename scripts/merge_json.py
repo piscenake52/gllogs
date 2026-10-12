@@ -224,11 +224,56 @@ def add_member_groups(groups, members):
     return order_groups(list(groups or []) + [m for m in members if m not in (groups or [])])
 
 
+def apply_songs_patch(existing, ops, label=""):
+    """曲目の個別変更。ops は {"op": update/insert/delete, "order": N, title/type/original/notes} のリスト（書いた順に適用）。
+    update: 指定した項目だけ書き換える / insert: N番に挿入しN番以降を+1 / delete: N番を削除しN番以降を-1。
+    再編集で同じ操作がもう一度流れても二重にならないよう、insert は同じ曲名がすでにN番にあれば何もせず、delete は曲名が一致したときだけ削除する"""
+    songs = [dict(x) for x in (existing.get("songs") or []) if isinstance(x, dict)]
+    def find(n):
+        return next((i for i, x in enumerate(songs) if x.get("order") == n), None)
+    for op in ops:
+        n, kind = op.get("order"), op.get("op")
+        i = find(n)
+        where = f"{label} の {n}番"
+        if kind == "update":
+            if i is None:
+                NOTICES.append(f"- **setlist**: {where} の曲がないため更新できませんでした")
+                continue
+            for k in ("title", "type", "original", "notes"):
+                if k in op:
+                    songs[i][k] = op[k]
+        elif kind == "insert":
+            if i is not None and songs[i].get("title") == op.get("title"):
+                continue  # 反映済み（同じIssueの再編集）
+            for x in songs:
+                if isinstance(x.get("order"), int) and x["order"] >= n:
+                    x["order"] += 1
+            songs.append({"order": n, "title": op.get("title", ""), "type": op.get("type", "song"),
+                          "original": op.get("original", ""), "notes": op.get("notes", "")})
+        elif kind == "delete":
+            if i is None:
+                NOTICES.append(f"- **setlist**: {where} の曲がないため削除できませんでした")
+                continue
+            if op.get("title") and songs[i].get("title") != op["title"]:
+                NOTICES.append(f"- **setlist**: {where} は `{songs[i].get('title')}` で、指定の曲名 `{op['title']}` と違うため削除しませんでした")
+                continue
+            del songs[i]
+            for x in songs:
+                if isinstance(x.get("order"), int) and x["order"] > n:
+                    x["order"] -= 1
+    songs.sort(key=lambda x: x["order"] if isinstance(x.get("order"), int) else 10**9)
+    if songs:
+        existing["songs"] = songs
+    else:
+        existing.pop("songs", None)
+
+
 def apply_update(target, existing, new_item):
     """空の項目は既存値を残す。値が !clear の項目だけ消す。append_lists の項目は既存値に追記する。
     tags / sns は個別削除（`-タグ名` / `-URL`）も受け付ける（追記のあとに適用する）"""
     removals = {}
     new_item = dict(new_item)
+    patch = new_item.pop("songs_patch", None) if target["name"] == "setlist" else None
     for k in ("tags", "sns"):
         if isinstance(new_item.get(k), list) and not is_clear(new_item[k]):
             new_item[k], removals[k] = split_removals(k, new_item[k])
@@ -260,6 +305,8 @@ def apply_update(target, existing, new_item):
             apply_removals(existing, k, rem)
     if target["name"] == "logs" and "sns" in new_item:
         sync_groups_with_sns(existing, new_item)
+    if isinstance(patch, list) and patch:
+        apply_songs_patch(existing, patch, existing.get("setlistid", ""))  # 曲目全体の置き換えがあれば、そのあとに適用する
 
 
 def sync_groups_with_sns(existing, new_item):
@@ -324,10 +371,10 @@ def finalize_new(target, item, main_data):
 
 
 def clean_new(item):
-    """新規用: 空値・!clear・内部用キー(_始まり)を取り除く"""
+    """新規用: 空値・!clear・内部用キー(_始まり)・曲目の個別変更を取り除く"""
     out = {}
     for k, v in item.items():
-        if k.startswith("_") or is_blank(v) or is_clear(v):
+        if k.startswith("_") or k == "songs_patch" or is_blank(v) or is_clear(v):
             continue
         if k in ("tags", "sns") and isinstance(v, list):
             v = split_removals(k, v)[0]  # 新規では個別削除の指定は無視する
@@ -433,13 +480,16 @@ def apply_copy_setlist(target, main_data, src_id, item, issue, issue_map):
         return "conflict"
 
     new = copy.deepcopy(src[0])
-    overrides = {k: v for k, v in item.items() if not k.startswith("_") and k != "setlistid"}
+    patch = item.get("songs_patch")
+    overrides = {k: v for k, v in item.items() if not k.startswith("_") and k not in ("setlistid", "songs_patch")}
     for k, v in overrides.items():
         if is_clear(v):
             new.pop(k, None)
         elif not is_blank(v):
             new[k] = v  # songs / member なども、コピーでは入力値で置き換える
     new["setlistid"] = new_id
+    if isinstance(patch, list) and patch:
+        apply_songs_patch(new, patch, new_id)  # コピーした曲目に個別変更を適用する
     new_item = finalize_new(target, new, main_data)
     if new_item is None:
         return "invalid"

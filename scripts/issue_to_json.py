@@ -48,6 +48,7 @@ LABELS_SS = {
     "member_free": "member / 自由入力",
     "venue": "venue",
     "songs": "曲目 (1行1曲)",
+    "songs_patch": "曲目の個別変更 (1行1操作)",
     "delete": "DELETE",
     "clear": "値の削除（更新時）",
 }
@@ -471,6 +472,46 @@ def build_setlist(f):
     }
 
 
+def parse_songs_patch(raw_str):
+    """曲目の個別変更。1行1操作。書式:
+         N: 曲名 | type | original | notes   … N番の曲を部分更新（空欄・省略した項目は今のまま、- は空にする）
+        +N: 曲名 | type | original | notes   … N番に曲を挿入（N番以降は1つ後ろへ。typeを省略すると song）
+        -N: 曲名                              … N番の曲を削除（N番以降は1つ前へ。曲名を書くと一致したときだけ削除）
+    戻り値: (操作のリスト, エラーのリスト)"""
+    ops, errors = [], []
+    for line in (raw_str or "").split("\n"):
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        m = re.match(r"^([+\-＋－]?)\s*(\d+)\s*(?:[:：]\s*(.*))?$", line)
+        if not m:
+            errors.append(f"- **曲目の個別変更**: 読み取れない行です（`{line.replace(chr(96), chr(39))}`）。`N: 曲名 | type`、`+N: 曲名`、`-N` の形式で入力してください")
+            continue
+        sign = {"＋": "+", "－": "-"}.get(m.group(1), m.group(1))
+        op = {"op": {"+": "insert", "-": "delete", "": "update"}[sign], "order": int(m.group(2))}
+        parts = [p.strip() for p in re.split(r"[|｜]", m.group(3) or "")]
+        title = parts[0] if parts else ""
+        if op["op"] == "insert" and not title:
+            errors.append(f"- **曲目の個別変更**: 挿入には曲名が必要です（`{line.replace(chr(96), chr(39))}`）")
+            continue
+        if op["op"] == "update" and not any(parts):
+            errors.append(f"- **曲目の個別変更**: 更新する項目がありません（`{line.replace(chr(96), chr(39))}`）")
+            continue
+        if title:
+            op["title"] = title
+        if op["op"] != "delete":
+            for i, key in ((1, "type"), (2, "original"), (3, "notes")):
+                v = " | ".join(parts[3:]) if key == "notes" else (parts[i] if len(parts) > i else "")
+                if v == "-":
+                    op[key] = ""          # - は空にする
+                elif v:
+                    op[key] = v
+            if op["op"] == "insert" and "type" not in op:
+                op["type"] = "song"
+        ops.append(op)
+    return ops, errors
+
+
 def build_songs(f):
     return {
         "artist": f["artist"],
@@ -588,6 +629,13 @@ def main():
         f["setlistid"] = to_halfwidth(f["setlistid"])
         copy_src = to_halfwidth(f.get("copy_from", ""))
         data = build_setlist(f)
+        patch_ops, patch_errors = parse_songs_patch(f.get("songs_patch", ""))
+        if patch_errors:
+            write_error(patch_errors)
+            print("入力エラーのため処理を中止しました:\n" + "\n".join(patch_errors))
+            return
+        if patch_ops:
+            data["songs_patch"] = patch_ops
         if copy_src:
             errors = []
             if not re.fullmatch(r"[0-9]{12}", copy_src):
