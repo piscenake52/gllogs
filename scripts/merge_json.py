@@ -250,6 +250,23 @@ def apply_songs_patch(existing, ops, label=""):
                     x["order"] += 1
             songs.append({"order": n, "title": op.get("title", ""), "type": op.get("type", "song"),
                           "original": op.get("original", ""), "notes": op.get("notes", "")})
+        elif kind == "move":
+            to = op.get("to")
+            if i is None:
+                NOTICES.append(f"- **setlist**: {where} の曲がないため移動できませんでした")
+                continue
+            if op.get("title") and songs[i].get("title") != op["title"]:
+                NOTICES.append(f"- **setlist**: {where} は `{songs[i].get('title')}` で、指定の曲名 `{op['title']}` と違うため移動しませんでした")
+                continue
+            x = songs.pop(i)
+            for y in songs:
+                if isinstance(y.get("order"), int) and y["order"] > n:
+                    y["order"] -= 1
+            for y in songs:
+                if isinstance(y.get("order"), int) and y["order"] >= to:
+                    y["order"] += 1
+            x["order"] = to
+            songs.append(x)
         elif kind == "delete":
             if i is None:
                 NOTICES.append(f"- **setlist**: {where} の曲がないため削除できませんでした")

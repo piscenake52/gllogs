@@ -488,11 +488,23 @@ def parse_songs_patch(raw_str):
          N: 曲名 | type | original | notes   … N番の曲を部分更新（空欄・省略した項目は今のまま、- は空にする）
         +N: 曲名 | type | original | notes   … N番に曲を挿入（N番以降は1つ後ろへ。typeを省略すると song）
         -N: 曲名                              … N番の曲を削除（N番以降は1つ前へ。曲名を書くと一致したときだけ削除）
+        N>M: 曲名                             … N番の曲をM番へ移動（間の曲は1つずつずれる。曲名を書くと一致したときだけ移動）
     戻り値: (操作のリスト, エラーのリスト)"""
     ops, errors = [], []
     for line in (raw_str or "").split("\n"):
         line = line.strip()
         if not line or line.startswith("#"):
+            continue
+        mv = re.match(r"^(\d+)\s*[>＞]\s*(\d+)\s*(?:[:：]\s*(.*))?$", line)
+        if mv:
+            if mv.group(1) == mv.group(2):
+                errors.append(f"- **曲目の個別変更**: 移動元と移動先が同じです（`{line.replace(chr(96), chr(39))}`）")
+                continue
+            op = {"op": "move", "order": int(mv.group(1)), "to": int(mv.group(2))}
+            mt = re.split(r"[|｜]", mv.group(3) or "")[0].strip()
+            if mt:
+                op["title"] = mt
+            ops.append(op)
             continue
         m = re.match(r"^([+\-＋－]?)\s*(\d+)\s*(?:[:：]\s*(.*))?$", line)
         if not m:
