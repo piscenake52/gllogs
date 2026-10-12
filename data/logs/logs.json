@@ -2765,6 +2765,20 @@
     "title": "SNS　Laki",
     "groups": [
       "L2"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DeYN9EmJ_Jk/?srtk=MWF3djkxNXpuajBkag==",
+            "member": [
+              "YUW",
+              "KIK"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
