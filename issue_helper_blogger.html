@@ -306,7 +306,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (optMemo[name]) return optMemo[name];
       var m = {}; collect(m);
       var list = Object.keys(m).sort(function (a, b) { return m[b] - m[a] || (a < b ? -1 : a > b ? 1 : 0); }).map(function (c) { return { v: c, n: m[c], k: normQ(c) }; });
-      if (needs.every(function (k) { return cache[k]; })) optMemo[name] = list; // keep the result only when every source is loaded
+      if (needs.every(function (k) { return ix[k] || cache[k]; })) optMemo[name] = list; // keep the result only when every source is loaded
       return list;
     };
   }
@@ -317,12 +317,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     base.forEach(function (o) { seen[o.v] = 1; });
     return base.concat(CONTENTS_LIST.filter(function (c) { return !seen[c]; }).map(function (c) { return { v: c, k: normQ(c) }; }));
   }
-  var contentsOptions = makeOpts('contents', ['logs'], function (m) { (cache.logs || []).forEach(function (r) { if (r) addTo(m, r.contents); }); });
-  var venueOptions = makeOpts('venue', ['setlist'], function (m) { (cache.setlist || []).forEach(function (r) { if (r) addTo(m, r.venue); }); });
-  var artistOptions = makeOpts('artist', ['setlist', 'songs'], function (m) { (cache.setlist || []).forEach(function (r) { if (r) addTo(m, r.artist); }); (cache.songs || []).forEach(function (r) { if (r) addTo(m, r.artist); }); });
+  var contentsOptions = makeOpts('contents', ['logs'], function (m) { rowsOf('logs').forEach(function (r) { if (r) addTo(m, r.contents); }); });
+  var venueOptions = makeOpts('venue', ['setlist'], function (m) { rowsOf('setlist').forEach(function (r) { if (r) addTo(m, r.venue); }); });
+  var artistOptions = makeOpts('artist', ['setlist', 'songs'], function (m) { rowsOf('setlist').forEach(function (r) { if (r) addTo(m, r.artist); }); (cache.songs || []).forEach(function (r) { if (r) addTo(m, r.artist); }); });
   var songOptions = makeOpts('song', ['setlist', 'songs'], function (m) {
     (cache.songs || []).forEach(function (r) { if (r) addTo(m, r.title); });
-    (cache.setlist || []).forEach(function (r) { ((r && r.songs) || []).forEach(function (x) { if (x) addTo(m, x.title); }); });
+    rowsOf('setlist').forEach(function (r) { ((r && r.songs) || []).forEach(function (x) { if (x) addTo(m, typeof x === 'string' ? x : x.title); }); }); // the index keeps only the song titles (strings)
   });
   // el: the input. optsFn: returns [{v, n, k}]. after: (optional) node the list is placed after; without it the input is wrapped (.fw) and the list goes under it.
   // partial: also match the typed text anywhere inside a value (prefix matches come first)
@@ -430,6 +430,17 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (cache[kind]) return Promise.resolve(cache[kind]);
     var url = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + DATA[kind] + '?v=' + Date.now();
     return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (d) { cache[kind] = d; return d; });
+  }
+  // light index files (written next to the data files by merge_json.py): only the fields the search / candidate lists need. Falls back to the full data file when the index does not exist yet.
+  var INDEX = { logs: 'data/logs/logs_index.json', setlist: 'data/setlist/setlist_index.json' }, ix = {};
+  function rowsOf(kind) { return ix[kind] || cache[kind] || []; }
+  function fetchIndex(kind) {
+    if (ix[kind]) return Promise.resolve(ix[kind]);
+    if (cache[kind]) { ix[kind] = cache[kind]; return Promise.resolve(ix[kind]); } // the full data is already loaded
+    var url = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + INDEX[kind] + '?v=' + Date.now();
+    return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (d) { if (!Array.isArray(d)) throw new Error('bad index'); ix[kind] = d; return d; })
+      .catch(function () { return fetchData(kind).then(function (d) { ix[kind] = d; return d; }); });
   }
   function fstat() {} // the status line of the find tab is not shown (kept as a no-op so the callers stay simple)
   // input check for date (yyyymmdd), time (hhmm) and setlistid (12 digits) of the find tab. Empty is allowed. Invalid fields get a red border and the Issue link is disabled.
@@ -631,7 +642,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function candidates() {
     var kind = $('fkind').value, q = $('fid').value.trim();
     if (q.length < 2) { hideCands(); return; }
-    fetchData(kind).then(function (d) {
+    fetchIndex(kind).then(function (d) {
       if ($('fid').value.trim() !== q || $('fkind').value !== kind) return;
       var list = Array.isArray(d) ? d : [], idKey = DEFS[kind].idKey;
       if (list.some(function (r) { return r && String(r[idKey]) === q; })) { hideCands(); return; }
@@ -667,7 +678,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (dv.length === 8 && !box.hidden && box._key === kind + dv) return; // same list already shown: keep it (a rebuild between mousedown and mouseup would swallow the click on a candidate)
     box.hidden = true; box.innerHTML = ''; box._key = '';
     if (dv.length !== 8) return;
-    fetchData(kind).then(function (d) {
+    fetchIndex(kind).then(function (d) {
       if ($('fdd').value.replace(/\D/g, '') !== dv || $('fkind').value !== kind || $('fdt').value !== '' || (kind === 'logs' && $('fany').checked)) return;
       var idKey = DEFS[kind].idKey;
       function rd(r) { return kind === 'logs' ? String(r.date || '') : String(r.setlistid || '').slice(0, 8); }
