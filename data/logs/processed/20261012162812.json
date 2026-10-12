@@ -1,0 +1,35 @@
+{
+  "logid": "23162fda624b",
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/p/DeEXuPOCeHa/?stkn=ZGNyc29vNmdnNTFy",
+          "member": [
+            "RRK"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSbHcQaoV/",
+          "member": [
+            "KIK"
+          ]
+        },
+        {
+          "url": "https://vt.tiktok.com/ZSbHcVc3q/",
+          "member": [
+            "RRK",
+            "KIK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "682"
+}
