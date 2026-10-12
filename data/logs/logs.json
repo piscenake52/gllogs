@@ -2518,10 +2518,22 @@
     "time": "2200",
     "contents": "RADIO",
     "title": "FM FUJI 「フニャフニャ伝説」",
+    "url": "https://radiko.jp/share/?t=20261013210000&sid=FM-FUJI",
     "groups": [
       "L2",
       "YUW",
       "AKR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2107470939004846309",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
