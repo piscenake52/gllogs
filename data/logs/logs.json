@@ -12645,6 +12645,19 @@
     "title": "SNS　Laki",
     "groups": [
       "L2"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbTWVNND/",
+            "member": [
+              "YUW"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
