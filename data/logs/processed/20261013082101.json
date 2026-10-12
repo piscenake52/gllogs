@@ -1,0 +1,36 @@
+{
+  "date": "20221020",
+  "time": "1900",
+  "contents": "RADIO",
+  "title": "文化放送 「Lucky²のラッキートーク！」　#004",
+  "groups": [
+    "L2",
+    "RIN",
+    "HIR",
+    "RRK"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/joqrlucky/status/1580516460841271298",
+          "member": [
+            "RIN",
+            "HIR",
+            "RRK"
+          ]
+        },
+        {
+          "url": "https://x.com/joqrlucky/status/1583052910627196928",
+          "member": [
+            "RIN",
+            "HIR",
+            "RRK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "814"
+}
