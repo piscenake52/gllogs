@@ -38,6 +38,7 @@ LABELS_LOGS = {
 # add_setlist_songs.yml
 LABELS_SS = {
     "setlistid": "setlistid",
+    "copy_from": "COPY / コピー元 setlistid",
     "artist_check": "artist / 選択",
     "artist_free": "artist / 自由入力",
     "title": "title",
@@ -535,6 +536,11 @@ def main():
         COPY_OPTION in parse_checked(f.get("copy", ""))
         or f.get("copy_text", "").strip().lower() == "copy"
     )
+    if target_type == "setlist" and f.get("copy_from", "").strip() and is_delete_requested(f):
+        errors = ["- **削除 / コピー**: 「削除する」と「コピー」は同時に指定できません"]
+        write_error(errors)
+        print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
+        return
     if copy_req and is_delete_requested(f):
         errors = ["- **削除 / コピー**: 「削除する」と「コピーして新規登録」は同時に指定できません"]
         write_error(errors)
@@ -578,7 +584,25 @@ def main():
             data["_issue"] = issue_number
         must = bool(f["logid"] or f["date"])
     elif target_type == "setlist":
+        # コピー: setlistid が新しいID、copy_from がコピー元。入力した項目だけ上書きし、空の項目はコピー元を引き継ぐ（mergeで処理）
+        f["setlistid"] = to_halfwidth(f["setlistid"])
+        copy_src = to_halfwidth(f.get("copy_from", ""))
         data = build_setlist(f)
+        if copy_src:
+            errors = []
+            if not re.fullmatch(r"[0-9]{12}", copy_src):
+                errors.append(f"- **コピー元 setlistid**: 12桁の半角数字で入力してください（入力値: `{copy_src.replace(chr(96), chr(39))}`）")
+            if not re.fullmatch(r"[0-9]{12}", f["setlistid"]):
+                errors.append("- **setlistid**: コピーするときは、新しい setlistid（日付+開演時刻 12桁）を入力してください")
+            elif f["setlistid"] == copy_src:
+                errors.append("- **setlistid**: コピー元と同じIDです。新しい日付・開演時刻のIDを入力してください")
+            if errors:
+                write_error(errors)
+                print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
+                return
+            data["_copy_from"] = copy_src
+            if issue_number:
+                data["_issue"] = issue_number  # 同じIssueの再編集で、コピー先を作り直すための目印（mergeで取り除く）
         must = bool(f["setlistid"])
     else:
         data = build_songs(f)

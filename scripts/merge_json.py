@@ -229,7 +229,6 @@ def apply_update(target, existing, new_item):
     tags / sns は個別削除（`-タグ名` / `-URL`）も受け付ける（追記のあとに適用する）"""
     removals = {}
     new_item = dict(new_item)
-    members_before = sns_members(existing.get("sns"))
     for k in ("tags", "sns"):
         if isinstance(new_item.get(k), list) and not is_clear(new_item[k]):
             new_item[k], removals[k] = split_removals(k, new_item[k])
@@ -259,28 +258,21 @@ def apply_update(target, existing, new_item):
     for k, rem in removals.items():
         if rem:
             apply_removals(existing, k, rem)
-    if target["name"] == "logs" and ("sns" in new_item or removals.get("sns")):
-        sync_groups_with_sns(existing, new_item, members_before)
+    if target["name"] == "logs" and "sns" in new_item:
+        sync_groups_with_sns(existing, new_item)
 
 
-def sync_groups_with_sns(existing, new_item, members_before):
-    """snsのmemberと groups をそろえる。
-    ・このIssueで追加・変更したsnsのmemberは、groups に無ければ足す（そのグループのコード G2 / L2 も）。groups を消す指定と同時でも足す
-    ・snsから外れたmember（どのURLにも残っていない）は、groups からも外す。ただし、このIssueで groups に明示したものは残す"""
+def sync_groups_with_sns(existing, new_item):
+    """このIssueで追加・変更したsnsのmemberを、groups に無ければ足す（そのグループのコード G2 / L2 も）。
+    groups を消す指定と同時でも足す。snsからmemberが外れても、groups からは外さない（足すだけ）"""
     sns_in = new_item.get("sns")
     incoming = sns_members(sns_in) if isinstance(sns_in, list) and not is_clear(sns_in) else []
-    removed = [m for m in members_before if m not in sns_members(existing.get("sns"))]
-    explicit = new_item.get("groups") if isinstance(new_item.get("groups"), list) else []
-    removed = [m for m in removed if m not in explicit and m not in incoming]
+    if not incoming:
+        return
     groups = existing.get("groups") if isinstance(existing.get("groups"), list) else []
-    new_groups = [g for g in groups if g not in removed]
-    if incoming:
-        new_groups = add_member_groups(new_groups, incoming)
+    new_groups = add_member_groups(groups, incoming)
     if new_groups != groups:
-        if new_groups:
-            existing["groups"] = new_groups
-        else:
-            existing.pop("groups", None)
+        existing["groups"] = new_groups
 
 
 def finalize_new(target, item, main_data):
@@ -363,8 +355,8 @@ def apply_delete(target, main_data, item, issue_map):
         NOTICES.append(f"- **{target['name']}**: 削除対象が見つかりませんでした（{label}: `{shown}`）")
         return "notfound"
     del main_data[matches[0]]
-    if target["name"] == "logs":
-        # 削除したlogidを指すIssue対応を消す（残すと、元Issueの再編集で存在しないlogidの更新扱いになるため）
+    if target["name"] in ("logs", "setlist"):
+        # 削除したlogid / setlistid を指すIssue対応を消す（残すと、元Issueの再編集で存在しないlogidの更新扱いになるため）
         for iss in [k for k, v in issue_map.items() if v == key[0]]:
             del issue_map[iss]
     print(f"【削除】{target['name']}: {shown}")
@@ -415,6 +407,51 @@ def apply_copy(target, main_data, src_id, item, issue, issue_map):
     return "added"
 
 
+def apply_copy_setlist(target, main_data, src_id, item, issue, issue_map):
+    """setlistid(src_id)のレコードを、新しいsetlistid(item["setlistid"])へコピーして新規登録する。
+    入力された項目だけ上書きし、空の項目（曲目・memberなど）はコピー元を引き継ぐ。!clear の項目はコピーしない。
+    新しいIDがすでに存在するときは、上書きせずに止める（Issueにコメント）。
+    同じIssueの再編集では、前回のコピー先を取り除いて作り直す。戻り値: added / notfound / conflict / invalid"""
+    new_id = item.get("setlistid", "")
+    if not re.fullmatch(r"\d{12}", new_id):
+        print(f"【スキップ】コピー先のsetlistidは12桁の数字で指定してください: {item}")
+        return "invalid"
+    src = [e for e in main_data if e.get("setlistid") == src_id]
+    if not src:
+        print(f"【スキップ】コピー元のsetlistidが見つかりません: {src_id}")
+        NOTICES.append(f"- **setlist**: コピー元が見つかりませんでした（setlistid: `{src_id}`）")
+        return "notfound"
+    if len(src) > 1:
+        print(f"【警告】コピー元 {src_id} が複数存在するためスキップします")
+        NOTICES.append(f"- **setlist**: コピー元 `{src_id}` が複数存在するためコピーできませんでした")
+        return "conflict"
+    prev = issue_map.get(issue) if issue else None  # 同じIssueが前回作ったコピー先
+    clash = [e for e in main_data if e.get("setlistid") == new_id and new_id != prev]
+    if clash:
+        print(f"【スキップ】コピー先の setlistid {new_id} はすでに存在します")
+        NOTICES.append(f"- **setlist**: コピー先の setlistid `{new_id}` はすでに存在するため、コピーしませんでした（上書きしません）")
+        return "conflict"
+
+    new = copy.deepcopy(src[0])
+    overrides = {k: v for k, v in item.items() if not k.startswith("_") and k != "setlistid"}
+    for k, v in overrides.items():
+        if is_clear(v):
+            new.pop(k, None)
+        elif not is_blank(v):
+            new[k] = v  # songs / member なども、コピーでは入力値で置き換える
+    new["setlistid"] = new_id
+    new_item = finalize_new(target, new, main_data)
+    if new_item is None:
+        return "invalid"
+    if prev:
+        main_data[:] = [e for e in main_data if e.get("setlistid") != prev]  # 前回のコピー先を取り除いて作り直す
+    if issue:
+        issue_map[issue] = new_id
+    main_data.append(new_item)
+    print(f"【コピー】setlist: {src_id} -> {new_id}")
+    return "added"
+
+
 def apply_item(target, main_data, raw, issue_map):
     """戻り値: added / updated / deleted / notfound / conflict / invalid"""
     name = target["name"]
@@ -423,6 +460,10 @@ def apply_item(target, main_data, raw, issue_map):
 
     if item.pop("_delete", False):
         return apply_delete(target, main_data, item, issue_map)
+
+    if name == "setlist" and item.get("_copy_from"):
+        src_id = item.pop("_copy_from")
+        return apply_copy_setlist(target, main_data, src_id, item, issue, issue_map)
 
     # コピー指定: 初回はコピー元から新規登録。同じIssueの再編集は、発行済みの複製を更新する
     copy_from = item.pop("_copy_from", "") if name == "logs" else ""
@@ -610,7 +651,7 @@ def main():
 
     if NOTICES:
         with open(NOTICE_FILE, "w", encoding="utf-8") as f:
-            f.write("⚠️ 一部の削除を実行できませんでした。\n\n" + "\n".join(NOTICES)
+            f.write("⚠️ 一部の処理を実行できませんでした。\n\n" + "\n".join(NOTICES)
                     + "\n\nIDを確認して、Issueを編集すると再処理されます。\n")
 
     if not updated:
