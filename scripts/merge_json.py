@@ -22,6 +22,10 @@ DEFAULT_MEMBERS = {  # setlist: artist ごとの既定値
     "Laki": ["L2"],
 }
 
+# フォームのグループ選択肢（issue_to_json.py と揃える。groups の並び順にも使う）
+G2_OPTIONS = ["G2", "YZH", "MMK", "MSK", "YOK", "KUR", "MNM", "KIR", "TOA", "RAN"]
+L2_OPTIONS = ["L2", "RIN", "TBK", "HIR", "YUW", "KAN", "RRK", "AKR", "KIK", "YUR"]
+
 TARGETS = [
     {
         "name": "logs",
@@ -192,11 +196,40 @@ def apply_removals(record, key, removes):
     return missing
 
 
+def sns_members(sns):
+    """snsの全URLに書かれたmemberのコード（重複なし・出てきた順）"""
+    out = []
+    for e in (sns if isinstance(sns, list) else []):
+        if isinstance(e, dict):
+            for u in _sns_urls(e):
+                for m in u["member"]:
+                    if m not in out:
+                        out.append(m)
+    return out
+
+
+def order_groups(items):
+    """G2 / L2 のメンバーが入っていればグループのコード(G2 / L2)を足し、フォームの並び順にそろえる（それ以外は後ろ。STFなど）"""
+    has = set(items)
+    if any(m in has for m in G2_OPTIONS[1:]):
+        has.add("G2")
+    if any(m in has for m in L2_OPTIONS[1:]):
+        has.add("L2")
+    ordered = [o for o in G2_OPTIONS if o in has] + [o for o in L2_OPTIONS if o in has]
+    return ordered + [x for x in dict.fromkeys(items) if x not in ordered]
+
+
+def add_member_groups(groups, members):
+    """groups に、まだ入っていない member（とそのグループのコード）を足す"""
+    return order_groups(list(groups or []) + [m for m in members if m not in (groups or [])])
+
+
 def apply_update(target, existing, new_item):
     """空の項目は既存値を残す。値が !clear の項目だけ消す。append_lists の項目は既存値に追記する。
     tags / sns は個別削除（`-タグ名` / `-URL`）も受け付ける（追記のあとに適用する）"""
     removals = {}
     new_item = dict(new_item)
+    members_before = sns_members(existing.get("sns"))
     for k in ("tags", "sns"):
         if isinstance(new_item.get(k), list) and not is_clear(new_item[k]):
             new_item[k], removals[k] = split_removals(k, new_item[k])
@@ -226,6 +259,28 @@ def apply_update(target, existing, new_item):
     for k, rem in removals.items():
         if rem:
             apply_removals(existing, k, rem)
+    if target["name"] == "logs" and ("sns" in new_item or removals.get("sns")):
+        sync_groups_with_sns(existing, new_item, members_before)
+
+
+def sync_groups_with_sns(existing, new_item, members_before):
+    """snsのmemberと groups をそろえる。
+    ・このIssueで追加・変更したsnsのmemberは、groups に無ければ足す（そのグループのコード G2 / L2 も）。groups を消す指定と同時でも足す
+    ・snsから外れたmember（どのURLにも残っていない）は、groups からも外す。ただし、このIssueで groups に明示したものは残す"""
+    sns_in = new_item.get("sns")
+    incoming = sns_members(sns_in) if isinstance(sns_in, list) and not is_clear(sns_in) else []
+    removed = [m for m in members_before if m not in sns_members(existing.get("sns"))]
+    explicit = new_item.get("groups") if isinstance(new_item.get("groups"), list) else []
+    removed = [m for m in removed if m not in explicit and m not in incoming]
+    groups = existing.get("groups") if isinstance(existing.get("groups"), list) else []
+    new_groups = [g for g in groups if g not in removed]
+    if incoming:
+        new_groups = add_member_groups(new_groups, incoming)
+    if new_groups != groups:
+        if new_groups:
+            existing["groups"] = new_groups
+        else:
+            existing.pop("groups", None)
 
 
 def finalize_new(target, item, main_data):
@@ -245,7 +300,14 @@ def finalize_new(target, item, main_data):
             return None
         item["time"] = time  # 空欄ならそのまま空で登録する(0000には補完しない)
         autofill_setlistid(item)  # LIVE で setlistid 未入力なら date+time を登録
-        item.setdefault("groups", list(DEFAULT_GROUPS))
+        members = sns_members(item.get("sns"))
+        if item.get("groups"):
+            if members:
+                item["groups"] = add_member_groups(item["groups"], members)  # 入力された groups に、snsのmemberも足す
+        elif members:
+            item["groups"] = add_member_groups([], members)  # groups 未入力でsnsにmemberがあれば、既定の G2, L2 ではなくmemberのグループにする
+        else:
+            item["groups"] = list(DEFAULT_GROUPS)
         if not item.get("logid"):
             item["logid"] = generate_logid(item, main_data)
 
