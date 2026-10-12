@@ -50,7 +50,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .fin.ch, #glih .fta.ch { border-color:var(--accent); }
 #glih .fin.bad, #glih .field input.bad, #glih .jsonbox.bad { border-color:#d33; }
 #glih .field input[type=date].ch, #glih .field input[type=time].ch { border-color:var(--accent); }
-#glih .fcand { margin:0 0 10px; border:1px solid var(--line); border-radius:8px; max-height:15em; overflow:auto; }
+#glih .fcand { margin:0 0 10px; border:1px solid var(--line); border-radius:8px; max-height:30em; overflow:auto; }
 #glih .fcand button { display:block; width:100%; text-align:left; background:none; border:0; border-bottom:1px solid var(--line); border-radius:0; padding:7px 10px; margin:0; font:inherit; font-size:12px; line-height:1.4; color:var(--text); cursor:pointer; }
 #glih .fcand button:last-child { border-bottom:0; }
 #glih .fcand button:hover { background:var(--btn); }
@@ -60,6 +60,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .chipr .chip { width:auto; padding:5px 12px; font-size:12px; }
 #glih .chipr .chip.rm { text-decoration:line-through; opacity:.55; border-color:#d33; }
 #glih .fmode { font-size:12px; font-weight:600; color:var(--accent); margin:0 0 10px; }
+#glih .fdiff { font-size:12px; color:var(--sub); margin:0 0 8px; line-height:1.5; max-height:9em; overflow:auto; word-break:break-all; }
+#glih .fdiff b { color:var(--text); font-weight:600; }
+#glih .fdiff .rmk { color:var(--sub); opacity:.8; }
 #glih .fstat { font-size:12px; color:var(--sub); margin:0 0 10px; min-height:1.4em; }
 #glih .jsonbox { width:100%; box-sizing:border-box; min-height:9em; margin:6px 0 4px; padding:8px; font:12px/1.4 ui-monospace,Menlo,Consolas,monospace; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; resize:vertical; box-shadow:none; }
 #glih .fw { flex:1; min-width:0; position:relative; display:block; }
@@ -115,12 +118,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="fcand" id="glih-fdl" hidden></div>
   <div class="fstat" id="glih-fstat" hidden></div>
   <div class="fmode" id="glih-fmode" hidden></div>
+  <div id="glih-fjwrap" style="margin:0 0 10px" hidden><button type="button" class="small" id="glih-fjump"></button></div>
   <div class="fcand" id="glih-fcand" hidden></div>
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
   <div id="glih-ff"></div>
   <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、空欄にした値の削除はフォームの【値の削除】チェックで行います。relations は事前入力できません(JSONで確認)。 -->
   <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fjtog" aria-expanded="false">JSON &#9662;</button><button type="button" class="small" id="glih-fcopy">JSON copy</button><button type="button" class="small" id="glih-freset">reset all</button></div>
   <textarea id="glih-fjson" class="jsonbox" spellcheck="false" hidden></textarea>
+  <div class="fdiff" id="glih-fdiff" hidden></div>
   <a class="go" id="glih-go-find" target="_blank" rel="noopener" aria-disabled="true">Issue</a>
 </section>
 
@@ -409,8 +414,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var title = mkInput('', 'title'); var add = document.createElement('button'); add.type = 'button'; add.className = 'small'; add.textContent = 'add';
     var edit = !isNew && row && typeof row === 'object', ops = {};
     r1.appendChild(title); r1.appendChild(add);
-    if (edit) { // loaded setlist: when # is an order that already exists, insert / update / delete buttons replace add (the line goes to the songs_patch box); otherwise add works as usual
-      ['insert', 'update', 'delete'].forEach(function (m) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = m; b.hidden = true; ops[m] = b; r1.appendChild(b); });
+    if (edit) { // loaded setlist: when # is an order that already exists, insert / update / delete / move buttons replace add (the line goes to the songs_patch box); otherwise add works as usual
+      [['insert', 'insert'], ['update', 'update'], ['delete', 'delete'], ['up', '\u2191'], ['down', '\u2193']].forEach(function (m) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = m[1]; if (m[0] === 'up') b.title = 'move up'; if (m[0] === 'down') b.title = 'move down'; b.hidden = true; ops[m[0]] = b; r1.appendChild(b); });
     }
     var r2 = document.createElement('div'); r2.className = 'row wrap'; box.appendChild(r2);
     var num = mkInput('num', '#'); num.inputMode = 'numeric';
@@ -433,6 +438,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (!edit) return;
       var sg = hit(), has = !!sg;
       add.hidden = has; ops.insert.hidden = ops.update.hidden = ops.delete.hidden = !has;
+      var cn = +num.value.replace(/\D/g, ''); ops.up.hidden = !has || !rowSong(cn - 1); ops.down.hidden = !has || !rowSong(cn + 1); // no move beyond the first / last song
       title.placeholder = sg ? sg.title || 'title' : 'title';
       orig2.placeholder = sg && sg.original ? sg.original : 'original';
       notes.placeholder = sg && sg.notes ? sg.notes : 'notes';
@@ -440,6 +446,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (edit) { num.addEventListener('input', syncMode); syncMode(); }
     function doPatch(md) {
       var n = num.value.replace(/\D/g, ''), t = title.value.trim(), bad = null;
+      if (md === 'up' || md === 'down') { // move: `N>M: title` (the song of order N goes to order M, the others shift)
+        var to = +n + (md === 'up' ? -1 : 1), pe0 = $('f-songs_patch'); if (!pe0 || !rowSong(+n) || !rowSong(to)) return;
+        var c0 = pe0.value.replace(/\s+$/, ''); pe0.value = (c0 ? c0 + '\n' : '') + n + '>' + to + ': ' + (rowSong(+n).title || ''); pe0.dispatchEvent(new Event('input', { bubbles: true }));
+        num.value = ''; syncMode(); num.focus(); return;
+      }
       if (/[|\uff5c]/.test(t)) bad = title;
       else if (md === 'insert' && !t) bad = title;
       else if (md === 'update' && !t && !sel.value && !orig2.value.trim() && !notes.value.trim()) bad = title;
@@ -456,7 +467,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       pe.value = (cur ? cur + '\n' : '') + line; pe.dispatchEvent(new Event('input', { bubbles: true }));
       title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = ''; syncMode(); num.focus();
     }
-    if (edit) ['insert', 'update', 'delete'].forEach(function (m) { ops[m].onclick = function () { doPatch(m); }; });
+    if (edit) ['insert', 'update', 'delete', 'up', 'down'].forEach(function (m) { ops[m].onclick = function () { doPatch(m); }; });
     function doAdd() {
       if (hit()) return; // an existing order: use insert / update / delete
       var t = title.value.trim();
@@ -570,23 +581,58 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function sync() { btns.forEach(function (x) { x.b.classList.toggle('rm', !present(x.it)); }); }
     el.addEventListener('input', sync); sync();
   }
+  // the change summary right above the Issue button: one line per changed field (field: old -> new, long values shortened)
+  function one(v) { v = String(v == null ? '' : v).replace(/\s*\n\s*/g, ' / ').trim(); return v === '' ? '(empty)' : v.length > 36 ? v.slice(0, 35) + '\u2026' : v; }
+  function showDiff(list) {
+    var box = $('fdiff'); box.innerHTML = ''; box.hidden = !list.length;
+    list.forEach(function (d) {
+      var row = document.createElement('div'), b = document.createElement('b'); b.textContent = d[0];
+      row.appendChild(b);
+      row.appendChild(document.createTextNode(': ' + (d[2] != null ? d[2] + ' \u2192 ' : '') + (d[1].length > 90 ? d[1].slice(0, 89) + '\u2026' : d[1])));
+      if (d[3]) { var r = document.createElement('span'); r.className = 'rmk'; r.textContent = ' (' + d[3] + ')'; row.appendChild(r); }
+      box.appendChild(row);
+    });
+  }
+  // logs <-> setlist jump button (next to the mode label): logs -> the setlist of the same date / time (opened for edit when it exists, otherwise a new one), setlist -> the logs of that date
+  function jumpInfo() {
+    if (!found) return null;
+    if (found.kind === 'logs') {
+      var dv = ($('f-date') || {}).value || '', tv = ($('f-time') || {}).value || '', sl = (($('f-setlistid') || {}).value || '').trim();
+      var sid = /^\d{12}$/.test(sl) ? sl : (okDate(dv) && okTime(tv) ? dv + tv : '');
+      return sid ? { to: 'setlist', sid: sid, label: '\u2192 setlist' } : null;
+    }
+    return /^\d{12}$/.test(found.id) ? { to: 'logs', sid: found.id, label: '\u2192 logs' } : null;
+  }
+  function syncJump() { var j = jumpInfo(); $('fjwrap').hidden = !j; if (j) $('fjump').textContent = j.label; }
+  $('fjump').onclick = function () {
+    var j = jumpInfo(); if (!j) return;
+    var d = j.sid.slice(0, 8), t = j.sid.slice(8);
+    tab(j.to); try { history.replaceState(null, '', '#' + j.to); } catch (e) {}
+    if (j.to === 'logs') { $('fdt').value = ''; $('fdd').value = fmtDigits(d, 'date'); $('fdd').dispatchEvent(new Event('input', { bubbles: true })); return; } // the logs of that date are listed
+    fetchIndex('setlist').then(function (list) {
+      if ((list || []).some(function (r) { return r && String(r.setlistid) === j.sid; })) { $('fid').value = j.sid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); }
+      else { $('fdd').value = fmtDigits(d, 'date'); $('fdt').value = fmtDigits(t, 'time'); topChanged(); } // none yet: a new setlist with this date / time
+    }).catch(function () { $('fdd').value = fmtDigits(d, 'date'); $('fdt').value = fmtDigits(t, 'time'); topChanged(); });
+  };
   function updateFind() {
-    if (!found) { setLink($('go-find'), ''); return; }
-    var def = DEFS[found.kind], p = {}, n = 0;
+    if (!found) { setLink($('go-find'), ''); showDiff([]); syncJump(); return; }
+    var def = DEFS[found.kind], p = {}, n = 0, dl = [];
     if (found.id) p[def.idKey] = found.id;
     if (found.kind === 'logs' && !found.isNew && $('fcp').checked) p.copy_text = 'copy';
     def.fields.forEach(function (f) {
       var el = $('f-' + f.k), cur = el.value, ch = cur !== orig[f.k];
       el.classList.toggle('ch', ch);
-      if (found.kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) { var dv = ch ? listDiff(f.k, orig[f.k], cur) : ''; if (dv) { p[f.p || f.k] = dv; n++; } }
-      else if (ch && cur.trim() !== '') { p[f.p || f.k] = cur; n++; }
+      if (found.kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) { var dv = ch ? listDiff(f.k, orig[f.k], cur) : ''; if (dv) { p[f.p || f.k] = dv; n++; dl.push([f.k, dv.replace(/\n/g, ' / ')]); } }
+      else if (ch && cur.trim() !== '') { p[f.p || f.k] = cur; n++; dl.push(f.k === 'songs_patch' ? [f.k, cur.trim().replace(/\n/g, ' / ')] : [f.k, one(cur), found.isNew ? null : one(orig[f.k])]); }
+      else if (ch) dl.push([f.k, '(empty)', one(orig[f.k]), 'not sent - use the delete check of the form']);
     });
     var errs = validateFind(found.kind);
     if (found.kind === 'setlist' && !found.isNew && $('fcp').checked) { // copy: setlistid = the new date + time, copy_from = the loaded one
       var nr = topReady('setlist');
       if (!nr || nr.d + nr.t === found.id) errs.push('copy: enter a new date and time');
-      else { p.setlistid = nr.d + nr.t; p.copy_from = found.id; }
+      else { p.setlistid = nr.d + nr.t; p.copy_from = found.id; dl.push(['copy', found.id + ' \u2192 ' + p.setlistid]); }
     }
+    showDiff(dl); syncJump();
     var url = issueUrl(def.tpl, p);
     setLink($('go-find'), errs.length ? '' : url);
     $('go-find').textContent = n ? 'Issue (' + n + ')' : 'Issue';
