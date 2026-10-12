@@ -11,6 +11,13 @@ body:
     id: setlistid
     attributes:
       label: "setlistid"
+      description: "コピーして新規登録するときは、ここに新しい setlistid（日付+開演時刻 12桁）を入力"
+
+  - type: input
+    id: copy_from
+    attributes:
+      label: "COPY / コピー元 setlistid"
+      description: "コピーして新規登録するときだけ、コピー元の setlistid を入力。入力した項目だけ上書きし、空の項目（曲目・member など）はコピー元を引き継ぎます。上の setlistid がすでに存在するときはコピーしません"
 
 
   - type: checkboxes
