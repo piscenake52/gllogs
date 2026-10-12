@@ -140,6 +140,15 @@ def parse_selected(raw_str, options):
     return [o for o in options if o in picked] + [p for p in picked if p not in options]
 
 
+def norm_type(v):
+    """typeは複数指定できる（カンマ・読点・+・スラッシュ・空白区切り）。"allow, medley" → "allow,medley"（重複は除く）"""
+    seen = []
+    for t in re.split(r"[,，、+＋/／\s]+", v or ""):
+        if t and t not in seen:
+            seen.append(t)
+    return ",".join(seen)
+
+
 def parse_songs(raw_str):
     """
     1行1曲。書式: [順番:] 曲名 | type | original | notes
@@ -172,6 +181,8 @@ def parse_songs(raw_str):
             type_ = "song"
         elif type_ == "-":
             type_ = ""
+        else:
+            type_ = norm_type(type_) or "song"
         original = parts[2] if len(parts) > 2 else ""
         notes = " | ".join(parts[3:]) if len(parts) > 3 else ""
         songs.append({
@@ -505,7 +516,7 @@ def parse_songs_patch(raw_str):
                 if v == "-":
                     op[key] = ""          # - は空にする
                 elif v:
-                    op[key] = v
+                    op[key] = (norm_type(v) or "song") if key == "type" else v
             if op["op"] == "insert" and "type" not in op:
                 op["type"] = "song"
         ops.append(op)
