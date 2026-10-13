@@ -2860,6 +2860,39 @@
     ]
   },
   {
+    "logid": "f3ff6a822543",
+    "date": "20261013",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2109933430335225862",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbEtJQhF/",
+            "member": [
+              "YZH"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "b485f1e11ca1",
     "date": "20261012",
     "time": "2300",

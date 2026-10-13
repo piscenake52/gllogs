@@ -1,0 +1,28 @@
+{
+  "date": "20261013",
+  "contents": "SNS",
+  "title": "SNS　Girls²",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2109933430335225862",
+          "member": []
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSbEtJQhF/",
+          "member": [
+            "YZH"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "988"
+}
