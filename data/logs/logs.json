@@ -2991,6 +2991,17 @@
       "KUR",
       "MNM",
       "KIR"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/vuhquOTnhRM?si=UpdV8aSKLrmloMII",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
