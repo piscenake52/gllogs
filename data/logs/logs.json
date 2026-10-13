@@ -5712,15 +5712,33 @@
       {
         "type": "instagram",
         "urls": [
-          "https://www.instagram.com/reel/DeMGETHJMb1/?stkn=ZG1zMGFrc3d3YTg2",
-          "https://www.instagram.com/reel/DeMAUu8pVM2/?stkn=MTJ4cjc4YWx0cm5qNw=="
+          {
+            "url": "https://www.instagram.com/reel/DeMGETHJMb1/?stkn=ZG1zMGFrc3d3YTg2",
+            "member": []
+          },
+          {
+            "url": "https://www.instagram.com/reel/DeMAUu8pVM2/?stkn=MTJ4cjc4YWx0cm5qNw==",
+            "member": []
+          },
+          {
+            "url": "https://www.instagram.com/p/DeMNRDQmlw_/?srtk=OGFmM3pqa3h4NzM2",
+            "member": [
+              "HIR"
+            ]
+          }
         ]
       },
       {
         "type": "x",
         "urls": [
-          "https://x.com/Laki922official/status/2107778482050847131",
-          "https://x.com/Laki922official/status/2107803130381631877"
+          {
+            "url": "https://x.com/Laki922official/status/2107778482050847131",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2107803130381631877",
+            "member": []
+          }
         ]
       }
     ]
