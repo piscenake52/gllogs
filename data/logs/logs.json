@@ -2836,6 +2836,30 @@
     ]
   },
   {
+    "logid": "8281b0ca54f4",
+    "date": "20261013",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　映画 「ワンダンス」",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2109932163441594440",
+            "member": [
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "b485f1e11ca1",
     "date": "20261012",
     "time": "2300",
