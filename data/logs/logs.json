@@ -5053,6 +5053,34 @@
     ]
   },
   {
+    "logid": "534578975090",
+    "date": "20261009",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　EXPG高等学院",
+    "groups": [
+      "L2",
+      "RIN",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbEwj1hW/",
+            "member": [
+              "RIN",
+              "AKR",
+              "KIK"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "1ba3e4a7528d",
     "date": "20261008",
     "time": "2359",
