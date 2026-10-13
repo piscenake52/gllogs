@@ -6404,6 +6404,7 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "HIR",
       "RRK",
       "KIK"
     ],
@@ -6415,6 +6416,12 @@
             "url": "https://www.instagram.com/p/DeEXuPOCeHa/?stkn=ZGNyc29vNmdnNTFy",
             "member": [
               "RRK"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/DeEgW1MmmaK/?psln=OGFoMGZneW9kZHRw",
+            "member": [
+              "HIR"
             ]
           }
         ]
