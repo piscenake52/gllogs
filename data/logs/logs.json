@@ -2908,7 +2908,13 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
-      "YZH"
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -2916,6 +2922,10 @@
         "urls": [
           {
             "url": "https://x.com/Girls2_official/status/2109933430335225862",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2109967678043771191",
             "member": []
           }
         ]
@@ -2927,6 +2937,18 @@
             "url": "https://vt.tiktok.com/ZSbEtJQhF/",
             "member": [
               "YZH"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbo81XDv/",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
             ]
           }
         ]
