@@ -2730,6 +2730,31 @@
     ]
   },
   {
+    "logid": "57b8ac67c80a",
+    "date": "20261013",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109875526840287615",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109875869032607819",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "b485f1e11ca1",
     "date": "20261012",
     "time": "2300",
