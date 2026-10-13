@@ -9128,6 +9128,32 @@
     ]
   },
   {
+    "logid": "4805bd5f937a",
+    "date": "20260925",
+    "time": "",
+    "contents": "SNS",
+    "title": "ANNA SUI COSMETICS",
+    "groups": [
+      "G2",
+      "MSK",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbEhdut8/",
+            "member": [
+              "MSK",
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "06daac09715b",
     "date": "20260924",
     "time": "2359",

@@ -1,0 +1,25 @@
+{
+  "date": "20260925",
+  "sns": [
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSbEhdut8/",
+          "member": [
+            "MSK",
+            "KIR"
+          ]
+        }
+      ]
+    },
+    {
+      "_remove": "https://x.com/annasuicosme/status/2104915904391991570"
+    },
+    {
+      "_remove": "https://www.instagram.com/reel/Dd3w2Eytqp0/?stkn=MW9oMDljOGczbjhsaA=="
+    }
+  ],
+  "_copy_from": "2e4f05f0b576",
+  "_issue": "887"
+}
