@@ -2001,6 +2001,29 @@
     ]
   },
   {
+    "logid": "263421d25121",
+    "date": "20261020",
+    "time": "0400",
+    "contents": "RADIO",
+    "title": "TOKYO FM「Memories & Discoveries」",
+    "groups": [
+      "L2",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109796255844954446",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "e95687f805c4",
     "date": "20261019",
     "time": "1700",
