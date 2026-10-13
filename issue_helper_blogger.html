@@ -1,8 +1,5 @@
-<!-- Blogger の固定ページ(HTMLビュー)に、このままコピー&貼り付けして公開する。<html>/<head>/<body> は含めない。
-     CSSは #glih の中だけに効くようにしてあり、ブログのテーマには影響しない -->
 <style>
 /*<![CDATA[*/
-/* ページ全体の背景も黒にする: helper (#glih) を含む親要素すべて(body / 記事の枠など。テーマが違ってもクラス名に依存しない)の背景を黒にする */
 html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { background:#121212 !important; background-image:none !important; color-scheme:dark; }
 /*]]>*/
 </style>
@@ -61,6 +58,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .chipw { display:inline-flex; align-items:stretch; }
 #glih .chipw .chip { border-top-right-radius:0; border-bottom-right-radius:0; }
 #glih .chipw .lk { display:inline-flex; align-items:center; padding:0 9px; font-size:12px; border:1px solid var(--line); border-left:0; border-radius:0 12px 12px 0; background:var(--btn); color:var(--text) !important; text-decoration:none !important; }
+#glih .tchips { gap:5px; }
+#glih .tchips .chip { padding:5px 8px; }
+#glih .tchips .chip[data-v="mc"], #glih .tchips .chip[data-v="dt"] { box-sizing:border-box; width:40px; padding-left:0; padding-right:0; } /* mc / dt: 40px wide */
 #glih .chipr .chip.rm { text-decoration:line-through; opacity:.55; border-color:#d33; }
 #glih .fdiff { font-size:12px; color:var(--sub); margin:0 0 8px; line-height:1.5; max-height:9em; overflow:auto; word-break:break-all; }
 #glih .fdiff b { color:var(--text); font-weight:600; }
@@ -86,6 +86,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .fgcol .chips { flex:none; }
 #glih .snsh { display:flex; flex-direction:column; gap:6px; }
 #glih .snsh .row { display:flex; gap:6px; align-items:center; }
+#glih .snsh .row.btns { flex-wrap:wrap; }
+#glih .snsh .row.btns .small { flex:1 1 auto; padding:8px 6px; }
+#glih .small:disabled { opacity:.35; cursor:default; }
 #glih .snsh .fsel { flex:0 0 7.5em; font-size:13px; }
 #glih .snsh .chips { flex:none; }
 #glih .snsh .row.wrap { flex-wrap:wrap; }
@@ -166,18 +169,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       { k: 'title', p: 'item_title', ta: 1 }, { k: 'artist', p: 'artist_free' }, { k: 'member', p: 'member_free', list: 1 }, { k: 'venue' }, { k: 'songs', ta: 1 }, { k: 'songs_patch', lb: 'patch', ta: 1 } ] }
   };
   // clear (x) button at the right end of an input: empties the field and fires an input event so the preview and link update
-  // copy button at the right end of the title row: copies the current value of the box to the clipboard
-  function addCopy(el, row) {
-    var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = 'copy'; b.title = 'copy to clipboard';
-    var done = function () { b.textContent = 'OK'; setTimeout(function () { b.textContent = 'copy'; }, 900); };
-    b.onclick = function () {
-      var t = el.value;
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, function () { fallback(t); });
-      else fallback(t);
-    };
-    function fallback(t) { var ta = document.createElement('textarea'); ta.value = t; ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0'; document.body.appendChild(ta); ta.select(); try { if (document.execCommand('copy')) done(); } catch (e) {} document.body.removeChild(ta); }
-    row.appendChild(b);
-  }
   function addClear(el) {
     var wrap = document.createElement('span'); wrap.className = 'fw';
     el.parentNode.insertBefore(wrap, el); wrap.appendChild(el);
@@ -286,6 +277,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function addArtistChips(el) {
     autoMember = '';
     var fw = el.parentNode, col = fw.parentNode, row = document.createElement('div'); row.className = 'chipr'; row.style.margin = '0 0 4px';
+    if (!col.classList.contains('fgcol')) { var gc = document.createElement('div'); gc.className = 'fgcol'; col.insertBefore(gc, fw); gc.appendChild(fw); col = gc; }
+    if (col.parentNode && col.parentNode.classList.contains('field')) col.parentNode.style.alignItems = 'flex-start'; // a column: the input above, the chips below
     [ART_G2, ART_L2].forEach(function (v) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v; b.setAttribute('data-v', v);
       b.onclick = function () {
@@ -422,17 +415,19 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     fw.parentNode.insertBefore(col, fw); col.appendChild(fw);
     var box = document.createElement('div'); box.className = 'snsh'; col.appendChild(box);
     function mkInput(cls, ph) { var i = document.createElement('input'); i.type = 'text'; i.className = 'fin ' + cls; i.placeholder = ph; i.setAttribute('autocomplete', 'off'); i.setAttribute('spellcheck', 'false'); return i; }
-    var r1 = document.createElement('div'); r1.className = 'row wrap'; box.appendChild(r1); // row 1: order + title + the buttons
+    var r1 = document.createElement('div'); r1.className = 'row'; box.appendChild(r1); // row 1: order + title
     var num = mkInput('num', '#'); num.inputMode = 'numeric';
     var title = mkInput('mid', 'title'); var add = document.createElement('button'); add.type = 'button'; add.className = 'small'; add.textContent = 'add';
     var edit = !isNew && row && typeof row === 'object', ops = {};
-    r1.appendChild(num); r1.appendChild(title); r1.appendChild(add);
-    if (edit) { // loaded setlist: when # is an order that already exists, insert / update / delete / move buttons replace add (the line goes to the songs_patch box); otherwise add works as usual
-      [['insert', 'insert'], ['update', 'update'], ['delete', 'delete'], ['up', '\u2191'], ['down', '\u2193']].forEach(function (m) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = m[1]; if (m[0] === 'up') b.title = 'move up'; if (m[0] === 'down') b.title = 'move down'; b.hidden = true; ops[m[0]] = b; r1.appendChild(b); });
+    r1.appendChild(num); r1.appendChild(title);
+    var rB = document.createElement('div'); rB.className = 'row btns'; rB.appendChild(add); // the last row: add / insert / update / delete / up / down side by side (the ones that cannot be used are disabled)
+    { // loaded setlist: when # is an order that already exists, insert / update / delete / move buttons are enabled (the line goes to the patch box) and add is disabled; otherwise only add works
+      [['insert', 'insert'], ['update', 'update'], ['delete', 'delete'], ['up', '\u2191'], ['down', '\u2193']].forEach(function (m) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = m[1]; if (m[0] === 'up') b.title = 'move up'; if (m[0] === 'down') b.title = 'move down'; b.disabled = true; ops[m[0]] = b; rB.appendChild(b); });
     }
     var rT = document.createElement('div'); rT.className = 'row'; box.appendChild(rT); // row 2: type chips
     var r2 = document.createElement('div'); r2.className = 'row'; box.appendChild(r2); // row 3: original + notes
-    var sel = document.createElement('div'); sel.className = 'chipr'; sel.title = 'type (multiple allowed; none = song)'; // type chips: several can be ON (sent as allow,medley)
+    box.appendChild(rB);
+    var sel = document.createElement('div'); sel.className = 'chipr tchips'; sel.title = 'type (multiple allowed; none = song)'; // type chips: several can be ON (sent as allow,medley)
     ['medley', 'mc', 'dt', 'encore', 'allow', 'cover'].forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.setAttribute('data-v', t); b.textContent = t; b.onclick = function () { b.classList.toggle('on'); sel.dispatchEvent(new Event('change')); }; sel.appendChild(b); });
     Object.defineProperty(sel, 'value', { get: function () { return [].map.call(sel.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); }).join(','); }, set: function () { [].forEach.call(sel.querySelectorAll('.chip.on'), function (b) { b.classList.remove('on'); }); } });
     var orig2 = mkInput('mid', 'original'), notes = mkInput('mid', 'notes');
@@ -455,8 +450,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var sg = hit(), has = !!sg, cn0 = +num.value.replace(/\D/g, '');
       if (has && pre !== cn0) { setChips(String(sg.type || '').split(/[,\s]+/)); touched = false; pre = cn0; } // the type chips show the current type of that song
       else if (!has && pre) { if (!touched) setChips([]); pre = 0; }
-      add.hidden = has; ops.insert.hidden = ops.update.hidden = ops.delete.hidden = !has;
-      var cn = +num.value.replace(/\D/g, ''); ops.up.hidden = !has || !rowSong(cn - 1); ops.down.hidden = !has || !rowSong(cn + 1); // no move beyond the first / last song
+      add.disabled = has; ops.insert.disabled = ops.update.disabled = ops.delete.disabled = !has;
+      var cn = +num.value.replace(/\D/g, ''); ops.up.disabled = !has || !rowSong(cn - 1); ops.down.disabled = !has || !rowSong(cn + 1); // no move beyond the first / last song
       title.placeholder = sg ? sg.title || 'title' : 'title';
       orig2.placeholder = sg && sg.original ? sg.original : 'original';
       notes.placeholder = sg && sg.notes ? sg.notes : 'notes';
@@ -652,7 +647,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (!f.ta) { el.type = 'text'; el.setAttribute('autocomplete', 'off'); }
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
       el.addEventListener('input', updateFind);
-      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); if (f.k === 'title') addCopy(el, wrap); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') { addSuggest(el, artistOptions); addArtistChips(el); } if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
+      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
     var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = !!isNew; $('fjrow').hidden = !!isNew;
     if (isNew && kind === 'setlist') { var spe = $('f-songs_patch'); if (spe && spe.closest('.field')) spe.closest('.field').hidden = true; } // new mode: the songs box is used as it is (the per-song edit is for the loaded setlist only)
