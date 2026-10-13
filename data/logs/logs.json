@@ -835,6 +835,20 @@
     ]
   },
   {
+    "logid": "2447d5f8b575",
+    "date": "20261110",
+    "time": "1200",
+    "contents": "COLUMN",
+    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #115",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#115",
+    "display_sp": "柚葉24じ　#115",
+    "url": "https://www.tokyoheadline.com/category/column/girls2yuzuha24h/",
+    "groups": [
+      "G2",
+      "YZH"
+    ]
+  },
+  {
     "logid": "ff01538e0185",
     "date": "20261109",
     "time": "2300",
@@ -2521,20 +2535,6 @@
           }
         ]
       }
-    ]
-  },
-  {
-    "logid": "2447d5f8b575",
-    "date": "20261013",
-    "time": "1200",
-    "contents": "COLUMN",
-    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #114",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#114",
-    "display_sp": "柚葉24じ　#114",
-    "url": "https://www.tokyoheadline.com/category/column/girls2yuzuha24h/",
-    "groups": [
-      "G2",
-      "YZH"
     ]
   },
   {
