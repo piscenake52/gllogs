@@ -2801,6 +2801,9 @@
     "groups": [
       "L2",
       "RIN",
+      "YUW",
+      "KAN",
+      "AKR",
       "KIK"
     ],
     "sns": [
@@ -2818,6 +2821,10 @@
           {
             "url": "https://x.com/Laki922official/status/2109921307311980610",
             "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109947830794334679",
+            "member": []
           }
         ]
       },
@@ -2829,6 +2836,15 @@
             "member": [
               "RIN",
               "KIK"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbET8Cwh/",
+            "member": [
+              "RIN",
+              "YUW",
+              "KAN",
+              "AKR"
             ]
           }
         ]
