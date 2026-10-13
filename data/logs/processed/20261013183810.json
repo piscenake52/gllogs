@@ -1,13 +1,11 @@
 {
-  "date": "20261013",
-  "contents": "SNS",
-  "title": "SNS　a-nation",
+  "logid": "83758e077db1",
   "sns": [
     {
-      "type": "instagram",
+      "type": "x",
       "urls": [
         {
-          "url": "https://www.instagram.com/reel/DebOOCQBovY/?xtok=YW9peWFwcGdheXdz",
+          "url": "https://x.com/Girls2_official/status/1576522367614218241",
           "member": [
             "YZH",
             "MMK",
@@ -15,11 +13,13 @@
             "YOK",
             "KUR",
             "MNM",
-            "KIR"
+            "KIR",
+            "TOA",
+            "RAN"
           ]
         }
       ]
     }
   ],
-  "_issue": "993"
+  "_issue": "994"
 }
