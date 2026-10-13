@@ -2915,6 +2915,42 @@
     ]
   },
   {
+    "logid": "e9a293676366",
+    "date": "20261013",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　a-nation",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DebOOCQBovY/?xtok=YW9peWFwcGdheXdz",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "b485f1e11ca1",
     "date": "20261012",
     "time": "2300",
