@@ -7003,21 +7003,41 @@
       "TBK",
       "YUW",
       "KAN",
+      "RRK",
       "AKR"
     ],
     "sns": [
       {
         "type": "tiktok",
         "urls": [
-          "https://vt.tiktok.com/ZSbm5hVWj/",
-          "https://vt.tiktok.com/ZSbHcuTbA/",
-          "https://vt.tiktok.com/ZSbHcCh41/"
+          {
+            "url": "https://vt.tiktok.com/ZSbm5hVWj/",
+            "member": []
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbHcuTbA/",
+            "member": []
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbHcCh41/",
+            "member": []
+          }
         ]
       },
       {
         "type": "instagram",
         "urls": [
-          "https://www.instagram.com/reel/DeCAkjGJNCI/?stkn=bHo5OTFidW9uM2p5"
+          {
+            "url": "https://www.instagram.com/reel/DeCAkjGJNCI/?stkn=bHo5OTFidW9uM2p5",
+            "member": []
+          },
+          {
+            "url": "https://www.instagram.com/reel/DeB5yu_pK97/?obrf=MTMzYTJzenNvM2Zueg==",
+            "member": [
+              "YUW",
+              "RRK"
+            ]
+          }
         ]
       }
     ]
