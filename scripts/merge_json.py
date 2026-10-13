@@ -13,6 +13,7 @@ ARTIST_JOIN = " × "  # 複数アーティストの連結文字（issue_to_json.
 LOGID_LENGTH = 12  # logid の桁数（UUIDの先頭から取る16進数）
 NOTICE_FILE = "merge_notice.md"  # 削除対象が見つからなかった等をIssueにコメントするための一時ファイル（コミットされない）
 NOTICES = []
+REPEAT_LIMIT = 60  # 繰り返し登録の最大件数
 ISSUE_MAP_FILE = "data/issue_map.json"  # {Issue番号: logid}  Issue再編集時に同じログを更新するための対応表
 
 # 新規追加で groups / member が何も入力されなかったときの既定値
@@ -519,6 +520,70 @@ def apply_copy_setlist(target, main_data, src_id, item, issue, issue_map):
     return "added"
 
 
+REPEAT_DROP = ("date", "title", "logid", "setlistid", "url", "map", "sns", "display_pc", "display_sp")  # 繰り返し登録では引き継がない項目
+
+
+def bump_number(title, i):
+    """title の最後の `#数字` を +i する（0詰めの桁数は保つ）。`#数字` がなければそのまま"""
+    ms = list(re.finditer(r"#(\d+)", title or ""))
+    if not ms or i == 0:
+        return title
+    m = ms[-1]
+    num = str(int(m.group(1)) + i).zfill(len(m.group(1)))
+    return title[:m.start(1)] + num + title[m.end(1):]
+
+
+def apply_repeat(target, main_data, item, repeat, issue, issue_map):
+    """繰り返し登録: repeat（1行1回の {"date", "title"?}）ごとに logs を登録する。
+    title は最初の回の title の `#数字` を回ごとに +1（行に title があればそれを優先）。url / map / sns / display は引き継がない。
+    同じIssueの再編集は、前回の登録分を同じ順番で更新し、増えた回は追加、減った回は削除する（logid は変わらない）。
+    すでに同じ date + time + contents + title の行があるときは、その回は登録しない。戻り値: added / updated / invalid"""
+    base = {k: v for k, v in item.items() if not k.startswith("_") and k not in REPEAT_DROP}
+    dropped = [k for k in ("url", "map", "sns", "display_pc", "display_sp") if not is_blank(item.get(k))]
+    if dropped:
+        NOTICES.append(f"- **logs**: 繰り返し登録では {' / '.join(dropped)} は引き継ぎません")
+    title0 = item.get("title", "")
+    prev = issue_map.get(issue) if issue else None
+    prev = list(prev) if isinstance(prev, list) else []
+    ids, added, updated = [], 0, 0
+    for i, occ in enumerate(repeat[:REPEAT_LIMIT]):
+        rec = dict(base)
+        rec["date"] = occ.get("date", "")
+        rec["title"] = occ.get("title") or bump_number(title0, i)
+        row = None
+        if i < len(prev) and prev[i]:
+            row = next((e for e in main_data if e.get("logid") == prev[i]), None)
+        if row is not None:
+            apply_update(target, row, dict(rec))
+            autofill_setlistid(row)
+            main_data[main_data.index(row)] = reorder(target, row)
+            ids.append(prev[i])
+            updated += 1
+            continue
+        dup = [e for e in main_data if e.get("date") == rec["date"] and (e.get("time") or "") == (rec.get("time") or "")
+               and e.get("contents") == (rec.get("contents") or "ETC") and e.get("title") == rec["title"]]
+        if dup:
+            NOTICES.append(f"- **logs**: {rec['date']} `{rec['title']}` はすでにあるため登録しませんでした")
+            ids.append("")
+            continue
+        new_item = finalize_new(target, clean_new(rec), main_data)
+        if new_item is None:
+            ids.append("")
+            continue
+        main_data.append(new_item)
+        ids.append(new_item["logid"])
+        added += 1
+    for old in prev[len(repeat[:REPEAT_LIMIT]):]:  # 減った回を取り除く
+        if old:
+            main_data[:] = [e for e in main_data if e.get("logid") != old]
+    if len(repeat) > REPEAT_LIMIT:
+        NOTICES.append(f"- **logs**: 繰り返し登録は{REPEAT_LIMIT}件までです。{len(repeat) - REPEAT_LIMIT}件は登録しませんでした")
+    if issue:
+        issue_map[issue] = ids
+    print(f"【繰り返し】logs: 追加 {added} 件 / 更新 {updated} 件")
+    return "added" if added else "updated" if updated else "invalid"
+
+
 def apply_item(target, main_data, raw, issue_map):
     """戻り値: added / updated / deleted / notfound / conflict / invalid"""
     name = target["name"]
@@ -527,6 +592,10 @@ def apply_item(target, main_data, raw, issue_map):
 
     if item.pop("_delete", False):
         return apply_delete(target, main_data, item, issue_map)
+
+    repeat = item.pop("_repeat", None) if name == "logs" else None
+    if isinstance(repeat, list) and repeat and not item.get("_copy_from"):
+        return apply_repeat(target, main_data, item, repeat, issue, issue_map)
 
     if name == "setlist" and item.get("_copy_from"):
         src_id = item.pop("_copy_from")
@@ -540,7 +609,7 @@ def apply_item(target, main_data, raw, issue_map):
         item["logid"] = issue_map[issue]
 
     # 同じIssueの再編集は、発行済みlogidの更新として扱う
-    if name == "logs" and not item.get("logid") and issue and issue in issue_map:
+    if name == "logs" and not item.get("logid") and issue and isinstance(issue_map.get(issue), str):
         item["logid"] = issue_map[issue]
 
     key = key_of(target, item)

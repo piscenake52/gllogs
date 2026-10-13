@@ -30,6 +30,7 @@ LABELS_LOGS = {
     "relations_free": "relations / 自由入力",
     "tags": "tags",
     "sns": "sns",
+    "repeat": "繰り返し登録 (1行1回)",
     "delete": "DELETE",
     "clear": "値の削除（更新時）",
     "copy": "COPY",
@@ -319,6 +320,39 @@ def expand_members(picked, group, members):
     if not rest and group in picked:
         return list(members)
     return rest
+
+
+REPEAT_MAX = 60  # 繰り返し登録の最大件数
+
+
+def parse_repeat(raw_str):
+    """繰り返し登録（1行1回）。書式: YYYYMMDD [| タイトル]。日付は YYYY/MM/DD・YYYY-MM-DD でもよい。
+    戻り値: ([{"date", "title"?}, ...], エラーのリスト)"""
+    import datetime
+    ops, errors = [], []
+    for line in (raw_str or "").split("\n"):
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        head, _, rest = re.split(r"[|｜]", line, maxsplit=1)[0], "", (re.split(r"[|｜]", line, maxsplit=1) + [""])[1]
+        d = re.sub(r"[^0-9]", "", to_halfwidth(head))
+        ok = False
+        if len(d) == 8:
+            try:
+                datetime.date(int(d[:4]), int(d[4:6]), int(d[6:]))
+                ok = True
+            except ValueError:
+                pass
+        if not ok:
+            errors.append(f"- **繰り返し登録**: 日付を読み取れない行です（`{line.replace(chr(96), chr(39))}`）。`YYYYMMDD` または `YYYYMMDD | タイトル` で入力してください")
+            continue
+        op = {"date": d}
+        if rest.strip():
+            op["title"] = rest.strip()
+        ops.append(op)
+    if len(ops) > REPEAT_MAX:
+        errors.append(f"- **繰り返し登録**: 一度に登録できるのは{REPEAT_MAX}件までです（{len(ops)}件）")
+    return ops, errors
 
 
 def normalize_and_validate_logs(f):
@@ -629,12 +663,19 @@ def main():
             # 自由入力が contents の選択肢に一致すればその値、一致しなければ ETC で登録する
             f["contents"] = free.upper() if free.upper() in CONTENTS_OPTIONS else "ETC"
         # 数値項目を半角にそろえ、桁数などを検証する（問題があればIssueにコメントして終了）
-        errors = normalize_and_validate_logs(f)
+        repeat_ops, repeat_errors = parse_repeat(f.get("repeat", ""))
+        if repeat_ops and not f["date"]:
+            f["date"] = repeat_ops[0]["date"]  # date が空なら最初の回の日付を使う
+        errors = normalize_and_validate_logs(f) + repeat_errors
+        if repeat_ops and (f["logid"] or copy_req):
+            errors.append("- **繰り返し登録**: 新規登録のときだけ使えます（logid の入力・コピーとは一緒に使えません）")
         if errors:
             write_error(errors)
             print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
             return
         data = build_logs(f)
+        if repeat_ops:
+            data["_repeat"] = repeat_ops
         if copy_req:
             # コピー: logid は「コピー元」。入力された項目だけを上書きし、それ以外はコピー元の値を引き継ぐ（新しいlogidはmergeで発行）
             if not f["logid"]:
