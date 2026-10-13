@@ -1,5 +1,8 @@
+<!-- Blogger の固定ページ(HTMLビュー)に、このままコピー&貼り付けして公開する。<html>/<head>/<body> は含めない。
+     CSSは #glih の中だけに効くようにしてあり、ブログのテーマには影響しない -->
 <style>
 /*<![CDATA[*/
+/* ページ全体の背景も黒にする: helper (#glih) を含む親要素すべて(body / 記事の枠など。テーマが違ってもクラス名に依存しない)の背景を黒にする */
 html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { background:#121212 !important; background-image:none !important; color-scheme:dark; }
 /*]]>*/
 </style>
@@ -89,6 +92,26 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .snsh .row.btns { flex-wrap:wrap; }
 #glih .snsh .row.btns .small { flex:1 1 auto; padding:8px 6px; }
 #glih .small:disabled { opacity:.35; cursor:default; }
+#glih .rep { margin:0 0 10px; padding-top:10px; border-top:1px dashed var(--line); }
+#glih .fin.num { flex:0 0 4.5em; width:4.5em; text-align:center; }
+#glih .rep .fsel { flex:0 0 8em; font-size:13px; }
+#glih .chipr.nw { flex-wrap:nowrap; }
+#glih #glih-rpq { gap:4px; }
+#glih #glih-rpq .chip { flex:1 1 auto; width:auto; min-width:0; padding:5px 4px; }
+#glih #glih-frd { flex-wrap:wrap; } /* narrow screens: the < today > buttons go to the next line instead of widening the card */
+#glih #glih-rpw { gap:4px; }
+#glih #glih-rpw .chip { flex:1 1 0; width:auto; min-width:0; padding:5px 0; font-size:11px; }
+#glih .chipr .chip:disabled { opacity:.35; cursor:default; }
+#glih .dtw:not(.t) > .fin { width:12.5em; padding-right:58px; } /* YYYY/MM/DD + the weekday + the calendar icon: the weekday room is always reserved */
+#glih .dtw .wdl { position:absolute; right:30px; top:50%; transform:translateY(-50%); flex:none; pointer-events:none; }
+#glih .wdl { flex:0 0 2.6em; font-size:12px; color:var(--sub); white-space:nowrap; }
+#glih .rpnote { font-size:11px; color:var(--sub); }
+#glih .rprow { display:flex; align-items:baseline; gap:8px; padding:5px 10px; border-bottom:1px solid var(--line); font-size:12px; line-height:1.4; color:var(--text); cursor:pointer; }
+#glih .rprow:last-child { border-bottom:0; }
+#glih .rprow input { margin:0; flex:none; }
+#glih .rprow .m { color:var(--sub); font-size:11px; word-break:break-all; }
+#glih .rprow.off .d, #glih .rprow.off .m { opacity:.45; text-decoration:line-through; }
+#glih .rprow .ex { color:#d33; font-size:11px; flex:none; }
 #glih .snsh .fsel { flex:0 0 7.5em; font-size:13px; }
 #glih .snsh .chips { flex:none; }
 #glih .snsh .row.wrap { flex-wrap:wrap; }
@@ -123,7 +146,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="fcand" id="glih-fdl" hidden></div>
   <div class="fstat" id="glih-fstat" hidden></div>
   <div class="fcand" id="glih-fcand" hidden></div>
-  <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
+  <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label><button type="button" class="small" id="glih-fcont" title="new entry: next date (same interval) and next # number" hidden>continue</button></div>
   <div id="glih-ff"></div>
   <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、空欄にした値の削除はフォームの【値の削除】チェックで行います。relations は事前入力できません(JSONで確認)。 -->
   <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fjtog" aria-expanded="false">JSON &#9662;</button><button type="button" class="small" id="glih-fcopy">JSON copy</button><button type="button" class="small" id="glih-freset">reset all</button></div>
@@ -216,6 +239,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     w.appendChild(b); w.appendChild(pi);
     return w;
   }
+  // weekday label (Sun, Mon, ...) right after a date input (after its calendar wrapper). Returns the function that refreshes it.
+  function addWeekday(ti) {
+    var sp = document.createElement('span'); sp.className = 'wdl'; var w = ti.parentNode && ti.parentNode.className === 'dtw' ? ti.parentNode : ti;
+    if (w === ti) w.parentNode.insertBefore(sp, w.nextSibling); else w.appendChild(sp); // inside the date box (the room is always kept; the text only shows when the date is complete)
+    return function () { var d = ti.value.replace(/\D/g, ''); sp.textContent = okDate(d) ? ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][new Date(+d.slice(0, 4), +d.slice(4, 6) - 1, +d.slice(6, 8)).getDay()] : ''; };
+  }
   // date / time of the find tab (logs): YYYY/MM/DD and HH:MM text inputs + calendar / clock buttons. The hidden text input keeps the form format (yyyymmdd / hhmm) and the rest of the code reads it.
   function useNative(el, type, key) {
     var fw = el.parentNode, field = fw.parentNode;
@@ -227,11 +256,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function toTi() {
       if (digitsOf(ti.value) !== digitsOf(el.value)) ti.value = fmtDigits(el.value, type);
       ti.classList.toggle('ch', el.classList.contains('ch')); ti.classList.toggle('bad', el.classList.contains('bad'));
+      if (typeof wdu === 'function') wdu();
     }
     function fromTi() { el.value = digitsOf(ti.value); el.dispatchEvent(new Event('input', { bubbles: true })); }
     ti.addEventListener('input', fromTi);
     el.addEventListener('input', toTi); ti.value = fmtDigits(el.value, type); toTi();
     field.appendChild(ti); dtPicker(ti, type);
+    var wdu = type === 'date' ? addWeekday(ti) : null; if (wdu) { ti.addEventListener('input', wdu); wdu(); }
     function mk(text, title, fn) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = text; b.title = title; b.onclick = fn; field.appendChild(b); return b; }
     if (type === 'date') mk('today', 'today', function () { ti.value = fmtDigits(today().replace(/\D/g, ''), 'date'); fromTi(); });
     var rv = mk('\u21BA', 'revert', function () { el.value = orig[key]; el.dispatchEvent(new Event('input', { bubbles: true })); });
@@ -624,6 +655,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       else if (ch) dl.push([f.k, '(empty)', one(orig[f.k]), 'not sent - use the delete check of the form']);
     });
     var errs = validateFind(found.kind);
+    if (found.kind === 'logs' && found.isNew && rep) { // repeat registration: the checked dates go to the repeat field (the first one is also the date)
+      var rs = rep.refresh();
+      if (rs) {
+        if (rs.rows.length) { p.repeat = rs.rows.join('\n'); p.date = rs.rows[0]; n++; dl.push(['repeat', rs.rows.length + ' rows: ' + fmtD(rs.rows[0], '') + (rs.rows.length > 1 ? ' ... ' + fmtD(rs.rows[rs.rows.length - 1], '') : '')]); }
+        else errs.push('repeat: no dates');
+      }
+    }
     if (found.kind === 'setlist' && !found.isNew && $('fcp').checked) { // copy: setlistid = the new date + time, copy_from = the loaded one
       var nr = topReady('setlist');
       if (!nr || nr.d + nr.t === found.id) errs.push('copy: enter a new date and time');
@@ -638,7 +676,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     else fstat('Found: ' + found.id);
   }
   function renderFound(kind, id, row, isNew) {
-    found = { kind: kind, id: id, isNew: !!isNew }; orig = {};
+    found = { kind: kind, id: id, isNew: !!isNew, row: row }; orig = {}; rep = null;
     var box = $('ff'); box.innerHTML = '';
     DEFS[kind].fields.forEach(function (f) {
       var wrap = document.createElement('div'); wrap.className = 'field' + (f.ta ? ' top' : '');
@@ -652,6 +690,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = !!isNew; $('fjrow').hidden = !!isNew;
     if (isNew && kind === 'setlist') { var spe = $('f-songs_patch'); if (spe && spe.closest('.field')) spe.closest('.field').hidden = true; } // new mode: the songs box is used as it is (the per-song edit is for the loaded setlist only)
     if (isNew && kind === 'logs') { ['date', 'time'].forEach(function (k) { var e = $('f-' + k); if (e) { var fl = e.closest('.field'); if (fl) fl.hidden = true; } }); } // new mode: the top date / time are used
+    if (isNew && kind === 'logs') { var tw = $('f-title'); if (tw && tw.closest('.field')) addRepeat(tw.closest('.field')); } // new mode: repeat registration block under the title
     applyModeUI(); updateFind();
   }
   // JSON box of the find tab: collapsed at first, opened / closed with the button, and editable. Valid JSON edits are written into the input fields (the Issue link follows); invalid JSON gets a red border and is ignored.
@@ -674,7 +713,162 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (el.value !== t) { el.value = t; el.dispatchEvent(new Event('input', { bubbles: true })); }
     });
   }
-  function clearFound() { found = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('ff').innerHTML = ''; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
+  function clearFound() { found = null; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('ff').innerHTML = ''; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
+  // ---- repeat registration (new logs only): the date list is built here (every N days / weeks / months, until a date and / or a count, minus skipped dates), previewed with check boxes and sent as the repeat field of the form (one yyyymmdd per line; the server counts up the #number of the title for each row) ----
+  var rep = null, REP_MAX = 60;
+  function pad2(n) { return ('0' + n).slice(-2); }
+  function ymdOf(dt) { return dt.getFullYear() + pad2(dt.getMonth() + 1) + pad2(dt.getDate()); }
+  function dateOf(s) { return new Date(+s.slice(0, 4), +s.slice(4, 6) - 1, +s.slice(6, 8)); }
+  function addMonths(s, n) { var y = s.getFullYear(), m = s.getMonth() + n, last = new Date(y, m + 1, 0).getDate(); return new Date(y, m, Math.min(s.getDate(), last)); } // same day of month; a short month clamps to its last day (31 -> 30 / 28)
+  function lastNum(t) { var re = /#(\d+)/g, m, last = null; t = String(t == null ? '' : t); while ((m = re.exec(t)) !== null) last = m; return last; }
+  function bumpTitle(t, i) { // the last #number + i (zero padding is kept): the same rule as merge_json.py
+    var m = lastNum(t); if (!m || !i) return t;
+    var n = String(+m[1] + i); while (n.length < m[1].length) n = '0' + n;
+    return t.slice(0, m.index + 1) + n + t.slice(m.index + 1 + m[1].length);
+  }
+  function nthWeekday(y, m, w, nth) { // nth 1-4, or 5 = the last one of the month
+    if (nth === 5) { var l = new Date(y, m + 1, 0); return new Date(y, m, l.getDate() - ((l.getDay() - w + 7) % 7)); }
+    var f = new Date(y, m, 1); return new Date(y, m, 1 + ((w - f.getDay() + 7) % 7) + (nth - 1) * 7);
+  }
+  function startNth(s) { var o = Math.floor((s.getDate() - 1) / 7) + 1; return o >= 5 ? 5 : o; } // the position of the start date in its month (5th = last)
+  // the dates of the i-th period. no weekday: one date (every N days / weeks / months). weekdays + weeks: the checked weekdays inside the 7-day block that starts on the start date + 7 x N x i. weekdays + months: the nth weekday of every N-th month.
+  function periodDates(s, unit, every, i, wd, nth) {
+    if (!wd.length || unit === 'day') return [unit === 'month' ? addMonths(s, i * every) : new Date(s.getFullYear(), s.getMonth(), s.getDate() + i * every * (unit === 'week' ? 7 : 1))];
+    var out = [], j;
+    if (unit === 'week') {
+      for (j = 0; j < 7; j++) { var dt = new Date(s.getFullYear(), s.getMonth(), s.getDate() + i * every * 7 + j); if (wd.indexOf(dt.getDay()) >= 0) out.push(dt); }
+      return out;
+    }
+    var b = new Date(s.getFullYear(), s.getMonth() + i * every, 1), n = nth || startNth(s);
+    wd.forEach(function (w) { out.push(nthWeekday(b.getFullYear(), b.getMonth(), w, n)); });
+    return out;
+  }
+  function genDates(start, unit, every, until, count, skip, wd, nth) {
+    var s = dateOf(start), sk = ymdOf(s), out = [], seen = {}, i = 0, capped = false, stop = false, useWd = wd && wd.length && unit !== 'day';
+    while (i < 1000 && !stop) {
+      var cands = periodDates(s, unit, every, i, useWd ? wd : [], nth);
+      if (useWd && i === 0) cands.push(s); // with weekdays the start date is always the first entry
+      i++;
+      var ks = cands.map(ymdOf).filter(function (k) { return k >= sk && !seen[k]; }).sort();
+      for (var q = 0; q < ks.length; q++) {
+        var k = ks[q]; if (seen[k]) continue; seen[k] = 1;
+        if (until && k > until) { stop = true; break; }
+        if (skip.some(function (x) { return x.length === 8 ? x === k : x === k.slice(4); })) continue;
+        if (out.length >= REP_MAX) { capped = true; stop = true; break; }
+        out.push(k);
+        if (count && out.length >= count) { stop = true; break; }
+      }
+    }
+    return { dates: out, capped: capped };
+  }
+  function addRepeat(after) {
+    var box = document.createElement('div'); box.className = 'rep';
+    box.innerHTML = '<div class="field"><label>repeat</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-rpon">repeat entry</label></div>'
+      + '<div id="glih-rpbody" hidden>'
+      + '<div class="field"><label for="glih-rpn">every</label><input type="text" id="glih-rpn" class="fin num" inputmode="numeric" value="1" autocomplete="off"><select id="glih-rpu" class="fsel"><option value="day">day(s)</option><option value="week" selected>week(s)</option><option value="month">month(s)</option></select></div>'
+      + '<div class="field"><label></label><div class="chipr nw" id="glih-rpq"></div></div>'
+      + '<div class="field"><label>days</label><div class="chipr nw" id="glih-rpw"></div></div>'
+      + '<div class="field" id="glih-rpof" hidden><label for="glih-rpo">nth</label><select id="glih-rpo" class="fsel"><option value="0">as start</option><option value="1">1st</option><option value="2">2nd</option><option value="3">3rd</option><option value="4">4th</option><option value="5">last</option></select></div>'
+      + '<div class="field"><label for="glih-rpd">until</label><input type="text" id="glih-rpd" class="fin" autocomplete="off"></div>'
+      + '<div class="field"><label for="glih-rpc">count</label><input type="text" id="glih-rpc" class="fin num" inputmode="numeric" value="4" autocomplete="off"><span class="rpnote">including the first date (max ' + REP_MAX + '); empty = auto from until</span></div>'
+      + '<div class="field"><label for="glih-rpx">skip</label><input type="text" id="glih-rpx" class="fin" autocomplete="off" spellcheck="false" placeholder="yyyymmdd, mmdd, ..."></div>'
+      + '<div class="fcand" id="glih-rpl"></div><div class="fstat" id="glih-rpm"></div></div>';
+    after.parentNode.insertBefore(box, after.nextSibling);
+    var on = $('rpon'), body = $('rpbody'), num = $('rpn'), unit = $('rpu'), until = $('rpd'), cnt = $('rpc'), skipEl = $('rpx'), list = $('rpl'), msg = $('rpm'), off = {}, last = null, memo = '', asked = false, cTouched = false;
+    dtText(until, 'date'); dtPicker(until, 'date'); var wdUntil = addWeekday(until); until.addEventListener('input', wdUntil);
+    [['weekly', 1, 'week'], ['biweekly', 2, 'week'], ['monthly', 1, 'month']].forEach(function (q) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = q[0]; b.setAttribute('data-n', q[1]); b.setAttribute('data-u', q[2]);
+      b.onclick = function () { num.value = String(q[1]); unit.value = q[2]; changed(); };
+      $('rpq').appendChild(b);
+    });
+    ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(function (nm, w) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = nm; b.setAttribute('data-w', w);
+      b.onclick = function () { b.classList.toggle('on'); changed(); };
+      $('rpw').appendChild(b);
+    });
+    function changed() { refresh(); updateFind(); }
+    function refresh() {
+      var qs = $('rpq').children, i;
+      for (i = 0; i < qs.length; i++) qs[i].classList.toggle('on', qs[i].getAttribute('data-n') === String(parseInt(num.value, 10)) && qs[i].getAttribute('data-u') === unit.value);
+      body.hidden = !on.checked;
+      var wd = [].filter.call($('rpw').children, function (b) { return b.classList.contains('on'); }).map(function (b) { return +b.getAttribute('data-w'); });
+      [].forEach.call($('rpw').children, function (b) { b.disabled = unit.value === 'day'; });
+      $('rpof').hidden = !(unit.value === 'month' && wd.length);
+      if (!on.checked) { last = null; return null; }
+      var st = topReady('logs'), every = parseInt(num.value, 10), ud = digits(until.value), uBad = ud !== '' && !okDate(ud), uOk = ud !== '' && !uBad, c = (uOk && !cTouched) ? 0 : (parseInt(cnt.value, 10) || 0); // until set and the count not typed: the count is calculated from until
+      until.classList.toggle('bad', uBad); num.classList.toggle('bad', num.value.trim() !== '' && !(every >= 1));
+      var skip = skipEl.value.split(/[,\u3001\s]+/).map(digits).filter(function (x) { return x.length === 8 || x.length === 4; });
+      var rows = [], note = '';
+      if (!st) note = 'Set the date above first.';
+      else if (!(every >= 1)) note = 'every: 1 or more.';
+      else if (uBad) note = 'until: 8 digits (yyyymmdd).';
+      else if (!ud && !c) note = 'Set until or count.';
+      else { var g = genDates(st.d, unit.value, every, ud, c, skip, wd, +$('rpo').value); rows = g.dates; if (uOk && !cTouched) cnt.value = String(rows.length); if (g.capped) note = 'Stopped at ' + REP_MAX + ' rows (the maximum).'; }
+      if (!uOk && !cTouched && cnt.value !== '4') cnt.value = '4'; // until cleared: back to the default count
+      var checked = rows.filter(function (k) { return !off[k]; }), t0 = ($('f-title') || {}).value || '', ct = (($('f-contents') || {}).value || '').trim();
+      var have = {}; rowsOf('logs').forEach(function (r) { if (r && r.date) have[r.date + '|' + (r.time || '') + '|' + (r.contents || '') + '|' + (r.title || '')] = 1; });
+      var key = [rows.join(','), checked.join(','), t0, ct, st ? st.t : '', Object.keys(have).length].join('#');
+      if (key !== memo) {
+        memo = key; list.innerHTML = '';
+        var idx = 0;
+        rows.forEach(function (k) {
+          var lb = document.createElement('label'), cb = document.createElement('input'), d = document.createElement('span'), m = document.createElement('span'), isOn = !off[k], tt = '';
+          lb.className = 'rprow' + (isOn ? '' : ' off'); cb.type = 'checkbox'; cb.checked = isOn;
+          if (isOn) { tt = bumpTitle(t0, idx); idx++; }
+          d.className = 'd'; d.textContent = fmtD(k, '') + ' ' + ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][dateOf(k).getDay()];
+          m.className = 'm'; m.textContent = tt.replace(/\s*\n\s*/g, ' / ');
+          cb.onchange = function () { if (cb.checked) delete off[k]; else off[k] = 1; changed(); };
+          lb.appendChild(cb); lb.appendChild(d); lb.appendChild(m);
+          if (isOn && have[k + '|' + (st ? st.t : '') + '|' + (ct || 'ETC') + '|' + tt]) { var ex = document.createElement('span'); ex.className = 'ex'; ex.textContent = 'exists'; lb.appendChild(ex); }
+          list.appendChild(lb);
+        });
+        list.hidden = !rows.length;
+      }
+      if (!asked) { asked = true; fetchIndex('logs').then(function () { if (rep && rep.box === box) { memo = ''; changed(); } }).catch(function () {}); } // the existing rows (for the exists mark): asked once
+      msg.textContent = note || (checked.length + ' of ' + rows.length + ' dates will be registered (the same time / contents / groups / relations / tags; url / map / sns / display are not copied; the #number counts up).');
+      last = { rows: checked };
+      return last;
+    }
+    cnt.addEventListener('input', function () { cTouched = cnt.value.trim() !== ''; }); // typed by hand: it stops the auto calculation (empty = auto again)
+    [num, until, cnt, skipEl, unit, on, $('rpo')].forEach(function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
+    rep = { box: box, refresh: refresh };
+    refresh();
+  }
+  // continue: from the loaded log, open a new entry with the next date (the same interval as the previous entry of the series; 7 days when unknown) and the next #number
+  function nextOf(row) {
+    var cur = String(row.date || ''); if (!okDate(cur)) return '';
+    var lm = lastNum(row.title), pd = '';
+    if (lm) {
+      var pre = String(row.title).slice(0, lm.index), post = String(row.title).slice(lm.index + 1 + lm[1].length), n0 = +lm[1], best = '';
+      rowsOf('logs').forEach(function (r) {
+        if (!r || !r.title || r.logid === row.logid || String(r.contents || '') !== String(row.contents || '')) return;
+        var m = lastNum(r.title); if (!m || String(r.title).slice(0, m.index) !== pre || String(r.title).slice(m.index + 1 + m[1].length) !== post || +m[1] >= n0) return;
+        var d = String(r.date || ''); if (okDate(d) && d < cur && d > best) best = d;
+      });
+      pd = best;
+    }
+    var c = dateOf(cur);
+    if (pd) {
+      var p0 = dateOf(pd), mm = (c.getFullYear() - p0.getFullYear()) * 12 + c.getMonth() - p0.getMonth(), dd = Math.round((c - p0) / 86400000);
+      if (mm === 1 && dd >= 28 && c.getDate() === Math.min(p0.getDate(), new Date(c.getFullYear(), c.getMonth() + 1, 0).getDate())) return ymdOf(addMonths(c, 1));
+      if (dd > 0) return ymdOf(new Date(c.getFullYear(), c.getMonth(), c.getDate() + dd));
+    }
+    return ymdOf(new Date(c.getFullYear(), c.getMonth(), c.getDate() + 7));
+  }
+  function continueFrom(row) {
+    var nd = nextOf(row); if (!nd) return;
+    $('fid').value = ''; hideCands(); clearFound();
+    $('fdd').value = fmtDigits(nd, 'date'); $('fdt').value = fmtDigits(row.time || '', 'time'); $('fany').checked = !row.time;
+    topChanged();
+    [['contents', row.contents], ['groups', row.groups], ['relations', row.relations], ['tags', row.tags], ['title', bumpTitle(row.title, 1)]].forEach(function (x) {
+      var v = x[1]; if (Array.isArray(v)) v = v.join(','); if (v) setVal(x[0], String(v));
+    });
+  }
+  $('fcont').onclick = function () {
+    if (!found || found.isNew || found.kind !== 'logs') return;
+    var row = found.row; if (!row) return;
+    fetchIndex('logs').then(function () { continueFrom(row); }, function () { continueFrom(row); });
+  };
   // ---- songs tab: register / update one song (artist + title + link) of songs.json through the add_songs.yml form ----
   var songsReady = false;
   function songsInit() {
@@ -822,6 +1016,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   dtText($('fdd'), 'date'); dtText($('fdt'), 'time');
   dtPicker($('fdd'), 'date', dtSearch); dtPicker($('fdt'), 'time', dtSearch);
+  var wdTop = addWeekday($('fdd')); $('fdd').addEventListener('input', wdTop);
   ['fdd', 'fdt'].forEach(function (id) {
     $(id).addEventListener('input', dtSearch); $(id).addEventListener('change', dtSearch);
     $(id).addEventListener('focus', dtSearch); // clicking into the box lists the candidates again, even when the value is unchanged
@@ -875,6 +1070,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     return kind === 'logs' && $('fany').checked ? { d: dv, t: '' } : null; // an empty time is allowed only for logs with anytime checked
   }
   function syncNew() {
+    wdTop();
     if (found && !found.isNew) { updateFind(); return; } // edit mode: the top date / time only matter for the setlist copy
     var kind = $('fkind').value, r = topReady(kind);
     if (!r) { if (found) clearFound(); return; }
@@ -887,7 +1083,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function applyModeUI() {
     var edit = !!(found && !found.isNew), kind = $('fkind').value;
     var cp = edit && kind === 'setlist' && $('fcp').checked; // setlist copy needs the new date / time
-    $('frd').hidden = edit && !cp; $('frt').hidden = edit && !cp; $('fanyl').hidden = kind !== 'logs'; $('fnew').hidden = !edit;
+    $('frd').hidden = edit && !cp; $('frt').hidden = edit && !cp; $('fanyl').hidden = kind !== 'logs'; $('fnew').hidden = !found; $('fcont').hidden = !(edit && kind === 'logs');
     if (edit) { $('fdl').hidden = true; $('fdl').innerHTML = ''; $('fdl')._key = ''; }
   }
   function topChanged() { dtSearch(); syncNew(); }
