@@ -29075,17 +29075,6 @@
     ]
   },
   {
-    "logid": "fa8ec316722d",
-    "date": "20260206",
-    "time": "1900",
-    "contents": "CL",
-    "title": "LDH NEWS CAST",
-    "groups": [
-      "L2",
-      "RIN"
-    ]
-  },
-  {
     "logid": "9999f4eae7d5",
     "date": "20260206",
     "time": "1900",
@@ -29101,6 +29090,18 @@
       "KUR",
       "MNM",
       "KIR"
+    ]
+  },
+  {
+    "logid": "fa8ec316722d",
+    "date": "20260206",
+    "time": "1859",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　山口莉愛",
+    "url": "https://www.cl-live.com/programs/cast/93A6ySaPEiMjp17KWvhWDb?lang=ja",
+    "groups": [
+      "L2",
+      "RIN"
     ]
   },
   {
