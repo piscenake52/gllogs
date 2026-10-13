@@ -1,0 +1,39 @@
+name: Check # number gaps
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'   # 毎週月曜 09:00 (JST)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Find gaps in # numbers
+        run: python scripts/check_gaps.py
+
+      - name: Report (create / update / close the check issue)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="[CHECK] logs の # 連番チェック"
+          NUM=$(gh issue list --state open --search "\"$TITLE\" in:title" --json number,title --jq "[.[] | select(.title==\"$TITLE\")][0].number // empty")
+          if [ -f gap_report.md ]; then
+            if [ -n "$NUM" ]; then
+              gh issue edit "$NUM" --body-file gap_report.md
+            else
+              gh issue create --title "$TITLE" --body-file gap_report.md
+            fi
+          elif [ -n "$NUM" ]; then
+            gh issue close "$NUM" --comment "抜け・重複はなくなりました。"
+          fi
