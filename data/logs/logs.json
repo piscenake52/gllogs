@@ -25216,6 +25216,18 @@
     ]
   },
   {
+    "logid": "2e88b7616cf5",
+    "date": "20260403",
+    "time": "2008",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　深澤日彩",
+    "url": "https://www.cl-live.com/programs/cast/s8J6RjZeRgShTLdHYiRpEk?lang=ja",
+    "groups": [
+      "L2",
+      "HIR"
+    ]
+  },
+  {
     "logid": "010a99097d29",
     "date": "20260403",
     "time": "2000",
@@ -25225,17 +25237,6 @@
     "groups": [
       "L2",
       "AKR"
-    ]
-  },
-  {
-    "logid": "2e88b7616cf5",
-    "date": "20260403",
-    "time": "2000",
-    "contents": "CL",
-    "title": "LDH NEWS CAST",
-    "groups": [
-      "L2",
-      "HIR"
     ]
   },
   {
