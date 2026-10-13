@@ -2893,6 +2893,33 @@
     ]
   },
   {
+    "logid": "bd8168b857c0",
+    "date": "20261013",
+    "time": "",
+    "contents": "ETC",
+    "title": "test1",
+    "display_pc": "test2",
+    "display_sp": "test3",
+    "url": "https://www.google.com/maps/",
+    "map": "https://maps.app.goo.gl/BxZ8JrWzHhcYn7Tm6",
+    "groups": [
+      "G2"
+    ],
+    "relations": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "tags": [
+      "test4"
+    ]
+  },
+  {
     "logid": "b485f1e11ca1",
     "date": "20261012",
     "time": "2300",
