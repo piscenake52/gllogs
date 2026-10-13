@@ -346,7 +346,51 @@
       "KIR"
     ],
     "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond-\n愛知公演",
-    "venue": "Niterra⽇本特殊陶業市⺠会館 ビレッジホール"
+    "venue": "Niterra⽇本特殊陶業市⺠会館 ビレッジホール",
+    "songs": [
+      {
+        "order": 1,
+        "title": "BLOOM! BLOOM! BLOOM!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "Eagle Eyes",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "Countdown",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "CLICK",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "LET ME DANCE",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 6,
+        "title": "LET ME GO",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202610041700",
