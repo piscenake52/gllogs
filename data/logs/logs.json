@@ -12476,13 +12476,26 @@
     "date": "20260908",
     "time": "2036",
     "contents": "CL",
-    "title": "POST LDH NEWS CAST",
+    "title": "POST　Laki",
     "display_pc": "POST　LDH NEWS CAST",
     "display_sp": "POST　LDH NEWS CAST",
     "url": "https://www.cl-live.com/posts/3EAnRg7UZUFAyj2ZG56XFE?lang=ja",
     "groups": [
       "L2",
       "RRK"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/3EAnRg7UZUFAyj2ZG56XFE?lang=ja",
+            "member": [
+              "RRK"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
