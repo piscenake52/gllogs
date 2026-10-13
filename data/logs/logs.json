@@ -256,6 +256,77 @@
     ]
   },
   {
+    "logid": "6914702424b0",
+    "date": "20261231",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "969b1280bf46",
+    "date": "20261230",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "6bc0ecd51f6f",
+    "date": "20261230",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "3f07ba97dc2b",
+    "date": "20261230",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "a2bb2b6f30bd",
+    "date": "20261230",
+    "time": "2000",
+    "contents": "ETC",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
+    "logid": "5245ca3f0cca",
+    "date": "20261229",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#780　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
+    "logid": "582710473a5e",
+    "date": "20261228",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
     "logid": "7ed7f79a708f",
     "date": "20261226",
     "time": "",
@@ -276,6 +347,21 @@
       "KIK"
     ],
     "tags": []
+  },
+  {
+    "logid": "add0bf31bc12",
+    "date": "20261225",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "あかりんごの元気モリモリール　#133",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "tags": [
+      "ダンスは遊びじゃない！",
+      "あかりんごのファッションショー"
+    ]
   },
   {
     "logid": "9dc79e06a03e",
@@ -304,6 +390,17 @@
     ]
   },
   {
+    "logid": "ef662c61e972",
+    "date": "20261225",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#779　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
     "logid": "c0f7bf3a28cf",
     "date": "20261225",
     "time": "",
@@ -323,6 +420,57 @@
     "tags": [
       "Shibuya LOVEZ",
       "クリスマス"
+    ]
+  },
+  {
+    "logid": "4098bf919ebd",
+    "date": "20261224",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "4593d8182276",
+    "date": "20261223",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "3e7e0e0b0219",
+    "date": "20261223",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "2709769450ab",
+    "date": "20261223",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "6bc50df4904b",
+    "date": "20261223",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "ききの踊ってみたチャレンジ　#132",
+    "groups": [
+      "L2",
+      "KIK"
     ]
   },
   {
@@ -350,12 +498,341 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #018",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#018",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#018",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#018",
     "url": "",
     "groups": [
       "L2",
       "AKR"
+    ]
+  },
+  {
+    "logid": "b73aa1de5963",
+    "date": "20261222",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#778　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
+    "logid": "f50a8362c01e",
+    "date": "20261221",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "ebc0db1c36e9",
+    "date": "20261218",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "あかりんごの元気モリモリール　#132",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "tags": [
+      "ダンスは遊びじゃない！",
+      "あかりんごのファッションショー"
+    ]
+  },
+  {
+    "logid": "9a48c31ab511",
+    "date": "20261218",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#777　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
+    "logid": "935d1562cc03",
+    "date": "20261217",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "c597cd1e59f8",
+    "date": "20261216",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "0b14314b8ce4",
+    "date": "20261216",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "ff51a45067ea",
+    "date": "20261216",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "2ca0fd6b2d44",
+    "date": "20261216",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "ききの踊ってみたチャレンジ　#131",
+    "groups": [
+      "L2",
+      "KIK"
+    ]
+  },
+  {
+    "logid": "acfae4a04c8e",
+    "date": "20261215",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#776　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
+    "logid": "f79ea06f4cb7",
+    "date": "20261214",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "9217ba824402",
+    "date": "20261211",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "あかりんごの元気モリモリール　#131",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "tags": [
+      "ダンスは遊びじゃない！",
+      "あかりんごのファッションショー"
+    ]
+  },
+  {
+    "logid": "850c20108eee",
+    "date": "20261211",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#775　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
+    "logid": "a4938870befc",
+    "date": "20261210",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "ead29811e6b5",
+    "date": "20261209",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "c3d2b35ec4cc",
+    "date": "20261209",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "0edfb5e9655f",
+    "date": "20261209",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "8f547c966f0c",
+    "date": "20261209",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "ききの踊ってみたチャレンジ　#130",
+    "groups": [
+      "L2",
+      "KIK"
+    ]
+  },
+  {
+    "logid": "d1cf0e01b7fd",
+    "date": "20261208",
+    "time": "1200",
+    "contents": "COLUMN",
+    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #116",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#116",
+    "display_sp": "柚葉24じ　#116",
+    "url": "https://www.tokyoheadline.com/category/column/girls2yuzuha24h/",
+    "groups": [
+      "G2",
+      "YZH"
+    ]
+  },
+  {
+    "logid": "9c34864b5933",
+    "date": "20261208",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#774　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
+    "logid": "fee814f490d6",
+    "date": "20261207",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "6c8f65eb086a",
+    "date": "20261204",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "あかりんごの元気モリモリール　#130",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "tags": [
+      "ダンスは遊びじゃない！",
+      "あかりんごのファッションショー"
+    ]
+  },
+  {
+    "logid": "7d50b81c12f4",
+    "date": "20261204",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#773　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
+    "logid": "bbec66f360e8",
+    "date": "20261203",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "1fa0f1fa295d",
+    "date": "20261202",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "40c1bea3803c",
+    "date": "20261202",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "dc7c0ebd0f6f",
+    "date": "20261202",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "7627741515aa",
+    "date": "20261202",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "ききの踊ってみたチャレンジ　#129",
+    "groups": [
+      "L2",
+      "KIK"
+    ]
+  },
+  {
+    "logid": "7d18ec892214",
+    "date": "20261201",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#772　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
+    "logid": "7ec3e75a5921",
+    "date": "20261130",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
     ]
   },
   {
@@ -525,6 +1002,32 @@
     ]
   },
   {
+    "logid": "a21cc1dbe203",
+    "date": "20261127",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "あかりんごの元気モリモリール　#129",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "tags": [
+      "ダンスは遊びじゃない！",
+      "あかりんごのファッションショー"
+    ]
+  },
+  {
+    "logid": "11be3cb84118",
+    "date": "20261127",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#771　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
     "logid": "cfd258c5a2a8",
     "date": "20261127",
     "time": "",
@@ -550,6 +1053,57 @@
     "groups": [
       "G2",
       "KIR"
+    ]
+  },
+  {
+    "logid": "f609d13d383a",
+    "date": "20261126",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "5aa3653b96c5",
+    "date": "20261125",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "d493b7409d01",
+    "date": "20261125",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "1bdbf57b69f5",
+    "date": "20261125",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "ba1d7b8b709a",
+    "date": "20261125",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "ききの踊ってみたチャレンジ　#128",
+    "groups": [
+      "L2",
+      "KIK"
     ]
   },
   {
@@ -580,12 +1134,59 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #017",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#017",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#017",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#017",
     "url": "",
     "groups": [
       "L2",
       "AKR"
+    ]
+  },
+  {
+    "logid": "73b047f4fca6",
+    "date": "20261124",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#770　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
+    "logid": "347f0c35ab0b",
+    "date": "20261123",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "5d6f645f7a61",
+    "date": "20261120",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "あかりんごの元気モリモリール　#128",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "tags": [
+      "ダンスは遊びじゃない！",
+      "あかりんごのファッションショー"
+    ]
+  },
+  {
+    "logid": "44ca1c25afeb",
+    "date": "20261120",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#769　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
     ]
   },
   {
@@ -631,6 +1232,78 @@
     ]
   },
   {
+    "logid": "c860cc8d90ea",
+    "date": "20261119",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "edccc34b32c8",
+    "date": "20261118",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "a4ada628d4b6",
+    "date": "20261118",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "b7eb2afeaca7",
+    "date": "20261118",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "085a0bf58c23",
+    "date": "20261118",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "ききの踊ってみたチャレンジ　#127",
+    "groups": [
+      "L2",
+      "KIK"
+    ]
+  },
+  {
+    "logid": "577f4beee870",
+    "date": "20261117",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#768　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
+    "logid": "0d08f492df8d",
+    "date": "20261116",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
     "logid": "50f751232202",
     "date": "20261115",
     "time": "2300",
@@ -658,8 +1331,8 @@
     "time": "1300",
     "contents": "RELEASEEVENT",
     "title": "Girls² EP「EASY」発売記念 リリースイベント 千葉・松戸",
-    "display_pc": "Girls² EP「EASY」リリースイベント 千葉・松戸",
-    "display_sp": "「EASY」リリースイベント 千葉・松戸",
+    "display_pc": "Girls² EP 「EASY」 リリースイベント 千葉・松戸",
+    "display_sp": "「EASY」 リリースイベント 千葉・松戸",
     "url": "https://girls2-fc.jp/page/news/1238014635328667650",
     "map": "https://maps.app.goo.gl/aEhgPS8DbJZMckFBA",
     "groups": [
@@ -719,6 +1392,32 @@
     ]
   },
   {
+    "logid": "f7125e1da63b",
+    "date": "20261113",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "あかりんごの元気モリモリール　#127",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "tags": [
+      "ダンスは遊びじゃない！",
+      "あかりんごのファッションショー"
+    ]
+  },
+  {
+    "logid": "744da0d42574",
+    "date": "20261113",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#767　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
     "logid": "291fa35f093b",
     "date": "20261112",
     "time": "2359",
@@ -761,6 +1460,16 @@
     ]
   },
   {
+    "logid": "8c57f6d8910d",
+    "date": "20261112",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
     "logid": "46f4f8869c59",
     "date": "20261112",
     "time": "",
@@ -781,6 +1490,47 @@
       "KIK"
     ],
     "tags": []
+  },
+  {
+    "logid": "d254ffa11a9a",
+    "date": "20261111",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "20cea86c5c4b",
+    "date": "20261111",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "5c627e73a58a",
+    "date": "20261111",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "edead6afccd9",
+    "date": "20261111",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "ききの踊ってみたチャレンジ　#126",
+    "groups": [
+      "L2",
+      "KIK"
+    ]
   },
   {
     "logid": "7a0806b7b3eb",
@@ -835,6 +1585,45 @@
     ]
   },
   {
+    "logid": "2447d5f8b575",
+    "date": "20261110",
+    "time": "1200",
+    "contents": "COLUMN",
+    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #115",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#115",
+    "display_sp": "柚葉24じ　#115",
+    "url": "https://www.tokyoheadline.com/category/column/girls2yuzuha24h/",
+    "groups": [
+      "G2",
+      "YZH"
+    ]
+  },
+  {
+    "logid": "7d48f65cfd84",
+    "date": "20261110",
+    "time": "1200",
+    "contents": "COLUMN",
+    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #115",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#115",
+    "display_sp": "柚葉24じ　#115",
+    "url": "https://www.tokyoheadline.com/category/column/girls2yuzuha24h/",
+    "groups": [
+      "G2",
+      "YZH"
+    ]
+  },
+  {
+    "logid": "b35ad01c4c4b",
+    "date": "20261110",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#766　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
     "logid": "ff01538e0185",
     "date": "20261109",
     "time": "2300",
@@ -852,6 +1641,16 @@
       "KUR",
       "MNM",
       "KIR"
+    ]
+  },
+  {
+    "logid": "cb39e0a5da38",
+    "date": "20261109",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
     ]
   },
   {
@@ -980,6 +1779,21 @@
     "tags": []
   },
   {
+    "logid": "77e64538e41a",
+    "date": "20261106",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "あかりんごの元気モリモリール　#126",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "tags": [
+      "ダンスは遊びじゃない！",
+      "あかりんごのファッションショー"
+    ]
+  },
+  {
     "logid": "27b3ca65b482",
     "date": "20261106",
     "time": "1900",
@@ -987,7 +1801,7 @@
     "title": "いきなり本読み！ in LDH",
     "display_pc": "",
     "display_sp": "",
-    "url": "",
+    "url": "https://m.ldhgirls-m.jp/ldh_page/ikinari_honyomi_ldh_2026_index",
     "map": "https://maps.app.goo.gl/gKkYPruf1DnQMdcn9",
     "groups": [
       "G2",
@@ -1000,6 +1814,17 @@
     ]
   },
   {
+    "logid": "15c0de1db2a5",
+    "date": "20261106",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#765　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
     "logid": "b31ec1ee1fb1",
     "date": "20261105",
     "time": "1900",
@@ -1007,7 +1832,7 @@
     "title": "いきなり本読み！ in LDH",
     "display_pc": "",
     "display_sp": "",
-    "url": "",
+    "url": "https://m.ldhgirls-m.jp/ldh_page/ikinari_honyomi_ldh_2026_index",
     "map": "https://maps.app.goo.gl/gKkYPruf1DnQMdcn9",
     "groups": [
       "G2",
@@ -1020,6 +1845,16 @@
     ]
   },
   {
+    "logid": "c497a495ef96",
+    "date": "20261105",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
     "logid": "1a2f6e804615",
     "date": "20261105",
     "time": "1400",
@@ -1027,7 +1862,7 @@
     "title": "いきなり本読み！ in LDH",
     "display_pc": "",
     "display_sp": "",
-    "url": "",
+    "url": "https://m.ldhgirls-m.jp/ldh_page/ikinari_honyomi_ldh_2026_index",
     "map": "https://maps.app.goo.gl/gKkYPruf1DnQMdcn9",
     "groups": [
       "G2",
@@ -1037,6 +1872,47 @@
     "setlistid": "",
     "tags": [
       "THEATER MILANO-Za"
+    ]
+  },
+  {
+    "logid": "60118e8d6b50",
+    "date": "20261104",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 おまけ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "19a6e53bc3da",
+    "date": "20261104",
+    "time": "2100",
+    "contents": "STREAMING",
+    "title": "QloveR 「Girls²のがるがるトーク！」 映像付きアーカイブ配信",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "4666565ac843",
+    "date": "20261104",
+    "time": "2030",
+    "contents": "RADIO",
+    "title": "文化放送 「Girls²のがるがるトーク！」",
+    "groups": [
+      "G2"
+    ]
+  },
+  {
+    "logid": "a2919dce9688",
+    "date": "20261104",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "ききの踊ってみたチャレンジ　#125",
+    "groups": [
+      "L2",
+      "KIK"
     ]
   },
   {
@@ -1074,6 +1950,45 @@
           }
         ]
       }
+    ]
+  },
+  {
+    "logid": "906f00071ff1",
+    "date": "20261103",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#764　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
+    "logid": "635766f7f4c2",
+    "date": "20261103",
+    "time": "",
+    "contents": "EVENT",
+    "title": "？？？",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ]
+  },
+  {
+    "logid": "cb2eba94a8d8",
+    "date": "20261102",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "groups": [
+      "G2"
     ]
   },
   {
@@ -1188,6 +2103,24 @@
     ]
   },
   {
+    "logid": "d1be7ca50663",
+    "date": "20261101",
+    "time": "",
+    "contents": "EVENT",
+    "title": "？？？",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ]
+  },
+  {
     "logid": "de472b4a3bd1",
     "date": "20261031",
     "time": "1600",
@@ -1281,6 +2214,17 @@
     ],
     "tags": [
       ""
+    ]
+  },
+  {
+    "logid": "afec69c5e47b",
+    "date": "20261030",
+    "time": "1000",
+    "contents": "GTUBE",
+    "title": "#763　G TUBE",
+    "groups": [
+      "G2",
+      "L2"
     ]
   },
   {
@@ -1489,7 +2433,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #016",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#016",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#016",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#016",
     "url": "",
     "groups": [
@@ -1498,29 +2442,38 @@
     ]
   },
   {
+    "logid": "d63b56e8e85d",
+    "date": "20261027",
+    "time": "1020",
+    "contents": "RADIO",
+    "title": "BAYFM 「miracle!!」",
+    "groups": [
+      "L2",
+      "YUW",
+      "AKR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109886717796942077",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "a06f948b295b",
     "date": "20261027",
     "time": "1000",
     "contents": "GTUBE",
     "title": "#762　G TUBE",
+    "url": "https://girls2-fc.jp/page/gtube",
     "groups": [
       "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
+      "L2"
     ]
   },
   {
@@ -1637,6 +2590,98 @@
     ]
   },
   {
+    "logid": "c38682692d38",
+    "date": "20261024",
+    "time": "1815",
+    "contents": "LIVE",
+    "title": "DANCE HOLIC 2026 Tokyo FINAL 夜公演",
+    "map": "https://maps.app.goo.gl/nmzQB9wvQUt1UywbA?g_st=ac",
+    "groups": [
+      "G2",
+      "KIR",
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "setlistid": "202610241815",
+    "tags": [
+      "Spotify O-EAST",
+      "calin",
+      "CHISATO"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2109211333162070495",
+            "member": [
+              "KIR"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DeWUFrHpp6X/?rpxt=MWFpZzZqdDdmcG9vMg==",
+            "member": [
+              "KIR"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/DeYr2VFyoj0/?cplk=djlpNjhoNjk0Y3F4",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DbQOX14ygqb/?mdxt=aWhsNDh6a20ycGJp",
+            "member": [
+              "KIR"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1239513787006976000",
+            "member": []
+          },
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1239098799360573442",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/9z1sQgnYiZHDnzgYyNGFu9?replyFilter=0&replyOrder=desc&utm_medium=referral&utm_source=referral&utm_campaign=url_share",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "24f4cdf9cf1e",
     "date": "20261024",
     "time": "1000",
@@ -1697,24 +2742,10 @@
     "time": "1000",
     "contents": "GTUBE",
     "title": "#761　G TUBE",
+    "url": "https://girls2-fc.jp/page/gtube",
     "groups": [
       "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
+      "L2"
     ]
   },
   {
@@ -1897,24 +2928,33 @@
     "time": "1000",
     "contents": "GTUBE",
     "title": "#760　G TUBE",
+    "url": "https://girls2-fc.jp/page/gtube",
     "groups": [
       "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
+      "L2"
+    ]
+  },
+  {
+    "logid": "263421d25121",
+    "date": "20261020",
+    "time": "0400",
+    "contents": "RADIO",
+    "title": "TOKYO FM「Memories & Discoveries」",
+    "groups": [
       "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
       "AKR",
       "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109796255844954446",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
@@ -2152,7 +3192,9 @@
     "date": "20261016",
     "time": "1000",
     "contents": "GTUBE",
-    "title": "#759　G TUBE",
+    "title": "#759　Girls² ららぽーと公式SNS 「ららぽーとのリアル」 企画 第5弾撮影",
+    "display_sp": "#759　Girls² 「ららぽーとのリアル」 第5弾撮影",
+    "url": "https://girls2-fc.jp/page/gtube",
     "groups": [
       "G2",
       "YZH",
@@ -2162,15 +3204,19 @@
       "KUR",
       "MNM",
       "KIR",
+      "TOA"
+    ]
+  },
+  {
+    "logid": "c5e5de4c5613",
+    "date": "20261016",
+    "time": "",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　比嘉優和",
+    "url": "https://www.cl-live.com/artists/ldh_news_cast?lang=ja",
+    "groups": [
       "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
+      "YUW"
     ]
   },
   {
@@ -2193,6 +3239,26 @@
       "AKR",
       "KIK"
     ],
+    "tags": []
+  },
+  {
+    "logid": "e11ee9ac8406",
+    "date": "20261015",
+    "time": "2300",
+    "contents": "CLOSE",
+    "title": "「いきなり本読み！ in LDH」 FAN CLUB特別先着販売終了",
+    "display_pc": "",
+    "display_sp": "「いきなり本読み！ in LDH」 FC特別先着販売終了",
+    "url": "https://girls2-fc.jp/page/familyNews/1219233405481254914",
+    "map": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "",
     "tags": []
   },
   {
@@ -2259,6 +3325,36 @@
     ]
   },
   {
+    "logid": "da5635818486",
+    "date": "20261015",
+    "time": "1800",
+    "contents": "CLOSE",
+    "title": "Girls² 10月スペシャル壁紙プレゼントキャンペーン終了",
+    "display_sp": "10月スペシャル壁紙プレゼントCP終了",
+    "url": "https://girls2-fc.jp/page/wallpaper/1238393961312157697",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1238396838604701698",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "8c877945a233",
     "date": "20261015",
     "time": "1700",
@@ -2307,15 +3403,19 @@
         "urls": [
           {
             "url": "https://x.com/Laki922official/status/2107772932042944520",
-            "member": ""
+            "member": []
           },
           {
             "url": "https://x.com/gekkan_wanko/status/2107772966029390066",
-            "member": ""
+            "member": []
           },
           {
             "url": "https://x.com/gekkan_wanko/status/2108476205439857022",
-            "member": ""
+            "member": []
+          },
+          {
+            "url": "https://x.com/nakaGfes/status/2109366160160645302",
+            "member": []
           }
         ]
       }
@@ -2368,8 +3468,8 @@
     "date": "20261014",
     "time": "1900",
     "contents": "COOKING",
-    "title": "NATSLIVE「Lakiガチャクッキング」　#014 ラッキーカツ丼",
-    "display_sp": "Lakiガチャクッキング　#014 ラッキーカツ丼",
+    "title": "NATSLIVE「Lakiガチャクッキング」　#014　ラッキーカツ丼",
+    "display_sp": "Lakiガチャクッキング　#014",
     "url": "https://natslive.jp/episodes/18161",
     "map": "https://maps.app.goo.gl/Y6db33ndDKLsmErs6",
     "groups": [
@@ -2396,29 +3496,198 @@
     ]
   },
   {
+    "logid": "8d24b6cbf6d9",
+    "date": "20261014",
+    "time": "1800",
+    "contents": "TICKET",
+    "title": "「いきなり本読み！ in LDH」 FAN CLUB特別先着販売開始",
+    "display_pc": "",
+    "display_sp": "「いきなり本読み！ in LDH」 FC特別先着販売開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1219233405481254914",
+    "map": "",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [],
+    "setlistid": "",
+    "tags": []
+  },
+  {
     "logid": "70668cbf69c0",
     "date": "20261013",
     "time": "2200",
     "contents": "RADIO",
     "title": "FM FUJI 「フニャフニャ伝説」",
+    "url": "https://radiko.jp/share/?t=20261013210000&sid=FM-FUJI",
     "groups": [
       "L2",
       "YUW",
       "AKR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2107470939004846309",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109884622066851922",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109989193132933508",
+            "member": []
+          },
+          {
+            "url": "https://x.com/fmfujiaoiro1gou/status/2110015094893760743",
+            "member": [
+              "YUW",
+              "AKR"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2110005485978165368",
+            "member": [
+              "YUW",
+              "AKR"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
-    "logid": "2447d5f8b575",
+    "logid": "1c7d67dd8f86",
     "date": "20261013",
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #114",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#114",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#114",
     "display_sp": "柚葉24じ　#114",
-    "url": "",
+    "url": "https://www.tokyoheadline.com/875063/",
     "groups": [
       "G2",
       "YZH"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/TOKYO_HEADLINE/status/2109842426156486802",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "d5e038b156b1",
+    "date": "20261013",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "秋だーいすき🍁",
+    "display_pc": "比嘉優和　秋だーいすき🍁",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1239756296924692480",
+    "groups": [
+      "L2",
+      "YUW"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109841806875578495",
+            "member": [
+              "YUW"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "b237cad891ce",
+    "date": "20261013",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "インストアでーい🏫🌳🍎💚",
+    "display_pc": "森朱里　インストアでーい🏫🌳🍎💚",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1239758972525740033",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109842058404110449",
+            "member": [
+              "AKR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "7169ca675bb9",
+    "date": "20261013",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "ふかさわんこ",
+    "display_pc": "深澤日彩　ふかさわんこ",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1239754819581771777",
+    "groups": [
+      "L2",
+      "HIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109841568882733227",
+            "member": [
+              "HIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "846a4e1f3208",
+    "date": "20261013",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "ふくおか、らぶ🏠✮*｡ﾟ❤️",
+    "display_pc": "鶴屋美咲　ふくおか、らぶ🏠✮*｡ﾟ❤️",
+    "url": "https://girls2-fc.jp/page/1239761554157600769misakiBlog/1239761554157600769",
+    "groups": [
+      "G2",
+      "MSK"
+    ]
+  },
+  {
+    "logid": "9669f42fe2e7",
+    "date": "20261013",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "幻の商品",
+    "display_pc": "隅谷百花　幻の商品",
+    "url": "https://girls2-fc.jp/page/1239762753015513088momokaBlog/1239762753015513088",
+    "groups": [
+      "G2",
+      "MMK"
     ]
   },
   {
@@ -2426,11 +3695,327 @@
     "date": "20261013",
     "time": "1000",
     "contents": "GTUBE",
-    "title": "#758　Girls² WEGO 「MY FIRST」プロジェクト 2025年度企画撮影",
+    "title": "#758　Girls² WEGO 「MY FIRST」プロジェクト 2025年春企画撮影",
+    "display_pc": "#758　Girls² WEGO 「MY FIRST」プロジェクト 2025年春企画撮影",
+    "display_sp": "#758　Girls² WEGO 「MY FIRST」 春プロジェクト撮影",
+    "url": "https://girls2-fc.jp/page/gtube/1234835757022052353",
     "groups": [
       "G2",
       "KIR",
       "TOA"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2109811358497980897",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "57b8ac67c80a",
+    "date": "20261013",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "HIR",
+      "YUW",
+      "KAN",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109875526840287615",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109875869032607819",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109921307311980610",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109947830794334679",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbEpMNFd/",
+            "member": [
+              "RIN",
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbET8Cwh/",
+            "member": [
+              "RIN",
+              "YUW",
+              "KAN",
+              "AKR"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/Debiy1PpI9A/?dlrf=MWlyc3oyYXZnNGg5cA==",
+            "member": [
+              "RIN",
+              "YUW",
+              "KAN",
+              "AKR"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/Deb0L2kona0/?cplk=MW4wMGE0c3N3eDhxdg==",
+            "member": [
+              "HIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "8281b0ca54f4",
+    "date": "20261013",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　映画 「ワンダンス」",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2109932163441594440",
+            "member": [
+              "KIR"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DebRCkrxK9f/?vrfl=MWlqazkzcHg4Z2JldA==",
+            "member": [
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "f3ff6a822543",
+    "date": "20261013",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "one or eight"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2109933430335225862",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2109967678043771191",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2109978428917313855",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbEtJQhF/",
+            "member": [
+              "YZH"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbo81XDv/",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbojmr5E/",
+            "member": [
+              "YZH",
+              "MMK"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/Debb8DopteA/?rpxt=MWhkM3F2ZWNhMHJ0cA==",
+            "member": [
+              "YZH"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DebpriSJDRf/?vrfl=cXlwdWkwb3I4bXN5",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/Debp304mGFC/?psln=d2M4MWNxa2Z1cHdv",
+            "member": [
+              "MSK",
+              "KIR"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DebraFKJdx8/?xtok=enppNzA3OGdtcHB0",
+            "member": [
+              "KIR"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/DebqATwEiwm/?mdxt=cjUzYzBoemNlcTNr",
+            "member": [
+              "YZH",
+              "MMK"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DebwlWCp7SW/?rpxt=dnBjMDk1emFqY2x2",
+            "member": [
+              "YZH",
+              "MMK"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DebwpiiBGL0/?exln=MW1vdWhtajJ0bmpoaw==",
+            "member": [
+              "MMK",
+              "YOK",
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "e9a293676366",
+    "date": "20261013",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　a-nation",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DebOOCQBovY/?xtok=YW9peWFwcGdheXdz",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "1e500cc6376d",
+    "date": "20261013",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Girls²",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/gFkHFwDrZEewVfdPCytXZw?replyFilter=0&replyOrder=desc&utm_medium=referral&utm_source=referral&utm_campaign=url_share",
+            "member": [
+              "YZH"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -2454,11 +4039,84 @@
     "tags": []
   },
   {
-    "logid": "f6b7f7b623a8",
+    "logid": "894f70b4b6e9",
     "date": "20261012",
-    "time": "1700",
+    "time": "2000",
+    "contents": "TICKET",
+    "title": "DANCE HOLIC 2026 Tokyo FINALチケット販売開始",
+    "url": "https://buzz-ticket.com/e/b78tinw8sf",
+    "groups": [
+      "G2",
+      "KIR",
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "tags": [
+      "Spotify O-EAST",
+      "calin",
+      "CHISATO"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2109211333162070495",
+            "member": [
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "ef5d8b1ad529",
+    "date": "20261012",
+    "time": "2000",
     "contents": "YOUTUBE",
-    "title": "がるがるちゃんねる",
+    "title": "Laki - \"Best Friends\" (Laki 5th Anniversary Live ver.)",
+    "display_pc": "Laki 『Best Friends』 Laki 5th Anniversary Live ver.",
+    "display_sp": "Laki 『Best Friends』 5th Anniversary Live ver.",
+    "url": "https://youtu.be/84YlXF6kopw?si=7VKKdtahYqO9TjK8",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109599978318418138",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "ae701af75d55",
+    "date": "20261012",
+    "time": "1800",
+    "contents": "FANCLUB",
+    "title": "Girls² 10月スペシャル壁紙プレゼントキャンペーン開始",
+    "display_sp": "Girls² 10月SP壁紙プレゼント開始",
+    "url": "https://girls2-fc.jp/page/wallpaper/1238393961312157697",
     "groups": [
       "G2",
       "YZH",
@@ -2468,6 +4126,65 @@
       "KUR",
       "MNM",
       "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2109569781116387824",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1238396838604701698",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "f6b7f7b623a8",
+    "date": "20261012",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "メンバー目線の偏見ランキングが面白すぎた🤣",
+    "display_pc": "がるがるちゃんねる　メンバー目線の偏見ランキングが面白すぎた🤣",
+    "display_sp": "メンバー目線の偏見ランキングが面白すぎた🤣",
+    "url": "https://youtu.be/mPyClmmipUU?si=ffK-JwSC2zsK5dKI",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/vuhquOTnhRM?si=UpdV8aSKLrmloMII",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
@@ -2475,9 +4192,9 @@
     "date": "20261012",
     "time": "1500",
     "contents": "RELEASEEVENT",
-    "title": "Laki「WORK≒LiFE」ラストリリースイベント 神奈川",
-    "display_pc": "Laki 「WORK≒LiFE」 ラストリリースイベント 神奈川",
-    "display_sp": "「WORK≒LiFE」 ラストリリースイベント 神奈川",
+    "title": "Laki「WORK≒LiFE」ラストリリースイベント 神奈川・横浜",
+    "display_pc": "Laki 「WORK≒LiFE」 ラストリリースイベント 神奈川・横浜",
+    "display_sp": "「WORK≒LiFE」 ラストリリースイベント 神奈川・横浜",
     "url": "https://girls2-fc.jp/page/familyNews/1234677188746280960",
     "map": "https://maps.app.goo.gl/Ku6KZX7MuSakAPDH8?g_st=ac",
     "groups": [
@@ -2494,6 +4211,58 @@
     "setlistid": "202610121500",
     "tags": [
       "横浜ワールドポーターズ"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109528636722483627",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109567420600066459",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109568342998859943",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109611930134692018",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DeZPf5WiWKP/?rpxt=eDR6cHN2b2llMnBl",
+            "member": [
+              "YUW"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -2501,7 +4270,8 @@
     "date": "20261012",
     "time": "1400",
     "contents": "EVENT",
-    "title": "Girls² EP 「EASY」 オンライントーク会 2部",
+    "title": "Girls² 「EASY」 オンライントーク会 2部",
+    "display_sp": "「EASY」 オンライントーク会 2部",
     "url": "https://shop.mu-mo.net/st/special/girls2_2611/",
     "groups": [
       "G2",
@@ -2528,6 +4298,7 @@
     "time": "1330",
     "contents": "CLOSE",
     "title": "Girls² EP 「EASY」 オンライントーク会 2部 先着販売終了",
+    "display_sp": "「EASY」 オンライントーク会 2部 先着販売終了",
     "url": "https://shop.mu-mo.net/st/special/girls2_2611/",
     "groups": [
       "G2",
@@ -2553,9 +4324,9 @@
     "date": "20261012",
     "time": "1300",
     "contents": "RELEASEEVENT",
-    "title": "「WORK≒LiFE」 ラストリリースイベント 神奈川",
-    "display_pc": "Laki 「WORK≒LiFE」 ラストリリースイベント 神奈川",
-    "display_sp": "「WORK≒LiFE」 ラストリリースイベント 神奈川",
+    "title": "Laki 「WORK≒LiFE」 ラストリリースイベント 神奈川・横浜",
+    "display_pc": "Laki 「WORK≒LiFE」 ラストリリースイベント 神奈川・横浜",
+    "display_sp": "「WORK≒LiFE」 ラストリリースイベント 神奈川・横浜",
     "url": "https://girls2-fc.jp/page/familyNews/1234677188746280960",
     "map": "https://maps.app.goo.gl/Ku6KZX7MuSakAPDH8?g_st=ac",
     "groups": [
@@ -2573,6 +4344,25 @@
     "setlistid": "202610121300",
     "tags": [
       "横浜ワールドポーターズ"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109435186274570277",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109498359115649421",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109568342998859943",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
@@ -2581,6 +4371,7 @@
     "time": "1200",
     "contents": "EVENT",
     "title": "Girls² EP 「EASY」 オンライントーク会 1部",
+    "display_sp": "「EASY」 オンライントーク会 1部",
     "url": "https://shop.mu-mo.net/st/special/girls2_2611/",
     "groups": [
       "G2",
@@ -2602,11 +4393,51 @@
     ]
   },
   {
+    "logid": "ca06c5824c48",
+    "date": "20261012",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "a-nation",
+    "display_pc": "隅谷百花　a-nation",
+    "url": "https://girls2-fc.jp/page/1239138223532277761momokaBlog/1239138223532277761",
+    "groups": [
+      "G2",
+      "MMK"
+    ]
+  },
+  {
+    "logid": "da4864c3726b",
+    "date": "20261012",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "今日会えるねっ🫶🏻",
+    "display_pc": "上村梨々香　今日会えるねっ🫶🏻",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1239135643477475330",
+    "groups": [
+      "L2",
+      "RRK"
+    ]
+  },
+  {
+    "logid": "e4683c2e1d64",
+    "date": "20261012",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "この説みんなに伝えたい",
+    "display_pc": "永山椿　この説みんなに伝えたい",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1239136345788514304",
+    "groups": [
+      "L2",
+      "TBK"
+    ]
+  },
+  {
     "logid": "5a3d6c507527",
     "date": "20261012",
     "time": "1130",
     "contents": "CLOSE",
     "title": "Girls² EP 「EASY」 オンライントーク会 1部 先着販売終了",
+    "display_sp": "「EASY」 オンライントーク会 1部 先着販売終了",
     "url": "https://shop.mu-mo.net/st/special/girls2_2611/",
     "groups": [
       "G2",
@@ -2623,6 +4454,236 @@
         "type": "gl2family",
         "urls": [
           "https://girls2-fc.jp/page/familyNews/1233241529833750530"
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "be1c9dcdef48",
+    "date": "20261012",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DeYN9EmJ_Jk/?srtk=MWF3djkxNXpuajBkag==",
+            "member": [
+              "YUW",
+              "KIK"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbTBc1gd/",
+            "member": [
+              "YUW",
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbwYg4nq/",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2109584391106416919",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109480685945942019",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "26c02ac06d6a",
+    "date": "20261012",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　映画 「ワンダンス」",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DeYpf_txxsN/?cplk=aWs0YWpkYmN3c2sz",
+            "member": [
+              "KIR"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2109539569066819853",
+            "member": [
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "c28aeda7cfb1",
+    "date": "20261012",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbw8PUuN/",
+            "member": [
+              "YOK",
+              "KIR"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbwDTsvF/",
+            "member": [
+              "YZH",
+              "KUR"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DeY31bHJAFS/?exln=c2diaDJjc2U4Mnc4",
+            "member": [
+              "YOK",
+              "KIR"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/DeZL9yUlLdD/?rpxt=ZW12YTVndnI0dTl6",
+            "member": [
+              "MNM"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/DeZHH5Rie6r/?vrfl=NGJmZ3pva3dmem8y",
+            "member": [
+              "YZH",
+              "MMK"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/DeZM3ZHgQrM/?rpxt=a2cycDJsa3Vzbmk5",
+            "member": [
+              "KUR"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DeZa2ohpnBI/?vrfl=YnJoZTFrMmNlM3Bj",
+            "member": [
+              "YZH",
+              "KUR"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/DeZUTmbDyit/?xtok=YmQxdXh0bzZnNjRp",
+            "member": [
+              "YOK"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2109571903296074121",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2109600932866760789",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "52026a8c92e6",
+    "date": "20261012",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/vJqT4crPTGAwsJ7ZxZyj8W",
+            "member": [
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://www.cl-live.com/posts/7sr5L4V8iwkb7frmKb6E61",
+            "member": [
+              "AKR"
+            ]
+          }
         ]
       }
     ]
@@ -2728,6 +4789,19 @@
           {
             "url": "https://x.com/Laki922official/status/2109086588550643978",
             "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2109184638036185388",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ]
           }
         ]
       }
@@ -2795,6 +4869,18 @@
           {
             "url": "https://x.com/Girls2_official/status/2109103466924871761",
             "member": []
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2109201978945572904",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ]
           }
         ]
       },
@@ -2878,19 +4964,105 @@
     ]
   },
   {
-    "logid": "488290e7d2d3",
+    "logid": "3ced1046f755",
     "date": "20261011",
     "time": "",
     "contents": "SNS",
+    "title": "SNS　Girls²",
     "groups": [
-      "L2"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DeWZNPYp41b/?exln=ZWM3Zm10dmd5d2g3",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "KIR"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DeWm8c4JGhV/?rpxt=MXI5dHdlcTZ2eTQybA==",
+            "member": [
+              "MMK",
+              "MSK",
+              "YOK",
+              "MNM",
+              "KIR"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DeWgGk0JQvU/?xtok=MXZldnl5YWZ4cTQ4YQ==",
+            "member": [
+              "KIR"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbcsvWGg/",
+            "member": [
+              "MMK",
+              "MSK",
+              "YOK",
+              "MNM",
+              "KIR"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/4GdcDQcxKgY?si=tGooTvngm_JhtZRz",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "ac107cebec13",
+    "date": "20261011",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "sns": [
       {
         "type": "x",
         "urls": [
           {
-            "url": "https://x.com/Laki922official/status/2109184638036185388",
+            "url": "https://x.com/Laki922official/status/2109235464934994270",
             "member": [
               "RIN",
               "TBK",
@@ -2903,33 +5075,50 @@
             ]
           }
         ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DeWgcF3GlRx/?xtok=MXJsajd4Njlhd3RkeA==",
+            "member": [
+              "HIR"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbTS2KBA/",
+            "member": [
+              "HIR",
+              "AKR"
+            ]
+          }
+        ]
       }
     ]
   },
   {
-    "logid": "afc86fca1d65",
+    "logid": "002354c7534e",
     "date": "20261011",
     "time": "",
-    "contents": "SNS",
-    "title": "SNS　Laki",
+    "contents": "CL",
+    "title": "POST　Laki",
     "groups": [
-      "L2"
+      "L2",
+      "AKR"
     ],
     "sns": [
       {
-        "type": "x",
+        "type": "cl",
         "urls": [
           {
-            "url": "https://x.com/Laki922official/status/2109184638036185388",
+            "url": "https://www.cl-live.com/posts/okhKQ8bXnRKR6a39LfjLGx",
             "member": [
-              "RIN",
-              "TBK",
-              "HIR",
-              "YUW",
-              "KAN",
-              "RRK",
-              "AKR",
-              "KIK"
+              "AKR"
             ]
           }
         ]
@@ -2954,6 +5143,17 @@
       "KUR",
       "MNM",
       "KIR"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/89JefSYvj4CrE3Ct9mPDje?utm_medium=referral&utm_source=referral&utm_campaign=url_share",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
@@ -3633,7 +5833,7 @@
   {
     "logid": "a5cddccdc6c2",
     "date": "20261009",
-    "time": "1800",
+    "time": "1759",
     "contents": "CL",
     "title": "LDH NEWS CAST　深澤日彩",
     "url": "https://www.cl-live.com/programs/cast/czgR1RGx3UNeYVsu442FFs",
@@ -3891,6 +6091,34 @@
     ]
   },
   {
+    "logid": "534578975090",
+    "date": "20261009",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　EXPG高等学院",
+    "groups": [
+      "L2",
+      "RIN",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbEwj1hW/",
+            "member": [
+              "RIN",
+              "AKR",
+              "KIK"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "1ba3e4a7528d",
     "date": "20261008",
     "time": "2359",
@@ -4121,7 +6349,7 @@
     "date": "20261008",
     "time": "",
     "contents": "SNS",
-    "title": "ANNA SUI COSMETICS",
+    "title": "SNS　ANNA SUI COSMETICS",
     "groups": [
       "G2",
       "MSK"
@@ -4426,34 +6654,33 @@
       {
         "type": "instagram",
         "urls": [
-          "https://www.instagram.com/reel/DeMGETHJMb1/?stkn=ZG1zMGFrc3d3YTg2",
-          "https://www.instagram.com/reel/DeMAUu8pVM2/?stkn=MTJ4cjc4YWx0cm5qNw=="
+          {
+            "url": "https://www.instagram.com/reel/DeMGETHJMb1/?stkn=ZG1zMGFrc3d3YTg2",
+            "member": []
+          },
+          {
+            "url": "https://www.instagram.com/reel/DeMAUu8pVM2/?stkn=MTJ4cjc4YWx0cm5qNw==",
+            "member": []
+          },
+          {
+            "url": "https://www.instagram.com/p/DeMNRDQmlw_/?srtk=OGFmM3pqa3h4NzM2",
+            "member": [
+              "HIR"
+            ]
+          }
         ]
       },
       {
         "type": "x",
         "urls": [
-          "https://x.com/Laki922official/status/2107778482050847131",
-          "https://x.com/Laki922official/status/2107803130381631877"
-        ]
-      }
-    ]
-  },
-  {
-    "logid": "cc95476f651b",
-    "date": "20261007",
-    "time": "",
-    "contents": "SNS",
-    "title": "SNS　深澤日彩",
-    "groups": [
-      "L2",
-      "HIR"
-    ],
-    "sns": [
-      {
-        "type": "instagram",
-        "urls": [
-          "https://www.instagram.com/p/DeMNRDQmlw_/?stkn=OGFmM3pqa3h4NzM2"
+          {
+            "url": "https://x.com/Laki922official/status/2107778482050847131",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2107803130381631877",
+            "member": []
+          }
         ]
       }
     ]
@@ -4828,6 +7055,32 @@
     ]
   },
   {
+    "logid": "e354c156b134",
+    "date": "20261005",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　ANNA SUI COSMETICS",
+    "groups": [
+      "G2",
+      "MSK",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbwrhdjW/",
+            "member": [
+              "MSK",
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "d4ab0d7cc4e5",
     "date": "20261004",
     "time": "2359",
@@ -5045,7 +7298,7 @@
     "logid": "08cc518ba573",
     "date": "20261004",
     "contents": "SNS",
-    "title": "ANNA SUI COSMETICS",
+    "title": "SNS　ANNA SUI COSMETICS",
     "groups": [
       "G2",
       "KIR"
@@ -5082,6 +7335,7 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "HIR",
       "RRK",
       "KIK"
     ],
@@ -5089,14 +7343,36 @@
       {
         "type": "instagram",
         "urls": [
-          "https://www.instagram.com/p/DeEXuPOCeHa/?stkn=ZGNyc29vNmdnNTFy"
+          {
+            "url": "https://www.instagram.com/p/DeEXuPOCeHa/?stkn=ZGNyc29vNmdnNTFy",
+            "member": [
+              "RRK"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/DeEgW1MmmaK/?psln=OGFoMGZneW9kZHRw",
+            "member": [
+              "HIR"
+            ]
+          }
         ]
       },
       {
         "type": "tiktok",
         "urls": [
-          "https://vt.tiktok.com/ZSbHcQaoV/",
-          "https://vt.tiktok.com/ZSbHcVc3q/"
+          {
+            "url": "https://vt.tiktok.com/ZSbHcQaoV/",
+            "member": [
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbHcVc3q/",
+            "member": [
+              "RRK",
+              "KIK"
+            ]
+          }
         ]
       }
     ]
@@ -5180,25 +7456,6 @@
     ],
     "tags": [
       "福岡国際会議場 メインホール"
-    ]
-  },
-  {
-    "logid": "ca367e32008e",
-    "date": "20261004",
-    "time": "",
-    "contents": "SNS",
-    "title": "SNS　深澤日彩",
-    "groups": [
-      "L2",
-      "HIR"
-    ],
-    "sns": [
-      {
-        "type": "instagram",
-        "urls": [
-          "https://www.instagram.com/p/DeEgW1MmmaK/?stkn=OGFoMGZneW9kZHRw"
-        ]
-      }
     ]
   },
   {
@@ -5664,41 +7921,41 @@
       "TBK",
       "YUW",
       "KAN",
+      "RRK",
       "AKR"
     ],
     "sns": [
       {
         "type": "tiktok",
         "urls": [
-          "https://vt.tiktok.com/ZSbm5hVWj/",
-          "https://vt.tiktok.com/ZSbHcuTbA/",
-          "https://vt.tiktok.com/ZSbHcCh41/"
+          {
+            "url": "https://vt.tiktok.com/ZSbm5hVWj/",
+            "member": []
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbHcuTbA/",
+            "member": []
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbHcCh41/",
+            "member": []
+          }
         ]
       },
       {
         "type": "instagram",
         "urls": [
-          "https://www.instagram.com/reel/DeCAkjGJNCI/?stkn=bHo5OTFidW9uM2p5"
-        ]
-      }
-    ]
-  },
-  {
-    "logid": "8fccfa4e27de",
-    "date": "20261003",
-    "time": "",
-    "contents": "SNS",
-    "title": "SNS　比嘉優和",
-    "groups": [
-      "L2",
-      "YUW",
-      "RRK"
-    ],
-    "sns": [
-      {
-        "type": "instagram",
-        "urls": [
-          "https://www.instagram.com/reel/DeB5yu_pK97/?stkn=MTMzYTJzenNvM2Zueg=="
+          {
+            "url": "https://www.instagram.com/reel/DeCAkjGJNCI/?stkn=bHo5OTFidW9uM2p5",
+            "member": []
+          },
+          {
+            "url": "https://www.instagram.com/reel/DeB5yu_pK97/?obrf=MTMzYTJzenNvM2Zueg==",
+            "member": [
+              "YUW",
+              "RRK"
+            ]
+          }
         ]
       }
     ]
@@ -5866,6 +8123,26 @@
     ]
   },
   {
+    "logid": "8e8005ed2dee",
+    "date": "20261002",
+    "time": "1658",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　山口莉愛",
+    "url": "https://www.cl-live.com/programs/cast/aQDN4EBY1nTUbtf2WFDser?lang=ja",
+    "groups": [
+      "L2",
+      "RIN"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          "https://x.com/Laki922official/status/2107393866144026680"
+        ]
+      }
+    ]
+  },
+  {
     "logid": "7eb42cc1a0df",
     "date": "20261002",
     "time": "1620",
@@ -6023,7 +8300,7 @@
     "date": "20261002",
     "time": "",
     "contents": "SNS",
-    "title": "ANNA SUI COSMETICS",
+    "title": "SNS　ANNA SUI COSMETICS",
     "groups": [
       "G2",
       "MSK",
@@ -6940,7 +9217,7 @@
     "logid": "2e4f05f0b576",
     "date": "20260929",
     "contents": "SNS",
-    "title": "ANNA SUI COSMETICS",
+    "title": "SNS　ANNA SUI COSMETICS",
     "groups": [
       "G2",
       "MSK",
@@ -7004,6 +9281,38 @@
       "KIK"
     ],
     "tags": []
+  },
+  {
+    "logid": "8af01169e111",
+    "date": "20260929",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "MMK",
+      "MSK",
+      "YOK",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSb3KxA5j/",
+            "member": [
+              "MMK",
+              "MSK",
+              "YOK",
+              "MNM",
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "logid": "f9e36e3f3293",
@@ -7519,6 +9828,18 @@
           {
             "url": "https://www.instagram.com/reel/DeGhBC_peIc/?stkn=MXB2ZmtmMmNidWd1bg==",
             "member": []
+          },
+          {
+            "url": "https://www.instagram.com/reel/DebzHpav34w/?dlrf=MXNkZWRiYWdvZXlvMg==",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ]
           }
         ]
       },
@@ -7527,6 +9848,30 @@
         "urls": [
           {
             "url": "https://x.com/GirlsAward/status/2108908577960382871",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ]
+          },
+          {
+            "url": "https://x.com/GirlsAward/status/2103775786406920293",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ]
+          },
+          {
+            "url": "https://x.com/GirlsAward/status/2109608636029001951",
             "member": [
               "YZH",
               "MMK",
@@ -7792,7 +10137,7 @@
     "date": "20260925",
     "time": "2155",
     "contents": "SNS",
-    "title": "インスタライブ　佐藤栞奈",
+    "title": "Instagram Live　佐藤栞奈",
     "display_pc": "",
     "display_sp": "",
     "url": "",
@@ -8081,7 +10426,20 @@
     ],
     "relations": [],
     "setlistid": "",
-    "tags": []
+    "tags": [],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/Ddsd3xboNVV/?dlrf=MTc1aWM1MnU1cTh5cQ==",
+            "member": [
+              "YOK"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "logid": "5e084b02a57e",
@@ -8101,6 +10459,56 @@
       "KUR",
       "MNM",
       "KIR"
+    ]
+  },
+  {
+    "logid": "4805bd5f937a",
+    "date": "20260925",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　ANNA SUI COSMETICS",
+    "groups": [
+      "G2",
+      "MSK",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbEhdut8/",
+            "member": [
+              "MSK",
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "4c273886836c",
+    "date": "20260925",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSboFKpKQ/",
+            "member": [
+              "YZH"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -9054,7 +11462,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #015",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#015",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#015",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#015",
     "url": "https://www.tokyoheadline.com/872263/",
     "groups": [
@@ -9374,7 +11782,7 @@
     "date": "20260920",
     "time": "2040",
     "contents": "SNS",
-    "title": "インスタライブ　Laki",
+    "title": "Instagram Live　Laki",
     "url": "https://www.instagram.com/reel/Ddgo_4ZCTjw/?stkn=MTh1MG5nbnhmODY4eg==",
     "groups": [
       "L2",
@@ -9546,6 +11954,32 @@
     ],
     "tags": [
       "∞ DAY"
+    ]
+  },
+  {
+    "logid": "63b6b9c44960",
+    "date": "20260920",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSb3EXLF2/",
+            "member": [
+              "KUR",
+              "MNM"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -10311,9 +12745,7 @@
     "date": "20260915",
     "time": "1558",
     "contents": "CL",
-    "title": "LDH NEWS CAST 佐藤妃希",
-    "display_pc": "LDH NEWS CAST　佐藤妃希",
-    "display_sp": "LDH NEWS CAST　佐藤妃希",
+    "title": "LDH NEWS CAST　佐藤妃希",
     "url": "https://www.cl-live.com/programs/cast/39tG8HvCHEmxJejnCTpodo?lang=ja",
     "groups": [
       "L2",
@@ -11519,6 +13951,32 @@
     ]
   },
   {
+    "logid": "648d176584c3",
+    "date": "20260909",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "TBK",
+      "YUW"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbo6JtBN/",
+            "member": [
+              "TBK",
+              "YUW"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "589d30a40897",
     "date": "20260908",
     "time": "2359",
@@ -11558,13 +14016,26 @@
     "date": "20260908",
     "time": "2036",
     "contents": "CL",
-    "title": "POST LDH NEWS CAST",
+    "title": "POST　Laki",
     "display_pc": "POST　LDH NEWS CAST",
     "display_sp": "POST　LDH NEWS CAST",
     "url": "https://www.cl-live.com/posts/3EAnRg7UZUFAyj2ZG56XFE?lang=ja",
     "groups": [
       "L2",
       "RRK"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/3EAnRg7UZUFAyj2ZG56XFE?lang=ja",
+            "member": [
+              "RRK"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -11618,11 +14089,9 @@
   {
     "logid": "337347dfd914",
     "date": "20260908",
-    "time": "1800",
+    "time": "1759",
     "contents": "CL",
-    "title": "LDH NEWS CAST 上村梨々香",
-    "display_pc": "LDH NEWS CAST　上村梨々香",
-    "display_sp": "LDH NEWS CAST　上村梨々香",
+    "title": "LDH NEWS CAST　上村梨々香",
     "url": "https://www.cl-live.com/programs/cast/gyf2J4qrqb44ASfVazq8Pk?lang=ja",
     "groups": [
       "L2",
@@ -11723,7 +14192,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #113",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#113",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#113",
     "display_sp": "柚葉24じ　#113",
     "url": "https://www.tokyoheadline.com/870212/",
     "groups": [
@@ -11837,9 +14306,7 @@
     "date": "20260907",
     "time": "1900",
     "contents": "SNS",
-    "title": "インスタライブ 比嘉優和・佐藤栞奈",
-    "display_pc": "インスタライブ　比嘉優和・佐藤栞奈",
-    "display_sp": "インスタライブ　比嘉優和・佐藤栞奈",
+    "title": "Instagram Live　比嘉優和・佐藤栞奈",
     "groups": [
       "L2",
       "YUW",
@@ -12249,6 +14716,30 @@
     "groups": [
       "L2",
       "HIR"
+    ]
+  },
+  {
+    "logid": "2d5c9334edd8",
+    "date": "20260905",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "YUW"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbTWVNND/",
+            "member": [
+              "YUW"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -13978,12 +16469,27 @@
     ]
   },
   {
+    "logid": "5af72b117090",
+    "date": "20260825",
+    "time": "2002",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　永山椿",
+    "url": "https://www.cl-live.com/programs/cast/nu5MoCunSMNKBdAkCP3ivB?lang=ja",
+    "groups": [
+      "L2",
+      "TBK"
+    ],
+    "relations": [
+      "YUW"
+    ]
+  },
+  {
     "logid": "e53059a84274",
     "date": "20260825",
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #014",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#014",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#014",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#014",
     "url": "https://www.tokyoheadline.com/868605/",
     "groups": [
@@ -14926,6 +17432,18 @@
     ]
   },
   {
+    "logid": "9ba509fef1c8",
+    "date": "20260813",
+    "time": "1700",
+    "contents": "CL",
+    "title": "木曜日のフォーエイト　佐藤妃希",
+    "url": "https://www.cl-live.com/programs/cast/icUMUqSgcWivoWvXx9Bt2D?lang=ja",
+    "groups": [
+      "L2",
+      "KIK"
+    ]
+  },
+  {
     "logid": "29eedb647384",
     "date": "20260813",
     "time": "1200",
@@ -15055,7 +17573,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #112",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#112",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#112",
     "display_sp": "柚葉24じ　#112",
     "url": "https://www.tokyoheadline.com/867289/",
     "groups": [
@@ -15454,9 +17972,7 @@
     "date": "20260805",
     "time": "2200",
     "contents": "SNS",
-    "title": "隅谷百花 TikTok Live",
-    "display_pc": "隅谷百花　TikTok Live",
-    "display_sp": "隅谷百花　TikTok Live",
+    "title": "TikTok Live　隅谷百花",
     "groups": [
       "G2",
       "MMK"
@@ -15507,10 +18023,14 @@
     "date": "20260804",
     "time": "1930",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　山口莉愛",
+    "url": "https://www.cl-live.com/programs/cast/bAfiKSHvgXpu7CJhSngUPA?lang=ja",
     "groups": [
       "L2",
       "RIN"
+    ],
+    "relations": [
+      "KAN"
     ]
   },
   {
@@ -16069,9 +18589,10 @@
   {
     "logid": "6326739904d1",
     "date": "20260728",
-    "time": "1600",
+    "time": "1557",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　菱田未渚美",
+    "url": "https://www.cl-live.com/programs/cast/iBxQmLJh2Rjp7P8nfJHyjE?lang=ja",
     "groups": [
       "G2",
       "MNM"
@@ -16083,7 +18604,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #013",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#013",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#013",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#013",
     "url": "https://www.tokyoheadline.com/865072/",
     "groups": [
@@ -16563,9 +19084,10 @@
   {
     "logid": "8e0ea9eedee5",
     "date": "20260721",
-    "time": "1600",
+    "time": "1558",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　山口綺羅",
+    "url": "https://www.cl-live.com/programs/cast/phL1vbGmNejt3iQqhPZZUe?lang=ja",
     "groups": [
       "G2",
       "KIR"
@@ -17031,7 +19553,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #111",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#111",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#111",
     "display_sp": "柚葉24じ　#111",
     "url": "https://www.tokyoheadline.com/863256/",
     "groups": [
@@ -17841,7 +20363,8 @@
     "date": "20260630",
     "time": "1630",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　深澤日彩",
+    "url": "https://www.cl-live.com/programs/cast/81J78P4pWtC2vMXBgVfZLn?lang=ja",
     "groups": [
       "L2",
       "HIR"
@@ -18648,9 +21171,10 @@
   {
     "logid": "95909b086ee6",
     "date": "20260623",
-    "time": "1600",
+    "time": "1558",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　佐藤栞奈",
+    "url": "https://www.cl-live.com/programs/cast/shQxLVAAv9QRxfJp6UKHDQ?lang=ja",
     "groups": [
       "L2",
       "KAN"
@@ -18662,7 +21186,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #012",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#012",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#012",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#012",
     "url": "https://www.tokyoheadline.com/860611/",
     "groups": [
@@ -19079,7 +21603,8 @@
     "date": "20260618",
     "time": "1800",
     "contents": "CL",
-    "title": "木曜日のフォーエイト",
+    "title": "木曜日のフォーエイト　上村梨々香",
+    "url": "https://www.cl-live.com/programs/cast/wDR32xXsGa4zNJvNZzYgwJ?lang=ja",
     "groups": [
       "L2",
       "RRK"
@@ -19701,7 +22226,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #110",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#110",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#110",
     "display_sp": "柚葉24じ　#110",
     "url": "https://www.tokyoheadline.com/858958/",
     "groups": [
@@ -20455,7 +22980,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #011",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#011",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#011",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#011",
     "url": "https://www.tokyoheadline.com/857247/",
     "groups": [
@@ -20510,7 +23035,8 @@
     "date": "20260526",
     "time": "1200",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　上村梨々香",
+    "url": "https://www.cl-live.com/programs/cast/4FVfTaG4iCvs8QnT8hPiEF?lang=ja",
     "groups": [
       "L2",
       "RRK"
@@ -20843,9 +23369,10 @@
   {
     "logid": "12baa9870595",
     "date": "20260521",
-    "time": "1900",
+    "time": "1857",
     "contents": "CL",
-    "title": "木曜日のフォーエイト",
+    "title": "木曜日のフォーエイト　深澤日彩",
+    "url": "https://www.cl-live.com/programs/cast/n3jgS1M85vK4dkGUwPuBPo?lang=ja",
     "groups": [
       "L2",
       "HIR"
@@ -21194,10 +23721,11 @@
     "date": "20260515",
     "time": "1800",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　小川桜花",
+    "url": "https://www.cl-live.com/programs/cast/pfTwHUYDwwdTbxmPLFpZiU?lang=ja",
     "groups": [
       "G2",
-      "L2"
+      "YOK"
     ]
   },
   {
@@ -21394,7 +23922,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #109",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#109",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#109",
     "display_sp": "柚葉24じ　#109",
     "url": "https://www.tokyoheadline.com/855698/",
     "groups": [
@@ -22525,7 +25053,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #010",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#010",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#010",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#010",
     "url": "https://www.tokyoheadline.com/854133/",
     "groups": [
@@ -23025,9 +25553,10 @@
   {
     "logid": "86340482d5c6",
     "date": "20260423",
-    "time": "1830",
+    "time": "1828",
     "contents": "CL",
-    "title": "木曜日のフォーエイト",
+    "title": "木曜日のフォーエイト　小田柚葉",
+    "url": "https://www.cl-live.com/programs/cast/meZ3UtZyAbiueXwZjR58jq?lang=ja",
     "groups": [
       "G2",
       "YZH"
@@ -23548,9 +26077,10 @@
   {
     "logid": "ea10e58e233b",
     "date": "20260417",
-    "time": "1700",
+    "time": "1657",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　森朱里",
+    "url": "https://www.cl-live.com/programs/cast/fJ9omYvdWDYoCjKby5XsFV?lang=ja",
     "groups": [
       "L2",
       "AKR"
@@ -23751,7 +26281,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #108",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#108",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#108",
     "display_sp": "柚葉24じ　#108",
     "url": "https://www.tokyoheadline.com/851998/",
     "groups": [
@@ -23974,9 +26504,10 @@
   {
     "logid": "02996ab5c5db",
     "date": "20260410",
-    "time": "1800",
+    "time": "1759",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　佐藤栞奈",
+    "url": "https://www.cl-live.com/programs/cast/jtLF6wUy1xSprbC8rfFu7n?lang=ja",
     "groups": [
       "L2",
       "KAN"
@@ -24078,9 +26609,10 @@
   {
     "logid": "e33392634afb",
     "date": "20260409",
-    "time": "1900",
+    "time": "1858",
     "contents": "CL",
-    "title": "木曜日のフォーエイト",
+    "title": "木曜日のフォーエイト　山口莉愛",
+    "url": "https://www.cl-live.com/programs/cast/2G9oxywYhqyncWLeZ75f68?lang=ja",
     "groups": [
       "L2",
       "RIN"
@@ -24319,6 +26851,18 @@
     ]
   },
   {
+    "logid": "2e88b7616cf5",
+    "date": "20260403",
+    "time": "2008",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　深澤日彩",
+    "url": "https://www.cl-live.com/programs/cast/s8J6RjZeRgShTLdHYiRpEk?lang=ja",
+    "groups": [
+      "L2",
+      "HIR"
+    ]
+  },
+  {
     "logid": "010a99097d29",
     "date": "20260403",
     "time": "2000",
@@ -24328,17 +26872,6 @@
     "groups": [
       "L2",
       "AKR"
-    ]
-  },
-  {
-    "logid": "2e88b7616cf5",
-    "date": "20260403",
-    "time": "2000",
-    "contents": "CL",
-    "title": "LDH NEWS CAST",
-    "groups": [
-      "L2",
-      "HIR"
     ]
   },
   {
@@ -25270,9 +27803,10 @@
   {
     "logid": "34d777c0a6da",
     "date": "20260324",
-    "time": "1630",
+    "time": "1627",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　隅谷百花",
+    "url": "https://www.cl-live.com/programs/cast/iMHyJmZr2bEmrfFCaNxjiV?lang=ja",
     "groups": [
       "G2",
       "MMK"
@@ -25284,7 +27818,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #009",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#009",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#009",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#009",
     "url": "https://www.tokyoheadline.com/850104/",
     "groups": [
@@ -26118,9 +28652,10 @@
   {
     "logid": "db196f4b3181",
     "date": "20260310",
-    "time": "1745",
+    "time": "1742",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　増田來亜",
+    "url": "https://www.cl-live.com/programs/cast/v3Qkiw9iZdnUEj4KobHC9V?lang=ja",
     "groups": [
       "G2",
       "KUR"
@@ -26132,7 +28667,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #107",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#107",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#107",
     "display_sp": "柚葉24じ　#107",
     "url": "https://www.tokyoheadline.com/848631/",
     "groups": [
@@ -26294,12 +28829,13 @@
   {
     "logid": "fc6e6eec3a73",
     "date": "20260306",
-    "time": "1830",
+    "time": "1827",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　佐藤妃希",
+    "url": "https://www.cl-live.com/programs/cast/7BQCtdff3hJR3xm5ZWbDQS?lang=ja",
     "groups": [
-      "G2",
-      "L2"
+      "L2",
+      "KIK"
     ]
   },
   {
@@ -26726,6 +29262,18 @@
     ]
   },
   {
+    "logid": "ef0413e5d1d7",
+    "date": "20260227",
+    "time": "1827",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　上村梨々香",
+    "url": "https://www.cl-live.com/programs/cast/jZdvBNpp55tJY9peGCVax7?lang=ja",
+    "groups": [
+      "L2",
+      "RRK"
+    ]
+  },
+  {
     "logid": "966dc6e3eb79",
     "date": "20260227",
     "time": "1200",
@@ -26820,9 +29368,10 @@
   {
     "logid": "01a1532eea4c",
     "date": "20260226",
-    "time": "1930",
+    "time": "1928",
     "contents": "CL",
-    "title": "木曜日のフォーエイト",
+    "title": "木曜日のフォーエイト　佐藤栞奈",
+    "url": "https://www.cl-live.com/programs/cast/kDvTHNy3ZVuZg4PAfNWbfk?lang=ja",
     "groups": [
       "L2",
       "KAN"
@@ -27029,9 +29578,10 @@
   {
     "logid": "a7202cb03357",
     "date": "20260224",
-    "time": "1730",
+    "time": "1727",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　森朱里",
+    "url": "https://www.cl-live.com/programs/cast/jzg1svUN7XRbJgvu8K9XMS?lang=ja",
     "groups": [
       "L2",
       "AKR"
@@ -27043,7 +29593,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #008",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#008",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#008",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#008",
     "url": "https://www.tokyoheadline.com/847051/",
     "groups": [
@@ -27300,9 +29850,10 @@
   {
     "logid": "d651d793fca9",
     "date": "20260220",
-    "time": "1700",
+    "time": "1657",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　小田柚葉",
+    "url": "https://www.cl-live.com/programs/cast/pgFCaEfnzE5vpVLbs8Z5Qx?lang=ja",
     "groups": [
       "G2",
       "YZH"
@@ -27560,7 +30111,8 @@
     "date": "20260217",
     "time": "1730",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　比嘉優和",
+    "url": "https://www.cl-live.com/programs/cast/fYDqAYcFWTZQwmBuZKpKER?lang=ja",
     "groups": [
       "L2",
       "YUW"
@@ -27843,9 +30395,10 @@
   {
     "logid": "759dcfa3ae7a",
     "date": "20260213",
-    "time": "1830",
+    "time": "1829",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　佐藤栞奈",
+    "url": "https://www.cl-live.com/programs/cast/uLk8EKqhkxrVyvyy3tPbhQ?lang=ja",
     "groups": [
       "L2",
       "KAN"
@@ -27889,12 +30442,13 @@
   {
     "logid": "83b35ce6b147",
     "date": "20260212",
-    "time": "1800",
+    "time": "1757",
     "contents": "CL",
-    "title": "木曜日のフォーエイト",
+    "title": "木曜日のフォーエイト　佐藤妃希",
+    "url": "https://www.cl-live.com/programs/cast/pexcqAs24C5kp7sFpEKRpQ?lang=ja",
     "groups": [
-      "G2",
-      "L2"
+      "L2",
+      "KIK"
     ]
   },
   {
@@ -27929,7 +30483,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #106",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#106",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#106",
     "display_sp": "柚葉24じ　#106",
     "url": "https://www.tokyoheadline.com/845399/",
     "groups": [
@@ -28178,17 +30732,6 @@
     ]
   },
   {
-    "logid": "fa8ec316722d",
-    "date": "20260206",
-    "time": "1900",
-    "contents": "CL",
-    "title": "LDH NEWS CAST",
-    "groups": [
-      "L2",
-      "RIN"
-    ]
-  },
-  {
     "logid": "9999f4eae7d5",
     "date": "20260206",
     "time": "1900",
@@ -28204,6 +30747,18 @@
       "KUR",
       "MNM",
       "KIR"
+    ]
+  },
+  {
+    "logid": "fa8ec316722d",
+    "date": "20260206",
+    "time": "1859",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　山口莉愛",
+    "url": "https://www.cl-live.com/programs/cast/93A6ySaPEiMjp17KWvhWDb?lang=ja",
+    "groups": [
+      "L2",
+      "RIN"
     ]
   },
   {
@@ -28609,9 +31164,10 @@
   {
     "logid": "bf9158ca1b44",
     "date": "20260130",
-    "time": "1730",
+    "time": "1735",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　深澤日彩",
+    "url": "https://www.cl-live.com/programs/cast/8pJBqmu2pQeqwYNCXzUwHU?lang=ja",
     "groups": [
       "L2",
       "HIR"
@@ -28740,9 +31296,10 @@
   {
     "logid": "e2c81836981e",
     "date": "20260129",
-    "time": "1800",
+    "time": "1757",
     "contents": "CL",
-    "title": "木曜日のフォーエイト",
+    "title": "木曜日のフォーエイト　森朱里",
+    "url": "https://www.cl-live.com/programs/cast/4VpjDhpR8ZCPMgm3DSCbJc?lang=ja",
     "groups": [
       "L2",
       "AKR"
@@ -28903,7 +31460,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #007",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#007",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#007",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#007",
     "url": "https://www.tokyoheadline.com/844143/",
     "groups": [
@@ -29231,9 +31788,10 @@
   {
     "logid": "24f96070e6eb",
     "date": "20260123",
-    "time": "1320",
+    "time": "1317",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　菱田未渚美",
+    "url": "https://www.cl-live.com/programs/cast/8bbd7FLdCiMDFTYPwSh2Lj?lang=ja",
     "groups": [
       "G2",
       "MNM"
@@ -29426,9 +31984,10 @@
   {
     "logid": "8cd76e47dc07",
     "date": "20260120",
-    "time": "1700",
+    "time": "1657",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　比嘉優和",
+    "url": "https://www.cl-live.com/programs/cast/w11mhUbhYqmPq6GrKSYFWU?lang=ja",
     "groups": [
       "L2",
       "YUW"
@@ -29682,9 +32241,10 @@
   {
     "logid": "1a729302d3f1",
     "date": "20260116",
-    "time": "1320",
+    "time": "1317",
     "contents": "CL",
-    "title": "LDH NEWS CAST",
+    "title": "LDH NEWS CAST　鶴屋美咲",
+    "url": "https://www.cl-live.com/programs/cast/3ginwaBMa1JqGrU2FyDHSY?lang=ja",
     "groups": [
       "G2",
       "MSK"
@@ -29846,7 +32406,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #105",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#105",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#105",
     "display_sp": "柚葉24じ　#105",
     "url": "https://www.tokyoheadline.com/841992/",
     "groups": [
@@ -31560,7 +34120,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #006",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#006",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#006",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#006",
     "url": "https://www.tokyoheadline.com/838277/",
     "groups": [
@@ -32351,7 +34911,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #104",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#104",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#104",
     "display_sp": "柚葉24じ　#104",
     "url": "https://www.tokyoheadline.com/836290/",
     "groups": [
@@ -33224,7 +35784,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #005",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#005",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#005",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#005",
     "url": "https://www.tokyoheadline.com/833935/",
     "groups": [
@@ -34346,7 +36906,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #103",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#103",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#103",
     "display_sp": "柚葉24じ　#103",
     "url": "https://www.tokyoheadline.com/831592/",
     "groups": [
@@ -35260,7 +37820,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #004",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#004",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#004",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#004",
     "url": "https://www.tokyoheadline.com/829179/",
     "groups": [
@@ -37450,7 +40010,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #003",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#003",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#003",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#003",
     "url": "https://www.tokyoheadline.com/823237/",
     "groups": [
@@ -39141,7 +41701,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #002",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#002",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#002",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#002",
     "url": "https://www.tokyoheadline.com/818796/",
     "groups": [
@@ -40039,7 +42599,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #102",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#102",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#102",
     "display_sp": "柚葉24じ　#102",
     "url": "https://www.tokyoheadline.com/817281/",
     "groups": [
@@ -41519,7 +44079,7 @@
     "time": "1200",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #001",
-    "display_pc": "TOKYO HEADLINE「あかりんごの元気モリモリDiary🌳🍎💚」　#001",
+    "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#001",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#001",
     "url": "https://www.tokyoheadline.com/813750/",
     "groups": [
@@ -42628,7 +45188,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #101",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#101",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#101",
     "display_sp": "柚葉24じ　#101",
     "url": "https://www.tokyoheadline.com/812151/",
     "groups": [
@@ -43677,7 +46237,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #100",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#100",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#100",
     "display_sp": "柚葉24じ　#100",
     "url": "https://www.tokyoheadline.com/810205/",
     "groups": [
@@ -44678,7 +47238,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #099",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#099",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#099",
     "display_sp": "柚葉24じ　#099",
     "url": "https://www.tokyoheadline.com/808051/",
     "groups": [
@@ -45639,7 +48199,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #098",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#098",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#098",
     "display_sp": "柚葉24じ　#098",
     "url": "https://www.tokyoheadline.com/806106/",
     "groups": [
@@ -46530,7 +49090,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #097",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#097",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#097",
     "display_sp": "柚葉24じ　#097",
     "url": "https://www.tokyoheadline.com/803578/",
     "groups": [
@@ -48074,7 +50634,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #096",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#096",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#096",
     "display_sp": "柚葉24じ　#096",
     "url": "https://www.tokyoheadline.com/800812/",
     "groups": [
@@ -49041,7 +51601,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #095",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#095",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#095",
     "display_sp": "柚葉24じ　#095",
     "url": "https://www.tokyoheadline.com/798689/",
     "groups": [
@@ -50096,7 +52656,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #094",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#094",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#094",
     "display_sp": "柚葉24じ　#094",
     "url": "https://www.tokyoheadline.com/796697/",
     "groups": [
@@ -50724,6 +53284,17 @@
     ],
     "tags": [
       "南海浪切ホール"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/1901112134244987102",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
@@ -50745,6 +53316,17 @@
     ],
     "tags": [
       "南海浪切ホール"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/1901112134244987102",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
@@ -51175,7 +53757,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #093",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#093",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#093",
     "display_sp": "柚葉24じ　#093",
     "url": "https://www.tokyoheadline.com/794718/",
     "groups": [
@@ -52298,7 +54880,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #092",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#092",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#092",
     "display_sp": "柚葉24じ　#092",
     "url": "https://www.tokyoheadline.com/792944/",
     "groups": [
@@ -53319,7 +55901,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #091",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#091",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#091",
     "display_sp": "柚葉24じ　#091",
     "url": "https://www.tokyoheadline.com/791343/",
     "groups": [
@@ -54255,7 +56837,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #090",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#090",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#090",
     "display_sp": "柚葉24じ　#090",
     "url": "https://www.tokyoheadline.com/789043/",
     "groups": [
@@ -55273,7 +57855,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #089",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#089",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#089",
     "display_sp": "柚葉24じ　#089",
     "url": "https://www.tokyoheadline.com/787080/",
     "groups": [
@@ -56845,7 +59427,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #088",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#088",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#088",
     "display_sp": "柚葉24じ　#088",
     "url": "https://www.tokyoheadline.com/784744/",
     "groups": [
@@ -57942,7 +60524,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #087",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#087",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#087",
     "display_sp": "柚葉24じ　#087",
     "url": "https://www.tokyoheadline.com/782371/",
     "groups": [
@@ -58992,7 +61574,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #086",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#086",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#086",
     "display_sp": "柚葉24じ　#086",
     "url": "https://www.tokyoheadline.com/780487/",
     "groups": [
@@ -59985,7 +62567,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #085",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#085",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#085",
     "display_sp": "柚葉24じ　#085",
     "url": "https://www.tokyoheadline.com/778410/",
     "groups": [
@@ -61469,7 +64051,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #084",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#084",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#084",
     "display_sp": "柚葉24じ　#084",
     "url": "https://www.tokyoheadline.com/775274/",
     "groups": [
@@ -62266,6 +64848,39 @@
       "MNM",
       "KIR",
       "TOA"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/1845442150332498119",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR",
+              "TOA"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/1845329535853789617",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR",
+              "TOA"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -62684,7 +65299,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #083",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#083",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#083",
     "display_sp": "柚葉24じ　#083",
     "url": "https://www.tokyoheadline.com/773090/",
     "groups": [
@@ -62693,6 +65308,36 @@
     ],
     "relations": [],
     "tags": []
+  },
+  {
+    "logid": "bb6279258069",
+    "date": "20241008",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Lucky²",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK",
+      "YUR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/1843599906281607565",
+            "member": []
+          }
+        ]
+      }
+    ]
   },
   {
     "logid": "87c5c45ca9e9",
@@ -63707,7 +66352,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #082",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#082",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#082",
     "display_sp": "柚葉24じ　#082",
     "url": "https://www.tokyoheadline.com/771044/",
     "groups": [
@@ -64903,7 +67548,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #081",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#081",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#081",
     "display_sp": "柚葉24じ　#081",
     "url": "https://www.tokyoheadline.com/768398/",
     "groups": [
@@ -65692,7 +68337,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #080",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#080",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#080",
     "display_sp": "柚葉24じ　#080",
     "url": "https://www.tokyoheadline.com/766939/",
     "groups": [
@@ -66720,7 +69365,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #079",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#079",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#079",
     "display_sp": "柚葉24じ　#079",
     "url": "https://www.tokyoheadline.com/765227/",
     "groups": [
@@ -68074,7 +70719,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #078",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#078",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#078",
     "display_sp": "柚葉24じ　#078",
     "url": "https://www.tokyoheadline.com/761773/",
     "groups": [
@@ -68917,7 +71562,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #077",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#077",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#077",
     "display_sp": "柚葉24じ　#077",
     "url": "https://www.tokyoheadline.com/759787/",
     "groups": [
@@ -70047,7 +72692,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #076",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#076",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#076",
     "display_sp": "柚葉24じ　#076",
     "url": "https://www.tokyoheadline.com/757662/",
     "groups": [
@@ -71005,7 +73650,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #075",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#075",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#075",
     "display_sp": "柚葉24じ　#075",
     "url": "https://www.tokyoheadline.com/755451/",
     "groups": [
@@ -71871,7 +74516,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #074",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#074",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#074",
     "display_sp": "柚葉24じ　#074",
     "url": "https://www.tokyoheadline.com/753104/",
     "groups": [
@@ -72839,7 +75484,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #073",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#073",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#073",
     "display_sp": "柚葉24じ　#073",
     "url": "https://www.tokyoheadline.com/750566/",
     "groups": [
@@ -74178,7 +76823,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #072",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#072",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#072",
     "display_sp": "柚葉24じ　#072",
     "url": "https://www.tokyoheadline.com/747637/",
     "groups": [
@@ -74901,7 +77546,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #071",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#071",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#071",
     "display_sp": "柚葉24じ　#071",
     "url": "https://www.tokyoheadline.com/745718/",
     "groups": [
@@ -75791,7 +78436,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #070",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#070",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#070",
     "display_sp": "柚葉24じ　#070",
     "url": "https://www.tokyoheadline.com/743501/",
     "groups": [
@@ -76733,7 +79378,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #069",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#069",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#069",
     "display_sp": "柚葉24じ　#069",
     "url": "https://www.tokyoheadline.com/741098/",
     "groups": [
@@ -77659,7 +80304,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #068",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#068",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#068",
     "display_sp": "柚葉24じ　#068",
     "url": "https://www.tokyoheadline.com/738813/",
     "groups": [
@@ -78695,8 +81340,8 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #067",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#067",
-    "display_sp": "柚葉24じ　#67",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#067",
+    "display_sp": "柚葉24じ　#067",
     "url": "https://www.tokyoheadline.com/736565/",
     "groups": [
       "G2",
@@ -79966,7 +82611,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」#066",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#066",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#066",
     "display_sp": "柚葉24じ　#066",
     "url": "https://www.tokyoheadline.com/733797/",
     "groups": [
@@ -80812,7 +83457,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」#065",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#065",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#065",
     "display_sp": "柚葉24じ　#065",
     "url": "https://www.tokyoheadline.com/731249/",
     "groups": [
@@ -81744,7 +84389,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #064",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#064",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#064",
     "display_sp": "柚葉24じ　#064",
     "url": "https://www.tokyoheadline.com/729643/",
     "groups": [
@@ -82739,7 +85384,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #063",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#063",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#063",
     "display_sp": "柚葉24じ　#063",
     "url": "https://www.tokyoheadline.com/727477/",
     "groups": [
@@ -83556,7 +86201,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #062",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#062",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#062",
     "display_sp": "柚葉24じ　#062",
     "url": "https://www.tokyoheadline.com/725065/",
     "groups": [
@@ -84555,7 +87200,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #061",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#061",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#061",
     "display_sp": "柚葉24じ　#061",
     "url": "https://www.tokyoheadline.com/722884/",
     "groups": [
@@ -86145,7 +88790,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #060",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#060",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#060",
     "display_sp": "柚葉24じ　#060",
     "url": "https://www.tokyoheadline.com/719343/",
     "groups": [
@@ -87149,7 +89794,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #059",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#059",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#059",
     "display_sp": "柚葉24じ　#059",
     "url": "https://www.tokyoheadline.com/717030/",
     "groups": [
@@ -88067,7 +90712,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #058",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#058",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#058",
     "display_sp": "柚葉24じ　#058",
     "url": "https://www.tokyoheadline.com/715509/",
     "groups": [
@@ -88975,7 +91620,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #057",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#057",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#057",
     "display_sp": "柚葉24じ　#057",
     "url": "https://www.tokyoheadline.com/713142/",
     "groups": [
@@ -89883,7 +92528,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #056",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#056",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#056",
     "display_sp": "柚葉24じ　#056",
     "url": "https://www.tokyoheadline.com/710888/",
     "groups": [
@@ -90761,7 +93406,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #055",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#055",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#055",
     "display_sp": "柚葉24じ　#055",
     "url": "https://www.tokyoheadline.com/707900/",
     "groups": [
@@ -92269,7 +94914,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #054",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#054",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#054",
     "display_sp": "柚葉24じ　#054",
     "url": "https://www.tokyoheadline.com/704718/",
     "groups": [
@@ -93155,7 +95800,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #053",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#053",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#053",
     "display_sp": "柚葉24じ　#053",
     "url": "https://www.tokyoheadline.com/702386/",
     "groups": [
@@ -94055,7 +96700,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #052",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#052",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#052",
     "display_sp": "柚葉24じ　#052",
     "url": "https://www.tokyoheadline.com/699942/",
     "groups": [
@@ -94871,7 +97516,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #051",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#051",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#051",
     "display_sp": "柚葉24じ　#051",
     "url": "https://www.tokyoheadline.com/697715/",
     "groups": [
@@ -96150,7 +98795,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #050",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#050",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#050",
     "display_sp": "柚葉24じ　#050",
     "url": "https://www.tokyoheadline.com/694212/",
     "groups": [
@@ -97024,7 +99669,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #049",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#049",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#049",
     "display_sp": "柚葉24じ　#049",
     "url": "https://www.tokyoheadline.com/692282/",
     "groups": [
@@ -97905,7 +100550,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #048",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#048",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#048",
     "display_sp": "柚葉24じ　#048",
     "url": "https://www.tokyoheadline.com/689428/",
     "groups": [
@@ -98783,7 +101428,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #047",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#047",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#047",
     "display_sp": "柚葉24じ　#047",
     "url": "https://www.tokyoheadline.com/686577/",
     "groups": [
@@ -99729,7 +102374,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #046",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#046",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#046",
     "display_sp": "柚葉24じ　#046",
     "url": "https://www.tokyoheadline.com/684217/",
     "groups": [
@@ -100659,7 +103304,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #045",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#045",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#045",
     "display_sp": "柚葉24じ　#045",
     "url": "https://www.tokyoheadline.com/681778/",
     "groups": [
@@ -101656,7 +104301,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #044",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#044",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#044",
     "display_sp": "柚葉24じ　#044",
     "url": "https://www.tokyoheadline.com/678584/",
     "groups": [
@@ -102754,7 +105399,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #043",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#043",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#043",
     "display_sp": "柚葉24じ　#043",
     "url": "https://www.tokyoheadline.com/676087/",
     "groups": [
@@ -104307,7 +106952,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #042",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#042",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#042",
     "display_sp": "柚葉24じ　#042",
     "url": "https://www.tokyoheadline.com/672233/",
     "groups": [
@@ -105204,7 +107849,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #041",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#041",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#041",
     "display_sp": "柚葉24じ　#041",
     "url": "https://www.tokyoheadline.com/669929/",
     "groups": [
@@ -106682,7 +109327,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #040",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#040",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#040",
     "display_sp": "柚葉24じ　#040",
     "url": "https://www.tokyoheadline.com/667838/",
     "groups": [
@@ -107667,7 +110312,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #039",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#039",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#039",
     "display_sp": "柚葉24じ　#039",
     "url": "https://www.tokyoheadline.com/665012/",
     "groups": [
@@ -109246,7 +111891,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #038",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#038",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#038",
     "display_sp": "柚葉24じ　#038",
     "url": "https://www.tokyoheadline.com/660989/",
     "groups": [
@@ -110243,7 +112888,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #037",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#037",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#037",
     "display_sp": "柚葉24じ　#037",
     "url": "https://www.tokyoheadline.com/658297/",
     "groups": [
@@ -110882,6 +113527,67 @@
     ]
   },
   {
+    "logid": "dcd0aa5d0845",
+    "date": "20221029",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "文化放送 presents Girls²とLucky² \n～ヒミツのハロウィーンパーティー2022～",
+    "display_pc": "Girls²とLucky² \n～ヒミツのハロウィーンパーティー2022～",
+    "display_sp": "Girls²とLucky² ヒミツのハロウィーンパーティー2022",
+    "url": "https://www.joqr.co.jp/ic/article/65162/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN",
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK",
+      "YUR"
+    ],
+    "setlistid": "202210291700",
+    "tags": [
+      "日比谷野外大音楽堂"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/joqrlucky/status/1575432715641331712",
+            "member": []
+          },
+          {
+            "url": "https://x.com/joqrlucky/status/1582706384910811137",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK",
+              "YUR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "5eb32cbe24dd",
     "date": "20221029",
     "time": "1200",
@@ -111351,7 +114057,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #036",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#036",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#036",
     "display_sp": "柚葉24じ　#036",
     "url": "https://www.tokyoheadline.com/655534/",
     "groups": [
@@ -111555,6 +114261,42 @@
       "HIR",
       "YUW",
       "KAN"
+    ]
+  },
+  {
+    "logid": "951042c4d564",
+    "date": "20221020",
+    "time": "1900",
+    "contents": "RADIO",
+    "title": "文化放送 「Lucky²のラッキートーク！」　#004",
+    "groups": [
+      "L2",
+      "RIN",
+      "HIR",
+      "RRK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/joqrlucky/status/1580516460841271298",
+            "member": [
+              "RIN",
+              "HIR",
+              "RRK"
+            ]
+          },
+          {
+            "url": "https://x.com/joqrlucky/status/1583052910627196928",
+            "member": [
+              "RIN",
+              "HIR",
+              "RRK"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -112026,6 +114768,38 @@
     ]
   },
   {
+    "logid": "d8334d119135",
+    "date": "20221013",
+    "time": "1900",
+    "contents": "RADIO",
+    "title": "文化放送 「Lucky²のラッキートーク！」　#003",
+    "groups": [
+      "L2",
+      "TBK",
+      "KAN",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/joqrlucky/status/1580509212966547457",
+            "member": [
+              "TBK",
+              "KAN",
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://x.com/joqrlucky/status/1580488431800492033",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "81227dfc86c0",
     "date": "20221013",
     "time": "1700",
@@ -112240,7 +115014,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #035",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#035",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#035",
     "display_sp": "柚葉24じ　#035",
     "url": "https://www.tokyoheadline.com/653029/",
     "groups": [
@@ -112539,6 +115313,34 @@
     "groups": [
       "L2",
       "RRK"
+    ]
+  },
+  {
+    "logid": "004592288a7b",
+    "date": "20221006",
+    "time": "1900",
+    "contents": "RADIO",
+    "title": "文化放送 「Lucky²のラッキートーク！」　#002",
+    "groups": [
+      "L2",
+      "YUW",
+      "AKR",
+      "YUR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/joqrlucky/status/1577979166774816768",
+            "member": [
+              "YUW",
+              "AKR",
+              "YUR"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -112871,6 +115673,27 @@
     ],
     "tags": [
       "福岡サンパレス"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/1576522367614218241",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR",
+              "TOA",
+              "RAN"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -112893,6 +115716,27 @@
     ],
     "tags": [
       "福岡サンパレス"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/1576522367614218241",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR",
+              "TOA",
+              "RAN"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -113055,6 +115899,45 @@
       "RIN",
       "HIR",
       "RRK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/joqrpr/status/1572089213247705088",
+            "member": []
+          },
+          {
+            "url": "https://x.com/joqrlucky/status/1572090289229271043",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/1572089295275716608",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/1575047664181182464",
+            "member": []
+          },
+          {
+            "url": "https://x.com/joqrlucky/status/1575063852248551424",
+            "member": []
+          },
+          {
+            "url": "https://x.com/joqrlucky/status/1575395556188618753",
+            "member": []
+          },
+          {
+            "url": "https://x.com/joqrlucky/status/1575438398059253761",
+            "member": [
+              "RIN",
+              "HIR",
+              "RRK"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -113293,7 +116176,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #034",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#034",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#034",
     "display_sp": "柚葉24じ　#034",
     "url": "https://www.tokyoheadline.com/650221/",
     "groups": [
@@ -114206,7 +117089,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #033",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#033",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#033",
     "display_sp": "柚葉24じ　#033",
     "url": "https://www.tokyoheadline.com/647589/",
     "groups": [
@@ -115845,7 +118728,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #032",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#032",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#032",
     "display_sp": "柚葉24じ　#032",
     "url": "https://www.tokyoheadline.com/643651/",
     "groups": [
@@ -116933,7 +119816,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #031",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#031",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#031",
     "display_sp": "柚葉24じ　#031",
     "url": "https://www.tokyoheadline.com/640764/",
     "groups": [
@@ -118184,7 +121067,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #030",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#030",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#030",
     "display_sp": "柚葉24じ　#030",
     "url": "https://www.tokyoheadline.com/638454/",
     "groups": [
@@ -119639,7 +122522,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #029",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#029",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#029",
     "display_sp": "柚葉24じ　#029",
     "url": "https://www.tokyoheadline.com/635592/",
     "groups": [
@@ -121105,7 +123988,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #028",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#028",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#028",
     "display_sp": "柚葉24じ　#028",
     "url": "https://www.tokyoheadline.com/632484/",
     "groups": [
@@ -122720,7 +125603,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #027",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#027",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#027",
     "display_sp": "柚葉24じ　#027",
     "url": "https://www.tokyoheadline.com/629536/",
     "groups": [
@@ -124898,7 +127781,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #026",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#026",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#026",
     "display_sp": "柚葉24じ　#026",
     "url": "https://www.tokyoheadline.com/625253/",
     "groups": [
@@ -126127,7 +129010,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #025",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#025",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#025",
     "display_sp": "柚葉24じ　#025",
     "url": "https://www.tokyoheadline.com/622207/",
     "groups": [
@@ -127332,7 +130215,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #024",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#024",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#024",
     "display_sp": "柚葉24じ　#024",
     "url": "https://www.tokyoheadline.com/619105/",
     "groups": [
@@ -128562,7 +131445,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #023",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#023",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#023",
     "display_sp": "柚葉24じ　#023",
     "url": "https://www.tokyoheadline.com/614744/",
     "groups": [
@@ -130503,7 +133386,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #022",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#022",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#022",
     "display_sp": "柚葉24じ　#022",
     "url": "https://www.tokyoheadline.com/610984/2/",
     "groups": [
@@ -131782,7 +134665,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #021",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#021",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#021",
     "display_sp": "柚葉24じ　#021",
     "url": "https://www.tokyoheadline.com/607929/",
     "groups": [
@@ -133084,7 +135967,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #020",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#020",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#020",
     "display_sp": "柚葉24じ　#020",
     "url": "https://www.tokyoheadline.com/604213/",
     "groups": [
@@ -134323,7 +137206,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #019",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#019",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#019",
     "display_sp": "柚葉24じ　#019",
     "url": "https://www.tokyoheadline.com/599841/",
     "groups": [
@@ -135469,7 +138352,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #018",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#018",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#018",
     "display_sp": "柚葉24じ　#018",
     "url": "https://www.tokyoheadline.com/596118/",
     "groups": [
@@ -136731,7 +139614,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #017",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#017",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#017",
     "display_sp": "柚葉24じ　#017",
     "url": "https://www.tokyoheadline.com/593157/",
     "groups": [
@@ -138140,7 +141023,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #016",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#016",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#016",
     "display_sp": "柚葉24じ　#016",
     "url": "https://www.tokyoheadline.com/590921/",
     "groups": [
@@ -139388,7 +142271,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #015",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#015",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#015",
     "display_sp": "柚葉24じ　#015",
     "url": "https://www.tokyoheadline.com/587686/",
     "groups": [
@@ -141197,7 +144080,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #014",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#014",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#014",
     "display_sp": "柚葉24じ　#014",
     "url": "https://www.tokyoheadline.com/584515/",
     "groups": [
@@ -142541,7 +145424,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #013",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#013",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#013",
     "display_sp": "柚葉24じ　#013",
     "url": "https://www.tokyoheadline.com/582355/",
     "groups": [
@@ -143835,7 +146718,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #012",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#012",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#012",
     "display_sp": "柚葉24じ　#012",
     "url": "https://www.tokyoheadline.com/579324/",
     "groups": [
@@ -145067,7 +147950,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #011",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#011",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#011",
     "display_sp": "柚葉24じ　#011",
     "url": "https://www.tokyoheadline.com/576794/",
     "groups": [
@@ -146438,7 +149321,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #010",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#010",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#010",
     "display_sp": "柚葉24じ　#010",
     "url": "https://www.tokyoheadline.com/574219/",
     "groups": [
@@ -147862,7 +150745,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #009",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#009",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#009",
     "display_sp": "柚葉24じ　#009",
     "url": "https://www.tokyoheadline.com/571970/",
     "groups": [
@@ -149823,7 +152706,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #008",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#008",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#008",
     "display_sp": "柚葉24じ　#008",
     "url": "https://www.tokyoheadline.com/568730/",
     "groups": [
@@ -151149,7 +154032,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #007",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#007",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#007",
     "display_sp": "柚葉24じ　#007",
     "url": "https://www.tokyoheadline.com/566360/",
     "groups": [
@@ -152378,7 +155261,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #006",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#006",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#006",
     "display_sp": "柚葉24じ　#006",
     "url": "https://www.tokyoheadline.com/564315/",
     "groups": [
@@ -153696,7 +156579,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #005",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#005",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#005",
     "display_sp": "柚葉24じ　#005",
     "url": "https://www.tokyoheadline.com/562263/",
     "groups": [
@@ -155488,7 +158371,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #004",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#004",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#004",
     "display_sp": "柚葉24じ　#004",
     "url": "https://www.tokyoheadline.com/558530/",
     "groups": [
@@ -156345,7 +159228,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #003",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#003",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#003",
     "display_sp": "柚葉24じ　#003",
     "url": "https://www.tokyoheadline.com/556587/",
     "groups": [
@@ -157149,7 +160032,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #002",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#002",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#002",
     "display_sp": "柚葉24じ　#002",
     "url": "https://www.tokyoheadline.com/554319/",
     "groups": [
@@ -157970,7 +160853,7 @@
     "time": "0700",
     "contents": "COLUMN",
     "title": "TOKYO HEADLINE WEB「柚葉24じ」 #001",
-    "display_pc": "TOKYO HEADLINE「柚葉24じ」　#001",
+    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#001",
     "display_sp": "柚葉24じ　#001",
     "url": "https://www.tokyoheadline.com/549611/",
     "groups": [
@@ -167780,8 +170663,8 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　ありがとうございました。",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　ありがとうございました。",
-    "display_sp": "Online Live 2020やすみじかん 　ありがとうございました。",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#15　ありがとうございました。",
+    "display_sp": "Online Live 2020やすみじかん　#15",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/458083721493349179",
     "groups": [
       "G2",
@@ -167870,8 +170753,8 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　いよいよ本日！！！",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　いよいよ本日！！！",
-    "display_sp": "Online Live 2020やすみじかん 　いよいよ本日！！！",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#14　いよいよ本日！！！",
+    "display_sp": "Online Live 2020やすみじかん　#14",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/457711889665754049",
     "groups": [
       "G2",
@@ -167958,19 +170841,11 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐑𝐀𝐍 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏𝟑",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐑𝐀𝐍 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏𝟑",
-    "display_sp": "Online Live 2020やすみじかん 　𝐑𝐀𝐍 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏𝟑",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#13　RAN movie / Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#13",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/457375587531490241",
     "groups": [
       "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
       "RAN"
     ]
   },
@@ -168022,20 +170897,12 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐓𝐎𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏𝟐",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐓𝐎𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏𝟐",
-    "display_sp": "Online Live 2020やすみじかん 　𝐓𝐎𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏𝟐",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#12　TOA movie / Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#12",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/457010838734111785",
     "groups": [
       "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
+      "TOA"
     ]
   },
   {
@@ -168108,20 +170975,12 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐊𝐈𝐑𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏𝟏",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐊𝐈𝐑𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏𝟏",
-    "display_sp": "Online Live 2020やすみじかん 　𝐊𝐈𝐑𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏𝟏",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#11　KIRA movie / Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#11",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/456734073805603643",
     "groups": [
       "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
+      "KIR"
     ]
   },
   {
@@ -168172,20 +171031,12 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐌𝐈𝐍𝐀𝐌𝐈 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏𝟎",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐌𝐈𝐍𝐀𝐌𝐈 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏𝟎",
-    "display_sp": "Online Live 2020やすみじかん 　𝐌𝐈𝐍𝐀𝐌𝐈 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏𝟎",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#10　MINAMI movie / Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#10",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/455938031992439745",
     "groups": [
       "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
+      "MNM"
     ]
   },
   {
@@ -168236,20 +171087,12 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐊𝐔𝐑𝐄𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟗",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐊𝐔𝐑𝐄𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟗",
-    "display_sp": "Online Live 2020やすみじかん 　𝐊𝐔𝐑𝐄𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟗",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#09　KUREA movie / Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#09",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/455935942159500329",
     "groups": [
       "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
+      "KUR"
     ]
   },
   {
@@ -168406,20 +171249,12 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐘𝐎𝐔𝐊𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟖",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐘𝐎𝐔𝐊𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟖",
-    "display_sp": "Online Live 2020やすみじかん 　𝐘𝐎𝐔𝐊𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟖",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#08　YOUKA movie / Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#08",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/455519981178717121",
     "groups": [
       "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
+      "YOK"
     ]
   },
   {
@@ -168470,20 +171305,12 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐌𝐈𝐒𝐀𝐊𝐈 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟕",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐌𝐈𝐒𝐀𝐊𝐈 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟕",
-    "display_sp": "Online Live 2020やすみじかん 　𝐌𝐈𝐒𝐀𝐊𝐈 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟕",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#07　MISAKI movie / Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#07",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/454878432015156027",
     "groups": [
       "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
+      "MSK"
     ]
   },
   {
@@ -168534,20 +171361,12 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐌𝐎𝐌𝐎𝐊𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟔",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐌𝐎𝐌𝐎𝐊𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟔",
-    "display_sp": "Online Live 2020やすみじかん 　𝐌𝐎𝐌𝐎𝐊𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟔",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#06　MOMOKA movie / Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#06",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/454877835803231035",
     "groups": [
       "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
+      "MMK"
     ]
   },
   {
@@ -168598,20 +171417,12 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐘𝐔𝐙𝐔𝐇𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟓",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐘𝐔𝐙𝐔𝐇𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟓",
-    "display_sp": "Online Live 2020やすみじかん 　𝐘𝐔𝐙𝐔𝐇𝐀 𝐦𝐨𝐯𝐢𝐞／𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟓",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#05　YUZUHA movie / Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#05",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/454219124764050369",
     "groups": [
       "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
+      "YZH"
     ]
   },
   {
@@ -168684,8 +171495,8 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐋𝐈𝐕𝐄リハーサル 𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟒",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐋𝐈𝐕𝐄リハーサル 𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟒",
-    "display_sp": "Online Live 2020やすみじかん 　𝐋𝐈𝐕𝐄リハーサル 𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟒",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#04　LIVE リハーサル Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#04",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/454179288724276161",
     "groups": [
       "G2",
@@ -168748,8 +171559,8 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐋𝐈𝐕𝐄リハーサル 𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟑",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐋𝐈𝐕𝐄リハーサル 𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟑",
-    "display_sp": "Online Live 2020やすみじかん 　𝐋𝐈𝐕𝐄リハーサル 𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟑",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#03　LIVE リハーサル Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#03",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/453103181333791547",
     "groups": [
       "G2",
@@ -168812,8 +171623,8 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐋𝐈𝐕𝐄リハーサル 𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟐",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐋𝐈𝐕𝐄リハーサル 𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟐",
-    "display_sp": "Online Live 2020やすみじかん 　𝐋𝐈𝐕𝐄リハーサル 𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟐",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#02　LIVE リハーサル Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#02",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/453103008486523841",
     "groups": [
       "G2",
@@ -168898,8 +171709,8 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "『Girls² Online Live 2020』やすみじかん 　𝐋𝐈𝐕𝐄リハーサル 𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏",
-    "display_pc": "Girls² Online Live 2020やすみじかん 　𝐋𝐈𝐕𝐄リハーサル 𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏",
-    "display_sp": "Online Live 2020やすみじかん 　𝐋𝐈𝐕𝐄リハーサル 𝐎𝐟𝐟 𝐒𝐡𝐨𝐭 #𝟏",
+    "display_pc": "Girls² Online Live 2020やすみじかん　#01　LIVE リハーサル Off Shot",
+    "display_sp": "Online Live 2020やすみじかん　#01",
     "url": "https://girls2-fc.jp/page/onlineliveDiary/450857650893095873",
     "groups": [
       "G2",
@@ -174276,8 +177087,8 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "チュワパネ！やすみじかん #6 ツアーリハーサル完全版☆",
-    "display_pc": "チュワパネ！やすみじかん　#6　ツアーリハーサル完全版☆",
-    "display_sp": "チュワパネ!やすみじかん　#6　ツアーリハーサル完全版☆",
+    "display_pc": "チュワパネ！やすみじかん　#06　ツアーリハーサル完全版☆",
+    "display_sp": "チュワパネ!やすみじかん　#06",
     "url": "https://girls2-fc.jp/page/chuwapaneDiary/414629767090799419",
     "groups": [
       "G2",
@@ -174703,8 +177514,8 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "チュワパネ！やすみじかん #5 ツアーリハーサル完全版☆",
-    "display_pc": "チュワパネ！やすみじかん　#5　ツアーリハーサル完全版☆",
-    "display_sp": "チュワパネ!やすみじかん　#5　ツアーリハーサル完全版☆",
+    "display_pc": "チュワパネ！やすみじかん　#05　ツアーリハーサル完全版☆",
+    "display_sp": "チュワパネ!やすみじかん　#05",
     "url": "https://girls2-fc.jp/page/chuwapaneDiary/412083504977806407",
     "groups": [
       "G2",
@@ -175191,8 +178002,8 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "チュワパネ！やすみじかん #4 ツアーリハーサル完全版☆",
-    "display_pc": "チュワパネ！やすみじかん　#4　ツアーリハーサル完全版☆",
-    "display_sp": "チュワパネ!やすみじかん　#4　ツアーリハーサル完全版☆",
+    "display_pc": "チュワパネ！やすみじかん　#04　ツアーリハーサル完全版☆",
+    "display_sp": "チュワパネ!やすみじかん　#04",
     "url": "https://girls2-fc.jp/page/chuwapaneDiary/409543749522162759",
     "groups": [
       "G2",
@@ -175428,8 +178239,8 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "チュワパネ！やすみじかん #3 ツアーリハーサル完全版☆",
-    "display_pc": "チュワパネ！やすみじかん　#3　ツアーリハーサル完全版☆",
-    "display_sp": "チュワパネ!やすみじかん　#3　ツアーリハーサル完全版☆",
+    "display_pc": "チュワパネ！やすみじかん　#03　ツアーリハーサル完全版☆",
+    "display_sp": "チュワパネ!やすみじかん　#03",
     "url": "https://girls2-fc.jp/page/chuwapaneDiary/407003815733101664",
     "groups": [
       "G2",
@@ -175843,8 +178654,8 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "チュワパネ！やすみじかん #2 ツアーリハーサル完全版☆",
-    "display_pc": "チュワパネ！やすみじかん　#2　ツアーリハーサル完全版☆",
-    "display_sp": "チュワパネ!やすみじかん　#2　ツアーリハーサル完全版☆",
+    "display_pc": "チュワパネ！やすみじかん　#02　ツアーリハーサル完全版☆",
+    "display_sp": "チュワパネ!やすみじかん　#02",
     "url": "https://girls2-fc.jp/page/chuwapaneDiary/404145332516029536",
     "groups": [
       "G2",
@@ -176247,8 +179058,8 @@
     "time": "1200",
     "contents": "FANCLUB",
     "title": "チュワパネ！やすみじかん 無料配信 #1 ツアーリハーサル完全版☆",
-    "display_pc": "チュワパネ！やすみじかん　#1　ツアーリハーサル完全版☆",
-    "display_sp": "チュワパネ!やすみじかん　#1　ツアーリハーサル完全版☆",
+    "display_pc": "チュワパネ！やすみじかん　#01　ツアーリハーサル完全版☆",
+    "display_sp": "チュワパネ!やすみじかん　#01",
     "url": "https://girls2-fc.jp/page/chuwapaneDiary/401933817192907919",
     "groups": [
       "G2",
