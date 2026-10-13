@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        📅 [日付・時間をカレンダーで選ぶ](https://gl-log.blogspot.com/p/issuehelper.html) — 選んだ値が入力済みのフォームが開きます。このフォームの入力欄は、そのまま自由入力もできます。
+        📅 [日付・時間をカレンダーで選ぶ](https://gl-log.blogspot.com/p/issuehelper.html)
 
   - type: input
     id: logid
@@ -16,7 +16,6 @@ body:
     id: copy_text
     attributes:
       label: "COPY / 文字入力"
-      description: "コピーして新規登録するときは copy と入力（下のCOPYにチェックでも可）"
 
   - type: checkboxes
     id: copy
@@ -89,7 +88,6 @@ body:
     id: contents_free
     attributes:
       label: "contents / 自由入力"
-      description: "上のプルダウンが未選択のときだけ使われます（プルダウン優先）。プルダウンの選択肢と同じ値ならその値、それ以外は ETC で登録されます。"
 
   - type: dropdown
     id: groups_g2
@@ -204,20 +202,18 @@ body:
     id: relations_free
     attributes:
       label: "relations / 自由入力"
-      description: "上のプルダウンが未選択のときだけ使われます（プルダウン優先）。カンマ区切り。G2 / L2 と入力するとそのグループ全員。例: YZH,MMK"
 
   - type: input
     id: tags
     attributes:
       label: "tags"
-      description: "カンマ区切り。更新時は既存の値に追記。`-タグ名` で、そのタグだけを削除（例: `-old,new`）"
 
   - type: textarea
     id: sns
     attributes:
       label: "sns"
       description: |
-        1行1件: `type | url | member`（例: `x | https://x.com/... | YZH,MMK`）。memberはgroupsと同じコードで、省略可（複数人はカンマ区切り: `YZH,MMK`。`G2` / `L2` と入力するとそのグループ全員）。URLだけ・`type | url` でも可（x / instagram / youtube / tiktok / girls2-fc.jp(GL²family) / cl-live.com(CL) は自動判定。それ以外のURLは etc として登録）。同じtypeは1つにまとめて登録。更新時は既存の値に追記（同じURLはmemberを上書き）。個別に削除するときは `-URL` の行を追加（例: `-https://x.com/...`）。
+        x / instagram / youtube / tiktok / GL²family / cl
 
   - type: checkboxes
     id: clear
