@@ -203,6 +203,12 @@ body:
     attributes:
       label: "relations / 自由入力"
 
+  - type: textarea
+    id: repeat
+    attributes:
+      label: "繰り返し登録 (1行1回)"
+      description: "新規のみ。1行1日付（YYYYMMDD、最大60件）。titleの #数字 は回ごとに自動で+1"
+
   - type: input
     id: tags
     attributes:
