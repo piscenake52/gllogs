@@ -779,6 +779,8 @@ body .item-contents.is-content-open {
 .setlist-song-play-btn { flex: 0 0 auto; width: 14.4px; height: 14.4px; border-radius: 50%; background: #fff; color: #121212; font-size: 6.4px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; border: 1px solid var(--input-border); }
 .setlist-song-play-btn.is-hidden { visibility: hidden; cursor: default; }
 .setlist-song-title { flex: 1 1 auto; font-size: calc(var(--data-font-scale) * 13px); }
+.setlist-song-hearts { display: flex; flex-wrap: wrap; gap: 1px; margin-top: 2px; line-height: 1; } /* 曲ごとの歌唱メンバー(曲名の下) */
+.setlist-song-heart { font-size: 8px; line-height: 1; }
 .setlist-song-type { flex: 0 0 auto; font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
 .setlist-song-notes { flex-basis: 100%; font-size: 11px; color: var(--sub); margin-top: 2px; }
 .setlist-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
@@ -2864,7 +2866,14 @@ body .item-contents.is-content-open {
           const typeBadge = String(s.type || '').split(/[,\s]+/).filter(t => t && t !== 'song').map(t => `<span class="setlist-song-type">${escapeHtml(displayNameForSetlistType(t))}</span>`).join('');
           const notesHtml = s.notes ? `<span class="setlist-song-notes">${escapeHtml(s.notes)}</span>` : '';
           const titleText = s.original ? `${escapeHtml(s.title || '')}\uFF08${escapeHtml(s.original)}\uFF09` : escapeHtml(s.title || '');
-          return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-title">${titleText}</span>${typeBadge}${notesHtml}</li>`;
+          // 歌唱メンバー(曲ごと): memberに指定がある曲だけ、曲名の下に小さくハートを出す(指定なし=全員扱いで何も出さない)
+          const songMembers = Array.isArray(s.member) ? s.member : (typeof s.member === 'string' ? s.member.split(/[,\s]+/) : []);
+          const songHearts = heartOrder.filter(v => songMembers.includes(v)).map(code => {
+            const info = memberInfoByCode[code];
+            return info ? `<span class="setlist-song-heart">${info.c}</span>` : '';
+          }).join('');
+          const songHeartsHtml = songHearts ? `<span class="setlist-song-hearts">${songHearts}</span>` : '';
+          return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-title">${titleText}${songHeartsHtml}</span>${typeBadge}${notesHtml}</li>`;
         })
         .join('');
       setlistModalBody.innerHTML =

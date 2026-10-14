@@ -342,12 +342,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     el.addEventListener('input', sync); sync();
     el.parentNode.appendChild(b);
   }
+  var jumpSeed = null; // values of the logs row the setlist tab was opened from (title / groups / tags): used to prefill a new setlist
   // arrow button in the setlistid field of a logs row: opens that setlist in this tab
   function addJump(el) {
     var wrap = el.parentNode; wrap.classList.add('hasfp');
     var b = document.createElement('button'); b.type = 'button'; b.className = 'fx fp'; b.textContent = '\u2192'; b.title = 'open setlist'; b.setAttribute('aria-label', 'open setlist');
     var sync = function () { b.hidden = !/^\d{12}$/.test(el.value.trim()); };
-    b.onclick = function () { var sid = el.value.trim(); tab('setlist'); try { history.replaceState(null, '', '#setlist'); } catch (e) {} $('fid').value = sid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); };
+    b.onclick = function () { var sid = el.value.trim(); var gv = function (k) { var e = $('f-' + k); return e ? e.value : ''; }; jumpSeed = { sid: sid, title: gv('title'), groups: gv('groups'), tags: gv('tags') }; tab('setlist'); try { history.replaceState(null, '', '#setlist'); } catch (e) {} $('fid').value = sid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); };
     el.addEventListener('input', sync); sync();
     wrap.appendChild(b);
   }
@@ -473,6 +474,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     Object.defineProperty(sel, 'value', { get: function () { return [].map.call(sel.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); }).join(','); }, set: function () { [].forEach.call(sel.querySelectorAll('.chip.on'), function (b) { b.classList.remove('on'); }); } });
     var orig2 = mkInput('mid', 'original'), notes = mkInput('mid', 'notes');
     rT.appendChild(sel); r2.appendChild(orig2); r2.appendChild(notes);
+    var mch = $('groups').cloneNode(true); mch.removeAttribute('id'); mch.title = 'singing members (none = all)'; // member chips of the song (G2 / L2 row removed): sent as {YZH,MMK} after the title
+    var gr0 = mch.querySelector('.cr'); if (gr0) gr0.parentNode.removeChild(gr0);
+    r1.parentNode.insertBefore(mch, rT.nextSibling);
+    var mTouched = false;
+    function getM() { return [].map.call(mch.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); }); }
+    function setM(a) { [].forEach.call(mch.querySelectorAll('.chip'), function (b) { b.classList.toggle('on', a.indexOf(b.getAttribute('data-v')) >= 0); }); }
+    [].forEach.call(mch.querySelectorAll('.chip'), function (b) { b.onclick = function () { b.classList.toggle('on'); mTouched = true; }; });
+    function memOf(sg) { var m = sg && sg.member; return Array.isArray(m) ? m : (typeof m === 'string' && m ? m.split(/[,\s]+/) : []); }
+    function withM(ti, a) { return a.length ? (ti ? ti + ' ' : '') + '{' + a.join(',') + '}' : ti; }
     addSuggest(title, songOptions, r1);
     function rowSong(n) { var a = (row && row.songs) || [], i; for (i = 0; i < a.length; i++) if (a[i] && a[i].order === n) return a[i]; return null; }
     function nextOrder() {
@@ -489,8 +499,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function syncMode() { // an existing order: show insert / update / delete (instead of add) and the current values as the placeholders (empty input = keep it)
       if (!edit) return;
       var sg = hit(), has = !!sg, cn0 = +num.value.replace(/\D/g, '');
-      if (has && pre !== cn0) { setChips(String(sg.type || '').split(/[,\s]+/)); touched = false; pre = cn0; } // the type chips show the current type of that song
-      else if (!has && pre) { if (!touched) setChips([]); pre = 0; }
+      if (has && pre !== cn0) { setChips(String(sg.type || '').split(/[,\s]+/)); touched = false; setM(memOf(sg)); mTouched = false; pre = cn0; } // the type chips show the current type of that song
+      else if (!has && pre) { if (!touched) setChips([]); if (!mTouched) setM([]); pre = 0; }
       add.disabled = has; ops.insert.disabled = ops.update.disabled = ops.delete.disabled = !has;
       var cn = +num.value.replace(/\D/g, ''); ops.up.disabled = !has || !rowSong(cn - 1); ops.down.disabled = !has || !rowSong(cn + 1); // no move beyond the first / last song
       title.placeholder = sg ? sg.title || 'title' : 'title';
@@ -513,12 +523,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       else {
         var rest = [md === 'update' ? (sel.value || 'song') : (touched || !pre ? sel.value : ''), orig2.value.trim(), notes.value.trim()]; // update: no chip selected = song
         while (rest.length && rest[rest.length - 1] === '') rest.pop();
-        line = (md === 'insert' ? '+' : '') + n + ': ' + [t].concat(rest).join(' | ');
+        var mc = getM(), mt = t;
+        if (md === 'insert') { if (mTouched && mc.length) mt = withM(t, mc); }
+        else { var m0 = memOf(rowSong(+n)); if (mc.join(',') !== m0.join(',')) mt = mc.length ? withM(t, mc) : (t ? t + ' {-}' : '{-}'); else mt = t; } // update: a changed member set is sent ({-} = clear), an unchanged one is not
+        line = (md === 'insert' ? '+' : '') + n + ': ' + [mt].concat(rest).join(' | ');
       }
       var pe = $('f-songs_patch'); if (!pe) return;
       var cur = pe.value.replace(/\s+$/, '');
       pe.value = (cur ? cur + '\n' : '') + line; pe.dispatchEvent(new Event('input', { bubbles: true }));
-      title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = ''; touched = false; pre = 0; syncMode(); num.focus();
+      title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = ''; touched = false; pre = 0; setM([]); mTouched = false; syncMode(); num.focus();
     }
     if (edit) ['insert', 'update', 'delete', 'up', 'down'].forEach(function (m) { ops[m].onclick = function () { doPatch(m); }; });
     function doAdd() {
@@ -529,10 +542,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var no = num.value.replace(/\D/g, '') || String(nextOrder());
       var rest = [sel.value, orig2.value.trim(), notes.value.trim()];
       while (rest.length && (rest[rest.length - 1] === '' || (rest.length === 1 && rest[0] === 'song'))) rest.pop();
-      var line = no + ': ' + [t].concat(rest).join(' | ');
+      var line = no + ': ' + [withM(t, getM())].concat(rest).join(' | ');
       var cur = el.value.replace(/\s+$/, '');
       el.value = (cur ? cur + '\n' : '') + line; el.dispatchEvent(new Event('input', { bubbles: true }));
-      title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = ''; title.focus();
+      title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = ''; setM([]); mTouched = false; title.focus();
     }
     add.onclick = doAdd;
     [title, num, orig2, notes].forEach(function (i) { i.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.defaultPrevented) { e.preventDefault(); doAdd(); } }); i.addEventListener('input', function () { i.classList.remove('bad'); }); });
@@ -548,7 +561,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   function fmtSongs(a) {
     return (a || []).map(function (x) {
-      var t = x.type == null ? '' : x.type, parts = [x.title || ''];
+      var t = x.type == null ? '' : x.type, mm = Array.isArray(x.member) ? x.member : [], parts = [(x.title || '') + (mm.length ? ' {' + mm.join(',') + '}' : '')];
       var rest = [t === '' ? '-' : t, x.original || '', x.notes || ''];
       while (rest.length && (rest[rest.length - 1] === '' || (rest.length === 1 && rest[0] === 'song'))) rest.pop();
       return (x.order != null ? x.order + ': ' : '') + parts.concat(rest).join(' | ');
@@ -973,6 +986,23 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }).catch(function () {});
   }
   // type radio buttons (logs / setlist) drive the hidden select that the rest of the code reads
+  // new setlist opened from a logs row: title <- title, artist <- groups (G2 / L2), member <- member codes of groups, venue <- the tag that equals a venue already used in setlist.json
+  function normV(s) { return String(s || '').normalize('NFKC').replace(/\s+/g, '').toLowerCase(); }
+  function seedFromLogs(sd, list) {
+    var gs = String(sd.groups || '').split(/[,\n]/).map(function (x) { return x.trim(); }).filter(Boolean);
+    var art = [];
+    if (gs.indexOf('G2') >= 0) art.push(ART_G2);
+    if (gs.indexOf('L2') >= 0) art.push(ART_L2);
+    var mem = gs.filter(function (g) { return G2_MEM.indexOf(g) >= 0 || L2_MEM.indexOf(g) >= 0; });
+    var venues = {};
+    (list || []).forEach(function (r) { if (r && r.venue) venues[normV(r.venue)] = String(r.venue); });
+    var ven = '', tg = String(sd.tags || '').split(/[,\n]/);
+    for (var i = 0; i < tg.length && !ven; i++) { var k = normV(tg[i]); if (k && venues[k]) ven = venues[k]; }
+    if (sd.title) setVal('title', sd.title);
+    if (art.length) setVal('artist', art.join(AJOIN));
+    if (mem.length) setVal('member', mem.join(','));
+    if (ven) setVal('venue', ven);
+  }
   function doFind() {
     var kind = $('fkind').value, id = $('fid').value.trim(), def = DEFS[kind];
     clearFound();
@@ -988,7 +1018,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         if (kind === 'setlist' && /^\d{12}$/.test(id) && okDate(id.slice(0, 8)) && okTime(id.slice(8))) { // no such setlist: new mode, the date / time are taken from the id (yyyymmdd + hhmm)
           $('fdd').value = fmtDigits(id.slice(0, 8), 'date'); $('fdt').value = fmtDigits(id.slice(8), 'time');
           $('fdd').dispatchEvent(new Event('input', { bubbles: true })); $('fdt').dispatchEvent(new Event('input', { bubbles: true }));
-          fstat('Not found: ' + id + ' (new: date / time filled from the id)'); return;
+          var sd = jumpSeed; jumpSeed = null;
+          if (sd && sd.sid === id) seedFromLogs(sd, list);
+          fstat('Not found: ' + id + ' (new: filled from the id' + (sd && sd.sid === id ? ' and the logs row' : '') + ')'); return;
         }
         fstat('Not found: ' + id); return;
       }
