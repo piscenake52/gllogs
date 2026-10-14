@@ -54499,25 +54499,12 @@
     ]
   },
   {
-    "logid": "e792104dbc54",
-    "date": "20250316",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "DisneySea date♡",
-    "display_pc": "上村梨々香　DisneySea date♡",
-    "display_sp": "上村梨々香　DisneySea date♡",
-    "url": "https://girls2-fc.jp/page/lucky2blogs/1030799427742203904",
-    "groups": [
-      "L2",
-      "RRK"
-    ]
-  },
-  {
     "logid": "59c33363ccfd",
     "date": "20250316",
-    "time": "",
+    "time": "1700",
     "contents": "LIVE",
     "title": "Girls² LIVE TOUR -ガルガルエイト- 大阪公演",
+    "url": "https://girls2-fc.jp/page/GG8",
     "groups": [
       "G2",
       "YZH",
@@ -54529,6 +54516,7 @@
       "KIR",
       "TOA"
     ],
+    "setlistid": "202503161700",
     "tags": [
       "南海浪切ホール"
     ],
@@ -54542,6 +54530,20 @@
           }
         ]
       }
+    ]
+  },
+  {
+    "logid": "e792104dbc54",
+    "date": "20250316",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "DisneySea date♡",
+    "display_pc": "上村梨々香　DisneySea date♡",
+    "display_sp": "上村梨々香　DisneySea date♡",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1030799427742203904",
+    "groups": [
+      "L2",
+      "RRK"
     ]
   },
   {
