@@ -153,7 +153,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="fcand" id="glih-fdl" hidden></div>
   <div class="fstat" id="glih-fstat" hidden></div>
   <div class="fcand" id="glih-fcand" hidden></div>
-  <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label><button type="button" class="small" id="glih-fcont" title="new entry: next date (same interval) and next # number" hidden>continue</button></div>
+  <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
+  <div class="field" id="glih-fcontrow" hidden><label>next</label><div class="chipr" id="glih-fcc"><button type="button" class="small" data-m="repeat" title="new entry on the same date with the repeat entry turned on, next # number">repeat</button><button type="button" class="small" data-m="week" title="new entry: +7 days, next # number">weekly</button><button type="button" class="small" data-m="month" title="new entry: the same day of the next month, next # number">monthly</button><button type="button" class="small" data-m="year" title="new entry: the same day of the next year, next # number">yearly</button></div></div>
   <div id="glih-ff"></div>
   <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、空欄にした値の削除はフォームの【値の削除】チェックで行います。relations は事前入力できません(JSONで確認)。 -->
   <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fjtog" aria-expanded="false">JSON &#9662;</button><button type="button" class="small" id="glih-fcopy">JSON copy</button><button type="button" class="small" id="glih-freset">reset all</button></div>
@@ -468,7 +469,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var r2 = document.createElement('div'); r2.className = 'row'; box.appendChild(r2); // row 3: original + notes
     box.appendChild(rB);
     var sel = document.createElement('div'); sel.className = 'chipr tchips'; sel.title = 'type (multiple allowed; none = song)'; // type chips: several can be ON (sent as allow,medley)
-    ['medley', 'mc', 'dt', 'encore', 'allow', 'cover'].forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.setAttribute('data-v', t); b.textContent = t; b.onclick = function () { b.classList.toggle('on'); sel.dispatchEvent(new Event('change')); }; sel.appendChild(b); });
+    ['arrange', 'medley', 'mc', 'dt', 'encore', 'allow', 'cover'].forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.setAttribute('data-v', t); b.textContent = t; b.onclick = function () { b.classList.toggle('on'); sel.dispatchEvent(new Event('change')); }; sel.appendChild(b); });
     Object.defineProperty(sel, 'value', { get: function () { return [].map.call(sel.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); }).join(','); }, set: function () { [].forEach.call(sel.querySelectorAll('.chip.on'), function (b) { b.classList.remove('on'); }); } });
     var orig2 = mkInput('mid', 'original'), notes = mkInput('mid', 'notes');
     rT.appendChild(sel); r2.appendChild(orig2); r2.appendChild(notes);
@@ -843,41 +844,32 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     rep = { box: box, refresh: refresh };
     refresh();
   }
-  // continue: from the loaded log, open a new entry with the next date (the same interval as the previous entry of the series; 7 days when unknown) and the next #number
-  function nextOf(row) {
+  // continue: from the loaded log, open a new entry with the date moved by the pressed button (repeat = the same date with the repeat entry turned on, weekly = +7 days, monthly = the same day of the next month, yearly = the same day of the next year; a short month clamps to its last day) and the next #number
+  function nextOf(row, mode) {
     var cur = String(row.date || ''); if (!okDate(cur)) return '';
-    var lm = lastNum(row.title), pd = '';
-    if (lm) {
-      var pre = String(row.title).slice(0, lm.index), post = String(row.title).slice(lm.index + 1 + lm[1].length), n0 = +lm[1], best = '';
-      rowsOf('logs').forEach(function (r) {
-        if (!r || !r.title || r.logid === row.logid || String(r.contents || '') !== String(row.contents || '')) return;
-        var m = lastNum(r.title); if (!m || String(r.title).slice(0, m.index) !== pre || String(r.title).slice(m.index + 1 + m[1].length) !== post || +m[1] >= n0) return;
-        var d = String(r.date || ''); if (okDate(d) && d < cur && d > best) best = d;
-      });
-      pd = best;
-    }
     var c = dateOf(cur);
-    if (pd) {
-      var p0 = dateOf(pd), mm = (c.getFullYear() - p0.getFullYear()) * 12 + c.getMonth() - p0.getMonth(), dd = Math.round((c - p0) / 86400000);
-      if (mm === 1 && dd >= 28 && c.getDate() === Math.min(p0.getDate(), new Date(c.getFullYear(), c.getMonth() + 1, 0).getDate())) return ymdOf(addMonths(c, 1));
-      if (dd > 0) return ymdOf(new Date(c.getFullYear(), c.getMonth(), c.getDate() + dd));
-    }
-    return ymdOf(new Date(c.getFullYear(), c.getMonth(), c.getDate() + 7));
+    if (mode === 'week') return ymdOf(new Date(c.getFullYear(), c.getMonth(), c.getDate() + 7));
+    if (mode === 'month') return ymdOf(addMonths(c, 1));
+    if (mode === 'year') return ymdOf(addMonths(c, 12));
+    if (mode === 'repeat') return cur; // the date stays; the repeat entry is turned on in continueFrom
+    return '';
   }
-  function continueFrom(row) {
-    var nd = nextOf(row); if (!nd) return;
+  function continueFrom(row, mode) {
+    var nd = nextOf(row, mode); if (!nd) return;
     $('fid').value = ''; hideCands(); clearFound();
     $('fdd').value = fmtDigits(nd, 'date'); $('fdt').value = fmtDigits(row.time || '', 'time'); $('fany').checked = !row.time;
     topChanged();
     [['contents', row.contents], ['groups', row.groups], ['relations', row.relations], ['tags', row.tags], ['title', bumpTitle(row.title, 1)]].forEach(function (x) {
       var v = x[1]; if (Array.isArray(v)) v = v.join(','); if (v) setVal(x[0], String(v));
     });
+    if (mode === 'repeat' && $('rpon')) { $('rpon').checked = true; $('rpon').dispatchEvent(new Event('change', { bubbles: true })); } // repeat entry mode: the repeat check is turned on (the date is kept)
   }
-  $('fcont').onclick = function () {
-    if (!found || found.isNew || found.kind !== 'logs') return;
-    var row = found.row; if (!row) return;
-    fetchIndex('logs').then(function () { continueFrom(row); }, function () { continueFrom(row); });
-  };
+  [].forEach.call($('fcc').children, function (b) { // weekly / monthly / yearly: pressing one runs continue with that interval
+    b.onclick = function () {
+      if (!found || found.isNew || found.kind !== 'logs' || !found.row) return;
+      continueFrom(found.row, b.getAttribute('data-m'));
+    };
+  });
   // ---- songs tab: register / update one song (artist + title + link) of songs.json through the add_songs.yml form ----
   var songsReady = false;
   function songsInit() {
@@ -993,6 +985,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         var m = searchRows(kind, list, id);
         if (m.length === 1) { $('fid').value = String(m[0][def.idKey]); $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); return; }
         if (m.length > 1) { renderCands(kind, m); fstat(m.length + ' candidates' + (m.length > 30 ? ' (showing 30)' : '') + '. Pick one.'); return; }
+        if (kind === 'setlist' && /^\d{12}$/.test(id) && okDate(id.slice(0, 8)) && okTime(id.slice(8))) { // no such setlist: new mode, the date / time are taken from the id (yyyymmdd + hhmm)
+          $('fdd').value = fmtDigits(id.slice(0, 8), 'date'); $('fdt').value = fmtDigits(id.slice(8), 'time');
+          $('fdd').dispatchEvent(new Event('input', { bubbles: true })); $('fdt').dispatchEvent(new Event('input', { bubbles: true }));
+          fstat('Not found: ' + id + ' (new: date / time filled from the id)'); return;
+        }
         fstat('Not found: ' + id); return;
       }
       hideCands(); fstat('Found: ' + id); renderFound(kind, id, row);
@@ -1090,7 +1087,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function applyModeUI() {
     var edit = !!(found && !found.isNew), kind = $('fkind').value;
     var cp = edit && kind === 'setlist' && $('fcp').checked; // setlist copy needs the new date / time
-    $('frd').hidden = edit && !cp; $('frt').hidden = edit && !cp; $('fanyl').hidden = kind !== 'logs'; $('fnew').hidden = !found; $('fcont').hidden = !(edit && kind === 'logs');
+    $('frd').hidden = edit && !cp; $('frt').hidden = edit && !cp; $('fanyl').hidden = kind !== 'logs'; $('fnew').hidden = !found; $('fcontrow').hidden = !(edit && kind === 'logs');
     if (edit) { $('fdl').hidden = true; $('fdl').innerHTML = ''; $('fdl')._key = ''; }
   }
   function topChanged() { dtSearch(); syncNew(); }
