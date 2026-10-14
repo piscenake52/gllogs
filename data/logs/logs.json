@@ -3671,28 +3671,9 @@
     "tags": []
   },
   {
-    "logid": "415018cb7f80",
-    "date": "20261015",
-    "time": "2000",
-    "contents": "TICKET",
-    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 大阪公演 チケット発券開始",
-    "display_sp": "Girls² LIVE TOUR 2026 大阪公演 チケット発券開始",
-    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ]
-  },
-  {
     "logid": "93026f2b92d8",
     "date": "20261015",
-    "time": "2000",
+    "time": "2030",
     "contents": "RADIO",
     "title": "interfm 「side by side」",
     "groups": [
@@ -3715,7 +3696,35 @@
             "member": []
           }
         ]
+      },
+      {
+        "type": "radiko",
+        "urls": [
+          {
+            "url": "https://radiko.jp/share/?t=20261015190000&sid=INT",
+            "member": []
+          }
+        ]
       }
+    ]
+  },
+  {
+    "logid": "415018cb7f80",
+    "date": "20261015",
+    "time": "2000",
+    "contents": "TICKET",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 大阪公演 チケット発券開始",
+    "display_sp": "Girls² LIVE TOUR 2026 大阪公演 チケット発券開始",
+    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ]
   },
   {

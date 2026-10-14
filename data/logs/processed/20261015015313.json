@@ -1,0 +1,16 @@
+{
+  "logid": "93026f2b92d8",
+  "time": "2030",
+  "sns": [
+    {
+      "type": "radiko",
+      "urls": [
+        {
+          "url": "https://radiko.jp/share/?t=20261015190000&sid=INT",
+          "member": []
+        }
+      ]
+    }
+  ],
+  "_issue": "1195"
+}
