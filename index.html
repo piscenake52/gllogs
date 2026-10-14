@@ -2316,7 +2316,7 @@ body .item-contents.is-content-open {
       t.classList.add('no-url');
     }
     // 表示テキストの優先順位:スマホはdisplay_sp→display_pc→title、PCはdisplay_pc→title
-    const rawDisplayText = (isMobileState ? (item.display_sp || item.display_pc || item.title) : (item.display_pc || item.title) || '');
+    const rawDisplayText = (isMobileState ? (item.display_sp || item.display_pc || item.title) : (item.display_pc || item.title)) || ''; // 全項目が空(titleなし)でも空文字にする(スマホ側で undefined のまま .trim() してしまい、一覧が全件表示されなくなっていた)
     // BIRTHDAYの年別複製アイテムは「名前 誕生日」を「名前 N歳の誕生日」に置換
     t.textContent = applyBirthdayAgeText(item, rawDisplayText).trim();
 

@@ -75,8 +75,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .fx { position:absolute; right:5px; top:50%; transform:translateY(-50%); width:22px; height:22px; margin:0; padding:0; border:0; border-radius:50%; background:transparent; color:var(--sub); font:inherit; font-size:14px; line-height:22px; text-align:center; cursor:pointer; box-shadow:none; }
 #glih .dtw { position:relative; display:inline-flex; flex:0 0 auto; }
 #glih .dtw > .fin { flex:none; width:9.9em; padding-right:30px; } /* YYYY/MM/DD fits exactly */
-#glih .dtw.t > .fin { width:6.9em; } /* HH:MM fits exactly */
-#glih .dtb { position:absolute; right:6px; top:50%; transform:translateY(-50%); width:20px; height:20px; margin:0; padding:0; border:0; background:transparent; box-shadow:none; color:var(--sub); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+#glih .dtw.t > .fin { width:calc(8em - 20px); } /* the clock icon is outside the box (to its right); the box is 20px narrower so the whole width stays */ /* HH:MM fits exactly */
+#glih .dtb { position:static; flex:none; align-self:center; width:20px; height:20px; margin:0 4px; padding:0; border:0; background:transparent; box-shadow:none; color:var(--sub); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+#glih .dtx { position:absolute; right:34px; top:50%; transform:translateY(-50%); width:20px; height:20px; margin:0; padding:0; border:0; border-radius:50%; background:transparent; box-shadow:none; color:var(--sub); font:inherit; font-size:12px; line-height:20px; text-align:center; cursor:pointer; }
+#glih .dtx:hover { color:var(--text); background:var(--btn); }
+#glih .dtw > .fin:placeholder-shown ~ .dtx { visibility:hidden; }
+#glih #glih-fdprev, #glih #glih-fdnext { flex:0 0 36px; width:36px; padding-left:0; padding-right:0; text-align:center; } /* < > : twice as wide as before */
 #glih .dtb:hover { color:var(--text); }
 #glih .dtb svg { width:16px; height:16px; display:block; }
 #glih .fpi { position:absolute; left:0; top:100%; width:1px; height:1px; opacity:0; pointer-events:none; border:0; padding:0; }
@@ -98,12 +102,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .chipr.nw { flex-wrap:nowrap; }
 #glih #glih-rpq { gap:4px; }
 #glih #glih-rpq .chip { flex:1 1 auto; width:auto; min-width:0; padding:5px 4px; }
-#glih #glih-frd { flex-wrap:wrap; } /* narrow screens: the < today > buttons go to the next line instead of widening the card */
+#glih #glih-frd { flex-wrap:wrap; gap:4px; }
+#glih #glih-frd > label { margin-right:4px; } /* the row gap is 4px (the others 8px): keeps the date box aligned with the id / time boxes */
+#glih #glih-frd .small { padding:7px 4px; }
+#glih #glih-frd #glih-fdtoday { padding-left:13px; padding-right:13px; } /* today: wider (6px more on each side than the other buttons) */ /* narrow screens: the < today > buttons go to the next line instead of widening the card */
 #glih #glih-rpw { gap:4px; }
 #glih #glih-rpw .chip { flex:1 1 0; width:auto; min-width:0; padding:5px 0; font-size:11px; }
 #glih .chipr .chip:disabled { opacity:.35; cursor:default; }
-#glih .dtw:not(.t) > .fin { width:12.5em; padding-right:58px; } /* YYYY/MM/DD + the weekday + the calendar icon: the weekday room is always reserved */
-#glih .dtw .wdl { position:absolute; right:30px; top:50%; transform:translateY(-50%); flex:none; pointer-events:none; }
+#glih .dtw:not(.t) > .fin { width:calc(12.6em + 2px - 27px); padding-right:56px; } /* the calendar icon is outside the box (to its right); the box is 20px narrower so the whole width stays */ /* YYYY/MM/DD + the weekday + the calendar icon: the weekday room is always reserved */
+#glih .dtw .wdl { position:absolute; right:55px; top:50%; transform:translateY(-50%); flex:none; font-size:13px; line-height:1; pointer-events:none; }
 #glih .wdl { flex:0 0 2.6em; font-size:12px; color:var(--sub); white-space:nowrap; }
 #glih .rpnote { font-size:11px; color:var(--sub); }
 #glih .rprow { display:flex; align-items:baseline; gap:8px; padding:5px 10px; border-bottom:1px solid var(--line); font-size:12px; line-height:1.4; color:var(--text); cursor:pointer; }
@@ -141,8 +148,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 <section id="glih-p-find" hidden>
   <select id="glih-fkind" hidden><option value="logs">logs</option><option value="setlist">setlist</option></select>
   <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fgo">find</button><button type="button" class="small" id="glih-fnew" hidden>new</button></div>
-  <div class="field" id="glih-frd"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdprev" title="prev day">&lt;</button><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdnext" title="next day">&gt;</button><button type="button" class="small" id="glih-fdxd" title="clear">&#10005;</button></div>
-  <div class="field" id="glih-frt"><label for="glih-fdt">time</label><input type="text" id="glih-fdt" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdx" title="clear">&#10005;</button><label class="chk" id="glih-fanyl" style="margin:0"><input type="checkbox" id="glih-fany">anytime</label></div>
+  <div class="field" id="glih-frd"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdprev" title="prev day">&lt;</button><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdnext" title="next day">&gt;</button></div>
+  <div class="field" id="glih-frt"><label for="glih-fdt">time</label><input type="text" id="glih-fdt" class="fin" autocomplete="off"><label class="chk" id="glih-fanyl" style="margin:0"><input type="checkbox" id="glih-fany">anytime</label></div>
   <div class="fcand" id="glih-fdl" hidden></div>
   <div class="fstat" id="glih-fstat" hidden></div>
   <div class="fcand" id="glih-fcand" hidden></div>
@@ -237,6 +244,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     };
     pi.addEventListener('change', function () { if (!pi.value) return; ti.value = fmtDigits(pi.value, type); ti.dispatchEvent(new Event('input', { bubbles: true })); });
     w.appendChild(b); w.appendChild(pi);
+    var x = document.createElement('button'); x.type = 'button'; x.className = 'dtx'; x.textContent = '\u2715'; x.title = 'clear'; x.setAttribute('aria-label', 'clear ' + type); x.tabIndex = -1; // the clear button at the right end of the box (hidden while empty; the room is kept)
+    x.onclick = function () { ti.value = ''; ti.dispatchEvent(new Event('input', { bubbles: true })); ti.dispatchEvent(new Event('change', { bubbles: true })); ti.focus(); };
+    w.appendChild(x);
     return w;
   }
   // weekday label (Sun, Mon, ...) right after a date input (after its calendar wrapper). Returns the function that refreshes it.
@@ -266,8 +276,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function mk(text, title, fn) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = text; b.title = title; b.onclick = fn; field.appendChild(b); return b; }
     if (type === 'date') mk('today', 'today', function () { ti.value = fmtDigits(today().replace(/\D/g, ''), 'date'); fromTi(); });
     var rv = mk('\u21BA', 'revert', function () { el.value = orig[key]; el.dispatchEvent(new Event('input', { bubbles: true })); });
-    var cl = mk('\u2715', 'clear', function () { el.value = ''; el.dispatchEvent(new Event('input', { bubbles: true })); });
-    var sync = function () { rv.hidden = el.value === orig[key]; cl.hidden = el.value === ''; };
+    var sync = function () { rv.hidden = el.value === orig[key]; };
     el.addEventListener('input', sync); sync();
   }
   // member chips under the groups input of the find tab (same chips as the logs tab): two-way synced with the comma-separated text
@@ -1034,8 +1043,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   $('fdprev').onclick = function () { shiftDate(-1); };
   $('fdnext').onclick = function () { shiftDate(1); };
-  $('fdxd').onclick = function () { $('fdd').value = ''; topChanged(); };
-  $('fdx').onclick = function () { $('fdt').value = ''; topChanged(); }; // clears the time only (the same as the logs tab)
   $('fcp').addEventListener('change', function () { applyModeUI(); updateFind(); }); // setlist copy: the top date / time become the new setlistid
   addClear($('fid'));
   $('fgo').onclick = doFind;
