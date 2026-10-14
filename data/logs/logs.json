@@ -3042,6 +3042,30 @@
     ]
   },
   {
+    "logid": "9eb8c7bf1051",
+    "date": "20261018",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "映画 「ワンダンス」 ジャパンプレミア プレリクエスト先行抽選受付締切",
+    "display_sp": "「ワンダンス」 ジャパンプレミア プレリク先行受付締切",
+    "url": "https://happinet-phantom.com/wandance/news/100/",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2110249246050120020",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "591b3b73e14f",
     "date": "20261018",
     "time": "2300",
