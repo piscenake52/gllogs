@@ -1,0 +1,38 @@
+{
+  "date": "20261014",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2110285006644154823",
+          "member": []
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgJx4HWa/",
+          "member": [
+            "RIN",
+            "TBK",
+            "HIR",
+            "YUW",
+            "KAN",
+            "RRK",
+            "AKR",
+            "KIK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1138"
+}
