@@ -55443,6 +55443,28 @@
     ]
   },
   {
+    "logid": "c1c30962daa9",
+    "date": "20250302",
+    "time": "1700",
+    "contents": "ANNIVERSARY",
+    "title": "Girls² LIVE TOUR -ガルガルエイト- 石川公演記念日",
+    "url": "https://girls2-fc.jp/page/GG8",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "tags": [
+      "金沢市文化ホール"
+    ]
+  },
+  {
     "logid": "b35b041ab548",
     "date": "20250302",
     "time": "1200",
@@ -55462,27 +55484,6 @@
     "time": "",
     "contents": "LIVE",
     "title": "Girls² LIVE TOUR -ガルガルエイト- 石川公演",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "金沢市文化ホール"
-    ]
-  },
-  {
-    "logid": "c1c30962daa9",
-    "date": "20250302",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR -ガルガルエイト- 石川公演記念日",
     "groups": [
       "G2",
       "YZH",
