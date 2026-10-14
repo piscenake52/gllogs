@@ -172356,7 +172356,7 @@
     "date": "20201115",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² Online Live 2020記念日",
+    "title": "Girls² Online Live 2020 記念日",
     "url": "https://www.ldh-liveschedule.jp/sys/news/6734/",
     "groups": [
       "G2",
@@ -172370,9 +172370,26 @@
       "TOA",
       "RAN"
     ],
-    "tags": [
-      "ひみつのOnlineアフターショウ",
-      "1000 CLUB"
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtu.be/fbdB4I7HE7A?si=13O-WfDSNdONVf6R",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR",
+              "TOA",
+              "RAN"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
