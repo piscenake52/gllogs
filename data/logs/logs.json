@@ -147275,6 +147275,31 @@
     ]
   },
   {
+    "logid": "fb7f1e7787c5",
+    "date": "20211030",
+    "time": "1730",
+    "contents": "LIVE",
+    "title": "Girls² First Live Tour -Enjoy The Good Days- 東京公演",
+    "url": "https://girls2-fc.jp/page/EnjoyTheGoodDaysLp",
+    "map": "https://maps.app.goo.gl/eDuGrvA9ycxcBGnbA",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "setlistid": "202110301730",
+    "tags": [
+      "東京ガーデンシアター"
+    ]
+  },
+  {
     "logid": "c274480e64ea",
     "date": "20211030",
     "time": "1200",
@@ -147342,28 +147367,6 @@
     "groups": [
       "L2",
       "RIN"
-    ]
-  },
-  {
-    "logid": "fb7f1e7787c5",
-    "date": "20211030",
-    "time": "",
-    "contents": "LIVE",
-    "title": "Girls² First Live Tour -Enjoy The Good Days- 東京公演",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "東京ガーデンシアター"
     ]
   },
   {
