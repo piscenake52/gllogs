@@ -4149,7 +4149,8 @@
       "TBK",
       "HIR",
       "KAN",
-      "RRK"
+      "RRK",
+      "AKR"
     ],
     "sns": [
       {
@@ -4157,6 +4158,10 @@
         "urls": [
           {
             "url": "https://x.com/Laki922official/status/2110285006644154823",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2110343430308299248",
             "member": []
           }
         ]
@@ -4171,6 +4176,14 @@
               "HIR",
               "KAN",
               "RRK"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSgem6456/",
+            "member": [
+              "TBK",
+              "KAN",
+              "AKR"
             ]
           }
         ]
