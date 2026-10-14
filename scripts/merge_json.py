@@ -243,6 +243,11 @@ def apply_songs_patch(existing, ops, label=""):
             for k in ("title", "type", "original", "notes"):
                 if k in op:
                     songs[i][k] = op[k]
+            if "member" in op:  # [] は消去
+                if op["member"]:
+                    songs[i]["member"] = op["member"]
+                else:
+                    songs[i].pop("member", None)
         elif kind == "insert":
             if i is not None and songs[i].get("title") == op.get("title"):
                 continue  # 反映済み（同じIssueの再編集）
@@ -251,6 +256,8 @@ def apply_songs_patch(existing, ops, label=""):
                     x["order"] += 1
             songs.append({"order": n, "title": op.get("title", ""), "type": op.get("type", "song"),
                           "original": op.get("original", ""), "notes": op.get("notes", "")})
+            if op.get("member"):
+                songs[-1]["member"] = op["member"]
         elif kind == "move":
             to = op.get("to")
             if i is None:

@@ -150,9 +150,21 @@ def norm_type(v):
     return ",".join(seen)
 
 
+def split_song_member(title):
+    """曲名の直後の {YZH,MMK} を取り出す。戻り値: (曲名, メンバーのリスト or None)。{-} はメンバー指定の消去（空リスト）。波括弧がなければ None"""
+    m = re.match(r"^(.*?)\s*[{｛]([^{}｛｝]*)[}｝]\s*$", title or "")
+    if not m:
+        return title, None
+    codes = [c.upper() for c in re.split(r"[,，、\s]+", m.group(2).strip()) if c]
+    if codes == ["-"]:
+        codes = []
+    return m.group(1).strip(), list(dict.fromkeys(codes))
+
+
 def parse_songs(raw_str):
     """
     1行1曲。書式: [順番:] 曲名 | type | original | notes
+      - 曲名の直後に {YZH,MMK} と書くと、その曲の歌唱メンバーになる（省略＝全員扱い）
       - 順番を省略すると前の曲+1（先頭は1）
       - type を省略すると song。空にしたいときは - を書く
       - # で始まる行と空行は無視
@@ -174,7 +186,7 @@ def parse_songs(raw_str):
         else:
             order += 1
         parts = [p.strip() for p in re.split(r"[|｜]", line)]
-        title = parts[0] if parts else ""
+        title, members = split_song_member(parts[0] if parts else "")
         if not title:
             continue
         type_ = parts[1] if len(parts) > 1 else ""
@@ -186,13 +198,16 @@ def parse_songs(raw_str):
             type_ = norm_type(type_) or "song"
         original = parts[2] if len(parts) > 2 else ""
         notes = " | ".join(parts[3:]) if len(parts) > 3 else ""
-        songs.append({
+        song = {
             "order": order,
             "title": title,
             "type": type_,
             "original": original,
             "notes": notes,
-        })
+        }
+        if members:
+            song["member"] = members  # 指定があるときだけ持つ（ない曲は全員扱い）
+        songs.append(song)
     return songs
 
 
@@ -520,7 +535,7 @@ def build_setlist(f):
 
 def parse_songs_patch(raw_str):
     """曲目の個別変更。1行1操作。書式:
-         N: 曲名 | type | original | notes   … N番の曲を部分更新（空欄・省略した項目は今のまま、- は空にする）
+         N: 曲名 {メンバー} | type | original | notes   … N番の曲を部分更新（空欄・省略した項目は今のまま、- は空にする。メンバーは {YZH,MMK}、{-} で指定を消す）
         +N: 曲名 | type | original | notes   … N番に曲を挿入（N番以降は1つ後ろへ。typeを省略すると song）
         -N: 曲名                              … N番の曲を削除（N番以降は1つ前へ。曲名を書くと一致したときだけ削除）
         N>M: 曲名                             … N番の曲をM番へ移動（間の曲は1つずつずれる。曲名を書くと一致したときだけ移動）
@@ -548,11 +563,13 @@ def parse_songs_patch(raw_str):
         sign = {"＋": "+", "－": "-"}.get(m.group(1), m.group(1))
         op = {"op": {"+": "insert", "-": "delete", "": "update"}[sign], "order": int(m.group(2))}
         parts = [p.strip() for p in re.split(r"[|｜]", m.group(3) or "")]
-        title = parts[0] if parts else ""
+        title, members = split_song_member(parts[0] if parts else "")
+        if members is not None and op["op"] != "delete":
+            op["member"] = members  # [] は消去（{-}）
         if op["op"] == "insert" and not title:
             errors.append(f"- **曲目の個別変更**: 挿入には曲名が必要です（`{line.replace(chr(96), chr(39))}`）")
             continue
-        if op["op"] == "update" and not any(parts):
+        if op["op"] == "update" and not title and not any(parts[1:]) and "member" not in op:
             errors.append(f"- **曲目の個別変更**: 更新する項目がありません（`{line.replace(chr(96), chr(39))}`）")
             continue
         if title:
