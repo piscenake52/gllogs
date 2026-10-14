@@ -3850,8 +3850,20 @@
     "title": "文化放送 「Girls²のがるがるトーク！」",
     "groups": [
       "G2",
-      "YOK",
-      "KIR"
+      "YOK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/joqrgirls/status/2110297223208813004",
+            "member": [
+              "YOK"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
