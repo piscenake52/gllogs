@@ -16716,6 +16716,32 @@
     ]
   },
   {
+    "logid": "47c9615d84f7",
+    "date": "20260830",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "MSK",
+      "YOK"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgdRRdUT/",
+            "member": [
+              "MSK",
+              "YOK"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "be7339cd9a40",
     "date": "20260829",
     "time": "2143",
