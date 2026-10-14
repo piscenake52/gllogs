@@ -145284,6 +145284,31 @@
     ]
   },
   {
+    "logid": "de3344c6dec4",
+    "date": "20211120",
+    "time": "1730",
+    "contents": "LIVE",
+    "title": "Girls² First Live Tour -Enjoy The Good Days- 愛知公演",
+    "url": "https://girls2-fc.jp/page/EnjoyTheGoodDaysLp",
+    "map": "https://maps.app.goo.gl/yubHHtKrZcLHUMgb6",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "setlistid": "202111201730",
+    "tags": [
+      "一宮市民会館"
+    ]
+  },
+  {
     "logid": "59bc4cd07658",
     "date": "20211120",
     "time": "1200",
@@ -145365,28 +145390,6 @@
     "groups": [
       "G2",
       "TOA"
-    ]
-  },
-  {
-    "logid": "de3344c6dec4",
-    "date": "20211120",
-    "time": "",
-    "contents": "LIVE",
-    "title": "Girls² First Live Tour -Enjoy The Good Days- 愛知公演",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "一宮市民会館"
     ]
   },
   {
