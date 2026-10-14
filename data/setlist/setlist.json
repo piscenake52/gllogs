@@ -1222,19 +1222,6 @@
         "type": "encore",
         "original": "",
         "notes": ""
-      },
-      {
-        "order": 33,
-        "title": "test",
-        "type": "arrange",
-        "original": "test2",
-        "notes": "test3",
-        "member": [
-          "RIN",
-          "HIR",
-          "KAN",
-          "AKR"
-        ]
       }
     ]
   },

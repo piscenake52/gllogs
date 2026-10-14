@@ -1,0 +1,10 @@
+{
+  "setlistid": "202609221700",
+  "songs_patch": [
+    {
+      "op": "delete",
+      "order": 33,
+      "title": "test"
+    }
+  ]
+}
