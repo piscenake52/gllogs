@@ -1222,17 +1222,6 @@
         "type": "encore",
         "original": "",
         "notes": ""
-      },
-      {
-        "order": 33,
-        "title": "XYZ",
-        "type": "arrange,encore,cover",
-        "original": "Lucky²",
-        "notes": "testtesttest",
-        "member": [
-          "RIN",
-          "YUR"
-        ]
       }
     ]
   },
