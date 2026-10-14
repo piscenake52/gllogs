@@ -1,0 +1,27 @@
+{
+  "date": "20261031",
+  "time": "0950",
+  "contents": "EVENT",
+  "title": "映画 「ワンダンス」 ジャパンプレミア",
+  "url": "https://happinet-phantom.com/wandance/",
+  "map": "https://maps.app.goo.gl/TwqAPmA6ph6A4F5f9",
+  "groups": [
+    "G2",
+    "KIR"
+  ],
+  "tags": [
+    "TOHOシネマズ六本木ヒルズ"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/wandance_movie/status/2110249246050120020",
+          "member": []
+        }
+      ]
+    }
+  ],
+  "_issue": "1093"
+}
