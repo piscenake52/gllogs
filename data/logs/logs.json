@@ -4209,6 +4209,7 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YZH",
       "MMK"
     ],
     "sns": [
@@ -4221,6 +4222,10 @@
           },
           {
             "url": "https://x.com/Girls2_official/status/2110346911085732285",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2110347022708646030",
             "member": []
           }
         ]
@@ -4237,6 +4242,13 @@
           {
             "url": "https://vt.tiktok.com/ZSgemFLnB/",
             "member": [
+              "MMK"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSgem6fyL/",
+            "member": [
+              "YZH",
               "MMK"
             ]
           }
