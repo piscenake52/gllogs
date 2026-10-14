@@ -3430,9 +3430,7 @@
     "date": "20261017",
     "time": "1300",
     "contents": "LIVE",
-    "title": "ZIP-FM「ENJOY LIVE」公開収録",
-    "display_pc": "ZIP-FM「ENJOY LIVE」公開収録",
-    "display_sp": "ZIP-FM「ENJOY LIVE」公開収録",
+    "title": "ZIP-FM 「ENJOY LIVE」 公開収録",
     "url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
     "map": "https://maps.app.goo.gl/ogfLNwUH35s9RNKS7",
     "groups": [
@@ -3445,12 +3443,23 @@
       "MNM",
       "KIR"
     ],
-    "setlistid": "202610171300",
     "relations": [
       "TOA"
     ],
+    "setlistid": "202610171300",
     "tags": [
       "ナガシマスパーランド ナガシマスパードーム"
+    ],
+    "sns": [
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1240145382554468354",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
