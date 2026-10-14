@@ -55465,25 +55465,12 @@
     ]
   },
   {
-    "logid": "b35b041ab548",
-    "date": "20250302",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "いちご🍓",
-    "display_pc": "佐藤栞奈　いちご🍓",
-    "display_sp": "佐藤栞奈　いちご🍓",
-    "url": "https://girls2-fc.jp/page/lucky2blogs/1025399750767149057",
-    "groups": [
-      "L2",
-      "KAN"
-    ]
-  },
-  {
     "logid": "aaf534a3e21a",
     "date": "20250302",
-    "time": "",
+    "time": "1700",
     "contents": "LIVE",
     "title": "Girls² LIVE TOUR -ガルガルエイト- 石川公演",
+    "url": "https://girls2-fc.jp/page/GG8",
     "groups": [
       "G2",
       "YZH",
@@ -55495,8 +55482,23 @@
       "KIR",
       "TOA"
     ],
+    "setlistid": "202503021700",
     "tags": [
       "金沢市文化ホール"
+    ]
+  },
+  {
+    "logid": "b35b041ab548",
+    "date": "20250302",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "いちご🍓",
+    "display_pc": "佐藤栞奈　いちご🍓",
+    "display_sp": "佐藤栞奈　いちご🍓",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/1025399750767149057",
+    "groups": [
+      "L2",
+      "KAN"
     ]
   },
   {
