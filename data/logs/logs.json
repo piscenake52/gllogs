@@ -4131,6 +4131,39 @@
     ]
   },
   {
+    "logid": "53f523c3d84c",
+    "date": "20261014",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "MMK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2110299698984804834",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgJgKgFq/",
+            "member": [
+              "MMK"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "70668cbf69c0",
     "date": "20261013",
     "time": "2200",

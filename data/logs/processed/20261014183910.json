@@ -1,0 +1,31 @@
+{
+  "date": "20261014",
+  "contents": "SNS",
+  "title": "SNS　Girls²",
+  "groups": [
+    "G2"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2110299698984804834",
+          "member": []
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgJgKgFq/",
+          "member": [
+            "MMK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1170"
+}
