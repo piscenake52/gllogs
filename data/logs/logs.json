@@ -52455,6 +52455,58 @@
     ]
   },
   {
+    "logid": "808c81c6d296",
+    "date": "20250412",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR -ガルガルエイト- 大阪公演",
+    "url": "https://girls2-fc.jp/page/GG8",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "setlistid": "202504121700",
+    "tags": [
+      "NHK大阪ホール"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/1911033042489184651",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR",
+              "TOA"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/982860479254757378",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "f8b31ca6c3af",
     "date": "20250412",
     "time": "1200",
@@ -52494,47 +52546,6 @@
     "groups": [
       "G2",
       "MNM"
-    ]
-  },
-  {
-    "logid": "808c81c6d296",
-    "date": "20250412",
-    "time": "",
-    "contents": "LIVE",
-    "title": "Girls² LIVE TOUR -ガルガルエイト- 大阪公演",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "NHK大阪ホール"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/1911033042489184651",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR",
-              "TOA"
-            ]
-          }
-        ]
-      }
     ]
   },
   {
