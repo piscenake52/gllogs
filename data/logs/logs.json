@@ -2477,6 +2477,30 @@
     ]
   },
   {
+    "logid": "b82acefb68c1",
+    "date": "20261027",
+    "time": "1900",
+    "contents": "TICKET",
+    "title": "映画 「ワンダンス」 ジャパンプレミア チケット一般発売開始",
+    "display_sp": "映画 「ワンダンス」 ジャパンプレミア チケット一般発売開始",
+    "url": "https://happinet-phantom.com/wandance/news/100/",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2110249246050120020",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "dd0a162cb4a9",
     "date": "20261027",
     "time": "1400",
