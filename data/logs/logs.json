@@ -3192,6 +3192,28 @@
     ]
   },
   {
+    "logid": "d67a442a21fa",
+    "date": "20261020",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "atmoscon 2026 モデルプレス限定チケットプレゼント応募受付締切",
+    "display_sp": "atmoscon 2026 モデルプレス限定チケット応募受付締切",
+    "groups": [
+      "G2"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/modelpress/status/2110204550825341284",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "786e4016aa41",
     "date": "20261020",
     "time": "1500",
