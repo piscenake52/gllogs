@@ -97,7 +97,7 @@ body:
       label: "曲目 (1行1曲)"
       description: |
         書式: `[順番:] 曲名 | type | original | notes`
-        順番を省略すると前の曲+1。typeを省略すると song（medley / mc / dt / encore / allow / cover も可、複数はカンマ区切り 例: allow,medley、空にしたいときは - ）。
+        順番を省略すると前の曲+1。typeを省略すると song（arrange / medley / mc / dt / encore / allow / cover も可、複数はカンマ区切り 例: allow,medley、空にしたいときは - ）。
         入力すると曲目全体が**置き換わります**（空欄なら既存の曲目を維持）。
       placeholder: |
         1: OPENING | -
