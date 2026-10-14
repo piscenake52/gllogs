@@ -642,6 +642,53 @@
     ]
   },
   {
+    "logid": "ca028b9f7bc7",
+    "date": "20261210",
+    "time": "1800",
+    "contents": "LIVE",
+    "title": "CL6th LDH紅白頂上決戦",
+    "url": "https://www.cl-live.com/event/_/6th_event",
+    "map": "https://maps.app.goo.gl/VHXSh44Sb649AQfQ6",
+    "groups": [
+      "G2",
+      "KIR",
+      "L2",
+      "KIK"
+    ],
+    "setlistid": "202612101800",
+    "tags": [
+      "有明アリーナ"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2110249243084480944",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2110249246142472513",
+            "member": []
+          },
+          {
+            "url": "https://x.com/CL_OFFICIAL_ACC/status/2110249765468594425",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/programs/ondemand/9zPkHzGi8nvmWHpBx9fgJ9?utm_medium=referral&utm_source=referral&utm_campaign=url_share",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "a4938870befc",
     "date": "20261210",
     "time": "1700",
