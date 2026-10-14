@@ -2749,6 +2749,30 @@
     ]
   },
   {
+    "logid": "bcf4fe880af6",
+    "date": "20261024",
+    "time": "1500",
+    "contents": "RESULT",
+    "title": "映画 「ワンダンス」 ジャパンプレミア プレリクエスト先行当選発表",
+    "display_sp": "映画 「ワンダンス」 ジャパンプレミア プレリク先行当選発表",
+    "url": "https://happinet-phantom.com/wandance/news/100/",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2110249246050120020",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "24f4cdf9cf1e",
     "date": "20261024",
     "time": "1000",
