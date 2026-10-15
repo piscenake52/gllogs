@@ -31,7 +31,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 /* 全行を8列のグリッドにそろえる: 全ボタンが同じ幅になり、どの行も折り返さない。ボタン幅は表示幅に合わせて自動で変わる */
 #glih .chips .cr { display:grid; grid-template-columns:repeat(8, minmax(26px, 1fr)); gap:4px; }
 #glih .chip { width:100%; min-width:0; font:inherit; font-size:clamp(9px, 2.8vw, 11px); line-height:1.2; padding:5px 0; margin:0; text-align:center; border-radius:12px; border:1px solid var(--line); background:var(--btn); color:var(--text); cursor:pointer; box-shadow:none; }
-#glih .chip.on { background:var(--accent); border-color:var(--accent); color:var(--accent-text); }
+#glih .chip.on, #glih .chip.fold-on, #glih .chip.gh-on { background:var(--accent); border-color:var(--accent); color:var(--accent-text); } /* fold-on / gh-on: the G2 / L2 chip looks ON (members shown) without changing the data */
 #glih .small { font:inherit; font-size:12px; padding:7px 10px; margin:0; border-radius:8px; border:1px solid var(--line); background:var(--btn); color:var(--text); cursor:pointer; white-space:nowrap; box-shadow:none; }
 #glih .chk { font-size:12px; color:var(--sub); display:flex; align-items:center; gap:6px; margin:0 0 0 4px; white-space:nowrap; } /* time の値のすぐ右 */
 #glih .chk input { margin:0; }
@@ -83,6 +83,23 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih #glih-fdprev, #glih #glih-fdnext { flex:0 0 36px; width:36px; padding-left:0; padding-right:0; text-align:center; } /* < > : twice as wide as before */
 #glih .dtb:hover { color:var(--text); }
 #glih .dtb svg { width:16px; height:16px; display:block; }
+#glih .cal-pop { position:fixed; z-index:1100; width:290px; max-width:calc(100vw - 16px); padding:10px; background:var(--card); color:var(--text); border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.45); user-select:none; -webkit-user-select:none; }
+#glih .cal-pop[hidden] { display:none; }
+#glih .cal-head { display:flex; align-items:center; gap:4px; margin-bottom:6px; }
+#glih .cal-pop button { font:inherit; color:inherit; background:none; border:0; padding:0; margin:0; cursor:pointer; border-radius:8px; }
+#glih .cal-nav { flex:0 0 34px; height:34px; font-size:15px; background:var(--btn) !important; border:1px solid var(--line) !important; }
+#glih .cal-title { flex:1 1 auto; height:34px; font-size:14px; font-weight:700; }
+#glih .cal-nav:hover, #glih .cal-title:hover, #glih .cal-foot button:hover, #glih .cal-grid button:hover, #glih .cal-mgrid button:hover { background-color:var(--btn) !important; }
+#glih .cal-grid, #glih .cal-mgrid { display:grid; grid-template-columns:repeat(7, 1fr); gap:2px; }
+#glih .cal-mgrid { grid-template-columns:repeat(3, 1fr); gap:6px; }
+#glih .cal-wd { text-align:center; font-size:11px; color:var(--sub); padding:2px 0 4px; }
+#glih .cal-grid button { height:36px; font-size:14px; }
+#glih .cal-grid button.is-out { color:var(--sub); opacity:.55; }
+#glih .cal-mgrid button { height:44px; font-size:14px; }
+#glih .cal-pop button.is-today { box-shadow:inset 0 0 0 2px var(--accent); }
+#glih .cal-pop button.is-sel { background-color:var(--accent) !important; color:var(--accent-text); font-weight:700; }
+#glih .cal-foot { display:flex; justify-content:flex-end; margin-top:8px; }
+#glih .cal-foot button { height:34px; padding:0 16px; font-size:13px; color:var(--accent); font-weight:700; }
 #glih .fpi { position:absolute; left:0; top:100%; width:1px; height:1px; opacity:0; pointer-events:none; border:0; padding:0; }
 #glih .fx.fr { right:28px; font-size:14px; }
 #glih .fx.fr.ta { top:8px; transform:none; }
@@ -231,6 +248,82 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   var ICON_CAL = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5 1.8v2.6M11 1.8v2.6"/></svg>';
   var ICON_CLK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 4.5V8l2.3 1.6"/></svg>';
   // wraps the text input in place and puts a plain (no frame) calendar / clock icon inside its right end; the icon opens the native picker
+  // calendar popup shared by all date inputs (date / until / the top date of the find tab). The time input keeps the native picker.
+  var CAL = (function () {
+    var pop = null, vy = 0, vm = 0, mode = 'day', cur = null, anchor = null;
+    var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], MN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    function pad(n) { return ('0' + n).slice(-2); }
+    function ymd(y, m, d) { return y + pad(m + 1) + pad(d); }
+    function todayD() { var t = new Date(); return ymd(t.getFullYear(), t.getMonth(), t.getDate()); }
+    function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; if (tag === 'button') e.type = 'button'; return e; }
+    function place() {
+      if (!anchor) return;
+      var r = anchor.getBoundingClientRect(), w = pop.offsetWidth || 290, h = pop.offsetHeight || 340;
+      pop.style.left = Math.max(8, Math.min(r.right - w, window.innerWidth - w - 8)) + 'px';
+      var top = r.bottom + 6; if (top + h > window.innerHeight - 8 && r.top - h - 6 > 8) top = r.top - h - 6; // open upward when there is no room below
+      pop.style.top = top + 'px';
+    }
+    function close() { if (pop) pop.hidden = true; anchor = null; cur = null; }
+    function choose(d) { var f = cur; close(); if (f) f(d); }
+    function render() {
+      pop.textContent = '';
+      var head = el('div', 'cal-head'), sel = cur && cur.sel, td = todayD();
+      function nav(label, aria, fn) { var b = el('button', 'cal-nav', label); b.setAttribute('aria-label', aria); b.onclick = fn; return b; }
+      var grid, i, b;
+      if (mode === 'day') {
+        var ttl = el('button', 'cal-title', vy + ' / ' + pad(vm + 1)); ttl.setAttribute('aria-label', 'pick year and month'); ttl.onclick = function () { mode = 'month'; render(); };
+        head.appendChild(nav('\u00AB', 'previous year', function () { vy--; render(); }));
+        head.appendChild(nav('\u2039', 'previous month', function () { if (--vm < 0) { vm = 11; vy--; } render(); }));
+        head.appendChild(ttl);
+        head.appendChild(nav('\u203A', 'next month', function () { if (++vm > 11) { vm = 0; vy++; } render(); }));
+        head.appendChild(nav('\u00BB', 'next year', function () { vy++; render(); }));
+        pop.appendChild(head);
+        grid = el('div', 'cal-grid');
+        WD.forEach(function (w) { grid.appendChild(el('div', 'cal-wd', w)); });
+        var start = new Date(vy, vm, 1 - new Date(vy, vm, 1).getDay());
+        for (i = 0; i < 42; i++) {
+          (function () {
+            var d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i), s = ymd(d.getFullYear(), d.getMonth(), d.getDate());
+            var c = el('button', 'cal-day' + (d.getMonth() !== vm ? ' is-out' : '') + (s === td ? ' is-today' : '') + (s === sel ? ' is-sel' : ''), String(d.getDate()));
+            c.onclick = function () { choose(s); };
+            grid.appendChild(c);
+          })();
+        }
+        pop.appendChild(grid);
+        var foot = el('div', 'cal-foot'), tb = el('button', '', 'today'); tb.onclick = function () { choose(td); };
+        foot.appendChild(tb); pop.appendChild(foot);
+      } else {
+        head.appendChild(nav('\u2039', 'previous year', function () { vy--; render(); }));
+        var yb = el('button', 'cal-title', String(vy)); yb.onclick = function () { mode = 'day'; render(); }; head.appendChild(yb);
+        head.appendChild(nav('\u203A', 'next year', function () { vy++; render(); }));
+        pop.appendChild(head);
+        grid = el('div', 'cal-mgrid'); var tn = new Date();
+        for (i = 0; i < 12; i++) {
+          (function (m) {
+            var c = el('button', 'cal-month' + (vy === tn.getFullYear() && m === tn.getMonth() ? ' is-today' : '') + (sel && +sel.slice(0, 4) === vy && +sel.slice(4, 6) - 1 === m ? ' is-sel' : ''), MN[m]);
+            c.onclick = function () { vm = m; mode = 'day'; render(); };
+            grid.appendChild(c);
+          })(i);
+        }
+        pop.appendChild(grid);
+      }
+      place();
+    }
+    function init() {
+      pop = el('div', 'cal-pop'); pop.hidden = true; pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-label', 'calendar'); root.appendChild(pop);
+      document.addEventListener('click', function (e) { var path = e.composedPath ? e.composedPath() : []; if (!pop.hidden && path.indexOf(pop) < 0 && path.indexOf(anchor) < 0) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) close(); });
+      window.addEventListener('resize', function () { if (!pop.hidden) place(); });
+      window.addEventListener('scroll', function () { if (!pop.hidden) place(); }, true);
+    }
+    // open(button, 'yyyymmdd' or '', callback(yyyymmdd)); clicking the same button again closes it
+    return { open: function (btn, digits, cb) {
+      if (!pop) init();
+      if (!pop.hidden && anchor === btn) { close(); return; }
+      anchor = btn; var s = /^\d{8}$/.test(digits) ? digits : '', b0 = s || todayD();
+      cur = cb; cur.sel = s; vy = +b0.slice(0, 4); vm = +b0.slice(4, 6) - 1; mode = 'day'; pop.hidden = false; render();
+    } };
+  })();
   function dtPicker(ti, type, onOpen) {
     var w = document.createElement('span'); w.className = 'dtw' + (type === 'time' ? ' t' : '');
     ti.parentNode.insertBefore(w, ti); w.appendChild(ti);
@@ -241,6 +334,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var v = ti.value.replace(/\D/g, '');
       if (type === 'date') pi.value = v.length === 8 ? v.slice(0, 4) + '-' + v.slice(4, 6) + '-' + v.slice(6) : '';
       else pi.value = v.length === 4 ? v.slice(0, 2) + ':' + v.slice(2) : '';
+      if (type === 'date') { // the calendar popup (the native one is kept for time)
+        CAL.open(b, v.length === 8 ? v : '', function (d) { ti.value = fmtDigits(d, 'date'); ti.dispatchEvent(new Event('input', { bubbles: true })); });
+        return;
+      }
       try { pi.showPicker(); } catch (e) { try { pi.focus(); pi.click(); } catch (e2) {} }
     };
     pi.addEventListener('change', function () { if (!pi.value) return; ti.value = fmtDigits(pi.value, type); ti.dispatchEvent(new Event('input', { bubbles: true })); });
@@ -280,17 +377,51 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var sync = function () { rv.hidden = el.value === orig[key]; };
     el.addEventListener('input', sync); sync();
   }
+  // G2 / L2 chips are always shown; the member rows of a group show only while the group is ON (or one of its members is selected). Turning the group OFF also turns its members OFF.
+  // uiOnly: the G2 / L2 chips of member-only fields (setlist member / song member): they only show / hide the rows and never go into the value ('gh-on' is their state).
+  var FOLD_G2 = ['YZH', 'MMK', 'MSK', 'YOK', 'KUR', 'MNM', 'KIR', 'TOA', 'RAN'], FOLD_L2 = ['RIN', 'TBK', 'HIR', 'YUW', 'KAN', 'RRK', 'AKR', 'KIK', 'YUR'];
+  function foldGroups(chips, uiOnly) {
+    var cls = uiOnly ? 'gh-on' : 'on', lists = { G2: FOLD_G2, L2: FOLD_L2 }, head = {}, mem = { G2: [], L2: [] }, rows = { G2: [], L2: [] };
+    [].forEach.call(chips.querySelectorAll('.chip'), function (b) {
+      var v = b.getAttribute('data-v');
+      if (v === 'G2' || v === 'L2') { head[v] = b; if (uiOnly) b.classList.add('gh'); }
+      else for (var g in lists) if (lists[g].indexOf(v) >= 0) { mem[g].push(b); if (rows[g].indexOf(b.parentNode) < 0) rows[g].push(b.parentNode); }
+    });
+    function sel(g) { return mem[g].some(function (b) { return b.classList.contains('on'); }); }
+    function offMembers(g) { mem[g].forEach(function (b) { if (b.classList.contains('on')) b.click(); }); }
+    var busy = false;
+    function refresh() {
+      if (busy) return; busy = true;
+      ['G2', 'L2'].forEach(function (g) {
+        var h = head[g]; if (!h) return;
+        var real = h.classList.contains(cls), s = sel(g), vis = real || s;
+        h.classList.toggle('fold-on', !real && s);
+        rows[g].forEach(function (r) { r.style.display = vis ? '' : 'none'; });
+      });
+      busy = false;
+    }
+    ['G2', 'L2'].forEach(function (g) {
+      var h = head[g]; if (!h) return;
+      h.addEventListener('click', function (e) { // capture-phase work: a chip that only looks ON (members selected, data not ON) turns the group OFF at once
+        if (h.classList.contains('fold-on') && !h.classList.contains(cls)) { e.stopImmediatePropagation(); h.classList.remove('fold-on'); offMembers(g); refresh(); }
+      }, true);
+      h.addEventListener('click', function () { // runs after the chip's own handler (data chips) / toggles the state (ui-only chips)
+        if (uiOnly) h.classList.toggle('gh-on');
+        if (!h.classList.contains(cls)) offMembers(g);
+        refresh();
+      });
+    });
+    new MutationObserver(refresh).observe(chips, { attributes: true, attributeFilter: ['class'], subtree: true });
+    refresh();
+  }
   // member chips under the groups input of the find tab (same chips as the logs tab): two-way synced with the comma-separated text
   function addGroupChips(el, membersOnly) {
     var fw = el.parentNode, col = document.createElement('div'); col.className = 'fgcol';
     fw.parentNode.classList.add('top', 'tl'); // label aligned to the top (the input is the first row of the column)
     fw.parentNode.insertBefore(col, fw); col.appendChild(fw);
     var chips = $('groups').cloneNode(true); chips.removeAttribute('id'); col.appendChild(chips);
-    if (membersOnly) { // setlist member: members only (no G2 / L2 group chips)
-      [].forEach.call(chips.querySelectorAll('.chip[data-v="G2"], .chip[data-v="L2"]'), function (b) { b.parentNode.removeChild(b); });
-      [].forEach.call(chips.querySelectorAll('.cr'), function (r) { if (!r.children.length) r.parentNode.removeChild(r); });
-    }
     var btns = [].slice.call(chips.querySelectorAll('.chip'));
+    if (membersOnly) btns = btns.filter(function (b) { var v = b.getAttribute('data-v'); return v !== 'G2' && v !== 'L2'; }); // setlist member: G2 / L2 only show / hide the member rows
     function tokens() { return el.value.split(/[,\u3001\s]+/).filter(Boolean); }
     function sync() { var t = tokens().map(function (x) { return x.toUpperCase(); }); btns.forEach(function (b) { b.classList.toggle('on', t.indexOf(b.getAttribute('data-v')) !== -1); }); }
     btns.forEach(function (b) {
@@ -301,6 +432,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       };
     });
     el.addEventListener('input', sync); sync();
+    foldGroups(chips, !!membersOnly);
   }
   // setlist artist chips (Girls2 / Laki): toggle the name in the text (both on = joined with ' x ' as the form does). The members of the artist's group are switched on in the member field.
   var G2_MEM = ['YZH', 'MMK', 'MSK', 'YOK', 'KUR', 'MNM', 'KIR'], L2_MEM = ['RIN', 'TBK', 'HIR', 'YUW', 'KAN', 'RRK', 'AKR', 'KIK'], AJOIN = ' \u00D7 ';
@@ -356,7 +488,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function addSnsHelper(el) {
     var fw = el.parentNode, col = document.createElement('div'); col.className = 'fgcol';
     fw.parentNode.insertBefore(col, fw); col.appendChild(fw);
-    var box = document.createElement('div'); box.className = 'snsh'; col.appendChild(box);
+    var box = document.createElement('div'); box.className = 'snsh'; col.insertBefore(box, fw); // the input helper goes above the textarea
     var row = document.createElement('div'); row.className = 'row'; box.appendChild(row);
     var sel = document.createElement('select'); sel.className = 'fsel'; sel.title = 'type';
     ['auto', 'x', 'instagram', 'youtube', 'tiktok', 'gl2family', 'cl', 'threads', 'line', 'etc'].forEach(function (t) { var o = document.createElement('option'); o.value = t; o.textContent = t; sel.appendChild(o); });
@@ -367,6 +499,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     addOpen(url, 5);
     var chips = $('groups').cloneNode(true); chips.removeAttribute('id'); box.appendChild(chips);
     [].forEach.call(chips.querySelectorAll('.chip'), function (b) { b.onclick = function () { b.classList.toggle('on'); }; });
+    foldGroups(chips, false);
     function urlOf(line) { var m = line.match(/https?:\/\/[^\s|]+/i); return m ? m[0] : ''; }
     function doAdd() {
       var u = url.value.trim();
@@ -398,7 +531,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     };
   }
   function addTo(m, v) { v = typeof v === 'string' ? v.trim() : ''; if (v) m[v] = (m[v] || 0) + 1; }
-  var CONTENTS_LIST = ['ANNIVERSARY','BIRTHDAY','DEBUT','FORMATION','CL','COLUMN','COOKING','DIARY','ETC','CAMPAIGN','CLOSE','MESSAGE','PLAYING','RESULT','EVENT','FANMEETING','RELEASEEVENT','FANCLUB','GLRADIO','GTUBE','LIVE','MAGAZINE','MEDIA','BOOK','NEWSPAPER','MODEL','MOVIE','RADIO','RELEASE','BD','CD','DIGITAL','DVD','MUSICCARD','SALES','GOODS','SNS','STAGE','STREAMING','TICKET','TV','WEB','PODCAST','YOUTUBE'];
+  var CONTENTS_LIST = ['ANNIVERSARY','BIRTHDAY','DEBUT','FORMATION','CL','COLUMN','COOKING','DIARY','ETC','CAMPAIGN','CLOSE','MESSAGE','PLAYING','RESULT','EVENT','FANMEETING','RELEASEEVENT','FANCLUB','TELEPHONE','GLRADIO','GTUBE','LIVE','MAGAZINE','MEDIA','BOOK','NEWSPAPER','MODEL','MOVIE','RADIO','RELEASE','BD','CD','DIGITAL','DVD','MUSICCARD','SALES','GOODS','SNS','STAGE','STREAMING','TICKET','TV','WEB','PODCAST','YOUTUBE'];
   function lxContents() { // values already used in logs.json (most used first) + the choices of the issue form
     var base = contentsOptions(), seen = {};
     base.forEach(function (o) { seen[o.v] = 1; });
@@ -475,12 +608,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var orig2 = mkInput('mid', 'original'), notes = mkInput('mid', 'notes');
     rT.appendChild(sel); r2.appendChild(orig2); r2.appendChild(notes);
     var mch = $('groups').cloneNode(true); mch.removeAttribute('id'); mch.title = 'singing members (none = all)'; // member chips of the song (G2 / L2 row removed): sent as {YZH,MMK} after the title
-    var gr0 = mch.querySelector('.cr'); if (gr0) gr0.parentNode.removeChild(gr0);
     r1.parentNode.insertBefore(mch, rT.nextSibling);
     var mTouched = false;
     function getM() { return [].map.call(mch.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); }); }
-    function setM(a) { [].forEach.call(mch.querySelectorAll('.chip'), function (b) { b.classList.toggle('on', a.indexOf(b.getAttribute('data-v')) >= 0); }); }
-    [].forEach.call(mch.querySelectorAll('.chip'), function (b) { b.onclick = function () { b.classList.toggle('on'); mTouched = true; }; });
+    function setM(a) { [].forEach.call(mch.querySelectorAll('.chip[data-v]:not(.gh)'), function (b) { b.classList.toggle('on', a.indexOf(b.getAttribute('data-v')) >= 0); }); }
+    [].forEach.call(mch.querySelectorAll('.chip[data-v]'), function (b) { var v = b.getAttribute('data-v'); if (v === 'G2' || v === 'L2') return; b.onclick = function () { b.classList.toggle('on'); mTouched = true; }; });
+    foldGroups(mch, true);
     function memOf(sg) { var m = sg && sg.member; return Array.isArray(m) ? m : (typeof m === 'string' && m ? m.split(/[,\s]+/) : []); }
     function withM(ti, a) { return a.length ? (ti ? ti + ' ' : '') + '{' + a.join(',') + '}' : ti; }
     addSuggest(title, songOptions, r1);

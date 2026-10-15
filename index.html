@@ -363,7 +363,24 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .text-size-wrap { position: relative; }
 .date-search-wrap { position: relative; flex-shrink: 0; display: flex; } /* 検索窓と文字サイズボタンの間のカレンダー(日付を選ぶと検索窓にYYYYMMDDを入れる) */
 #dateSearchBtn svg { width: 14px; height: 14px; display: block; }
-#dateSearchInput { position: absolute; left: 0; top: 0; width: 26px; height: 26px; opacity: 0; pointer-events: none; border: 0; padding: 0; }
+.cal-pop { position: fixed; z-index: 1100; width: 290px; max-width: calc(100vw - 16px); box-sizing: border-box; padding: 10px; background: var(--bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); user-select: none; -webkit-user-select: none; }
+.cal-pop[hidden] { display: none; }
+.cal-head { display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
+.cal-head button, .cal-foot button, .cal-mgrid button, .cal-grid button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; border-radius: 8px; }
+.cal-nav { flex: 0 0 34px; height: 34px; font-size: 15px; background: var(--btn-bg) !important; border: 1px solid var(--input-border) !important; }
+.cal-title { flex: 1 1 auto; height: 34px; font-size: 14px; font-weight: 700; }
+.cal-nav:hover, .cal-title:hover, .cal-foot button:hover { background-color: var(--btn-hover) !important; }
+.cal-grid, .cal-mgrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.cal-mgrid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.cal-wd { text-align: center; font-size: 11px; color: var(--sub); padding: 2px 0 4px; }
+.cal-grid button { height: 36px; font-size: 14px; }
+.cal-grid button.is-out { color: var(--muted); }
+.cal-grid button:hover, .cal-mgrid button:hover { background-color: var(--btn-hover); }
+.cal-grid button.is-today, .cal-mgrid button.is-today { box-shadow: inset 0 0 0 2px #38bdf8; }
+.cal-grid button.is-sel, .cal-mgrid button.is-sel { background-color: #38bdf8; color: #fff; font-weight: 700; }
+.cal-mgrid button { height: 44px; font-size: 14px; }
+.cal-foot { display: flex; justify-content: flex-end; margin-top: 8px; }
+.cal-foot button { height: 34px; padding: 0 16px; font-size: 13px; color: #38bdf8; font-weight: 700; }
 .text-size-panel {
   position: absolute;
   top: calc(100% + 6px);
@@ -785,7 +802,7 @@ body .item-contents.is-content-open {
 .setlist-song-title { display: block; font-size: calc(var(--data-font-scale) * 13px); }
 .setlist-song-hearts { display: flex; flex-wrap: nowrap; gap: 1px; margin-top: 2px; line-height: 1; } /* 曲ごとの歌唱メンバー(曲名の下) */
 .setlist-song-heart { font-size: 7px; line-height: 1; }
-.setlist-song-type { flex: 0 0 auto; font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
+.setlist-song-type { flex: 0 0 auto; align-self: flex-start; margin-top: 1px; /* 中央ではなく上付き(曲名1行目と横位置を揃える) */ font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
 .setlist-song-sub { display: flex; flex-wrap: wrap; gap: 0 8px; margin-top: 2px; font-size: 10px; line-height: 1.4; color: var(--sub); opacity: 0.85; } /* original と notes(括弧なし・小さく薄く) */
 .setlist-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
 /* SNSリンクポップアップ(セトリポップアップと見た目を揃える) */
@@ -864,7 +881,7 @@ body .item-contents.is-content-open {
       </div>
       <div class="date-search-wrap">
         <button type="button" id="dateSearchBtn" aria-label="&#26085;&#20184;&#12363;&#12425;&#26908;&#32034;"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg></button>
-        <input type="date" id="dateSearchInput" tabindex="-1" aria-hidden="true">
+        <div class="cal-pop" id="calPop" role="dialog" aria-label="&#26085;&#20184;&#12363;&#12425;&#26908;&#32034;" hidden></div>
       </div>
       <div class="text-size-wrap" id="textSizeWrap">
         <button type="button" class="text-size-btn" id="textSizeBtn" aria-label="&#12487;&#12540;&#12479;&#37096;&#12398;&#25991;&#23383;&#12469;&#12452;&#12474;&#12434;&#22793;&#26356;" aria-haspopup="true" aria-expanded="false">A</button>
@@ -1133,6 +1150,8 @@ body .item-contents.is-content-open {
     'CL': '\uD83C\uDD91', 'RELEASE': '\uD83C\uDFA7', 'LIVE': '\uD83C\uDF99\uFE0F', 
     'EVENT': '\uD83D\uDCAC', 'MEDIA': '\uD83D\uDCE1', 'MAGAZINE': '\uD83D\uDCD6', 'WEB': '\uD83C\uDF10', 'SNS': '\uD83D\uDCF1', 'SALES': '\uD83D\uDED2', 'ANNIVERSARY': '\uD83D\uDD16', 'BIRTHDAY': '\uD83C\uDF82',
     'MODEL': '\uD83D\uDC60', 'MOVIE': '\uD83C\uDFAC\uFE0F', 'TICKET': '\uD83C\uDFAB',
+    // TELEPHONEはフィルターボタンには表示せず、フィルター判定上は"FANCLUB"として扱う(データ部は📞 TELEPHONE)
+    'TELEPHONE': '\uD83D\uDCDE',
     'CLOSE': '\u2705', 'RESULT': '\uD83C\uDFAF', 'CAMPAIGN': '\uD83D\uDCE8', 'PLAYING': '\uD83C\uDFB6', 'MESSAGE': '\uD83D\uDCE8', // フィルターボタンには表示せず、ETC選択時のみ該当させる
     'ETC': '\uD83D\uDCCC',
     // 以下5種類はcontentsフィルターボタンには表示しないが、フィルター判定上は"RELEASE"として扱う
@@ -1490,6 +1509,7 @@ body .item-contents.is-content-open {
   const salesAliasConts = ['GOODS'];
   const eventAliasConts = ['RELEASEEVENT', 'FANMEETING']; // COOKING/STAGEは独立したフィルターボタンになった
   const birthdayAliasConts = ['DEBUT', 'FORMATION'];
+  const fanclubAliasConts = ['TELEPHONE'];
   const normalizeContTypeCache = new Map();
   // 生のcontents値を、フィルターボタンが実際に使う種類(エイリアス統合後)に変換する
   const normalizeContType = c => {
@@ -1500,7 +1520,8 @@ body .item-contents.is-content-open {
       webAliasConts.includes(c) ? 'WEB' :
       salesAliasConts.includes(c) ? 'SALES' :
       eventAliasConts.includes(c) ? 'EVENT' :
-      birthdayAliasConts.includes(c) ? 'BIRTHDAY' : c;
+      birthdayAliasConts.includes(c) ? 'BIRTHDAY' :
+      fanclubAliasConts.includes(c) ? 'FANCLUB' : c;
     normalizeContTypeCache.set(c, result);
     return result;
   };
@@ -1850,23 +1871,84 @@ body .item-contents.is-content-open {
       updateDisplay(true);
     }, 180);
   };
-  // カレンダーボタン:日付を選ぶと、検索窓にYYYYMMDDの形式で自動入力する(年月日8桁の検索と同じ動作になる)
+  // カレンダーボタン:自前のカレンダーを開き、日付を選ぶと検索窓にYYYYMMDDの形式で自動入力する(年月日8桁の検索と同じ動作になる)
   (() => {
-    const btn = $('dateSearchBtn'), dateInput = $('dateSearchInput');
-    if (!btn || !dateInput) return;
-    btn.onclick = () => {
-      const cur = searchInput.value.replace(/\D/g, '');
-      dateInput.value = /^\d{8}$/.test(cur) ? `${cur.slice(0, 4)}-${cur.slice(4, 6)}-${cur.slice(6)}` : '';
-      try { if (dateInput.showPicker) { dateInput.showPicker(); return; } } catch (_) {}
-      dateInput.focus(); dateInput.click();
+    const btn = $('dateSearchBtn'), pop = $('calPop');
+    if (!btn || !pop) return;
+    const WD = ['\u65E5', '\u6708', '\u706B', '\u6C34', '\u6728', '\u91D1', '\u571F']; // 日月火水木金土(色分けなし)
+    const pad = n => String(n).padStart(2, '0');
+    const ymd = (y, m, d) => `${y}${pad(m + 1)}${pad(d)}`;
+    const todayStr = () => { const t = new Date(); return ymd(t.getFullYear(), t.getMonth(), t.getDate()); };
+    const selStr = () => { const d = searchInput.value.replace(/\D/g, ''); return /^\d{8}$/.test(d) ? d : ''; };
+    let vy = 0, vm = 0, mode = 'day';
+    const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; if (tag === 'button') e.type = 'button'; return e; };
+    const place = () => { // ボタンの下に右端をそろえて出す(画面からはみ出さないよう補正)
+      const r = btn.getBoundingClientRect(), w = pop.offsetWidth || 290;
+      pop.style.left = Math.max(8, Math.min(r.right - w, window.innerWidth - w - 8)) + 'px';
+      pop.style.top = (r.bottom + 6) + 'px';
     };
-    dateInput.addEventListener('change', () => {
-      const v = (dateInput.value || '').replace(/\D/g, '');
-      if (!/^\d{8}$/.test(v)) return;
-      searchInput.value = v;
+    const close = () => { pop.hidden = true; btn.classList.remove('is-open'); };
+    const choose = d => {
+      searchInput.value = d;
       searchInput.dispatchEvent(new Event('input', { bubbles: true }));
       searchInput.dispatchEvent(new Event('change', { bubbles: true }));
-    });
+      close();
+    };
+    const render = () => {
+      pop.textContent = '';
+      const head = el('div', 'cal-head'), sel = selStr(), today = todayStr();
+      const nav = (label, aria, fn) => { const b = el('button', 'cal-nav', label); b.setAttribute('aria-label', aria); b.onclick = fn; return b; };
+      if (mode === 'day') {
+        head.append(
+          nav('\u00AB', '\u524D\u306E\u5E74', () => { vy--; render(); }),
+          nav('\u2039', '\u524D\u306E\u6708', () => { if (--vm < 0) { vm = 11; vy--; } render(); }),
+          (() => { const b = el('button', 'cal-title', `${vy}\u5E74 ${vm + 1}\u6708`); b.setAttribute('aria-label', '\u5E74\u3068\u6708\u3092\u9078\u3076'); b.onclick = () => { mode = 'month'; render(); }; return b; })(),
+          nav('\u203A', '\u6B21\u306E\u6708', () => { if (++vm > 11) { vm = 0; vy++; } render(); }),
+          nav('\u00BB', '\u6B21\u306E\u5E74', () => { vy++; render(); })
+        );
+        pop.appendChild(head);
+        const grid = el('div', 'cal-grid');
+        WD.forEach(w => grid.appendChild(el('div', 'cal-wd', w)));
+        const first = new Date(vy, vm, 1).getDay(), start = new Date(vy, vm, 1 - first);
+        for (let i = 0; i < 42; i++) {
+          const d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i), s = ymd(d.getFullYear(), d.getMonth(), d.getDate());
+          const b = el('button', 'cal-day' + (d.getMonth() !== vm ? ' is-out' : '') + (s === today ? ' is-today' : '') + (s === sel ? ' is-sel' : ''), String(d.getDate()));
+          b.onclick = () => choose(s);
+          grid.appendChild(b);
+        }
+        pop.appendChild(grid);
+        const foot = el('div', 'cal-foot'), tb = el('button', '', '\u4ECA\u65E5');
+        tb.onclick = () => choose(today);
+        foot.appendChild(tb); pop.appendChild(foot);
+      } else { // 年と月の選択:年を前後に送り、12か月の中から月を選ぶ
+        head.append(
+          nav('\u2039', '\u524D\u306E\u5E74', () => { vy--; render(); }),
+          (() => { const b = el('button', 'cal-title', `${vy}\u5E74`); b.onclick = () => { mode = 'day'; render(); }; return b; })(),
+          nav('\u203A', '\u6B21\u306E\u5E74', () => { vy++; render(); })
+        );
+        pop.appendChild(head);
+        const grid = el('div', 'cal-mgrid'), tn = new Date();
+        for (let m = 0; m < 12; m++) {
+          const b = el('button', 'cal-month' + (vy === tn.getFullYear() && m === tn.getMonth() ? ' is-today' : '') + (sel && +sel.slice(0, 4) === vy && +sel.slice(4, 6) - 1 === m ? ' is-sel' : ''), `${m + 1}\u6708`);
+          b.onclick = () => { vm = m; mode = 'day'; render(); };
+          grid.appendChild(b);
+        }
+        pop.appendChild(grid);
+      }
+      place();
+    };
+    btn.onclick = e => {
+      e.stopPropagation();
+      if (!pop.hidden) { close(); return; }
+      const s = selStr() || todayStr();
+      vy = +s.slice(0, 4); vm = +s.slice(4, 6) - 1; mode = 'day';
+      pop.hidden = false; btn.classList.add('is-open');
+      render();
+    };
+    document.addEventListener('click', e => { if (!pop.hidden && !e.composedPath().includes(pop) && !e.composedPath().includes(btn)) close(); }); // 中身は再描画で消えることがあるため、要素の包含ではなくイベントの経路で判定する
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) close(); });
+    window.addEventListener('resize', () => { if (!pop.hidden) place(); });
+    window.addEventListener('scroll', () => { if (!pop.hidden) place(); }, true);
   })();
   searchInput.addEventListener('keydown', e => {
     const isOpen = searchSuggestions.classList.contains('is-open');
