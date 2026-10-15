@@ -3980,6 +3980,10 @@
     "groups": [
       "L2",
       "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
       "RRK",
       "AKR",
       "KIK"
@@ -4004,6 +4008,28 @@
             "url": "https://x.com/Laki922official/status/2110302782674919526",
             "member": [
               "RIN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2110573472883872112",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgdTFe4N/",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
               "RRK",
               "AKR",
               "KIK"
