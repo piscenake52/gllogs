@@ -1,0 +1,40 @@
+{
+  "logid": "47837608b682",
+  "sns": [
+    {
+      "type": "youtube",
+      "urls": [
+        {
+          "url": "https://youtube.com/shorts/xiFYyCJDa1s?si=YQvgfCV1LvvVMzp5",
+          "member": [
+            "YZH",
+            "MMK"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2110658705255743968",
+          "member": [
+            "MSK"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgRxx6KY/",
+          "member": [
+            "MSK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1277"
+}
