@@ -1,16 +1,17 @@
 {
-  "date": "20261015",
-  "contents": "SNS",
-  "title": "SNS　Girls²",
-  "groups": [
-    "G2"
-  ],
+  "logid": "47837608b682",
   "sns": [
     {
       "type": "youtube",
       "urls": [
         {
           "url": "https://youtube.com/shorts/p_B7_McUk0o?si=tWh5c9l4hRH46Psy",
+          "member": [
+            "MSK"
+          ]
+        },
+        {
+          "url": "https://youtube.com/shorts/SfGVO9MTh4k?si=_W9XLqiqtcvApIhf",
           "member": [
             "YZH",
             "MMK",
@@ -24,5 +25,5 @@
       ]
     }
   ],
-  "_issue": "1272"
+  "_issue": "1275"
 }
