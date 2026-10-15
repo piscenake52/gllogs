@@ -541,12 +541,14 @@ def bump_number(title, i):
 
 
 def apply_repeat(target, main_data, item, repeat, issue, issue_map):
-    """繰り返し登録: repeat（1行1回の {"date", "title"?}）ごとに logs を登録する。
-    title は最初の回の title の `#数字` を回ごとに +1（行に title があればそれを優先）。url / map / sns / display は引き継がない。
+    """繰り返し登録: repeat（1行1回の {"date", "time"?, "title"?, "contents"?, "url"?, "display_sp"?}）ごとに logs を登録する。
+    title は最初の回の title の `#数字` を回ごとに +1（行に title があればそれを優先）。time / contents / url / display_sp は行に指定があればそれを使う。map / sns / display_pc（と、行に指定のない url / display_sp）は引き継がない。
     同じIssueの再編集は、前回の登録分を同じ順番で更新し、増えた回は追加、減った回は削除する（logid は変わらない）。
     すでに同じ date + time + contents + title の行があるときは、その回は登録しない。戻り値: added / updated / invalid"""
     base = {k: v for k, v in item.items() if not k.startswith("_") and k not in REPEAT_DROP}
-    dropped = [k for k in ("url", "map", "sns", "display_pc", "display_sp") if not is_blank(item.get(k))]
+    all_url = all(occ.get("url") for occ in repeat[:REPEAT_LIMIT])  # 全部の回にURLの指定があれば、フォームのURLの扱いは気にしなくてよい
+    all_sp = all(occ.get("display_sp") for occ in repeat[:REPEAT_LIMIT])
+    dropped = [k for k in ("url", "map", "sns", "display_pc", "display_sp") if not is_blank(item.get(k)) and not (k == "url" and all_url) and not (k == "display_sp" and all_sp)]
     if dropped:
         NOTICES.append(f"- **logs**: 繰り返し登録では {' / '.join(dropped)} は引き継ぎません")
     title0 = item.get("title", "")
@@ -557,6 +559,11 @@ def apply_repeat(target, main_data, item, repeat, issue, issue_map):
         rec = dict(base)
         rec["date"] = occ.get("date", "")
         rec["title"] = occ.get("title") or bump_number(title0, i)
+        if "time" in occ:
+            rec["time"] = occ["time"]  # 行ごとの時刻（空文字 = 時刻なし）
+        for k in ("contents", "url", "display_sp"):
+            if occ.get(k):
+                rec[k] = occ[k]  # 行ごとの contents / URL
         row = None
         if i < len(prev) and prev[i]:
             row = next((e for e in main_data if e.get("logid") == prev[i]), None)

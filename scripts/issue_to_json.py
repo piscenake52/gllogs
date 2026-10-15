@@ -354,16 +354,23 @@ REPEAT_MAX = 60  # 繰り返し登録の最大件数
 
 
 def parse_repeat(raw_str):
-    """繰り返し登録（1行1回）。書式: YYYYMMDD [| タイトル]。日付は YYYY/MM/DD・YYYY-MM-DD でもよい。
-    戻り値: ([{"date", "title"?}, ...], エラーのリスト)"""
+    """繰り返し登録（1行1回）。書式: `YYYYMMDD [時刻] [| タイトル [| contents [| URL [| display_sp]]]]`
+      - 日付は YYYY/MM/DD・YYYY-MM-DD でもよい。時刻は `HHMM` / `HH:MM`、`-`（時刻なし）。時刻を省略すると、フォームの時刻をそのまま使う
+      - `|` が1つだけのときは、その後ろ全部がタイトル（従来どおり）。`|` が2つ以上のときは、タイトル | contents | URL | display_sp の順（どれも空欄でフォームの値を使う。display_sp は空欄なら付けない）
+    戻り値: ([{"date", "time"?, "title"?, "contents"?, "url"?, "display_sp"?}, ...], エラーのリスト)"""
     import datetime
     ops, errors = [], []
     for line in (raw_str or "").split("\n"):
         line = line.strip()
         if not line or line.startswith("#"):
             continue
-        head, _, rest = re.split(r"[|｜]", line, maxsplit=1)[0], "", (re.split(r"[|｜]", line, maxsplit=1) + [""])[1]
-        d = re.sub(r"[^0-9]", "", to_halfwidth(head))
+        shown = line.replace(chr(96), chr(39))
+        parts = [x.strip() for x in re.split(r"[|｜]", line)]
+        tokens = to_halfwidth(parts[0]).split()
+        time_tok = None
+        if len(tokens) >= 2 and re.fullmatch(r"\d{1,2}:\d{2}|\d{3,4}|-|--:--", tokens[-1]) and len(re.sub(r"[^0-9]", "", "".join(tokens[:-1]))) == 8:
+            time_tok = tokens.pop()
+        d = re.sub(r"[^0-9]", "", "".join(tokens))
         ok = False
         if len(d) == 8:
             try:
@@ -372,11 +379,43 @@ def parse_repeat(raw_str):
             except ValueError:
                 pass
         if not ok:
-            errors.append(f"- **繰り返し登録**: 日付を読み取れない行です（`{line.replace(chr(96), chr(39))}`）。`YYYYMMDD` または `YYYYMMDD | タイトル` で入力してください")
+            errors.append(f"- **繰り返し登録**: 日付を読み取れない行です（`{shown}`）。`YYYYMMDD` または `YYYYMMDD | タイトル` で入力してください")
             continue
         op = {"date": d}
-        if rest.strip():
-            op["title"] = rest.strip()
+        if time_tok is not None:
+            if time_tok in ("-", "--:--"):
+                op["time"] = ""
+            else:
+                t = re.sub(r"[^0-9]", "", time_tok).zfill(4)
+                if not (int(t[:2]) <= 23 and int(t[2:]) <= 59):
+                    errors.append(f"- **繰り返し登録**: 時刻は 0000〜2359 で入力してください（`{shown}`）")
+                    continue
+                op["time"] = t
+        rest = parts[1:]
+        if len(rest) == 1:
+            if rest[0]:
+                op["title"] = rest[0]
+        elif len(rest) >= 2:
+            if len(rest) > 4:
+                errors.append(f"- **繰り返し登録**: `|` が多すぎます。`日付 時刻 | タイトル | contents | URL | display_sp` の形で入力してください（`{shown}`）")
+                continue
+            title, cont = rest[0], rest[1].upper()
+            url = rest[2] if len(rest) > 2 else ""
+            sp = rest[3] if len(rest) > 3 else ""
+            if cont and cont not in CONTENTS_OPTIONS:
+                errors.append(f"- **繰り返し登録**: contents が選択肢にありません: `{cont}`（`{shown}`）")
+                continue
+            if url and not re.fullmatch(r"https?://\S+", url):
+                errors.append(f"- **繰り返し登録**: URLはhttp(s)://から始めてください（`{shown}`）")
+                continue
+            if title:
+                op["title"] = title
+            if cont:
+                op["contents"] = cont
+            if url:
+                op["url"] = url
+            if sp:
+                op["display_sp"] = sp
         ops.append(op)
     if len(ops) > REPEAT_MAX:
         errors.append(f"- **繰り返し登録**: 一度に登録できるのは{REPEAT_MAX}件までです（{len(ops)}件）")
