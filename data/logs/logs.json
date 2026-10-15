@@ -3709,6 +3709,29 @@
     ]
   },
   {
+    "logid": "c5e5de4c5613",
+    "date": "20261016",
+    "time": "1730",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　比嘉優和",
+    "url": "https://www.cl-live.com/artists/ldh_news_cast?lang=ja",
+    "groups": [
+      "L2",
+      "YUW"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/CL_OFFICIAL_ACC/status/2110717975322132507",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "e2fbd798239c",
     "date": "20261016",
     "time": "1000",
@@ -3726,18 +3749,6 @@
       "MNM",
       "KIR",
       "TOA"
-    ]
-  },
-  {
-    "logid": "c5e5de4c5613",
-    "date": "20261016",
-    "time": "",
-    "contents": "CL",
-    "title": "LDH NEWS CAST　比嘉優和",
-    "url": "https://www.cl-live.com/artists/ldh_news_cast?lang=ja",
-    "groups": [
-      "L2",
-      "YUW"
     ]
   },
   {
