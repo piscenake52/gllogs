@@ -1169,7 +1169,7 @@ body .item-contents.is-content-open {
     // RELEASEEVENT/FANMEETINGはフィルターボタンには表示せず、フィルター判定上は"EVENT"
     'COOKING': '\uD83C\uDF7D\uFE0F', 'RELEASEEVENT': '\uD83C\uDFA4', 'FANMEETING': '\uD83C\uDFA4', 'STAGE': '\uD83C\uDFAD',
     // DEBUT/FORMATIONはフィルターボタンには表示せず、フィルター判定上は"BIRTHDAY"として扱う
-    'DEBUT': '\uD83C\uDF82', 'FORMATION': '\uD83E\uDD1D'
+    'DEBUT': '\u2B50', 'FORMATION': '\u2728'
   };
 
   // 内部値と表示名が異なるものだけ登録する
@@ -2626,10 +2626,11 @@ body .item-contents.is-content-open {
     const HELPER_URL = 'https://gl-log.blogspot.com/p/issuehelper.html';
     // 🔗まで全部ONならlogid(logsタブ)、それ以外はsetlistid(setlistタブ)のIDでhelperを別タブで開く。IDのない行は何もしない
     // helperを開く操作は、♪(songMode)と💞(heartModeOn)もONのときだけ有効にする(setlistへの遷移はさらに📋セトリ検索もON、logsはOFF)
+    // helperを開ける状態か(この状態では、2回タップのIDコピーは行わない)
+    const helperModeOn = () => songMode && heartModeOn && isAllTogglesOn() !== setlistMode; // setlistへの遷移はセトリ検索ボタン(📋)ON、logsへの遷移はOFFのときだけ
     const openHelper = row => {
-      if (!songMode || !heartModeOn) return;
+      if (!helperModeOn()) return;
       const all = isAllTogglesOn();
-      if (all === setlistMode) return; // setlistへの遷移はセトリ検索ボタン(📋)ON、logsへの遷移はOFFのときだけ
       const id = all ? (row.dataset.logid || '') : (row.dataset.setlistid || '');
       if (!id) return;
       window.open(HELPER_URL + '?id=' + encodeURIComponent(id) + (all ? '#logs' : '#setlist'), '_blank', 'noopener');
@@ -2739,8 +2740,9 @@ body .item-contents.is-content-open {
         tapCount++;
         lastTime = now;
         if (window.getSelection) window.getSelection().removeAllRanges();
-        if (tapCount === 2) { // 2回タップ: IDをコピー
-          if (isAllTogglesOn()) showLogid(row);
+        if (tapCount === 2) { // 2回タップ: IDをコピー(helperを開ける状態では、3回タップに備えてコピーしない)
+          if (helperModeOn()) { /* 何もしない */ }
+          else if (isAllTogglesOn()) showLogid(row);
           else showSetlistid(row);
         } else if (tapCount >= 3) { // 3回連続タップ: helperを開く
           lastRow = null; tapCount = 0;
@@ -4453,7 +4455,7 @@ body .item-contents.is-content-open {
     }
     saveExcludedFilters();
     applyExcludedStyles();
-    if (allConts.includes(val) || /^\d{4}$/.test(val) || /^\d{2}$/.test(val)) autoUpdateContentTypeFilters();
+    autoUpdateContentTypeFilters(); // グループ/メンバーの除外・解除でも、TODAY/セトリ検索モードのコンテンツ種類の自動ON/OFFとランプを再計算する
     updateManualIndicators();
     updateDisplay(true);
   };
