@@ -4134,7 +4134,9 @@
     "groups": [
       "L2",
       "RIN",
-      "HIR"
+      "HIR",
+      "YUW",
+      "KIK"
     ],
     "sns": [
       {
@@ -4142,6 +4144,10 @@
         "urls": [
           {
             "url": "https://x.com/Laki922official/status/2110643332003381485",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2110682024642240981",
             "member": []
           }
         ]
@@ -4154,6 +4160,13 @@
             "member": [
               "RIN",
               "HIR"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSgRs9QAt/",
+            "member": [
+              "YUW",
+              "KIK"
             ]
           }
         ]
