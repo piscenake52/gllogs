@@ -48036,9 +48036,10 @@
     "logid": "9a8912687c16",
     "date": "20250619",
     "time": "",
-    "contents": "RELEASE",
-    "title": "Girls² × iScream「D.N.A.」リリース",
-    "url": "https://www.girls2.jp/info/archive/?id=562389&paged=1",
+    "contents": "CD",
+    "title": "Girls² × iScream 「D.N.A.」 リリース",
+    "display_sp": "SG 「D.N.A.」 リリース",
+    "url": "https://m.ldhgirls-m.jp/ldh_page/discography_Girls2_iscream_2024_single_dna_index",
     "groups": [
       "G2",
       "YZH",
@@ -48049,6 +48050,9 @@
       "MNM",
       "KIR",
       "TOA"
+    ],
+    "tags": [
+      "ガルサケ"
     ]
   },
   {
