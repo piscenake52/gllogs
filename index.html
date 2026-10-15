@@ -805,8 +805,7 @@ body .item-contents.is-content-open {
 .setlist-song-hgrp { display: inline-flex; align-items: center; gap: 1px; }
 .setlist-song-hname { font-size: 8px; line-height: 1; color: var(--sub); margin-right: 2px; } /* Girls\u00B2 / Laki の両方がartistのときの、ハートの前のグループ名 */
 .setlist-song-hsep { font-size: 8px; line-height: 1; color: var(--sub); margin: 0 3px; }
-.setlist-artist-grp { display: inline-flex; align-items: center; gap: 4px; }
-.setlist-artist-sep { color: var(--sub); }
+.setlist-modal-artist.is-split { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 6px; row-gap: 2px; } /* Girls\u00B2 / Laki の両方がartistのとき:名前の列とハートの列(左端そろえ)の2段 */
 .setlist-song-type { flex: 0 0 auto; align-self: flex-start; margin-top: 1px; /* 中央ではなく上付き(曲名1行目と横位置を揃える) */ font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
 .setlist-song-sub { display: flex; flex-wrap: wrap; gap: 0 8px; margin-top: 2px; font-size: 10px; line-height: 1.4; color: var(--sub); opacity: 0.85; } /* original と notes(括弧なし・小さく薄く) */
 .setlist-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
@@ -3035,8 +3034,9 @@ body .item-contents.is-content-open {
             return info ? `<span class="setlist-heart">${info.c}</span>` : '';
           }).join('');
           if (artistBoth) { // Girls\u00B2 \u2661\u2661 / Laki \u2661\u2661 (グループごとに名前とハートを並べる)
-            const grp = (nm, set) => `<span class="setlist-artist-grp">${nm}<span class="setlist-modal-hearts">${heartsOf(memberCodes.filter(m => set.has(m)))}</span></span>`;
-            return `<div class="setlist-modal-artist">${grp(ARTIST_G2, g2MemberCodes)}<span class="setlist-artist-sep">/</span>${grp(ARTIST_L2, l2MemberCodes)}</div>`;
+            // 2段表示:グループ名の列とハートの列に分け、ハートの左端をそろえる
+            const grp = (nm, set) => `<span class="setlist-artist-name">${nm}</span><span class="setlist-modal-hearts">${heartsOf(memberCodes.filter(m => set.has(m)))}</span>`;
+            return `<div class="setlist-modal-artist is-split">${grp(ARTIST_G2, g2MemberCodes)}${grp(ARTIST_L2, l2MemberCodes)}</div>`;
           }
           const heartsHtml = heartsOf(memberCodes);
           if (!entry.artist && !heartsHtml) return '';
