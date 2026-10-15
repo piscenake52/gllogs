@@ -955,6 +955,17 @@
     ],
     "relations": [
       "TOA"
+    ],
+    "sns": [
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://www.wowow.co.jp/music/ldh/",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
