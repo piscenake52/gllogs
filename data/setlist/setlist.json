@@ -1222,6 +1222,21 @@
         "type": "encore",
         "original": "",
         "notes": ""
+      },
+      {
+        "order": 33,
+        "title": "XXXXXXXXX",
+        "type": "arrange,medley,mc",
+        "original": "TEST",
+        "notes": "AAAAA",
+        "member": [
+          "YZH",
+          "MSK",
+          "TOA",
+          "TBK",
+          "YUW",
+          "YUR"
+        ]
       }
     ]
   },
