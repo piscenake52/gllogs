@@ -802,6 +802,11 @@ body .item-contents.is-content-open {
 .setlist-song-title { display: block; font-size: calc(var(--data-font-scale) * 13px); }
 .setlist-song-hearts { display: flex; flex-wrap: nowrap; gap: 1px; margin-top: 2px; line-height: 1; } /* 曲ごとの歌唱メンバー(曲名の下) */
 .setlist-song-heart { font-size: 7px; line-height: 1; }
+.setlist-song-hgrp { display: inline-flex; align-items: center; gap: 1px; }
+.setlist-song-hname { font-size: 8px; line-height: 1; color: var(--sub); margin-right: 2px; } /* Girls\u00B2 / Laki の両方がartistのときの、ハートの前のグループ名 */
+.setlist-song-hsep { font-size: 8px; line-height: 1; color: var(--sub); margin: 0 3px; }
+.setlist-artist-grp { display: inline-flex; align-items: center; gap: 4px; }
+.setlist-artist-sep { color: var(--sub); }
 .setlist-song-type { flex: 0 0 auto; align-self: flex-start; margin-top: 1px; /* 中央ではなく上付き(曲名1行目と横位置を揃える) */ font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
 .setlist-song-sub { display: flex; flex-wrap: wrap; gap: 0 8px; margin-top: 2px; font-size: 10px; line-height: 1.4; color: var(--sub); opacity: 0.85; } /* original と notes(括弧なし・小さく薄く) */
 .setlist-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
@@ -2984,6 +2989,8 @@ body .item-contents.is-content-open {
       return;
     }
     try {
+      const ARTIST_G2 = 'Girls'.concat('\u00B2'), ARTIST_L2 = 'Laki';
+      const artistBoth = String(entry.artist || '').includes(ARTIST_G2) && String(entry.artist || '').includes(ARTIST_L2);
       const songsHtml = (Array.isArray(entry.songs) ? entry.songs : [])
         // 文字列だけの要素(""など)や、titleが空のオブジェクトは「曲ではない」として除外する
         .filter(s => s && typeof s === 'object' && String(s.title || '').trim() !== '')
@@ -3003,10 +3010,17 @@ body .item-contents.is-content-open {
           const subHtml = subText ? `<span class="setlist-song-sub">${subText}</span>` : '';
           // 歌唱メンバー(曲ごと): memberに指定がある曲だけ、曲名の下に小さくハートを出す(指定なし=全員扱いで何も出さない)
           const songMembers = Array.isArray(s.member) ? s.member : (typeof s.member === 'string' ? s.member.split(/[,\s]+/) : []);
-          const songHearts = heartOrder.filter(v => songMembers.includes(v)).map(code => {
+          const heartsOf = (codes, cls) => heartOrder.filter(v => codes.includes(v)).map(code => {
             const info = memberInfoByCode[code];
-            return info ? `<span class="setlist-song-heart">${info.c}</span>` : '';
+            return info ? `<span class="${cls}">${info.c}</span>` : '';
           }).join('');
+          // artistがGirls\u00B2とLakiの両方のときだけ「Girls\u00B2 \u2661\u2661 / Laki \u2661\u2661」のようにグループごとに分けて出す
+          const songHearts = artistBoth
+            ? [[ARTIST_G2, g2MemberCodes], [ARTIST_L2, l2MemberCodes]].map(([nm, set]) => {
+                const hs = heartsOf(songMembers.filter(m => set.has(m)), 'setlist-song-heart');
+                return hs ? `<span class="setlist-song-hgrp"><span class="setlist-song-hname">${nm}</span>${hs}</span>` : '';
+              }).filter(Boolean).join('<span class="setlist-song-hsep">/</span>')
+            : heartsOf(songMembers, 'setlist-song-heart');
           const songHeartsHtml = songHearts ? `<span class="setlist-song-hearts">${songHearts}</span>` : '';
           return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}</li>`;
         })
@@ -3016,10 +3030,15 @@ body .item-contents.is-content-open {
         (() => {
           const memberList = Array.isArray(entry.member) ? entry.member : [];
           const memberCodes = heartOrder.filter(v => memberList.includes(v));
-          const heartsHtml = memberCodes.map(code => {
+          const heartsOf = codes => codes.map(code => {
             const info = memberInfoByCode[code];
             return info ? `<span class="setlist-heart">${info.c}</span>` : '';
           }).join('');
+          if (artistBoth) { // Girls\u00B2 \u2661\u2661 / Laki \u2661\u2661 (グループごとに名前とハートを並べる)
+            const grp = (nm, set) => `<span class="setlist-artist-grp">${nm}<span class="setlist-modal-hearts">${heartsOf(memberCodes.filter(m => set.has(m)))}</span></span>`;
+            return `<div class="setlist-modal-artist">${grp(ARTIST_G2, g2MemberCodes)}<span class="setlist-artist-sep">/</span>${grp(ARTIST_L2, l2MemberCodes)}</div>`;
+          }
+          const heartsHtml = heartsOf(memberCodes);
           if (!entry.artist && !heartsHtml) return '';
           return `<div class="setlist-modal-artist">${entry.artist ? escapeHtml(entry.artist) : ''}${heartsHtml ? `<span class="setlist-modal-hearts">${heartsHtml}</span>` : ''}</div>`;
         })() +
