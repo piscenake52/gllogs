@@ -4001,6 +4001,42 @@
     ]
   },
   {
+    "logid": "47837608b682",
+    "date": "20261015",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/p_B7_McUk0o?si=tWh5c9l4hRH46Psy",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "987c0f384e6f",
     "date": "20261014",
     "time": "2100",
