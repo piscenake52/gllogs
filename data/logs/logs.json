@@ -3520,6 +3520,18 @@
     ]
   },
   {
+    "logid": "ef950daef45b",
+    "date": "20261017",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "TEST TITLE 終了",
+    "display_sp": "TEST 終了",
+    "groups": [
+      "G2",
+      "L2"
+    ]
+  },
+  {
     "logid": "d1af4f06dfed",
     "date": "20261017",
     "time": "1500",
@@ -3729,6 +3741,18 @@
           }
         ]
       }
+    ]
+  },
+  {
+    "logid": "16d68df28b8b",
+    "date": "20261016",
+    "time": "1200",
+    "contents": "ETC",
+    "title": "TEST TITLE 開始",
+    "display_sp": "TEST 開始",
+    "groups": [
+      "G2",
+      "L2"
     ]
   },
   {

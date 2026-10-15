@@ -1,0 +1,22 @@
+{
+  "date": "20261016",
+  "time": "1200",
+  "contents": "ETC",
+  "title": "TEST TITLE",
+  "_repeat": [
+    {
+      "date": "20261016",
+      "time": "1200",
+      "title": "TEST TITLE 開始",
+      "display_sp": "TEST 開始"
+    },
+    {
+      "date": "20261017",
+      "time": "2359",
+      "title": "TEST TITLE 終了",
+      "contents": "CLOSE",
+      "display_sp": "TEST 終了"
+    }
+  ],
+  "_issue": "1294"
+}
