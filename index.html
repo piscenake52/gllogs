@@ -337,7 +337,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 /* 錠前ボタン:OFF(既定)ではsticky-headerを画面固定せず通常スクロールにする */
 .sticky-header.unlocked { position: static; }
 /* 錠前・BLACK/WHITEテーマボタンを同じ丸ボタンサイズ・見た目に統一 */
-.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn, #textSizeBtn {
+.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn, #textSizeBtn, #dateSearchBtn {
   flex-shrink: 0;
   width: 26px;
   height: 26px;
@@ -355,12 +355,15 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 .theme-toggle-btn { overflow: hidden; }
-.lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #textSizeBtn:hover { background-color: var(--btn-hover); }
+.lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #textSizeBtn:hover, #dateSearchBtn:hover { background-color: var(--btn-hover); }
 .lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
 /* 「A」ボタン自体の大きさは変えず、データ部の文字サイズだけを拡大縮小する */
 
 /* 文字サイズ変更パネル(「A」ボタン直下に、アイコンに対して中央揃えで表示) */
 .text-size-wrap { position: relative; }
+.date-search-wrap { position: relative; flex-shrink: 0; display: flex; } /* 検索窓と文字サイズボタンの間のカレンダー(日付を選ぶと検索窓にYYYYMMDDを入れる) */
+#dateSearchBtn svg { width: 14px; height: 14px; display: block; }
+#dateSearchInput { position: absolute; left: 0; top: 0; width: 26px; height: 26px; opacity: 0; pointer-events: none; border: 0; padding: 0; }
 .text-size-panel {
   position: absolute;
   top: calc(100% + 6px);
@@ -778,11 +781,12 @@ body .item-contents.is-content-open {
 .setlist-song-order { flex: 0 0 22px; color: var(--muted); font-size: 11px; text-align: left; }
 .setlist-song-play-btn { flex: 0 0 auto; width: 14.4px; height: 14.4px; border-radius: 50%; background: #fff; color: #121212; font-size: 6.4px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; border: 1px solid var(--input-border); }
 .setlist-song-play-btn.is-hidden { visibility: hidden; cursor: default; }
-.setlist-song-title { flex: 1 1 auto; font-size: calc(var(--data-font-scale) * 13px); }
-.setlist-song-hearts { display: flex; flex-wrap: wrap; gap: 1px; margin-top: 2px; line-height: 1; } /* 曲ごとの歌唱メンバー(曲名の下) */
-.setlist-song-heart { font-size: 8px; line-height: 1; }
+.setlist-song-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; } /* 曲名 / ハート / original・notes を縦に並べる */
+.setlist-song-title { display: block; font-size: calc(var(--data-font-scale) * 13px); }
+.setlist-song-hearts { display: flex; flex-wrap: nowrap; gap: 1px; margin-top: 2px; line-height: 1; } /* 曲ごとの歌唱メンバー(曲名の下) */
+.setlist-song-heart { font-size: 7px; line-height: 1; }
 .setlist-song-type { flex: 0 0 auto; font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
-.setlist-song-notes { flex-basis: 100%; font-size: 11px; color: var(--sub); margin-top: 2px; }
+.setlist-song-sub { display: flex; flex-wrap: wrap; gap: 0 8px; margin-top: 2px; font-size: 10px; line-height: 1.4; color: var(--sub); opacity: 0.85; } /* original と notes(括弧なし・小さく薄く) */
 .setlist-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
 /* SNSリンクポップアップ(セトリポップアップと見た目を揃える) */
 .sns-modal-overlay {
@@ -857,6 +861,10 @@ body .item-contents.is-content-open {
         <input type="text" id="searchInput" class="search-input" placeholder="search keyword">
         <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear search">&#215;</button>
         <div class="search-suggestions" id="searchSuggestions"></div>
+      </div>
+      <div class="date-search-wrap">
+        <button type="button" id="dateSearchBtn" aria-label="&#26085;&#20184;&#12363;&#12425;&#26908;&#32034;"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg></button>
+        <input type="date" id="dateSearchInput" tabindex="-1" aria-hidden="true">
       </div>
       <div class="text-size-wrap" id="textSizeWrap">
         <button type="button" class="text-size-btn" id="textSizeBtn" aria-label="&#12487;&#12540;&#12479;&#37096;&#12398;&#25991;&#23383;&#12469;&#12452;&#12474;&#12434;&#22793;&#26356;" aria-haspopup="true" aria-expanded="false">A</button>
@@ -1842,6 +1850,24 @@ body .item-contents.is-content-open {
       updateDisplay(true);
     }, 180);
   };
+  // カレンダーボタン:日付を選ぶと、検索窓にYYYYMMDDの形式で自動入力する(年月日8桁の検索と同じ動作になる)
+  (() => {
+    const btn = $('dateSearchBtn'), dateInput = $('dateSearchInput');
+    if (!btn || !dateInput) return;
+    btn.onclick = () => {
+      const cur = searchInput.value.replace(/\D/g, '');
+      dateInput.value = /^\d{8}$/.test(cur) ? `${cur.slice(0, 4)}-${cur.slice(4, 6)}-${cur.slice(6)}` : '';
+      try { if (dateInput.showPicker) { dateInput.showPicker(); return; } } catch (_) {}
+      dateInput.focus(); dateInput.click();
+    };
+    dateInput.addEventListener('change', () => {
+      const v = (dateInput.value || '').replace(/\D/g, '');
+      if (!/^\d{8}$/.test(v)) return;
+      searchInput.value = v;
+      searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+      searchInput.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+  })();
   searchInput.addEventListener('keydown', e => {
     const isOpen = searchSuggestions.classList.contains('is-open');
     const btns = getSuggestionButtons();
@@ -2510,6 +2536,18 @@ body .item-contents.is-content-open {
   (() => {
     const DOUBLE_TAP_MS = 350;
     let lastRow = null, lastTime = 0, hideTimer = null, toast = null;
+    let tapCount = 0;
+    const HELPER_URL = 'https://gl-log.blogspot.com/p/issuehelper.html';
+    // 🔗まで全部ONならlogid(logsタブ)、それ以外はsetlistid(setlistタブ)のIDでhelperを別タブで開く。IDのない行は何もしない
+    // helperを開く操作は、♪(songMode)と💞(heartModeOn)もONのときだけ有効にする(setlistへの遷移はさらに📋セトリ検索もON、logsはOFF)
+    const openHelper = row => {
+      if (!songMode || !heartModeOn) return;
+      const all = isAllTogglesOn();
+      if (all === setlistMode) return; // setlistへの遷移はセトリ検索ボタン(📋)ON、logsへの遷移はOFFのときだけ
+      const id = all ? (row.dataset.logid || '') : (row.dataset.setlistid || '');
+      if (!id) return;
+      window.open(HELPER_URL + '?id=' + encodeURIComponent(id) + (all ? '#logs' : '#setlist'), '_blank', 'noopener');
+    };
 
     const isEnabled = () =>
       dateParts.year && dateParts.month && dateParts.day && dateParts.weekday && dateParts.time && mapMode && setlistIconMode;
@@ -2605,14 +2643,27 @@ body .item-contents.is-content-open {
       const row = cell && cell.closest('.item');
       if (!row || !isEnabled()) { lastRow = null; return; }
       const now = Date.now();
-      if (row === lastRow && now - lastTime <= DOUBLE_TAP_MS) {
-        lastRow = null;
+      if (e.ctrlKey || e.shiftKey || e.metaKey) { // PC: Ctrl / Shift / Cmd + クリックでhelperを開く
+        lastRow = null; tapCount = 0;
         if (window.getSelection) window.getSelection().removeAllRanges();
-        if (isAllTogglesOn()) showLogid(row);
-        else showSetlistid(row);
+        openHelper(row);
+        return;
+      }
+      if (row === lastRow && now - lastTime <= DOUBLE_TAP_MS) {
+        tapCount++;
+        lastTime = now;
+        if (window.getSelection) window.getSelection().removeAllRanges();
+        if (tapCount === 2) { // 2回タップ: IDをコピー
+          if (isAllTogglesOn()) showLogid(row);
+          else showSetlistid(row);
+        } else if (tapCount >= 3) { // 3回連続タップ: helperを開く
+          lastRow = null; tapCount = 0;
+          openHelper(row);
+        }
       } else {
         lastRow = row;
         lastTime = now;
+        tapCount = 1;
       }
     });
   })();
@@ -2864,8 +2915,10 @@ body .item-contents.is-content-open {
             : `<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>`;
           // typeはカンマ区切りで複数指定できる(例: "allow,medley")。songは表示せず、それ以外を1つずつバッジにする
           const typeBadge = String(s.type || '').split(/[,\s]+/).filter(t => t && t !== 'song').map(t => `<span class="setlist-song-type">${escapeHtml(displayNameForSetlistType(t))}</span>`).join('');
-          const notesHtml = s.notes ? `<span class="setlist-song-notes">${escapeHtml(s.notes)}</span>` : '';
-          const titleText = s.original ? `${escapeHtml(s.title || '')}\uFF08${escapeHtml(s.original)}\uFF09` : escapeHtml(s.title || '');
+          const titleText = escapeHtml(s.title || '');
+          // original / notes: 曲名の下の3行目に、括弧なしで小さく薄く並べる
+          const subText = [s.original, s.notes].filter(v => v && String(v).trim() !== '').map(v => `<span>${escapeHtml(String(v))}</span>`).join('');
+          const subHtml = subText ? `<span class="setlist-song-sub">${subText}</span>` : '';
           // 歌唱メンバー(曲ごと): memberに指定がある曲だけ、曲名の下に小さくハートを出す(指定なし=全員扱いで何も出さない)
           const songMembers = Array.isArray(s.member) ? s.member : (typeof s.member === 'string' ? s.member.split(/[,\s]+/) : []);
           const songHearts = heartOrder.filter(v => songMembers.includes(v)).map(code => {
@@ -2873,7 +2926,7 @@ body .item-contents.is-content-open {
             return info ? `<span class="setlist-song-heart">${info.c}</span>` : '';
           }).join('');
           const songHeartsHtml = songHearts ? `<span class="setlist-song-hearts">${songHearts}</span>` : '';
-          return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-title">${titleText}${songHeartsHtml}</span>${typeBadge}${notesHtml}</li>`;
+          return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}</li>`;
         })
         .join('');
       setlistModalBody.innerHTML =
@@ -2915,15 +2968,15 @@ body .item-contents.is-content-open {
   const SNS_TYPE_DISPLAY_NAMES = { x: 'X', instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube', gl2family: 'GL\u00B2family', cl: 'CL', threads: 'Threads', line: 'LINE', radiko: 'radiko', etc: 'ETC' };
   // SNSリンクの投稿者ランプ用の色(各メンバーのハート絵文字の色に合わせた色)
   const MEMBER_LAMP_COLORS = {
-    YZH: '#7dd3fc', HIR: '#7dd3fc', // 水色
-    MMK: '#3b82f6', KAN: '#3b82f6', // 青
-    MSK: '#fb923c', TBK: '#fb923c', // オレンジ
-    YOK: '#a78bfa', RIN: '#a78bfa', // 紫
-    KUR: '#e5e7eb', YUR: '#e5e7eb', // 白
-    MNM: '#f472b6', RRK: '#f472b6', // ピンク
-    KIR: '#facc15', KIK: '#facc15', // 黄
-    TOA: '#4ade80', AKR: '#4ade80', // 緑
-    RAN: '#f87171', YUW: '#f87171', // 赤
+    YZH: '#18b8ff', HIR: '#18b8ff', // 水色
+    MMK: '#1f5fff', KAN: '#1f5fff', // 青
+    MSK: '#ff8200', TBK: '#ff8200', // オレンジ
+    YOK: '#9a3cf5', RIN: '#9a3cf5', // 紫
+    KUR: '#ffffff', YUR: '#ffffff', // 白
+    MNM: '#ff4f9f', RRK: '#ff4f9f', // ピンク
+    KIR: '#ffd000', KIK: '#ffd000', // 黄
+    TOA: '#1fcf5a', AKR: '#1fcf5a', // 緑
+    RAN: '#f01e2c', YUW: '#f01e2c', // 赤
   };
   // typeごとのアイコン(24x24のSVGパス
   const SNS_TYPE_ICON_PATHS = { x: 'M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z', instagram: 'M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077', youtube: 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z', tiktok: 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z',

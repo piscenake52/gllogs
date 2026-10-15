@@ -1096,6 +1096,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     else { $('fjson').select(); try { document.execCommand('copy'); done(); } catch (e) {} }
   };
   $('fid').value = (location.search.match(/[?&]id=([0-9a-f]{12}|\d{12})/) || [])[1] || '';
+  var qid0 = $('fid').value;
   // ---- logs / setlist tabs share one panel. new mode: nothing loaded, date / time (or anytime) at the top make a blank form. edit mode: a loaded row (the top date / time are hidden) ----
   function setVal(key, v) { var el = $('f-' + key); if (el && el.value !== v) { el.value = v; el.dispatchEvent(new Event('input', { bubbles: true })); } }
   function topReady(kind) {
@@ -1132,6 +1133,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   $('go-find').addEventListener('click', function () { if ($('go-find').getAttribute('aria-disabled') === 'true') return; setTimeout(function () { $('fnew').onclick(); }, 300); });
   tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
   applyModeUI();
+  if (qid0) { $('fid').value = qid0; doFind(); } // opened with ?id=...: load that id in the tab given by the hash (#logs / #setlist)
 })();
 //]]>
 </script>
