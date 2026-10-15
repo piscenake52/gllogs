@@ -4126,6 +4126,41 @@
     ]
   },
   {
+    "logid": "549177351f17",
+    "date": "20261015",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "HIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2110643332003381485",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgRXBCD4/",
+            "member": [
+              "RIN",
+              "HIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "987c0f384e6f",
     "date": "20261014",
     "time": "2100",

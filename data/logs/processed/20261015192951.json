@@ -1,0 +1,29 @@
+{
+  "date": "20261015",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2110643332003381485",
+          "member": []
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgRXBCD4/",
+          "member": [
+            "RIN",
+            "HIR"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1278"
+}
