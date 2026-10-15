@@ -158,7 +158,7 @@ def split_song_member(title):
     codes = [c.upper() for c in re.split(r"[,，、\s]+", m.group(2).strip()) if c]
     if codes == ["-"]:
         codes = []
-    return m.group(1).strip(), list(dict.fromkeys(codes))
+    return m.group(1).strip(), expand_group_codes(list(dict.fromkeys(codes)))  # G2 / L2 だけなら全員に展開、個別メンバーもあれば G2 / L2 は捨てる
 
 
 def parse_songs(raw_str):
@@ -243,10 +243,28 @@ def detect_sns_type(url):
 SNS_MEMBER_CODES = set(G2_OPTIONS + L2_OPTIONS)  # urlごとのmemberに使えるコード（groupsと同じ）
 
 
+def expand_group_codes(codes):
+    """コードの並びの G2 / L2 を、そのグループの全員に置き換える（重複なし）。
+    ただし、そのグループの個別メンバー（TOA / RAN / YUR も含む）も一緒に書かれているとき（G2,MSK など）は、G2 / L2 は捨てて個別メンバーだけにする"""
+    out = []
+    for m in codes:
+        if m in ("G2", "L2"):
+            group = G2_MEMBERS if m == "G2" else L2_MEMBERS
+            if any(c in (G2_OPTIONS if m == "G2" else L2_OPTIONS)[1:] for c in codes):
+                continue  # 個別メンバーがいる → グループ名はUI上の印なので登録しない
+            members = group
+        else:
+            members = [m]
+        for x in members:
+            if x not in out:
+                out.append(x)
+    return out
+
+
 def parse_sns(raw):
     """sns欄（1行1件）を [{"type","urls":[{"url","member"}]}] にする（同じtypeは1つにまとめて urls に入れる）。
     先頭が `-` の行は個別削除（`-URL`。戻り値の要素は {"_remove": URL}）。
-    書式: `type | url | member`。memberは省略可（groupsと同じコード。複数人はカンマ区切り: `YZH,MMK`。G2 / L2 と入力するとそのグループ全員）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
+    書式: `type | url | member`。memberは省略可（groupsと同じコード。複数人はカンマ区切り: `YZH,MMK`。G2 / L2 だけを入力するとそのグループ全員。G2,MSK のように個別メンバーもあれば、そのメンバーだけ）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
     出力の member は配列（なしは []）。同じURLが複数あれば、後に書いたmemberで上書きする。戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
     if not raw:
         return [], []
@@ -292,13 +310,7 @@ def parse_sns(raw):
         if bad:
             errors.append(f"- **sns**: memberはgroupsと同じコードで入力してください（複数はカンマ区切り）。不明: `{'`, `'.join(bad)}`（入力値: `{shown}`）")
             continue
-        # G2 / L2 と入力されたら、そのグループのメンバー全員に置き換える（個別メンバーとの併用も可、重複なし）
-        expanded = []
-        for m in members:
-            for x in (G2_MEMBERS if m == "G2" else L2_MEMBERS if m == "L2" else [m]):
-                if x not in expanded:
-                    expanded.append(x)
-        members = expanded
+        members = expand_group_codes(members)
         if not type_:
             type_ = detect_sns_type(url) or "etc"  # 判定できないURLはすべてetc
         if not re.fullmatch(r"[a-z0-9_-]+", type_):
@@ -473,13 +485,7 @@ def build_relations(f):
     free = parse_list(f.get("relations_free", ""))
     if free == [CLEAR]:
         return free
-    out = []
-    for x in free:
-        x = x.upper()
-        for m in (G2_MEMBERS if x == "G2" else L2_MEMBERS if x == "L2" else [x]):
-            if m not in out:
-                out.append(m)
-    return out
+    return expand_group_codes([x.upper() for x in free])  # G2,MSK のように個別メンバーもあるときは、そのメンバーだけ
 
 
 def build_logs(f):
