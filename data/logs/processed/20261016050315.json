@@ -1,0 +1,21 @@
+{
+  "logid": "43e3d033d7e6",
+  "groups": [
+    "L2",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/Dd6H-2MCTLf/?stkn=ZHJjYjh3dGF1dHVr",
+          "member": [
+            "KIK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1289"
+}
