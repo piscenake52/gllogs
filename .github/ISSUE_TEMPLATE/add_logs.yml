@@ -57,6 +57,7 @@ body:
         - FANMEETING
         - RELEASEEVENT
         - FANCLUB
+        - TELEPHONE
         - GLRADIO
         - GTUBE
         - LIVE
