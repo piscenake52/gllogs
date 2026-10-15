@@ -9811,14 +9811,41 @@
     "date": "20260930",
     "time": "2000",
     "contents": "SNS",
-    "title": "ききの踊ってみたチャレンジ　#120",
+    "title": "ききの踊ってみたチャレンジ　#120　Best Friends / Laki",
     "url": "https://www.instagram.com/reel/Dd6H-2MCTLf/?stkn=ZHJjYjh3dGF1dHVr",
     "groups": [
       "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
       "KIK"
     ],
     "tags": [
       "Best Friends"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/Dd6H-2MCTLf/?stkn=ZHJjYjh3dGF1dHVr",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
