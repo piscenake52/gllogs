@@ -3901,6 +3901,25 @@
       "KUR",
       "MNM",
       "KIR"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/r7_TQsl8SfM?si=_RZWZUUEkIApGyA2",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
