@@ -4458,7 +4458,12 @@
     "groups": [
       "G2",
       "YZH",
-      "MMK"
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -4522,6 +4527,23 @@
             "url": "https://www.instagram.com/reel/DeeOgpTpjzH/?rpxt=MXJnMWtobjU4c2Y0aA==",
             "member": [
               "MMK"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/xiFYyCJDa1s?si=EGyaNabgNa-5rshV",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
             ]
           }
         ]
