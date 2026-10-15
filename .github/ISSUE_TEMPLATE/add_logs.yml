@@ -208,7 +208,7 @@ body:
     id: repeat
     attributes:
       label: "繰り返し登録 (1行1回)"
-      description: "新規のみ。1行1日付（YYYYMMDD、最大60件）。titleの #数字 は回ごとに自動で+1"
+      description: "新規のみ。1行1回（最大60件）。書式: YYYYMMDD [時刻 HHMM / - = なし] [| タイトル | contents | URL | display_sp]（空欄はフォームの値を使う）。titleの #数字 は回ごとに自動で+1"
 
   - type: input
     id: tags
