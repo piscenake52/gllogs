@@ -3520,18 +3520,6 @@
     ]
   },
   {
-    "logid": "ef950daef45b",
-    "date": "20261017",
-    "time": "2359",
-    "contents": "CLOSE",
-    "title": "TEST TITLE 終了",
-    "display_sp": "TEST 終了",
-    "groups": [
-      "G2",
-      "L2"
-    ]
-  },
-  {
     "logid": "d1af4f06dfed",
     "date": "20261017",
     "time": "1500",
