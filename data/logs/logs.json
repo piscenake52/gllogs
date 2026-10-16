@@ -4058,7 +4058,10 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
-      "YOK"
+      "MSK",
+      "YOK",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -4071,6 +4074,15 @@
           {
             "url": "https://x.com/Girls2_official/status/2111045837229006855",
             "member": []
+          },
+          {
+            "url": "https://x.com/toplog_official/status/2111034428751262182",
+            "member": [
+              "MSK",
+              "YOK",
+              "MNM",
+              "KIR"
+            ]
           }
         ]
       },
