@@ -3846,59 +3846,6 @@
     ]
   },
   {
-    "logid": "9a10b74ea351",
-    "date": "20261016",
-    "time": "1200",
-    "contents": "RELEASE",
-    "title": "「TEST」 リリース",
-    "display_pc": "「TEST-PC」 リリース",
-    "display_sp": "「TEST-SP」 リリース",
-    "url": "https://girls2-fc.jp/",
-    "map": "https://maps.app.goo.gl/LFZ72icChZRs2wV2A",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "relations": [
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "TEST-TAG"
-    ],
-    "sns": [
-      {
-        "type": "gl2family",
-        "urls": [
-          {
-            "url": "https://girls2-fc.jp/page/girls2",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
     "logid": "e2fbd798239c",
     "date": "20261016",
     "time": "1000",
@@ -4008,12 +3955,6 @@
         ]
       }
     ]
-  },
-  {
-    "logid": "83c608dc4063",
-    "date": "20261016",
-    "contents": "ANNIVERSARY",
-    "ref": "9a10b74ea351"
   },
   {
     "logid": "196c5c8ee30e",
