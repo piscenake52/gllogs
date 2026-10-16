@@ -40155,6 +40155,38 @@
     ]
   },
   {
+    "logid": "7e7eca0c7c75",
+    "date": "20251020",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "HIR",
+      "KAN",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/1980270617195880493",
+            "member": [
+              "RIN",
+              "HIR",
+              "KAN",
+              "AKR",
+              "KIK"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "43c8135a583c",
     "date": "20251019",
     "time": "1200",
