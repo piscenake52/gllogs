@@ -135,15 +135,17 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .dtw .wdl { position:absolute; right:55px; top:50%; transform:translateY(-50%); flex:none; font-size:13px; line-height:1; pointer-events:none; }
 #glih .wdl { flex:0 0 2.6em; font-size:12px; color:var(--sub); white-space:nowrap; }
 #glih .rpnote { font-size:11px; color:var(--sub); }
-#glih .rpsrow { display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:6px 0; border-bottom:1px solid var(--line); }
-#glih .rpsrow .nm { flex:0 0 3.8em; font-size:12px; color:var(--sub); }
+#glih .rpsrow { display:flex; align-items:flex-start; gap:8px; padding:6px 0; border-bottom:1px solid var(--line); }
+#glih .rpsrow .nm { flex:0 0 5.6em; font-size:12px; font-weight:600; color:var(--sub); padding-top:9px; }
+#glih .rpsrow .rpcol { flex:1; min-width:0; display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
 #glih .rpsrow .rpd { width:9.5em; }
 #glih .rpsrow .rpt { width:5em; }
 #glih .rpsrow .fsel { flex:0 0 8em; }
 #glih .rpsrow .rpct { flex:0 0 8em; width:8em; }
 #glih .rpsrow .fsug { flex:1 0 100%; }
 #glih .rpsrow .rpf { flex:1 1 8em; min-width:6em; }
-#glih .rpsrow .rpch { flex:1 0 100%; gap:4px; padding-left:calc(3.8em + 6px); }
+#glih .rpsrow .rpch { flex:1 0 100%; gap:4px; }
+#glih .rpsop { padding:6px 0; border-bottom:1px solid var(--line); margin-bottom:10px; }
 #glih .rprow { display:flex; align-items:baseline; gap:8px; padding:5px 10px; border-bottom:1px solid var(--line); font-size:12px; line-height:1.4; color:var(--text); cursor:pointer; }
 #glih .rprow:last-child { border-bottom:0; }
 #glih .rprow input { margin:0; flex:none; }
@@ -1006,7 +1008,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     // schedule mode: related dates of one case (start / close / result / due) are registered together. Each row = one repeat line: `yyyymmdd hhmm | title | CONTENTS | url` (time `-` = none)
     var mode = 'interval', SC = [
       { k: 'start', lb: 'start', ct: '', sf: '', ch: ['\u958b\u59cb', '\u53d7\u4ed8\u958b\u59cb', '\u62bd\u9078\u53d7\u4ed8\u958b\u59cb', '\u8ca9\u58f2\u958b\u59cb'] },
-      { k: 'close', lb: 'close', ct: 'CLOSE', sf: '\u7de0\u5207', ch: ['\u7de0\u5207', '\u7d42\u4e86', '\u53d7\u4ed8\u7de0\u5207', '\u62bd\u9078\u53d7\u4ed8\u7de0\u5207', '\u8ca9\u58f2\u7d42\u4e86'] },
+      { k: 'close', lb: 'close', ct: 'CLOSE', sf: '\u7de0\u5207', ch: ['\u7de0\u5207', '\u7d42\u4e86', '\u53d7\u4ed8\u7de0\u5207', '\u8ca9\u58f2\u7d42\u4e86'] },
       { k: 'result', lb: 'result', ct: 'RESULT', sf: '\u5f53\u9078\u767a\u8868', ch: ['\u5f53\u9078\u767a\u8868'] },
       { k: 'due', lb: 'due', ct: 'CLOSE', sf: '\u5165\u91d1\u671f\u9650', ch: ['\u5165\u91d1\u671f\u9650'] } ];
     [['interval', 'interval'], ['schedule', 'schedule']].forEach(function (q) {
@@ -1019,13 +1021,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       SC.forEach(function (r) {
         var row = document.createElement('div'); row.className = 'rpsrow';
         var nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = r.lb; row.appendChild(nm);
-        if (r.k === 'start') { r.cb = document.createElement('input'); r.cb.type = 'checkbox'; r.cb.checked = true; r.cb.title = 'register the date above'; row.appendChild(r.cb); }
-        else {
+        var col = document.createElement('div'); col.className = 'rpcol'; row.appendChild(col); var row0 = row; row = col;
+        if (r.k !== 'start') {
           r.d = document.createElement('input'); r.d.type = 'text'; r.d.className = 'fin rpd'; r.d.setAttribute('autocomplete', 'off'); dtText(r.d, 'date'); row.appendChild(r.d); dtPicker(r.d, 'date');
           r.t = document.createElement('input'); r.t.type = 'text'; r.t.className = 'fin rpt'; r.t.setAttribute('autocomplete', 'off'); dtText(r.t, 'time'); row.appendChild(r.t); dtPicker(r.t, 'time');
         }
         { // free input with candidates (start: empty = the contents above; close / result / due: CLOSE / RESULT / CLOSE by default)
-          r.sel = document.createElement('input'); r.sel.type = 'text'; r.sel.className = 'fin rpct'; r.sel.title = 'contents'; r.sel.placeholder = r.k === 'start' ? '(above)' : 'contents';
+          r.sel = document.createElement('input'); r.sel.type = 'text'; r.sel.className = 'fin rpct'; r.sel.title = 'contents'; if (r.k !== 'start') r.sel.placeholder = 'contents'; else r.sel.addEventListener('input', function () { r.touched = true; });
           r.sel.setAttribute('autocomplete', 'off'); r.sel.setAttribute('autocapitalize', 'characters'); r.sel.setAttribute('spellcheck', 'false');
         }
         r.sel.value = r.ct; row.appendChild(r.sel);
@@ -1036,21 +1038,21 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         row.appendChild(chr);
         r.sf2.addEventListener('input', function () { [].forEach.call(chr.children, function (b2) { b2.classList.toggle('on', b2.textContent === r.sf2.value.trim()); }); });
         [].forEach.call(chr.children, function (b2) { b2.classList.toggle('on', b2.textContent === r.sf2.value.trim()); });
-        sc.appendChild(row);
+        sc.appendChild(row0);
       });
-      var uw = document.createElement('div'); uw.className = 'field'; uw.innerHTML = '<label></label><label class="chk" style="margin:0"><input type="checkbox" id="glih-rpsu" checked>same url (the url above)</label>'; sc.appendChild(uw);
-      var sw = document.createElement('div'); sw.className = 'field'; sw.innerHTML = '<label for="glih-rpsp">display_sp</label><div class="fgcol"><input type="text" id="glih-rpsp" class="fin" autocomplete="off" placeholder="short name for display_sp (optional)"></div>'; sc.appendChild(sw);
+      var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rpsp">optional-sp</label><div class="fgcol"><input type="text" id="glih-rpsp" class="fin" autocomplete="off"></div>'; sc.appendChild(sw);
       [].forEach.call(sc.querySelectorAll('input,select'), function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
     })();
     function schedRefresh() {
-      var st = topReady('logs'), t0 = ((($('f-title') || {}).value) || '').replace(/\s*\n\s*/g, ' ').trim(), uv = ((($('f-url') || {}).value) || '').trim(), same = $('rpsu').checked && /^https?:\/\/\S+$/i.test(uv), sp0 = ($('rpsp').value || '').replace(/\s*\n\s*/g, ' ').trim();
+      var st = topReady('logs'), t0 = ((($('f-title') || {}).value) || '').replace(/\s*\n\s*/g, ' ').trim(), uv = ((($('f-url') || {}).value) || '').trim(), same = /^https?:\/\/\S+$/i.test(uv), sp0 = ($('rpsp').value || '').replace(/\s*\n\s*/g, ' ').trim();
       var lines = [], rows = [], note = '', bad = false;
       list.innerHTML = '';
       if (!st) note = 'Set the date above first.';
       else SC.forEach(function (r) {
         var d, t, tt = '', sv = sp0;
         if (r.k === 'start') {
-          if (!r.cb.checked) return; d = st.d; t = st.t;
+          d = st.d; t = st.t;
+          if (!r.touched) r.sel.value = (($('f-contents') || {}).value || '').trim(); // start: the contents entered above (until it is edited here)
           var lab0 = r.sf2.value.trim(); // start label: empty = the title above as it is
           if (lab0) { tt = (t0 + ' ' + lab0).trim(); if (sp0) sv = (sp0 + ' ' + lab0).trim(); }
         }
@@ -1069,9 +1071,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         rows.push(d);
         var lb = document.createElement('div'), ds = document.createElement('span'), ms = document.createElement('span');
         lb.className = 'rprow'; ds.className = 'd'; ds.textContent = fmtD(d, '') + ' ' + (t ? t.slice(0, 2) + ':' + t.slice(2) : '--:--'); ms.className = 'm'; ms.textContent = (tt || '(title above)') + ' / ' + (ct || '(contents above)') + (sv ? ' / sp: ' + sv : '');
-        lb.appendChild(ds); lb.appendChild(ms); list.appendChild(lb);
       });
-      list.hidden = !rows.length;
+      list.hidden = true; // schedule mode: no preview list
       if (!note && bad) note = 'A date / time / contents of a row is not valid (the row is skipped).';
       msg.textContent = ''; // schedule mode: no message (a row with a bad date / time / contents is just skipped; the field turns red)
       last = { rows: rows, lines: lines };
