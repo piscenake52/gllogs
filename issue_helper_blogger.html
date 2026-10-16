@@ -41,6 +41,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .out > span:first-child { flex:0 0 5.6em; } /* 先頭のラベル(date/time, setlistid)を、上の入力項目のラベル(.field > label: 5.6em)と同じ幅にして、値の左端を入力欄の左端にそろえる */
 #glih .out code { font-size:14px; color:var(--text); background:var(--btn); border:0; border-radius:6px; padding:3px 8px; min-width:6em; text-align:center; }
 #glih a.go { display:block; text-align:center; padding:11px; border-radius:10px; background:var(--accent); color:var(--accent-text) !important; text-decoration:none !important; font-size:14px; font-weight:600; }
+#glih button.go { display:block; width:100%; text-align:center; padding:11px; border-radius:10px; border:0; background:var(--accent); color:var(--accent-text); font:inherit; font-size:14px; font-weight:600; cursor:pointer; margin:0 0 12px; box-shadow:none; }
 #glih a.go[aria-disabled="true"] { opacity:.4; pointer-events:none; }
 #glih .fin, #glih .fta, #glih .fsel { flex:1; min-width:0; width:auto; margin:0; padding:8px; font:inherit; font-size:16px; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; box-shadow:none; }
 #glih .fta { min-height:4.5em; resize:vertical; font-size:13px; line-height:1.4; }
@@ -118,7 +119,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .snsh .row.btns { flex-wrap:wrap; }
 #glih .snsh .row.btns .small { flex:1 1 auto; padding:8px 6px; }
 #glih .small:disabled { opacity:.35; cursor:default; }
-#glih .rep { margin:0 0 10px; padding-top:10px; border-top:1px dashed var(--line); }
+#glih .rep { margin:0 0 10px; padding-top:10px; }
 #glih .fin.num { flex:0 0 4.5em; width:4.5em; text-align:center; }
 #glih .rep .fsel { flex:0 0 8em; font-size:13px; }
 #glih .chipr.nw { flex-wrap:nowrap; }
@@ -167,6 +168,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 /*]]>*/
 </style>
 
+<button type="button" class="go" id="glih-topnew">new</button>
 <div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="songs">songs</button></div>
 
 <div hidden><div class="chips" id="glih-groups"><div class="cr"><button type="button" class="chip" data-v="G2">G2</button><button type="button" class="chip" data-v="L2">L2</button></div><div class="cr"><button type="button" class="chip" data-v="YZH">YZH</button><button type="button" class="chip" data-v="MMK">MMK</button><button type="button" class="chip" data-v="MSK">MSK</button><button type="button" class="chip" data-v="YOK">YOK</button><button type="button" class="chip" data-v="KUR">KUR</button><button type="button" class="chip" data-v="MNM">MNM</button><button type="button" class="chip" data-v="KIR">KIR</button></div><div class="cr"><button type="button" class="chip" data-v="TOA">TOA</button><button type="button" class="chip" data-v="RAN">RAN</button></div><div class="cr"><button type="button" class="chip" data-v="RIN">RIN</button><button type="button" class="chip" data-v="TBK">TBK</button><button type="button" class="chip" data-v="HIR">HIR</button><button type="button" class="chip" data-v="YUW">YUW</button><button type="button" class="chip" data-v="KAN">KAN</button><button type="button" class="chip" data-v="RRK">RRK</button><button type="button" class="chip" data-v="AKR">AKR</button><button type="button" class="chip" data-v="KIK">KIK</button></div><div class="cr"><button type="button" class="chip" data-v="YUR">YUR</button></div></div></div>
@@ -217,7 +219,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function setLink(a, url) { if (url) { a.href = url; a.setAttribute('aria-disabled', 'false'); } else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); } }
   function tab(name) {
     var isFind = name === 'logs' || name === 'setlist';
-    $('p-find').hidden = !isFind; $('p-songs').hidden = name !== 'songs'; if (name === 'songs') songsInit();
+    $('p-find').hidden = !isFind; $('topnew').hidden = !isFind; $('p-songs').hidden = name !== 'songs'; if (name === 'songs') songsInit();
     if (isFind && $('fkind').value !== name) { $('fkind').value = name; $('fkind').dispatchEvent(new Event('change')); } // logs / setlist share one panel
     [].forEach.call(root.querySelectorAll('.tabs button'), function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === name); });
   }
@@ -523,7 +525,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var url = document.createElement('input'); url.type = 'text'; url.className = 'fin'; url.placeholder = 'https://...'; url.setAttribute('autocomplete', 'off'); url.setAttribute('autocapitalize', 'off'); url.setAttribute('spellcheck', 'false');
     var add = document.createElement('button'); add.type = 'button'; add.className = 'small'; add.textContent = 'add';
     var uw = document.createElement('span'); uw.className = 'fw'; uw.appendChild(url);
-    row.appendChild(uw); row.appendChild(add);
+    row.appendChild(uw);
     addOpen(url, 5);
     var chips = $('groups').cloneNode(true); chips.removeAttribute('id'); box.appendChild(chips);
     [].forEach.call(chips.querySelectorAll('.chip'), function (b) { var v = b.getAttribute('data-v'); if (v === 'G2' || v === 'L2') return; b.onclick = function () { b.classList.toggle('on'); }; }); // G2 / L2 only show / hide the member rows (never written to sns)
@@ -539,6 +541,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var cur = tagList(tg.value); tch.innerHTML = ''; tch.hidden = !all.length;
       all.forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (cur.indexOf(t) >= 0 ? ' on' : ''); b.textContent = t; b.onclick = function () { var c = tagList(tg.value), i = c.indexOf(t); if (i >= 0) c.splice(i, 1); else c.push(t); tg.value = c.join(','); refreshTagChips(); }; tch.appendChild(b); });
     }
+    var arow = document.createElement('div'); arow.className = 'row btns'; arow.appendChild(add); box.appendChild(arow); // the add button: full width under the tags
     tg.addEventListener('input', refreshTagChips); el.addEventListener('input', refreshTagChips); refreshTagChips();
     function urlOf(line) { var m = line.match(/https?:\/\/[^\s|]+/i); return m ? m[0] : ''; }
     function doAdd() {
@@ -875,7 +878,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }
     cb.disabled = !!reason;
     if (reason) cb.checked = false;
-    why.textContent = reason;
+    row.hidden = !!reason; // contents ANNIVERSARY / BIRTHDAY or repeat entry: the check is hidden (not usable)
+    why.textContent = '';
     r.send = cb.checked && !reason;
     sr.hidden = !r.send;
     r.suffix = sx.value.trim() || DEFSX;
@@ -917,6 +921,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     else if (url.length > 7000) fstat('Warning: the URL is long (' + url.length + ' chars). GitHub may reject it; shorten the changed fields.');
     else fstat('Found: ' + found.id);
   }
+  // contents SNS: the title gets `SNS` + a full-width space when it is empty (and it is cleared again when contents leaves SNS while the title is still just that)
+  function autoSnsTitle() {
+    var ce = $('f-contents'), te = $('f-title'); if (!ce || !te || !found || found.kind !== 'logs') return;
+    var AUTO = 'SNS\u3000', c = ce.value.trim().toUpperCase(), ch = false;
+    if (c === 'SNS') { if (te.value.trim() === '') { te.value = AUTO; ch = true; } }
+    else if (te.value === AUTO) { te.value = ''; ch = true; }
+    if (ch) te.dispatchEvent(new Event('input', { bubbles: true }));
+  }
   function renderFound(kind, id, row, isNew) {
     found = { kind: kind, id: id, isNew: !!isNew, row: row }; orig = {}; rep = null; $('fan').checked = false; $('fan').disabled = false; $('fansx').value = DEFSX;
     var box = $('ff'); box.innerHTML = '';
@@ -926,7 +938,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var el = document.createElement(f.ta ? 'textarea' : 'input'); el.id = 'glih-f-' + f.k; el.className = f.ta ? 'fta' : 'fin';
       if (!f.ta) { el.type = 'text'; el.setAttribute('autocomplete', 'off'); }
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
-      el.addEventListener('input', updateFind);
+      el.addEventListener('input', updateFind); if (kind === 'logs' && f.k === 'contents') el.addEventListener('input', autoSnsTitle);
       wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
     var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = !!isNew; $('fjrow').hidden = !!isNew;
@@ -1419,7 +1431,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function applyModeUI() {
     var edit = !!(found && !found.isNew), kind = $('fkind').value;
     var cp = edit && kind === 'setlist' && $('fcp').checked; // setlist copy needs the new date / time
-    $('frd').hidden = edit && !cp; $('frt').hidden = edit && !cp; $('fanyl').hidden = kind !== 'logs'; $('fnew').hidden = !found; $('fcontrow').hidden = !(edit && kind === 'logs');
+    $('frd').hidden = edit && !cp; $('frt').hidden = edit && !cp; $('fanyl').hidden = kind !== 'logs'; $('fcontrow').hidden = !(edit && kind === 'logs');
     if (edit) { $('fdl').hidden = true; $('fdl').innerHTML = ''; $('fdl')._key = ''; }
   }
   function topChanged() { dtSearch(); syncNew(); }
@@ -1429,6 +1441,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     $('fid').value = ''; hideCands(); clearFound(); $('fdd').value = ''; $('fdt').value = ''; $('fany').checked = false; topChanged();
   };
   // the Issue button (bottom of the find tab): after the form page is opened, the input is reset (the same as the new button), ready for the next entry
+  $('topnew').onclick = function () { $('fnew').onclick(); };
   $('go-find').addEventListener('click', function () { if ($('go-find').getAttribute('aria-disabled') === 'true') return; setTimeout(function () { $('fnew').onclick(); }, 300); });
   tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
   applyModeUI();
