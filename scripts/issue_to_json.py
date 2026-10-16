@@ -268,7 +268,7 @@ def expand_group_codes(codes):
 def parse_sns(raw):
     """sns欄（1行1件）を [{"type","urls":[{"url","member"}]}] にする（同じtypeは1つにまとめて urls に入れる）。
     先頭が `-` の行は個別削除（`-URL`。戻り値の要素は {"_remove": URL}）。
-    書式: `type | url | member`。memberは省略可（groupsと同じコード。複数人はカンマ区切り: `YZH,MMK`。G2 / L2 だけを入力するとそのグループ全員。G2,MSK のように個別メンバーもあれば、そのメンバーだけ）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
+    書式: `type | url | member | tags`（tagsはそのリンクだけの検索用タグ。カンマ区切り。省略可。`url | member | tags` も可）。memberは省略可（groupsと同じコード。複数人はカンマ区切り: `YZH,MMK`。G2 / L2 だけを入力するとそのグループ全員。G2,MSK のように個別メンバーもあれば、そのメンバーだけ）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
     出力の member は配列（なしは []）。同じURLが複数あれば、後に書いたmemberで上書きする。戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
     if not raw:
         return [], []
@@ -289,7 +289,7 @@ def parse_sns(raw):
                 items.append({"_remove": m.group(0)})
             continue
         parts = [x.strip() for x in line.split("|")]
-        type_, url, member = "", "", ""
+        type_, url, member, tag_raw = "", "", "", ""
         if len(parts) == 1:
             url = parts[0]
         elif len(parts) == 2:
@@ -298,10 +298,20 @@ def parse_sns(raw):
             else:
                 type_, url = parts           # type | url
         elif len(parts) == 3:
-            type_, url, member = parts       # type | url | member
+            if re.match(r"https?://", parts[0], re.I):
+                url, member, tag_raw = parts  # url | member | tags
+            else:
+                type_, url, member = parts    # type | url | member
+        elif len(parts) == 4:
+            type_, url, member, tag_raw = parts  # type | url | member | tags
         else:
-            errors.append(f"- **sns**: `|` が多すぎます。`type | url | member` の形で入力してください（入力値: `{shown}`）")
+            errors.append(f"- **sns**: `|` が多すぎます。`type | url | member | tags` の形で入力してください（入力値: `{shown}`）")
             continue
+        link_tags = []
+        for t in re.split(r"[,、]", tag_raw):
+            t = t.strip()
+            if t and t not in link_tags:
+                link_tags.append(t)
         type_ = type_.lower()
         members = []
         for m in re.split(r"[,、\s]+", member.upper()):
@@ -327,9 +337,15 @@ def parse_sns(raw):
             items.append(grouped)
         same = next((u for u in grouped["urls"] if u["url"] == url), None)
         if same is None:
-            grouped["urls"].append({"url": url, "member": members})
-        elif members:
-            same["member"] = members
+            ent = {"url": url, "member": members}
+            if link_tags:
+                ent["tags"] = link_tags
+            grouped["urls"].append(ent)
+        else:
+            if members:
+                same["member"] = members
+            if link_tags:
+                same["tags"] = link_tags
     return items, errors
 
 

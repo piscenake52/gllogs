@@ -179,7 +179,10 @@ def _sns_urls(e):
             out.append({"url": u, "member": []})
         elif isinstance(u, dict) and u.get("url"):
             mem = u.get("member") or []
-            out.append({"url": u["url"], "member": [mem] if isinstance(mem, str) else list(mem)})  # 文字列1件の旧形式も配列にそろえる
+            ent = {"url": u["url"], "member": [mem] if isinstance(mem, str) else list(mem)}  # 文字列1件の旧形式も配列にそろえる
+            if u.get("tags"):
+                ent["tags"] = [u["tags"]] if isinstance(u["tags"], str) else list(u["tags"])
+            out.append(ent)
     return out
 
 
@@ -201,8 +204,11 @@ def merge_sns(current, incoming):
             same = next((x for x in tgt["urls"] if x["url"] == u["url"]), None)
             if same is None:
                 tgt["urls"].append(u)
-            elif u["member"]:
-                same["member"] = u["member"]
+            else:
+                if u["member"]:
+                    same["member"] = u["member"]
+                if u.get("tags"):
+                    same["tags"] = u["tags"]  # リンクのtagsは、新しい入力があれば置き換える（空なら既存を残す）
     return merged
 
 
