@@ -38320,6 +38320,32 @@
     ]
   },
   {
+    "logid": "5234e514b0e8",
+    "date": "20251116",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "YUW",
+      "AKR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/1990045749577699751",
+            "member": [
+              "YUW",
+              "AKR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "9ed0e8f4cb0b",
     "date": "20251115",
     "time": "1200",
