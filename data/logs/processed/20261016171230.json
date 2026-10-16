@@ -1,5 +1,5 @@
 {
-  "date": "20261006",
+  "date": "20261016",
   "contents": "SNS",
   "title": "SNS　Laki",
   "groups": [
@@ -10,14 +10,8 @@
       "type": "tiktok",
       "urls": [
         {
-          "url": "https://vt.tiktok.com/ZSgN2y8Re/",
+          "url": "https://vt.tiktok.com/ZSgN66H4q/",
           "member": [
-            "RIN",
-            "TBK",
-            "HIR",
-            "YUW",
-            "KAN",
-            "RRK",
             "AKR",
             "KIK"
           ]
@@ -25,5 +19,5 @@
       ]
     }
   ],
-  "_issue": "1334"
+  "_issue": "1335"
 }

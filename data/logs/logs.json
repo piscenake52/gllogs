@@ -3825,6 +3825,32 @@
     ]
   },
   {
+    "logid": "39922cec2c79",
+    "date": "20261016",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgN66H4q/",
+            "member": [
+              "AKR",
+              "KIK"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "196c5c8ee30e",
     "date": "20261015",
     "time": "2359",
