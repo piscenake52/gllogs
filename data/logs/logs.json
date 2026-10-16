@@ -9351,7 +9351,18 @@
       "AKR",
       "KIK"
     ],
-    "tags": []
+    "tags": [],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/ssd_knym/status/2111043487907172738",
+            "member": []
+          }
+        ]
+      }
+    ]
   },
   {
     "logid": "d7502db71f62",
