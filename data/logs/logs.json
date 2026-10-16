@@ -8223,6 +8223,44 @@
     ]
   },
   {
+    "logid": "d981a478ed9e",
+    "date": "20261006",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgN2y8Re/",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "cbfd482cba9b",
     "date": "20261005",
     "time": "2055",
