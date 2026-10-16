@@ -3971,6 +3971,8 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "RIN",
+      "HIR",
       "AKR",
       "KIK"
     ],
@@ -3983,6 +3985,13 @@
             "member": [
               "AKR",
               "KIK"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSgNHDAYY/",
+            "member": [
+              "RIN",
+              "HIR"
             ]
           }
         ]
@@ -4004,6 +4013,10 @@
         "urls": [
           {
             "url": "https://x.com/Laki922official/status/2111008048450097161",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2111036135325810954",
             "member": []
           }
         ]
