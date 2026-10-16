@@ -584,19 +584,264 @@ TODAY/セトリ検索モードのどちらでもないとき、年/月/グルー
 ]
 ```
 
-- 表示順はデータの入力順ではなく固定順: `x → instagram → tiktok → youtube → gl2family → threads → line → (未知のtype)`。`SNS_TYPE_DISPLAY_NAMES`のキー順を優先順位として使う
+- 表示順はデータの入力順ではなく固定順: `x → instagram → tiktok → youtube → gl2family → cl → threads → line → radiko → (etc / 未知のtype)`。`SNS_TYPE_DISPLAY_NAMES`のキー順を優先順位として使う
 - 各urlは文字列そのものではなく連番(1,2,3…)で表示し、**typeごとに1から**数え直す
 - `http(s)`で始まらない不正なURLは番号だけ表示しクリック不可にする(`is-invalid`)
 - typeアイコンはSimple Icons由来のSVGパスで単色(`currentColor`)表示。未登録typeは同じ幅だけ空ける
 
 ### logid / setlistid コピー機能
 
-日付・時刻のダブルクリック/ダブルタップでクリップボードにコピーしトースト表示する。
+日付・時刻のダブルクリック/ダブルタップでクリップボードにコピーしトースト表示する(2回目のタップでコピー)。
 
 - 発動条件: 年月日曜時+📍+📋️がすべてON
-- 🔗が**OFF**: `logid`をコピー(無ければ「この行にはlogidがありません」)
-- 🔗も**ON**(全部ON): 同じ操作で`setlistid`をコピー(無ければ何も起きない。logidと違いトーストも出さない)
+- 🔗が**ON**(全部ON): `logid`をコピー(無ければ「この行にはlogidがありません」)
+- 🔗が**OFF**: `setlistid`をコピー(無ければ何も起きない。logidと違いトーストも出さない)
+- **helperを開ける状態(後述「helperへの遷移」)のときは、ダブルタップでもコピーしない**(3回タップに備えるため)。コピーする元の条件は上のとおり変えていない
 
 ### sticky-header(検索部固定)の注意点
 
 `body`に`overflow-x: hidden`だけを指定すると、ブラウザの仕様で`overflow-y`が暗黙的に`auto`扱いになり、`body`自体が独立したスクロールコンテナとみなされて`position: sticky`が効かなくなる。回避のため`overflow-x: hidden`は`body`ではなく`html`(元々`overflow-y: auto`を指定)にまとめて指定している。
+
+---
+
+## 追記2: 曲ごとの歌唱メンバー・カレンダー・helper遷移ほか(index.html)
+
+### セトリポップアップ: 曲ごとの歌唱メンバー(`songs[].member`)
+
+`setlist.json`の`songs`の各曲に`member`(メンバーコードの配列)を持てる。**指定がある曲だけ**、曲名の下に小さくハートを表示する(指定なし=全員扱いで何も出さない)。ハートの色は各メンバーのハート絵文字(`memberInfoByCode`)で、並びは`heartOrder`の順。
+
+曲の行の構造(上から):
+
+1. 曲名(右上にtypeバッジ。曲名と横位置を揃えて上付き)
+2. ハート(`font-size: 7px`、1列・折り返さない)
+3. original と notes(括弧なし、小さく薄い色。`.setlist-song-sub`)
+
+```html
+<li><order><再生ボタン><span class="setlist-song-main">曲名・ハート・sub</span>typeバッジ</li>
+```
+
+`.setlist-song-main`は縦並びのflex。以前は`notes`が`flex-basis:100%`で曲名を押しつぶしていたため、この構造にした。
+
+#### artistが「Girls² × Laki」の両方を含むときだけの特別表示
+
+- 曲ごとのハート: `Girls² 🩵💙 / Laki 💜🩵` のように、グループごとに名前+ハートをまとめて`/`でつなぐ(ハートがあるグループだけ)
+- ヘッダー(アーティスト名の行): `Girls² 🩵💙` と `Laki 💜🩵` の**2段表示**。名前の列とハートの列をgrid(`auto 1fr`)で分け、**ハートの左端をそろえる**(`.setlist-modal-artist.is-split`)
+- 判定: `entry.artist`に`Girls²`と`Laki`の両方の文字列が含まれるか(`Girls²`は`'Girls'.concat('²')`で組み立てている)
+
+### SNSリンクポップアップのメンバーランプ色
+
+`MEMBER_LAMP_COLORS`は、各メンバーのハート絵文字の色に合わせた**鮮明な色**にしてある(水色`#18b8ff`/青`#1f5fff`/オレンジ`#ff8200`/紫`#9a3cf5`/白`#ffffff`/ピンク`#ff4f9f`/黄`#ffd000`/緑`#1fcf5a`/赤`#f01e2c`)。G2とL2で同じ色(例: YZHとHIRは水色)。
+
+### 検索窓の横のカレンダー(`#dateSearchBtn`)
+
+検索窓と文字サイズボタンの間にカレンダーボタンがある(大きさは文字サイズボタンと同じ26pxの丸ボタン)。押すとカレンダーが開き、日を選ぶと検索窓に`YYYYMMDD`が入って検索される(従来の「8桁日付→TODAYモード」と同じ動き)。
+
+- ブラウザ標準の日付入力ではなく、自前のカレンダー(日曜始まり、42マス)。ヘッダーで前後の月・年、タイトルを押すと年/月の選択に切り替わる。「今日」ボタンあり
+- ログがある日の点表示や色分けはしない(ほぼ全日にログがあるため)
+- 外側のクリック・Escで閉じる。判定は`e.composedPath()`で行う(カレンダー内のボタンは再描画で要素が差し替わるため、`contains()`だと自分のクリックで閉じてしまう)
+- 位置は`position: fixed`で、リサイズ・スクロールのたびに計算し直す
+- 画面の文字は`\uXXXX`のエスケープで書く(後述のBloggerの文字化け対策と同じ流儀。index.htmlでは必須ではないが揃えてある)
+
+### helperへの遷移(隠し機能)
+
+データ部の日付・時刻を**3回連続タップ**(PCは Ctrl / Shift / Cmd + クリック)すると、その行のIDでhelperを別タブで開く(`https://gl-log.blogspot.com/p/issuehelper.html?id=<ID>#logs` または `#setlist`)。
+
+**helperを開ける状態**(`helperModeOn`)は、次のすべてを満たすとき:
+
+- 年月日曜時+📍+📋️がON(「logid / setlistid コピー機能」と同じ発動条件)
+- ♪(`songMode`)と💞(`heartModeOn`)がON
+- 次のどちらか
+  - 🔗がOFF、かつ📋セトリ検索がON → `setlistid`で`#setlist`を開く
+  - 🔗がON、かつ📋セトリ検索がOFF → `logid`で`#logs`を開く
+
+IDが無い行は何もしない。この状態では、**ダブルタップのIDコピーは行わない**(3回タップの途中でコピーのトーストが出ないようにするため)。helperを開ける状態でないときは、ダブルタップのコピーは従来どおり。
+
+| ♪💞 | 📋 | 🔗 | ダブルタップ | トリプルタップ |
+|---|---|---|---|---|
+| どちらかOFF | - | - | 🔗ONならlogid、OFFならsetlistidをコピー | なし |
+| ON | ON | OFF | コピーしない | helper(setlist) |
+| ON | OFF | ON | コピーしない | helper(logs) |
+| ON | ON | ON | 従来どおりコピー(logid) | なし |
+| ON | OFF | OFF | 従来どおりコピー(setlistid) | なし |
+
+### contentsの追加・アイコン変更
+
+- `TELEPHONE`: データ部は`📞 TELEPHONE`。フィルターボタンは無く、フィルター判定上は`FANCLUB`として扱う(`fanclubAliasConts`、`normalizeContType`)。FANCLUBボタンをONにすると表示される
+- `DEBUT`: ⭐、`FORMATION`: ✨ に変更(以前は🎂と🤝)。ボタンは無く、フィルター判定上は`BIRTHDAY`として扱う(BIRTHDAYのボタン🎂をONにすると表示される)
+- SNSの`radiko`: アイコンと表示名`radiko`を追加(URLは`radiko.jp`で自動判定)
+
+### フィルターボタンの除外(ダブルタップ)の不具合修正
+
+ボタンを300ms以内に2回押すと、その値に当てはまるデータを常に非表示にする「除外」になり(薄い色)、もう一度ダブルタップで解除する(`excluded`は`gl_log_excluded_filters`に保存)。
+
+**TODAY表示中にグループ/メンバー(G2・L2・YZH・RINなど)を除外・解除すると、データが元に戻らない**不具合があった。TODAY/セトリ検索モードではコンテンツ種類のボタンが自動でON/OFFされるが、除外・解除したときにその再計算(`autoUpdateContentTypeFilters`)を呼ぶのが、コンテンツ種類・年・月のときだけだったため、コンテンツ種類のボタンが古い状態のまま残っていた。現在は、どのボタンの除外・解除でも再計算を呼ぶ。
+
+---
+
+## 追記3: データ登録の仕組み(Issue → JSON → サイト)と helper
+
+### 全体の流れ
+
+```
+GitHub Issue(フォーム) → Actions(auto_merge.yml)
+  → scripts/issue_to_json.py(フォームの本文をキュー用JSONに変換)
+  → scripts/merge_json.py(本体のJSONにマージ。処理済みはprocessedへ)
+  → data/ をコミット → index.html が jsDelivr 経由で読む
+```
+
+| ファイル | 役割 |
+|---|---|
+| `.github/ISSUE_TEMPLATE/add_logs.yml` | logs(日程・ログ)の登録・更新・削除フォーム |
+| `add_setlist.yml` / `add_setlist_songs.yml` | setlist(セットリスト)のフォーム。`add_setlist_songs.yml`は曲リスト(songs)用を兼ねたもの |
+| `add_songs.yml` | songs(楽曲リスト。再生リンク用)のフォーム |
+| `.github/workflows/auto_merge.yml` | Issueが`opened`/`edited`されたら変換とマージを実行 |
+| `rebuild_index.yml` | 手動実行。helper用の軽量インデックス(`logs_index.json`/`setlist_index.json`)を作り直す |
+| `check_gaps.yml` / `check_gaps.py` | 手動実行。logsのタイトルの`#数字`の連番の抜けを調べ、Issueに報告する |
+| `issue_helper_blogger.html` | 入力補助ページ(Bloggerの固定ページに貼る) |
+
+- **処理対象のIssue**: `data`ラベル付き(または旧形式のタイトル`[DATA]`)で、投稿者がリポジトリの OWNER / MEMBER / COLLABORATOR のものだけ。
+- **同時実行**: データ更新・インデックス再作成は同じconcurrencyグループ(`gllogs-data-merge`)で直列に実行し、コミットの衝突を防ぐ。
+- **入力エラー**: `issue_to_json.py`が`issue_error.md`を出し、Issueにコメントして処理を中止する。編集すると再処理される。
+- **通知**: 削除対象が見つからなかった等は`merge_notice.md`としてIssueにコメントする。
+- **Issueの再編集**: `data/issue_map.json`(Issue番号→logid)で、同じIssueを編集したときは同じログを更新する(新規にならない)。
+- **値の削除**: 更新時、空欄は「変更しない」。消したい項目はフォームの「値の削除(更新時)」にチェックする(内部では`!clear`)。
+- **DELETE**: 「削除する」にチェックするとそのデータを削除する。
+- **COPY**: コピー元のIDを指定して新規登録する。入力した項目だけ上書きし、空の項目はコピー元を引き継ぐ。
+
+### logs / setlist のデータ形式(抜粋)
+
+logs(1件): `logid, date, time, contents, title, display_pc, display_sp, url, map, groups, relations, setlistid, tags, sns`
+
+```json
+{ "logid": "a1b2c3d4e5f6", "date": "20261016", "time": "1200", "contents": "TICKET",
+  "title": "...", "groups": ["G2","YZH","L2"], "setlistid": "202610161200",
+  "tags": ["..."], "sns": [{ "type": "x", "urls": [{ "url": "https://x.com/...", "member": ["YZH","MMK"] }] }] }
+```
+
+setlist(1件): `setlistid, artist, member, title, venue, songs`
+
+```json
+{ "setlistid": "202610161830", "artist": "Girls² × Laki", "member": ["G2","L2"], "venue": "...",
+  "songs": [{ "order": 1, "title": "曲名", "type": "song", "original": "", "notes": "", "member": ["YZH","MMK"] }] }
+```
+
+- `time`は4桁(`HHMM`)。**空欄は「時刻なし」**(`0000`には補完しない)。
+- `setlistid`は12桁(`YYYYMMDDHHMM`)。logsの`contents`が`LIVE`で`setlistid`が未入力なら、`date`+`time`で自動入力する。
+- `songs[].member`は曲ごとの歌唱メンバー(省略=全員)。
+
+### グループ・メンバーの登録仕様(すべての入力箇所)
+
+**基本の考え方**: 「G2」「L2」は、グループだけを選んだとき=そのグループの全員、個別メンバーも選んだとき=選んだメンバーだけ(グループ名は登録しない)。ただし logs の groups は、グループのコード(G2/L2)そのものもデータに持つ。
+
+G2のメンバー: `YZH, MMK, MSK, YOK, KUR, MNM, KIR`(展開されるのはこの7人)。選択肢にはほかに`TOA, RAN`があり、これは**個別メンバー扱い**(G2と一緒に選んでも、7人には展開しない)。L2のメンバー: `RIN, TBK, HIR, YUW, KAN, RRK, AKR, KIK`(展開される8人)、ほかに選択肢`YUR`(個別メンバー扱い)。
+
+| 入力箇所 | 入力方法 | 登録される内容 |
+|---|---|---|
+| **logs の groups** | ドロップダウン | G2またはL2だけ選ぶとそのグループの全員に展開(`G2`+7人)。個別メンバーも選ぶと選んだものだけ(メンバーがいれば`G2`/`L2`のコードを自動で足す) |
+| | 自由入力(helperのチップもここ) | 入力した値のまま。展開しない(`G2`だけなら`["G2"]`)。メンバーがいれば`G2`/`L2`のコードを自動で足す |
+| | STFにチェック | 選んだ内容に`STF`を足すだけ。展開しない |
+| | 何も入力しない(新規のみ) | snsにmemberがあればそのメンバーのグループ、なければ`G2, L2` |
+| **logs の relations** | ドロップダウン | 選んだメンバーだけ(選択肢にG2/L2はない) |
+| | 自由入力 | `G2`/`L2`だけなら全員に展開。同じグループの個別メンバーも書けばそのメンバーだけ |
+| **logs の sns の member** | `type \| url \| member` の`member`(helperのチップもここ) | `G2`/`L2`だけなら全員に展開。個別メンバーもあればそのメンバーだけ。`G2`/`L2`の文字は保存しない。登録後、snsのmemberは`groups`に足される(外れても`groups`からは外さない) |
+| **setlist の member** | ドロップダウン | G2/L2だけなら全員に展開。個別メンバーも選べばそのメンバーだけ。`G2`/`L2`の文字は入らない |
+| | 自由入力(helperのチップもここ) | 入力した値のまま |
+| | 何も入力しない(新規のみ) | artistが`Girls²`なら`["G2"]`、`Laki`なら`["L2"]`、`Girls² × Laki`なら両方。それ以外のartistはmemberを作らない |
+| **曲ごとの歌唱メンバー** | 曲名の直後の `{YZH,MMK}`(helperのチップもここ) | `G2`/`L2`だけなら全員に展開、個別メンバーもあればそのメンバーだけ。`{-}`は指定を消す。省略=全員扱い(ハートを出さない) |
+
+共通ルール(`expand_group_codes`): グループ名と同じグループの個別メンバー(`TOA/RAN/YUR`を含む)が一緒に書かれたら、グループ名は捨てて個別メンバーだけにする。ドロップダウンと自由入力があるときは**ドロップダウンが優先**(ドロップダウンが空のときだけ自由入力を使う)。
+
+### 曲目の書式(setlist)
+
+1行1曲: `[順番:] 曲名 {メンバー} | type | original | notes`
+
+- 順番を省略すると前の曲+1(先頭は1)。typeを省略すると`song`。空にしたいときは`-`
+- `type`はカンマ区切りで複数指定できる(例: `allow,medley`)。`song`はバッジに出さない
+- 曲名の直後の`{YZH,MMK}`が歌唱メンバー(上の表)
+- 個別変更(1行1操作): `N: 曲名 {メンバー} | type | original | notes`(N番を部分更新。空欄・省略は今のまま、`-`は空にする。`{-}`でメンバー指定を消す)、`+N: 曲名 | ...`(N番に挿入。N番以降は1つ後ろへ)、`-N: 曲名`(N番を削除。曲名を書くと一致したときだけ)、`N>M: 曲名`(N番をM番へ移動。間の曲は1つずつずれる)。メンバーだけの変更もできる
+
+### sns の書式
+
+1行1件: `type | url | member`。`type | url`、`url | member`、URLだけでもよい。`-URL`でそのURLだけを削除する。同じtypeは1つにまとめ、同じURLは重ねずmemberを新しい値で上書きする。更新時は上書きせず、既存の値に新しいものだけ追記する。
+
+- **typeの自動判定**(`SNS_HOSTS`): `x.com`/`twitter.com`=x、`instagram.com`、`youtube.com`/`youtu.be`、`tiktok.com`、`cl-live.com`=cl、`radiko.jp`=radiko、`girls2-fc.jp`=gl2family。サブドメインも一致する。判定できないURLは`etc`。偽装(`instagram.com.example.com`、`x.com@example.com`)は一致させない
+- `threads`/`line`は自動判定の対象外。使うときはテキスト欄に`threads | https://...`のようにtypeを直接書く
+- **helperのsns入力補助**: URL欄+メンバーチップ+`add`ボタン。**typeのプルダウンは無い**(typeはサーバー側の自動判定。すでにある行を置き換えるときは、その行のtypeを残す)。G2/L2チップはメンバー行の表示切替で、G2/L2だけをONにして`add`すると`url | G2`の行になり全員に展開される。個別メンバーも選ぶとメンバーだけが書かれる。`add`すると、チップも含めて入力はリセットされる
+
+### 繰り返し登録(新規のlogsのみ)
+
+1行1回、最大60件(`REPEAT_LIMIT`)。書式:
+
+```
+YYYYMMDD [時刻] [| タイトル [| contents [| URL [| display_sp]]]]
+```
+
+- 日付は`YYYY/MM/DD`・`YYYY-MM-DD`でもよい。時刻は`HHMM`/`HH:MM`、`-`(時刻なし)。時刻を省略するとフォームの時刻を使う
+- `|`が1つだけのときは、その後ろ全部がタイトル(従来どおり)。`|`が2つ以上のときは「タイトル | contents | URL | display_sp」の順で、どれも空欄ならフォームの値を使う(display_spは空欄なら付けない)
+- 行にタイトルがなければ、最初の回のタイトルの`#数字`を回ごとに+1する(ゼロ埋めは保つ)
+- 行に指定のない`url`/`display_sp`、および`map`/`sns`/`display_pc`は引き継がない(引き継がないものがあれば、Issueに通知する)
+- 同じIssueの再編集は、前回の登録分を同じ順番で更新し、増えた回は追加、減った回は削除する。すでに同じ`date+time+contents+title`の行があるときは、その回は登録しない
+- groups / relations / tags などの、ほかの項目はフォームの値を全件に使う
+
+### helper: schedule モード(関連日程の一括登録)
+
+新規のlogsで「repeat entry」をオンにし、modeを`schedule`にすると、1件の案件の関連日程(開始・締切・当選発表・期限)をまとめて登録できる(チケットの抽選受付など)。modeは`interval`(N日/週/月ごとの間隔)と`schedule`の2つ。
+
+行は`start / close / result / due`の4つ。1行が繰り返し登録の1行(`日付 時刻 | タイトル | contents | URL | display_sp`)になる。
+
+| 行 | 日付・時刻 | contents(自由入力。候補を表示) | ラベル(タイトルに足す語) |
+|---|---|---|---|
+| start | 画面上部の日付・時刻を使う(チェックを外すと登録しない=開始なし) | 初期値は空。空のときは上のcontentsを使う | 初期値は空。空のときは上のtitleをそのまま使う |
+| close | 入力した日付・時刻(時刻が空=時刻なし) | 初期値`CLOSE` | 初期値`締切` |
+| result | 同上 | 初期値`RESULT` | 初期値`当選発表` |
+| due | 同上 | 初期値`CLOSE` | 初期値`入金期限` |
+
+- **日付を入れた行だけ**が登録される(start以外の日付が空の行は登録しない)。「開始がなくて終了のみ」「当選発表や期限がない」場合に対応する
+- 登録されるタイトルは **「上のtitle + ラベル」**(例: `Concert ticket lottery 締切`)。startは、ラベルが空なら上のtitleのまま
+- contentsは**自由入力で、文字を入れると候補が出る**(これまでにlogsで使われたcontentsが先、続いて選択肢の一覧)。選択肢にない文字を入れると欄が赤くなり、その行は登録されない
+- ラベルの欄の下に、言い換えの候補(チップ)を並べる。押すとラベルに入り、もう一度押すと消える。手入力もできる
+
+| 行 | ラベルの候補(この並び) |
+|---|---|
+| start | 開始、受付開始、抽選受付開始、販売開始 |
+| close | 締切、終了、受付締切、抽選受付締切、販売終了 |
+| result | 当選発表 |
+| due | 入金期限 |
+
+- **same url**: オンにすると、上のURLを全件に入れる(オフなら入れない)
+- **display_sp**: スマホ表示用の**短い名前**を1つ入れる欄。入れると、各行のdisplay_spが「この名前 + ラベル」になる(startはラベルが空ならこの名前だけ)。例: 名前`Ticket`、ラベル`締切` → `Ticket 締切`。空欄ならdisplay_spは付けない(titleがそのまま使われる)
+- 例(10/16開始、10/20締切、10/23当選発表、10/25入金期限): 4件が、それぞれ 開始=上のcontents / 締切=CLOSE / 当選発表=RESULT / 入金期限=CLOSE で登録され、URLは全件に入る
+
+#### 画面から削除した説明文(仕様としての意味)
+
+画面を簡潔にするため、次の説明文は表示しないことにした。意味はここに残す。
+
+1. 「start = the date / time / title / contents above. Other rows: fill the date to register it (time empty = none; title = the title above + the label).」
+   → startは、画面上部の日付・時刻・title・contentsをそのまま使う。ほかの行は、日付を入れるとその行が登録される(時刻が空なら時刻なし。titleは「上のtitle + ラベル」)。
+2. 「Short name used as display_sp of every entry: this + the label (start: this only). Empty = display_sp is not set.」
+   → 全件のdisplay_spに使う短い名前。「この名前 + ラベル」が各行のdisplay_spになる(startはこの名前だけ)。空欄ならdisplay_spは付けない。
+3. 「N entries will be registered (the url above is added to each / no url; map / sns / display are not copied).」(scheduleモード)
+   → 登録される件数。URLは、same urlがオンなら全件に入り、オフなら入らない。map・sns・display_pcは引き継がない。
+4. scheduleモードの警告「A date / time / contents of a row is not valid (the row is skipped).」
+   → 日付・時刻・contentsが正しくない行は、登録しない(その行を飛ばす)。欄が赤くなる。日付が未入力のとき(`Set the date above first.`)は、画面上部の日付を先に入れる必要がある。
+5. intervalモードの「including the first date (max 60); empty = auto from until」(countの説明)
+   → countは、最初の日付を含む件数(最大60件)。空欄のときは、untilの日付までの件数を自動で数える(untilを入れてcountを入力していなければ自動)。
+6. intervalモードの「N of M dates will be registered (the same time / contents / groups / relations / tags; url / map / sns / display are not copied; the #number counts up).」
+   → チェックを入れたM件のうちN件が登録される。時刻・contents・groups・relations・tagsは、元と同じものを全件に使う。url・map・sns・displayは引き継がない。タイトルの`#数字`は回ごとに+1される。
+
+### helper(`issue_helper_blogger.html`)
+
+Bloggerの固定ページ(`https://gl-log.blogspot.com/p/issuehelper.html`)に貼る入力補助ページ。入力内容から、Issueフォームの**事前入力付きURL**(`/issues/new?template=...&項目=値`)を作る。変更した項目(青枠)だけを事前入力する。tags/snsは更新時に追記、空欄にした値の削除はフォームの「値の削除」で行う。relationsは事前入力できない(JSONで確認)。
+
+- **タブ**: logs / setlist / songs。logsとsetlistは同じ「探す・編集」パネルを共有する(`found`、`renderFound`、`doFind`)
+- **新規モード**: 上部の日付・時刻(または「anytime」=時刻なし)を入れると空のフォームができる。**編集モード**: IDで探して読み込む(上部の日付・時刻は隠れる)
+- **URLパラメータ**: `?id=<12桁のID>#logs` / `#setlist` でそのIDを自動で探す(データ部からの遷移に使う)
+- **logsからsetlistへの遷移**: setlistidのデータが無いときは、setlistidから日付(前8桁)と時刻(後4桁)を自動入力し、logsの行から title→title、groups→artist(`Girls²`/`Laki`、両方なら`Girls² × Laki`)、groupsのメンバー→member、tagsのうち既存のsetlistの会場名と一致するもの→venue を引き継ぐ
+- **グループ・メンバーのチップ**: G2とL2のチップは常に表示し、ONにするとそのグループのメンバー行が表示される(メンバーが選ばれている間は、G2/L2の見た目はONのまま)。G2/L2をOFFにするとそのメンバーもOFFになる。logsのgroups(データに入る)と、メンバーだけの欄(setlistのmember・曲ごとのメンバー・snsのmember。G2/L2は**表示切替のみ**で値には入らない)で扱いが違う
+- **日付入力**: ブラウザ標準ではなく自前のカレンダー(`CAL`)。時刻は標準のピッカー
+- **曲目の補助**: 1曲ずつ追加・挿入・更新・削除・移動。type・メンバーのチップ付き
+- **snsの補助**: テキストエリアの**上**に、URL欄・メンバーチップ・`add`ボタン。登録済みのリンクは、ボタンの中に**2段**(1段目=リンク、2段目=メンバー)で左寄せに並び、押すとそのリンクを消す/戻す(取り消し線)、右端の↗で開く
+
+#### Bloggerに貼るときの制約(重要)
+
+BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`など)に変換して**文字化け**させる。そのため helper の `<script>` は**ASCIIのみ**で書き、日本語・記号は`\uXXXX`のエスケープにする(コメントも英語にする)。公開前に、`<script>`内に非ASCII文字が無いことを確認する。
