@@ -4721,7 +4721,7 @@ body .item-contents.is-content-open {
       if (!src || src.ref) return;
       const r = Object.assign({}, it);
       ['title', 'display_pc', 'display_sp'].forEach(k => {
-        if (!has(r[k]) && has(src[k])) r[k] = src[k] + ' 記念日';
+        if (!has(r[k]) && has(src[k])) r[k] = src[k] + ' ' + (it.suffix || '記念日');
       });
       ['url', 'groups', 'relations', 'tags', 'sns'].forEach(k => {
         if (!has(r[k]) && has(src[k])) r[k] = src[k];

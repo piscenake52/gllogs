@@ -185,7 +185,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="fstat" id="glih-fstat" hidden></div>
   <div class="fcand" id="glih-fcand" hidden></div>
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
-  <div class="field" id="glih-fanrow" hidden><label for="glih-fan">ANNIVERSARY</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
+  <div class="field" id="glih-fanrow" hidden><label for="glih-fan">anniv.</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
+  <div class="field" id="glih-fansrow" hidden><label for="glih-fansx"></label><div class="fgcol"><input type="text" id="glih-fansx" class="fin" autocomplete="off" value="&#35352;&#24565;&#26085;"><div class="chipr" id="glih-fansch"></div></div></div>
   <div class="field" id="glih-fcontrow" hidden><label>next</label><div class="chipr" id="glih-fcc"><button type="button" class="small" data-m="repeat" title="new entry on the same date with the repeat entry turned on, next # number">repeat</button><button type="button" class="small" data-m="week" title="new entry: +7 days, next # number">weekly</button><button type="button" class="small" data-m="month" title="new entry: the same day of the next month, next # number">monthly</button><button type="button" class="small" data-m="year" title="new entry: the same day of the next year, next # number">yearly</button></div></div>
   <div id="glih-ff"></div>
   <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、空欄にした値の削除はフォームの【値の削除】チェックで行います。relations は事前入力できません(JSONで確認)。 -->
@@ -822,22 +823,34 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
   }
   // ANNIVERSARY check (logs only): a linked ANNIVERSARY entry (ref = this logid) is registered together. Off + a reason when contents is ANNIVERSARY / BIRTHDAY or repeat entry is on; on + locked when one is already linked.
+  var DEFSX = '\u8a18\u5ff5\u65e5', SXCHIPS = ['\u8a18\u5ff5\u65e5', '\u51fa\u6f14\u8a18\u5ff5\u65e5', '\u653e\u9001\u8a18\u5ff5\u65e5'];
+  (function () { var box = $('fansch'); SXCHIPS.forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t; b.onclick = function () { $('fansx').value = t; updateFind(); }; box.appendChild(b); }); $('fansx').addEventListener('input', updateFind); })();
   function annivState() {
     var row = $('fanrow'), cb = $('fan'), why = $('fanwhy'), r = { send: false };
     if (!row) return r;
     var isLogs = !!(found && found.kind === 'logs' && !(found.row && found.row.ref));
     row.hidden = !isLogs;
-    if (!isLogs) { cb.checked = false; return r; }
+    var sr = $('fansrow');
+    if (!isLogs) { cb.checked = false; sr.hidden = true; return r; }
     var ce = $('f-contents'), c = ce ? ce.value.trim().toUpperCase() : '', rp = $('rpon') && $('rpon').checked;
     var linked = !found.isNew && rowsOf('logs').some(function (x) { return x.ref === found.id; });
     var reason = '';
     if (c === 'ANNIVERSARY' || c === 'BIRTHDAY') reason = c;
     else if (rp) reason = 'repeat';
-    if (linked) { cb.checked = true; cb.disabled = true; why.textContent = ''; return r; }
+    var sx = $('fansx'), cur = DEFSX;
+    if (linked) {
+      var lr = rowsOf('logs').filter(function (x) { return x.ref === found.id; })[0]; cur = (lr && lr.suffix) || DEFSX;
+      if (found.sxFor !== found.id) { found.sxFor = found.id; sx.value = cur; }
+      cb.checked = true; cb.disabled = true; why.textContent = ''; sr.hidden = false;
+      var v = sx.value.trim() || DEFSX; r.send = v !== cur; r.suffix = v;
+      return r;
+    }
     cb.disabled = !!reason;
     if (reason) cb.checked = false;
     why.textContent = reason;
     r.send = cb.checked && !reason;
+    sr.hidden = !r.send;
+    r.suffix = sx.value.trim() || DEFSX;
     return r;
   }
   function updateFind() {
@@ -845,7 +858,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var def = DEFS[found.kind], p = {}, n = 0, dl = [];
     if (found.id) p[def.idKey] = found.id;
     var an = annivState();
-    if (an.send) { p.anniv_text = 'ANNIVERSARY'; n++; dl.push(['ANNIVERSARY', 'on']); }
+    if (an.send) { p.anniv_text = 'ANNIVERSARY'; p.anniv_suffix = an.suffix; n++; dl.push(['anniv.', an.suffix]); }
     if (found.kind === 'logs' && !found.isNew && $('fcp').checked) p.copy_text = 'copy';
     def.fields.forEach(function (f) {
       var el = $('f-' + f.k), cur = el.value, ch = cur !== orig[f.k];
@@ -876,7 +889,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     else fstat('Found: ' + found.id);
   }
   function renderFound(kind, id, row, isNew) {
-    found = { kind: kind, id: id, isNew: !!isNew, row: row }; orig = {}; rep = null; $('fan').checked = false; $('fan').disabled = false;
+    found = { kind: kind, id: id, isNew: !!isNew, row: row }; orig = {}; rep = null; $('fan').checked = false; $('fan').disabled = false; $('fansx').value = DEFSX;
     var box = $('ff'); box.innerHTML = '';
     DEFS[kind].fields.forEach(function (f) {
       var wrap = document.createElement('div'); wrap.className = 'field' + (f.ta ? ' top' : '');
@@ -913,7 +926,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (el.value !== t) { el.value = t; el.dispatchEvent(new Event('input', { bubbles: true })); }
     });
   }
-  function clearFound() { found = null; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('ff').innerHTML = ''; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
+  function clearFound() { found = null; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('fansrow').hidden = true; $('fansx').value = DEFSX; $('ff').innerHTML = ''; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
   // ---- repeat registration (new logs only): the date list is built here (every N days / weeks / months, until a date and / or a count, minus skipped dates), previewed with check boxes and sent as the repeat field of the form (one yyyymmdd per line; the server counts up the #number of the title for each row) ----
   var rep = null, REP_MAX = 60;
   function pad2(n) { return ('0' + n).slice(-2); }
