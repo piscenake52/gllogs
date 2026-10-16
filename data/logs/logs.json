@@ -3876,6 +3876,39 @@
     ]
   },
   {
+    "logid": "a0afa5447fad",
+    "date": "20261016",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YOK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2111020499614732529",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgNAe9an/",
+            "member": [
+              "YOK"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "196c5c8ee30e",
     "date": "20261015",
     "time": "2359",
