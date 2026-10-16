@@ -25,6 +25,18 @@ body:
         - label: "コピーして新規登録"
 
   - type: input
+    id: anniv_text
+    attributes:
+      label: "ANNIVERSARY / 文字入力"
+
+  - type: checkboxes
+    id: anniv
+    attributes:
+      label: "ANNIVERSARY"
+      options:
+        - label: "ANNIVERSARY（記念日を一緒に登録）"
+
+  - type: input
     id: date
     attributes:
       label: "date"
