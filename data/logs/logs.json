@@ -15054,6 +15054,30 @@
     ]
   },
   {
+    "logid": "0d901fd3c8f5",
+    "date": "20260915",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgFQyeYC/",
+            "member": [
+              "YZH"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "7d618087843c",
     "date": "20260914",
     "time": "2150",
