@@ -4707,7 +4707,32 @@ body .item-contents.is-content-open {
   const CHECK_TIME_KEY = 'gl_log_checked_at';
   const CHECK_COOLDOWN_MS = 1 * 60 * 1000; // 5分以内の再チェックはスキップ(同一端末でのAPI消費を抑制)
 
+  // 参照型データ(ref)を、参照元の値で補って1件のデータにする。自分の値があればそちらを優先する。
+  // title / display_pc / display_sp は「参照元の値 + 記念日」。map・setlistid は参照しない。参照元がなければ表示しない
+  const resolveRefs = data => {
+    if (!data.some(it => it && it.ref)) return data;
+    const byId = new Map();
+    data.forEach(it => { if (it && it.logid) byId.set(it.logid, it); });
+    const has = v => !(v === undefined || v === null || v === '' || (Array.isArray(v) && !v.length));
+    const out = [];
+    data.forEach(it => {
+      if (!it || !it.ref) { out.push(it); return; }
+      const src = byId.get(it.ref);
+      if (!src || src.ref) return;
+      const r = Object.assign({}, it);
+      ['title', 'display_pc', 'display_sp'].forEach(k => {
+        if (!has(r[k]) && has(src[k])) r[k] = src[k] + ' 記念日';
+      });
+      ['url', 'groups', 'relations', 'tags', 'sns'].forEach(k => {
+        if (!has(r[k]) && has(src[k])) r[k] = src[k];
+      });
+      out.push(r);
+    });
+    return out;
+  };
+
   const applyLogs = data => {
+    data = resolveRefs(data);
     // 日付、時刻、コンテンツ種類、タイトル、URLがすべて一致する重複データを排除
     const seen = new Set();
     // SETTINGで非表示の項目は重複排除後にここで取り除く

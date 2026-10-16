@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/33524919/README.md)
 # gllogs
 
 [GL log](https://gl-log.blogspot.com/) のデータ(日程・ログ、セットリスト、楽曲リスト)と、その登録の仕組みをまとめたリポジトリです。
@@ -27,6 +26,10 @@ JSONを直接編集せず、**Issue のフォーム**から登録します(下�
 - 処理されるのは、`data` ラベル付きの Issue で、投稿者がこのリポジトリの OWNER / MEMBER / COLLABORATOR のものだけです。
 - 更新のとき、**空欄は「変更しない」**です。消したい項目は、フォームの「値の削除(更新時)」にチェックします。
 - 「DELETE」にチェックすると、そのデータを削除します。「COPY」は、コピー元のIDから新規登録します。
+
+### ANNIVERSARY(記念日)の連動
+
+LIVEなどを登録するときに「ANNIVERSARY」にチェックすると、元データを参照する記念日が一緒に作られます。url・groups・relations・tags・snsは元データを参照して表示されるので、元データだけ更新すれば記念日にも反映されます。タイトルは元のタイトルに「 記念日」が付きます。繰り返し登録やBIRTHDAY / ANNIVERSARYの元データには使えません。
 
 ### グループ・メンバーの入力
 

@@ -708,6 +708,15 @@ GitHub Issue(フォーム) → Actions(auto_merge.yml)
 - **DELETE**: 「削除する」にチェックするとそのデータを削除する。
 - **COPY**: コピー元のIDを指定して新規登録する。入力した項目だけ上書きし、空の項目はコピー元を引き継ぐ。
 
+### ANNIVERSARY(参照型・logsのみ)
+- **登録**: フォームの「ANNIVERSARY」にチェック(または「ANNIVERSARY / 文字入力」に`ANNIVERSARY`)すると、元データの登録・更新と同時に、参照型のANNIVERSARYを1件作る。作られるのは`logid / date / contents=ANNIVERSARY / ref=元のlogid`だけ(timeは空)。すでに参照しているものがあれば作らない(重複しない)。
+- **使えない場合**: 元データのcontentsがANNIVERSARY / BIRTHDAYのとき、繰り返し登録のときはエラー(helperではチェックが無効になる)。
+- **表示(index.html)**: 読み込み時に`ref`を解決する。自分の値があればそちらを優先。`title / display_pc / display_sp`は元の値+「 記念日」(元に値があるときだけ)。`url / groups / relations / tags / sns`は元の値を使う。`map / setlistid`は参照しない。参照元が無いデータは表示しない。
+- **連動**: 元データのdateを変えるとANNIVERSARYのdateも合わせる。元データを削除すると参照しているANNIVERSARYも一緒に削除し、Issueに通知する。参照されている元データのcontentsをANNIVERSARY / BIRTHDAYに変えることはできない。
+- **index**: `logs_index.json`に`ref`を持つ。参照型のtitleは元のtitle+「 記念日」に解決して入れる。
+- **helper**: 「ANNIVERSARY」チェック。すでに参照されている元データではON固定(送らない)。
+- **groups**: 参照型には既定の`G2, L2`を入れない(元の値を使う)。
+
 ### logs / setlist のデータ形式(抜粋)
 
 logs(1件): `logid, date, time, contents, title, display_pc, display_sp, url, map, groups, relations, setlistid, tags, sns`
