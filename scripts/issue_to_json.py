@@ -37,6 +37,7 @@ LABELS_LOGS = {
     "copy_text": "COPY / 文字入力",
     "anniv": "ANNIVERSARY",
     "anniv_text": "ANNIVERSARY / 文字入力",
+    "anniv_suffix": "ANNIVERSARY / 付与文言",
 }
 # add_setlist_songs.yml
 LABELS_SS = {
@@ -749,6 +750,8 @@ def main():
         data = build_logs(f)
         if anniv_req:
             data["_anniversary"] = True  # mergeで、参照型のANNIVERSARYを一緒に作る（mergeで取り除く）
+            sx = f.get("anniv_suffix", "").strip()
+            data["_anniv_suffix"] = "" if sx in ("", "None", "_No response_") else sx  # タイトルの後ろに「半角スペース+この文言」を付けて表示する（空なら 記念日）
         if repeat_ops:
             data["_repeat"] = repeat_ops
         if copy_req:

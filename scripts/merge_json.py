@@ -34,14 +34,14 @@ TARGETS = [
         "processed_dir": "data/logs/processed/",
         "main_file": "data/logs/logs.json",
         "key_fields": ["logid"],
-        "order": ["logid", "date", "time", "contents", "ref", "title", "display_pc", "display_sp",
+        "order": ["logid", "date", "time", "contents", "ref", "suffix", "title", "display_pc", "display_sp",
                   "url", "map", "groups", "relations", "setlistid", "tags", "sns"],
         "clear_to_empty_list": [],
         "append_lists": ["tags", "sns"],  # 更新時は上書きせず、既存の値に新しいものだけ追記する
         "sort_key": lambda x: (x.get("date") or "", x.get("time") or ""),
         "sort_reverse": True,
         "index_file": "data/logs/logs_index.json",  # 検索・候補用の軽量版（helperが先に読む）
-        "index_fields": ["logid", "date", "time", "contents", "ref", "title", "setlistid"],
+        "index_fields": ["logid", "date", "time", "contents", "ref", "suffix", "title", "setlistid"],
     },
     {
         "name": "setlist",
@@ -116,7 +116,7 @@ def linked_annivs(main_data, logid):
     return [e for e in main_data if e.get("ref") == logid]
 
 
-def ensure_anniversary(main_data, logid):
+def ensure_anniversary(main_data, logid, suffix=""):
     """参照型の ANNIVERSARY（logid, date, contents, ref だけ）を作る。既にあれば何もしない"""
     src = next((e for e in main_data if e.get("logid") == logid), None)
     if src is None:
@@ -124,9 +124,16 @@ def ensure_anniversary(main_data, logid):
     if src.get("ref") or src.get("contents") in ANNIV_BLOCKED:
         NOTICES.append(f"- **ANNIVERSARY**: `{logid}` は contents が ANNIVERSARY / BIRTHDAY（または参照型）のため、記念日は作りませんでした")
         return
-    if linked_annivs(main_data, logid):
-        return  # 重複して作らない
+    suffix = (suffix or "").strip()
+    old = linked_annivs(main_data, logid)
+    if old:
+        if suffix:  # 重複しては作らない。付与文言が指定されていれば、参照している記念日の文言だけ更新する
+            for e in old:
+                e["suffix"] = suffix
+        return
     rec = {"logid": generate_logid({}, main_data), "date": src.get("date", ""), "contents": "ANNIVERSARY", "ref": logid}
+    if suffix:
+        rec["suffix"] = suffix
     main_data.append(reorder(TARGETS[0], rec))
     print(f"【追加】ANNIVERSARY（参照）: {rec['logid']} -> {logid}")
 
@@ -146,7 +153,7 @@ def ref_title(main_data):
     def f(e):
         src = by_id.get(e.get("ref"))
         if src and src.get("title"):
-            return src["title"] + " 記念日"
+            return src["title"] + " " + (e.get("suffix") or "記念日")
         return ""
     return f
 
@@ -655,6 +662,7 @@ def apply_item(target, main_data, raw, issue_map):
     item = dict(raw)
     issue = str(item.pop("_issue", "") or "")
     anniv = bool(item.pop("_anniversary", False)) if name == "logs" else False
+    anniv_sx = item.pop("_anniv_suffix", "") if name == "logs" else ""
 
     if item.pop("_delete", False):
         return apply_delete(target, main_data, item, issue_map)
@@ -673,7 +681,7 @@ def apply_item(target, main_data, raw, issue_map):
         if not (issue and issue in issue_map):
             res = apply_copy(target, main_data, copy_from, item, issue, issue_map)
             if anniv and res == "added" and isinstance(issue_map.get(issue), str):
-                ensure_anniversary(main_data, issue_map[issue])
+                ensure_anniversary(main_data, issue_map[issue], anniv_sx)
             return res
         item["logid"] = issue_map[issue]
 
@@ -701,7 +709,7 @@ def apply_item(target, main_data, raw, issue_map):
             if name == "logs":
                 sync_anniv_dates(main_data, key[0])
                 if anniv:
-                    ensure_anniversary(main_data, key[0])
+                    ensure_anniversary(main_data, key[0], anniv_sx)
             if name == "logs":
                 autofill_setlistid(main_data[matches[0]], explicit_clear=is_clear(item.get("setlistid")))
             # 更新で属性が追加された場合も、決まった並び順の位置に入るよう整える
@@ -715,7 +723,7 @@ def apply_item(target, main_data, raw, issue_map):
         issue_map[issue] = new_item["logid"]
     main_data.append(new_item)
     if anniv and name == "logs":
-        ensure_anniversary(main_data, new_item["logid"])
+        ensure_anniversary(main_data, new_item["logid"], anniv_sx)
     return "added"
 
 
