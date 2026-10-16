@@ -11386,6 +11386,32 @@
     ]
   },
   {
+    "logid": "55cf73deb304",
+    "date": "20260929",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "KAN",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgFCeFuk/",
+            "member": [
+              "KAN",
+              "KIK"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "f9e36e3f3293",
     "date": "20260928",
     "time": "2254",
