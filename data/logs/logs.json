@@ -14448,6 +14448,34 @@
     "tags": []
   },
   {
+    "logid": "74d36f81c369",
+    "date": "20260919",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgF7TEte/",
+            "member": [
+              "RIN",
+              "AKR",
+              "KIK"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "cf055a8fecf0",
     "date": "20260918",
     "time": "2000",
