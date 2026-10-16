@@ -168,7 +168,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 /*]]>*/
 </style>
 
-<button type="button" class="go" id="glih-topnew">new</button>
 <div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="songs">songs</button></div>
 
 <div hidden><div class="chips" id="glih-groups"><div class="cr"><button type="button" class="chip" data-v="G2">G2</button><button type="button" class="chip" data-v="L2">L2</button></div><div class="cr"><button type="button" class="chip" data-v="YZH">YZH</button><button type="button" class="chip" data-v="MMK">MMK</button><button type="button" class="chip" data-v="MSK">MSK</button><button type="button" class="chip" data-v="YOK">YOK</button><button type="button" class="chip" data-v="KUR">KUR</button><button type="button" class="chip" data-v="MNM">MNM</button><button type="button" class="chip" data-v="KIR">KIR</button></div><div class="cr"><button type="button" class="chip" data-v="TOA">TOA</button><button type="button" class="chip" data-v="RAN">RAN</button></div><div class="cr"><button type="button" class="chip" data-v="RIN">RIN</button><button type="button" class="chip" data-v="TBK">TBK</button><button type="button" class="chip" data-v="HIR">HIR</button><button type="button" class="chip" data-v="YUW">YUW</button><button type="button" class="chip" data-v="KAN">KAN</button><button type="button" class="chip" data-v="RRK">RRK</button><button type="button" class="chip" data-v="AKR">AKR</button><button type="button" class="chip" data-v="KIK">KIK</button></div><div class="cr"><button type="button" class="chip" data-v="YUR">YUR</button></div></div></div>
@@ -181,6 +180,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 </section>
 
 <section id="glih-p-find" hidden>
+  <button type="button" class="go" id="glih-topnew">new</button>
   <select id="glih-fkind" hidden><option value="logs">logs</option><option value="setlist">setlist</option></select>
   <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fgo">find</button><button type="button" class="small" id="glih-fnew" hidden>new</button></div>
   <div class="field" id="glih-frd"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdprev" title="prev day">&lt;</button><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdnext" title="next day">&gt;</button></div>
@@ -219,7 +219,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function setLink(a, url) { if (url) { a.href = url; a.setAttribute('aria-disabled', 'false'); } else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); } }
   function tab(name) {
     var isFind = name === 'logs' || name === 'setlist';
-    $('p-find').hidden = !isFind; $('topnew').hidden = !isFind; $('p-songs').hidden = name !== 'songs'; if (name === 'songs') songsInit();
+    $('p-find').hidden = !isFind; $('p-songs').hidden = name !== 'songs'; if (name === 'songs') songsInit();
     if (isFind && $('fkind').value !== name) { $('fkind').value = name; $('fkind').dispatchEvent(new Event('change')); } // logs / setlist share one panel
     [].forEach.call(root.querySelectorAll('.tabs button'), function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === name); });
   }
