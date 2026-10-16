@@ -35,6 +35,8 @@ LABELS_LOGS = {
     "clear": "値の削除（更新時）",
     "copy": "COPY",
     "copy_text": "COPY / 文字入力",
+    "anniv": "ANNIVERSARY",
+    "anniv_text": "ANNIVERSARY / 文字入力",
 }
 # add_setlist_songs.yml
 LABELS_SS = {
@@ -57,6 +59,7 @@ LABELS_SS = {
 LEGACY_MARKER = "### データの種類 (Type / logs, setlist, songs)"
 LEGACY_SONGS_LABEL = "曲目 (songs / setlist用 - 1行1曲)"  # setlist / songs が1つのフォームだった頃の見出し(再編集されたIssue用)
 
+ANNIV_OPTION = "ANNIVERSARY（記念日を一緒に登録）"
 CLEAR = "!clear"  # 既存値を消したいときに入力する特別な値
 ARTIST_JOIN = " × "  # アーティストを複数選択したときの連結文字（merge_json.py と揃える）
 
@@ -732,11 +735,20 @@ def main():
         errors = normalize_and_validate_logs(f) + repeat_errors
         if repeat_ops and (f["logid"] or copy_req):
             errors.append("- **繰り返し登録**: 新規登録のときだけ使えます（logid の入力・コピーとは一緒に使えません）")
+        anniv_req = (ANNIV_OPTION in parse_checked(f.get("anniv", ""))
+                     or f.get("anniv_text", "").strip().lower() == "anniversary")
+        if anniv_req:
+            if repeat_ops:
+                errors.append("- **ANNIVERSARY**: 繰り返し登録とは一緒に使えません")
+            if f["contents"] in ("ANNIVERSARY", "BIRTHDAY"):
+                errors.append("- **ANNIVERSARY**: contents が ANNIVERSARY / BIRTHDAY のデータには使えません")
         if errors:
             write_error(errors)
             print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
             return
         data = build_logs(f)
+        if anniv_req:
+            data["_anniversary"] = True  # mergeで、参照型のANNIVERSARYを一緒に作る（mergeで取り除く）
         if repeat_ops:
             data["_repeat"] = repeat_ops
         if copy_req:

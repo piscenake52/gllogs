@@ -34,14 +34,14 @@ TARGETS = [
         "processed_dir": "data/logs/processed/",
         "main_file": "data/logs/logs.json",
         "key_fields": ["logid"],
-        "order": ["logid", "date", "time", "contents", "title", "display_pc", "display_sp",
+        "order": ["logid", "date", "time", "contents", "ref", "title", "display_pc", "display_sp",
                   "url", "map", "groups", "relations", "setlistid", "tags", "sns"],
         "clear_to_empty_list": [],
         "append_lists": ["tags", "sns"],  # 更新時は上書きせず、既存の値に新しいものだけ追記する
         "sort_key": lambda x: (x.get("date") or "", x.get("time") or ""),
         "sort_reverse": True,
         "index_file": "data/logs/logs_index.json",  # 検索・候補用の軽量版（helperが先に読む）
-        "index_fields": ["logid", "date", "time", "contents", "title", "setlistid"],
+        "index_fields": ["logid", "date", "time", "contents", "ref", "title", "setlistid"],
     },
     {
         "name": "setlist",
@@ -104,6 +104,51 @@ def generate_logid(item, main_data):
         new_id = uuid.uuid4().hex[:LOGID_LENGTH]
         if new_id not in existing:
             return new_id
+
+
+# ---------- ANNIVERSARY（参照型）----------
+
+ANNIV_BLOCKED = ("ANNIVERSARY", "BIRTHDAY")
+
+
+def linked_annivs(main_data, logid):
+    """logid を ref で参照している ANNIVERSARY レコード"""
+    return [e for e in main_data if e.get("ref") == logid]
+
+
+def ensure_anniversary(main_data, logid):
+    """参照型の ANNIVERSARY（logid, date, contents, ref だけ）を作る。既にあれば何もしない"""
+    src = next((e for e in main_data if e.get("logid") == logid), None)
+    if src is None:
+        return
+    if src.get("ref") or src.get("contents") in ANNIV_BLOCKED:
+        NOTICES.append(f"- **ANNIVERSARY**: `{logid}` は contents が ANNIVERSARY / BIRTHDAY（または参照型）のため、記念日は作りませんでした")
+        return
+    if linked_annivs(main_data, logid):
+        return  # 重複して作らない
+    rec = {"logid": generate_logid({}, main_data), "date": src.get("date", ""), "contents": "ANNIVERSARY", "ref": logid}
+    main_data.append(reorder(TARGETS[0], rec))
+    print(f"【追加】ANNIVERSARY（参照）: {rec['logid']} -> {logid}")
+
+
+def sync_anniv_dates(main_data, logid):
+    """元データの date が変わったら、参照している ANNIVERSARY の date も合わせる"""
+    src = next((e for e in main_data if e.get("logid") == logid), None)
+    if src is None:
+        return
+    for e in linked_annivs(main_data, logid):
+        e["date"] = src.get("date", e.get("date", ""))
+
+
+def ref_title(main_data):
+    """index 用: 参照元の title を使って「 記念日」を付けた title を返す関数を作る"""
+    by_id = {e.get("logid"): e for e in main_data}
+    def f(e):
+        src = by_id.get(e.get("ref"))
+        if src and src.get("title"):
+            return src["title"] + " 記念日"
+        return ""
+    return f
 
 
 # ---------- 更新・新規追加 ----------
@@ -370,8 +415,8 @@ def finalize_new(target, item, main_data):
                 item["groups"] = add_member_groups(item["groups"], members)  # 入力された groups に、snsのmemberも足す
         elif members:
             item["groups"] = add_member_groups([], members)  # groups 未入力でsnsにmemberがあれば、既定の G2, L2 ではなくmemberのグループにする
-        else:
-            item["groups"] = list(DEFAULT_GROUPS)
+        elif not item.get("ref"):
+            item["groups"] = list(DEFAULT_GROUPS)  # 参照型(ref)は groups を持たず、参照元の値を使う
         if not item.get("logid"):
             item["logid"] = generate_logid(item, main_data)
 
@@ -426,6 +471,12 @@ def apply_delete(target, main_data, item, issue_map):
         print(f"【スキップ】削除対象が見つかりません({label}: {shown})")
         NOTICES.append(f"- **{target['name']}**: 削除対象が見つかりませんでした（{label}: `{shown}`）")
         return "notfound"
+    if target["name"] == "logs":
+        for e in linked_annivs(main_data, key[0]):
+            main_data.remove(e)
+            print(f"【削除】ANNIVERSARY（参照）: {e.get('logid')}")
+            NOTICES.append(f"- **logs**: `{shown}` を参照していた ANNIVERSARY `{e.get('logid')}` も一緒に削除しました")
+        matches = [i for i, e in enumerate(main_data) if key_of(target, e) == key]
     del main_data[matches[0]]
     if target["name"] in ("logs", "setlist"):
         # 削除したlogid / setlistid を指すIssue対応を消す（残すと、元Issueの再編集で存在しないlogidの更新扱いになるため）
@@ -603,6 +654,7 @@ def apply_item(target, main_data, raw, issue_map):
     name = target["name"]
     item = dict(raw)
     issue = str(item.pop("_issue", "") or "")
+    anniv = bool(item.pop("_anniversary", False)) if name == "logs" else False
 
     if item.pop("_delete", False):
         return apply_delete(target, main_data, item, issue_map)
@@ -619,7 +671,10 @@ def apply_item(target, main_data, raw, issue_map):
     copy_from = item.pop("_copy_from", "") if name == "logs" else ""
     if copy_from:
         if not (issue and issue in issue_map):
-            return apply_copy(target, main_data, copy_from, item, issue, issue_map)
+            res = apply_copy(target, main_data, copy_from, item, issue, issue_map)
+            if anniv and res == "added" and isinstance(issue_map.get(issue), str):
+                ensure_anniversary(main_data, issue_map[issue])
+            return res
         item["logid"] = issue_map[issue]
 
     # 同じIssueの再編集は、発行済みlogidの更新として扱う
@@ -638,7 +693,15 @@ def apply_item(target, main_data, raw, issue_map):
             print(f"【警告】{key} がメインファイルに複数存在するため競合を避けてスキップします")
             return "conflict"
         if len(matches) == 1:
+            if name == "logs" and item.get("contents") in ANNIV_BLOCKED and linked_annivs(main_data, key[0]):
+                print(f"【スキップ】ANNIVERSARYが参照しているため contents を変更できません: {key[0]}")
+                NOTICES.append(f"- **logs**: `{key[0]}` は ANNIVERSARY から参照されているため、contents を ANNIVERSARY / BIRTHDAY には変更できません")
+                return "invalid"
             apply_update(target, main_data[matches[0]], item)
+            if name == "logs":
+                sync_anniv_dates(main_data, key[0])
+                if anniv:
+                    ensure_anniversary(main_data, key[0])
             if name == "logs":
                 autofill_setlistid(main_data[matches[0]], explicit_clear=is_clear(item.get("setlistid")))
             # 更新で属性が追加された場合も、決まった並び順の位置に入るよう整える
@@ -651,6 +714,8 @@ def apply_item(target, main_data, raw, issue_map):
     if name == "logs" and issue:
         issue_map[issue] = new_item["logid"]
     main_data.append(new_item)
+    if anniv and name == "logs":
+        ensure_anniversary(main_data, new_item["logid"])
     return "added"
 
 
@@ -663,8 +728,13 @@ def write_index(target, main_data):
     if not path:
         return
     out = []
+    rt = ref_title(main_data) if target["name"] == "logs" else None
     for e in main_data:
         row = {k: e[k] for k in target["index_fields"] if not is_blank(e.get(k))}
+        if target["name"] == "logs" and e.get("ref") and "title" not in row:
+            t = rt(e)
+            if t:
+                row["title"] = t
         if target.get("index_song_titles"):
             titles = [x.get("title") for x in (e.get("songs") or []) if isinstance(x, dict) and x.get("title")]
             if titles:
