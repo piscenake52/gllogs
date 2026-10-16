@@ -1,15 +1,20 @@
 {
-  "logid": "e2fbd798239c",
+  "date": "20250904",
+  "contents": "SNS",
+  "title": "SNS　Girls²",
   "sns": [
     {
       "type": "x",
       "urls": [
         {
           "url": "https://x.com/Girls2_official/status/2110898519867617307",
-          "member": []
+          "member": [
+            "MSK",
+            "MNM"
+          ]
         }
       ]
     }
   ],
-  "_issue": "1300"
+  "_issue": "1301"
 }
