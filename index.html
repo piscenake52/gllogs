@@ -1953,6 +1953,20 @@ body .item-contents.is-content-open {
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) close(); });
     window.addEventListener('resize', () => { if (!pop.hidden) place(); });
     window.addEventListener('scroll', () => { if (!pop.hidden) place(); }, true);
+    // フリックで月(年月の選択画面では年)を移動する: 左へ=次、右へ=前
+    (() => {
+      let sx = 0, sy = 0, on = false;
+      pop.style.touchAction = 'pan-y';
+      pop.addEventListener('touchstart', e => { if (e.touches.length !== 1) { on = false; return; } sx = e.touches[0].clientX; sy = e.touches[0].clientY; on = true; }, { passive: true });
+      pop.addEventListener('touchend', e => {
+        if (!on) return; on = false;
+        const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+        const dir = dx < 0 ? 1 : -1;
+        if (mode === 'day') { vm += dir; if (vm > 11) { vm = 0; vy++; } else if (vm < 0) { vm = 11; vy--; } } else vy += dir;
+        render();
+      }, { passive: true });
+    })();
   })();
   searchInput.addEventListener('keydown', e => {
     const isOpen = searchSuggestions.classList.contains('is-open');
@@ -2817,6 +2831,17 @@ body .item-contents.is-content-open {
     $('activeFiltersRow').appendChild(frag);
   };
 
+  // snsの各リンクに付けたtags(検索用)。データ1件分を空白区切りの文字列にする(先頭に空白付き)
+  const snsTagsText = item => {
+    if (!Array.isArray(item.sns)) return '';
+    let out = '';
+    item.sns.forEach(e => {
+      if (!e || !Array.isArray(e.urls)) return;
+      e.urls.forEach(u => { if (u && typeof u === 'object' && Array.isArray(u.tags) && u.tags.length) out += ' ' + u.tags.join(' '); });
+    });
+    return out;
+  };
+
   // 検索キーワードのAND/NOT/OR判定:スペース区切りでAND、先頭に「-」でNOT、「|」区切りでOR
   const matchesSearchKeyword = (searchText, kw) => {
     const normalizedKw = kw
@@ -3119,10 +3144,30 @@ body .item-contents.is-content-open {
         .map((entry, i) => ({ entry, i }))
         .sort((a, b) => orderRank(a.entry && a.entry.type) - orderRank(b.entry && b.entry.type) || a.i - b.i)
         .map(x => x.entry);
+      // 絞り込み:検索語がリンクのtagsに当たればそのリンクだけ、メンバーフィルターは選んだメンバー(どれか)を持つリンクだけ。
+      // どれにも当たらないときは、全リンクを出す(番号は元のまま。メンバーのランプもそのまま出す)
+      const linkTags = u => (u && typeof u === 'object' && Array.isArray(u.tags)) ? u.tags.join(' ').toLowerCase() : '';
+      const linkMembers = u => { const m = (u && typeof u === 'object') ? u.member : ''; return (Array.isArray(m) ? m : [m]).map(x => String(x || '').trim().toUpperCase()); };
+      const allLinks = [];
+      list.forEach(entry => { if (entry && Array.isArray(entry.urls)) entry.urls.forEach(u => allLinks.push(u)); });
+      let shown = new Set(allLinks);
+      const kwNow = setlistMode ? '' : extractDateQuery(searchInput.value.trim()).remainingKw;
+      if (kwNow) {
+        const toks = [];
+        kwNow.replace(/(^|\s)or(?=\s|$)/gi, '$1|').replace(/(^|\s)and(?=\s|$)/gi, '$1').split(/[|\s]+/).forEach(t => { if (t && !t.startsWith('-')) toks.push(t.toLowerCase()); });
+        const hit = allLinks.filter(u => { const tt = linkTags(u); return tt && toks.some(t => tt.includes(t)); });
+        if (hit.length) shown = new Set(hit);
+      }
+      const selMembers = [...document.querySelectorAll('#memberChecks1 input:checked, #memberChecks2 input:checked')].map(c => c.value).filter(v => memberGroupOf.has(v));
+      if (selMembers.length) {
+        const hit = [...shown].filter(u => linkMembers(u).some(m => selMembers.includes(m)));
+        if (hit.length) shown = new Set(hit);
+      }
       const rowsHtml = list
         .filter(entry => entry && typeof entry === 'object' && Array.isArray(entry.urls) && entry.urls.length)
         .map(entry => {
           const linksHtml = entry.urls.map((u, i) => {
+            if (!shown.has(u)) return '';
             const n = i + 1;
             // urlsの各要素は、旧形式(文字列そのもの)・新形式({url, member})のどちらも受け付ける
             const url = typeof u === 'string' ? u : (u && typeof u === 'object' ? u.url : '');
@@ -3141,6 +3186,7 @@ body .item-contents.is-content-open {
               ? `<a class="sns-modal-link${lampClass}" href="${escapeHtml(url)}" title="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${n}${lampHtml}</a>`
               : `<span class="sns-modal-link is-invalid${lampClass}" aria-disabled="true" title="${escapeHtml(url || '')}">${n}${lampHtml}</span>`;
           }).join('');
+          if (!linksHtml) return '';
           return `<div class="sns-modal-type-row"><span class="sns-modal-type-label">${snsTypeIconHtml(entry.type)}<span>${escapeHtml(displayNameForSnsType(entry.type))}</span></span><span class="sns-modal-links">${linksHtml}</span></div>`;
         })
         .join('');
@@ -3263,7 +3309,7 @@ body .item-contents.is-content-open {
       }
 
       if (kw) {
-        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '') + snsTagsText(item)).toLowerCase();
         textOk = matchesSearchKeyword(searchText, kw);
       }
     }
@@ -3438,7 +3484,7 @@ body .item-contents.is-content-open {
         }
 
         if (kw) {
-          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '') + snsTagsText(item)).toLowerCase();
           textOk = matchesSearchKeyword(searchText, kw);
         }
       }
@@ -3605,7 +3651,7 @@ body .item-contents.is-content-open {
         }
 
         if (kw) {
-          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '')).toLowerCase();
+          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '') + snsTagsText(item)).toLowerCase();
           kwOk = matchesSearchKeyword(searchText, kw);
         }
       }
