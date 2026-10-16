@@ -198158,6 +198158,48 @@
     ]
   },
   {
+    "logid": "b489221f3547",
+    "date": "20181017",
+    "time": "1830",
+    "contents": "LIVE",
+    "title": "magical²　第4回ナカGフェス",
+    "url": "https://ody-inc.com/release/nakag_fes4.html",
+    "map": "https://maps.app.goo.gl/EAhMokniZdEX1Axn8?g_st=ac",
+    "groups": [
+      "G2",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
+    ],
+    "setlistid": "201810171830",
+    "tags": [
+      "新宿ReNY"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/nakaGfes/status/1051767060760485888?t=QSA41bbmwYykYp7lspAUeg&s=19",
+            "member": []
+          },
+          {
+            "url": "https://x.com/nakaGfes/status/1047066637088821250?t=U9j17gvPijAL6hlxg_D-6w&s=19",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "1db237793270",
+    "date": "20181017",
+    "contents": "ANNIVERSARY",
+    "ref": "b489221f3547",
+    "suffix": "出演記念日"
+  },
+  {
     "logid": "ca4e414e1a75",
     "date": "20180926",
     "contents": "ANNIVERSARY",
