@@ -586,6 +586,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     return base.concat(CONTENTS_LIST.filter(function (c) { return !seen[c]; }).map(function (c) { return { v: c, k: normQ(c) }; }));
   }
   var contentsOptions = makeOpts('contents', ['logs'], function (m) { rowsOf('logs').forEach(function (r) { if (r) addTo(m, r.contents); }); });
+  // tour mode: area candidates = the last word of the titles of LIVE rows (without the trailing word for a show)
+  var areaOptions = makeOpts('area', ['logs'], function (m) { rowsOf('logs').forEach(function (r) { if (!r || r.contents !== 'LIVE' || typeof r.title !== 'string') return; var ps = r.title.trim().split(/[ \u3000]+/); if (ps.length < 2) return; var a = ps[ps.length - 1].replace(/\u516c\u6f14$/, ''); if (a && a.length <= 12 && a.charAt(0) !== '#') addTo(m, a); }); });
   var venueOptions = makeOpts('venue', ['setlist'], function (m) { rowsOf('setlist').forEach(function (r) { if (r) addTo(m, r.venue); }); });
   var artistOptions = makeOpts('artist', ['setlist', 'songs'], function (m) { rowsOf('setlist').forEach(function (r) { if (r) addTo(m, r.artist); }); (cache.songs || []).forEach(function (r) { if (r) addTo(m, r.artist); }); });
   var songOptions = makeOpts('song', ['setlist', 'songs'], function (m) {
@@ -901,6 +903,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       else if (ch && cur.trim() !== '') { p[f.p || f.k] = cur; n++; dl.push(f.k === 'songs_patch' ? [f.lb, cur.trim().replace(/\n/g, ' / ')] : [f.k, one(cur), found.isNew ? null : one(orig[f.k])]); }
       else if (ch) dl.push([f.k, '(empty)', one(orig[f.k]), 'not sent - use the delete check of the form']);
     });
+    if (found.kind === 'logs' && found.isNew && $('rpon') && $('rpon').checked && repMode() === 'tour') { ['map', 'setlistid', 'tags'].forEach(function (k) { if (p[k] !== undefined) { delete p[k]; n--; } }); dl = dl.filter(function (x) { return ['map', 'setlistid', 'tags'].indexOf(x[0]) < 0; }); } // tour mode: those are per show
     var errs = validateFind(found.kind);
     if (found.kind === 'logs' && found.isNew && !topReady('logs')) errs.push('date / time');
     if (found.kind === 'logs' && found.isNew && rep) { // repeat registration: the checked dates go to the repeat field (the first one is also the date)
@@ -1099,15 +1102,17 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         r.t = mk('fin rpt'); dtText(r.t, 'time'); col.appendChild(r.t); dtPicker(r.t, 'time');
         r.a = mk('fin rpf', 'area'); col.appendChild(r.a);
         r.m = mk('fin rpf rpmap', 'map'); col.appendChild(r.m);
+        r.g = mk('fin rpf rpmap', 'tags'); col.appendChild(r.g);
+        addSuggest(r.a, areaOptions, r.a, true);
         [r.d, r.t].forEach(function (e) { e.addEventListener('input', function () { r.touched = true; }); });
-        [r.d, r.t, r.a, r.m].forEach(function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
+        [r.d, r.t, r.a, r.m, r.g].forEach(function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
         r.x.onclick = function () { if (TR.rows.length < 2) return; TR.rows.splice(TR.rows.indexOf(r), 1); rowsBox.removeChild(row); renum(); changed(); };
         TR.rows.push(r); rowsBox.appendChild(row); renum();
         return r;
       }
       TR.add = addRow; addRow(); addRow();
       var pb = document.createElement('button'); pb.type = 'button'; pb.className = 'small'; pb.textContent = '+'; pb.title = 'add a show'; pb.style.cssText = 'display:block;width:100%;margin:6px 0'; pb.onclick = function () { addRow(); changed(); }; tr.appendChild(pb);
-      var sf = document.createElement('div'); sf.className = 'field'; sf.innerHTML = '<label for="glih-rpts">suffix</label><div class="fgcol"><input type="text" id="glih-rpts" class="fin" autocomplete="off"><div class="chipr" id="glih-rptsc"></div></div>'; tr.appendChild(sf);
+      var sf = document.createElement('div'); sf.className = 'field'; sf.innerHTML = '<label for="glih-rpts" style="align-self:flex-start;height:38px;display:flex;align-items:center">suffix</label><div class="fgcol"><input type="text" id="glih-rpts" class="fin" autocomplete="off"><div class="chipr" id="glih-rptsc"></div></div>'; tr.appendChild(sf);
       TR.sfx = sf.querySelector('input'); var scb = sf.querySelector('.chipr');
       var cb = document.createElement('button'); cb.type = 'button'; cb.className = 'chip'; cb.textContent = '\u516c\u6f14'; scb.appendChild(cb);
       cb.onclick = function () { TR.sfx.value = TR.sfx.value.trim() === cb.textContent ? '' : cb.textContent; TR.sfx.dispatchEvent(new Event('input', { bubbles: true })); };
@@ -1122,14 +1127,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var lines = [], rows = [], bad = false;
       list.innerHTML = '';
       TR.rows.forEach(function (r) {
-        var d = digits(r.d.value), t = digits(r.t.value), a = r.a.value.trim(), m = r.m.value.trim();
-        var empty = d === '' && t === '' && a === '' && m === '';
+        var d = digits(r.d.value), t = digits(r.t.value), a = r.a.value.trim(), m = r.m.value.trim(), g = r.g.value.trim().replace(/\s*[,\u3001]\s*/g, ',');
+        var empty = d === '' && t === '' && a === '' && m === '' && g === '';
         var dBad = d !== '' && !okDate(d), tBad = t !== '' && !okTime(t), mBad = m !== '' && !/^https?:\/\/\S+$/i.test(m), noD = d === '' && !empty;
         r.d.classList.toggle('bad', dBad || noD); r.t.classList.toggle('bad', tBad); r.m.classList.toggle('bad', mBad);
         if (empty) return;
         if (dBad || tBad || mBad || noD) { bad = true; return; }
-        var lab = a ? '\u3000' + a + sfx : '';
-        var f = [t0 + lab, ct, url, sp0 ? sp0 + lab : '', m];
+        var lab = a ? ' ' + a + sfx : '';
+        var f = [t0 + lab, ct, url, sp0 ? sp0 + lab : '', m, '', g];
         while (f.length > 1 && f[f.length - 1] === '') f.pop();
         lines.push(d + ' ' + (t || '-') + ' | ' + f.join(' | '));
         rows.push(d);
@@ -1178,6 +1183,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       for (i = 0; i < qs.length; i++) qs[i].classList.toggle('on', qs[i].getAttribute('data-n') === String(parseInt(num.value, 10)) && qs[i].getAttribute('data-u') === unit.value);
       body.hidden = !on.checked;
       var qm = $('rpmd').children; for (i = 0; i < qm.length; i++) qm[i].classList.toggle('on', qm[i].getAttribute('data-m') === mode);
+      var tourOn = on.checked && mode === 'tour';
+      ['map', 'setlistid', 'tags'].forEach(function (k) { var e = $('f-' + k), fl = e && e.closest('.field'); if (fl) fl.hidden = tourOn; }); // tour mode: map / setlistid / tags are per show (below)
+      if (tourOn && !asked) { asked = true; fetchIndex('logs').catch(function () {}); }
       $('rpiv').hidden = mode !== 'interval'; $('rpsc').hidden = mode !== 'schedule'; $('rptr').hidden = mode !== 'tour';
       if (mode === 'tour') { if (!on.checked) { last = null; return null; } return tourRefresh(); }
       if (mode === 'schedule') { if (!on.checked) { last = null; return null; } return schedRefresh(); }
@@ -1234,7 +1242,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (mode === 'repeat' || mode === 'tour') return cur; // the date stays; the repeat entry is turned on in continueFrom
     return '';
   }
-  function tourBase(t) { t = String(t || ''); var i = t.lastIndexOf('\u3000'); return i > 0 ? t.slice(0, i) : t; } // the title without the last full-width-space part (the area part)
+  function tourBase(t) { t = String(t || ''); var i = Math.max(t.lastIndexOf('\u3000'), t.lastIndexOf(' ')); return i > 0 ? t.slice(0, i) : t; } // the title without the last space-separated part (the area part)
   function continueFrom(row, mode) {
     var nd = nextOf(row, mode); if (!nd) return;
     $('fid').value = ''; hideCands(); clearFound();
