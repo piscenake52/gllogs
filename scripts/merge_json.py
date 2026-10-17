@@ -757,7 +757,7 @@ def write_index(target, main_data):
     for e in main_data:
         row = {k: e[k] for k in target["index_fields"] if not is_blank(e.get(k))}
         if target["name"] == "logs" and e.get("contents") in INDEX_MAP_CONTENTS:
-            for k in ("map", "tags"):  # helperのtourモードで、areaに紐づく候補(map / tags)を出すため、LIVE / RELEASEEVENT / FANMEETING だけ入れる
+            for k in ("map", "tags", "groups"):  # helperのtourモード(areaに紐づくmap / tags候補)とsetlistの引き継ぎ(groups)のため、LIVE / RELEASEEVENT / FANMEETING だけ入れる
                 if not is_blank(e.get(k)):
                     row[k] = e[k]
         if target["name"] == "logs" and e.get("ref") and "title" not in row:
