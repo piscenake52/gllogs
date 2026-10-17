@@ -192,7 +192,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
   <div class="field" id="glih-fcontrow" hidden><label>next</label><div class="chipr" id="glih-fcc"><button type="button" class="small" data-m="repeat" title="new entry on the same date with the repeat entry turned on, next # number">repeat</button><button type="button" class="small" data-m="tour" title="new entry in tour mode (same title base / contents / url / groups; add shows)">tour</button><button type="button" class="small" data-m="week" title="new entry: +7 days, next # number">weekly</button><button type="button" class="small" data-m="month" title="new entry: the same day of the next month, next # number">monthly</button><button type="button" class="small" data-m="year" title="new entry: the same day of the next year, next # number">yearly</button></div></div>
   <div id="glih-ff"></div>
-  <div class="field" id="glih-fanrow" hidden><label for="glih-fan">anniv.</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
+  <div class="field" id="glih-fanrow" hidden><label for="glih-fan">anniversary</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
   <div class="field" id="glih-fansrow" hidden><label for="glih-fansx"></label><div class="fgcol"><input type="text" id="glih-fansx" class="fin" autocomplete="off" value="&#35352;&#24565;&#26085;"><div class="chipr" id="glih-fansch"></div></div></div>
   <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、空欄にした値の削除はフォームの【値の削除】チェックで行います。relations は事前入力できません(JSONで確認)。 -->
   <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fjtog" aria-expanded="false">JSON &#9662;</button><button type="button" class="small" id="glih-fcopy">JSON copy</button><button type="button" class="small" id="glih-freset">reset all</button></div>
@@ -232,8 +232,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   var BRANCH = 'main', DATA = { logs: 'data/logs/logs.json', setlist: 'data/setlist/setlist.json', songs: 'data/songs/songs.json' }, cache = {};
   var DEFS = {
     logs: { idKey: 'logid', tpl: TPL_LOGS, fields: [
-      { k: 'date' }, { k: 'time' }, { k: 'contents', p: 'contents_free' }, { k: 'title', p: 'item_title', ta: 1 }, { k: 'display_pc', ta: 1 }, { k: 'display_sp', ta: 1 }, { k: 'url' }, { k: 'map' }, { k: 'setlistid' },
-      { k: 'groups', p: 'groups_free', list: 1 }, { k: 'relations', p: 'relations_free', list: 1 }, { k: 'tags', list: 1 }, { k: 'sns', ta: 1 } ] },
+      { k: 'date' }, { k: 'time' }, { k: 'groups', p: 'groups_free', list: 1 }, { k: 'contents', p: 'contents_free' }, { k: 'title', p: 'item_title', ta: 1 }, { k: 'display_pc', ta: 1 }, { k: 'display_sp', ta: 1 }, { k: 'url' }, { k: 'map' }, { k: 'setlistid' },
+      { k: 'relations', p: 'relations_free', list: 1 }, { k: 'tags', list: 1 }, { k: 'sns', ta: 1 } ] },
     setlist: { idKey: 'setlistid', tpl: TPL_SETLIST, fields: [
       { k: 'title', p: 'item_title', ta: 1 }, { k: 'artist', p: 'artist_free' }, { k: 'member', p: 'member_free', list: 1 }, { k: 'venue' }, { k: 'songs', ta: 1 }, { k: 'songs_patch', lb: 'patch', ta: 1 } ] }
   };
@@ -608,8 +608,27 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       list.forEach(function (o) { var b = document.createElement('button'); b.type = 'button'; b.textContent = o.lab; b.onmousedown = function (e) { e.preventDefault(); el.value = o.v; hide(); el.dispatchEvent(new Event('input', { bubbles: true })); }; box.appendChild(b); });
       box.hidden = !list.length;
     }
+    // when area + the typed map (or tags) narrow the past rows down to exactly one map/tags pair, the other box is filled in (only while it is empty or was filled in this way)
+    function other() { return kind === 'map' ? r.g : r.m; }
+    function autoFill() {
+      var a = r.a.value.trim().replace(/\u516c\u6f14$/, ''), v = normQ(el.value.trim()), o = other(); if (!a || !v) return;
+      if (o.value.trim() && o.dataset.auto !== '1') return;
+      var combos = {}, n = 0, last = null;
+      rowsOf('logs').forEach(function (x) {
+        if (areaOf(x) !== a) return;
+        var mp = x.map || '', tg = x.tags && x.tags.length ? x.tags.join(',') : '', own = kind === 'map' ? mp : tg;
+        if (!own || normQ(own).indexOf(v) < 0) return;
+        var k = mp + '\n' + tg; if (!combos[k]) { combos[k] = 1; n++; last = { m: mp, g: tg }; }
+      });
+      if (n !== 1) return;
+      var val = kind === 'map' ? last.g : last.m; if (!val || o.value === val) return;
+      TOURFILL = true; o.value = val; o.dataset.auto = '1'; o.dispatchEvent(new Event('input', { bubbles: true })); TOURFILL = false;
+    }
+    el.addEventListener('input', function () { if (TOURFILL) return; el.dataset.auto = ''; autoFill(); });
+    r.a.addEventListener('input', function () { if (!TOURFILL) autoFill(); });
     el.addEventListener('focus', show); el.addEventListener('input', show); el.addEventListener('blur', hide);
   }
+  var TOURFILL = false;
   var venueOptions = makeOpts('venue', ['setlist'], function (m) { rowsOf('setlist').forEach(function (r) { if (r) addTo(m, r.venue); }); });
   var artistOptions = makeOpts('artist', ['setlist', 'songs'], function (m) { rowsOf('setlist').forEach(function (r) { if (r) addTo(m, r.artist); }); (cache.songs || []).forEach(function (r) { if (r) addTo(m, r.artist); }); });
   var songOptions = makeOpts('song', ['setlist', 'songs'], function (m) {
@@ -916,7 +935,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var def = DEFS[found.kind], p = {}, n = 0, dl = [];
     if (found.id) p[def.idKey] = found.id;
     var an = annivState();
-    if (an.send) { p.anniv_text = 'ANNIVERSARY'; p.anniv_suffix = an.suffix; n++; dl.push(['anniv.', an.suffix]); }
+    if (an.send) { p.anniv_text = 'ANNIVERSARY'; p.anniv_suffix = an.suffix; n++; dl.push(['anniversary', an.suffix]); }
     if (found.kind === 'logs' && !found.isNew && $('fcp').checked) p.copy_text = 'copy';
     def.fields.forEach(function (f) {
       var el = $('f-' + f.k), cur = el.value, ch = cur !== orig[f.k];
@@ -948,12 +967,17 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     else if (url.length > 7000) fstat('Warning: the URL is long (' + url.length + ' chars). GitHub may reject it; shorten the changed fields.');
     else fstat('Found: ' + found.id);
   }
-  // contents SNS: the title gets `SNS` + a full-width space when it is empty (and it is cleared again when contents leaves SNS while the title is still just that)
+  // contents SNS: the title gets `SNS` + a full-width space (+ Girls2 when groups is G2 only, + Laki when groups is L2 only). It is rewritten while the title is still one of these auto values, and cleared when contents leaves SNS.
+  function snsAutoTitle() {
+    var ge = $('f-groups'), gs = ge ? ge.value.split(/[,\n]/).map(function (x) { return x.trim(); }) : [], g2 = gs.indexOf('G2') >= 0, l2 = gs.indexOf('L2') >= 0;
+    return 'SNS\u3000' + (g2 && !l2 ? 'Girls2' : l2 && !g2 ? 'Laki' : '');
+  }
+  function isSnsAuto(v) { return v === 'SNS\u3000' || v === 'SNS\u3000Girls2' || v === 'SNS\u3000Laki'; }
   function autoSnsTitle() {
     var ce = $('f-contents'), te = $('f-title'); if (!ce || !te || !found || found.kind !== 'logs') return;
-    var AUTO = 'SNS\u3000', c = ce.value.trim().toUpperCase(), ch = false;
-    if (c === 'SNS') { if (te.value.trim() === '') { te.value = AUTO; ch = true; } }
-    else if (te.value === AUTO) { te.value = ''; ch = true; }
+    var c = ce.value.trim().toUpperCase(), ch = false, cur = te.value;
+    if (c === 'SNS') { var a = snsAutoTitle(); if ((cur.trim() === '' || isSnsAuto(cur)) && cur !== a) { te.value = a; ch = true; } }
+    else if (isSnsAuto(cur)) { te.value = ''; ch = true; }
     if (ch) te.dispatchEvent(new Event('input', { bubbles: true }));
   }
   function renderFound(kind, id, row, isNew) {
@@ -965,7 +989,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var el = document.createElement(f.ta ? 'textarea' : 'input'); el.id = 'glih-f-' + f.k; el.className = f.ta ? 'fta' : 'fin';
       if (!f.ta) { el.type = 'text'; el.setAttribute('autocomplete', 'off'); }
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
-      el.addEventListener('input', updateFind); if (kind === 'logs' && f.k === 'contents') el.addEventListener('input', autoSnsTitle);
+      el.addEventListener('input', updateFind); if (kind === 'logs' && (f.k === 'contents' || f.k === 'groups')) el.addEventListener('input', autoSnsTitle);
       wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
     var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = !!isNew; $('fjrow').hidden = !!isNew;
@@ -1106,7 +1130,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         [].forEach.call(chr.children, function (b2) { b2.classList.toggle('on', b2.textContent === r.sf2.value.trim()); });
         sc.appendChild(row0);
       });
-      var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rpsp">optional-sp</label><div class="fgcol"><input type="text" id="glih-rpsp" class="fin" autocomplete="off"></div>'; sc.appendChild(sw);
+      var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rpsp">optional</label><div class="fgcol"><input type="text" id="glih-rpsp" class="fin" autocomplete="off"></div>'; sc.appendChild(sw);
       [].forEach.call(sc.querySelectorAll('input,select'), function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
     })();
     // tour mode: one row per show (date / time / area / map). The title of a row = the title above + a full-width space + area + suffix; contents / url / groups ... are the ones above. A + button adds a row.
@@ -1134,13 +1158,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         return r;
       }
       TR.add = addRow; addRow(); addRow();
-      var pb = document.createElement('button'); pb.type = 'button'; pb.className = 'small'; pb.textContent = '+'; pb.title = 'add a show'; pb.style.cssText = 'display:block;width:100%;margin:6px 0;padding:8px 6px'; pb.onclick = function () { addRow(); changed(); }; tr.appendChild(pb);
+      var pb = document.createElement('button'); pb.type = 'button'; pb.className = 'small'; pb.textContent = '+'; pb.title = 'add a show'; pb.style.cssText = 'display:block;width:100%;margin:0;padding:8px 6px'; pb.onclick = function () { addRow(); changed(); }; var pw = document.createElement('div'); pw.className = 'field'; pw.style.margin = '6px 0'; var pl = document.createElement('label'); pw.appendChild(pl); var pc = document.createElement('div'); pc.className = 'fgcol'; pc.appendChild(pb); pw.appendChild(pc); tr.appendChild(pw);
       var sf = document.createElement('div'); sf.className = 'field'; sf.innerHTML = '<label for="glih-rpts" style="align-self:flex-start;height:38px;display:flex;align-items:center">suffix</label><div class="fgcol"><input type="text" id="glih-rpts" class="fin" autocomplete="off"><div class="chipr" id="glih-rptsc"></div></div>'; tr.appendChild(sf);
       TR.sfx = sf.querySelector('input'); var scb = sf.querySelector('.chipr');
       var cb = document.createElement('button'); cb.type = 'button'; cb.className = 'chip'; cb.textContent = '\u516c\u6f14'; scb.appendChild(cb);
       cb.onclick = function () { TR.sfx.value = TR.sfx.value.trim() === cb.textContent ? '' : cb.textContent; TR.sfx.dispatchEvent(new Event('input', { bubbles: true })); };
       TR.sfx.addEventListener('input', function () { cb.classList.toggle('on', TR.sfx.value.trim() === cb.textContent); changed(); });
-      var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rptp">optional-sp</label><div class="fgcol"><input type="text" id="glih-rptp" class="fin" autocomplete="off"></div>'; tr.appendChild(sw);
+      var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rptp">optional</label><div class="fgcol"><input type="text" id="glih-rptp" class="fin" autocomplete="off"></div>'; tr.appendChild(sw);
       TR.sp = sw.querySelector('input'); TR.sp.addEventListener('input', changed);
     })();
     function tourRefresh() {
@@ -1379,7 +1403,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var list = Array.isArray(d) ? d : [], idKey = DEFS[kind].idKey;
       if (list.some(function (r) { return r && String(r[idKey]) === q; })) { hideCands(); return; }
       var rows = searchRows(kind, list, q);
-      if (!rows.length) { hideCands(); return; }
+      if (!rows.length) { hideCands(); if (kind === 'setlist' && /^\d{12}$/.test(q) && (!found || found.isNew)) doFind(); return; } // a new 12-digit setlist id: open it as a new entry (filled from the logs row that uses it)
       renderCands(kind, rows);
       if (!found) fstat(rows.length + ' candidates' + (rows.length > 30 ? ' (showing 30)' : ''));
     }).catch(function () {});
@@ -1400,7 +1424,19 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (sd.title) setVal('title', sd.title);
     if (art.length) setVal('artist', art.join(AJOIN));
     if (mem.length) setVal('member', mem.join(','));
+    if (!ven) { for (var j = 0; j < tg.length && !ven; j++) ven = tg[j].trim(); } // no tag equals a known venue: the first tag is used as it is
     if (ven) setVal('venue', ven);
+  }
+  // new setlist whose id is used as the setlistid of a logs row: title / groups / tags are taken from that logs row (full logs.json, because the index has no groups)
+  function seedFromLogsById(id, list) {
+    fetchData('logs').then(function (d) {
+      if ($('fid').value.trim() !== id || !found || !found.isNew || found.kind !== 'setlist') return;
+      var rows = (Array.isArray(d) ? d : []).filter(function (r) { return r && String(r.setlistid) === id && r.contents !== 'ANNIVERSARY'; });
+      if (!rows.length) return;
+      var r = rows.filter(function (x) { return x.tags && x.tags.length; })[0] || rows[0];
+      seedFromLogs({ sid: id, title: r.title || '', groups: (r.groups || []).join(','), tags: (r.tags || []).join(',') }, list);
+      fstat('Not found: ' + id + ' (new: filled from the id and the logs row ' + (r.logid || '') + ')');
+    }).catch(function () {});
   }
   function doFind() {
     var kind = $('fkind').value, id = $('fid').value.trim(), def = DEFS[kind];
@@ -1417,9 +1453,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         if (kind === 'setlist' && /^\d{12}$/.test(id) && okDate(id.slice(0, 8)) && okTime(id.slice(8))) { // no such setlist: new mode, the date / time are taken from the id (yyyymmdd + hhmm)
           $('fdd').value = fmtDigits(id.slice(0, 8), 'date'); $('fdt').value = fmtDigits(id.slice(8), 'time');
           $('fdd').dispatchEvent(new Event('input', { bubbles: true })); $('fdt').dispatchEvent(new Event('input', { bubbles: true }));
-          var sd = jumpSeed; jumpSeed = null;
-          if (sd && sd.sid === id) seedFromLogs(sd, list);
-          fstat('Not found: ' + id + ' (new: filled from the id' + (sd && sd.sid === id ? ' and the logs row' : '') + ')'); return;
+          var sd = jumpSeed, hasSd; jumpSeed = null; hasSd = !!(sd && sd.sid === id);
+          if (hasSd) seedFromLogs(sd, list);
+          fstat('Not found: ' + id + ' (new: filled from the id' + (hasSd ? ' and the logs row' : '') + ')');
+          if (!hasSd) seedFromLogsById(id, list);
+          return;
         }
         fstat('Not found: ' + id); return;
       }
