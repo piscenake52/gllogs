@@ -427,7 +427,6 @@
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #018",
     "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#018",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#018",
-    "url": "",
     "groups": [
       "L2",
       "AKR"
@@ -1171,7 +1170,6 @@
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #017",
     "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#017",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#017",
-    "url": "",
     "groups": [
       "L2",
       "AKR"
@@ -1674,20 +1672,6 @@
     "ref": "3a451a78bcd9"
   },
   {
-    "logid": "2447d5f8b575",
-    "date": "20261110",
-    "time": "1200",
-    "contents": "COLUMN",
-    "title": "TOKYO HEADLINE WEB「柚葉24じ」 #115",
-    "display_pc": "TOKYO HEADLINE 「柚葉24じ」　#115",
-    "display_sp": "柚葉24じ　#115",
-    "url": "https://www.tokyoheadline.com/category/column/girls2yuzuha24h/",
-    "groups": [
-      "G2",
-      "YZH"
-    ]
-  },
-  {
     "logid": "7d48f65cfd84",
     "date": "20261110",
     "time": "1200",
@@ -1919,8 +1903,6 @@
     "time": "1900",
     "contents": "STAGE",
     "title": "いきなり本読み！ in LDH",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://m.ldhgirls-m.jp/ldh_page/ikinari_honyomi_ldh_2026_index",
     "map": "https://maps.app.goo.gl/gKkYPruf1DnQMdcn9",
     "groups": [
@@ -1928,7 +1910,6 @@
       "KUR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": [
       "THEATER MILANO-Za"
     ]
@@ -1950,8 +1931,6 @@
     "time": "1900",
     "contents": "STAGE",
     "title": "いきなり本読み！ in LDH",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://m.ldhgirls-m.jp/ldh_page/ikinari_honyomi_ldh_2026_index",
     "map": "https://maps.app.goo.gl/gKkYPruf1DnQMdcn9",
     "groups": [
@@ -1959,7 +1938,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": [
       "THEATER MILANO-Za"
     ]
@@ -1980,8 +1958,6 @@
     "time": "1400",
     "contents": "STAGE",
     "title": "いきなり本読み！ in LDH",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://m.ldhgirls-m.jp/ldh_page/ikinari_honyomi_ldh_2026_index",
     "map": "https://maps.app.goo.gl/gKkYPruf1DnQMdcn9",
     "groups": [
@@ -1989,7 +1965,6 @@
       "MNM"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": [
       "THEATER MILANO-Za"
     ]
@@ -2393,7 +2368,6 @@
     "time": "2000",
     "contents": "SNS",
     "title": "あかりんごの元気モリモリール　#125",
-    "url": "",
     "groups": [
       "L2",
       "AKR"
@@ -2571,7 +2545,6 @@
     "time": "2000",
     "contents": "SNS",
     "title": "ききの踊ってみたチャレンジ　#124",
-    "url": "",
     "groups": [
       "L2",
       "KIK"
@@ -2703,7 +2676,6 @@
     "title": "TOKYO HEADLINE WEB「あかりんごの元気モリモリDiary🌳🍎💚」 #016",
     "display_pc": "TOKYO HEADLINE 「あかりんごの元気モリモリDiary🌳🍎💚」　#016",
     "display_sp": "あかりんごの元気モリモリDiary🌳🍎💚　#016",
-    "url": "",
     "groups": [
       "L2",
       "AKR"
@@ -2865,7 +2837,6 @@
     "title": "【特別番組】山口莉愛＆佐藤栞奈のがるらじ ≪後編≫",
     "display_pc": "山口莉愛と佐藤栞奈のがるらじ ～GL²family RADIO～　後編",
     "display_sp": "山口莉愛と佐藤栞奈のがるらじ 後編",
-    "url": "",
     "groups": [
       "L2",
       "RIN",
@@ -3001,10 +2972,7 @@
     "time": "1000",
     "contents": "TICKET",
     "title": "「いきなり本読み！ in LDH」 チケット一般発売開始",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -3012,7 +2980,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -3047,7 +3014,6 @@
     "time": "2000",
     "contents": "SNS",
     "title": "あかりんごの元気モリモリール　#124",
-    "url": "",
     "groups": [
       "L2",
       "AKR"
@@ -3192,10 +3158,7 @@
     "time": "2300",
     "contents": "CLOSE",
     "title": "「いきなり本読み！ in LDH」 ticketbook2次先行先着受付締切",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -3203,7 +3166,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -3244,7 +3206,6 @@
     "time": "2000",
     "contents": "SNS",
     "title": "ききの踊ってみたチャレンジ　#123",
-    "url": "",
     "groups": [
       "L2",
       "KIK"
@@ -3304,10 +3265,8 @@
     "time": "1500",
     "contents": "TICKET",
     "title": "「いきなり本読み！ in LDH」 ticketbook2次先行先着受付開始",
-    "display_pc": "",
     "display_sp": "「いきなり本読み！」 ticketbook2次先行受付開始",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -3315,7 +3274,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -3326,7 +3284,6 @@
     "title": "【特別番組】菱田未渚美＆山口綺羅のがるらじ ≪後編≫",
     "display_pc": "菱田未渚美と山口綺羅のがるらじ ～GL²family RADIO～ 後編",
     "display_sp": "菱田未渚美と山口綺羅のがるらじ 後編",
-    "url": "",
     "groups": [
       "G2",
       "MNM",
@@ -3667,10 +3624,7 @@
     "time": "1500",
     "contents": "RESULT",
     "title": "「いきなり本読み！ in LDH」 ticketbook先行抽選当選発表",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -3678,7 +3632,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -4632,10 +4585,8 @@
     "time": "2300",
     "contents": "CLOSE",
     "title": "「いきなり本読み！ in LDH」 FAN CLUB特別先着販売終了",
-    "display_pc": "",
     "display_sp": "「いきなり本読み！ in LDH」 FC特別先着販売終了",
     "url": "https://girls2-fc.jp/page/familyNews/1219233405481254914",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -4643,7 +4594,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -5286,10 +5236,8 @@
     "time": "1800",
     "contents": "TICKET",
     "title": "「いきなり本読み！ in LDH」 FAN CLUB特別先着販売開始",
-    "display_pc": "",
     "display_sp": "「いきなり本読み！ in LDH」 FC特別先着販売開始",
     "url": "https://girls2-fc.jp/page/familyNews/1219233405481254914",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -5297,7 +5245,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -6115,10 +6062,7 @@
     "time": "2300",
     "contents": "CLOSE",
     "title": "「いきなり本読み！ in LDH」 ticketbook先行抽選予約受付締切",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -6126,7 +6070,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -8001,10 +7944,7 @@
     "time": "1500",
     "contents": "RESULT",
     "title": "「いきなり本読み！ in LDH」 EXILE TRIBE FC先行抽選当選発表",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -8012,7 +7952,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -8680,10 +8619,7 @@
     "time": "1500",
     "contents": "TICKET",
     "title": "「いきなり本読み！ in LDH」 ticketbook先行抽選予約受付開始",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -8691,7 +8627,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -9343,8 +9278,6 @@
     "time": "2300",
     "contents": "CLOSE",
     "title": "「いきなり本読み！ in LDH」 EXILE TRIBE FC先行抽選予約受付締切",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
     "groups": [
       "G2",
@@ -9353,9 +9286,7 @@
       "KIR"
     ],
     "tags": [],
-    "map": "",
-    "relations": [],
-    "setlistid": ""
+    "relations": []
   },
   {
     "logid": "a71cded0c473",
@@ -9831,10 +9762,7 @@
     "time": "2000",
     "contents": "YOUTUBE",
     "title": "Girls² 『EASY』 MV公開",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://youtu.be/1YEh-emK8-A?si=sAg6hvsUv4gh6M_o",
-    "map": "",
     "groups": [
       "G2",
       "YZH",
@@ -9846,7 +9774,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": [],
     "sns": [
       {
@@ -10040,10 +9967,7 @@
     "time": "1500",
     "contents": "RESULT",
     "title": "「いきなり本読み！ in LDH」 GL²family・GL²friend先行抽選当選発表",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -10051,7 +9975,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -10717,10 +10640,7 @@
     "time": "0000",
     "contents": "DIGITAL",
     "title": "Girls² 『EASY』 配信リリース",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://rhythmzone.lnk.to/easy1002",
-    "map": "",
     "groups": [
       "G2",
       "YZH",
@@ -10732,7 +10652,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -11292,10 +11211,7 @@
     "time": "1500",
     "contents": "TICKET",
     "title": "「いきなり本読み！ in LDH」 EXILE TRIBE FC先行抽選予約受付開始",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -11303,7 +11219,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -11559,10 +11474,7 @@
     "time": "2300",
     "contents": "CLOSE",
     "title": "「いきなり本読み！ in LDH」 GL²family・GL²friend先行抽選予約受付締切",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -11570,7 +11482,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -11893,7 +11804,6 @@
     "display_pc": "GL²family　9月Lakiスペシャル壁紙プレゼントキャンペーン終了",
     "display_sp": "GL²family　9月Laki SP壁紙プレゼント終了",
     "url": "https://girls2-fc.jp/page/wallpaper/1232961638563315713",
-    "map": "",
     "groups": [
       "L2",
       "RIN",
@@ -11964,58 +11874,6 @@
   },
   {
     "logid": "02880a48b6c5",
-    "date": "20260928",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "ガルアワ⭐️",
-    "display_pc": "山口綺羅　ガルアワ⭐️",
-    "url": "https://girls2-fc.jp/page/kiraBlog/1234049992369373185",
-    "groups": [
-      "G2",
-      "KIR"
-    ]
-  },
-  {
-    "logid": "223ef5eee4e8",
-    "date": "20260928",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "Amazing",
-    "display_pc": "隅谷百花　Amazing",
-    "url": "https://girls2-fc.jp/page/momokaBlog/1234309254958022657",
-    "groups": [
-      "G2",
-      "MMK"
-    ]
-  },
-  {
-    "logid": "2a2e56410c8d",
-    "date": "20260928",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "EVRIS",
-    "display_pc": "小川桜花　EVRIS",
-    "url": "https://girls2-fc.jp/page/youkaBlog/1234307824754884610",
-    "groups": [
-      "G2",
-      "YOK"
-    ]
-  },
-  {
-    "logid": "a3132167af2c",
-    "date": "20260928",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "10周年。✨️",
-    "display_pc": "菱田未渚美　10周年。✨️",
-    "url": "https://girls2-fc.jp/page/minamiBlog/1234321679526658050",
-    "groups": [
-      "G2",
-      "MNM"
-    ]
-  },
-  {
-    "logid": "0fe6a1eca619",
     "date": "20260928",
     "time": "1200",
     "contents": "DIARY",
@@ -12267,16 +12125,12 @@
     "time": "1847",
     "contents": "CL",
     "title": "POST　深澤日彩",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://www.cl-live.com/posts/woRPw6p3V1VQcrqjgEip8o",
-    "map": "",
     "groups": [
       "L2",
       "HIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -12459,7 +12313,6 @@
     "display_pc": "LINE VOOM　Rakuten GirlsAward 2026 AUTUMN/WINTER 生配信",
     "display_sp": "LINE VOOM　Rakuten GirlsAward 2026 A/W 生配信",
     "url": "https://linevoom.line.me/user/_dWVQPB2m2EwrsnIKwocmhR4mP5mZIhZq6lAaRwc",
-    "map": "",
     "groups": [
       "G2",
       "YZH",
@@ -12471,7 +12324,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -12480,10 +12332,8 @@
     "time": "1345",
     "contents": "STREAMING",
     "title": "TikTok LIVE　Rakuten GirlsAward 2026 AUTUMN/WINTER生配信",
-    "display_pc": "",
     "display_sp": "TikTok LIVE　Rakuten GirlsAward 2026 A/W 生配信",
     "url": "https://www.tiktok.com/@girlsaward.official",
-    "map": "",
     "groups": [
       "G2",
       "YZH",
@@ -12495,7 +12345,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -12599,10 +12448,7 @@
     "time": "0930",
     "contents": "WEB",
     "title": "LIVEEN TIMES 【5周年ライブで35曲披露】",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://www.lvtimes.net/music/79936/",
-    "map": "",
     "groups": [
       "L2",
       "RIN",
@@ -12615,7 +12461,6 @@
       "KIK"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -12679,16 +12524,11 @@
     "time": "2155",
     "contents": "SNS",
     "title": "Instagram Live　佐藤栞奈",
-    "display_pc": "",
-    "display_sp": "",
-    "url": "",
-    "map": "",
     "groups": [
       "L2",
       "KAN"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -12772,7 +12612,6 @@
     "display_pc": "GL²family　9月Lakiスペシャル壁紙プレゼントキャンペーン開始",
     "display_sp": "GL²family　9月Laki SP壁紙プレゼント開始",
     "url": "https://girls2-fc.jp/page/wallpaper/1232961638563315713",
-    "map": "",
     "groups": [
       "L2",
       "RIN",
@@ -12807,10 +12646,7 @@
     "time": "1500",
     "contents": "TICKET",
     "title": "「いきなり本読み！ in LDH」 GL²family・GL²friend先行抽選予約受付開始",
-    "display_pc": "",
-    "display_sp": "",
     "url": "https://girls2-fc.jp/page/news/1232540443045003264",
-    "map": "",
     "groups": [
       "G2",
       "KUR",
@@ -12818,7 +12654,6 @@
       "KIR"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": []
   },
   {
@@ -12957,16 +12792,13 @@
     "time": "0000",
     "contents": "SNS",
     "title": "PUMA 2026 AUTUMN/WINTER LOOK 「今日PUMA着てどこ行く？」",
-    "display_pc": "",
     "display_sp": "PUMA 2026 A/W LOOK 「今日PUMA着てどこ行く？」",
     "url": "https://girls2-fc.jp/page/familyNews/1233043192966807554",
-    "map": "",
     "groups": [
       "G2",
       "YOK"
     ],
     "relations": [],
-    "setlistid": "",
     "tags": [],
     "sns": [
       {
@@ -14664,7 +14496,6 @@
     "display_pc": "ABEMA 東京ガールズコレクション2026 AUTUMN/WINTER",
     "display_sp": "ABEMA 東京ガールズコレクション2026 AUTUMN/WINTER",
     "url": "https://abema.go.link/44ycm",
-    "map": "",
     "groups": [
       "G2",
       "YOK"
@@ -16542,7 +16373,6 @@
     "time": "2000",
     "contents": "SNS",
     "title": "ききの踊ってみたチャレンジ　#117",
-    "url": "",
     "groups": [
       "L2",
       "KIK"
@@ -28711,7 +28541,6 @@
     "title": "Laki 配信限定シングル「Pancake」配信リリース",
     "display_pc": "Laki DEGITAL SINGLE「Pancake」配信リリース",
     "display_sp": "Laki DEGITAL SG「Pancake」配信リリース",
-    "url": "",
     "groups": [
       "L2",
       "RIN",
@@ -29145,7 +28974,6 @@
     "title": "Laki 配信限定シングル「Starry pop Canvas」配信リリース",
     "display_pc": "Laki DEGITAL SINGLE「Starry pop Canvas」配信リリース",
     "display_sp": "Laki DEGITAL SG「Starry pop Canvas」配信リリース",
-    "url": "",
     "groups": [
       "L2",
       "RIN",
@@ -36755,7 +36583,6 @@
     "title": "Laki 5th EP「Infinity」 リリース",
     "display_pc": "Laki 5th EP 「Infinity」 リリース",
     "display_sp": "Laki 5th EP 「Infinity」 リリース",
-    "url": "",
     "groups": [
       "L2",
       "RIN",
@@ -61660,21 +61487,6 @@
   },
   {
     "logid": "15f5db34417f",
-    "date": "20241229",
-    "time": "1330",
-    "contents": "EVENT",
-    "title": "Lucky² 1st ALBUM 「CLOVER」 リリース記念 個別チェキ撮影会 DAY2",
-    "display_sp": "「CLOVER」 リリース記念 個別チェキ撮影会 DAY2",
-    "url": "https://www.hmv.co.jp/news/article/241115143/",
-    "map": "https://maps.app.goo.gl/ckQH7znr8aPur8jr6",
-    "groups": [
-      "L2",
-      "AKR",
-      "KIK"
-    ]
-  },
-  {
-    "logid": "3161210345ea",
     "date": "20241229",
     "time": "1330",
     "contents": "EVENT",
@@ -146817,7 +146629,6 @@
     "title": "おはガール from Lucky² 「Lucky Time」 配信リリース",
     "display_pc": "おはガール from Lucky² 「Lucky Time」 配信リリース",
     "display_sp": "おはガール from Lucky² 「Lucky Time」 配信リリース",
-    "url": "",
     "groups": [
       "L2",
       "RIN",
