@@ -197002,6 +197002,53 @@
     "ref": "8105e168970f"
   },
   {
+    "logid": "41bcfa65309f",
+    "date": "20171019",
+    "time": "1830",
+    "contents": "LIVE",
+    "title": "miracle² 第3回ナカGフェス",
+    "url": "https://ody-inc.com/release/nkg3.html",
+    "map": "https://maps.app.goo.gl/EAhMokniZdEX1Axn8?g_st=ac",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "setlistid": "201710191830",
+    "tags": [
+      "新宿ReNY"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/nakaGfes/status/913977396151205888?t=rOYGle6im-vGPHcJ82n2PA&s=19",
+            "member": []
+          },
+          {
+            "url": "https://x.com/nakaGfes/status/919994997209829376?t=rOYGle6im-vGPHcJ82n2PA&s=19",
+            "member": []
+          },
+          {
+            "url": "https://x.com/nakaGfes/status/921170129722908672?t=rOYGle6im-vGPHcJ82n2PA&s=19",
+            "member": []
+          },
+          {
+            "url": "https://x.com/nakaGfes/status/923516709264171008?t=rOYGle6im-vGPHcJ82n2PA&s=19",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "d10aa1dd824e",
+    "date": "20171019",
+    "contents": "ANNIVERSARY",
+    "ref": "41bcfa65309f",
+    "suffix": "出演記念日"
+  },
+  {
     "logid": "fa8754a8a66d",
     "date": "20170927",
     "time": "",
