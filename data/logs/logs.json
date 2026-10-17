@@ -3991,7 +3991,8 @@
     "groups": [
       "G2",
       "MSK",
-      "YOK"
+      "YOK",
+      "KUR"
     ],
     "sns": [
       {
@@ -4010,6 +4011,17 @@
           {
             "url": "https://x.com/Girls2_official/status/2111382166085259297",
             "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSg2S3Fyg/",
+            "member": [
+              "KUR"
+            ]
           }
         ]
       }
