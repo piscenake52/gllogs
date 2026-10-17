@@ -192,7 +192,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
   <div class="field" id="glih-fcontrow" hidden><label>next</label><div class="chipr" id="glih-fcc"><button type="button" class="small" data-m="repeat" title="new entry on the same date with the repeat entry turned on, next # number">repeat</button><button type="button" class="small" data-m="tour" title="new entry in tour mode (same title base / contents / url / groups; add shows)">tour</button><button type="button" class="small" data-m="week" title="new entry: +7 days, next # number">weekly</button><button type="button" class="small" data-m="month" title="new entry: the same day of the next month, next # number">monthly</button><button type="button" class="small" data-m="year" title="new entry: the same day of the next year, next # number">yearly</button></div></div>
   <div id="glih-ff"></div>
-  <div class="field" id="glih-fanrow" hidden><label for="glih-fan">anniversary</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
+  <div class="field" id="glih-fanrow" hidden><label for="glih-fan">anniv.</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
   <div class="field" id="glih-fansrow" hidden><label for="glih-fansx"></label><div class="fgcol"><input type="text" id="glih-fansx" class="fin" autocomplete="off" value="&#35352;&#24565;&#26085;"><div class="chipr" id="glih-fansch"></div></div></div>
   <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、空欄にした値の削除はフォームの【値の削除】チェックで行います。relations は事前入力できません(JSONで確認)。 -->
   <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fjtog" aria-expanded="false">JSON &#9662;</button><button type="button" class="small" id="glih-fcopy">JSON copy</button><button type="button" class="small" id="glih-freset">reset all</button></div>
@@ -935,7 +935,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var def = DEFS[found.kind], p = {}, n = 0, dl = [];
     if (found.id) p[def.idKey] = found.id;
     var an = annivState();
-    if (an.send) { p.anniv_text = 'ANNIVERSARY'; p.anniv_suffix = an.suffix; n++; dl.push(['anniversary', an.suffix]); }
+    if (an.send) { p.anniv_text = 'ANNIVERSARY'; p.anniv_suffix = an.suffix; n++; dl.push(['anniv.', an.suffix]); }
     if (found.kind === 'logs' && !found.isNew && $('fcp').checked) p.copy_text = 'copy';
     def.fields.forEach(function (f) {
       var el = $('f-' + f.k), cur = el.value, ch = cur !== orig[f.k];
@@ -1018,7 +1018,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (el.value !== t) { el.value = t; el.dispatchEvent(new Event('input', { bubbles: true })); }
     });
   }
-  function clearFound() { found = null; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('fansrow').hidden = true; $('fansx').value = DEFSX; $('ff').innerHTML = ''; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
+  function clearFound() { found = null; seedId = ''; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('fansrow').hidden = true; $('fansx').value = DEFSX; $('ff').innerHTML = ''; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
   // ---- repeat registration (new logs only): the date list is built here (every N days / weeks / months, until a date and / or a count, minus skipped dates), previewed with check boxes and sent as the repeat field of the form (one yyyymmdd per line; the server counts up the #number of the title for each row) ----
   var rep = null, REP_MAX = 60;
   function pad2(n) { return ('0' + n).slice(-2); }
@@ -1403,7 +1403,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var list = Array.isArray(d) ? d : [], idKey = DEFS[kind].idKey;
       if (list.some(function (r) { return r && String(r[idKey]) === q; })) { hideCands(); return; }
       var rows = searchRows(kind, list, q);
-      if (!rows.length) { hideCands(); if (kind === 'setlist' && /^\d{12}$/.test(q) && (!found || found.isNew)) doFind(); return; } // a new 12-digit setlist id: open it as a new entry (filled from the logs row that uses it)
+      if (!rows.length) { hideCands(); if (kind === 'setlist' && /^\d{12}$/.test(q) && (!found || (found.isNew && found.id !== q))) doFind(); return; } // a new 12-digit setlist id: open it as a new entry (filled from the logs row that uses it)
       renderCands(kind, rows);
       if (!found) fstat(rows.length + ' candidates' + (rows.length > 30 ? ' (showing 30)' : ''));
     }).catch(function () {});
@@ -1428,14 +1428,23 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (ven) setVal('venue', ven);
   }
   // new setlist whose id is used as the setlistid of a logs row: title / groups / tags are taken from that logs row (full logs.json, because the index has no groups)
+  var seedId = ''; // the new setlist id that has been seeded already (so that typing the date / time or the id again does not overwrite later edits)
   function seedFromLogsById(id, list) {
-    fetchData('logs').then(function (d) {
-      if ($('fid').value.trim() !== id || !found || !found.isNew || found.kind !== 'setlist') return;
+    if (seedId === id) return; seedId = id;
+    function pick(d) {
       var rows = (Array.isArray(d) ? d : []).filter(function (r) { return r && String(r.setlistid) === id && r.contents !== 'ANNIVERSARY'; });
-      if (!rows.length) return;
-      var r = rows.filter(function (x) { return x.tags && x.tags.length; })[0] || rows[0];
+      return rows.filter(function (x) { return x.tags && x.tags.length; })[0] || rows[0] || null;
+    }
+    function apply(r) {
+      if (!r || !found || !found.isNew || found.kind !== 'setlist' || found.id !== id) return;
       seedFromLogs({ sid: id, title: r.title || '', groups: (r.groups || []).join(','), tags: (r.tags || []).join(',') }, list);
       fstat('Not found: ' + id + ' (new: filled from the id and the logs row ' + (r.logid || '') + ')');
+    }
+    // the light index has groups / tags for LIVE / RELEASEEVENT / FANMEETING; any other row (or an older index) falls back to the full logs.json
+    fetchIndex('logs').then(function (d) {
+      var r = pick(d); if (!r) return;
+      if (Array.isArray(r.groups)) { apply(r); return; }
+      return fetchData('logs').then(function (full) { apply(pick(full)); });
     }).catch(function () {});
   }
   function doFind() {
@@ -1454,7 +1463,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
           $('fdd').value = fmtDigits(id.slice(0, 8), 'date'); $('fdt').value = fmtDigits(id.slice(8), 'time');
           $('fdd').dispatchEvent(new Event('input', { bubbles: true })); $('fdt').dispatchEvent(new Event('input', { bubbles: true }));
           var sd = jumpSeed, hasSd; jumpSeed = null; hasSd = !!(sd && sd.sid === id);
-          if (hasSd) seedFromLogs(sd, list);
+          if (hasSd) { seedId = id; seedFromLogs(sd, list); }
           fstat('Not found: ' + id + ' (new: filled from the id' + (hasSd ? ' and the logs row' : '') + ')');
           if (!hasSd) seedFromLogsById(id, list);
           return;
@@ -1553,6 +1562,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (!found || found.kind !== kind) renderFound(kind, id, {}, true);
     found.id = id;
     if (kind === 'logs') { setVal('date', r.d); setVal('time', r.t); }
+    else if (/^\d{12}$/.test(id) && !(jumpSeed && jumpSeed.sid === id)) seedFromLogsById(id, rowsOf('setlist')); // the setlist id is date + time: a logs row that uses it fills title / artist / member / venue
     updateFind();
   }
   function applyModeUI() {
@@ -1565,7 +1575,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   ['fdd', 'fdt'].forEach(function (id) { $(id).addEventListener('input', function () { if (id === 'fdt' && $('fdt').value !== '') $('fany').checked = false; syncNew(); }); $(id).addEventListener('change', syncNew); });
   $('fany').addEventListener('change', function () { if ($('fany').checked) $('fdt').value = ''; topChanged(); });
   $('fnew').onclick = function () {
-    $('fid').value = ''; hideCands(); clearFound(); $('fdd').value = ''; $('fdt').value = ''; $('fany').checked = false; topChanged();
+    $('fid').value = ''; hideCands(); clearFound(); seedId = ''; $('fdd').value = ''; $('fdt').value = ''; $('fany').checked = false; topChanged();
   };
   // the Issue button (bottom of the find tab): after the form page is opened, the input is reset (the same as the new button), ready for the next entry
   $('topnew').onclick = function () { $('fnew').onclick(); };

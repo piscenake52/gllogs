@@ -783,7 +783,7 @@ G2のメンバー: `YZH, MMK, MSK, YOK, KUR, MNM, KIR`(展開されるのはこ�
 - **共通**: title(公演名)・contents・url・groups・relations・snsは、フォーム上部の値を全行に使う。`suffix`(自由入力+チップ「公演」。空ならなし)と`optional-sp`(display_spの共通の名前)も全行共通
 - **行ごと**: 日付・時刻・area(過去のLIVEのtitleから候補を出す)・map・tags(上のtagsには足さず、行のtagsだけ)。tourモード中は上部のmap / setlistid / tagsは非表示で送らない。titleは`公演名`+半角スペース+`area`+`suffix`(areaが空なら公演名のまま)。display_spは`optional-sp`+同じ付け方。setlistidはcontentsがLIVEで時刻があればdate+timeが自動で入る
 - **登録の中身**: 繰り返し登録の行`日付 時刻 | title | contents | url | display_sp | map | setlistid | tags`として送る(後ろの空欄は省く。tagsはカンマ区切りで、フォームのtagsに足す)
-- **候補表示(自動入力はしない)**: 行のareaが入っているときに、その行のmapまたはtagsの入力欄に入る(またはタイプする)と、同じareaの過去データのmap / tagsを新しい順に候補表示する。押すと入力される。対象のcontentsはLIVE・RELEASEEVENT・FANMEETING。areaは、過去データのtitleの最後の語(末尾の「公演」は除く)と一致するもの。候補の元は`logs_index.json`(この3つのcontentsだけ`map`と`tags`を持つ)
+- **候補表示(自動入力はしない)**: 行のareaが入っているときに、その行のmapまたはtagsの入力欄に入る(またはタイプする)と、同じareaの過去データのmap / tagsを新しい順に候補表示する。押すと入力される。対象のcontentsはLIVE・RELEASEEVENT・FANMEETING。areaは、過去データのtitleの最後の語(末尾の「公演」は除く)と一致するもの。候補の元は`logs_index.json`(この3つのcontentsだけ`map`・`tags`・`groups`を持つ)
 - **ANNIVERSARY**: tourモードでは使える(上部の「anniv.」)。チェックすると全行に参照型のANNIVERSARYを作る。付与文言は入力したまま(全行共通)
 
 ### snsのリンクごとのtags
@@ -870,3 +870,9 @@ Bloggerの固定ページ(`https://gl-log.blogspot.com/p/issuehelper.html`)に�
 #### Bloggerに貼るときの制約(重要)
 
 BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`など)に変換して**文字化け**させる。そのため helper の `<script>` は**ASCIIのみ**で書き、日本語・記号は`\uXXXX`のエスケープにする(コメントも英語にする)。公開前に、`<script>`内に非ASCII文字が無いことを確認する。
+
+### helperの自動入力まとめ(logs / setlist)
+- **logsのSNS**: contentsがSNSのとき、titleが空(または自動値)なら、groupsがG2のみで`SNS　Girls2`、L2のみで`SNS　Laki`、未入力・両方で`SNS　`(全角スペース)を入れる。groupsを変えると追従。手で書き換えたtitleは触らない。contentsがSNS以外になり、titleが自動値のままなら空に戻す。
+- **setlistの新規入力**: idを入れる(日付+時刻を入れた場合も同じ)と、そのidをsetlistidに持つlogsの行から、title←title、artist←groups(G2→Girls²、L2→Laki)、member←groupsのメンバーコード、venue←tagsを引き継ぐ。venueは過去のsetlistにある会場名と一致するtagsを優先し、一致がなければ先頭のtagsをそのまま入れる。logsの矢印から遷移した場合は、遷移元の入力値を使う。logsが複数ある場合はtagsを持つ行を優先。元データは`logs_index.json`(LIVE・RELEASEEVENT・FANMEETINGは`groups`・`tags`・`map`を持つ)。それ以外のcontentsの行や古いindexのときだけ`logs.json`本体を読む。
+- **既存のid**: 編集モード(findで読み込み)。自動入力はしない。
+- **tourのmap / tags**: areaと、入力したmap(tags)で過去データが1組に絞れたら、空のもう一方(または自動入力した値)を入れる。
