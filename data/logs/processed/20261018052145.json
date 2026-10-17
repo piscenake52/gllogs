@@ -1,0 +1,29 @@
+{
+  "date": "20260828",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "RIN",
+    "TBK",
+    "YUW",
+    "AKR"
+  ],
+  "sns": [
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgjaQ4fF/",
+          "member": [
+            "RIN",
+            "TBK",
+            "YUW",
+            "AKR"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1431"
+}
