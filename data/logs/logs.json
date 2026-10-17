@@ -3630,8 +3630,8 @@
     "date": "20261018",
     "time": "1300",
     "contents": "GOODS",
-    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 大阪 CD先行販売開始",
-    "display_sp": "LIVE TOUR 2026 大阪 CD先行販売開始",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 大阪 CD先行販売",
+    "display_sp": "LIVE TOUR 2026 大阪 CD先行販売",
     "url": "https://girls2-fc.jp/page/familyNews/1234665875420741632",
     "groups": [
       "G2",
@@ -3642,6 +3642,17 @@
       "KUR",
       "MNM",
       "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2108759890978353649",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
