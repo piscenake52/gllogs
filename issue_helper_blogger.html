@@ -114,6 +114,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .fw.hasfp > .fin { padding-right:78px; }
 #glih .fgcol { flex:1; min-width:0; display:flex; flex-direction:column; gap:6px; }
 #glih .fgcol .chips { flex:none; }
+#glih .refbox { display:flex; flex-direction:column; gap:6px; flex:1 1 auto; min-width:0; }
+#glih .refline { display:flex; gap:6px; align-items:center; flex-wrap:wrap; font-size:12px; line-height:1.5; }
+#glih .refline .rid { font-family:monospace; user-select:all; }
+#glih .refline .rsub { opacity:.75; word-break:break-all; }
+#glih .refline .small { padding:4px 10px; }
 #glih .snsh { display:flex; flex-direction:column; gap:6px; }
 #glih .snsh .row { display:flex; gap:6px; align-items:center; }
 #glih .snsh .row.btns { flex-wrap:wrap; }
@@ -191,6 +196,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="fcand" id="glih-fcand" hidden></div>
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
   <div class="field" id="glih-fcontrow" hidden><label>next</label><div class="chipr" id="glih-fcc"><button type="button" class="small" data-m="repeat" title="new entry on the same date with the repeat entry turned on, next # number">repeat</button><button type="button" class="small" data-m="tour" title="new entry in tour mode (same title base / contents / url / groups; add shows)">tour</button><button type="button" class="small" data-m="week" title="new entry: +7 days, next # number">weekly</button><button type="button" class="small" data-m="month" title="new entry: the same day of the next month, next # number">monthly</button><button type="button" class="small" data-m="year" title="new entry: the same day of the next year, next # number">yearly</button></div></div>
+  <div class="field" id="glih-frefrow" hidden><label id="glih-freflb">ref</label><div class="refbox" id="glih-frefbox"></div></div>
   <div id="glih-ff"></div>
   <div class="field" id="glih-fanrow" hidden><label for="glih-fan">anniv.</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
   <div class="field" id="glih-fansrow" hidden><label for="glih-fansx"></label><div class="fgcol"><input type="text" id="glih-fansx" class="fin" autocomplete="off" value="&#35352;&#24565;&#26085;"><div class="chipr" id="glih-fansch"></div></div></div>
@@ -980,6 +986,36 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     else if (isSnsAuto(cur)) { te.value = ''; ch = true; }
     if (ch) te.dispatchEvent(new Event('input', { bubbles: true }));
   }
+  // ref id info (find tab, logs): a reference-type ANNIVERSARY shows the logid / title of the row it refers to; a row that is referenced shows the ANNIVERSARY logids that refer to it. 'open' loads that row.
+  function refInfo() {
+    var rowEl = $('frefrow'), box = $('frefbox'); if (!rowEl) return;
+    box.innerHTML = ''; rowEl.hidden = true;
+    if (!found || found.kind !== 'logs' || found.isNew) return;
+    var all = rowsOf('logs');
+    function line(id, sub) {
+      var d = document.createElement('div'); d.className = 'refline';
+      var c = document.createElement('span'); c.className = 'rid'; c.textContent = id; d.appendChild(c);
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = 'open';
+      b.onclick = function () { $('fid').value = id; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); };
+      d.appendChild(b);
+      if (sub) { var m = document.createElement('span'); m.className = 'rsub'; m.textContent = sub; d.appendChild(m); }
+      box.appendChild(d);
+    }
+    var ref = found.row && found.row.ref;
+    if (ref) {
+      $('freflb').textContent = 'ref';
+      var src = all.filter(function (x) { return x && x.logid === ref; })[0];
+      line(ref, src ? fmtD(src.date, src.time) + '  ' + String(src.contents || '') + '  ' + String(src.title || '').slice(0, 60) : '(not found)');
+      if (found.row.suffix) { var sx = document.createElement('div'); sx.className = 'refline'; sx.innerHTML = '<span class="rsub"></span>'; sx.firstChild.textContent = 'suffix: ' + found.row.suffix; box.appendChild(sx); }
+      rowEl.hidden = false; return;
+    }
+    var by = all.filter(function (x) { return x && x.ref === found.id; });
+    if (by.length) {
+      $('freflb').textContent = 'ref by';
+      by.forEach(function (x) { line(x.logid, 'ANNIVERSARY' + (x.suffix ? '  suffix: ' + x.suffix : '')); });
+      rowEl.hidden = false;
+    }
+  }
   function renderFound(kind, id, row, isNew) {
     found = { kind: kind, id: id, isNew: !!isNew, row: row }; orig = {}; rep = null; $('fan').checked = false; $('fan').disabled = false; $('fansx').value = DEFSX;
     var box = $('ff'); box.innerHTML = '';
@@ -996,7 +1032,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (isNew && kind === 'setlist') { var spe = $('f-songs_patch'); if (spe && spe.closest('.field')) spe.closest('.field').hidden = true; } // new mode: the songs box is used as it is (the per-song edit is for the loaded setlist only)
     if (isNew && kind === 'logs') { ['date', 'time'].forEach(function (k) { var e = $('f-' + k); if (e) { var fl = e.closest('.field'); if (fl) fl.hidden = true; } }); } // new mode: the top date / time are used
     if (isNew && kind === 'logs') { var tw = $('f-title'); if (tw && tw.closest('.field')) addRepeat(tw.closest('.field')); } // new mode: repeat registration block under the title
-    applyModeUI(); updateFind();
+    applyModeUI(); updateFind(); refInfo();
   }
   // JSON box of the find tab: collapsed at first, opened / closed with the button, and editable. Valid JSON edits are written into the input fields (the Issue link follows); invalid JSON gets a red border and is ignored.
   var jsonOpen = false, origJson = '';
@@ -1018,7 +1054,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (el.value !== t) { el.value = t; el.dispatchEvent(new Event('input', { bubbles: true })); }
     });
   }
-  function clearFound() { found = null; seedId = ''; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('fansrow').hidden = true; $('fansx').value = DEFSX; $('ff').innerHTML = ''; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
+  function clearFound() { found = null; seedId = ''; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('fansrow').hidden = true; $('fansx').value = DEFSX; $('ff').innerHTML = ''; $('frefrow').hidden = true; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
   // ---- repeat registration (new logs only): the date list is built here (every N days / weeks / months, until a date and / or a count, minus skipped dates), previewed with check boxes and sent as the repeat field of the form (one yyyymmdd per line; the server counts up the #number of the title for each row) ----
   var rep = null, REP_MAX = 60;
   function pad2(n) { return ('0' + n).slice(-2); }
