@@ -3507,28 +3507,6 @@
     ]
   },
   {
-    "logid": "28501309abc9",
-    "date": "20261019",
-    "time": "1003",
-    "contents": "CLOSE",
-    "title": "TESTキャンペーン 応募受付締切",
-    "display_sp": "TEST CP 応募受付締切",
-    "url": "https://tenki.jp/lite/",
-    "groups": [
-      "G2"
-    ],
-    "relations": [
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ]
-  },
-  {
     "logid": "9eb8c7bf1051",
     "date": "20261018",
     "time": "2359",
