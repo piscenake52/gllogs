@@ -3535,7 +3535,18 @@
       "AKR",
       "KIK"
     ],
-    "tags": []
+    "tags": [],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2111385070020014128",
+            "member": []
+          }
+        ]
+      }
+    ]
   },
   {
     "logid": "d12cffac519d",
