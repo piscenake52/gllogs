@@ -783,6 +783,7 @@ G2のメンバー: `YZH, MMK, MSK, YOK, KUR, MNM, KIR`(展開されるのはこ�
 - **共通**: title(公演名)・contents・url・groups・relations・snsは、フォーム上部の値を全行に使う。`suffix`(自由入力+チップ「公演」。空ならなし)と`optional-sp`(display_spの共通の名前)も全行共通
 - **行ごと**: 日付・時刻・area(過去のLIVEのtitleから候補を出す)・map・tags(上のtagsには足さず、行のtagsだけ)。tourモード中は上部のmap / setlistid / tagsは非表示で送らない。titleは`公演名`+半角スペース+`area`+`suffix`(areaが空なら公演名のまま)。display_spは`optional-sp`+同じ付け方。setlistidはcontentsがLIVEで時刻があればdate+timeが自動で入る
 - **登録の中身**: 繰り返し登録の行`日付 時刻 | title | contents | url | display_sp | map | setlistid | tags`として送る(後ろの空欄は省く。tagsはカンマ区切りで、フォームのtagsに足す)
+- **候補表示(自動入力はしない)**: 行のareaが入っているときに、その行のmapまたはtagsの入力欄に入る(またはタイプする)と、同じareaの過去データのmap / tagsを新しい順に候補表示する。押すと入力される。対象のcontentsはLIVE・RELEASEEVENT・FANMEETING。areaは、過去データのtitleの最後の語(末尾の「公演」は除く)と一致するもの。候補の元は`logs_index.json`(この3つのcontentsだけ`map`と`tags`を持つ)
 - **ANNIVERSARY**: tourモードでは使える(上部の「anniv.」)。チェックすると全行に参照型のANNIVERSARYを作る。付与文言は入力したまま(全行共通)
 
 ### snsのリンクごとのtags

@@ -190,10 +190,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="fstat" id="glih-fstat" hidden></div>
   <div class="fcand" id="glih-fcand" hidden></div>
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
-  <div class="field" id="glih-fanrow" hidden><label for="glih-fan">anniv.</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
-  <div class="field" id="glih-fansrow" hidden><label for="glih-fansx"></label><div class="fgcol"><input type="text" id="glih-fansx" class="fin" autocomplete="off" value="&#35352;&#24565;&#26085;"><div class="chipr" id="glih-fansch"></div></div></div>
   <div class="field" id="glih-fcontrow" hidden><label>next</label><div class="chipr" id="glih-fcc"><button type="button" class="small" data-m="repeat" title="new entry on the same date with the repeat entry turned on, next # number">repeat</button><button type="button" class="small" data-m="tour" title="new entry in tour mode (same title base / contents / url / groups; add shows)">tour</button><button type="button" class="small" data-m="week" title="new entry: +7 days, next # number">weekly</button><button type="button" class="small" data-m="month" title="new entry: the same day of the next month, next # number">monthly</button><button type="button" class="small" data-m="year" title="new entry: the same day of the next year, next # number">yearly</button></div></div>
   <div id="glih-ff"></div>
+  <div class="field" id="glih-fanrow" hidden><label for="glih-fan">anniv.</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
+  <div class="field" id="glih-fansrow" hidden><label for="glih-fansx"></label><div class="fgcol"><input type="text" id="glih-fansx" class="fin" autocomplete="off" value="&#35352;&#24565;&#26085;"><div class="chipr" id="glih-fansch"></div></div></div>
   <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、空欄にした値の削除はフォームの【値の削除】チェックで行います。relations は事前入力できません(JSONで確認)。 -->
   <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fjtog" aria-expanded="false">JSON &#9662;</button><button type="button" class="small" id="glih-fcopy">JSON copy</button><button type="button" class="small" id="glih-freset">reset all</button></div>
   <textarea id="glih-fjson" class="jsonbox" spellcheck="false" hidden></textarea>
@@ -586,8 +586,30 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     return base.concat(CONTENTS_LIST.filter(function (c) { return !seen[c]; }).map(function (c) { return { v: c, k: normQ(c) }; }));
   }
   var contentsOptions = makeOpts('contents', ['logs'], function (m) { rowsOf('logs').forEach(function (r) { if (r) addTo(m, r.contents); }); });
-  // tour mode: area candidates = the last word of the titles of LIVE rows (without the trailing word for a show)
-  var areaOptions = makeOpts('area', ['logs'], function (m) { rowsOf('logs').forEach(function (r) { if (!r || r.contents !== 'LIVE' || typeof r.title !== 'string') return; var ps = r.title.trim().split(/[ \u3000]+/); if (ps.length < 2) return; var a = ps[ps.length - 1].replace(/\u516c\u6f14$/, ''); if (a && a.length <= 12 && a.charAt(0) !== '#') addTo(m, a); }); });
+  var AREA_CONTENTS = ['LIVE', 'RELEASEEVENT', 'FANMEETING'];
+  function areaOf(r) { if (!r || AREA_CONTENTS.indexOf(r.contents) < 0 || typeof r.title !== 'string') return ''; var ps = r.title.trim().split(/[ \u3000]+/); if (ps.length < 2) return ''; var a = ps[ps.length - 1].replace(/\u516c\u6f14$/, ''); return a && a.length <= 12 && a.charAt(0) !== '#' ? a : ''; }
+  var areaOptions = makeOpts('area', ['logs'], function (m) { rowsOf('logs').forEach(function (r) { var a = areaOf(r); if (a) addTo(m, a); }); });
+  // tour mode: when the map / tags box of a row is entered and its area is filled, the map / tags of the past rows with that area are offered (newest first). Nothing is filled in automatically.
+  function addRowSuggest(el, r, kind) {
+    var box = document.createElement('div'); box.className = 'fcand fsug'; box.hidden = true; el.parentNode.insertBefore(box, el.nextSibling);
+    function hide() { box.hidden = true; box.innerHTML = ''; }
+    function items() {
+      var a = r.a.value.trim().replace(/\u516c\u6f14$/, ''), out = [], seen = {}; if (!a) return out;
+      rowsOf('logs').filter(function (x) { return areaOf(x) === a; }).sort(function (x, y) { return String(y.date).localeCompare(String(x.date)); }).forEach(function (x) {
+        var v = kind === 'map' ? x.map : (x.tags && x.tags.length ? x.tags.join(',') : ''); if (!v || seen[v]) return; seen[v] = 1;
+        var venue = x.tags && x.tags.length ? x.tags.join(',') : x.title;
+        out.push({ v: v, lab: kind === 'map' ? venue + '  ' + fmtDigits(String(x.date), 'date') : v + '  ' + fmtDigits(String(x.date), 'date') });
+      });
+      return out;
+    }
+    function show() {
+      var q = normQ(el.value.trim()), list = items().filter(function (o) { return o.v !== el.value.trim() && (!q || normQ(o.v).indexOf(q) >= 0 || normQ(o.lab).indexOf(q) >= 0); }).slice(0, 8);
+      box.innerHTML = '';
+      list.forEach(function (o) { var b = document.createElement('button'); b.type = 'button'; b.textContent = o.lab; b.onmousedown = function (e) { e.preventDefault(); el.value = o.v; hide(); el.dispatchEvent(new Event('input', { bubbles: true })); }; box.appendChild(b); });
+      box.hidden = !list.length;
+    }
+    el.addEventListener('focus', show); el.addEventListener('input', show); el.addEventListener('blur', hide);
+  }
   var venueOptions = makeOpts('venue', ['setlist'], function (m) { rowsOf('setlist').forEach(function (r) { if (r) addTo(m, r.venue); }); });
   var artistOptions = makeOpts('artist', ['setlist', 'songs'], function (m) { rowsOf('setlist').forEach(function (r) { if (r) addTo(m, r.artist); }); (cache.songs || []).forEach(function (r) { if (r) addTo(m, r.artist); }); });
   var songOptions = makeOpts('song', ['setlist', 'songs'], function (m) {
@@ -1104,6 +1126,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         r.m = mk('fin rpf rpmap', 'map'); col.appendChild(r.m);
         r.g = mk('fin rpf rpmap', 'tags'); col.appendChild(r.g);
         addSuggest(r.a, areaOptions, r.a, true);
+        addRowSuggest(r.m, r, 'map'); addRowSuggest(r.g, r, 'tags');
         [r.d, r.t].forEach(function (e) { e.addEventListener('input', function () { r.touched = true; }); });
         [r.d, r.t, r.a, r.m, r.g].forEach(function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
         r.x.onclick = function () { if (TR.rows.length < 2) return; TR.rows.splice(TR.rows.indexOf(r), 1); rowsBox.removeChild(row); renum(); changed(); };
@@ -1111,7 +1134,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         return r;
       }
       TR.add = addRow; addRow(); addRow();
-      var pb = document.createElement('button'); pb.type = 'button'; pb.className = 'small'; pb.textContent = '+'; pb.title = 'add a show'; pb.style.cssText = 'display:block;width:100%;margin:6px 0'; pb.onclick = function () { addRow(); changed(); }; tr.appendChild(pb);
+      var pb = document.createElement('button'); pb.type = 'button'; pb.className = 'small'; pb.textContent = '+'; pb.title = 'add a show'; pb.style.cssText = 'display:block;width:100%;margin:6px 0;padding:8px 6px'; pb.onclick = function () { addRow(); changed(); }; tr.appendChild(pb);
       var sf = document.createElement('div'); sf.className = 'field'; sf.innerHTML = '<label for="glih-rpts" style="align-self:flex-start;height:38px;display:flex;align-items:center">suffix</label><div class="fgcol"><input type="text" id="glih-rpts" class="fin" autocomplete="off"><div class="chipr" id="glih-rptsc"></div></div>'; tr.appendChild(sf);
       TR.sfx = sf.querySelector('input'); var scb = sf.querySelector('.chipr');
       var cb = document.createElement('button'); cb.type = 'button'; cb.className = 'chip'; cb.textContent = '\u516c\u6f14'; scb.appendChild(cb);
