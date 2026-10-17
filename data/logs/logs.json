@@ -9722,6 +9722,13 @@
     "suffix": "放送記念日"
   },
   {
+    "logid": "68b3275bbf24",
+    "date": "20261004",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "e451db6cd51f"
+  },
+  {
     "logid": "c3d326d64b8a",
     "date": "20261003",
     "time": "2145",
@@ -63829,7 +63836,7 @@
     "date": "20241129",
     "time": "1900",
     "contents": "CL",
-    "title": "CLキャス　",
+    "title": "CLキャス",
     "groups": [
       "G2",
       "MSK",
