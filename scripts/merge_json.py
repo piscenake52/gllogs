@@ -604,7 +604,7 @@ def bump_number(title, i):
     return title[:m.start(1)] + num + title[m.end(1):]
 
 
-def apply_repeat(target, main_data, item, repeat, issue, issue_map):
+def apply_repeat(target, main_data, item, repeat, issue, issue_map, anniv=False, anniv_sx=""):
     """繰り返し登録: repeat（1行1回の {"date", "time"?, "title"?, "contents"?, "url"?, "display_sp"?}）ごとに logs を登録する。
     title は最初の回の title の `#数字` を回ごとに +1（行に title があればそれを優先）。time / contents / url / display_sp は行に指定があればそれを使う。map / sns / display_pc（と、行に指定のない url / display_sp）は引き継がない。
     同じIssueの再編集は、前回の登録分を同じ順番で更新し、増えた回は追加、減った回は削除する（logid は変わらない）。
@@ -612,7 +612,8 @@ def apply_repeat(target, main_data, item, repeat, issue, issue_map):
     base = {k: v for k, v in item.items() if not k.startswith("_") and k not in REPEAT_DROP}
     all_url = all(occ.get("url") for occ in repeat[:REPEAT_LIMIT])  # 全部の回にURLの指定があれば、フォームのURLの扱いは気にしなくてよい
     all_sp = all(occ.get("display_sp") for occ in repeat[:REPEAT_LIMIT])
-    dropped = [k for k in ("url", "map", "sns", "display_pc", "display_sp") if not is_blank(item.get(k)) and not (k == "url" and all_url) and not (k == "display_sp" and all_sp)]
+    all_map = all(occ.get("map") for occ in repeat[:REPEAT_LIMIT])
+    dropped = [k for k in ("url", "map", "sns", "display_pc", "display_sp") if not is_blank(item.get(k)) and not (k == "url" and all_url) and not (k == "display_sp" and all_sp) and not (k == "map" and all_map)]
     if dropped:
         NOTICES.append(f"- **logs**: 繰り返し登録では {' / '.join(dropped)} は引き継ぎません")
     title0 = item.get("title", "")
@@ -625,9 +626,11 @@ def apply_repeat(target, main_data, item, repeat, issue, issue_map):
         rec["title"] = occ.get("title") or bump_number(title0, i)
         if "time" in occ:
             rec["time"] = occ["time"]  # 行ごとの時刻（空文字 = 時刻なし）
-        for k in ("contents", "url", "display_sp"):
+        for k in ("contents", "url", "display_sp", "map", "setlistid"):
             if occ.get(k):
-                rec[k] = occ[k]  # 行ごとの contents / URL
+                rec[k] = occ[k]  # 行ごとの contents / URL / map / setlistid
+        if occ.get("tags"):
+            rec["tags"] = list(dict.fromkeys(list(rec.get("tags") or []) + list(occ["tags"])))  # 行ごとのtagsはフォームのtagsに足す
         row = None
         if i < len(prev) and prev[i]:
             row = next((e for e in main_data if e.get("logid") == prev[i]), None)
@@ -637,6 +640,9 @@ def apply_repeat(target, main_data, item, repeat, issue, issue_map):
             main_data[main_data.index(row)] = reorder(target, row)
             ids.append(prev[i])
             updated += 1
+            sync_anniv_dates(main_data, prev[i])
+            if anniv:
+                ensure_anniversary(main_data, prev[i], anniv_sx)
             continue
         dup = [e for e in main_data if e.get("date") == rec["date"] and (e.get("time") or "") == (rec.get("time") or "")
                and e.get("contents") == (rec.get("contents") or "ETC") and e.get("title") == rec["title"]]
@@ -651,9 +657,11 @@ def apply_repeat(target, main_data, item, repeat, issue, issue_map):
         main_data.append(new_item)
         ids.append(new_item["logid"])
         added += 1
-    for old in prev[len(repeat[:REPEAT_LIMIT]):]:  # 減った回を取り除く
+        if anniv:
+            ensure_anniversary(main_data, new_item["logid"], anniv_sx)
+    for old in prev[len(repeat[:REPEAT_LIMIT]):]:  # 減った回を取り除く（参照している記念日も一緒に）
         if old:
-            main_data[:] = [e for e in main_data if e.get("logid") != old]
+            main_data[:] = [e for e in main_data if e.get("logid") != old and e.get("ref") != old]
     if len(repeat) > REPEAT_LIMIT:
         NOTICES.append(f"- **logs**: 繰り返し登録は{REPEAT_LIMIT}件までです。{len(repeat) - REPEAT_LIMIT}件は登録しませんでした")
     if issue:
@@ -675,7 +683,7 @@ def apply_item(target, main_data, raw, issue_map):
 
     repeat = item.pop("_repeat", None) if name == "logs" else None
     if isinstance(repeat, list) and repeat and not item.get("_copy_from"):
-        return apply_repeat(target, main_data, item, repeat, issue, issue_map)
+        return apply_repeat(target, main_data, item, repeat, issue, issue_map, anniv, anniv_sx)
 
     if name == "setlist" and item.get("_copy_from"):
         src_id = item.pop("_copy_from")

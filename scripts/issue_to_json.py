@@ -416,12 +416,25 @@ def parse_repeat(raw_str):
             if rest[0]:
                 op["title"] = rest[0]
         elif len(rest) >= 2:
-            if len(rest) > 4:
-                errors.append(f"- **繰り返し登録**: `|` が多すぎます。`日付 時刻 | タイトル | contents | URL | display_sp` の形で入力してください（`{shown}`）")
+            if len(rest) > 7:
+                errors.append(f"- **繰り返し登録**: `|` が多すぎます。`日付 時刻 | タイトル | contents | URL | display_sp | map | setlistid | tags` の形で入力してください（`{shown}`）")
                 continue
             title, cont = rest[0], rest[1].upper()
             url = rest[2] if len(rest) > 2 else ""
             sp = rest[3] if len(rest) > 3 else ""
+            map_ = rest[4] if len(rest) > 4 else ""
+            sid = to_halfwidth(rest[5]) if len(rest) > 5 else ""
+            row_tags = []
+            for t in re.split(r"[,、]", rest[6]) if len(rest) > 6 else []:
+                t = t.strip()
+                if t and t not in row_tags:
+                    row_tags.append(t)
+            if map_ and not re.fullmatch(r"https?://\S+", map_):
+                errors.append(f"- **繰り返し登録**: mapはhttp(s)://から始めてください（`{shown}`）")
+                continue
+            if sid and not re.fullmatch(r"\d{12}", sid):
+                errors.append(f"- **繰り返し登録**: setlistidは12桁の数字で入力してください（`{shown}`）")
+                continue
             if cont and cont not in CONTENTS_OPTIONS:
                 errors.append(f"- **繰り返し登録**: contents が選択肢にありません: `{cont}`（`{shown}`）")
                 continue
@@ -436,6 +449,12 @@ def parse_repeat(raw_str):
                 op["url"] = url
             if sp:
                 op["display_sp"] = sp
+            if map_:
+                op["map"] = map_
+            if sid:
+                op["setlistid"] = sid
+            if row_tags:
+                op["tags"] = row_tags  # その回だけのtags（フォームのtagsに足す）
         ops.append(op)
     if len(ops) > REPEAT_MAX:
         errors.append(f"- **繰り返し登録**: 一度に登録できるのは{REPEAT_MAX}件までです（{len(ops)}件）")
@@ -755,8 +774,6 @@ def main():
         anniv_req = (ANNIV_OPTION in parse_checked(f.get("anniv", ""))
                      or f.get("anniv_text", "").strip().lower() == "anniversary")
         if anniv_req:
-            if repeat_ops:
-                errors.append("- **ANNIVERSARY**: 繰り返し登録とは一緒に使えません")
             if f["contents"] in ("ANNIVERSARY", "BIRTHDAY"):
                 errors.append("- **ANNIVERSARY**: contents が ANNIVERSARY / BIRTHDAY のデータには使えません")
         if errors:
