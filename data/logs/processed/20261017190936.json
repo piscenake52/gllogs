@@ -1,0 +1,28 @@
+{
+  "logid": "669cb2263a46",
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DeCK7fXJq_D/?stkn=ZDAwZTY5eWZiZDEz",
+          "member": [
+            "MNM"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSg2AvpTo/",
+          "member": [
+            "MNM"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1419"
+}
