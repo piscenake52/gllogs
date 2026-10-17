@@ -9089,121 +9089,6 @@
     ]
   },
   {
-    "logid": "e451db6cd51f",
-    "date": "20261005",
-    "time": "1700",
-    "contents": "LIVE",
-    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 福岡公演",
-    "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 福岡公演",
-    "display_sp": "LIVE TOUR 2026 -Seven Blooms Beyond- 福岡",
-    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
-    "map": "https://maps.app.goo.gl/PMKBtLYjmfXQ7Wbm7",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "setlistid": "202610051700",
-    "tags": [
-      "福岡国際会議場 メインホール"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/2106323889525817727",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/2106724211557536098",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/2107039789791027667",
-            "member": []
-          }
-        ]
-      },
-      {
-        "type": "gl2family",
-        "urls": [
-          {
-            "url": "https://girls2-fc.jp/page/photogalleries/SevenBloomsBeyondPG/photo/1236571851178639361",
-            "member": []
-          },
-          {
-            "url": "https://girls2-fc.jp/page/photogalleries/SevenBloomsBeyondPG/photo/1236580886758031360",
-            "member": []
-          },
-          {
-            "url": "https://girls2-fc.jp/page/photogalleries/SevenBloomsBeyondPG/photo/1236581275997831169",
-            "member": []
-          },
-          {
-            "url": "https://girls2-fc.jp/page/photogalleries/SevenBloomsBeyondPG/photo/1236585723918811138",
-            "member": []
-          },
-          {
-            "url": "https://girls2-fc.jp/page/photogalleries/SevenBloomsBeyondPG/photo/1236682045564911617",
-            "member": []
-          }
-        ]
-      },
-      {
-        "type": "instagram",
-        "urls": [
-          {
-            "url": "https://www.instagram.com/reel/DeD8MQVRPiA/?stkn=MTVtejVzZnhwc3E1Nw==",
-            "member": []
-          },
-          {
-            "url": "https://www.instagram.com/reel/DeEikuDpXN5/?stkn=YnJzdjB4dHJzN3Js",
-            "member": []
-          },
-          {
-            "url": "https://www.instagram.com/p/DeEnu6TlK0D/?stkn=ZmVudDV2amhudXVh",
-            "member": []
-          },
-          {
-            "url": "https://www.instagram.com/p/DeEurEOkhiv/?stkn=MTJ4dzlwMmE2dXEycg==",
-            "member": []
-          },
-          {
-            "url": "https://www.instagram.com/p/DeGdTiVj-M8/?stkn=eTFuZjA3aHZzbjVz",
-            "member": []
-          },
-          {
-            "url": "https://www.instagram.com/p/DeG-3CzGMiF/?stkn=MXoxYnBrZnFobTN4",
-            "member": []
-          },
-          {
-            "url": "https://www.instagram.com/p/DeEryAHmMB5/?stkn=dTE4Y2w5emxwcGcx",
-            "member": []
-          }
-        ]
-      },
-      {
-        "type": "tiktok",
-        "urls": [
-          {
-            "url": "https://vt.tiktok.com/ZSbHvWQ78/",
-            "member": []
-          },
-          {
-            "url": "https://vt.tiktok.com/ZSbHvtgs4/",
-            "member": []
-          }
-        ]
-      }
-    ]
-  },
-  {
     "logid": "1ca58552a1c5",
     "date": "20261005",
     "contents": "SNS",
@@ -9415,6 +9300,121 @@
       "KIK"
     ],
     "tags": []
+  },
+  {
+    "logid": "e451db6cd51f",
+    "date": "20261004",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 福岡公演",
+    "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 福岡公演",
+    "display_sp": "LIVE TOUR 2026 -Seven Blooms Beyond- 福岡",
+    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
+    "map": "https://maps.app.goo.gl/PMKBtLYjmfXQ7Wbm7",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "setlistid": "202610041700",
+    "tags": [
+      "福岡国際会議場 メインホール"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2106323889525817727",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2106724211557536098",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2107039789791027667",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/photogalleries/SevenBloomsBeyondPG/photo/1236571851178639361",
+            "member": []
+          },
+          {
+            "url": "https://girls2-fc.jp/page/photogalleries/SevenBloomsBeyondPG/photo/1236580886758031360",
+            "member": []
+          },
+          {
+            "url": "https://girls2-fc.jp/page/photogalleries/SevenBloomsBeyondPG/photo/1236581275997831169",
+            "member": []
+          },
+          {
+            "url": "https://girls2-fc.jp/page/photogalleries/SevenBloomsBeyondPG/photo/1236585723918811138",
+            "member": []
+          },
+          {
+            "url": "https://girls2-fc.jp/page/photogalleries/SevenBloomsBeyondPG/photo/1236682045564911617",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DeD8MQVRPiA/?stkn=MTVtejVzZnhwc3E1Nw==",
+            "member": []
+          },
+          {
+            "url": "https://www.instagram.com/reel/DeEikuDpXN5/?stkn=YnJzdjB4dHJzN3Js",
+            "member": []
+          },
+          {
+            "url": "https://www.instagram.com/p/DeEnu6TlK0D/?stkn=ZmVudDV2amhudXVh",
+            "member": []
+          },
+          {
+            "url": "https://www.instagram.com/p/DeEurEOkhiv/?stkn=MTJ4dzlwMmE2dXEycg==",
+            "member": []
+          },
+          {
+            "url": "https://www.instagram.com/p/DeGdTiVj-M8/?stkn=eTFuZjA3aHZzbjVz",
+            "member": []
+          },
+          {
+            "url": "https://www.instagram.com/p/DeG-3CzGMiF/?stkn=MXoxYnBrZnFobTN4",
+            "member": []
+          },
+          {
+            "url": "https://www.instagram.com/p/DeEryAHmMB5/?stkn=dTE4Y2w5emxwcGcx",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSbHvWQ78/",
+            "member": []
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSbHvtgs4/",
+            "member": []
+          }
+        ]
+      }
+    ]
   },
   {
     "logid": "6d5f77f0c873",
