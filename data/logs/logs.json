@@ -42796,23 +42796,11 @@
     ]
   },
   {
-    "logid": "5f2d115db050",
+    "logid": "e75859af1202",
     "date": "20250922",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Laki 改名記念日",
-    "url": "https://www.ldh.co.jp/news/detail.php?lang=jpn&site=Egirls&newsid=0000051869",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ]
+    "ref": "d5e1623b7b5d"
   },
   {
     "logid": "ed2f6cdb62e0",
@@ -129072,25 +129060,18 @@
     ]
   },
   {
-    "logid": "435a072e3eea",
-    "date": "20220601",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "上村梨々香・森朱里・佐藤妃希 加入記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/538426",
-    "groups": [
-      "L2",
-      "RRK",
-      "AKR",
-      "KIK"
-    ]
-  },
-  {
     "logid": "d84947a5033b",
     "date": "20220601",
     "time": "",
     "contents": "ANNIVERSARY",
     "ref": "a1aa518ef1b3"
+  },
+  {
+    "logid": "86ee117e6166",
+    "date": "20220601",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "c0d20bfde057"
   },
   {
     "logid": "dc126e525674",
@@ -160752,26 +160733,11 @@
     ]
   },
   {
-    "logid": "e031a5846db9",
+    "logid": "85328d2aa383",
     "date": "20210613",
+    "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² 結成記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/530110",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK",
-      "YUR"
-    ],
-    "tags": [
-      "Laki"
-    ]
+    "ref": "378c26550aee"
   },
   {
     "logid": "b20ce098ec34",
@@ -174574,29 +174540,11 @@
     ]
   },
   {
-    "logid": "5e10dc5b4f40",
+    "logid": "63fa5251777b",
     "date": "20201011",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "lovely² 杉浦優來 加入記念日",
-    "url": "https://www.sonymusic.co.jp/artist/lovely2/info/522813",
-    "groups": [
-      "L2",
-      "YUR"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/1315087234970705920?t=c6vxoCV6BgUMaXfIFk3pPw&s=19",
-            "member": [
-              "YUR"
-            ]
-          }
-        ]
-      }
-    ]
+    "ref": "ec29aee33d66"
   },
   {
     "logid": "49a2008baaf0",
@@ -175161,19 +175109,6 @@
     ]
   },
   {
-    "logid": "7489cdf11dc9",
-    "date": "20200930",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "lovely² デビュー記念日",
-    "url": "https://www.sonymusic.co.jp/artist/lovely2/",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR"
-    ]
-  },
-  {
     "logid": "ef8ef83a180d",
     "date": "20200930",
     "time": "",
@@ -175193,6 +175128,13 @@
     "time": "",
     "contents": "ANNIVERSARY",
     "ref": "ef8ef83a180d"
+  },
+  {
+    "logid": "98b075431f3f",
+    "date": "20200930",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "a17427a13df3"
   },
   {
     "logid": "c267ccee36b2",
@@ -196533,40 +196475,17 @@
     ]
   },
   {
-    "logid": "edc799836070",
+    "logid": "73b0e3773110",
     "date": "20190707",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "石井蘭　加入記念日",
-    "groups": [
-      "G2",
-      "RAN"
-    ]
+    "ref": "40129fb53535"
   },
   {
     "logid": "e16fe1d083e4",
     "date": "20190626",
     "contents": "DEBUT",
     "title": "Girls² デビュー",
-    "url": "https://www.sonymusic.co.jp/artist/girls2/info/505432",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
-  },
-  {
-    "logid": "e21a7e5a74b6",
-    "date": "20190626",
-    "contents": "ANNIVERSARY",
-    "title": "Girls² デビュー記念日",
     "url": "https://www.sonymusic.co.jp/artist/girls2/info/505432",
     "groups": [
       "G2",
@@ -196609,6 +196528,13 @@
     "time": "",
     "contents": "ANNIVERSARY",
     "ref": "d9a0e0fa9085"
+  },
+  {
+    "logid": "2f6066f7dea6",
+    "date": "20190626",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "e16fe1d083e4"
   },
   {
     "logid": "f52dce1242d4",
@@ -196658,27 +196584,11 @@
     "tags": []
   },
   {
-    "logid": "61bff8b762e0",
+    "logid": "03537c30aeee",
     "date": "20190329",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 結成記念日",
-    "display_pc": "Girls²　結成記念日",
-    "display_sp": "Girls²　結成記念日",
-    "url": "https://x.com/Girls2_official/status/1111508861125455872",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": []
+    "ref": "8adc8fe2e533"
   },
   {
     "logid": "b31845e35e22",
