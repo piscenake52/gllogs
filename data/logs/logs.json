@@ -3934,6 +3934,34 @@
     ]
   },
   {
+    "logid": "d693be0fa569",
+    "date": "20261017",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "KAN",
+      "AKR"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DeloVcUJ81P/?exln=MXE0dW4yeWUybGsxbg==",
+            "member": [
+              "RIN",
+              "KAN",
+              "AKR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "ad12ab20846f",
     "date": "20261016",
     "time": "2359",
