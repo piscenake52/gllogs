@@ -3109,28 +3109,6 @@
     ]
   },
   {
-    "logid": "c0e1100ae43e",
-    "date": "20261023",
-    "time": "2359",
-    "contents": "CLOSE",
-    "title": "TESTキャンペーン 入金期限",
-    "display_sp": "TEST CP 入金期限",
-    "url": "https://tenki.jp/lite/",
-    "groups": [
-      "G2"
-    ],
-    "relations": [
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ]
-  },
-  {
     "logid": "e70cedfff90f",
     "date": "20261023",
     "time": "2000",
