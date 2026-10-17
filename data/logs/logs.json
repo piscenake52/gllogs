@@ -41655,6 +41655,43 @@
     ]
   },
   {
+    "logid": "0e134eb9bfb4",
+    "date": "20251010",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "KAN",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/1976607085296275876",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "KAN",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "オフラキ"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "0659e5be437e",
     "date": "20251009",
     "time": "1700",
