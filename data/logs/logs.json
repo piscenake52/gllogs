@@ -33207,6 +33207,33 @@
     ]
   },
   {
+    "logid": "38f50ddad24d",
+    "date": "20260204",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "HIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2018970727215763614",
+            "member": [
+              "HIR"
+            ],
+            "tags": [
+              "オフラキ"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "43ffce7af83e",
     "date": "20260203",
     "time": "1200",
