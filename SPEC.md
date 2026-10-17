@@ -778,6 +778,13 @@ G2のメンバー: `YZH, MMK, MSK, YOK, KUR, MNM, KIR`(展開されるのはこ�
 - `threads`/`line`は自動判定の対象外。使うときはテキスト欄に`threads | https://...`のようにtypeを直接書く
 - **helperのsns入力補助**: URL欄+メンバーチップ+`add`ボタン。**typeのプルダウンは無い**(typeはサーバー側の自動判定。すでにある行を置き換えるときは、その行のtypeを残す)。G2/L2チップはメンバー行の表示切替で、G2/L2だけをONにして`add`すると`url | G2`の行になり全員に展開される。個別メンバーも選ぶとメンバーだけが書かれる。`add`すると、チップも含めて入力はリセットされる
 
+### TOURモード(helper・繰り返し登録のmode: tour)
+- **使い方**: 繰り返し登録をONにして`tour`を選ぶ。1公演=1行(date / time / area / map)。`+`で行を増やし、`×`で行を消す。最初の行は、上のdate・timeを編集するまで追従する。登録済みの公演を開いて`next`の`tour`を押すと、公演名の元(最後の全角スペース以降を除いたもの)・contents・url・groupsを引き継いだ新規入力になり、追加公演を足せる
+- **共通**: title(公演名)・contents・url・groups・relations・tags・snsは、フォーム上部の値を全行に使う。`suffix`(自由入力+チップ「公演」。空ならなし)と`optional-sp`(display_spの共通の名前)も全行共通
+- **行ごと**: 日付・時刻・map。titleは`公演名`+全角スペース+`area`+`suffix`(areaが空なら公演名のまま)。display_spは`optional-sp`+同じ付け方。setlistidはcontentsがLIVEで時刻があればdate+timeが自動で入る
+- **登録の中身**: 繰り返し登録の行`日付 時刻 | title | contents | url | display_sp | map`として送る(areaが空・mapが空の行は後ろを省く)
+- **ANNIVERSARY**: tourモードでは使える(上部の「anniv.」)。チェックすると全行に参照型のANNIVERSARYを作る。付与文言は入力したまま(全行共通)
+
 ### snsのリンクごとのtags
 - **データ**: `sns[].urls[]`に`tags`(配列。無くてもよい)を持てる。`{"url":"…","member":["YZH"],"tags":["挨拶","ライブ配信"]}`
 - **入力**: `type | url | member | tags`(tagsはカンマ区切り。memberを飛ばすときは`x | https://… | | 挨拶`)。`url | member | tags`も可。同じURLを入れ直すと、tagsは新しい入力があれば置き換え、空なら既存を残す

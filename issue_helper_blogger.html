@@ -145,6 +145,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .rpsrow .rpct { flex:0 0 8em; width:8em; }
 #glih .rpsrow .fsug { flex:1 0 100%; }
 #glih .rpsrow .rpf { flex:1 1 8em; min-width:6em; }
+#glih .rpsrow .rpmap { flex:1 0 100%; }
 #glih .rpsrow .rpch { flex:1 0 100%; gap:4px; }
 #glih .rpsop { padding:6px 0; border-bottom:1px dashed var(--line); margin-bottom:10px; }
 #glih .rprow { display:flex; align-items:baseline; gap:8px; padding:5px 10px; border-bottom:1px solid var(--line); font-size:12px; line-height:1.4; color:var(--text); cursor:pointer; }
@@ -191,7 +192,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
   <div class="field" id="glih-fanrow" hidden><label for="glih-fan">anniv.</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
   <div class="field" id="glih-fansrow" hidden><label for="glih-fansx"></label><div class="fgcol"><input type="text" id="glih-fansx" class="fin" autocomplete="off" value="&#35352;&#24565;&#26085;"><div class="chipr" id="glih-fansch"></div></div></div>
-  <div class="field" id="glih-fcontrow" hidden><label>next</label><div class="chipr" id="glih-fcc"><button type="button" class="small" data-m="repeat" title="new entry on the same date with the repeat entry turned on, next # number">repeat</button><button type="button" class="small" data-m="week" title="new entry: +7 days, next # number">weekly</button><button type="button" class="small" data-m="month" title="new entry: the same day of the next month, next # number">monthly</button><button type="button" class="small" data-m="year" title="new entry: the same day of the next year, next # number">yearly</button></div></div>
+  <div class="field" id="glih-fcontrow" hidden><label>next</label><div class="chipr" id="glih-fcc"><button type="button" class="small" data-m="repeat" title="new entry on the same date with the repeat entry turned on, next # number">repeat</button><button type="button" class="small" data-m="tour" title="new entry in tour mode (same title base / contents / url / groups; add shows)">tour</button><button type="button" class="small" data-m="week" title="new entry: +7 days, next # number">weekly</button><button type="button" class="small" data-m="month" title="new entry: the same day of the next month, next # number">monthly</button><button type="button" class="small" data-m="year" title="new entry: the same day of the next year, next # number">yearly</button></div></div>
   <div id="glih-ff"></div>
   <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、空欄にした値の削除はフォームの【値の削除】チェックで行います。relations は事前入力できません(JSONで確認)。 -->
   <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fjtog" aria-expanded="false">JSON &#9662;</button><button type="button" class="small" id="glih-fcopy">JSON copy</button><button type="button" class="small" id="glih-freset">reset all</button></div>
@@ -856,6 +857,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   // ANNIVERSARY check (logs only): a linked ANNIVERSARY entry (ref = this logid) is registered together. Off + a reason when contents is ANNIVERSARY / BIRTHDAY or repeat entry is on; on + locked when one is already linked.
   var DEFSX = '\u8a18\u5ff5\u65e5', SXCHIPS = ['\u8a18\u5ff5\u65e5', '\u51fa\u6f14\u8a18\u5ff5\u65e5', '\u653e\u9001\u8a18\u5ff5\u65e5'];
   (function () { var box = $('fansch'); SXCHIPS.forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t; b.onclick = function () { $('fansx').value = t; updateFind(); }; box.appendChild(b); }); $('fansx').addEventListener('input', updateFind); })();
+  function repMode() { var m = $('rpmd'); if (!m) return ''; for (var i = 0; i < m.children.length; i++) if (m.children[i].classList.contains('on')) return m.children[i].getAttribute('data-m'); return ''; }
   function annivState() {
     var row = $('fanrow'), cb = $('fan'), why = $('fanwhy'), r = { send: false };
     if (!row) return r;
@@ -867,7 +869,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var linked = !found.isNew && rowsOf('logs').some(function (x) { return x.ref === found.id; });
     var reason = '';
     if (c === 'ANNIVERSARY' || c === 'BIRTHDAY') reason = c;
-    else if (rp) reason = 'repeat';
+    else if (rp && repMode() !== 'tour') reason = 'repeat';
     var sx = $('fansx'), cur = DEFSX;
     if (linked) {
       var lr = rowsOf('logs').filter(function (x) { return x.ref === found.id; })[0]; cur = (lr && lr.suffix) || DEFSX;
@@ -1028,7 +1030,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       + '<div class="field"><label for="glih-rpd">until</label><input type="text" id="glih-rpd" class="fin" autocomplete="off"></div>'
       + '<div class="field"><label for="glih-rpc">count</label><input type="text" id="glih-rpc" class="fin num" inputmode="numeric" value="4" autocomplete="off"></div>'
       + '<div class="field"><label for="glih-rpx">skip</label><input type="text" id="glih-rpx" class="fin" autocomplete="off" spellcheck="false" placeholder="yyyymmdd, mmdd, ..."></div>'
-      + '</div><div id="glih-rpsc" hidden></div>'
+      + '</div><div id="glih-rpsc" hidden></div><div id="glih-rptr" hidden></div>'
       + '<div class="fcand" id="glih-rpl"></div><div class="fstat" id="glih-rpm"></div></div>';
     after.parentNode.insertBefore(box, after.nextSibling);
     var on = $('rpon'), body = $('rpbody'), num = $('rpn'), unit = $('rpu'), until = $('rpd'), cnt = $('rpc'), skipEl = $('rpx'), list = $('rpl'), msg = $('rpm'), off = {}, last = null, memo = '', asked = false, cTouched = false;
@@ -1050,7 +1052,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       { k: 'close', lb: 'close', ct: 'CLOSE', sf: '\u7de0\u5207', ch: ['\u62bd\u9078\u53d7\u4ed8\u7de0\u5207', '\u5fdc\u52df\u53d7\u4ed8\u7de0\u5207', '\u8ca9\u58f2\u7d42\u4e86'] },
       { k: 'result', lb: 'result', ct: 'RESULT', sf: '\u5f53\u9078\u767a\u8868', ch: ['\u5f53\u9078\u767a\u8868', '\u5f53\u9078\u9023\u7d61'] },
       { k: 'due', lb: 'due', ct: 'CLOSE', sf: '\u5165\u91d1\u671f\u9650', ch: ['\u5165\u91d1\u671f\u9650'] } ];
-    [['interval', 'interval'], ['schedule', 'schedule']].forEach(function (q) {
+    [['interval', 'interval'], ['schedule', 'schedule'], ['tour', 'tour']].forEach(function (q) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = q[1]; b.setAttribute('data-m', q[0]);
       b.onclick = function () { mode = q[0]; changed(); };
       $('rpmd').appendChild(b);
@@ -1082,6 +1084,60 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rpsp">optional-sp</label><div class="fgcol"><input type="text" id="glih-rpsp" class="fin" autocomplete="off"></div>'; sc.appendChild(sw);
       [].forEach.call(sc.querySelectorAll('input,select'), function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
     })();
+    // tour mode: one row per show (date / time / area / map). The title of a row = the title above + a full-width space + area + suffix; contents / url / groups ... are the ones above. A + button adds a row.
+    var TR = { rows: [] };
+    (function () {
+      var tr = $('rptr'), rowsBox = document.createElement('div'); tr.appendChild(rowsBox);
+      function renum() { TR.rows.forEach(function (r, i) { r.nmt.textContent = String(i + 1); r.x.hidden = TR.rows.length < 2; }); }
+      function mk(cls, ph) { var e = document.createElement('input'); e.type = 'text'; e.className = cls; if (ph) e.placeholder = ph; e.setAttribute('autocomplete', 'off'); e.setAttribute('spellcheck', 'false'); return e; }
+      function addRow() {
+        var r = {}, row = document.createElement('div'); row.className = 'rpsrow';
+        var nm = document.createElement('span'); nm.className = 'nm'; r.nmt = document.createElement('span'); nm.appendChild(r.nmt);
+        r.x = document.createElement('button'); r.x.type = 'button'; r.x.className = 'small'; r.x.textContent = '\u00d7'; r.x.title = 'remove'; r.x.style.marginLeft = '6px'; nm.appendChild(r.x); row.appendChild(nm);
+        var col = document.createElement('div'); col.className = 'rpcol'; row.appendChild(col);
+        r.d = mk('fin rpd'); dtText(r.d, 'date'); col.appendChild(r.d); dtPicker(r.d, 'date');
+        r.t = mk('fin rpt'); dtText(r.t, 'time'); col.appendChild(r.t); dtPicker(r.t, 'time');
+        r.a = mk('fin rpf', 'area'); col.appendChild(r.a);
+        r.m = mk('fin rpf rpmap', 'map'); col.appendChild(r.m);
+        [r.d, r.t].forEach(function (e) { e.addEventListener('input', function () { r.touched = true; }); });
+        [r.d, r.t, r.a, r.m].forEach(function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
+        r.x.onclick = function () { if (TR.rows.length < 2) return; TR.rows.splice(TR.rows.indexOf(r), 1); rowsBox.removeChild(row); renum(); changed(); };
+        TR.rows.push(r); rowsBox.appendChild(row); renum();
+        return r;
+      }
+      TR.add = addRow; addRow(); addRow();
+      var pb = document.createElement('button'); pb.type = 'button'; pb.className = 'small'; pb.textContent = '+'; pb.title = 'add a show'; pb.style.cssText = 'display:block;width:100%;margin:6px 0'; pb.onclick = function () { addRow(); changed(); }; tr.appendChild(pb);
+      var sf = document.createElement('div'); sf.className = 'field'; sf.innerHTML = '<label for="glih-rpts">suffix</label><div class="fgcol"><input type="text" id="glih-rpts" class="fin" autocomplete="off"><div class="chipr" id="glih-rptsc"></div></div>'; tr.appendChild(sf);
+      TR.sfx = sf.querySelector('input'); var scb = sf.querySelector('.chipr');
+      var cb = document.createElement('button'); cb.type = 'button'; cb.className = 'chip'; cb.textContent = '\u516c\u6f14'; scb.appendChild(cb);
+      cb.onclick = function () { TR.sfx.value = TR.sfx.value.trim() === cb.textContent ? '' : cb.textContent; TR.sfx.dispatchEvent(new Event('input', { bubbles: true })); };
+      TR.sfx.addEventListener('input', function () { cb.classList.toggle('on', TR.sfx.value.trim() === cb.textContent); changed(); });
+      var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rptp">optional-sp</label><div class="fgcol"><input type="text" id="glih-rptp" class="fin" autocomplete="off"></div>'; tr.appendChild(sw);
+      TR.sp = sw.querySelector('input'); TR.sp.addEventListener('input', changed);
+    })();
+    function tourRefresh() {
+      var st = topReady('logs'), t0 = ((($('f-title') || {}).value) || '').replace(/\s*\n\s*/g, ' ').trim(), uv = ((($('f-url') || {}).value) || '').trim(), url = /^https?:\/\/\S+$/i.test(uv) ? uv : '';
+      var ct = ((($('f-contents') || {}).value) || '').trim().toUpperCase(), sp0 = (TR.sp.value || '').replace(/\s*\n\s*/g, ' ').trim(), sfx = TR.sfx.value.trim();
+      var r0 = TR.rows[0]; if (st && r0 && !r0.touched) { r0.d.value = fmtDigits(st.d, 'date'); r0.t.value = st.t ? fmtDigits(st.t, 'time') : ''; } // the first row follows the date / time above until it is edited
+      var lines = [], rows = [], bad = false;
+      list.innerHTML = '';
+      TR.rows.forEach(function (r) {
+        var d = digits(r.d.value), t = digits(r.t.value), a = r.a.value.trim(), m = r.m.value.trim();
+        var empty = d === '' && t === '' && a === '' && m === '';
+        var dBad = d !== '' && !okDate(d), tBad = t !== '' && !okTime(t), mBad = m !== '' && !/^https?:\/\/\S+$/i.test(m), noD = d === '' && !empty;
+        r.d.classList.toggle('bad', dBad || noD); r.t.classList.toggle('bad', tBad); r.m.classList.toggle('bad', mBad);
+        if (empty) return;
+        if (dBad || tBad || mBad || noD) { bad = true; return; }
+        var lab = a ? '\u3000' + a + sfx : '';
+        var f = [t0 + lab, ct, url, sp0 ? sp0 + lab : '', m];
+        while (f.length > 1 && f[f.length - 1] === '') f.pop();
+        lines.push(d + ' ' + (t || '-') + ' | ' + f.join(' | '));
+        rows.push(d);
+      });
+      list.hidden = true; msg.textContent = '';
+      last = { rows: rows, lines: lines };
+      return last;
+    }
     function schedRefresh() {
       var st = topReady('logs'), t0 = ((($('f-title') || {}).value) || '').replace(/\s*\n\s*/g, ' ').trim(), uv = ((($('f-url') || {}).value) || '').trim(), same = /^https?:\/\/\S+$/i.test(uv), sp0 = ($('rpsp').value || '').replace(/\s*\n\s*/g, ' ').trim();
       var lines = [], rows = [], note = '', bad = false;
@@ -1122,7 +1178,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       for (i = 0; i < qs.length; i++) qs[i].classList.toggle('on', qs[i].getAttribute('data-n') === String(parseInt(num.value, 10)) && qs[i].getAttribute('data-u') === unit.value);
       body.hidden = !on.checked;
       var qm = $('rpmd').children; for (i = 0; i < qm.length; i++) qm[i].classList.toggle('on', qm[i].getAttribute('data-m') === mode);
-      $('rpiv').hidden = mode === 'schedule'; $('rpsc').hidden = mode !== 'schedule';
+      $('rpiv').hidden = mode !== 'interval'; $('rpsc').hidden = mode !== 'schedule'; $('rptr').hidden = mode !== 'tour';
+      if (mode === 'tour') { if (!on.checked) { last = null; return null; } return tourRefresh(); }
       if (mode === 'schedule') { if (!on.checked) { last = null; return null; } return schedRefresh(); }
       var wd = [].filter.call($('rpw').children, function (b) { return b.classList.contains('on'); }).map(function (b) { return +b.getAttribute('data-w'); });
       [].forEach.call($('rpw').children, function (b) { b.disabled = unit.value === 'day'; });
@@ -1174,18 +1231,19 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (mode === 'week') return ymdOf(new Date(c.getFullYear(), c.getMonth(), c.getDate() + 7));
     if (mode === 'month') return ymdOf(addMonths(c, 1));
     if (mode === 'year') return ymdOf(addMonths(c, 12));
-    if (mode === 'repeat') return cur; // the date stays; the repeat entry is turned on in continueFrom
+    if (mode === 'repeat' || mode === 'tour') return cur; // the date stays; the repeat entry is turned on in continueFrom
     return '';
   }
+  function tourBase(t) { t = String(t || ''); var i = t.lastIndexOf('\u3000'); return i > 0 ? t.slice(0, i) : t; } // the title without the last full-width-space part (the area part)
   function continueFrom(row, mode) {
     var nd = nextOf(row, mode); if (!nd) return;
     $('fid').value = ''; hideCands(); clearFound();
     $('fdd').value = fmtDigits(nd, 'date'); $('fdt').value = fmtDigits(row.time || '', 'time'); $('fany').checked = !row.time;
     topChanged();
-    [['contents', row.contents], ['groups', row.groups], ['relations', row.relations], ['tags', row.tags], ['title', bumpTitle(row.title, 1)]].forEach(function (x) {
+    [['contents', row.contents], ['groups', row.groups], ['relations', row.relations], ['tags', row.tags], ['title', mode === 'tour' ? tourBase(row.title) : bumpTitle(row.title, 1)], ['url', mode === 'tour' ? row.url : '']].forEach(function (x) {
       var v = x[1]; if (Array.isArray(v)) v = v.join(','); if (v) setVal(x[0], String(v));
     });
-    if (mode === 'repeat' && $('rpon')) { $('rpon').checked = true; $('rpon').dispatchEvent(new Event('change', { bubbles: true })); } // repeat entry mode: the repeat check is turned on (the date is kept)
+    if ((mode === 'repeat' || mode === 'tour') && $('rpon')) { $('rpon').checked = true; $('rpon').dispatchEvent(new Event('change', { bubbles: true })); if (mode === 'tour') { var tb = $('rpmd').querySelector('[data-m=tour]'); if (tb) tb.click(); } } // repeat entry mode: the repeat check is turned on (the date is kept)
   }
   [].forEach.call($('fcc').children, function (b) { // weekly / monthly / yearly: pressing one runs continue with that interval
     b.onclick = function () {
