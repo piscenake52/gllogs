@@ -743,6 +743,9 @@ def apply_item(target, main_data, raw, issue_map):
 
 # ---------- ファイル操作 ----------
 
+INDEX_MAP_CONTENTS = ("LIVE", "RELEASEEVENT", "FANMEETING")
+
+
 def write_index(target, main_data):
     """検索・候補用の軽量インデックスを書き出す（index_file が設定されたものだけ）。
     必要な項目だけを残し、空の項目は省く。メインファイルと同じ並びで、空白なしのJSONにする"""
@@ -753,6 +756,10 @@ def write_index(target, main_data):
     rt = ref_title(main_data) if target["name"] == "logs" else None
     for e in main_data:
         row = {k: e[k] for k in target["index_fields"] if not is_blank(e.get(k))}
+        if target["name"] == "logs" and e.get("contents") in INDEX_MAP_CONTENTS:
+            for k in ("map", "tags"):  # helperのtourモードで、areaに紐づく候補(map / tags)を出すため、LIVE / RELEASEEVENT / FANMEETING だけ入れる
+                if not is_blank(e.get(k)):
+                    row[k] = e[k]
         if target["name"] == "logs" and e.get("ref") and "title" not in row:
             t = rt(e)
             if t:
