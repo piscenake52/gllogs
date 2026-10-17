@@ -138,26 +138,11 @@
     ]
   },
   {
-    "logid": "4f68c80870ae",
+    "logid": "65ea1d82a444",
     "date": "20270321",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Laki LIVE TOUR 2027 -LINK UP- 愛知公演記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1231858087841759233",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "ダイアモンドホール"
-    ]
+    "ref": "6da7dc31e040"
   },
   {
     "logid": "c75460db3279",
@@ -186,26 +171,11 @@
     ]
   },
   {
-    "logid": "26bf5bffabe5",
+    "logid": "a109aa5dafe8",
     "date": "20270211",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Laki LIVE TOUR 2027 -LINK UP- 東京公演記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1231858087841759233",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "大手町三井ホール"
-    ]
+    "ref": "c75460db3279"
   },
   {
     "logid": "7dc7aea31797",
@@ -234,26 +204,11 @@
     ]
   },
   {
-    "logid": "dcf97010b5d4",
+    "logid": "73de6b86f1d5",
     "date": "20270123",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Laki LIVE TOUR 2027 -LINK UP- 大阪公演記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1231858087841759233",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "BIGCAT"
-    ]
+    "ref": "7dc7aea31797"
   },
   {
     "logid": "6914702424b0",
@@ -391,26 +346,11 @@
     ]
   },
   {
-    "logid": "c0f7bf3a28cf",
+    "logid": "a4d34bc46434",
     "date": "20261225",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special 東京公演記念日",
-    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "Shibuya LOVEZ",
-      "クリスマス"
-    ]
+    "ref": "9dc79e06a03e"
   },
   {
     "logid": "4098bf919ebd",
@@ -716,6 +656,14 @@
     ]
   },
   {
+    "logid": "a51edbfe9f91",
+    "date": "20261210",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "ca028b9f7bc7",
+    "suffix": "開催記念日"
+  },
+  {
     "logid": "ead29811e6b5",
     "date": "20261209",
     "time": "2100",
@@ -1010,38 +958,20 @@
     ]
   },
   {
-    "logid": "6e160f4c7d4c",
+    "logid": "f09c8fc46741",
     "date": "20261129",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-記念日",
-    "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [
-      "TOA"
-    ],
-    "tags": [
-      "MUFGスタジアム",
-      "国立競技場"
-    ]
+    "ref": "546102244903",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "318e05df23a3",
+    "date": "20261129",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "497731cf0c5c",
+    "suffix": "放送記念日"
   },
   {
     "logid": "ec18c3745b81",
@@ -1104,38 +1034,12 @@
     "tags": []
   },
   {
-    "logid": "8f871f048aa2",
+    "logid": "1f80aa3336b3",
     "date": "20261128",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-記念日",
-    "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [
-      "TOA"
-    ],
-    "tags": [
-      "MUFGスタジアム",
-      "国立競技場"
-    ]
+    "ref": "ec18c3745b81",
+    "suffix": "開催記念日"
   },
   {
     "logid": "a21cc1dbe203",
@@ -1556,6 +1460,22 @@
     ]
   },
   {
+    "logid": "0a647ae48330",
+    "date": "20261115",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "c0c02d10cd44",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "be93fff9cc45",
+    "date": "20261115",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "9a97d9c1792e",
+    "suffix": "放送記念日"
+  },
+  {
     "logid": "f7125e1da63b",
     "date": "20261113",
     "time": "2000",
@@ -1724,31 +1644,6 @@
     ]
   },
   {
-    "logid": "7a0806b7b3eb",
-    "date": "20261111",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Girls² 14th EP 「EASY」 リリース記念日",
-    "display_sp": "EP 「EASY」 リリース記念日",
-    "url": "https://girls2-fc.jp/page/news/1220569487942615041",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "EASY",
-      "Nocturne",
-      "Girls PARADE",
-      "Girls² 7th Anniversary Seven×Seven in Bloom -The Live-"
-    ]
-  },
-  {
     "logid": "3a451a78bcd9",
     "date": "20261111",
     "time": "",
@@ -1773,6 +1668,13 @@
       "Girls PARADE",
       "Girls² 7th Anniversary Seven×Seven in Bloom -The Live-"
     ]
+  },
+  {
+    "logid": "a0e963dfd783",
+    "date": "20261111",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "3a451a78bcd9"
   },
   {
     "logid": "2447d5f8b575",
@@ -1905,6 +1807,14 @@
     ]
   },
   {
+    "logid": "295ff17a78b5",
+    "date": "20261108",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "6e963f70686a",
+    "suffix": "開催記念日"
+  },
+  {
     "logid": "569071028ad1",
     "date": "20261107",
     "time": "1500",
@@ -1982,6 +1892,14 @@
       "KIK"
     ],
     "tags": []
+  },
+  {
+    "logid": "7fd15d86a63d",
+    "date": "20261107",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "42b90678ae26",
+    "suffix": "開催記念日"
   },
   {
     "logid": "77e64538e41a",
@@ -2217,6 +2135,14 @@
     ]
   },
   {
+    "logid": "bbfd5dee4432",
+    "date": "20261103",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "5c1ac0f20995",
+    "suffix": "開催記念日"
+  },
+  {
     "logid": "cb2eba94a8d8",
     "date": "20261102",
     "time": "1700",
@@ -2345,27 +2271,6 @@
     ]
   },
   {
-    "logid": "1699f4ab04fc",
-    "date": "20261101",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "atmoscon 2026記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1227926050164441090",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "新宿住友ビル三角広場"
-    ]
-  },
-  {
     "logid": "d1be7ca50663",
     "date": "20261101",
     "time": "",
@@ -2382,6 +2287,14 @@
       "AKR",
       "KIK"
     ]
+  },
+  {
+    "logid": "af4e41463622",
+    "date": "20261101",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "8357b34a46d5",
+    "suffix": "開催記念日"
   },
   {
     "logid": "de472b4a3bd1",
@@ -2446,6 +2359,14 @@
         ]
       }
     ]
+  },
+  {
+    "logid": "aaf40e385e35",
+    "date": "20261031",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "de472b4a3bd1",
+    "suffix": "開催記念日"
   },
   {
     "logid": "6612456694b7",
@@ -2955,6 +2876,14 @@
     ]
   },
   {
+    "logid": "71b1e4c25799",
+    "date": "20261025",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "2c3e1beb39ab",
+    "suffix": "開催記念日"
+  },
+  {
     "logid": "c38682692d38",
     "date": "20261024",
     "time": "1815",
@@ -3088,6 +3017,13 @@
     "relations": [],
     "setlistid": "",
     "tags": []
+  },
+  {
+    "logid": "9a1097290de0",
+    "date": "20261024",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "c38682692d38"
   },
   {
     "logid": "7f58fa2e81de",
@@ -3633,25 +3569,11 @@
     ]
   },
   {
-    "logid": "7bed1dd68956",
+    "logid": "2f9e4b94670c",
     "date": "20261018",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 大阪公演記念日",
-    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "NHK大阪ホール"
-    ]
+    "ref": "0cdcbd990ebe"
   },
   {
     "logid": "d1af4f06dfed",
@@ -3962,27 +3884,6 @@
     ]
   },
   {
-    "logid": "c9ea00e59d09",
-    "date": "20261017",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "ZIP-FM 「ENJOY LIVE」 公開収録記念日",
-    "url": "https://www.nagashima-onsen.co.jp/spaland/info/20261017.html",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "relations": [
-      "TOA"
-    ]
-  },
-  {
     "logid": "7e1b5ffe7502",
     "date": "20261017",
     "time": "",
@@ -4108,6 +4009,14 @@
         ]
       }
     ]
+  },
+  {
+    "logid": "3e5b3f3679a9",
+    "date": "20261017",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "f9cdf00c5a69",
+    "suffix": "開催記念日"
   },
   {
     "logid": "ad12ab20846f",
@@ -6803,6 +6712,22 @@
     ]
   },
   {
+    "logid": "851fbaec6ce0",
+    "date": "20261012",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "4982b965f81d",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "24f909fcbc84",
+    "date": "20261012",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "6d30e29f685d",
+    "suffix": "開催記念日"
+  },
+  {
     "logid": "07457dc63f3b",
     "date": "20261011",
     "time": "2300",
@@ -7265,6 +7190,14 @@
     ]
   },
   {
+    "logid": "df9fc8808e55",
+    "date": "20261011",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "cd6ca060b671",
+    "suffix": "開催記念日"
+  },
+  {
     "logid": "81e88be0bd9e",
     "date": "20261010",
     "time": "2200",
@@ -7671,27 +7604,6 @@
     ]
   },
   {
-    "logid": "2837a5e7f2fe",
-    "date": "20261010",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 愛知公演記念日",
-    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "Niterra日本特殊陶業市民会館ビレッジホール"
-    ]
-  },
-  {
     "logid": "6f99f419999c",
     "date": "20261010",
     "time": "",
@@ -7832,6 +7744,13 @@
         ]
       }
     ]
+  },
+  {
+    "logid": "979fc29e6689",
+    "date": "20261010",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "860c118c1c16"
   },
   {
     "logid": "298ab8cd839a",
@@ -9757,25 +9676,12 @@
     ]
   },
   {
-    "logid": "5106c9df3118",
+    "logid": "2bf9fe817eca",
     "date": "20261004",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- 福岡公演記念日",
-    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "福岡国際会議場 メインホール"
-    ]
+    "ref": "2275e6c5523d",
+    "suffix": "放送記念日"
   },
   {
     "logid": "c3d326d64b8a",
@@ -10324,27 +10230,6 @@
     ]
   },
   {
-    "logid": "87109b16ec52",
-    "date": "20261003",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "a-nation 2026 出演記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1230804077818937344",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "お台場 a-nation特設会場"
-    ]
-  },
-  {
     "logid": "a28c89c34cce",
     "date": "20261003",
     "time": "",
@@ -10428,6 +10313,38 @@
         ]
       }
     ]
+  },
+  {
+    "logid": "9ad28e86cdea",
+    "date": "20261003",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "4192388cd7b8",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "c1e7aaf98d58",
+    "date": "20261003",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "c88e0887572d",
+    "suffix": "出演記念日"
+  },
+  {
+    "logid": "f7529b6f446e",
+    "date": "20261003",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "0a4d0d529724",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "eeaaa41b9dbd",
+    "date": "20261003",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "1534b9f9b302",
+    "suffix": "放送記念日"
   },
   {
     "logid": "926100fd2d2d",
@@ -10797,6 +10714,13 @@
         ]
       }
     ]
+  },
+  {
+    "logid": "407d458354e9",
+    "date": "20261002",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "8fe4b288bfc4"
   },
   {
     "logid": "fe1c21bd2f22",
@@ -11489,69 +11413,27 @@
     ]
   },
   {
-    "logid": "82118d0678a4",
+    "logid": "29f85eacd1e0",
     "date": "20260930",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Laki 2nd Album「WORK≒LiFE」リリース記念日",
-    "display_pc": "Laki 2nd ALBUM 「WORK≒LiFE」 リリース記念日",
-    "display_sp": "2nd AL 「WORK≒LiFE」 リリース記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1202914447505489922",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ]
+    "ref": "ea1091027a93",
+    "suffix": "開催記念日"
   },
   {
-    "logid": "c5f1a07ffd01",
+    "logid": "b14c9c4605a2",
     "date": "20260930",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "MAGICORE記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1233780456550301696",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "Lotte World Adventure",
-      "iScream"
-    ]
+    "ref": "29a2fdf5cef4",
+    "suffix": "開催記念日"
   },
   {
-    "logid": "eaa9e7f85558",
+    "logid": "7bc3d6664a44",
     "date": "20260930",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "MAGICORE記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1233780456550301696",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "Lotte World Adventure",
-      "iScream"
-    ]
+    "ref": "7e2bd8916b7e"
   },
   {
     "logid": "d9ba52d94d85",
@@ -12234,26 +12116,20 @@
     ]
   },
   {
-    "logid": "a084347c775b",
+    "logid": "4b4f59c68058",
     "date": "20260927",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "エンタパークフェス2026記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1227521369592299520",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [
-      ""
-    ]
+    "ref": "4a43835e73a2",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "5f28182a81ae",
+    "date": "20260927",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "5aac956efbb3",
+    "suffix": "開催記念日"
   },
   {
     "logid": "1ae8465f0b21",
@@ -12675,6 +12551,30 @@
     "tags": [
       "幕張メッセ国際展示場 1-3ホール"
     ]
+  },
+  {
+    "logid": "afbd6506595d",
+    "date": "20260926",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "cfd027f9fdc4",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "8d953b45fd86",
+    "date": "20260926",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "521ebf60b87c",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "0447231e503c",
+    "date": "20260926",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "5ef4fe01d245",
+    "suffix": "開催記念日"
   },
   {
     "logid": "61879edfe6d9",
@@ -13596,25 +13496,12 @@
     ]
   },
   {
-    "logid": "66ca2d0c8aca",
+    "logid": "caead205a06d",
     "date": "20260923",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "HiGH&LOW 10th ANNIVERSARY FEVER記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1227165681103929345",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "Kアリーナ横浜"
-    ]
+    "ref": "9bde8211c93a",
+    "suffix": "開催記念日"
   },
   {
     "logid": "34ad2944b0a4",
@@ -14091,49 +13978,6 @@
     ]
   },
   {
-    "logid": "35a338d74c50",
-    "date": "20260922",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "HiGH&LOW 10th ANNIVERSARY FEVER記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1227165681103929345",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "Kアリーナ横浜"
-    ]
-  },
-  {
-    "logid": "f64610070eee",
-    "date": "20260922",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Laki 5th Anniversary Live -L∞K UP-記念日",
-    "url": "https://girls2-fc.jp/page/events/Laki5thAnnivLP",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "ヒューリックホール東京"
-    ]
-  },
-  {
     "logid": "5ad8b3d88f85",
     "date": "20260922",
     "time": "",
@@ -14156,6 +14000,22 @@
         ]
       }
     ]
+  },
+  {
+    "logid": "d91b51d97f9b",
+    "date": "20260922",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "67a3443a170c",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "5314ac4112ef",
+    "date": "20260922",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "171572e78be4",
+    "suffix": "開催記念日"
   },
   {
     "logid": "23555f18def1",
@@ -14573,6 +14433,14 @@
         ]
       }
     ]
+  },
+  {
+    "logid": "51ee45335948",
+    "date": "20260920",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "5d28e057db62",
+    "suffix": "開催記念日"
   },
   {
     "logid": "3cc73953e98b",
@@ -15961,6 +15829,14 @@
     ]
   },
   {
+    "logid": "533c766b48e0",
+    "date": "20260913",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "caea55624dbe",
+    "suffix": "開催記念日"
+  },
+  {
     "logid": "3370e9fff698",
     "date": "20260912",
     "time": "1900",
@@ -16170,6 +16046,22 @@
         ]
       }
     ]
+  },
+  {
+    "logid": "5406a95c28de",
+    "date": "20260912",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "43db8f840f7d",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "e251b2c2808c",
+    "date": "20260912",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "76d1d0f2c876",
+    "suffix": "開催記念日"
   },
   {
     "logid": "39de890d0e54",
@@ -17339,6 +17231,30 @@
     ]
   },
   {
+    "logid": "05e7955dc312",
+    "date": "20260906",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "793f2cfc96b1",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "45db3f828c69",
+    "date": "20260906",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "cd196ec227d8",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "9a6fefea0ca5",
+    "date": "20260906",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "70f138d30a28",
+    "suffix": "放送記念日"
+  },
+  {
     "logid": "b63ef9e3684e",
     "date": "20260905",
     "time": "1815",
@@ -17597,6 +17513,21 @@
       "MNM",
       "KIR"
     ]
+  },
+  {
+    "logid": "ea75f3c04d9b",
+    "date": "20260904",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "78a648c421f5",
+    "suffix": "放送記念日"
+  },
+  {
+    "logid": "2697fac6232f",
+    "date": "20260904",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "42fcdc9f4916"
   },
   {
     "logid": "ab65da7a469d",
@@ -18790,26 +18721,12 @@
     ]
   },
   {
-    "logid": "e0d9e9df5f95",
+    "logid": "8585e7fa8982",
     "date": "20260829",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "超WEGO2026記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1214912420577804288",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "WEGO 1.3.5... 原宿店"
-    ]
+    "ref": "194521762a21",
+    "suffix": "開催記念日"
   },
   {
     "logid": "adae320ce5a2",
@@ -19199,6 +19116,13 @@
       "AKR",
       "KIK"
     ]
+  },
+  {
+    "logid": "6de551341407",
+    "date": "20260826",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "e30348c37eb5"
   },
   {
     "logid": "5af72b117090",
@@ -19659,6 +19583,22 @@
     "tags": [
       "∞ DAY"
     ]
+  },
+  {
+    "logid": "f82551dfc11b",
+    "date": "20260820",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "2ba4575e1eb3",
+    "suffix": "開催記念日"
+  },
+  {
+    "logid": "d6202ef5be51",
+    "date": "20260820",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "4e3c23e2e388",
+    "suffix": "開催記念日"
   },
   {
     "logid": "c7a3a784c12a",
@@ -21202,37 +21142,12 @@
     ]
   },
   {
-    "logid": "8dc67184313f",
+    "logid": "f4180bd212c7",
     "date": "20260730",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls EXPO記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/1189431953955225600",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [
-      "TOA"
-    ],
-    "tags": [
-      "SGCホール有明"
-    ]
+    "ref": "b61ec53bd2de",
+    "suffix": "開催記念日"
   },
   {
     "logid": "6af163c69ea8",
@@ -23599,25 +23514,12 @@
     ]
   },
   {
-    "logid": "c58f80130847",
+    "logid": "23dbeb47e344",
     "date": "20260626",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 7th Anniversary \"Seven×Seven in Bloom -The Live-\"記念日",
-    "url": "https://girls2-fc.jp/page/events/7thAnnivLP",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "日本武道館"
-    ]
+    "ref": "e851b2943862",
+    "suffix": "開催記念日"
   },
   {
     "logid": "74dd5e6dde15",
@@ -23881,6 +23783,13 @@
       "豪華盤",
       "7 Flowers - それぞれが咲く理由 -"
     ]
+  },
+  {
+    "logid": "956905dbcc28",
+    "date": "20260624",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "2224d0ce40fc"
   },
   {
     "logid": "95909b086ee6",
@@ -27732,26 +27641,11 @@
     ]
   },
   {
-    "logid": "081d9ab05cb0",
+    "logid": "2d354aaa1c5d",
     "date": "20260429",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Laki LIVE TOUR 2026 -Ambition- 大阪公演記念日",
-    "url": "https://girls2-fc.jp/page/events/Ambition",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "なんばHatch"
-    ]
+    "ref": "74146bb6efa8"
   },
   {
     "logid": "67df7ff789ea",
@@ -27922,26 +27816,11 @@
     ]
   },
   {
-    "logid": "2f1e3da6b857",
+    "logid": "eaa364e7e0f0",
     "date": "20260426",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Laki LIVE TOUR 2026 -Ambition- 東京公演記念日",
-    "url": "https://girls2-fc.jp/page/events/Ambition",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "ヒューリックホール東京"
-    ]
+    "ref": "6f82362d46fa"
   },
   {
     "logid": "01b67357f7b3",
@@ -28025,52 +27904,6 @@
     ]
   },
   {
-    "logid": "9c03b19e7da1",
-    "date": "20260425",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Laki ミュージックカード「Pancake」リリース記念日",
-    "display_pc": "Laki MU-CA「Pancake」 リリース記念日",
-    "display_sp": "Laki MU-CA「Pancake」 リリース記念日",
-    "url": "https://girls2-fc.jp/page/lucky2news/1160506878766088194",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "tags": []
-  },
-  {
-    "logid": "79e66308fe41",
-    "date": "20260425",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Laki 配信限定シングル「Gimme 143」配信リリース記念日",
-    "display_pc": "Laki DEGITAL SINGLE「Gimme 143」 配信リリース記念日",
-    "display_sp": "Laki SG「Gimme 143」 配信リリース記念日",
-    "url": "https://girls2-fc.jp/page/lucky2news/1160506878766088194",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "tags": []
-  },
-  {
     "logid": "0399480b5735",
     "date": "20260425",
     "time": "",
@@ -28117,26 +27950,25 @@
     "tags": []
   },
   {
-    "logid": "fc3bf31130d7",
+    "logid": "2c332dfe7071",
     "date": "20260425",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Laki LIVE TOUR 2026 -Ambition- 愛知公演記念日",
-    "url": "https://girls2-fc.jp/page/events/Ambition",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "ダイアモンドホール"
-    ]
+    "ref": "01b67357f7b3"
+  },
+  {
+    "logid": "98b161fb3046",
+    "date": "20260425",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "0399480b5735"
+  },
+  {
+    "logid": "164b26595267",
+    "date": "20260425",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "f1d2e6ad13f2"
   },
   {
     "logid": "f044ba742337",
@@ -28765,6 +28597,13 @@
     "tags": []
   },
   {
+    "logid": "d7f8a3906bd3",
+    "date": "20260418",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "3898ffac3809"
+  },
+  {
     "logid": "ceaf5cc011b7",
     "date": "20260417",
     "time": "2000",
@@ -29190,6 +29029,13 @@
     ],
     "relations": [],
     "tags": []
+  },
+  {
+    "logid": "ee1274f2c364",
+    "date": "20260411",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "b92424ecd718"
   },
   {
     "logid": "0275d9e229b7",
@@ -29725,6 +29571,13 @@
       "Unmelting Snow",
       "Girls² WINTER LIVE 2025 “Snowflakes”"
     ]
+  },
+  {
+    "logid": "bad554a6173d",
+    "date": "20260401",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "f8a174ccc6e0"
   },
   {
     "logid": "eea984981be0",
@@ -36402,24 +36255,11 @@
     ]
   },
   {
-    "logid": "0132ef862aa8",
+    "logid": "f2ab2235f179",
     "date": "20251228",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² WINTER LIVE 2025 \"Snowflakes\" 大阪公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "オリックス劇場"
-    ]
+    "ref": "fc1fda187564"
   },
   {
     "logid": "90cd1a9824a4",
@@ -36587,24 +36427,11 @@
     ]
   },
   {
-    "logid": "4c1c40c4c37e",
+    "logid": "1155deee351f",
     "date": "20251226",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² WINTER LIVE 2025 \"Snowflakes\" 東京公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "東京国際フォーラ"
-    ]
+    "ref": "d7ec039871be"
   },
   {
     "logid": "c1525272431b",
@@ -36839,6 +36666,20 @@
       "a-nation 2025",
       "がるがるちゃんねる Christmas Special"
     ]
+  },
+  {
+    "logid": "46a2341492cd",
+    "date": "20251224",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "24761f12db4b"
+  },
+  {
+    "logid": "1094acd8419d",
+    "date": "20251224",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "943552c2d91b"
   },
   {
     "logid": "43c8d48af206",
@@ -38728,26 +38569,11 @@
     ]
   },
   {
-    "logid": "c8019264c75b",
+    "logid": "d86f9186e9c4",
     "date": "20251124",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Laki LIVE TOUR 2025 -Infinity- 愛知公演記念日",
-    "url": "https://www.ldh.co.jp/news/detail.php?lang=jpn&site=Egirls&newsid=0000051829",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "COMTEC PORTBASE"
-    ]
+    "ref": "44ffff0c2437"
   },
   {
     "logid": "5bfcae0ef807",
@@ -39295,28 +39121,6 @@
     ]
   },
   {
-    "logid": "b8dd8831f1f2",
-    "date": "20251116",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Laki LIVE TOUR 2025 -Infinity- 大阪公演記念日",
-    "url": "https://www.ldh.co.jp/news/detail.php?lang=jpn&site=Egirls&newsid=0000051829",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "Zepp Namba"
-    ]
-  },
-  {
     "logid": "5234e514b0e8",
     "date": "20251116",
     "time": "",
@@ -39341,6 +39145,13 @@
         ]
       }
     ]
+  },
+  {
+    "logid": "c571ace5560d",
+    "date": "20251116",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "abec934950ed"
   },
   {
     "logid": "9ed0e8f4cb0b",
@@ -39773,26 +39584,11 @@
     ]
   },
   {
-    "logid": "c76069f5ea4c",
+    "logid": "575ec5cdd1e3",
     "date": "20251109",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Laki LIVE TOUR 2025 -Infinity- 福岡公演記念日",
-    "url": "https://www.ldh.co.jp/news/detail.php?lang=jpn&site=Egirls&newsid=0000051829",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "UNITED LAB"
-    ]
+    "ref": "b20634181d99"
   },
   {
     "logid": "df609e09eda6",
@@ -39908,26 +39704,11 @@
     ]
   },
   {
-    "logid": "06e9ef46126e",
+    "logid": "9a1b3307091e",
     "date": "20251107",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Laki LIVE TOUR 2025 -Infinity- 東京公演記念日",
-    "url": "https://www.ldh.co.jp/news/detail.php?lang=jpn&site=Egirls&newsid=0000051829",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "Zepp DiverCity TOKYO"
-    ]
+    "ref": "a338acd87303"
   },
   {
     "logid": "92248ce11b06",
@@ -42108,6 +41889,14 @@
     ]
   },
   {
+    "logid": "e973ac1ccd1a",
+    "date": "20251004",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "91d9b510f06f",
+    "suffix": "放送記念日"
+  },
+  {
     "logid": "d737d1b16397",
     "date": "20251003",
     "time": "2000",
@@ -42884,22 +42673,11 @@
     ]
   },
   {
-    "logid": "2cdadf557b6a",
+    "logid": "c55c05e841fc",
     "date": "20250924",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 12th EP 「New Era」 リリース記念日",
-    "display_sp": "EP 「New Era」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ]
+    "ref": "969e41f5669a"
   },
   {
     "logid": "5ae648ad1165",
@@ -46984,6 +46762,13 @@
     ]
   },
   {
+    "logid": "6960b630f687",
+    "date": "20250725",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "44a575d1aa8b"
+  },
+  {
     "logid": "30e6b3b5c57a",
     "date": "20250724",
     "time": "1700",
@@ -47104,6 +46889,13 @@
       "G2",
       "TOA"
     ]
+  },
+  {
+    "logid": "bc0617135ae5",
+    "date": "20250723",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "a6e4369e0b78"
   },
   {
     "logid": "d1c3dd7eb21b",
@@ -47316,6 +47108,13 @@
       "L2",
       "KAN"
     ]
+  },
+  {
+    "logid": "ce6c42b000de",
+    "date": "20250721",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "bd699ae42604"
   },
   {
     "logid": "ac976e715999",
@@ -47821,29 +47620,6 @@
     ]
   },
   {
-    "logid": "54ea6d247793",
-    "date": "20250713",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Lucky² 配信限定シングル「Unicorn Dance」 リリース記念日",
-    "display_pc": "Lucky² DEGITAL SINGLE 「Unicorn Dance」 リリース記念日",
-    "display_sp": "Lucky² DEGITAL SG 「Unicorn Dance」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/575431",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "tags": []
-  },
-  {
     "logid": "b93e8bebf479",
     "date": "20250713",
     "time": "",
@@ -47865,6 +47641,20 @@
     ],
     "relations": [],
     "tags": []
+  },
+  {
+    "logid": "89f8ddccdad7",
+    "date": "20250713",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "1b1683560829"
+  },
+  {
+    "logid": "76abb2a80e8f",
+    "date": "20250713",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "b93e8bebf479"
   },
   {
     "logid": "0eb45fb3de7f",
@@ -48918,25 +48708,12 @@
     ]
   },
   {
-    "logid": "8a10b1643303",
+    "logid": "49a9051cf1f0",
     "date": "20250628",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2025 -ガルガルエイト- 6th Anniversary Party記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "東京ガーデンシアター"
-    ]
+    "ref": "c52940fbd084",
+    "suffix": "開催記念日"
   },
   {
     "logid": "92f58c4930ed",
@@ -49668,6 +49445,13 @@
     "tags": [
       "ガルサケ"
     ]
+  },
+  {
+    "logid": "ce26a6af406c",
+    "date": "20250619",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "9a8912687c16"
   },
   {
     "logid": "2271c7c51ec8",
@@ -51408,25 +51192,11 @@
     ]
   },
   {
-    "logid": "5ed31ac44111",
+    "logid": "bb0c8c8b9ac8",
     "date": "20250524",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR -ガルガルエイト- 宮城公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "トークネットホール仙台"
-    ]
+    "ref": "28e7c3d6eb07"
   },
   {
     "logid": "e81fc8a5fe2f",
@@ -52228,25 +51998,11 @@
     ]
   },
   {
-    "logid": "d9842179b139",
+    "logid": "f26feee3fa6b",
     "date": "20250511",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR -ガルガルエイト- 京都公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "ロームシアター京都"
-    ]
+    "ref": "ea4c763de89c"
   },
   {
     "logid": "0ebdf21a1819",
@@ -52605,25 +52361,11 @@
     ]
   },
   {
-    "logid": "dcb0c0c53844",
+    "logid": "b61cce100894",
     "date": "20250506",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR -ガルガルエイト- 神奈川公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "パシフィコ横浜"
-    ]
+    "ref": "8af3cda875b6"
   },
   {
     "logid": "a32fa5b6bbdc",
@@ -53110,25 +52852,11 @@
     ]
   },
   {
-    "logid": "5617e66964bc",
+    "logid": "ee68f7d00940",
     "date": "20250429",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR -ガルガルエイト- 福岡公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "福岡国際会議場"
-    ]
+    "ref": "da86c5f47307"
   },
   {
     "logid": "050633f55f52",
@@ -54262,25 +53990,11 @@
     ]
   },
   {
-    "logid": "b31b23b12ce4",
+    "logid": "afb0bd569a94",
     "date": "20250413",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR -ガルガルエイト- 愛知公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "Niterra日本特殊陶業市民会館"
-    ]
+    "ref": "ef2e5757b7d8"
   },
   {
     "logid": "808c81c6d296",
@@ -54377,26 +54091,11 @@
     ]
   },
   {
-    "logid": "875a9db33d5c",
+    "logid": "786119980ab6",
     "date": "20250412",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR -ガルガルエイト- 大阪公演記念日",
-    "url": "https://girls2-fc.jp/page/GG8",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "NHK大阪ホール"
-    ]
+    "ref": "808c81c6d296"
   },
   {
     "logid": "c9658ca7e40c",
@@ -54787,26 +54486,11 @@
     ]
   },
   {
-    "logid": "e0b4b06e0b7d",
+    "logid": "2affd63836d0",
     "date": "20250406",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR -ガルガルエイト- 北海道公演記念日",
-    "url": "https://girls2-fc.jp/page/GG8",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "カナモトホール"
-    ]
+    "ref": "f0eab0ef1caa"
   },
   {
     "logid": "a721ba7bec14",
@@ -56369,37 +56053,11 @@
     ]
   },
   {
-    "logid": "f3e712c2325b",
+    "logid": "d68457b17fea",
     "date": "20250316",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR -ガルガルエイト- 大阪公演記念日",
-    "url": "https://girls2-fc.jp/page/GG8",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "南海浪切ホール"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/1901112134244987102",
-            "member": []
-          }
-        ]
-      }
-    ]
+    "ref": "59c33363ccfd"
   },
   {
     "logid": "da48f1c2bf22",
@@ -57305,25 +56963,11 @@
     ]
   },
   {
-    "logid": "c1c30962daa9",
+    "logid": "df9107de325a",
     "date": "20250302",
+    "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR -ガルガルエイト- 石川公演記念日",
-    "url": "https://girls2-fc.jp/page/GG8",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "金沢市文化ホール"
-    ]
+    "ref": "aaf534a3e21a"
   },
   {
     "logid": "07da7f081e71",
@@ -62954,47 +62598,6 @@
     ]
   },
   {
-    "logid": "19ac05cee043",
-    "date": "20241218",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Lucky² 1stフルアルバム「CLOVER」 リリース記念日",
-    "display_pc": "Lucky² 1st ALBUM 「CLOVER」 リリース記念日",
-    "display_sp": "Lucky² 1st AL 「CLOVER」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4672",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "tags": [
-      "CLOVER",
-      "ずっとずっとずっと",
-      "Dub♡Love!!",
-      "Song for you",
-      "夢空に羽",
-      "まっさら",
-      "こくご・さんすう・りか・恋愛！",
-      "ラキラキLOVE!",
-      "君はダーリン",
-      "神様Noでも僕らはYes",
-      "Shooting Star",
-      "Brand New World!",
-      "キミすき",
-      "アイコトバ",
-      "DISCO TIME",
-      "Fun!Fun!Fun! ～夢∞～"
-    ]
-  },
-  {
     "logid": "5a4b05fc6c7e",
     "date": "20241218",
     "time": "",
@@ -63036,27 +62639,18 @@
     ]
   },
   {
-    "logid": "388b53a685eb",
+    "logid": "15ffb2c171cd",
     "date": "20241218",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 東京公演記念日",
-    "url": "https://girls2-fc.jp/page/fourleafclover",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "YUR",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "ヒューリックホール東京"
-    ]
+    "ref": "2abd13343ea5"
+  },
+  {
+    "logid": "dfea01a5988b",
+    "date": "20241218",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "5a4b05fc6c7e"
   },
   {
     "logid": "2fad74da84db",
@@ -63353,52 +62947,18 @@
     ]
   },
   {
-    "logid": "da790cd6bcde",
+    "logid": "044e5f7be496",
     "date": "20241214",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 愛知公演記念日",
-    "url": "https://girls2-fc.jp/page/fourleafclover",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [
-      "YUR"
-    ],
-    "tags": [
-      "ボトムライン"
-    ]
+    "ref": "19d53befc110"
   },
   {
-    "logid": "deccc39cc121",
+    "logid": "d41173402a87",
     "date": "20241214",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 愛知公演記念日",
-    "url": "https://girls2-fc.jp/page/fourleafclover",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "YUR",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "ボトムライン"
-    ]
+    "ref": "9956ae798e19"
   },
   {
     "logid": "fe131400c09d",
@@ -63970,27 +63530,11 @@
     ]
   },
   {
-    "logid": "47e203530cd3",
+    "logid": "3d9767559da2",
     "date": "20241202",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² LIVE TOUR 2024 \"四つ葉のクローバー\" 大阪公演記念日",
-    "url": "https://girls2-fc.jp/page/fourleafclover",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "YUR",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "BIGCAT"
-    ]
+    "ref": "dae64162b276"
   },
   {
     "logid": "bd44b3beb201",
@@ -66510,23 +66054,11 @@
     ]
   },
   {
-    "logid": "2630722309cb",
+    "logid": "d139493dd9d9",
     "date": "20241030",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 11th EP 「寄り道 -Take it easy baby-」 リリース記念日",
-    "display_sp": "EP 「寄り道 -Take it easy baby-」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ]
+    "ref": "58cfb118e6c1"
   },
   {
     "logid": "ffbf8e0b72af",
@@ -66699,24 +66231,11 @@
     ]
   },
   {
-    "logid": "6a644e805058",
+    "logid": "ad4313f1f212",
     "date": "20241028",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "We are Girls² -The Live- Mini! by GL² family & friend 大阪公演記念日",
-    "display_sp": "We are Girls² -The Live- Mini! 大阪公演記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/946242279096451072",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ]
+    "ref": "73a60e6f3397"
   },
   {
     "logid": "0907ec34369c",
@@ -67322,57 +66841,11 @@
     ]
   },
   {
-    "logid": "613a99dd8f80",
+    "logid": "2dcf68858eea",
     "date": "20241021",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "We are Girls² -The Live- Mini! by GL² family & friend 北海道公演記念日",
-    "display_sp": "We are Girls² -The Live- Mini! 北海道公演記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/946242279096451072",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/1848245903163113520",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR",
-              "TOA"
-            ]
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/1848343522589675982",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR",
-              "TOA"
-            ]
-          }
-        ]
-      }
-    ]
+    "ref": "68ab9909a7dd"
   },
   {
     "logid": "ce2d6cdba3bc",
@@ -67532,6 +67005,14 @@
       "KIK",
       "YUR"
     ]
+  },
+  {
+    "logid": "47f227e96561",
+    "date": "20241020",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "5e5fda6092ca",
+    "suffix": "放送記念日"
   },
   {
     "logid": "1f41a7bb909a",
@@ -68020,57 +67501,11 @@
     ]
   },
   {
-    "logid": "b3197ddc3952",
+    "logid": "5ab8b9af4870",
     "date": "20241013",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "We are Girls² -The Live- Mini! by GL² family & friend 福岡公演記念日",
-    "display_sp": "We are Girls² -The Live- Mini! 福岡公演記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/946242279096451072",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/1845442150332498119",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR",
-              "TOA"
-            ]
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/1845329535853789617",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR",
-              "TOA"
-            ]
-          }
-        ]
-      }
-    ]
+    "ref": "7586c4b1b92f"
   },
   {
     "logid": "48f9ff542b06",
@@ -68235,48 +67670,11 @@
     ]
   },
   {
-    "logid": "026445942d16",
+    "logid": "db7b220fad2e",
     "date": "20241011",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "We are Girls² -The Live- Mini! by GL² family & friend 愛知公演記念日",
-    "display_sp": "We are Girls² -The Live- Mini! 愛知公演記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/946242279096451072",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/1807380345404403812",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/1844730362393665664",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR",
-              "TOA"
-            ]
-          }
-        ]
-      }
-    ]
+    "ref": "2fb1494b7427"
   },
   {
     "logid": "ec078ac942af",
@@ -68586,24 +67984,11 @@
     ]
   },
   {
-    "logid": "ee4dd4580e74",
+    "logid": "70345869af88",
     "date": "20241007",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "We are Girls² -The Live- Mini! by GL² family & friend 東京公演記念日",
-    "display_sp": "We are Girls² -The Live- Mini! 東京公演記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/946242279096451072",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ]
+    "ref": "87c5c45ca9e9"
   },
   {
     "logid": "a1c4bfcabd61",
@@ -68694,35 +68079,11 @@
     ]
   },
   {
-    "logid": "94d0dc906f9e",
+    "logid": "7047ef27d106",
     "date": "20241006",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "We are Girls² -The Live- Mini! by GL² family & friend 宮城公演記念日",
-    "display_sp": "We are Girls² -The Live- Mini! 宮城公演記念日",
-    "url": "https://girls2-fc.jp/page/familyNews/946242279096451072",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/1807380345404403812",
-            "member": []
-          }
-        ]
-      }
-    ]
+    "ref": "118bb2a5b933"
   },
   {
     "logid": "d51ad5e751b3",
@@ -71341,22 +70702,12 @@
     ]
   },
   {
-    "logid": "27adf18f58ca",
+    "logid": "689077ff2be5",
     "date": "20240830",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "バンコク日本博2024記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ]
+    "ref": "9b0ead05c73e",
+    "suffix": "開催記念日"
   },
   {
     "logid": "72d0e81ad970",
@@ -75023,34 +74374,6 @@
     ]
   },
   {
-    "logid": "a805cbbeedb4",
-    "date": "20240703",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Lucky² 4th EP「こくご・さんすう・りか・恋愛!」 リリース記念日",
-    "display_pc": "Lucky² 4th EP 「こくご・さんすう・りか・恋愛!」 リリース記念日",
-    "display_sp": "Lucky² 4th EP 「こくご・さんすう・りか・恋愛!」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4597",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "tags": [
-      "こくご・さんすう・りか・恋愛！",
-      "Dub♡Love!!",
-      "バグって急接近！？"
-    ]
-  },
-  {
     "logid": "91e201485d39",
     "date": "20240703",
     "time": "",
@@ -75077,6 +74400,13 @@
       "Dub♡Love!!",
       "バグって急接近！？"
     ]
+  },
+  {
+    "logid": "c2287b68b048",
+    "date": "20240703",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "91e201485d39"
   },
   {
     "logid": "11edda0e9bb8",
@@ -75467,25 +74797,12 @@
     ]
   },
   {
-    "logid": "00a5b2773d09",
+    "logid": "66d6d17b445a",
     "date": "20240630",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 5th anniversary We are Girls² -The Live-記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "国立代々木競技場第一体育館"
-    ]
+    "ref": "eceb0802aeb3",
+    "suffix": "開催記念日"
   },
   {
     "logid": "8cb3e7a19200",
@@ -76288,23 +75605,11 @@
     ]
   },
   {
-    "logid": "1dc024ad576d",
+    "logid": "751ab3b30ec6",
     "date": "20240619",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² × iScream 2nd SINGLE 「D.N.A.」 リリース記念日",
-    "display_sp": "SG 「D.N.A.」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ]
+    "ref": "4ad210833dd1"
   },
   {
     "logid": "321b8cc62f24",
@@ -82157,42 +81462,11 @@
     ]
   },
   {
-    "logid": "a25588963a05",
+    "logid": "a601f98f1b24",
     "date": "20240320",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 2nd ALBUM 「We are Girls² - Ⅱ -」 リリース記念日",
-    "display_sp": "2nd AL 「We are Girls² - Ⅱ -」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ]
-  },
-  {
-    "logid": "8cefbc51a0af",
-    "date": "20240320",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Girls² 2nd ALBUM 「We are Girls² -Ⅱ-」 リリース記念日",
-    "display_sp": "AL 「We are Girls² -Ⅱ-」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ]
+    "ref": "74bd7fb293f5"
   },
   {
     "logid": "74621313fa4a",
@@ -83387,35 +82661,6 @@
     ]
   },
   {
-    "logid": "3f957be2a1a0",
-    "date": "20240228",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Lucky² 3rd EP「ずっとずっとずっと」 リリース記念日",
-    "display_pc": "Lucky² 3rd EP 「ずっとずっとずっと」 リリース記念日",
-    "display_sp": "Lucky² 3rd EP 「ずっとずっとずっと」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4526",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "tags": [
-      "ずっとずっとずっと",
-      "Dreams, Stand Up!",
-      "まっさら",
-      "Lucky² LIVE TOUR 2023 Happy Summer"
-    ]
-  },
-  {
     "logid": "efb166eccfbe",
     "date": "20240228",
     "time": "",
@@ -83443,6 +82688,13 @@
       "まっさら",
       "Lucky² LIVE TOUR 2023 Happy Summer"
     ]
+  },
+  {
+    "logid": "08134ca2e921",
+    "date": "20240228",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "efb166eccfbe"
   },
   {
     "logid": "64bee429cfed",
@@ -84284,6 +83536,20 @@
     ]
   },
   {
+    "logid": "d9b69d480e14",
+    "date": "20240217",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "91a69a266528"
+  },
+  {
+    "logid": "e703a082c8f5",
+    "date": "20240217",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "3c8f74acbf2c"
+  },
+  {
     "logid": "5920b080faf1",
     "date": "20240216",
     "time": "1200",
@@ -84603,6 +83869,13 @@
     "tags": []
   },
   {
+    "logid": "4f4a4942e35c",
+    "date": "20240213",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "376b1dbe340b"
+  },
+  {
     "logid": "f98fdcbbd512",
     "date": "20240212",
     "time": "1800",
@@ -84716,6 +83989,13 @@
       "L2",
       "RIN"
     ]
+  },
+  {
+    "logid": "8354474239df",
+    "date": "20240212",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "f98fdcbbd512"
   },
   {
     "logid": "ca9f74880ec7",
@@ -87850,25 +87130,11 @@
     ]
   },
   {
-    "logid": "00eb4ae71344",
+    "logid": "faf6ddf0b5af",
     "date": "20231224",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2023 -activate- 東京公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "東京ガーデンシアター"
-    ]
+    "ref": "2be1b2732814"
   },
   {
     "logid": "1dc023211228",
@@ -87907,26 +87173,11 @@
     ]
   },
   {
-    "logid": "72d0a5892015",
+    "logid": "4864c32a3718",
     "date": "20231223",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2023 -activate- 東京公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "東京ガーデンシアター",
-      "iScream"
-    ]
+    "ref": "ed0da8642a38"
   },
   {
     "logid": "9ccc29df5313",
@@ -88113,23 +87364,11 @@
     ]
   },
   {
-    "logid": "de3ea190b2f5",
+    "logid": "a7542e6efd9e",
     "date": "20231220",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 10th EP 「アクセラレイト」 リリース記念日",
-    "display_sp": "10th EP 「アクセラレイト」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ]
+    "ref": "4dd08a750416"
   },
   {
     "logid": "f86dc25fbbd0",
@@ -89170,25 +88409,11 @@
     ]
   },
   {
-    "logid": "183bd5792296",
+    "logid": "368dc33159b4",
     "date": "20231202",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2023 -activate- 福岡公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "福岡市民会館"
-    ]
+    "ref": "6aece64c2858"
   },
   {
     "logid": "02027788d08c",
@@ -89836,25 +89061,11 @@
     ]
   },
   {
-    "logid": "0640448f2231",
+    "logid": "ccb747e0f737",
     "date": "20231123",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2023 -activate- 静岡公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "静岡市清水文化会館マリナート"
-    ]
+    "ref": "dcf356034239"
   },
   {
     "logid": "70c21337be89",
@@ -90133,25 +89344,11 @@
     ]
   },
   {
-    "logid": "8d1df2da9594",
+    "logid": "781e40ab14f5",
     "date": "20231119",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2023 -activate- 新潟公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "新潟テルサ"
-    ]
+    "ref": "84678156659b"
   },
   {
     "logid": "eef79523af6f",
@@ -90697,25 +89894,11 @@
     ]
   },
   {
-    "logid": "318cac5ee869",
+    "logid": "41767e47d5e4",
     "date": "20231111",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2023 -activate- 群馬公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "ベイシア文化ホール"
-    ]
+    "ref": "2b7dbcf2302f"
   },
   {
     "logid": "33fe55feb9cb",
@@ -91209,25 +90392,11 @@
     ]
   },
   {
-    "logid": "90e69ab94c42",
+    "logid": "f6a8baaefc14",
     "date": "20231105",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2023 -activate- 愛知公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "名古屋国際会議場"
-    ]
+    "ref": "5f21dc8f988c"
   },
   {
     "logid": "b76a64d29907",
@@ -91656,25 +90825,11 @@
     ]
   },
   {
-    "logid": "f74080a0331d",
+    "logid": "c6921eeaa959",
     "date": "20231028",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2023 -activate- 宮城公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "仙台サンプラザ"
-    ]
+    "ref": "27702c488248"
   },
   {
     "logid": "2ee14398391f",
@@ -92201,58 +91356,11 @@
     ]
   },
   {
-    "logid": "0dcba7e6cff9",
+    "logid": "eebaf734c73b",
     "date": "20231022",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2023 -activate- 大阪公演記念日",
-    "url": "https://girls2-fc.jp/page/activateLP",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "グランキューブ大阪"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/1715899546449113409",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/1715929304780132700",
-            "member": [
-              "YZH",
-              "MSK",
-              "KUR",
-              "TOA"
-            ]
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/1716067381909627359",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR"
-            ]
-          }
-        ]
-      }
-    ]
+    "ref": "a7f6c7afba5d"
   },
   {
     "logid": "9d035248c9ca",
@@ -92341,63 +91449,11 @@
     ]
   },
   {
-    "logid": "965b0229fb45",
+    "logid": "b2f8649e4ee8",
     "date": "20231021",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2023 -activate- 大阪公演記念日",
-    "url": "https://girls2-fc.jp/page/activateLP",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "グランキューブ大阪"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/1715523740749242393",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/1715579816718872952",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/1715594858738692142",
-            "member": [
-              "MMK",
-              "YOK",
-              "MNM",
-              "KIR"
-            ]
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/1715701268101185706",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR",
-              "TOA"
-            ]
-          }
-        ]
-      }
-    ]
+    "ref": "732b62574d2d"
   },
   {
     "logid": "db1a483acfb8",
@@ -92923,67 +91979,11 @@
     ]
   },
   {
-    "logid": "e6ec27c30ec5",
+    "logid": "7b339d501199",
     "date": "20231014",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² LIVE TOUR 2023 -activate- 北海道公演記念日",
-    "url": "https://girls2-fc.jp/page/activateLP",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "カナモトホール"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/1712831398443430276",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR",
-              "TOA"
-            ]
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/1713040817533907300",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/1713046226952974660",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Girls2_official/status/1713145435349811611",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR",
-              "TOA"
-            ]
-          }
-        ]
-      }
-    ]
+    "ref": "47b72c67377d"
   },
   {
     "logid": "581a4e238160",
@@ -93567,86 +92567,6 @@
     ]
   },
   {
-    "logid": "676fe812bbe6",
-    "date": "20231004",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Lucky² 2nd EP「夢空に羽」 リリース記念日",
-    "display_pc": "Lucky² 2nd EP 「夢空に羽」 リリース記念日",
-    "display_sp": "Lucky² 2nd EP 「夢空に羽」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4403",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "tags": [
-      "夢空に羽",
-      "夏の魔法",
-      "Shooting Star",
-      "Lucky² First Live Tour- Brand New World! -"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Laki922official/status/1683035806485872642",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Laki922official/status/1696794885355954194",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Laki922official/status/1706941753222398238",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Laki922official/status/1707304140727021989",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Laki922official/status/1707666525099033012",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Laki922official/status/1708060734096392408",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Laki922official/status/1708432866932318421",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Laki922official/status/1708778767307702738",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Laki922official/status/1709153698776289724",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Laki922official/status/1709514177419845943",
-            "member": []
-          },
-          {
-            "url": "https://x.com/Laki922official/status/1709519441388839308",
-            "member": []
-          }
-        ]
-      }
-    ]
-  },
-  {
     "logid": "11fe95530f55",
     "date": "20231004",
     "time": "",
@@ -93725,6 +92645,13 @@
         ]
       }
     ]
+  },
+  {
+    "logid": "57f6d6280ea5",
+    "date": "20231004",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "11fe95530f55"
   },
   {
     "logid": "2d5b1765db08",
@@ -95483,29 +94410,6 @@
     ]
   },
   {
-    "logid": "5860994a76a8",
-    "date": "20230906",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Girls²×iScream 『Rock Steady』 リリース記念日",
-    "display_sp": "SG 「Rock Steady」 リリース記念日",
-    "url": "https://youtu.be/a2ZrlE_cFF8?si=9HupGTk0T8DC98sZ",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "ガルサケ"
-    ]
-  },
-  {
     "logid": "1b01ea3968f2",
     "date": "20230906",
     "time": "",
@@ -95526,6 +94430,13 @@
     "tags": [
       "ガルサケ"
     ]
+  },
+  {
+    "logid": "821207e09897",
+    "date": "20230906",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "1b01ea3968f2"
   },
   {
     "logid": "779b7e1b191f",
@@ -97160,50 +96071,18 @@
     ]
   },
   {
-    "logid": "76176ab6faa1",
+    "logid": "8975be1bf6dd",
     "date": "20230813",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² LIVE TOUR 2023 \"Happy Summer\" 東京公演記念日",
-    "url": "https://girls2-fc.jp/page/lucky2news/774154774223258739",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "YUR",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "Zepp Haneda TOKYO"
-    ]
+    "ref": "06ba4d8ac784"
   },
   {
-    "logid": "65e4fb886ea0",
+    "logid": "f5d02c844611",
     "date": "20230813",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² LIVE TOUR 2023 \"Happy Summer\" 東京公演記念日",
-    "url": "https://girls2-fc.jp/page/lucky2news/774154774223258739",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "YUR",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "Zepp Haneda TOKYO"
-    ]
+    "ref": "96f2793c128e"
   },
   {
     "logid": "80fadf105abc",
@@ -97612,27 +96491,11 @@
     ]
   },
   {
-    "logid": "a12e754f909d",
+    "logid": "37b723b15c80",
     "date": "20230806",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² LIVE TOUR 2023 \"Happy Summer\" 大阪公演記念日",
-    "url": "https://girls2-fc.jp/page/lucky2news/774154774223258739",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "YUR",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "Zepp Osaka Bayside"
-    ]
+    "ref": "d3ab6cb0a4d7"
   },
   {
     "logid": "1827a7dbab1d",
@@ -97675,27 +96538,11 @@
     ]
   },
   {
-    "logid": "b1f095386942",
+    "logid": "4633b2745940",
     "date": "20230805",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² LIVE TOUR 2023 \"Happy Summer\" 愛知公演記念日",
-    "url": "https://girls2-fc.jp/page/lucky2news/774154774223258739",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "YUR",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "Zepp Nagoya"
-    ]
+    "ref": "1827a7dbab1d"
   },
   {
     "logid": "28f3fda901b6",
@@ -102279,23 +101126,11 @@
     ]
   },
   {
-    "logid": "8651a908d48a",
+    "logid": "826fc38f664d",
     "date": "20230524",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 9th EP 「Countdown」 リリース記念日",
-    "display_sp": "EP 「Countdown」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ]
+    "ref": "d515d0414098"
   },
   {
     "logid": "0f963a4697e2",
@@ -108322,34 +107157,6 @@
     ]
   },
   {
-    "logid": "adf476454af9",
-    "date": "20230222",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Lucky² 3rdシングル「ラキラキLOVE!」 リリース記念日",
-    "display_pc": "Lucky² 3rd SINGLE 「ラキラキLOVE!」 リリース記念日",
-    "display_sp": "Lucky² 3rd SG 「ラキラキLOVE!」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4340",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "tags": [
-      "ラキラキLOVE!",
-      "Baby Steps!!",
-      "リズスタ -Top of Artists!-"
-    ]
-  },
-  {
     "logid": "7bbb6da3b40e",
     "date": "20230222",
     "time": "",
@@ -108375,6 +107182,13 @@
       "Baby Steps!!",
       "リズスタ -Top of Artists!-"
     ]
+  },
+  {
+    "logid": "bce3b8dfcf4e",
+    "date": "20230222",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "7bbb6da3b40e"
   },
   {
     "logid": "1d322f085072",
@@ -109277,6 +108091,13 @@
     ]
   },
   {
+    "logid": "88516389fbad",
+    "date": "20230209",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "377005131cb7"
+  },
+  {
     "logid": "3956a3da2bd2",
     "date": "20230208",
     "time": "1800",
@@ -109371,6 +108192,13 @@
       "L2",
       "KAN"
     ]
+  },
+  {
+    "logid": "59084d37f412",
+    "date": "20230208",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "3956a3da2bd2"
   },
   {
     "logid": "38cb1afe8e15",
@@ -109594,6 +108422,13 @@
     ]
   },
   {
+    "logid": "35deabe34145",
+    "date": "20230206",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "d12e5616a340"
+  },
+  {
     "logid": "3b651e56476d",
     "date": "20230205",
     "time": "1200",
@@ -109688,6 +108523,13 @@
       "L2",
       "YUW"
     ]
+  },
+  {
+    "logid": "0ecf309447ac",
+    "date": "20230204",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "eedf8e0731e3"
   },
   {
     "logid": "4f96f98a43c7",
@@ -112990,26 +111832,11 @@
     ]
   },
   {
-    "logid": "5c7e22a1d391",
+    "logid": "93c0836e3cca",
     "date": "20221225",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 東京公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "東京ガーデンシアター"
-    ]
+    "ref": "408af789269b"
   },
   {
     "logid": "b49897722a85",
@@ -113104,26 +111931,11 @@
     ]
   },
   {
-    "logid": "988e070ecfd7",
+    "logid": "3715928d45a5",
     "date": "20221224",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 東京公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "東京ガーデンシアター"
-    ]
+    "ref": "996bc847a139"
   },
   {
     "logid": "fe92958b4780",
@@ -113342,24 +112154,11 @@
     ]
   },
   {
-    "logid": "5d5a5ad4d4c1",
+    "logid": "9c49f68a6536",
     "date": "20221221",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 8th EP 「Love Genic / Bye-Bye-Bye」 リリース記念日",
-    "display_sp": "8th EP 「Love Genic / Bye-Bye-Bye」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "d434eccc89fa"
   },
   {
     "logid": "7f59ca39dcd3",
@@ -114031,26 +112830,11 @@
     ]
   },
   {
-    "logid": "c3c71667ec4e",
+    "logid": "18875518b746",
     "date": "20221211",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 広島公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "広島上野学園ホール"
-    ]
+    "ref": "37963047d6ac"
   },
   {
     "logid": "d6fae96f5137",
@@ -115644,26 +114428,11 @@
     ]
   },
   {
-    "logid": "cd90a905a6b6",
+    "logid": "a16cea3a6d06",
     "date": "20221119",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 愛知公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "名古屋国際会議場"
-    ]
+    "ref": "749bfeb785cb"
   },
   {
     "logid": "57465c445ac0",
@@ -116992,26 +115761,11 @@
     ]
   },
   {
-    "logid": "8597215fb7d7",
+    "logid": "3d76cc201d47",
     "date": "20221031",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 宮城公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "トークネットホール仙台"
-    ]
+    "ref": "4453c8ed7c72"
   },
   {
     "logid": "a2093f2bf1f9",
@@ -117186,6 +115940,14 @@
       "L2",
       "RRK"
     ]
+  },
+  {
+    "logid": "0ddcf9fb8a91",
+    "date": "20221029",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "dcd0aa5d0845",
+    "suffix": "開催記念日"
   },
   {
     "logid": "cfe743b2261e",
@@ -117476,34 +116238,6 @@
     ]
   },
   {
-    "logid": "bc09f6563325",
-    "date": "20221026",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Lucky² 2ndシングル「アイコトバ」リリース記念日",
-    "display_pc": "Lucky² 2nd SINGLE 「アイコトバ」 リリース記念日",
-    "display_sp": "Lucky² 2nd SG 「アイコトバ」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4283",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "tags": [
-      "アイコトバ",
-      "Girls Revolution (Lucky² ver.)",
-      "リズスタ -Top of Artists!-"
-    ]
-  },
-  {
     "logid": "8e786dfa41bc",
     "date": "20221026",
     "time": "",
@@ -117530,6 +116264,13 @@
       "Girls Revolution (Lucky² ver.)",
       "リズスタ -Top of Artists!-"
     ]
+  },
+  {
+    "logid": "6ac6c02b0b46",
+    "date": "20221026",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "8e786dfa41bc"
   },
   {
     "logid": "7c77c60ba8fa",
@@ -118736,26 +117477,11 @@
     ]
   },
   {
-    "logid": "c14074eacb4b",
+    "logid": "010e0db330b9",
     "date": "20221009",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 大阪公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "グランキューブ大阪"
-    ]
+    "ref": "4bfdd910100b"
   },
   {
     "logid": "617875eaeead",
@@ -119241,47 +117967,11 @@
     ]
   },
   {
-    "logid": "1f215c4f1095",
+    "logid": "ffa1be5b39c9",
     "date": "20221002",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 福岡公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "福岡サンパレス"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/1576522367614218241",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR",
-              "TOA",
-              "RAN"
-            ]
-          }
-        ]
-      }
-    ]
+    "ref": "83758e077db1"
   },
   {
     "logid": "ba3303f29750",
@@ -120287,26 +118977,11 @@
     ]
   },
   {
-    "logid": "a42c17c9ea39",
+    "logid": "611c14a320e1",
     "date": "20220917",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 北海道公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "札幌文化芸術劇場"
-    ]
+    "ref": "8196460a0189"
   },
   {
     "logid": "73ef264ea96d",
@@ -120837,26 +119512,11 @@
     ]
   },
   {
-    "logid": "943f5391e922",
+    "logid": "9f62758f6f3f",
     "date": "20220910",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 兵庫公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "神戸国際会館"
-    ]
+    "ref": "75df9541b15b"
   },
   {
     "logid": "370526fea210",
@@ -121303,50 +119963,6 @@
     ]
   },
   {
-    "logid": "8b2f63d2dbc0",
-    "date": "20220903",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 初日新潟公演オープニングアクト出演記念日",
-    "display_pc": "Girls² Live Tour 2022 \"Shangri-la\"　初日オープニングアクト出演記念日",
-    "display_sp": "Girls² Live Tour 2022 \"Shangri-la\"　初日OA出演記念日",
-    "url": "https://girls2-fc.jp/page/ShangrilaLP",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ]
-  },
-  {
-    "logid": "4a31ffd6a979",
-    "date": "20220903",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 初日新潟公演開催記念日",
-    "display_pc": "Girls² Live Tour 2022 \"Shangri-la\"　初日新潟公演開催記念日",
-    "display_sp": "Live Tour 2022 \"Shangri-la\"　初日新潟開催記念日",
-    "url": "https://girls2-fc.jp/page/ShangrilaLP",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
-  },
-  {
     "logid": "5b2aeaea0e76",
     "date": "20220903",
     "time": "",
@@ -121369,26 +119985,11 @@
     ]
   },
   {
-    "logid": "0d94fd5cda15",
+    "logid": "1bc4d64fbb9c",
     "date": "20220903",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 新潟公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "新潟テルサ"
-    ]
+    "ref": "5b2aeaea0e76"
   },
   {
     "logid": "e84ff939a390",
@@ -122127,24 +120728,11 @@
     ]
   },
   {
-    "logid": "e343817f78de",
+    "logid": "a30e48e09b94",
     "date": "20220824",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 7th EP 「Shangri-la」 リリース記念日",
-    "display_sp": "7th EP 「Shangri-la」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "d9fa9986f281"
   },
   {
     "logid": "fc3254655889",
@@ -122512,54 +121100,18 @@
     ]
   },
   {
-    "logid": "ca80d6aa9637",
+    "logid": "51c27291f7a0",
     "date": "20220820",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² First Live Tour -Brand New World!- 東京公演記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/539758",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "YUR"
-    ],
-    "relations": [
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "Zepp DiverCity TOKYO"
-    ]
+    "ref": "b4a6c7a88749"
   },
   {
-    "logid": "c5f964febf61",
+    "logid": "604e42872c00",
     "date": "20220820",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² First Live Tour -Brand New World!- 東京公演記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/539758",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "YUR"
-    ],
-    "relations": [
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "Zepp DiverCity TOKYO"
-    ]
+    "ref": "4196234c038c"
   },
   {
     "logid": "90f959306b0b",
@@ -123400,33 +121952,12 @@
     ]
   },
   {
-    "logid": "a8f564b5b8e5",
+    "logid": "ae179d9d68d1",
     "date": "20220809",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "CL 2nd Anniversary CL25 Dream For All OPENING FES記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN",
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ]
+    "ref": "44a9dbca46fb",
+    "suffix": "開催記念日"
   },
   {
     "logid": "8f85f6f81428",
@@ -124914,24 +123445,11 @@
     ]
   },
   {
-    "logid": "df0a8e6ac995",
+    "logid": "be65362eb0d5",
     "date": "20220723",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² First Live Tour -Brand New World!- 大阪公演記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/539758",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "YUR"
-    ],
-    "tags": [
-      "Zepp Namba"
-    ]
+    "ref": "220fe99f7524"
   },
   {
     "logid": "91ebdfcef140",
@@ -127003,48 +125521,18 @@
     ]
   },
   {
-    "logid": "5238a04d9fc1",
+    "logid": "150082a815e8",
     "date": "20220703",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² First Live Tour -Brand New World!- 愛知公演記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/539758",
-    "groups": [
-      "L2",
-      "TBK",
-      "HIR",
-      "YUW",
-      "YUR"
-    ],
-    "relations": [
-      "RIN",
-      "KAN"
-    ],
-    "tags": [
-      "Zepp Nagoya"
-    ]
+    "ref": "d7061b423be7"
   },
   {
-    "logid": "da79506c2e1f",
+    "logid": "900cf6447c35",
     "date": "20220703",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² First Live Tour -Brand New World!- 愛知公演記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/539758",
-    "groups": [
-      "L2",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "YUR"
-    ],
-    "relations": [
-      "RIN"
-    ],
-    "tags": [
-      "Zepp Nagoya"
-    ]
+    "ref": "65d3128e47d0"
   },
   {
     "logid": "be170d322809",
@@ -127868,39 +126356,12 @@
     ]
   },
   {
-    "logid": "31eb6100b430",
+    "logid": "991df0a40938",
     "date": "20220625",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 3rd Anniversary Live -ダイジョウブ-記念日",
-    "url": "https://girls2-fc.jp/page/3rdAnnivLP",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "relations": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "tags": [
-      "ぴあアリーナMM"
-    ]
+    "ref": "07e95c13464c",
+    "suffix": "開催記念日"
   },
   {
     "logid": "a89b52ca9df1",
@@ -128721,6 +127182,48 @@
       "TOA",
       "RAN"
     ]
+  },
+  {
+    "logid": "51b45f3bdd2d",
+    "date": "20220618",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "a7b59be9879a"
+  },
+  {
+    "logid": "8cb75085326f",
+    "date": "20220618",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "797f10afb14e"
+  },
+  {
+    "logid": "23742ff5225c",
+    "date": "20220618",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "d8ef5dd26f8d"
+  },
+  {
+    "logid": "fe685921df70",
+    "date": "20220618",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "4c43517fc365"
+  },
+  {
+    "logid": "5a1b19536a88",
+    "date": "20220618",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "0cac3985a897"
+  },
+  {
+    "logid": "7ca5eaa8a4fb",
+    "date": "20220618",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "b997dc5e640e"
   },
   {
     "logid": "f1057ee824b7",
@@ -130546,36 +129049,6 @@
     ]
   },
   {
-    "logid": "29f41e352e55",
-    "date": "20220601",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Lucky² 1st EP「Brand New World! / DISCO TIME」 リリース記念日",
-    "display_pc": "Lucky² 1st EP 「Brand New World! / DISCO TIME」 リリース記念日",
-    "display_sp": "Lucky² 1st EP 「Brand New World! / DISCO TIME」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4246",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ],
-    "relations": [],
-    "tags": [
-      "Brand New World!",
-      "君はダーリン",
-      "DISCO TIME",
-      "ビッ友×戦士 キラメキパワーズ︕",
-      "リズスタ -Top of Artists!-"
-    ]
-  },
-  {
     "logid": "a1aa518ef1b3",
     "date": "20220601",
     "time": "",
@@ -130632,6 +129105,13 @@
       "AKR",
       "KIK"
     ]
+  },
+  {
+    "logid": "d84947a5033b",
+    "date": "20220601",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "a1aa518ef1b3"
   },
   {
     "logid": "dc126e525674",
@@ -133662,6 +132142,13 @@
     ]
   },
   {
+    "logid": "c384410f4bd4",
+    "date": "20220427",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "9cfc0ece12a7"
+  },
+  {
     "logid": "05f6852a518a",
     "date": "20220426",
     "time": "1200",
@@ -136632,6 +135119,13 @@
     ]
   },
   {
+    "logid": "a5688f16b569",
+    "date": "20220325",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "123574441ccd"
+  },
+  {
     "logid": "5b94e6307fa5",
     "date": "20220324",
     "time": "1700",
@@ -136816,21 +135310,11 @@
     "tags": []
   },
   {
-    "logid": "696fea395cea",
+    "logid": "9554d8bf35d9",
     "date": "20220323",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² 「ガル学。II - Lucky Stars - コンプリートベスト」 リリース記念日",
-    "display_sp": "「ガル学。II - Lucky Stars - コンプリートベスト」 リリース記念日",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN"
-    ]
+    "ref": "02343dbae4cc"
   },
   {
     "logid": "056d1e3fd7e6",
@@ -137899,6 +136383,13 @@
     ]
   },
   {
+    "logid": "9f6a5ac2603e",
+    "date": "20220311",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "d5c40af7f6f7"
+  },
+  {
     "logid": "757640a2418d",
     "date": "20220310",
     "time": "1700",
@@ -138218,6 +136709,13 @@
     ],
     "relations": [],
     "tags": []
+  },
+  {
+    "logid": "96886f52144c",
+    "date": "20220308",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "d1da8928cb67"
   },
   {
     "logid": "2a41f1d04f6c",
@@ -139078,6 +137576,13 @@
     ]
   },
   {
+    "logid": "c8e92bdec394",
+    "date": "20220226",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "69a277500a4d"
+  },
+  {
     "logid": "7b91de78458a",
     "date": "20220225",
     "time": "1200",
@@ -139328,49 +137833,6 @@
     ]
   },
   {
-    "logid": "6ea425bea224",
-    "date": "20220223",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "アルバム「おはガール☆THE BEST -2019～2022-」 リリース記念日",
-    "display_pc": "ALBUM 「おはガール☆THE BEST -2019～2022-」 リリース記念日",
-    "display_sp": "AL 「おはガール☆THE BEST -2019～2022-」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4200",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN",
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "YUR"
-    ],
-    "relations": [],
-    "tags": [
-      "おはガール from Girls²",
-      "走れ！月火水木金曜日！",
-      "School Happiness",
-      "おはようのスマイル",
-      "フレンドシップNo.1 –ミサキクレア from Girls² -",
-      "Girl meets Girl",
-      "SUPER☆OHA☆TIME!",
-      "SUPER☆OHA☆TIME! 2021",
-      "おはガール from Lucky²",
-      "Lucky Time",
-      "おはスタ"
-    ]
-  },
-  {
     "logid": "4d460c375dde",
     "date": "20220223",
     "time": "",
@@ -139412,6 +137874,13 @@
       "Lucky Time",
       "おはスタ"
     ]
+  },
+  {
+    "logid": "5b9688860d66",
+    "date": "20220223",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "4d460c375dde"
   },
   {
     "logid": "c97d4e5ca4b0",
@@ -143023,24 +141492,11 @@
     ]
   },
   {
-    "logid": "76cacaf6e1ad",
+    "logid": "5dc3f4064603",
     "date": "20220112",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 1st ALBUM 「We are Girls²」 リリース記念日",
-    "display_sp": "1st AL 「We are Girls²」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "ce42c4947a65"
   },
   {
     "logid": "1053cda5ac5e",
@@ -147857,6 +146313,20 @@
     ]
   },
   {
+    "logid": "3665e35c5ccc",
+    "date": "20211121",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "b557c4b9de9c"
+  },
+  {
+    "logid": "240ea3b859dc",
+    "date": "20211121",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "bff15e20746e"
+  },
+  {
     "logid": "de3344c6dec4",
     "date": "20211120",
     "time": "1730",
@@ -147966,26 +146436,11 @@
     ]
   },
   {
-    "logid": "bae0d64fe7e3",
+    "logid": "829e0419c099",
     "date": "20211120",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² First Live Tour -Enjoy The Good Days- 愛知公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "一宮市民会館"
-    ]
+    "ref": "de3344c6dec4"
   },
   {
     "logid": "2f26adeaa373",
@@ -148264,21 +146719,11 @@
     "tags": []
   },
   {
-    "logid": "9070a2655855",
+    "logid": "d40a6019ee44",
     "date": "20211117",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Lucky² 「Lucky Time」 配信記念日",
-    "display_sp": "「Lucky Time」 配信記念日",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN"
-    ]
+    "ref": "4bbb45ba9c1f"
   },
   {
     "logid": "368052ed048a",
@@ -149530,33 +147975,6 @@
     ]
   },
   {
-    "logid": "1721e1289787",
-    "date": "20211103",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Lucky² 1stミニアルバム「キミすき」 リリース記念日",
-    "display_pc": "Lucky² 1st MINI ALBUM 「キミすき」 リリース記念日",
-    "display_sp": "Lucky² 1st MINI AL 「キミすき」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/Lucky2/discography/AICL-4127",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN"
-    ],
-    "relations": [],
-    "tags": [
-      "キミすき",
-      "Lucky day☆ - リナ＆ユウラ -",
-      "Smily Moon - ツバキ＆ヒイロ -",
-      "パリララ！ - ユウワ＆カンナ -",
-      "神様Noでも僕らはYes"
-    ]
-  },
-  {
     "logid": "43f56ba32c7b",
     "date": "20211103",
     "time": "",
@@ -149586,6 +148004,13 @@
       "神様Noでも僕らはYes",
       "lovely²『lovely² SPECIAL LIVE 2021』"
     ]
+  },
+  {
+    "logid": "5644d7f7e426",
+    "date": "20211103",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "43f56ba32c7b"
   },
   {
     "logid": "085f69b97b47",
@@ -149877,6 +148302,13 @@
     ]
   },
   {
+    "logid": "aa986ab48aa1",
+    "date": "20211031",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "2f46aa028bb1"
+  },
+  {
     "logid": "fb7f1e7787c5",
     "date": "20211030",
     "time": "1730",
@@ -149972,26 +148404,11 @@
     ]
   },
   {
-    "logid": "54c8181a4892",
+    "logid": "9c21175b0be2",
     "date": "20211030",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² First Live Tour -Enjoy The Good Days- 東京公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "東京ガーデンシアター"
-    ]
+    "ref": "fb7f1e7787c5"
   },
   {
     "logid": "7bd44a74933b",
@@ -152426,42 +150843,18 @@
     ]
   },
   {
-    "logid": "255891c57a46",
+    "logid": "cff6e03bfd62",
     "date": "20211003",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² First Live Tour -Enjoy The Good Days- 大阪公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "8df6070e2a18"
   },
   {
-    "logid": "4a42f1a70e9e",
+    "logid": "9a12c301d31c",
     "date": "20211003",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² First Live Tour -Enjoy The Good Days- 大阪公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "30bdb8ef9e69"
   },
   {
     "logid": "303c05dc7ff1",
@@ -152559,45 +150952,11 @@
     ]
   },
   {
-    "logid": "f8730c857477",
+    "logid": "ab91ca74f88b",
     "date": "20211002",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² First Live Tour -Enjoy The Good Days- 大阪公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "NHK大阪ホール"
-    ]
-  },
-  {
-    "logid": "89c6059c2fa0",
-    "date": "20211002",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "Girls² First Live Tour -Enjoy The Good Days- 大阪公演記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "303c05dc7ff1"
   },
   {
     "logid": "90c6c5f0aee0",
@@ -152889,28 +151248,12 @@
     ]
   },
   {
-    "logid": "ab66e8e0222b",
+    "logid": "935ac654fec0",
     "date": "20210929",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ドラマ「ガル学。～ガールズガーデン～」 page12「Good Days」 放送記念日",
-    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page12 放送記念日",
-    "display_sp": "「ガル学。～ガールズガーデン～」 page12 放送記念日",
-    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN",
-      "L2",
-      "RIN"
-    ]
+    "ref": "cc45cea79520",
+    "suffix": "放送記念日"
   },
   {
     "logid": "c6f510fd6b02",
@@ -153635,26 +151978,19 @@
     ]
   },
   {
-    "logid": "6498db09e9dd",
+    "logid": "e1b2594bf856",
     "date": "20210922",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ドラマ「ガル学。～ガールズガーデン～」 page11「Bad Days」放送記念日",
-    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page11 放送記念日",
-    "display_sp": "「ガル学。～ガールズガーデン～」 page11放送記念日",
-    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "5bad5c515ceb",
+    "suffix": "放送記念日"
+  },
+  {
+    "logid": "2801054517bf",
+    "date": "20210922",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "a0c0104872cc"
   },
   {
     "logid": "022958ec3f53",
@@ -154301,26 +152637,12 @@
     ]
   },
   {
-    "logid": "6650aaa873c1",
+    "logid": "1e9ca6e9ea0c",
     "date": "20210915",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ドラマ「ガル学。～ガールズガーデン～」 page10「原宿ネバーランド」 放送記念日",
-    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page10 放送記念日",
-    "display_sp": "「ガル学。～ガールズガーデン～」 page10放送記念日",
-    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "26bf1355ae40",
+    "suffix": "放送記念日"
   },
   {
     "logid": "264a35a348be",
@@ -154977,26 +153299,12 @@
     ]
   },
   {
-    "logid": "13cf9382a146",
+    "logid": "8723640c57f4",
     "date": "20210908",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ドラマ「ガル学。～ガールズガーデン～」 page09「Girls²解散!? ～最後の編集会議～」 放送記念日",
-    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page09 放送記念日",
-    "display_sp": "「ガル学。～ガールズガーデン～」 page09放送記念日",
-    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "d2e83bca9e78",
+    "suffix": "放送記念日"
   },
   {
     "logid": "8f0b9911f83f",
@@ -155603,26 +153911,12 @@
     ]
   },
   {
-    "logid": "1bf65ffb6d3b",
+    "logid": "159bf7219215",
     "date": "20210901",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ドラマ「ガル学。～ガールズガーデン～」 page08「原宿ラビリンス」 放送記念日",
-    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page08 放送記念日",
-    "display_sp": "「ガル学。～ガールズガーデン～」 page08放送記念日",
-    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "a7e488cb9cfb",
+    "suffix": "放送記念日"
   },
   {
     "logid": "0f75725d8208",
@@ -156236,28 +154530,6 @@
     ]
   },
   {
-    "logid": "8613ac5a8e52",
-    "date": "20210825",
-    "time": "",
-    "contents": "ANNIVERSARY",
-    "title": "ドラマ「ガル学。～ガールズガーデン～」 page07「君にとどけ！コーデ大作戦！」 放送記念日",
-    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page07 放送記念日",
-    "display_sp": "「ガル学。～ガールズガーデン～」 page07放送記念日",
-    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
-  },
-  {
     "logid": "8f92b068a04e",
     "date": "20210825",
     "time": "",
@@ -156278,24 +154550,19 @@
     ]
   },
   {
-    "logid": "0eae10600c81",
+    "logid": "9de4f53a8643",
     "date": "20210825",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 5th EP 「Enjoy / Good Days」 リリース記念日",
-    "display_sp": "5th EP 「Enjoy / Good Days」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "ced4a6f97b77",
+    "suffix": "放送記念日"
+  },
+  {
+    "logid": "4c4b82f3e479",
+    "date": "20210825",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "8f92b068a04e"
   },
   {
     "logid": "8333930ae2b1",
@@ -156937,26 +155204,12 @@
     ]
   },
   {
-    "logid": "90ccffe128de",
+    "logid": "a46c617cc1eb",
     "date": "20210818",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ドラマ「ガル学。～ガールズガーデン～」 page06「スイーツの女神」 放送記念日",
-    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page06 放送記念日",
-    "display_sp": "「ガル学。～ガールズガーデン～」 page06放送記念日",
-    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "146f77274f94",
+    "suffix": "放送記念日"
   },
   {
     "logid": "7b5992fa8111",
@@ -157570,26 +155823,12 @@
     ]
   },
   {
-    "logid": "01d31a024914",
+    "logid": "3e13f0e78849",
     "date": "20210811",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ドラマ「ガル学。～ガールズガーデン～」 page05「学院七不思議」 放送記念日",
-    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page05 放送記念日",
-    "display_sp": "「ガル学。～ガールズガーデン～」 page05放送記念日",
-    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "9ac61ddf2686",
+    "suffix": "放送記念日"
   },
   {
     "logid": "47b3ff0580e6",
@@ -158831,26 +157070,12 @@
     ]
   },
   {
-    "logid": "8a2afe389024",
+    "logid": "050dc4c22ac2",
     "date": "20210728",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ドラマ「ガル学。～ガールズガーデン～」 page04「原宿ダンスコンテスト！」 放送記念日",
-    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page04 放送記念日",
-    "display_sp": "「ガル学。～ガールズガーデン～」 page04放送記念日",
-    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "413d0d363aca",
+    "suffix": "放送記念日"
   },
   {
     "logid": "835112fedd78",
@@ -159481,28 +157706,12 @@
     ]
   },
   {
-    "logid": "c03529a84437",
+    "logid": "194501a2ba20",
     "date": "20210721",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ドラマ「ガル学。～ガールズガーデン～」 page03「こころ、飾る」 放送記念日",
-    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page03 放送記念日",
-    "display_sp": "「ガル学。～ガールズガーデン～」 page03放送記念日",
-    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN",
-      "L2",
-      "RIN"
-    ]
+    "ref": "e1a6ad5dc272",
+    "suffix": "放送記念日"
   },
   {
     "logid": "8f8474ed9310",
@@ -160131,26 +158340,12 @@
     ]
   },
   {
-    "logid": "04455d21e8f2",
+    "logid": "0626938e14e4",
     "date": "20210714",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ドラマ「ガル学。～ガールズガーデン～」 page02「放課後コーデ・コレクション」 放送記念日",
-    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page02 放送記念日",
-    "display_sp": "「ガル学。～ガールズガーデン～」 page02放送記念日",
-    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "97a9fe2ed1ef",
+    "suffix": "放送記念日"
   },
   {
     "logid": "21720daedbd3",
@@ -160805,26 +159000,12 @@
     ]
   },
   {
-    "logid": "b9e737ac8ac5",
+    "logid": "48b6fce22ac6",
     "date": "20210707",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ドラマ「ガル学。～ガールズガーデン～」 page01「卒業試験は突然に」 放送記念日",
-    "display_pc": "ドラマ「ガル学。～ガールズガーデン～」 page01 放送記念日",
-    "display_sp": "「ガル学。～ガールズガーデン～」 page01放送記念日",
-    "url": "https://www.tv-tokyo.co.jp/anime/girlsgarden/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "d18854c017b2",
+    "suffix": "放送記念日"
   },
   {
     "logid": "7c33466ece39",
@@ -163246,17 +161427,11 @@
     ]
   },
   {
-    "logid": "b0ab42f763b2",
+    "logid": "ae82dd0256d7",
     "date": "20210602",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "lovely² 「LOVELY☆BEST - Complete lovely² Songs -」 リリース記念日",
-    "display_sp": "「LOVELY☆BEST - Complete lovely² Songs -」 リリース記念日",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR"
-    ]
+    "ref": "d729b602a3df"
   },
   {
     "logid": "af02d81ad129",
@@ -165286,24 +163461,11 @@
     ]
   },
   {
-    "logid": "88f8a1314833",
+    "logid": "3768426a5b30",
     "date": "20210428",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 4th EP 「Girls Revolution / Party Time!」 リリース記念日",
-    "display_sp": "4th EP 「Girls Revolution / Party Time!」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "eb088f0cfc2f"
   },
   {
     "logid": "84f663263c37",
@@ -167062,24 +165224,12 @@
     ]
   },
   {
-    "logid": "e638cf26f37f",
+    "logid": "832a7babd0b0",
     "date": "20210328",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ガル学。Anime LIVE 2021 ～ツナグツナグ～ 後編記念日",
-    "url": "https://girls2-fc.jp/page/news/482502888073986875",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "97df4e552093",
+    "suffix": "開催記念日"
   },
   {
     "logid": "5eb652ebe5a3",
@@ -167145,24 +165295,12 @@
     ]
   },
   {
-    "logid": "7b104235ed16",
+    "logid": "d3118ec55eb8",
     "date": "20210327",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ガル学。Anime LIVE 2021 ～ツナグツナグ～ 前編記念日",
-    "url": "https://girls2-fc.jp/page/news/482502888073986875",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "5eb652ebe5a3",
+    "suffix": "開催記念日"
   },
   {
     "logid": "cc615b46d33e",
@@ -167371,24 +165509,11 @@
     ]
   },
   {
-    "logid": "7771ceac67c9",
+    "logid": "76f8cdb88502",
     "date": "20210324",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 「ガル学。〜聖ガールズスクエア学院〜 コンプリート・ベスト」 リリース記念日",
-    "display_sp": "「ガル学。〜聖ガールズスクエア学院〜 コンプリート・ベスト」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "7b086922cc63"
   },
   {
     "logid": "21afa83fdd95",
@@ -169724,17 +167849,11 @@
     ]
   },
   {
-    "logid": "fb3f9f9e55fa",
+    "logid": "400a73254f4a",
     "date": "20210210",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "lovely² 3rd SINGLE 「LOVE²」 リリース記念日",
-    "display_sp": "「LOVE²」 リリース記念日",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR"
-    ]
+    "ref": "85c4ee43acdd"
   },
   {
     "logid": "0b167f9c63da",
@@ -171330,24 +169449,11 @@
     ]
   },
   {
-    "logid": "5eccabdad6bb",
+    "logid": "7f60568ba6f7",
     "date": "20210113",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 3rd EP 「ジャパニーズSTAR」 リリース記念日",
-    "display_sp": "3rd EP 「ジャパニーズSTAR」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "c69b8330f460"
   },
   {
     "logid": "726dc8e351cc",
@@ -172498,17 +170604,11 @@
     ]
   },
   {
-    "logid": "f78712da63d2",
+    "logid": "5353bfdb35a2",
     "date": "20201223",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "lovely² 2nd SINGLE 「とぅわりんりんたんたん」 リリース記念日",
-    "display_sp": "「とぅわりんりんたんたん」 リリース記念日",
-    "groups": [
-      "L2",
-      "RIN",
-      "YUR"
-    ]
+    "ref": "b1d6ce84375c"
   },
   {
     "logid": "4b7d9e648017",
@@ -174263,24 +172363,11 @@
     ]
   },
   {
-    "logid": "a3c9430f7c31",
+    "logid": "1126d328302e",
     "date": "20201118",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 2nd EP 「大事なモノ / #キズナプラス」 リリース記念日",
-    "display_sp": "EP 「大事なモノ / #キズナプラス」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "2bf081a3fae5"
   },
   {
     "logid": "e91e819fccca",
@@ -174512,45 +172599,12 @@
     ]
   },
   {
-    "logid": "e003061921da",
+    "logid": "9a058a570628",
     "date": "20201115",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² Online Live 2020 記念日",
-    "url": "https://www.ldh-liveschedule.jp/sys/news/6734/",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "sns": [
-      {
-        "type": "youtube",
-        "urls": [
-          {
-            "url": "https://youtu.be/fbdB4I7HE7A?si=13O-WfDSNdONVf6R",
-            "member": [
-              "YZH",
-              "MMK",
-              "MSK",
-              "YOK",
-              "KUR",
-              "MNM",
-              "KIR",
-              "TOA",
-              "RAN"
-            ]
-          }
-        ]
-      }
-    ]
+    "ref": "0d3061cec1e1",
+    "suffix": "開催記念日"
   },
   {
     "logid": "efaccb871706",
@@ -177091,18 +175145,11 @@
     ]
   },
   {
-    "logid": "62e48d5b308a",
+    "logid": "c15ebfab491e",
     "date": "20201001",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 「弾心 ～ダンシン～」 配信リリース記念日",
-    "groups": [
-      "G2",
-      "MSK",
-      "YOK",
-      "KUR",
-      "KIR"
-    ]
+    "ref": "4a38ee31511f"
   },
   {
     "logid": "c6f685e05022",
@@ -177199,6 +175246,13 @@
       "RIN",
       "YUR"
     ]
+  },
+  {
+    "logid": "d5cb2a129df0",
+    "date": "20200930",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "ef8ef83a180d"
   },
   {
     "logid": "c267ccee36b2",
@@ -177539,31 +175593,6 @@
     ]
   },
   {
-    "logid": "1b8e8929ed0f",
-    "date": "20200923",
-    "contents": "ANNIVERSARY",
-    "title": "おはスタ ALL STARS！ シングル 「明日をつくろう」 リリース記念日",
-    "display_pc": "おはスタ ALL STARS！ SINGLE 「明日をつくろう」 リリース記念日",
-    "display_sp": "SG 「明日をつくろう」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/ohasuta/discography/AICL-3929",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "おはガール from Girls²",
-      "おはスタ"
-    ]
-  },
-  {
     "logid": "577bc1d70e45",
     "date": "20200923",
     "contents": "CD",
@@ -177587,6 +175616,13 @@
       "おはガール from Girls²",
       "おはスタ"
     ]
+  },
+  {
+    "logid": "1c6dc9de3981",
+    "date": "20200923",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "577bc1d70e45"
   },
   {
     "logid": "01a9b9de160b",
@@ -180335,24 +178371,11 @@
     ]
   },
   {
-    "logid": "4991b9ae7577",
+    "logid": "34671a5cb91c",
     "date": "20200729",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 1st EP 「私がモテてどうすんだ」 リリース記念日",
-    "display_sp": "1st EP 「私がモテてどうすんだ」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "3a9bfbc85392"
   },
   {
     "logid": "c5140793e7be",
@@ -181226,6 +179249,13 @@
     ]
   },
   {
+    "logid": "c1afcffbfdd3",
+    "date": "20200712",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "a90fdb48b9ac"
+  },
+  {
     "logid": "3abe5c893277",
     "date": "20200711",
     "time": "1200",
@@ -182040,6 +180070,20 @@
     ]
   },
   {
+    "logid": "601fc07ecf34",
+    "date": "20200628",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "e99e1b8d3eef"
+  },
+  {
+    "logid": "d3132271548a",
+    "date": "20200628",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "a446ee5cb397"
+  },
+  {
     "logid": "28f45ff66670",
     "date": "20200627",
     "time": "1200",
@@ -182245,19 +180289,11 @@
     ]
   },
   {
-    "logid": "ae3db2a96355",
+    "logid": "6d63406d7d31",
     "date": "20200624",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "mirage² 「MIRAGE✩BEST-Complete mirage² Songs-」 リリース記念日",
-    "display_sp": "「MIRAGE✩BEST-Complete mirage² Songs-」 リリース記念日",
-    "groups": [
-      "G2",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "634c282f0638"
   },
   {
     "logid": "594350efbefe",
@@ -182859,6 +180895,20 @@
     ]
   },
   {
+    "logid": "a732139a8a17",
+    "date": "20200614",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "4e2643cafe14"
+  },
+  {
+    "logid": "e624e183f933",
+    "date": "20200614",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "7c4ea7a814d2"
+  },
+  {
     "logid": "fa6b77c5cf30",
     "date": "20200613",
     "time": "1700",
@@ -182949,6 +180999,20 @@
     "tags": [
       "オリックス劇場"
     ]
+  },
+  {
+    "logid": "f69f203753aa",
+    "date": "20200613",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "fa6b77c5cf30"
+  },
+  {
+    "logid": "cc514b2639d1",
+    "date": "20200613",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "01c5f8e04a7a"
   },
   {
     "logid": "1041e5028aff",
@@ -183635,6 +181699,20 @@
     ]
   },
   {
+    "logid": "74b6e35098dc",
+    "date": "20200531",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "bb8a41e331a9"
+  },
+  {
+    "logid": "1cd9408a07bc",
+    "date": "20200531",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "483ac4332dcc"
+  },
+  {
     "logid": "a2af8c184e7a",
     "date": "20200530",
     "time": "1200",
@@ -184045,6 +182123,20 @@
     ]
   },
   {
+    "logid": "d5a555510a68",
+    "date": "20200524",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "7f09d03855a3"
+  },
+  {
+    "logid": "a28ecce5a19c",
+    "date": "20200524",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "2bbf3cc274cc"
+  },
+  {
     "logid": "2d09ec085f06",
     "date": "20200523",
     "time": "1630",
@@ -184135,6 +182227,20 @@
     "tags": [
       "一宮市民会館"
     ]
+  },
+  {
+    "logid": "aefc93490d93",
+    "date": "20200523",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "2d09ec085f06"
+  },
+  {
+    "logid": "bc1328bfad7d",
+    "date": "20200523",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "ef5c2d6aa619"
   },
   {
     "logid": "b644e69a5d8e",
@@ -184327,24 +182433,11 @@
     ]
   },
   {
-    "logid": "ff3589a8224e",
+    "logid": "9d65671705fc",
     "date": "20200520",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 2nd MINI ALBUM 「チュワパネ！」 リリース記念日",
-    "display_sp": "2nd MINI AL 「チュワパネ！」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "2ae7388e6e7e"
   },
   {
     "logid": "f76c397490b7",
@@ -184545,6 +182638,20 @@
     ]
   },
   {
+    "logid": "bde1f5121cdf",
+    "date": "20200517",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "434d5ccb049f"
+  },
+  {
+    "logid": "44f30735b0fb",
+    "date": "20200517",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "773cd8fd92d4"
+  },
+  {
     "logid": "ba31d32075ca",
     "date": "20200516",
     "time": "1630",
@@ -184635,6 +182742,20 @@
     "tags": [
       "三郷市文化会館大ホール"
     ]
+  },
+  {
+    "logid": "99cf017b56ee",
+    "date": "20200516",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "ba31d32075ca"
+  },
+  {
+    "logid": "d274ca85f9e2",
+    "date": "20200516",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "af5861170197"
   },
   {
     "logid": "a07a024b713a",
@@ -184978,6 +183099,13 @@
       "G2",
       "TOA"
     ]
+  },
+  {
+    "logid": "b9610e4f87f7",
+    "date": "20200510",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "b387194d4f3f"
   },
   {
     "logid": "f283dd309c26",
@@ -185672,6 +183800,20 @@
     ]
   },
   {
+    "logid": "da1b1d558e56",
+    "date": "20200426",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "a95ad3f4b33f"
+  },
+  {
+    "logid": "5042b5529163",
+    "date": "20200426",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "f4a504820915"
+  },
+  {
     "logid": "2b7e3f082e83",
     "date": "20200425",
     "time": "1200",
@@ -185991,6 +184133,13 @@
       "G2",
       "YOK"
     ]
+  },
+  {
+    "logid": "926f4a70dcfa",
+    "date": "20200418",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "610e3b856122"
   },
   {
     "logid": "37cfed365709",
@@ -187628,6 +185777,20 @@
     ]
   },
   {
+    "logid": "1b97b2ab6785",
+    "date": "20200308",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "e9a712bf248b"
+  },
+  {
+    "logid": "2f4cf1c2325a",
+    "date": "20200308",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "761c24b8f58c"
+  },
+  {
     "logid": "b3fc859b6d68",
     "date": "20200307",
     "time": "1700",
@@ -187704,6 +185867,20 @@
     "tags": [
       "オリックス劇場"
     ]
+  },
+  {
+    "logid": "cd5a36c562a9",
+    "date": "20200307",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "b3fc859b6d68"
+  },
+  {
+    "logid": "50ecf29e0f08",
+    "date": "20200307",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "cf92dd822102"
   },
   {
     "logid": "8ea4bd1dccf1",
@@ -188376,24 +186553,11 @@
     ]
   },
   {
-    "logid": "5178916f77d1",
+    "logid": "874cafe3df08",
     "date": "20200219",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "おはガール from Girls² 3rd SINGLE 「Girl meets Girl」 リリース記念日",
-    "display_sp": "3rd SG 「Girl meets Girl」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "ad15cdb81f2e"
   },
   {
     "logid": "8fc2a06ebd88",
@@ -189050,19 +187214,11 @@
     ]
   },
   {
-    "logid": "f10f364d7ee5",
+    "logid": "33759ef2e705",
     "date": "20200205",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "mirage² 4th SINGLE 「咲いて²」 リリース記念日",
-    "display_sp": "「咲いて²」 リリース記念日",
-    "groups": [
-      "G2",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "dc4d366250ad"
   },
   {
     "logid": "92abb7a67fd0",
@@ -191129,19 +189285,11 @@
     ]
   },
   {
-    "logid": "797553186116",
+    "logid": "d52c4a3d9934",
     "date": "20191225",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "mirage² 3rd SINGLE 「キセキ」 リリース記念日",
-    "display_sp": "「キセキ」 リリース記念日",
-    "groups": [
-      "G2",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "fab52167fc01"
   },
   {
     "logid": "26dff422fa90",
@@ -191438,6 +189586,13 @@
       "TOA",
       "RAN"
     ]
+  },
+  {
+    "logid": "8d6945f50682",
+    "date": "20191218",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "6cc5ea9bdb57"
   },
   {
     "logid": "873615717680",
@@ -193816,24 +191971,11 @@
     ]
   },
   {
-    "logid": "734e373bdf9a",
+    "logid": "d6f6fb7fec56",
     "date": "20191030",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 1st MINI ALBUM 「恋するカモ」 リリース記念日",
-    "display_sp": "1st MINI AL 「恋するカモ」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "e15bcb32b97d"
   },
   {
     "logid": "3470a7b5c3a7",
@@ -194964,17 +193106,11 @@
     ]
   },
   {
-    "logid": "90070144280f",
+    "logid": "a9754ea76420",
     "date": "20191007",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "ミサキクレア from Girls² 「フレンドシップ No.1」 リリース記念日",
-    "display_sp": "ミサキクレア from Girls² 「フレンドシップ No.1」 リリース記念日",
-    "url": "https://youtu.be/badfRthzIDg?si=W-hm-eS8xhP2Cydn",
-    "groups": [
-      "MSK",
-      "KUR"
-    ]
+    "ref": "b600d80bdcbe"
   },
   {
     "logid": "03100195228c",
@@ -196178,28 +194314,6 @@
     ]
   },
   {
-    "logid": "6b7b178577f7",
-    "date": "20190918",
-    "contents": "ANNIVERSARY",
-    "title": "mirage² 2nd シングル 「ドキ☆ドキ」 リリース記念日",
-    "display_pc": "mirage² 2nd SINGLE 「ドキ☆ドキ」 リリース記念日",
-    "display_sp": "mirage² 2nd SG 「ドキ☆ドキ」 リリース記念日",
-    "url": "https://www.mirage2.jp/disco/archive/?AICL-3768",
-    "groups": [
-      "G2",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "ドキ☆ドキ",
-      "シング・ア・ソング",
-      "ひみつ×戦士 ファントミラージュ！",
-      "ひみつ×戦士 ファントミラージュ！"
-    ]
-  },
-  {
     "logid": "d452c3d295e3",
     "date": "20190918",
     "contents": "CD",
@@ -196220,6 +194334,13 @@
       "ひみつ×戦士 ファントミラージュ！",
       "ひみつ×戦士 ファントミラージュ！"
     ]
+  },
+  {
+    "logid": "14115aa1818d",
+    "date": "20190918",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "d452c3d295e3"
   },
   {
     "logid": "949d78434eca",
@@ -198454,24 +196575,11 @@
     ]
   },
   {
-    "logid": "4c4703fb84c9",
+    "logid": "ee6dd9e6ae8b",
     "date": "20190807",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 1st SINGLE 「走れ！月火水木金曜日！」 リリース記念日",
-    "display_sp": "1st SG 「走れ！月火水木金曜日！」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ]
+    "ref": "fda6058199a6"
   },
   {
     "logid": "40129fb53535",
@@ -198556,26 +196664,11 @@
     "tags": []
   },
   {
-    "logid": "15f5e3aa86dc",
+    "logid": "4347fa276210",
     "date": "20190626",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "Girls² 1stシングル 「ダイジョウブ」リリース記念日",
-    "display_pc": "Girls² 1st Single 「ダイジョウブ」 リリース記念日",
-    "display_sp": "Girls² 1st SG「ダイジョウブ」 リリース記念日",
-    "url": "https://youtu.be/Ej6by6T9zNI?si=q5ORaF-0cuSzKqxT",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": []
+    "ref": "d9a0e0fa9085"
   },
   {
     "logid": "f52dce1242d4",
@@ -198595,18 +196688,11 @@
     ]
   },
   {
-    "logid": "e53e99ae71f5",
+    "logid": "f559694fe574",
     "date": "20190605",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "mirage² 1st SINGLE 「じゃん☆けん☆ぽん」 リリース記念日",
-    "display_sp": "「じゃん☆けん☆ぽん」 リリース記念日",
-    "groups": [
-      "G2",
-      "MNM",
-      "KIR",
-      "TOA"
-    ]
+    "ref": "f52dce1242d4"
   },
   {
     "logid": "8adc8fe2e533",
@@ -198671,20 +196757,11 @@
     ]
   },
   {
-    "logid": "128229ba7be0",
+    "logid": "b6fa80fe7d35",
     "date": "20190213",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "magical² 「MAGICAL☆BEST -Complete magical² Songs-」 リリース記念日",
-    "display_sp": "「MAGICAL☆BEST -Complete magical² Songs-」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR"
-    ]
+    "ref": "b31845e35e22"
   },
   {
     "logid": "9834aa318792",
@@ -198703,20 +196780,11 @@
     ]
   },
   {
-    "logid": "8b53de8ac2ea",
+    "logid": "20d53fc8ad5b",
     "date": "20181212",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "magical² 3rd SINGLE 「ミルミル〜未来ミエル〜」 リリース記念日",
-    "display_sp": "「ミルミル〜未来ミエル〜」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR"
-    ]
+    "ref": "9834aa318792"
   },
   {
     "logid": "b489221f3547",
@@ -198761,34 +196829,6 @@
     "suffix": "出演記念日"
   },
   {
-    "logid": "ca4e414e1a75",
-    "date": "20180926",
-    "contents": "ANNIVERSARY",
-    "title": "magical² シングル 「晴れるさ☀」 リリース記念日",
-    "display_pc": "magical² SINGLE 「晴れるさ☀」 リリース記念日",
-    "display_sp": "magical² SG 「晴れるさ☀」 リリース記念日",
-    "url": "https://www.sonymusic.co.jp/artist/magical2/discography/AICL-3570",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK"
-    ],
-    "relations": [
-      "KUR"
-    ],
-    "tags": [
-      "晴れるさ☀",
-      "絶対友情宣言！",
-      "magical dream - ミツキ＆シオリ -",
-      "最強友情girl - モモカ＆リン -",
-      "愛について♡ - パワーアップ バージョン -",
-      "ガールズ×戦士",
-      "魔法×戦士 マジマジョピュアーズ!"
-    ]
-  },
-  {
     "logid": "c1f07932b8af",
     "date": "20180926",
     "contents": "CD",
@@ -198816,6 +196856,13 @@
     ]
   },
   {
+    "logid": "335f8dd70a79",
+    "date": "20180926",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "c1f07932b8af"
+  },
+  {
     "logid": "c3eb97e528ad",
     "date": "20180613",
     "time": "",
@@ -198834,18 +196881,11 @@
     ]
   },
   {
-    "logid": "6f0d945b2564",
+    "logid": "46a6ee5a860d",
     "date": "20180613",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "magical² 1st SINGLE 「愛について♡/超ラッキー☆」 リリース記念日",
-    "display_sp": "「愛について♡/超ラッキー☆」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK"
-    ]
+    "ref": "c3eb97e528ad"
   },
   {
     "logid": "3c3a8cfdcbd5",
@@ -198882,32 +196922,18 @@
     ]
   },
   {
-    "logid": "8f1e2b64942c",
+    "logid": "f087e7222482",
     "date": "20180330",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "miracle² SPECIAL LIVE 大阪公演記念日",
-    "groups": [
-      "G2",
-      "YZH"
-    ],
-    "tags": [
-      "Zepp Namba"
-    ]
+    "ref": "3c3a8cfdcbd5"
   },
   {
-    "logid": "97043ba91e1f",
+    "logid": "32602ba7b37f",
     "date": "20180330",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "miracle² SPECIAL LIVE 大阪公演記念日",
-    "groups": [
-      "G2",
-      "YZH"
-    ],
-    "tags": [
-      "Zepp Namba"
-    ]
+    "ref": "62c61d2e99de"
   },
   {
     "logid": "e6975f641a27",
@@ -198952,40 +196978,18 @@
     ]
   },
   {
-    "logid": "df60dc1f3ada",
+    "logid": "be9de3418efc",
     "date": "20180328",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "miracle² SPECIAL LIVE 東京公演記念日",
-    "groups": [
-      "G2",
-      "YZH"
-    ],
-    "relations": [
-      "MMK",
-      "MSK"
-    ],
-    "tags": [
-      "Zepp DiverCity (TOKYO)"
-    ]
+    "ref": "e6975f641a27"
   },
   {
-    "logid": "dac9e47f0f3d",
+    "logid": "e0fceb2d1525",
     "date": "20180328",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "miracle² SPECIAL LIVE 東京公演記念日",
-    "groups": [
-      "G2",
-      "YZH"
-    ],
-    "relations": [
-      "MMK",
-      "MSK"
-    ],
-    "tags": [
-      "Zepp DiverCity (TOKYO)"
-    ]
+    "ref": "a27947c8150b"
   },
   {
     "logid": "20554f483854",
@@ -199022,32 +197026,18 @@
     ]
   },
   {
-    "logid": "b4317b54b51f",
+    "logid": "136ddf7bb69d",
     "date": "20180326",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "miracle² SPECIAL LIVE 愛知公演記念日",
-    "groups": [
-      "G2",
-      "YZH"
-    ],
-    "tags": [
-      "Zepp Nagoya"
-    ]
+    "ref": "20554f483854"
   },
   {
-    "logid": "607a584e49ff",
+    "logid": "1abfb311e54e",
     "date": "20180326",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "miracle² SPECIAL LIVE 愛知公演記念日",
-    "groups": [
-      "G2",
-      "YZH"
-    ],
-    "tags": [
-      "Zepp Nagoya"
-    ]
+    "ref": "bd65843a3e01"
   },
   {
     "logid": "16b1920dcd10",
@@ -199074,16 +197064,11 @@
     ]
   },
   {
-    "logid": "58a6c0a70691",
+    "logid": "d5729841de47",
     "date": "20180214",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "miracle² ALBUM 「MIRACLE✩BEST -Complete miracle² Songs-」 リリース記念日",
-    "display_sp": "miracle² AL 「MIRACLE✩BEST -Complete miracle² Songs-」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH"
-    ]
+    "ref": "c931b7504006"
   },
   {
     "logid": "8105e168970f",
@@ -199098,16 +197083,11 @@
     ]
   },
   {
-    "logid": "a9c6f874dfdd",
+    "logid": "7768932147c9",
     "date": "20171220",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "miracle² 3rd SINGLE 「天マデトドケ☆」 リリース記念日",
-    "display_sp": "「天マデトドケ☆」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH"
-    ]
+    "ref": "8105e168970f"
   },
   {
     "logid": "fa8754a8a66d",
@@ -199122,16 +197102,11 @@
     ]
   },
   {
-    "logid": "f02b0193c1d4",
+    "logid": "f4a55a4998f8",
     "date": "20170927",
     "time": "",
     "contents": "ANNIVERSARY",
-    "title": "miracle² 2nd SINGLE 「JUMP!」 リリース記念日",
-    "display_sp": "miracle² 2nd SG 「JUMP!」 リリース記念日",
-    "groups": [
-      "G2",
-      "YZH"
-    ]
+    "ref": "fa8754a8a66d"
   },
   {
     "logid": "54cf41c989d8",
@@ -199145,6 +197120,13 @@
       "G2",
       "YZH"
     ]
+  },
+  {
+    "logid": "8c91ce751ab0",
+    "date": "20170621",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "54cf41c989d8"
   },
   {
     "logid": "b0c1f2d08256",
@@ -199164,6 +197146,14 @@
       "アイドル×戦士 ミラクルちゅーんず!",
       "ガールズ×戦士シリーズ"
     ]
+  },
+  {
+    "logid": "10262a1a87d6",
+    "date": "20170117",
+    "time": "",
+    "contents": "ANNIVERSARY",
+    "ref": "b0c1f2d08256",
+    "suffix": "放送記念日"
   },
   {
     "logid": "6392bc345600",
