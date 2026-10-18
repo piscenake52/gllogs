@@ -268,8 +268,8 @@ def expand_group_codes(codes):
 def parse_sns(raw):
     """sns欄（1行1件）を [{"type","urls":[{"url","member"}]}] にする（同じtypeは1つにまとめて urls に入れる）。
     先頭が `-` の行は個別削除（`-URL`。戻り値の要素は {"_remove": URL}）。
-    書式: `type | url | member | tags`（tagsはそのリンクだけの検索用タグ。カンマ区切り。省略可。`url | member | tags` も可）。memberは省略可（groupsと同じコード。複数人はカンマ区切り: `YZH,MMK`。G2 / L2 だけを入力するとそのグループ全員。G2,MSK のように個別メンバーもあれば、そのメンバーだけ）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
-    出力の member は配列（なしは []）。同じURLが複数あれば、後に書いたmemberで上書きする。戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
+    書式: `type | url | member | tags`（tagsはそのリンクだけの検索用タグ。カンマ区切り。省略可。`url | member | tags` も可）。memberは省略可（groupsと同じコード。複数人はカンマ区切り: `YZH,MMK`。G2 / L2 だけを入力するとそのグループ全員。G2,MSK のように個別メンバーもあれば、そのメンバーだけ）。member欄の `+` のあとは with（投稿者と一緒に写っている人。書式はmemberと同じ）: `YZH+MMK,KUR`（投稿者YZH、同写りMMKとKUR）、`+MMK`（投稿者なし、同写りのみ）、`YZH+-`（既存の同写りを消す）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
+    出力の member は配列（なしは []）。with は同写りがあるときだけ配列で持つ。同じURLが複数あれば、後に書いたmemberで上書きする。戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
     if not raw:
         return [], []
     if raw.strip() == CLEAR:
@@ -313,18 +313,26 @@ def parse_sns(raw):
             if t and t not in link_tags:
                 link_tags.append(t)
         type_ = type_.lower()
-        members = []
-        for m in re.split(r"[,、\s]+", member.upper()):
+        member_part, _, with_part = member.partition("+")  # `+` の左が投稿者(member)、右が同写り(with)
+        clear_with = with_part.strip() == "-"  # `+-` は既存の同写りを消す指定
+        if clear_with:
+            with_part = ""
+        members, withs = [], []
+        for m in re.split(r"[,、\s]+", member_part.upper()):
             if m and m not in members:
                 members.append(m)
+        for m in re.split(r"[,、\s+]+", with_part.upper()):
+            if m and m not in withs:
+                withs.append(m)
         if not re.fullmatch(r"https?://\S+", url):
             errors.append(f"- **sns**: URLはhttp(s)://から始めてください（入力値: `{shown}`）")
             continue
-        bad = [m for m in members if m not in SNS_MEMBER_CODES]
+        bad = [m for m in members + withs if m not in SNS_MEMBER_CODES]
         if bad:
             errors.append(f"- **sns**: memberはgroupsと同じコードで入力してください（複数はカンマ区切り）。不明: `{'`, `'.join(bad)}`（入力値: `{shown}`）")
             continue
         members = expand_group_codes(members)
+        withs = expand_group_codes(withs)
         if not type_:
             type_ = detect_sns_type(url) or "etc"  # 判定できないURLはすべてetc
         if not re.fullmatch(r"[a-z0-9_-]+", type_):
@@ -338,12 +346,16 @@ def parse_sns(raw):
         same = next((u for u in grouped["urls"] if u["url"] == url), None)
         if same is None:
             ent = {"url": url, "member": members}
+            if withs or clear_with:
+                ent["with"] = withs  # [] は「既存の同写りを消す」（merge側で取り除く）
             if link_tags:
                 ent["tags"] = link_tags
             grouped["urls"].append(ent)
         else:
             if members:
                 same["member"] = members
+            if withs or clear_with:
+                same["with"] = withs
             if link_tags:
                 same["tags"] = link_tags
     return items, errors

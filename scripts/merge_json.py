@@ -180,6 +180,8 @@ def _sns_urls(e):
         elif isinstance(u, dict) and u.get("url"):
             mem = u.get("member") or []
             ent = {"url": u["url"], "member": [mem] if isinstance(mem, str) else list(mem)}  # 文字列1件の旧形式も配列にそろえる
+            if "with" in u:  # 空配列も残す（更新時の「同写りを消す」指定。保存するときは merge_sns が取り除く）
+                ent["with"] = [u["with"]] if isinstance(u["with"], str) else list(u["with"] or [])
             if u.get("tags"):
                 ent["tags"] = [u["tags"]] if isinstance(u["tags"], str) else list(u["tags"])
             out.append(ent)
@@ -203,10 +205,17 @@ def merge_sns(current, incoming):
         for u in _sns_urls(e):
             same = next((x for x in tgt["urls"] if x["url"] == u["url"]), None)
             if same is None:
+                if not u.get("with"):
+                    u.pop("with", None)  # 空の with は保存しない
                 tgt["urls"].append(u)
             else:
                 if u["member"]:
                     same["member"] = u["member"]
+                if "with" in u:
+                    if u["with"]:
+                        same["with"] = u["with"]  # 同写りも、新しい入力があれば置き換える
+                    else:
+                        same.pop("with", None)  # `+-`（空配列）は既存の同写りを消す。指定がなければ既存を残す
                 if u.get("tags"):
                     same["tags"] = u["tags"]  # リンクのtagsは、新しい入力があれば置き換える（空なら既存を残す）
     return merged
@@ -256,12 +265,12 @@ def apply_removals(record, key, removes):
 
 
 def sns_members(sns):
-    """snsの全URLに書かれたmemberのコード（重複なし・出てきた順）"""
+    """snsの全URLに書かれたmember(投稿者)とwith(同写り)のコード（重複なし・出てきた順。groupsに足す対象）"""
     out = []
     for e in (sns if isinstance(sns, list) else []):
         if isinstance(e, dict):
             for u in _sns_urls(e):
-                for m in u["member"]:
+                for m in list(u["member"]) + list(u.get("with") or []):
                     if m not in out:
                         out.append(m)
     return out
