@@ -169968,8 +169968,7 @@
     "time": "1200",
     "contents": "YOUTUBE",
     "title": "【抜き打ち！】学力テスト 算数",
-    "display_pc": "がるがるちゃんねる　【抜き打ち！】学力テスト 算数",
-    "display_sp": "【抜き打ち！】学力テスト 算数",
+    "display_pc": "＃0004　【抜き打ち！】学力テスト 算数",
     "url": "https://www.youtube.com/watch?v=r1Th9w_Ji7A",
     "groups": [
       "G2",
@@ -169982,6 +169981,9 @@
       "KIR",
       "TOA",
       "RAN"
+    ],
+    "tags": [
+      "がるがるちゃんねる"
     ],
     "sns": [
       {
