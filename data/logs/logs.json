@@ -169968,7 +169968,7 @@
   {
     "logid": "cf00f88aa6dc",
     "date": "20210121",
-    "time": "1700",
+    "time": "1200",
     "contents": "YOUTUBE",
     "title": "【抜き打ち！】学力テスト 算数",
     "display_pc": "がるがるちゃんねる　【抜き打ち！】学力テスト 算数",
@@ -169982,10 +169982,20 @@
       "YOK",
       "KUR",
       "MNM",
-      "KIR"
+      "KIR",
+      "TOA",
+      "RAN"
     ],
-    "tags": [
-      "#4"
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/1352090465747623936",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
