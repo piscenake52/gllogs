@@ -169757,15 +169757,44 @@
     "date": "20210125",
     "time": "1200",
     "contents": "YOUTUBE",
-    "title": "【コラボ企画】教えて！ねお先輩！",
-    "display_pc": "がるがるちゃんねる　【コラボ企画】教えて！ねお先輩！",
-    "display_sp": "【コラボ企画】教えて！ねお先輩！",
+    "title": "がるがるちゃんねる　【コラボ企画】教えて！ねお先輩！",
+    "display_pc": "＃0005　【コラボ企画】教えて！ねお先輩！",
     "url": "https://www.youtube.com/watch?v=qSxNylnXeqI",
     "groups": [
       "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
       "MNM",
       "KIR",
-      "TOA"
+      "TOA",
+      "RAN"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/1353539926713790464",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR",
+              "TOA",
+              "RAN"
+            ],
+            "tags": [
+              "緊張してた"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
