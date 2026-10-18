@@ -12449,6 +12449,33 @@
     ]
   },
   {
+    "logid": "856240fefc04",
+    "date": "20260929",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls2",
+    "groups": [
+      "G2",
+      "KUR"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgMTB5hA/",
+            "member": [
+              "KUR"
+            ],
+            "tags": [
+              "映画主題歌ベスト10"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "f9e36e3f3293",
     "date": "20260928",
     "time": "2254",
