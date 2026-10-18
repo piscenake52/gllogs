@@ -17720,6 +17720,35 @@
     ]
   },
   {
+    "logid": "a6afc75cca4f",
+    "date": "20260902",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls2",
+    "groups": [
+      "G2",
+      "YOK",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSg6BRaMr/",
+            "member": [
+              "YOK",
+              "KIR"
+            ],
+            "tags": [
+              "LET ME GO"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "281ee6a7f986",
     "date": "20260901",
     "time": "1626",

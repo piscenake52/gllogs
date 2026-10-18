@@ -1,0 +1,28 @@
+{
+  "date": "20260902",
+  "contents": "SNS",
+  "title": "SNS　Girls2",
+  "groups": [
+    "G2",
+    "YOK",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSg6BRaMr/",
+          "member": [
+            "YOK",
+            "KIR"
+          ],
+          "tags": [
+            "LET ME GO"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1476"
+}
