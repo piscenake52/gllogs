@@ -4187,6 +4187,20 @@
             "member": []
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/hCA_95Du5cQ?si=Gim_-mLrUO907_Ap",
+            "member": [
+              "MNM"
+            ],
+            "tags": [
+              "EASY"
+            ]
+          }
+        ]
       }
     ]
   },
