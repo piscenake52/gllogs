@@ -43234,6 +43234,34 @@
     ]
   },
   {
+    "logid": "882aa31252b3",
+    "date": "20250926",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls2",
+    "groups": [
+      "G2",
+      "YOK",
+      "KUR",
+      "MNM"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DPAbxNIEo_2/?dlrf=dXpoeW1lbXJ3ZW15",
+            "member": [
+              "YOK",
+              "KUR",
+              "MNM"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "be27d58b81e7",
     "date": "20250925",
     "time": "1700",
