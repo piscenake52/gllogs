@@ -1,0 +1,34 @@
+{
+  "logid": "478a97229c68",
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DeMM_AjiU8o/?stkn=MXM4M2oxZW1sYm5pdg==",
+          "member": [
+            "KIK"
+          ],
+          "tags": [
+            "NO GOOD / XG"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgMTdBMu/",
+          "member": [
+            "KIK"
+          ],
+          "tags": [
+            "NO GOOD / XG"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1521"
+}
