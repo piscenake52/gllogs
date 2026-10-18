@@ -3795,37 +3795,6 @@
     ]
   },
   {
-    "logid": "80f2fdba613a",
-    "date": "20261018",
-    "time": "",
-    "contents": "SNS",
-    "title": "SNS　Girls2",
-    "groups": [
-      "G2",
-      "MSK",
-      "YOK",
-      "MNM"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/2111696392175681935",
-            "member": [
-              "MSK",
-              "YOK",
-              "MNM"
-            ],
-            "tags": [
-              "缶バッジ"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
     "logid": "d1af4f06dfed",
     "date": "20261017",
     "time": "1500",
