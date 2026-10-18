@@ -1,0 +1,35 @@
+{
+  "logid": "0cdcbd990ebe",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2111794105483481430",
+          "member": []
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgM2u8dV/",
+          "member": [
+            "YZH",
+            "MMK",
+            "MSK",
+            "YOK",
+            "KUR",
+            "MNM",
+            "KIR"
+          ],
+          "tags": [
+            "わちゃわちゃがるがる"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1505"
+}
