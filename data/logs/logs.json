@@ -169589,9 +169589,8 @@
     "date": "20210128",
     "time": "1700",
     "contents": "YOUTUBE",
-    "title": "【柚葉号泣】桜花がスタッフと大喧嘩。【ドッキリ】",
-    "display_pc": "がるがるちゃんねる　【柚葉号泣】桜花がスタッフと大喧嘩。【ドッキリ】",
-    "display_sp": "【柚葉号泣】桜花がスタッフと大喧嘩。【ドッキリ】",
+    "title": "がるがるちゃんねる　【柚葉号泣】桜花がスタッフと大喧嘩。【ドッキリ】",
+    "display_pc": "＃0006　【柚葉号泣】桜花がスタッフと大喧嘩。【ドッキリ】",
     "url": "https://www.youtube.com/watch?v=8b8mYmsn8Ss",
     "groups": [
       "G2",
@@ -169600,8 +169599,16 @@
       "YOK",
       "MNM"
     ],
-    "tags": [
-      "#6"
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/1354627358477586432",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
