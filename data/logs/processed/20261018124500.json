@@ -2,10 +2,10 @@
   "logid": "68978ff6fc75",
   "sns": [
     {
-      "type": "instagram",
+      "type": "x",
       "urls": [
         {
-          "url": "https://www.instagram.com/reel/Denqv2XNum1/?mdxt=MXJkejVjd3R5Y2lvcg==",
+          "url": "https://x.com/wandance_movie/status/2111659520888054134",
           "member": [
             "KIR"
           ]
@@ -13,5 +13,5 @@
       ]
     }
   ],
-  "_issue": "1468"
+  "_issue": "1470"
 }
