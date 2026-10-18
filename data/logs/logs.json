@@ -3672,6 +3672,35 @@
     ]
   },
   {
+    "logid": "5bb778b9b902",
+    "date": "20261018",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DenqvGIpPPG/?exln=YjF3OHYweTZtYW1m",
+            "member": [
+              "RIN",
+              "TBK"
+            ],
+            "tags": [
+              "ぷにるんず"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "d1af4f06dfed",
     "date": "20261017",
     "time": "1500",
