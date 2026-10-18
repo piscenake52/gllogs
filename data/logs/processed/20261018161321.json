@@ -1,0 +1,28 @@
+{
+  "date": "20261018",
+  "contents": "SNS",
+  "title": "SNS　Girls2",
+  "groups": [
+    "G2",
+    "MSK",
+    "MNM"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DeoHM4GRxvf/?mdxt=MXZrazlhMm43bWdibw==",
+          "member": [
+            "MSK",
+            "MNM"
+          ],
+          "tags": [
+            "Gorgeous"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1488"
+}
