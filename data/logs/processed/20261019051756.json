@@ -1,0 +1,20 @@
+{
+  "logid": "7e1b5ffe7502",
+  "sns": [
+    {
+      "type": "youtube",
+      "urls": [
+        {
+          "url": "https://youtube.com/shorts/8Kh0Dt5noHA?si=i1btE2TIprrrAMEA",
+          "member": [
+            "KUR"
+          ],
+          "tags": [
+            "EASY"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1520"
+}
