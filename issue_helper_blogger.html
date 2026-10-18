@@ -124,6 +124,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .refline .rsub { opacity:.75; word-break:break-all; }
 #glih .refline .small { padding:4px 10px; }
 #glih .snsh { display:flex; flex-direction:column; gap:6px; }
+#glih .snsh .setlbl { font-size:11px; color:var(--sub); margin:2px 0 -2px; }
 #glih .snsh .row { display:flex; gap:6px; align-items:center; }
 #glih .snsh .row.btns { flex-wrap:wrap; }
 #glih .snsh .row.btns .small { flex:1 1 auto; padding:8px 6px; }
@@ -538,9 +539,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var uw = document.createElement('span'); uw.className = 'fw'; uw.appendChild(url);
     row.appendChild(uw);
     addOpen(url, 5);
-    var chips = $('groups').cloneNode(true); chips.removeAttribute('id'); box.appendChild(chips);
-    [].forEach.call(chips.querySelectorAll('.chip'), function (b) { var v = b.getAttribute('data-v'); if (v === 'G2' || v === 'L2') return; b.onclick = function () { b.classList.toggle('on'); }; }); // G2 / L2 only show / hide the member rows (never written to sns)
-    foldGroups(chips, true);
+    var setM = makeCodeSet(box, 'member', []), setW = makeCodeSet(box, 'with', []); // member = the poster, with = the people shown with the poster
     var trow = document.createElement('div'); trow.className = 'row'; box.appendChild(trow);
     var tg = document.createElement('input'); tg.type = 'text'; tg.className = 'fin'; tg.placeholder = 'tags'; tg.setAttribute('autocomplete', 'off'); tg.setAttribute('spellcheck', 'false');
     var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw);
@@ -552,19 +551,19 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var u = url.value.trim();
       if (!/^https?:\/\/\S+$/i.test(u)) { url.classList.add('bad'); url.focus(); return; }
       url.classList.remove('bad');
-      var mem = [].map.call(chips.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); });
-      ['G2', 'L2'].forEach(function (g) { var h = chips.querySelector('.chip[data-v=' + g + ']'), fl = g === 'G2' ? FOLD_G2 : FOLD_L2; if (h && h.classList.contains('gh-on') && !mem.some(function (v) { return fl.indexOf(v) >= 0; })) mem.unshift(g); }); // a group alone = all its members (the server expands it); with members picked, only the members
-      mem = mem.join(',');
+      var memArr = pickedCodes(setM.box), withArr = pickedCodes(setW.box); // a group alone = all its members (the server expands it); with members picked, only the members
       var lines = el.value.split('\n').filter(function (l) { return l.trim() !== ''; }), hit = -1;
       lines.forEach(function (l, i) { if (hit < 0 && urlOf(l) === u) hit = i; });
       var t = hit >= 0 && !/^\s*https?:/i.test(lines[hit]) ? lines[hit].split('|')[0].trim() : ''; // the type is always auto-detected by the server; a replaced line keeps its existing type
       var tgv = tagList(tg.value).join(',');
       if (hit >= 0) { var ops = lines[hit].split('|').map(function (x) { return x.trim(); }), oui = -1; ops.forEach(function (x, i) { if (oui < 0 && /^https?:\/\//i.test(x)) oui = i; }); if (!tgv && oui >= 0 && ops[oui + 2]) tgv = ops[oui + 2]; } // a replaced line keeps its tags unless new ones are typed
+      if (hit >= 0 && !withArr.length) { var owp = parseLine(lines[hit]); withArr = owp.wth; } // a replaced line keeps its with unless new ones are picked
+      var mem = memCol(memArr, withArr, false);
       var parts = []; if (t) parts.push(t); parts.push(u); if (mem || tgv) parts.push(mem); if (tgv) parts.push(tgv);
       var line = parts.join(' | ');
       if (hit >= 0) lines[hit] = line; else lines.push(line);
       el.value = lines.join('\n'); el.dispatchEvent(new Event('input', { bubbles: true }));
-      url.value = ''; tg.value = ''; [].forEach.call(chips.querySelectorAll('.chip.on'), function (b) { b.classList.remove('on'); }); [].forEach.call(chips.querySelectorAll('.chip.gh-on'), function (b) { b.click(); });
+      url.value = ''; tg.value = ''; [setM, setW].forEach(function (st) { [].forEach.call(st.box.querySelectorAll('.chip.on'), function (b) { b.classList.remove('on'); }); [].forEach.call(st.box.querySelectorAll('.chip.gh-on'), function (b) { b.click(); }); });
     }
     add.onclick = doAdd;
     url.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doAdd(); } });
@@ -806,7 +805,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var out = [];
     (a || []).forEach(function (e) {
       var us = e.urls || (e.url ? [e.url] : []);
-      us.forEach(function (u) { var url = typeof u === 'string' ? u : (u && u.url) || '', mem = typeof u === 'string' ? '' : (u && u.member) || '', tg = typeof u === 'string' ? '' : (u && u.tags) || ''; if (Array.isArray(mem)) mem = mem.join(','); if (Array.isArray(tg)) tg = tg.join(','); out.push(e.type + ' | ' + url + (mem || tg ? ' | ' + mem : '') + (tg ? ' | ' + tg : '')); });
+      us.forEach(function (u) { var url = typeof u === 'string' ? u : (u && u.url) || '', mem = typeof u === 'string' ? '' : (u && u.member) || '', tg = typeof u === 'string' ? '' : (u && u.tags) || ''; var wi = typeof u === 'string' ? '' : (u && u.with) || ''; if (Array.isArray(mem)) mem = mem.join(','); if (Array.isArray(wi)) wi = wi.join(','); if (wi) mem += '+' + wi; if (Array.isArray(tg)) tg = tg.join(','); out.push(e.type + ' | ' + url + (mem || tg ? ' | ' + mem : '') + (tg ? ' | ' + tg : '')); });
     });
     return out.join('\n');
   }
@@ -872,34 +871,51 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   // sns: edit the members / tags of one link without touching the textarea: the pencil opens a small editor that rewrites that link's line
   function lineOf(el, u) { var r = null; snsLines(el.value).forEach(function (l) { if (!r && urlOfLine(l) === u) r = l; }); return r; }
-  function parseLine(l) { var u = urlOfLine(l), ps = l.split('|').map(function (x) { return x.trim(); }), ui = -1; ps.forEach(function (x, i) { if (ui < 0 && x.indexOf(u) >= 0) ui = i; }); if (ui < 0) ui = 0; return { pre: ps.slice(0, ui), url: ps[ui] || u, mem: (ps[ui + 1] || '').split(/[,\u3001\s]+/).filter(Boolean), tg: (ps[ui + 2] || '').split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean) }; }
-  function labelOf(l) { var q = parseLine(l); return (q.mem.join(',') + (q.tg.length ? ' #' + q.tg.join(' #') : '')).trim(); }
+  // sns member column: `member+with` (left of + = poster, right = the people shown with the poster). `+-` clears the with of an existing link.
+  function splitMem(col) {
+    col = String(col || ''); var i = col.indexOf('+'), a = i < 0 ? col : col.slice(0, i), b = i < 0 ? '' : col.slice(i + 1);
+    var f = function (x) { return x.split(/[,\u3001\s+]+/).filter(function (v) { return v && v !== '-'; }); };
+    return { m: f(a), w: f(b) };
+  }
+  // the codes picked in one chip set (G2 / L2 alone = the group head only)
+  function pickedCodes(box) {
+    var mem = [].map.call(box.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); }).filter(function (v) { return v !== 'G2' && v !== 'L2'; });
+    ['G2', 'L2'].forEach(function (g) { var h = box.querySelector('.chip[data-v=' + g + ']'), fl = g === 'G2' ? FOLD_G2 : FOLD_L2; if (h && h.classList.contains('gh-on') && !mem.some(function (v) { return fl.indexOf(v) >= 0; })) mem.unshift(g); });
+    return mem;
+  }
+  function memCol(m, w, hadWith) { var a = m.join(','), b = w.join(','); return a + (b ? '+' + b : (hadWith ? '+-' : '')); }
+  // one member-style chip set with a small caption (kind: 'member' / 'with'). codes: the codes to light up. Returns { box, extras }
+  function makeCodeSet(parent, caption, codes) {
+    var cap = document.createElement('div'); cap.className = 'setlbl'; cap.textContent = caption; parent.appendChild(cap);
+    var chips = $('groups').cloneNode(true); chips.removeAttribute('id'); parent.appendChild(chips);
+    var all = [].slice.call(chips.querySelectorAll('.chip')), extras = [];
+    (codes || []).forEach(function (m) { var v = String(m).toUpperCase(), hit = false; all.forEach(function (b) { if (b.getAttribute('data-v') === v) { hit = true; if (v === 'G2' || v === 'L2') b.classList.add('gh-on'); else b.classList.add('on'); } }); if (!hit) extras.push(m); });
+    all.forEach(function (b) { var v = b.getAttribute('data-v'); if (v !== 'G2' && v !== 'L2') b.onclick = function () { b.classList.toggle('on'); }; }); // G2 / L2 only show / hide the member rows (never written to sns)
+    foldGroups(chips, true);
+    return { box: chips, extras: extras };
+  }
+  function parseLine(l) { var u = urlOfLine(l), ps = l.split('|').map(function (x) { return x.trim(); }), ui = -1; ps.forEach(function (x, i) { if (ui < 0 && x.indexOf(u) >= 0) ui = i; }); if (ui < 0) ui = 0; var sm = splitMem(ps[ui + 1] || ''); return { pre: ps.slice(0, ui), url: ps[ui] || u, mem: sm.m, wth: sm.w, tg: (ps[ui + 2] || '').split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean) }; }
+  function labelOf(l) { var q = parseLine(l); return (q.mem.join(',') + (q.wth.length ? '+' + q.wth.join(',') : '') + (q.tg.length ? ' #' + q.tg.join(' #') : '')).trim(); }
   function openEditor(el, u, w, ebtn) {
     var old = w.nextSibling; if (old && old.classList && old.classList.contains('snse')) { old.parentNode.removeChild(old); ebtn.classList.remove('on'); return; }
     var l0 = lineOf(el, u); if (!l0) return; // removed link: restore it first
     var q = parseLine(l0), ed = document.createElement('div'); ed.className = 'snsh snse';
-    var chips = $('groups').cloneNode(true); chips.removeAttribute('id'); ed.appendChild(chips);
-    var all = [].slice.call(chips.querySelectorAll('.chip')), heads = {}, extras = [];
-    all.forEach(function (b) { var v = b.getAttribute('data-v'); if (v === 'G2' || v === 'L2') heads[v] = b; });
-    q.mem.forEach(function (m) { var v = m.toUpperCase(), hit = false; all.forEach(function (b) { if (b.getAttribute('data-v') === v) { hit = true; if (v === 'G2' || v === 'L2') b.classList.add('gh-on'); else b.classList.add('on'); } }); if (!hit) extras.push(m); });
-    all.forEach(function (b) { var v = b.getAttribute('data-v'); if (v !== 'G2' && v !== 'L2') b.onclick = function () { b.classList.toggle('on'); }; });
-    foldGroups(chips, true);
+    var setM = makeCodeSet(ed, 'member', q.mem), setW = makeCodeSet(ed, 'with', q.wth), chips = ed; // the two chip sets live in the editor box
+    var ol = null; snsLines(orig.sns || '').forEach(function (x) { if (!ol && urlOfLine(x) === u) ol = x; }); var hadWith = !!(ol && parseLine(ol).wth.length); // the loaded row had a with: removing it all writes `+-`
     var trow = document.createElement('div'); trow.className = 'row'; ed.appendChild(trow);
     var tg = document.createElement('input'); tg.type = 'text'; tg.className = 'fin'; tg.placeholder = 'tags'; tg.value = q.tg.join(','); tg.setAttribute('autocomplete', 'off'); tg.setAttribute('spellcheck', 'false');
     var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw);
     addSuggest(tg, tagOptsFor('sns'), trow, true, true);
     function apply() {
       var cur = lineOf(el, u); if (!cur) return;
-      var c = parseLine(cur), mem = [].map.call(chips.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); }).filter(function (v) { return v !== 'G2' && v !== 'L2'; });
-      ['G2', 'L2'].forEach(function (g) { var h = heads[g], fl = g === 'G2' ? FOLD_G2 : FOLD_L2; if (h && h.classList.contains('gh-on') && !mem.some(function (v) { return fl.indexOf(v) >= 0; })) mem.unshift(g); });
-      mem = mem.concat(extras).join(',');
+      var c = parseLine(cur), col = memCol(pickedCodes(setM.box).concat(setM.extras), pickedCodes(setW.box).concat(setW.extras), hadWith);
       var tv = tg.value.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean).join(',');
-      var parts = c.pre.concat([c.url]); if (mem || tv) parts.push(mem); if (tv) parts.push(tv);
+      var parts = c.pre.concat([c.url]); if (col || tv) parts.push(col); if (tv) parts.push(tv);
       var nl = parts.join(' | ');
       if (normLine(nl) === normLine(cur)) return;
       el.value = snsLines(el.value).map(function (l) { return l === cur ? nl : l; }).join('\n'); el.dispatchEvent(new Event('input', { bubbles: true }));
     }
-    new MutationObserver(apply).observe(chips, { attributes: true, attributeFilter: ['class'], subtree: true });
+    new MutationObserver(apply).observe(ed, { attributes: true, attributeFilter: ['class'], subtree: true, childList: false });
     tg.addEventListener('input', apply);
     w.parentNode.insertBefore(ed, w.nextSibling); ebtn.classList.add('on');
   }
@@ -941,7 +957,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     else snsLines(orig.sns).forEach(function (l) {
       var u = urlOfLine(l); if (!u) return;
       var ps = l.split('|').map(function (x) { return x.trim(); }), ui = -1; ps.forEach(function (x, i) { if (ui < 0 && x.indexOf(u) >= 0) ui = i; });
-      var mem = ui >= 0 && ps[ui + 1] ? ps[ui + 1].replace(/\s*,\s*/g, ',') : '', ltg = ui >= 0 && ps[ui + 2] ? ps[ui + 2].split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean) : []; mem = (mem + (ltg.length ? ' #' + ltg.join(' #') : '')).trim(); // the members and tags of the url (the type is not shown; it stays in the tooltip)
+      var mem = labelOf(l); // the members (+ with) and tags of the url (the type is not shown; it stays in the tooltip)
       items.push({ k: u, label: u.replace(/^https?:\/\/(www\.)?/, '').slice(0, 40) + (mem ? ' [' + mem + ']' : ''), l1: u.replace(/^https?:\/\/(www\.)?/, '').slice(0, 40), l2: mem, line: l });
     });
     if (!items.length) return;

@@ -786,6 +786,14 @@ G2のメンバー: `YZH, MMK, MSK, YOK, KUR, MNM, KIR`(展開されるのはこ�
 - **候補表示(自動入力はしない)**: 行のareaが入っているときに、その行のmapまたはtagsの入力欄に入る(またはタイプする)と、同じareaの過去データのmap / tagsを新しい順に候補表示する。押すと入力される。対象のcontentsはLIVE・RELEASEEVENT・FANMEETING。areaは、過去データのtitleの最後の語(末尾の「公演」は除く)と一致するもの。候補の元は`logs_index.json`(この3つのcontentsだけ`map`・`tags`・`groups`を持つ)
 - **ANNIVERSARY**: tourモードでは使える(上部の「anniv.」)。チェックすると全行に参照型のANNIVERSARYを作る。付与文言は入力したまま(全行共通)
 
+### snsのwith(同写り)と、ALL / POST表示
+- **データ**: `sns[].urls[]`に`with`(配列。無くてもよい)を持てる。`member`=投稿者、`with`=投稿者と一緒に写っている人。`{"url":"…","member":["YZH"],"with":["MMK","KUR"],"tags":[…]}`。既存データ(`member`のみ)は、そのまま「投稿者のみ」として読める(移行不要)。投稿者がメンバーでない(公式アカウントなど)リンクは、`member`を空にして`with`だけを持てる。
+- **書式**: sns欄のmember欄の`+`の左が投稿者、右が同写り。`YZH+MMK,KUR`(投稿者YZH、同写りMMKとKUR)、`+MMK`(投稿者なし、同写りのみ)、`YZH+-`(既存の同写りを消す)。`+`が無ければ、これまでどおり投稿者のみ。G2 / L2だけを書くとそのグループ全員(memberと同じ展開)。
+- **groups**: with のメンバーも member と同様に、その行の`groups`に足される(G2 / L2コードの自動追加も同じ)。
+- **helper**: sns入力補助と、リンクごとの✎編集欄で、memberのチップとwithのチップを分けて入力する。テキスト欄には`member+with`の形で書き込まれる(双方向に同期)。
+- **index.html(SNSポップアップ)**: ランプは従来どおり右上基準の並び。member(投稿者)の丸が先、with(同写り)の四角(丸と同じ大きさ)がそれに続く。列数は、表示するランプの合計で決める(1個=1列、9個以上=3列、それ以外=2列)。メンバーフィルターは、memberとwithのどちらかが一致したリンクを残す。ホバー表示(title)は出さない。
+- **ALL / POSTスイッチ**: ポップアップの左下。ALL=丸と四角の両方、POST=丸(member)のみ(四角を消し、丸の個数で並びを組み直す)。ラベルも切り替わる。状態は`localStorage`(`snsScopeMode`)に保存し、初期値はALL。右下のTAGスイッチとは独立。
+
 ### snsのリンクごとのtags
 - **データ**: `sns[].urls[]`に`tags`(配列。無くてもよい)を持てる。`{"url":"…","member":["YZH"],"tags":["挨拶","ライブ配信"]}`
 - **入力**: `type | url | member | tags`(tagsはカンマ区切り。memberを飛ばすときは`x | https://… | | 挨拶`)。`url | member | tags`も可。同じURLを入れ直すと、tagsは新しい入力があれば置き換え、空なら既存を残す

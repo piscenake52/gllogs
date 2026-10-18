@@ -86,6 +86,7 @@ input:focus-visible,
 /* 「PC版サイト」表示時、横幅が広い仮想ビューポートになることで指の縦ドラッグが横パン */
 /* スマホのPC版表示対応 ＆ カクつき防止（scrollbar-gutter: stable） */
 html { 
+  overscroll-behavior-x: none; /* トラックパッドの横スワイプでブラウザの戻る/進むが動かないようにする */
   overflow-y: auto; 
   overflow-x: hidden; /* TODAYモードのスライド演出ではみ出す横スクロールバーを抑止(sticky-headerのため、bodyでなくhtmlに指定) */
   scrollbar-gutter: stable; 
@@ -225,8 +226,8 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .search-clear-btn { position: absolute; right: 8px; background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 0; line-height: 1; display: none; user-select: none; }
 .search-clear-btn:hover { color: var(--text); }
 .search-box-wrap.has-text .search-clear-btn { display: block; }
-.search-suggestions { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 10px; z-index: 20; overflow: hidden; display: none; }
-.search-suggestions.is-open { display: block; }
+.search-suggestions { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 10px; z-index: 20; overflow: hidden; display: block; opacity: 0; visibility: hidden; transform: translateY(-4px); pointer-events: none; }
+.search-suggestions.is-open { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; transition: opacity 0.15s ease, transform 0.15s ease; } /* 開くときだけフェード(閉じは即時。入力のたびに閉じて開き直すため) */
 .search-suggestion-row { display: flex; align-items: stretch; }
 .search-suggestion-row:hover, .search-suggestion-row.is-highlighted { background: var(--btn-hover); }
 .search-suggestion-term { flex: 1 1 auto; min-width: 0; display: block; text-align: left; background: none; border: none; color: var(--text); font-size: 13px; padding: 7px 12px; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -301,11 +302,14 @@ body.icon-only-mode .checks-row-other label { width: 50.57px; min-width: 50.57px
 /* checkboxは非表示 */
 .checks label:has(input:focus-visible) { outline: 2px solid #38bdf8; outline-offset: 2px; }
 .checks label:has(input:checked) { background-color: var(--active-bg); color: var(--active-color); border-color: var(--active-bg); }
-.checks label:has(input:checked)::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #34d399; border-radius: 50%; }
+/* ランプは常に置いておき、点灯・消灯・色替えをフェードにする */
+.checks label { transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, opacity 0.18s ease; }
+.checks label::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #34d399; border-radius: 50%; opacity: 0; transition: opacity 0.18s ease, background-color 0.18s ease; pointer-events: none; }
+.checks label:has(input:checked)::after { opacity: 1; background-color: #34d399; }
 /* 手動でONにしたフィルターは、右上のランプを赤から青に変更して区別する(自動ONは赤のまま) */
 .checks label:has(input:checked).is-manual-on::after { background-color: #38bdf8; }
 /* 年/月/グループ/メンバーでフィルターした時、実際にはチェックせず、該当データがあるコンテンツ種類の ボタンに */
-.checks label.has-data-lamp::after { content: ""; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; background-color: #fbbf24; border-radius: 50%; }
+.checks label.has-data-lamp::after { opacity: 1; background-color: #fbbf24; }
 /* ダブルクリック/ダブルタップで除外指定したボタン:薄い色にして、そのフィルター値に該当するデータが 常に非表示 */
 .checks label.is-excluded { opacity: 0.35; }
 @media (hover: hover) { .checks label.is-excluded:hover { background-color: var(--btn-hover); opacity: 0.5; } }
@@ -364,7 +368,8 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .date-search-wrap { position: relative; flex-shrink: 0; display: flex; } /* 検索窓と文字サイズボタンの間のカレンダー(日付を選ぶと検索窓にYYYYMMDDを入れる) */
 #dateSearchBtn svg { width: 14px; height: 14px; display: block; }
 .cal-pop { position: fixed; z-index: 1100; width: 290px; max-width: calc(100vw - 16px); box-sizing: border-box; padding: 10px; background: var(--bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); user-select: none; -webkit-user-select: none; }
-.cal-pop[hidden] { display: none; }
+.cal-pop { transform-origin: top right; transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.22, 0.61, 0.36, 1), visibility 0s; }
+.cal-pop[hidden] { display: block; visibility: hidden; opacity: 0; transform: translateY(-6px) scale(0.97); pointer-events: none; transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0.15s; } /* 開閉をフェード+わずかな拡大縮小にする(hidden属性のまま) */
 .cal-head { display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
 .cal-head button, .cal-foot button, .cal-mgrid button, .cal-grid button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; border-radius: 8px; }
 .cal-nav { flex: 0 0 34px; height: 34px; font-size: 15px; background: var(--btn-bg) !important; border: 1px solid var(--input-border) !important; }
@@ -470,9 +475,9 @@ body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--dat
 /* 長押しで「保持」状態にした場合の青いリング */
 #todayToggleBtn.is-held { box-shadow: inset 0 0 0 2px #38bdf8; }
 /* --- 現在有効な絞り込み条件のバッジ一覧(フィルターエリア折りたたみ時に表示) --- */
-.active-filters-row { display: none; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; gap: 4px; margin-bottom: 10px; align-items: center; }
+.active-filters-row { display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; padding-bottom: 0; gap: 4px; margin-bottom: 0; align-items: center; max-height: 0; opacity: 0; visibility: hidden; pointer-events: none; transition: max-height 0.3s ease, opacity 0.2s ease, padding-bottom 0.3s ease, margin-bottom 0.3s ease, visibility 0s linear 0.3s; } /* 開閉は高さとフェードで動かす */
 /* FILTERボタンのON/OFF(is-open)だけで表示・非表示を決める(フィルターエリアの開閉状態からは独立) */
-.active-filters-row.is-open { display: flex; }
+.active-filters-row.is-open { max-height: 80px; opacity: 1; visibility: visible; pointer-events: auto; padding-bottom: 4px; margin-bottom: 10px; transition-delay: 0s; }
 .filter-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 11px; padding: 3px 10px; border-radius: 12px; cursor: pointer; user-select: none; white-space: nowrap; flex: 0 0 auto; }
 .filter-badge:hover { background-color: var(--btn-hover); opacity: 0.8; }
 .filter-badge .badge-x { font-size: 10px; color: var(--muted); font-weight: bold; }
@@ -486,6 +491,7 @@ body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--dat
 .items.is-animating { opacity: 0; transform: translateY(6px); }
 .item { display: flex; align-items: baseline; width: 100%; font-size: 13px; line-height: 1.4; color: var(--text); padding: 6px 2px; border-bottom: 1px solid var(--item-border); animation: accordionIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(4px); }
 @keyframes accordionIn { to { opacity: 1; transform: translateY(0); } }
+.item.no-anim { animation: none; opacity: 1; transform: none; } /* ICON切替などの即時再描画:フェードインを付けずに差し替える */
 
 /* 日付・コンテンツ・タイトルを並べるコンテナ（スクロールはタイトルのみに限定） */
 .item-scroll-container { display: flex; align-items: baseline; width: 100%; text-decoration: none; color: inherit; overflow: visible; }
@@ -661,6 +667,8 @@ body .item-contents.is-content-open {
   100% { transform: scale(6); opacity: 0; }
 }
 
+.no-result.is-fadein { animation: noResultIn 0.3s ease both; }
+@keyframes noResultIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 .no-result { font-size: 13px; color: var(--muted); padding: 25px 0; text-align: center; display: none; letter-spacing: 0.5px; }
 .quick-reset-btn { display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: var(--active-bg); color: var(--active-color); font-size: 11px; border: none; border-radius: 16px; cursor: pointer; outline: none; }
 .quick-reset-btn:hover { opacity: 0.85; }
@@ -853,6 +861,8 @@ body .item-contents.is-content-open {
 .sns-modal-link.is-invalid { opacity: 0.4; cursor: not-allowed; pointer-events: none; } /* http(s)で始まらない不正なURL:番号は出すがクリック不可にする */
 .sns-modal-link.has-member-lamp { position: relative; } /* 誰の投稿か分かるよう、投稿者のメンバーカラーで右上にランプを出す(最大4人。2個ずつ2段で並べる) */
 .sns-modal-lamps { position: absolute; top: -3px; right: -3px; display: grid; grid-template-columns: repeat(2, 5px); gap: 1px; pointer-events: none; }
+.sns-modal-lamps > i.w { border-radius: 0; } /* with(同写り):memberと同じ大きさの四角。memberの丸に続けて並べる */
+.sns-modal.is-post .sns-modal-lamps > i.w { display: none; } /* POST表示:投稿者(member)のみ */
 .sns-modal-lamps.is-single { grid-template-columns: 5px; } /* 1人のときは従来どおり角に1つだけ */
 .sns-modal-lamps.is-nine { grid-template-columns: repeat(3, 5px); } /* 9人のときだけ3列×3段(大きさは同じ)。右端基準なので左へ広がり、番号に少し重なってもよい */
 .sns-modal-lamps > i { display: block; width: 5px; height: 5px; box-sizing: border-box; border-radius: 50%; background-color: var(--lamp-color); box-shadow: 0 0 0 1px var(--bg), inset 0 0 0 1px rgba(128,128,128,.45); } /* 色の部分は常に5px。縁(背景色の輪)は外側に描き、内側の薄い灰色の線で白・黄など明るい色も同じ大きさに見えるようにする */
@@ -860,6 +870,7 @@ body .item-contents.is-content-open {
 .sns-tag-switch { position: absolute; bottom: 10px; right: 14px; height: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 0; border: none; background: none; color: var(--text); font-size: 11px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .sns-tag-track { position: relative; width: 28px; height: 16px; border-radius: 8px; box-sizing: border-box; background: var(--btn-bg); border: 1px solid var(--input-border); transition: background-color .25s; }
 .sns-tag-knob { position: absolute; top: 1px; left: 1px; width: 12px; height: 12px; border-radius: 50%; background: var(--sub); transition: transform .25s cubic-bezier(0.22, 0.61, 0.36, 1), background-color .25s; }
+.sns-scope-switch { right: auto; left: 14px; }
 .sns-tag-switch[aria-checked="true"] .sns-tag-track { background: #2f7bff; border-color: #2f7bff; }
 .sns-tag-switch[aria-checked="true"] .sns-tag-knob { transform: translateX(12px); background: #fff; }
 .sns-modal-item { display: inline-flex; align-items: center; gap: 8px; min-width: 0; max-width: 100%; }
@@ -1033,6 +1044,7 @@ body .item-contents.is-content-open {
   <div class="sns-modal" id="snsModal" role="dialog" aria-modal="true">
     <button type="button" class="sns-modal-close" id="snsModalCloseBtn" aria-label="Close">&#215;</button>
     <button type="button" class="sns-tag-switch" id="snsTagSwitch" role="switch" aria-checked="false"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span>TAG</span></button>
+    <button type="button" class="sns-tag-switch sns-scope-switch" id="snsScopeSwitch" role="switch" aria-checked="true"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span id="snsScopeLabel">ALL</span></button>
     <div class="sns-modal-body" id="snsModalBody"></div>
   </div>
 </div>
@@ -2341,9 +2353,10 @@ body .item-contents.is-content-open {
     }, 200);
   });
 
+  let instantRender = false; // trueの間に作る行は、フェードインなしで出す(ICON切替のちらつき防止)
   const createItemNode = item => {
     const w = document.createElement('div');
-    w.className = 'item';
+    w.className = 'item' + (instantRender ? ' no-anim' : '');
     if (item.logid) w.dataset.logid = item.logid; // 日付/時刻のダブルタップでlogidを表示する機能用(通常は画面に出さない)
     if (item.setlistid) w.dataset.setlistid = item.setlistid; // 🔗ボタンまでON時、同じダブルタップでsetlistidをコピーする機能用
     const sc = document.createElement('div');
@@ -2599,6 +2612,25 @@ body .item-contents.is-content-open {
     return w;
   };
 
+  // 件数表示(> 123):前の件数から新しい件数へ、短いカウントで切り替える
+  let countTween = null, shownCount = null;
+  const animateCount = text => {
+    const rc = $('resultCount');
+    if (countTween) { cancelAnimationFrame(countTween); countTween = null; }
+    const m = /^> (\d+)$/.exec(text || '');
+    const to = m ? parseInt(m[1], 10) : null;
+    const from = shownCount;
+    shownCount = to;
+    if (to === null || from === null || from === to || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) { rc.textContent = text; return; }
+    const t0 = performance.now(), dur = 360;
+    const step = now => {
+      const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      rc.textContent = k >= 1 ? text : '> ' + Math.round(from + (to - from) * e);
+      countTween = k >= 1 ? null : requestAnimationFrame(step);
+    };
+    countTween = requestAnimationFrame(step);
+  };
+
   const renderBatch = () => {
     if (rendered >= filtered.length) return;
     requestAnimationFrame(() => {
@@ -2610,6 +2642,16 @@ body .item-contents.is-content-open {
       $('items').appendChild(frag);
       rendered = next;
     });
+  };
+
+  // 同じフレームの中で、指定件数ぶんを即座に描画する(消す→描くの間に空白フレームを作らない)
+  const renderSync = count => {
+    const next = Math.min(Math.max(count, pageSize), filtered.length);
+    const frag = document.createDocumentFragment();
+    instantRender = true;
+    try { for (let i = rendered; i < next; i++) frag.appendChild(createItemNode(filtered[i])); } finally { instantRender = false; }
+    $('items').appendChild(frag);
+    rendered = next;
   };
 
   new IntersectionObserver(entries => {
@@ -3175,6 +3217,29 @@ body .item-contents.is-content-open {
     const h1 = snsModalBox.getBoundingClientRect().height;
     if (Math.abs(h1 - h0) > 1) snsModalBox.animate([{ height: h0 + 'px' }, { height: h1 + 'px' }], opt);
   };
+  // ALL / POST:ALLは投稿者(member)と同写り(with)の両方、POSTは投稿者のみのランプを出す。状態は保存する
+  const snsScopeSwitch = $('snsScopeSwitch');
+  // ランプの列数:表示するランプが1個なら1列、9個以上なら3列、それ以外は2列(従来のmember 1人/9人の扱いを、memberとwithの合計に広げた)
+  const relayoutSnsLamps = () => {
+    const post = snsModalBox.classList.contains('is-post');
+    snsModalBody.querySelectorAll('.sns-modal-lamps').forEach(el => {
+      const n = el.querySelectorAll(post ? 'i:not(.w)' : 'i').length;
+      el.classList.toggle('is-single', n === 1);
+      el.classList.toggle('is-nine', n >= 9);
+      el.style.display = n === 0 ? 'none' : '';
+    });
+  };
+  const setSnsScope = all => {
+    snsModalBox.classList.toggle('is-post', !all);
+    snsScopeSwitch.setAttribute('aria-checked', all ? 'true' : 'false');
+    $('snsScopeLabel').textContent = all ? 'ALL' : 'POST';
+    relayoutSnsLamps();
+  };
+  snsScopeSwitch.onclick = () => {
+    const all = snsScopeSwitch.getAttribute('aria-checked') !== 'true';
+    setSnsScope(all);
+    try { localStorage.setItem('snsScopeMode', all ? 'all' : 'post'); } catch (e) {}
+  };
   snsTagSwitch.onclick = () => {
     const on = snsTagSwitch.getAttribute('aria-checked') !== 'true';
     setSnsTagMode(on, true);
@@ -3197,7 +3262,7 @@ body .item-contents.is-content-open {
       // 絞り込み:検索語がリンクのtagsに当たればそのリンクだけ、メンバーフィルターは選んだメンバー(どれか)を持つリンクだけ。
       // どれにも当たらないときは、全リンクを出す(番号は元のまま。メンバーのランプもそのまま出す)
       const linkTags = u => (u && typeof u === 'object' && Array.isArray(u.tags)) ? u.tags.join(' ').toLowerCase() : '';
-      const linkMembers = u => { const m = (u && typeof u === 'object') ? u.member : ''; return (Array.isArray(m) ? m : [m]).map(x => String(x || '').trim().toUpperCase()); };
+      const linkMembers = u => { const o = (u && typeof u === 'object') ? u : {}; return [].concat(o.member || [], o.with || []).map(x => String(x || '').trim().toUpperCase()); }; // 投稿者と同写りのどちらも対象
       const allLinks = [];
       list.forEach(entry => { if (entry && Array.isArray(entry.urls)) entry.urls.forEach(u => allLinks.push(u)); });
       let shown = new Set(allLinks);
@@ -3221,20 +3286,23 @@ body .item-contents.is-content-open {
             const n = i + 1;
             // urlsの各要素は、旧形式(文字列そのもの)・新形式({url, member})のどちらも受け付ける
             const url = typeof u === 'string' ? u : (u && typeof u === 'object' ? u.url : '');
-            // memberは配列(複数人)・文字列1件(旧形式)のどちらも受け付ける。色のあるコードだけを重複なしで最大9人まで使う
-            const rawMember = (typeof u === 'object' && u) ? u.member : '';
-            const memberCodes = (Array.isArray(rawMember) ? rawMember : [rawMember])
+            // member(投稿者)/with(同写り)は、どちらも配列(複数人)・文字列1件(旧形式)を受け付ける。色のあるコードだけを重複なしで最大9人まで使う
+            const codesOf = raw => (Array.isArray(raw) ? raw : [raw])
               .map(m => String(m || '').trim().toUpperCase())
               .filter((m, idx, arr) => MEMBER_LAMP_COLORS[m] && arr.indexOf(m) === idx)
               .slice(0, 9);
-            const lampClass = memberCodes.length ? ' has-member-lamp' : '';
-            const lampHtml = memberCodes.length
-              ? `<span class="sns-modal-lamps${memberCodes.length === 1 ? ' is-single' : memberCodes.length === 9 ? ' is-nine' : ''}" aria-hidden="true">${memberCodes.map(m => `<i style="--lamp-color:${MEMBER_LAMP_COLORS[m]}"></i>`).join('')}</span>`
+            const memberCodes = codesOf((typeof u === 'object' && u) ? u.member : '');
+            const withCodes = codesOf((typeof u === 'object' && u) ? u.with : '');
+            // memberの丸を先に、withの四角をそれに続けて、同じ並び(従来どおり右上基準・2列)に入れる。個数に応じた列数はrelayoutSnsLamps()で決める
+            const lampTotal = memberCodes.length + withCodes.length;
+            const lampClass = lampTotal ? ' has-member-lamp' : '';
+            const lampHtml = lampTotal
+              ? `<span class="sns-modal-lamps" aria-hidden="true">${memberCodes.map(m => `<i style="--lamp-color:${MEMBER_LAMP_COLORS[m]}"></i>`).join('')}${withCodes.map(m => `<i class="w" style="--lamp-color:${MEMBER_LAMP_COLORS[m]}"></i>`).join('')}</span>`
               : '';
             const isValid = typeof url === 'string' && /^https?:\/\//i.test(url.trim());
             // ホバー表示はURLではなく、そのリンクのtags(なければ表示しない)
             const linkTagList = (u && typeof u === 'object' && Array.isArray(u.tags)) ? u.tags.filter(Boolean) : [];
-            const titleAttr = linkTagList.length ? ` title="${escapeHtml(linkTagList.join(', '))}"` : '';
+            const titleAttr = ''; // ホバー表示はなし
             const btnHtml = isValid
               ? `<a class="sns-modal-link${lampClass}" href="${escapeHtml(url)}"${titleAttr} target="_blank" rel="noopener noreferrer">${n}${lampHtml}</a>`
               : `<span class="sns-modal-link is-invalid${lampClass}" aria-disabled="true"${titleAttr}>${n}${lampHtml}</span>`;
@@ -3246,6 +3314,7 @@ body .item-contents.is-content-open {
         })
         .join('');
       snsModalBody.innerHTML = rowsHtml || '<div class="sns-modal-empty">NO LINKS</div>';
+      relayoutSnsLamps();
     } catch (err) {
       console.error('Failed to render sns modal:', err);
       snsModalBody.innerHTML = '<div class="sns-modal-empty">LOAD ERROR</div>';
@@ -3253,6 +3322,9 @@ body .item-contents.is-content-open {
     let tagOn = false;
     try { tagOn = localStorage.getItem('snsTagMode') === '1'; } catch (e) {} // 前回のON/OFFを引き継ぐ(保存がなければOFF)
     setSnsTagMode(tagOn, false);
+    let scopeAll = true;
+    try { scopeAll = localStorage.getItem('snsScopeMode') !== 'post'; } catch (e) {}
+    setSnsScope(scopeAll);
     snsModalOverlay.classList.add('is-open');
   };
   const closeSnsModal = () => snsModalOverlay.classList.remove('is-open');
@@ -3461,7 +3533,8 @@ body .item-contents.is-content-open {
     });
   };
 
-  const updateDisplay = (syncHash = true, preserveContentExpand = false) => {
+  const updateDisplay = (syncHash = true, preserveContentExpand = false, instant = false) => {
+    const prevRendered = rendered; // instant時は、描画済みの件数を保ったまま差し替える(スクロール位置を保つ)
     // データ部の再描画では、コンテンツ名アコーディオンの展開状態を通常は全て閉じる
     if (!preserveContentExpand) expandedContentKeys.clear();
 
@@ -3589,18 +3662,20 @@ body .item-contents.is-content-open {
     });
 
     // フェードアウトは廃止(案C)
-    $('items').classList.add('is-animating');
+    if (!instant) $('items').classList.add('is-animating'); // instantのときはフェードを使わない
     if (renderFrame) cancelAnimationFrame(renderFrame); // 連続してフィルター操作された場合、前回分の描画待ちは打ち切る
     $('items').textContent = '';
     rendered = 0;
     defaultText = '> ' + filtered.length;
-    $('resultCount').textContent = defaultText;
+    animateCount(defaultText);
     renderActiveBadges(checked, fullKw);
     updateAllBadges();
     updateManualIndicators();
 
     const isZero = filtered.length === 0;
-    $('noResult').style.display = isZero ? 'block' : 'none';
+    { const nr = $('noResult'), wasShown = nr.style.display === 'block';
+      nr.style.display = isZero ? 'block' : 'none';
+      if (isZero && !wasShown) { nr.classList.remove('is-fadein'); void nr.offsetWidth; nr.classList.add('is-fadein'); } } // 0件表示は軽くフェードイン
     // TODAYモード中は「CLEAR ALL FILTERS」ではなく「NO DATA」のみ表示する
     $('noResultText').textContent = todayMode ? 'NO DATA' : 'NO RESULTS FOUND';
     $('quickResetBtn').style.display = todayMode ? 'none' : 'inline-block';
@@ -3608,7 +3683,9 @@ body .item-contents.is-content-open {
     $('sortBtn').style.display = (isZero && !todayMode) ? 'none' : 'block';
     $('inlineClearBtn').style.display = (checked.length > 0 || fullKw || todayMode || setlistMode) ? 'inline-block' : 'none';
 
-    if (!isZero) renderBatch();
+    if (!isZero) { if (instant) renderSync(instant === 'fresh' ? 0 : prevRendered); else renderBatch(); }
+    // 'fresh'(表示内容が変わる即時再描画):空白フレームなしで差し替え、ごく短い淡いフェードだけ付けて切り替わりを分かりやすくする
+    if (instant === 'fresh' && $('items').animate && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) $('items').animate([{ opacity: 0.35 }, { opacity: 1 }], { duration: 180, easing: 'ease-out' });
     // 0件時もupdateItemsMinHeight内で分岐して処理する
     updateItemsMinHeight();
     // 新しい内容のフェードインを発火させる
@@ -3782,11 +3859,24 @@ body .item-contents.is-content-open {
   updateContentTooltips();
   $('iconToggleBtn').onclick = () => {
     iconMode = !iconMode;
+    // コンテンツ種類ボタンは、切替前後の横幅を測り、幅だけをなめらかに広げ縮めする(中身の文字/アイコンは即時に切り替わる)
+    const filterLabels = Array.from(document.querySelectorAll('.checks-row-other label'));
+    const widthsBefore = filterLabels.map(l => l.getBoundingClientRect().width);
     document.body.classList.toggle('icon-only-mode', iconMode);
+    if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      filterLabels.forEach((l, i) => {
+        const w1 = l.getBoundingClientRect().width, w0 = widthsBefore[i];
+        if (!w0 || !w1 || Math.abs(w1 - w0) < 0.5 || !l.animate) return;
+        l.animate(
+          [{ width: w0 + 'px', minWidth: w0 + 'px', boxSizing: 'border-box', overflow: 'hidden' }, { width: w1 + 'px', minWidth: w1 + 'px', boxSizing: 'border-box', overflow: 'hidden' }],
+          { duration: 380, easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)' }
+        );
+      });
+    }
     $('iconToggleBtn').classList.toggle('is-active', iconMode);
     localStorage.setItem(ICON_MODE_KEY, iconMode);
     updateContentTooltips();
-    deferHeavyUpdate(() => updateDisplay(false));
+    updateDisplay(false, false, true); // 同じフレームで即時に差し替える(フェードイン・空白フレームなし)
   };
 
   // ♪ボタン:検索窓の下にある楽曲紹介バー(PLAYボタン+タイトル/アーティスト)の表示/非表示を切り替える
@@ -4224,11 +4314,9 @@ body .item-contents.is-content-open {
         updateTodayButtonStyle();
       }
       toggleTodayHeld();
-      deferHeavyUpdate(() => {
-        autoUpdateContentTypeFilters();
-        updateManualIndicators();
-        updateDisplay(true);
-      });
+      autoUpdateContentTypeFilters();
+      updateManualIndicators();
+      updateDisplay(true, false, 'fresh');
       return;
     }
     // 1回目クリックは即座に通常ON/OFFを行い、直前の状態を保存しておく
@@ -4248,11 +4336,10 @@ body .item-contents.is-content-open {
       turnOffTodayMode();
     }
     // 通常クリックでのON/OFFは今回のセッション限り
-    deferHeavyUpdate(() => {
-      autoUpdateContentTypeFilters();
-      updateManualIndicators();
-      updateDisplay(true);
-    });
+    // 同じフレームで差し替える(空白フレーム・行ごとのフェードインなし)
+    autoUpdateContentTypeFilters();
+    updateManualIndicators();
+    updateDisplay(true, false, 'fresh');
     todayClickTimer = setTimeout(() => {
       todayClickTimer = null;
       todayClickSnapshot = null;
@@ -4368,6 +4455,43 @@ body .item-contents.is-content-open {
   $('prevDayBtn').onclick = () => playDaySlideChange(-1);
   $('nextDayBtn').onclick = () => playDaySlideChange(1);
 
+  // ================= TODAYモード:PCのトラックパッド二本指の横スワイプで日付移動 ===============
+  // wheelイベントのdeltaXで受ける。指を離した後の慣性(惰性)イベントで何度も日付が動かないよう、1回のスワイプにつき1日だけ動かす
+  (() => {
+    const WHEEL_COMMIT_PX = 80;   // この量だけ横にスワイプしたら日付を動かす
+    const WHEEL_QUIET_MS = 160;   // wheelが止まってからこの時間で「スワイプ終了」とみなす(慣性が続く間は同じスワイプ扱い)
+    const wheelZones = [slideAreaEl, flickFillEl, $('updateTime'), $('footerBtnRow')].filter(Boolean); // タッチのフリックと同じ領域
+    let acc = 0, axis = null, committed = false, quietTimer = null;
+    const endGesture = () => {
+      quietTimer = null;
+      if (!committed && acc !== 0 && !daySlideAnimating) setItemsTransform(0, true); // 確定前に止まったら元の位置へ戻す
+      acc = 0; axis = null; committed = false;
+    };
+    wheelZones.forEach(el => el.addEventListener('wheel', e => {
+      if (!todayMode || e.ctrlKey) return; // ctrl+wheel(ピンチ拡大)は触らない
+      const titleEl = e.target.closest ? e.target.closest('.item-title') : null;
+      if (titleEl && titleEl.scrollWidth > titleEl.clientWidth + 1 && axis === null) return; // 横スクロールできるタイトルの上は、タイトルのスクロールを優先
+      const k = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1; // 行/ページ単位の値もpxに換算
+      const dx = e.deltaX * k, dy = e.deltaY * k;
+      if (axis === null) {
+        if (Math.abs(dx) < 2 && Math.abs(dy) < 2) return;
+        axis = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v'; // 最初の動きが縦なら、以降このスワイプは縦スクロールに任せる
+      }
+      clearTimeout(quietTimer);
+      quietTimer = setTimeout(endGesture, WHEEL_QUIET_MS);
+      if (axis !== 'h') return;
+      e.preventDefault(); // ブラウザの「戻る/進む」スワイプや横スクロールを抑える
+      if (committed || daySlideAnimating) return; // 確定後の慣性イベントは無視
+      acc += dx;
+      const w = slideAreaEl.getBoundingClientRect().width || 300;
+      setItemsTransform(Math.max(-w / 2, Math.min(w / 2, -acc)), false); // 指に付いてくる(ナチュラルスクロール:左へスワイプ=翌日)
+      if (Math.abs(acc) >= WHEEL_COMMIT_PX) {
+        committed = true;
+        playDaySlideChange(acc > 0 ? 1 : -1);
+      }
+    }, { passive: false }));
+  })();
+
   // ================= TODAYモード:データ部でのフリック操作 ===============
   (() => {
     if (!isTouch) return; // タッチ非対応環境(PCのマウス操作等)では登録しない
@@ -4464,8 +4588,10 @@ body .item-contents.is-content-open {
       holding = false;
     };
 
-    const startHold = (x, y, target) => {
+    const startHold = (x, y, target, isMouse) => {
       if (target.closest(INTERACTIVE_SELECTOR)) return; // 操作要素の上では発火させない
+      // スクロールバー上の押しっぱなし(つまみのドラッグ)は長押しではない。ドラッグ中はmousemoveが届かないため、位置で除外する
+      if (isMouse && (x >= document.documentElement.clientWidth || y >= document.documentElement.clientHeight)) return;
       startX = x;
       startY = y;
       holding = true;
@@ -4496,11 +4622,14 @@ body .item-contents.is-content-open {
     // PC(マウス操作)でも同様に、左ボタン押しっぱなしで長押し扱いにする
     document.addEventListener('mousedown', e => {
       if (e.button !== 0) return;
-      startHold(e.clientX, e.clientY, e.target);
+      startHold(e.clientX, e.clientY, e.target, true);
     });
     document.addEventListener('mousemove', e => moveHold(e.clientX, e.clientY));
     document.addEventListener('mouseup', clearHold);
     document.addEventListener('mouseleave', clearHold);
+    // 押している間にページがスクロールしたら長押しではない(スクロールバーのドラッグ・ホイール・慣性スクロールでTODAYに切り替わるのを防ぐ)
+    window.addEventListener('scroll', clearHold, { passive: true });
+    window.addEventListener('wheel', clearHold, { passive: true });
   })();
 
   // SETLISTボタン:セトリ検索モードのON/OFF。検索窓の文字列はモード切替時もクリアしない
