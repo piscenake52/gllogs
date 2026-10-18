@@ -251,7 +251,105 @@
       "KIR"
     ],
     "title": "ZIP-FM 「ENJOY LIVE」 公開収録",
-    "venue": "ナガシマスパーランド内 ナガシマスパードーム"
+    "venue": "ナガシマスパーランド内 ナガシマスパードーム",
+    "songs": [
+      {
+        "order": 1,
+        "title": "BLOOM! BLOOM! BLOOM!",
+        "type": "song",
+        "original": "",
+        "notes": "",
+        "member": [
+          "YZH",
+          "MMK",
+          "MSK",
+          "YOK",
+          "KUR",
+          "MNM",
+          "KIR"
+        ]
+      },
+      {
+        "order": 2,
+        "title": "LET ME GO",
+        "type": "song",
+        "original": "",
+        "notes": "",
+        "member": [
+          "YZH",
+          "MMK",
+          "MSK",
+          "YOK",
+          "KUR",
+          "MNM",
+          "KIR"
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Nocturne",
+        "type": "song",
+        "original": "",
+        "notes": "",
+        "member": [
+          "YZH",
+          "MMK",
+          "MSK",
+          "YOK",
+          "KUR",
+          "MNM",
+          "KIR"
+        ]
+      },
+      {
+        "order": 4,
+        "title": "EASY",
+        "type": "song",
+        "original": "",
+        "notes": "",
+        "member": [
+          "YZH",
+          "MMK",
+          "MSK",
+          "YOK",
+          "KUR",
+          "MNM",
+          "KIR"
+        ]
+      },
+      {
+        "order": 5,
+        "title": "Umbrella",
+        "type": "song",
+        "original": "",
+        "notes": "",
+        "member": [
+          "YZH",
+          "MMK",
+          "MSK",
+          "YOK",
+          "KUR",
+          "MNM",
+          "KIR"
+        ]
+      },
+      {
+        "order": 6,
+        "title": "ヒマワリ",
+        "type": "song",
+        "original": "",
+        "notes": "",
+        "member": [
+          "YZH",
+          "MMK",
+          "MSK",
+          "YOK",
+          "KUR",
+          "MNM",
+          "KIR"
+        ]
+      }
+    ]
   },
   {
     "setlistid": "202610121500",
