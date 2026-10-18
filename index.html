@@ -409,6 +409,16 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .text-size-step-btn:hover, .text-size-step-btn:active { color: var(--text); }
 /* writing-mode:vertical-lr で縦型スライダーにする(上=最小値/-50%、下=最大値/+100%) */
 .text-size-slider { writing-mode: vertical-lr; width: 2.25px; height: 140px; margin: 0; }
+.text-size-wrap-btn { width: 26px; height: 24px; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; border: none; border-radius: 6px; background: none; color: var(--sub); cursor: pointer; }
+.text-size-wrap-btn svg { width: 16px; height: 16px; display: block; }
+.text-size-wrap-btn:hover { color: var(--text); }
+.text-size-wrap-btn.is-on { color: #fff; background-color: #38bdf8; }
+/* 折り返し表示ON:データ部のタイトルを2行まで表示し、2行に収まらない分だけ「…」にする */
+body.wrap-mode .item-title { white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; text-overflow: ellipsis; overflow-wrap: anywhere; }
+body.wrap-mode .item-title:hover, body.wrap-mode .item-title:focus { text-overflow: ellipsis; }
+/* 2行になるタイトルでも、グループの四角とハートは1行目の高さにそろえる(上端に寄せ、1行目の中央に来るよう余白を足す) */
+body.wrap-mode .team-icon { align-self: flex-start; margin-top: calc((var(--data-font-scale) * 13px * 1.4 - 11.25px) / 2); }
+body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--data-font-scale) * 0.7px); }
 .text-size-panel-pct { border-top: 1px solid var(--input-border); width: 100%; margin: 4px auto 0; padding-top: 8px; text-align: center; font-size: 9.75px; font-weight: bold; color: var(--text); white-space: nowrap; }
 
 /* BLACK/WHITEボタン:文字化け対策としてCSSのみで太陽(切替先=ライト)/月(切替先=ダーク)を描画 */
@@ -479,6 +489,8 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 
 /* 日付・コンテンツ・タイトルを並べるコンテナ（スクロールはタイトルのみに限定） */
 .item-scroll-container { display: flex; align-items: baseline; width: 100%; text-decoration: none; color: inherit; overflow: visible; }
+/* 縮んでよいのはタイトルだけ。タイトルが長い行で、ハート展開などで幅が足りなくなると、📍/📋/日付などが小数px縮んでコンテンツ種類の枠が左にずれるのを防ぐ */
+.item-scroll-container > :not(.item-title) { flex-shrink: 0; }
 
 /* 日付とコンテンツ種類は固定 */
 .item-date { flex: 0 0 auto; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
@@ -844,11 +856,12 @@ body .item-contents.is-content-open {
 .sns-modal-lamps.is-single { grid-template-columns: 5px; } /* 1人のときは従来どおり角に1つだけ */
 .sns-modal-lamps.is-nine { grid-template-columns: repeat(3, 5px); } /* 9人のときだけ3列×3段(大きさは同じ)。右端基準なので左へ広がり、番号に少し重なってもよい */
 .sns-modal-lamps > i { display: block; width: 5px; height: 5px; box-sizing: border-box; border-radius: 50%; background-color: var(--lamp-color); box-shadow: 0 0 0 1px var(--bg), inset 0 0 0 1px rgba(128,128,128,.45); } /* 色の部分は常に5px。縁(背景色の輪)は外側に描き、内側の薄い灰色の線で白・黄など明るい色も同じ大きさに見えるようにする */
-.sns-modal-body { margin-top: 12px; }
-.sns-tag-switch { position: absolute; top: 10px; left: 14px; height: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 0; border: none; background: none; color: var(--text); font-size: 11px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.sns-modal-body { margin-bottom: 26px; }
+.sns-tag-switch { position: absolute; bottom: 10px; right: 14px; height: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 0; border: none; background: none; color: var(--text); font-size: 11px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .sns-tag-track { position: relative; width: 28px; height: 16px; border-radius: 8px; box-sizing: border-box; background: var(--btn-bg); border: 1px solid var(--input-border); transition: background-color .25s; }
 .sns-tag-knob { position: absolute; top: 1px; left: 1px; width: 12px; height: 12px; border-radius: 50%; background: var(--sub); transition: transform .25s cubic-bezier(0.22, 0.61, 0.36, 1), background-color .25s; }
-.sns-tag-switch[aria-checked="true"] .sns-tag-knob { transform: translateX(12px); background: var(--text); }
+.sns-tag-switch[aria-checked="true"] .sns-tag-track { background: #2f7bff; border-color: #2f7bff; }
+.sns-tag-switch[aria-checked="true"] .sns-tag-knob { transform: translateX(12px); background: #fff; }
 .sns-modal-item { display: inline-flex; align-items: center; gap: 8px; min-width: 0; max-width: 100%; }
 .sns-modal-tagtext { display: none; font-size: 11px; line-height: 1.3; color: var(--sub); min-width: 0; overflow-wrap: anywhere; }
 .sns-modal.is-tags .sns-modal-links { flex-direction: column; flex-wrap: nowrap; align-items: flex-start; }
@@ -905,6 +918,7 @@ body .item-contents.is-content-open {
           <input type="range" id="textSizeSlider" class="text-size-slider" min="-50" max="50" step="5" value="0" aria-label="&#12487;&#12540;&#12479;&#37096;&#12398;&#25991;&#23383;&#12469;&#12452;&#12474;(&#65037;)">
           <button type="button" class="text-size-panel-sign text-size-step-btn" id="textSizePlusBtn" data-step="5" aria-label="&#25991;&#23383;&#12469;&#12452;&#12474;&#12434;5%&#25313;&#22823;">&#43;</button>
           <div class="text-size-panel-pct" id="textSizePanelPct">100%</div>
+          <button type="button" class="text-size-wrap-btn" id="wrapToggleBtn" aria-pressed="false" aria-label="&#25240;&#12426;&#36820;&#12375;&#34920;&#31034;(2&#34892;&#12414;&#12391;)" title="wrap"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="2.5,3 13,3 3,12 12.5,12"/><polyline points="10,9.5 12.8,12 10,14.5"/></svg></button>
         </div>
       </div>
       <button class="tool-btn theme-toggle-btn" id="themeToggleBtn" aria-label="&#12486;&#12540;&#12510;&#20999;&#12426;&#26367;&#12360;(&#12480;&#12540;&#12463;/&#12521;&#12452;&#12488;)">
@@ -3866,6 +3880,25 @@ body .item-contents.is-content-open {
   applyTextSize();
 
   const resetTextSize = () => { textSizePercent = 0; applyTextSize(); };
+
+  // 折り返し表示(タイトルを2行まで)。状態はlocalStorageに保存する
+  {
+    const WRAP_KEY = 'gl_log_wrap_mode';
+    const wrapBtn = $('wrapToggleBtn');
+    const applyWrap = on => {
+      document.body.classList.toggle('wrap-mode', on);
+      wrapBtn.classList.toggle('is-on', on);
+      wrapBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    };
+    let on = false;
+    try { on = localStorage.getItem(WRAP_KEY) === '1'; } catch (e) {}
+    applyWrap(on);
+    wrapBtn.addEventListener('click', () => {
+      on = !on;
+      applyWrap(on);
+      try { localStorage.setItem(WRAP_KEY, on ? '1' : '0'); } catch (e) {}
+    });
+  }
 
   // パネルの開閉:「A」ボタン直下に、アイコン下からなめらかに伸びる形で開閉する
   const openTextSizePanel = () => {

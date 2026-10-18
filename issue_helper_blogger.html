@@ -544,16 +544,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var trow = document.createElement('div'); trow.className = 'row'; box.appendChild(trow);
     var tg = document.createElement('input'); tg.type = 'text'; tg.className = 'fin'; tg.placeholder = 'tags'; tg.setAttribute('autocomplete', 'off'); tg.setAttribute('spellcheck', 'false');
     var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw);
-    var tch = document.createElement('div'); tch.className = 'chipr'; box.appendChild(tch); // the tags already used by the links of this text: a click adds / removes it
     function tagList(v) { return v.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean); }
-    function refreshTagChips() {
-      var seen = {}, all = [];
-      el.value.split('\n').forEach(function (l) { var ps = l.split('|').map(function (x) { return x.trim(); }), ui = -1; ps.forEach(function (x, i) { if (ui < 0 && /^https?:\/\//i.test(x)) ui = i; }); if (ui >= 0 && ps[ui + 2]) tagList(ps[ui + 2]).forEach(function (t) { if (!seen[t]) { seen[t] = 1; all.push(t); } }); });
-      var cur = tagList(tg.value); tch.innerHTML = ''; tch.hidden = !all.length;
-      all.forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (cur.indexOf(t) >= 0 ? ' on' : ''); b.textContent = t; b.onclick = function () { var c = tagList(tg.value), i = c.indexOf(t); if (i >= 0) c.splice(i, 1); else c.push(t); tg.value = c.join(','); refreshTagChips(); }; tch.appendChild(b); });
-    }
     var arow = document.createElement('div'); arow.className = 'row btns'; arow.appendChild(add); box.appendChild(arow); // the add button: full width under the tags
-    tg.addEventListener('input', refreshTagChips); el.addEventListener('input', refreshTagChips); refreshTagChips();
+    addSuggest(tg, tagOptsFor('sns'), trow, true, true); // typed tags -> candidates (the tags already used by sns links)
     function urlOf(line) { var m = line.match(/https?:\/\/[^\s|]+/i); return m ? m[0] : ''; }
     function doAdd() {
       var u = url.value.trim();
@@ -571,7 +564,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var line = parts.join(' | ');
       if (hit >= 0) lines[hit] = line; else lines.push(line);
       el.value = lines.join('\n'); el.dispatchEvent(new Event('input', { bubbles: true }));
-      url.value = ''; tg.value = ''; refreshTagChips(); [].forEach.call(chips.querySelectorAll('.chip.on'), function (b) { b.classList.remove('on'); }); [].forEach.call(chips.querySelectorAll('.chip.gh-on'), function (b) { b.click(); });
+      url.value = ''; tg.value = ''; [].forEach.call(chips.querySelectorAll('.chip.on'), function (b) { b.classList.remove('on'); }); [].forEach.call(chips.querySelectorAll('.chip.gh-on'), function (b) { b.click(); });
     }
     add.onclick = doAdd;
     url.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doAdd(); } });
@@ -639,6 +632,21 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     el.addEventListener('focus', show); el.addEventListener('input', show); el.addEventListener('blur', hide);
   }
   var TOURFILL = false;
+  // tags typed in logs tags / sns link tags: the tags already used (most used first). From the full logs.json when it is loaded (the index keeps tags only for some rows)
+  function tagOptsFor(kind) {
+    return function () {
+      var key = 'tag-' + kind; if (optMemo[key]) return optMemo[key];
+      var m = {};
+      (cache.logs || ix.logs || []).forEach(function (r) {
+        if (!r) return;
+        if (kind === 'logs') { if (Array.isArray(r.tags)) r.tags.forEach(function (t) { addTo(m, t); }); }
+        else if (Array.isArray(r.sns)) r.sns.forEach(function (e) { ((e && e.urls) || []).forEach(function (u) { if (u && Array.isArray(u.tags)) u.tags.forEach(function (t) { addTo(m, t); }); }); });
+      });
+      var list = Object.keys(m).sort(function (a, b) { return m[b] - m[a] || (a < b ? -1 : a > b ? 1 : 0); }).map(function (c) { return { v: c, n: m[c], k: normQ(c) }; });
+      if (cache.logs) optMemo[key] = list;
+      return list;
+    };
+  }
   var venueOptions = makeOpts('venue', ['setlist'], function (m) { rowsOf('setlist').forEach(function (r) { if (r) addTo(m, r.venue); }); });
   var artistOptions = makeOpts('artist', ['setlist', 'songs'], function (m) { rowsOf('setlist').forEach(function (r) { if (r) addTo(m, r.artist); }); (cache.songs || []).forEach(function (r) { if (r) addTo(m, r.artist); }); });
   var songOptions = makeOpts('song', ['setlist', 'songs'], function (m) {
@@ -647,7 +655,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   });
   // el: the input. optsFn: returns [{v, n, k}]. after: (optional) node the list is placed after; without it the input is wrapped (.fw) and the list goes under it.
   // partial: also match the typed text anywhere inside a value (prefix matches come first)
-  function addSuggest(el, optsFn, after, partial) {
+  function addSuggest(el, optsFn, after, partial, token) {
     var box = document.createElement('div'); box.className = 'fcand fsug'; box.hidden = true;
     if (after) { after.parentNode.insertBefore(box, after.nextSibling); }
     else {
@@ -658,11 +666,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var items = [], idx = -1;
     function hide() { box.hidden = true; box.innerHTML = ''; items = []; idx = -1; }
     function mark() { [].forEach.call(box.children, function (b, i) { b.classList.toggle('sel', i === idx); }); }
-    function pick(i) { el.value = items[i].v; hide(); el.dispatchEvent(new Event('input', { bubbles: true })); }
+    var head = '';
+    function pick(i) { el.value = head + items[i].v; hide(); el.dispatchEvent(new Event('input', { bubbles: true })); }
     function show() {
-      var v = el.value.trim(), q = normQ(v);
+      var v = el.value.trim(), q, used = {};
+      head = '';
+      if (token) { var mt = el.value.match(/^([\s\S]*[,\u3001])([^,\u3001]*)$/); head = mt ? mt[1] : ''; v = (mt ? mt[2] : el.value).trim(); tagTokens(head).forEach(function (t) { used[t] = 1; }); } // the last comma-separated token is the one being typed
+      q = normQ(v);
       if (!q) { hide(); return; }
-      var all = optsFn().filter(function (o) { return o.v !== v; });
+      var all = optsFn().filter(function (o) { return o.v !== v && !used[o.v]; });
       var pre = all.filter(function (o) { return o.k.indexOf(q) === 0; });
       items = (partial ? pre.concat(all.filter(function (o) { return o.k.indexOf(q) > 0; })) : pre).slice(0, 8); idx = -1;
       box.innerHTML = '';
@@ -675,6 +687,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       box.hidden = !items.length;
     }
     el.addEventListener('input', show);
+    el.addEventListener('focus', function () { if (token) fetchData('logs').catch(function () {}); }); // the full logs.json holds the tags of every row
     el.addEventListener('blur', hide);
     el.addEventListener('keydown', function (e) {
       if (box.hidden) return;
@@ -857,6 +870,70 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     snsLines(o).forEach(function (l) { var u = urlOfLine(l); if (u && !cu[u] && out.indexOf('-' + u) < 0) out.push('-' + u); });
     return out.join('\n');
   }
+  // sns: edit the members / tags of one link without touching the textarea: the pencil opens a small editor that rewrites that link's line
+  function lineOf(el, u) { var r = null; snsLines(el.value).forEach(function (l) { if (!r && urlOfLine(l) === u) r = l; }); return r; }
+  function parseLine(l) { var u = urlOfLine(l), ps = l.split('|').map(function (x) { return x.trim(); }), ui = -1; ps.forEach(function (x, i) { if (ui < 0 && x.indexOf(u) >= 0) ui = i; }); if (ui < 0) ui = 0; return { pre: ps.slice(0, ui), url: ps[ui] || u, mem: (ps[ui + 1] || '').split(/[,\u3001\s]+/).filter(Boolean), tg: (ps[ui + 2] || '').split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean) }; }
+  function labelOf(l) { var q = parseLine(l); return (q.mem.join(',') + (q.tg.length ? ' #' + q.tg.join(' #') : '')).trim(); }
+  function openEditor(el, u, w, ebtn) {
+    var old = w.nextSibling; if (old && old.classList && old.classList.contains('snse')) { old.parentNode.removeChild(old); ebtn.classList.remove('on'); return; }
+    var l0 = lineOf(el, u); if (!l0) return; // removed link: restore it first
+    var q = parseLine(l0), ed = document.createElement('div'); ed.className = 'snsh snse';
+    var chips = $('groups').cloneNode(true); chips.removeAttribute('id'); ed.appendChild(chips);
+    var all = [].slice.call(chips.querySelectorAll('.chip')), heads = {}, extras = [];
+    all.forEach(function (b) { var v = b.getAttribute('data-v'); if (v === 'G2' || v === 'L2') heads[v] = b; });
+    q.mem.forEach(function (m) { var v = m.toUpperCase(), hit = false; all.forEach(function (b) { if (b.getAttribute('data-v') === v) { hit = true; if (v === 'G2' || v === 'L2') b.classList.add('gh-on'); else b.classList.add('on'); } }); if (!hit) extras.push(m); });
+    all.forEach(function (b) { var v = b.getAttribute('data-v'); if (v !== 'G2' && v !== 'L2') b.onclick = function () { b.classList.toggle('on'); }; });
+    foldGroups(chips, true);
+    var trow = document.createElement('div'); trow.className = 'row'; ed.appendChild(trow);
+    var tg = document.createElement('input'); tg.type = 'text'; tg.className = 'fin'; tg.placeholder = 'tags'; tg.value = q.tg.join(','); tg.setAttribute('autocomplete', 'off'); tg.setAttribute('spellcheck', 'false');
+    var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw);
+    addSuggest(tg, tagOptsFor('sns'), trow, true, true);
+    function apply() {
+      var cur = lineOf(el, u); if (!cur) return;
+      var c = parseLine(cur), mem = [].map.call(chips.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); }).filter(function (v) { return v !== 'G2' && v !== 'L2'; });
+      ['G2', 'L2'].forEach(function (g) { var h = heads[g], fl = g === 'G2' ? FOLD_G2 : FOLD_L2; if (h && h.classList.contains('gh-on') && !mem.some(function (v) { return fl.indexOf(v) >= 0; })) mem.unshift(g); });
+      mem = mem.concat(extras).join(',');
+      var tv = tg.value.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean).join(',');
+      var parts = c.pre.concat([c.url]); if (mem || tv) parts.push(mem); if (tv) parts.push(tv);
+      var nl = parts.join(' | ');
+      if (normLine(nl) === normLine(cur)) return;
+      el.value = snsLines(el.value).map(function (l) { return l === cur ? nl : l; }).join('\n'); el.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    new MutationObserver(apply).observe(chips, { attributes: true, attributeFilter: ['class'], subtree: true });
+    tg.addEventListener('input', apply);
+    w.parentNode.insertBefore(ed, w.nextSibling); ebtn.classList.add('on');
+  }
+  // sns: the links that are not in the loaded row (new ones, also in new mode): one chip per link under the field with the same members / tags editor, and an x to remove the link
+  function addNewSnsList(el) {
+    var ou = {}; snsLines(orig.sns).forEach(function (l) { var u = urlOfLine(l); if (u) ou[u] = 1; });
+    var field = el.closest('.field'), row = document.createElement('div'); row.className = 'field'; row.hidden = true;
+    row.appendChild(document.createElement('label'));
+    var box = document.createElement('div'); box.className = 'chipr snsl'; row.appendChild(box);
+    field.parentNode.insertBefore(row, field.nextSibling);
+    var ws = {};
+    function make(u) {
+      var w = document.createElement('span'); w.className = 'chipw';
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.title = 'edit members / tags';
+      var l1 = document.createElement('span'); l1.className = 'l1'; l1.textContent = u.replace(/^https?:\/\/(www\.)?/, '').slice(0, 40); b.appendChild(l1);
+      var l2 = document.createElement('span'); l2.className = 'l2'; b.appendChild(l2);
+      var eb = document.createElement('button'); eb.type = 'button'; eb.className = 'ed'; eb.textContent = '\u270e'; eb.title = 'edit members / tags'; eb.setAttribute('aria-label', 'edit members / tags of ' + u);
+      b.onclick = eb.onclick = function () { openEditor(el, u, w, eb); };
+      var xb = document.createElement('button'); xb.type = 'button'; xb.className = 'ed'; xb.textContent = '\u00d7'; xb.title = 'remove'; xb.setAttribute('aria-label', 'remove ' + u);
+      xb.onclick = function () { el.value = snsLines(el.value).filter(function (l) { return urlOfLine(l) !== u; }).join('\n'); el.dispatchEvent(new Event('input', { bubbles: true })); };
+      var a = document.createElement('a'); a.className = 'lk'; a.href = u; a.target = '_blank'; a.rel = 'noopener'; a.textContent = '\u2197'; a.title = 'open'; a.setAttribute('aria-label', 'open ' + u);
+      w.appendChild(b); w.appendChild(eb); w.appendChild(xb); w.appendChild(a); box.appendChild(w); return w;
+    }
+    function sync() {
+      var now = {}; snsLines(el.value).forEach(function (l) { var u = urlOfLine(l); if (u && !ou[u] && !now[u]) now[u] = l; });
+      Object.keys(ws).forEach(function (u) { if (!now[u]) { box.removeChild(ws[u]); delete ws[u]; } });
+      Object.keys(now).forEach(function (u) {
+        if (!ws[u]) ws[u] = make(u);
+        var l2 = ws[u].querySelector('.l2'), tx = labelOf(now[u]); l2.textContent = tx; l2.hidden = !tx;
+      });
+      row.hidden = !Object.keys(ws).length;
+    }
+    el.addEventListener('input', sync); sync();
+  }
   // one toggle chip per existing tag / sns url under the field: click = remove it from the text (struck through), click again = restore it
   function addOrigToggles(el, key) {
     var items = [];
@@ -873,38 +950,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var box = document.createElement('div'); box.className = key === 'sns' ? 'chipr snsl' : 'chipr'; row.appendChild(box); // sns: one link per row, left aligned
     field.parentNode.insertBefore(row, field.nextSibling);
     function present(it) { return key === 'tags' ? tagTokens(el.value).indexOf(it.k) >= 0 : snsLines(el.value).some(function (l) { return urlOfLine(l) === it.k; }); }
-    // sns: edit the members / tags of one link without touching the textarea: the pencil opens a small editor that rewrites that link's line
-    function lineOf(it) { var r = null; snsLines(el.value).forEach(function (l) { if (!r && urlOfLine(l) === it.k) r = l; }); return r; }
-    function parseLine(l) { var u = urlOfLine(l), ps = l.split('|').map(function (x) { return x.trim(); }), ui = -1; ps.forEach(function (x, i) { if (ui < 0 && x.indexOf(u) >= 0) ui = i; }); if (ui < 0) ui = 0; return { pre: ps.slice(0, ui), url: ps[ui] || u, mem: (ps[ui + 1] || '').split(/[,\u3001\s]+/).filter(Boolean), tg: (ps[ui + 2] || '').split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean) }; }
-    function labelOf(l) { var q = parseLine(l); return (q.mem.join(',') + (q.tg.length ? ' #' + q.tg.join(' #') : '')).trim(); }
-    function openEditor(it, w, ebtn) {
-      var old = w.nextSibling; if (old && old.classList && old.classList.contains('snse')) { old.parentNode.removeChild(old); ebtn.classList.remove('on'); return; }
-      var l0 = lineOf(it); if (!l0) return; // removed link: restore it first
-      var q = parseLine(l0), ed = document.createElement('div'); ed.className = 'snsh snse';
-      var chips = $('groups').cloneNode(true); chips.removeAttribute('id'); ed.appendChild(chips);
-      var all = [].slice.call(chips.querySelectorAll('.chip')), heads = {}, extras = [];
-      all.forEach(function (b) { var v = b.getAttribute('data-v'); if (v === 'G2' || v === 'L2') heads[v] = b; });
-      q.mem.forEach(function (m) { var v = m.toUpperCase(), hit = false; all.forEach(function (b) { if (b.getAttribute('data-v') === v) { hit = true; if (v === 'G2' || v === 'L2') b.classList.add('gh-on'); else b.classList.add('on'); } }); if (!hit) extras.push(m); });
-      all.forEach(function (b) { var v = b.getAttribute('data-v'); if (v !== 'G2' && v !== 'L2') b.onclick = function () { b.classList.toggle('on'); }; });
-      foldGroups(chips, true);
-      var trow = document.createElement('div'); trow.className = 'row'; ed.appendChild(trow);
-      var tg = document.createElement('input'); tg.type = 'text'; tg.className = 'fin'; tg.placeholder = 'tags'; tg.value = q.tg.join(','); tg.setAttribute('autocomplete', 'off'); tg.setAttribute('spellcheck', 'false');
-      var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw);
-      function apply() {
-        var cur = lineOf(it); if (!cur) return;
-        var c = parseLine(cur), mem = [].map.call(chips.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); }).filter(function (v) { return v !== 'G2' && v !== 'L2'; });
-        ['G2', 'L2'].forEach(function (g) { var h = heads[g], fl = g === 'G2' ? FOLD_G2 : FOLD_L2; if (h && h.classList.contains('gh-on') && !mem.some(function (v) { return fl.indexOf(v) >= 0; })) mem.unshift(g); });
-        mem = mem.concat(extras).join(',');
-        var tv = tg.value.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean).join(',');
-        var parts = c.pre.concat([c.url]); if (mem || tv) parts.push(mem); if (tv) parts.push(tv);
-        var nl = parts.join(' | ');
-        if (normLine(nl) === normLine(cur)) return;
-        el.value = snsLines(el.value).map(function (l) { return l === cur ? nl : l; }).join('\n'); el.dispatchEvent(new Event('input', { bubbles: true }));
-      }
-      new MutationObserver(apply).observe(chips, { attributes: true, attributeFilter: ['class'], subtree: true });
-      tg.addEventListener('input', apply);
-      w.parentNode.insertBefore(ed, w.nextSibling); ebtn.classList.add('on');
-    }
     var btns = items.map(function (it) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.title = it.line;
       if (key === 'sns') { // two lines in the button: the link / the members
@@ -921,14 +966,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         var w = document.createElement('span'); w.className = 'chipw'; w.appendChild(b);
         var a = document.createElement('a'); a.className = 'lk'; a.href = it.k; a.target = '_blank'; a.rel = 'noopener'; a.textContent = '\u2197'; a.title = 'open'; a.setAttribute('aria-label', 'open ' + it.k);
         var eb = document.createElement('button'); eb.type = 'button'; eb.className = 'ed'; eb.textContent = '\u270e'; eb.title = 'edit members / tags'; eb.setAttribute('aria-label', 'edit members / tags of ' + it.k);
-        eb.onclick = function () { openEditor(it, w, eb); };
+        eb.onclick = function () { openEditor(el, it.k, w, eb); };
         w.appendChild(eb); w.appendChild(a); box.appendChild(w); it.w = w;
       } else box.appendChild(b);
       return { it: it, b: b };
     });
     function sync() { btns.forEach(function (x) {
       x.b.classList.toggle('rm', !present(x.it));
-      if (key === 'sns') { var cl = lineOf(x.it), l2 = x.b.querySelector('.l2'), tx = labelOf(cl || x.it.line); if (!l2 && tx) { l2 = document.createElement('span'); l2.className = 'l2'; x.b.appendChild(l2); } if (l2) { l2.textContent = tx; l2.hidden = !tx; } if (!cl) { var ex = x.it.w && x.it.w.nextSibling; if (ex && ex.classList && ex.classList.contains('snse')) ex.parentNode.removeChild(ex); } }
+      if (key === 'sns') { var cl = lineOf(el, x.it.k), l2 = x.b.querySelector('.l2'), tx = labelOf(cl || x.it.line); if (!l2 && tx) { l2 = document.createElement('span'); l2.className = 'l2'; x.b.appendChild(l2); } if (l2) { l2.textContent = tx; l2.hidden = !tx; } if (!cl) { var ex = x.it.w && x.it.w.nextSibling; if (ex && ex.classList && ex.classList.contains('snse')) ex.parentNode.removeChild(ex); } }
     }); }
     el.addEventListener('input', sync); sync();
   }
@@ -1067,7 +1112,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (!f.ta) { el.type = 'text'; el.setAttribute('autocomplete', 'off'); }
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
       el.addEventListener('input', updateFind); if (kind === 'logs' && (f.k === 'contents' || f.k === 'groups')) el.addEventListener('input', autoSnsTitle);
-      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
+      wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'tags') addSuggest(el, tagOptsFor('logs'), null, true, true); if (kind === 'logs' && f.k === 'sns') addNewSnsList(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
     var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = !!isNew; $('fjrow').hidden = !!isNew;
     if (isNew && kind === 'setlist') { var spe = $('f-songs_patch'); if (spe && spe.closest('.field')) spe.closest('.field').hidden = true; } // new mode: the songs box is used as it is (the per-song edit is for the loaded setlist only)
