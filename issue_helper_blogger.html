@@ -64,6 +64,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .chipw .lk { display:inline-flex; align-items:center; padding:0 9px; font-size:12px; border:1px solid var(--line); border-left:0; border-radius:0 12px 12px 0; background:var(--btn); color:var(--text) !important; text-decoration:none !important; }
 #glih .chipr.snsl { flex-direction:column; flex-wrap:nowrap; align-items:stretch; gap:4px; }
 #glih .snsl .chipw { display:flex; }
+#glih .ltags { display:flex; flex-wrap:wrap; gap:4px; margin:-2px 0 2px 12px; } /* per-link tag chips: click = remove that tag */
+#glih .ltags .chip { font-size:11px; padding:2px 9px; }
 #glih .snsl .chipw .chip { flex:1 1 auto; min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:1px; padding:6px 12px; text-align:left; }
 #glih .snsl .chip .l1 { max-width:100%; overflow-wrap:anywhere; text-align:left; }
 #glih .snsl .chip .l2 { font-size:11px; opacity:.75; text-align:left; }
@@ -894,30 +896,55 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     foldGroups(chips, true);
     return { box: chips, extras: extras };
   }
-  function parseLine(l) { var u = urlOfLine(l), ps = l.split('|').map(function (x) { return x.trim(); }), ui = -1; ps.forEach(function (x, i) { if (ui < 0 && x.indexOf(u) >= 0) ui = i; }); if (ui < 0) ui = 0; var sm = splitMem(ps[ui + 1] || ''); return { pre: ps.slice(0, ui), url: ps[ui] || u, mem: sm.m, wth: sm.w, tg: (ps[ui + 2] || '').split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean) }; }
+  function parseLine(l) { var u = urlOfLine(l), ps = l.split('|').map(function (x) { return x.trim(); }), ui = -1; ps.forEach(function (x, i) { if (ui < 0 && x.indexOf(u) >= 0) ui = i; }); if (ui < 0) ui = 0; var sm = splitMem(ps[ui + 1] || ''); return { pre: ps.slice(0, ui), url: ps[ui] || u, mem: sm.m, wth: sm.w, tg: (ps[ui + 2] || '').split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(function (x) { return x && x !== '-'; }) }; } // a lone `-` in the tags column = clear the tags of an existing link
   function labelOf(l) { var q = parseLine(l); return (q.mem.join(',') + (q.wth.length ? '+' + q.wth.join(',') : '') + (q.tg.length ? ' #' + q.tg.join(' #') : '')).trim(); }
+  // the loaded row's line of one link: did it have a with / tags? (removing them all is written as `+-` / `-`)
+  function origInfo(u) { var ol = null; snsLines(orig.sns || '').forEach(function (x) { if (!ol && urlOfLine(x) === u) ol = x; }); var q = ol ? parseLine(ol) : null; return { hadWith: !!(q && q.wth.length), hadTags: !!(q && q.tg.length) }; }
+  function buildLine(c, m, w, tags, oi) {
+    var col = memCol(m, w, oi.hadWith), tv = tags.join(','), parts = c.pre.concat([c.url]);
+    if (col || tv || oi.hadTags) parts.push(col);
+    if (tv) parts.push(tv); else if (oi.hadTags) parts.push('-'); // no tags left on a link that had some: `-` clears them
+    return parts.join(' | ');
+  }
+  // one small chip per tag of one link (under the link): a click removes that tag from the link's line
+  function attachTagRow(el, u, w, box) {
+    var tr = document.createElement('div'); tr.className = 'ltags'; tr.hidden = true; box.insertBefore(tr, w.nextSibling); w._tr = tr;
+  }
+  function renderTagRow(el, u, w) {
+    var tr = w._tr; if (!tr) return;
+    var cl = lineOf(el, u), tags = cl ? parseLine(cl).tg : [];
+    tr.innerHTML = ''; tr.hidden = !tags.length;
+    if (w._ed && w._ed._tg && document.activeElement !== w._ed._tg) w._ed._tg.value = tags.join(','); // keep an open editor's tags box in step
+    tags.forEach(function (t) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t + ' \u00d7'; b.title = 'remove tag'; b.setAttribute('aria-label', 'remove tag ' + t);
+      b.onclick = function () {
+        var cur = lineOf(el, u); if (!cur) return;
+        var c = parseLine(cur), nt = c.tg.filter(function (x) { return x !== t; }), nl = buildLine(c, c.mem, c.wth, nt, origInfo(u));
+        el.value = snsLines(el.value).map(function (l) { return l === cur ? nl : l; }).join('\n'); el.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      tr.appendChild(b);
+    });
+  }
   function openEditor(el, u, w, ebtn) {
-    var old = w.nextSibling; if (old && old.classList && old.classList.contains('snse')) { old.parentNode.removeChild(old); ebtn.classList.remove('on'); return; }
+    var old = w._ed; if (old && old.parentNode) { old.parentNode.removeChild(old); w._ed = null; ebtn.classList.remove('on'); return; }
     var l0 = lineOf(el, u); if (!l0) return; // removed link: restore it first
     var q = parseLine(l0), ed = document.createElement('div'); ed.className = 'snsh snse';
     var setM = makeCodeSet(ed, 'member', q.mem), setW = makeCodeSet(ed, 'with', q.wth), chips = ed; // the two chip sets live in the editor box
-    var ol = null; snsLines(orig.sns || '').forEach(function (x) { if (!ol && urlOfLine(x) === u) ol = x; }); var hadWith = !!(ol && parseLine(ol).wth.length); // the loaded row had a with: removing it all writes `+-`
+    var oi = origInfo(u); // the loaded row had a with / tags: removing them all writes `+-` / `-`
     var trow = document.createElement('div'); trow.className = 'row'; ed.appendChild(trow);
     var tg = document.createElement('input'); tg.type = 'text'; tg.className = 'fin'; tg.placeholder = 'tags'; tg.value = q.tg.join(','); tg.setAttribute('autocomplete', 'off'); tg.setAttribute('spellcheck', 'false');
-    var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw);
+    var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw); ed._tg = tg;
     addSuggest(tg, tagOptsFor('sns'), trow, true, true);
     function apply() {
       var cur = lineOf(el, u); if (!cur) return;
-      var c = parseLine(cur), col = memCol(pickedCodes(setM.box).concat(setM.extras), pickedCodes(setW.box).concat(setW.extras), hadWith);
-      var tv = tg.value.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean).join(',');
-      var parts = c.pre.concat([c.url]); if (col || tv) parts.push(col); if (tv) parts.push(tv);
-      var nl = parts.join(' | ');
+      var c = parseLine(cur), tl = tg.value.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean);
+      var nl = buildLine(c, pickedCodes(setM.box).concat(setM.extras), pickedCodes(setW.box).concat(setW.extras), tl, oi);
       if (normLine(nl) === normLine(cur)) return;
       el.value = snsLines(el.value).map(function (l) { return l === cur ? nl : l; }).join('\n'); el.dispatchEvent(new Event('input', { bubbles: true }));
     }
     new MutationObserver(apply).observe(ed, { attributes: true, attributeFilter: ['class'], subtree: true, childList: false });
     tg.addEventListener('input', apply);
-    w.parentNode.insertBefore(ed, w.nextSibling); ebtn.classList.add('on');
+    var anchor = w._tr || w; w.parentNode.insertBefore(ed, anchor.nextSibling); w._ed = ed; ebtn.classList.add('on');
   }
   // sns: the links that are not in the loaded row (new ones, also in new mode): one chip per link under the field with the same members / tags editor, and an x to remove the link
   function addNewSnsList(el) {
@@ -937,14 +964,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var xb = document.createElement('button'); xb.type = 'button'; xb.className = 'ed'; xb.textContent = '\u00d7'; xb.title = 'remove'; xb.setAttribute('aria-label', 'remove ' + u);
       xb.onclick = function () { el.value = snsLines(el.value).filter(function (l) { return urlOfLine(l) !== u; }).join('\n'); el.dispatchEvent(new Event('input', { bubbles: true })); };
       var a = document.createElement('a'); a.className = 'lk'; a.href = u; a.target = '_blank'; a.rel = 'noopener'; a.textContent = '\u2197'; a.title = 'open'; a.setAttribute('aria-label', 'open ' + u);
-      w.appendChild(b); w.appendChild(eb); w.appendChild(xb); w.appendChild(a); box.appendChild(w); return w;
+      w.appendChild(b); w.appendChild(eb); w.appendChild(xb); w.appendChild(a); box.appendChild(w); attachTagRow(el, u, w, box); return w;
     }
     function sync() {
       var now = {}; snsLines(el.value).forEach(function (l) { var u = urlOfLine(l); if (u && !ou[u] && !now[u]) now[u] = l; });
-      Object.keys(ws).forEach(function (u) { if (!now[u]) { box.removeChild(ws[u]); delete ws[u]; } });
+      Object.keys(ws).forEach(function (u) { if (!now[u]) { var gw = ws[u]; if (gw._ed && gw._ed.parentNode) gw._ed.parentNode.removeChild(gw._ed); if (gw._tr && gw._tr.parentNode) gw._tr.parentNode.removeChild(gw._tr); box.removeChild(gw); delete ws[u]; } });
       Object.keys(now).forEach(function (u) {
         if (!ws[u]) ws[u] = make(u);
-        var l2 = ws[u].querySelector('.l2'), tx = labelOf(now[u]); l2.textContent = tx; l2.hidden = !tx;
+        var l2 = ws[u].querySelector('.l2'), tx = labelOf(now[u]); l2.textContent = tx; l2.hidden = !tx; renderTagRow(el, u, ws[u]);
       });
       row.hidden = !Object.keys(ws).length;
     }
@@ -983,13 +1010,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         var a = document.createElement('a'); a.className = 'lk'; a.href = it.k; a.target = '_blank'; a.rel = 'noopener'; a.textContent = '\u2197'; a.title = 'open'; a.setAttribute('aria-label', 'open ' + it.k);
         var eb = document.createElement('button'); eb.type = 'button'; eb.className = 'ed'; eb.textContent = '\u270e'; eb.title = 'edit members / tags'; eb.setAttribute('aria-label', 'edit members / tags of ' + it.k);
         eb.onclick = function () { openEditor(el, it.k, w, eb); };
-        w.appendChild(eb); w.appendChild(a); box.appendChild(w); it.w = w;
+        w.appendChild(eb); w.appendChild(a); box.appendChild(w); it.w = w; attachTagRow(el, it.k, w, box);
       } else box.appendChild(b);
       return { it: it, b: b };
     });
     function sync() { btns.forEach(function (x) {
       x.b.classList.toggle('rm', !present(x.it));
-      if (key === 'sns') { var cl = lineOf(el, x.it.k), l2 = x.b.querySelector('.l2'), tx = labelOf(cl || x.it.line); if (!l2 && tx) { l2 = document.createElement('span'); l2.className = 'l2'; x.b.appendChild(l2); } if (l2) { l2.textContent = tx; l2.hidden = !tx; } if (!cl) { var ex = x.it.w && x.it.w.nextSibling; if (ex && ex.classList && ex.classList.contains('snse')) ex.parentNode.removeChild(ex); } }
+      if (key === 'sns') { var cl = lineOf(el, x.it.k), l2 = x.b.querySelector('.l2'), tx = labelOf(cl || x.it.line); if (!l2 && tx) { l2 = document.createElement('span'); l2.className = 'l2'; x.b.appendChild(l2); } if (l2) { l2.textContent = tx; l2.hidden = !tx; } if (!cl) { var ex = x.it.w && x.it.w._ed; if (ex && ex.parentNode) { ex.parentNode.removeChild(ex); x.it.w._ed = null; } } renderTagRow(el, x.it.k, x.it.w); }
     }); }
     el.addEventListener('input', sync); sync();
   }
