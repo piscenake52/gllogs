@@ -1,11 +1,11 @@
 {
-  "logid": "c88e0887572d",
+  "logid": "0cdcbd990ebe",
   "sns": [
     {
-      "type": "tiktok",
+      "type": "x",
       "urls": [
         {
-          "url": "https://vt.tiktok.com/ZSgj3vL6v/",
+          "url": "https://x.com/Girls2_official/status/2111817848649912488",
           "member": [
             "YZH",
             "MMK",
@@ -14,10 +14,13 @@
             "KUR",
             "MNM",
             "KIR"
+          ],
+          "tags": [
+            "THANK YOU OSAKA"
           ]
         }
       ]
     }
   ],
-  "_issue": "1461"
+  "_issue": "1507"
 }
