@@ -169548,8 +169548,6 @@
     "time": "1200",
     "contents": "YOUTUBE",
     "title": "新YouTubeチャンネル「がるがるちゃんねる」開設！",
-    "display_pc": "がるがるちゃんねる　新YouTubeチャンネル「がるがるちゃんねる」開設！",
-    "display_sp": "新YouTubeチャンネル「」開設！",
     "url": "https://www.youtube.com/watch?v=Q6u7nO9-O5k",
     "groups": [
       "G2",
@@ -169559,7 +169557,9 @@
       "YOK",
       "KUR",
       "MNM",
-      "KIR"
+      "KIR",
+      "TOA",
+      "RAN"
     ]
   },
   {
