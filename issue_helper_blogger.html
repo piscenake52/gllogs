@@ -67,6 +67,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .snsl .chipw .chip { flex:1 1 auto; min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:1px; padding:6px 12px; text-align:left; }
 #glih .snsl .chip .l1 { max-width:100%; overflow-wrap:anywhere; text-align:left; }
 #glih .snsl .chip .l2 { font-size:11px; opacity:.75; text-align:left; }
+#glih .chipw .ed { display:inline-flex; align-items:center; padding:0 9px; font-size:12px; border:1px solid var(--line); border-left:0; border-radius:0; background:var(--btn); color:var(--text); cursor:pointer; }
+#glih .chipw .ed.on { background:var(--line); }
+#glih .chipr .snse .chip { width:100%; padding:5px 0; font-size:clamp(9px, 2.8vw, 11px); } /* the editor sits inside the chipr list: keep the member chips at their normal size */
+#glih .snse { border:1px solid var(--line); border-radius:10px; padding:8px; margin:0 0 4px; }
 #glih .tchips { gap:5px; }
 #glih .tchips .chip { padding:5px 8px; }
 #glih .tchips .chip[data-v="mc"], #glih .tchips .chip[data-v="dt"] { box-sizing:border-box; width:40px; padding-left:0; padding-right:0; } /* mc / dt: 40px wide */
@@ -196,10 +200,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="fcand" id="glih-fcand" hidden></div>
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
   <div class="field" id="glih-fcontrow" hidden><label>next</label><div class="chipr" id="glih-fcc"><button type="button" class="small" data-m="repeat" title="new entry on the same date with the repeat entry turned on, next # number">repeat</button><button type="button" class="small" data-m="tour" title="new entry in tour mode (same title base / contents / url / groups; add shows)">tour</button><button type="button" class="small" data-m="week" title="new entry: +7 days, next # number">weekly</button><button type="button" class="small" data-m="month" title="new entry: the same day of the next month, next # number">monthly</button><button type="button" class="small" data-m="year" title="new entry: the same day of the next year, next # number">yearly</button></div></div>
-  <div class="field" id="glih-frefrow" hidden><label id="glih-freflb">ref</label><div class="refbox" id="glih-frefbox"></div></div>
   <div id="glih-ff"></div>
   <div class="field" id="glih-fanrow" hidden><label for="glih-fan">anniv.</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
   <div class="field" id="glih-fansrow" hidden><label for="glih-fansx"></label><div class="fgcol"><input type="text" id="glih-fansx" class="fin" autocomplete="off" value="&#35352;&#24565;&#26085;"><div class="chipr" id="glih-fansch"></div></div></div>
+  <div class="field" id="glih-frefrow" hidden><label id="glih-freflb">ref</label><div class="refbox" id="glih-frefbox"></div></div>
   <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、空欄にした値の削除はフォームの【値の削除】チェックで行います。relations は事前入力できません(JSONで確認)。 -->
   <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fjtog" aria-expanded="false">JSON &#9662;</button><button type="button" class="small" id="glih-fcopy">JSON copy</button><button type="button" class="small" id="glih-freset">reset all</button></div>
   <textarea id="glih-fjson" class="jsonbox" spellcheck="false" hidden></textarea>
@@ -869,6 +873,38 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var box = document.createElement('div'); box.className = key === 'sns' ? 'chipr snsl' : 'chipr'; row.appendChild(box); // sns: one link per row, left aligned
     field.parentNode.insertBefore(row, field.nextSibling);
     function present(it) { return key === 'tags' ? tagTokens(el.value).indexOf(it.k) >= 0 : snsLines(el.value).some(function (l) { return urlOfLine(l) === it.k; }); }
+    // sns: edit the members / tags of one link without touching the textarea: the pencil opens a small editor that rewrites that link's line
+    function lineOf(it) { var r = null; snsLines(el.value).forEach(function (l) { if (!r && urlOfLine(l) === it.k) r = l; }); return r; }
+    function parseLine(l) { var u = urlOfLine(l), ps = l.split('|').map(function (x) { return x.trim(); }), ui = -1; ps.forEach(function (x, i) { if (ui < 0 && x.indexOf(u) >= 0) ui = i; }); if (ui < 0) ui = 0; return { pre: ps.slice(0, ui), url: ps[ui] || u, mem: (ps[ui + 1] || '').split(/[,\u3001\s]+/).filter(Boolean), tg: (ps[ui + 2] || '').split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean) }; }
+    function labelOf(l) { var q = parseLine(l); return (q.mem.join(',') + (q.tg.length ? ' #' + q.tg.join(' #') : '')).trim(); }
+    function openEditor(it, w, ebtn) {
+      var old = w.nextSibling; if (old && old.classList && old.classList.contains('snse')) { old.parentNode.removeChild(old); ebtn.classList.remove('on'); return; }
+      var l0 = lineOf(it); if (!l0) return; // removed link: restore it first
+      var q = parseLine(l0), ed = document.createElement('div'); ed.className = 'snsh snse';
+      var chips = $('groups').cloneNode(true); chips.removeAttribute('id'); ed.appendChild(chips);
+      var all = [].slice.call(chips.querySelectorAll('.chip')), heads = {}, extras = [];
+      all.forEach(function (b) { var v = b.getAttribute('data-v'); if (v === 'G2' || v === 'L2') heads[v] = b; });
+      q.mem.forEach(function (m) { var v = m.toUpperCase(), hit = false; all.forEach(function (b) { if (b.getAttribute('data-v') === v) { hit = true; if (v === 'G2' || v === 'L2') b.classList.add('gh-on'); else b.classList.add('on'); } }); if (!hit) extras.push(m); });
+      all.forEach(function (b) { var v = b.getAttribute('data-v'); if (v !== 'G2' && v !== 'L2') b.onclick = function () { b.classList.toggle('on'); }; });
+      foldGroups(chips, true);
+      var trow = document.createElement('div'); trow.className = 'row'; ed.appendChild(trow);
+      var tg = document.createElement('input'); tg.type = 'text'; tg.className = 'fin'; tg.placeholder = 'tags'; tg.value = q.tg.join(','); tg.setAttribute('autocomplete', 'off'); tg.setAttribute('spellcheck', 'false');
+      var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw);
+      function apply() {
+        var cur = lineOf(it); if (!cur) return;
+        var c = parseLine(cur), mem = [].map.call(chips.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); }).filter(function (v) { return v !== 'G2' && v !== 'L2'; });
+        ['G2', 'L2'].forEach(function (g) { var h = heads[g], fl = g === 'G2' ? FOLD_G2 : FOLD_L2; if (h && h.classList.contains('gh-on') && !mem.some(function (v) { return fl.indexOf(v) >= 0; })) mem.unshift(g); });
+        mem = mem.concat(extras).join(',');
+        var tv = tg.value.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean).join(',');
+        var parts = c.pre.concat([c.url]); if (mem || tv) parts.push(mem); if (tv) parts.push(tv);
+        var nl = parts.join(' | ');
+        if (normLine(nl) === normLine(cur)) return;
+        el.value = snsLines(el.value).map(function (l) { return l === cur ? nl : l; }).join('\n'); el.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      new MutationObserver(apply).observe(chips, { attributes: true, attributeFilter: ['class'], subtree: true });
+      tg.addEventListener('input', apply);
+      w.parentNode.insertBefore(ed, w.nextSibling); ebtn.classList.add('on');
+    }
     var btns = items.map(function (it) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.title = it.line;
       if (key === 'sns') { // two lines in the button: the link / the members
@@ -884,11 +920,16 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (key === 'sns') { // each url gets its own link at the right end of the chip (opens the url in a new tab)
         var w = document.createElement('span'); w.className = 'chipw'; w.appendChild(b);
         var a = document.createElement('a'); a.className = 'lk'; a.href = it.k; a.target = '_blank'; a.rel = 'noopener'; a.textContent = '\u2197'; a.title = 'open'; a.setAttribute('aria-label', 'open ' + it.k);
-        w.appendChild(a); box.appendChild(w);
+        var eb = document.createElement('button'); eb.type = 'button'; eb.className = 'ed'; eb.textContent = '\u270e'; eb.title = 'edit members / tags'; eb.setAttribute('aria-label', 'edit members / tags of ' + it.k);
+        eb.onclick = function () { openEditor(it, w, eb); };
+        w.appendChild(eb); w.appendChild(a); box.appendChild(w); it.w = w;
       } else box.appendChild(b);
       return { it: it, b: b };
     });
-    function sync() { btns.forEach(function (x) { x.b.classList.toggle('rm', !present(x.it)); }); }
+    function sync() { btns.forEach(function (x) {
+      x.b.classList.toggle('rm', !present(x.it));
+      if (key === 'sns') { var cl = lineOf(x.it), l2 = x.b.querySelector('.l2'), tx = labelOf(cl || x.it.line); if (!l2 && tx) { l2 = document.createElement('span'); l2.className = 'l2'; x.b.appendChild(l2); } if (l2) { l2.textContent = tx; l2.hidden = !tx; } if (!cl) { var ex = x.it.w && x.it.w.nextSibling; if (ex && ex.classList && ex.classList.contains('snse')) ex.parentNode.removeChild(ex); } }
+    }); }
     el.addEventListener('input', sync); sync();
   }
   // the change summary right above the Issue button: one line per changed field (field: old -> new, long values shortened)
@@ -995,7 +1036,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function line(id, sub) {
       var d = document.createElement('div'); d.className = 'refline';
       var c = document.createElement('span'); c.className = 'rid'; c.textContent = id; d.appendChild(c);
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = 'open';
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = '\u2192'; b.title = 'open'; b.setAttribute('aria-label', 'open');
       b.onclick = function () { $('fid').value = id; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); };
       d.appendChild(b);
       if (sub) { var m = document.createElement('span'); m.className = 'rsub'; m.textContent = sub; d.appendChild(m); }
@@ -1005,14 +1046,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (ref) {
       $('freflb').textContent = 'ref';
       var src = all.filter(function (x) { return x && x.logid === ref; })[0];
-      line(ref, src ? fmtD(src.date, src.time) + '  ' + String(src.contents || '') + '  ' + String(src.title || '').slice(0, 60) : '(not found)');
+      line(ref, '');
       if (found.row.suffix) { var sx = document.createElement('div'); sx.className = 'refline'; sx.innerHTML = '<span class="rsub"></span>'; sx.firstChild.textContent = 'suffix: ' + found.row.suffix; box.appendChild(sx); }
       rowEl.hidden = false; return;
     }
     var by = all.filter(function (x) { return x && x.ref === found.id; });
     if (by.length) {
       $('freflb').textContent = 'ref by';
-      by.forEach(function (x) { line(x.logid, 'ANNIVERSARY' + (x.suffix ? '  suffix: ' + x.suffix : '')); });
+      by.forEach(function (x) { line(x.logid, x.suffix ? 'suffix: ' + x.suffix : ''); });
       rowEl.hidden = false;
     }
   }

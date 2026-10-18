@@ -844,6 +844,17 @@ body .item-contents.is-content-open {
 .sns-modal-lamps.is-single { grid-template-columns: 5px; } /* 1人のときは従来どおり角に1つだけ */
 .sns-modal-lamps.is-nine { grid-template-columns: repeat(3, 5px); } /* 9人のときだけ3列×3段(大きさは同じ)。右端基準なので左へ広がり、番号に少し重なってもよい */
 .sns-modal-lamps > i { display: block; width: 5px; height: 5px; box-sizing: border-box; border-radius: 50%; background-color: var(--lamp-color); box-shadow: 0 0 0 1px var(--bg), inset 0 0 0 1px rgba(128,128,128,.45); } /* 色の部分は常に5px。縁(背景色の輪)は外側に描き、内側の薄い灰色の線で白・黄など明るい色も同じ大きさに見えるようにする */
+.sns-modal-body { margin-top: 12px; }
+.sns-tag-switch { position: absolute; top: 10px; left: 14px; height: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 0; border: none; background: none; color: var(--text); font-size: 11px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.sns-tag-track { position: relative; width: 28px; height: 16px; border-radius: 8px; box-sizing: border-box; background: var(--btn-bg); border: 1px solid var(--input-border); transition: background-color .25s; }
+.sns-tag-knob { position: absolute; top: 1px; left: 1px; width: 12px; height: 12px; border-radius: 50%; background: var(--sub); transition: transform .25s cubic-bezier(0.22, 0.61, 0.36, 1), background-color .25s; }
+.sns-tag-switch[aria-checked="true"] .sns-tag-knob { transform: translateX(12px); background: var(--text); }
+.sns-modal-item { display: inline-flex; align-items: center; gap: 8px; min-width: 0; max-width: 100%; }
+.sns-modal-tagtext { display: none; font-size: 11px; line-height: 1.3; color: var(--sub); min-width: 0; overflow-wrap: anywhere; }
+.sns-modal.is-tags .sns-modal-links { flex-direction: column; flex-wrap: nowrap; align-items: flex-start; }
+.sns-modal.is-tags .sns-modal-item { width: 100%; }
+.sns-modal.is-tags .sns-modal-tagtext { display: block; animation: snsTagFade .35s ease both; }
+@keyframes snsTagFade { from { opacity: 0; } to { opacity: 1; } }
 .sns-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
 /*]]>*/
 </style>
@@ -1007,6 +1018,7 @@ body .item-contents.is-content-open {
 <div class="sns-modal-overlay" id="snsModalOverlay">
   <div class="sns-modal" id="snsModal" role="dialog" aria-modal="true">
     <button type="button" class="sns-modal-close" id="snsModalCloseBtn" aria-label="Close">&#215;</button>
+    <button type="button" class="sns-tag-switch" id="snsTagSwitch" role="switch" aria-checked="false"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span>TAG</span></button>
     <div class="sns-modal-body" id="snsModalBody"></div>
   </div>
 </div>
@@ -3130,6 +3142,30 @@ body .item-contents.is-content-open {
   };
   const snsModalOverlay = $('snsModalOverlay');
   const snsModalBody = $('snsModalBody');
+  const snsModalBox = $('snsModal');
+  const snsTagSwitch = $('snsTagSwitch');
+  // TAG表示の切替。ONで各リンクを縦に並べ、右にtagsを出す。並び替えは位置の差分(FLIP)で滑らかに動かす
+  const setSnsTagMode = (on, animate) => {
+    const items = animate ? [...snsModalBody.querySelectorAll('.sns-modal-item')] : [];
+    const first = items.map(el => el.getBoundingClientRect());
+    const h0 = snsModalBox.getBoundingClientRect().height;
+    snsTagSwitch.setAttribute('aria-checked', on ? 'true' : 'false');
+    snsModalBox.classList.toggle('is-tags', on);
+    if (!animate || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    const opt = { duration: 340, easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)' };
+    items.forEach((el, i) => {
+      const r = el.getBoundingClientRect();
+      const dx = first[i].left - r.left, dy = first[i].top - r.top;
+      if (dx || dy) el.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], opt);
+    });
+    const h1 = snsModalBox.getBoundingClientRect().height;
+    if (Math.abs(h1 - h0) > 1) snsModalBox.animate([{ height: h0 + 'px' }, { height: h1 + 'px' }], opt);
+  };
+  snsTagSwitch.onclick = () => {
+    const on = snsTagSwitch.getAttribute('aria-checked') !== 'true';
+    setSnsTagMode(on, true);
+    try { localStorage.setItem('snsTagMode', on ? '1' : '0'); } catch (e) {}
+  };
   const openSnsModal = sns => {
     try {
       // 表示順はデータの入力順ではなく、SNS_TYPE_DISPLAY_NAMESに定義した順番に固定する
@@ -3182,9 +3218,14 @@ body .item-contents.is-content-open {
               ? `<span class="sns-modal-lamps${memberCodes.length === 1 ? ' is-single' : memberCodes.length === 9 ? ' is-nine' : ''}" aria-hidden="true">${memberCodes.map(m => `<i style="--lamp-color:${MEMBER_LAMP_COLORS[m]}"></i>`).join('')}</span>`
               : '';
             const isValid = typeof url === 'string' && /^https?:\/\//i.test(url.trim());
-            return isValid
-              ? `<a class="sns-modal-link${lampClass}" href="${escapeHtml(url)}" title="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${n}${lampHtml}</a>`
-              : `<span class="sns-modal-link is-invalid${lampClass}" aria-disabled="true" title="${escapeHtml(url || '')}">${n}${lampHtml}</span>`;
+            // ホバー表示はURLではなく、そのリンクのtags(なければ表示しない)
+            const linkTagList = (u && typeof u === 'object' && Array.isArray(u.tags)) ? u.tags.filter(Boolean) : [];
+            const titleAttr = linkTagList.length ? ` title="${escapeHtml(linkTagList.join(', '))}"` : '';
+            const btnHtml = isValid
+              ? `<a class="sns-modal-link${lampClass}" href="${escapeHtml(url)}"${titleAttr} target="_blank" rel="noopener noreferrer">${n}${lampHtml}</a>`
+              : `<span class="sns-modal-link is-invalid${lampClass}" aria-disabled="true"${titleAttr}>${n}${lampHtml}</span>`;
+            const tagTextHtml = linkTagList.length ? `<span class="sns-modal-tagtext">${escapeHtml(linkTagList.join(', '))}</span>` : '';
+            return `<span class="sns-modal-item">${btnHtml}${tagTextHtml}</span>`;
           }).join('');
           if (!linksHtml) return '';
           return `<div class="sns-modal-type-row"><span class="sns-modal-type-label">${snsTypeIconHtml(entry.type)}<span>${escapeHtml(displayNameForSnsType(entry.type))}</span></span><span class="sns-modal-links">${linksHtml}</span></div>`;
@@ -3195,6 +3236,9 @@ body .item-contents.is-content-open {
       console.error('Failed to render sns modal:', err);
       snsModalBody.innerHTML = '<div class="sns-modal-empty">LOAD ERROR</div>';
     }
+    let tagOn = false;
+    try { tagOn = localStorage.getItem('snsTagMode') === '1'; } catch (e) {} // 前回のON/OFFを引き継ぐ(保存がなければOFF)
+    setSnsTagMode(tagOn, false);
     snsModalOverlay.classList.add('is-open');
   };
   const closeSnsModal = () => snsModalOverlay.classList.remove('is-open');
