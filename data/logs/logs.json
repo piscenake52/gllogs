@@ -17260,6 +17260,37 @@
     ]
   },
   {
+    "logid": "0764249671b8",
+    "date": "20260907",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls2",
+    "groups": [
+      "G2",
+      "MMK",
+      "MSK",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSg6x4X3d/",
+            "member": [
+              "MMK",
+              "MSK",
+              "KIR"
+            ],
+            "tags": [
+              "今何聞いてますか"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "72235419495f",
     "date": "20260906",
     "time": "2300",

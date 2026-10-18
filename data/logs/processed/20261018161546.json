@@ -1,28 +1,30 @@
 {
-  "date": "20261018",
+  "date": "20260907",
   "contents": "SNS",
   "title": "SNS　Girls2",
   "groups": [
     "G2",
+    "MMK",
     "MSK",
-    "MNM"
+    "KIR"
   ],
   "sns": [
     {
-      "type": "instagram",
+      "type": "tiktok",
       "urls": [
         {
-          "url": "https://www.instagram.com/reel/DeoHM4GRxvf/?mdxt=MXZrazlhMm43bWdibw==",
+          "url": "https://vt.tiktok.com/ZSg6x4X3d/",
           "member": [
+            "MMK",
             "MSK",
-            "MNM"
+            "KIR"
           ],
           "tags": [
-            "Gorgeous"
+            "今何聞いてますか"
           ]
         }
       ]
     }
   ],
-  "_issue": "1488"
+  "_issue": "1489"
 }
