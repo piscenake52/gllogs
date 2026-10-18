@@ -268,7 +268,7 @@ def expand_group_codes(codes):
 def parse_sns(raw):
     """sns欄（1行1件）を [{"type","urls":[{"url","member"}]}] にする（同じtypeは1つにまとめて urls に入れる）。
     先頭が `-` の行は個別削除（`-URL`。戻り値の要素は {"_remove": URL}）。
-    書式: `type | url | member | tags`（tagsはそのリンクだけの検索用タグ。カンマ区切り。省略可。`url | member | tags` も可）。memberは省略可（groupsと同じコード。複数人はカンマ区切り: `YZH,MMK`。G2 / L2 だけを入力するとそのグループ全員。G2,MSK のように個別メンバーもあれば、そのメンバーだけ）。member欄の `+` のあとは with（投稿者と一緒に写っている人。書式はmemberと同じ）: `YZH+MMK,KUR`（投稿者YZH、同写りMMKとKUR）、`+MMK`（投稿者なし、同写りのみ）、`YZH+-`（既存の同写りを消す）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
+    書式: `type | url | member | tags`（tagsはそのリンクだけの検索用タグ。カンマ区切り。省略可。`-` だけを書くと既存のtagsを消す。`url | member | tags` も可）。memberは省略可（groupsと同じコード。複数人はカンマ区切り: `YZH,MMK`。G2 / L2 だけを入力するとそのグループ全員。G2,MSK のように個別メンバーもあれば、そのメンバーだけ）。member欄の `+` のあとは with（投稿者と一緒に写っている人。書式はmemberと同じ）: `YZH+MMK,KUR`（投稿者YZH、同写りMMKとKUR）、`+MMK`（投稿者なし、同写りのみ）、`YZH+-`（既存の同写りを消す）。`type | url`、`url | member`、URLだけでも可（x / instagram / youtube / tiktok / girls2-fc.jp は自動判定）。
     出力の member は配列（なしは []）。with は同写りがあるときだけ配列で持つ。同じURLが複数あれば、後に書いたmemberで上書きする。戻り値: (値, エラーのリスト)。!clear のときは [CLEAR]"""
     if not raw:
         return [], []
@@ -308,7 +308,8 @@ def parse_sns(raw):
             errors.append(f"- **sns**: `|` が多すぎます。`type | url | member | tags` の形で入力してください（入力値: `{shown}`）")
             continue
         link_tags = []
-        for t in re.split(r"[,、]", tag_raw):
+        clear_tags = tag_raw.strip() == "-"  # tags欄が `-` だけ = 既存リンクのtagsを消す指定
+        for t in re.split(r"[,、]", "" if clear_tags else tag_raw):
             t = t.strip()
             if t and t not in link_tags:
                 link_tags.append(t)
@@ -348,15 +349,15 @@ def parse_sns(raw):
             ent = {"url": url, "member": members}
             if withs or clear_with:
                 ent["with"] = withs  # [] は「既存の同写りを消す」（merge側で取り除く）
-            if link_tags:
-                ent["tags"] = link_tags
+            if link_tags or clear_tags:
+                ent["tags"] = link_tags  # [] は「既存のtagsを消す」（merge側で取り除く）
             grouped["urls"].append(ent)
         else:
             if members:
                 same["member"] = members
             if withs or clear_with:
                 same["with"] = withs
-            if link_tags:
+            if link_tags or clear_tags:
                 same["tags"] = link_tags
     return items, errors
 
