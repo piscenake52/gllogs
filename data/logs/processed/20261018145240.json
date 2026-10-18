@@ -1,13 +1,5 @@
 {
-  "date": "20261018",
-  "contents": "SNS",
-  "title": "SNS　Girls2",
-  "groups": [
-    "G2",
-    "MSK",
-    "YOK",
-    "MNM"
-  ],
+  "logid": "0cdcbd990ebe",
   "sns": [
     {
       "type": "x",
@@ -24,7 +16,18 @@
           ]
         }
       ]
+    },
+    {
+      "type": "gl2family",
+      "urls": [
+        {
+          "url": "https://girls2-fc.jp/page/photogalleries/SevenBloomsBeyondPG/photo/1241624522352754688",
+          "member": [
+            "MSK"
+          ]
+        }
+      ]
     }
   ],
-  "_issue": "1477"
+  "_issue": "1478"
 }
