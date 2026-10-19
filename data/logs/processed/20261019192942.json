@@ -1,0 +1,30 @@
+{
+  "logid": "5085651954a9",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2112123580007989399",
+          "member": []
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSghCwxWs/",
+          "member": [
+            "TBK",
+            "YUW"
+          ],
+          "tags": [
+            "WORK≒LIFE"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1630"
+}

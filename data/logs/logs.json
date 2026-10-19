@@ -3683,6 +3683,8 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "TBK",
+      "YUW",
       "RRK"
     ],
     "sns": [
@@ -3696,6 +3698,25 @@
             ],
             "tags": [
               "このあとの栞奈"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2112123580007989399",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSghCwxWs/",
+            "member": [
+              "TBK",
+              "YUW"
+            ],
+            "tags": [
+              "WORK≒LIFE"
             ]
           }
         ]
