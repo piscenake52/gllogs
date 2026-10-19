@@ -1,0 +1,65 @@
+{
+  "date": "20261019",
+  "time": "1800",
+  "contents": "GOODS",
+  "title": "Laki 5th Anniversary Live -L∞K UP- pack vol.1 デジタルトレカ",
+  "url": "https://works.utoniq.com/laki/5thAnnivesary-vol1",
+  "groups": [
+    "L2",
+    "RIN",
+    "TBK",
+    "HIR",
+    "YUW",
+    "KAN",
+    "RRK",
+    "AKR",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2112110379778314711",
+          "member": [
+            "RIN",
+            "TBK",
+            "HIR",
+            "YUW",
+            "KAN",
+            "RRK",
+            "AKR",
+            "KIK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_repeat": [
+    {
+      "date": "20261019",
+      "time": "1800",
+      "title": "Laki 5th Anniversary Live -L∞K UP- pack vol.1 デジタルトレカ 販売開始",
+      "contents": "GOODS",
+      "url": "https://works.utoniq.com/laki/5thAnnivesary-vol1",
+      "display_sp": "5th Anniversary Live pack vol.1 デジタルトレカ 販売開始"
+    },
+    {
+      "date": "20261029",
+      "time": "2359",
+      "title": "Laki 5th Anniversary Live -L∞K UP- pack vol.1 デジタルトレカ 販売終了",
+      "contents": "CLOSE",
+      "url": "https://works.utoniq.com/laki/5thAnnivesary-vol1",
+      "display_sp": "5th Anniversary Live pack vol.1 デジタルトレカ 販売終了"
+    },
+    {
+      "date": "20261105",
+      "time": "2359",
+      "title": "Laki 5th Anniversary Live -L∞K UP- pack vol.1 デジタルトレカ 配送申請締切",
+      "contents": "CLOSE",
+      "url": "https://works.utoniq.com/laki/5thAnnivesary-vol1",
+      "display_sp": "5th Anniversary Live pack vol.1 デジタルトレカ 配送申請締切"
+    }
+  ],
+  "_issue": "1623"
+}
