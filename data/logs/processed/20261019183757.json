@@ -1,0 +1,29 @@
+{
+  "logid": "e050c0c45c8c",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2112106900649353708",
+          "member": []
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSghaKKbA/",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "EASY"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1622"
+}
