@@ -97,6 +97,24 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .dtb svg { width:16px; height:16px; display:block; }
 #glih .cal-pop { position:fixed; z-index:1100; width:290px; max-width:calc(100vw - 16px); padding:10px; background:var(--card); color:var(--text); border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.45); user-select:none; -webkit-user-select:none; }
 #glih .cal-pop[hidden] { display:none; }
+#glih .clk-pop { position:fixed; z-index:1100; width:264px; max-width:calc(100vw - 16px); padding:12px; background:var(--card); color:var(--text); border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 28px rgba(0,0,0,.35); box-sizing:border-box; }
+#glih .clk-pop[hidden] { display:none; }
+#glih .clk-pop button { font:inherit; color:inherit; background:none; border:0; padding:0; margin:0; cursor:pointer; border-radius:8px; }
+#glih .clk-head { display:flex; align-items:center; justify-content:center; gap:4px; margin-bottom:8px; }
+#glih .clk-seg { width:64px; height:48px; font-size:30px; font-weight:700; background:var(--btn) !important; border:1px solid var(--line) !important; font-variant-numeric:tabular-nums; }
+#glih .clk-seg.on { background-color:var(--accent) !important; border-color:var(--accent) !important; color:var(--accent-text); }
+#glih .clk-colon { font-size:28px; font-weight:700; }
+#glih .clk-dial { display:block; width:216px; height:216px; margin:0 auto; touch-action:none; user-select:none; -webkit-user-select:none; cursor:pointer; }
+#glih .clk-face { fill:var(--btn); }
+#glih .clk-num { font-size:13px; fill:var(--text); text-anchor:middle; dominant-baseline:central; pointer-events:none; }
+#glih .clk-num.in { font-size:11px; fill:var(--sub); }
+#glih .clk-num.sel { fill:var(--accent-text); font-weight:700; }
+#glih .clk-hand { stroke:var(--accent); stroke-width:2; }
+#glih .clk-knob { fill:var(--accent); }
+#glih .clk-dot { fill:var(--accent); }
+#glih .clk-foot { display:flex; justify-content:space-between; margin-top:8px; }
+#glih .clk-foot button { height:34px; padding:0 14px; font-size:13px; color:var(--accent); font-weight:700; }
+#glih .clk-foot button:hover { background-color:var(--btn) !important; }
 #glih .cal-head { display:flex; align-items:center; gap:4px; margin-bottom:6px; }
 #glih .cal-pop button { font:inherit; color:inherit; background:none; border:0; padding:0; margin:0; cursor:pointer; border-radius:8px; }
 #glih .cal-nav { flex:0 0 34px; height:34px; font-size:15px; background:var(--btn) !important; border:1px solid var(--line) !important; }
@@ -384,6 +402,82 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       cur = cb; cur.sel = s; vy = +b0.slice(0, 4); vm = +b0.slice(4, 6) - 1; mode = 'day'; pop.hidden = false; render();
     } };
   })();
+  // analog clock popup for the time inputs (used on PC: the native time picker of a desktop browser is a list, not a dial). Pick the hour on the dial (outer ring 00 / 13-23, inner ring 12 / 1-11), then the minute; the value is set when the minute is chosen.
+  var CLK = (function () {
+    var pop = null, anchor = null, cur = null, hh = 12, mm = 0, mode = 'h', drag = false, NS = 'http://www.w3.org/2000/svg';
+    function pad(n) { return ('0' + n).slice(-2); }
+    function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; if (tag === 'button') e.type = 'button'; return e; }
+    function sv(tag, attrs, text) { var e = document.createElementNS(NS, tag); Object.keys(attrs || {}).forEach(function (k) { e.setAttribute(k, attrs[k]); }); if (text != null) e.textContent = text; return e; }
+    function place() {
+      if (!anchor) return;
+      var r = anchor.getBoundingClientRect(), w = pop.offsetWidth || 264, h = pop.offsetHeight || 340;
+      pop.style.left = Math.max(8, Math.min(r.right - w, window.innerWidth - w - 8)) + 'px';
+      var top = r.bottom + 6; if (top + h > window.innerHeight - 8 && r.top - h - 6 > 8) top = r.top - h - 6;
+      pop.style.top = top + 'px';
+    }
+    function close() { if (pop) pop.hidden = true; anchor = null; cur = null; drag = false; }
+    function commit() { var f = cur; var v = pad(hh) + pad(mm); close(); if (f) f(v); }
+    // the position (centre 108,108) of a dial number
+    function pos(idx, r) { var a = idx * Math.PI / 6; return [108 + r * Math.sin(a), 108 - r * Math.cos(a)]; }
+    function render() {
+      pop.textContent = '';
+      var head = el('div', 'clk-head'), hb = el('button', 'clk-seg', ''), mb = el('button', 'clk-seg', '');
+      hb.setAttribute('aria-label', 'hour'); mb.setAttribute('aria-label', 'minute');
+      hb.onclick = function () { mode = 'h'; render(); }; mb.onclick = function () { mode = 'm'; render(); };
+      head.appendChild(hb); head.appendChild(el('span', 'clk-colon', ':')); head.appendChild(mb); pop.appendChild(head);
+      var svg = sv('svg', { 'class': 'clk-dial', viewBox: '0 0 216 216', role: 'application', 'aria-label': mode === 'h' ? 'hour dial' : 'minute dial' });
+      svg.appendChild(sv('circle', { 'class': 'clk-face', cx: 108, cy: 108, r: 104 }));
+      var hand = sv('line', { 'class': 'clk-hand', x1: 108, y1: 108 }), knob = sv('circle', { 'class': 'clk-knob', r: 16 }), tick = sv('circle', { 'class': 'clk-dot', r: 3, fill: '#fff' });
+      svg.appendChild(hand); svg.appendChild(sv('circle', { 'class': 'clk-dot', cx: 108, cy: 108, r: 3 })); svg.appendChild(knob);
+      var nums = [], i, p;
+      function addNum(v, idx, r, cls) { p = pos(idx, r); var t = sv('text', { 'class': 'clk-num' + (cls ? ' ' + cls : ''), x: p[0], y: p[1] }, pad(v)); svg.appendChild(t); nums.push({ el: t, v: v, cls: cls || '' }); }
+      if (mode === 'h') { for (i = 0; i < 12; i++) addNum(i === 0 ? 0 : 12 + i, i, 86, ''); for (i = 0; i < 12; i++) addNum(i === 0 ? 12 : i, i, 56, 'in'); }
+      else for (i = 0; i < 12; i++) addNum(i * 5, i, 86, '');
+      svg.appendChild(tick);
+      // the hand / knob / numbers follow the value without rebuilding the dial (so the drag keeps the pointer capture)
+      function sync() {
+        hb.textContent = pad(hh); mb.textContent = pad(mm); hb.classList.toggle('on', mode === 'h'); mb.classList.toggle('on', mode === 'm');
+        var sp = mode === 'h' ? pos(hh % 12, hh >= 1 && hh <= 12 ? 56 : 86) : pos(mm / 5, 86);
+        hand.setAttribute('x2', sp[0]); hand.setAttribute('y2', sp[1]); knob.setAttribute('cx', sp[0]); knob.setAttribute('cy', sp[1]);
+        tick.setAttribute('cx', sp[0]); tick.setAttribute('cy', sp[1]); tick.style.display = mode === 'm' && mm % 5 ? '' : 'none';
+        nums.forEach(function (n) { n.el.setAttribute('class', 'clk-num' + (n.cls ? ' ' + n.cls : '') + ((mode === 'h' ? hh : mm) === n.v ? ' sel' : '')); });
+      }
+      function at(e) {
+        var b = svg.getBoundingClientRect(), k = 216 / b.width, dx = (e.clientX - b.left) * k - 108, dy = (e.clientY - b.top) * k - 108;
+        var deg = (Math.atan2(dx, -dy) * 180 / Math.PI + 360) % 360, d = Math.sqrt(dx * dx + dy * dy);
+        if (mode === 'h') { var idx = Math.round(deg / 30) % 12; hh = d < 71 ? (idx === 0 ? 12 : idx) : (idx === 0 ? 0 : 12 + idx); }
+        else mm = Math.round(deg / 6) % 60;
+        sync();
+      }
+      svg.addEventListener('pointerdown', function (e) { drag = true; try { svg.setPointerCapture(e.pointerId); } catch (x) {} at(e); e.preventDefault(); });
+      svg.addEventListener('pointermove', function (e) { if (drag) at(e); });
+      svg.addEventListener('pointerup', function (e) { if (!drag) return; drag = false; at(e); if (mode === 'h') { mode = 'm'; render(); } else commit(); });
+      svg.addEventListener('pointercancel', function () { drag = false; });
+      pop.appendChild(svg);
+      var foot = el('div', 'clk-foot'), nb = el('button', '', 'now'), ob = el('button', '', 'OK');
+      nb.onclick = function () { var t = new Date(); hh = t.getHours(); mm = t.getMinutes(); commit(); };
+      ob.onclick = commit;
+      foot.appendChild(nb); foot.appendChild(ob); pop.appendChild(foot);
+      sync(); place();
+    }
+    function init() {
+      pop = el('div', 'clk-pop'); pop.hidden = true; pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-label', 'clock'); root.appendChild(pop);
+      document.addEventListener('click', function (e) { var path = e.composedPath ? e.composedPath() : []; if (!pop.hidden && path.indexOf(pop) < 0 && path.indexOf(anchor) < 0) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) close(); });
+      window.addEventListener('resize', function () { if (!pop.hidden) place(); });
+      window.addEventListener('scroll', function () { if (!pop.hidden) place(); }, true);
+    }
+    // open(button, 'hhmm' or '', callback('hhmm')); clicking the same button again closes it
+    return { open: function (btn, digits, cb) {
+      if (!pop) init();
+      if (!pop.hidden && anchor === btn) { close(); return; }
+      anchor = btn; cur = cb; mode = 'h'; drag = false;
+      if (/^\d{4}$/.test(digits) && +digits.slice(0, 2) < 24 && +digits.slice(2) < 60) { hh = +digits.slice(0, 2); mm = +digits.slice(2); } else { hh = new Date().getHours(); mm = 0; }
+      pop.hidden = false; render();
+    } };
+  })();
+  // PC (a mouse / trackpad): the clock popup above; touch devices keep the native time picker (the dial of the phone)
+  var USE_CLK = !!(window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches);
   function dtPicker(ti, type, onOpen) {
     var w = document.createElement('span'); w.className = 'dtw' + (type === 'time' ? ' t' : '');
     ti.parentNode.insertBefore(w, ti); w.appendChild(ti);
@@ -398,6 +492,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         CAL.open(b, v.length === 8 ? v : '', function (d) { ti.value = fmtDigits(d, 'date'); ti.dispatchEvent(new Event('input', { bubbles: true })); });
         return;
       }
+      if (USE_CLK) { CLK.open(b, v.length === 4 ? v : '', function (d) { ti.value = fmtDigits(d, 'time'); ti.dispatchEvent(new Event('input', { bubbles: true })); }); return; } // PC: the analog clock
       try { pi.showPicker(); } catch (e) { try { pi.focus(); pi.click(); } catch (e2) {} }
     };
     pi.addEventListener('change', function () { if (!pi.value) return; ti.value = fmtDigits(pi.value, type); ti.dispatchEvent(new Event('input', { bubbles: true })); });
