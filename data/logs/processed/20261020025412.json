@@ -1,0 +1,29 @@
+{
+  "logid": "72adf04ad736",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/CL_OFFICIAL_ACC/status/2112165569009213491",
+          "member": []
+        }
+      ]
+    },
+    {
+      "type": "youtube",
+      "urls": [
+        {
+          "url": "https://youtu.be/Tzcy5UFPSoQ?si=qO6aXI5XwkR9RYCS",
+          "member": [
+            "YUW"
+          ],
+          "tags": [
+            "EASY"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1637"
+}
