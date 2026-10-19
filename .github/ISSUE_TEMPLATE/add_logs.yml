@@ -101,6 +101,7 @@ body:
         - WEB
         - PODCAST
         - YOUTUBE
+        - GARUGARUCH
 
   - type: input
     id: contents_free
