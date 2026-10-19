@@ -3511,8 +3511,13 @@
     "title": "SNS　Girls2",
     "groups": [
       "G2",
+      "YZH",
+      "MMK",
       "MSK",
-      "MNM"
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -3526,6 +3531,26 @@
             ],
             "tags": [
               "Gorgeous"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2112091392646279502",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "EASYジャケット写真"
             ]
           }
         ]
