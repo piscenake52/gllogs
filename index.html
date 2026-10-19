@@ -3046,6 +3046,7 @@ body .item-contents.is-content-open {
     'encore': 'ENCORE',
     'cover': 'COVER',
     'dt': 'DT',
+    'dj': 'DJ',
     'medley': 'MEDLEY',
     'arrange': 'ARRANGE'
   };
@@ -3644,12 +3645,14 @@ body .item-contents.is-content-open {
           memberRank: memberSortRank(item),
           // 誕生日(BIRTHDAY)は記念日(ANNIVERSARY)より上に表示する
           babRank: item.contents === 'BIRTHDAY' ? 0 : item.contents === 'ANNIVERSARY' ? 1 : 2,
-          contentRank: contentSortRank(item)
+          contentRank: contentSortRank(item),
+          titleKey: String(item.title || '').trim()
         };
         sortKeyCache.set(item, keys);
       }
       return keys;
     };
+    const SORT_TITLE_COLLATOR = new Intl.Collator('ja', { numeric: true });
     filtered.sort((a, b) => {
       const ka = getSortKeys(a), kb = getSortKeys(b);
       if (ka.dateKey !== kb.dateKey) return desc ? kb.dateKey.localeCompare(ka.dateKey) : ka.dateKey.localeCompare(kb.dateKey);
@@ -3661,9 +3664,11 @@ body .item-contents.is-content-open {
       if (ka.babRank !== kb.babRank) return ka.babRank - kb.babRank;
       // 2) コンテンツフィルターボタンの並び順(同じコンテンツ種類でまとまるようにする)
       if (ka.contentRank !== kb.contentRank) return ka.contentRank - kb.contentRank;
-      // 3) グループ(G2とL2両方 > G2 > L2 > STF > それ以外)
+      // 3) タイトル(同じコンテンツ種類の中を、タイトル順にする。昇順固定・数字は数の大小で比べる)
+      if (ka.titleKey !== kb.titleKey) { const c = SORT_TITLE_COLLATOR.compare(ka.titleKey, kb.titleKey); if (c) return c; }
+      // 4) グループ(G2とL2両方 > G2 > L2 > STF > それ以外)
       if (ka.groupRank !== kb.groupRank) return ka.groupRank - kb.groupRank;
-      // 4) メンバー(フィルターボタンの並び順)
+      // 5) メンバー(フィルターボタンの並び順)
       return ka.memberRank - kb.memberRank;
     });
 

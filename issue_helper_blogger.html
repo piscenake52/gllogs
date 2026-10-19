@@ -732,7 +732,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var r2 = document.createElement('div'); r2.className = 'row'; box.appendChild(r2); // row 3: original + notes
     box.appendChild(rB);
     var sel = document.createElement('div'); sel.className = 'chipr tchips'; sel.title = 'type (multiple allowed; none = song)'; // type chips: several can be ON (sent as allow,medley)
-    ['arrange', 'medley', 'mc', 'dt', 'encore', 'allow', 'cover'].forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.setAttribute('data-v', t); b.textContent = t; b.onclick = function () { b.classList.toggle('on'); sel.dispatchEvent(new Event('change')); }; sel.appendChild(b); });
+    ['arrange', 'medley', 'mc', 'dt', 'dj', 'encore', 'allow', 'cover'].forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.setAttribute('data-v', t); b.textContent = t; b.onclick = function () { b.classList.toggle('on'); sel.dispatchEvent(new Event('change')); }; sel.appendChild(b); });
     Object.defineProperty(sel, 'value', { get: function () { return [].map.call(sel.querySelectorAll('.chip.on'), function (b) { return b.getAttribute('data-v'); }).join(','); }, set: function () { [].forEach.call(sel.querySelectorAll('.chip.on'), function (b) { b.classList.remove('on'); }); } });
     var orig2 = mkInput('mid', 'original'), notes = mkInput('mid', 'notes');
     rT.appendChild(sel); r2.appendChild(orig2); r2.appendChild(notes);
