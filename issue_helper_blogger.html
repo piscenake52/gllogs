@@ -225,7 +225,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="field" id="glih-fanrow" hidden><label for="glih-fan">anniv.</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
   <div class="field" id="glih-fansrow" hidden><label for="glih-fansx"></label><div class="fgcol"><input type="text" id="glih-fansx" class="fin" autocomplete="off" value="&#35352;&#24565;&#26085;"><div class="chipr" id="glih-fansch"></div></div></div>
   <div class="field" id="glih-frefrow" hidden><label id="glih-freflb">ref</label><div class="refbox" id="glih-frefbox"></div></div>
-  <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、空欄にした値の削除はフォームの【値の削除】チェックで行います。relations は事前入力できません(JSONで確認)。 -->
+  <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、既存データの項目を空欄にすると、その項目は !clear で送られ、要素ごと削除されます(削除チェックは不要)。relations は事前入力できません(JSONで確認)。 -->
   <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fjtog" aria-expanded="false">JSON &#9662;</button><button type="button" class="small" id="glih-fcopy">JSON copy</button><button type="button" class="small" id="glih-freset">reset all</button></div>
   <textarea id="glih-fjson" class="jsonbox" spellcheck="false" hidden></textarea>
   <div class="fdiff" id="glih-fdiff" hidden></div>
@@ -1175,6 +1175,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     r.suffix = sx.value.trim() || DEFSX;
     return r;
   }
+  var CLRK = { logs: ['time', 'groups', 'contents', 'title', 'display_pc', 'display_sp', 'url', 'map', 'setlistid', 'relations'], setlist: ['title', 'artist', 'member', 'venue', 'songs'] }; // fields that an emptied value clears (date / songs_patch / tags / sns have their own rules)
   function updateFind() {
     if (!found) { setLink($('go-find'), ''); showDiff([]); return; }
     var def = DEFS[found.kind], p = {}, n = 0, dl = [];
@@ -1188,7 +1189,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (f.k === 'source' && ch && cur.trim() === '') { p.source = '!clear'; n++; dl.push([f.k, '(cleared)', one(orig[f.k])]); } // both chips off on a setlist that had one: sent as !clear (an empty value would mean unchanged)
       else if (found.kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) { var dv = ch ? listDiff(f.k, orig[f.k], cur) : ''; if (dv) { p[f.p || f.k] = dv; n++; dl.push([f.k, dv.replace(/\n/g, ' / ')]); } }
       else if (ch && cur.trim() !== '') { p[f.p || f.k] = cur; n++; dl.push(f.k === 'songs_patch' ? [f.lb, cur.trim().replace(/\n/g, ' / ')] : [f.k, one(cur), found.isNew ? null : one(orig[f.k])]); }
-      else if (ch) dl.push([f.k, '(empty)', one(orig[f.k]), 'not sent - use the delete check of the form']);
+      else if (ch && !found.isNew && CLRK[found.kind].indexOf(f.k) >= 0) { p[f.p || f.k] = '!clear'; n++; dl.push([f.k, '(cleared)', one(orig[f.k])]); } // emptied on an existing record: sent as !clear (the whole element is removed; no delete check needed)
+      else if (ch) dl.push([f.k, '(empty)', one(orig[f.k]), 'not sent']);
     });
     if (found.kind === 'logs' && found.isNew && $('rpon') && $('rpon').checked && repMode() === 'tour') { ['map', 'setlistid', 'tags'].forEach(function (k) { if (p[k] !== undefined) { delete p[k]; n--; } }); dl = dl.filter(function (x) { return ['map', 'setlistid', 'tags'].indexOf(x[0]) < 0; }); } // tour mode: those are per show
     var errs = validateFind(found.kind);

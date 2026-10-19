@@ -668,6 +668,7 @@ IDが無い行は何もしない。この状態では、**ダブルタップのI
 
 - `TELEPHONE`: データ部は`📞 TELEPHONE`。フィルターボタンは無く、フィルター判定上は`FANCLUB`として扱う(`fanclubAliasConts`、`normalizeContType`)。FANCLUBボタンをONにすると表示される
 - `GARUGARUCH`: アイコンは`YOUTUBE`と同じ(🎞️)。フィルターボタンは無く、フィルター判定上は`YOUTUBE`として扱う(`youtubeAliasConts`、`normalizeContType`)。YOUTUBEボタンをONにすると表示される
+- helperで既存データ(logs / setlist)の項目を空欄にすると、その項目は `!clear` としてIssueに事前入力され、削除チェックなしでmergeが項目(キー)ごと取り除く(対象: logsは time / groups / contents / title / display_pc / display_sp / url / map / setlistid / relations、setlistは title / artist / member / venue / source / songs。tags / sns は従来どおり個別の `-` 指定)。Issueに直接 `!clear` と書いても同じ
 - `DEBUT`: ⭐、`FORMATION`: ✨ に変更(以前は🎂と🤝)。ボタンは無く、フィルター判定上は`BIRTHDAY`として扱う(BIRTHDAYのボタン🎂をONにすると表示される)
 - SNSの`radiko`: アイコンと表示名`radiko`を追加(URLは`radiko.jp`で自動判定)
 
