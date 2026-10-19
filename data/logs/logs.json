@@ -3455,6 +3455,7 @@
     "time": "0400",
     "contents": "RADIO",
     "title": "TOKYO FM「Memories & Discoveries」",
+    "url": "https://jfn-pods.com/program/27337",
     "groups": [
       "L2",
       "AKR",
@@ -3470,6 +3471,15 @@
           },
           {
             "url": "https://x.com/Laki922official/status/2112257475051147653",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "radiko",
+        "urls": [
+          {
+            "url": "https://radiko.jp/share/?t=20261020051215&sid=FMT",
             "member": []
           }
         ]
