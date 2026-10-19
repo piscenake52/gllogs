@@ -793,8 +793,8 @@ def main():
         # プルダウンが未選択のときは自由入力を使う（プルダウン優先）
         if not f["contents"] and f.get("contents_free") and f["contents_free"] not in ("None", "_No response_"):
             free = f["contents_free"].strip()
-            # 自由入力が contents の選択肢に一致すればその値、一致しなければ ETC で登録する
-            f["contents"] = free.upper() if free.upper() in CONTENTS_OPTIONS else "ETC"
+            # 自由入力が contents の選択肢に一致すればその値、一致しなければ ETC で登録する(!clear はそのまま渡して値を消す)
+            f["contents"] = CLEAR if free == CLEAR else (free.upper() if free.upper() in CONTENTS_OPTIONS else "ETC")
         # 数値項目を半角にそろえ、桁数などを検証する（問題があればIssueにコメントして終了）
         repeat_ops, repeat_errors = parse_repeat(f.get("repeat", ""))
         if repeat_ops and not f["date"]:
