@@ -784,8 +784,8 @@ body .item-contents.is-content-open {
 }
 
 @media (max-width: 600px) {
-  /* 画面表示幅を左右それぞれ7px広くする(bodyの左右paddingを15px→8pxに) */
-  body { padding-left: 8px; padding-right: 0px; }
+  /* 画面表示幅を左右それぞれ11px広くする(bodyの左右paddingを15px→4pxに) */
+  body { padding-left: 4px; padding-right: 4px; }
   .item-date { flex: 0 0 auto; margin-right: 6px; }
   .items.time-mode .item-date:has(+ .item-time) { margin-right: 3px; }
   .items.time-mode .item-time { flex: 0 0 auto; margin-right: 6px; }
@@ -831,6 +831,13 @@ body .item-contents.is-content-open {
 .setlist-modal-source { display: flex; margin: -6px 0 10px; }
 .setlist-source-chip { display: inline-flex; align-items: center; height: 18px; padding: 0 9px; border-radius: 9px; box-sizing: border-box; font-size: 10px; font-weight: 600; letter-spacing: .03em; line-height: 1; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--sub); } /* 曲リストの上: OFFICIAL / UNOFFICIAL(情報の出どころ。分からないときは出さない) */
 .setlist-source-chip.is-official { background: #2f7bff; border-color: #2f7bff; color: #fff; }
+/* ポップアップ内のスクロールバー:細くして、画面の色になじませる(背景は透明、つまみは枠線色) */
+.popup-box, .setlist-modal, .sns-modal { scrollbar-width: thin; scrollbar-color: var(--input-border) transparent; }
+@supports not (scrollbar-color: auto) {
+  .popup-box::-webkit-scrollbar, .setlist-modal::-webkit-scrollbar, .sns-modal::-webkit-scrollbar { width: 6px; }
+  .popup-box::-webkit-scrollbar-track, .setlist-modal::-webkit-scrollbar-track, .sns-modal::-webkit-scrollbar-track { background: transparent; }
+  .popup-box::-webkit-scrollbar-thumb, .setlist-modal::-webkit-scrollbar-thumb, .sns-modal::-webkit-scrollbar-thumb { background: var(--input-border); border-radius: 3px; }
+}
 .setlist-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
 /* SNSリンクポップアップ(セトリポップアップと見た目を揃える) */
 .sns-modal-overlay {
@@ -869,11 +876,12 @@ body .item-contents.is-content-open {
 .sns-modal-lamps.is-single { grid-template-columns: 5px; } /* 1人のときは従来どおり角に1つだけ */
 .sns-modal-lamps.is-nine { grid-template-columns: repeat(3, 5px); } /* 9人のときだけ3列×3段(大きさは同じ)。右端基準なので左へ広がり、番号に少し重なってもよい */
 .sns-modal-lamps > i { display: block; width: 5px; height: 5px; box-sizing: border-box; border-radius: 50%; background-color: var(--lamp-color); box-shadow: 0 0 0 1px var(--bg), inset 0 0 0 1px rgba(128,128,128,.45); } /* 色の部分は常に5px。縁(背景色の輪)は外側に描き、内側の薄い灰色の線で白・黄など明るい色も同じ大きさに見えるようにする */
-.sns-modal-body { margin-bottom: 26px; }
-.sns-tag-switch { position: absolute; bottom: 10px; right: 14px; height: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 0; border: none; background: none; color: var(--text); font-size: 11px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.sns-modal-body { margin-bottom: 0; }
+/* スイッチ行: ポップアップ内の最下部に固定(内容がスクロールしても追随する) */
+.sns-modal-foot { position: sticky; bottom: -18px; z-index: 2; display: flex; justify-content: space-between; align-items: center; margin: 0 -18px -18px; padding: 8px 32px 10px; background: var(--bg); border-radius: 0 0 12px 12px; }
+.sns-tag-switch { position: static; height: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 0; border: none; background: none; color: var(--text); font-size: 11px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .sns-tag-track { position: relative; width: 28px; height: 16px; border-radius: 8px; box-sizing: border-box; background: var(--btn-bg); border: 1px solid var(--input-border); transition: background-color .25s; }
 .sns-tag-knob { position: absolute; top: 1px; left: 1px; width: 12px; height: 12px; border-radius: 50%; background: var(--sub); transition: transform .25s cubic-bezier(0.22, 0.61, 0.36, 1), background-color .25s; }
-.sns-scope-switch { right: auto; left: 14px; }
 .sns-tag-switch[aria-checked="true"] .sns-tag-track { background: #2f7bff; border-color: #2f7bff; }
 .sns-tag-switch[aria-checked="true"] .sns-tag-knob { transform: translateX(12px); background: #fff; }
 .sns-modal-item { display: inline-flex; align-items: center; gap: 8px; min-width: 0; max-width: 100%; }
@@ -1046,9 +1054,11 @@ body .item-contents.is-content-open {
 <div class="sns-modal-overlay" id="snsModalOverlay">
   <div class="sns-modal" id="snsModal" role="dialog" aria-modal="true">
     <button type="button" class="sns-modal-close" id="snsModalCloseBtn" aria-label="Close">&#215;</button>
-    <button type="button" class="sns-tag-switch" id="snsTagSwitch" role="switch" aria-checked="false"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span>TAG</span></button>
-    <button type="button" class="sns-tag-switch sns-scope-switch" id="snsScopeSwitch" role="switch" aria-checked="true"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span id="snsScopeLabel">ALL</span></button>
     <div class="sns-modal-body" id="snsModalBody"></div>
+    <div class="sns-modal-foot">
+      <button type="button" class="sns-tag-switch sns-scope-switch" id="snsScopeSwitch" role="switch" aria-checked="true"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span id="snsScopeLabel">ALL</span></button>
+      <button type="button" class="sns-tag-switch" id="snsTagSwitch" role="switch" aria-checked="false"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span>TAG</span></button>
+    </div>
   </div>
 </div>
 
@@ -1197,6 +1207,8 @@ body .item-contents.is-content-open {
     'MODEL': '\uD83D\uDC60', 'MOVIE': '\uD83C\uDFAC\uFE0F', 'TICKET': '\uD83C\uDFAB',
     // TELEPHONEはフィルターボタンには表示せず、フィルター判定上は"FANCLUB"として扱う(データ部は📞 TELEPHONE)
     'TELEPHONE': '\uD83D\uDCDE',
+    // GARUGARUCHはフィルターボタンには表示せず、フィルター判定上は"YOUTUBE"として扱う(アイコンもYOUTUBEと同じ)
+    'GARUGARUCH': '\uD83C\uDF9E\uFE0F',
     'CLOSE': '\u2705', 'RESULT': '\uD83C\uDFAF', 'CAMPAIGN': '\uD83D\uDCE8', 'PLAYING': '\uD83C\uDFB6', 'MESSAGE': '\uD83D\uDCE8', // フィルターボタンには表示せず、ETC選択時のみ該当させる
     'ETC': '\uD83D\uDCCC',
     // 以下5種類はcontentsフィルターボタンには表示しないが、フィルター判定上は"RELEASE"として扱う
@@ -1555,6 +1567,7 @@ body .item-contents.is-content-open {
   const eventAliasConts = ['RELEASEEVENT', 'FANMEETING']; // COOKING/STAGEは独立したフィルターボタンになった
   const birthdayAliasConts = ['DEBUT', 'FORMATION'];
   const fanclubAliasConts = ['TELEPHONE'];
+  const youtubeAliasConts = ['GARUGARUCH'];
   const normalizeContTypeCache = new Map();
   // 生のcontents値を、フィルターボタンが実際に使う種類(エイリアス統合後)に変換する
   const normalizeContType = c => {
@@ -1566,7 +1579,8 @@ body .item-contents.is-content-open {
       salesAliasConts.includes(c) ? 'SALES' :
       eventAliasConts.includes(c) ? 'EVENT' :
       birthdayAliasConts.includes(c) ? 'BIRTHDAY' :
-      fanclubAliasConts.includes(c) ? 'FANCLUB' : c;
+      fanclubAliasConts.includes(c) ? 'FANCLUB' :
+      youtubeAliasConts.includes(c) ? 'YOUTUBE' : c;
     normalizeContTypeCache.set(c, result);
     return result;
   };
@@ -3231,8 +3245,13 @@ body .item-contents.is-content-open {
     const post = snsModalBox.classList.contains('is-post');
     snsModalBody.querySelectorAll('.sns-modal-lamps').forEach(el => {
       const n = el.querySelectorAll(post ? 'i:not(.w)' : 'i').length;
+      const nm = el.querySelectorAll('i:not(.w)').length;
+      // ALLでwithがいるとき:右上から左へ、memberに続けてwithを並べる(段ごとの個数は従来どおり。2個ずつ、9個以上は3個ずつ)
+      const mixed = !post && nm > 0 && n > nm;
       el.classList.toggle('is-single', n === 1);
       el.classList.toggle('is-nine', n >= 9);
+      el.style.gridTemplateColumns = '';
+      el.style.direction = mixed ? 'rtl' : '';
       el.style.display = n === 0 ? 'none' : '';
     });
   };
