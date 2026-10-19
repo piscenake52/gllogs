@@ -3504,6 +3504,35 @@
     ]
   },
   {
+    "logid": "e050c0c45c8c",
+    "date": "20261019",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls2",
+    "groups": [
+      "G2",
+      "MSK",
+      "MNM"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/BnDVkflT3y4?si=s2TT6wmSDvBXauqS",
+            "member": [
+              "MSK",
+              "MNM"
+            ],
+            "tags": [
+              "Gorgeous"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "9eb8c7bf1051",
     "date": "20261018",
     "time": "2359",
