@@ -51,6 +51,7 @@ LABELS_SS = {
     "member_l2": "member / Laki",
     "member_free": "member / 自由入力",
     "venue": "venue",
+    "source": "source",
     "songs": "曲目 (1行1曲)",
     "songs_patch": "曲目の個別変更 (1行1操作)",
     "delete": "DELETE",
@@ -79,7 +80,7 @@ ERROR_FILE = "issue_error.md"
 CLEARABLE = {
     "logs": ["time", "contents", "title", "display_pc", "display_sp", "url", "map",
              "groups", "relations", "setlistid", "tags", "sns"],
-    "setlist": ["artist", "title", "member", "venue", "songs"],
+    "setlist": ["artist", "title", "member", "venue", "source", "songs"],
     "songs": ["link"],
 }
 
@@ -614,6 +615,23 @@ def build_logs(f):
     return data
 
 
+def parse_source(raw):
+    """setlistのsource欄: OFFICIAL(公式の情報) / UNOFFICIAL(ファンメイド) → "official" / "unofficial"。空は ""(変更なし・不明)。!clear は消去。
+    戻り値: (値, エラー文 or None)"""
+    v = unicodedata.normalize("NFKC", raw or "").strip()
+    if not v:
+        return "", None
+    if v == CLEAR:
+        return CLEAR, None
+    key = re.sub(r"[\s_\-]+", "", v).upper()
+    if key == "OFFICIAL":
+        return "official", None
+    if key == "UNOFFICIAL":
+        return "unofficial", None
+    shown = v.replace("`", "'")
+    return "", f"- **source**: OFFICIAL か UNOFFICIAL で入力してください（空は不明）。入力値: `{shown}`"
+
+
 def build_setlist(f):
     member = (expand_members(parse_selected(f["member_g2"], G2_OPTIONS), "G2", G2_MEMBERS)
               + expand_members(parse_selected(f["member_l2"], L2_OPTIONS), "L2", L2_MEMBERS))
@@ -817,6 +835,12 @@ def main():
         f["setlistid"] = to_halfwidth(f["setlistid"])
         copy_src = to_halfwidth(f.get("copy_from", ""))
         data = build_setlist(f)
+        src, src_err = parse_source(f.get("source", ""))
+        if src_err:
+            write_error([src_err])
+            print("入力エラーのため処理を中止しました:\n" + src_err)
+            return
+        data["source"] = src
         patch_ops, patch_errors = parse_songs_patch(f.get("songs_patch", ""))
         if patch_errors:
             write_error(patch_errors)
