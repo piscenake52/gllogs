@@ -169370,9 +169370,8 @@
     "date": "20210201",
     "time": "1700",
     "contents": "YOUTUBE",
-    "title": "【抜き打ち！】カバンの中身チェック！ part1",
-    "display_pc": "がるがるちゃんねる　【抜き打ち！】カバンの中身チェック！ part1",
-    "display_sp": "【抜き打ち！】カバンの中身チェック！ part1",
+    "title": "がるがるちゃんねる　【抜き打ち！】カバンの中身チェック！ part1",
+    "display_pc": "＃0007　【抜き打ち！】カバンの中身チェック！ part1",
     "url": "https://www.youtube.com/watch?v=nOSNVPugoAE",
     "groups": [
       "G2",
@@ -169382,7 +169381,9 @@
       "YOK",
       "KUR",
       "MNM",
-      "KIR"
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "tags": [
       "#7"
