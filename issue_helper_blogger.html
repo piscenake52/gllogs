@@ -254,7 +254,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   // setlist source: OFFICIAL / UNOFFICIAL chips. Clicking the active chip turns it off (both off = unknown = empty). The value is kept in a hidden text box so the diff / Issue link work as for the other fields.
   function addSourceChips(wrap, lb, el) {
     el.type = 'hidden'; lb.removeAttribute('for');
-    var row = document.createElement('div'); row.className = 'chips srcchips'; var bs = {};
+    var row = document.createElement('div'); row.className = 'chipr srcchips'; var bs = {};
     [['OFFICIAL', 'OFFICIAL'], ['UNOFFICIAL', 'UNOFFICIAL']].forEach(function (o) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = o[1]; b.setAttribute('aria-pressed', 'false'); bs[o[0]] = b;
       b.onclick = function () { el.value = el.value === o[0] ? '' : o[0]; el.dispatchEvent(new Event('input', { bubbles: true })); };
