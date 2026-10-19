@@ -170749,6 +170749,28 @@
             "member": []
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://www.youtube.com/watch?v=Q6u7nO9-O5k",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR",
+              "TOA",
+              "RAN"
+            ],
+            "tags": [
+              "「がるがるちゃんねる」開設!"
+            ]
+          }
+        ]
       }
     ]
   },
