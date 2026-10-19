@@ -169197,11 +169197,10 @@
   {
     "logid": "126c0a860bfc",
     "date": "20210204",
-    "time": "1700",
+    "time": "1200",
     "contents": "YOUTUBE",
-    "title": "【抜き打ち！】カバンの中身チェック！ part2",
-    "display_pc": "がるがるちゃんねる　【抜き打ち！】カバンの中身チェック！ part2",
-    "display_sp": "【抜き打ち！】カバンの中身チェック！ part2",
+    "title": "がるがるちゃんねる　【抜き打ち！】カバンの中身チェック！ part2",
+    "display_pc": "＃0008　【抜き打ち！】カバンの中身チェック！ part2",
     "url": "https://www.youtube.com/watch?v=0rl92ULtj-o",
     "groups": [
       "G2",
@@ -169211,7 +169210,9 @@
       "YOK",
       "KUR",
       "MNM",
-      "KIR"
+      "KIR",
+      "TOA",
+      "RAN"
     ],
     "tags": [
       "#8"
