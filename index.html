@@ -828,6 +828,9 @@ body .item-contents.is-content-open {
 .setlist-modal-artist.is-split { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 6px; row-gap: 2px; } /* Girls\u00B2 / Laki の両方がartistのとき:名前の列とハートの列(左端そろえ)の2段 */
 .setlist-song-type { flex: 0 0 auto; align-self: flex-start; margin-top: 1px; /* 中央ではなく上付き(曲名1行目と横位置を揃える) */ font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
 .setlist-song-sub { display: flex; flex-wrap: wrap; gap: 0 8px; margin-top: 2px; font-size: 10px; line-height: 1.4; color: var(--sub); opacity: 0.85; } /* original と notes(括弧なし・小さく薄く) */
+.setlist-modal-source { display: flex; margin: -6px 0 10px; }
+.setlist-source-chip { display: inline-flex; align-items: center; height: 18px; padding: 0 9px; border-radius: 9px; box-sizing: border-box; font-size: 10px; font-weight: 600; letter-spacing: .03em; line-height: 1; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--sub); } /* 曲リストの上: OFFICIAL / UNOFFICIAL(情報の出どころ。分からないときは出さない) */
+.setlist-source-chip.is-official { background: #2f7bff; border-color: #2f7bff; color: #fff; }
 .setlist-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
 /* SNSリンクポップアップ(セトリポップアップと見た目を揃える) */
 .sns-modal-overlay {
@@ -3143,6 +3146,9 @@ body .item-contents.is-content-open {
           return `<div class="setlist-modal-datetime">${escapeHtml(dateStr)}${timeStr ? ` ${escapeHtml(timeStr)}` : ''}</div>`;
         })() +
         (entry.venue ? `<div class="setlist-modal-venue">${escapeHtml(entry.venue)}</div>` : '') +
+        // source: official=公式の情報 / fan=ファンメイド。どちらでもない(空・未設定)ときは何も出さない
+        (entry.source === 'official' ? '<div class="setlist-modal-source"><span class="setlist-source-chip is-official">OFFICIAL</span></div>'
+          : entry.source === 'unofficial' ? '<div class="setlist-modal-source"><span class="setlist-source-chip">UNOFFICIAL</span></div>' : '') +
         (songsHtml ? `<ul class="setlist-modal-songlist">${songsHtml}</ul>` : '<div class="setlist-modal-empty">no songs</div>');
     } catch (err) {
       // データ形状が想定外でも、ポップアップ自体は必ず開いてエラー内容が分かるようにする

@@ -248,9 +248,23 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       { k: 'date' }, { k: 'time' }, { k: 'groups', p: 'groups_free', list: 1 }, { k: 'contents', p: 'contents_free' }, { k: 'title', p: 'item_title', ta: 1 }, { k: 'display_pc', ta: 1 }, { k: 'display_sp', ta: 1 }, { k: 'url' }, { k: 'map' }, { k: 'setlistid' },
       { k: 'relations', p: 'relations_free', list: 1 }, { k: 'tags', list: 1 }, { k: 'sns', ta: 1 } ] },
     setlist: { idKey: 'setlistid', tpl: TPL_SETLIST, fields: [
-      { k: 'title', p: 'item_title', ta: 1 }, { k: 'artist', p: 'artist_free' }, { k: 'member', p: 'member_free', list: 1 }, { k: 'venue' }, { k: 'songs', ta: 1 }, { k: 'songs_patch', lb: 'patch', ta: 1 } ] }
+      { k: 'title', p: 'item_title', ta: 1 }, { k: 'artist', p: 'artist_free' }, { k: 'member', p: 'member_free', list: 1 }, { k: 'venue' }, { k: 'source', chk: 1 }, { k: 'songs', ta: 1 }, { k: 'songs_patch', lb: 'patch', ta: 1 } ] }
   };
   // clear (x) button at the right end of an input: empties the field and fires an input event so the preview and link update
+  // setlist source: OFFICIAL / UNOFFICIAL chips. Clicking the active chip turns it off (both off = unknown = empty). The value is kept in a hidden text box so the diff / Issue link work as for the other fields.
+  function addSourceChips(wrap, lb, el) {
+    el.type = 'hidden'; lb.removeAttribute('for');
+    var row = document.createElement('div'); row.className = 'chips srcchips'; var bs = {};
+    [['OFFICIAL', 'OFFICIAL'], ['UNOFFICIAL', 'UNOFFICIAL']].forEach(function (o) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = o[1]; b.setAttribute('aria-pressed', 'false'); bs[o[0]] = b;
+      b.onclick = function () { el.value = el.value === o[0] ? '' : o[0]; el.dispatchEvent(new Event('input', { bubbles: true })); };
+      row.appendChild(b);
+    });
+    function paint() { Object.keys(bs).forEach(function (k) { var on = el.value === k; bs[k].classList.toggle('on', on); bs[k].setAttribute('aria-pressed', on ? 'true' : 'false'); }); }
+    el.addEventListener('input', paint); paint();
+    wrap.appendChild(lb); wrap.appendChild(el); wrap.appendChild(row);
+    el._paint = paint;
+  }
   function addClear(el) {
     var wrap = document.createElement('span'); wrap.className = 'fw';
     el.parentNode.insertBefore(wrap, el); wrap.appendChild(el);
@@ -823,6 +837,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var v = row[f.k];
     if (f.k === 'sns') return fmtSns(v);
     if (f.k === 'songs') return fmtSongs(v);
+    if (f.k === 'source') return v === 'official' ? 'OFFICIAL' : v === 'unofficial' ? 'UNOFFICIAL' : ''; // stored as official / unofficial
     if (Array.isArray(v)) return v.join(',');
     return v == null ? '' : String(v);
   }
@@ -1075,7 +1090,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     def.fields.forEach(function (f) {
       var el = $('f-' + f.k), cur = el.value, ch = cur !== orig[f.k];
       el.classList.toggle('ch', ch);
-      if (found.kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) { var dv = ch ? listDiff(f.k, orig[f.k], cur) : ''; if (dv) { p[f.p || f.k] = dv; n++; dl.push([f.k, dv.replace(/\n/g, ' / ')]); } }
+      if (f.k === 'source' && ch && cur.trim() === '') { p.source = '!clear'; n++; dl.push([f.k, '(cleared)', one(orig[f.k])]); } // both chips off on a setlist that had one: sent as !clear (an empty value would mean unchanged)
+      else if (found.kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) { var dv = ch ? listDiff(f.k, orig[f.k], cur) : ''; if (dv) { p[f.p || f.k] = dv; n++; dl.push([f.k, dv.replace(/\n/g, ' / ')]); } }
       else if (ch && cur.trim() !== '') { p[f.p || f.k] = cur; n++; dl.push(f.k === 'songs_patch' ? [f.lb, cur.trim().replace(/\n/g, ' / ')] : [f.k, one(cur), found.isNew ? null : one(orig[f.k])]); }
       else if (ch) dl.push([f.k, '(empty)', one(orig[f.k]), 'not sent - use the delete check of the form']);
     });
@@ -1155,6 +1171,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (!f.ta) { el.type = 'text'; el.setAttribute('autocomplete', 'off'); }
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
       el.addEventListener('input', updateFind); if (kind === 'logs' && (f.k === 'contents' || f.k === 'groups')) el.addEventListener('input', autoSnsTitle);
+      if (f.chk) { addSourceChips(wrap, lb, el); box.appendChild(wrap); return; } // OFFICIAL / UNOFFICIAL: two exclusive chips (the text box stays hidden and keeps the value; both off = empty)
       wrap.appendChild(lb); wrap.appendChild(el); box.appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'tags') addSuggest(el, tagOptsFor('logs'), null, true, true); if (kind === 'logs' && f.k === 'sns') addNewSnsList(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsHelper(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
     var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = !!isNew; $('fjrow').hidden = !!isNew;

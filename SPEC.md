@@ -761,6 +761,12 @@ G2のメンバー: `YZH, MMK, MSK, YOK, KUR, MNM, KIR`(展開されるのはこ�
 
 共通ルール(`expand_group_codes`): グループ名と同じグループの個別メンバー(`TOA/RAN/YUR`を含む)が一緒に書かれたら、グループ名は捨てて個別メンバーだけにする。ドロップダウンと自由入力があるときは**ドロップダウンが優先**(ドロップダウンが空のときだけ自由入力を使う)。
 
+### setlistのsource(OFFICIAL / UNOFFICIAL)
+- **データ**: `setlist.json`の`source`。`"official"`(公式の情報)/`"unofficial"`(ファンメイド)。分からないときは**項目なし**(初期値は空)。
+- **入力(Issue)**: `source`欄に`OFFICIAL`か`UNOFFICIAL`(保存値は`official` / `unofficial`。それ以外の表記はエラー)。空は「変更なし・不明」。消すときは`!clear`、または「値の削除」で`source`。それ以外の値はエラー。
+- **helper(setlistタブ)**: venueの下に`OFFICIAL` / `UNOFFICIAL`の2つのチップ(どちらか一方。押すと選択、もう一度押すと解除。初期値は両方オフ)。登録済みのsetlistは現在の値で点灯する。点灯中のチップを消すと、`!clear`が送られる。新規・コピーでも同じ。
+- **index.html(セトリポップアップ)**: 曲リストの上に、OFFICIAL(青)またはUNOFFICIAL(グレー)のチップを出す。`source`が無いときは何も出さない。
+
 ### 曲目の書式(setlist)
 
 1行1曲: `[順番:] 曲名 {メンバー} | type | original | notes`
