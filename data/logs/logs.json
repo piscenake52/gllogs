@@ -736,6 +736,35 @@
     ]
   },
   {
+    "logid": "6018a00e1c7a",
+    "date": "20261204",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "Girls² On-Line Capsule 第五弾 引換期限",
+    "url": "https://girls2.slsllp.store/store/lottery/girls2-2026-1",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2112126321560289715",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "6c8f65eb086a",
     "date": "20261204",
     "time": "2000",
@@ -1986,35 +2015,6 @@
     "relations": [],
     "tags": [
       "THEATER MILANO-Za"
-    ]
-  },
-  {
-    "logid": "6018a00e1c7a",
-    "date": "20261104",
-    "time": "2359",
-    "contents": "CLOSE",
-    "title": "Girls² On-Line Capsule 第五弾 販売終了",
-    "url": "https://girls2.slsllp.store/store/lottery/girls2-2026-1",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/2112126321560289715",
-            "member": []
-          }
-        ]
-      }
     ]
   },
   {
