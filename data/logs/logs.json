@@ -3675,6 +3675,44 @@
     ]
   },
   {
+    "logid": "9609546ad924",
+    "date": "20261020",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RRK",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2112455096034578732",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgS2LKSC/",
+            "member": [
+              "RRK",
+              "KIK"
+            ],
+            "tags": [
+              "バスケチャレンジ"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "3b478d0a4c91",
     "date": "20261019",
     "time": "2000",
