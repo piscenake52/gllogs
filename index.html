@@ -369,7 +369,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 /* 錠前ボタン:OFF(既定)ではsticky-headerを画面固定せず通常スクロールにする */
 .sticky-header.unlocked { position: static; }
 /* 錠前・BLACK/WHITEテーマボタンを同じ丸ボタンサイズ・見た目に統一 */
-.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn, #bellBtn, #textSizeBtn, #dateSearchBtn {
+.lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn, #backBtn, #textSizeBtn, #dateSearchBtn {
   flex-shrink: 0;
   width: 26px;
   height: 26px;
@@ -391,7 +391,8 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 #headerBtnGroup #heartToggleBtn:hover { color: var(--text); background-color: var(--btn-bg); }
 #headerBtnGroup #heartToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 .theme-toggle-btn { overflow: hidden; }
-#bellBtn:disabled, #bellBtn:disabled:hover { opacity: 0.35; cursor: not-allowed; background-color: var(--btn-bg); color: var(--text); } /* 🔔:処理はまだ無いので押せない(非活性) */
+#backBtn { font-size: 17px; line-height: 1; padding-bottom: 2px; } /* ↺:直前の検索条件に戻す。戻せるものが無い間は押せない(非活性) */
+#backBtn:disabled, #backBtn:disabled:hover { opacity: 0.35; cursor: not-allowed; background-color: var(--btn-bg); color: var(--text); }
 .lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #textSizeBtn:hover, #dateSearchBtn:hover { background-color: var(--btn-hover); }
 .lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
 /* 「A」ボタン自体の大きさは変えず、データ部の文字サイズだけを拡大縮小する */
@@ -961,7 +962,7 @@ body .item-contents.is-content-open {
     </div>
     <div class="extra-tools-row">
       <button class="toggle-btn" id="songToggleBtn">&#9834;</button>
-      <button class="toggle-btn" id="bellBtn" disabled aria-disabled="true" aria-label="Notifications">&#128276;</button>
+      <button class="toggle-btn" id="backBtn" disabled aria-label="Back (restore the previous search)" title="back">&#8634;</button>
       <div class="search-box-wrap">
         <button type="button" class="toggle-btn search-setlist-btn" id="setlistToggleBtn" aria-label="Setlist search mode">&#128203;&#65039;</button>
         <input type="text" id="searchInput" class="search-input" placeholder="search keyword">
@@ -4819,6 +4820,7 @@ body .item-contents.is-content-open {
   // SETLISTボタン:セトリ検索モードのON/OFF。検索窓の文字列はモード切替時もクリアしない
   $('setlistToggleBtn').onclick = () => {
     setlistMode = !setlistMode;
+    backStack.length = 0; updateBackBtn(); // モードをまたいで戻すと条件が食い違うので、↺の記憶は一度空にする
     $('setlistToggleBtn').classList.toggle('is-active', setlistMode);
     searchSuggestions.classList.remove('is-open'); // モード切替時は検索候補ポップアップを一旦閉じる
     updateSearchPlaceholder();
@@ -5079,6 +5081,7 @@ body .item-contents.is-content-open {
 
   const resetAll = e => {
     if (e) e.preventDefault();
+    pushBackState(); // CLEARする前の条件を覚えておく(↺で戻せる)
     checkboxes.forEach(cb => cb.checked = false);
     manuallyTouchedConts.clear();
     document.querySelectorAll('.checks label.has-data-lamp').forEach(l => l.classList.remove('has-data-lamp')); // CLEARでランプも消す
@@ -5108,9 +5111,57 @@ body .item-contents.is-content-open {
     updateDisplay(true);
   };
 
+  // ↺ボタン:タグのチップ検索やCLEARで条件が変わる直前の「検索窓・フィルター・除外指定・TODAY・スクロール位置」を覚えておき、押すと元の条件に戻して検索し直す
+  const backStack = [];
+  const BACK_MAX = 10;
+  const updateBackBtn = () => { $('backBtn').disabled = backStack.length === 0; };
+  const snapshotState = () => ({
+    search: searchInput.value,
+    checked: Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value),
+    excluded: [...excludedFilterValues],
+    manual: [...manuallyTouchedConts],
+    today: { todayMode, todayOffset, desc, preTodaySort, searchDateTodayActive },
+    setlistMode,
+    scrollY: window.scrollY
+  });
+  const stateHasConditions = st => !!(st.search.trim() || st.checked.length || st.today.todayMode);
+  const pushBackState = () => {
+    const st = snapshotState();
+    if (!stateHasConditions(st)) return; // 戻す価値のある条件が何も無いときは記憶しない
+    const last = backStack[backStack.length - 1];
+    if (last && JSON.stringify(last) === JSON.stringify(st)) return;
+    backStack.push(st);
+    if (backStack.length > BACK_MAX) backStack.shift();
+    updateBackBtn();
+  };
+  const restoreBackState = () => {
+    const st = backStack.pop();
+    updateBackBtn();
+    if (!st || st.setlistMode !== setlistMode) return;
+    checkboxes.forEach(cb => { cb.checked = st.checked.includes(cb.value); });
+    excludedFilterValues.clear();
+    st.excluded.forEach(v => excludedFilterValues.add(v));
+    if (!setlistMode) saveExcludedFilters();
+    manuallyTouchedConts.clear();
+    st.manual.forEach(v => manuallyTouchedConts.add(v));
+    todayMode = st.today.todayMode; todayOffset = st.today.todayOffset; desc = st.today.desc;
+    preTodaySort = st.today.preTodaySort; searchDateTodayActive = st.today.searchDateTodayActive;
+    searchInput.value = st.search;
+    updateSearchClearState();
+    applyExcludedStyles();
+    updateMonthFilterVisibility();
+    updateTodayButtonStyle();
+    updateSortBtnLabel();
+    updateManualIndicators();
+    updateDisplay(true);
+    requestAnimationFrame(() => window.scrollTo({ top: st.scrollY, behavior: 'instant' }));
+  };
+  $('backBtn').onclick = restoreBackState;
+
   // タグのチップを押して検索するときの解除:TODAYモード・年/月/グループ/メンバー/コンテンツ種類の絞り込み・除外指定を解除する
   // (CLEARと違い、検索窓以外の表示設定=ハートの展開・コンテンツ名の開閉・スクロール位置などはそのまま。セトリ検索モードも抜けない)
   const clearFiltersForTagSearch = () => {
+    pushBackState(); // 解除する前の条件を覚えておく(↺で戻せる)
     checkboxes.forEach(cb => cb.checked = false);
     manuallyTouchedConts.clear();
     document.querySelectorAll('.checks label.has-data-lamp').forEach(l => l.classList.remove('has-data-lamp'));
