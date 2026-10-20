@@ -17680,6 +17680,8 @@
     "title": "あかりんごの元気モリモリール　#118",
     "url": "https://www.instagram.com/reel/DdJQT94CWep/?stkn=MW9uZ2N4dzJueTVycw==",
     "groups": [
+      "G2",
+      "YZH",
       "L2",
       "AKR"
     ],
@@ -17688,10 +17690,24 @@
       "YZH"
     ],
     "tags": [
-      "ダンスは遊びじゃない！",
-      "あかりんごのファッションショー",
       "WORK≒LiFE",
       "Laki"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DdJQT94CWep/?stkn=MW9uZ2N4dzJueTVycw==",
+            "member": [
+              "AKR"
+            ],
+            "with": [
+              "YZH"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
