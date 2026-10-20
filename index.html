@@ -148,7 +148,7 @@ body.is-resizing-container { cursor: ew-resize; user-select: none; }
 /* --- 上部固定ヘッダー(タイトル・検索・テーマ切替・フィルター開閉) --- */
 .sticky-header { position: sticky; top: 0; background: var(--bg); z-index: 100; padding: 12px 0 0; margin-bottom: 12px; border-bottom: 1px solid var(--border); transition: background-color 0.2s; }
 .sticky-header-inner { position: relative; padding-bottom: 8px; }
-.header-row { display: flex; justify-content: flex-start; align-items: flex-end; margin-bottom: 14px; }
+.header-row { display: flex; justify-content: flex-start; align-items: flex-end; margin-bottom: 14px; position: relative; }
 h1 { font-size: 20px; margin: 0; line-height: 1; }
 .reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; letter-spacing: -2px; }
 .reset-link sup { font-size: 0.67em; }
@@ -161,6 +161,22 @@ h1 { font-size: 20px; margin: 0; line-height: 1; }
 .header-btn-group::-webkit-scrollbar { display: none; }
 .header-btn-group > * { flex-shrink: 0; }
 .date-part-btn { padding: 4px 5px; font-size: 12px; }
+/* 時計ボタンを押すと、時計の枠が他のアイコンの上に横へ伸びて、中に年/月/日/曜/時が出る(幅はJSで動かす) */
+.dp-pill { position: absolute; left: 0; top: 0; height: 28px; width: 0; box-sizing: border-box; display: flex; align-items: center; gap: 4px; padding: 0 3px; border-radius: 14px; background: var(--bg); box-shadow: 0 0 0 1px var(--input-border), 0 2px 8px rgba(0,0,0,.18); overflow: hidden; z-index: 30; visibility: hidden; opacity: 0; transition: width .26s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .16s ease, visibility 0s linear .26s; }
+.dp-pill.is-open { visibility: visible; opacity: 1; transition: width .26s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .12s ease, visibility 0s; }
+.dp-pill > .date-part-btn { flex: 0 0 auto; height: 22px; min-width: 22px; box-sizing: border-box; padding: 0 5px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
+@media (prefers-reduced-motion: reduce) { .dp-pill, .dp-pill.is-open { transition: none; } }
+/* 🏷️ボタン(タグ表示モード):ONの間、タグがある行のタイトルの下にタグのチップを出す。押すとそのタグで絞り込む */
+.item-tags { flex: 0 0 100%; box-sizing: border-box; display: grid; grid-template-rows: 0fr; opacity: 0; pointer-events: none; transition: grid-template-rows .26s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .2s ease; } /* 左の余白(タイトルの左端)はJSで入れる */
+.item-tags-in { min-height: 0; overflow-x: auto; overflow-y: hidden; display: flex; align-items: center; gap: 5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.item-tags-in::-webkit-scrollbar { display: none; }
+.items.tag-mode .item-tags { grid-template-rows: 1fr; opacity: 1; pointer-events: auto; }
+.items.tag-mode .item.has-tags { flex-wrap: wrap; padding-bottom: 4px; }
+.items.tag-mode .item-tags-in { padding-top: 3px; }
+.item.has-tags { transition: padding-bottom .26s ease; }
+.tag-chip { flex: 0 0 auto; font: inherit; font-size: calc(var(--data-font-scale) * 11.5px); line-height: 1; padding: 4px 8px; border-radius: 5px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); cursor: pointer; white-space: nowrap; }
+.tag-chip:hover { background-color: var(--btn-hover); }
+@media (prefers-reduced-motion: reduce) { .item-tags, .item.has-tags { transition: none; } }
 /* リンクボタン追加でスマホ幅が窮屈になるため、地図・セトリボタンは少し小さくして幅を節約する */
 #mapToggleBtn, #setlistIconToggleBtn { padding: 4px 4px; font-size: 11px; }
 .toggle-btn.is-active { color: var(--text); background-color: var(--btn-bg); text-shadow: 0 0 0.4px currentColor, 0 0 0.4px currentColor; }
@@ -905,14 +921,19 @@ body .item-contents.is-content-open {
     <div class="header-row">
       <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
       <div class="header-btn-group" id="headerBtnGroup" style="margin-left:auto;">
-        <button class="toggle-btn date-part-btn" id="showYearBtn">&#24180;</button>
-        <button class="toggle-btn date-part-btn" id="showMonthBtn">&#26376;</button>
-        <button class="toggle-btn date-part-btn" id="showDayBtn">&#26085;</button>
-        <button class="toggle-btn date-part-btn" id="showWeekdayBtn">&#26332;</button>
-        <button class="toggle-btn date-part-btn" id="showTimeBtn">&#26178;</button>
+        <button class="toggle-btn date-part-btn" id="dpClockBtn" aria-haspopup="true" aria-expanded="false" aria-label="&#24180;&#26376;&#26085;&#26332;&#26178;">&#128336;</button>
         <button class="toggle-btn date-part-btn" id="mapToggleBtn">&#128205;</button>
         <button class="toggle-btn date-part-btn" id="setlistIconToggleBtn">&#128203;&#65039;</button>
+        <button class="toggle-btn date-part-btn" id="tagToggleBtn" aria-label="Tags">&#127991;&#65039;</button>
         <button class="toggle-btn date-part-btn" id="linkToggleBtn">&#128279;</button>
+      </div>
+      <div class="dp-pill" id="dpPill" aria-hidden="true">
+        <button class="toggle-btn date-part-btn dp-pill-clock" id="dpPillClockBtn" tabindex="-1" aria-label="&#38281;&#12376;&#12427;">&#128336;</button>
+        <button class="toggle-btn date-part-btn" tabindex="-1" id="showYearBtn">&#24180;</button>
+        <button class="toggle-btn date-part-btn" tabindex="-1" id="showMonthBtn">&#26376;</button>
+        <button class="toggle-btn date-part-btn" tabindex="-1" id="showDayBtn">&#26085;</button>
+        <button class="toggle-btn date-part-btn" tabindex="-1" id="showWeekdayBtn">&#26332;</button>
+        <button class="toggle-btn date-part-btn" tabindex="-1" id="showTimeBtn">&#26178;</button>
       </div>
       <div class="header-btn-group" id="headerBtnGroupRight" style="margin-left:auto;">
         <button class="toggle-btn" id="badgeToggleBtn">BADGE</button>
@@ -2370,6 +2391,15 @@ body .item-contents.is-content-open {
     }, 200);
   });
 
+  // チップの左端をタイトルの左端にそろえる
+  const tagIndent = t => {
+    const w = t.closest('.item');
+    const tr = w && w.querySelector(':scope > .item-tags');
+    if (!tr) return;
+    const left = t.getBoundingClientRect().left - w.getBoundingClientRect().left - (parseFloat(getComputedStyle(w).paddingLeft) || 0); // 行の内側(padding)の左端から数える
+    if (left > 0) tr.style.paddingLeft = left + 'px';
+  };
+  const tagIndentRO = new ResizeObserver(entries => entries.forEach(en => tagIndent(en.target)));
   let instantRender = false; // trueの間に作る行は、フェードインなしで出す(ICON切替のちらつき防止)
   const createItemNode = item => {
     const w = document.createElement('div');
@@ -2626,6 +2656,29 @@ body .item-contents.is-content-open {
 
     sc.append(...children);
     w.append(sc);
+    // タグのチップ(🏷️ONのとき表示)。空文字・重複は出さない。snsリンクのtagsはここには出さない
+    const tagList = Array.isArray(item.tags) ? [...new Set(item.tags.map(x => (typeof x === 'string' ? x.trim() : '')).filter(Boolean))] : [];
+    if (tagList.length) {
+      w.classList.add('has-tags');
+      const tr = document.createElement('div');
+      tr.className = 'item-tags';
+      const tin = document.createElement('div');
+      tin.className = 'item-tags-in';
+      tagList.forEach(tg => {
+        const c = document.createElement('button');
+        c.type = 'button';
+        c.className = 'tag-chip';
+        c.tabIndex = -1;
+        c.textContent = tg;
+        c.onclick = e => { e.stopPropagation(); applySuggestion(tg); }; // そのタグで絞り込む(検索窓にタグ名を入れて検索)
+        tin.appendChild(c);
+      });
+      tr.appendChild(tin);
+      w.append(tr);
+      w._tagTitle = t;
+      tagIndentRO.observe(t); // タイトルの左端が動いたら(日付・アイコンの出入りなど)、チップの左端も追従させる
+      tagIndent(t);
+    }
     return w;
   };
 
@@ -3947,6 +4000,18 @@ body .item-contents.is-content-open {
     localStorage.setItem(LINK_MODE_KEY, linkMode);
     $('items').classList.toggle('link-mode', linkMode);
   };
+  // 🏷️ボタン(タグ表示モード):ONの間、タグがある行のタイトルの下にタグのチップを出す
+  const TAG_MODE_KEY = 'gl_log_tag_mode';
+  let tagMode = localStorage.getItem(TAG_MODE_KEY) === 'true';
+  $('tagToggleBtn').classList.toggle('is-active', tagMode);
+  $('items').classList.toggle('tag-mode', tagMode);
+  $('tagToggleBtn').onclick = () => {
+    tagMode = !tagMode;
+    $('tagToggleBtn').classList.toggle('is-active', tagMode);
+    localStorage.setItem(TAG_MODE_KEY, tagMode);
+    $('items').classList.toggle('tag-mode', tagMode);
+    if (tagMode) $('items').querySelectorAll('.item-title').forEach(tagIndent);
+  };
   const SONG_MODE_KEY = 'gl_log_song_mode';
   let songMode = localStorage.getItem(SONG_MODE_KEY) === 'true';
   $('songToggleBtn').classList.toggle('is-active', songMode);
@@ -4080,13 +4145,60 @@ body .item-contents.is-content-open {
     weekday: $('showWeekdayBtn'),
     time: $('showTimeBtn')
   };
+  // 時計ボタン:年/月/日/曜/時のどれかがONなら、時計もONの色にする。押すと枠が横に伸びて5つのボタンが出る
+  const dpClockBtn = $('dpClockBtn'), dpPill = $('dpPill'), dpPillClockBtn = $('dpPillClockBtn');
+  const syncDpClock = () => {
+    const any = Object.keys(datePartButtons).some(k => dateParts[k]);
+    dpClockBtn.classList.toggle('is-active', any);
+    dpPillClockBtn.classList.toggle('is-active', any);
+  };
+  let dpPillOpen = false;
+  const placeDpPill = () => {
+    const row = dpPill.parentElement.getBoundingClientRect(), c = dpClockBtn.getBoundingClientRect();
+    dpPill.style.left = (c.left - row.left) + 'px';
+    dpPill.style.top = (c.top - row.top + c.height / 2 - dpPill.offsetHeight / 2) + 'px';
+  };
+  const dpPillFullWidth = () => {
+    const prev = dpPill.style.width;
+    dpPill.style.transition = 'none'; dpPill.style.width = 'max-content';
+    const w = Math.ceil(dpPill.getBoundingClientRect().width);
+    dpPill.style.width = prev; void dpPill.offsetWidth; dpPill.style.transition = '';
+    return w;
+  };
+  const setDpPill = open => {
+    if (open === dpPillOpen) return;
+    dpPillOpen = open;
+    dpClockBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    dpPill.setAttribute('aria-hidden', open ? 'false' : 'true');
+    if (open) {
+      placeDpPill();
+      dpPill.style.width = Math.round(dpClockBtn.getBoundingClientRect().width) + 'px'; // まず時計ボタンの幅から
+      void dpPill.offsetWidth;
+      dpPill.classList.add('is-open');
+      dpPill.style.width = dpPillFullWidth() + 'px'; // 右へ伸ばす
+      dpPill.querySelectorAll('button').forEach(b => { b.tabIndex = 0; });
+    } else {
+      dpPill.style.width = Math.round(dpClockBtn.getBoundingClientRect().width) + 'px'; // 時計ボタンの幅まで戻す
+      dpPill.classList.remove('is-open');
+      dpPill.querySelectorAll('button').forEach(b => { b.tabIndex = -1; });
+    }
+  };
+  dpClockBtn.onclick = () => setDpPill(true);
+  dpPillClockBtn.onclick = () => { setDpPill(false); dpClockBtn.focus({ preventScroll: true }); };
+  // 閉じる条件:枠の外を押す / フォーカスが枠の外へ移る / Esc
+  document.addEventListener('pointerdown', e => { if (dpPillOpen && !dpPill.contains(e.target) && !dpClockBtn.contains(e.target)) setDpPill(false); }, true);
+  document.addEventListener('focusin', e => { if (dpPillOpen && !dpPill.contains(e.target) && e.target !== dpClockBtn) setDpPill(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && dpPillOpen) { setDpPill(false); dpClockBtn.focus({ preventScroll: true }); } });
+  window.addEventListener('resize', () => { if (dpPillOpen) { placeDpPill(); dpPill.style.width = dpPillFullWidth() + 'px'; } });
   const dateParts_CLASS = { year: 'dp-year', month: 'dp-month', day: 'dp-day', weekday: 'dp-weekday', time: 'time-mode' };
   Object.keys(dateParts_CLASS).forEach(k => $('items').classList.toggle(dateParts_CLASS[k], !!dateParts[k]));
   Object.keys(datePartButtons).forEach(key => {
     datePartButtons[key].classList.toggle('is-active', dateParts[key]);
+    syncDpClock();
     datePartButtons[key].onclick = () => {
       dateParts[key] = !dateParts[key];
       datePartButtons[key].classList.toggle('is-active', dateParts[key]);
+      syncDpClock();
       localStorage.setItem(DATE_PARTS_KEY, JSON.stringify(dateParts));
       $('items').classList.toggle(dateParts_CLASS[key], !!dateParts[key]); // 再描画はせず、クラス切替だけでなめらかに出入りする
     };

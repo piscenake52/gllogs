@@ -893,3 +893,8 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - **setlistの新規入力**: idを入れる(日付+時刻を入れた場合も同じ)と、そのidをsetlistidに持つlogsの行から、title←title、artist←groups(G2→Girls²、L2→Laki)、member←groupsのメンバーコード、venue←tagsを引き継ぐ。venueは過去のsetlistにある会場名と一致するtagsを優先し、一致がなければ先頭のtagsをそのまま入れる。logsの矢印から遷移した場合は、遷移元の入力値を使う。logsが複数ある場合はtagsを持つ行を優先。元データは`logs_index.json`(LIVE・RELEASEEVENT・FANMEETINGは`groups`・`tags`・`map`を持つ)。それ以外のcontentsの行や古いindexのときだけ`logs.json`本体を読む。
 - **既存のid**: 編集モード(findで読み込み)。自動入力はしない。
 - **tourのmap / tags**: areaと、入力したmap(tags)で過去データが1組に絞れたら、空のもう一方(または自動入力した値)を入れる。
+
+## ヘッダーの時計ボタンと🏷️タグ表示
+
+- ヘッダー左端の🕐ボタンを押すと、時計の枠が右へ(📍📋🏷️🔗の上に)伸びて、中に年/月/日/曜/時のボタンが出る(`#dpPill`)。年/月/日/曜/時の制御は従来どおり。年月日曜時のどれかがONなら🕐もONの色。閉じる条件: 🕐をもう一度押す / 枠の外を押す / フォーカスが枠の外へ移る / Esc。左端は検索窓の左端にそろえる(`syncHeaderBtnGroupPosition`)
+- 🏷️ボタン(`#tagToggleBtn`、🔗の左。状態は`gl_log_tag_mode`に保存): ONのとき、tagsがある行のタイトルの下にタグのチップを出す(`.item-tags` / `.tag-chip`)。チップの左端はタイトルの左端にそろえ(`tagIndent`+`ResizeObserver`)、はみ出す分は横スクロール。空文字・重複のタグは出さない。snsリンクのtagsは出さない(SNSポップアップのTAG表示で見る)。チップを押すとそのタグで絞り込む(`applySuggestion`)
