@@ -3825,6 +3825,7 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "KAN",
       "RRK",
       "KIK"
     ],
@@ -3834,6 +3835,10 @@
         "urls": [
           {
             "url": "https://x.com/Laki922official/status/2112455096034578732",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2112486138858643630",
             "member": []
           }
         ]
@@ -3849,6 +3854,15 @@
             ],
             "tags": [
               "バスケチャレンジ"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSgSmJEvQ/",
+            "member": [
+              "KAN"
+            ],
+            "tags": [
+              "Your Echo in My Heart"
             ]
           }
         ]

@@ -1,0 +1,29 @@
+{
+  "logid": "9609546ad924",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2112486138858643630",
+          "member": []
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgSmJEvQ/",
+          "member": [
+            "KAN"
+          ],
+          "tags": [
+            "Your Echo in My Heart"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1678"
+}
