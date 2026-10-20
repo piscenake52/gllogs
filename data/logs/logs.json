@@ -3942,6 +3942,20 @@
             ]
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/Kz9yjgv90Xs?si=PMiiDmoH64uwpOBf",
+            "member": [
+              "YZH"
+            ],
+            "tags": [
+              "EASY"
+            ]
+          }
+        ]
       }
     ]
   },
