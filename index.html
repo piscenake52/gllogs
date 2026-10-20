@@ -357,7 +357,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .preview-icon-square.team-g2 { background-color: #f472b6; }
 .preview-icon-square.team-l2 { background-color: #facc15; }
 .day-nav-group { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 4px; }
-.sort-arrow-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; min-width: 68px; box-sizing: border-box; text-align: center; white-space: nowrap; border-radius: 12px; outline: none; line-height: 1.2; }
+.sort-arrow-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; min-width: 68px; box-sizing: border-box; text-align: center; white-space: nowrap; border-radius: 12px; outline: none; line-height: 1.2; font-variant-numeric: tabular-nums; }
 .sort-arrow-btn:hover { background-color: var(--btn-hover); }
 .day-nav-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 16.875px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
 .day-nav-btn:hover { background-color: var(--btn-hover); }
@@ -4264,17 +4264,39 @@ body .item-contents.is-content-open {
   const getCheckedYears = () => Array.from($('yearChecks').querySelectorAll('input:checked')).map(cb => cb.value);
 
   // ソート矢印ボタン(sortBtn):TODAYモード中は矢印の代わりに現在表示中の日付を表示する
+  // TODAYモードのソートボタンに出す曜日(例: " Sun.")。表示する日付そのものの曜日。実在しない日付(閏日でない年の2/29など)のときは null
+  const SORT_WEEKDAYS_EN = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'];
+  const sortBtnWeekday = (y, m, d) => {
+    const dt = new Date(+y, +m - 1, +d);
+    if (dt.getFullYear() !== +y || dt.getMonth() !== +m - 1 || dt.getDate() !== +d) return null; // 実在しない日付
+    return ' ' + SORT_WEEKDAYS_EN[dt.getDay()];
+  };
+  // TODAYモード中は、曜日によってボタンの幅が変わらないよう、7つの曜日のうち一番幅が広い表示に合わせて幅を固定する
+  const sortBtnWideWidth = () => {
+    const btn = $('sortBtn');
+    const cs = getComputedStyle(btn);
+    const probe = document.createElement('span');
+    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;left:-9999px;top:0;font-style:' + cs.fontStyle + ';font-weight:' + cs.fontWeight + ';font-size:' + cs.fontSize + ';font-family:' + cs.fontFamily + ';font-variant-numeric:tabular-nums;letter-spacing:' + cs.letterSpacing;
+    document.body.appendChild(probe);
+    let max = 0;
+    SORT_WEEKDAYS_EN.forEach(w => { probe.textContent = '8888.88.88 ' + w; max = Math.max(max, probe.getBoundingClientRect().width); });
+    probe.remove();
+    return Math.ceil(max + parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth));
+  };
   const updateSortBtnLabel = () => {
+    $('sortBtn').style.minWidth = todayMode ? sortBtnWideWidth() + 'px' : '';
     if (todayMode) {
       const checkedYears = getCheckedYears();
       if (checkedYears.length === 1) {
         const md = getTargetMonthDayStr(todayOffset);
-        $('sortBtn').textContent = checkedYears[0] + '.' + md.slice(0, 2) + '.' + md.slice(2, 4);
+        const wd = sortBtnWeekday(checkedYears[0], md.slice(0, 2), md.slice(2, 4));
+        // 選んだ年に存在しない日付(閏年でない年の2/29など)のときは、日付ではなく↑↓の矢印にする
+        $('sortBtn').textContent = wd === null ? (desc ? '\u2193' : '\u2191') : checkedYears[0] + '.' + md.slice(0, 2) + '.' + md.slice(2, 4) + wd;
       } else if (checkedYears.length > 1) {
         $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
       } else {
         const s = getTargetDateStr(todayOffset);
-        $('sortBtn').textContent = s.slice(0, 4) + '.' + s.slice(4, 6) + '.' + s.slice(6, 8);
+        $('sortBtn').textContent = s.slice(0, 4) + '.' + s.slice(4, 6) + '.' + s.slice(6, 8) + sortBtnWeekday(s.slice(0, 4), s.slice(4, 6), s.slice(6, 8));
       }
     } else {
       $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
