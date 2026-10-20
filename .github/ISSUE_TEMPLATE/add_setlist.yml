@@ -104,7 +104,7 @@ body:
       label: "曲目 (1行1曲)"
       description: |
         書式: `[順番:] 曲名 | type | original | notes`
-        順番を省略すると前の曲+1。typeを省略すると song（arrange / medley / mc / dt / dj / encore / allow / cover も可、複数はカンマ区切り 例: allow,medley、空にしたいときは - ）。
+        順番を省略すると前の曲+1。typeを省略すると song（arrange / medley / mc / dt / dj / towel / encore / allow / cover も可、複数はカンマ区切り 例: allow,medley、空にしたいときは - ）。
         その曲を歌うメンバーは曲名の直後に `{YZH,MMK}` と書きます（指定した曲だけ、曲名の下にハートが出ます。省略すると全員扱い）。
         入力すると曲目全体が**置き換わります**（空欄なら既存の曲目を維持）。
       placeholder: |
