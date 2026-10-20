@@ -550,14 +550,14 @@
       {
         "order": 11,
         "title": "C'mon Neo Zipang!!!",
-        "type": "dj",
+        "type": "song",
         "original": "",
         "notes": ""
       },
       {
         "order": 12,
         "title": "HERE WE GO",
-        "type": "dj",
+        "type": "song",
         "original": "",
         "notes": ""
       },
@@ -571,7 +571,7 @@
       {
         "order": 14,
         "title": "私がモテてどうすんだ",
-        "type": "dj",
+        "type": "song",
         "original": "",
         "notes": ""
       },
@@ -585,7 +585,7 @@
       {
         "order": 16,
         "title": "LET ME DANCE",
-        "type": "song",
+        "type": "dj",
         "original": "",
         "notes": ""
       },
