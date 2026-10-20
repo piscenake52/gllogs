@@ -3802,6 +3802,42 @@
     ]
   },
   {
+    "logid": "37f9ea8fd59d",
+    "date": "20261020",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls2",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2112470211584753801",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgS5Gw4V/",
+            "member": [
+              "YZH"
+            ],
+            "tags": [
+              "EASY"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "3b478d0a4c91",
     "date": "20261019",
     "time": "2000",
