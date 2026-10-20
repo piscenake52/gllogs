@@ -774,7 +774,7 @@ G2のメンバー: `YZH, MMK, MSK, YOK, KUR, MNM, KIR`(展開されるのはこ�
 1行1曲: `[順番:] 曲名 {メンバー} | type | original | notes`
 
 - 順番を省略すると前の曲+1(先頭は1)。typeを省略すると`song`。空にしたいときは`-`
-- `type`はカンマ区切りで複数指定できる(例: `allow,medley`)。`song`はバッジに出さない。使えるtype: `arrange` / `medley` / `mc` / `dt` / `dj` / `encore` / `allow` / `cover`(helperのチップも同じ。ポップアップのバッジは大文字、allowは「撮影可能」)
+- `type`はカンマ区切りで複数指定できる(例: `allow,medley`)。`song`はバッジに出さない。使えるtype: `arrange` / `medley` / `mc` / `dt` / `dj` / `towel` / `encore` / `allow` / `cover`(helperのチップも同じ。ポップアップのバッジは大文字、allowは「撮影可能」)
 - 曲名の直後の`{YZH,MMK}`が歌唱メンバー(上の表)
 - 個別変更(1行1操作): `N: 曲名 {メンバー} | type | original | notes`(N番を部分更新。空欄・省略は今のまま、`-`は空にする。`{-}`でメンバー指定を消す)、`+N: 曲名 | ...`(N番に挿入。N番以降は1つ後ろへ)、`-N: 曲名`(N番を削除。曲名を書くと一致したときだけ)、`N>M: 曲名`(N番をM番へ移動。間の曲は1つずつずれる)。メンバーだけの変更もできる
 
