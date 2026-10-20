@@ -2494,6 +2494,7 @@
     "time": "0158",
     "contents": "TV",
     "title": "TBS 「PLAYLIST」",
+    "url": "https://www.tbs.co.jp/playlist-tbs/",
     "groups": [
       "L2",
       "RIN",
@@ -2509,6 +2510,17 @@
     ],
     "tags": [
       "WORK≒LiFE"
+    ],
+    "sns": [
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1242282371022061568",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
