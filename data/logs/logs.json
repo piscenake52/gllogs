@@ -3856,9 +3856,10 @@
     "date": "20261021",
     "time": "",
     "contents": "SNS",
-    "title": "SNS　Girls2",
+    "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "MMK",
       "MSK",
       "YOK",
       "MNM"
@@ -3875,6 +3876,10 @@
             "tags": [
               "Hello Kitty × 24karats"
             ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2112835239496360214",
+            "member": []
           }
         ]
       },
@@ -3889,6 +3894,20 @@
             ],
             "tags": [
               "come back"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgU81VTS/",
+            "member": [
+              "MMK"
+            ],
+            "tags": [
+              "EASY"
             ]
           }
         ]

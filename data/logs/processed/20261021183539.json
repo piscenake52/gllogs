@@ -1,0 +1,30 @@
+{
+  "logid": "b7f05a4c4b6f",
+  "title": "SNS　Girls²",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2112835239496360214",
+          "member": []
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgU81VTS/",
+          "member": [
+            "MMK"
+          ],
+          "tags": [
+            "EASY"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1782"
+}
