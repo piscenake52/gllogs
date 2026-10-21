@@ -4100,7 +4100,8 @@
     "groups": [
       "L2",
       "RIN",
-      "KAN"
+      "KAN",
+      "RRK"
     ],
     "sns": [
       {
@@ -4114,6 +4115,30 @@
             ],
             "tags": [
               "ちょい足しお芋ランキング"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2112880778946482345",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgyfMxGb/",
+            "member": [
+              "RRK"
+            ],
+            "tags": [
+              "多摩川で",
+              "恋...したい♡"
             ]
           }
         ]
