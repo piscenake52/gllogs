@@ -49,7 +49,7 @@ TARGETS = [
         "processed_dir": "data/setlist/processed/",
         "main_file": "data/setlist/setlist.json",
         "key_fields": ["setlistid"],
-        "order": ["setlistid", "artist", "member", "title", "venue", "songs"],
+        "order": ["setlistid", "artist", "member", "title", "venue", "source", "songs"],
         "clear_to_empty_list": [],
         "sort_key": lambda x: x.get("setlistid") or "",
         "sort_reverse": True,
@@ -226,11 +226,14 @@ def merge_sns(current, incoming):
     return merged
 
 
+TAGS_REPLACE = "="  # tagsの先頭にこれがあれば、既存tagsを「入力順そのまま」で置き換える（helperが並べ替え・入れ替えのときに付ける）
+
+
 def split_removals(key, v):
     """tags / sns の入力を (追加分, 個別削除の指定) に分ける。
     tags: `-タグ名` が削除指定。sns: {"_remove": URL} が削除指定（issue_to_json.py が `-URL` から作る）"""
     if key == "tags":
-        adds = [t for t in v if not (isinstance(t, str) and t.startswith("-") and t[1:].strip())]
+        adds = [t for t in v if not (isinstance(t, str) and (t == TAGS_REPLACE or (t.startswith("-") and t[1:].strip())))]
         removes = [t[1:].strip() for t in v if isinstance(t, str) and t.startswith("-") and t[1:].strip()]
     else:
         adds = [e for e in v if not (isinstance(e, dict) and "_remove" in e)]
@@ -371,9 +374,17 @@ def apply_update(target, existing, new_item):
     removals = {}
     new_item = dict(new_item)
     patch = new_item.pop("songs_patch", None) if target["name"] == "setlist" else None
+    replace_tags = isinstance(new_item.get("tags"), list) and TAGS_REPLACE in new_item["tags"]
     for k in ("tags", "sns"):
         if isinstance(new_item.get(k), list) and not is_clear(new_item[k]):
             new_item[k], removals[k] = split_removals(k, new_item[k])
+    if replace_tags:
+        removals.pop("tags", None)  # 置き換えでは個別削除は使わない（入力にないタグは消える）
+        ordered = list(dict.fromkeys(t for t in new_item.pop("tags") if isinstance(t, str) and t.strip()))
+        if ordered:
+            existing["tags"] = ordered  # 入力順のまま登録（表示もこの順）
+        else:
+            existing.pop("tags", None)
     for k, v in new_item.items():
         if k in target["key_fields"]:
             continue
