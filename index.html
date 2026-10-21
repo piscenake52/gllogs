@@ -3347,7 +3347,15 @@ body .item-contents.is-content-open {
       if (dx || dy) el.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], opt);
     });
     const h1 = snsModalBox.getBoundingClientRect().height;
-    if (Math.abs(h1 - h0) > 1) snsModalBox.animate([{ height: h0 + 'px' }, { height: h1 + 'px' }], opt);
+    if (Math.abs(h1 - h0) > 1) {
+      // 高さを動かしている間は、中身が先に最終サイズで配置されて枠からはみ出し、スクロールバーが一瞬出てしまう。
+      // アニメーション中だけスクロールを隠し、終わったら元(必要な時だけ出す)に戻す
+      snsModalBox.style.overflowY = 'hidden';
+      const restore = () => { snsModalBox.style.overflowY = ''; };
+      const a = snsModalBox.animate([{ height: h0 + 'px' }, { height: h1 + 'px' }], opt);
+      a.addEventListener('finish', restore);
+      a.addEventListener('cancel', restore);
+    }
   };
   // ALL / POST:ALLは投稿者(member)と同写り(with)の両方、POSTは投稿者のみのランプを出す。状態は保存する
   const snsScopeSwitch = $('snsScopeSwitch');
