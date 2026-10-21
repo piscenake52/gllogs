@@ -2375,6 +2375,25 @@
     "suffix": "開催記念日"
   },
   {
+    "logid": "aa13e15405ed",
+    "date": "20261031",
+    "time": "1800",
+    "contents": "RESULT",
+    "title": "THE GAME PARTY GL² family・GL² friend先行チケット 当選発表",
+    "display_sp": "THE GAME PARTY GL²family・friend先行 当選発表",
+    "url": "https://girls2-fc.jp/page/familyNews/1242678361440911361",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ]
+  },
+  {
     "logid": "de472b4a3bd1",
     "date": "20261031",
     "time": "1600",
@@ -2755,6 +2774,25 @@
     ],
     "tags": [
       "THEATER MILANO-Za"
+    ]
+  },
+  {
+    "logid": "f79d474ed291",
+    "date": "20261028",
+    "time": "1100",
+    "contents": "CLOSE",
+    "title": "THE GAME PARTY GL² family・GL² friend先行チケット 抽選受付締切",
+    "display_sp": "THE GAME PARTY GL²family・friend先行 抽選受付締切",
+    "url": "https://girls2-fc.jp/page/familyNews/1242678361440911361",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ]
   },
   {
@@ -3144,6 +3182,25 @@
           }
         ]
       }
+    ]
+  },
+  {
+    "logid": "1df4e3254029",
+    "date": "20261024",
+    "time": "1100",
+    "contents": "TICKET",
+    "title": "THE GAME PARTY GL² family・GL² friend先行チケット 抽選受付開始",
+    "display_sp": "THE GAME PARTY GL²family・friend先行 抽選受付開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1242678361440911361",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ]
   },
   {
