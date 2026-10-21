@@ -3549,6 +3549,33 @@
     ]
   },
   {
+    "logid": "d5fa51471624",
+    "date": "20261022",
+    "time": "1800",
+    "contents": "CL",
+    "title": "木曜日のフォーエイト　山口綺羅",
+    "url": "https://www.cl-live.com/artists/thursday_48?lang=ja",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+      "VIBE",
+      "GENERATIONS"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/srSn35XBjQpk41HRDkbX6i",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "2347014731fb",
     "date": "20261022",
     "time": "1700",
@@ -3566,17 +3593,6 @@
     ],
     "tags": [
       "がるがるちゃんねる"
-    ]
-  },
-  {
-    "logid": "d5fa51471624",
-    "date": "20261022",
-    "contents": "CL",
-    "title": "木曜日のフォーエイト　山口綺羅",
-    "url": "https://www.cl-live.com/artists/thursday_48?lang=ja",
-    "groups": [
-      "G2",
-      "KIR"
     ]
   },
   {
