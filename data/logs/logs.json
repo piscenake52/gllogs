@@ -3700,6 +3700,11 @@
       "YZH",
       "MNM"
     ],
+    "tags": [
+      "韓国語",
+      "キキララ（仮）",
+      "ついてないこと供養"
+    ],
     "sns": [
       {
         "type": "radiko",
@@ -3721,6 +3726,18 @@
             ],
             "tags": [
               "コンビ名"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtu.be/1YEh-emK8-A?si=hNlOUyDa81V8qluW",
+            "member": [],
+            "tags": [
+              "EASY"
             ]
           }
         ]
