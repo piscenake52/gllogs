@@ -1,0 +1,28 @@
+{
+  "date": "20261021",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "RIN",
+    "KAN"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/Dev7LtHpAwM/?mdxt=MW5ncWZ3NjlpeWtjcw==",
+          "member": [
+            "RIN",
+            "KAN"
+          ],
+          "tags": [
+            "ちょい足しお芋ランキング"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1774"
+}

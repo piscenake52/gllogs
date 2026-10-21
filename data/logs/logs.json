@@ -3794,6 +3794,35 @@
     ]
   },
   {
+    "logid": "0cfcd114fcfb",
+    "date": "20261021",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "KAN"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/Dev7LtHpAwM/?mdxt=MW5ncWZ3NjlpeWtjcw==",
+            "member": [
+              "RIN",
+              "KAN"
+            ],
+            "tags": [
+              "ちょい足しお芋ランキング"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "d67a442a21fa",
     "date": "20261020",
     "time": "2359",
