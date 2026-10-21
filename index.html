@@ -159,7 +159,7 @@ body.is-resizing-container { cursor: ew-resize; user-select: none; }
 .sticky-header-inner { position: relative; padding-bottom: 8px; }
 .header-row { display: flex; justify-content: flex-start; align-items: flex-end; margin-bottom: 14px; position: relative; }
 h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側のボタンが増えても、タイトル「GL log」は縮めず1行のままにする */
-#headerBtnGroupRight .toggle-btn { padding: 4px 7px; } /* BADGE/ICON/TODAYの左右余白を少し詰めて、スマホ幅でも左のアイコン列と並べる */
+#headerBtnGroupRight .toggle-btn { padding: 4px 4px; } /* BADGE/ICON/TODAYの左右余白を少し詰めて、スマホ幅でも左のアイコン列と並べる */
 .reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; letter-spacing: -2px; }
 .reset-link sup { font-size: 0.67em; }
 .reset-link:hover { opacity: 0.8; }
@@ -167,7 +167,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側の�
 .toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
 .header-btn-group { display: flex; align-items: center; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; min-width: 0; }
 /* スマホ幅でリンクボタン分のはみ出しを減らすため、ボタン間の間隔だけ少し詰める(タップ領域自体は変わらないので操作性への影響は小さい) */
-#headerBtnGroup { gap: 3px; }
+#headerBtnGroup { gap: 4px; position: relative; top: 2px; } /* タイトル「GL log」(下端そろえ・高さ20px)の縦中心に、24pxのアイコン列の中心をそろえる */
 .header-btn-group::-webkit-scrollbar { display: none; }
 .header-btn-group > * { flex-shrink: 0; }
 .date-part-btn { padding: 4px 5px; font-size: 12px; }
@@ -194,7 +194,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側の�
 .toggle-btn.is-active { color: var(--text); background-color: var(--btn-bg); text-shadow: 0 0 0.4px currentColor, 0 0 0.4px currentColor; }
 .toggle-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .toggle-btn:disabled:hover { background: none; color: var(--muted); }
-.date-part-btn.is-active { color: #fff; background-color: #a78bfa; text-shadow: none; }
+.date-part-btn.is-active { color: #fff; background-color: #38bdf8; text-shadow: none; }
 #badgeToggleBtn.is-active, #iconToggleBtn.is-active, #filterSummaryToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #todayToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
 #songToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
@@ -272,7 +272,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側の�
 .song-bar { display: flex; align-items: center; gap: 10px; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0; margin-bottom: 0; transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.35s ease, margin-bottom 0.35s ease; }
 .sticky-header.is-initializing .song-bar { transition: none !important; }
 .song-bar.is-open { max-height: 44px; opacity: 1; margin-top: 2px; margin-bottom: 8px; }
-.song-play-btn { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--input-border); background: #fff; color: #121212; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
+.song-play-btn { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: #fff; color: #121212; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
 .song-play-btn:hover { background-color: #eee; }
 .song-ticker-viewport { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; position: relative; }
 .song-ticker-text { display: inline-block; font-size: 13px; line-height: 1.2; color: var(--text); white-space: nowrap; }
@@ -357,7 +357,9 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .preview-icon-square.team-g2 { background-color: #f472b6; }
 .preview-icon-square.team-l2 { background-color: #facc15; }
 .day-nav-group { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 4px; }
-.sort-arrow-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; min-width: 68px; box-sizing: border-box; text-align: center; white-space: nowrap; border-radius: 12px; outline: none; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.sort-arrow-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; min-width: 68px; box-sizing: border-box; text-align: center; white-space: nowrap; border-radius: 12px; outline: none; line-height: 1.2; }
+.sort-arrow-btn .sd { display: inline-block; width: var(--sd-w, 0.6em); text-align: center; font-style: normal; } /* 日付の数字1文字ぶんの固定幅 */
+.sort-arrow-btn .sw { display: inline-block; width: var(--sw-w, 2.4em); text-align: left; font-style: normal; } /* 曜日の固定幅(一番広い曜日に合わせる) */
 .sort-arrow-btn:hover { background-color: var(--btn-hover); }
 .day-nav-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 16.875px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
 .day-nav-btn:hover { background-color: var(--btn-hover); }
@@ -371,8 +373,8 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 /* 錠前・BLACK/WHITEテーマボタンを同じ丸ボタンサイズ・見た目に統一 */
 .lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn, #backBtn, #textSizeBtn, #dateSearchBtn {
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 1px solid var(--input-border);
   background-color: var(--btn-bg);
@@ -710,12 +712,12 @@ body .item-contents.is-content-open {
 /* 一番下に配置する更新日時のスタイル（中央揃え） */
 .footer-update-time { text-align: center; margin-top: 30px; font-size: 11px; color: var(--sub); letter-spacing: 0.5px; }
 /* updated表示の下に出すヘルプ(?)・設定(⚙)ボタンの行。2つを横並びでセンタリングする */
-.footer-btn-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 10px; }
+.footer-btn-row { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 10px; }
 /* ヘルプ・設定ボタン共通スタイル。他の丸ボタン群と同じ見た目に揃える */
 .help-btn {
   display: flex;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 1px solid var(--input-border);
   background-color: var(--btn-bg);
@@ -745,7 +747,7 @@ body .item-contents.is-content-open {
   transform: scale(0.9); transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .popup-overlay.is-open .popup-box { transform: scale(1); }
-.popup-close { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.popup-close { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
 .popup-close:hover { background-color: var(--btn-hover); }
 .popup-title { font-size: 15px; font-weight: bold; margin: 0 0 4px; line-height: 1.4; text-align: center; }
 .popup-body { font-size: 11px; line-height: 1.6; color: var(--muted); text-align: center; padding: 10px 0; }
@@ -838,7 +840,7 @@ body .item-contents.is-content-open {
 .setlist-modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
 .setlist-modal { position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1); }
 .setlist-modal-overlay.is-open .setlist-modal { transform: scale(1); }
-.setlist-modal-close { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.setlist-modal-close { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
 .setlist-modal-close:hover { background-color: var(--btn-hover); }
 .setlist-modal-title { font-size: 15px; font-weight: bold; margin: 0 26px 4px 0; line-height: 1.4; white-space: pre-line; }
 .setlist-modal-artist { font-size: 12px; font-weight: 600; color: var(--sub); margin: 0 26px 4px 0; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
@@ -883,7 +885,7 @@ body .item-contents.is-content-open {
 .sns-modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
 .sns-modal { position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 360px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1); }
 .sns-modal-overlay.is-open .sns-modal { transform: scale(1); }
-.sns-modal-close { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.sns-modal-close { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
 .sns-modal-close:hover { background-color: var(--btn-hover); }
 .sns-modal-title { font-size: 15px; font-weight: bold; margin: 0 26px 10px 0; line-height: 1.4; }
 .sns-modal-type-row { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
@@ -2695,8 +2697,21 @@ body .item-contents.is-content-open {
 
     sc.append(...children);
     w.append(sc);
-    // タグのチップ(🏷️ONのとき表示)。空文字・重複は出さない。snsリンクのtagsはここには出さない
-    const tagList = Array.isArray(item.tags) ? [...new Set(item.tags.map(x => (typeof x === 'string' ? x.trim() : '')).filter(Boolean))] : [];
+    // タグのチップ(🏷️ONのとき表示)。空文字・重複は出さない。行のtagsがないときだけsnsリンクのtagsから最大3つ
+    let tagList = Array.isArray(item.tags) ? [...new Set(item.tags.map(x => (typeof x === 'string' ? x.trim() : '')).filter(Boolean))] : [];
+    if (!tagList.length && Array.isArray(item.sns)) {
+      // 行のtagsがひとつもないときだけ、snsリンクのtagsから(重複なし・出現数の多い順に最大3つ)を代わりに出す
+      const snsCount = new Map(); // タグ → この行のsnsリンク内での出現数(Mapは登場順を保つ)
+      item.sns.forEach(e => {
+        if (!e || !Array.isArray(e.urls)) return;
+        e.urls.forEach(u => {
+          if (!u || typeof u !== 'object' || !Array.isArray(u.tags)) return;
+          new Set(u.tags.map(x => (typeof x === 'string' ? x.trim() : '')).filter(Boolean)).forEach(v => snsCount.set(v, (snsCount.get(v) || 0) + 1)); // 1リンク内の重複は1回と数える
+        });
+      });
+      // 出現数が多い順(同数は登場順)で最大3つ。Array.sortは安定ソート
+      tagList = [...snsCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(x => x[0]);
+    }
     if (tagList.length) {
       w.classList.add('has-tags');
       const tr = document.createElement('div');
@@ -4271,32 +4286,48 @@ body .item-contents.is-content-open {
     if (dt.getFullYear() !== +y || dt.getMonth() !== +m - 1 || dt.getDate() !== +d) return null; // 実在しない日付
     return ' ' + SORT_WEEKDAYS_EN[dt.getDay()];
   };
-  // TODAYモード中は、曜日によってボタンの幅が変わらないよう、7つの曜日のうち一番幅が広い表示に合わせて幅を固定する
-  const sortBtnWideWidth = () => {
+  // TODAYモードの日付表示は、数字1文字ずつ・曜日を固定幅の枠に入れて、日付や曜日が変わっても文字の位置と全体の幅が動かないようにする
+  // (数字の幅がフォントで違っても、枠の幅が同じなので、がたつかない)
+  const sortBtnMeasureCells = () => {
     const btn = $('sortBtn');
     const cs = getComputedStyle(btn);
     const probe = document.createElement('span');
-    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;left:-9999px;top:0;font-style:' + cs.fontStyle + ';font-weight:' + cs.fontWeight + ';font-size:' + cs.fontSize + ';font-family:' + cs.fontFamily + ';font-variant-numeric:tabular-nums;letter-spacing:' + cs.letterSpacing;
+    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;left:-9999px;top:0;font-style:' + cs.fontStyle + ';font-weight:' + cs.fontWeight + ';font-size:' + cs.fontSize + ';font-family:' + cs.fontFamily + ';letter-spacing:' + cs.letterSpacing;
     document.body.appendChild(probe);
-    let max = 0;
-    SORT_WEEKDAYS_EN.forEach(w => { probe.textContent = '8888.88.88 ' + w; max = Math.max(max, probe.getBoundingClientRect().width); });
+    let dw = 0, ww = 0;
+    for (let n = 0; n < 10; n++) { probe.textContent = String(n); dw = Math.max(dw, probe.getBoundingClientRect().width); }
+    SORT_WEEKDAYS_EN.forEach(w => { probe.textContent = w; ww = Math.max(ww, probe.getBoundingClientRect().width); });
     probe.remove();
-    return Math.ceil(max + parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth));
+    btn.style.setProperty('--sd-w', dw.toFixed(2) + 'px');
+    btn.style.setProperty('--sw-w', ww.toFixed(2) + 'px');
+  };
+  const setSortDateLabel = (y, m, d, wd) => {
+    const btn = $('sortBtn');
+    sortBtnMeasureCells();
+    btn.textContent = '';
+    [...(y + '.' + m + '.' + d)].forEach(c => {
+      if (/\d/.test(c)) { const e = document.createElement('i'); e.className = 'sd'; e.textContent = c; btn.appendChild(e); }
+      else btn.appendChild(document.createTextNode(c));
+    });
+    if (wd) {
+      btn.appendChild(document.createTextNode(' '));
+      const e = document.createElement('i'); e.className = 'sw'; e.textContent = wd.trim(); btn.appendChild(e);
+    }
   };
   const updateSortBtnLabel = () => {
-    $('sortBtn').style.minWidth = todayMode ? sortBtnWideWidth() + 'px' : '';
     if (todayMode) {
       const checkedYears = getCheckedYears();
       if (checkedYears.length === 1) {
         const md = getTargetMonthDayStr(todayOffset);
         const wd = sortBtnWeekday(checkedYears[0], md.slice(0, 2), md.slice(2, 4));
         // 選んだ年に存在しない日付(閏年でない年の2/29など)のときは、日付ではなく↑↓の矢印にする
-        $('sortBtn').textContent = wd === null ? (desc ? '\u2193' : '\u2191') : checkedYears[0] + '.' + md.slice(0, 2) + '.' + md.slice(2, 4) + wd;
+        if (wd === null) $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
+        else setSortDateLabel(checkedYears[0], md.slice(0, 2), md.slice(2, 4), wd);
       } else if (checkedYears.length > 1) {
         $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
       } else {
         const s = getTargetDateStr(todayOffset);
-        $('sortBtn').textContent = s.slice(0, 4) + '.' + s.slice(4, 6) + '.' + s.slice(6, 8) + sortBtnWeekday(s.slice(0, 4), s.slice(4, 6), s.slice(6, 8));
+        setSortDateLabel(s.slice(0, 4), s.slice(4, 6), s.slice(6, 8), sortBtnWeekday(s.slice(0, 4), s.slice(4, 6), s.slice(6, 8)));
       }
     } else {
       $('sortBtn').textContent = desc ? '\u2193' : '\u2191';

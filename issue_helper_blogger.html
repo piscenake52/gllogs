@@ -968,10 +968,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function listDiff(key, o, c) {
     var out = [];
     if (key === 'tags') {
-      var ot = tagTokens(o), ct = tagTokens(c);
-      ct.forEach(function (t) { if (ot.indexOf(t) < 0 && out.indexOf(t) < 0) out.push(t); });
-      ot.forEach(function (t) { if (ct.indexOf(t) < 0 && out.indexOf('-' + t) < 0) out.push('-' + t); });
-      return out.join(',');
+      var ot = tagTokens(o), ct = tagTokens(c), uc = [];
+      ct.forEach(function (t) { if (uc.indexOf(t) < 0) uc.push(t); });
+      if (uc.join('\u0001') === ot.join('\u0001')) return '';
+      // any change (add / remove / reorder): send the whole list in the typed order, led by `=` (the form script then stores exactly this order)
+      return uc.length ? '=,' + uc.join(',') : '!clear';
     }
     var om = {}, cu = {};
     snsLines(o).forEach(function (l) { var u = urlOfLine(l); if (u) om[u] = normLine(l); });

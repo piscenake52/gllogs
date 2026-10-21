@@ -669,6 +669,7 @@ IDが無い行は何もしない。この状態では、**ダブルタップのI
 - `TELEPHONE`: データ部は`📞 TELEPHONE`。フィルターボタンは無く、フィルター判定上は`FANCLUB`として扱う(`fanclubAliasConts`、`normalizeContType`)。FANCLUBボタンをONにすると表示される
 - `GARUGARUCH`: アイコンは`YOUTUBE`と同じ(🎞️)。フィルターボタンは無く、フィルター判定上は`YOUTUBE`として扱う(`youtubeAliasConts`、`normalizeContType`)。YOUTUBEボタンをONにすると表示される
 - helperで既存データ(logs / setlist)の項目を空欄にすると、その項目は `!clear` としてIssueに事前入力され、削除チェックなしでmergeが項目(キー)ごと取り除く(対象: logsは time / groups / contents / title / display_pc / display_sp / url / map / setlistid / relations、setlistは title / artist / member / venue / source / songs。tags / sns は従来どおり個別の `-` 指定)。Issueに直接 `!clear` と書いても同じ
+- **tagsの順序(logs)**: 新規登録は入力順のまま保存し、表示(🏷️)もその順。helperで既存行のtagsを変更(追加・削除・入れ替え・並べ替え)すると、入力欄の並びそのままの全件を先頭に`=`を付けて送る(例 `=,タグ0,タグ1,タグA`)。merge側は`=`があれば既存tagsをその順で置き換える(入力にないタグは消え、空なら属性ごと削除)。`=`を付けない従来入力(Issueフォームに直接書く場合)は、既存に追記し`-タグ名`で個別削除のまま。変更が無ければ何も送らない。
 - `DEBUT`: ⭐、`FORMATION`: ✨ に変更(以前は🎂と🤝)。ボタンは無く、フィルター判定上は`BIRTHDAY`として扱う(BIRTHDAYのボタン🎂をONにすると表示される)
 - SNSの`radiko`: アイコンと表示名`radiko`を追加(URLは`radiko.jp`で自動判定)
 
