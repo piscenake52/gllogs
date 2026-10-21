@@ -3660,6 +3660,33 @@
     ]
   },
   {
+    "logid": "b7f05a4c4b6f",
+    "date": "20261021",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls2",
+    "groups": [
+      "G2",
+      "MSK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/vertical_garage/status/2112770860314505497",
+            "member": [
+              "MSK"
+            ],
+            "tags": [
+              "Hello Kitty × 24karats"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "d67a442a21fa",
     "date": "20261020",
     "time": "2359",
