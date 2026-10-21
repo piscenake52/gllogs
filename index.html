@@ -884,7 +884,7 @@ body .item-contents.is-content-open {
   transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 .sns-modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
-.sns-modal { position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 360px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.sns-modal { overflow-x: hidden; position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 360px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1); }
 .sns-modal-overlay.is-open .sns-modal { transform: scale(1); }
 .sns-modal-close { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
 .sns-modal-close:hover { background-color: var(--btn-hover); }
@@ -917,13 +917,14 @@ body .item-contents.is-content-open {
 /* スイッチ行: ポップアップ内の最下部に固定(内容がスクロールしても追随する) */
 .sns-modal-foot { position: sticky; bottom: -18px; z-index: 2; display: flex; justify-content: space-between; align-items: center; margin: 0 -18px -18px; padding: 8px 32px 10px; background: var(--bg); border-radius: 0 0 12px 12px; }
 .sns-tag-switch { position: static; height: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 0; border: none; background: none; color: var(--text); font-size: 11px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.sns-tag-emoji { font-size: 16px; line-height: 1; } /* TAGスイッチのラベル(ヘッダのタグボタンと同じ🏷️)。文字(11px)より大きめにして見やすくする */
 .sns-tag-track { position: relative; width: 28px; height: 16px; border-radius: 8px; box-sizing: border-box; background: var(--btn-bg); border: 1px solid var(--input-border); transition: background-color .25s; }
 .sns-tag-knob { position: absolute; top: 1px; left: 1px; width: 12px; height: 12px; border-radius: 50%; background: var(--sub); transition: transform .25s cubic-bezier(0.22, 0.61, 0.36, 1), background-color .25s; }
 .sns-tag-switch[aria-checked="true"] .sns-tag-track { background: #2f7bff; border-color: #2f7bff; }
 .sns-tag-switch[aria-checked="true"] .sns-tag-knob { transform: translateX(12px); background: #fff; }
 .sns-modal-item { display: inline-flex; align-items: center; gap: 8px; min-width: 0; max-width: 100%; }
 .sns-modal-tagtext { display: none; flex-wrap: wrap; gap: 4px; align-items: center; min-width: 0; }
-.sns-modal-tagtext .tag-chip { cursor: pointer; font-size: 11.5px; white-space: normal; overflow-wrap: anywhere; } /* データ部のタグチップ(.tag-chip)と同じ見た目。押すとデータ部のチップと同じくそのタグで検索 */
+.sns-modal-tagtext .tag-chip { box-sizing: border-box; min-height: 20px; padding-top: 2px; padding-bottom: 2px; display: inline-flex; align-items: center; cursor: pointer; font-size: 11.5px; white-space: normal; overflow-wrap: anywhere; } /* データ部のタグチップ(.tag-chip)と同じ見た目(高さだけ、リンクの番号ボタンと同じ20pxにして、TAG切替で行の高さが変わらないようにする)。押すとデータ部のチップと同じくそのタグで検索 */
 .sns-modal.is-tags .sns-modal-links { flex-direction: column; flex-wrap: nowrap; align-items: flex-start; }
 .sns-modal.is-tags .sns-modal-item { width: 100%; }
 .sns-modal.is-tags .sns-modal-tagtext { display: flex; animation: snsTagFade .35s ease both; }
@@ -1050,38 +1051,46 @@ body .item-contents.is-content-open {
     <div class="popup-title">HELP</div>
     <div class="popup-body help-body" id="helpModalBody">
     <div class="help-sec">
-      <div class="help-sec-title">&#12504;&#12483;&#12480;&#12540;</div>
-      <div class="help-row"><span class="help-key">&#24180;&#26376;&#26085;&#26332;&#26178;</span><span class="help-desc">&#24180;&#26376;&#26085;&#12539;&#26332;&#26085;&#12539;&#26178;&#21051;&#12398;&#34920;&#31034;&#12434;ON/OFF</span></div>
-      <div class="help-row"><span class="help-key">&#128205;</span><span class="help-desc">&#12510;&#12483;&#12503;&#12522;&#12531;&#12463;&#12450;&#12452;&#12467;&#12531;&#34920;&#31034;</span></div>
-      <div class="help-row"><span class="help-key">&#128203;&#65039;</span><span class="help-desc">&#12475;&#12483;&#12488;&#12522;&#12473;&#12488;&#12450;&#12452;&#12467;&#12531;&#34920;&#31034;</span></div>
-      <div class="help-row"><span class="help-key">&#128279;</span><span class="help-desc">SNS&#12522;&#12531;&#12463;&#12450;&#12452;&#12467;&#12531;&#34920;&#31034;</span></div>
-      <div class="help-row"><span class="help-key">BADGE</span><span class="help-desc">&#25276;&#12375;&#12383;&#26178;&#12398;&#20214;&#25968;&#12434;&#21508;&#12508;&#12479;&#12531;&#12395;&#34920;&#31034;</span></div>
-      <div class="help-row"><span class="help-key">ICON</span><span class="help-desc">&#12467;&#12531;&#12486;&#12531;&#12484;&#31278;&#39006;&#12508;&#12479;&#12531;&#12434;&#25991;&#23383;&#8660;&#12450;&#12452;&#12467;&#12531;&#12395;&#20999;&#26367;</span></div>
-      <div class="help-row"><span class="help-key">TODAY</span><span class="help-desc">&#26412;&#26085;&#12398;&#20104;&#23450;&#12434;&#34920;&#31034;&#12290;&#8592;&#8594;&#12391;&#21069;&#24460;&#12398;&#26085;</span></div>
-      <div class="help-row"><span class="help-key">TODAY&#215;2</span><span class="help-desc">&#12480;&#12502;&#12523;&#12479;&#12483;&#12503;&#12391;&#27425;&#22238;&#34920;&#31034;&#26178;&#12418;&#26412;&#26085;&#12398;&#20104;&#23450;&#12391;&#38283;&#22987;&#12290;&#20877;&#24230;&#12391;&#35299;&#38500;</span></div>
-      <div class="help-row"><span class="help-key">&#9834;</span><span class="help-desc">&#27005;&#26354;&#12496;&#12540;&#12398;&#34920;&#31034;/&#38750;&#34920;&#31034;</span></div>
-      <div class="help-row"><span class="help-key">&#128158;</span><span class="help-desc">&#38306;&#36899;&#12513;&#12531;&#12496;&#12540;&#12495;&#12540;&#12488;&#12434;&#19968;&#25324;&#23637;&#38283;</span></div>
+      <div class="help-sec-title">ヘッダー(上段のアイコン)</div>
+      <div class="help-row"><span class="help-key">🕐</span><span class="help-desc">押すと「年月日曜時」が横に開く(もう一度押すと閉じる)。どれかONなら🕐もON</span></div>
+      <div class="help-row"><span class="help-key">年月日曜時</span><span class="help-desc">データの日付・曜日・時刻の表示をそれぞれON/OFF</span></div>
+      <div class="help-row"><span class="help-key">📍</span><span class="help-desc">マップリンクアイコン表示</span></div>
+      <div class="help-row"><span class="help-key">📋️</span><span class="help-desc">セトリリストアイコン表示</span></div>
+      <div class="help-row"><span class="help-key">💞</span><span class="help-desc">関連メンバーハートを一括展開</span></div>
+      <div class="help-row"><span class="help-key">🏷️</span><span class="help-desc">タグチップをデータの下に表示。チップを押すとそのタグで検索</span></div>
+      <div class="help-row"><span class="help-key">🔗</span><span class="help-desc">SNSリンクアイコン表示(開いたポップアップのTAGで、リンクごとのタグも表示)</span></div>
+      <div class="help-row"><span class="help-key">BADGE</span><span class="help-desc">押した時の件数を各ボタンに表示</span></div>
+      <div class="help-row"><span class="help-key">ICON</span><span class="help-desc">コンテンツ種類ボタンを文字⇔アイコンに切替</span></div>
+      <div class="help-row"><span class="help-key">TODAY</span><span class="help-desc">本日の予定を表示。←→で前後の日。ソートボタンに日付(曜日つき)を表示し、今日の日付のときは青</span></div>
+      <div class="help-row"><span class="help-key">TODAY×2</span><span class="help-desc">ダブルタップで次回表示時も本日の予定で開始。再度で解除</span></div>
     </div>
     <div class="help-sec">
-      <div class="help-sec-title">&#32094;&#12426;&#36796;&#12415;</div>
-      <div class="help-row"><span class="help-key">&#21508;&#12508;&#12479;&#12531;</span><span class="help-desc">&#12479;&#12483;&#12503;&#12391;&#32094;&#36796;&#12289;&#12480;&#12502;&#12523;&#12479;&#12483;&#12503;&#12391;&#38500;&#22806;</span></div>
-      <div class="help-row"><span class="help-key">FILTER</span><span class="help-desc">&#9650;&#9660;&#12391;&#26908;&#32034;&#12539;&#32094;&#12426;&#36796;&#12415;&#27396;&#12434;&#38283;&#38281;/&#29694;&#22312;&#12398;&#26465;&#20214;&#12434;&#34920;&#31034;</span></div>
-      <div class="help-row"><span class="help-key">CLEAR</span><span class="help-desc">&#26908;&#32034;&#12539;&#32094;&#12426;&#36796;&#12415;&#26465;&#20214;&#12434;&#20840;&#35299;&#38500;</span></div>
-      <div class="help-row"><span class="help-key">&#8595;&#8593;</span><span class="help-desc">&#26032;&#12375;&#12356;&#38918;&#12539;&#21476;&#12356;&#38918;&#12434;&#20999;&#26367;</span></div>
+      <div class="help-sec-title">検索行</div>
+      <div class="help-row"><span class="help-key">♪</span><span class="help-desc">楽曲バーの表示/非表示</span></div>
+      <div class="help-row"><span class="help-key">↺</span><span class="help-desc">直前の検索・絞り込み条件に戻る(チップ検索・サジェストなどの前の状態を記憶)</span></div>
+      <div class="help-row"><span class="help-key">📋️ 検索</span><span class="help-desc">セトリ検索モード(曲名・タグで探す)</span></div>
+      <div class="help-row"><span class="help-key">カレンダー</span><span class="help-desc">日付を選んで検索</span></div>
     </div>
     <div class="help-sec">
-      <div class="help-sec-title">&#26908;&#32034;</div>
-      <div class="help-row"><span class="help-key">&#35486;&#21477;</span><span class="help-desc">&#31354;&#30333;=AND&#12289;|=OR&#12289;-&#35486;=&#38500;&#22806;</span></div>
-      <div class="help-row"><span class="help-key">&#26085;&#20184;</span><span class="help-desc">20260928 / 0928 / 2026 / 0101-0131</span></div>
-      <div class="help-row"><span class="help-key">&#128203;&#65039; &#26908;&#32034;</span><span class="help-desc">&#12475;&#12483;&#12488;&#12522;&#12473;&#12488;&#26908;&#32034;&#12514;&#12540;&#12489;&#65288;&#26354;&#21517;&#12391;&#25506;&#12377;&#65289;</span></div>
+      <div class="help-sec-title">絞り込み</div>
+      <div class="help-row"><span class="help-key">各ボタン</span><span class="help-desc">タップで絞込、ダブルタップで除外</span></div>
+      <div class="help-row"><span class="help-key">FILTER</span><span class="help-desc">▲▼で検索・絞り込み欄を開閉/現在の条件を表示</span></div>
+      <div class="help-row"><span class="help-key">CLEAR</span><span class="help-desc">検索・絞り込み条件を全解除</span></div>
+      <div class="help-row"><span class="help-key">↓↑</span><span class="help-desc">新しい順・古い順を切替</span></div>
     </div>
     <div class="help-sec">
-      <div class="help-sec-title">&#12381;&#12398;&#20182;</div>
-      <div class="help-row"><span class="help-key">A</span><span class="help-desc">&#25991;&#23383;&#12469;&#12452;&#12474;&#65288;&#38263;&#25276;&#12375;&#12391;100%&#12395;&#25147;&#12377;&#65289;</span></div>
-      <div class="help-row"><span class="help-key"><span class="help-key-icon"><span class="icon-sun"></span></span></span><span class="help-desc">&#12521;&#12452;&#12488;&#12514;&#12540;&#12489;&#12539;&#12480;&#12540;&#12463;&#12514;&#12540;&#12489;&#12434;&#20999;&#26367;</span></div>
-      <div class="help-row"><span class="help-key">&#128275;</span><span class="help-desc">&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#12398;ON/OFF</span></div>
-      <div class="help-row"><span class="help-key">&#12473;&#12510;&#12507;</span><span class="help-desc">&#12501;&#12522;&#12483;&#12463;&#12391;&#21069;&#24460;&#12398;&#26085;/&#38263;&#25276;&#12375;&#12391;TODAY</span></div>
-      <div class="help-row"><span class="help-key">&#9881;&#65039;</span><span class="help-desc">&#34920;&#31034;&#12377;&#12427;&#12464;&#12523;&#12540;&#12503;&#12539;&#12513;&#12531;&#12496;&#12540;&#12539;&#12467;&#12531;&#12486;&#12531;&#12484;&#31278;&#39006;&#12434;&#36984;&#25246;</span></div>
+      <div class="help-sec-title">検索</div>
+      <div class="help-row"><span class="help-key">語句</span><span class="help-desc">空白=AND、|=OR、-語=除外</span></div>
+      <div class="help-row"><span class="help-key">日付</span><span class="help-desc">20260928 / 0928 / 2026 / 0101-0131</span></div>
+      <div class="help-row"><span class="help-key">タグ</span><span class="help-desc">タグの値でも検索できる(データ下のタグチップ、SNSポップアップのタグチップを押しても検索)</span></div>
+    </div>
+    <div class="help-sec">
+      <div class="help-sec-title">その他</div>
+      <div class="help-row"><span class="help-key">A</span><span class="help-desc">文字サイズ(長押しで100%に戻す)</span></div>
+      <div class="help-row"><span class="help-key"><span class="help-key-icon"><span class="icon-sun"></span></span></span><span class="help-desc">ライトモード・ダークモードを切替</span></div>
+      <div class="help-row"><span class="help-key">🔓</span><span class="help-desc">ヘッダー固定のON/OFF</span></div>
+      <div class="help-row"><span class="help-key">スマホ</span><span class="help-desc">フリックで前後の日/長押しでTODAY</span></div>
+      <div class="help-row"><span class="help-key">⚙️</span><span class="help-desc">表示するグループ・メンバー・コンテンツ種類を選択</span></div>
     </div>
   </div>
   </div>
@@ -1101,7 +1110,7 @@ body .item-contents.is-content-open {
     <div class="sns-modal-body" id="snsModalBody"></div>
     <div class="sns-modal-foot">
       <button type="button" class="sns-tag-switch sns-scope-switch" id="snsScopeSwitch" role="switch" aria-checked="true"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span id="snsScopeLabel">ALL</span></button>
-      <button type="button" class="sns-tag-switch" id="snsTagSwitch" role="switch" aria-checked="false"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span>TAG</span></button>
+      <button type="button" class="sns-tag-switch" id="snsTagSwitch" role="switch" aria-label="TAG" aria-checked="false"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span class="sns-tag-emoji" aria-hidden="true">&#127991;&#65039;</span></button>
     </div>
   </div>
 </div>
@@ -1566,6 +1575,29 @@ body .item-contents.is-content-open {
     if (typeof i === 'object' && i.n !== undefined) memberInfoByCode[i.v] = { n: i.n, c: i.c };
   });
 
+  // ハートの展開/縮小:CSSのmax-width(480px)まで動かすと、中身(約130px)を超える分が「見た目が動かない時間」になり、
+  // 縮小の始まりで引っ掛かって見える。中身の幅(px)まで動かして、始まりから終わりまで見た目が動くようにする
+  const settleHearts = h => { // max-widthの動きが終わったら、インラインの値を外してCSSの値に戻す(margin-leftなど別の動きの終了では外さない)
+    const done = e => { if (e.propertyName !== 'max-width') return; h.removeEventListener('transitionend', done); h.style.transition = 'none'; h.style.maxWidth = ''; void h.offsetWidth; h.style.transition = ''; };
+    h.addEventListener('transitionend', done);
+  };
+  const setHeartsOpen = (h, open) => {
+    if (open === h.classList.contains('is-open')) return;
+    const full = h.scrollWidth; // 縮んでいても、中身の幅が取れる
+    if (open) {
+      h.classList.add('is-open');
+      h.style.maxWidth = full + 'px';
+      settleHearts(h); // 終わったらCSSの値に戻す(文字サイズを変えても切れないように)
+    } else {
+      h.style.transition = 'none';
+      h.style.maxWidth = full + 'px'; // 今の幅から動かし始める
+      void h.offsetWidth;
+      h.style.transition = '';
+      h.classList.remove('is-open');
+      h.style.maxWidth = '0px';
+      settleHearts(h);
+    }
+  };
   // 💞ボタン(ハートモード):データ部のハート表示を一括で展開/縮小する
   let heartModeOn = false;
   const refreshHeartModeState = () => {
@@ -2678,7 +2710,8 @@ body .item-contents.is-content-open {
           ti.setAttribute('aria-expanded', 'true');
         }
         const toggleHearts = () => {
-          const isOpen = hearts.classList.toggle('is-open');
+          const isOpen = !hearts.classList.contains('is-open');
+          setHeartsOpen(hearts, isOpen);
           ti.setAttribute('aria-expanded', String(isOpen));
           refreshHeartModeState();
         };
@@ -3349,9 +3382,9 @@ body .item-contents.is-content-open {
     const h1 = snsModalBox.getBoundingClientRect().height;
     if (Math.abs(h1 - h0) > 1) {
       // 高さを動かしている間は、中身が先に最終サイズで配置されて枠からはみ出し、スクロールバーが一瞬出てしまう。
-      // アニメーション中だけスクロールを隠し、終わったら元(必要な時だけ出す)に戻す
-      snsModalBox.style.overflowY = 'hidden';
-      const restore = () => { snsModalBox.style.overflowY = ''; };
+      // アニメーション中だけスクロール(縦横)を隠し、終わったら元(必要な時だけ出す)に戻す
+      snsModalBox.style.overflow = 'hidden'; // 縦だけ隠すと横が自動でauto扱いになり、横スクロールバーが出る。両方隠す
+      const restore = () => { snsModalBox.style.overflow = ''; };
       const a = snsModalBox.animate([{ height: h0 + 'px' }, { height: h1 + 'px' }], opt);
       a.addEventListener('finish', restore);
       a.addEventListener('cancel', restore);
@@ -4098,7 +4131,7 @@ body .item-contents.is-content-open {
   $('heartToggleBtn').onclick = () => {
     const nextOpen = !heartModeOn;
     $('items').querySelectorAll('.team-hearts').forEach(hearts => {
-      hearts.classList.toggle('is-open', nextOpen);
+      setHeartsOpen(hearts, nextOpen);
       const icon = hearts.previousElementSibling;
       if (icon && icon.classList.contains('team-icon')) icon.setAttribute('aria-expanded', String(nextOpen));
     });
