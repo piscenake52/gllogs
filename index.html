@@ -361,6 +361,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .sort-arrow-btn .sd { display: inline-block; width: var(--sd-w, 0.6em); text-align: center; font-style: normal; } /* 日付の数字1文字ぶんの固定幅 */
 .sort-arrow-btn .sw { display: inline-block; width: var(--sw-w, 2.4em); text-align: left; font-style: normal; } /* 曜日の固定幅(一番広い曜日に合わせる) */
 .sort-arrow-btn:hover { background-color: var(--btn-hover); }
+.sort-arrow-btn.is-real-today, .sort-arrow-btn.is-real-today:hover { color: #fff; background-color: #38bdf8; border-color: #38bdf8; } /* 今日のデータ表示中は、TODAYボタンのONと同じ青いボタンにする */
 .day-nav-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 16.875px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
 .day-nav-btn:hover { background-color: var(--btn-hover); }
 .day-nav-btn.is-visible { display: block; }
@@ -3792,12 +3793,13 @@ body .item-contents.is-content-open {
       if (ka.babRank !== kb.babRank) return ka.babRank - kb.babRank;
       // 2) コンテンツフィルターボタンの並び順(同じコンテンツ種類でまとまるようにする)
       if (ka.contentRank !== kb.contentRank) return ka.contentRank - kb.contentRank;
-      // 3) タイトル(同じコンテンツ種類の中を、タイトル順にする。昇順固定・数字は数の大小で比べる)
-      if (ka.titleKey !== kb.titleKey) { const c = SORT_TITLE_COLLATOR.compare(ka.titleKey, kb.titleKey); if (c) return c; }
-      // 4) グループ(G2とL2両方 > G2 > L2 > STF > それ以外)
+      // 3) グループ(G2とL2両方 > G2 > L2 > STF > それ以外)。タイトルより先に見て、同じ日のG2とL2がまとまるようにする
       if (ka.groupRank !== kb.groupRank) return ka.groupRank - kb.groupRank;
-      // 5) メンバー(フィルターボタンの並び順)
-      return ka.memberRank - kb.memberRank;
+      // 4) メンバー(フィルターボタンの並び順)
+      if (ka.memberRank !== kb.memberRank) return ka.memberRank - kb.memberRank;
+      // 5) タイトル(同じグループ・メンバーの中を、タイトル順にする。昇順固定・数字は数の大小で比べる)
+      if (ka.titleKey !== kb.titleKey) { const c = SORT_TITLE_COLLATOR.compare(ka.titleKey, kb.titleKey); if (c) return c; }
+      return 0;
     });
 
     // フェードアウトは廃止(案C)
@@ -4314,7 +4316,7 @@ body .item-contents.is-content-open {
       const e = document.createElement('i'); e.className = 'sw'; e.textContent = wd.trim(); btn.appendChild(e);
     }
   };
-  const updateSortBtnLabel = () => {
+  const updateSortBtnLabelCore = () => {
     if (todayMode) {
       const checkedYears = getCheckedYears();
       if (checkedYears.length === 1) {
@@ -4332,6 +4334,12 @@ body .item-contents.is-content-open {
     } else {
       $('sortBtn').textContent = desc ? '\u2193' : '\u2191';
     }
+  };
+  // 実際の今日(todayOffset=0)の日付をソートボタンに表示しているときだけ、その日付を青くする(矢印表示のときは通常色)
+  const updateSortBtnLabel = () => {
+    updateSortBtnLabelCore();
+    const btn = $('sortBtn');
+    btn.classList.toggle('is-real-today', !!(todayMode && todayOffset === 0 && btn.querySelector('.sd')));
   };
   const getTargetMonthDayStr = offsetDays => {
     const d = new Date();
