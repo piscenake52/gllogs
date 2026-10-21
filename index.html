@@ -3396,20 +3396,12 @@ body .item-contents.is-content-open {
         .map((entry, i) => ({ entry, i }))
         .sort((a, b) => orderRank(a.entry && a.entry.type) - orderRank(b.entry && b.entry.type) || a.i - b.i)
         .map(x => x.entry);
-      // 絞り込み:検索語がリンクのtagsに当たればそのリンクだけ、メンバーフィルターは選んだメンバー(どれか)を持つリンクだけ。
-      // どれにも当たらないときは、全リンクを出す(番号は元のまま。メンバーのランプもそのまま出す)
-      const linkTags = u => (u && typeof u === 'object' && Array.isArray(u.tags)) ? u.tags.join(' ').toLowerCase() : '';
+      // 絞り込み:メンバーフィルターは選んだメンバー(どれか)を持つリンクだけ。検索語(タグ・キーワード)では絞らず、全リンクを出す
+      // (メンバーに当たるリンクが無いときも全リンクを出す。番号は元のまま。メンバーのランプもそのまま出す)
       const linkMembers = u => { const o = (u && typeof u === 'object') ? u : {}; return [].concat(o.member || [], o.with || []).map(x => String(x || '').trim().toUpperCase()); }; // 投稿者と同写りのどちらも対象
       const allLinks = [];
       list.forEach(entry => { if (entry && Array.isArray(entry.urls)) entry.urls.forEach(u => allLinks.push(u)); });
       let shown = new Set(allLinks);
-      const kwNow = setlistMode ? '' : extractDateQuery(searchInput.value.trim()).remainingKw;
-      if (kwNow) {
-        const toks = [];
-        kwNow.replace(/(^|\s)or(?=\s|$)/gi, '$1|').replace(/(^|\s)and(?=\s|$)/gi, '$1').split(/[|\s]+/).forEach(t => { if (t && !t.startsWith('-')) toks.push(t.toLowerCase()); });
-        const hit = allLinks.filter(u => { const tt = linkTags(u); return tt && toks.some(t => tt.includes(t)); });
-        if (hit.length) shown = new Set(hit);
-      }
       const selMembers = [...document.querySelectorAll('#memberChecks1 input:checked, #memberChecks2 input:checked')].map(c => c.value).filter(v => memberGroupOf.has(v));
       if (selMembers.length) {
         const hit = [...shown].filter(u => linkMembers(u).some(m => selMembers.includes(m)));
