@@ -3290,6 +3290,31 @@
     ]
   },
   {
+    "logid": "d1e24b0b46fb",
+    "date": "20261022",
+    "time": "1800",
+    "contents": "YOUTUBE",
+    "title": "RUNWAY+ by GirlsAward 「エンタメNOW！」",
+    "url": "https://youtube.com/@girlsaward_official",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2112808607444087087",
+            "member": [
+              "KIR"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "2347014731fb",
     "date": "20261022",
     "time": "1700",
