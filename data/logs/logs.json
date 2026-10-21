@@ -3388,7 +3388,18 @@
       "MNM",
       "KIR"
     ],
-    "relations": []
+    "relations": [],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2112752353988530289",
+            "member": []
+          }
+        ]
+      }
+    ]
   },
   {
     "logid": "1e16df60aed4",
