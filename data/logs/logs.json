@@ -34798,6 +34798,39 @@
     ]
   },
   {
+    "logid": "750c0b3d4023",
+    "date": "20260223",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "YUW",
+      "KAN",
+      "AKR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2025819027101360251",
+            "member": [
+              "RIN",
+              "YUW",
+              "KAN",
+              "AKR"
+            ],
+            "tags": [
+              "ば・く・れ・つ"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "30725d63e390",
     "date": "20260222",
     "time": "1200",

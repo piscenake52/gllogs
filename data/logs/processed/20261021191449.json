@@ -1,0 +1,32 @@
+{
+  "date": "20260223",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "RIN",
+    "YUW",
+    "KAN",
+    "AKR"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2025819027101360251",
+          "member": [
+            "RIN",
+            "YUW",
+            "KAN",
+            "AKR"
+          ],
+          "tags": [
+            "ば・く・れ・つ"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1793"
+}
