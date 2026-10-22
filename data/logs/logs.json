@@ -33309,7 +33309,7 @@
     "date": "20260326",
     "time": "1900",
     "contents": "COOKING",
-    "title": "NATSLIVE 「Lakiガチャクッキング」　#007　ラッキーハンバーガー",
+    "title": "NATSLIVE 「Lakiガチャクッキング」　#007",
     "display_sp": "Lakiガチャクッキング　#007",
     "url": "https://natslive.jp/episodes/17610",
     "map": "https://maps.app.goo.gl/Y6db33ndDKLsmErs6",
@@ -33321,7 +33321,9 @@
       "RRK"
     ],
     "tags": [
-      "ラッキーハンバーガー"
+      "ラッキーハンバーガー",
+      "NATSLIVE",
+      "Lakiガチャクッキング"
     ]
   },
   {
