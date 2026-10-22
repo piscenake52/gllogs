@@ -35010,7 +35010,7 @@
     "date": "20260227",
     "time": "1900",
     "contents": "COOKING",
-    "title": "NATSLIVE 「Lakiガチャクッキング」　#006　ラッキーハヤシライス",
+    "title": "NATSLIVE 「Lakiガチャクッキング」　#006",
     "display_sp": "Lakiガチャクッキング　#006",
     "url": "https://natslive.jp/episodes/17460",
     "map": "https://maps.app.goo.gl/Y6db33ndDKLsmErs6",
@@ -35022,7 +35022,9 @@
       "KIK"
     ],
     "tags": [
-      "ラッキーハヤシライス"
+      "ラッキーハヤシライス",
+      "NATSLIVE",
+      "Lakiガチャクッキング"
     ]
   },
   {
