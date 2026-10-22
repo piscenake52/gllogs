@@ -37767,7 +37767,7 @@
     "date": "20260122",
     "time": "1900",
     "contents": "COOKING",
-    "title": "NATSLIVE 「Lakiガチャクッキング」　#005　ラッキーシーフードシチュー",
+    "title": "NATSLIVE 「Lakiガチャクッキング」　#005",
     "display_sp": "Lakiガチャクッキング　#005",
     "url": "https://natslive.jp/episodes/17387",
     "map": "https://maps.app.goo.gl/Y6db33ndDKLsmErs6",
@@ -37779,7 +37779,9 @@
       "RRK"
     ],
     "tags": [
-      "ラッキーシーフードシチュー"
+      "ラッキーシーフードシチュー",
+      "NATSLIVE",
+      "Lakiガチャクッキング"
     ]
   },
   {
