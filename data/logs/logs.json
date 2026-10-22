@@ -4556,7 +4556,8 @@
     "groups": [
       "G2",
       "MMK",
-      "MSK"
+      "MSK",
+      "KIR"
     ],
     "sns": [
       {
@@ -4592,6 +4593,15 @@
             "tags": [
               "Fall mood",
               "髪色"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/Dey1MNszWzG/?srtk=MTc5em1haWI2NjFnag==",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "CIRRA"
             ]
           }
         ]
