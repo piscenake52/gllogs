@@ -16,6 +16,34 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih h1 { font-size:16px; margin:0 0 4px; padding:0; color:var(--text); border:0; }
 #glih .lead { font-size:12px; color:var(--sub); margin:0 0 14px; line-height:1.6; }
 #glih .tabs { display:flex; gap:6px; margin-bottom:12px; }
+#glih #glih-p-check .ckhead { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+#glih #glih-p-check .ckmeta { flex:1; min-width:0; font-size:11px; color:var(--sub); line-height:1.5; }
+#glih .cksum { display:flex; gap:6px; margin-bottom:12px; }
+#glih .cksum > div { flex:1; border-radius:8px; padding:7px 2px; text-align:center; font-size:11px; border:1px solid var(--line); background:var(--bg); color:var(--sub); }
+#glih .cksum b { display:block; font-size:18px; line-height:1.3; color:var(--text); }
+#glih .cksum .e b { color:#f87171; } #glih .cksum .w b { color:#fbbf24; } #glih .cksum .i b { color:#60a5fa; } #glih .cksum .o b { color:#4ade80; }
+#glih .cksec { font-size:11px; font-weight:700; color:var(--sub); margin:12px 0 2px; }
+#glih .ckrow { display:flex; align-items:center; gap:8px; padding:8px 4px; border-bottom:1px solid var(--line); cursor:pointer; }
+#glih .ckrow.zero { cursor:default; }
+#glih .ckdot { flex:0 0 8px; width:8px; height:8px; border-radius:50%; }
+#glih .ckdot.e { background:#ef4444; } #glih .ckdot.w { background:#f59e0b; } #glih .ckdot.i { background:#3b82f6; } #glih .ckdot.o { background:#22c55e; }
+#glih .ckname { flex:1; min-width:0; font-size:13px; }
+#glih .ckname small { display:block; font-size:11px; color:var(--sub); line-height:1.4; }
+#glih .ckn { font-weight:700; font-size:13px; min-width:28px; text-align:right; }
+#glih .ckchev { color:var(--sub); font-size:12px; }
+#glih .ckdhead { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+#glih .ckdhead b { flex:1; min-width:0; font-size:14px; }
+#glih .ckbadge { font-size:11px; font-weight:700; padding:1px 8px; border-radius:10px; background:var(--btn); border:1px solid var(--line); }
+#glih .ckcard { border:1px solid var(--line); border-radius:8px; background:var(--bg); padding:8px 10px; margin:8px 0; font-size:12px; }
+#glih .ckcard.ign { opacity:.5; }
+#glih .ckct { font-weight:700; font-size:13px; word-break:break-word; }
+#glih .cksub { color:var(--sub); font-size:11px; margin-top:1px; word-break:break-all; }
+#glih .ckrowline { margin-top:4px; font-size:11.5px; word-break:break-all; }
+#glih .ckid { display:inline-block; background:var(--btn); border:1px solid var(--line); border-radius:4px; padding:0 5px; margin-right:4px; }
+#glih .ckdiff { color:#fbbf24; }
+#glih .ckbtns { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+#glih .ckjson { margin:6px 0 0; padding:6px 8px; background:var(--btn); border-radius:6px; font:11px/1.5 ui-monospace,Menlo,monospace; white-space:pre-wrap; word-break:break-all; max-height:180px; overflow:auto; }
+#glih .cknote { font-size:11px; color:var(--sub); line-height:1.6; margin-top:10px; }
 #glih .tabs button { flex:1; padding:8px; border-radius:8px; border:1px solid var(--line); background:var(--btn); color:var(--text); font:inherit; font-size:13px; cursor:pointer; box-shadow:none; }
 #glih .tabs button.on { background:var(--accent); border-color:var(--accent); color:var(--accent-text); }
 #glih section { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; margin:0; overflow-x:auto; }
@@ -205,9 +233,23 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 
 <div class="toplink"><a href="https://gl-log.blogspot.com/" target="_blank" rel="noopener">GL log</a></div>
 
-<div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="songs">songs</button></div>
+<div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="songs">songs</button><button type="button" data-tab="check">check</button></div>
 
 <div hidden><div class="chips" id="glih-groups"><div class="cr"><button type="button" class="chip" data-v="G2">G2</button><button type="button" class="chip" data-v="L2">L2</button></div><div class="cr"><button type="button" class="chip" data-v="YZH">YZH</button><button type="button" class="chip" data-v="MMK">MMK</button><button type="button" class="chip" data-v="MSK">MSK</button><button type="button" class="chip" data-v="YOK">YOK</button><button type="button" class="chip" data-v="KUR">KUR</button><button type="button" class="chip" data-v="MNM">MNM</button><button type="button" class="chip" data-v="KIR">KIR</button></div><div class="cr"><button type="button" class="chip" data-v="TOA">TOA</button><button type="button" class="chip" data-v="RAN">RAN</button></div><div class="cr"><button type="button" class="chip" data-v="RIN">RIN</button><button type="button" class="chip" data-v="TBK">TBK</button><button type="button" class="chip" data-v="HIR">HIR</button><button type="button" class="chip" data-v="YUW">YUW</button><button type="button" class="chip" data-v="KAN">KAN</button><button type="button" class="chip" data-v="RRK">RRK</button><button type="button" class="chip" data-v="AKR">AKR</button><button type="button" class="chip" data-v="KIK">KIK</button></div><div class="cr"><button type="button" class="chip" data-v="YUR">YUR</button></div></div></div>
+
+<section id="glih-p-check" hidden>
+  <div class="ckhead"><div class="ckmeta" id="glih-ckmeta">not run yet</div><button type="button" class="small" id="glih-ckrun">run</button></div>
+  <div id="glih-ckmain" hidden>
+    <div class="cksum" id="glih-cksum"></div>
+    <div id="glih-cklist"></div>
+  </div>
+  <div id="glih-ckdet" hidden>
+    <div class="ckdhead"><button type="button" class="small" id="glih-ckback">&lt; back</button><b id="glih-ckdt"></b><span class="ckbadge" id="glih-ckdn"></span></div>
+    <div id="glih-ckdl"></div>
+    <button type="button" class="small" id="glih-ckmore" hidden>more</button>
+  </div>
+  <div class="cknote" id="glih-cknote">Read-only: the data is not changed here. Open an id in the logs tab to fix it. Ignore marks are kept in this browser only.</div>
+</section>
 
 <section id="glih-p-songs" hidden>
   <div class="field"><label for="glih-sa">artist</label><input type="text" id="glih-sa" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
@@ -258,9 +300,133 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function tab(name) {
     var isFind = name === 'logs' || name === 'setlist';
     $('p-find').hidden = !isFind; $('p-songs').hidden = name !== 'songs'; if (name === 'songs') songsInit();
+    $('p-check').hidden = name !== 'check'; if (name === 'check') ckInit();
     if (isFind && $('fkind').value !== name) { $('fkind').value = name; $('fkind').dispatchEvent(new Event('change')); } // logs / setlist share one panel
     [].forEach.call(root.querySelectorAll('.tabs button'), function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === name); });
   }
+  // ---- check tab: read-only data check of the full logs.json (empty / duplicated tags, bad dates, duplicate candidates ...). The fix itself is made in the logs tab ----
+  var CK_VALID = 'G2 L2 YZH MMK MSK YOK KUR MNM KIR TOA RAN RIN TBK HIR YUW KAN RRK AKR KIK YUR STF'.split(' ');
+  var ckData = null, ckRes = null, ckView = '', ckLim = 50;
+  function ckIgn() { try { var a = JSON.parse(localStorage.getItem('glih_ck_ignore') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+  function ckSetIgn(a) { try { localStorage.setItem('glih_ck_ignore', JSON.stringify(a)); } catch (e) {} }
+  function ckFmtD(d, t) { d = String(d || ''); t = String(t || ''); return (d.length === 8 ? d.slice(0, 4) + '/' + d.slice(4, 6) + '/' + d.slice(6) : d) + (t.length === 4 ? ' ' + t.slice(0, 2) + ':' + t.slice(2) : ''); }
+  function ckRun(rows) {
+    var order = [], C = {};
+    function mk(id, lv, name, note) { C[id] = { id: id, lv: lv, name: name, note: note, items: [] }; order.push(id); }
+    mk('date', 'e', 'date: bad format / not a real date', 'must be 8 digits and a real day');
+    mk('time', 'e', 'time: bad format', 'must be HHMM (0000-2359)');
+    mk('logid', 'e', 'logid: duplicated', 'the same logid on 2 or more rows');
+    mk('ref', 'e', 'ref: points to no row', 'the referenced logid does not exist');
+    mk('groups', 'e', 'groups: unknown code / empty', 'rows with a title (ref rows excluded)');
+    mk('dup', 'w', 'duplicate', 'same date + time + title + contents (other members can be normal)');
+    mk('url', 'w', 'url does not start with http(s)', 'may not open');
+    mk('tags', 'w', 'tags: empty / blank / spaces / duplicate', 'empty array, empty string, edge spaces, same tag twice');
+    mk('tag1', 'i', 'tags used only once', 'where a typo or variant hides');
+    mk('nourl', 'i', 'rows without url', 'rows with a title only');
+    var seenId = {}, byKey = {}, tagCount = {}, tagRow = {}, ids = {};
+    rows.forEach(function (r) { if (r && r.logid) ids[r.logid] = 1; });
+    rows.forEach(function (r) {
+      if (!r) return;
+      var add = function (id, extra) { C[id].items.push({ k: r.logid || '', rows: [r], extra: extra || '' }); };
+      if (r.date !== undefined && !okDate(String(r.date))) add('date', String(r.date));
+      if (r.time && !okTime(String(r.time))) add('time', String(r.time));
+      if (r.logid) { if (seenId[r.logid]) seenId[r.logid].n++; else seenId[r.logid] = { n: 1, row: r }; }
+      if (r.ref) { if (!ids[r.ref]) add('ref', String(r.ref)); return; }
+      var g = r.groups || [], bad = g.filter(function (x) { return CK_VALID.indexOf(x) < 0; });
+      if (!g.length) add('groups', 'empty'); else if (bad.length) add('groups', bad.join(','));
+      if (r.title) {
+        var key = [r.date, r.time, r.title, r.contents].join('|');
+        (byKey[key] = byKey[key] || []).push(r);
+        if (!r.url) add('nourl');
+      }
+      if (r.url && !/^https?:\/\//.test(String(r.url))) add('url', String(r.url).slice(0, 60));
+      var t = r.tags;
+      if (Array.isArray(t)) {
+        var why = [], seen = {}, dupT = false;
+        if (!t.length) why.push('empty array');
+        t.forEach(function (x) {
+          if (typeof x !== 'string' || x === '') { if (why.indexOf('empty string') < 0) why.push('empty string'); return; }
+          if (x !== x.trim() && why.indexOf('edge spaces') < 0) why.push('edge spaces');
+          if (seen[x]) dupT = true; seen[x] = 1;
+          tagCount[x] = (tagCount[x] || 0) + 1; if (!tagRow[x]) tagRow[x] = r;
+        });
+        if (dupT) why.push('duplicate');
+        if (why.length) add('tags', why.join(', '));
+      }
+    });
+    for (var id in seenId) if (seenId[id].n > 1) C.logid.items.push({ k: id, rows: [seenId[id].row], extra: seenId[id].n + ' rows' });
+    for (var key in byKey) if (byKey[key].length > 1) {
+      var ks = byKey[key].map(function (x) { return x.logid; }).sort().join('+');
+      C.dup.items.push({ k: ks, rows: byKey[key], extra: byKey[key].length + ' rows' });
+    }
+    for (var tg in tagCount) if (tagCount[tg] === 1) C.tag1.items.push({ k: 'tag:' + tg, rows: [tagRow[tg]], extra: tg, tag: tg });
+    C.date.items.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
+    C.dup.items.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
+    return { n: rows.length, order: order, C: C, at: new Date() };
+  }
+  function ckCnt(c) { if (c.id !== 'dup') return c.items.length; var ig = ckIgn(); return c.items.filter(function (it) { return ig.indexOf(it.k) < 0; }).length; }
+  function ckList() {
+    var R = ckRes, sum = { e: 0, w: 0, i: 0, o: 0 }, host = $('cklist'), secs = { e: 'errors', w: 'to check', i: 'info', o: 'ok' }, by = { e: [], w: [], i: [], o: [] };
+    R.order.forEach(function (id) { var c = R.C[id], n = ckCnt(c); if (n === 0) { sum.o++; by.o.push(c); } else { sum[c.lv] += n; by[c.lv].push(c); } });
+    $('cksum').innerHTML = '<div class="e"><b>' + sum.e + '</b>error</div><div class="w"><b>' + sum.w + '</b>check</div><div class="i"><b>' + sum.i + '</b>info</div><div class="o"><b>' + sum.o + '</b>ok</div>';
+    host.innerHTML = '';
+    ['e', 'w', 'i', 'o'].forEach(function (lv) {
+      if (!by[lv].length) return;
+      var h = document.createElement('div'); h.className = 'cksec'; h.textContent = secs[lv]; host.appendChild(h);
+      by[lv].forEach(function (c) {
+        var n = ckCnt(c), row = document.createElement('div'); row.className = 'ckrow' + (n ? '' : ' zero');
+        row.innerHTML = '<span class="ckdot ' + (n ? c.lv : 'o') + '"></span><div class="ckname"></div><span class="ckn"></span><span class="ckchev"></span>';
+        row.querySelector('.ckname').innerHTML = '<span></span><small></small>';
+        row.querySelector('.ckname span').textContent = c.name; row.querySelector('.ckname small').textContent = n ? c.note : '';
+        row.querySelector('.ckn').textContent = String(n);
+        if (n) { row.querySelector('.ckchev').textContent = '>'; row.onclick = function () { ckOpen(c.id); }; }
+        host.appendChild(row);
+      });
+    });
+    $('ckmeta').textContent = R.n + ' rows / checked ' + R.at.getFullYear() + '/' + ('0' + (R.at.getMonth() + 1)).slice(-2) + '/' + ('0' + R.at.getDate()).slice(-2) + ' ' + ('0' + R.at.getHours()).slice(-2) + ':' + ('0' + R.at.getMinutes()).slice(-2) + ' / in this browser';
+    $('ckmain').hidden = false; $('ckdet').hidden = true; ckView = '';
+  }
+  function ckOpen(id) { ckView = id; ckLim = 50; $('ckmain').hidden = true; $('ckdet').hidden = false; ckDetail(); }
+  function ckDetail() {
+    var c = ckRes.C[ckView], ig = ckIgn(), host = $('ckdl'), shown = 0;
+    $('ckdt').textContent = c.name; $('ckdn').textContent = ckCnt(c) + (c.id === 'dup' && ig.length ? ' (+' + (c.items.length - ckCnt(c)) + ' ignored)' : '');
+    host.innerHTML = '';
+    c.items.forEach(function (it, i) {
+      if (i >= ckLim) return; shown++;
+      var isIgn = c.id === 'dup' && ig.indexOf(it.k) >= 0, r0 = it.rows[0], card = document.createElement('div');
+      card.className = 'ckcard' + (isIgn ? ' ign' : '');
+      var head = document.createElement('div'); head.className = 'ckct'; head.textContent = c.id === 'tag1' ? it.tag : (r0.title || r0.display_pc || r0.logid || '(no title)'); card.appendChild(head);
+      var sub = document.createElement('div'); sub.className = 'cksub';
+      sub.textContent = c.id === 'tag1' ? 'used in: ' + (r0.title || r0.logid) : ckFmtD(r0.date, r0.time) + ' / ' + (r0.contents || '') + (it.extra && c.id !== 'tag1' ? ' / ' + it.extra : ''); card.appendChild(sub);
+      if (c.id === 'dup') it.rows.forEach(function (r) {
+        var l = document.createElement('div'); l.className = 'ckrowline';
+        l.innerHTML = '<span class="ckid"></span><span class="ckdiff"></span>';
+        l.querySelector('.ckid').textContent = r.logid; l.querySelector('.ckdiff').textContent = 'groups ' + (r.groups || []).join(',') + (r.tags && r.tags.length ? ' / tags ' + r.tags.join(',') : '');
+        card.appendChild(l);
+      });
+      var btns = document.createElement('div'); btns.className = 'ckbtns';
+      var mkb = function (t, fn) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = t; b.onclick = fn; btns.appendChild(b); return b; };
+      var open1 = function (id) { $('fid').value = id; tab('logs'); try { history.replaceState(null, '', '#logs'); } catch (e) {} doFind(); };
+      it.rows.forEach(function (r, j) { if (r.logid) mkb(it.rows.length > 1 ? 'open ' + (j + 1) : 'open', function () { open1(r.logid); }); });
+      var cp = mkb('copy id', function () { var t = it.rows.map(function (r) { return r.logid; }).join(' '); try { navigator.clipboard.writeText(t); cp.textContent = 'copied'; setTimeout(function () { cp.textContent = 'copy id'; }, 1200); } catch (e) {} });
+      var jb = mkb('json', function () { jp.hidden = !jp.hidden; });
+      var jp = document.createElement('pre'); jp.className = 'ckjson'; jp.hidden = true; jp.textContent = JSON.stringify(it.rows, null, 2);
+      if (c.id === 'dup') mkb(isIgn ? 'restore' : 'ignore', function () { var a = ckIgn(), p = a.indexOf(it.k); if (p >= 0) a.splice(p, 1); else a.push(it.k); ckSetIgn(a); ckDetail(); });
+      card.appendChild(btns); card.appendChild(jp); host.appendChild(card);
+    });
+    $('ckmore').hidden = c.items.length <= ckLim; $('ckmore').textContent = 'more (' + (c.items.length - shown) + ')';
+  }
+  function ckStart() {
+    $('ckmeta').textContent = 'loading logs.json ...'; $('ckrun').disabled = true;
+    fetchData('logs').then(function (d) {
+      ckData = d; ckRes = ckRun(Array.isArray(d) ? d : []); $('ckrun').disabled = false; ckList();
+    }).catch(function (e) { $('ckrun').disabled = false; $('ckmeta').textContent = 'load failed: ' + (e && e.message ? e.message : e); });
+  }
+  function ckInit() { if (!ckRes && !$('ckrun').disabled) ckStart(); }
+  $('ckrun').onclick = function () { delete cache.logs; ckRes = null; ckStart(); };
+  $('ckback').onclick = function () { ckList(); };
+  $('ckmore').onclick = function () { ckLim += 50; ckDetail(); };
+
   function today() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
 
   [].forEach.call(root.querySelectorAll('.tabs button'), function (b) { b.onclick = function () { var n = b.getAttribute('data-tab'); tab(n); try { history.replaceState(null, '', '#' + n); } catch (e) {} }; });
@@ -1875,7 +2041,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   // the Issue button (bottom of the find tab): after the form page is opened, the input is reset (the same as the new button), ready for the next entry
   $('topnew').onclick = function () { $('fnew').onclick(); };
   $('go-find').addEventListener('click', function () { if ($('go-find').getAttribute('aria-disabled') === 'true') return; setTimeout(function () { $('fnew').onclick(); }, 300); });
-  tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
+  tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : location.hash === '#check' ? 'check' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
   applyModeUI();
   if (qid0) { $('fid').value = qid0; doFind(); } // opened with ?id=...: load that id in the tab given by the hash (#logs / #setlist)
 })();

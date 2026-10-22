@@ -899,3 +899,12 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 
 - ヘッダー左端の🕐ボタンを押すと、時計の枠が右へ(📍📋🏷️🔗の上に)伸びて、中に年/月/日/曜/時のボタンが出る(`#dpPill`)。年/月/日/曜/時の制御は従来どおり。年月日曜時のどれかがONなら🕐もONの色。閉じる条件: 🕐をもう一度押す / 枠の外を押す / フォーカスが枠の外へ移る / Esc。左端は検索窓の左端にそろえる(`syncHeaderBtnGroupPosition`)
 - 🏷️ボタン(`#tagToggleBtn`、🔗の左。状態は`gl_log_tag_mode`に保存): ONのとき、tagsがある行のタイトルの下にタグのチップを出す(`.item-tags` / `.tag-chip`)。チップの左端はタイトルの左端にそろえ(`tagIndent`+`ResizeObserver`)、はみ出す分は横スクロール。空文字・重複のタグは出さない。snsリンクのtagsは出さない(SNSポップアップのTAG表示で見る)。チップを押すとそのタグで絞り込む(`applySuggestion`)
+
+### helper: check タブ(データ点検)
+
+- helperの右端タブ`check`(`#check`)。GitHub上の最新`logs.json`を読み込み、端末内で点検する(読み取り専用。修正はlogsタブで行う)。
+- 要修正: date/time形式・実在しない日付、logid重複、refの参照切れ、groupsの未知コード/空(STFは正常。ref行は除外)。
+- 要確認: 同日・同時刻・同題名・同種類の重複候補、urlがhttp(s)でない、tags(空配列/空文字/前後空白/重複)。
+- 参考: 1回しか使われていないタグ、urlが無い行(titleのある行のみ)。
+- 重複候補だけ`ignore`できる(キー=logidを並べ替えて連結、localStorage `glih_ck_ignore`。端末ごと)。`open N`はlogidをid欄に入れてlogsタブで検索する。
+- scriptはASCIIのみ・CRLF・`node --check`(helperの共通ルール)。
