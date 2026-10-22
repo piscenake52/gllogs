@@ -42146,7 +42146,7 @@
     "date": "20251120",
     "time": "1900",
     "contents": "COOKING",
-    "title": "NATSLIVE 「Lakiガチャクッキング」　#003　ミートボールオムライス",
+    "title": "NATSLIVE 「Lakiガチャクッキング」　#003",
     "display_sp": "Lakiガチャクッキング　#003",
     "url": "https://natslive.jp/episodes/17220",
     "map": "https://maps.app.goo.gl/Y6db33ndDKLsmErs6",
@@ -42156,6 +42156,11 @@
       "YUW",
       "KAN",
       "RRK"
+    ],
+    "tags": [
+      "ミートボールオムライス",
+      "NATSLIVE",
+      "Lakiガチャクッキング"
     ]
   },
   {
