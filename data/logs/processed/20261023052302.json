@@ -1,0 +1,36 @@
+{
+  "logid": "caaf3c43dd82",
+  "sns": [
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgPEkp6v/",
+          "member": [
+            "HIR",
+            "AKR"
+          ],
+          "tags": [
+            "キュン"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/Dev7chfpeQk/?psln=ZGwzcmd0Ymt3cDlt",
+          "member": [
+            "HIR",
+            "AKR"
+          ],
+          "tags": [
+            "キュン"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "1955"
+}
