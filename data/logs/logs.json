@@ -4459,9 +4459,10 @@
     "date": "20261022",
     "time": "",
     "contents": "SNS",
-    "title": "SNS　Girls2",
+    "title": "SNS　Girls²",
     "groups": [
-      "G2"
+      "G2",
+      "MMK"
     ],
     "sns": [
       {
@@ -4472,6 +4473,21 @@
             "member": [],
             "tags": [
               "On Line Capsule"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/Dey19IOmZte/?dlrf=MW5jdnM2bjA1anpkbA==",
+            "member": [
+              "MMK"
+            ],
+            "tags": [
+              "Korea",
+              "RUI"
             ]
           }
         ]
