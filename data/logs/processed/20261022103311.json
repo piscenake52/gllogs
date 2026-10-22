@@ -1,7 +1,6 @@
 {
-  "logid": "3bdbf3cdc54b",
   "date": "20261027",
-  "title": "Girls² On-Line Capsule 2026 Wチャンス KIRA",
+  "title": "Girls² On-Line Capsule 2026 Wチャンス KIRA 終了",
   "groups": [
     "G2",
     "KIR"
@@ -11,5 +10,6 @@
     "EASY",
     "On Line Capsule"
   ],
-  "_issue": "1867"
+  "_copy_from": "7fd0bbfcec2d",
+  "_issue": "1869"
 }
