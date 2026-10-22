@@ -3674,6 +3674,32 @@
     ]
   },
   {
+    "logid": "86b4b79c6882",
+    "date": "20261023",
+    "time": "1730",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　鶴屋美咲",
+    "url": "https://www.cl-live.com/artists/ldh_news_cast?lang=ja",
+    "groups": [
+      "G2",
+      "MSK"
+    ],
+    "tags": [
+      "LDH NEWS CAST"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/CL_OFFICIAL_ACC/status/2113247638472863988",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "6135af9d11bf",
     "date": "20261023",
     "time": "1000",
@@ -3706,20 +3732,6 @@
     "tags": [
       "EASY",
       "On Line Capsule"
-    ]
-  },
-  {
-    "logid": "86b4b79c6882",
-    "date": "20261023",
-    "contents": "CL",
-    "title": "LDH NEWS CAST　鶴屋美咲",
-    "url": "https://www.cl-live.com/artists/ldh_news_cast?lang=ja",
-    "groups": [
-      "G2",
-      "MSK"
-    ],
-    "tags": [
-      "LDH NEWS CAST"
     ]
   },
   {
