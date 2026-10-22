@@ -194,20 +194,20 @@ h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側の�
 .toggle-btn.is-active { color: var(--text); background-color: var(--btn-bg); text-shadow: 0 0 0.4px currentColor, 0 0 0.4px currentColor; }
 .toggle-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .toggle-btn:disabled:hover { background: none; color: var(--muted); }
-.date-part-btn.is-active { color: #fff; background-color: #38bdf8; text-shadow: none; }
-#badgeToggleBtn.is-active, #iconToggleBtn.is-active, #filterSummaryToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
-#todayToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
-#songToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
-#heartToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
-#setlistToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+.date-part-btn.is-active { color: #fff; background-color: #0ea5e9; }
+#badgeToggleBtn.is-active, #iconToggleBtn.is-active, #filterSummaryToggleBtn.is-active { color: #fff; background-color: #0ea5e9; }
+#todayToggleBtn.is-active { color: #fff; background-color: #0ea5e9; }
+#songToggleBtn.is-active { color: #fff; background-color: #0ea5e9; }
+#heartToggleBtn.is-active { color: #fff; background-color: #0ea5e9; }
+#setlistToggleBtn.is-active { color: #fff; background-color: #0ea5e9; }
 /* 文字サイズ「A」ボタン:現在の拡大縮小段階が既定値(0)でなければ青くする */
-#textSizeBtn.is-active { color: #fff; background-color: #38bdf8; }
+#textSizeBtn.is-active { color: #fff; background-color: #0ea5e9; }
 #textSizeBtn.is-open { box-shadow: inset 0 0 0 2px #38bdf8; }
 /* ホバー中でもis-active(青)を確実に優先させる */
-#songToggleBtn.is-active:hover { background-color: #38bdf8; }
-#heartToggleBtn.is-active:hover { background-color: #38bdf8; }
-#setlistToggleBtn.is-active:hover { background-color: #38bdf8; }
-#textSizeBtn.is-active:hover { background-color: #38bdf8; }
+#songToggleBtn.is-active:hover { background-color: #0ea5e9; }
+#heartToggleBtn.is-active:hover { background-color: #0ea5e9; }
+#setlistToggleBtn.is-active:hover { background-color: #0ea5e9; }
+#textSizeBtn.is-active:hover { background-color: #0ea5e9; }
 /* FILTERボタン:データ部との境界線の中央に、線をまたぐように配置。他要素と重なる場合は横幅を縮める */
 .filter-center-btn {
   position: absolute;
@@ -278,6 +278,10 @@ h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側の�
 .song-ticker-text { display: inline-block; font-size: 13px; line-height: 1.2; color: var(--text); white-space: nowrap; }
 .song-ticker-viewport.is-scrolling .song-ticker-text { animation-name: songTicker; animation-timing-function: linear; animation-iteration-count: infinite; }
 @keyframes songTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+/* ♪ボタンでバーを開いた時、曲名(表示エリアごと)を右から飛んでこさせる。少し行き過ぎて戻る */
+.song-ticker-viewport.song-enter { animation: songEnter 0.55s ease-out 0.1s both; }
+@keyframes songEnter { 0% { transform: translateX(110%); opacity: 0; } 15% { opacity: 1; } 70% { transform: translateX(-8px); } 100% { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .song-ticker-viewport.song-enter { animation: none; } }
 
 /* --- フィルターエリアの開閉アニメーション --- */
 .collapsible-area { max-height: 550px; opacity: 1; overflow: hidden; transition: max-height 0.3s ease, opacity 0.2s ease, margin-top 0.2s ease; }
@@ -361,7 +365,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .sort-arrow-btn .sd { display: inline-block; width: var(--sd-w, 0.6em); text-align: center; font-style: normal; } /* 日付の数字1文字ぶんの固定幅 */
 .sort-arrow-btn .sw { display: inline-block; width: var(--sw-w, 2.4em); text-align: left; font-style: normal; } /* 曜日の固定幅(一番広い曜日に合わせる) */
 .sort-arrow-btn:hover { background-color: var(--btn-hover); }
-.sort-arrow-btn.is-real-today, .sort-arrow-btn.is-real-today:hover { color: #fff; background-color: #38bdf8; border-color: #38bdf8; } /* 今日のデータ表示中は、TODAYボタンのONと同じ青いボタンにする */
+.sort-arrow-btn.is-real-today, .sort-arrow-btn.is-real-today:hover { color: #fff; background-color: #0ea5e9; border-color: #0ea5e9; } /* 今日のデータ表示中は、TODAYボタンのONと同じ青いボタンにする */
 .day-nav-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 16.875px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
 .day-nav-btn:hover { background-color: var(--btn-hover); }
 .day-nav-btn.is-visible { display: block; }
@@ -392,12 +396,12 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 /* ヘッダーのアイコン列に移した💞ボタン:他のヘッダーアイコン(24px四方、枠・影なし)と同じ見た目にする。ONの色(水色)はそのまま */
 #headerBtnGroup #heartToggleBtn { border: none; box-shadow: none; background-color: transparent; color: var(--muted); border-radius: 12px; }
 #headerBtnGroup #heartToggleBtn:hover { color: var(--text); background-color: var(--btn-bg); }
-#headerBtnGroup #heartToggleBtn.is-active { color: #fff; background-color: #38bdf8; }
+#headerBtnGroup #heartToggleBtn.is-active { color: #fff; background-color: #0ea5e9; }
 .theme-toggle-btn { overflow: hidden; }
 #backBtn { font-size: 17px; line-height: 1; padding-bottom: 2px; } /* ↺:直前の検索条件に戻す。戻せるものが無い間は押せない(非活性) */
 #backBtn:disabled, #backBtn:disabled:hover { opacity: 0.35; cursor: not-allowed; background-color: var(--btn-bg); color: var(--text); }
 .lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #textSizeBtn:hover, #dateSearchBtn:hover { background-color: var(--btn-hover); }
-.lock-toggle-btn.is-active { background-color: #38bdf8; color: #fff; border-color: transparent; }
+.lock-toggle-btn.is-active { background-color: #0ea5e9; color: #fff; border-color: transparent; }
 /* 「A」ボタン自体の大きさは変えず、データ部の文字サイズだけを拡大縮小する */
 
 /* 文字サイズ変更パネル(「A」ボタン直下に、アイコンに対して中央揃えで表示) */
@@ -419,7 +423,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .cal-grid button.is-out { color: var(--muted); }
 .cal-grid button:hover, .cal-mgrid button:hover { background-color: var(--btn-hover); }
 .cal-grid button.is-today, .cal-mgrid button.is-today { box-shadow: inset 0 0 0 2px #38bdf8; }
-.cal-grid button.is-sel, .cal-mgrid button.is-sel { background-color: #38bdf8; color: #fff; font-weight: 700; }
+.cal-grid button.is-sel, .cal-mgrid button.is-sel { background-color: #0ea5e9; color: #fff; font-weight: 700; }
 .cal-mgrid button { height: 44px; font-size: 14px; }
 .cal-foot { display: flex; justify-content: flex-end; margin-top: 8px; }
 .cal-foot button { height: 34px; padding: 0 16px; font-size: 13px; color: #38bdf8; font-weight: 700; }
@@ -454,7 +458,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .text-size-wrap-btn { width: 26px; height: 24px; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; border: none; border-radius: 6px; background: none; color: var(--sub); cursor: pointer; }
 .text-size-wrap-btn svg { width: 16px; height: 16px; display: block; }
 .text-size-wrap-btn:hover { color: var(--text); }
-.text-size-wrap-btn.is-on { color: #fff; background-color: #38bdf8; }
+.text-size-wrap-btn.is-on { color: #fff; background-color: #0ea5e9; }
 /* 折り返し表示ON:データ部のタイトルを2行まで表示し、2行に収まらない分だけ「…」にする */
 body.wrap-mode .item-title { white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; text-overflow: ellipsis; overflow-wrap: anywhere; }
 body.wrap-mode .item-title:hover, body.wrap-mode .item-title:focus { text-overflow: ellipsis; }
@@ -578,8 +582,7 @@ body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--dat
   line-height: 1.2; 
   color: var(--text); 
   text-align: left; 
-  transition: flex-basis 0.38s cubic-bezier(0.22, 0.61, 0.36, 1);
-  will-change: flex-basis;
+  transition: flex-basis 0.3s ease; /* ハートの開閉(0.3s ease)と同じ */
 }
 /* アイコン本体を置く箱。幅を常に固定にして中央寄せすることで、枠 */
 .item-contents-icon {
@@ -799,7 +802,7 @@ body .item-contents.is-content-open {
 .settings-reset:hover { background: var(--btn-hover); color: var(--text); }
 /* 下部のOKボタン: 設定一覧が長くスクロールしても、常にポップアップの下端に表示する */
 .settings-footer { position: sticky; bottom: -18px; margin: 14px -18px -18px; padding: 10px 18px 16px; background: var(--bg); border-top: 1px solid var(--border); }
-.settings-ok { display: block; width: 100%; max-width: 220px; margin: 0 auto; padding: 9px 0; border: none; border-radius: 18px; background: #38bdf8; color: #fff; font-size: 13px; font-weight: bold; letter-spacing: 0.06em; cursor: pointer; }
+.settings-ok { display: block; width: 100%; max-width: 220px; margin: 0 auto; padding: 9px 0; border: none; border-radius: 18px; background: #0ea5e9; color: #fff; font-size: 13px; font-weight: bold; letter-spacing: 0.06em; cursor: pointer; }
 .settings-ok:hover { filter: brightness(1.08); }
 /* SETTINGで「非表示」にした項目のフィルターボタン(および中身が全て非表示になった段) */
 .vis-hidden { display: none !important; }
@@ -931,6 +934,13 @@ body .item-contents.is-content-open {
 @keyframes snsTagFade { from { opacity: 0; } to { opacity: 1; } }
 .sns-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
 /*]]>*/
+/* 青地の白文字を読みやすく:太字にせず(文字幅を変えず)縁取りと影で疑似的に太く見せる */
+.date-part-btn.is-active, #badgeToggleBtn.is-active, #iconToggleBtn.is-active, #filterSummaryToggleBtn.is-active,
+#todayToggleBtn.is-active, #songToggleBtn.is-active, #heartToggleBtn.is-active, #setlistToggleBtn.is-active,
+#textSizeBtn.is-active, .sort-arrow-btn.is-real-today, .lock-toggle-btn.is-active, .text-size-wrap-btn.is-on {
+  -webkit-text-stroke: 0.4px #fff;
+  text-shadow: 0 0 0.5px #fff, 0 1px 1px rgba(3, 60, 110, 0.5);
+}
 </style>
 </head>
 <body>
@@ -1625,6 +1635,19 @@ body .item-contents.is-content-open {
     el.style.maxWidth = prevMaxWidth;
     const maxContentWidth = fontSizePx * MAX_CONTENT_OPEN_EM;
     return Math.min(naturalContentWidth, maxContentWidth);
+  };
+
+  // コンテンツ枠の開閉:今の幅(px)から動かし始めるため、いったん transition を切って幅を固定してから目的の幅へ動かす
+  const setContentBasis = (el, fromPx, to) => {
+    el.style.transition = 'none';
+    el.style.flexBasis = fromPx + 'px';
+    void el.offsetWidth;
+    el.style.transition = '';
+    el.style.flexBasis = to;
+  };
+  const cancelContentClose = el => { // 縮小中の「終わったら隠す」予約を取り消す(縮小中にもう一度開いた時など)
+    if (el.__closeDone) { el.removeEventListener('transitionend', el.__closeDone); el.__closeDone = null; }
+    if (el.__closeTimer) { clearTimeout(el.__closeTimer); el.__closeTimer = null; }
   };
 
   // team-both(G2/L2両方)行でどちらのメンバーか判定する集合
@@ -2545,25 +2568,42 @@ body .item-contents.is-content-open {
 
       if (canToggle) {
         // 開く:コンテンツ名を表示した上で、枠全体の実際の横幅を計測し、ちょうど収まる幅
-        const openContentBox = () => {
+        const openContentBox = (animate = true) => {
+          cancelContentClose(ct);
           ct.classList.add('is-content-open');
           ctName.style.display = '';
           ct.setAttribute('aria-expanded', 'true');
+          if (animate) { // 今の幅から、中身の幅まで動かす(ハートと同じ)
+            const from = ct.getBoundingClientRect().width;
+            const targetPx = measureContentOpenWidthPx(ct);
+            setContentBasis(ct, from, targetPx + 'px');
+            return;
+          }
+          // 再描画で作り直した行:動かさず、最初から開いた幅で表示する
           requestAnimationFrame(() => {
             if (!ct.isConnected || !ct.classList.contains('is-content-open')) return;
             const targetPx = measureContentOpenWidthPx(ct);
+            ct.style.transition = 'none';
             ct.style.flexBasis = targetPx + 'px';
+            void ct.offsetWidth;
+            ct.style.transition = '';
           });
         };
         // 閉じる:コンテンツ名を隠し、幅の指定も解除して現在の表示モード基準の幅に戻す
         const closeContentBox = () => {
           ct.classList.remove('is-content-open');
-          ctName.style.display = 'none';
-          ct.style.flexBasis = '';
           ct.setAttribute('aria-expanded', 'false');
+          // 文字は残したまま枠だけ縮め、縮み終わってから隠す(ハートと同じ。文字が先に消えない)
+          const from = ct.getBoundingClientRect().width;
+          setContentBasis(ct, from, '');
+          const hide = () => { cancelContentClose(ct); if (!ct.classList.contains('is-content-open')) ctName.style.display = 'none'; };
+          const done = e => { if (e.propertyName === 'flex-basis') hide(); };
+          ct.addEventListener('transitionend', done);
+          ct.__closeDone = done;
+          ct.__closeTimer = setTimeout(hide, 450); // 幅が変わらず transitionend が来ない場合の保険
         };
 
-        if (expandedContentKeys.has(contentKey)) openContentBox();
+        if (expandedContentKeys.has(contentKey)) openContentBox(false);
 
         const toggleContentExpand = () => {
           // この行だけの開閉状態をキーで記録する(他の行の展開状態には影響しない)
@@ -4048,6 +4088,19 @@ body .item-contents.is-content-open {
     // コンテンツ種類ボタンは、切替前後の横幅を測り、幅だけをなめらかに広げ縮めする(中身の文字/アイコンは即時に切り替わる)
     const filterLabels = Array.from(document.querySelectorAll('.checks-row-other label'));
     const widthsBefore = filterLabels.map(l => l.getBoundingClientRect().width);
+    // データ部のコンテンツ種類枠も同様に、切替前の幅(画面内の行だけ)を記録しておく
+    const reduceMotion = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    const ctBefore = [];
+    if (!reduceMotion) {
+      const vh = window.innerHeight;
+      document.querySelectorAll('#items .item-contents').forEach((el, i) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        const nm = el.querySelector('.item-contents-name');
+        ctBefore.push({ i, w: r.width, nameShown: !!nm && nm.style.display !== 'none' });
+      });
+    }
+    const ctCountBefore = document.querySelectorAll('#items .item-contents').length;
     document.body.classList.toggle('icon-only-mode', iconMode);
     if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
       filterLabels.forEach((l, i) => {
@@ -4063,6 +4116,26 @@ body .item-contents.is-content-open {
     localStorage.setItem(ICON_MODE_KEY, iconMode);
     updateContentTooltips();
     updateDisplay(false, false, true); // 同じフレームで即時に差し替える(フェードイン・空白フレームなし)
+    // データ部のコンテンツ種類枠:作り直された枠を、切替前の幅から新しい幅へ動かす(ハートの開閉と同じ 0.3s ease)
+    if (ctBefore.length) {
+      const cts = document.querySelectorAll('#items .item-contents');
+      if (cts.length === ctCountBefore) {
+        ctBefore.forEach(({ i, w, nameShown }) => {
+          const el = cts[i];
+          if (!el || !el.animate) return;
+          const w1 = el.getBoundingClientRect().width;
+          if (!w || !w1 || Math.abs(w1 - w) < 0.5) return;
+          const nm = el.querySelector('.item-contents-name');
+          const keepName = !!nm && nameShown && nm.style.display === 'none'; // 縮む間は文字を残し、終わってから隠す
+          if (keepName) nm.style.display = '';
+          const anim = el.animate([{ flexBasis: w + 'px' }, { flexBasis: w1 + 'px' }], { duration: 300, easing: 'ease' });
+          if (keepName) {
+            const restore = () => { if (nm.isConnected && !el.classList.contains('is-content-open')) nm.style.display = 'none'; };
+            anim.onfinish = restore; anim.oncancel = restore;
+          }
+        });
+      }
+    }
   };
 
   // ♪ボタン:検索窓の下にある楽曲紹介バー(PLAYボタン+タイトル/アーティスト)の表示/非表示を切り替える
@@ -4124,7 +4197,17 @@ body .item-contents.is-content-open {
     $('songToggleBtn').classList.toggle('is-active', songMode);
     $('songBar').classList.toggle('is-open', songMode);
     localStorage.setItem(SONG_MODE_KEY, songMode);
+    if (songMode && Array.isArray(songsData) && songsData.length > 1) { // ONにするたびに、直前と別の曲へ差し替える(通信・再描画なし)
+      let next;
+      do { next = songsData[Math.floor(Math.random() * songsData.length)]; } while (next === currentSong);
+      applySong(next);
+    }
     if (songMode) updateSongTickerScroll(); // 表示直後に幅が確定するよう再計測する
+    if (songMode) { // 曲名を右から飛んでこさせる(終了後はクラスを外し、テロップのスクロールと干渉させない)
+      const vp = $('songTickerViewport');
+      vp.classList.remove('song-enter'); void vp.offsetWidth; vp.classList.add('song-enter');
+      vp.addEventListener('animationend', () => vp.classList.remove('song-enter'), { once: true });
+    }
   };
 
   // 💞ボタン:現在表示中の全行のハートを一括で展開/縮小する(押した時点の集約状態を反転させる)
