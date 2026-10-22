@@ -2439,6 +2439,25 @@
     "suffix": "開催記念日"
   },
   {
+    "logid": "eecdc31c516b",
+    "date": "20261101",
+    "time": "",
+    "contents": "RESULT",
+    "title": "NATSLIVE 「Lakiガチャクッキング」　#016 一般観覧申込当選発表",
+    "display_sp": "Lakiガチャクッキング #016 一般観覧申込当選発表",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW"
+    ],
+    "tags": [
+      "NATSLIVE",
+      "Lakiガチャクッキング"
+    ]
+  },
+  {
     "logid": "aa13e15405ed",
     "date": "20261031",
     "time": "1800",
@@ -2528,6 +2547,25 @@
     "contents": "ANNIVERSARY",
     "ref": "de472b4a3bd1",
     "suffix": "開催記念日"
+  },
+  {
+    "logid": "60e930dcd047",
+    "date": "20261031",
+    "time": "",
+    "contents": "CLOSE",
+    "title": "NATSLIVE 「Lakiガチャクッキング」　#016 一般観覧申込受付締切",
+    "display_sp": "Lakiガチャクッキング #016 一般観覧申込受付締切",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW"
+    ],
+    "tags": [
+      "NATSLIVE",
+      "Lakiガチャクッキング"
+    ]
   },
   {
     "logid": "6612456694b7",
@@ -3157,6 +3195,25 @@
     "tags": [
       "EASY",
       "On Line Capsule"
+    ]
+  },
+  {
+    "logid": "bf455e594560",
+    "date": "20261025",
+    "time": "1500",
+    "contents": "CAMPAIGN",
+    "title": "NATSLIVE 「Lakiガチャクッキング」　#016 一般観覧申込受付開始",
+    "display_sp": "Lakiガチャクッキング #016 一般観覧申込受付開始",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW"
+    ],
+    "tags": [
+      "NATSLIVE",
+      "Lakiガチャクッキング"
     ]
   },
   {
