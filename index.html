@@ -159,7 +159,7 @@ body.is-resizing-container { cursor: ew-resize; user-select: none; }
 .sticky-header-inner { position: relative; padding-bottom: 8px; }
 .header-row { display: flex; justify-content: flex-start; align-items: flex-end; margin-bottom: 14px; position: relative; }
 h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側のボタンが増えても、タイトル「GL log」は縮めず1行のままにする */
-#headerBtnGroupRight .toggle-btn { padding: 4px 4px; } /* BADGE/ICON/TODAYの左右余白を少し詰めて、スマホ幅でも左のアイコン列と並べる */
+#headerBtnGroupRight .toggle-btn { padding: 4px clamp(1px, calc(1px + (100vw - 392px) / 8), 8px); } /* BADGE/ICON/TODAYの左右余白を少し詰めて、スマホ幅でも左のアイコン列と並べる */
 .reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; letter-spacing: -2px; }
 .reset-link sup { font-size: 0.67em; }
 .reset-link:hover { opacity: 0.8; }
@@ -167,12 +167,12 @@ h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側の�
 .toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
 .header-btn-group { display: flex; align-items: center; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; min-width: 0; }
 /* スマホ幅でリンクボタン分のはみ出しを減らすため、ボタン間の間隔だけ少し詰める(タップ領域自体は変わらないので操作性への影響は小さい) */
-#headerBtnGroup { gap: 4px; position: relative; top: 2px; } /* タイトル「GL log」(下端そろえ・高さ20px)の縦中心に、24pxのアイコン列の中心をそろえる */
+#headerBtnGroup { gap: 8px; position: relative; top: 2px; } /* タイトル「GL log」(下端そろえ・高さ20px)の縦中心に、24pxのアイコン列の中心をそろえる */
 .header-btn-group::-webkit-scrollbar { display: none; }
 .header-btn-group > * { flex-shrink: 0; }
 .date-part-btn { padding: 4px 5px; font-size: 12px; }
 /* 時計ボタンを押すと、時計の枠が他のアイコンの上に横へ伸びて、中に年/月/日/曜/時が出る(幅はJSで動かす) */
-.dp-pill { position: absolute; left: 0; top: 0; height: 30px; width: 0; box-sizing: border-box; display: flex; align-items: center; gap: 4px; padding: 0 3px; border-radius: 15px; background: var(--bg); box-shadow: 0 0 0 1px var(--input-border), 0 2px 8px rgba(0,0,0,.18); overflow: hidden; z-index: 30; visibility: hidden; opacity: 0; transition: width .26s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .16s ease, visibility 0s linear .26s; }
+.dp-pill { position: absolute; left: 0; top: 0; height: 30px; width: 0; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 3px; border-radius: 15px; background: var(--bg); box-shadow: 0 0 0 1px var(--input-border), 0 2px 8px rgba(0,0,0,.18); overflow: hidden; z-index: 30; visibility: hidden; opacity: 0; transition: width .26s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .16s ease, visibility 0s linear .26s; }
 .dp-pill.is-open { visibility: visible; opacity: 1; transition: width .26s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .12s ease, visibility 0s; }
 /* ヘッダーの左側のアイコン(🕐 年月日曜時 📍 📋 🏷️ 🔗)は、すべて同じ大きさ(24px四方)にそろえる */
 #headerBtnGroup .date-part-btn, .dp-pill > .date-part-btn { flex: 0 0 auto; width: 24px; height: 24px; min-width: 0; box-sizing: border-box; padding: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; line-height: 1; border-radius: 12px; }
@@ -271,11 +271,12 @@ h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側の�
 /* --- 曲紹介バー(♪ボタンで開閉。検索窓の下に表示) --- */
 .song-bar { display: flex; align-items: center; gap: 10px; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0; margin-bottom: 0; transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.35s ease, margin-bottom 0.35s ease; }
 .sticky-header.is-initializing .song-bar { transition: none !important; }
-.song-bar.is-open { max-height: 44px; opacity: 1; margin-top: 2px; margin-bottom: 8px; }
+.song-bar.is-open { max-height: 44px; opacity: 1; margin-top: 0; margin-bottom: 4px; }
 .song-play-btn { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: #fff; color: #121212; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
 .song-play-btn:hover { background-color: #eee; }
+.song-play-btn:focus, .song-play-btn:focus-visible { outline: none; } /* 押したあと(別タブから戻った時など)に青い枠を出さない */
 .song-ticker-viewport { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; position: relative; }
-.song-ticker-text { display: inline-block; font-size: 13px; line-height: 1.2; color: var(--text); white-space: nowrap; }
+.song-ticker-text { display: inline-block; font-size: 13px; line-height: 1.4; padding: 1px 0; color: var(--text); white-space: nowrap; }
 .song-ticker-viewport.is-scrolling .song-ticker-text { animation-name: songTicker; animation-timing-function: linear; animation-iteration-count: infinite; }
 @keyframes songTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 /* ♪ボタンでバーを開いた時、曲名(表示エリアごと)を右から飛んでこさせる。少し行き過ぎて戻る */
@@ -369,7 +370,6 @@ body.icon-only-mode .checks .label-icon-part { display: inline; }
 .day-nav-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 16.875px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
 .day-nav-btn:hover { background-color: var(--btn-hover); }
 .day-nav-btn.is-visible { display: block; }
-.day-nav-btn.is-pressed { color: #fff; background-color: #34d399; border-color: #34d399; }
 .inline-clear-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--sub); font-size: 11px; cursor: pointer; padding: 3px 8px; border-radius: 12px; display: none; outline: none; letter-spacing: 0.5px; }
 .inline-clear-btn:hover { background-color: var(--btn-hover); color: var(--text); }
 
@@ -511,8 +511,6 @@ body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--dat
 
 #todayToggleBtn.is-offset-prev { color: #fff; background-color: #f59e0b; }
 #todayToggleBtn.is-offset-next { color: #fff; background-color: #34d399; }
-/* TODAYモード中に年フィルターが選択されている間は、前後日移動をしても黄色を優先して表示する */
-#todayToggleBtn.is-year-filtered { color: #111; background-color: #facc15; }
 /* 長押しで「保持」状態にした場合の青いリング */
 #todayToggleBtn.is-held { box-shadow: inset 0 0 0 2px #38bdf8; }
 /* --- 現在有効な絞り込み条件のバッジ一覧(フィルターエリア折りたたみ時に表示) --- */
@@ -2515,8 +2513,8 @@ body .item-contents.is-content-open {
     const isTodayDate = !todayMode && item.date === getTargetDateStr(0);
     if (isTodayDate) d.classList.add('is-today-date');
 
-    // TODAYモードで当日(todayOffset===0)を表示中は、代わりに「現在時刻以降」の項目を目立たせる
-    const isUpcomingTime = todayMode && todayOffset === 0 && !!item.time
+    // TODAYモードで実際の今日(年フィルターで過去/未来の年を選んでいる時は除く)を表示中は、代わりに「現在時刻以降」の項目を目立たせる
+    const isUpcomingTime = todayMode && todayRelation() === 0 && !!item.time
       && parseInt(item.time.slice(0, 2), 10) >= new Date().getHours();
     if (isUpcomingTime) d.classList.add('is-upcoming-time');
 
@@ -4192,6 +4190,13 @@ body .item-contents.is-content-open {
   let songMode = localStorage.getItem(SONG_MODE_KEY) === 'true';
   $('songToggleBtn').classList.toggle('is-active', songMode);
   $('songBar').classList.toggle('is-open', songMode);
+  // 曲名を右から飛んでこさせる(終了後はクラスを外し、テロップのスクロールと干渉させない)
+  const playSongEnter = () => {
+    const vp = $('songTickerViewport');
+    vp.classList.remove('song-enter'); void vp.offsetWidth; vp.classList.add('song-enter');
+    vp.addEventListener('animationend', () => vp.classList.remove('song-enter'), { once: true });
+  };
+  let songEnterPending = songMode; // 初期表示時に♪がONなら、最初の曲が入った時に1度だけ飛んでこさせる
   $('songToggleBtn').onclick = () => {
     songMode = !songMode;
     $('songToggleBtn').classList.toggle('is-active', songMode);
@@ -4203,11 +4208,8 @@ body .item-contents.is-content-open {
       applySong(next);
     }
     if (songMode) updateSongTickerScroll(); // 表示直後に幅が確定するよう再計測する
-    if (songMode) { // 曲名を右から飛んでこさせる(終了後はクラスを外し、テロップのスクロールと干渉させない)
-      const vp = $('songTickerViewport');
-      vp.classList.remove('song-enter'); void vp.offsetWidth; vp.classList.add('song-enter');
-      vp.addEventListener('animationend', () => vp.classList.remove('song-enter'), { once: true });
-    }
+    songEnterPending = false;
+    if (songMode) playSongEnter();
   };
 
   // 💞ボタン:現在表示中の全行のハートを一括で展開/縮小する(押した時点の集約状態を反転させる)
@@ -4467,7 +4469,24 @@ body .item-contents.is-content-open {
   const updateSortBtnLabel = () => {
     updateSortBtnLabelCore();
     const btn = $('sortBtn');
-    btn.classList.toggle('is-real-today', !!(todayMode && todayOffset === 0 && btn.querySelector('.sd')));
+    btn.classList.toggle('is-real-today', !!(todayMode && todayRelation() === 0 && btn.querySelector('.sd')));
+  };
+  // TODAYモードで表示している日付が、実際の今日と比べて 過去(-1)/今日(0)/未来(1) のどれか
+  // 年フィルターが1つだけ選ばれている時は、その年の(月日=今日+todayOffset)の日付で比べる。それ以外はtodayOffsetの符号
+  // 年フィルターを2つ以上選んでいる時は日付が1つに決まらないので null(色なし・現在時刻の目立たせなし。TODAYモード自体はONのまま)
+  const todayRelation = () => {
+    const years = getCheckedYears();
+    if (years.length > 1) return null;
+    if (years.length === 1) {
+      const md = getTargetMonthDayStr(todayOffset);
+      const y = +years[0], m = +md.slice(0, 2), d = +md.slice(2, 4);
+      const dt = new Date(y, m - 1, d);
+      if (dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d) { // 実在しない日付(閏日でない年の2/29など)は下のtodayOffset判定に回す
+        const t = new Date(); t.setHours(0, 0, 0, 0);
+        return Math.sign(Math.round((dt - t) / 86400000));
+      }
+    }
+    return Math.sign(todayOffset);
   };
   const getTargetMonthDayStr = offsetDays => {
     const d = new Date();
@@ -4633,11 +4652,11 @@ body .item-contents.is-content-open {
 
   const updateTodayButtonStyle = () => {
     const btn = $('todayToggleBtn');
-    btn.classList.toggle('is-active', todayMode && todayOffset === 0);
-    btn.classList.toggle('is-offset-prev', todayMode && todayOffset < 0);
-    btn.classList.toggle('is-offset-next', todayMode && todayOffset > 0);
-    // 年フィルター選択中は、前後日移動の色より黄色を優先する
-    btn.classList.toggle('is-year-filtered', todayMode && !!$('yearChecks').querySelector('input:checked'));
+    // 表示している日付が今日と比べて 今日=青 / 未来=緑 / 過去=オレンジ(年フィルターを1つ選んでいる時は、その年の日付で比べる)
+    const rel = todayMode ? todayRelation() : null;
+    btn.classList.toggle('is-active', rel === 0);
+    btn.classList.toggle('is-offset-prev', rel !== null && rel < 0);
+    btn.classList.toggle('is-offset-next', rel !== null && rel > 0);
     // 検索窓の日付入力でTODAYモードがONになっている間は、日付検索の絞り込み
     $('prevDayBtn').classList.toggle('is-visible', todayMode);
     $('nextDayBtn').classList.toggle('is-visible', todayMode);
@@ -5648,6 +5667,7 @@ body .item-contents.is-content-open {
     const textEl = $('songTickerText');
     textEl.dataset.label = currentSong ? `${currentSong.title || ''} / ${currentSong.artist || ''}` : '';
     updateSongTickerScroll();
+    if (songEnterPending && songMode && currentSong) { songEnterPending = false; playSongEnter(); }
   };
 
   const applySongs = data => {

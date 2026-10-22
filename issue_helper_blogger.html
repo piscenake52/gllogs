@@ -92,6 +92,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .dtx { position:absolute; right:34px; top:50%; transform:translateY(-50%); width:20px; height:20px; margin:0; padding:0; border:0; border-radius:50%; background:transparent; box-shadow:none; color:var(--sub); font:inherit; font-size:12px; line-height:20px; text-align:center; cursor:pointer; }
 #glih .dtx:hover { color:var(--text); background:var(--btn); }
 #glih .dtw > .fin:placeholder-shown ~ .dtx { visibility:hidden; }
+#glih .dtarr { flex:0 0 36px; width:36px; padding-left:0; padding-right:0; text-align:center; } /* the < > beside today of the date field (copy mode only) */
 #glih #glih-fdprev, #glih #glih-fdnext { flex:0 0 36px; width:36px; padding-left:0; padding-right:0; text-align:center; } /* < > : twice as wide as before */
 #glih .dtb:hover { color:var(--text); }
 #glih .dtb svg { width:16px; height:16px; display:block; }
@@ -530,7 +531,18 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     field.appendChild(ti); dtPicker(ti, type);
     var wdu = type === 'date' ? addWeekday(ti) : null; if (wdu) { ti.addEventListener('input', wdu); wdu(); }
     function mk(text, title, fn) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = text; b.title = title; b.onclick = fn; field.appendChild(b); return b; }
+    // copy mode (id given + the copy checkbox ON): < > buttons beside today move the date by one day (hidden otherwise)
+    function shiftTi(n) {
+      var d = digitsOf(ti.value), t = new Date(), base = d.length === 8 ? new Date(+d.slice(0, 4), +d.slice(4, 6) - 1, +d.slice(6, 8)) : new Date(t.getFullYear(), t.getMonth(), t.getDate());
+      if (isNaN(base.getTime())) base = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+      base.setDate(base.getDate() + n);
+      ti.value = fmtDigits(base.getFullYear() + ('0' + (base.getMonth() + 1)).slice(-2) + ('0' + base.getDate()).slice(-2), 'date'); fromTi();
+    }
+    function mkArr(text, title, n) { var b = mk(text, title, function () { shiftTi(n); }); b.classList.add('dtarr'); b.hidden = !$('fcp').checked; return b; }
+    var pv = null, nx = null;
+    if (type === 'date') pv = mkArr('<', 'prev day', -1);
     if (type === 'date') mk('today', 'today', function () { ti.value = fmtDigits(today().replace(/\D/g, ''), 'date'); fromTi(); });
+    if (type === 'date') nx = mkArr('>', 'next day', 1);
     var rv = mk('\u21BA', 'revert', function () { el.value = orig[key]; el.dispatchEvent(new Event('input', { bubbles: true })); });
     var sync = function () { rv.hidden = el.value === orig[key]; };
     el.addEventListener('input', sync); sync();
@@ -1802,7 +1814,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   $('fdprev').onclick = function () { shiftDate(-1); };
   $('fdnext').onclick = function () { shiftDate(1); };
   $('fan').addEventListener('change', updateFind); $('ff').addEventListener('change', updateFind);
-  $('fcp').addEventListener('change', function () { applyModeUI(); updateFind(); }); // setlist copy: the top date / time become the new setlistid
+  $('fcp').addEventListener('change', function () { [].forEach.call(document.querySelectorAll('#glih .dtarr'), function (b) { b.hidden = !$('fcp').checked; }); applyModeUI(); updateFind(); }); // setlist copy: the top date / time become the new setlistid
   addClear($('fid'));
   $('fgo').onclick = doFind;
   $('fid').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doFind(); } });
