@@ -616,7 +616,7 @@ def apply_copy_setlist(target, main_data, src_id, item, issue, issue_map):
     return "added"
 
 
-REPEAT_DROP = ("date", "title", "logid", "setlistid", "url", "map", "sns", "display_pc", "display_sp")  # 繰り返し登録では引き継がない項目
+REPEAT_DROP = ("date", "title", "logid", "setlistid", "map")  # 繰り返し登録で、フォームの値をそのまま引き継がない項目(url / sns / display_pc / display_sp は引き継ぐ。display_pc / display_sp は回ごとに title と同じ規則で変える)
 
 
 def bump_number(title, i):
@@ -631,24 +631,29 @@ def bump_number(title, i):
 
 def apply_repeat(target, main_data, item, repeat, issue, issue_map, anniv=False, anniv_sx=""):
     """繰り返し登録: repeat（1行1回の {"date", "time"?, "title"?, "contents"?, "url"?, "display_sp"?}）ごとに logs を登録する。
-    title は最初の回の title の `#数字` を回ごとに +1（行に title があればそれを優先）。time / contents / url / display_sp は行に指定があればそれを使う。map / sns / display_pc（と、行に指定のない url / display_sp）は引き継がない。
+    title は最初の回の title の `#数字` を回ごとに +1（行に title があればそれを優先）。time / contents / url / display_sp は行に指定があればそれを使う。
+    フォームの url / sns は全回に引き継ぐ。display_pc / display_sp は、行に title があればその title の「フォームの title より後ろの部分」を足し、なければ `#数字` を回ごとに +1 する（フォームで空にした項目は付けない）。map は引き継がない(通知もしない)。
     同じIssueの再編集は、前回の登録分を同じ順番で更新し、増えた回は追加、減った回は削除する（logid は変わらない）。
     すでに同じ date + time + contents + title の行があるときは、その回は登録しない。戻り値: added / updated / invalid"""
     base = {k: v for k, v in item.items() if not k.startswith("_") and k not in REPEAT_DROP}
-    all_url = all(occ.get("url") for occ in repeat[:REPEAT_LIMIT])  # 全部の回にURLの指定があれば、フォームのURLの扱いは気にしなくてよい
-    all_sp = all(occ.get("display_sp") for occ in repeat[:REPEAT_LIMIT])
-    all_map = all(occ.get("map") for occ in repeat[:REPEAT_LIMIT])
-    dropped = [k for k in ("url", "map", "sns", "display_pc", "display_sp") if not is_blank(item.get(k)) and not (k == "url" and all_url) and not (k == "display_sp" and all_sp) and not (k == "map" and all_map)]
-    if dropped:
-        NOTICES.append(f"- **logs**: 繰り返し登録では {' / '.join(dropped)} は引き継ぎません")
     title0 = item.get("title", "")
     prev = issue_map.get(issue) if issue else None
     prev = list(prev) if isinstance(prev, list) else []
     ids, added, updated = [], 0, 0
     for i, occ in enumerate(repeat[:REPEAT_LIMIT]):
-        rec = dict(base)
+        rec = copy.deepcopy(base)  # sns など入れ子の値を回ごとに別物にする
         rec["date"] = occ.get("date", "")
         rec["title"] = occ.get("title") or bump_number(title0, i)
+        for k in ("display_pc", "display_sp"):  # フォームの値を引き継ぐ。空(または !clear)にした項目は付けない
+            v0 = item.get(k)
+            if is_blank(v0) or is_clear(v0) or not isinstance(v0, str):
+                rec.pop(k, None)
+            elif occ.get("title") and title0 and occ["title"].startswith(title0):
+                rec[k] = v0 + occ["title"][len(title0):]  # 行の title がフォームの title の後ろに足した部分(締切・地域名など)を同じように足す
+            elif occ.get("title"):
+                rec[k] = v0
+            else:
+                rec[k] = bump_number(v0, i)  # title と同じく #数字 を回ごとに +1
         if "time" in occ:
             rec["time"] = occ["time"]  # 行ごとの時刻（空文字 = 時刻なし）
         for k in ("contents", "url", "display_sp", "map", "setlistid"):
