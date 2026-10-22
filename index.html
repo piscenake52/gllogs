@@ -181,6 +181,7 @@ h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側の�
 .item-tags { flex: 0 0 100%; box-sizing: border-box; display: grid; grid-template-rows: 0fr; opacity: 0; pointer-events: none; transition: grid-template-rows .26s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .2s ease; } /* 左の余白(タイトルの左端)はJSで入れる */
 .item-tags-in { min-height: 0; overflow-x: auto; overflow-y: hidden; display: flex; align-items: center; gap: 5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .item-tags-in::-webkit-scrollbar { display: none; }
+body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り返し表示のときは、タグのチップも折り返して全部見えるようにする */
 .items.tag-mode .item-tags { grid-template-rows: 1fr; opacity: 1; pointer-events: auto; }
 .item.has-tags { flex-wrap: wrap; } /* 常に折り返し可にする(タグ表示OFFでも、幅100%のチップ行が同じ段に居座って、データ部のタイトルを押しつぶさないように) */
 .items.tag-mode .item.has-tags { padding-bottom: 4px; }

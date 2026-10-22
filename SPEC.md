@@ -822,7 +822,7 @@ YYYYMMDD [時刻] [| タイトル [| contents [| URL [| display_sp]]]]
 - 日付は`YYYY/MM/DD`・`YYYY-MM-DD`でもよい。時刻は`HHMM`/`HH:MM`、`-`(時刻なし)。時刻を省略するとフォームの時刻を使う
 - `|`が1つだけのときは、その後ろ全部がタイトル(従来どおり)。`|`が2つ以上のときは「タイトル | contents | URL | display_sp」の順で、どれも空欄ならフォームの値を使う(display_spは空欄なら付けない)
 - 行にタイトルがなければ、最初の回のタイトルの`#数字`を回ごとに+1する(ゼロ埋めは保つ)
-- 行に指定のない`url`/`display_sp`、および`map`/`sns`/`display_pc`は引き継がない(引き継がないものがあれば、Issueに通知する)
+- フォームの`url`/`sns`は全回に引き継ぐ。`display_pc`/`display_sp`は、行にtitleがあればフォームのtitleより後ろの部分(締切・地域名など)を足し、なければtitleと同じく`#数字`を回ごとに+1する。行に`url`/`display_sp`の指定があればそれを優先する。フォームで空にした項目は付けない。`map`は引き継がない(通知はしない)
 - 同じIssueの再編集は、前回の登録分を同じ順番で更新し、増えた回は追加、減った回は削除する。すでに同じ`date+time+contents+title`の行があるときは、その回は登録しない
 - groups / relations / tags などの、ほかの項目はフォームの値を全件に使う
 
@@ -864,13 +864,13 @@ YYYYMMDD [時刻] [| タイトル [| contents [| URL [| display_sp]]]]
 2. 「Short name used as display_sp of every entry: this + the label (start: this only). Empty = display_sp is not set.」
    → 全件のdisplay_spに使う短い名前。「この名前 + ラベル」が各行のdisplay_spになる(startはこの名前だけ)。空欄ならdisplay_spは付けない。
 3. 「N entries will be registered (the url above is added to each / no url; map / sns / display are not copied).」(scheduleモード)
-   → 登録される件数。URLは、same urlがオンなら全件に入り、オフなら入らない。map・sns・display_pcは引き継がない。
+   → 登録される件数。フォームのurl・sns・display_pc・display_spは全件に引き継ぐ(display系は行のラベルを足す。空にした項目は付けない)。mapは引き継がない。
 4. scheduleモードの警告「A date / time / contents of a row is not valid (the row is skipped).」
    → 日付・時刻・contentsが正しくない行は、登録しない(その行を飛ばす)。欄が赤くなる。日付が未入力のとき(`Set the date above first.`)は、画面上部の日付を先に入れる必要がある。
 5. intervalモードの「including the first date (max 60); empty = auto from until」(countの説明)
    → countは、最初の日付を含む件数(最大60件)。空欄のときは、untilの日付までの件数を自動で数える(untilを入れてcountを入力していなければ自動)。
 6. intervalモードの「N of M dates will be registered (the same time / contents / groups / relations / tags; url / map / sns / display are not copied; the #number counts up).」
-   → チェックを入れたM件のうちN件が登録される。時刻・contents・groups・relations・tagsは、元と同じものを全件に使う。url・map・sns・displayは引き継がない。タイトルの`#数字`は回ごとに+1される。
+   → チェックを入れたM件のうちN件が登録される。時刻・contents・groups・relations・tagsは、元と同じものを全件に使う。url・snsは全件に引き継ぎ、display_pc・display_spもtitleと同じく`#数字`が回ごとに+1される(空にした項目は付けない)。mapは引き継がない。
 
 ### helper(`issue_helper_blogger.html`)
 
@@ -908,3 +908,15 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 参考: 1回しか使われていないタグ、urlが無い行(titleのある行のみ)。
 - 重複候補だけ`ignore`できる(キー=logidを並べ替えて連結、localStorage `glih_ck_ignore`。端末ごと)。`open N`はlogidをid欄に入れてlogsタブで検索する。
 - scriptはASCIIのみ・CRLF・`node --check`(helperの共通ルール)。
+
+### helperのnext(repeat/tour/weekly/monthly/yearly)で引き継ぐ項目
+
+- contents / groups / relations / tags / time / url / display_pc / display_sp / sns を新規入力欄へ入れる。dateは各モードの規則で進める。
+- title・display_pc・display_spは末尾の`#数字`を+1する。tourだけは、最後の空白より後ろ(地域名)を除いた部分にする。
+- 引き継いだ値を入力欄で消すと、その項目はIssueに送られず、登録されない(新規登録のとき)。
+
+### helper: 半角英数字だけの項目の入力補助
+
+- 対象: id(fid)、contents、groups、relations、member、url、map、setlistid、songsタブのlink。
+- ブラウザは日本語入力(IME)のオン・オフを強制できないため、①スマホのキーボード種別を`inputmode`で指定(url/map/link=url、setlistid=numeric、ほか=text。`autocapitalize=off`など)、②入力時に全角の英数字・記号を半角へ自動変換(変換中は行わず、確定後に変換)、③groups/relations/memberは全角・読点のカンマも`,`にする。
+- title・display・tags・sns・曲名など日本語を入れる項目は対象外。

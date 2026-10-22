@@ -247,6 +247,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     <div class="ckdhead"><button type="button" class="small" id="glih-ckback">&lt; back</button><b id="glih-ckdt"></b><span class="ckbadge" id="glih-ckdn"></span></div>
     <div id="glih-ckdl"></div>
     <button type="button" class="small" id="glih-ckmore" hidden>more</button>
+    <button type="button" class="small" id="glih-ckshow" hidden>show ignored</button>
+    <button type="button" class="small" id="glih-ckclr" hidden>clear ignored</button>
   </div>
   <div class="cknote" id="glih-cknote">Read-only: the data is not changed here. Open an id in the logs tab to fix it. Ignore marks are kept in this browser only.</div>
 </section>
@@ -306,9 +308,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   // ---- check tab: read-only data check of the full logs.json (empty / duplicated tags, bad dates, duplicate candidates ...). The fix itself is made in the logs tab ----
   var CK_VALID = 'G2 L2 YZH MMK MSK YOK KUR MNM KIR TOA RAN RIN TBK HIR YUW KAN RRK AKR KIK YUR STF'.split(' ');
-  var ckData = null, ckRes = null, ckView = '', ckLim = 50;
+  var ckData = null, ckRes = null, ckView = '', ckLim = 50, ckShowIg = false;
   function ckIgn() { try { var a = JSON.parse(localStorage.getItem('glih_ck_ignore') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
   function ckSetIgn(a) { try { localStorage.setItem('glih_ck_ignore', JSON.stringify(a)); } catch (e) {} }
+  function ckCopy(t, done) { // clipboard API first; falls back to a temporary textarea when it is refused
+    function old() { var ta = document.createElement('textarea'); ta.value = t; ta.style.cssText = 'position:fixed;left:-999px;top:0'; document.body.appendChild(ta); ta.select(); var ok = false; try { ok = document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); if (ok) done(); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, old); else old();
+  }
   function ckFmtD(d, t) { d = String(d || ''); t = String(t || ''); return (d.length === 8 ? d.slice(0, 4) + '/' + d.slice(4, 6) + '/' + d.slice(6) : d) + (t.length === 4 ? ' ' + t.slice(0, 2) + ':' + t.slice(2) : ''); }
   function ckRun(rows) {
     var order = [], C = {};
@@ -386,12 +392,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     $('ckmeta').textContent = R.n + ' rows / checked ' + R.at.getFullYear() + '/' + ('0' + (R.at.getMonth() + 1)).slice(-2) + '/' + ('0' + R.at.getDate()).slice(-2) + ' ' + ('0' + R.at.getHours()).slice(-2) + ':' + ('0' + R.at.getMinutes()).slice(-2) + ' / in this browser';
     $('ckmain').hidden = false; $('ckdet').hidden = true; ckView = '';
   }
-  function ckOpen(id) { ckView = id; ckLim = 50; $('ckmain').hidden = true; $('ckdet').hidden = false; ckDetail(); }
+  function ckOpen(id) { ckView = id; ckLim = 50; ckShowIg = false; $('ckmain').hidden = true; $('ckdet').hidden = false; ckDetail(); }
   function ckDetail() {
     var c = ckRes.C[ckView], ig = ckIgn(), host = $('ckdl'), shown = 0;
-    $('ckdt').textContent = c.name; $('ckdn').textContent = ckCnt(c) + (c.id === 'dup' && ig.length ? ' (+' + (c.items.length - ckCnt(c)) + ' ignored)' : '');
+    var nIg = c.id === 'dup' ? c.items.length - ckCnt(c) : 0;
+    var list = c.id === 'dup' && !ckShowIg ? c.items.filter(function (it) { return ig.indexOf(it.k) < 0; }) : c.items; // ignored ones are hidden unless 'show ignored' is on
+    $('ckdt').textContent = c.name; $('ckdn').textContent = ckCnt(c) + (nIg ? ' (+' + nIg + ' ignored)' : '');
     host.innerHTML = '';
-    c.items.forEach(function (it, i) {
+    list.forEach(function (it, i) {
       if (i >= ckLim) return; shown++;
       var isIgn = c.id === 'dup' && ig.indexOf(it.k) >= 0, r0 = it.rows[0], card = document.createElement('div');
       card.className = 'ckcard' + (isIgn ? ' ign' : '');
@@ -408,13 +416,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var mkb = function (t, fn) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = t; b.onclick = fn; btns.appendChild(b); return b; };
       var open1 = function (id) { $('fid').value = id; tab('logs'); try { history.replaceState(null, '', '#logs'); } catch (e) {} doFind(); };
       it.rows.forEach(function (r, j) { if (r.logid) mkb(it.rows.length > 1 ? 'open ' + (j + 1) : 'open', function () { open1(r.logid); }); });
-      var cp = mkb('copy id', function () { var t = it.rows.map(function (r) { return r.logid; }).join(' '); try { navigator.clipboard.writeText(t); cp.textContent = 'copied'; setTimeout(function () { cp.textContent = 'copy id'; }, 1200); } catch (e) {} });
+      it.rows.forEach(function (r, j) { if (!r.logid) return; var lb = it.rows.length > 1 ? 'copy ' + (j + 1) : 'copy id', cp = mkb(lb, function () { ckCopy(r.logid, function () { cp.textContent = 'copied'; setTimeout(function () { cp.textContent = lb; }, 1200); }); }); });
       var jb = mkb('json', function () { jp.hidden = !jp.hidden; });
       var jp = document.createElement('pre'); jp.className = 'ckjson'; jp.hidden = true; jp.textContent = JSON.stringify(it.rows, null, 2);
       if (c.id === 'dup') mkb(isIgn ? 'restore' : 'ignore', function () { var a = ckIgn(), p = a.indexOf(it.k); if (p >= 0) a.splice(p, 1); else a.push(it.k); ckSetIgn(a); ckDetail(); });
       card.appendChild(btns); card.appendChild(jp); host.appendChild(card);
     });
-    $('ckmore').hidden = c.items.length <= ckLim; $('ckmore').textContent = 'more (' + (c.items.length - shown) + ')';
+    $('ckshow').hidden = !nIg; $('ckshow').textContent = (ckShowIg ? 'hide ignored (' : 'show ignored (') + nIg + ')';
+    $('ckclr').hidden = !(c.id === 'dup' && ig.length); $('ckclr').textContent = 'clear ignored (' + nIg + ')'; $('ckclr')._arm = false;
+    $('ckmore').hidden = list.length <= ckLim; $('ckmore').textContent = 'more (' + (list.length - shown) + ')';
   }
   function ckStart() {
     $('ckmeta').textContent = 'loading logs.json ...'; $('ckrun').disabled = true;
@@ -426,6 +436,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   $('ckrun').onclick = function () { delete cache.logs; ckRes = null; ckStart(); };
   $('ckback').onclick = function () { ckList(); };
   $('ckmore').onclick = function () { ckLim += 50; ckDetail(); };
+  $('ckshow').onclick = function () { ckShowIg = !ckShowIg; ckDetail(); };
+  $('ckclr').onclick = function () { // two taps: the first one asks, the second one clears every ignore mark of this browser
+    var b = $('ckclr');
+    if (!b._arm) { b._arm = true; b.textContent = 'tap again to clear'; setTimeout(function () { if (b._arm) { b._arm = false; ckDetail(); } }, 3000); return; }
+    ckSetIgn([]); ckDetail();
+  };
 
   function today() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
 
@@ -1740,7 +1756,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     rep = { box: box, refresh: refresh };
     refresh();
   }
-  // continue: from the loaded log, open a new entry with the date moved by the pressed button (repeat = the same date with the repeat entry turned on, weekly = +7 days, monthly = the same day of the next month, yearly = the same day of the next year; a short month clamps to its last day) and the next #number
+  // continue: from the loaded log (contents / groups / relations / tags / time / url / display_pc / display_sp / sns), open a new entry with the date moved by the pressed button (repeat = the same date with the repeat entry turned on, weekly = +7 days, monthly = the same day of the next month, yearly = the same day of the next year; a short month clamps to its last day) and the next #number
   function nextOf(row, mode) {
     var cur = String(row.date || ''); if (!okDate(cur)) return '';
     var c = dateOf(cur);
@@ -1753,10 +1769,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function tourBase(t) { t = String(t || ''); var i = Math.max(t.lastIndexOf('\u3000'), t.lastIndexOf(' ')); return i > 0 ? t.slice(0, i) : t; } // the title without the last space-separated part (the area part)
   function continueFrom(row, mode) {
     var nd = nextOf(row, mode); if (!nd) return;
+    // url / display_pc / display_sp / sns are carried in every mode (display_pc / display_sp: the #number goes up like the title; tour: the part after the last space is dropped like the title). Clear a carried field to leave it out of the entry.
+    var dsp = function (v) { v = String(v || ''); return mode === 'tour' ? tourBase(v) : bumpTitle(v, 1); };
     $('fid').value = ''; hideCands(); clearFound();
     $('fdd').value = fmtDigits(nd, 'date'); $('fdt').value = fmtDigits(row.time || '', 'time'); $('fany').checked = !row.time;
     topChanged();
-    [['contents', row.contents], ['groups', row.groups], ['relations', row.relations], ['tags', row.tags], ['title', mode === 'tour' ? tourBase(row.title) : bumpTitle(row.title, 1)], ['url', mode === 'tour' ? row.url : '']].forEach(function (x) {
+    [['contents', row.contents], ['groups', row.groups], ['relations', row.relations], ['tags', row.tags], ['title', mode === 'tour' ? tourBase(row.title) : bumpTitle(row.title, 1)], ['url', row.url], ['display_pc', dsp(row.display_pc)], ['display_sp', dsp(row.display_sp)], ['sns', fmtSns(row.sns)]].forEach(function (x) {
       var v = x[1]; if (Array.isArray(v)) v = v.join(','); if (v) setVal(x[0], String(v));
     });
     if ((mode === 'repeat' || mode === 'tour') && $('rpon')) { $('rpon').checked = true; $('rpon').dispatchEvent(new Event('change', { bubbles: true })); if (mode === 'tour') { var tb = $('rpmd').querySelector('[data-m=tour]'); if (tb) tb.click(); } } // repeat entry mode: the repeat check is turned on (the date is kept)
@@ -2041,6 +2059,32 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   // the Issue button (bottom of the find tab): after the form page is opened, the input is reset (the same as the new button), ready for the next entry
   $('topnew').onclick = function () { $('fnew').onclick(); };
   $('go-find').addEventListener('click', function () { if ($('go-find').getAttribute('aria-disabled') === 'true') return; setTimeout(function () { $('fnew').onclick(); }, 300); });
+  // ---- ASCII-only fields: id / contents / groups / relations / member / url / map / setlistid / songs link ----
+  // The browser cannot force the IME off, so: the soft keyboard type is hinted (inputmode), and full-width letters / digits / symbols are turned into half-width as they are entered (not while composing). Fields that take Japanese text are left alone.
+  var ASCII_IDS = { 'fid': 'text', 'f-contents': 'text', 'f-groups': 'text', 'f-relations': 'text', 'f-member': 'text', 'f-url': 'url', 'f-map': 'url', 'f-setlistid': 'numeric', 'sl': 'url' };
+  var ASCII_LIST = { 'f-groups': 1, 'f-relations': 1, 'f-member': 1 }; // comma separated codes: a full-width / ideographic comma becomes ','
+  function asciiKey(el) { var id = el && el.id ? el.id.replace(/^glih-/, '') : ''; return ASCII_IDS[id] ? id : ''; }
+  var FW_RE = new RegExp('[' + String.fromCharCode(0xFF01) + '-' + String.fromCharCode(0xFF5E) + ']', 'g'), IDEO_SP = String.fromCharCode(0x3000), COMMA_RE = new RegExp('[' + String.fromCharCode(0x3001, 0xFF0C, 0xFF64) + ']', 'g');
+  function toAscii(v, list) {
+    var r = v.replace(FW_RE, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); }).split(IDEO_SP).join(' ');
+    return list ? r.replace(COMMA_RE, ',') : r;
+  }
+  function asciiHint(el) {
+    var k = asciiKey(el); if (!k || el._asciiSet) return; el._asciiSet = true;
+    el.setAttribute('inputmode', ASCII_IDS[k]); el.setAttribute('autocapitalize', 'off'); el.setAttribute('autocorrect', 'off'); el.setAttribute('spellcheck', 'false'); el.setAttribute('lang', 'en');
+  }
+  function asciiFix(el, fire) {
+    var k = asciiKey(el); if (!k) return;
+    var v = el.value, nv = toAscii(v, !!ASCII_LIST[k]); if (nv === v) return;
+    var s = el.selectionStart, e = el.selectionEnd; el.value = nv; try { el.setSelectionRange(s, e); } catch (x) {}
+    if (fire) el.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+  root.addEventListener('focusin', function (e) { asciiHint(e.target); }, true);
+  root.addEventListener('pointerdown', function (e) { asciiHint(e.target); }, true);
+  root.addEventListener('input', function (e) { if (!e.isComposing) asciiFix(e.target, false); }, true); // capture: runs before the field's own listeners, so they already see the half-width value
+  root.addEventListener('compositionend', function (e) { asciiFix(e.target, true); }, true);
+  root.addEventListener('change', function (e) { asciiFix(e.target, true); }, true);
+
   tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : location.hash === '#check' ? 'check' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
   applyModeUI();
   if (qid0) { $('fid').value = qid0; doFind(); } // opened with ?id=...: load that id in the tab given by the hash (#logs / #setlist)
