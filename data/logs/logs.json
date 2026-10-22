@@ -3984,6 +3984,20 @@
             ]
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/1FEMhN7NdwI?si=UcAJ8Tkt672X24cm",
+            "member": [
+              "HIR"
+            ],
+            "tags": [
+              "Short"
+            ]
+          }
+        ]
       }
     ]
   },
