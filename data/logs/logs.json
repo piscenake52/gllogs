@@ -29718,7 +29718,7 @@
     "date": "20260511",
     "time": "1900",
     "contents": "COOKING",
-    "title": "NATSLIVE 「Lakiガチャクッキング」　#009　ラッキーアジフライ",
+    "title": "NATSLIVE 「Lakiガチャクッキング」　#009",
     "display_sp": "Lakiガチャクッキング　#009",
     "url": "https://natslive.jp/episodes/17713",
     "map": "https://maps.app.goo.gl/Y6db33ndDKLsmErs6",
@@ -29728,6 +29728,11 @@
       "TBK",
       "RRK",
       "KIK"
+    ],
+    "tags": [
+      "ラッキーアジフライ",
+      "NATSLIVE",
+      "Lakiガチャクッキング"
     ]
   },
   {
