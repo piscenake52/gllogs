@@ -1552,9 +1552,33 @@
     "contents": "COOKING",
     "title": "NATSLIVE 「Lakiガチャクッキング」　#015",
     "display_sp": "Lakiガチャクッキング　#015",
+    "url": "https://natslive.jp/episodes/18208",
     "map": "https://maps.app.goo.gl/Y6db33ndDKLsmErs6",
     "groups": [
-      "L2"
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW"
+    ],
+    "tags": [
+      "NATSLIVE",
+      "Lakiガチャクッキング"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/NATSLIVE_app/status/2113148348983124211",
+            "member": []
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2113148349151084615",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
