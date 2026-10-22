@@ -3107,8 +3107,43 @@ body .item-contents.is-content-open {
     return out;
   };
 
+  // メンバー名(漢字・ひらがな・アルファベット、姓・名・フルネーム)で検索した時、そのメンバーのデータ(groups/relations)もヒットさせる
+  // [コード, 姓, 名, 姓かな, 名かな, 姓ローマ字, 名ローマ字, 別表記...]  名前を直す時はここだけ編集する
+  const MEMBER_NAME_TABLE = [
+    ['YZH','小田','柚葉','おだ','ゆずは','ODA','YUZUHA'],
+    ['MMK','隅谷','百花','すみたに','ももか','SUMITANI','MOMOKA'],
+    ['MSK','鶴屋','美咲','つるや','みさき','TSURUYA','MISAKI'],
+    ['YOK','小川','桜花','おがわ','ようか','OGAWA','YOKA'],
+    ['KUR','増田','來亜','ますだ','くれあ','MASUDA','KUREA'],
+    ['MNM','菱田','未渚美','ひしだ','みなみ','HISHIDA','MINAMI'],
+    ['KIR','山口','綺羅','やまぐち','きら','YAMAGUCHI','KIRA'],
+    ['TOA','原田','都愛','はらだ','とあ','HARADA','TOA'],
+    ['RAN','石井','蘭','いしい','らん','ISHII','RAN'],
+    ['RIN','山口','莉愛','やまぐち','りな','YAMAGUCHI','RINA'],
+    ['YUR','杉浦','優來','すぎうら','ゆうら','SUGIURA','YURA'],
+    ['TBK','永山','椿','ながやま','つばき','NAGAYAMA','TSUBAKI'],
+    ['HIR','深澤','日彩','ふかさわ','ひいろ','FUKASAWA','HIIRO'],
+    ['YUW','比嘉','優和','ひが','ゆうわ','HIGA','YUWA'],
+    ['KAN','佐藤','栞奈','さとう','かんな','SATO','KANNA'],
+    ['RRK','上村','梨々香','うえむら','りりか','UEMURA','RIRIKA'],
+    ['AKR','森','朱里','もり','あかり','MORI','AKARI'],
+    ['KIK','佐藤','妃希','さとう','きき','SATO','KIKI']
+  ];
+  // 小文字化した検索語 → 該当するメンバーコードの配列(「山口」「佐藤」は2人に該当)
+  const memberNameTokenMap = (() => {
+    const map = new Map();
+    const add = (tok, code) => { tok = tok.toLowerCase(); if (!map.has(tok)) map.set(tok, []); if (!map.get(tok).includes(code)) map.get(tok).push(code); };
+    MEMBER_NAME_TABLE.forEach(([code, s, g, sk, gk, sr, gr, ...extra]) => {
+      [s, g, s + g, sk, gk, sk + gk, sr, gr, sr + gr, sr + ' ' + gr, ...extra].forEach(t => add(t, code));
+      // 別表記(姓かな・姓ローマ字の別読み)は、名と組み合わせたフルネームでも引けるようにする
+      if (extra.length >= 2) { add(extra[0] + gk, code); add(extra[1] + gr, code); add(extra[1] + ' ' + gr, code); }
+    });
+    return map;
+  })();
+
   // 検索キーワードのAND/NOT/OR判定:スペース区切りでAND、先頭に「-」でNOT、「|」区切りでOR
-  const matchesSearchKeyword = (searchText, kw) => {
+  // item を渡すと、メンバー名の検索語は「そのメンバーがgroups/relationsに入っているデータ」にもヒットする
+  const matchesSearchKeyword = (searchText, kw, item) => {
     const normalizedKw = kw
       .replace(/(^|\s)or(?=\s|$)/gi, '$1|')
       .replace(/(^|\s)and(?=\s|$)/gi, '$1');
@@ -3128,9 +3163,18 @@ body .item-contents.is-content-open {
       })
       .filter(tokens => tokens.length > 0); // マイナス検索のみだった句(プラス条件を持たない句)は除外して扱う
 
-    if (globalExcludeTokens.some(ex => searchText.includes(ex))) return false;
+    let memberGroups = null; // メンバー名の検索語が出てきた時だけ、このデータのgroups/relationsを用意する
+    const tokHit = tok => {
+      if (searchText.includes(tok)) return true;
+      if (!item) return false;
+      const codes = memberNameTokenMap.get(tok.toLowerCase());
+      if (!codes) return false;
+      if (!memberGroups) memberGroups = getFilterGroupsForItem(item);
+      return codes.some(c => memberGroups.includes(c));
+    };
+    if (globalExcludeTokens.some(tokHit)) return false;
     if (positiveGroups.length === 0) return true; // 全ての句がマイナス検索のみだった場合、除外条件は上で判定済み
-    return positiveGroups.some(tokens => tokens.every(tok => searchText.includes(tok)));
+    return positiveGroups.some(tokens => tokens.every(tokHit));
   };
 
   const parseDateQuery = rawKw => {
@@ -3659,7 +3703,7 @@ body .item-contents.is-content-open {
 
       if (kw) {
         const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '') + snsTagsText(item)).toLowerCase();
-        textOk = matchesSearchKeyword(searchText, kw);
+        textOk = matchesSearchKeyword(searchText, kw, item);
       }
     }
 
@@ -3835,7 +3879,7 @@ body .item-contents.is-content-open {
 
         if (kw) {
           const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '') + snsTagsText(item)).toLowerCase();
-          textOk = matchesSearchKeyword(searchText, kw);
+          textOk = matchesSearchKeyword(searchText, kw, item);
         }
       }
       
@@ -4011,7 +4055,7 @@ body .item-contents.is-content-open {
 
         if (kw) {
           const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '') + snsTagsText(item)).toLowerCase();
-          kwOk = matchesSearchKeyword(searchText, kw);
+          kwOk = matchesSearchKeyword(searchText, kw, item);
         }
       }
 
