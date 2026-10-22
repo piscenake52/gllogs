@@ -3909,6 +3909,41 @@
     ]
   },
   {
+    "logid": "d2482ce44f97",
+    "date": "20261022",
+    "time": "1500",
+    "contents": "CAMPAIGN",
+    "title": "NATSLIVE 「Lakiガチャクッキング」　#015 プラチナ会員先行観覧申込受付開始",
+    "display_sp": "Lakiガチャクッキング #016 プラチナ会員先行観覧申込受付開始",
+    "url": "https://natslive.jp/episodes/18208",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW"
+    ],
+    "tags": [
+      "NATSLIVE",
+      "Lakiガチャクッキング"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2113148349151084615",
+            "member": []
+          },
+          {
+            "url": "https://x.com/NATSLIVE_app/status/2113148348983124211",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "2b5b745970b7",
     "date": "20261022",
     "time": "1200",
