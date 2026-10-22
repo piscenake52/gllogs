@@ -3156,6 +3156,37 @@
     ]
   },
   {
+    "logid": "14cad420a2e9",
+    "date": "20261026",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "エンタメNOW！ サイン入りチェキプレゼント応募受付締切",
+    "url": "https://www.instagram.com/reel/DeyZwUuRi80/?exln=aGNnZWltcGM0MjBy",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+      "RUNWAY+"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DeyZwUuRi80/?exln=aGNnZWltcGM0MjBy",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "チェキ"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "0bb50b612a7d",
     "date": "20261026",
     "time": "1700",
