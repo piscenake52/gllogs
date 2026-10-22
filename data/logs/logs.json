@@ -4334,6 +4334,30 @@
     ]
   },
   {
+    "logid": "d39b7c3e113f",
+    "date": "20261022",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls2",
+    "groups": [
+      "G2"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2113239899751297300",
+            "member": [],
+            "tags": [
+              "On Line Capsule"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "78f1cc942c19",
     "date": "20261021",
     "time": "2359",
