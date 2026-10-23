@@ -374,7 +374,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     mk('dup', 'w', 'duplicate', 'same date + time + title + contents (other members can be normal)');
     mk('url', 'w', 'url does not start with http(s)', 'may not open');
     mk('tags', 'w', 'tags: empty / blank / spaces / duplicate', 'empty array, empty string, edge spaces, same tag twice');
+    mk('gap', 'w', '# numbers: gaps / duplicates', 'series with #n in the title: a missing or repeated number');
+    mk('noend', 'w', 'start without end / deadline', 'past rows only; e.g. a start of sales with no end of sales');
     mk('tag1', 'i', 'tags used only once', 'where a typo or variant hides');
+    mk('nostart', 'i', 'end / deadline without start', 'the start row may be missing');
     mk('nourl', 'i', 'rows without url', 'rows with a title only');
     var seenId = {}, byKey = {}, tagCount = {}, tagRow = {}, ids = {};
     rows.forEach(function (r) { if (r && r.logid) ids[r.logid] = 1; });
@@ -415,9 +418,61 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     for (var tg in tagCount) if (tagCount[tg] === 1) C.tag1.items.push({ k: 'tag:' + tg, rows: [tagRow[tg]], extra: tg, tag: tg });
     C.date.items.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
     C.dup.items.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
+
+    ckGaps(rows, C.gap.items); ckSE(rows, C.noend.items, C.nostart.items);
     return { n: rows.length, order: order, C: C, at: new Date() };
   }
-  function ckCnt(c) { if (c.id !== 'dup') return c.items.length; var ig = ckIgn(); return c.items.filter(function (it) { return ig.indexOf(it.k) < 0; }).length; }
+  // # number gaps: the series is contents + the title without its last #number (the same rule as check_gaps.py). 3+ distinct numbers, a range of 400 or less; a series that is mostly gaps is not a numbered series.
+  function ckGaps(rows, out) {
+    var ser = {};
+    rows.forEach(function (r) {
+      if (!r || r.ref || !r.title) return;
+      var m = lastNum(r.title); if (!m) return;
+      var name = r.title.slice(0, m.index + 1) + r.title.slice(m.index + 1 + m[1].length), k = (r.contents || '') + '\u0001' + name;
+      (ser[k] = ser[k] || { contents: r.contents || '', name: name, items: [] }).items.push({ n: +m[1], r: r });
+    });
+    Object.keys(ser).forEach(function (k) {
+      var S = ser[k], nums = S.items.map(function (x) { return x.n; }).sort(function (a, b) { return a - b; }), have = {}, cnt = {}, i;
+      nums.forEach(function (n) { have[n] = 1; cnt[n] = (cnt[n] || 0) + 1; });
+      var uniq = Object.keys(have).length; if (uniq < 3) return;
+      var lo = nums[0], hi = nums[nums.length - 1]; if (hi - lo > 400) return;
+      var gaps = [], dups = [];
+      for (i = lo; i <= hi; i++) if (!have[i]) gaps.push(i);
+      Object.keys(cnt).forEach(function (n) { if (cnt[n] > 1) dups.push(+n); });
+      if (!gaps.length && !dups.length) return;
+      if (gaps.length > Math.max(10, uniq)) return;
+      var near = {}, pick = [];
+      function take(n) { S.items.forEach(function (x) { if (x.n === n && !near[x.r.logid]) { near[x.r.logid] = 1; pick.push(x); } }); }
+      gaps.forEach(function (g) { var a = g - 1; while (a >= lo && !have[a]) a--; var b = g + 1; while (b <= hi && !have[b]) b++; take(a); take(b); });
+      dups.forEach(take);
+      pick.sort(function (a, b) { return a.n - b.n; }); pick = pick.slice(0, 8);
+      var fmt = function (a) { return a.slice(0, 12).map(function (n) { return '#' + n; }).join(', ') + (a.length > 12 ? ' ... (+' + (a.length - 12) + ')' : ''); };
+      out.push({ k: 'gap:' + k, rows: pick.map(function (x) { return x.r; }), lines: pick.map(function (x) { return '#' + x.n + ' ' + ckFmtD(x.r.date, x.r.time); }), head: S.name.replace(/\s+/g, ' '), sub: (S.contents || '-') + ' / ' + uniq + ' rows (#' + lo + '-#' + hi + ')' + (gaps.length ? ' / missing ' + fmt(gaps) : '') + (dups.length ? ' / repeated ' + fmt(dups) : '') });
+    });
+    out.sort(function (a, b) { return a.sub < b.sub ? -1 : a.sub > b.sub ? 1 : 0; });
+  }
+  // start / end pairs: titles like "... {kind}START" and "... {kind}END / DEADLINE" are paired by the text around the word. Start without end (past only) and end without start are listed.
+  var CK_KIND = '(?:\u4e00\u822c|\u4f1a\u54e1|\u5148\u884c|\u5148\u7740|\u62bd\u9078|\u5fdc\u52df|\u53d7\u4ed8|\u767a\u58f2|\u8ca9\u58f2|\u914d\u4fe1|\u516c\u958b|\u7533\u8fbc|\u7533\u8acb|\u4e88\u7d04|\u8ffd\u52a0|1\u6b21|2\u6b21|3\u6b21|\u6700\u901f)*';
+  var CK_SE = new RegExp('^([\\s\\S]*?)' + CK_KIND + '(\u958b\u59cb|\u7d42\u4e86|\u7de0\u5207|\u7de0\u3081\u5207\u308a)([\\s\\S]*)$'), CK_KEND = new RegExp(CK_KIND + '$'), CK_EXC = /\u767a\u5238|\u6709\u52b9\u671f\u9593|\u65e5\u6642\u672a\u5b9a|\u914d\u9001\u7533\u8acb|\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9/;
+  function ckSE(rows, noend, nostart) {
+    var g = {}, now = new Date(), today = String(now.getFullYear()) + pad2(now.getMonth() + 1) + pad2(now.getDate());
+    rows.forEach(function (r) {
+      if (!r || r.ref || !r.title) return;
+      var t = String(r.title).trim(); if (CK_EXC.test(t)) return;
+      var m = t.match(CK_SE); if (!m) return;
+      var key = m[1].replace(CK_KEND, '').trim() + '\u0001' + m[3].trim();
+      var o = g[key] = g[key] || { S: [], E: [] }; o[m[2] === '\u958b\u59cb' ? 'S' : 'E'].push(r);
+    });
+    Object.keys(g).forEach(function (k) {
+      var o = g[k], byDate = function (a, b) { return String(b.date).localeCompare(String(a.date)); };
+      if (o.S.length && !o.E.length) { o.S.sort(byDate); if (String(o.S[0].date) < today) noend.push({ k: 'noend:' + k, rows: o.S.slice(0, 3), extra: 'no end / deadline found' }); }
+      else if (o.E.length && !o.S.length) { o.E.sort(byDate); nostart.push({ k: 'nostart:' + k, rows: o.E.slice(0, 3), extra: 'no start found' }); }
+    });
+    var srt = function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); };
+    noend.sort(srt); nostart.sort(srt);
+  }
+  var CK_IG = { dup: 1, gap: 1, noend: 1, nostart: 1 }; // the checks whose items can be ignored (kept in this browser)
+  function ckCnt(c) { if (!CK_IG[c.id]) return c.items.length; var ig = ckIgn(); return c.items.filter(function (it) { return ig.indexOf(it.k) < 0; }).length; }
   function ckList() {
     var R = ckRes, sum = { e: 0, w: 0, i: 0, o: 0 }, host = $('cklist'), secs = { e: 'errors', w: 'to check', i: 'info', o: 'ok' }, by = { e: [], w: [], i: [], o: [] };
     R.order.forEach(function (id) { var c = R.C[id], n = ckCnt(c); if (n === 0) { sum.o++; by.o.push(c); } else { sum[c.lv] += n; by[c.lv].push(c); } });
@@ -442,35 +497,41 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function ckOpen(id) { ckView = id; ckLim = 50; ckShowIg = false; $('ckmain').hidden = true; $('ckdet').hidden = false; ckDetail(); }
   function ckDetail() {
     var c = ckRes.C[ckView], ig = ckIgn(), host = $('ckdl'), shown = 0;
-    var nIg = c.id === 'dup' ? c.items.length - ckCnt(c) : 0;
-    var list = c.id === 'dup' && !ckShowIg ? c.items.filter(function (it) { return ig.indexOf(it.k) < 0; }) : c.items; // ignored ones are hidden unless 'show ignored' is on
+    var nIg = CK_IG[c.id] ? c.items.length - ckCnt(c) : 0;
+    var list = CK_IG[c.id] && !ckShowIg ? c.items.filter(function (it) { return ig.indexOf(it.k) < 0; }) : c.items; // ignored ones are hidden unless 'show ignored' is on
     $('ckdt').textContent = c.name; $('ckdn').textContent = ckCnt(c) + (nIg ? ' (+' + nIg + ' ignored)' : '');
     host.innerHTML = '';
     list.forEach(function (it, i) {
       if (i >= ckLim) return; shown++;
-      var isIgn = c.id === 'dup' && ig.indexOf(it.k) >= 0, r0 = it.rows[0], card = document.createElement('div');
+      var isIgn = CK_IG[c.id] && ig.indexOf(it.k) >= 0, r0 = it.rows[0], card = document.createElement('div');
       card.className = 'ckcard' + (isIgn ? ' ign' : '');
-      var head = document.createElement('div'); head.className = 'ckct'; head.textContent = c.id === 'tag1' ? it.tag : (r0.title || r0.display_pc || r0.logid || '(no title)'); card.appendChild(head);
+      var head = document.createElement('div'); head.className = 'ckct'; head.textContent = it.head || (c.id === 'tag1' ? it.tag : (r0.title || r0.display_pc || r0.logid || '(no title)')); card.appendChild(head);
       var sub = document.createElement('div'); sub.className = 'cksub';
-      sub.textContent = c.id === 'tag1' ? 'used in: ' + (r0.title || r0.logid) : ckFmtD(r0.date, r0.time) + ' / ' + (r0.contents || '') + (it.extra && c.id !== 'tag1' ? ' / ' + it.extra : ''); card.appendChild(sub);
+      sub.textContent = it.sub != null ? it.sub : c.id === 'tag1' ? 'used in: ' + (r0.title || r0.logid) : ckFmtD(r0.date, r0.time) + ' / ' + (r0.contents || '') + (it.extra && c.id !== 'tag1' ? ' / ' + it.extra : ''); card.appendChild(sub);
       if (c.id === 'dup') it.rows.forEach(function (r) {
         var l = document.createElement('div'); l.className = 'ckrowline';
         l.innerHTML = '<span class="ckid"></span><span class="ckdiff"></span>';
         l.querySelector('.ckid').textContent = r.logid; l.querySelector('.ckdiff').textContent = 'groups ' + (r.groups || []).join(',') + (r.tags && r.tags.length ? ' / tags ' + r.tags.join(',') : '');
         card.appendChild(l);
       });
+      if (it.lines) it.rows.forEach(function (r, j) {
+        var l = document.createElement('div'); l.className = 'ckrowline';
+        l.innerHTML = '<span class="ckid"></span><span class="ckdiff"></span>';
+        l.querySelector('.ckid').textContent = r.logid; l.querySelector('.ckdiff').textContent = it.lines[j];
+        card.appendChild(l);
+      });
       var btns = document.createElement('div'); btns.className = 'ckbtns';
       var mkb = function (t, fn) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = t; b.onclick = fn; btns.appendChild(b); return b; };
       var open1 = function (id) { $('fid').value = id; tab('logs'); try { history.replaceState(null, '', '#logs'); } catch (e) {} doFind(); };
       it.rows.forEach(function (r, j) { if (r.logid) mkb(it.rows.length > 1 ? 'open ' + (j + 1) : 'open', function () { open1(r.logid); }); });
-      it.rows.forEach(function (r, j) { if (!r.logid) return; var lb = it.rows.length > 1 ? 'copy ' + (j + 1) : 'copy id', cp = mkb(lb, function () { ckCopy(r.logid, function () { cp.textContent = 'copied'; setTimeout(function () { cp.textContent = lb; }, 1200); }); }); });
+      it.rows.forEach(function (r, j) { if (!r.logid || it.lines) return; var lb = it.rows.length > 1 ? 'copy ' + (j + 1) : 'copy id', cp = mkb(lb, function () { ckCopy(r.logid, function () { cp.textContent = 'copied'; setTimeout(function () { cp.textContent = lb; }, 1200); }); }); });
       var jb = mkb('json', function () { jp.hidden = !jp.hidden; });
       var jp = document.createElement('pre'); jp.className = 'ckjson'; jp.hidden = true; jp.textContent = JSON.stringify(it.rows, null, 2);
-      if (c.id === 'dup') mkb(isIgn ? 'restore' : 'ignore', function () { var a = ckIgn(), p = a.indexOf(it.k); if (p >= 0) a.splice(p, 1); else a.push(it.k); ckSetIgn(a); ckDetail(); });
+      if (CK_IG[c.id]) mkb(isIgn ? 'restore' : 'ignore', function () { var a = ckIgn(), p = a.indexOf(it.k); if (p >= 0) a.splice(p, 1); else a.push(it.k); ckSetIgn(a); ckDetail(); });
       card.appendChild(btns); card.appendChild(jp); host.appendChild(card);
     });
     $('ckshow').hidden = !nIg; $('ckshow').textContent = (ckShowIg ? 'hide ignored (' : 'show ignored (') + nIg + ')';
-    $('ckclr').hidden = !(c.id === 'dup' && ig.length); $('ckclr').textContent = 'clear ignored (' + nIg + ')'; $('ckclr')._arm = false;
+    $('ckclr').hidden = !(CK_IG[c.id] && ig.length); $('ckclr').textContent = 'clear ignored (' + nIg + ')'; $('ckclr')._arm = false;
     $('ckmore').hidden = list.length <= ckLim; $('ckmore').textContent = 'more (' + (list.length - shown) + ')';
   }
   function ckStart() {

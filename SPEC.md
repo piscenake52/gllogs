@@ -947,3 +947,11 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 上限は 100 件。チェックされた「変更のある行」が 100 件を超える、または絞り込み結果が 300 件を超える間は Issue ボタンを無効にする(超過分を勝手に切り捨てない)。元に戻すための Issue は作らない。
 - Issue フォーム `add_bulk.yml`(`bulk ids` = logid を1行ずつ / `bulk op` = replace・add・remove・contents / `bulk from` / `bulk to`)。`issue_to_json.py` が検証して `{"_bulk": {...}}` をキューに出し、`merge_json.py` の `apply_bulk` が反映する。logid が12桁でない・100件超・値の不足は Issue コメントでエラー。見つからない logid は通知コメント。
 - 同じ Issue を編集して再実行しても、同じ状態になるだけ(冪等)。
+
+## check タブの追加項目(# の抜け / 開始・終了の対応)
+
+- `# numbers: gaps / duplicates`(要確認): タイトル末尾の `#数字` をシリーズ(contents + `#`以外のタイトル)ごとに見て、番号の抜け・重複を出す。`check_gaps.py` と同じ判定(3種類以上の番号、範囲400以内、抜けが多すぎるものは除外)。カードには抜けの前後の行を表示。
+- `start without end / deadline`(要確認): タイトルの `開始` に対して、同じ文字列の `終了` / `締切` が無いもの。過去の日付だけ対象(未来は終了が未発表のことがあるため)。`発券` `有効期間` `日時未定` `配送申請` `ダウンロード` を含むタイトルは対象外。
+- `end / deadline without start`(情報): 逆に、終了・締切だけがあるもの。
+- 組みの判定: `受付 / 発売 / 販売 / 先行 / 抽選 ...` などの種類語を除いた前後の文字列で対応づける。
+- 上の3項目と duplicate は `ignore`(この端末の記憶のみ)で候補から外せる。`show ignored` / `clear ignored` も共通。
