@@ -4463,6 +4463,20 @@
             ]
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/CeYgOsJYo3o?si=wboumKJdZPRx8_MD",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "切り抜き"
+            ]
+          }
+        ]
       }
     ]
   },
