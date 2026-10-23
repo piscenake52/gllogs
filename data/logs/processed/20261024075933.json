@@ -1,0 +1,28 @@
+{
+  "date": "20260923",
+  "contents": "SNS",
+  "title": "SNS　Girls²",
+  "groups": [
+    "G2",
+    "MSK",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgmKfrQ4/",
+          "member": [
+            "MSK",
+            "KIR"
+          ],
+          "tags": [
+            "ANNA SUI"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2039"
+}

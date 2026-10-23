@@ -17449,6 +17449,35 @@
     "suffix": "開催記念日"
   },
   {
+    "logid": "c02a8168bad6",
+    "date": "20260923",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "MSK",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgmKfrQ4/",
+            "member": [
+              "MSK",
+              "KIR"
+            ],
+            "tags": [
+              "ANNA SUI"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "34ad2944b0a4",
     "date": "20260922",
     "time": "2359",
