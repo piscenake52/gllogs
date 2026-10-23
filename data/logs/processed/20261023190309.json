@@ -1,0 +1,36 @@
+{
+  "logid": "53473fa56ed0",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2113571576369254492",
+          "member": [
+            "HIR",
+            "AKR"
+          ],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgaXqH34/",
+          "member": [
+            "HIR",
+            "AKR"
+          ],
+          "tags": [
+            "ぷにるんず"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2010"
+}
