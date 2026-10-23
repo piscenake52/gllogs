@@ -1,0 +1,21 @@
+name: Link probe (browser, one-off check)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install Chromium
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+      - name: Probe girls2-fc.jp pages
+        run: python scripts/link_probe_browser.py
