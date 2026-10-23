@@ -365,7 +365,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, old); else old();
   }
   function ckFmtD(d, t) { d = String(d || ''); t = String(t || ''); return (d.length === 8 ? d.slice(0, 4) + '/' + d.slice(4, 6) + '/' + d.slice(6) : d) + (t.length === 4 ? ' ' + t.slice(0, 2) + ':' + t.slice(2) : ''); }
-  function ckRun(rows) {
+  function ckRun(rows, lrep) {
     var order = [], C = {};
     function mk(id, lv, name, note) { C[id] = { id: id, lv: lv, name: name, note: note, items: [] }; order.push(id); }
     mk('date', 'e', 'date: bad format / not a real date', 'must be 8 digits and a real day');
@@ -376,6 +376,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     mk('dup', 'w', 'duplicate', 'same date + time + title + contents (other members can be normal)');
     mk('url', 'w', 'url does not start with http(s)', 'may not open');
     mk('tags', 'w', 'tags: empty / blank / spaces / duplicate', 'empty array, empty string, edge spaces, same tag twice');
+    mk('link', 'w', 'link broken', 'checked a little every day by the link check workflow (not every url at once)');
     mk('gap', 'w', '# numbers: gaps / duplicates', 'series with #n in the title: a missing or repeated number');
     mk('noend', 'w', 'start without end / deadline', 'past rows only; e.g. a start of sales with no end of sales');
     mk('tag1', 'i', 'tags used only once', 'where a typo or variant hides');
@@ -421,8 +422,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     C.date.items.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
     C.dup.items.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
 
+    ckLinks(rows, lrep, C.link.items);
     ckGaps(rows, C.gap.items); ckSE(rows, C.noend.items, C.nostart.items);
-    return { n: rows.length, order: order, C: C, at: new Date() };
+    return { n: rows.length, order: order, C: C, at: new Date(), lrep: lrep || null };
   }
   // # number gaps: the series is contents + the title without its last #number (the same rule as check_gaps.py). 3+ distinct numbers, a range of 400 or less; a series that is mostly gaps is not a numbered series.
   function ckGaps(rows, out) {
@@ -473,7 +475,18 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var srt = function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); };
     noend.sort(srt); nostart.sort(srt);
   }
-  var CK_IG = { dup: 1, gap: 1, noend: 1, nostart: 1 }; // the checks whose items can be ignored (kept in this browser)
+  // link broken: the list is made by link_check.py (GitHub Actions, data/logs/link_report.json); this tab only shows it
+  function ckLinks(rows, rep, out) {
+    if (!rep || !Array.isArray(rep.items)) return;
+    var by = {}; rows.forEach(function (r) { if (r && r.logid) by[r.logid] = r; });
+    rep.items.forEach(function (it) {
+      var rs = (it.logids || []).map(function (id) { return by[id]; }).filter(Boolean).slice(0, 3);
+      if (!rs.length) return;
+      out.push({ k: 'link:' + it.url, rows: rs, sub: ckFmtD(rs[0].date, rs[0].time) + ' / ' + (rs[0].contents || '') + ' / ' + (it.reason || '') + ' / ' + String(it.url).slice(0, 70) });
+    });
+    out.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
+  }
+  var CK_IG = { dup: 1, gap: 1, noend: 1, nostart: 1, link: 1 }; // the checks whose items can be ignored (kept in this browser)
   function ckCnt(c) { if (!CK_IG[c.id]) return c.items.length; var ig = ckIgn(); return c.items.filter(function (it) { return ig.indexOf(it.k) < 0; }).length; }
   function ckList() {
     var R = ckRes, sum = { e: 0, w: 0, i: 0, o: 0 }, host = $('cklist'), secs = { e: 'errors', w: 'to check', i: 'info', o: 'ok' }, by = { e: [], w: [], i: [], o: [] };
@@ -494,6 +507,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       });
     });
     $('ckmeta').textContent = R.n + ' rows / checked ' + R.at.getFullYear() + '/' + ('0' + (R.at.getMonth() + 1)).slice(-2) + '/' + ('0' + R.at.getDate()).slice(-2) + ' ' + ('0' + R.at.getHours()).slice(-2) + ':' + ('0' + R.at.getMinutes()).slice(-2) + ' / in this browser';
+    if (R.lrep && R.lrep.total) $('ckmeta').textContent += ' / link check: ' + R.lrep.checked + ' of ' + R.lrep.total + ' urls checked' + (R.lrep.updated ? ' (' + String(R.lrep.updated).slice(0, 10) + ')' : ''); else $('ckmeta').textContent += ' / link check: no result yet';
     $('ckmain').hidden = false; $('ckdet').hidden = true; ckView = '';
   }
   function ckOpen(id) { ckView = id; ckLim = 50; ckShowIg = false; $('ckmain').hidden = true; $('ckdet').hidden = false; ckDetail(); }
@@ -538,8 +552,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   function ckStart() {
     $('ckmeta').textContent = 'loading logs.json ...'; $('ckrun').disabled = true;
-    fetchData('logs').then(function (d) {
-      ckData = d; ckRes = ckRun(Array.isArray(d) ? d : []); $('ckrun').disabled = false; ckList();
+    var lp = fetch('https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/data/logs/link_report.json?v=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); // not there until the first link check has run
+    Promise.all([fetchData('logs'), lp]).then(function (a) {
+      var d = a[0]; ckData = d; ckRes = ckRun(Array.isArray(d) ? d : [], a[1]); $('ckrun').disabled = false; ckList();
     }).catch(function (e) { $('ckrun').disabled = false; $('ckmeta').textContent = 'load failed: ' + (e && e.message ? e.message : e); });
   }
   function ckInit() { if (!ckRes && !$('ckrun').disabled) ckStart(); }

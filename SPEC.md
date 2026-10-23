@@ -955,3 +955,17 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - `end / deadline without start`(情報): 逆に、終了・締切だけがあるもの。
 - 組みの判定: `受付 / 発売 / 販売 / 先行 / 抽選 ...` などの種類語を除いた前後の文字列で対応づける。
 - 上の3項目と duplicate は `ignore`(この端末の記憶のみ)で候補から外せる。`show ignored` / `clear ignored` も共通。
+
+## リンク切れチェック(link_check.py / link_check.yml)
+
+- GitHub Actions が毎日 03:00(JST)に、logs.json の `url` / `map` を少しずつ確認する(手動実行も可。件数は `limit` で変えられる)。結果は `data/logs/link_state.json`(全URLの状態)と `data/logs/link_report.json`(切れだけ)に保存され、helper の check タブ `link broken` が読む。
+- 通常の閲覧・運営に影響しないための制限: 1回 250 件・25 分まで / 確認の間隔 1 秒(ブラウザ) 0.5 秒(それ以外) / ブラウザでは画像・動画・フォント・CSS を読み込まない / 毎日の夜間のみ。確認が古い順に回るので、全件が一巡するまで数十日かかる。`url` を直した行は未確認として優先して確認される。
+- 判定方法: 
+  - girls2-fc.jp/page/...: 画面なしの Chromium で開き、最大 8 秒待つ。記事のタイトルが出れば ok、サイト共通のタイトル(`Girls²(ガールズガールズ)...`)のまま、またはトップへ遷移したら NG。
+  - YouTube(watch / youtu.be / shorts / live): oEmbed で 404 なら NG(401/403 は判定不能)。
+  - Google マップ短縮(maps.app.goo.gl): 転送先が Google なら ok、404 なら NG。
+  - その他のサイト: 404 / 410 / ドメインなしなら NG、200〜399 は ok、それ以外は判定不能。
+  - 対象外: Instagram / TikTok / X / cl-live.com / Facebook / LINE と、girls2-fc.jp の /page/ 以外。
+- 最初に NG だったものは、同じ実行の最後(60 秒後)にもう一度確認し、続けて NG のときだけ「切れ」にする。
+- 一覧の `ignore` はこの端末の記憶のみ。url を直すと、次回の確認で一覧から消える。
+- 事前調査用の `link_probe.py` / `link_probe_browser.py`(と各 yml)は、本番のチェックができたので不要。
