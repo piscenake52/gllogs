@@ -5185,10 +5185,13 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YZH",
       "MMK",
       "MSK",
       "YOK",
-      "MNM"
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -5206,6 +5209,21 @@
           {
             "url": "https://x.com/Girls2_official/status/2112835239496360214",
             "member": []
+          },
+          {
+            "url": "https://x.com/nanana1053/status/2112823041038352862",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "あんななのなななっ"
+            ]
           }
         ]
       },
