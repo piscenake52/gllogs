@@ -118,6 +118,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .plst button.small { padding:2px 7px; font-size:11px; margin:2px 4px 2px 0; }
 #glih .plok { color:var(--sub); } #glih .plng { color:#d33; margin-right:6px; } #glih .plnote { font-size:11px; color:var(--sub); }
 #glih .plbar { display:flex; gap:6px; }
+#glih .asbad { border-color:#d33 !important; }
+#glih .ahint { font-size:11px; color:#d33; margin:-4px 0 8px 0; padding-left:calc(var(--lw, 0px)); }
 #glih .bkh { font-size:13px; }
 #glih .bkdt { display:flex; align-items:center; gap:6px; flex:1; min-width:0; }
 #glih .bkdt .fin { min-width:0; }
@@ -333,7 +335,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   // NOTE: keep this script ASCII-only. Blogger converts non-ASCII characters into &#NNNN; entities, which are NOT decoded inside <script>.
   var DASH = '\u2014'; // em dash as an ASCII escape: Blogger turns a literal dash inside <script> into &#8212;, which JS does not decode
   function $(id) { return document.getElementById('glih-' + id); }
-  function digits(v) { return (v || '').replace(/\D/g, ''); }
+  function digits(v) { return DG(v); }
+  var FWD_RE = new RegExp('[' + String.fromCharCode(0xFF10) + '-' + String.fromCharCode(0xFF19) + ']', 'g');
+  function DG(v) { return String(v == null ? '' : v).replace(FWD_RE, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); }).replace(/\D/g, ''); } // digits only; full-width digits are turned into half-width first (IME on)
   function okDate(v) { if (!/^\d{8}$/.test(v)) return false; var y = +v.slice(0, 4), m = +v.slice(4, 6), d = +v.slice(6), t = new Date(y, m - 1, d); return t.getFullYear() === y && t.getMonth() === m - 1 && t.getDate() === d; }
   function okTime(v) { return /^\d{4}$/.test(v) && +v.slice(0, 2) < 24 && +v.slice(2) < 60; }
   function issueUrl(tpl, params) {
@@ -535,12 +539,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   // YYYY/MM/DD and HH:MM text inputs for the find tab (shown the same on every device): digits are auto-formatted while typing, and a button opens the native calendar / clock.
   function fmtDigits(d, type) {
-    d = d.replace(/\D/g, '').slice(0, type === 'date' ? 8 : 4);
+    d = DG(d).slice(0, type === 'date' ? 8 : 4);
     return type === 'date' ? d.slice(0, 4) + (d.length > 4 ? '/' + d.slice(4, 6) : '') + (d.length > 6 ? '/' + d.slice(6) : '') : d.slice(0, 2) + (d.length > 2 ? ':' + d.slice(2) : '');
   }
   function dtText(ti, type) {
     ti.setAttribute('inputmode', 'numeric'); ti.setAttribute('spellcheck', 'false'); ti.placeholder = type === 'date' ? 'YYYY/MM/DD' : 'HH:MM'; ti.maxLength = type === 'date' ? 10 : 5;
-    ti.addEventListener('input', function () { var f = fmtDigits(ti.value, type); if (ti.value !== f) ti.value = f; });
+    ti.addEventListener('input', function (e) { if (e.isComposing) return; var f = fmtDigits(ti.value, type); if (ti.value !== f) ti.value = f; });
+    ti.addEventListener('compositionend', function () { var f = fmtDigits(ti.value, type); if (ti.value !== f) { ti.value = f; ti.dispatchEvent(new Event('input', { bubbles: true })); } });
   }
   var ICON_CAL = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5 1.8v2.6M11 1.8v2.6"/></svg>';
   var ICON_CLK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 4.5V8l2.3 1.6"/></svg>';
@@ -714,7 +719,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var pi = document.createElement('input'); pi.type = type; pi.className = 'fpi'; pi.tabIndex = -1; pi.setAttribute('aria-hidden', 'true'); if (type === 'time') pi.step = '60';
     b.onclick = function () {
       if (onOpen) onOpen(); // e.g. list the candidates of the current value even if the calendar selection will not change it
-      var v = ti.value.replace(/\D/g, '');
+      var v = DG(ti.value);
       if (type === 'date') pi.value = v.length === 8 ? v.slice(0, 4) + '-' + v.slice(4, 6) + '-' + v.slice(6) : '';
       else pi.value = v.length === 4 ? v.slice(0, 2) + ':' + v.slice(2) : '';
       if (type === 'date') { // the calendar popup (the native one is kept for time)
@@ -735,7 +740,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function addWeekday(ti) {
     var sp = document.createElement('span'); sp.className = 'wdl'; var w = ti.parentNode && ti.parentNode.className === 'dtw' ? ti.parentNode : ti;
     if (w === ti) w.parentNode.insertBefore(sp, w.nextSibling); else w.appendChild(sp); // inside the date box (the room is always kept; the text only shows when the date is complete)
-    return function () { var d = ti.value.replace(/\D/g, ''); sp.textContent = okDate(d) ? ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][new Date(+d.slice(0, 4), +d.slice(4, 6) - 1, +d.slice(6, 8)).getDay()] : ''; };
+    return function () { var d = DG(ti.value); sp.textContent = okDate(d) ? ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][new Date(+d.slice(0, 4), +d.slice(4, 6) - 1, +d.slice(6, 8)).getDay()] : ''; };
   }
   // date / time of the find tab (logs): YYYY/MM/DD and HH:MM text inputs + calendar / clock buttons. The hidden text input keeps the form format (yyyymmdd / hhmm) and the rest of the code reads it.
   function useNative(el, type, key) {
@@ -744,7 +749,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var ti = document.createElement('input'); ti.type = 'text'; ti.className = 'fin'; ti.id = 'glih-n-' + key; ti.setAttribute('autocomplete', 'off');
     dtText(ti, type);
     var lb = field.querySelector('label'); if (lb) lb.setAttribute('for', ti.id);
-    function digitsOf(v) { return v.replace(/\D/g, ''); }
+    function digitsOf(v) { return DG(v); }
     function toTi() {
       if (digitsOf(ti.value) !== digitsOf(el.value)) ti.value = fmtDigits(el.value, type);
       ti.classList.toggle('ch', el.classList.contains('ch')); ti.classList.toggle('bad', el.classList.contains('bad'));
@@ -766,7 +771,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function mkArr(text, title, n) { var b = mk(text, title, function () { shiftTi(n); }); b.classList.add('dtarr'); b.hidden = !$('fcp').checked; return b; }
     var pv = null, nx = null;
     if (type === 'date') pv = mkArr('<', 'prev day', -1);
-    if (type === 'date') mk('today', 'today', function () { ti.value = fmtDigits(today().replace(/\D/g, ''), 'date'); fromTi(); });
+    if (type === 'date') mk('today', 'today', function () { ti.value = fmtDigits(DG(today()), 'date'); fromTi(); });
     if (type === 'date') nx = mkArr('>', 'next day', 1);
     var rv = mk('\u21BA', 'revert', function () { el.value = orig[key]; el.dispatchEvent(new Event('input', { bubbles: true })); });
     var sync = function () { rv.hidden = el.value === orig[key]; };
@@ -1093,24 +1098,24 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }
     function syncNum() { num.placeholder = String(nextOrder()); }
     el.addEventListener('input', syncNum); syncNum();
-    function hit() { var n = +num.value.replace(/\D/g, ''); return edit && n ? rowSong(n) : null; } // the existing song of the typed order
+    function hit() { var n = +DG(num.value); return edit && n ? rowSong(n) : null; } // the existing song of the typed order
     var touched = false, pre = 0; // touched: the type chips were changed by hand. pre: the order whose type is shown on the chips
     sel.addEventListener('change', function () { touched = true; });
     function setChips(types) { [].forEach.call(sel.querySelectorAll('.chip'), function (b) { b.classList.toggle('on', types.indexOf(b.getAttribute('data-v')) >= 0); }); }
     function syncMode() { // an existing order: show insert / update / delete (instead of add) and the current values as the placeholders (empty input = keep it)
       if (!edit) return;
-      var sg = hit(), has = !!sg, cn0 = +num.value.replace(/\D/g, '');
+      var sg = hit(), has = !!sg, cn0 = +DG(num.value);
       if (has && pre !== cn0) { setChips(String(sg.type || '').split(/[,\s]+/)); touched = false; setM(memOf(sg)); mTouched = false; pre = cn0; } // the type chips show the current type of that song
       else if (!has && pre) { if (!touched) setChips([]); if (!mTouched) setM([]); pre = 0; }
       add.disabled = has; ops.insert.disabled = ops.update.disabled = ops.delete.disabled = !has;
-      var cn = +num.value.replace(/\D/g, ''); ops.up.disabled = !has || !rowSong(cn - 1); ops.down.disabled = !has || !rowSong(cn + 1); // no move beyond the first / last song
+      var cn = +DG(num.value); ops.up.disabled = !has || !rowSong(cn - 1); ops.down.disabled = !has || !rowSong(cn + 1); // no move beyond the first / last song
       title.placeholder = sg ? sg.title || 'title' : 'title';
       orig2.placeholder = sg && sg.original ? sg.original : 'original';
       notes.placeholder = sg && sg.notes ? sg.notes : 'notes';
     }
     if (edit) { num.addEventListener('input', syncMode); syncMode(); }
     function doPatch(md) {
-      var n = num.value.replace(/\D/g, ''), t = title.value.trim(), bad = null;
+      var n = DG(num.value), t = title.value.trim(), bad = null;
       if (md === 'up' || md === 'down') { // move: `N>M: title` (the song of order N goes to order M, the others shift)
         var to = +n + (md === 'up' ? -1 : 1), pe0 = $('f-songs_patch'); if (!pe0 || !rowSong(+n) || !rowSong(to)) return;
         var c0 = pe0.value.replace(/\s+$/, ''); pe0.value = (c0 ? c0 + '\n' : '') + n + '>' + to + ': ' + (rowSong(+n).title || ''); pe0.dispatchEvent(new Event('input', { bubbles: true }));
@@ -1140,7 +1145,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var t = title.value.trim();
       if (!t || /[|\uff5c]/.test(t)) { title.classList.add('bad'); title.focus(); return; }
       title.classList.remove('bad');
-      var no = num.value.replace(/\D/g, '') || String(nextOrder());
+      var no = DG(num.value) || String(nextOrder());
       var rest = [sel.value, orig2.value.trim(), notes.value.trim()];
       while (rest.length && (rest[rest.length - 1] === '' || (rest.length === 1 && rest[0] === 'song'))) rest.pop();
       var line = no + ': ' + [withM(t, getM())].concat(rest).join(' | ');
@@ -1435,6 +1440,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
     if (found.kind === 'logs' && found.isNew && $('rpon') && $('rpon').checked && repMode() === 'tour') { ['map', 'setlistid', 'tags'].forEach(function (k) { if (p[k] !== undefined) { delete p[k]; n--; } }); dl = dl.filter(function (x) { return ['map', 'setlistid', 'tags'].indexOf(x[0]) < 0; }); } // tour mode: those are per show
     var errs = validateFind(found.kind);
+    DEFS[found.kind].fields.forEach(function (f) { var e = $('f-' + f.k); if (e && e.classList.contains('asbad')) errs.push(f.k + ': half-width only'); });
     if (found.kind === 'logs' && found.isNew && !topReady('logs')) errs.push('date / time');
     if (found.kind === 'logs' && found.isNew && rep) { // repeat registration: the checked dates go to the repeat field (the first one is also the date)
       var rs = rep.refresh();
@@ -1519,7 +1525,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (isNew && kind === 'setlist') { var spe = $('f-songs_patch'); if (spe && spe.closest('.field')) spe.closest('.field').hidden = true; } // new mode: the songs box is used as it is (the per-song edit is for the loaded setlist only)
     if (isNew && kind === 'logs') { ['date', 'time'].forEach(function (k) { var e = $('f-' + k); if (e) { var fl = e.closest('.field'); if (fl) fl.hidden = true; } }); } // new mode: the top date / time are used
     if (isNew && kind === 'logs') { var tw = $('f-title'); if (tw && tw.closest('.field')) addRepeat(tw.closest('.field')); } // new mode: repeat registration block under the title
-    extraUI(); drApply(); applyModeUI(); updateFind(); refInfo();
+    extraUI(); asciiInit(); drApply(); applyModeUI(); updateFind(); refInfo();
   }
   // JSON box of the find tab: collapsed at first, opened / closed with the button, and editable. Valid JSON edits are written into the input fields (the Issue link follows); invalid JSON gets a red border and is ignored.
   var jsonOpen = false, origJson = '';
@@ -2000,7 +2006,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   // id helper: pick a date (and optionally a time) -> list the rows of that day (time + title + id). Picking one puts its id into the id box.
   function dtSearch() {
-    var dv = $('fdd').value.replace(/\D/g, ''), tv = $('fdt').value.replace(/\D/g, ''), kind = $('fkind').value, box = $('fdl');
+    var dv = DG($('fdd').value), tv = DG($('fdt').value), kind = $('fkind').value, box = $('fdl');
     if (found && !found.isNew) { box.hidden = true; box.innerHTML = ''; box._key = ''; return; } // edit mode: no date candidates
     var noList = tv !== '' || (kind === 'logs' && $('fany').checked); // a time (logs: or anytime) means the entry is being made, so no candidates
     if (noList) { box.hidden = true; box.innerHTML = ''; box._key = ''; return; }
@@ -2008,7 +2014,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     box.hidden = true; box.innerHTML = ''; box._key = '';
     if (dv.length !== 8) return;
     fetchIndex(kind).then(function (d) {
-      if ($('fdd').value.replace(/\D/g, '') !== dv || $('fkind').value !== kind || $('fdt').value !== '' || (kind === 'logs' && $('fany').checked)) return;
+      if (DG($('fdd').value) !== dv || $('fkind').value !== kind || $('fdt').value !== '' || (kind === 'logs' && $('fany').checked)) return;
       var idKey = DEFS[kind].idKey;
       function rd(r) { return kind === 'logs' ? String(r.date || '') : String(r.setlistid || '').slice(0, 8); }
       function rt(r) { return kind === 'logs' ? String(r.time || '') : String(r.setlistid || '').slice(8, 12); }
@@ -2357,7 +2363,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     else if (ids.length > BK_MAX) info = ids.length + ' rows checked: over ' + BK_MAX + ', not sent. Uncheck or narrow the filter.';
     else info = ids.length + ' rows will change.';
     $('bkinfo').textContent = info; $('bkcount').textContent = bk.rows.length ? '(' + ids.length + ' / ' + bk.rows.length + ' checked, max ' + BK_MAX + ')' : '';
-    var ok = need && ids.length >= 1 && ids.length <= BK_MAX && bk.total <= BK_SHOW, p = { bulk_ids: ids.join('\n'), bulk_op: op };
+    var ok = need && !$('bkcon').classList.contains('asbad') && !$('bkgrp').classList.contains('asbad') && ids.length >= 1 && ids.length <= BK_MAX && bk.total <= BK_SHOW, p = { bulk_ids: ids.join('\n'), bulk_op: op };
     if (op === 'replace') { p.bulk_from = v.a; p.bulk_to = v.b; } else if (op === 'remove') p.bulk_from = v.a; else p.bulk_to = v.b;
     var url = ok ? issueUrl(TPL_BULK, p) : '';
     if (url.length > 7000) { url = ''; $('bkinfo').textContent = 'the URL is too long; uncheck some rows'; }
@@ -2391,8 +2397,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   bkSync();
   // ---- ASCII-only fields: id / contents / groups / relations / member / url / map / setlistid / songs link ----
   // The browser cannot force the IME off, so: the soft keyboard type is hinted (inputmode), and full-width letters / digits / symbols are turned into half-width as they are entered (not while composing). Fields that take Japanese text are left alone.
-  var ASCII_IDS = { 'fid': 'text', 'f-contents': 'text', 'f-groups': 'text', 'f-relations': 'text', 'f-member': 'text', 'f-url': 'url', 'f-map': 'url', 'f-setlistid': 'numeric', 'sl': 'url' };
-  var ASCII_LIST = { 'f-groups': 1, 'f-relations': 1, 'f-member': 1 }; // comma separated codes: a full-width / ideographic comma becomes ','
+  var ASCII_IDS = { 'fid': 'email', 'f-contents': 'email', 'f-groups': 'email', 'f-relations': 'email', 'f-member': 'email', 'f-url': 'url', 'f-map': 'url', 'f-setlistid': 'numeric', 'sl': 'url', 'fdd': 'numeric', 'fdt': 'numeric', 'bkd1': 'numeric', 'bkd2': 'numeric', 'bkcon': 'email', 'bkgrp': 'email' }; // email: the Latin keyboard on phones (the keyboard language cannot be switched from a page, only the keyboard type is hinted)
+  var ASCII_LIST = { 'f-groups': 1, 'f-relations': 1, 'f-member': 1, 'bkcon': 1, 'bkgrp': 1 }; // comma separated codes: a full-width / ideographic comma becomes ','
   function asciiKey(el) { var id = el && el.id ? el.id.replace(/^glih-/, '') : ''; return ASCII_IDS[id] ? id : ''; }
   var FW_RE = new RegExp('[' + String.fromCharCode(0xFF01) + '-' + String.fromCharCode(0xFF5E) + ']', 'g'), IDEO_SP = String.fromCharCode(0x3000), COMMA_RE = new RegExp('[' + String.fromCharCode(0x3001, 0xFF0C, 0xFF64) + ']', 'g');
   function toAscii(v, list) {
@@ -2409,11 +2415,25 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var s = el.selectionStart, e = el.selectionEnd; el.value = nv; try { el.setSelectionRange(s, e); } catch (x) {}
     if (fire) el.dispatchEvent(new Event('input', { bubbles: true }));
   }
+  var NONASCII_RE = new RegExp('[^\\x00-\\x7f]');
+  function asciiCheck(el) { // a field that must be half-width alphanumerics: a red frame + a note while it still holds other characters (kana / kanji typed with the IME on); the Issue button waits
+    var k = asciiKey(el); if (!k || k === 'fid' || k === 'sl') return;
+    var bad = NONASCII_RE.test(el.value), was = el.classList.contains('asbad'); if (bad === was) return;
+    el.classList.toggle('asbad', bad);
+    var fld = el.closest('.field');
+    if (fld) {
+      if (!el._ah) { el._ah = document.createElement('div'); el._ah.className = 'ahint'; el._ah.textContent = 'half-width letters / digits only (turn the IME off)'; fld.parentNode.insertBefore(el._ah, fld.nextSibling); }
+      el._ah.hidden = !bad;
+    }
+    updateFind(); bkSync();
+  }
+  function asciiInit() { Object.keys(ASCII_IDS).forEach(function (k) { var e = $(k); if (e) asciiHint(e); }); } // set the keyboard hints when the fields exist, not only when they are touched
   root.addEventListener('focusin', function (e) { asciiHint(e.target); }, true);
   root.addEventListener('pointerdown', function (e) { asciiHint(e.target); }, true);
-  root.addEventListener('input', function (e) { if (!e.isComposing) asciiFix(e.target, false); }, true); // capture: runs before the field's own listeners, so they already see the half-width value
-  root.addEventListener('compositionend', function (e) { asciiFix(e.target, true); }, true);
-  root.addEventListener('change', function (e) { asciiFix(e.target, true); }, true);
+  root.addEventListener('input', function (e) { if (!e.isComposing) { asciiFix(e.target, false); asciiCheck(e.target); } }, true); // capture: runs before the field's own listeners, so they already see the half-width value
+  root.addEventListener('compositionend', function (e) { asciiFix(e.target, true); asciiCheck(e.target); }, true);
+  root.addEventListener('change', function (e) { asciiFix(e.target, true); asciiCheck(e.target); }, true);
+  asciiInit();
 
   tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : location.hash === '#check' ? 'check' : location.hash === '#bulk' ? 'bulk' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
   applyModeUI();
