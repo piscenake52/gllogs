@@ -771,7 +771,70 @@ def apply_item(target, main_data, raw, issue_map):
     return "added"
 
 
+def apply_bulk(target, main_data, bulk):
+    """bulk変更(logsのみ): tags の置換 / 追加 / 削除、contents の変更。戻り値: 実際に変わった行数。
+    すでに同じ状態の行（同じタグがある・無い、同じ contents）は黙って飛ばす。見つからない logid は通知する"""
+    if target["name"] != "logs" or not isinstance(bulk, dict):
+        return 0
+    op, ids = bulk.get("op"), bulk.get("ids")
+    if not isinstance(ids, list) or not ids or len(ids) > 100:
+        print("【スキップ】bulk: 対象が不正です（1〜100件）")
+        return 0
+    by_id = {}
+    for r in main_data:
+        if isinstance(r, dict) and r.get("logid"):
+            by_id.setdefault(r["logid"], []).append(r)
+    changed, missing, blocked = 0, [], []
+    for lid in ids:
+        rows = by_id.get(lid, [])
+        if len(rows) != 1:
+            missing.append(lid)
+            continue
+        row = rows[0]
+        tags = row.get("tags") if isinstance(row.get("tags"), list) else []
+        if op == "replace":
+            old, new = bulk.get("from"), bulk.get("to")
+            if old not in tags:
+                continue
+            out = list(dict.fromkeys(new if t == old else t for t in tags))
+            row["tags"] = out
+        elif op == "add":
+            v = bulk.get("value")
+            if not v or v in tags:
+                continue
+            row["tags"] = tags + [v]
+        elif op == "remove":
+            v = bulk.get("value")
+            if v not in tags:
+                continue
+            out = [t for t in tags if t != v]
+            if out:
+                row["tags"] = out
+            else:
+                row.pop("tags", None)
+        elif op == "contents":
+            v = bulk.get("value")
+            if not v or row.get("contents") == v:
+                continue
+            if v in ANNIV_BLOCKED:
+                continue
+            if row.get("contents") in ANNIV_BLOCKED and linked_annivs(main_data, lid):
+                blocked.append(lid)
+                continue
+            row["contents"] = v
+        else:
+            return 0
+        main_data[main_data.index(row)] = reorder(target, row)
+        changed += 1
+    if missing:
+        NOTICES.append("- **logs bulk**: 見つからない logid があります（" + ", ".join("`" + m + "`" for m in missing[:10]) + (" ..." if len(missing) > 10 else "") + "）")
+    if blocked:
+        NOTICES.append("- **logs bulk**: ANNIVERSARY から参照されているため contents を変えなかった行があります（" + ", ".join("`" + b + "`" for b in blocked[:10]) + "）")
+    return changed
+
+
 # ---------- ファイル操作 ----------
+
 
 INDEX_MAP_CONTENTS = ("LIVE", "RELEASEEVENT", "FANMEETING")
 
@@ -866,6 +929,9 @@ def process_target(target, issue_map):
 
         for raw in new_items:
             if not isinstance(raw, dict):
+                continue
+            if "_bulk" in raw:
+                stats["updated"] += apply_bulk(target, main_data, raw["_bulk"])
                 continue
             stats[apply_item(target, main_data, raw, issue_map)] += 1
         parsed_files.append(file_path)

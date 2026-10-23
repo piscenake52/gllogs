@@ -723,12 +723,79 @@ def creation_stamp():
     return dt.astimezone(JST).strftime("%Y%m%d%H%M%S")
 
 
+BULK_MAX = 100
+BULK_OPS = ("replace", "add", "remove", "contents")
+
+
+def build_bulk(body):
+    """bulk フォーム(add_bulk.yml)のIssueを検証し、キュー用の辞書を返す。戻り値: (data, errors)"""
+    ids_raw = extract_field("bulk ids", body)
+    op = extract_field("bulk op", body).strip().lower()
+    v_from = extract_field("bulk from", body).strip()
+    v_to = extract_field("bulk to", body).strip()
+    errors = []
+    ids = []
+    for x in re.split(r"[\s,]+", ids_raw or ""):
+        x = x.strip().lower()
+        if x and x not in ("none", "_no", "response_") and x not in ids:
+            ids.append(x)
+    bad = [x for x in ids if not re.fullmatch(r"[0-9a-f]{12}", x)]
+    if not ids:
+        errors.append("- **bulk ids**: 対象の logid を入力してください")
+    if bad:
+        errors.append("- **bulk ids**: 12桁の logid で入力してください（" + ", ".join("`" + b.replace(chr(96), chr(39)) + "`" for b in bad[:5]) + "）")
+    if len(ids) > BULK_MAX:
+        errors.append(f"- **bulk ids**: {BULK_MAX}件を超えているため処理しません（{len(ids)}件）")
+    if op not in BULK_OPS:
+        errors.append("- **bulk op**: replace / add / remove / contents のどれかを入力してください")
+    value = ""
+    if op == "replace":
+        if not v_from or not v_to:
+            errors.append("- **bulk from / to**: replace では from と to の両方が必要です")
+        elif v_from == v_to:
+            errors.append("- **bulk from / to**: from と to が同じです")
+    elif op in ("add", "contents"):
+        value = v_to or v_from
+        if not value:
+            errors.append("- **bulk to**: 値を入力してください")
+    elif op == "remove":
+        value = v_from or v_to
+        if not value:
+            errors.append("- **bulk from**: 削除するタグを入力してください")
+    if op == "contents" and value:
+        value = to_halfwidth(value).upper()
+        if value not in CONTENTS_OPTIONS or value in ("ANNIVERSARY", "BIRTHDAY"):
+            errors.append("- **bulk to**: contents の選択肢にある値を入力してください（ANNIVERSARY / BIRTHDAY は指定できません）")
+    if errors:
+        return None, errors
+    bulk = {"op": op, "ids": ids}
+    if op == "replace":
+        bulk["from"], bulk["to"] = v_from, v_to
+    else:
+        bulk["value"] = value
+    return {"_bulk": bulk}, []
+
+
 def main():
     body = os.environ.get("ISSUE_BODY", "").replace("\r\n", "\n")
     issue_number = os.environ.get("ISSUE_NUMBER", "").strip()
 
     if LEGACY_MARKER in body:
         print("旧フォームのIssueは処理しません。新しいフォームから作成し直してください。")
+        return
+
+    # bulk フォーム(add_bulk.yml): logs の複数行をまとめて変更する
+    if "### bulk ids" in body:
+        data, errors = build_bulk(body)
+        if errors:
+            write_error(errors)
+            print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
+            return
+        os.makedirs("data/logs/queue", exist_ok=True)
+        file_path = os.path.join("data/logs/queue", f"{creation_stamp()}.json")
+        with open(file_path, "w", encoding="utf-8") as fp:
+            json.dump(data, fp, ensure_ascii=False, indent=2)
+        print(f"JSONファイルを生成しました: {file_path}")
         return
 
     # フォームの種類は、本文に含まれる見出しで判別する
