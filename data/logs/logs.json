@@ -19665,6 +19665,37 @@
     "suffix": "開催記念日"
   },
   {
+    "logid": "63812c9066e0",
+    "date": "20260913",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSga4aSnu/",
+            "member": [
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "DISCO TIME"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "3370e9fff698",
     "date": "20260912",
     "time": "1900",
