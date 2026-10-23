@@ -1,0 +1,20 @@
+{
+ "updated": "2026-10-23T20:42:21Z",
+ "total": 11590,
+ "checked": 250,
+ "ng": 1,
+ "items": [
+  {
+   "url": "https://girls2-fc.jp/page/forms/garuraji_2026_October",
+   "logids": [
+    "ae7196da4922",
+    "f873c055e527"
+   ],
+   "fields": [
+    "url"
+   ],
+   "reason": "page not found (site title only)",
+   "since": 1792788141
+  }
+ ]
+}
