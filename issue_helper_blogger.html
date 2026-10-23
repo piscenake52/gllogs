@@ -2381,6 +2381,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   ['bkfrom', 'bkto'].forEach(function (id) { $(id).addEventListener('input', bkDraw); });
   ['bktag', 'bkd1', 'bkd2', 'bkcon', 'bkgrp', 'bktxt'].forEach(function (id) { $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); bkSearch(); } }); });
   $('bkgo').onclick = bkSearch;
+  // candidates while typing: tags used in logs.json (tag / from / to), contents values, group codes
+  var bkGrpOpts = function () { return CK_VALID.map(function (g) { return { v: g, k: normQ(g) }; }); };
+  addSuggest($('bktag'), tagOptsFor('logs'), $('bktag').closest('.field'), true);
+  addSuggest($('bkfrom'), tagOptsFor('logs'), $('bkfrom').closest('.field'), true);
+  addSuggest($('bkto'), function () { return bk.op === 'contents' ? lxContents() : tagOptsFor('logs')(); }, $('bkto').closest('.field'), true);
+  addSuggest($('bkcon'), lxContents, $('bkcon').closest('.field'), true, true);
+  addSuggest($('bkgrp'), bkGrpOpts, $('bkgrp').closest('.field'), true, true);
   bkSync();
   // ---- ASCII-only fields: id / contents / groups / relations / member / url / map / setlistid / songs link ----
   // The browser cannot force the IME off, so: the soft keyboard type is hinted (inputmode), and full-width letters / digits / symbols are turned into half-width as they are entered (not while composing). Fields that take Japanese text are left alone.
