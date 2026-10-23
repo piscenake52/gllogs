@@ -4023,6 +4023,47 @@
     ]
   },
   {
+    "logid": "53473fa56ed0",
+    "date": "20261023",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2113546402655776860",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "c10ad9fcf380",
     "date": "20261022",
     "time": "2359",
