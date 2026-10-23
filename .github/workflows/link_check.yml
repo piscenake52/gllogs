@@ -1,0 +1,47 @@
+name: Link check (a little every day)
+
+on:
+  schedule:
+    - cron: '0 18 * * *'   # every day 03:00 JST (low traffic time)
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'URLs to check in this run (default 250)'
+        required: false
+        default: '250'
+
+# data を書き換える他のワークフロー(auto_merge.yml)と同時に動かさない
+concurrency:
+  group: gllogs-data-merge
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Chromium
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+
+      - name: Check links
+        env:
+          LINK_LIMIT: ${{ github.event.inputs.limit || '250' }}
+          LINK_MAX_SECONDS: '1500'
+        run: python scripts/link_check.py
+
+      - name: Commit the result
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/logs/link_state.json data/logs/link_report.json
+          git diff --staged --quiet || (git commit -m "Link check" && git pull --rebase && git push)
