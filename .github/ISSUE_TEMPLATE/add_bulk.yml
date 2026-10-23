@@ -1,0 +1,32 @@
+name: "logs bulk"
+description: "tag / contents bulk change (logs only, up to 100 rows)"
+title: "[DATA] logs bulk"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        helper の bulk タブから開いてください。入力済みの内容をそのまま送信します。
+
+  - type: textarea
+    id: bulk_ids
+    attributes:
+      label: "bulk ids"
+      description: "logid (12 characters), one per line. Up to 100."
+
+  - type: input
+    id: bulk_op
+    attributes:
+      label: "bulk op"
+      description: "replace / add / remove / contents"
+
+  - type: input
+    id: bulk_from
+    attributes:
+      label: "bulk from"
+      description: "replace: the old tag / remove: the tag to remove"
+
+  - type: input
+    id: bulk_to
+    attributes:
+      label: "bulk to"
+      description: "replace: the new tag / add: the tag to add / contents: the new contents"
