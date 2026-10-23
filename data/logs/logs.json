@@ -4192,6 +4192,34 @@
             ]
           }
         ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2113566068094714197",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgaQ6wJr/",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "EASY"
+            ]
+          }
+        ]
       }
     ]
   },
