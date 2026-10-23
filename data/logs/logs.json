@@ -3829,12 +3829,28 @@
     "time": "2000",
     "contents": "SNS",
     "title": "あかりんごの元気モリモリール　#124",
+    "url": "https://www.instagram.com/reel/De1ZryRiarm/?vrfl=MTFieXk3N2RkNGVjcA==",
     "groups": [
       "L2",
       "AKR"
     ],
     "tags": [
+      "Made My Night",
+      "LE SSERAFIM",
       "ダンスは遊びじゃない！"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/De1ZryRiarm/?vrfl=MTFieXk3N2RkNGVjcA==",
+            "member": [
+              "AKR"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
