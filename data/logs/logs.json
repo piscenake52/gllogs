@@ -3825,7 +3825,7 @@
   {
     "logid": "86b4b79c6882",
     "date": "20261023",
-    "time": "1730",
+    "time": "1900",
     "contents": "CL",
     "title": "LDH NEWS CAST　鶴屋美咲",
     "url": "https://www.cl-live.com/artists/ldh_news_cast?lang=ja",
@@ -3842,6 +3842,15 @@
         "urls": [
           {
             "url": "https://x.com/CL_OFFICIAL_ACC/status/2113247638472863988",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/kqvPMKFi1VZPhUBdCwkijd",
             "member": []
           }
         ]
