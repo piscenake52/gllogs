@@ -118,6 +118,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .plst button.small { padding:2px 7px; font-size:11px; margin:2px 4px 2px 0; }
 #glih .plok { color:var(--sub); } #glih .plng { color:#d33; margin-right:6px; } #glih .plnote { font-size:11px; color:var(--sub); }
 #glih .plbar { display:flex; gap:6px; }
+#glih .bkh { font-size:13px; }
+#glih .bkdt { display:flex; align-items:center; gap:6px; flex:1; min-width:0; }
+#glih .bkdt .fin { min-width:0; }
+#glih .bkl { border:1px solid var(--line); border-radius:8px; margin:0 0 8px; padding:0 8px; max-height:26em; overflow:auto; }
+#glih .bkrow { border-bottom:1px solid var(--line); padding:6px 2px; font-size:12px; }
+#glih .bkrow:last-child { border-bottom:0; }
+#glih .bkrow.off { opacity:.55; }
+#glih .bkt { margin:2px 0 2px 24px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#glih .bkd { color:var(--sub); margin-left:24px; word-break:break-all; }
 #glih .fdiff { font-size:12px; color:var(--sub); margin:0 0 8px; line-height:1.5; max-height:9em; overflow:auto; word-break:break-all; }
 #glih .fdiff b { color:var(--text); font-weight:600; }
 #glih .fdiff .rmk { color:var(--sub); opacity:.8; }
@@ -246,9 +255,27 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 
 <div class="toplink"><a href="https://gl-log.blogspot.com/" target="_blank" rel="noopener">GL log</a></div>
 
-<div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="songs">songs</button><button type="button" data-tab="check">check</button></div>
+<div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="songs">songs</button><button type="button" data-tab="bulk">bulk</button><button type="button" data-tab="check">check</button></div>
 
 <div hidden><div class="chips" id="glih-groups"><div class="cr"><button type="button" class="chip" data-v="G2">G2</button><button type="button" class="chip" data-v="L2">L2</button></div><div class="cr"><button type="button" class="chip" data-v="YZH">YZH</button><button type="button" class="chip" data-v="MMK">MMK</button><button type="button" class="chip" data-v="MSK">MSK</button><button type="button" class="chip" data-v="YOK">YOK</button><button type="button" class="chip" data-v="KUR">KUR</button><button type="button" class="chip" data-v="MNM">MNM</button><button type="button" class="chip" data-v="KIR">KIR</button></div><div class="cr"><button type="button" class="chip" data-v="TOA">TOA</button><button type="button" class="chip" data-v="RAN">RAN</button></div><div class="cr"><button type="button" class="chip" data-v="RIN">RIN</button><button type="button" class="chip" data-v="TBK">TBK</button><button type="button" class="chip" data-v="HIR">HIR</button><button type="button" class="chip" data-v="YUW">YUW</button><button type="button" class="chip" data-v="KAN">KAN</button><button type="button" class="chip" data-v="RRK">RRK</button><button type="button" class="chip" data-v="AKR">AKR</button><button type="button" class="chip" data-v="KIK">KIK</button></div><div class="cr"><button type="button" class="chip" data-v="YUR">YUR</button></div></div></div>
+
+<section id="glih-p-bulk" hidden>
+  <div class="field"><label>step 1</label><b class="bkh">filter</b></div>
+  <div class="field"><label for="glih-bktag">tag</label><input type="text" id="glih-bktag" class="fin" autocomplete="off"></div>
+  <div class="field"><label for="glih-bkd1">date</label><div class="bkdt"><input type="text" id="glih-bkd1" class="fin" inputmode="numeric" placeholder="yyyymmdd" autocomplete="off"><span>-</span><input type="text" id="glih-bkd2" class="fin" inputmode="numeric" placeholder="yyyymmdd" autocomplete="off"></div></div>
+  <div class="field"><label for="glih-bkcon">contents</label><input type="text" id="glih-bkcon" class="fin" placeholder="LIVE, TV ..." autocomplete="off" autocapitalize="off"></div>
+  <div class="field"><label for="glih-bkgrp">groups</label><input type="text" id="glih-bkgrp" class="fin" placeholder="G2, L2 ..." autocomplete="off" autocapitalize="off"></div>
+  <div class="field"><label for="glih-bktxt">text</label><input type="text" id="glih-bktxt" class="fin" placeholder="title / display contains" autocomplete="off"></div>
+  <div class="field"><label></label><button type="button" class="small" id="glih-bkgo">search</button></div>
+  <div class="field"><label>step 2</label><b class="bkh">operation</b></div>
+  <div class="field"><label>do</label><div class="chipr" id="glih-bkops"><button type="button" class="chip on" data-op="replace" aria-pressed="true">tag replace</button><button type="button" class="chip" data-op="add" aria-pressed="false">tag add</button><button type="button" class="chip" data-op="remove" aria-pressed="false">tag remove</button><button type="button" class="chip" data-op="contents" aria-pressed="false">contents</button></div></div>
+  <div class="field" id="glih-bkfromrow"><label for="glih-bkfrom" id="glih-bkfromlb">from</label><input type="text" id="glih-bkfrom" class="fin" autocomplete="off"></div>
+  <div class="field" id="glih-bktorow"><label for="glih-bkto" id="glih-bktolb">to</label><input type="text" id="glih-bkto" class="fin" autocomplete="off"></div>
+  <div class="field"><label>step 3</label><b class="bkh">preview <span id="glih-bkcount"></span></b></div>
+  <div class="bkl" id="glih-bklist" hidden></div>
+  <div class="fdiff" id="glih-bkinfo"></div>
+  <a class="go" id="glih-go-bulk" target="_blank" rel="noopener" aria-disabled="true">Issue</a>
+</section>
 
 <section id="glih-p-check" hidden>
   <div class="ckhead"><div class="ckmeta" id="glih-ckmeta">not run yet</div><button type="button" class="small" id="glih-ckrun">run</button></div>
@@ -318,6 +345,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var isFind = name === 'logs' || name === 'setlist';
     $('p-find').hidden = !isFind; $('p-songs').hidden = name !== 'songs'; if (name === 'songs') songsInit();
     $('p-check').hidden = name !== 'check'; if (name === 'check') ckInit();
+    $('p-bulk').hidden = name !== 'bulk'; if (name === 'bulk') fetchData('logs').catch(function () {});
     if (isFind && $('fkind').value !== name) { $('fkind').value = name; $('fkind').dispatchEvent(new Event('change')); } // logs / setlist share one panel
     [].forEach.call(root.querySelectorAll('.tabs button'), function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === name); });
   }
@@ -1429,12 +1457,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     else fstat('Found: ' + found.id);
     warnRun();
   }
-  // contents SNS: the title gets `SNS` + a full-width space (+ Girls2 when groups is G2 only, + Laki when groups is L2 only). It is rewritten while the title is still one of these auto values, and cleared when contents leaves SNS.
+  // contents SNS: the title gets `SNS` + a full-width space (+ Girls(superscript 2) when groups is G2 only, + Laki when groups is L2 only). It is rewritten while the title is still one of these auto values, and cleared when contents leaves SNS.
   function snsAutoTitle() {
     var ge = $('f-groups'), gs = ge ? ge.value.split(/[,\n]/).map(function (x) { return x.trim(); }) : [], g2 = gs.indexOf('G2') >= 0, l2 = gs.indexOf('L2') >= 0;
-    return 'SNS\u3000' + (g2 && !l2 ? 'Girls2' : l2 && !g2 ? 'Laki' : '');
+    return 'SNS\u3000' + (g2 && !l2 ? G2_NAME : l2 && !g2 ? 'Laki' : '');
   }
-  function isSnsAuto(v) { return v === 'SNS\u3000' || v === 'SNS\u3000Girls2' || v === 'SNS\u3000Laki'; }
+  var G2_NAME = 'Girls' + String.fromCharCode(0xb2); // Girls + superscript 2
+  function isSnsAuto(v) { return v === 'SNS\u3000' || v === 'SNS\u3000Girls2' || v === 'SNS\u3000' + G2_NAME || v === 'SNS\u3000Laki'; } // the old plain-digit value is still treated as an auto value
   function autoSnsTitle() {
     var ce = $('f-contents'), te = $('f-title'); if (!ce || !te || !found || found.kind !== 'logs') return;
     var c = ce.value.trim().toUpperCase(), ch = false, cur = te.value;
@@ -2281,6 +2310,78 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     fld.parentNode.insertBefore(head, fld.nextSibling); fld.parentNode.insertBefore(panel, head.nextSibling);
   }
   draftBanner();
+  // ---- bulk tab (logs only): filter -> choose rows -> one operation (tag replace / add / remove, contents) -> one Issue (add_bulk.yml). Up to 100 rows. Rows that are already in the target state are skipped. ----
+  var TPL_BULK = 'add_bulk.yml', BK_MAX = 100, BK_SHOW = 300, bk = { rows: [], sel: {}, op: 'replace', total: 0, msg: '' };
+  function bkTags(r) { return Array.isArray(r.tags) ? r.tags : []; }
+  function bkVals() { return { a: $('bkfrom').value.trim(), b: $('bkto').value.trim() }; }
+  function bkChange(r) { // the change of one row for the chosen operation, or '' when the row would not change
+    var v = bkVals(), t = bkTags(r), op = bk.op;
+    if (op === 'replace') return v.a && v.b && v.a !== v.b && t.indexOf(v.a) >= 0 ? 'tags: ' + v.a + ' > ' + v.b : '';
+    if (op === 'add') return v.b && t.indexOf(v.b) < 0 ? 'tags: + ' + v.b : '';
+    if (op === 'remove') return v.a && t.indexOf(v.a) >= 0 ? 'tags: - ' + v.a : '';
+    var c = v.b.toUpperCase(); return c && c !== 'ANNIVERSARY' && c !== 'BIRTHDAY' && (r.contents || 'ETC') !== c ? 'contents: ' + (r.contents || 'ETC') + ' > ' + c : '';
+  }
+  function bkMatch(r, f) {
+    if (!r || !r.logid) return false;
+    if (f.tag && !bkTags(r).some(function (x) { return normQ(x).indexOf(f.tag) >= 0; })) return false;
+    if (f.d1 && String(r.date || '') < f.d1) return false;
+    if (f.d2 && String(r.date || '') > f.d2) return false;
+    if (f.con.length && f.con.indexOf(String(r.contents || 'ETC').toUpperCase()) < 0) return false;
+    if (f.grp.length && !f.grp.every(function (g) { return (r.groups || []).indexOf(g) >= 0; })) return false;
+    if (f.txt && normQ([r.title, r.display_pc, r.display_sp].join(' ')).indexOf(f.txt) < 0) return false;
+    return true;
+  }
+  function bkSearch() {
+    var d1 = digits($('bkd1').value), d2 = digits($('bkd2').value);
+    var f = { tag: normQ($('bktag').value.trim()), d1: d1.length === 8 ? d1 : '', d2: d2.length === 8 ? d2 : '', con: $('bkcon').value.split(/[,\s]+/).filter(Boolean).map(function (x) { return x.toUpperCase(); }), grp: $('bkgrp').value.split(/[,\s]+/).filter(Boolean).map(function (x) { return x.toUpperCase(); }), txt: normQ($('bktxt').value.trim()) };
+    if (!f.tag && !f.d1 && !f.d2 && !f.con.length && !f.grp.length && !f.txt) { bk.rows = []; bk.total = 0; bk.msg = 'set at least one filter'; bkDraw(); return; }
+    bk.msg = 'loading...'; bkDraw();
+    fetchData('logs').then(function (all) {
+      var hit = all.filter(function (r) { return bkMatch(r, f); });
+      bk.total = hit.length; bk.rows = hit.slice(0, BK_SHOW); bk.sel = {};
+      bk.rows.forEach(function (r) { bk.sel[r.logid] = true; });
+      bk.msg = ''; bkDraw();
+    }).catch(function () { bk.msg = 'could not load logs.json'; bkDraw(); });
+  }
+  function bkSync() { // op-dependent inputs + the Issue link
+    var op = bk.op, lbA = { replace: 'from', remove: 'tag' }[op], lbB = { replace: 'to', add: 'tag', contents: 'contents' }[op];
+    $('bkfromrow').hidden = !lbA; $('bktorow').hidden = !lbB; if (lbA) $('bkfromlb').textContent = lbA; if (lbB) $('bktolb').textContent = lbB;
+    [].forEach.call(root.querySelectorAll('#glih-bkops .chip'), function (b) { var on = b.getAttribute('data-op') === op; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+    var ids = [], v = bkVals();
+    bk.rows.forEach(function (r) { if (bk.sel[r.logid] && bkChange(r)) ids.push(r.logid); });
+    var need = op === 'replace' ? v.a && v.b && v.a !== v.b : op === 'remove' ? !!v.a : !!v.b, info = '';
+    if (!bk.rows.length) info = bk.msg || (bk.total ? '' : 'no rows');
+    else if (bk.total > BK_SHOW) info = bk.total + ' rows match; narrow the filter (shows ' + BK_SHOW + ')';
+    else if (!need) info = 'enter the values';
+    else if (!ids.length) info = 'no row will change';
+    else if (ids.length > BK_MAX) info = ids.length + ' rows checked: over ' + BK_MAX + ', not sent. Uncheck or narrow the filter.';
+    else info = ids.length + ' rows will change.';
+    $('bkinfo').textContent = info; $('bkcount').textContent = bk.rows.length ? '(' + ids.length + ' / ' + bk.rows.length + ' checked, max ' + BK_MAX + ')' : '';
+    var ok = need && ids.length >= 1 && ids.length <= BK_MAX && bk.total <= BK_SHOW, p = { bulk_ids: ids.join('\n'), bulk_op: op };
+    if (op === 'replace') { p.bulk_from = v.a; p.bulk_to = v.b; } else if (op === 'remove') p.bulk_from = v.a; else p.bulk_to = v.b;
+    var url = ok ? issueUrl(TPL_BULK, p) : '';
+    if (url.length > 7000) { url = ''; $('bkinfo').textContent = 'the URL is too long; uncheck some rows'; }
+    setLink($('go-bulk'), url); $('go-bulk').textContent = ids.length ? 'Issue (' + ids.length + ')' : 'Issue';
+    return ids.length;
+  }
+  function bkDraw() {
+    var box = $('bklist'); box.innerHTML = ''; box.hidden = !bk.rows.length;
+    bk.rows.forEach(function (r) {
+      var ch = bkChange(r), row = document.createElement('div'); row.className = 'bkrow' + (ch ? '' : ' off');
+      var lb = document.createElement('label'); lb.className = 'chk'; var cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!(ch && bk.sel[r.logid]); cb.disabled = !ch;
+      cb.onchange = function () { bk.sel[r.logid] = cb.checked; bkSync(); };
+      lb.appendChild(cb); lb.appendChild(document.createTextNode(fmtD(r.date, r.time) + '  ' + r.logid)); row.appendChild(lb);
+      var t = document.createElement('div'); t.className = 'bkt'; t.textContent = r.title || ''; row.appendChild(t);
+      var d = document.createElement('div'); d.className = 'bkd'; d.textContent = ch || (bk.op === 'contents' ? 'no change' : 'no change (already in that state)'); row.appendChild(d);
+      box.appendChild(row);
+    });
+    bkSync();
+  }
+  [].forEach.call(root.querySelectorAll('#glih-bkops .chip'), function (b) { b.onclick = function () { bk.op = b.getAttribute('data-op'); bkDraw(); }; });
+  ['bkfrom', 'bkto'].forEach(function (id) { $(id).addEventListener('input', bkDraw); });
+  ['bktag', 'bkd1', 'bkd2', 'bkcon', 'bkgrp', 'bktxt'].forEach(function (id) { $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); bkSearch(); } }); });
+  $('bkgo').onclick = bkSearch;
+  bkSync();
   // ---- ASCII-only fields: id / contents / groups / relations / member / url / map / setlistid / songs link ----
   // The browser cannot force the IME off, so: the soft keyboard type is hinted (inputmode), and full-width letters / digits / symbols are turned into half-width as they are entered (not while composing). Fields that take Japanese text are left alone.
   var ASCII_IDS = { 'fid': 'text', 'f-contents': 'text', 'f-groups': 'text', 'f-relations': 'text', 'f-member': 'text', 'f-url': 'url', 'f-map': 'url', 'f-setlistid': 'numeric', 'sl': 'url' };
@@ -2307,7 +2408,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   root.addEventListener('compositionend', function (e) { asciiFix(e.target, true); }, true);
   root.addEventListener('change', function (e) { asciiFix(e.target, true); }, true);
 
-  tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : location.hash === '#check' ? 'check' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
+  tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : location.hash === '#check' ? 'check' : location.hash === '#bulk' ? 'bulk' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
   applyModeUI();
   if (qid0) { $('fid').value = qid0; doFind(); } // opened with ?id=...: load that id in the tab given by the hash (#logs / #setlist)
 })();

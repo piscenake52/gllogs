@@ -939,3 +939,11 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 ### setlist 貼り付け変換
 - setlist の songs 欄の下の `setlist paste` で開く。`1.` `1)` `①` `M1` 形式の番号を解釈、`EN1` / `アンコール` は連番で notes に `encore`。`※` / `MC` 行・見出し行は無視。末尾の `( )` と `★` 以降は notes。
 - songs.json に無い曲名は赤表示+候補(最大3件)。自動では直さず、候補を押すと置換。`apply to songs`(空なら置換、入力済みなら追記) / `undo`。
+
+## bulk(まとめて変更・logs のみ)
+
+- helper の `bulk` タブ(check の左)。①絞り込み(tag / 日付範囲 / contents / groups / 文字列) → ②操作 → ③変更前後の一覧(チェックで対象を外せる) → Issue。
+- 操作: `tag replace`(from→to。タグの並び順は保つ) / `tag add` / `tag remove` / `contents`(ANNIVERSARY・BIRTHDAY には変更不可)。すでにその状態の行(同じタグが入っている・無い、同じ contents)はエラーにせず黙って飛ばす。
+- 上限は 100 件。チェックされた「変更のある行」が 100 件を超える、または絞り込み結果が 300 件を超える間は Issue ボタンを無効にする(超過分を勝手に切り捨てない)。元に戻すための Issue は作らない。
+- Issue フォーム `add_bulk.yml`(`bulk ids` = logid を1行ずつ / `bulk op` = replace・add・remove・contents / `bulk from` / `bulk to`)。`issue_to_json.py` が検証して `{"_bulk": {...}}` をキューに出し、`merge_json.py` の `apply_bulk` が反映する。logid が12桁でない・100件超・値の不足は Issue コメントでエラー。見つからない logid は通知コメント。
+- 同じ Issue を編集して再実行しても、同じ状態になるだけ(冪等)。
