@@ -4106,6 +4106,33 @@
     ]
   },
   {
+    "logid": "792935e5ec59",
+    "date": "20261023",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YOK"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/5LAG0XYFtYs?si=YQajHybg1haGi-dk",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "EASY"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "c10ad9fcf380",
     "date": "20261022",
     "time": "2359",
