@@ -920,3 +920,22 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 対象: id(fid)、contents、groups、relations、member、url、map、setlistid、songsタブのlink。
 - ブラウザは日本語入力(IME)のオン・オフを強制できないため、①スマホのキーボード種別を`inputmode`で指定(url/map/link=url、setlistid=numeric、ほか=text。`autocapitalize=off`など)、②入力時に全角の英数字・記号を半角へ自動変換(変換中は行わず、確定後に変換)、③groups/relations/memberは全角・読点のカンマも`,`にする。
 - title・display・tags・sns・曲名など日本語を入れる項目は対象外。
+
+## helper: 重複警告 / タグ表記ゆれ警告 / 下書き自動保存 / setlist 貼り付け変換
+
+### 重複警告(logs 新規・単発のみ)
+- 日付 + 時刻 + title + contents(空は ETC) + groups(順不同の集合)が **すべて一致** する既存行があると、Issue ボタン上に警告を出す(`open` = その行を読み込む、`json` = 読み込んで JSON 欄を開く)。groups が違う行は重複とみなさない。
+- 繰り返し登録(repeat)がONの間は判定しない。Issue ボタンは警告中も押せる。
+- 判定には logs.json 全件を使う(初回のみ遅延読み込み)。
+
+### タグ表記ゆれ警告(logs の tags)
+- 入力したタグが既存タグと完全一致しないが、全角半角・大文字小文字・空白・記号・長音・ひらがな/カタカナ違いを無視すると既存タグと一致する場合に警告。`use existing`(既存表記に置換) / `keep mine`(そのまま、この画面の間は再警告しない)。
+- 編集で元から入っていたタグは対象外。編集距離による判定はしない(誤検出が多いため)。
+
+### 下書き自動保存
+- 入力が 30 秒止まるたびに、変更した項目を localStorage(`glih_drafts`)へ保存。ページを閉じる/隠すときにも保存(30秒待たない)。保存は 1 日で削除。
+- キーは `new:logs` / `new:setlist` / `edit:{kind}:{id}`。同じ画面を開くと `restore` / `discard` のバナーを表示(未変更のときのみ)。Issue ボタンを押すと、その画面の下書きを削除。
+
+### setlist 貼り付け変換
+- setlist の songs 欄の下の `setlist paste` で開く。`1.` `1)` `①` `M1` 形式の番号を解釈、`EN1` / `アンコール` は連番で notes に `encore`。`※` / `MC` 行・見出し行は無視。末尾の `( )` と `★` 以降は notes。
+- songs.json に無い曲名は赤表示+候補(最大3件)。自動では直さず、候補を押すと置換。`apply to songs`(空なら置換、入力済みなら追記) / `undo`。

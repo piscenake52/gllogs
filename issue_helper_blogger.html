@@ -105,6 +105,19 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .tchips .chip { padding:5px 8px; }
 #glih .tchips .chip[data-v="mc"], #glih .tchips .chip[data-v="dt"] { box-sizing:border-box; width:40px; padding-left:0; padding-right:0; } /* mc / dt: 40px wide */
 #glih .chipr .chip.rm { text-decoration:line-through; opacity:.55; border-color:#d33; }
+#glih .fwarn { font-size:12px; line-height:1.6; border:1px solid #d9a400; background:rgba(217,164,0,.12); border-radius:8px; padding:6px 9px; margin:0 0 8px; word-break:break-all; }
+#glih .fwarn.dr { border-color:var(--line); background:var(--btn); }
+#glih .fwarn button.small { padding:3px 8px; font-size:11px; margin:2px 4px 2px 0; }
+#glih .plbox { border:1px solid var(--line); border-radius:10px; padding:8px; margin:0 0 10px; }
+#glih .plbox .fta { width:100%; box-sizing:border-box; }
+#glih .plprev { margin:6px 0; max-height:24em; overflow:auto; }
+#glih .plrow { display:flex; flex-wrap:wrap; align-items:center; gap:4px; padding:4px 0; border-bottom:1px solid var(--line); }
+#glih .plrow .fin { flex:1 1 40%; min-width:0; }
+#glih .plno { width:2em; text-align:right; color:var(--sub); font-size:12px; }
+#glih .plst { flex:1 1 100%; font-size:11px; padding-left:2.4em; }
+#glih .plst button.small { padding:2px 7px; font-size:11px; margin:2px 4px 2px 0; }
+#glih .plok { color:var(--sub); } #glih .plng { color:#d33; margin-right:6px; } #glih .plnote { font-size:11px; color:var(--sub); }
+#glih .plbar { display:flex; gap:6px; }
 #glih .fdiff { font-size:12px; color:var(--sub); margin:0 0 8px; line-height:1.5; max-height:9em; overflow:auto; word-break:break-all; }
 #glih .fdiff b { color:var(--text); font-weight:600; }
 #glih .fdiff .rmk { color:var(--sub); opacity:.8; }
@@ -271,6 +284,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="fcand" id="glih-fcand" hidden></div>
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
   <div class="field" id="glih-fcontrow" hidden><label>next</label><div class="chipr" id="glih-fcc"><button type="button" class="small" data-m="repeat" title="new entry on the same date with the repeat entry turned on, next # number">repeat</button><button type="button" class="small" data-m="tour" title="new entry in tour mode (same title base / contents / url / groups; add shows)">tour</button><button type="button" class="small" data-m="week" title="new entry: +7 days, next # number">weekly</button><button type="button" class="small" data-m="month" title="new entry: the same day of the next month, next # number">monthly</button><button type="button" class="small" data-m="year" title="new entry: the same day of the next year, next # number">yearly</button></div></div>
+  <div class="fwarn dr" id="glih-fdraft" hidden></div>
   <div id="glih-ff"></div>
   <div class="field" id="glih-fanrow" hidden><label for="glih-fan">anniv.</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
   <div class="field" id="glih-fansrow" hidden><label for="glih-fansx"></label><div class="fgcol"><input type="text" id="glih-fansx" class="fin" autocomplete="off" value="&#35352;&#24565;&#26085;"><div class="chipr" id="glih-fansch"></div></div></div>
@@ -278,6 +292,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、既存データの項目を空欄にすると、その項目は !clear で送られ、要素ごと削除されます(削除チェックは不要)。relations は事前入力できません(JSONで確認)。 -->
   <div class="out" id="glih-fjrow" hidden><button type="button" class="small" id="glih-fjtog" aria-expanded="false">JSON &#9662;</button><button type="button" class="small" id="glih-fcopy">JSON copy</button><button type="button" class="small" id="glih-freset">reset all</button></div>
   <textarea id="glih-fjson" class="jsonbox" spellcheck="false" hidden></textarea>
+  <div id="glih-fwarn" hidden></div>
   <div class="fdiff" id="glih-fdiff" hidden></div>
   <a class="go" id="glih-go-find" target="_blank" rel="noopener" aria-disabled="true">Issue</a>
 </section>
@@ -1375,7 +1390,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   var CLRK = { logs: ['time', 'groups', 'contents', 'title', 'display_pc', 'display_sp', 'url', 'map', 'setlistid', 'relations'], setlist: ['title', 'artist', 'member', 'venue', 'songs'] }; // fields that an emptied value clears (date / songs_patch / tags / sns have their own rules)
   function updateFind() {
-    if (!found) { setLink($('go-find'), ''); showDiff([]); return; }
+    if (!found) { setLink($('go-find'), ''); showDiff([]); draftBanner(); warnRun(); return; }
     var def = DEFS[found.kind], p = {}, n = 0, dl = [];
     if (found.id) p[def.idKey] = found.id;
     var an = annivState();
@@ -1412,6 +1427,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (errs.length) fstat('Check: ' + errs.join(' / '));
     else if (url.length > 7000) fstat('Warning: the URL is long (' + url.length + ' chars). GitHub may reject it; shorten the changed fields.');
     else fstat('Found: ' + found.id);
+    warnRun();
   }
   // contents SNS: the title gets `SNS` + a full-width space (+ Girls2 when groups is G2 only, + Laki when groups is L2 only). It is rewritten while the title is still one of these auto values, and cleared when contents leaves SNS.
   function snsAutoTitle() {
@@ -1457,6 +1473,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }
   }
   function renderFound(kind, id, row, isNew) {
+    drFlush();
     found = { kind: kind, id: id, isNew: !!isNew, row: row }; orig = {}; rep = null; $('fan').checked = false; $('fan').disabled = false; $('fansx').value = DEFSX;
     var box = $('ff'); box.innerHTML = '';
     DEFS[kind].fields.forEach(function (f) {
@@ -1473,7 +1490,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (isNew && kind === 'setlist') { var spe = $('f-songs_patch'); if (spe && spe.closest('.field')) spe.closest('.field').hidden = true; } // new mode: the songs box is used as it is (the per-song edit is for the loaded setlist only)
     if (isNew && kind === 'logs') { ['date', 'time'].forEach(function (k) { var e = $('f-' + k); if (e) { var fl = e.closest('.field'); if (fl) fl.hidden = true; } }); } // new mode: the top date / time are used
     if (isNew && kind === 'logs') { var tw = $('f-title'); if (tw && tw.closest('.field')) addRepeat(tw.closest('.field')); } // new mode: repeat registration block under the title
-    applyModeUI(); updateFind(); refInfo();
+    extraUI(); drApply(); applyModeUI(); updateFind(); refInfo();
   }
   // JSON box of the find tab: collapsed at first, opened / closed with the button, and editable. Valid JSON edits are written into the input fields (the Issue link follows); invalid JSON gets a red border and is ignored.
   var jsonOpen = false, origJson = '';
@@ -1495,7 +1512,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (el.value !== t) { el.value = t; el.dispatchEvent(new Event('input', { bubbles: true })); }
     });
   }
-  function clearFound() { found = null; seedId = ''; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('fansrow').hidden = true; $('fansx').value = DEFSX; $('ff').innerHTML = ''; $('frefrow').hidden = true; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
+  function clearFound() { drFlush(); found = null; seedId = ''; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('fansrow').hidden = true; $('fansx').value = DEFSX; $('ff').innerHTML = ''; $('frefrow').hidden = true; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
   // ---- repeat registration (new logs only): the date list is built here (every N days / weeks / months, until a date and / or a count, minus skipped dates), previewed with check boxes and sent as the repeat field of the form (one yyyymmdd per line; the server counts up the #number of the title for each row) ----
   var rep = null, REP_MAX = 60;
   function pad2(n) { return ('0' + n).slice(-2); }
@@ -2033,7 +2050,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     return kind === 'logs' && $('fany').checked ? { d: dv, t: '' } : null; // an empty time is allowed only for logs with anytime checked
   }
   function syncNew() {
-    wdTop();
+    wdTop(); draftBanner();
     if (found && !found.isNew) { updateFind(); return; } // edit mode: the top date / time only matter for the setlist copy
     var kind = $('fkind').value, r = topReady(kind);
     if (!r) { if (found && kind === 'logs' && found.isNew) { setVal('date', ''); setVal('time', ''); updateFind(); } else if (found) clearFound(); return; } // logs: the entered values stay while the top date / time is incomplete (the Issue link is off until it is valid)
@@ -2059,6 +2076,211 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   // the Issue button (bottom of the find tab): after the form page is opened, the input is reset (the same as the new button), ready for the next entry
   $('topnew').onclick = function () { $('fnew').onclick(); };
   $('go-find').addEventListener('click', function () { if ($('go-find').getAttribute('aria-disabled') === 'true') return; setTimeout(function () { $('fnew').onclick(); }, 300); });
+  // ---- find tab extras: (1) duplicate warning for a new logs entry, (2) tag spelling-variant warning, (3) draft autosave, (4) setlist paste converter ----
+  var SYM_RE = new RegExp('[\\s\\-_.,/\\\\()\\[\\]\'"!?~:;*&+=#@$%^|<>' + String.fromCharCode(0x30fb, 0x30fc, 0x2010, 0x2011, 0x2012, 0x2013, 0x2014, 0x2015, 0x2212, 0xff0d, 0x301c, 0x3000) + ']', 'g');
+  var KANA_RE = new RegExp('[' + String.fromCharCode(0x30a1) + '-' + String.fromCharCode(0x30f6) + ']', 'g');
+  function nk(s) { // spelling key: NFKC, lower case, no spaces / symbols / long vowel marks, katakana -> hiragana
+    return String(s == null ? '' : s).normalize('NFKC').toLowerCase().replace(SYM_RE, '').replace(KANA_RE, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0x60); });
+  }
+  function grpKey(a) { return (a || []).map(function (x) { return String(x).trim(); }).filter(Boolean).sort().join(','); }
+  var dupAsked = false, tagKeep = {}, warnKey = '';
+  function dupRows() { // same date + time + title + contents + groups (as a set); a row with other groups is not a duplicate. Single new logs entries only.
+    if (!found || found.kind !== 'logs' || !found.isNew) return [];
+    if ($('rpon') && $('rpon').checked) return [];
+    var tr = topReady('logs'), te = $('f-title'); if (!tr || !te) return [];
+    var title = te.value.trim(); if (!title) return [];
+    var rows = cache.logs;
+    if (!rows) { if (!dupAsked) { dupAsked = true; fetchData('logs').then(function () { warnKey = ''; warnRun(); }).catch(function () {}); } return []; }
+    var c = (($('f-contents') || {}).value || '').trim().toUpperCase() || 'ETC', g = grpKey((($('f-groups') || {}).value || '').split(/[,\n]/));
+    return rows.filter(function (r) { return r && r.date === tr.d && (r.time || '') === tr.t && String(r.title || '').trim() === title && String(r.contents || 'ETC').toUpperCase() === c && grpKey(r.groups) === g; }).slice(0, 5);
+  }
+  function tagVariants() { // typed tags that are not an existing tag but differ from one only by spelling (width, case, spaces, symbols, long vowel, hiragana / katakana)
+    var out = [], el = $('f-tags'); if (!found || found.kind !== 'logs' || !el) return out;
+    var list = tagOptsFor('logs')(); if (!list.length) return out;
+    if (!list._nm) { list._nm = {}; list._ex = {}; list.forEach(function (o) { list._ex[o.v] = 1; var k = nk(o.v); if (k) (list._nm[k] = list._nm[k] || []).push(o); }); }
+    var ot = tagTokens(orig.tags);
+    tagTokens(el.value).forEach(function (t) {
+      if (list._ex[t] || ot.indexOf(t) >= 0 || tagKeep[t]) return;
+      var c = list._nm[nk(t)]; if (c && c.length && c[0].v !== t) out.push({ mine: t, use: c[0].v, n: c[0].n });
+    });
+    return out;
+  }
+  function wbtn(txt, fn) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = txt; b.onclick = fn; return b; }
+  function warnRun() {
+    var box = $('fwarn'); if (!box) return;
+    var d = dupRows(), t = tagVariants(), key = JSON.stringify([d.map(function (r) { return r.logid; }), t]);
+    if (key === warnKey) return; warnKey = key;
+    box.innerHTML = ''; box.hidden = !(d.length || t.length);
+    d.forEach(function (r) {
+      var w = document.createElement('div'); w.className = 'fwarn'; w.appendChild(document.createTextNode('Same entry already exists: ' + r.logid + ' '));
+      w.appendChild(wbtn('open', function () { $('fid').value = r.logid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); }));
+      w.appendChild(wbtn('json', function () {
+        $('fid').value = r.logid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind();
+        var n = 0, iv = setInterval(function () { if (found && !found.isNew && found.id === r.logid) { clearInterval(iv); setJsonOpen(true); } else if (++n > 40) clearInterval(iv); }, 150);
+      }));
+      box.appendChild(w);
+    });
+    t.forEach(function (v) {
+      var w = document.createElement('div'); w.className = 'fwarn'; w.appendChild(document.createTextNode('Tag "' + v.mine + '" looks like the existing "' + v.use + '" (' + v.n + ') '));
+      w.appendChild(wbtn('use existing', function () {
+        var seen = {}, toks = tagTokens($('f-tags').value).map(function (x) { return x === v.mine ? v.use : x; }).filter(function (x) { if (seen[x]) return false; seen[x] = 1; return true; });
+        setVal('tags', toks.join(','));
+      }));
+      w.appendChild(wbtn('keep mine', function () { tagKeep[v.mine] = 1; warnKey = ''; warnRun(); }));
+      box.appendChild(w);
+    });
+  }
+  // draft autosave: the changed fields are saved to localStorage 30 seconds after the last input (and when the page is hidden), kept for 1 day, offered with restore / discard, and removed when the Issue button is used
+  var DR_KEY = 'glih_drafts', DR_MS = 86400000, DR_IDLE = 30000, drTimer = 0, drFor = '', drPending = null, drDone = {};
+  function drStore(o) { try { if (Object.keys(o).length) localStorage.setItem(DR_KEY, JSON.stringify(o)); else localStorage.removeItem(DR_KEY); } catch (e) {} }
+  function drLoad() {
+    var o = {}; try { o = JSON.parse(localStorage.getItem(DR_KEY) || '{}'); } catch (e) { o = {}; }
+    if (!o || typeof o !== 'object' || Array.isArray(o)) o = {};
+    var now = Date.now(), ch = false;
+    Object.keys(o).forEach(function (k) { if (!o[k] || typeof o[k].t !== 'number' || now - o[k].t > DR_MS) { delete o[k]; ch = true; } });
+    if (ch) drStore(o);
+    return o;
+  }
+  function drCtx() { return found ? (found.isNew ? 'new:' + found.kind : 'edit:' + found.kind + ':' + found.id) : ''; }
+  function drChanged() { // the fields changed from the loaded values (a new entry: the typed ones)
+    var f = {}, n = 0; if (!found) return { f: f, n: 0 };
+    DEFS[found.kind].fields.forEach(function (d) {
+      if (found.isNew && found.kind === 'logs' && (d.k === 'date' || d.k === 'time')) return;
+      var el = $('f-' + d.k); if (el && el.value !== orig[d.k]) { f[d.k] = el.value; n++; }
+    });
+    return { f: f, n: n };
+  }
+  function drSave() {
+    drTimer = 0; var cx = drCtx(); if (!cx || cx !== drFor) return;
+    var c = drChanged(), o = drLoad();
+    if (!c.n) delete o[cx];
+    else { o[cx] = { t: Date.now(), f: c.f }; if (found.isNew) o[cx].top = { d: $('fdd').value, t: $('fdt').value, a: $('fany').checked ? 1 : 0 }; }
+    drStore(o);
+  }
+  function drSched() { if (!found) return; drFor = drCtx(); clearTimeout(drTimer); drTimer = setTimeout(drSave, DR_IDLE); }
+  function drFlush() { if (drTimer) { clearTimeout(drTimer); drSave(); } }
+  function drDrop(cx) { clearTimeout(drTimer); drTimer = 0; if (!cx) return; var o = drLoad(); if (o[cx]) { delete o[cx]; drStore(o); } }
+  function drApply() {
+    if (!drPending || !found || drCtx() !== drPending.cx) return;
+    var f = drPending.f; drPending = null;
+    Object.keys(f).forEach(function (k) { setVal(k, f[k]); });
+  }
+  function drRestore(cx, d) {
+    drPending = { cx: cx, f: d.f };
+    if (cx.indexOf('new:') === 0 && d.top) { $('fdd').value = d.top.d || ''; $('fdt').value = d.top.t || ''; $('fany').checked = !!d.top.a; topChanged(); }
+    drApply(); draftBanner();
+  }
+  function draftBanner() {
+    var box = $('fdraft'); if (!box) return;
+    var cx = found ? drCtx() : 'new:' + $('fkind').value, d = drLoad()[cx], c = found ? drChanged() : { n: 0 };
+    if (!d || c.n || drDone[cx + '@' + d.t]) { box.hidden = true; box.innerHTML = ''; return; }
+    var fk = d.f.title ? 'title' : d.f.contents ? 'contents' : Object.keys(d.f)[0], tm = new Date(d.t), hh = pad2(tm.getHours()) + ':' + pad2(tm.getMinutes());
+    var sig = cx + '@' + d.t; if (box._sig === sig && !box.hidden) return; box._sig = sig;
+    box.innerHTML = ''; box.hidden = false;
+    var s = document.createElement('span'); s.textContent = 'Draft saved ' + hh + ' (' + Object.keys(d.f).length + ' fields: ' + one(d.f[fk] || '').slice(0, 24) + ') '; box.appendChild(s);
+    box.appendChild(wbtn('restore', function () { drDone[sig] = 1; drRestore(cx, d); }));
+    box.appendChild(wbtn('discard', function () { drDone[sig] = 1; drDrop(cx); box.hidden = true; }));
+  }
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') drFlush(); });
+  window.addEventListener('pagehide', drFlush);
+  $('ff').addEventListener('input', function (e) { if (e.target && e.target.id === 'glih-fjson') return; drSched(); });
+  ['fdd', 'fdt', 'fany'].forEach(function (id) { $(id).addEventListener('input', drSched); $(id).addEventListener('change', drSched); });
+  $('go-find').addEventListener('click', function () { if ($('go-find').getAttribute('aria-disabled') === 'true') return; drDrop(drCtx()); }, true);
+  $('fkind').addEventListener('change', function () { draftBanner(); });
+  // setlist paste converter: numbered lines pasted from a post become `order: title | | | notes` lines for the songs box. Titles that are not in songs.json get up to 3 candidates (never fixed automatically).
+  function lev(a, b, lim) {
+    var al = a.length, bl = b.length, prev = [], cur, i, j;
+    for (j = 0; j <= bl; j++) prev[j] = j;
+    for (i = 1; i <= al; i++) {
+      cur = [i]; var mn = i;
+      for (j = 1; j <= bl; j++) { cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1)); if (cur[j] < mn) mn = cur[j]; }
+      if (mn > lim) return lim + 1;
+      prev = cur;
+    }
+    return prev[bl];
+  }
+  function songIdx() {
+    var s = cache.songs; if (!s) return null;
+    if (!s._ix) { s._ix = { ex: {}, list: [] }; s.forEach(function (r) { if (r && typeof r.title === 'string' && r.title.trim() && !s._ix.ex[r.title]) { s._ix.ex[r.title] = 1; s._ix.list.push({ t: r.title, k: nk(r.title) }); } }); }
+    return s._ix;
+  }
+  function plCands(title) {
+    var si = songIdx(); if (!si) return null;
+    if (si.ex[title]) return [];
+    var k = nk(title), res = [];
+    si.list.forEach(function (o) {
+      if (!o.k || !k) return; var sc = null;
+      if (o.k === k) sc = 0;
+      else if (k.length >= 2 && o.k.length >= 2 && (o.k.indexOf(k) >= 0 || k.indexOf(o.k) >= 0)) sc = 1 + Math.abs(o.k.length - k.length) / 100;
+      else { var lim = Math.max(1, Math.floor(Math.max(k.length, o.k.length) / 4)); if (Math.abs(o.k.length - k.length) <= lim) { var d = lev(k, o.k, lim); if (d <= lim) sc = 2 + d; } }
+      if (sc !== null) res.push({ t: o.t, sc: sc });
+    });
+    res.sort(function (a, b) { return a.sc - b.sc; });
+    return res.slice(0, 3).map(function (x) { return x.t; });
+  }
+  var CIRC_RE = new RegExp('[' + String.fromCharCode(0x2460) + '-' + String.fromCharCode(0x2473) + ']', 'g'), KS_RE = new RegExp('^(' + String.fromCharCode(0x203b) + '|mc\\b)', 'i'), ENC_RE = new RegExp('^(encore|' + String.fromCharCode(0x30a2, 0x30f3, 0x30b3, 0x30fc, 0x30eb) + ')\\s*$', 'i'), SL_RE = new RegExp('set\\s*list|' + String.fromCharCode(0x30bb, 0x30c3, 0x30c8, 0x30ea, 0x30b9, 0x30c8), 'i'), EN_RE = new RegExp('^(?:encore|en|' + String.fromCharCode(0x30a2, 0x30f3, 0x30b3, 0x30fc, 0x30eb) + ')\\s*(\\d+)\\s*[.):\\-]?\\s*', 'i'), STAR_RE = new RegExp('\\s*[' + String.fromCharCode(0x2605, 0x2606) + ']\\s*(.*)$');
+  function plParse(text) {
+    var rows = [], last = 0, encFlag = false;
+    String(text || '').split(/\r?\n/).forEach(function (raw) {
+      var s = raw.replace(CIRC_RE, function (c) { return (c.charCodeAt(0) - 0x245f) + '. '; }).normalize('NFKC').trim(), m;
+      if (!s || /^[-=_~*]{3,}$/.test(s) || KS_RE.test(s)) return;
+      if (ENC_RE.test(s)) { encFlag = true; return; }
+      if (SL_RE.test(s) && !/^\d/.test(s)) return;
+      var enc = encFlag, num = null;
+      if ((m = s.match(EN_RE))) { enc = true; s = s.slice(m[0].length); }
+      else if ((m = s.match(/^m\s*(\d+)\s*[.):\-]?\s*/i))) { num = +m[1]; s = s.slice(m[0].length); }
+      else if ((m = s.match(/^(\d+)\s*(?:[.):\]\-]|\s)\s*/))) { num = +m[1]; s = s.slice(m[0].length); }
+      var notes = [], q;
+      if ((q = s.match(STAR_RE))) { s = s.slice(0, q.index); if (q[1].trim()) notes.push(q[1].trim()); }
+      while ((q = s.match(/\s*\(([^()]*)\)\s*$/)) && s.slice(0, q.index).trim()) { notes.unshift(q[1].trim()); s = s.slice(0, q.index); }
+      s = s.trim(); if (!s) return;
+      if (enc) notes.unshift('encore');
+      var order = num != null && !enc ? num : last + 1; last = order;
+      rows.push({ order: order, title: s, notes: notes.filter(Boolean).join(' / ').replace(/\|/g, '/') });
+    });
+    return rows;
+  }
+  function plLines(rows) { return rows.map(function (r) { return r.order + ': ' + r.title.replace(/\|/g, '/') + (r.notes ? ' | | | ' + r.notes : ''); }).join('\n'); }
+  var ARR_D = String.fromCharCode(0x25be), ARR_U = String.fromCharCode(0x25b4);
+  function extraUI() { // the paste block under the songs box (setlist)
+    if (!found || found.kind !== 'setlist') return;
+    var se = $('f-songs'), fld = se && se.closest('.field'); if (!fld) return;
+    var head = document.createElement('div'); head.className = 'field'; var hl = document.createElement('label'); hl.textContent = 'paste'; head.appendChild(hl);
+    var tog = wbtn('setlist paste ' + ARR_D, function () { panel.hidden = !panel.hidden; tog.textContent = panel.hidden ? 'setlist paste ' + ARR_D : 'setlist paste ' + ARR_U; }); head.appendChild(tog);
+    var panel = document.createElement('div'); panel.className = 'plbox'; panel.hidden = true;
+    var ta = document.createElement('textarea'); ta.className = 'fta'; ta.rows = 6; ta.placeholder = '1. title\n2. title (note)\nEN1. title'; ta.setAttribute('spellcheck', 'false'); panel.appendChild(ta);
+    var prev = document.createElement('div'); prev.className = 'plprev'; panel.appendChild(prev);
+    var bar = document.createElement('div'); bar.className = 'plbar'; panel.appendChild(bar);
+    var rows = [], before = null, ap = wbtn('apply to songs', function () {
+      if (!rows.length) return; before = se.value;
+      var add = plLines(rows); se.value = se.value.trim() === '' ? add : se.value.replace(/\s+$/, '') + '\n' + add;
+      se.dispatchEvent(new Event('input', { bubbles: true })); un.disabled = false;
+    }), un = wbtn('undo', function () { if (before === null) return; se.value = before; before = null; se.dispatchEvent(new Event('input', { bubbles: true })); un.disabled = true; });
+    un.disabled = true; bar.appendChild(ap); bar.appendChild(un);
+    function draw() {
+      prev.innerHTML = ''; ap.disabled = !rows.length;
+      if (!cache.songs) { var ld = document.createElement('div'); ld.className = 'plnote'; ld.textContent = 'songs.json is not loaded yet (titles are not checked)'; prev.appendChild(ld); }
+      rows.forEach(function (r) {
+        var line = document.createElement('div'); line.className = 'plrow';
+        var no = document.createElement('span'); no.className = 'plno'; no.textContent = r.order; line.appendChild(no);
+        var ti = document.createElement('input'); ti.type = 'text'; ti.className = 'fin'; ti.value = r.title; ti.setAttribute('autocomplete', 'off'); line.appendChild(ti);
+        var nt = document.createElement('input'); nt.type = 'text'; nt.className = 'fin plnt'; nt.value = r.notes; nt.placeholder = 'notes'; nt.setAttribute('autocomplete', 'off'); line.appendChild(nt);
+        var st = document.createElement('div'); st.className = 'plst'; line.appendChild(st);
+        function stat() {
+          st.innerHTML = ''; var c = plCands(r.title); if (c === null) return;
+          if (!c.length) { var ok = document.createElement('span'); ok.className = 'plok'; ok.textContent = 'OK'; st.appendChild(ok); return; }
+          var ng = document.createElement('span'); ng.className = 'plng'; ng.textContent = 'not in songs.json'; st.appendChild(ng);
+          c.forEach(function (t) { st.appendChild(wbtn(t, function () { r.title = t; ti.value = t; stat(); })); });
+        }
+        ti.addEventListener('input', function () { r.title = ti.value; stat(); }); nt.addEventListener('input', function () { r.notes = nt.value; });
+        stat(); prev.appendChild(line);
+      });
+    }
+    ta.addEventListener('input', function () { rows = plParse(ta.value); draw(); });
+    fetchData('songs').then(function () { draw(); }).catch(function () {});
+    fld.parentNode.insertBefore(head, fld.nextSibling); fld.parentNode.insertBefore(panel, head.nextSibling);
+  }
+  draftBanner();
   // ---- ASCII-only fields: id / contents / groups / relations / member / url / map / setlistid / songs link ----
   // The browser cannot force the IME off, so: the soft keyboard type is hinted (inputmode), and full-width letters / digits / symbols are turned into half-width as they are entered (not while composing). Fields that take Japanese text are left alone.
   var ASCII_IDS = { 'fid': 'text', 'f-contents': 'text', 'f-groups': 'text', 'f-relations': 'text', 'f-member': 'text', 'f-url': 'url', 'f-map': 'url', 'f-setlistid': 'numeric', 'sl': 'url' };
