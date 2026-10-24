@@ -22105,6 +22105,33 @@
     ]
   },
   {
+    "logid": "40b5f0a6b72f",
+    "date": "20260901",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　映画 「ワンダンス」",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgHFjGgc/",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "\"ワン\"ダンスの日"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "07f81e874a6e",
     "date": "20260831",
     "time": "2359",

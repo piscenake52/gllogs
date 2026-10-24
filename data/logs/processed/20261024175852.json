@@ -1,0 +1,26 @@
+{
+  "date": "20260901",
+  "contents": "SNS",
+  "title": "SNS　映画 「ワンダンス」",
+  "groups": [
+    "G2",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgHFjGgc/",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "\"ワン\"ダンスの日"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2052"
+}
