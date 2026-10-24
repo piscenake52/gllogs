@@ -4150,7 +4150,8 @@
     "title": "POST　Laki",
     "groups": [
       "L2",
-      "KAN"
+      "KAN",
+      "AKR"
     ],
     "sns": [
       {
@@ -4160,6 +4161,15 @@
             "url": "https://www.cl-live.com/posts/2KN5cGnMBgq62XKzGZ7Gw6",
             "member": [
               "KAN"
+            ],
+            "tags": [
+              "DANCE HOLIC"
+            ]
+          },
+          {
+            "url": "https://www.cl-live.com/posts/jqJU8xg6QyLCgg8WvX88q9",
+            "member": [
+              "AKR"
             ],
             "tags": [
               "DANCE HOLIC"
