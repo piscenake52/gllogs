@@ -1,0 +1,26 @@
+{
+  "date": "20261024",
+  "contents": "SNS",
+  "title": "SNS　映画 「ワンダンス」",
+  "groups": [
+    "G2",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/wandance_movie/status/2113827822649360481",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "ジャパンPまであと7日"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2046"
+}

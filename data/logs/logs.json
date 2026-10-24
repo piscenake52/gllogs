@@ -3884,6 +3884,33 @@
     ]
   },
   {
+    "logid": "2ae20c74eeb0",
+    "date": "20261024",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　映画 「ワンダンス」",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2113827822649360481",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "ジャパンPまであと7日"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "7f58fa2e81de",
     "date": "20261023",
     "time": "2359",
