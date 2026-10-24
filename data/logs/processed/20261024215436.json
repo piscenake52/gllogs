@@ -1,0 +1,34 @@
+{
+  "logid": "e26ed85bdfaa",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2113976351468494872",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgHq25PP/",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "DANCE HOLIC"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2062"
+}
