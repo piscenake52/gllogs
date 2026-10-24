@@ -2831,12 +2831,12 @@ html.stat-on .setlist-song-stat { display: inline-block; }
         children.push(ti);
       }
     }
-    // 📊:contentsがRELEASEの行だけ、🔗の右(行の右端)に置く。それ以外の行は、ON中も幅だけ同じにあけておく
+    // 📊:contentsがRELEASE(またはCDなどRELEASEに含まれる種類)の行だけ、🔗の右(行の右端)に置く。それ以外の行は、ON中も幅だけ同じにあけておく
     const st = document.createElement('span');
     st.className = 'stat-icon is-blank';
     st.tabIndex = -1;
     st.textContent = '\uD83D\uDCCA';
-    if (String(item.contents || '').trim().toUpperCase() === 'RELEASE') {
+    if (normalizeContType(String(item.contents || '').trim()) === 'RELEASE') { // RELEASEと、そこに含まれる種類(CD・DVD・BD・DIGITALなど)
       const nm = /\u300E([^\u300F]+)\u300F/.exec(t.textContent || '') || /\u300C([^\u300D]+)\u300D/.exec(t.textContent || ''); // 『曲名』、なければ「曲名」
       if (nm && nm[1].trim()) {
         st.classList.remove('is-blank');
