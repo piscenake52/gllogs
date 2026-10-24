@@ -4005,6 +4005,33 @@
     ]
   },
   {
+    "logid": "6f235c3bb112",
+    "date": "20261024",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2",
+      "KAN"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/2KN5cGnMBgq62XKzGZ7Gw6",
+            "member": [
+              "KAN"
+            ],
+            "tags": [
+              "DANCE HOLIC"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "7f58fa2e81de",
     "date": "20261023",
     "time": "2359",
