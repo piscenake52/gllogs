@@ -4069,7 +4069,13 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
-      "YOK"
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -4082,6 +4088,26 @@
             ],
             "tags": [
               "CanCam"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2113953733394698379",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "イベント情報"
             ]
           }
         ]
