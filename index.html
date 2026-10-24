@@ -167,7 +167,19 @@ h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側の�
 .toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
 .header-btn-group { display: flex; align-items: center; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; min-width: 0; }
 /* スマホ幅でリンクボタン分のはみ出しを減らすため、ボタン間の間隔だけ少し詰める(タップ領域自体は変わらないので操作性への影響は小さい) */
-#headerBtnGroup { gap: 8px; position: relative; top: 2px; } /* タイトル「GL log」(下端そろえ・高さ20px)の縦中心に、24pxのアイコン列の中心をそろえる */
+#headerBtnGroup { gap: 6px; position: relative; top: 2px; } /* タイトル「GL log」(下端そろえ・高さ20px)の縦中心に、24pxのアイコン列の中心をそろえる */
+/* スマホでブラウザのズームが100%より大きいときだけ(html.zoom-wrap): 1段のまま、ボタンを「<」で畳む。
+   ヘッダー: 右端はTODAYだけ。その左の「<」で BADGE・ICON が左に展開。 検索行: 検索窓を広げ、📅の右の「<」で A・🌙・🔓 が右に展開。 */
+.more-btn { display: none; }
+html.zoom-wrap .more-btn { display: inline-block; min-width: 20px; text-align: center; }
+html.zoom-wrap .search-box-wrap .search-input { min-width: 0; width: 100%; }
+html.zoom-wrap .header-row { flex-wrap: nowrap; }
+html.zoom-wrap #headerBtnGroup { flex: 1 1 0; min-width: 0; margin-left: 8px !important; }
+html.zoom-wrap #headerBtnGroupRight { flex: 0 0 auto; margin-left: auto; }
+html.zoom-wrap #headerBtnGroupRight:not(.is-open) #badgeToggleBtn, html.zoom-wrap #headerBtnGroupRight:not(.is-open) #iconToggleBtn { display: none; }
+html.zoom-wrap .extra-tools-row { flex-wrap: nowrap; }
+html.zoom-wrap .search-box-wrap { flex: 1 1 0; min-width: 0; }
+html.zoom-wrap .extra-tools-row:not(.tools-open) .text-size-wrap, html.zoom-wrap .extra-tools-row:not(.tools-open) #themeToggleBtn, html.zoom-wrap .extra-tools-row:not(.tools-open) #lockToggleBtn { display: none; }
 .header-btn-group::-webkit-scrollbar { display: none; }
 .header-btn-group > * { flex-shrink: 0; }
 .date-part-btn { padding: 4px 5px; font-size: 12px; }
@@ -840,6 +852,29 @@ body .item-contents.is-content-open {
   opacity: 0; visibility: hidden; pointer-events: none;
   transition: opacity 0.25s ease, visibility 0.25s ease;
 }
+.stat-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; }
+.stat-icon { display: none; }
+html.stat-on .stat-icon { display: inline-block; }
+.stat-icon.is-blank { visibility: hidden; pointer-events: none; cursor: default; } /* 📊が無い行も、ON中は右の幅をあけておく */
+.song-stat-btn { display: none; flex: 0 0 auto; width: 24px; height: 24px; margin: 0; padding: 0; border: none; background: none; font-size: 14px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+html.stat-on .song-stat-btn { display: flex; }
+.song-bar.is-entering .song-stat-btn { visibility: hidden; } /* 曲名が飛んでくる動きが終わってから右端に出す */
+.setlist-song-stat { display: none; flex: 0 0 auto; font-size: 12px; cursor: pointer; user-select: none; padding: 0 2px; }
+html.stat-on .setlist-song-stat { display: inline-block; }
+.setlist-song-stat.is-blank { visibility: hidden; pointer-events: none; }
+#statToggleBtn.is-disabled:not(.is-active) { opacity: .35; cursor: default; }
+#statToggleBtn { touch-action: manipulation; }
+.stat-modal-overlay { z-index: 1100; }
+.stat-modal-title { font-size: 17px; font-weight: bold; margin: 0 26px 12px 0; line-height: 1.4; overflow-wrap: anywhere; }
+.stat-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
+.stat-tile { border: 1px solid var(--input-border); border-radius: 10px; padding: 8px 4px; text-align: center; min-width: 0; }
+.stat-tile-label { font-size: 10px; color: var(--sub); letter-spacing: .05em; }
+.stat-tile-value { font-size: 15px; font-weight: bold; margin-top: 2px; white-space: nowrap; }
+.stat-list { list-style: none; margin: 0; padding: 0; }
+.stat-list li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-top: 1px solid var(--border); font-size: 12px; }
+.stat-list-date { flex: 0 0 auto; color: var(--sub); white-space: nowrap; }
+.stat-list-title { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+.stat-list-no { flex: 0 0 auto; color: var(--sub); font-size: 10px; }
 .setlist-modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
 .setlist-modal { position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1); }
 .setlist-modal-overlay.is-open .setlist-modal { transform: scale(1); }
@@ -959,6 +994,7 @@ body .item-contents.is-content-open {
         <button class="toggle-btn date-part-btn" id="heartToggleBtn" aria-label="Hearts">&#128158;</button>
         <button class="toggle-btn date-part-btn" id="tagToggleBtn" aria-label="Tags">&#127991;&#65039;</button>
         <button class="toggle-btn date-part-btn" id="linkToggleBtn">&#128279;</button>
+        <button class="toggle-btn date-part-btn is-disabled" id="statToggleBtn" aria-label="Song stats" aria-pressed="false" aria-disabled="true">&#128202;</button>
       </div>
       <div class="dp-pill" id="dpPill" aria-hidden="true">
         <button class="toggle-btn date-part-btn dp-pill-clock" id="dpPillClockBtn" tabindex="-1" aria-label="&#38281;&#12376;&#12427;">&#128336;</button>
@@ -971,6 +1007,7 @@ body .item-contents.is-content-open {
       <div class="header-btn-group" id="headerBtnGroupRight" style="margin-left:auto;">
         <button class="toggle-btn" id="badgeToggleBtn">BADGE</button>
         <button class="toggle-btn" id="iconToggleBtn">ICON</button>
+        <button class="toggle-btn more-btn" id="hdrMoreBtn" aria-expanded="false" aria-label="BADGE/ICON">&lt;</button>
         <button class="toggle-btn" id="todayToggleBtn">TODAY</button>
       </div>
     </div>
@@ -987,6 +1024,7 @@ body .item-contents.is-content-open {
         <button type="button" id="dateSearchBtn" aria-label="&#26085;&#20184;&#12363;&#12425;&#26908;&#32034;"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg></button>
         <div class="cal-pop" id="calPop" role="dialog" aria-label="&#26085;&#20184;&#12363;&#12425;&#26908;&#32034;" hidden></div>
       </div>
+      <button class="toggle-btn more-btn" id="toolsMoreBtn" aria-expanded="false" aria-label="more">&lt;</button>
       <div class="text-size-wrap" id="textSizeWrap">
         <button type="button" class="text-size-btn" id="textSizeBtn" aria-label="&#12487;&#12540;&#12479;&#37096;&#12398;&#25991;&#23383;&#12469;&#12452;&#12474;&#12434;&#22793;&#26356;" aria-haspopup="true" aria-expanded="false">A</button>
         <div class="text-size-panel" id="textSizePanel">
@@ -1008,6 +1046,7 @@ body .item-contents.is-content-open {
       <div class="song-ticker-viewport" id="songTickerViewport">
         <span class="song-ticker-text" id="songTickerText"></span>
       </div>
+      <button type="button" class="song-stat-btn" id="songStatBtn" aria-label="Stats">&#128202;</button>
     </div>
     <div class="collapsible-area" id="collapsibleArea">
       <div class="checks">
@@ -1124,6 +1163,12 @@ body .item-contents.is-content-open {
   </div>
 </div>
 
+<div class="setlist-modal-overlay stat-modal-overlay" id="statModalOverlay">
+  <div class="setlist-modal" role="dialog" aria-modal="true">
+    <button type="button" class="setlist-modal-close" id="statModalCloseBtn" aria-label="Close">&#215;</button>
+    <div id="statModalBody"></div>
+  </div>
+</div>
 <div class="setlist-modal-overlay" id="setlistModalOverlay">
   <div class="setlist-modal" id="setlistModal" role="dialog" aria-modal="true">
     <button type="button" class="setlist-modal-close" id="setlistModalCloseBtn" aria-label="Close">&#215;</button>
@@ -1174,6 +1219,25 @@ body .item-contents.is-content-open {
   syncHeaderBtnGroupPosition();
   setTimeout(syncHeaderBtnGroupPosition, 0);
   window.addEventListener('resize', syncHeaderBtnGroupPosition);
+  // スマホのズーム検出: 画面の幅(screen)÷表示領域の幅(innerWidth)が1より大きければ、ブラウザのズームが100%より大きい。pinchの拡大は表示領域の幅が変わらないので対象外。PC・タブレットは対象外(ウィンドウを狭めただけでも比率が上がるため)
+  const updateZoomWrap = () => {
+    const phone = matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) <= 600;
+    const portrait = matchMedia('(orientation: portrait)').matches;
+    const base = portrait ? Math.min(screen.width, screen.height) : Math.max(screen.width, screen.height);
+    const zoomed = phone && base / window.innerWidth > 1.04;
+    document.documentElement.classList.toggle('zoom-wrap', zoomed);
+    syncHeaderBtnGroupPosition();
+  };
+  const bindMore = (btn, box, cls) => btn.addEventListener('click', () => {
+    const on = box.classList.toggle(cls);
+    btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    btn.textContent = on ? '>' : '<';
+  });
+  bindMore(document.getElementById('hdrMoreBtn'), document.getElementById('headerBtnGroupRight'), 'is-open');
+  bindMore(document.getElementById('toolsMoreBtn'), document.querySelector('.extra-tools-row'), 'tools-open');
+  updateZoomWrap();
+  window.addEventListener('resize', updateZoomWrap);
+  window.addEventListener('orientationchange', () => setTimeout(updateZoomWrap, 200));
 
 
   // ==================== PC幅:コンテナ横幅のドラッグリサイズ ==============
@@ -2767,7 +2831,22 @@ body .item-contents.is-content-open {
         children.push(ti);
       }
     }
-    children.push(t, lk); // 🔗はタイトルの後ろ(行の右端)
+    // 📊:contentsがRELEASEの行だけ、🔗の右(行の右端)に置く。それ以外の行は、ON中も幅だけ同じにあけておく
+    const st = document.createElement('span');
+    st.className = 'stat-icon is-blank';
+    st.tabIndex = -1;
+    st.textContent = '\uD83D\uDCCA';
+    if (String(item.contents || '').trim().toUpperCase() === 'RELEASE') {
+      const nm = /\u300E([^\u300F]+)\u300F/.exec(t.textContent || '') || /\u300C([^\u300D]+)\u300D/.exec(t.textContent || ''); // 『曲名』、なければ「曲名」
+      if (nm && nm[1].trim()) {
+        st.classList.remove('is-blank');
+        st.dataset.song = nm[1].trim();
+        st.setAttribute('role', 'button');
+        st.setAttribute('aria-label', 'Stats');
+        st.onclick = e => { e.stopPropagation(); openStatModal(st.dataset.song); };
+      }
+    }
+    children.push(t, lk, st); // 🔗はタイトルの後ろ、📊はその右(行の右端)
 
     sc.append(...children);
     w.append(sc);
@@ -3320,6 +3399,56 @@ body .item-contents.is-content-open {
     e.stopPropagation();
     openSongLink(btn.dataset.link);
   });
+  // ---- 曲名からの逆引き(📊):setlist.jsonの曲名で、披露した公演を集計する ----
+  function statNorm(t) { return String(t || '').normalize('NFKC').toLowerCase().replace(/\s+/g, ''); }
+  function statIndex() {
+    if (statIndex.src === setlistData && statIndex.map) return statIndex.map;
+    const map = new Map(); // 正規化した曲名 → Map(setlistid → {entry, order})
+    (Array.isArray(setlistData) ? setlistData : []).forEach(entry => {
+      (Array.isArray(entry.songs) ? entry.songs : []).forEach(s => {
+        if (!s || typeof s !== 'object') return;
+        const k = statNorm(s.title);
+        if (!k) return;
+        if (!map.has(k)) map.set(k, new Map());
+        const m = map.get(k);
+        if (!m.has(entry.setlistid)) m.set(entry.setlistid, { entry, order: s.order, type: s.type }); // 同じ公演で複数回出ても1回と数える(最初の出番を採用)
+      });
+    });
+    statIndex.src = setlistData; statIndex.map = map;
+    return map;
+  }
+  function statHasTitle(title) { const m = statIndex().get(statNorm(title)); return !!(m && m.size); }
+  const statModalOverlay = $('statModalOverlay');
+  const openStatModal = title => {
+    const t = String(title || '').trim();
+    if (!t) return;
+    const m = statIndex().get(statNorm(t));
+    const rows = m ? [...m.entries()].sort((a, b) => String(b[0]).localeCompare(String(a[0]))) : []; // 新しい順
+    const ymd = id => { const f = formatSetlistDateTime(id).dateStr; return f ? f.replace(/ \[.*$/, '') : '-'; };
+    const tile = (label, val) => `<div class="stat-tile"><div class="stat-tile-label">${label}</div><div class="stat-tile-value">${escapeHtml(val)}</div></div>`;
+    const listHtml = rows.map(([id, r]) => {
+      const f = formatSetlistDateTime(id).dateStr || id;
+      const enc = /(^|[,\s])encore([,\s]|$)/.test(String(r.type || '')) ? ' <span class="setlist-song-type">ENCORE</span>' : '';
+      return `<li><span class="stat-list-date">${escapeHtml(f)}</span><span class="stat-list-title">${escapeHtml(r.entry.title || '')}${enc}</span>${r.order != null ? `<span class="stat-list-no">#${escapeHtml(r.order)}</span>` : ''}</li>`;
+    }).join('');
+    $('statModalBody').innerHTML =
+      `<div class="stat-modal-title">${escapeHtml(t)}</div>` +
+      `<div class="stat-tiles">${tile('COUNT', String(rows.length))}${tile('FIRST', rows.length ? ymd(rows[rows.length - 1][0]) : '-')}${tile('LATEST', rows.length ? ymd(rows[0][0]) : '-')}</div>` +
+      (rows.length ? `<ul class="stat-list">${listHtml}</ul>` : '<div class="setlist-modal-empty">NO RECORDS</div>');
+    statModalOverlay.classList.add('is-open');
+  };
+  const closeStatModal = () => statModalOverlay.classList.remove('is-open');
+  $('statModalCloseBtn').onclick = closeStatModal;
+  statModalOverlay.onclick = e => { if (e.target === statModalOverlay) closeStatModal(); };
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && statModalOverlay.classList.contains('is-open')) closeStatModal(); });
+  setlistModalBody.addEventListener('click', e => {
+    const b = e.target.closest('.setlist-song-stat[data-song]');
+    if (!b) return;
+    e.stopPropagation();
+    openStatModal(b.dataset.song);
+  });
+  $('songStatBtn').onclick = e => { e.stopPropagation(); if (currentSong) openStatModal(currentSong.title); };
+  window.glOpenStat = openStatModal;
   const openSetlistModal = setlistid => {
     const entry = setlistData.find(e => e.setlistid === setlistid);
     if (!entry) {
@@ -3361,7 +3490,9 @@ body .item-contents.is-content-open {
               }).filter(Boolean).join('<span class="setlist-song-hsep">/</span>')
             : heartsOf(songMembers, 'setlist-song-heart');
           const songHeartsHtml = songHearts ? `<span class="setlist-song-hearts">${songHearts}</span>` : '';
-          return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}</li>`;
+          const noStat = /(^|[,\s])(mc|dt|dj|towel)([,\s]|$)/.test(String(s.type || ''));
+          const statHtml = noStat ? '<span class="setlist-song-stat is-blank" aria-hidden="true">\uD83D\uDCCA</span>' : `<span class="setlist-song-stat" data-song="${escapeHtml(s.title || '')}" role="button" aria-label="Stats">\uD83D\uDCCA</span>`;
+          return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}${statHtml}</li>`;
         })
         .join('');
       setlistModalBody.innerHTML =
@@ -3405,7 +3536,7 @@ body .item-contents.is-content-open {
     if (e.target === setlistModalOverlay) closeSetlistModal(); // オーバーレイ部分クリックで閉じる(中身のクリックでは閉じない)
   };
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && setlistModalOverlay.classList.contains('is-open')) closeSetlistModal();
+    if (e.key === 'Escape' && setlistModalOverlay.classList.contains('is-open') && !(statModalOverlay && statModalOverlay.classList.contains('is-open'))) closeSetlistModal();
   });
 
   // SNSリンクポップアップ:sns属性
@@ -4219,6 +4350,27 @@ body .item-contents.is-content-open {
     localStorage.setItem(LINK_MODE_KEY, linkMode);
     $('items').classList.toggle('link-mode', linkMode);
   };
+  // 📊ボタン(曲の披露実績アイコン表示モード):今はON/OFFの切り替えだけ(中身は未実装)。ONの間は#itemsに stat-mode クラスが付く
+  // ヘッダーの丸いボタン(🕐📍📋💞🏷️🔗)と♪がすべてONのときだけ、📊をダブルタップでON/OFFできる(暫定。普段は非活性の見た目)。保存はしない
+  let statMode = false;
+  const STAT_GATE_IDS = ['dpClockBtn', 'mapToggleBtn', 'setlistIconToggleBtn', 'heartToggleBtn', 'tagToggleBtn', 'linkToggleBtn', 'songToggleBtn'];
+  const applyStatMode = () => {
+    $('statToggleBtn').classList.toggle('is-active', statMode);
+    $('statToggleBtn').setAttribute('aria-pressed', statMode ? 'true' : 'false');
+    $('items').classList.toggle('stat-mode', statMode);
+    document.documentElement.classList.toggle('stat-on', statMode);
+    if (typeof updateSongTickerScroll === 'function') updateSongTickerScroll(); // 曲名バーの右端の幅が変わるので測り直す
+  };
+  let statLastTap = 0;
+  $('statToggleBtn').onclick = () => {
+    const now = Date.now();
+    const dbl = now - statLastTap < 400;
+    statLastTap = dbl ? 0 : now;
+    if (!dbl) return;
+    if (!statMode && !STAT_GATE_IDS.every(id => $(id).classList.contains('is-active'))) return;
+    statMode = !statMode;
+    applyStatMode();
+  };
   // 🏷️ボタン(タグ表示モード):ONの間、タグがある行のタイトルの下にタグのチップを出す
   const TAG_MODE_KEY = 'gl_log_tag_mode';
   let tagMode = localStorage.getItem(TAG_MODE_KEY) === 'true';
@@ -4239,7 +4391,11 @@ body .item-contents.is-content-open {
   const playSongEnter = () => {
     const vp = $('songTickerViewport');
     vp.classList.remove('song-enter'); void vp.offsetWidth; vp.classList.add('song-enter');
-    vp.addEventListener('animationend', () => vp.classList.remove('song-enter'), { once: true });
+    const bar = $('songBar');
+    bar.classList.add('is-entering');
+    const done = () => { vp.classList.remove('song-enter'); bar.classList.remove('is-entering'); };
+    vp.addEventListener('animationend', done, { once: true });
+    setTimeout(done, 1200); // 動きを減らす設定などで animationend が来ない場合の保険
   };
   let songEnterPending = songMode; // 初期表示時に♪がONなら、最初の曲が入った時に1度だけ飛んでこさせる
   $('songToggleBtn').onclick = () => {
