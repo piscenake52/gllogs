@@ -20493,6 +20493,37 @@
     ]
   },
   {
+    "logid": "500d713f6495",
+    "date": "20260910",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "TBK",
+      "HIR",
+      "AKR"
+    ],
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgudw5Ur/",
+            "member": [
+              "TBK",
+              "HIR",
+              "AKR"
+            ],
+            "tags": [
+              "WORK≒LIFE"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "5f4a39331468",
     "date": "20260909",
     "time": "2359",

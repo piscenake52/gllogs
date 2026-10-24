@@ -1,0 +1,30 @@
+{
+  "date": "20260910",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "TBK",
+    "HIR",
+    "AKR"
+  ],
+  "sns": [
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgudw5Ur/",
+          "member": [
+            "TBK",
+            "HIR",
+            "AKR"
+          ],
+          "tags": [
+            "WORK≒LIFE"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2042"
+}
