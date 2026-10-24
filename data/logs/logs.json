@@ -3978,6 +3978,33 @@
     ]
   },
   {
+    "logid": "e26ed85bdfaa",
+    "date": "20261024",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YOK"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/De3iB1HD_Q5/?vrfl=cmlod25na3g4aHF6",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "CanCam"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "7f58fa2e81de",
     "date": "20261023",
     "time": "2359",
