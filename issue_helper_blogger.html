@@ -624,7 +624,19 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     ti.setAttribute('inputmode', 'numeric'); ti.setAttribute('spellcheck', 'false'); ti.placeholder = type === 'date' ? 'YYYY/MM/DD' : 'HH:MM'; ti.maxLength = type === 'date' ? 10 : 5;
     ti.addEventListener('input', function (e) { if (e.isComposing) return; var f = fmtDigits(ti.value, type); if (ti.value !== f) ti.value = f; });
     ti.addEventListener('compositionend', function () { var f = fmtDigits(ti.value, type); if (ti.value !== f) { ti.value = f; ti.dispatchEvent(new Event('input', { bubbles: true })); } });
+    if (type === 'time') { ti.setAttribute('data-tm', '1'); ti.addEventListener('blur', function () { fixTime(ti); }); }
   }
+  // 3 digits (600, 930) get a leading 0 (0600, 0930). 1-2 digits are left as they are (hour or minute cannot be told apart).
+  function fixTime(ti) {
+    if (ti.disabled || ti.readOnly) return;
+    var d = DG(ti.value);
+    if (d.length !== 3) return;
+    ti.value = fmtDigits('0' + d, 'time'); ti.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+  // also before any button is pressed or Enter is hit (a tap on a button does not always blur the input first)
+  function fixAllTimes() { Array.prototype.forEach.call(document.querySelectorAll('#glih input[data-tm]'), fixTime); }
+  document.addEventListener('pointerdown', function (e) { if (e.target && e.target.closest && e.target.closest('#glih button, #glih .small')) fixAllTimes(); }, true);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Enter') fixAllTimes(); }, true);
   var ICON_CAL = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5 1.8v2.6M11 1.8v2.6"/></svg>';
   var ICON_CLK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 4.5V8l2.3 1.6"/></svg>';
   // wraps the text input in place and puts a plain (no frame) calendar / clock icon inside its right end; the icon opens the native picker

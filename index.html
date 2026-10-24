@@ -2559,9 +2559,21 @@ html.stat-on .setlist-song-stat { display: inline-block; }
     if (!tr) return;
     const left = t.getBoundingClientRect().left - w.getBoundingClientRect().left - (parseFloat(getComputedStyle(w).paddingLeft) || 0); // 行の内側(padding)の左端から数える
     if (left > 0) tr.style.paddingLeft = left + 'px';
+    // 右端のアイコン(🔗・📊)の列にチップがかぶらないよう、その左端までで切る(幅のあるアイコンのうち一番左のものを基準にする)
+    const contentRight = tr.getBoundingClientRect().right;
+    // (アイコンは出入りのときtransformで動くので、位置ではなく幅の合計から求める)
+    const sc = w.querySelector(':scope > .item-scroll-container');
+    let iconsW = 0;
+    w.querySelectorAll(':scope > .item-scroll-container > .link-icon, :scope > .item-scroll-container > .stat-icon').forEach(ic => {
+      const wd = ic.getBoundingClientRect().width;
+      if (wd > 0) iconsW += wd + (parseFloat(getComputedStyle(ic).marginLeft) || 0);
+    });
+    tr.style.paddingRight = iconsW > 0 && sc ? Math.max(0, contentRight - (sc.getBoundingClientRect().right - iconsW)) + 'px' : '';
   };
-  const tagIndentRO = new ResizeObserver(entries => entries.forEach(en => tagIndent(en.target)));
+  const tagIndentRO = new ResizeObserver(entries => entries.forEach(en => { const w = en.target.closest('.item'); const tt = w && w.querySelector('.item-title'); if (tt) tagIndent(tt); }));
   let instantRender = false; // trueの間に作る行は、フェードインなしで出す(ICON切替のちらつき防止)
+  // データ部のチップに出さないタグ(小文字で書く。増やすときはここに足す)。タグ検索・サジェストなど他の場所には影響しない
+  const HIDDEN_CHIP_TAGS = new Set(['tiktok\u66f4\u65b0']);
   const createItemNode = item => {
     const w = document.createElement('div');
     w.className = 'item' + (instantRender ? ' no-anim' : '');
@@ -2851,7 +2863,7 @@ html.stat-on .setlist-song-stat { display: inline-block; }
     sc.append(...children);
     w.append(sc);
     // タグのチップ(🏷️ONのとき表示)。空文字・重複は出さない。行のtagsがないときだけsnsリンクのtagsから最大3つ
-    let tagList = Array.isArray(item.tags) ? [...new Set(item.tags.map(x => (typeof x === 'string' ? x.trim() : '')).filter(Boolean))] : [];
+    let tagList = Array.isArray(item.tags) ? [...new Set(item.tags.map(x => (typeof x === 'string' ? x.trim() : '')).filter(v => v && !HIDDEN_CHIP_TAGS.has(v.toLowerCase())))] : [];
     if (!tagList.length && Array.isArray(item.sns)) {
       // 行のtagsがひとつもないときだけ、snsリンクのtagsから(重複なし・出現数の多い順に最大3つ)を代わりに出す
       const snsCount = new Map(); // タグ → この行のsnsリンク内での出現数(Mapは登場順を保つ)
@@ -2859,7 +2871,7 @@ html.stat-on .setlist-song-stat { display: inline-block; }
         if (!e || !Array.isArray(e.urls)) return;
         e.urls.forEach(u => {
           if (!u || typeof u !== 'object' || !Array.isArray(u.tags)) return;
-          new Set(u.tags.map(x => (typeof x === 'string' ? x.trim() : '')).filter(Boolean)).forEach(v => snsCount.set(v, (snsCount.get(v) || 0) + 1)); // 1リンク内の重複は1回と数える
+          new Set(u.tags.map(x => (typeof x === 'string' ? x.trim() : '')).filter(v => v && !HIDDEN_CHIP_TAGS.has(v.toLowerCase()))).forEach(v => snsCount.set(v, (snsCount.get(v) || 0) + 1)); // 1リンク内の重複は1回と数える
         });
       });
       // 出現数が多い順(同数は登場順)で最大3つ。Array.sortは安定ソート
@@ -2883,7 +2895,7 @@ html.stat-on .setlist-song-stat { display: inline-block; }
       tr.appendChild(tin);
       w.append(tr);
       w._tagTitle = t;
-      tagIndentRO.observe(t); // タイトルの左端が動いたら(日付・アイコンの出入りなど)、チップの左端も追従させる
+      tagIndentRO.observe(t); tagIndentRO.observe(lk); tagIndentRO.observe(st); // 🔗・📊の出入り(幅の変化)にも追従させる // タイトルの左端が動いたら(日付・アイコンの出入りなど)、チップの左端も追従させる
       tagIndent(t);
     }
     return w;
