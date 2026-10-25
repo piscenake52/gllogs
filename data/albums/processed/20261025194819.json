@@ -1,0 +1,24 @@
+{
+  "title": "Pancake",
+  "type": "musiccard",
+  "date": "20260425",
+  "tracks": [
+    {
+      "no": 1,
+      "title": "Pancake"
+    },
+    {
+      "no": 2,
+      "title": "Starry pop Canvas"
+    },
+    {
+      "no": 3,
+      "title": "Gimme 143"
+    },
+    {
+      "no": 4,
+      "title": "Pancake (Dance Practice Video)"
+    }
+  ],
+  "editions": "!clear"
+}
