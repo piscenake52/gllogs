@@ -487,8 +487,8 @@ def finalize_new(target, item, main_data):
         # venue / songs は空なら属性を作らない
 
     elif name == "albums":
-        if item.get("type") not in ("album", "ep", "single"):
-            print(f"【スキップ】albumsのtypeは album / ep / single のどれかにしてください: {item}")
+        if item.get("type") not in ("album", "ep", "single", "musiccard"):
+            print(f"【スキップ】albumsのtypeは album / ep / single / musiccard のどれかにしてください: {item}")
             return None
         if item.get("date") and not re.fullmatch(r"\d{8}", str(item["date"])):
             print(f"【スキップ】albumsのdateは8桁の数字で指定してください: {item}")
