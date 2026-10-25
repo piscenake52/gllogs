@@ -987,6 +987,9 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
   - `tracks` は共通の収録曲。盤の `extra` はその盤だけの追加曲(`no` は自由なラベル)。盤に `tracks` があるときは、共通の収録曲の代わりにそれを使う。
 - 登録: helper の albums タブ → `add_albums.yml`([DATA] albums) → `issue_to_json.py`(`build_albums`) → `merge_json.py`(target `albums`)。削除は同じフォームで「削除する」にチェック(titleとtypeだけ入力)。空にした date / tracks / editions は `!clear` で消える。
 - データ部の🎶: contents が CD・DVD・BD・MUSICCARD・RELEASE・EP(EPはRELEASEのグループに加えた)の行で、🔗の左に出す。常に表示(ダブルタップの条件なし)。
-  - 名前: 行のタイトルの「」(なければ『』)内。種別: タグ(完全一致)かデータ文の独立した語(ALBUM/AL=album, EP=ep, SINGLE/SG=single, MUSICCARD・MUSIC CARD=musiccard)。見つかった種別と一致するものだけ。種別が無い行は、名前が一致するものすべて(複数なら ポップアップ上部の種別チップで切り替え)。albums.json が無い・一致が無い行は出さない。
+  - 名前: 行のタイトルの「」(なければ『』)内(半角の｢｣や全角英数字は、NFKCで全角の「」・半角英数字にそろえて見る)。種別: タグ(完全一致)かデータ文の独立した語(ALBUM/AL=album, EP=ep, SINGLE/SG=single, MUSICCARD・MUSIC CARD=musiccard)。見つかった種別と一致するものだけ。種別が無い行は、名前が一致するものすべて(複数なら ポップアップ上部の種別チップで切り替え)。albums.json が無い・一致が無い行は出さない。
 - ポップアップ: 種別チップ / リリース名・種別・発売日 / 盤チップ(ALL・各盤)と盤の情報(形態・価格・メモ) / 収録曲(曲順、盤の追加曲は水色のラベル、披露回数)。曲を押すと📊の披露実績。閉じると収録曲に戻る。
 - helper(albums): find(既存を選んで編集) / title / type / date / tracks(1曲1行、候補は押して選ぶ、Enterは候補が出ていないときだけ次の行、↑↓=up/down、undo、貼り付け replace/append) / copy(他のリリースの収録曲をコピー) / editions(盤名・形態・価格・メモ・追加曲・own tracklist)。songs.json に無い曲名は赤+候補。URLが7500字を超えると送信不可(盤を分ける)。
+
+## Bloggerに置くときの注意(コード中の記号)
+- Bloggerは、ページ内のスクリプトにある「」・、・¥などの記号を `&#12300;` のような文字参照に変えてしまう(ひらがな・漢字は変わらない)。正規表現や文字列にこれらを直接書くと、動かなくなる。コード中では `\u300C` のように `\u` で書く(コメントやHTMLの文言は問題ない)。
