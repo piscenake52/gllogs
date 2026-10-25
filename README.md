@@ -13,6 +13,7 @@
 | `data/logs/logs.json` | 日程・ログ(`date` `time` `contents` `title` `groups` `setlistid` `tags` `sns` ほか) | `logid` |
 | `data/setlist/setlist.json` | セットリスト(`artist` `member` `venue` `songs`。曲ごとに歌唱メンバー `member` を持てる) | `setlistid` |
 | `data/songs/songs.json` | 楽曲リスト(再生リンク用) | `artist` + `title` |
+| `data/albums/albums.json` | アルバム・EP・シングルの収録曲と各種盤(`date` `tracks` `editions`)。データ部の🎶で表示 | `title` + `type` |
 | `data/logs/logs_index.json` `data/setlist/setlist_index.json` | helper用の軽量インデックス(自動生成) | |
 
 JSONを直接編集せず、**Issue のフォーム**から登録します(下記)。

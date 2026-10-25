@@ -970,7 +970,7 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 一覧の `ignore` はこの端末の記憶のみ。url を直すと、次回の確認で一覧から消える。
 - 事前調査用の `link_probe.py` / `link_probe_browser.py`(と各 yml)は、本番のチェックができたので不要。
 
-## 曲名からの逆引き(📊)
+## 披露実績(📊)
 - 入口(いずれも📊アイコン): ①セトリのポップアップの曲名行(MC/DT/DJ/TOWELは除く) ②♪の曲名バーの右端 ③タイトルに『曲名』を含む行(データ部の右端。setlist.jsonに曲名が無いときは非表示)。
 - 押すとポップアップ(COUNT / FIRST / LATEST と、披露した公演の一覧=新しい順、#は曲順)。曲名の一致は NFKC正規化・小文字化・空白除去の完全一致。
 - 数え方: setlist.json の songs[].title を集計。同じ公演に複数回出ても1回。公演の日付は setlistid(YYYYMMDDHHMM)から。同日の昼夜は別公演。
@@ -979,3 +979,13 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 ## helperの時間入力の補完
 - 時間の入力欄(上部のtime、一括の各行のtimeなど)で、3桁(600・930)は先頭に0を足して4桁(0600・0930)にする。1〜2桁は補完しない(時と分の区別がつかないため)。
 - 補完のタイミング: 入力欄から離れたとき(blur)と、ボタンを押す直前・Enterを押したとき。補完後が0000〜2359に収まらない値(960→0960)は、これまでどおりエラー。
+
+## albums(収録曲・各種盤) 🎶
+- データ: `data/albums/albums.json`(配列)。1件=1リリース。キーは `title` + `type`(`album` / `ep` / `single`)。
+  `{ "title", "type", "date": "YYYYMMDD", "tracks": [{"no": 1, "title": "曲名"}], "editions": [{ "name", "format", "price", "note", "extra": [{"no": "DVD1", "title": "曲名"}], "tracks": [...] }] }`
+  - `tracks` は共通の収録曲。盤の `extra` はその盤だけの追加曲(`no` は自由なラベル)。盤に `tracks` があるときは、共通の収録曲の代わりにそれを使う。
+- 登録: helper の albums タブ → `add_albums.yml`([DATA] albums) → `issue_to_json.py`(`build_albums`) → `merge_json.py`(target `albums`)。削除は同じフォームで「削除する」にチェック(titleとtypeだけ入力)。空にした date / tracks / editions は `!clear` で消える。
+- データ部の🎶: contents が CD・DVD・BD・MUSICCARD・RELEASE・EP(EPはRELEASEのグループに加えた)の行で、🔗の左に出す。常に表示(ダブルタップの条件なし)。
+  - 名前: 行のタイトルの「」(なければ『』)内。種別: タグ(完全一致)かデータ文の独立した語(ALBUM/AL=album, EP=ep, SINGLE/SG=single)。見つかった種別と一致するものだけ。種別が無い行は、名前が一致するものすべて(複数なら ポップアップ上部の種別チップで切り替え)。albums.json が無い・一致が無い行は出さない。
+- ポップアップ: 種別チップ / リリース名・種別・発売日 / 盤チップ(ALL・各盤)と盤の情報(形態・価格・メモ) / 収録曲(曲順、盤の追加曲は水色のラベル、披露回数)。曲を押すと📊の披露実績。閉じると収録曲に戻る。
+- helper(albums): find(既存を選んで編集) / title / type / date / tracks(1曲1行、候補は押して選ぶ、Enterは候補が出ていないときだけ次の行、↑↓=up/down、undo、貼り付け replace/append) / copy(他のリリースの収録曲をコピー) / editions(盤名・形態・価格・メモ・追加曲・own tracklist)。songs.json に無い曲名は赤+候補。URLが7500字を超えると送信不可(盤を分ける)。
