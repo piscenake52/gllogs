@@ -1,0 +1,32 @@
+name: "albums"
+description: "album / ep / single (tracklist and editions): insert / update / delete"
+title: "[DATA] albums"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        helper の albums タブから開いてください。入力済みの内容をそのまま送信します。
+
+  - type: input
+    id: album_title
+    attributes:
+      label: "album title"
+
+  - type: input
+    id: album_type
+    attributes:
+      label: "album type"
+      description: "album / ep / single"
+
+  - type: textarea
+    id: album_json
+    attributes:
+      label: "album json"
+      description: "date / tracks / editions (JSON). helper が作ります"
+
+  - type: checkboxes
+    id: delete
+    attributes:
+      label: "DELETE"
+      options:
+        - label: "削除する"
