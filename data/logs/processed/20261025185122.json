@@ -1,0 +1,40 @@
+{
+  "date": "20261025",
+  "contents": "SNS",
+  "title": "SNS　映画 「ワンダンス」",
+  "groups": [
+    "G2",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/wandance_movie/status/2114282845753741358",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "ワンダンスチャレンジ"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgxnCoHS/",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "ワンダンスチャレンジ"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2087"
+}
