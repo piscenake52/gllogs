@@ -1,0 +1,34 @@
+{
+  "logid": "843997944bb3",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2114284724357361861",
+          "member": [
+            "MNM"
+          ],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgxGmFdY/",
+          "member": [
+            "MNM"
+          ],
+          "tags": [
+            "EASY"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2083"
+}

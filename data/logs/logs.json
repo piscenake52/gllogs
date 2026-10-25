@@ -3640,7 +3640,8 @@
     "groups": [
       "G2",
       "MSK",
-      "YOK"
+      "YOK",
+      "MNM"
     ],
     "sns": [
       {
@@ -3654,6 +3655,29 @@
             ],
             "tags": [
               "推し旅"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2114284724357361861",
+            "member": [
+              "MNM"
+            ],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgxGmFdY/",
+            "member": [
+              "MNM"
+            ],
+            "tags": [
+              "EASY"
             ]
           }
         ]
