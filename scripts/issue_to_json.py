@@ -776,12 +776,100 @@ def build_bulk(body):
     return {"_bulk": bulk}, []
 
 
+ALBUM_TYPES = ("album", "ep", "single")
+
+
+def build_albums(body):
+    """albums フォーム(add_albums.yml)のIssueを検証し、キュー用の辞書を返す。戻り値: (data, errors)"""
+    title = extract_field("album title", body).strip()
+    typ = extract_field("album type", body).strip().lower()
+    raw = extract_field("album json", body).strip()
+    delete = DELETE_OPTION in parse_checked(extract_field("DELETE", body))
+    errors = []
+    if not title:
+        errors.append("- **album title**: titleを入力してください")
+    if typ not in ALBUM_TYPES:
+        errors.append("- **album type**: album / ep / single のどれかを入力してください")
+    if errors:
+        return None, errors
+    if delete:
+        return {"title": title, "type": typ, "_delete": True}, []
+    if raw.startswith("```"):
+        raw = re.sub(r"^```[a-zA-Z]*\n?|\n?```$", "", raw).strip()
+    try:
+        j = json.loads(raw) if raw else {}
+    except json.JSONDecodeError as e:
+        return None, [f"- **album json**: JSONの形式が不正です（{e}）"]
+    if not isinstance(j, dict):
+        return None, ["- **album json**: オブジェクト形式で入力してください"]
+
+    def clean_tracks(v, where):
+        out = []
+        for t in (v if isinstance(v, list) else []):
+            if not isinstance(t, dict):
+                continue
+            ti = str(t.get("title") or "").strip()
+            if not ti:
+                continue
+            x = {}
+            no = t.get("no")
+            if isinstance(no, (int, str)) and not isinstance(no, bool) and str(no).strip() != "":
+                x["no"] = no if isinstance(no, int) else str(no).strip()
+            x["title"] = ti
+            out.append(x)
+        return out
+
+    data = {"title": title, "type": typ}
+    date = to_halfwidth(str(j.get("date") or "")).strip()
+    if date and not re.fullmatch(r"\d{8}", date):
+        return None, ["- **album json**: date は8桁の数字(YYYYMMDD)で入力してください"]
+    data["date"] = date or CLEAR
+    tracks = clean_tracks(j.get("tracks"), "tracks")
+    data["tracks"] = tracks or CLEAR
+    editions = []
+    for e in (j.get("editions") if isinstance(j.get("editions"), list) else []):
+        if not isinstance(e, dict) or not str(e.get("name") or "").strip():
+            continue
+        x = {"name": str(e["name"]).strip()}
+        for k in ("format", "note"):
+            if str(e.get(k) or "").strip():
+                x[k] = str(e[k]).strip()
+        pr = e.get("price")
+        if isinstance(pr, (int, float)) and not isinstance(pr, bool):
+            x["price"] = int(pr)
+        elif isinstance(pr, str) and re.fullmatch(r"\d+", to_halfwidth(pr).strip()):
+            x["price"] = int(to_halfwidth(pr).strip())
+        ex = clean_tracks(e.get("extra"), "extra")
+        if ex:
+            x["extra"] = ex
+        tk = clean_tracks(e.get("tracks"), "tracks")
+        if tk:
+            x["tracks"] = tk
+        editions.append(x)
+    data["editions"] = editions or CLEAR
+    return data, []
+
+
 def main():
     body = os.environ.get("ISSUE_BODY", "").replace("\r\n", "\n")
     issue_number = os.environ.get("ISSUE_NUMBER", "").strip()
 
     if LEGACY_MARKER in body:
         print("旧フォームのIssueは処理しません。新しいフォームから作成し直してください。")
+        return
+
+    # albums フォーム(add_albums.yml): album / ep / single の収録曲と各種盤
+    if "### album title" in body:
+        data, errors = build_albums(body)
+        if errors:
+            write_error(errors)
+            print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
+            return
+        os.makedirs("data/albums/queue", exist_ok=True)
+        file_path = os.path.join("data/albums/queue", f"{creation_stamp()}.json")
+        with open(file_path, "w", encoding="utf-8") as fp:
+            json.dump(data, fp, ensure_ascii=False, indent=2)
+        print(f"JSONファイルを生成しました: {file_path}")
         return
 
     # bulk フォーム(add_bulk.yml): logs の複数行をまとめて変更する

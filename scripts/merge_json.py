@@ -68,6 +68,17 @@ TARGETS = [
         "sort_key": None,  # 追加順のまま
         "sort_reverse": False,
     },
+    {
+        "name": "albums",
+        "queue_dir": "data/albums/queue/",
+        "processed_dir": "data/albums/processed/",
+        "main_file": "data/albums/albums.json",
+        "key_fields": ["title", "type"],
+        "order": ["title", "type", "date", "tracks", "editions"],
+        "clear_to_empty_list": [],
+        "sort_key": lambda x: (x.get("date") or "", x.get("title") or ""),
+        "sort_reverse": True,
+    },
 ]
 
 
@@ -474,6 +485,14 @@ def finalize_new(target, item, main_data):
             if default_member:
                 item["member"] = default_member
         # venue / songs は空なら属性を作らない
+
+    elif name == "albums":
+        if item.get("type") not in ("album", "ep", "single"):
+            print(f"【スキップ】albumsのtypeは album / ep / single のどれかにしてください: {item}")
+            return None
+        if item.get("date") and not re.fullmatch(r"\d{8}", str(item["date"])):
+            print(f"【スキップ】albumsのdateは8桁の数字で指定してください: {item}")
+            return None
 
     return reorder(target, item)
 
