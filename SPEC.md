@@ -974,6 +974,7 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 入口(いずれも📊アイコン): ①セトリのポップアップの曲名行(MC/DT/DJ/TOWELは除く) ②♪の曲名バーの右端 ③タイトルに『曲名』を含む行(データ部の右端。setlist.jsonに曲名が無いときは非表示)。
 - 押すとポップアップ(COUNT / FIRST / LATEST と、披露した公演の一覧=新しい順、#は曲順)。曲名の一致は NFKC正規化・小文字化・空白除去の完全一致。
 - 数え方: setlist.json の songs[].title を集計。同じ公演に複数回出ても1回。公演の日付は setlistid(YYYYMMDDHHMM)から。同日の昼夜は別公演。
+- 区分の切り替え(披露実績のポップアップ上部のチップ): ALL / LIVE / EVENT。LIVE = 同じ setlistid の logs の行の contents が LIVE の公演のみ。EVENT = LIVE以外(リリースイベント・ファンミなど、logsに行が無い公演も含む)。チップに件数を添え、0件の区分は押せない。COUNT / FIRST / LATEST と一覧が、選んだ区分に切り替わる。開くたびに「ALL」から始める。
 - ヘッダーの📊ボタンは非活性のまま(disabled)。
 
 ## helperの時間入力の補完

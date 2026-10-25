@@ -879,7 +879,15 @@ html.stat-on .setlist-song-stat { display: inline-block; }
 .alb-ttl { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
 .alb-cnt { flex: 0 0 auto; font-size: 10px; color: var(--sub); }
 .stat-modal-overlay { z-index: 1100; }
+/* PC(マウス)だけ: 披露実績・アルバム・セトリのポップアップは、右下の角をドラッグして横幅を広げられる(いまの420pxが最小。幅は開き直しても保つ) */
+@media (hover: hover) and (pointer: fine) {
+  .stat-modal-overlay .setlist-modal, .album-modal-overlay .setlist-modal, #setlistModalOverlay .setlist-modal { resize: horizontal; width: 420px; min-width: 420px; max-width: calc(100vw - 40px); }
+}
 .stat-modal-title { font-size: 17px; font-weight: bold; margin: 0 26px 12px 0; line-height: 1.4; overflow-wrap: anywhere; }
+.stat-chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 10px; }
+.stat-chip { border: 1px solid var(--input-border); background: none; color: var(--text); border-radius: 999px; padding: 3px 12px; font-size: 12px; cursor: pointer; }
+.stat-chip.is-on { background: #0ea5e9; border-color: #0ea5e9; color: #fff; }
+.stat-chip:disabled { opacity: .35; cursor: default; }
 .stat-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
 .stat-tile { border: 1px solid var(--input-border); border-radius: 10px; padding: 8px 4px; text-align: center; min-width: 0; }
 .stat-tile-label { font-size: 10px; color: var(--sub); letter-spacing: .05em; }
@@ -3523,24 +3531,66 @@ html.stat-on .setlist-song-stat { display: inline-block; }
   albumModalOverlay.onclick = e => { if (e.target === albumModalOverlay) closeAlbumModal(); };
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && albumModalOverlay.classList.contains('is-open') && !statModalOverlay.classList.contains('is-open')) closeAlbumModal(); });
   const statModalOverlay = $('statModalOverlay');
-  const openStatModal = title => {
-    const t = String(title || '').trim();
-    if (!t) return;
+  // 公演がLIVEか: 同じsetlistidを持つlogsの行のcontentsがLIVEのものだけ「LIVE」。それ以外(リリースイベント・ファンミなど、logsに行が無いものも)は「それ以外」
+  function statLiveSet() {
+    const src = (Array.isArray(lastDedupedLogs) && lastDedupedLogs.length) ? lastDedupedLogs : logs;
+    if (statLiveSet.src === src && statLiveSet.set) return statLiveSet.set;
+    const set = new Set();
+    (src || []).forEach(it => { if (it && it.setlistid && String(it.contents || '').trim().toUpperCase() === 'LIVE') set.add(it.setlistid); });
+    statLiveSet.src = src; statLiveSet.set = set;
+    return set;
+  }
+  let statCur = { title: '', filter: 'all' };
+  const renderStat = () => {
+    const t = statCur.title;
     const m = statIndex().get(statNorm(t));
-    const rows = m ? [...m.entries()].sort((a, b) => String(b[0]).localeCompare(String(a[0]))) : []; // 新しい順
-    const ymd = id => { const f = formatSetlistDateTime(id).dateStr; return f ? f.replace(/ \[.*$/, '') : '-'; };
+    const all = m ? [...m.entries()].sort((a, b) => String(b[0]).localeCompare(String(a[0]))) : []; // 新しい順
+    const live = statLiveSet();
+    const nLive = all.filter(([id]) => live.has(id)).length;
+    const counts = { all: all.length, live: nLive, other: all.length - nLive };
+    const f = statCur.filter;
+    const rows = f === 'live' ? all.filter(([id]) => live.has(id)) : f === 'other' ? all.filter(([id]) => !live.has(id)) : all;
+    const ymd = id => { const x = formatSetlistDateTime(id).dateStr; return x ? x.replace(/ \[.*$/, '') : '-'; };
     const tile = (label, val) => `<div class="stat-tile"><div class="stat-tile-label">${label}</div><div class="stat-tile-value">${escapeHtml(val)}</div></div>`;
+    const chip = (key, label) => `<button type="button" class="stat-chip${f === key ? ' is-on' : ''}" data-stat-filter="${key}"${counts[key] === 0 && key !== 'all' ? ' disabled' : ''}>${label} ${counts[key]}</button>`;
     const listHtml = rows.map(([id, r]) => {
-      const f = formatSetlistDateTime(id).dateStr || id;
+      const d = formatSetlistDateTime(id).dateStr || id;
       const enc = /(^|[,\s])encore([,\s]|$)/.test(String(r.type || '')) ? ' <span class="setlist-song-type">ENCORE</span>' : '';
-      return `<li><span class="stat-list-date">${escapeHtml(f)}</span><span class="stat-list-title">${escapeHtml(r.entry.title || '')}${enc}</span>${r.order != null ? `<span class="stat-list-no">#${escapeHtml(r.order)}</span>` : ''}</li>`;
+      return `<li><span class="stat-list-date">${escapeHtml(d)}</span><span class="stat-list-title">${escapeHtml(r.entry.title || '')}${enc}</span>${r.order != null ? `<span class="stat-list-no">#${escapeHtml(r.order)}</span>` : ''}</li>`;
     }).join('');
     $('statModalBody').innerHTML =
       `<div class="stat-modal-title">${escapeHtml(t)}</div>` +
+      `<div class="stat-chips">${chip('all', 'ALL')}${chip('live', 'LIVE')}${chip('other', 'EVENT')}</div>` +
       `<div class="stat-tiles">${tile('COUNT', String(rows.length))}${tile('FIRST', rows.length ? ymd(rows[rows.length - 1][0]) : '-')}${tile('LATEST', rows.length ? ymd(rows[0][0]) : '-')}</div>` +
       (rows.length ? `<ul class="stat-list">${listHtml}</ul>` : '<div class="setlist-modal-empty">NO RECORDS</div>');
+  };
+  const openStatModal = title => {
+    const t = String(title || '').trim();
+    if (!t) return;
+    statCur = { title: t, filter: 'all' }; // 開くたびに「総数」から始める
+    renderStat();
     statModalOverlay.classList.add('is-open');
   };
+  $('statModalBody').addEventListener('click', e => {
+    const b = e.target.closest('.stat-chip[data-stat-filter]');
+    if (!b || b.disabled) return;
+    statCur.filter = b.dataset.statFilter;
+    renderStat();
+  });
+  // 披露実績・アルバムのポップアップ(PC): ドラッグで変えた横幅を、開き直しても使う(同じ幅を3つで共有)
+  let popupWidth = '';
+  [['statModalOverlay'], ['albumModalOverlay'], ['setlistModalOverlay']].forEach(([id]) => {
+    const ov = $(id), box = ov && ov.querySelector('.setlist-modal');
+    if (!box) return;
+    new MutationObserver(() => { if (ov.classList.contains('is-open') && popupWidth) box.style.width = popupWidth; }).observe(ov, { attributes: true, attributeFilter: ['class'] });
+    const save = () => { if (ov.classList.contains('is-open') && box.style.width) popupWidth = box.style.width; };
+    box.addEventListener('mouseup', save); box.addEventListener('pointerup', save);
+    // 角をドラッグして、ポップアップの外でマウスを離したとき、背景のクリックとみなして閉じてしまわないようにする
+    let fromBox = false;
+    box.addEventListener('mousedown', () => { fromBox = true; });
+    document.addEventListener('mouseup', () => { setTimeout(() => { fromBox = false; }, 0); save(); });
+    ov.addEventListener('click', e => { if (fromBox && e.target === ov) e.stopImmediatePropagation(); }, true);
+  });
   const closeStatModal = () => statModalOverlay.classList.remove('is-open');
   $('statModalCloseBtn').onclick = closeStatModal;
   statModalOverlay.onclick = e => { if (e.target === statModalOverlay) closeStatModal(); };
