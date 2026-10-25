@@ -1,0 +1,26 @@
+{
+  "date": "20261025",
+  "groups": [
+    "G2",
+    "MSK",
+    "YOK"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/oshitabi_update/status/2114190230106558754",
+          "member": [
+            "MSK",
+            "YOK"
+          ],
+          "tags": [
+            "推し旅"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2079"
+}

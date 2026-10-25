@@ -3597,6 +3597,34 @@
     ]
   },
   {
+    "logid": "843997944bb3",
+    "date": "20261025",
+    "time": "",
+    "contents": "ETC",
+    "groups": [
+      "G2",
+      "MSK",
+      "YOK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/oshitabi_update/status/2114190230106558754",
+            "member": [
+              "MSK",
+              "YOK"
+            ],
+            "tags": [
+              "推し旅"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "c035e9ab21af",
     "date": "20261024",
     "time": "2359",
