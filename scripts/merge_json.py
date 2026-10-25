@@ -872,6 +872,15 @@ def write_index(target, main_data):
             for k in ("map", "tags", "groups"):  # helperのtourモード(areaに紐づくmap / tags候補)とsetlistの引き継ぎ(groups)のため、LIVE / RELEASEEVENT / FANMEETING だけ入れる
                 if not is_blank(e.get(k)):
                     row[k] = e[k]
+        if target["name"] == "logs":
+            # helperのタグ候補用: タグは全行に入れる(全体のlogs.jsonを読まなくても候補が作れる)。stags = snsリンクごとのタグを並べたもの(出現数の集計用)
+            if not is_blank(e.get("tags")):
+                row["tags"] = e["tags"]
+            stags = [t for s in (e.get("sns") or []) if isinstance(s, dict)
+                     for u in (s.get("urls") or []) if isinstance(u, dict)
+                     for t in (u.get("tags") or []) if isinstance(t, str) and t.strip()]
+            if stags:
+                row["stags"] = stags
         if target["name"] == "logs" and e.get("ref") and "title" not in row:
             t = rt(e)
             if t:
