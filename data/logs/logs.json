@@ -3653,9 +3653,13 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YZH",
+      "MMK",
       "MSK",
       "YOK",
-      "MNM"
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -3679,6 +3683,21 @@
             "tags": [
               "TikTok更新"
             ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2114322603523633657",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "TikTok更新"
+            ]
           }
         ]
       },
@@ -3692,6 +3711,21 @@
             ],
             "tags": [
               "EASY"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSgQ862np/",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "EASY Dance"
             ]
           }
         ]
