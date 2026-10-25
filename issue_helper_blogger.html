@@ -1994,7 +1994,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     fetchData('songs').then(function () { upd(); }).catch(function () {});
   }
   // ---- albums tab: release (album / ep / single) tracklist + editions -> one Issue (add_albums.yml). Key = title + type. ----
-  var alReady = false, AL_TYPES = ['album', 'ep', 'single'];
+  var alReady = false, AL_TYPES = ['album', 'ep', 'single', 'musiccard'];
   function loadAlbums() { return fetchData('albums').catch(function () { if (!cache.albums) cache.albums = []; return cache.albums; }); }
   function alTitleOpts() {
     var m = {}, out = [];
@@ -2082,7 +2082,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     addSuggest(cp, function () { return (cache.albums || []).map(function (a) { var v = a.title + ' (' + a.type + ')'; return { v: v, k: normQ(v) }; }); }, $('alcp').closest('.field'), true);
     cp.addEventListener('input', function () { var a = findRec(cp.value); if (a) { main.set(a.tracks || []); cp.value = ''; upd(); } });
     function findRec(label) { var r = null; (cache.albums || []).forEach(function (a) { if (!r && a.title + ' (' + a.type + ')' === label.trim()) r = a; }); return r; }
-    AL_TYPES.forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t; b.setAttribute('data-v', t); b.onclick = function () { type = type === t ? '' : t; syncType(); upd(); }; tyBox.appendChild(b); });
+    AL_TYPES.forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t === 'musiccard' ? 'music card' : t; b.setAttribute('data-v', t); b.onclick = function () { type = type === t ? '' : t; syncType(); upd(); }; tyBox.appendChild(b); });
     function syncType() { [].forEach.call(tyBox.children, function (b) { b.classList.toggle('on', b.getAttribute('data-v') === type); }); }
     function edBlock(d) {
       var box = document.createElement('div'); box.className = 'plbox aled'; var ob = { el: box };
