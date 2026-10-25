@@ -6249,7 +6249,7 @@ html.stat-on .setlist-song-stat { display: inline-block; }
   {
     const last = parseInt(localStorage.getItem(ALBUM_CHECK_TIME_KEY) || '0', 10);
     if (isForcedFreshSource()) checkForAlbumUpdates(true);
-    else if (!(hadAlbumCache && Date.now() - last < CHECK_COOLDOWN_MS)) checkForAlbumUpdates(false);
+    else if (!(hadAlbumCache && albumsData.length && Date.now() - last < CHECK_COOLDOWN_MS)) checkForAlbumUpdates(false); // 保存した albums が空のあいだは、待ち時間なしで毎回確認する(空のまま居残らないように)
   }
 })();
 //]]>
