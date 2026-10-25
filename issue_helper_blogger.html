@@ -1099,10 +1099,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       (cache.logs || ix.logs || []).forEach(function (r) {
         if (!r) return;
         if (kind === 'logs') { if (Array.isArray(r.tags)) r.tags.forEach(function (t) { addTo(m, t); }); }
+        else if (Array.isArray(r.stags)) r.stags.forEach(function (t) { addTo(m, t); }); // from the light index
         else if (Array.isArray(r.sns)) r.sns.forEach(function (e) { ((e && e.urls) || []).forEach(function (u) { if (u && Array.isArray(u.tags)) u.tags.forEach(function (t) { addTo(m, t); }); }); });
       });
       var list = Object.keys(m).sort(function (a, b) { return m[b] - m[a] || (a < b ? -1 : a > b ? 1 : 0); }).map(function (c) { return { v: c, n: m[c], k: normQ(c) }; });
-      if (cache.logs) optMemo[key] = list;
+      if (cache.logs || ixHasTags()) optMemo[key] = list;
       return list;
     };
   }
@@ -1146,7 +1147,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       box.hidden = !items.length;
     }
     el.addEventListener('input', show);
-    el.addEventListener('focus', function () { if (token) fetchData('logs').catch(function () {}); }); // the full logs.json holds the tags of every row
+    el.addEventListener('focus', function () { if (token) needTags().then(function () { optMemo = {}; }).catch(function () {}); }); // the tags come from the light index (the full logs.json only when the index is an old one)
     el.addEventListener('blur', hide);
     el.addEventListener('keydown', function (e) {
       if (box.hidden) return;
@@ -1285,10 +1286,43 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (Array.isArray(v)) return v.join(',');
     return v == null ? '' : String(v);
   }
+  // The big files (logs.json about 5MB, logs_index.json) are kept in IndexedDB together with the latest commit sha of the file.
+  // When the sha has not changed, the saved copy is used (no big download). If the sha cannot be read (rate limit, offline), the file is fetched as before.
+  function idbOpen() {
+    return new Promise(function (res, rej) {
+      try {
+        var rq = indexedDB.open('glih_cache', 1);
+        rq.onupgradeneeded = function () { rq.result.createObjectStore('kv'); };
+        rq.onsuccess = function () { res(rq.result); };
+        rq.onerror = function () { rej(rq.error); };
+      } catch (e) { rej(e); }
+    });
+  }
+  function idbGet(k) { return idbOpen().then(function (db) { return new Promise(function (res) { var q = db.transaction('kv').objectStore('kv').get(k); q.onsuccess = function () { res(q.result || null); }; q.onerror = function () { res(null); }; }); }).catch(function () { return null; }); }
+  function idbPut(k, v) { return idbOpen().then(function (db) { return new Promise(function (res) { var t = db.transaction('kv', 'readwrite'); t.objectStore('kv').put(v, k); t.oncomplete = function () { res(); }; t.onerror = function () { res(); }; }); }).catch(function () {}); }
+  function latestSha(path) {
+    return fetch('https://api.github.com/repos/' + REPO + '/commits?path=' + path + '&sha=' + BRANCH + '&page=1&per_page=1', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('api'); return r.json(); })
+      .then(function (c) { return (c && c[0] && c[0].sha) || null; })
+      .catch(function () { return null; });
+  }
+  function rawFetch(path) {
+    return fetch('https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + path + '?v=' + Date.now(), { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); });
+  }
+  function bigFetch(key, path) {
+    return Promise.all([latestSha(path), idbGet(key)]).then(function (a) {
+      var sha = a[0], rec = a[1];
+      if (sha && rec && rec.sha === sha && typeof rec.text === 'string') { try { return JSON.parse(rec.text); } catch (e) { /* broken copy: fetch again */ } }
+      return rawFetch(path).then(function (text) { var d = JSON.parse(text); if (sha) idbPut(key, { sha: sha, text: text }); return d; });
+    });
+  }
+  var inflight = {}; // one download at a time per file: callers that arrive while it is loading share the same request
   function fetchData(kind) {
     if (cache[kind]) return Promise.resolve(cache[kind]);
-    var url = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + DATA[kind] + '?v=' + Date.now();
-    return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (d) { cache[kind] = d; return d; });
+    if (inflight[kind]) return inflight[kind];
+    var pr = (kind === 'logs' ? bigFetch('logs', DATA.logs) : rawFetch(DATA[kind]).then(function (t) { return JSON.parse(t); }))
+      .then(function (d) { cache[kind] = d; delete inflight[kind]; return d; }, function (e) { delete inflight[kind]; throw e; });
+    inflight[kind] = pr; return pr;
   }
   // light index files (written next to the data files by merge_json.py): only the fields the search / candidate lists need. Falls back to the full data file when the index does not exist yet.
   var INDEX = { logs: 'data/logs/logs_index.json', setlist: 'data/setlist/setlist_index.json' }, ix = {};
@@ -1296,11 +1330,17 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function fetchIndex(kind) {
     if (ix[kind]) return Promise.resolve(ix[kind]);
     if (cache[kind]) { ix[kind] = cache[kind]; return Promise.resolve(ix[kind]); } // the full data is already loaded
-    var url = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + INDEX[kind] + '?v=' + Date.now();
-    return fetch(url, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(function (d) { if (!Array.isArray(d)) throw new Error('bad index'); ix[kind] = d; return d; })
+    if (inflight['ix-' + kind]) return inflight['ix-' + kind];
+    var pi = (kind === 'logs' ? bigFetch('logs_index', INDEX.logs) : rawFetch(INDEX[kind]).then(function (t) { return JSON.parse(t); }))
+      .then(function (d) { if (!Array.isArray(d)) throw new Error('bad index'); ix[kind] = d; delete inflight['ix-' + kind]; return d; })
       .catch(function () { return fetchData(kind).then(function (d) { ix[kind] = d; return d; }); });
+    inflight['ix-' + kind] = pi;
+    pi.then(function () { delete inflight['ix-' + kind]; }, function () { delete inflight['ix-' + kind]; });
+    return pi;
   }
+  // true when the light index already carries the tags of every row (stags = the tags of the sns links). An older index has neither, so the full logs.json is needed.
+  function ixHasTags() { return !!(ix.logs && ix.logs.some(function (r) { return r && r.stags; })); }
+  function needTags() { return ixHasTags() ? Promise.resolve() : fetchIndex('logs').then(function () { return ixHasTags() ? null : fetchData('logs'); }); }
   function fstat() {} // the status line of the find tab is not shown (kept as a no-op so the callers stay simple)
   // input check for date (yyyymmdd), time (hhmm) and setlistid (12 digits) of the find tab. Empty is allowed. Invalid fields get a red border and the Issue link is disabled.
   function validateFind(kind) {
