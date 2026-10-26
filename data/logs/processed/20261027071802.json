@@ -1,0 +1,19 @@
+{
+  "logid": "d63b56e8e85d",
+  "url": "https://program.bayfm.co.jp/anna/",
+  "sns": [
+    {
+      "type": "radiko",
+      "urls": [
+        {
+          "url": "https://radiko.jp/share/?t=20261027100000&sid=BAYFM78",
+          "member": [],
+          "tags": [
+            "radiko"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2218"
+}

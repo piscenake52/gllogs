@@ -3908,6 +3908,7 @@
     "time": "1020",
     "contents": "RADIO",
     "title": "BAYFM 「miracle!!」",
+    "url": "https://program.bayfm.co.jp/anna/",
     "groups": [
       "L2",
       "YUW",
@@ -3928,6 +3929,18 @@
             ],
             "tags": [
               "コメント出演"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "radiko",
+        "urls": [
+          {
+            "url": "https://radiko.jp/share/?t=20261027100000&sid=BAYFM78",
+            "member": [],
+            "tags": [
+              "radiko"
             ]
           }
         ]
