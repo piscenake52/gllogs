@@ -838,6 +838,10 @@ def build_albums(body):
     data = {"title": title, "type": typ}
     artist = str(j.get("artist") or "").strip()
     data["artist"] = artist or CLEAR
+    mem = j.get("member")
+    mem = [str(x).strip().upper() for x in mem] if isinstance(mem, list) else []
+    mem = [x for x in dict.fromkeys(mem) if x in SNS_MEMBER_CODES and x not in ("G2", "L2")]  # 歌唱メンバーのコード(アーティストのハート表示用)
+    data["member"] = mem or CLEAR
     if aid:
         data["id"] = aid
     if has_logids:

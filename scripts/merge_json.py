@@ -74,7 +74,7 @@ TARGETS = [
         "processed_dir": "data/albums/processed/",
         "main_file": "data/albums/albums.json",
         "key_fields": ["title", "type"],
-        "order": ["id", "title", "type", "artist", "date", "tracks", "editions"],
+        "order": ["id", "title", "type", "artist", "member", "date", "tracks", "editions"],
         "clear_to_empty_list": [],
         "sort_key": lambda x: (x.get("date") or "", x.get("title") or ""),
         "sort_reverse": True,
