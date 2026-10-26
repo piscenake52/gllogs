@@ -3183,13 +3183,22 @@
       "YUW",
       "AKR"
     ],
+    "tags": [
+      "アンナミラクル"
+    ],
     "sns": [
       {
         "type": "x",
         "urls": [
           {
             "url": "https://x.com/Laki922official/status/2109886717796942077",
-            "member": []
+            "member": [
+              "YUW",
+              "AKR"
+            ],
+            "tags": [
+              "コメント出演"
+            ]
           }
         ]
       }
