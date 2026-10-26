@@ -867,10 +867,10 @@ html.stat-on .setlist-song-stat { display: inline-block; }
 .alb-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; } /* 🎶は常に表示。🔗の出入りで横にずれるときは、JS(slideAlbIcons)でなめらかに動かす */
 .alb-icon.is-off { display: none; }
 .album-modal-overlay { z-index: 1050; }
-.alb-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+.alb-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
 .alb-chip { border: 1px solid var(--input-border); background: none; color: var(--text); border-radius: 999px; padding: 3px 10px; font-size: 12px; cursor: pointer; }
 .alb-chip.is-on { background: #0ea5e9; border-color: #0ea5e9; color: #fff; }
-.alb-meta { font-size: 12px; color: var(--sub); margin: -6px 0 10px; }
+.alb-meta { font-size: 12px; color: var(--sub); margin: 0 0 14px; } /* セトリの日時・会場の行と同じ文字の大きさ・下の間隔 */
 .alb-artist + .alb-meta { margin-top: 0; }
 .alb-edinfo { font-size: 12px; color: var(--sub); margin: 0 0 8px; line-height: 1.5; }
 .alb-list { list-style: none; margin: 0; padding: 0; }
@@ -3566,7 +3566,7 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
     const info = ed ? [ed.format, ed.price != null ? `\u00A5${Number(ed.price).toLocaleString()}` : '', ed.note].filter(v => v && String(v).trim() !== '').map(v => escapeHtml(String(v))).join(' / ') : '';
     $('albumModalBody').innerHTML =
       (albCur.list.length > 1 ? chips(albCur.list.map(x => albTypeLabel(x.type)), albCur.ti, 'data-alt') : '') +
-      `<div class="stat-modal-title">${escapeHtml(a.title || '')}</div>` +
+      `<div class="setlist-modal-title">${escapeHtml(a.title || '')}</div>` + // タイトルの大きさ・下の間隔はセトリのポップアップと同じ
       albArtistHtml(a) +
       `<div class="alb-meta">${escapeHtml([albTypeLabel(a.type), albYmd(a.date)].filter(Boolean).join(' / '))}</div>` +
       (eds.length ? chips(eds.map(x => x.name || ''), ei, 'data-aled') : '') +
