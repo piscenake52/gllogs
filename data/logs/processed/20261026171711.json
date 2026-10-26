@@ -1,0 +1,53 @@
+{
+  "date": "20261026",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2114613977615663252",
+          "member": [
+            "RIN",
+            "TBK",
+            "HIR",
+            "YUW",
+            "KAN",
+            "RRK",
+            "AKR",
+            "KIK"
+          ],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgXFeWjk/",
+          "member": [
+            "RIN",
+            "TBK",
+            "HIR",
+            "YUW",
+            "KAN",
+            "RRK",
+            "AKR",
+            "KIK"
+          ],
+          "tags": [
+            "LINK UP"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2194"
+}
