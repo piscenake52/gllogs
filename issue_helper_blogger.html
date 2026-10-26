@@ -370,6 +370,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     return 'https://github.com/' + REPO + '/issues/new?' + q.toString(); // the form field ids (date / time / setlistid) are used as the parameter names
   }
   function setLink(a, url) { if (url) { a.href = url; a.setAttribute('aria-disabled', 'false'); } else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); } }
+  function toTop() { try { root.scrollIntoView({ block: 'start' }); } catch (e) { window.scrollTo(0, 0); } } // a tab opened by a button / link starts at the top of the helper
   function tab(name) {
     var isFind = name === 'logs' || name === 'setlist';
     $('p-find').hidden = !isFind; $('p-songs').hidden = name !== 'songs'; if (name === 'songs') songsInit();
@@ -562,7 +563,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       });
       var btns = document.createElement('div'); btns.className = 'ckbtns';
       var mkb = function (t, fn) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = t; b.onclick = fn; btns.appendChild(b); return b; };
-      var open1 = function (id) { $('fid').value = id; tab('logs'); try { history.replaceState(null, '', '#logs'); } catch (e) {} doFind(); };
+      var open1 = function (id) { $('fid').value = id; tab('logs'); toTop(); try { history.replaceState(null, '', '#logs'); } catch (e) {} doFind(); };
       it.rows.forEach(function (r, j) { if (r.logid) mkb(it.rows.length > 1 ? 'open ' + (j + 1) : 'open', function () { open1(r.logid); }); });
       it.rows.forEach(function (r, j) { if (!r.logid || it.lines) return; var lb = it.rows.length > 1 ? 'copy ' + (j + 1) : 'copy id', cp = mkb(lb, function () { ckCopy(r.logid, function () { cp.textContent = 'copied'; setTimeout(function () { cp.textContent = lb; }, 1200); }); }); });
       var jb = mkb('json', function () { jp.hidden = !jp.hidden; });
@@ -994,7 +995,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var wrap = el.parentNode; wrap.classList.add('hasfp');
     var b = document.createElement('button'); b.type = 'button'; b.className = 'fx fp'; b.textContent = '\u2192'; b.title = 'open setlist'; b.setAttribute('aria-label', 'open setlist');
     var sync = function () { b.hidden = !/^\d{12}$/.test(el.value.trim()); };
-    b.onclick = function () { var sid = el.value.trim(); var gv = function (k) { var e = $('f-' + k); return e ? e.value : ''; }; jumpSeed = { sid: sid, title: gv('title'), groups: gv('groups'), tags: gv('tags') }; tab('setlist'); try { history.replaceState(null, '', '#setlist'); } catch (e) {} $('fid').value = sid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); };
+    b.onclick = function () { var sid = el.value.trim(); var gv = function (k) { var e = $('f-' + k); return e ? e.value : ''; }; jumpSeed = { sid: sid, title: gv('title'), groups: gv('groups'), tags: gv('tags') }; tab('setlist'); toTop(); try { history.replaceState(null, '', '#setlist'); } catch (e) {} $('fid').value = sid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); };
     el.addEventListener('input', sync); sync();
     wrap.appendChild(b);
   }
@@ -1710,12 +1711,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }).catch(function () {});
   }
   function gotoAlbum(a, seed) {
-    tab('albums');
+    tab('albums'); toTop();
     Promise.all([loadAlbums(), fetchIndex('logs').catch(function () {})]).then(function () { if (!alApi) return; if (a) alApi.load(a, seed.logid); else alApi.fresh(seed.title, seed.type, seed.date, seed.logid, seed.groups); alFrom = { groups: seed.groups || '' }; });
   }
   function goSong(title) {
     var t = String(title || '').trim(); if (!t) return;
-    tab('songs');
+    tab('songs'); toTop();
     fetchData('songs').catch(function () {}).then(function () {
       var gs = String((alFrom && alFrom.groups) || '').split(/[,\n]/).map(function (x) { return x.trim(); }), g2 = gs.indexOf('G2') >= 0, l2 = gs.indexOf('L2') >= 0;
       var guess = g2 && !l2 ? ART_G2 : l2 && !g2 ? ART_L2 : '', nt = normQ(t), rec = null;

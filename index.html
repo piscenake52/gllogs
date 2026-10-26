@@ -864,13 +864,7 @@ html.stat-on .setlist-song-stat { display: inline-block; }
 .setlist-song-stat.is-blank { visibility: hidden; pointer-events: none; }
 #statToggleBtn.is-disabled:not(.is-active) { opacity: .35; cursor: default; }
 #statToggleBtn { touch-action: manipulation; }
-.alb-icon { display: inline-block; flex: 0 0 auto; width: 0; margin: 0; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none;
-  opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0.9em);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0s linear 0.28s, width 0s linear 0.28s, margin 0s linear 0.28s; }
-/* 🎶は🔗と同じ動きで、🔗の表示・非表示に合わせて右からスライドして出入りする */
-.items.link-mode .alb-icon { width: 1.6em; margin: 0 0 0 4px; opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0s, width 0s, margin 0s; }
-@media (prefers-reduced-motion: reduce) { .alb-icon, .items.link-mode .alb-icon { transition: none; } }
+.alb-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; } /* 🎶は常に表示。🔗の出入りで横にずれるときは、JS(slideAlbIcons)でなめらかに動かす */
 .alb-icon.is-off { display: none; }
 .album-modal-overlay { z-index: 1050; }
 .alb-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
@@ -882,6 +876,9 @@ html.stat-on .setlist-song-stat { display: inline-block; }
 .alb-list { list-style: none; margin: 0; padding: 0; }
 .alb-list li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; cursor: pointer; } /* 曲の行はセトリのポップアップと同じ並び(曲順・再生ボタン・曲名)。曲名の文字はデータ部の文字サイズ設定に合わせる */
 .alb-list li:last-child { border-bottom: none; }
+.row-in { animation: rowIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes rowIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .row-in { animation: none; } }
 .alb-list.has-label .setlist-song-order { flex-basis: 3.4em; } /* DVD1のような名前の番号がある盤は、全行の列幅を広げてそろえる */
 .alb-list li.is-extra .setlist-song-order { color: #0ea5e9; }
 .alb-no { flex: 0 0 2.6em; color: var(--sub); font-size: 11px; text-align: right; }
@@ -3461,6 +3458,14 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
     const found = songsData.find(s => norm(s.title) === target);
     return found && found.link ? found.link : null;
   };
+  // セトリ・収録曲のポップアップ: 曲の行を上から順に、少しずつ時間をずらしてなめらかに表示する(開いたとき・盤を切り替えたとき)
+  const staggerRows = root => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    root.querySelectorAll('.setlist-modal-songlist > li, .alb-list > li').forEach((li, i) => {
+      li.style.animationDelay = (50 + Math.min(i, 16) * 28) + 'ms'; // 17行目以降は同じタイミング(長いリストで待たせない)
+      li.classList.add('row-in');
+    });
+  };
   const setlistModalOverlay = $('setlistModalOverlay');
   const setlistModalBody = $('setlistModalBody');
   // ポップアップ内はinnerHTMLで再生成するため、再生ボタンのクリックはイベント委譲で拾う
@@ -3526,6 +3531,7 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
     const h0 = animate ? boxEl.offsetHeight : 0; // 盤・種類を切り替えて高さが変わるときは、今の高さから新しい高さへなめらかに広げる(縮める)
     if (animate) { clearTimeout(boxEl._hT); boxEl.style.transition = 'none'; boxEl.style.height = 'auto'; boxEl.style.overflow = ''; }
     renderAlbumBody();
+    staggerRows(bodyEl);
     if (!animate) return;
     const h1 = boxEl.offsetHeight;
     if (Math.abs(h1 - h0) < 2) { boxEl.style.transition = ''; boxEl.style.height = ''; return; }
@@ -3737,6 +3743,7 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
       console.error('Failed to render setlist modal:', err);
       setlistModalBody.innerHTML = '<div class="setlist-modal-empty">LOAD ERROR</div>';
     }
+    staggerRows(setlistModalBody);
     setlistModalOverlay.classList.add('is-open');
   };
   const closeSetlistModal = () => setlistModalOverlay.classList.remove('is-open');
@@ -4558,7 +4565,19 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
     $('linkToggleBtn').classList.toggle('is-active', linkMode);
     localStorage.setItem(LINK_MODE_KEY, linkMode);
     $('items').classList.toggle('link-mode', linkMode);
+    slideAlbIcons(linkMode);
   };
+  // 🔗の幅の分だけ🎶の位置がずれるので、元の位置から新しい位置へ🔗と同じ動きでスライドさせる(ONのとき: 右から左へ、OFFのとき: 左から右へ)
+  function slideAlbIcons(on) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const icons = [...document.querySelectorAll('#items .alb-icon:not(.is-off)')];
+    if (!icons.length) return;
+    const d = icons[0] ? parseFloat(getComputedStyle(icons[0]).fontSize) * 1.6 + 4 : 0; // 🔗の幅(1.6em)+左の余白4px
+    icons.forEach(a => { a.style.transition = 'none'; a.style.transform = `translateX(${on ? d : -d}px)`; });
+    void document.body.offsetHeight; // 開始位置を確定させてから動かす
+    icons.forEach(a => { a.style.transition = 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)'; a.style.transform = ''; });
+    setTimeout(() => icons.forEach(a => { a.style.transition = ''; }), 320);
+  }
   // 📊ボタン(披露実績(📊)の表示モード):今はON/OFFの切り替えだけ(中身は未実装)。ONの間は#itemsに stat-mode クラスが付く
   // ヘッダーの丸いボタン(🕐📍📋💞🏷️🔗)と♪がすべてONのときだけ、📊をダブルタップでON/OFFできる(暫定。普段は非活性の見た目)。保存はしない
   let statMode = false;
