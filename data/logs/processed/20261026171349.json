@@ -1,0 +1,28 @@
+{
+  "date": "20261026",
+  "contents": "SNS",
+  "title": "SNS　Girls²",
+  "groups": [
+    "G2",
+    "YZH",
+    "MSK"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2114631314385301817",
+          "member": [
+            "YZH",
+            "MSK"
+          ],
+          "tags": [
+            "明日開催"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2193"
+}

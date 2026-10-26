@@ -3930,6 +3930,35 @@
     ]
   },
   {
+    "logid": "d69f45100fef",
+    "date": "20261026",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MSK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2114631314385301817",
+            "member": [
+              "YZH",
+              "MSK"
+            ],
+            "tags": [
+              "明日開催"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "7f15d433f988",
     "date": "20261025",
     "time": "2359",
