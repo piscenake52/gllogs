@@ -3836,6 +3836,37 @@
     ]
   },
   {
+    "logid": "3a7c13f8ff36",
+    "date": "20261027",
+    "time": "1830",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　隅谷百花",
+    "url": "https://www.cl-live.com/programs/cast/iMHyJmZr2bEmrfFCaNxjiV?lang=ja",
+    "groups": [
+      "G2",
+      "MMK"
+    ],
+    "tags": [
+      "LDH NEWS CAST"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/CL_OFFICIAL_ACC/status/2114698533916098644",
+            "member": [
+              "MMK"
+            ],
+            "tags": [
+              "配信予定"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "dd0a162cb4a9",
     "date": "20261027",
     "time": "1400",
@@ -3941,21 +3972,6 @@
     "tags": [
       "EASY",
       "On Line Capsule"
-    ]
-  },
-  {
-    "logid": "3a7c13f8ff36",
-    "date": "20261027",
-    "time": "",
-    "contents": "CL",
-    "title": "LDH NEWS CAST　隅谷百花",
-    "url": "https://www.cl-live.com/programs/cast/iMHyJmZr2bEmrfFCaNxjiV?lang=ja",
-    "groups": [
-      "G2",
-      "MMK"
-    ],
-    "tags": [
-      "LDH NEWS CAST"
     ]
   },
   {
