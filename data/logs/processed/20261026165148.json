@@ -1,0 +1,60 @@
+{
+  "date": "20261026",
+  "time": "1500",
+  "contents": "TICKET",
+  "title": "CL6th LDH紅白頂上決戦 CLプレミアム 2次先行",
+  "url": "https://www.cl-live.com/event/_/6th_event",
+  "groups": [
+    "G2",
+    "KIR",
+    "L2",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/cl_official_sp/status/2110257905454940286",
+          "member": []
+        }
+      ]
+    },
+    {
+      "type": "gl2family",
+      "urls": [
+        {
+          "url": "https://girls2-fc.jp/page/familyNews/1240168492389367808",
+          "member": []
+        }
+      ]
+    }
+  ],
+  "_repeat": [
+    {
+      "date": "20261026",
+      "time": "1500",
+      "title": "CL6th LDH紅白頂上決戦 CLプレミアム 2次先行 抽選受付開始",
+      "contents": "TICKET",
+      "url": "https://www.cl-live.com/event/_/6th_event",
+      "display_sp": "CL6th LDH紅白頂上決戦 CLプレミアム2次先行 抽選受付開始"
+    },
+    {
+      "date": "20261101",
+      "time": "2300",
+      "title": "CL6th LDH紅白頂上決戦 CLプレミアム 2次先行 抽選受付締切",
+      "contents": "CLOSE",
+      "url": "https://www.cl-live.com/event/_/6th_event",
+      "display_sp": "CL6th LDH紅白頂上決戦 CLプレミアム2次先行 抽選受付締切"
+    },
+    {
+      "date": "20261107",
+      "time": "1500",
+      "title": "CL6th LDH紅白頂上決戦 CLプレミアム 2次先行 当選発表",
+      "contents": "RESULT",
+      "url": "https://www.cl-live.com/event/_/6th_event",
+      "display_sp": "CL6th LDH紅白頂上決戦 CLプレミアム2次先行 当選発表"
+    }
+  ],
+  "_issue": "2190"
+}

@@ -1977,6 +1977,41 @@
     ]
   },
   {
+    "logid": "c746bec39aec",
+    "date": "20261107",
+    "time": "1500",
+    "contents": "RESULT",
+    "title": "CL6th LDH紅白頂上決戦 CLプレミアム 2次先行 当選発表",
+    "display_sp": "CL6th LDH紅白頂上決戦 CLプレミアム2次先行 当選発表",
+    "url": "https://www.cl-live.com/event/_/6th_event",
+    "groups": [
+      "G2",
+      "KIR",
+      "L2",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/cl_official_sp/status/2110257905454940286",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1240168492389367808",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "42b90678ae26",
     "date": "20261107",
     "time": "1300",
@@ -2510,6 +2545,41 @@
       "KIR",
       "L2",
       "KIK"
+    ]
+  },
+  {
+    "logid": "7439fad0054c",
+    "date": "20261101",
+    "time": "2300",
+    "contents": "CLOSE",
+    "title": "CL6th LDH紅白頂上決戦 CLプレミアム 2次先行 抽選受付締切",
+    "display_sp": "CL6th LDH紅白頂上決戦 CLプレミアム2次先行 抽選受付締切",
+    "url": "https://www.cl-live.com/event/_/6th_event",
+    "groups": [
+      "G2",
+      "KIR",
+      "L2",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/cl_official_sp/status/2110257905454940286",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1240168492389367808",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
@@ -3714,6 +3784,41 @@
     ],
     "tags": [
       "LDH紅白頂上決戦"
+    ]
+  },
+  {
+    "logid": "3da23ede5610",
+    "date": "20261026",
+    "time": "1500",
+    "contents": "TICKET",
+    "title": "CL6th LDH紅白頂上決戦 CLプレミアム 2次先行 抽選受付開始",
+    "display_sp": "CL6th LDH紅白頂上決戦 CLプレミアム2次先行 抽選受付開始",
+    "url": "https://www.cl-live.com/event/_/6th_event",
+    "groups": [
+      "G2",
+      "KIR",
+      "L2",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/cl_official_sp/status/2110257905454940286",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1240168492389367808",
+            "member": []
+          }
+        ]
+      }
     ]
   },
   {
