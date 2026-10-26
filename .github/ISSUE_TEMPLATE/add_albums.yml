@@ -18,6 +18,18 @@ body:
       label: "album type"
       description: "album / ep / single / musiccard"
 
+  - type: input
+    id: album_id
+    attributes:
+      label: "album id"
+      description: "12桁のid(helperが作ります。空なら title + type で判定し、新規はサーバー側で採番)"
+
+  - type: textarea
+    id: logids
+    attributes:
+      label: "logids"
+      description: "この盤に紐づけるlogsのlogid(1行に1つ)。ここにないlogs行のalbumidは外れます。helperが入力します"
+
   - type: textarea
     id: album_json
     attributes:
