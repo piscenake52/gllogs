@@ -3367,6 +3367,58 @@
     ]
   },
   {
+    "logid": "ff8584dc095a",
+    "date": "20261028",
+    "time": "1800",
+    "contents": "CLOSE",
+    "title": "Laki 10月スペシャル壁紙プレゼントキャンペーン 終了",
+    "display_sp": "10月スペシャル壁紙プレゼントCP終了 終了",
+    "url": "https://girls2-fc.jp/page/familyNews/1243122852538875906",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1238396838604701698",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2114677251971457387",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "壁紙"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "aadfc23e3ba9",
     "date": "20261028",
     "time": "1400",
@@ -3697,6 +3749,58 @@
             ],
             "tags": [
               "チェキ"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "aefc8338af10",
+    "date": "20261026",
+    "time": "1800",
+    "contents": "FANCLUB",
+    "title": "Laki 10月スペシャル壁紙プレゼントキャンペーン 開始",
+    "display_sp": "10月スペシャル壁紙プレゼントCP終了 開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1243122852538875906",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1238396838604701698",
+            "member": []
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2114677251971457387",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "壁紙"
             ]
           }
         ]
