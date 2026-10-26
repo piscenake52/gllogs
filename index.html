@@ -880,8 +880,10 @@ html.stat-on .setlist-song-stat { display: inline-block; }
 .alb-artist + .alb-meta { margin-top: 0; }
 .alb-edinfo { font-size: 12px; color: var(--sub); margin: 0 0 8px; line-height: 1.5; }
 .alb-list { list-style: none; margin: 0; padding: 0; }
-.alb-list li { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-top: 1px solid var(--border); font-size: calc(var(--data-font-scale) * 13px); cursor: pointer; } /* 収録曲の文字は、データ部の文字サイズ設定に合わせる(セトリの曲名と同じ) */
-.alb-list li.is-extra .alb-no { color: #0ea5e9; }
+.alb-list li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; cursor: pointer; } /* 曲の行はセトリのポップアップと同じ並び(曲順・再生ボタン・曲名)。曲名の文字はデータ部の文字サイズ設定に合わせる */
+.alb-list li:last-child { border-bottom: none; }
+.alb-list.has-label .setlist-song-order { flex-basis: 3.4em; } /* DVD1のような名前の番号がある盤は、全行の列幅を広げてそろえる */
+.alb-list li.is-extra .setlist-song-order { color: #0ea5e9; }
 .alb-no { flex: 0 0 2.6em; color: var(--sub); font-size: 11px; text-align: right; }
 .alb-ttl { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
 .alb-stat { display: none; flex: 0 0 auto; font-size: 12px; }
@@ -3563,13 +3565,17 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
       `<div class="alb-meta">${escapeHtml([albTypeLabel(a.type), albYmd(a.date)].filter(Boolean).join(' / '))}</div>` +
       (eds.length ? chips(eds.map(x => x.name || ''), ei, 'data-aled') : '') +
       (info ? `<div class="alb-edinfo">${info}</div>` : '') +
-      (rows.length ? `<ul class="alb-list">${rows.map(([t, ex]) => {
+      (rows.length ? `<ul class="alb-list${rows.some(([t]) => t.no != null && !/^\d+$/.test(String(t.no))) ? ' has-label' : ''}">${rows.map(([t, ex]) => {
         const n = statIndex().get(statNorm(t.title));
-        return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}"><span class="alb-no">${t.no != null ? escapeHtml(t.no) : ''}</span><span class="alb-ttl">${escapeHtml(t.title || '')}</span><span class="alb-stat${n && n.size ? '' : ' is-blank'}">\uD83D\uDCCA</span></li>`;
+        const link = findSongLinkByTitle(t.title); // 再生ボタンはセトリのポップアップと同じ(songs.jsonにリンクがある曲だけ。ないときは同じ幅の空き)
+        const playBtn = link ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>` : '<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>';
+        return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}"><span class="setlist-song-order">${t.no != null ? escapeHtml(t.no) : ''}</span>${playBtn}<span class="setlist-song-main"><span class="setlist-song-title">${escapeHtml(t.title || '')}</span></span><span class="alb-stat${n && n.size ? '' : ' is-blank'}">\uD83D\uDCCA</span></li>`;
       }).join('')}</ul>` : '<div class="setlist-modal-empty">NO TRACKS</div>');
   };
   const openAlbumModal = list => { albCur = { list, ti: 0, ei: 0 }; renderAlbum(); albumModalOverlay.classList.add('is-open'); };
   $('albumModalBody').addEventListener('click', e => {
+    const pb = e.target.closest('.setlist-song-play-btn[data-link]');
+    if (pb) { e.stopPropagation(); openSongLink(pb.dataset.link); return; } // 再生ボタン: セトリのポップアップと同じ動き(行の披露実績は開かない)
     const ta = e.target.closest('[data-alt]'), te = e.target.closest('[data-aled]'), li = e.target.closest('li[data-song]');
     if (ta) { albCur.ti = +ta.dataset.alt; albCur.ei = 0; renderAlbum(); }
     else if (te) { albCur.ei = +te.dataset.aled; renderAlbum(); }
