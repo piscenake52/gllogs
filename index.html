@@ -864,7 +864,13 @@ html.stat-on .setlist-song-stat { display: inline-block; }
 .setlist-song-stat.is-blank { visibility: hidden; pointer-events: none; }
 #statToggleBtn.is-disabled:not(.is-active) { opacity: .35; cursor: default; }
 #statToggleBtn { touch-action: manipulation; }
-.alb-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; }
+.alb-icon { display: inline-block; flex: 0 0 auto; width: 0; margin: 0; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none;
+  opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0.9em);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0s linear 0.28s, width 0s linear 0.28s, margin 0s linear 0.28s; }
+/* 🎶は🔗と同じ動きで、🔗の表示・非表示に合わせて右からスライドして出入りする */
+.items.link-mode .alb-icon { width: 1.6em; margin: 0 0 0 4px; opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0s, width 0s, margin 0s; }
+@media (prefers-reduced-motion: reduce) { .alb-icon, .items.link-mode .alb-icon { transition: none; } }
 .alb-icon.is-off { display: none; }
 .album-modal-overlay { z-index: 1050; }
 .alb-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
@@ -2897,7 +2903,7 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
     }
     // 🎶:CD・DVD・BD・MUSICCARD・RELEASE・EPの行で、「」内の名前(と、データ文・タグの ALBUM/AL・EP・SINGLE/SG)がalbums.jsonに一致するときだけ、🔗の左に出す
     let alb = null;
-    if (item.albumid || ALBUM_ICON_CONTENTS.has(String(item.contents || '').trim().toUpperCase())) {
+    if (item.albumid || ALBUM_ICON_CONTENTS.has(String(item.contents || '').trim().toUpperCase()) || ALBUM_ICON_CONTENTS.has(String(item._refContents || '').trim().toUpperCase())) {
       alb = document.createElement('span');
       alb.className = 'alb-icon is-off';
       alb.tabIndex = -1;
@@ -5800,9 +5806,10 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
       ['title', 'display_pc', 'display_sp'].forEach(k => {
         if (!has(r[k]) && has(src[k])) r[k] = src[k] + ' ' + (it.suffix || '記念日');
       });
-      ['url', 'groups', 'relations', 'tags', 'sns'].forEach(k => {
+      ['url', 'groups', 'relations', 'tags', 'sns', 'albumid'].forEach(k => {
         if (!has(r[k]) && has(src[k])) r[k] = src[k];
       });
+      r._refContents = src.contents; // 参照元(リリースなど)のcontents。記念日の行にも🎶を出すために使う
       out.push(r);
     });
     return out;

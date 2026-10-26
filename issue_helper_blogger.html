@@ -114,6 +114,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .plrow { display:flex; flex-wrap:wrap; align-items:center; gap:4px; padding:4px 0; border-bottom:1px solid var(--line); }
 #glih .plrow .fin { flex:1 1 40%; min-width:0; }
 #glih .plno { width:2em; text-align:right; color:var(--sub); font-size:12px; }
+#glih .alrow { display:block; }
+#glih .alrow .alt { display:flex; align-items:center; gap:4px; }
+#glih .alrow .alt .fin { flex:1 1 auto; min-width:0; }
+#glih .alrow .alsub { display:flex; flex-wrap:wrap; align-items:center; gap:4px; padding:4px 0 0 2.4em; }
+#glih .alrow .alsub .plst { flex:1 1 auto; padding-left:4px; }
+#glih .field.stk, #glih .aled .field { flex-direction:column; align-items:stretch; gap:4px; } /* albums: the label above, the input / list as wide as possible */
+#glih .field.stk > label, #glih .aled .field > label { flex:none; width:auto; padding-top:0; }
 #glih .plst { flex:1 1 100%; font-size:11px; padding-left:2.4em; }
 #glih .plst button.small { padding:2px 7px; font-size:11px; margin:2px 4px 2px 0; }
 #glih .plok { color:var(--sub); } #glih .plng { color:#d33; margin-right:6px; } #glih .plnote { font-size:11px; color:var(--sub); }
@@ -201,7 +208,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .snsh { display:flex; flex-direction:column; gap:6px; }
 #glih .snsh .setlbl { font-size:11px; color:var(--sub); margin:2px 0 -2px; }
 #glih .snsh .row { display:flex; gap:6px; align-items:center; }
-#glih .snsh .row.btns { flex-wrap:wrap; }
+#glih .snsh .row.btns { flex-wrap:wrap; margin-top:8px; } /* a little more space between the tags box and the add button */
+#glih .snstog { margin:6px 0 4px; }
+#glih .snsc.is-closed .snstog ~ *, #glih .snsc.is-closed > .field ~ * { display:none !important; } /* folded: the text box and the link chips under the toggle button */
 #glih .snsh .row.btns .small { flex:1 1 auto; padding:8px 6px; }
 #glih .small:disabled { opacity:.35; cursor:default; }
 #glih .rep { margin:0 0 10px; padding-top:10px; }
@@ -311,9 +320,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="field"><label for="glih-alt">title</label><input type="text" id="glih-alt" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label>type</label><div class="chipr" id="glih-aly"></div></div>
   <div class="field"><label for="glih-ald">date</label><input type="text" id="glih-ald" class="fin" autocomplete="off"></div>
-  <div class="field top"><label>tracks</label><div id="glih-altk" style="flex:1;min-width:0"></div></div>
+  <div class="field top stk"><label>tracks</label><div id="glih-altk" style="flex:1;min-width:0"></div></div>
   <div class="field"><label>copy</label><div id="glih-alcp" style="flex:1;min-width:0"></div></div>
-  <div class="field top"><label>editions</label><div style="flex:1;min-width:0"><div id="glih-aled"></div><button type="button" class="small" id="glih-aladd">+ edition</button></div></div>
+  <div class="field top stk"><label>editions</label><div style="flex:1;min-width:0"><div id="glih-aled"></div><button type="button" class="small" id="glih-aladd">+ edition</button></div></div>
   <div class="cknote" id="glih-alst"></div>
   <a class="go" id="glih-go-albums" target="_blank" rel="noopener" aria-disabled="true">albums</a>
   <a class="go" id="glih-go-albdel" target="_blank" rel="noopener" aria-disabled="true" style="margin-top:8px">delete (opens the form; check the delete box there)</a>
@@ -1625,6 +1634,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   // ref id info (find tab, logs): a reference-type ANNIVERSARY shows the logid / title of the row it refers to; a row that is referenced shows the ANNIVERSARY logids that refer to it. 'open' loads that row.
   function refInfo() { refInfo0(); albLinks(); }
+  function albRow() { // the album row (label album / new) sits above the ref / ref by row
+    var r = $('falbrow'); if (r) return r;
+    var ref = $('frefrow'); if (!ref) return null;
+    r = document.createElement('div'); r.className = 'field'; r.id = 'glih-falbrow'; r.hidden = true;
+    var lb = document.createElement('label'); lb.id = 'glih-falblb'; r.appendChild(lb);
+    var bx = document.createElement('div'); bx.className = 'refbox'; bx.id = 'glih-falbbox'; r.appendChild(bx);
+    ref.parentNode.insertBefore(r, ref); return r;
+  }
   function refInfo0() {
     var rowEl = $('frefrow'), box = $('frefbox'); if (!rowEl) return;
     box.innerHTML = ''; rowEl.hidden = true;
@@ -1668,11 +1685,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   function alNameOf(title) { var m = String(title || '').normalize('NFKC').match(/[\u300C\u300E]([^\u300D\u300F]+)[\u300D\u300F]/); return m ? m[1].trim() : ''; }
   function albLinks() {
-    var f = found, rowEl = $('frefrow'), box = $('frefbox'); if (!rowEl || !f || f.kind !== 'logs' || f.isNew || !f.row || f.row.ref) return;
+    var f = found, rowEl = albRow(), box = rowEl && $('falbbox'); if (rowEl) { rowEl.hidden = true; box.innerHTML = ''; }
+    if (!rowEl || !f || f.kind !== 'logs' || f.isNew || !f.row || f.row.ref) return;
     if (AL_CONT.indexOf(String(f.row.contents || '').toUpperCase()) < 0) return;
     loadAlbums().then(function () {
       if (found !== f) return;
-      [].forEach.call(box.querySelectorAll('.alblk'), function (e) { e.parentNode.removeChild(e); });
+      box.innerHTML = '';
       var row = f.row, name = alNameOf(row.title), nm = normQ(name), types = alTypesOf(row), list = cache.albums || [], ms = [];
       var byId = row.albumid ? list.filter(function (a) { return a && a.id === row.albumid; }) : [];
       if (byId.length) ms = byId;
@@ -1682,15 +1700,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var groups = (row.groups || []).join(',');
       function ln(label, a) {
         var d = document.createElement('div'); d.className = 'refline alblk';
-        var m = document.createElement('span'); m.className = 'rsub'; m.textContent = label; d.appendChild(m);
         var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = '\u2192'; b.title = 'open in the albums tab'; b.setAttribute('aria-label', 'open in the albums tab');
         b.onclick = function () { gotoAlbum(a, { title: name || String(row.title || '').trim(), type: types[0] || '', date: DG(row.date || ''), groups: groups, logid: row.logid || '' }); };
         d.appendChild(b);
         var c = document.createElement('span'); c.className = 'rid'; c.textContent = a ? a.title + ' (' + a.type + ')' : (name || String(row.title || '').trim()) + (types[0] ? ' (' + types[0] + ')' : ''); d.appendChild(c);
         box.appendChild(d);
       }
-      if (ms.length) ms.forEach(function (a) { ln('albums', a); }); else ln('albums (new)', null);
-      if (rowEl.hidden) { $('freflb').textContent = 'link'; rowEl.hidden = false; }
+      if (ms.length) ms.forEach(function (a) { ln('', a); }); else ln('', null);
+      $('falblb').textContent = ms.length ? 'album' : 'new'; rowEl.hidden = false;
     }).catch(function () {});
   }
   function gotoAlbum(a, seed) {
@@ -1707,15 +1724,19 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (songApi) songApi.open(rec ? String(rec.artist || '').trim() : guess, rec ? String(rec.title).trim() : t);
     });
   }
-  // logs sns: the free text box and the link chips are folded at first; the button (with the number of links) opens / closes them
-  function snsHolder(box, el) {
-    var row = document.createElement('div'); row.className = 'field'; var lb = document.createElement('label'); lb.textContent = 'sns'; row.appendChild(lb);
-    var c = document.createElement('div'), open = false, b = wbtn('', function () { open = !open; sync(); });
-    function sync() { c.hidden = !open; b.textContent = 'sns links (' + snsLines(el.value).length + ') ' + (open ? '\u25B4' : '\u25BE'); b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
-    el.addEventListener('input', sync); row.appendChild(b); box.appendChild(row); box.appendChild(c); sync(); return c;
+  // logs sns: the input helper (url / member / with / tags / add) is always shown. Under it, a button folds / opens the free text box and the link chips (folded at first)
+  var snsFold = null;
+  function snsHolder(box, el) { var c = document.createElement('div'); c.className = 'snsc is-closed'; box.appendChild(c); snsFold = { c: c, el: el }; return c; }
+  function snsFoldInit() {
+    if (!snsFold) return;
+    var f = snsFold, col = f.el.closest('.fgcol'), hb = col && col.querySelector('.snsh'); if (!hb) return;
+    var row = document.createElement('div'); row.className = 'snstog';
+    var b = wbtn('', function () { f.c.classList.toggle('is-closed'); sync(); });
+    function sync() { var open = !f.c.classList.contains('is-closed'); b.textContent = 'sns links (' + snsLines(f.el.value).length + ') ' + (open ? '\u25B4' : '\u25BE'); b.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+    f.el.addEventListener('input', sync); row.appendChild(b); col.insertBefore(row, hb.nextSibling); sync();
   }
   function renderFound(kind, id, row, isNew) {
-    drFlush();
+    drFlush(); snsFold = null;
     found = { kind: kind, id: id, isNew: !!isNew, row: row }; orig = {}; rep = null; $('fan').checked = false; $('fan').disabled = false; $('fansx').value = DEFSX;
     var box = $('ff'); box.innerHTML = '';
     DEFS[kind].fields.forEach(function (f) {
@@ -1732,7 +1753,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (isNew && kind === 'setlist') { var spe = $('f-songs_patch'); if (spe && spe.closest('.field')) spe.closest('.field').hidden = true; } // new mode: the songs box is used as it is (the per-song edit is for the loaded setlist only)
     if (isNew && kind === 'logs') { ['date', 'time'].forEach(function (k) { var e = $('f-' + k); if (e) { var fl = e.closest('.field'); if (fl) fl.hidden = true; } }); } // new mode: the top date / time are used
     if (isNew && kind === 'logs') { var tw = $('f-title'); if (tw && tw.closest('.field')) addRepeat(tw.closest('.field')); } // new mode: repeat registration block under the title
-    extraUI(); asciiInit(); drApply(); applyModeUI(); updateFind(); refInfo();
+    snsFoldInit(); extraUI(); asciiInit(); drApply(); applyModeUI(); updateFind(); refInfo();
   }
   // JSON box of the find tab: collapsed at first, opened / closed with the button, and editable. Valid JSON edits are written into the input fields (the Issue link follows); invalid JSON gets a red border and is ignored.
   var jsonOpen = false, origJson = '';
@@ -2148,15 +2169,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function draw() {
       list.innerHTML = '';
       rows.forEach(function (r, i) {
-        var line = document.createElement('div'); line.className = 'plrow';
-        if (cfg.extra) { var lb = alInput('DVD1', 'plnt'); lb.style.flex = '0 0 4.5em'; lb.value = r.no; lb.oninput = function () { r.no = lb.value; changed(); }; line.appendChild(lb); }
-        else { var no = document.createElement('span'); no.className = 'plno'; no.textContent = i + 1; line.appendChild(no); }
-        var ti = alInput('title'); ti.value = r.title; r.ti = ti; line.appendChild(ti);
-        line.appendChild(wbtn('up', function () { if (i < 1) return; snap(); rows.splice(i - 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }));
-        line.appendChild(wbtn('down', function () { if (i >= rows.length - 1) return; snap(); rows.splice(i + 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }));
-        line.appendChild(wbtn('x', function () { snap(); rows.splice(i, 1); draw(); changed(); }));
-        var sb = wbtn('songs', function () { goSong(r.title); }); sb.title = 'open this song in the songs tab'; line.appendChild(sb);
-        r.st = document.createElement('div'); r.st.className = 'plst'; line.appendChild(r.st);
+        var line = document.createElement('div'); line.className = 'plrow alrow'; var top = document.createElement('div'); top.className = 'alt'; var sub = document.createElement('div'); sub.className = 'alsub'; line.appendChild(top); line.appendChild(sub);
+        if (cfg.extra) { var lb = alInput('DVD1', 'plnt'); lb.style.flex = '0 0 4.5em'; lb.value = r.no; lb.oninput = function () { r.no = lb.value; changed(); }; top.appendChild(lb); }
+        else { var no = document.createElement('span'); no.className = 'plno'; no.textContent = i + 1; top.appendChild(no); }
+        var ti = alInput('title'); ti.value = r.title; r.ti = ti; top.appendChild(ti);
+        sub.appendChild(wbtn('up', function () { if (i < 1) return; snap(); rows.splice(i - 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }));
+        sub.appendChild(wbtn('down', function () { if (i >= rows.length - 1) return; snap(); rows.splice(i + 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }));
+        sub.appendChild(wbtn('x', function () { snap(); rows.splice(i, 1); draw(); changed(); }));
+        var sb = wbtn('songs', function () { goSong(r.title); }); sb.title = 'open this song in the songs tab'; sub.appendChild(sb);
+        r.st = document.createElement('div'); r.st.className = 'plst'; sub.appendChild(r.st);
         list.appendChild(line);
         var sug = addSuggest(ti, alTitleOpts, line, true);
         ti.oninput = function () { r.title = ti.value; stat(r); changed(); };
@@ -2237,7 +2258,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var lgOptsMemo = null, lgOptsSrc = null;
     function lgOpts() {
       var src = rowsOf('logs'); if (lgOptsSrc === src && lgOptsMemo) return lgOptsMemo;
-      lgOptsMemo = src.filter(function (r) { return r && r.logid && r.title; }).map(function (r) { var v = r.logid + ' ' + fmtDigits(r.date || '', 'date') + ' ' + r.title; return { v: v, k: normQ(v) }; }); lgOptsSrc = src; return lgOptsMemo;
+      lgOptsMemo = src.filter(function (r) { return r && r.logid && r.title; }).map(function (r) { var v = r.logid + ' ' + r.title; return { v: v, k: normQ(v) }; }); lgOptsSrc = src; return lgOptsMemo;
     }
     addSuggest(lgAdd, lgOpts, lgAdd.closest('.field'), true);
     function logRow(id) { var r = null; rowsOf('logs').forEach(function (x) { if (!r && x && x.logid === id) r = x; }); return r; }
@@ -2247,7 +2268,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         var r = logRow(id), d = document.createElement('div'); d.className = 'plrow';
         var c = document.createElement('span'); c.className = 'rid'; c.textContent = id; c.style.fontFamily = 'monospace'; d.appendChild(c);
         var m = document.createElement('span'); m.className = 'rsub'; m.style.flex = '1'; m.style.minWidth = '0';
-        m.textContent = r ? fmtDigits(r.date || '', 'date') + ' ' + (r.title || '') + (r.albumid && r.albumid !== albumId ? ' (moves from another release)' : '') : '(not found in logs)'; d.appendChild(m);
+        m.textContent = r ? (r.title || '') + (r.albumid && r.albumid !== albumId ? ' (moves from another release)' : '') : '(not found in logs)'; d.appendChild(m);
         d.appendChild(wbtn('x', function () { links.splice(i, 1); drawLinks(); upd(); }));
         lgBox.appendChild(d);
       });
@@ -2299,9 +2320,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       fm.addEventListener('input', syncFmt);
       box.appendChild(alFld('edition', nm)); box.appendChild(alFld('format', fcol, true)); box.appendChild(alFld('price', pr)); box.appendChild(alFld('note', nt));
       var ex = alExtra({ onchange: function () { upd(); } }); box.appendChild(alFld('extra', ex.el, true));
-      var own = null, ownRow = document.createElement('div'); ownRow.className = 'field top'; var ol = document.createElement('label'); ol.textContent = 'own list'; ownRow.appendChild(ol);
+      var own = null, ownRow = document.createElement('div'); ownRow.className = 'field top'; var ol = document.createElement('label'); ol.textContent = 'tracklist'; ownRow.appendChild(ol);
       var ocol = document.createElement('div'); ocol.style.flex = '1'; ocol.style.minWidth = '0'; ownRow.appendChild(ocol);
-      var obt = wbtn('own tracklist', function () { if (own) { own = null; ocol.innerHTML = ''; ocol.appendChild(obt); obt.textContent = 'own tracklist'; } else { own = alTracks({ onchange: function () { upd(); } }); own.set(main.get()); ocol.appendChild(own.el); obt.textContent = 'use common'; ocol.insertBefore(obt, own.el); } upd(); });
+      var onote = document.createElement('span'); onote.className = 'plnote'; onote.textContent = 'same as the main tracks (the tracks above)'; onote.style.marginRight = '8px';
+      var obt = wbtn('use a different tracklist', function () { if (own) { own = null; ocol.innerHTML = ''; ocol.appendChild(onote); ocol.appendChild(obt); obt.textContent = 'use a different tracklist'; } else { own = alTracks({ onchange: function () { upd(); } }); own.set(main.get()); ocol.innerHTML = ''; ocol.appendChild(obt); ocol.appendChild(own.el); obt.textContent = 'back to the main tracks'; } upd(); });
+      ocol.appendChild(onote);
       ocol.appendChild(obt); box.appendChild(ownRow);
       var bb = document.createElement('div'); bb.className = 'plbar'; bb.style.marginTop = '6px';
       bb.appendChild(wbtn('up', function () { var i = eds.indexOf(ob); if (i < 1) return; eds.splice(i - 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }));
