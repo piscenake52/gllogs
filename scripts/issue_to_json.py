@@ -836,6 +836,8 @@ def build_albums(body):
         return out
 
     data = {"title": title, "type": typ}
+    artist = str(j.get("artist") or "").strip()
+    data["artist"] = artist or CLEAR
     if aid:
         data["id"] = aid
     if has_logids:
