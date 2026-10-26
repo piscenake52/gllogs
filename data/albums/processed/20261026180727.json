@@ -1,0 +1,88 @@
+{
+  "title": "アイコトバ",
+  "type": "single",
+  "artist": "Laki",
+  "id": "4d6bf5976d69",
+  "_logids": [
+    "8e786dfa41bc"
+  ],
+  "date": "20221026",
+  "tracks": [
+    {
+      "no": 1,
+      "title": "アイコトバ"
+    },
+    {
+      "no": 2,
+      "title": "Girls Revolution"
+    }
+  ],
+  "editions": [
+    {
+      "name": "通常盤",
+      "format": "CD",
+      "note": "AICL-4285",
+      "price": 1320,
+      "tracks": [
+        {
+          "no": 1,
+          "title": "アイコトバ"
+        },
+        {
+          "no": 2,
+          "title": "Girls Revolution"
+        },
+        {
+          "no": 3,
+          "title": "アイコトバ(カラオケ)"
+        },
+        {
+          "no": 4,
+          "title": "Girls Revolution(カラオケ)"
+        }
+      ]
+    },
+    {
+      "name": "初回限定盤",
+      "format": "CD+DVD",
+      "note": "AICL-4283～4284",
+      "price": 2200,
+      "extra": [
+        {
+          "no": "DVD1",
+          "title": "アイコトバ - ミュージックビデオ -"
+        },
+        {
+          "no": "DVD2",
+          "title": "アイコトバ - ダンスパフォーマンスビデオ -"
+        },
+        {
+          "no": "DVD3",
+          "title": "アイコトバ - ドラマオープニングノンクレジット ver. -"
+        },
+        {
+          "no": "DVD4",
+          "title": "DISCO TIME - ドラマエンディングノンクレジットver. -"
+        },
+        {
+          "no": "DVD5",
+          "title": "リズスタ登場ダンス ～翔太・凛音・美羽～"
+        },
+        {
+          "no": "DVD6",
+          "title": "リズスタ☆シャインズのダンス (12話より)"
+        }
+      ],
+      "tracks": [
+        {
+          "no": 1,
+          "title": "アイコトバ"
+        },
+        {
+          "no": 2,
+          "title": "Girls Revolution"
+        }
+      ]
+    }
+  ]
+}
