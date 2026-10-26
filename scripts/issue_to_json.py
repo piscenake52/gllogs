@@ -786,6 +786,19 @@ def build_albums(body):
     raw = extract_field("album json", body).strip()
     delete = DELETE_OPTION in parse_checked(extract_field("DELETE", body))
     errors = []
+    aid = extract_field("album id", body).strip().lower()
+    if aid and not re.fullmatch(r"[0-9a-f]{12}", aid):
+        errors.append("- **album id**: 12桁の英数字(0-9 a-f)で入力してください")
+    has_logids = "### logids" in body
+    logids = []
+    for x in re.split(r"[\s,]+", extract_field("logids", body)):
+        x = x.strip().lower()
+        if not x:
+            continue
+        if not re.fullmatch(r"[0-9a-f]{12}", x):
+            errors.append(f"- **logids**: 12桁のlogidで入力してください（{x}）")
+        elif x not in logids:
+            logids.append(x)
     if not title:
         errors.append("- **album title**: titleを入力してください")
     if typ not in ALBUM_TYPES:
@@ -793,7 +806,10 @@ def build_albums(body):
     if errors:
         return None, errors
     if delete:
-        return {"title": title, "type": typ, "_delete": True}, []
+        d = {"title": title, "type": typ, "_delete": True}
+        if aid:
+            d["id"] = aid
+        return d, []
     if raw.startswith("```"):
         raw = re.sub(r"^```[a-zA-Z]*\n?|\n?```$", "", raw).strip()
     try:
@@ -820,6 +836,10 @@ def build_albums(body):
         return out
 
     data = {"title": title, "type": typ}
+    if aid:
+        data["id"] = aid
+    if has_logids:
+        data["_logids"] = logids  # この盤に紐づけるlogsの全件(空 = 紐づけをすべて外す)
     date = to_halfwidth(str(j.get("date") or "")).strip()
     if date and not re.fullmatch(r"\d{8}", date):
         return None, ["- **album json**: date は8桁の数字(YYYYMMDD)で入力してください"]

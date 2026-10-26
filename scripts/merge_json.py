@@ -35,13 +35,13 @@ TARGETS = [
         "main_file": "data/logs/logs.json",
         "key_fields": ["logid"],
         "order": ["logid", "date", "time", "contents", "ref", "suffix", "title", "display_pc", "display_sp",
-                  "url", "map", "groups", "relations", "setlistid", "tags", "sns"],
+                  "url", "map", "groups", "relations", "setlistid", "albumid", "tags", "sns"],
         "clear_to_empty_list": [],
         "append_lists": ["tags", "sns"],  # 更新時は上書きせず、既存の値に新しいものだけ追記する
         "sort_key": lambda x: (x.get("date") or "", x.get("time") or ""),
         "sort_reverse": True,
         "index_file": "data/logs/logs_index.json",  # 検索・候補用の軽量版（helperが先に読む）
-        "index_fields": ["logid", "date", "time", "contents", "ref", "suffix", "title", "setlistid"],
+        "index_fields": ["logid", "date", "time", "contents", "ref", "suffix", "title", "setlistid", "albumid"],
     },
     {
         "name": "setlist",
@@ -74,7 +74,7 @@ TARGETS = [
         "processed_dir": "data/albums/processed/",
         "main_file": "data/albums/albums.json",
         "key_fields": ["title", "type"],
-        "order": ["title", "type", "date", "tracks", "editions"],
+        "order": ["id", "title", "type", "date", "tracks", "editions"],
         "clear_to_empty_list": [],
         "sort_key": lambda x: (x.get("date") or "", x.get("title") or ""),
         "sort_reverse": True,
@@ -719,9 +719,114 @@ def apply_repeat(target, main_data, item, repeat, issue, issue_map, anniv=False,
     return "added" if added else "updated" if updated else "invalid"
 
 
+# albums の処理で logs.json の albumid も書き換えるため、albums の処理中だけ logs を読み込んで持つ
+LOGS_CTX = {"data": None, "changed": False}
+ALBUM_TYPES_OK = ("album", "ep", "single", "musiccard")
+ALBUM_ID_RE = re.compile(r"[0-9a-f]{12}")
+
+
+def apply_album(target, main_data, raw):
+    """albums 1件の登録 / 更新 / 削除。識別は id 優先(なければ title + type)。
+    _logids(紐づけるlogsのlogid)があれば、その行の albumid を設定し、リストにない行の albumid は外す。
+    戻り値: added / updated / deleted / notfound / conflict / invalid"""
+    item = dict(raw)
+    delete = bool(item.pop("_delete", False))
+    logids = item.pop("_logids", None)
+    item.pop("_issue", None)
+    aid = str(item.get("id") or "").strip().lower()
+    key = key_of(target, item)
+    if aid and not ALBUM_ID_RE.fullmatch(aid):
+        print(f"【スキップ】albumsのidは12桁の英数字(0-9 a-f)で指定してください: {item}")
+        return "invalid"
+    by_id = [e for e in main_data if aid and e.get("id") == aid]
+    by_key = [e for e in main_data if key is not None and key_of(target, e) == key]
+    if len(by_id) > 1 or (not by_id and len(by_key) > 1):
+        print(f"【警告】albums が複数一致するため競合を避けてスキップします: {aid or key}")
+        return "conflict"
+    existing = by_id[0] if by_id else (by_key[0] if len(by_key) == 1 else None)
+    if existing is not None and aid and existing.get("id") and existing["id"] != aid:
+        print(f"【スキップ】同じtitle+typeの盤が別のidで存在します: {key}")
+        NOTICES.append(f"- **albums**: `{' / '.join(str(v) for v in key or ())}` はすでに別のidで登録されています")
+        return "conflict"
+    logs = LOGS_CTX["data"]
+
+    def unlink(album_id, keep=()):
+        n = 0
+        for r in logs:
+            if r.get("albumid") == album_id and r.get("logid") not in keep:
+                r.pop("albumid", None)
+                n += 1
+        if n:
+            LOGS_CTX["changed"] = True
+
+    if delete:
+        if existing is None:
+            print(f"【スキップ】削除対象のalbumsが見つかりません: {aid or key}")
+            NOTICES.append(f"- **albums**: 削除対象が見つかりませんでした（{aid or ' / '.join(str(v) for v in key or ())}）")
+            return "notfound"
+        if existing.get("id"):
+            unlink(existing["id"])
+        main_data.remove(existing)
+        print(f"【削除】albums: {existing.get('title')}")
+        return "deleted"
+
+    if existing is None:
+        if key is None:
+            print(f"【スキップ】albumsには title と type が必要です: {item}")
+            return "invalid"
+        new_item = finalize_new(target, clean_new(item), main_data)
+        if new_item is None:
+            return "invalid"
+        ids = {e.get("id") for e in main_data}
+        if not new_item.get("id"):
+            while True:
+                nid = uuid.uuid4().hex[:LOGID_LENGTH]
+                if nid not in ids:
+                    break
+            new_item["id"] = nid
+        new_item = reorder(target, new_item)
+        main_data.append(new_item)
+        existing, res = new_item, "added"
+    else:
+        # title / type の変更も許す(id一致のとき)。変更先が別の盤と重なる場合は何もしない
+        nk = key_of(target, item)
+        if nk is not None and nk != key_of(target, existing) and any(e is not existing and key_of(target, e) == nk for e in main_data):
+            print(f"【スキップ】変更後のtitle+typeが別の盤と重なります: {nk}")
+            NOTICES.append(f"- **albums**: 変更後の `{' / '.join(str(v) for v in nk)}` はすでに別の盤として存在します")
+            return "conflict"
+        for k in ("title", "type"):
+            if item.get(k):
+                existing[k] = item[k]
+        if existing.get("type") not in ALBUM_TYPES_OK:
+            print(f"【スキップ】albumsのtypeが不正です: {existing.get('type')}")
+            return "invalid"
+        upd = {k: v for k, v in item.items() if k not in ("id", "title", "type")}
+        apply_update(target, existing, upd)
+        if not existing.get("id"):
+            existing["id"] = aid or uuid.uuid4().hex[:LOGID_LENGTH]
+        existing_pos = main_data.index(existing)
+        main_data[existing_pos] = reorder(target, existing)
+        existing = main_data[existing_pos]
+        res = "updated"
+    if isinstance(logids, list) and logs is not None:
+        album_id = existing["id"]
+        for lid in logids:
+            rows = [r for r in logs if r.get("logid") == lid]
+            if not rows:
+                NOTICES.append(f"- **albums**: logid `{lid}` が見つかりません（紐づけできませんでした）")
+                continue
+            if rows[0].get("albumid") != album_id:
+                rows[0]["albumid"] = album_id
+                LOGS_CTX["changed"] = True
+        unlink(album_id, keep=set(logids))
+    return res
+
+
 def apply_item(target, main_data, raw, issue_map):
     """戻り値: added / updated / deleted / notfound / conflict / invalid"""
     name = target["name"]
+    if name == "albums":
+        return apply_album(target, main_data, raw)
     item = dict(raw)
     issue = str(item.pop("_issue", "") or "")
     anniv = bool(item.pop("_anniversary", False)) if name == "logs" else False
@@ -934,6 +1039,9 @@ def process_target(target, issue_map):
     json_files.sort(key=lambda p: (os.path.getmtime(p), p))  # 古い投稿から順に適用
 
     main_data = load_json_list(main_file, "メインファイル")
+    if target["name"] == "albums":
+        LOGS_CTX["data"] = load_json_list(TARGETS[0]["main_file"], "メインファイル")
+        LOGS_CTX["changed"] = False
 
     stats = {"added": 0, "updated": 0, "deleted": 0, "notfound": 0, "conflict": 0, "invalid": 0}
     parsed_files = []
@@ -973,6 +1081,12 @@ def process_target(target, issue_map):
         with open(main_file, "w", encoding="utf-8") as f:
             json.dump(main_data, f, ensure_ascii=False, indent=2)
         write_index(target, main_data)
+    if target["name"] == "albums" and LOGS_CTX["changed"]:
+        logs_target = TARGETS[0]
+        with open(logs_target["main_file"], "w", encoding="utf-8") as f:
+            json.dump(LOGS_CTX["data"], f, ensure_ascii=False, indent=2)
+        write_index(logs_target, LOGS_CTX["data"])
+        changed = changed or 1
 
     # 読み込めたファイルは、スキップ分も含めて processed へ移動する（同じ警告を毎回出さないため）
     if parsed_files:
