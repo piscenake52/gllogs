@@ -1,0 +1,47 @@
+{
+  "logid": "d69f45100fef",
+  "groups": [
+    "G2",
+    "MSK"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2114631314385301817",
+          "member": [
+            "MSK"
+          ],
+          "tags": [
+            "明日開催"
+          ]
+        },
+        {
+          "url": "https://x.com/Girls2_official/status/2114615536399286388",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgXFYxYm/",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "DANCE HOLIC"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2195"
+}

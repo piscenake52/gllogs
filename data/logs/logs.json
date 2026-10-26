@@ -3937,8 +3937,8 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
-      "YZH",
-      "MSK"
+      "MSK",
+      "KIR"
     ],
     "sns": [
       {
@@ -3947,11 +3947,33 @@
           {
             "url": "https://x.com/Girls2_official/status/2114631314385301817",
             "member": [
-              "YZH",
               "MSK"
             ],
             "tags": [
               "明日開催"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2114615536399286388",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgXFYxYm/",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "DANCE HOLIC"
             ]
           }
         ]
