@@ -998,3 +998,21 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - logs.json(約5MB)と logs_index.json は、IndexedDB に「そのファイルの最新コミットのsha」と一緒に保存する。次に開いたとき、shaが同じなら保存した版を使う(大きなダウンロードなし)。shaが取れないとき(APIの回数制限・オフライン)は、これまでどおり最新を取り直す。check の「run」も、shaを確認してから取得する。
 - 同じファイルの取得が重なったときは、1回のダウンロードを共有する(二重ダウンロードをしない)。
 - タグの候補(logsのtags・snsリンクのtags)は、logs_index.json から作る。index は全行の `tags` と、snsリンクのタグを並べた `stags` を持つ(`merge_json.py` の `write_index`)。`stags` が無い古いindexのときだけ、全体の logs.json を取る。
+
+### helper: 相互リンク(logs → albums → songs)
+- logs行(contents が CD / DVD / BD / MUSICCARD / RELEASE / EP、ref行は除く)を開くと、ref / ref by と同じ欄に albums ボタンを表示する。名前は title の「」『』内、type は tags・display_pc・display_sp・title の ALBUM/AL, EP, SINGLE/SG, MUSICCARD/MUSIC CARD から判定
+- albums.json に同名があれば albums タブでその盤を編集用に読み込む(複数あれば1件ずつボタン)。なければ albums の新規入力に title / type(推定) / date を入れて開く
+- albums の全トラック行に songs ボタン。songs.json に曲があれば songs タブでその曲を読み込み、なければ title を入れた新規入力(artist は元の logs 行の groups が G2 のみ=Girls², L2 のみ=Laki、両方・不明は空欄)
+- あわせて songs タブの link 自動入力が、link の空の曲で無限再帰する不具合を修正
+
+### albums の id と logs の albumid
+- albums の各盤は12桁の英数字(0-9 a-f)の `id` を持つ。logs の行は `albumid`(1行に1つ)でその盤を指す。両方に持たせて紐づける
+- id は helper が新規入力時に採番する(空なら merge_json.py が採番。id の無い既存の盤は、次の更新で自動採番)
+- albums フォーム(add_albums.yml)に `album id` と `logids`(紐づける logid、1行に1つ)を追加。1つのIssueで albums.json の登録 / 更新と、logs.json の albumid の書き込みを同時に行う(merge_json.py)
+  - `logids` に載せた行に albumid を設定し、載っていない行の albumid は外す。`logids` が空なら紐づけをすべて外す
+  - 盤の削除では、その albumid を持つ全 logs 行の albumid も消す
+  - 更新は id 優先。id が一致すれば title / type を変えても同じ盤を更新する。変更後の title+type が別の盤と重なる場合は何もしない。id が無いIssueは従来どおり title+type で判定する
+- logs の index(logs_index.json)に albumid を含める。merge_json.py を差し替えたら `--rebuild-index` で作り直すこと
+- helper(albums タブ): id 表示、紐づける logs を1行ずつ表示(追加は logid か title の候補、x で外す)。find 欄に logid を入れると、その行の盤を開く(未紐づけならその行から新規入力)
+- helper(logs の行): contents が CD / DVD / BD / MUSICCARD / RELEASE / EP / DIGITAL の行に albums ボタン。albumid があればその盤を開く(なければ従来の「」内の名前での紐づけ)
+- index.html の🎶: albumid を持つ行はその id の盤を開く(contents は問わない)。albumid が無い行は従来の名前での紐づけ(albumid の運用確認後に廃止予定)

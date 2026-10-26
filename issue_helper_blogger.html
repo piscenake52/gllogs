@@ -217,7 +217,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih #glih-rpw { gap:4px; }
 #glih #glih-rpw .chip { flex:1 1 0; width:auto; min-width:0; padding:5px 0; font-size:11px; }
 #glih .chipr .chip:disabled { opacity:.35; cursor:default; }
-#glih .dtw:not(.t) > .fin { width:calc(12.6em + 2px - 27px); padding-right:56px; } /* the calendar icon is outside the box (to its right); the box is 20px narrower so the whole width stays */ /* YYYY/MM/DD + the weekday + the calendar icon: the weekday room is always reserved */
+#glih .dtw:not(.t) > .fin { width:calc(12.6em + 2px - 27px + 24px); padding-right:56px; } /* the calendar icon is outside the box (to its right); +24px so the YYYY/MM/DD placeholder is not cut (it is wider than digits) */ /* YYYY/MM/DD + the weekday + the calendar icon: the weekday room is always reserved */
 #glih .dtw .wdl { position:absolute; right:55px; top:50%; transform:translateY(-50%); flex:none; font-size:13px; line-height:1; pointer-events:none; }
 #glih .wdl { flex:0 0 2.6em; font-size:12px; color:var(--sub); white-space:nowrap; }
 #glih .rpnote { font-size:11px; color:var(--sub); }
@@ -305,7 +305,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 </section>
 
 <section id="glih-p-albums" hidden>
-  <div class="field"><label for="glih-alq">find</label><input type="text" id="glih-alq" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="existing release"><button type="button" class="small" id="glih-alnew">new</button></div>
+  <div class="field"><label for="glih-alq">find</label><input type="text" id="glih-alq" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="existing release / logid"><button type="button" class="small" id="glih-alnew">new</button></div>
   <div class="field"><label for="glih-alt">title</label><input type="text" id="glih-alt" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label>type</label><div class="chipr" id="glih-aly"></div></div>
   <div class="field"><label for="glih-ald">date</label><input type="text" id="glih-ald" class="fin" autocomplete="off"></div>
@@ -1622,7 +1622,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (ch) te.dispatchEvent(new Event('input', { bubbles: true }));
   }
   // ref id info (find tab, logs): a reference-type ANNIVERSARY shows the logid / title of the row it refers to; a row that is referenced shows the ANNIVERSARY logids that refer to it. 'open' loads that row.
-  function refInfo() {
+  function refInfo() { refInfo0(); albLinks(); }
+  function refInfo0() {
     var rowEl = $('frefrow'), box = $('frefbox'); if (!rowEl) return;
     box.innerHTML = ''; rowEl.hidden = true;
     if (!found || found.kind !== 'logs' || found.isNew) return;
@@ -1650,6 +1651,59 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       by.forEach(function (x) { line(x.logid, x.suffix ? 'suffix: ' + x.suffix : ''); });
       rowEl.hidden = false;
     }
+  }
+  // ---- cross links: logs row -> albums tab, albums track -> songs tab ----
+  var alFrom = null, alApi = null, songApi = null; // alFrom = {groups} of the logs row the albums tab was opened from (used to guess the artist of a new song)
+  var AL_CONT = ['CD', 'DVD', 'BD', 'MUSICCARD', 'RELEASE', 'EP', 'DIGITAL'];
+  function alTypesOf(row) {
+    var hay = ' ' + [row.title, (row.tags || []).join(' '), row.display_pc, row.display_sp].join(' ').normalize('NFKC').toUpperCase().replace(/[^A-Z0-9]+/g, ' ') + ' ', out = [], c = String(row.contents || '').toUpperCase();
+    function has(re) { return re.test(hay); }
+    if (has(/ (ALBUM|AL) /)) out.push('album');
+    if (c === 'EP' || has(/ EP /)) out.push('ep');
+    if (has(/ (SINGLE|SG) /)) out.push('single');
+    if (c === 'MUSICCARD' || has(/ (MUSICCARD|MUSIC CARD) /)) out.push('musiccard');
+    return out;
+  }
+  function alNameOf(title) { var m = String(title || '').normalize('NFKC').match(/[\u300C\u300E]([^\u300D\u300F]+)[\u300D\u300F]/); return m ? m[1].trim() : ''; }
+  function albLinks() {
+    var f = found, rowEl = $('frefrow'), box = $('frefbox'); if (!rowEl || !f || f.kind !== 'logs' || f.isNew || !f.row || f.row.ref) return;
+    if (AL_CONT.indexOf(String(f.row.contents || '').toUpperCase()) < 0) return;
+    loadAlbums().then(function () {
+      if (found !== f) return;
+      [].forEach.call(box.querySelectorAll('.alblk'), function (e) { e.parentNode.removeChild(e); });
+      var row = f.row, name = alNameOf(row.title), nm = normQ(name), types = alTypesOf(row), list = cache.albums || [], ms = [];
+      var byId = row.albumid ? list.filter(function (a) { return a && a.id === row.albumid; }) : [];
+      if (byId.length) ms = byId;
+      else if (nm) ms = list.filter(function (a) { return a && normQ(a.title) === nm; });
+      else { var nt = normQ(row.title); ms = list.filter(function (a) { return a && a.title && normQ(a.title).length > 1 && nt.indexOf(normQ(a.title)) >= 0; }); }
+      if (ms.length > 1 && types.length) { var tf = ms.filter(function (a) { return types.indexOf(a.type) >= 0; }); if (tf.length) ms = tf; }
+      var groups = (row.groups || []).join(',');
+      function ln(label, a) {
+        var d = document.createElement('div'); d.className = 'refline alblk';
+        var m = document.createElement('span'); m.className = 'rsub'; m.textContent = label; d.appendChild(m);
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = '\u2192'; b.title = 'open in the albums tab'; b.setAttribute('aria-label', 'open in the albums tab');
+        b.onclick = function () { gotoAlbum(a, { title: name || String(row.title || '').trim(), type: types[0] || '', date: DG(row.date || ''), groups: groups, logid: row.logid || '' }); };
+        d.appendChild(b);
+        var c = document.createElement('span'); c.className = 'rid'; c.textContent = a ? a.title + ' (' + a.type + ')' : (name || String(row.title || '').trim()) + (types[0] ? ' (' + types[0] + ')' : ''); d.appendChild(c);
+        box.appendChild(d);
+      }
+      if (ms.length) ms.forEach(function (a) { ln('albums', a); }); else ln('albums (new)', null);
+      if (rowEl.hidden) { $('freflb').textContent = 'link'; rowEl.hidden = false; }
+    }).catch(function () {});
+  }
+  function gotoAlbum(a, seed) {
+    tab('albums');
+    Promise.all([loadAlbums(), fetchIndex('logs').catch(function () {})]).then(function () { if (!alApi) return; if (a) alApi.load(a, seed.logid); else alApi.fresh(seed.title, seed.type, seed.date, seed.logid); alFrom = { groups: seed.groups || '' }; });
+  }
+  function goSong(title) {
+    var t = String(title || '').trim(); if (!t) return;
+    tab('songs');
+    fetchData('songs').catch(function () {}).then(function () {
+      var gs = String((alFrom && alFrom.groups) || '').split(/[,\n]/).map(function (x) { return x.trim(); }), g2 = gs.indexOf('G2') >= 0, l2 = gs.indexOf('L2') >= 0;
+      var guess = g2 && !l2 ? ART_G2 : l2 && !g2 ? ART_L2 : '', nt = normQ(t), rec = null;
+      (cache.songs || []).forEach(function (r) { if (r && normQ(String(r.title || '').trim()) === nt && (!rec || (guess && String(r.artist || '').trim() === guess && String(rec.artist || '').trim() !== guess))) rec = r; });
+      if (songApi) songApi.open(rec ? String(rec.artist || '').trim() : guess, rec ? String(rec.title).trim() : t);
+    });
   }
   function renderFound(kind, id, row, isNew) {
     drFlush();
@@ -2013,8 +2067,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (!list) { setLink2(''); return; }
       match = null;
       if (a && t) list.forEach(function (r) { if (!match && r && String(r.artist || '').trim() === a && String(r.title || '').trim() === t) match = r; });
-      if (match && !sl.value.trim() && !sl._touched) { setLink(match.link || ''); auto = true; }
-      if (!match && auto) { setLink(''); auto = false; }
+      if (match && match.link && !sl.value.trim() && !sl._touched) { auto = true; setLink(match.link); }
+      if (!match && auto) { auto = false; setLink(''); }
       var l = sl.value.trim(), p = {};
       if (a) p.artist_free = a; if (t) p.item_title = t;
       if (l && !(match && l === String(match.link || '').trim())) p.link = l;
@@ -2030,6 +2084,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if ($('go-songs').getAttribute('aria-disabled') === 'true') return;
       setTimeout(function () { sl._touched = false; auto = false; [sa, st, sl].forEach(function (e) { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); }); }, 300);
     });
+    songApi = { open: function (artist, title) {
+      sl._touched = false; auto = false; prog = true; sl.value = ''; prog = false;
+      sa.value = artist || ''; sa.dispatchEvent(new Event('input', { bubbles: true })); st.value = title || ''; st.dispatchEvent(new Event('input', { bubbles: true }));
+    } };
     upd();
     fetchData('songs').then(function () { upd(); }).catch(function () {});
   }
@@ -2087,6 +2145,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         line.appendChild(wbtn('up', function () { if (i < 1) return; snap(); rows.splice(i - 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }));
         line.appendChild(wbtn('down', function () { if (i >= rows.length - 1) return; snap(); rows.splice(i + 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }));
         line.appendChild(wbtn('x', function () { snap(); rows.splice(i, 1); draw(); changed(); }));
+        var sb = wbtn('songs', function () { goSong(r.title); }); sb.title = 'open this song in the songs tab'; line.appendChild(sb);
         r.st = document.createElement('div'); r.st.className = 'plst'; line.appendChild(r.st);
         list.appendChild(line);
         var sug = addSuggest(ti, alTitleOpts, line, true);
@@ -2108,12 +2167,45 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     fetchData('songs').then(function () { draw(); }).catch(function () {});
     return { el: wrap, get: get, set: set, redraw: draw };
   }
+  function newAlbumId() {
+    var a = [], i, c = window.crypto || window.msCrypto;
+    if (c && c.getRandomValues) { var u = new Uint8Array(6); c.getRandomValues(u); for (i = 0; i < 6; i++) a.push(('0' + u[i].toString(16)).slice(-2)); }
+    else for (i = 0; i < 6; i++) a.push(('0' + Math.floor(Math.random() * 256).toString(16)).slice(-2));
+    return a.join('');
+  }
   function albumsInit() {
     loadAlbums().then(function () { if (alReady) upd(); }).catch(function () {});
     if (alReady) return; alReady = true;
     var sec = $('p-albums'), q = $('alq'), ti = $('alt'), dt = $('ald'), tyBox = $('aly'), edBox = $('aled'), stl = $('alst');
-    var type = '', loadedKey = '', eds = [];
+    var type = '', loadedKey = '', eds = [], albumId = newAlbumId(), links = [], logsReady = false;
     dtText(dt, 'date'); dtPicker(dt, 'date');
+    // id (read only) and the logs rows linked to this release (one row each; the first column of a logs row = its albumid)
+    var idIn = alInput(''); idIn.readOnly = true; var idFld = alFld('id', idIn); dt.closest('.field').parentNode.insertBefore(idFld, dt.closest('.field').nextSibling);
+    var lgBox = document.createElement('div'), lgAdd = alInput('add logs row: logid or title');
+    var lgCol = document.createElement('div'); lgCol.style.flex = '1'; lgCol.style.minWidth = '0'; lgCol.appendChild(lgBox); lgCol.appendChild(lgAdd);
+    var lgFld = alFld('logs', lgCol, true); idFld.parentNode.insertBefore(lgFld, idFld.nextSibling);
+    var lgOptsMemo = null, lgOptsSrc = null;
+    function lgOpts() {
+      var src = rowsOf('logs'); if (lgOptsSrc === src && lgOptsMemo) return lgOptsMemo;
+      lgOptsMemo = src.filter(function (r) { return r && r.logid && r.title; }).map(function (r) { var v = r.logid + ' ' + fmtDigits(r.date || '', 'date') + ' ' + r.title; return { v: v, k: normQ(v) }; }); lgOptsSrc = src; return lgOptsMemo;
+    }
+    addSuggest(lgAdd, lgOpts, lgAdd.closest('.field'), true);
+    function logRow(id) { var r = null; rowsOf('logs').forEach(function (x) { if (!r && x && x.logid === id) r = x; }); return r; }
+    function drawLinks() {
+      idIn.value = albumId; lgBox.innerHTML = '';
+      links.forEach(function (id, i) {
+        var r = logRow(id), d = document.createElement('div'); d.className = 'plrow';
+        var c = document.createElement('span'); c.className = 'rid'; c.textContent = id; c.style.fontFamily = 'monospace'; d.appendChild(c);
+        var m = document.createElement('span'); m.className = 'rsub'; m.style.flex = '1'; m.style.minWidth = '0';
+        m.textContent = r ? fmtDigits(r.date || '', 'date') + ' ' + (r.title || '') + (r.albumid && r.albumid !== albumId ? ' (moves from another release)' : '') : '(not found in logs)'; d.appendChild(m);
+        d.appendChild(wbtn('x', function () { links.splice(i, 1); drawLinks(); upd(); }));
+        lgBox.appendChild(d);
+      });
+    }
+    function addLink(id) { id = String(id || '').toLowerCase(); if (/^[0-9a-f]{12}$/.test(id) && links.indexOf(id) < 0) links.push(id); }
+    lgAdd.addEventListener('input', function () { var m = lgAdd.value.trim().match(/^([0-9a-fA-F]{12})(\s|$)/); if (m) { addLink(m[1]); lgAdd.value = ''; drawLinks(); upd(); } });
+    function linksOf(a) { return a && a.id ? rowsOf('logs').filter(function (r) { return r && r.albumid === a.id; }).map(function (r) { return r.logid; }) : []; }
+    fetchIndex('logs').then(function () { logsReady = true; drawLinks(); upd(); }).catch(function () {});
     addSuggest(q, function () { return (cache.albums || []).map(function (a) { var v = a.title + ' (' + a.type + ')'; return { v: v, k: normQ(v) }; }); }, q.closest('.field'), true);
     addSuggest(ti, function () { var m = {}; (cache.albums || []).forEach(function (a) { m[a.title] = 1; }); return Object.keys(m).map(function (v) { return { v: v, k: normQ(v) }; }); }, ti.closest('.field'), false);
     var main = alTracks({ onchange: function () { upd(); } });
@@ -2153,25 +2245,43 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }
     function drawEds() { edBox.innerHTML = ''; eds.forEach(function (e) { edBox.appendChild(e.el); }); }
     $('aladd').onclick = function () { eds.push(edBlock(null)); drawEds(); upd(); };
-    function clearAll() { q.value = ''; ti.value = ''; dt.value = ''; type = ''; loadedKey = ''; main.set([]); eds = []; drawEds(); syncType(); upd(); }
-    function load(a) { ti.value = a.title || ''; type = a.type || ''; dt.value = fmtDigits(a.date || '', 'date'); main.set(a.tracks || []); eds = (a.editions || []).map(function (d) { return edBlock(d); }); drawEds(); syncType(); loadedKey = (a.title || '') + '|' + (a.type || ''); upd(); }
+    function clearAll() { alFrom = null; albumId = newAlbumId(); links = []; q.value = ''; ti.value = ''; dt.value = ''; type = ''; loadedKey = ''; main.set([]); eds = []; drawEds(); drawLinks(); syncType(); upd(); }
+    function load(a) { albumId = a.id || newAlbumId(); links = linksOf(a); drawLinks(); ti.value = a.title || ''; type = a.type || ''; dt.value = fmtDigits(a.date || '', 'date'); main.set(a.tracks || []); eds = (a.editions || []).map(function (d) { return edBlock(d); }); drawEds(); syncType(); loadedKey = (a.title || '') + '|' + (a.type || ''); upd(); }
     $('alnew').onclick = clearAll;
-    q.addEventListener('input', function () { var a = findRec(q.value); if (a) { load(a); q.value = ''; } });
+    function fromLog(id) { // a logid typed in the find box: the release the row is linked to, or a new release started from that row
+      var r = logRow(id); if (!r) return false;
+      var a = null; if (r.albumid) (cache.albums || []).forEach(function (x) { if (!a && x && x.id === r.albumid) a = x; });
+      if (a) { alApi.load(a, id); return true; }
+      var tys = alTypesOf(r), nm = alNameOf(r.title); alApi.fresh(nm || String(r.title || '').trim(), tys[0] || '', DG(r.date || ''), id); alFrom = { groups: (r.groups || []).join(',') }; return true;
+    }
+    q.addEventListener('input', function () {
+      var a = findRec(q.value); if (a) { alFrom = null; load(a); q.value = ''; return; }
+      var m = q.value.trim().match(/^([0-9a-fA-F]{12})$/); if (m && fromLog(m[1].toLowerCase())) q.value = '';
+    });
+    alApi = {
+      load: function (a, logid) { alFrom = null; q.value = ''; load(a); if (logid) { addLink(logid); drawLinks(); upd(); } },
+      fresh: function (t, ty, d, logid) { clearAll(); ti.value = t || ''; type = ty || ''; dt.value = d ? fmtDigits(d, 'date') : ''; if (logid) addLink(logid); syncType(); drawLinks(); upd(); }
+    };
     function body() {
       var o = {}, d = DG(dt.value); if (d) o.date = d; var t = main.get(); if (t.length) o.tracks = t;
       var e = eds.map(function (x) { return x.get(); }).filter(Boolean); if (e.length) o.editions = e; return o;
     }
     function upd() {
       var t = ti.value.trim(), d = DG(dt.value), dBad = d !== '' && !okDate(d); dt.classList.toggle('bad', dBad);
-      var key = t + '|' + type, ex = null; (cache.albums || []).forEach(function (a) { if (a.title + '|' + a.type === key) ex = a; });
+      var key = t + '|' + type, ex = null, exId = null, clash = false;
+      (cache.albums || []).forEach(function (a) { if (a.id && a.id === albumId) exId = a; if (a.title + '|' + a.type === key) ex = a; });
+      if (ex && ex.id && ex.id !== albumId) clash = true;
+      var cur = exId || (ex && !ex.id ? ex : null);
       var go = $('go-albums'), del = $('go-albdel'), msg = '';
       if (!t || !type) msg = 'enter the title and choose the type';
       else if (dBad) msg = 'date: YYYY/MM/DD';
-      else msg = ex ? 'update: this release already exists (empty parts are cleared)' : 'new release';
-      var ok = !!(t && type && !dBad), url = '';
-      if (ok) { url = issueUrl(TPL_ALBUMS, { album_title: t, album_type: type, album_json: JSON.stringify(body()) }); if (url.length > 7500) { ok = false; msg = 'too long to send in one form (' + url.length + ' chars). Split the editions.'; } }
+      else if (clash) msg = 'another release has the same title and type: find it above and edit that one';
+      else if (cur && !logsReady) msg = 'loading the logs index ... (the linked logs rows are not known yet)';
+      else msg = cur ? 'update: this release already exists (empty parts are cleared); logs rows not listed lose the link' : 'new release';
+      var ok = !!(t && type && !dBad && !clash && !(cur && !logsReady)), url = '';
+      if (ok) { url = issueUrl(TPL_ALBUMS, { album_title: t, album_type: type, album_id: albumId, logids: links.join('\n'), album_json: JSON.stringify(body()) }); if (url.length > 7500) { ok = false; msg = 'too long to send in one form (' + url.length + ' chars). Split the editions.'; } }
       setLink(go, ok ? url : '');
-      setLink(del, ex ? issueUrl(TPL_ALBUMS, { album_title: t, album_type: type }) : '');
+      setLink(del, cur ? issueUrl(TPL_ALBUMS, { album_title: cur.title, album_type: cur.type, album_id: cur.id || '' }) : '');
       stl.textContent = msg;
     }
     ti.addEventListener('input', upd); dt.addEventListener('input', upd);
