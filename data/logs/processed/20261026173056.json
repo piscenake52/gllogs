@@ -1,0 +1,40 @@
+{
+  "logid": "cfb38f42d5df",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2114630145713877486",
+          "member": [
+            "RIN",
+            "TBK",
+            "HIR"
+          ],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgXYs4C4/",
+          "member": [
+            "RIN",
+            "TBK",
+            "HIR"
+          ],
+          "tags": [
+            "Someday",
+            "EXILE",
+            "LakiダンスWEEK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2196"
+}
