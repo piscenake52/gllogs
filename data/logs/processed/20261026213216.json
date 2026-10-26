@@ -1,0 +1,50 @@
+{
+  "date": "20261028",
+  "time": "0000",
+  "contents": "DIGITAL",
+  "title": "『Umbrella』 配信リリース",
+  "url": "https://rhythmzone.lnk.to/umbrella",
+  "groups": [
+    "G2",
+    "YZH",
+    "MMK",
+    "MSK",
+    "YOK",
+    "KUR",
+    "MNM",
+    "KIR"
+  ],
+  "tags": [
+    "=",
+    "Umbrella"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2114646197424242981",
+          "member": [],
+          "tags": [
+            "リリース情報"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "gl2family",
+      "urls": [
+        {
+          "url": "https://girls2-fc.jp/page/familyNews/1243395330959998976",
+          "member": [],
+          "tags": [
+            "リリース情報"
+          ]
+        }
+      ]
+    }
+  ],
+  "_anniversary": true,
+  "_anniv_suffix": "記念日",
+  "_issue": "2211"
+}
