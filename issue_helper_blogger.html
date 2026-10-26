@@ -298,6 +298,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 </section>
 
 <section id="glih-p-songs" hidden>
+  <button type="button" class="go" id="glih-songnew">new</button>
   <div class="field"><label for="glih-sa">artist</label><input type="text" id="glih-sa" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label for="glih-st">title</label><input type="text" id="glih-st" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label for="glih-sl">link</label><input type="text" id="glih-sl" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://..."></div>
@@ -305,7 +306,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 </section>
 
 <section id="glih-p-albums" hidden>
-  <div class="field"><label for="glih-alq">find</label><input type="text" id="glih-alq" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="existing release / logid"><button type="button" class="small" id="glih-alnew">new</button></div>
+  <button type="button" class="go" id="glih-alnew">new</button>
+  <div class="field"><label for="glih-alq">find</label><input type="text" id="glih-alq" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="existing release / logid"></div>
   <div class="field"><label for="glih-alt">title</label><input type="text" id="glih-alt" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label>type</label><div class="chipr" id="glih-aly"></div></div>
   <div class="field"><label for="glih-ald">date</label><input type="text" id="glih-ald" class="fin" autocomplete="off"></div>
@@ -2084,6 +2086,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if ($('go-songs').getAttribute('aria-disabled') === 'true') return;
       setTimeout(function () { sl._touched = false; auto = false; [sa, st, sl].forEach(function (e) { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); }); }, 300);
     });
+    $('songnew').onclick = function () { sl._touched = false; auto = false; [sa, st, sl].forEach(function (e) { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); }); };
     songApi = { open: function (artist, title) {
       sl._touched = false; auto = false; prog = true; sl.value = ''; prog = false;
       sa.value = artist || ''; sa.dispatchEvent(new Event('input', { bubbles: true })); st.value = title || ''; st.dispatchEvent(new Event('input', { bubbles: true }));
