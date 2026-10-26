@@ -63,30 +63,6 @@
     ],
     "editions": [
       {
-        "name": "通常盤",
-        "format": "CD",
-        "note": "AICL-4285",
-        "price": 1320,
-        "tracks": [
-          {
-            "no": 1,
-            "title": "アイコトバ"
-          },
-          {
-            "no": 2,
-            "title": "Girls Revolution"
-          },
-          {
-            "no": 3,
-            "title": "アイコトバ(カラオケ)"
-          },
-          {
-            "no": 4,
-            "title": "Girls Revolution(カラオケ)"
-          }
-        ]
-      },
-      {
         "name": "初回限定盤",
         "format": "CD+DVD",
         "note": "AICL-4283～4284",
@@ -125,6 +101,30 @@
           {
             "no": 2,
             "title": "Girls Revolution"
+          }
+        ]
+      },
+      {
+        "name": "通常盤",
+        "format": "CD",
+        "note": "AICL-4285",
+        "price": 1320,
+        "tracks": [
+          {
+            "no": 1,
+            "title": "アイコトバ"
+          },
+          {
+            "no": 2,
+            "title": "Girls Revolution"
+          },
+          {
+            "no": 3,
+            "title": "アイコトバ(カラオケ)"
+          },
+          {
+            "no": 4,
+            "title": "Girls Revolution(カラオケ)"
           }
         ]
       }
