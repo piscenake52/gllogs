@@ -123657,20 +123657,44 @@
     "groups": [
       "L2",
       "RIN",
-      "YUR",
       "TBK",
       "HIR",
       "YUW",
       "KAN",
       "RRK",
       "AKR",
-      "KIK"
+      "KIK",
+      "YUR"
     ],
     "relations": [],
     "tags": [
       "アイコトバ",
       "Girls Revolution (Lucky² ver.)",
       "リズスタ -Top of Artists!-"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/1585110837739802624",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK",
+              "YUR"
+            ],
+            "tags": [
+              "本日リリース"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
