@@ -4474,6 +4474,33 @@
     ]
   },
   {
+    "logid": "af115432b52c",
+    "date": "20261026",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Girls²",
+    "groups": [
+      "G2",
+      "MSK"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/vDFYxwtvopePqq11gC1SYN",
+            "member": [
+              "MSK"
+            ],
+            "tags": [
+              "初めての朗読劇"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "7f15d433f988",
     "date": "20261025",
     "time": "2359",
