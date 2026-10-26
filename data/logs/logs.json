@@ -1411,6 +1411,42 @@
     ]
   },
   {
+    "logid": "fbf9fc114276",
+    "date": "20261117",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "『Umbrella』 配信記念 ダウンロードキャンペーン 応募受付締切",
+    "display_sp": "『Umbrella』 配信記念 ダウンロードCP 応募受付締切",
+    "url": "https://girls2-fc.jp/page/familyNews/1243395330959998976",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "Umbrella"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2114646197424242981",
+            "member": [],
+            "tags": [
+              "リリース情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "577f4beee870",
     "date": "20261117",
     "time": "1000",
@@ -3519,6 +3555,42 @@
         "urls": [
           {
             "url": "https://girls2-fc.jp/page/familyNews/1243395330959998976",
+            "member": [],
+            "tags": [
+              "リリース情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "45e7b919a1a5",
+    "date": "20261028",
+    "time": "0000",
+    "contents": "CAMPAIGN",
+    "title": "『Umbrella』 配信記念 ダウンロードキャンペーン 応募受付開始",
+    "display_sp": "『Umbrella』 配信記念 ダウンロードCP 応募受付開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1243395330959998976",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "Umbrella"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2114646197424242981",
             "member": [],
             "tags": [
               "リリース情報"
