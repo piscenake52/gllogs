@@ -1,5 +1,40 @@
 [
   {
+    "id": "338460cbed01",
+    "title": "Pancake",
+    "type": "musiccard",
+    "artist": "Laki",
+    "member": [
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "date": "20260425",
+    "tracks": [
+      {
+        "no": 1,
+        "title": "Pancake"
+      },
+      {
+        "no": 2,
+        "title": "Starry pop Canvas"
+      },
+      {
+        "no": 3,
+        "title": "Gimme 143"
+      },
+      {
+        "no": 4,
+        "title": "Pancake (Dance Practice Video)"
+      }
+    ]
+  },
+  {
     "id": "4d6bf5976d69",
     "title": "アイコトバ",
     "type": "single",
