@@ -1016,3 +1016,10 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - helper(albums タブ): id 表示、紐づける logs を1行ずつ表示(追加は logid か title の候補、x で外す)。find 欄に logid を入れると、その行の盤を開く(未紐づけならその行から新規入力)
 - helper(logs の行): contents が CD / DVD / BD / MUSICCARD / RELEASE / EP / DIGITAL の行に albums ボタン。albumid があればその盤を開く(なければ従来の「」内の名前での紐づけ)
 - index.html の🎶: albumid を持つ行はその id の盤を開く(contents は問わない)。albumid が無い行は従来の名前での紐づけ(albumid の運用確認後に廃止予定)
+
+### albums: artist / format / extra disc / ALL廃止、helper: sns折りたたみ
+- albums.json の盤に `artist`(任意の文字列。Girls² と Laki の両方は「Girls² × Laki」)を追加。helper の albums タブに入力欄とチップ。logs 行から新規入力を開くときは groups(G2のみ / L2のみ / 両方)から推定。viewer の収録曲ポップアップは artist / type / 日付を並べて表示
+- 盤の `format`: 自由入力とチップ(CD / DVD / BD の複数選択、CD+DVD の形、並びは CD・DVD・BD の固定)
+- extra(追加ディスク): helper ではディスクごとの枠(ディスク名 + 曲目)。保存する番号は「ディスク名 + 順番」(DVD1, DVD2 ...)で、データの形は従来のまま
+- viewer: 盤のチップの先頭の「ALL」を廃止。盤があるときは先頭の盤が初期表示。盤が無いときは共通の曲目を表示(データの構造は変更なし)
+- helper の logs: sns の自由入力欄と表示チップは初期表示で折りたたみ(「sns links (件数)」ボタンで開閉)。自由入力欄の初期の高さは従来の半分

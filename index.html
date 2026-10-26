@@ -3514,7 +3514,7 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
   const renderAlbum = () => {
     const a = albCur.list[albCur.ti];
     const eds = Array.isArray(a.editions) ? a.editions : [];
-    const ei = albCur.ei < eds.length ? albCur.ei : -1; // -1 = 共通
+    const ei = eds.length ? Math.min(Math.max(albCur.ei, 0), eds.length - 1) : -1; // 盤があるときは先頭の盤が初期表示(共通の「ALL」は無い)。盤が無いときは共通の曲目
     const ed = ei >= 0 ? eds[ei] : null;
     const base = ed && Array.isArray(ed.tracks) && ed.tracks.length ? ed.tracks : (Array.isArray(a.tracks) ? a.tracks : []);
     const rows = base.map(t => [t, false]).concat(ed && Array.isArray(ed.extra) ? ed.extra.map(t => [t, true]) : []);
@@ -3523,19 +3523,19 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
     $('albumModalBody').innerHTML =
       (albCur.list.length > 1 ? chips(albCur.list.map(x => albTypeLabel(x.type)), albCur.ti, 'data-alt') : '') +
       `<div class="stat-modal-title">${escapeHtml(a.title || '')}</div>` +
-      `<div class="alb-meta">${escapeHtml([albTypeLabel(a.type), albYmd(a.date)].filter(Boolean).join(' / '))}</div>` +
-      (eds.length ? chips(['ALL'].concat(eds.map(x => x.name || '')), ei + 1, 'data-aled') : '') +
+      `<div class="alb-meta">${escapeHtml([a.artist, albTypeLabel(a.type), albYmd(a.date)].filter(Boolean).join(' / '))}</div>` +
+      (eds.length ? chips(eds.map(x => x.name || ''), ei, 'data-aled') : '') +
       (info ? `<div class="alb-edinfo">${info}</div>` : '') +
       (rows.length ? `<ul class="alb-list">${rows.map(([t, ex]) => {
         const n = statIndex().get(statNorm(t.title));
         return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}"><span class="alb-no">${t.no != null ? escapeHtml(t.no) : ''}</span><span class="alb-ttl">${escapeHtml(t.title || '')}</span><span class="alb-stat${n && n.size ? '' : ' is-blank'}">\uD83D\uDCCA</span></li>`;
       }).join('')}</ul>` : '<div class="setlist-modal-empty">NO TRACKS</div>');
   };
-  const openAlbumModal = list => { albCur = { list, ti: 0, ei: -1 }; renderAlbum(); albumModalOverlay.classList.add('is-open'); };
+  const openAlbumModal = list => { albCur = { list, ti: 0, ei: 0 }; renderAlbum(); albumModalOverlay.classList.add('is-open'); };
   $('albumModalBody').addEventListener('click', e => {
     const ta = e.target.closest('[data-alt]'), te = e.target.closest('[data-aled]'), li = e.target.closest('li[data-song]');
-    if (ta) { albCur.ti = +ta.dataset.alt; albCur.ei = -1; renderAlbum(); }
-    else if (te) { albCur.ei = +te.dataset.aled - 1; renderAlbum(); }
+    if (ta) { albCur.ti = +ta.dataset.alt; albCur.ei = 0; renderAlbum(); }
+    else if (te) { albCur.ei = +te.dataset.aled; renderAlbum(); }
     else if (li) openStatModal(li.dataset.song); // 曲を押すと披露実績。閉じると、この収録曲の画面に戻る
   });
   const closeAlbumModal = () => albumModalOverlay.classList.remove('is-open');
