@@ -1,0 +1,67 @@
+{
+  "title": "アイコトバ",
+  "type": "single",
+  "date": "20221026",
+  "tracks": [
+    {
+      "no": 1,
+      "title": "アイコトバ"
+    },
+    {
+      "no": 2,
+      "title": "Girls Revolution"
+    },
+    {
+      "no": 3,
+      "title": "アイコトバ(カラオケ)"
+    },
+    {
+      "no": 4,
+      "title": "Girls Revolution(カラオケ)"
+    }
+  ],
+  "editions": [
+    {
+      "name": "通常盤",
+      "format": "CD",
+      "note": "通常盤AICL-4285",
+      "price": 1320
+    },
+    {
+      "name": "初回限定盤",
+      "format": "CD+DVD",
+      "note": "AICL-4283～4284",
+      "price": 2200,
+      "extra": [
+        {
+          "title": "アイコトバ - ミュージックビデオ -"
+        },
+        {
+          "title": "アイコトバ - ダンスパフォーマンスビデオ -"
+        },
+        {
+          "title": "アイコトバ - ドラマオープニングノンクレジット ver. -"
+        },
+        {
+          "title": "DISCO TIME - ドラマエンディングノンクレジットver. -"
+        },
+        {
+          "title": "リズスタ登場ダンス ～翔太・凛音・美羽～"
+        },
+        {
+          "title": "リズスタ☆シャインズのダンス (12話より)"
+        }
+      ],
+      "tracks": [
+        {
+          "no": 1,
+          "title": "アイコトバ"
+        },
+        {
+          "no": 2,
+          "title": "Girls Revolution"
+        }
+      ]
+    }
+  ]
+}
