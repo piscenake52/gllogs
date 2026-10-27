@@ -1046,4 +1046,4 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 
 ### setlistid の自動付与
 
-- date+time が揃っている行で setlistid が未設定のとき、contents が LIVE / TOUR / RELEASEEVENT なら date+time(12桁)を自動で付ける(merge_json.py の SETLISTID_CONTENTS)。
+- date+time が揃っている行で setlistid が未設定のとき、contents が LIVE / TOUR / RELEASEEVENT / FANMEETING なら date+time(12桁)を自動で付ける(merge_json.py の SETLISTID_CONTENTS)。登録できる contents に EP を追加(RELEASE 扱い)。
