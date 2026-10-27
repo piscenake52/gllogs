@@ -4300,7 +4300,13 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
-      "YZH"
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -4313,6 +4319,26 @@
             ],
             "tags": [
               "EASY"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/HiGH_LOW_PR/status/2114959273314922541",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "HiGH&LOW"
             ]
           }
         ]
