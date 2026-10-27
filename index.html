@@ -874,7 +874,7 @@ html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; poin
 .alb-artist + .alb-meta { margin-top: 0; }
 .alb-edinfo { font-size: 12px; color: var(--sub); margin: 0 0 8px; line-height: 1.5; }
 .alb-list { list-style: none; margin: 0; padding: 0; }
-.alb-list li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; cursor: pointer; } /* 曲の行はセトリのポップアップと同じ並び(曲順・再生ボタン・曲名)。曲名の文字はデータ部の文字サイズ設定に合わせる */
+.alb-list li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; } /* 曲の行はセトリのポップアップと同じ並び(曲順・再生ボタン・曲名)。曲名の文字はデータ部の文字サイズ設定に合わせる */
 .alb-list li:last-child { border-bottom: none; }
 .row-in { animation: rowIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both; }
 @keyframes rowIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -884,7 +884,7 @@ html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; poin
 .alb-no { flex: 0 0 2.6em; color: var(--sub); font-size: 11px; text-align: right; }
 .alb-ttl { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
 .alb-stat { display: inline-block; flex: 0 0 auto; width: 0; margin: 0 0 0 -8px; overflow: hidden; text-align: center; opacity: 0; pointer-events: none; font-size: 12px; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; }
-html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-events: auto; } /* 披露実績(📊)は、ヘッダーの📊がONのときだけ。出入りは幅をなめらかに変える */
+html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-events: auto; cursor: pointer; } /* 披露実績(📊)は、ヘッダーの📊がONのときだけ。出入りは幅をなめらかに変える */
 @media (prefers-reduced-motion: reduce) { .song-stat-btn, .setlist-song-stat, .alb-stat { transition: none; } }
 .alb-stat.is-blank { visibility: hidden; }
 .stat-modal-overlay { z-index: 1100; }
@@ -3621,10 +3621,10 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
   $('albumModalBody').addEventListener('click', e => {
     const pb = e.target.closest('.setlist-song-play-btn[data-link]');
     if (pb) { e.stopPropagation(); openSongLink(pb.dataset.link); return; } // 再生ボタン: セトリのポップアップと同じ動き(行の披露実績は開かない)
-    const ta = e.target.closest('[data-alt]'), te = e.target.closest('[data-aled]'), li = e.target.closest('li[data-song]');
+    const ta = e.target.closest('[data-alt]'), te = e.target.closest('[data-aled]'), li = e.target.closest('.alb-stat:not(.is-blank)')?.closest('li[data-song]');
     if (ta) { albCur.ti = +ta.dataset.alt; albCur.ei = 0; renderAlbum(); }
     else if (te) { albCur.ei = +te.dataset.aled; renderAlbum(); }
-    else if (li) openStatModal(li.dataset.song); // 曲を押すと披露実績。閉じると、この収録曲の画面に戻る
+    else if (li) openStatModal(li.dataset.song); // 披露実績アイコン(📊)だけが披露実績を開く(曲名・行は押しても開かない)。閉じると、この収録曲の画面に戻る
   });
   const closeAlbumModal = () => albumModalOverlay.classList.remove('is-open');
   $('albumModalCloseBtn').onclick = closeAlbumModal;
