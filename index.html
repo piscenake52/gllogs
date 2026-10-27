@@ -1384,8 +1384,8 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     'PODCAST': '\uD83C\uDFA4', 'STREAMING': '\uD83D\uDCF6', 'COLUMN': '\uD83D\uDD8A',
     // GOODSはフィルター上"SALES"として扱う(ボタンは別表示)
     'GOODS': '\uD83D\uDED2',
-    // RELEASEEVENT/FANMEETINGはフィルターボタンには表示せず、フィルター判定上は"EVENT"
-    'COOKING': '\uD83C\uDF7D\uFE0F', 'RELEASEEVENT': '\uD83C\uDFA4', 'FANMEETING': '\uD83C\uDFA4', 'STAGE': '\uD83C\uDFAD',
+    // RELEASEEVENT/TOURはフィルター判定上は"LIVE"、FANMEETINGは"EVENT"(どちらもフィルターボタンには表示しない)
+    'COOKING': '\uD83C\uDF7D\uFE0F', 'RELEASEEVENT': '\uD83C\uDFA4', 'TOUR': '\uD83C\uDF99\uFE0F', 'FANMEETING': '\uD83C\uDFA4', 'STAGE': '\uD83C\uDFAD',
     // DEBUT/FORMATIONはフィルターボタンには表示せず、フィルター判定上は"BIRTHDAY"として扱う
     'DEBUT': '\u2B50', 'FORMATION': '\u2728'
   };
@@ -1765,7 +1765,8 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
   const mediaAliasConts = ['BOOK', 'NEWSPAPER']; // TV/RADIOは独立したフィルターボタンになった
   const webAliasConts = ['PODCAST']; // STREAMING/COLUMNは独立したフィルターボタンになった
   const salesAliasConts = ['GOODS'];
-  const eventAliasConts = ['RELEASEEVENT', 'FANMEETING']; // COOKING/STAGEは独立したフィルターボタンになった
+  const liveAliasConts = ['RELEASEEVENT', 'TOUR']; // フィルターボタンには表示せず、フィルター判定上は"LIVE"として扱う(LIVEフィルターON時に表示)
+  const eventAliasConts = ['FANMEETING']; // COOKING/STAGEは独立したフィルターボタンになった
   const birthdayAliasConts = ['DEBUT', 'FORMATION'];
   const fanclubAliasConts = ['TELEPHONE'];
   const youtubeAliasConts = ['GARUGARUCH'];
@@ -1778,6 +1779,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
       mediaAliasConts.includes(c) ? 'MEDIA' :
       webAliasConts.includes(c) ? 'WEB' :
       salesAliasConts.includes(c) ? 'SALES' :
+      liveAliasConts.includes(c) ? 'LIVE' :
       eventAliasConts.includes(c) ? 'EVENT' :
       birthdayAliasConts.includes(c) ? 'BIRTHDAY' :
       fanclubAliasConts.includes(c) ? 'FANCLUB' :

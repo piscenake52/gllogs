@@ -404,11 +404,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     mk('link', 'w', 'link broken', 'checked a little every day by the link check workflow (not every url at once)');
     mk('gap', 'w', '# numbers: gaps / duplicates', 'series with #n in the title: a missing or repeated number');
     mk('noend', 'w', 'start without end / deadline', 'past rows only; e.g. a start of sales with no end of sales');
-    mk('noann', 'w', 'LIVE / EVENT / RELEASE without ANNIVERSARY', 'LIVE, EVENT (incl. RELEASEEVENT, FANMEETING), RELEASE (incl. CD, DVD, BD, DIGITAL, MUSICCARD, EP) with no linked ANNIVERSARY row');
+    mk('noann', 'w', 'LIVE / EVENT / RELEASE without ANNIVERSARY', 'LIVE, TOUR, EVENT (incl. RELEASEEVENT, FANMEETING), RELEASE (incl. CD, DVD, BD, DIGITAL, MUSICCARD, EP) with no linked ANNIVERSARY row');
     mk('tag1', 'i', 'tags used only once', 'where a typo or variant hides');
     mk('nostart', 'i', 'end / deadline without start', 'the start row may be missing');
     mk('nourl', 'i', 'rows without url', 'rows with a title only');
-    var seenId = {}, byKey = {}, tagCount = {}, tagRow = {}, ids = {}, annRef = {}, ANN_C = ['LIVE', 'EVENT', 'RELEASEEVENT', 'FANMEETING', 'RELEASE', 'CD', 'DVD', 'BD', 'DIGITAL', 'MUSICCARD', 'EP'];
+    var seenId = {}, byKey = {}, tagCount = {}, tagRow = {}, ids = {}, annRef = {}, ANN_C = ['LIVE', 'TOUR', 'EVENT', 'RELEASEEVENT', 'FANMEETING', 'RELEASE', 'CD', 'DVD', 'BD', 'DIGITAL', 'MUSICCARD', 'EP'];
     rows.forEach(function (r) { if (r && r.logid) ids[r.logid] = 1; if (r && r.ref && String(r.contents || '').toUpperCase() === 'ANNIVERSARY') annRef[r.ref] = 1; });
     rows.forEach(function (r) {
       if (!r) return;
@@ -1054,7 +1054,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     };
   }
   function addTo(m, v) { v = typeof v === 'string' ? v.trim() : ''; if (v) m[v] = (m[v] || 0) + 1; }
-  var CONTENTS_LIST = ['ANNIVERSARY','BIRTHDAY','DEBUT','FORMATION','CL','COLUMN','COOKING','DIARY','ETC','CAMPAIGN','CLOSE','MESSAGE','PLAYING','RESULT','EVENT','FANMEETING','RELEASEEVENT','FANCLUB','TELEPHONE','GLRADIO','GTUBE','LIVE','MAGAZINE','MEDIA','BOOK','NEWSPAPER','MODEL','MOVIE','RADIO','RELEASE','BD','CD','DIGITAL','DVD','MUSICCARD','SALES','GOODS','SNS','STAGE','STREAMING','TICKET','TV','WEB','PODCAST','YOUTUBE','GARUGARUCH'];
+  var CONTENTS_LIST = ['ANNIVERSARY','BIRTHDAY','DEBUT','FORMATION','CL','COLUMN','COOKING','DIARY','ETC','CAMPAIGN','CLOSE','MESSAGE','PLAYING','RESULT','EVENT','FANMEETING','RELEASEEVENT','FANCLUB','TELEPHONE','GLRADIO','GTUBE','LIVE','TOUR','MAGAZINE','MEDIA','BOOK','NEWSPAPER','MODEL','MOVIE','RADIO','RELEASE','BD','CD','DIGITAL','DVD','MUSICCARD','SALES','GOODS','SNS','STAGE','STREAMING','TICKET','TV','WEB','PODCAST','YOUTUBE','GARUGARUCH'];
   function lxContents() { // values already used in logs.json (most used first) + the choices of the issue form
     var base = contentsOptions(), seen = {};
     base.forEach(function (o) { seen[o.v] = 1; });

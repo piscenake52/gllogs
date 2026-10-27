@@ -128,7 +128,7 @@ BOOK/NEWSPAPERはフィルターボタンには表示せず、フィルター判
 PODCASTはフィルターボタンには表示せず、フィルター判定上は"WEB"として扱う(normalizeContType参照)。STREAMING/COLUMNは独立したフィルターボタン
 
 ### L1180
-RELEASEEVENT/FANMEETINGはフィルターボタンには表示せず、フィルター判定上は"EVENT"として扱う(normalizeContType参照)。COOKING/STAGEは独立したフィルターボタン
+RELEASEEVENT・TOUR はフィルターボタンには表示せず、フィルター判定上は"LIVE"として、FANMEETING は"EVENT"として扱う(normalizeContType参照)。COOKING/STAGEは独立したフィルターボタン
 
 ### L1182
 DEBUT/FORMATIONはフィルターボタンには表示せず、フィルター判定上は"BIRTHDAY"として扱う(normalizeContType参照)。 ただしBIRTHDAYと違い、isBirthdayAnniversaryの対象外なので年をまたいだ月日一致では表示されない
@@ -1034,7 +1034,7 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 
 ### check タブ追記
 
-- 「LIVE / EVENT / RELEASE without ANNIVERSARY」(to check): ref が自分の logid の ANNIVERSARY 行が無い、contents が LIVE・EVENT(RELEASEEVENT / FANMEETING 含む)・RELEASE(CD / DVD / BD / DIGITAL / MUSICCARD / EP 含む)の行を一覧。ignore 可(ブラウザ内保存)。
+- 「LIVE / EVENT / RELEASE without ANNIVERSARY」(to check): ref が自分の logid の ANNIVERSARY 行が無い、contents が LIVE・TOUR・EVENT(RELEASEEVENT / FANMEETING 含む)・RELEASE(CD / DVD / BD / DIGITAL / MUSICCARD / EP 含む)の行を一覧。ignore 可(ブラウザ内保存)。
 
 ### index: TODAYモードと検索窓(通常モード)
 
@@ -1043,3 +1043,7 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 検索窓が空に戻ったら、検索前のTODAY状態(ON/OFF・表示日・ソート)へ戻す。8桁の日付から消した場合も同様(手動でONにしていたTODAYは残る)。
 - 一時停止中にTODAYボタン・前後日・月フィルター・CLEARを操作した場合は、元の状態へは戻さない(その操作を優先)。
 - 一時停止はメモリ上のみ。保持(localStorage)は変えない。セトリ検索モード中は従来どおり独立管理。- TODAYモード中でも、検索窓に入力がある間(8桁の日付を含む)はコンテンツ種類ボタンを自動ONにせず、通常検索と同じくランプのみ。TODAYで自動ONにしていた分は検索入力でOFFに戻り、検索窓が空になるとまた自動ONになる(手動ONのものはそのまま)。
+
+### setlistid の自動付与
+
+- date+time が揃っている行で setlistid が未設定のとき、contents が LIVE / TOUR / RELEASEEVENT なら date+time(12桁)を自動で付ける(merge_json.py の SETLISTID_CONTENTS)。
