@@ -4293,6 +4293,33 @@
     ]
   },
   {
+    "logid": "ea04201075fb",
+    "date": "20261027",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/lZypPqthdW0?si=1Xi9ueFYmP_BLSXQ",
+            "member": [
+              "YZH"
+            ],
+            "tags": [
+              "EASY"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "7fd0bbfcec2d",
     "date": "20261026",
     "time": "2359",
