@@ -3548,7 +3548,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
   function statHasTitle(title) { const m = statIndex().get(statNorm(title)); return !!(m && m.size); }
   // ---- 🎶 収録曲(albums.json):album / ep / single の収録曲と各種盤 ----
   const ALB_TYPE_WORDS = { ALBUM: 'album', AL: 'album', EP: 'ep', SINGLE: 'single', SG: 'single', MUSICCARD: 'musiccard', 'MUSIC CARD': 'musiccard' };
-  const ALB_TYPE_LABELS = { musiccard: 'MUSIC CARD', bluray: 'BLU-RAY' };
+  const ALB_TYPE_LABELS = { musiccard: 'MUSIC CARD', bd: 'BD' };
   const albTypeLabel = t => ALB_TYPE_LABELS[t] || String(t || '').toUpperCase();
   function albumMatches(item, text) {
     if (!Array.isArray(albumsData) || !albumsData.length) return [];

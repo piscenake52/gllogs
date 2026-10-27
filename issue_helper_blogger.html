@@ -317,7 +317,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 <section id="glih-p-albums" hidden>
   <button type="button" class="go" id="glih-alnew">new</button>
   <div class="field"><label for="glih-alt">title</label><input type="text" id="glih-alt" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
-  <div class="field"><label>type</label><div class="chipr" id="glih-aly"></div></div>
+  <div class="field top"><label>type</label><div class="chipr" id="glih-aly"></div></div>
   <div class="field"><label for="glih-ald">date</label><input type="text" id="glih-ald" class="fin" autocomplete="off"></div>
   <div class="field top stk"><label>tracks</label><div id="glih-altk" style="flex:1;min-width:0"></div></div>
   <div class="field"><label>copy</label><div id="glih-alcp" style="flex:1;min-width:0"></div></div>
@@ -1682,7 +1682,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (c === 'EP' || has(/ EP /)) out.push('ep');
     if (has(/ (SINGLE|SG) /)) out.push('single');
     if (c === 'MUSICCARD' || has(/ (MUSICCARD|MUSIC CARD) /)) out.push('musiccard');
-    if (!out.length) { var cm = { DIGITAL: 'digital', DVD: 'dvd', BD: 'bluray' }[c]; if (cm) out.push(cm); } // no ALBUM / EP / SINGLE word: DIGITAL / DVD / BD rows start with that type
+    if (!out.length) { var cm = { DIGITAL: 'digital', DVD: 'dvd', BD: 'bd' }[c]; if (cm) out.push(cm); } // no ALBUM / EP / SINGLE word: DIGITAL / DVD / BD rows start with that type
     return out;
   }
   function alNameOf(title) { var m = String(title || '').normalize('NFKC').match(/[\u300C\u300E]([^\u300D\u300F]+)[\u300D\u300F]/); return m ? m[1].trim() : ''; }
@@ -2125,7 +2125,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     fetchData('songs').then(function () { upd(); }).catch(function () {});
   }
   // ---- albums tab: release (album / ep / single) tracklist + editions -> one Issue (add_albums.yml). Key = title + type. ----
-  var alReady = false, AL_TYPES = ['album', 'ep', 'single', 'musiccard', 'digital', 'dvd', 'bluray'];
+  var alReady = false, AL_TYPES = ['album', 'ep', 'single', 'musiccard', 'digital', 'dvd', 'bd'];
   function loadAlbums() { return fetchData('albums').catch(function () { if (!cache.albums) cache.albums = []; return cache.albums; }); }
   function alTitleOpts() {
     var m = {}, out = [];

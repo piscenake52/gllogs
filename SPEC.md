@@ -1026,7 +1026,7 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 
 ### albums タブ(helper)追記
 
-- type は album / ep / single / musiccard / digital / dvd / bluray の7種(issue_to_json.py・merge_json.py も対応)。
+- type は album / ep / single / musiccard / digital / dvd / bd の7種(issue_to_json.py・merge_json.py も対応)。
 - 先頭の `id` 欄に文字入力すると albums 候補が出る(logs の id 候補と同じ表示: 日付+type / title)。12桁hexは album id、それ以外は title・logid として検索。
 - `find` 欄は廃止。artist チップは Girls² / Laki のどちらか一方のみ選択(再クリックで解除)。
 - editions の format チップに MUSICCARD を追加(CD / DVD / BD / MUSICCARD)。
