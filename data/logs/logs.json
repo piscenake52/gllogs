@@ -3948,6 +3948,18 @@
             ]
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtu.be/CmZVZRhc7kQ?si=cgZa4C-nnLRx_210",
+            "member": [],
+            "tags": [
+              "WORK≒LIFE"
+            ]
+          }
+        ]
       }
     ]
   },
