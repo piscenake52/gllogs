@@ -172,7 +172,7 @@ def ref_title(main_data):
 # ---------- 更新・新規追加 ----------
 
 # setlistid を date+time で自動付与する contents
-SETLISTID_CONTENTS = ("LIVE", "TOUR", "RELEASEEVENT")
+SETLISTID_CONTENTS = ("LIVE", "TOUR", "RELEASEEVENT", "FANMEETING")
 
 
 def autofill_setlistid(record, explicit_clear=False):
