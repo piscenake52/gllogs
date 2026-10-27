@@ -4111,6 +4111,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     }
   };
 
+  const autoCheckedConts = new Set(); // 自動ONにしたコンテンツ種類(検索ワードが入ってランプのみの表示に切り替わる時に、自動ONの分だけOFFへ戻す)
   const autoUpdateContentTypeFilters = () => {
     const contentCheckboxes = Array.from(checkboxes).filter(cb => allConts.includes(cb.value));
     const checkedAll = Array.from(checkboxes).filter(cb => cb.checked);
@@ -4119,7 +4120,8 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     const hasGroupOrMemberFilter = checkedAll.some(cb => !/^\d{4}$/.test(cb.value) && !/^\d{2}$/.test(cb.value) && !allConts.includes(cb.value));
     const hasYearOrMonthFilter = checkedAll.some(cb => /^\d{4}$/.test(cb.value) || /^\d{2}$/.test(cb.value));
     // 検索ワードは絞り込みせず、年/月/グループ/メンバーと同じくランプ表示のみ
-    const shouldAutoCheck = todayMode || setlistMode;
+    // TODAYモード中でも、検索ワードがある間は通常検索と同じくチェックはせずランプのみ(セトリ検索モードは従来どおり)
+    const shouldAutoCheck = (todayMode && !hasSearchKeyword) || setlistMode;
     const hasLampCondition = hasGroupOrMemberFilter || hasYearOrMonthFilter || hasSearchKeyword;
 
     if (!shouldAutoCheck && !hasLampCondition) {
@@ -4168,6 +4170,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 
       if (!shouldAutoCheck) {
         // 年/月/グループ/メンバーのみが条件:チェックはせず、該当データがあればランプだけ点ける
+        if (autoCheckedConts.delete(cb.value) && cb.checked && !manuallyTouchedConts.has(cb.value)) cb.checked = false; // TODAY等で自動ONにしていた分は戻す
         if (label) label.classList.toggle('has-data-lamp', shouldBeOn && !cb.checked);
         return;
       }
@@ -4178,6 +4181,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
       const isProtected = manuallyTouchedConts.has(cb.value) && cb.checked;
       if (isProtected) return;
       cb.checked = shouldBeOn;
+      if (shouldBeOn) autoCheckedConts.add(cb.value); else autoCheckedConts.delete(cb.value);
       manuallyTouchedConts.delete(cb.value);
     });
   };
