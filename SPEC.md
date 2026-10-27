@@ -1035,3 +1035,11 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 ### check タブ追記
 
 - 「LIVE / EVENT / RELEASE without ANNIVERSARY」(to check): ref が自分の logid の ANNIVERSARY 行が無い、contents が LIVE・EVENT(RELEASEEVENT / FANMEETING 含む)・RELEASE(CD / DVD / BD / DIGITAL / MUSICCARD / EP 含む)の行を一覧。ignore 可(ブラウザ内保存)。
+
+### index: TODAYモードと検索窓(通常モード)
+
+- 実在する年月日8桁: 従来どおりTODAYがONになり、その日を表示する。
+- それ以外の入力(キーワード、YYYY・MMDD・YYYYMM・範囲)やタグチップでの検索: TODAYがONなら一時停止して通常検索にする。ボタンの見た目はOFFと同じ(保持ONの青枠はそのまま)、←→・フリックは使えず、ソートは元の並びに戻る。
+- 検索窓が空に戻ったら、検索前のTODAY状態(ON/OFF・表示日・ソート)へ戻す。8桁の日付から消した場合も同様(手動でONにしていたTODAYは残る)。
+- 一時停止中にTODAYボタン・前後日・月フィルター・CLEARを操作した場合は、元の状態へは戻さない(その操作を優先)。
+- 一時停止はメモリ上のみ。保持(localStorage)は変えない。セトリ検索モード中は従来どおり独立管理。

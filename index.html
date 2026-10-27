@@ -4867,6 +4867,9 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
   let todayOffset = 0; // 0=当日, 負=前日方向, 正=翌日方向
   let preTodaySort = null; // TODAYをONにする直前のソート状態(descの値)を退避
   let searchDateTodayActive = false; // 検索窓への日付入力によってTODAYモードがONにされている状態かどうか
+  // 検索窓からの検索(8桁の日付を除く)でTODAYを一時停止した時/8桁の日付でTODAYを切り替えた時の、検索前のTODAY状態({todayMode, todayOffset})。検索窓が空に戻ったらこの状態へ戻す(通常モードのみ)
+  let todaySearchSnap = null;
+  const snapTodayForSearch = () => { if (!todaySearchSnap) todaySearchSnap = { todayMode, todayOffset }; };
   const getTargetDateStr = offsetDays => {
     const d = new Date();
     d.setDate(d.getDate() + offsetDays);
@@ -5013,14 +5016,46 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     updateManualIndicators();
   };
 
-  // 検索窓の現在の内容を見て、日付ならTODAYモードをON、日付でなくなった(変更・削除された)ならOFFにする
+  // 検索窓が空に戻った時:検索前のTODAY状態(ON/OFF・表示日)へ戻す
+  const restoreTodayAfterSearch = () => {
+    const sn = todaySearchSnap;
+    if (!sn) return;
+    todaySearchSnap = null;
+    searchDateTodayActive = false;
+    if (sn.todayMode) {
+      if (!todayMode) { todayMode = true; preTodaySort = desc; if (desc) desc = false; }
+      todayOffset = sn.todayOffset;
+    } else if (todayMode) {
+      turnOffTodayMode();
+    }
+    updateSortBtnLabel();
+    updateTodayButtonStyle();
+    autoUpdateContentTypeFilters();
+    updateManualIndicators();
+  };
+
+  // 検索窓の現在の内容を見て、TODAYモードを切り替える(通常モード)
+  //  ・実在する年月日8桁:TODAYモードをONにしてその日を表示
+  //  ・空:検索前のTODAY状態へ戻す
+  //  ・それ以外(キーワード・8桁以外の日付検索):TODAYがONなら一時停止して通常検索にする
+  // セトリ検索モード中のTODAYは独立管理のため、従来どおり(8桁の日付でON、日付でなくなったらOFF)
   const syncTodayModeFromSearch = () => {
     const rawKw = searchInput.value.trim();
     const exactDate = getExactSearchDate(rawKw);
+    if (setlistMode) {
+      if (exactDate) enableTodayFromSearchDate(exactDate); else disableTodayFromSearchDate();
+      return;
+    }
     if (exactDate) {
+      snapTodayForSearch();
       enableTodayFromSearchDate(exactDate);
-    } else {
-      disableTodayFromSearchDate();
+    } else if (!rawKw) {
+      restoreTodayAfterSearch();
+    } else if (todayMode) {
+      snapTodayForSearch();
+      turnOffTodayMode();
+      autoUpdateContentTypeFilters();
+      updateManualIndicators();
     }
   };
   // BIRTHDAY/ANNIVERSARYかどうか
@@ -5178,6 +5213,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
       updateDisplay(true, false, 'fresh');
       return;
     }
+    todaySearchSnap = null; // TODAYボタンを自分で押したら、検索前のTODAY状態へは戻さない
     // 1回目クリックは即座に通常ON/OFFを行い、直前の状態を保存しておく
     todayClickSnapshot = { todayMode, todayOffset, desc, preTodaySort };
   // セトリ検索モード中のTODAYは独立管理(ここではセトリ検索モードに触れない)
@@ -5259,6 +5295,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 
   // 実際の日付切替処理本体(todayOffset更新・ボタン見た目・フィルター再計算・再描画)
   const performDayChange = delta => {
+    todaySearchSnap = null; // 前後日へ動いたら、検索前のTODAY状態へは戻さない
     if (searchDateTodayActive) {
       // 日付検索から入ったTODAYの連動を解除し、検索窓の表示と実際の表示日のズレを防ぐ
       searchDateTodayActive = false;
@@ -5503,6 +5540,11 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     if (setlistMode) {
       // セトリ検索モードへ突入:直前のTODAY状態を保存しTODAYモードを一旦OFFにする
       setlistTodaySavedState = { todayMode, todayOffset, desc, preTodaySort };
+      if (todaySearchSnap) { // 検索でTODAYを一時停止/切替中なら、検索前のTODAY状態を保存する
+        const sn = todaySearchSnap;
+        setlistTodaySavedState = sn.todayMode ? { todayMode: true, todayOffset: sn.todayOffset, desc: todayMode ? desc : false, preTodaySort: todayMode ? preTodaySort : desc } : { todayMode: false, todayOffset: 0, desc: todayMode ? preTodaySort : desc, preTodaySort: null };
+        todaySearchSnap = null;
+      }
       if (todayMode) turnOffTodayMode();
       // 直前の除外状態を保存し、LIVE/EVENT以外のコンテンツ種類を除外状態にする
       setlistExcludedSavedState = new Set(excludedFilterValues);
@@ -5681,6 +5723,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
         manuallyTouchedConts.add(cb.value);
       }
       // 月フィルターはTODAYモードと併用しないため、押されたらTODAYモードを解除する
+      if (/^\d{2}$/.test(cb.value)) todaySearchSnap = null;
       if (/^\d{2}$/.test(cb.value) && todayMode) {
         todayMode = false;
         todayOffset = 0;
@@ -5774,6 +5817,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     updateSearchClearState();
     document.querySelectorAll('.checks-row-years, .checks-row-other, .checks-row-months').forEach(con => con.scrollLeft = 0);
     // TODAY(セトリ検索モード中は独立管理のローカルなTODAY)は、モードに関わらず単純にOFFへ戻す
+    todaySearchSnap = null;
     if (todayMode) turnOffTodayMode();
     // CLEARでハートモードもOFFにする(再描画される行が展開済みの状態で作られないようにする)
     heartModeOn = false;
@@ -5794,7 +5838,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     checked: Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value),
     excluded: [...excludedFilterValues],
     manual: [...manuallyTouchedConts],
-    today: { todayMode, todayOffset, desc, preTodaySort, searchDateTodayActive },
+    today: { todayMode, todayOffset, desc, preTodaySort, searchDateTodayActive, snap: todaySearchSnap },
     setlistMode,
     scrollY: window.scrollY
   });
@@ -5819,7 +5863,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     manuallyTouchedConts.clear();
     st.manual.forEach(v => manuallyTouchedConts.add(v));
     todayMode = st.today.todayMode; todayOffset = st.today.todayOffset; desc = st.today.desc;
-    preTodaySort = st.today.preTodaySort; searchDateTodayActive = st.today.searchDateTodayActive;
+    preTodaySort = st.today.preTodaySort; searchDateTodayActive = st.today.searchDateTodayActive; todaySearchSnap = st.today.snap || null;
     searchInput.value = st.search;
     updateSearchClearState();
     applyExcludedStyles();
@@ -5844,7 +5888,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     else saveExcludedFilters();
     applyExcludedStyles();
     updateMonthFilterVisibility();
-    if (todayMode) turnOffTodayMode();
+    if (todayMode) { if (!setlistMode) snapTodayForSearch(); turnOffTodayMode(); } // 通常モードではTODAYを一時停止(検索窓が空に戻ったら元のTODAY状態へ戻す)
   };
 
   $('resetLink').onclick = e => {
