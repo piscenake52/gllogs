@@ -1399,6 +1399,7 @@
     ],
     "title": "Laki 5th Anniversary Live -L∞K UP-",
     "venue": "ヒューリックホール東京",
+    "source": "official",
     "songs": [
       {
         "order": 1,
@@ -1451,7 +1452,7 @@
       },
       {
         "order": 8,
-        "title": "ichigo 〜一期一会〜",
+        "title": "ichigo ～一期一会～",
         "type": "medley",
         "original": "",
         "notes": ""
@@ -1624,8 +1625,7 @@
         "original": "",
         "notes": ""
       }
-    ],
-    "source": "official"
+    ]
   },
   {
     "setlistid": "202609201300",
