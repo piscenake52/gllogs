@@ -171,10 +171,14 @@ def ref_title(main_data):
 
 # ---------- 更新・新規追加 ----------
 
+# setlistid を date+time で自動付与する contents
+SETLISTID_CONTENTS = ("LIVE", "TOUR", "RELEASEEVENT")
+
+
 def autofill_setlistid(record, explicit_clear=False):
-    """contents が LIVE で setlistid が未設定なら、date + time(12桁)を setlistid にする。
+    """contents が LIVE / TOUR / RELEASEEVENT で setlistid が未設定なら、date + time(12桁)を setlistid にする。
     time が空・桁数不正のときは何もしない。setlistid を明示的に消す指定(!clear)のときも補完しない"""
-    if explicit_clear or record.get("contents") != "LIVE" or record.get("setlistid"):
+    if explicit_clear or record.get("contents") not in SETLISTID_CONTENTS or record.get("setlistid"):
         return
     date, time = record.get("date") or "", record.get("time") or ""
     if re.fullmatch(r"\d{8}", date) and re.fullmatch(r"\d{4}", time):
@@ -572,7 +576,7 @@ def apply_copy(target, main_data, src_id, item, issue, issue_map):
             else:
                 new[k] = v  # tags / groups なども、コピーでは追記ではなく入力値で置き換える
     # LIVE: date / time を変えたときは、コピー元の setlistid は引き継がず date+time で振り直す（setlistid 入力時はそれを優先）
-    if new.get("contents") == "LIVE" and "setlistid" not in overrides and ("date" in overrides or "time" in overrides):
+    if new.get("contents") in SETLISTID_CONTENTS and "setlistid" not in overrides and ("date" in overrides or "time" in overrides):
         new.pop("setlistid", None)
 
     new_item = finalize_new(target, new, main_data)
