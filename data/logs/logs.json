@@ -4365,7 +4365,12 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YZH",
+      "MMK",
       "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
       "KIR"
     ],
     "sns": [
@@ -4420,6 +4425,26 @@
             ],
             "tags": [
               "EASY"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://www.youtube.com/watch?v=k8XDt6xSXTI",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "FEVERした曲"
             ]
           }
         ]
