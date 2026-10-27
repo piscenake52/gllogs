@@ -488,7 +488,7 @@ def finalize_new(target, item, main_data):
 
     elif name == "albums":
         if item.get("type") not in ALBUM_TYPES_OK:
-            print(f"【スキップ】albumsのtypeは album / ep / single / musiccard / digital / dvd / bluray のどれかにしてください: {item}")
+            print(f"【スキップ】albumsのtypeは album / ep / single / musiccard / digital / dvd / bd のどれかにしてください: {item}")
             return None
         if item.get("date") and not re.fullmatch(r"\d{8}", str(item["date"])):
             print(f"【スキップ】albumsのdateは8桁の数字で指定してください: {item}")
@@ -721,7 +721,7 @@ def apply_repeat(target, main_data, item, repeat, issue, issue_map, anniv=False,
 
 # albums の処理で logs.json の albumid も書き換えるため、albums の処理中だけ logs を読み込んで持つ
 LOGS_CTX = {"data": None, "changed": False}
-ALBUM_TYPES_OK = ("album", "ep", "single", "musiccard", "digital", "dvd", "bluray")
+ALBUM_TYPES_OK = ("album", "ep", "single", "musiccard", "digital", "dvd", "bd")
 ALBUM_ID_RE = re.compile(r"[0-9a-f]{12}")
 
 

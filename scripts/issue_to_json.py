@@ -776,7 +776,7 @@ def build_bulk(body):
     return {"_bulk": bulk}, []
 
 
-ALBUM_TYPES = ("album", "ep", "single", "musiccard", "digital", "dvd", "bluray")
+ALBUM_TYPES = ("album", "ep", "single", "musiccard", "digital", "dvd", "bd")
 
 
 def build_albums(body):
@@ -802,7 +802,7 @@ def build_albums(body):
     if not title:
         errors.append("- **album title**: titleを入力してください")
     if typ not in ALBUM_TYPES:
-        errors.append("- **album type**: album / ep / single / musiccard / digital / dvd / bluray のどれかを入力してください")
+        errors.append("- **album type**: album / ep / single / musiccard / digital / dvd / bd のどれかを入力してください")
     if errors:
         return None, errors
     if delete:
