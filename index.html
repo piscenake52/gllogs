@@ -856,11 +856,11 @@ body .item-contents.is-content-open {
 .stat-icon { display: none; }
 html.stat-on .stat-icon { display: inline-block; }
 .stat-icon.is-blank { visibility: hidden; pointer-events: none; cursor: default; } /* 📊が無い行も、ON中は右の幅をあけておく */
-.song-stat-btn { display: none; flex: 0 0 auto; width: 24px; height: 24px; margin: 0; padding: 0; border: none; background: none; font-size: 14px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; }
-html.stat-on .song-stat-btn { display: flex; }
+.song-stat-btn { display: flex; flex: 0 0 auto; width: 0; height: 24px; margin: 0 0 0 -10px; padding: 0; border: none; background: none; font-size: 14px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; overflow: hidden; opacity: 0; pointer-events: none; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* 披露実績ONで、幅が0から広がって右端に出る(間の10pxの隙間も一緒に) */
+html.stat-on .song-stat-btn { width: 24px; margin-left: 0; opacity: 1; pointer-events: auto; }
 .song-bar.is-entering .song-stat-btn { visibility: hidden; } /* 曲名が飛んでくる動きが終わってから右端に出す */
-.setlist-song-stat { display: none; flex: 0 0 auto; font-size: 12px; cursor: pointer; user-select: none; padding: 0 2px; }
-html.stat-on .setlist-song-stat { display: inline-block; }
+.setlist-song-stat { display: inline-block; flex: 0 0 auto; width: 0; margin: 0 0 0 -8px; overflow: hidden; text-align: center; opacity: 0; pointer-events: none; font-size: 12px; cursor: pointer; user-select: none; padding: 0; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* 行の間の8pxの隙間ごと、幅が0から広がる */
+html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-events: auto; }
 .setlist-song-stat.is-blank { visibility: hidden; pointer-events: none; }
 #statToggleBtn.is-disabled:not(.is-active) { opacity: .35; cursor: default; }
 #statToggleBtn { touch-action: manipulation; }
@@ -883,8 +883,9 @@ html.stat-on .setlist-song-stat { display: inline-block; }
 .alb-list li.is-extra .setlist-song-order { color: #0ea5e9; }
 .alb-no { flex: 0 0 2.6em; color: var(--sub); font-size: 11px; text-align: right; }
 .alb-ttl { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
-.alb-stat { display: none; flex: 0 0 auto; font-size: 12px; }
-html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘッダーの📊がONのときだけ */
+.alb-stat { display: inline-block; flex: 0 0 auto; width: 0; margin: 0 0 0 -8px; overflow: hidden; text-align: center; opacity: 0; pointer-events: none; font-size: 12px; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; }
+html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-events: auto; } /* 披露実績(📊)は、ヘッダーの📊がONのときだけ。出入りは幅をなめらかに変える */
+@media (prefers-reduced-motion: reduce) { .song-stat-btn, .setlist-song-stat, .alb-stat { transition: none; } }
 .alb-stat.is-blank { visibility: hidden; }
 .stat-modal-overlay { z-index: 1100; }
 /* PC(マウス)だけ: 披露実績・アルバム・セトリのポップアップは、右下の角をドラッグして横幅を広げられる(いまの420pxが最小。幅は開き直しても保つ) */
@@ -3461,10 +3462,61 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
   // セトリ・収録曲のポップアップ: 曲の行を上から順に、少しずつ時間をずらしてなめらかに表示する(開いたとき・盤を切り替えたとき)
   const staggerRows = root => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    root.querySelectorAll('.setlist-modal-songlist > li, .alb-list > li').forEach((li, i) => {
+    root.querySelectorAll('.setlist-modal-songlist > li, .alb-list > li, .stat-list > li').forEach((li, i) => {
       li.style.animationDelay = (50 + Math.min(i, 16) * 28) + 'ms'; // 17行目以降は同じタイミング(長いリストで待たせない)
       li.classList.add('row-in');
     });
+  };
+  let popupWidth = ''; // PCで手動で広げた幅(開き直しても保つ)
+  // ポップアップの横幅: 曲・公演の行が改行しない幅に自動で合わせる(上限は画面の幅-40px。下限は420px、またはPCで手動で広げた幅)。手動で広げた幅(popupWidth)は書き換えない
+  const popupBaseWidth = ov => popupWidth ? parseFloat(popupWidth) : Math.min(420, ov.clientWidth - 40);
+  const fitWidthPx = (ov, box) => {
+    const cap = Math.max(0, ov.clientWidth - 40), base = Math.min(cap, popupBaseWidth(ov));
+    let need = 0;
+    box.querySelectorAll('.setlist-modal-songlist, .alb-list, .stat-list').forEach(ul => {
+      const w = ul.style.width; ul.style.width = 'max-content'; need = Math.max(need, ul.offsetWidth); ul.style.width = w; // offsetWidth: 開く動きの拡大(transform)に影響されない幅
+    });
+    if (!need) return base;
+    const cs = getComputedStyle(box), extra = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+    return Math.min(cap, Math.max(base, Math.ceil(need + extra + 2)));
+  };
+  const POPUP_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+  // ポップアップを開いたとき: 基本の幅から、行の長さに合わせた幅へ広げる(開く動きの拡大はそのまま)
+  const fitPopupOnOpen = ov => {
+    const box = ov.querySelector('.setlist-modal'); if (!box) return;
+    clearTimeout(box._wT); box._fit = '';
+    box.style.maxWidth = ''; box.style.width = popupWidth || ''; box.style.overflow = '';
+    const w0 = box.offsetWidth, w1 = fitWidthPx(ov, box);
+    if (Math.abs(w1 - w0) < 2) return;
+    box.style.maxWidth = 'calc(100vw - 40px)'; box.style.width = w0 + 'px';
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { box.style.width = w1 + 'px'; box._fit = box.style.width; return; }
+    const base = getComputedStyle(box).transition; // 開く動き(transform)の指定を残したまま、幅の動きを足す
+    void box.offsetWidth;
+    box.style.transition = base + `, width 0.28s ${POPUP_EASE}`;
+    box.style.width = w1 + 'px'; box._fit = box.style.width;
+    box._wT = setTimeout(() => { box.style.transition = ''; }, 320);
+  };
+  // ポップアップが開いている間に中身が入れ替わって高さ・幅が変わるとき(盤の切り替え・ALL/LIVE/EVENTの切り替えなど)は、今の大きさから新しい大きさへなめらかに広げる(縮める)
+  const renderWithHeightAnim = (bodyEl, overlay, renderFn) => {
+    const boxEl = bodyEl.parentElement;
+    const animate = overlay.classList.contains('is-open') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const h0 = animate ? boxEl.offsetHeight : 0, w0 = animate ? boxEl.offsetWidth : 0;
+    if (animate) { clearTimeout(boxEl._hT); clearTimeout(boxEl._wT); boxEl.style.transition = 'none'; boxEl.style.height = 'auto'; boxEl.style.overflow = ''; }
+    renderFn();
+    staggerRows(bodyEl);
+    if (!animate) return;
+    const w1 = fitWidthPx(overlay, boxEl);
+    boxEl.style.maxWidth = 'calc(100vw - 40px)'; boxEl.style.width = w1 + 'px'; boxEl._fit = boxEl.style.width; // 先に新しい幅にして、その幅での高さを測る
+    const h1 = boxEl.offsetHeight;
+    const dW = Math.abs(w1 - w0) >= 2, dH = Math.abs(h1 - h0) >= 2;
+    if (!dW && !dH) { boxEl.style.transition = ''; boxEl.style.height = ''; return; }
+    if (dW) boxEl.style.width = w0 + 'px';
+    if (dH) boxEl.style.height = h0 + 'px';
+    boxEl.style.overflow = 'hidden';
+    void boxEl.offsetHeight; // 開始の大きさを確定させてから、新しい大きさへ
+    boxEl.style.transition = `height 0.28s ${POPUP_EASE}, width 0.28s ${POPUP_EASE}`;
+    boxEl.style.height = h1 + 'px'; boxEl.style.width = w1 + 'px';
+    boxEl._hT = setTimeout(() => { boxEl.style.transition = ''; boxEl.style.height = ''; boxEl.style.overflow = ''; }, 320);
   };
   const setlistModalOverlay = $('setlistModalOverlay');
   const setlistModalBody = $('setlistModalBody');
@@ -3496,7 +3548,7 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
   function statHasTitle(title) { const m = statIndex().get(statNorm(title)); return !!(m && m.size); }
   // ---- 🎶 収録曲(albums.json):album / ep / single の収録曲と各種盤 ----
   const ALB_TYPE_WORDS = { ALBUM: 'album', AL: 'album', EP: 'ep', SINGLE: 'single', SG: 'single', MUSICCARD: 'musiccard', 'MUSIC CARD': 'musiccard' };
-  const ALB_TYPE_LABELS = { musiccard: 'MUSIC CARD' };
+  const ALB_TYPE_LABELS = { musiccard: 'MUSIC CARD', bluray: 'BLU-RAY' };
   const albTypeLabel = t => ALB_TYPE_LABELS[t] || String(t || '').toUpperCase();
   function albumMatches(item, text) {
     if (!Array.isArray(albumsData) || !albumsData.length) return [];
@@ -3525,22 +3577,7 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
   const albumModalOverlay = $('albumModalOverlay');
   let albCur = null; // {list, ti, ei}
   const albYmd = d => /^\d{8}$/.test(d || '') ? `${d.slice(0, 4)}.${d.slice(4, 6)}.${d.slice(6)}` : '';
-  const renderAlbum = () => {
-    const bodyEl = $('albumModalBody'), boxEl = bodyEl.parentElement;
-    const animate = albumModalOverlay.classList.contains('is-open') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const h0 = animate ? boxEl.offsetHeight : 0; // 盤・種類を切り替えて高さが変わるときは、今の高さから新しい高さへなめらかに広げる(縮める)
-    if (animate) { clearTimeout(boxEl._hT); boxEl.style.transition = 'none'; boxEl.style.height = 'auto'; boxEl.style.overflow = ''; }
-    renderAlbumBody();
-    staggerRows(bodyEl);
-    if (!animate) return;
-    const h1 = boxEl.offsetHeight;
-    if (Math.abs(h1 - h0) < 2) { boxEl.style.transition = ''; boxEl.style.height = ''; return; }
-    boxEl.style.height = h0 + 'px'; boxEl.style.overflow = 'hidden';
-    void boxEl.offsetHeight; // 開始の高さを確定させてから、新しい高さへ
-    boxEl.style.transition = 'height 0.28s cubic-bezier(0.16, 1, 0.3, 1)';
-    boxEl.style.height = h1 + 'px';
-    boxEl._hT = setTimeout(() => { boxEl.style.transition = ''; boxEl.style.height = ''; boxEl.style.overflow = ''; }, 320);
-  };
+  const renderAlbum = () => renderWithHeightAnim($('albumModalBody'), albumModalOverlay, renderAlbumBody);
   // タイトルの下: グループ名とメンバーのハート(セトリのポップアップと同じ形。GirlsとLakiの両方のときはグループごとに分ける)
   const albArtistHtml = a => {
     const ARTIST_G2 = 'Girls'.concat('\u00B2'), ARTIST_L2 = 'Laki';
@@ -3602,7 +3639,8 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
     return set;
   }
   let statCur = { title: '', filter: 'all' };
-  const renderStat = () => {
+  const renderStat = () => renderWithHeightAnim($('statModalBody'), statModalOverlay, renderStatBody);
+  const renderStatBody = () => {
     const t = statCur.title;
     const m = statIndex().get(statNorm(t));
     const all = m ? [...m.entries()].sort((a, b) => String(b[0]).localeCompare(String(a[0]))) : []; // 新しい順
@@ -3639,12 +3677,12 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
     renderStat();
   });
   // 披露実績・アルバムのポップアップ(PC): ドラッグで変えた横幅を、開き直しても使う(同じ幅を3つで共有)
-  let popupWidth = '';
+
   [['statModalOverlay'], ['albumModalOverlay'], ['setlistModalOverlay']].forEach(([id]) => {
     const ov = $(id), box = ov && ov.querySelector('.setlist-modal');
     if (!box) return;
-    new MutationObserver(() => { if (ov.classList.contains('is-open') && popupWidth) box.style.width = popupWidth; }).observe(ov, { attributes: true, attributeFilter: ['class'] });
-    const save = () => { if (ov.classList.contains('is-open') && box.style.width) popupWidth = box.style.width; };
+    new MutationObserver(() => { if (ov.classList.contains('is-open')) fitPopupOnOpen(ov); }).observe(ov, { attributes: true, attributeFilter: ['class'] });
+    const save = () => { if (ov.classList.contains('is-open') && box.style.width && box.style.width !== box._fit) popupWidth = box.style.width; }; // 自動で合わせた幅(box._fit)は、手動で広げた幅として保存しない
     box.addEventListener('mouseup', save); box.addEventListener('pointerup', save);
     // 角をドラッグして、ポップアップの外でマウスを離したとき、背景のクリックとみなして閉じてしまわないようにする
     let fromBox = false;
@@ -4567,16 +4605,15 @@ html.stat-on .alb-stat { display: inline-block; } /* 披露実績(📊)は、ヘ
     $('items').classList.toggle('link-mode', linkMode);
     slideAlbIcons(linkMode);
   };
-  // 🔗の幅の分だけ🎶の位置がずれるので、元の位置から新しい位置へ🔗と同じ動きでスライドさせる(ONのとき: 右から左へ、OFFのとき: 左から右へ)
+  // 🔗の幅の分だけ🎶の位置がずれるので、元の位置から新しい位置へ🔗と同じ動きでスライドさせる。
+  // ON: 🔗の幅がすぐ広がり🎶が左へずれる → 右にずれた位置から元へ。OFF: 🔗が出ていく動き(0.28s)のあとに幅が0になり🎶が右へずれる → 同じ0.28sで、右へ動いたところで幅の変化と重なって終わる(終わりの位置はずれ幅と一致するので飛ばない)
   function slideAlbIcons(on) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const icons = [...document.querySelectorAll('#items .alb-icon:not(.is-off)')];
-    if (!icons.length) return;
-    const d = icons[0] ? parseFloat(getComputedStyle(icons[0]).fontSize) * 1.6 + 4 : 0; // 🔗の幅(1.6em)+左の余白4px
-    icons.forEach(a => { a.style.transition = 'none'; a.style.transform = `translateX(${on ? d : -d}px)`; });
-    void document.body.offsetHeight; // 開始位置を確定させてから動かす
-    icons.forEach(a => { a.style.transition = 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)'; a.style.transform = ''; });
-    setTimeout(() => icons.forEach(a => { a.style.transition = ''; }), 320);
+    if (!icons.length || !icons[0].animate) return;
+    const d = parseFloat(getComputedStyle(icons[0]).fontSize) * 1.6 + 4; // 🔗の幅(1.6em)+左の余白4px
+    const opt = { duration: 280, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' };
+    icons.forEach(a => a.animate(on ? [{ transform: `translateX(${d}px)` }, { transform: 'translateX(0)' }] : [{ transform: 'translateX(0)' }, { transform: `translateX(${d}px)` }], opt));
   }
   // 📊ボタン(披露実績(📊)の表示モード):今はON/OFFの切り替えだけ(中身は未実装)。ONの間は#itemsに stat-mode クラスが付く
   // ヘッダーの丸いボタン(🕐📍📋💞🏷️🔗)と♪がすべてONのときだけ、📊をダブルタップでON/OFFできる(暫定。普段は非活性の見た目)。保存はしない

@@ -316,7 +316,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 
 <section id="glih-p-albums" hidden>
   <button type="button" class="go" id="glih-alnew">new</button>
-  <div class="field"><label for="glih-alq">find</label><input type="text" id="glih-alq" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="existing release / logid"></div>
   <div class="field"><label for="glih-alt">title</label><input type="text" id="glih-alt" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label>type</label><div class="chipr" id="glih-aly"></div></div>
   <div class="field"><label for="glih-ald">date</label><input type="text" id="glih-ald" class="fin" autocomplete="off"></div>
@@ -1681,6 +1680,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (c === 'EP' || has(/ EP /)) out.push('ep');
     if (has(/ (SINGLE|SG) /)) out.push('single');
     if (c === 'MUSICCARD' || has(/ (MUSICCARD|MUSIC CARD) /)) out.push('musiccard');
+    if (!out.length) { var cm = { DIGITAL: 'digital', DVD: 'dvd', BD: 'bluray' }[c]; if (cm) out.push(cm); } // no ALBUM / EP / SINGLE word: DIGITAL / DVD / BD rows start with that type
     return out;
   }
   function alNameOf(title) { var m = String(title || '').normalize('NFKC').match(/[\u300C\u300E]([^\u300D\u300F]+)[\u300D\u300F]/); return m ? m[1].trim() : ''; }
@@ -2123,7 +2123,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     fetchData('songs').then(function () { upd(); }).catch(function () {});
   }
   // ---- albums tab: release (album / ep / single) tracklist + editions -> one Issue (add_albums.yml). Key = title + type. ----
-  var alReady = false, AL_TYPES = ['album', 'ep', 'single', 'musiccard'];
+  var alReady = false, AL_TYPES = ['album', 'ep', 'single', 'musiccard', 'digital', 'dvd', 'bluray'];
   function loadAlbums() { return fetchData('albums').catch(function () { if (!cache.albums) cache.albums = []; return cache.albums; }); }
   function alTitleOpts() {
     var m = {}, out = [];
@@ -2206,7 +2206,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function memberOfGroups(groups) { // the member codes in the groups of a logs row (G2 / L2 themselves are not members)
     return String(groups || '').split(/[,\n]/).map(function (x) { return x.trim().toUpperCase(); }).filter(function (x) { return x && x !== 'G2' && x !== 'L2'; }).join(',');
   }
-  var AL_FMT = ['CD', 'DVD', 'BD'];
+  var AL_FMT = ['CD', 'DVD', 'BD', 'MUSICCARD'];
   // extra discs: one box per disc (the disc name + a numbered tracklist). The saved number of a track = the disc name + its order (DVD1, DVD2 ...)
   function alExtra(cfg) {
     var wrap = document.createElement('div'); wrap.style.flex = '1'; wrap.style.minWidth = '0';
@@ -2250,14 +2250,16 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function albumsInit() {
     loadAlbums().then(function () { if (alReady) upd(); }).catch(function () {});
     if (alReady) return; alReady = true;
-    var sec = $('p-albums'), q = $('alq'), ti = $('alt'), dt = $('ald'), tyBox = $('aly'), edBox = $('aled'), stl = $('alst');
+    var sec = $('p-albums'), ti = $('alt'), dt = $('ald'), tyBox = $('aly'), edBox = $('aled'), stl = $('alst');
     var type = '', loadedKey = '', eds = [], albumId = newAlbumId(), links = [], logsReady = false;
     dtText(dt, 'date'); dtPicker(dt, 'date');
-    // id (read only) and the logs rows linked to this release (one row each; the first column of a logs row = its albumid)
-    var idIn = alInput(''); idIn.readOnly = true; var idFld = alFld('id', idIn); dt.closest('.field').parentNode.insertBefore(idFld, dt.closest('.field').nextSibling);
+    // id (top of the tab): shows the id of the release in the form. Typing a keyword lists the releases (like the id box of the logs tab); a release id or a logid loads that release / starts from that logs row.
+    var idIn = alInput('id / title / logid'); idIn.id = 'glih-alid'; idIn.setAttribute('autocapitalize', 'off'); var idFld = alFld('id', idIn); $('alnew').parentNode.insertBefore(idFld, $('alnew').nextSibling); addClear(idIn);
+    var idCand = document.createElement('div'); idCand.className = 'fcand'; idCand.hidden = true; idFld.parentNode.insertBefore(idCand, idFld.nextSibling);
+    // the logs rows linked to this release (one row each; the first column of a logs row = its albumid)
     var lgBox = document.createElement('div'), lgAdd = alInput('add logs row: logid or title');
     var lgCol = document.createElement('div'); lgCol.style.flex = '1'; lgCol.style.minWidth = '0'; lgCol.appendChild(lgBox); lgCol.appendChild(lgAdd);
-    var lgFld = alFld('logs', lgCol, true); idFld.parentNode.insertBefore(lgFld, idFld.nextSibling);
+    var lgFld = alFld('logs', lgCol, true); dt.closest('.field').parentNode.insertBefore(lgFld, dt.closest('.field').nextSibling);
     var lgOptsMemo = null, lgOptsSrc = null;
     function lgOpts() {
       var src = rowsOf('logs'); if (lgOptsSrc === src && lgOptsMemo) return lgOptsMemo;
@@ -2266,7 +2268,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     addSuggest(lgAdd, lgOpts, lgAdd.closest('.field'), true);
     function logRow(id) { var r = null; rowsOf('logs').forEach(function (x) { if (!r && x && x.logid === id) r = x; }); return r; }
     function drawLinks() {
-      idIn.value = albumId; lgBox.innerHTML = '';
+      idIn.value = albumId; idIn.dispatchEvent(new Event('input', { bubbles: true })); lgBox.innerHTML = '';
       links.forEach(function (id, i) {
         var r = logRow(id), d = document.createElement('div'); d.className = 'plrow';
         var c = document.createElement('span'); c.className = 'rid'; c.textContent = id; c.style.fontFamily = 'monospace'; d.appendChild(c);
@@ -2280,7 +2282,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     lgAdd.addEventListener('input', function () { var m = lgAdd.value.trim().match(/^([0-9a-fA-F]{12})(\s|$)/); if (m) { addLink(m[1]); lgAdd.value = ''; drawLinks(); upd(); } });
     function linksOf(a) { return a && a.id ? rowsOf('logs').filter(function (r) { return r && r.albumid === a.id; }).map(function (r) { return r.logid; }) : []; }
     fetchIndex('logs').then(function () { logsReady = true; drawLinks(); upd(); }).catch(function () {});
-    addSuggest(q, function () { return (cache.albums || []).map(function (a) { var v = a.title + ' (' + a.type + ')'; return { v: v, k: normQ(v) }; }); }, q.closest('.field'), true);
     addSuggest(ti, function () { var m = {}; (cache.albums || []).forEach(function (a) { m[a.title] = 1; }); return Object.keys(m).map(function (v) { return { v: v, k: normQ(v) }; }); }, ti.closest('.field'), false);
     var ar = alInput('artist'), arChips = document.createElement('div'); arChips.className = 'chipr'; arChips.style.marginTop = '4px';
     var arCol = document.createElement('div'); arCol.style.flex = '1'; arCol.style.minWidth = '0'; ar.style.width = '100%'; arCol.appendChild(ar); arCol.appendChild(arChips);
@@ -2288,9 +2289,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     [ART_G2, ART_L2].forEach(function (v) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v; b.setAttribute('data-v', v);
       b.onclick = function () {
-        var t = artistTokens(ar.value), i = t.indexOf(v); if (i >= 0) t.splice(i, 1); else t.push(v);
-        t.sort(function (a, c) { return (a === ART_G2 ? 0 : a === ART_L2 ? 1 : 2) - (c === ART_G2 ? 0 : c === ART_L2 ? 1 : 2); });
-        ar.value = t.join(AJOIN); ar.dispatchEvent(new Event('input', { bubbles: true }));
+        var t = artistTokens(ar.value); // the chips choose one of the two (pressing the chosen one again clears it). Both names can still be typed by hand.
+        ar.value = t.length === 1 && t[0] === v ? '' : v; ar.dispatchEvent(new Event('input', { bubbles: true }));
       };
       arChips.appendChild(b);
     });
@@ -2360,7 +2360,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }
     function drawEds() { edBox.innerHTML = ''; eds.forEach(function (e) { edBox.appendChild(e.el); }); }
     $('aladd').onclick = function () { eds.push(edBlock(null)); drawEds(); upd(); };
-    function clearAll() { alFrom = null; albumId = newAlbumId(); links = []; q.value = ''; ar.value = ''; syncAr(); me.value = ''; autoMem = ''; ti.value = ''; dt.value = ''; type = ''; loadedKey = ''; main.set([]); eds = []; drawEds(); drawLinks(); syncType(); upd(); }
+    function clearAll() { alFrom = null; albumId = newAlbumId(); links = []; ar.value = ''; syncAr(); me.value = ''; autoMem = ''; ti.value = ''; dt.value = ''; type = ''; loadedKey = ''; main.set([]); eds = []; drawEds(); drawLinks(); syncType(); upd(); }
     function load(a) { albumId = a.id || newAlbumId(); links = linksOf(a); drawLinks(); ar.value = a.artist || ''; syncAr(); me.value = (a.member || []).join(','); autoMem = me.value; me.dispatchEvent(new Event('input', { bubbles: true })); ti.value = a.title || ''; type = a.type || ''; dt.value = fmtDigits(a.date || '', 'date'); main.set(a.tracks || []); eds = (a.editions || []).map(function (d) { return edBlock(d); }); drawEds(); syncType(); loadedKey = (a.title || '') + '|' + (a.type || ''); upd(); }
     $('alnew').onclick = clearAll;
     function fromLog(id) { // a logid typed in the find box: the release the row is linked to, or a new release started from that row
@@ -2369,12 +2369,28 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (a) { alApi.load(a, id); return true; }
       var tys = alTypesOf(r), nm = alNameOf(r.title); alApi.fresh(nm || String(r.title || '').trim(), tys[0] || '', DG(r.date || ''), id, (r.groups || []).join(',')); alFrom = { groups: (r.groups || []).join(',') }; return true;
     }
-    q.addEventListener('input', function () {
-      var a = findRec(q.value); if (a) { alFrom = null; load(a); q.value = ''; return; }
-      var m = q.value.trim().match(/^([0-9a-fA-F]{12})$/); if (m && fromLog(m[1].toLowerCase())) q.value = '';
+    function hideIdC() { idCand.hidden = true; idCand.innerHTML = ''; }
+    idIn.addEventListener('input', function () {
+      var v = idIn.value.trim(); if (!v || v === albumId) { hideIdC(); return; }
+      if (/^[0-9a-fA-F]{12}$/.test(v)) {
+        var id = v.toLowerCase(), a0 = null; (cache.albums || []).forEach(function (x) { if (!a0 && x && x.id === id) a0 = x; });
+        if (a0) { hideIdC(); alApi.load(a0); return; }
+        if (fromLog(id)) { hideIdC(); return; }
+      }
+      var qq = normQ(v); if (qq.length < 2) { hideIdC(); return; }
+      var rows = (cache.albums || []).filter(function (x) { return x && normQ(x.title + ' ' + x.type + ' ' + (x.id || '')).indexOf(qq) >= 0; }).slice(0, 30);
+      idCand.innerHTML = '';
+      rows.forEach(function (x) { // line 1: date + type, line 2: title (the id is not shown, as in the logs tab)
+        var b = document.createElement('button'); b.type = 'button'; b.appendChild(document.createTextNode(fmtD(x.date || '', '') + '  ' + x.type));
+        var m2 = document.createElement('span'); m2.className = 'm l2'; m2.textContent = String(x.title || '').slice(0, 60); b.appendChild(m2);
+        b.onmousedown = function (e) { e.preventDefault(); }; b.onclick = function () { hideIdC(); alApi.load(x); };
+        idCand.appendChild(b);
+      });
+      idCand.hidden = !rows.length;
     });
+    idIn.addEventListener('blur', function () { setTimeout(function () { if (idIn.value.trim() !== albumId) { idIn.value = albumId; idIn.dispatchEvent(new Event('input', { bubbles: true })); } hideIdC(); }, 150); });
     alApi = {
-      load: function (a, logid) { alFrom = null; q.value = ''; load(a); if (logid) { addLink(logid); drawLinks(); upd(); } },
+      load: function (a, logid) { alFrom = null; load(a); if (logid) { addLink(logid); drawLinks(); upd(); } },
       fresh: function (t, ty, d, logid, groups) { clearAll(); ar.value = artistOfGroups(groups); syncAr(); setMember(memberOfGroups(groups)); ti.value = t || ''; type = ty || ''; dt.value = d ? fmtDigits(d, 'date') : ''; if (logid) addLink(logid); syncType(); drawLinks(); upd(); }
     };
     function body() {

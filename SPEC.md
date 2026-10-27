@@ -1023,3 +1023,10 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - extra(追加ディスク): helper ではディスクごとの枠(ディスク名 + 曲目)。保存する番号は「ディスク名 + 順番」(DVD1, DVD2 ...)で、データの形は従来のまま
 - viewer: 盤のチップの先頭の「ALL」を廃止。盤があるときは先頭の盤が初期表示。盤が無いときは共通の曲目を表示(データの構造は変更なし)
 - helper の logs: sns の自由入力欄と表示チップは初期表示で折りたたみ(「sns links (件数)」ボタンで開閉)。自由入力欄の初期の高さは従来の半分
+
+### albums タブ(helper)追記
+
+- type は album / ep / single / musiccard / digital / dvd / bluray の7種(issue_to_json.py・merge_json.py も対応)。
+- 先頭の `id` 欄に文字入力すると albums 候補が出る(logs の id 候補と同じ表示: 日付+type / title)。12桁hexは album id、それ以外は title・logid として検索。
+- `find` 欄は廃止。artist チップは Girls² / Laki のどちらか一方のみ選択(再クリックで解除)。
+- editions の format チップに MUSICCARD を追加(CD / DVD / BD / MUSICCARD)。
