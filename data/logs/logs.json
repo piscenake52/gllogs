@@ -3988,6 +3988,32 @@
     ]
   },
   {
+    "logid": "d98308146dc7",
+    "date": "20261027",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "YUW",
+      "AKR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2114869688744497619",
+            "member": [],
+            "tags": [
+              "出演情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "7fd0bbfcec2d",
     "date": "20261026",
     "time": "2359",
