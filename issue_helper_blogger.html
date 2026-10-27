@@ -403,11 +403,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     mk('link', 'w', 'link broken', 'checked a little every day by the link check workflow (not every url at once)');
     mk('gap', 'w', '# numbers: gaps / duplicates', 'series with #n in the title: a missing or repeated number');
     mk('noend', 'w', 'start without end / deadline', 'past rows only; e.g. a start of sales with no end of sales');
+    mk('noann', 'w', 'LIVE / EVENT / RELEASE without ANNIVERSARY', 'LIVE, EVENT (incl. RELEASEEVENT, FANMEETING), RELEASE (incl. CD, DVD, BD, DIGITAL, MUSICCARD, EP) with no linked ANNIVERSARY row');
     mk('tag1', 'i', 'tags used only once', 'where a typo or variant hides');
     mk('nostart', 'i', 'end / deadline without start', 'the start row may be missing');
     mk('nourl', 'i', 'rows without url', 'rows with a title only');
-    var seenId = {}, byKey = {}, tagCount = {}, tagRow = {}, ids = {};
-    rows.forEach(function (r) { if (r && r.logid) ids[r.logid] = 1; });
+    var seenId = {}, byKey = {}, tagCount = {}, tagRow = {}, ids = {}, annRef = {}, ANN_C = ['LIVE', 'EVENT', 'RELEASEEVENT', 'FANMEETING', 'RELEASE', 'CD', 'DVD', 'BD', 'DIGITAL', 'MUSICCARD', 'EP'];
+    rows.forEach(function (r) { if (r && r.logid) ids[r.logid] = 1; if (r && r.ref && String(r.contents || '').toUpperCase() === 'ANNIVERSARY') annRef[r.ref] = 1; });
     rows.forEach(function (r) {
       if (!r) return;
       var add = function (id, extra) { C[id].items.push({ k: r.logid || '', rows: [r], extra: extra || '' }); };
@@ -417,6 +418,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (r.ref) { if (!ids[r.ref]) add('ref', String(r.ref)); return; }
       var g = r.groups || [], bad = g.filter(function (x) { return CK_VALID.indexOf(x) < 0; });
       if (!g.length) add('groups', 'empty'); else if (bad.length) add('groups', bad.join(','));
+      if (ANN_C.indexOf(String(r.contents || '').toUpperCase()) >= 0 && r.logid && !annRef[r.logid]) add('noann', String(r.contents));
       if (r.title) {
         var key = [r.date, r.time, r.title, r.contents].join('|');
         (byKey[key] = byKey[key] || []).push(r);
@@ -510,7 +512,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
     out.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
   }
-  var CK_IG = { dup: 1, gap: 1, noend: 1, nostart: 1, link: 1 }; // the checks whose items can be ignored (kept in this browser)
+  var CK_IG = { noann: 1, dup: 1, gap: 1, noend: 1, nostart: 1, link: 1 }; // the checks whose items can be ignored (kept in this browser)
   function ckCnt(c) { if (!CK_IG[c.id]) return c.items.length; var ig = ckIgn(); return c.items.filter(function (it) { return ig.indexOf(it.k) < 0; }).length; }
   function ckList() {
     var R = ckRes, sum = { e: 0, w: 0, i: 0, o: 0 }, host = $('cklist'), secs = { e: 'errors', w: 'to check', i: 'info', o: 'ok' }, by = { e: [], w: [], i: [], o: [] };
@@ -2206,7 +2208,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function memberOfGroups(groups) { // the member codes in the groups of a logs row (G2 / L2 themselves are not members)
     return String(groups || '').split(/[,\n]/).map(function (x) { return x.trim().toUpperCase(); }).filter(function (x) { return x && x !== 'G2' && x !== 'L2'; }).join(',');
   }
-  var AL_FMT = ['CD', 'DVD', 'BD', 'MUSICCARD'];
+  var AL_FMT = ['CD', 'DVD', 'BD', 'DIGITAL', 'MUSIC CARD'];
   // extra discs: one box per disc (the disc name + a numbered tracklist). The saved number of a track = the disc name + its order (DVD1, DVD2 ...)
   function alExtra(cfg) {
     var wrap = document.createElement('div'); wrap.style.flex = '1'; wrap.style.minWidth = '0';
@@ -2313,7 +2315,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     addSuggest(cp, function () { return (cache.albums || []).map(function (a) { var v = a.title + ' (' + a.type + ')'; return { v: v, k: normQ(v) }; }); }, $('alcp').closest('.field'), true);
     cp.addEventListener('input', function () { var a = findRec(cp.value); if (a) { main.set(a.tracks || []); cp.value = ''; upd(); } });
     function findRec(label) { var r = null; (cache.albums || []).forEach(function (a) { if (!r && a.title + ' (' + a.type + ')' === label.trim()) r = a; }); return r; }
-    AL_TYPES.forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t === 'musiccard' ? 'music card' : t; b.setAttribute('data-v', t); b.onclick = function () { type = type === t ? '' : t; syncType(); upd(); }; tyBox.appendChild(b); });
+    AL_TYPES.forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t === 'musiccard' ? 'mu-ca' : t; b.setAttribute('data-v', t); b.onclick = function () { type = type === t ? '' : t; syncType(); upd(); }; tyBox.appendChild(b); });
     function syncType() { [].forEach.call(tyBox.children, function (b) { b.classList.toggle('on', b.getAttribute('data-v') === type); }); }
     function edBlock(d) {
       var box = document.createElement('div'); box.className = 'plbox aled'; var ob = { el: box };

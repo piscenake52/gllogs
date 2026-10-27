@@ -1030,3 +1030,8 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 先頭の `id` 欄に文字入力すると albums 候補が出る(logs の id 候補と同じ表示: 日付+type / title)。12桁hexは album id、それ以外は title・logid として検索。
 - `find` 欄は廃止。artist チップは Girls² / Laki のどちらか一方のみ選択(再クリックで解除)。
 - editions の format チップに MUSICCARD を追加(CD / DVD / BD / MUSICCARD)。
+- type チップの `musiccard` は表示を `mu-ca` に(値は musiccard のまま)。format チップは CD / DVD / BD / DIGITAL / MUSIC CARD(自由入力なので値は `MUSIC CARD`)。
+
+### check タブ追記
+
+- 「LIVE / EVENT / RELEASE without ANNIVERSARY」(to check): ref が自分の logid の ANNIVERSARY 行が無い、contents が LIVE・EVENT(RELEASEEVENT / FANMEETING 含む)・RELEASE(CD / DVD / BD / DIGITAL / MUSICCARD / EP 含む)の行を一覧。ignore 可(ブラウザ内保存)。
