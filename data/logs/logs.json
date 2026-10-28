@@ -3743,6 +3743,7 @@
       "MNM",
       "KIR"
     ],
+    "albumid": "12d27a292a64",
     "tags": [
       "Umbrella"
     ],
@@ -3771,6 +3772,13 @@
             "tags": [
               "リリース情報"
             ]
+          },
+          {
+            "url": "https://x.com/avex_portal/status/2115253394596335813?a=mCEYnyXsjhcz-wAvOIk&s=19",
+            "member": [],
+            "tags": [
+              "avex portal"
+            ]
           }
         ]
       },
@@ -3786,8 +3794,7 @@
           }
         ]
       }
-    ],
-    "albumid": "12d27a292a64"
+    ]
   },
   {
     "logid": "45e7b919a1a5",
