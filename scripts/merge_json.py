@@ -63,7 +63,7 @@ TARGETS = [
         "processed_dir": "data/songs/processed/",
         "main_file": "data/songs/songs.json",
         "key_fields": ["artist", "title"],
-        "order": ["artist", "title", "link"],
+        "order": ["artist", "title", "link", "lyrics"],
         "clear_to_empty_list": [],
         "sort_key": None,  # 追加順のまま
         "sort_reverse": False,

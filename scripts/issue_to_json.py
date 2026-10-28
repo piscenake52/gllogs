@@ -47,6 +47,7 @@ LABELS_SS = {
     "artist_free": "artist / 自由入力",
     "title": "title",
     "link": "link",
+    "lyrics": "lyrics",
     "member_g2": "member / Girls²",
     "member_l2": "member / Laki",
     "member_free": "member / 自由入力",
@@ -81,7 +82,7 @@ CLEARABLE = {
     "logs": ["time", "contents", "title", "display_pc", "display_sp", "url", "map",
              "groups", "relations", "setlistid", "tags", "sns"],
     "setlist": ["artist", "title", "member", "venue", "source", "songs"],
-    "songs": ["link"],
+    "songs": ["link", "lyrics"],
 }
 
 # 削除チェックボックスの選択肢名（add_logs.yml / add_setlist_songs.yml と揃える）
@@ -707,6 +708,7 @@ def build_songs(f):
         "artist": f["artist"],
         "title": f["title"],
         "link": f["link"],
+        "lyrics": f.get("lyrics", ""),
     }
 
 
@@ -1052,6 +1054,12 @@ def main():
     else:
         data = build_songs(f)
         must = bool(f["artist"] and f["title"])
+        ly = str(data.get("lyrics") or "").strip()
+        if ly and ly != CLEAR and not is_delete_requested(f) and not re.match(r"https://www\.uta-net\.com/", ly):
+            errors = ["- **lyrics**: 歌詞リンクは https://www.uta-net.com/ から始まるURLを入力してください"]
+            write_error(errors)
+            print("入力エラーのため処理を中止しました:\n" + "\n".join(errors))
+            return
 
     if not must:
         print(f"[{target_type}] 必須項目が見つかりませんでした。処理をスキップします。")
