@@ -2209,7 +2209,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function memberOfGroups(groups) { // the member codes in the groups of a logs row (G2 / L2 themselves are not members)
     return String(groups || '').split(/[,\n]/).map(function (x) { return x.trim().toUpperCase(); }).filter(function (x) { return x && x !== 'G2' && x !== 'L2'; }).join(',');
   }
-  var AL_FMT = ['CD', 'DVD', 'BD', 'DIGITAL', 'MUSIC CARD'];
+  var AL_FMT = ['CD', 'DVD', 'BD', 'DIGITAL', 'mu-ca'];
   // extra discs: one box per disc (the disc name + a numbered tracklist). The saved number of a track = the disc name + its order (DVD1, DVD2 ...)
   function alExtra(cfg) {
     var wrap = document.createElement('div'); wrap.style.flex = '1'; wrap.style.minWidth = '0';
@@ -2320,7 +2320,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var tyIn = $('alty');
     function syncType(fromInput) { [].forEach.call(tyBox.children, function (b) { b.classList.toggle('on', b.getAttribute('data-v') === type); }); if (fromInput !== true && tyIn.value !== type) tyIn.value = type; }
     tyIn.addEventListener('input', function () { type = tyIn.value.trim().toLowerCase(); syncType(true); upd(); });
-    addSuggest(tyIn, function () { var seen = {}, out = []; AL_TYPES.concat((cache.albums || []).map(function (a) { return a && a.type; })).forEach(function (t) { if (t && !seen[t]) { seen[t] = 1; out.push({ v: t, k: normQ(t) }); } }); return out; }, tyIn.closest('.field'), true);
     function edBlock(d) {
       var box = document.createElement('div'); box.className = 'plbox aled'; var ob = { el: box };
       var nm = alInput('edition name'), fm = alInput('CD / CD+DVD ...'), pr = alInput('price'), nt = alInput('note'); pr.setAttribute('inputmode', 'numeric');
