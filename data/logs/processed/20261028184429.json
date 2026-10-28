@@ -1,0 +1,32 @@
+{
+  "date": "20261028",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "KAN",
+    "AKR",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DfB9DzZp3El/?rpxt=MTNpbm8yeGxxamVxag==",
+          "member": [
+            "KAN",
+            "AKR",
+            "KIK"
+          ],
+          "tags": [
+            "Heads or Tails",
+            "EXILE",
+            "LakiダンスWEEK"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2303"
+}
