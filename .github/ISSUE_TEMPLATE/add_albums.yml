@@ -1,5 +1,5 @@
 name: "albums"
-description: "album / ep / single / musiccard / digital / dvd / bd (tracklist and editions): insert / update / delete"
+description: "free text, e.g. album / ep / single / musiccard / digital / dvd / bd (tracklist and editions): insert / update / delete"
 title: "[DATA] albums"
 body:
   - type: markdown
@@ -16,7 +16,7 @@ body:
     id: album_type
     attributes:
       label: "album type"
-      description: "album / ep / single / musiccard / digital / dvd / bd"
+      description: "free text, e.g. album / ep / single / musiccard / digital / dvd / bd"
 
   - type: input
     id: album_id
