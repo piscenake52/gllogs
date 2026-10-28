@@ -864,7 +864,7 @@ html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; poin
 .setlist-song-stat.is-blank { visibility: hidden; pointer-events: none; }
 #statToggleBtn.is-disabled:not(.is-active) { opacity: .35; cursor: default; }
 #statToggleBtn { touch-action: manipulation; }
-.alb-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; } /* 🎶は常に表示。🔗の出入りで横にずれるときは、JS(slideAlbIcons)でなめらかに動かす */
+.alb-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; } /* 💽は常に表示。🔗の出入りで横にずれるときは、JS(slideAlbIcons)でなめらかに動かす */
 .alb-icon.is-off { display: none; }
 .album-modal-overlay { z-index: 1050; }
 .alb-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
@@ -883,9 +883,8 @@ html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; poin
 .alb-list li.is-extra .setlist-song-order { color: #0ea5e9; }
 .alb-no { flex: 0 0 2.6em; color: var(--sub); font-size: 11px; text-align: right; }
 .alb-ttl { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
-.alb-stat { display: inline-block; flex: 0 0 auto; width: 0; margin: 0 0 0 -8px; overflow: hidden; text-align: center; opacity: 0; pointer-events: none; font-size: 12px; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; }
-html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-events: auto; cursor: pointer; } /* 披露実績(📊)は、ヘッダーの📊がONのときだけ。出入りは幅をなめらかに変える */
-@media (prefers-reduced-motion: reduce) { .song-stat-btn, .setlist-song-stat, .alb-stat { transition: none; } }
+.alb-stat { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0; overflow: hidden; text-align: center; font-size: 12px; cursor: pointer; } /* 披露実績(📊)は、ヘッダーの📊がOFFでも常に表示する */
+@media (prefers-reduced-motion: reduce) { .song-stat-btn, .setlist-song-stat { transition: none; } }
 .alb-stat.is-blank { visibility: hidden; }
 .stat-modal-overlay { z-index: 1100; }
 /* PC(マウス)だけ: 披露実績・アルバム・セトリのポップアップは、右下の角をドラッグして横幅を広げられる(いまの420pxが最小。幅は開き直しても保つ) */
@@ -2615,7 +2614,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
   let instantRender = false; // trueの間に作る行は、フェードインなしで出す(ICON切替のちらつき防止)
   // データ部のチップに出さないタグ(小文字で書く。増やすときはここに足す)。タグ検索・サジェストなど他の場所には影響しない
   const HIDDEN_CHIP_TAGS = new Set(['tiktok\u66f4\u65b0']);
-  const ALBUM_ICON_CONTENTS = new Set(['CD', 'DVD', 'BD', 'MUSICCARD', 'RELEASE', 'EP', 'DIGITAL']); // 🎶を出すcontents(albumidを持つ行は、contentsにかかわらず出す)
+  const ALBUM_ICON_CONTENTS = new Set(['CD', 'DVD', 'BD', 'MUSICCARD', 'RELEASE', 'EP', 'DIGITAL']); // 💽を出すcontents(albumidを持つ行は、contentsにかかわらず出す)
   const createItemNode = item => {
     const w = document.createElement('div');
     w.className = 'item' + (instantRender ? ' no-anim' : '');
@@ -2904,13 +2903,13 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
             }
           }
     }
-    // 🎶:CD・DVD・BD・MUSICCARD・RELEASE・EPの行で、「」内の名前(と、データ文・タグの ALBUM/AL・EP・SINGLE/SG)がalbums.jsonに一致するときだけ、🔗の左に出す
+    // 💽:CD・DVD・BD・MUSICCARD・RELEASE・EPの行で、「」内の名前(と、データ文・タグの ALBUM/AL・EP・SINGLE/SG)がalbums.jsonに一致するときだけ、🔗の左に出す
     let alb = null;
     if (item.albumid || ALBUM_ICON_CONTENTS.has(String(item.contents || '').trim().toUpperCase()) || ALBUM_ICON_CONTENTS.has(String(item._refContents || '').trim().toUpperCase())) {
       alb = document.createElement('span');
       alb.className = 'alb-icon is-off';
       alb.tabIndex = -1;
-      alb.textContent = '\uD83C\uDFB6';
+      alb.textContent = '\uD83D\uDCBD';
       alb.setAttribute('role', 'button');
       alb.setAttribute('aria-label', 'Tracklist');
       alb._item = item; alb._text = t.textContent || '';
@@ -3548,7 +3547,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     return map;
   }
   function statHasTitle(title) { const m = statIndex().get(statNorm(title)); return !!(m && m.size); }
-  // ---- 🎶 収録曲(albums.json):album / ep / single の収録曲と各種盤 ----
+  // ---- 💽 収録曲(albums.json):album / ep / single の収録曲と各種盤 ----
   const ALB_TYPE_WORDS = { ALBUM: 'album', AL: 'album', EP: 'ep', SINGLE: 'single', SG: 'single', MUSICCARD: 'musiccard', 'MUSIC CARD': 'musiccard' };
   const ALB_TYPE_LABELS = { musiccard: 'MUSIC CARD', 'blu-ray': 'BLU-RAY', bd: 'BD' };
   const albTypeLabel = t => ALB_TYPE_LABELS[t] || String(t || '').toUpperCase();
@@ -4611,8 +4610,8 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     $('items').classList.toggle('link-mode', linkMode);
     slideAlbIcons(linkMode);
   };
-  // 🔗の幅の分だけ🎶の位置がずれるので、元の位置から新しい位置へ🔗と同じ動きでスライドさせる。
-  // ON: 🔗の幅がすぐ広がり🎶が左へずれる → 右にずれた位置から元へ。OFF: 🔗が出ていく動き(0.28s)のあとに幅が0になり🎶が右へずれる → 同じ0.28sで、右へ動いたところで幅の変化と重なって終わる(終わりの位置はずれ幅と一致するので飛ばない)
+  // 🔗の幅の分だけ💽の位置がずれるので、元の位置から新しい位置へ🔗と同じ動きでスライドさせる。
+  // ON: 🔗の幅がすぐ広がり💽が左へずれる → 右にずれた位置から元へ。OFF: 🔗が出ていく動き(0.28s)のあとに幅が0になり💽が右へずれる → 同じ0.28sで、右へ動いたところで幅の変化と重なって終わる(終わりの位置はずれ幅と一致するので飛ばない)
   function slideAlbIcons(on) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const icons = [...document.querySelectorAll('#items .alb-icon:not(.is-off)')];
@@ -5952,7 +5951,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
       ['url', 'groups', 'relations', 'tags', 'sns', 'albumid'].forEach(k => {
         if (!has(r[k]) && has(src[k])) r[k] = src[k];
       });
-      r._refContents = src.contents; // 参照元(リリースなど)のcontents。記念日の行にも🎶を出すために使う
+      r._refContents = src.contents; // 参照元(リリースなど)のcontents。記念日の行にも💽を出すために使う
       out.push(r);
     });
     return out;
@@ -6405,7 +6404,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     .then(latestSha => {
       if (force || (latestSha && latestSha !== localStorage.getItem(ALBUM_VERSION_KEY)) || !albumsData.length) return fetchFreshAlbums(latestSha);
     })
-    .catch(() => { if (force || !albumsData.length) fetchFreshAlbums(null).catch(() => { /* albums.jsonがまだ無いときは何もしない(🎶は出ない) */ }); });
+    .catch(() => { if (force || !albumsData.length) fetchFreshAlbums(null).catch(() => { /* albums.jsonがまだ無いときは何もしない(💽は出ない) */ }); });
   forceReloadAlbums = () => checkForAlbumUpdates(true);
   {
     const last = parseInt(localStorage.getItem(ALBUM_CHECK_TIME_KEY) || '0', 10);

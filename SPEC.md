@@ -981,12 +981,12 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 時間の入力欄(上部のtime、一括の各行のtimeなど)で、3桁(600・930)は先頭に0を足して4桁(0600・0930)にする。1〜2桁は補完しない(時と分の区別がつかないため)。
 - 補完のタイミング: 入力欄から離れたとき(blur)と、ボタンを押す直前・Enterを押したとき。補完後が0000〜2359に収まらない値(960→0960)は、これまでどおりエラー。
 
-## albums(収録曲・各種盤) 🎶
+## albums(収録曲・各種盤) 💽
 - データ: `data/albums/albums.json`(配列)。1件=1リリース。キーは `title` + `type`(`album` / `ep` / `single` / `musiccard`。表示は MUSIC CARD)。
   `{ "title", "type", "date": "YYYYMMDD", "tracks": [{"no": 1, "title": "曲名"}], "editions": [{ "name", "format", "price", "note", "extra": [{"no": "DVD1", "title": "曲名"}], "tracks": [...] }] }`
   - `tracks` は共通の収録曲。盤の `extra` はその盤だけの追加曲(`no` は自由なラベル)。盤に `tracks` があるときは、共通の収録曲の代わりにそれを使う。
 - 登録: helper の albums タブ → `add_albums.yml`([DATA] albums) → `issue_to_json.py`(`build_albums`) → `merge_json.py`(target `albums`)。削除は同じフォームで「削除する」にチェック(titleとtypeだけ入力)。空にした date / tracks / editions は `!clear` で消える。
-- データ部の🎶: contents が CD・DVD・BD・MUSICCARD・RELEASE・EP(EPはRELEASEのグループに加えた)の行で、🔗の左に出す。常に表示(ダブルタップの条件なし)。
+- データ部の💽: contents が CD・DVD・BD・MUSICCARD・RELEASE・EP(EPはRELEASEのグループに加えた)の行で、🔗の左に出す。常に表示(ダブルタップの条件なし)。
   - 名前: 行のタイトルの「」(なければ『』)内(半角の｢｣や全角英数字は、NFKCで全角の「」・半角英数字にそろえて見る)。種別: タグ(完全一致)かデータ文の独立した語(ALBUM/AL=album, EP=ep, SINGLE/SG=single, MUSICCARD・MUSIC CARD=musiccard)。見つかった種別と一致するものだけ。種別が無い行は、名前が一致するものすべて(複数なら ポップアップ上部の種別チップで切り替え)。albums.json が無い・一致が無い行は出さない。
 - ポップアップ: 種別チップ / リリース名・種別・発売日 / 盤チップ(ALL・各盤)と盤の情報(形態・価格・メモ) / 収録曲(曲順、盤の追加曲は水色のラベル、披露回数)。曲を押すと📊の披露実績。閉じると収録曲に戻る。
 - helper(albums): find(既存を選んで編集) / title / type / date / tracks(1曲1行、候補は押して選ぶ、Enterは候補が出ていないときだけ次の行、↑↓=up/down、undo、貼り付け replace/append) / copy(他のリリースの収録曲をコピー) / editions(盤名・形態・価格・メモ・追加曲・own tracklist)。songs.json に無い曲名は赤+候補。URLが7500字を超えると送信不可(盤を分ける)。
@@ -1015,7 +1015,7 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - logs の index(logs_index.json)に albumid を含める。merge_json.py を差し替えたら `--rebuild-index` で作り直すこと
 - helper(albums タブ): id 表示、紐づける logs を1行ずつ表示(追加は logid か title の候補、x で外す)。find 欄に logid を入れると、その行の盤を開く(未紐づけならその行から新規入力)
 - helper(logs の行): contents が CD / DVD / BD / MUSICCARD / RELEASE / EP / DIGITAL の行に albums ボタン。albumid があればその盤を開く(なければ従来の「」内の名前での紐づけ)
-- index.html の🎶: albumid を持つ行はその id の盤を開く(contents は問わない)。albumid が無い行は従来の名前での紐づけ(albumid の運用確認後に廃止予定)
+- index.html の💽: albumid を持つ行はその id の盤を開く(contents は問わない)。albumid が無い行は従来の名前での紐づけ(albumid の運用確認後に廃止予定)
 
 ### albums: artist / format / extra disc / ALL廃止、helper: sns折りたたみ
 - albums.json の盤に `artist`(任意の文字列。Girls² と Laki の両方は「Girls² × Laki」)を追加。helper の albums タブに入力欄とチップ。logs 行から新規入力を開くときは groups(G2のみ / L2のみ / 両方)から推定。viewer の収録曲ポップアップは artist / type / 日付を並べて表示
