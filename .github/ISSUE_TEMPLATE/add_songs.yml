@@ -28,6 +28,12 @@ body:
     attributes:
       label: "link"
 
+  - type: input
+    id: lyrics
+    attributes:
+      label: "lyrics"
+      description: "https://www.uta-net.com/ から始まるURL"
+
 
   - type: checkboxes
     id: clear
@@ -35,6 +41,7 @@ body:
       label: "値の削除（更新時）"
       options:
         - label: "link"
+        - label: "lyrics"
 
   - type: checkboxes
     id: delete
