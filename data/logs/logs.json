@@ -3792,6 +3792,34 @@
     "suffix": "記念日"
   },
   {
+    "logid": "6ad5bc3bb4be",
+    "date": "20261028",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "MSK"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/7UWOpIYa06I?si=Z7ncTAdOQuaEVBd5",
+            "member": [
+              "MSK"
+            ],
+            "tags": [
+              "Umbrella",
+              "REC Scene"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "16ba0f01276a",
     "date": "20261027",
     "time": "2359",
