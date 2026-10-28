@@ -1,9 +1,9 @@
 {
   "date": "20261104",
-  "time": "1300",
+  "time": "1500",
   "contents": "RADIO",
-  "title": "TOKAI RADIO 「OH! MY CHANNEL!」",
-  "url": "https://www.tokairadio.co.jp/program/ohmy/",
+  "title": "ZIP-FM 「palette」",
+  "url": "https://zip-fm.co.jp/programs/11ff80ce-9900-49ef-a187-44072bca328d",
   "groups": [
     "G2",
     "KUR",
@@ -11,25 +11,25 @@
   ],
   "tags": [
     "=",
-    "生出演"
+    "スタジオ生出演"
   ],
   "sns": [
     {
       "type": "x",
       "urls": [
         {
-          "url": "https://x.com/Girls2_official/status/2115424198973894891?a=ppFBx-Yd36qE5RQNCkw&s=19",
+          "url": "https://x.com/Girls2_official/status/2115424198973894891?a=DdBUdpD0dtftqrjPeyM&s=19",
           "member": [
             "KUR",
             "KIR"
           ],
           "tags": [
-            "メディア出演情報",
+            "出演情報",
             "名古屋キャンペーン"
           ]
         }
       ]
     }
   ],
-  "_issue": "2333"
+  "_issue": "2334"
 }
