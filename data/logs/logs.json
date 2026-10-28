@@ -3978,6 +3978,33 @@
     ]
   },
   {
+    "logid": "111e2103ff48",
+    "date": "20261028",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　映画 「ワンダンス」",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DfBWr7KSgqA/?exln=eTA1cHNndHVvbmdr",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "ジャパンプレミアまで"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "16ba0f01276a",
     "date": "20261027",
     "time": "2359",
