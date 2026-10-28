@@ -1047,3 +1047,8 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 ### setlistid の自動付与
 
 - date+time が揃っている行で setlistid が未設定のとき、contents が LIVE / TOUR / RELEASEEVENT / FANMEETING なら date+time(12桁)を自動で付ける(merge_json.py の SETLISTID_CONTENTS)。登録できる contents に EP を追加(RELEASE 扱い)。
+
+### albums の type(自由入力)
+
+- helper の type は自由入力欄+候補(album / ep / single / musiccard / digital / dvd / bd と、albums.json にある type)+チップ。入力は小文字・前後の空白なしに正規化する。
+- パイプライン(issue_to_json.py / merge_json.py)は 1〜30文字(改行と | は不可)の小文字なら受け付ける。上の7種は候補であって制限ではない。
