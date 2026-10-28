@@ -725,7 +725,7 @@ def apply_repeat(target, main_data, item, repeat, issue, issue_map, anniv=False,
 
 # albums の処理で logs.json の albumid も書き換えるため、albums の処理中だけ logs を読み込んで持つ
 LOGS_CTX = {"data": None, "changed": False}
-ALBUM_TYPES_OK = ("album", "ep", "single", "musiccard", "digital", "dvd", "bd")  # 候補。typeは自由入力も可
+ALBUM_TYPES_OK = ("album", "ep", "single", "musiccard", "digital", "dvd", "blu-ray")  # 候補。typeは自由入力も可
 
 
 def album_type_ok(t):

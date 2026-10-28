@@ -776,7 +776,7 @@ def build_bulk(body):
     return {"_bulk": bulk}, []
 
 
-ALBUM_TYPES = ("album", "ep", "single", "musiccard", "digital", "dvd", "bd")  # 候補。typeは自由入力(小文字・1〜30文字・改行や|は不可)も可
+ALBUM_TYPES = ("album", "ep", "single", "musiccard", "digital", "dvd", "blu-ray")  # 候補。typeは自由入力(小文字・1〜30文字・改行や|は不可)も可
 
 
 def album_type_ok(t):
@@ -806,7 +806,7 @@ def build_albums(body):
     if not title:
         errors.append("- **album title**: titleを入力してください")
     if not album_type_ok(typ):
-        errors.append("- **album type**: typeを入力してください(1〜30文字、改行と | は使えません。例: album / ep / single / musiccard / digital / dvd / bd)")
+        errors.append("- **album type**: typeを入力してください(1〜30文字、改行と | は使えません。例: album / ep / single / musiccard / digital / dvd / blu-ray)")
     if errors:
         return None, errors
     if delete:
