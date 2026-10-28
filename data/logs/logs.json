@@ -3887,6 +3887,36 @@
             ]
           }
         ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2115282249495318530?a=8518DEQ-gr6T_HO9K6M&s=19",
+            "member": [
+              "MSK"
+            ],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSggMrE2S/",
+            "member": [
+              "MSK"
+            ],
+            "tags": [
+              "芸人交換日記初日組",
+              "岩谷翔吾",
+              "浦川翔平"
+            ]
+          }
+        ]
       }
     ]
   },
