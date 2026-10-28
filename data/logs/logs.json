@@ -3695,6 +3695,9 @@
       "KUR"
     ],
     "tags": [
+      "柔軟がんこ",
+      "感情の制御",
+      "フェイクエスチョン",
       "がるがるトーク"
     ],
     "sns": [
@@ -3726,6 +3729,25 @@
             ],
             "tags": [
               "今夜の"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://music.youtube.com/watch?v=-04BgqiZ5a0&si=4VEBXOt-p-_UdwQg",
+            "member": [],
+            "tags": [
+              "Umbrella"
+            ]
+          },
+          {
+            "url": "https://music.youtube.com/watch?v=CMUEp4b03JE&si=STIu2-VL7byy6-Ee",
+            "member": [],
+            "tags": [
+              "EASY"
             ]
           }
         ]
