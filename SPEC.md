@@ -1060,3 +1060,4 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - helper(songs): `lyrics` 欄(入力・開く・✕)と「search」ボタン(曲名で uta-net の検索を新しいタブで開く)。uta-net 以外のURLは赤枠でIssueリンクが無効。曲を選ぶと既存の `lyrics` が入る。
 - helper(check): 「songs without a lyrics link」(info・ignore可): `lyrics` が無い曲の一覧。各行に「search」(uta-net検索)と「open」(songsタブで開く)。
 - 検索URLのパラメータ(Aselect=2: 曲名、Bselect=4: 部分一致)は記憶に基づく値で、未確認。
+- ポップアップのスイッチ(index): セトリ・アルバムのポップアップの右上(×の左)に📜・📊のスイッチ。📊はヘッダーの📊ボタンと同じ状態(どちらで切り替えても連動。ポップアップのスイッチは、ヘッダー側の「他のボタンがすべてON」の条件を問わず切り替えられる)。📜はこの端末に記憶(`gl_lyrics_mode`、初期はON)。OFFの間は各曲の行の📜がなめらかに消える。曲紹介バー(♪)の📜は常に表示(📊はこれまでどおりヘッダー連動)。
