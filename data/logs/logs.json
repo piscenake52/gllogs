@@ -4793,6 +4793,21 @@
             ]
           }
         ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSggcGFne/",
+            "member": [
+              "MSK"
+            ],
+            "tags": [
+              "Umbrella",
+              "REC Scene"
+            ]
+          }
+        ]
       }
     ]
   },
