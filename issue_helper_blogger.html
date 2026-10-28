@@ -60,6 +60,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .chips .cr { display:grid; grid-template-columns:repeat(8, minmax(26px, 1fr)); gap:4px; }
 #glih .chip { width:100%; min-width:0; font:inherit; font-size:clamp(9px, 2.8vw, 11px); line-height:1.2; padding:5px 0; margin:0; text-align:center; border-radius:12px; border:1px solid var(--line); background:var(--btn); color:var(--text); cursor:pointer; box-shadow:none; }
 #glih .chip.on, #glih .chip.fold-on, #glih .chip.gh-on { background:var(--accent); border-color:var(--accent); color:var(--accent-text); } /* fold-on / gh-on: the G2 / L2 chip looks ON (members shown) without changing the data */
+#glih .small.ib { padding:7px 6px; min-width:2em; text-align:center; } /* arrow / x icon buttons: as narrow as the glyph allows */
 #glih .small { font:inherit; font-size:12px; padding:7px 10px; margin:0; border-radius:8px; border:1px solid var(--line); background:var(--btn); color:var(--text); cursor:pointer; white-space:nowrap; box-shadow:none; }
 #glih .chk { font-size:12px; color:var(--sub); display:flex; align-items:center; gap:6px; margin:0 0 0 4px; white-space:nowrap; } /* time の値のすぐ右 */
 #glih .chk input { margin:0; }
@@ -1684,7 +1685,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (c === 'EP' || has(/ EP /)) out.push('ep');
     if (has(/ (SINGLE|SG) /)) out.push('single');
     if (c === 'MUSICCARD' || has(/ (MUSICCARD|MUSIC CARD) /)) out.push('musiccard');
-    if (!out.length) { var cm = { DIGITAL: 'digital', DVD: 'dvd', BD: 'bd' }[c]; if (cm) out.push(cm); } // no ALBUM / EP / SINGLE word: DIGITAL / DVD / BD rows start with that type
+    if (!out.length) { var cm = { DIGITAL: 'digital', DVD: 'dvd', BD: 'blu-ray' }[c]; if (cm) out.push(cm); } // no ALBUM / EP / SINGLE word: DIGITAL / DVD / BD rows start with that type
     return out;
   }
   function alNameOf(title) { var m = String(title || '').normalize('NFKC').match(/[\u300C\u300E]([^\u300D\u300F]+)[\u300D\u300F]/); return m ? m[1].trim() : ''; }
@@ -2127,7 +2128,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     fetchData('songs').then(function () { upd(); }).catch(function () {});
   }
   // ---- albums tab: release (album / ep / single) tracklist + editions -> one Issue (add_albums.yml). Key = title + type. ----
-  var alReady = false, AL_TYPES = ['album', 'ep', 'single', 'musiccard', 'digital', 'dvd', 'bd'];
+  var alReady = false, AL_TYPES = ['album', 'ep', 'single', 'musiccard', 'digital', 'dvd', 'blu-ray'];
   function loadAlbums() { return fetchData('albums').catch(function () { if (!cache.albums) cache.albums = []; return cache.albums; }); }
   function alTitleOpts() {
     var m = {}, out = [];
@@ -2177,10 +2178,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         if (cfg.extra) { var lb = alInput('DVD1', 'plnt'); lb.style.flex = '0 0 4.5em'; lb.value = r.no; lb.oninput = function () { r.no = lb.value; changed(); }; top.appendChild(lb); }
         else { var no = document.createElement('span'); no.className = 'plno'; no.textContent = i + 1; top.appendChild(no); }
         var ti = alInput('title'); ti.value = r.title; r.ti = ti; top.appendChild(ti);
-        var go = wbtn('\u2192', function () { goSong(r.title); }); go.title = 'open this song in the songs tab'; go.disabled = true; r.go = go; top.appendChild(go);
-        var upB = wbtn('\u2191', function () { if (i < 1) return; rows.splice(i - 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }); upB.title = 'move up'; upB.disabled = i < 1; top.appendChild(upB);
-        var dnB = wbtn('\u2193', function () { if (i >= rows.length - 1) return; rows.splice(i + 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }); dnB.title = 'move down'; dnB.disabled = i >= rows.length - 1; top.appendChild(dnB);
-        top.appendChild(wbtn('\u2715', function () { rows.splice(i, 1); draw(); changed(); }));
+        var go = wbtn('\u2192', function () { goSong(r.title); }); go.classList.add('ib'); go.title = 'open this song in the songs tab'; go.disabled = true; r.go = go; top.appendChild(go);
+        var upB = wbtn('\u2191', function () { if (i < 1) return; rows.splice(i - 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }); upB.classList.add('ib'); upB.title = 'move up'; upB.disabled = i < 1; top.appendChild(upB);
+        var dnB = wbtn('\u2193', function () { if (i >= rows.length - 1) return; rows.splice(i + 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }); dnB.classList.add('ib'); dnB.title = 'move down'; dnB.disabled = i >= rows.length - 1; top.appendChild(dnB);
+        var xB = wbtn('\u2715', function () { rows.splice(i, 1); draw(); changed(); }); xB.classList.add('ib'); top.appendChild(xB);
         r.st = document.createElement('div'); r.st.className = 'plst'; sub.appendChild(r.st);
         list.appendChild(line);
         var sug = addSuggest(ti, alTitleOpts, line, true);
@@ -2244,20 +2245,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       }
     };
   }
-  function newAlbumId() {
-    var a = [], i, c = window.crypto || window.msCrypto;
-    if (c && c.getRandomValues) { var u = new Uint8Array(6); c.getRandomValues(u); for (i = 0; i < 6; i++) a.push(('0' + u[i].toString(16)).slice(-2)); }
-    else for (i = 0; i < 6; i++) a.push(('0' + Math.floor(Math.random() * 256).toString(16)).slice(-2));
-    return a.join('');
-  }
   function albumsInit() {
     loadAlbums().then(function () { if (alReady) upd(); }).catch(function () {});
     if (alReady) return; alReady = true;
     var sec = $('p-albums'), ti = $('alt'), dt = $('ald'), tyBox = $('aly'), edBox = $('aled'), stl = $('alst');
-    var type = '', loadedKey = '', eds = [], albumId = newAlbumId(), links = [], logsReady = false;
+    var type = '', loadedKey = '', eds = [], albumId = '', links = [], logsReady = false;
     dtText(dt, 'date'); dtPicker(dt, 'date');
     // id (top of the tab): shows the id of the release in the form. Typing a keyword lists the releases (like the id box of the logs tab); a release id or a logid loads that release / starts from that logs row.
-    var idIn = alInput('id / title / logid'); idIn.id = 'glih-alid'; idIn.setAttribute('autocapitalize', 'off'); var idFld = alFld('id', idIn); $('alnew').parentNode.insertBefore(idFld, $('alnew').nextSibling); addClear(idIn);
+    var idIn = alInput('id / title / logid (new: auto)'); idIn.id = 'glih-alid'; idIn.setAttribute('autocapitalize', 'off'); var idFld = alFld('id', idIn); $('alnew').parentNode.insertBefore(idFld, $('alnew').nextSibling); addClear(idIn);
+    var idGo = wbtn('find', function () { runIdSearch(true); }); idGo.onmousedown = function (e) { e.preventDefault(); }; idFld.appendChild(idGo); // the id is decided when the release is registered: this box only searches
     var idCand = document.createElement('div'); idCand.className = 'fcand'; idCand.hidden = true; idFld.parentNode.insertBefore(idCand, idFld.nextSibling);
     // the logs rows linked to this release (one row each; the first column of a logs row = its albumid)
     var lgBox = document.createElement('div'), lgAdd = alInput('add logs row: logid or title');
@@ -2337,7 +2333,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         fchips.appendChild(b);
       });
       fm.addEventListener('input', syncFmt);
-      box.appendChild(alFld('edition', nm)); box.appendChild(alFld('format', fcol, true)); box.appendChild(alFld('price', pr)); box.appendChild(alFld('note', nt));
+      var nrow = document.createElement('div'); nrow.style.cssText = 'flex:1;min-width:0;display:flex;align-items:center;gap:4px'; nm.style.flex = '1 1 auto'; nm.style.minWidth = '0'; nrow.appendChild(nm);
+      var upE = wbtn('\u2191', function () { var i = eds.indexOf(ob); if (i < 1) return; eds.splice(i - 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }), dnE = wbtn('\u2193', function () { var i = eds.indexOf(ob); if (i < 0 || i >= eds.length - 1) return; eds.splice(i + 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }), rmE = wbtn('\u2715', function () { var i = eds.indexOf(ob); if (i >= 0) eds.splice(i, 1); drawEds(); upd(); });
+      [upE, dnE, rmE].forEach(function (b) { b.classList.add('ib'); nrow.appendChild(b); }); upE.title = 'move up'; dnE.title = 'move down'; rmE.title = 'remove edition'; ob.upB = upE; ob.dnB = dnE;
+      box.appendChild(alFld('edition', nrow)); box.appendChild(alFld('format', fcol, true)); box.appendChild(alFld('price', pr)); box.appendChild(alFld('note', nt));
       var ex = alExtra({ onchange: function () { upd(); } }); box.appendChild(alFld('extra', ex.el, true));
       var own = null, ownRow = document.createElement('div'); ownRow.className = 'field top'; var ol = document.createElement('label'); ol.textContent = 'tracklist'; ownRow.appendChild(ol);
       var ocol = document.createElement('div'); ocol.style.flex = '1'; ocol.style.minWidth = '0'; ownRow.appendChild(ocol);
@@ -2345,11 +2344,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var obt = wbtn('use a different tracklist', function () { if (own) { own = null; ocol.innerHTML = ''; ocol.appendChild(onote); ocol.appendChild(obt); obt.textContent = 'use a different tracklist'; } else { own = alTracks({ barTop: true, onchange: function () { upd(); } }); own.set(main.get()); ocol.innerHTML = ''; ocol.appendChild(obt); ocol.appendChild(own.el); obt.textContent = 'back to the main tracks'; } upd(); });
       ocol.appendChild(onote);
       ocol.appendChild(obt); box.appendChild(ownRow);
-      var bb = document.createElement('div'); bb.className = 'plbar'; bb.style.marginTop = '6px';
-      bb.appendChild(wbtn('up', function () { var i = eds.indexOf(ob); if (i < 1) return; eds.splice(i - 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }));
-      bb.appendChild(wbtn('down', function () { var i = eds.indexOf(ob); if (i < 0 || i >= eds.length - 1) return; eds.splice(i + 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }));
-      bb.appendChild(wbtn('remove edition', function () { var i = eds.indexOf(ob); if (i >= 0) eds.splice(i, 1); drawEds(); upd(); }));
-      box.appendChild(bb);
       [nm, fm, pr, nt].forEach(function (e) { e.addEventListener('input', upd); });
       ob.get = function () {
         var o = { name: nm.value.trim() }; if (!o.name) return null;
@@ -2363,10 +2357,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       }
       return ob;
     }
-    function drawEds() { edBox.innerHTML = ''; eds.forEach(function (e) { edBox.appendChild(e.el); }); }
+    function drawEds() { edBox.innerHTML = ''; eds.forEach(function (e, i) { edBox.appendChild(e.el); if (e.upB) { e.upB.disabled = i < 1; e.dnB.disabled = i >= eds.length - 1; } }); }
     $('aladd').onclick = function () { eds.push(edBlock(null)); drawEds(); upd(); };
-    function clearAll() { alFrom = null; albumId = newAlbumId(); links = []; ar.value = ''; syncAr(); me.value = ''; autoMem = ''; ti.value = ''; dt.value = ''; type = ''; loadedKey = ''; main.set([]); eds = []; drawEds(); drawLinks(); syncType(); upd(); }
-    function load(a) { albumId = a.id || newAlbumId(); links = linksOf(a); drawLinks(); ar.value = a.artist || ''; syncAr(); me.value = (a.member || []).join(','); autoMem = me.value; me.dispatchEvent(new Event('input', { bubbles: true })); ti.value = a.title || ''; type = a.type || ''; dt.value = fmtDigits(a.date || '', 'date'); main.set(a.tracks || []); eds = (a.editions || []).map(function (d) { return edBlock(d); }); drawEds(); syncType(); loadedKey = (a.title || '') + '|' + (a.type || ''); upd(); }
+    function clearAll() { alFrom = null; albumId = ''; links = []; ar.value = ''; syncAr(); me.value = ''; autoMem = ''; ti.value = ''; dt.value = ''; type = ''; loadedKey = ''; main.set([]); eds = []; drawEds(); drawLinks(); syncType(); upd(); }
+    function load(a) { albumId = a.id || ''; links = linksOf(a); drawLinks(); ar.value = a.artist || ''; syncAr(); me.value = (a.member || []).join(','); autoMem = me.value; me.dispatchEvent(new Event('input', { bubbles: true })); ti.value = a.title || ''; type = a.type || ''; dt.value = fmtDigits(a.date || '', 'date'); main.set(a.tracks || []); eds = (a.editions || []).map(function (d) { return edBlock(d); }); drawEds(); syncType(); loadedKey = (a.title || '') + '|' + (a.type || ''); upd(); }
     $('alnew').onclick = clearAll;
     function fromLog(id) { // a logid typed in the find box: the release the row is linked to, or a new release started from that row
       var r = logRow(id); if (!r) return false;
@@ -2375,14 +2369,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var tys = alTypesOf(r), nm = alNameOf(r.title); alApi.fresh(nm || String(r.title || '').trim(), tys[0] || '', DG(r.date || ''), id, (r.groups || []).join(',')); alFrom = { groups: (r.groups || []).join(',') }; return true;
     }
     function hideIdC() { idCand.hidden = true; idCand.innerHTML = ''; }
-    idIn.addEventListener('input', function () {
+    function runIdSearch(force) {
       var v = idIn.value.trim(); if (!v || v === albumId) { hideIdC(); return; }
       if (/^[0-9a-fA-F]{12}$/.test(v)) {
         var id = v.toLowerCase(), a0 = null; (cache.albums || []).forEach(function (x) { if (!a0 && x && x.id === id) a0 = x; });
         if (a0) { hideIdC(); alApi.load(a0); return; }
         if (fromLog(id)) { hideIdC(); return; }
       }
-      var qq = normQ(v); if (qq.length < 2) { hideIdC(); return; }
+      var qq = normQ(v); if (qq.length < (force ? 1 : 2)) { hideIdC(); return; }
       var rows = (cache.albums || []).filter(function (x) { return x && normQ(x.title + ' ' + x.type + ' ' + (x.id || '')).indexOf(qq) >= 0; }).slice(0, 30);
       idCand.innerHTML = '';
       rows.forEach(function (x) { // line 1: date + type, line 2: title (the id is not shown, as in the logs tab)
@@ -2391,8 +2385,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         b.onmousedown = function (e) { e.preventDefault(); }; b.onclick = function () { hideIdC(); alApi.load(x); };
         idCand.appendChild(b);
       });
+      if (force && rows.length === 1) { hideIdC(); alApi.load(rows[0]); return; }
+      if (force && !rows.length) { var nf = document.createElement('span'); nf.className = 'fnone'; nf.textContent = 'not found'; nf.style.cssText = 'padding:6px 8px;font-size:12px;color:var(--sub)'; idCand.appendChild(nf); idCand.hidden = false; return; }
       idCand.hidden = !rows.length;
-    });
+    }
+    idIn.addEventListener('input', function () { runIdSearch(false); });
+    idIn.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); runIdSearch(true); } });
     idIn.addEventListener('blur', function () { setTimeout(function () { if (idIn.value.trim() !== albumId) { idIn.value = albumId; idIn.dispatchEvent(new Event('input', { bubbles: true })); } hideIdC(); }, 150); });
     alApi = {
       load: function (a, logid) { alFrom = null; load(a); if (logid) { addLink(logid); drawLinks(); upd(); } },
