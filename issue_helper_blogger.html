@@ -320,9 +320,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="field"><label for="glih-alt">title</label><input type="text" id="glih-alt" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field top"><label>type</label><div class="chipr" id="glih-aly"></div></div>
   <div class="field"><label for="glih-ald">date</label><input type="text" id="glih-ald" class="fin" autocomplete="off"></div>
-  <div class="field top stk"><label>tracks</label><div id="glih-altk" style="flex:1;min-width:0"></div></div>
+  <div class="field top"><label>tracks</label><div id="glih-altk" style="flex:1;min-width:0"></div></div>
   <div class="field"><label>copy</label><div id="glih-alcp" style="flex:1;min-width:0"></div></div>
-  <div class="field top stk"><label>editions</label><div style="flex:1;min-width:0"><div id="glih-aled"></div><button type="button" class="small" id="glih-aladd">+ edition</button></div></div>
+  <div class="field top"><label>editions</label><div style="flex:1;min-width:0"><button type="button" class="small" id="glih-aladd" style="display:block;width:100%;box-sizing:border-box;margin-bottom:4px">+ edition</button><div id="glih-aled"></div></div></div>
   <div class="cknote" id="glih-alst"></div>
   <a class="go" id="glih-go-albums" target="_blank" rel="noopener" aria-disabled="true">albums</a>
 </section>
@@ -2152,8 +2152,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   // one editable tracklist: rows [no][title][up][down][del] + add / paste / undo. cfg.extra: the number is a free label (DVD1 ...) instead of the automatic 1, 2, 3
   function alTracks(cfg) {
     var wrap = document.createElement('div'); wrap.className = 'altk'; wrap.style.flex = '1'; wrap.style.minWidth = '0';
-    var list = document.createElement('div'); wrap.appendChild(list);
-    var bar = document.createElement('div'); bar.className = 'plbar'; bar.style.marginTop = '6px'; wrap.appendChild(bar);
+    var list = document.createElement('div');
+    var bar = document.createElement('div'); bar.className = 'plbar';
+    if (cfg.barTop) { bar.style.cssText = 'display:flex;gap:4px;margin-bottom:4px'; wrap.appendChild(bar); wrap.appendChild(list); } else { wrap.appendChild(list); bar.style.marginTop = '6px'; wrap.appendChild(bar); }
     var pbox = document.createElement('div'); pbox.className = 'plbox'; pbox.hidden = true; pbox.style.marginTop = '6px';
     var ta = document.createElement('textarea'); ta.className = 'fta'; ta.rows = 5; ta.setAttribute('spellcheck', 'false'); ta.placeholder = cfg.extra ? 'DVD1. title' : '1. title\n2. title'; pbox.appendChild(ta);
     var pbar = document.createElement('div'); pbar.className = 'plbar'; pbar.style.marginTop = '6px'; pbox.appendChild(pbar); wrap.appendChild(pbox);
@@ -2163,9 +2164,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function snap() { hist.push(JSON.stringify(rows.map(function (r) { return { title: r.title, no: r.no }; }))); if (hist.length > 30) hist.shift(); un.disabled = false; }
     function changed() { if (cfg.onchange) cfg.onchange(); }
     function stat(r) {
-      r.st.innerHTML = ''; var t = r.title.trim(); if (!t) return;
+      r.st.innerHTML = ''; if (r.go) r.go.disabled = true; var t = r.title.trim(); if (!t) return;
       var si = songIdx(); if (!si) return;
-      if (si.ex[t]) { var ok = document.createElement('span'); ok.className = 'plok'; ok.textContent = 'OK'; r.st.appendChild(ok); return; }
+      if (si.ex[t]) { if (r.go) r.go.disabled = false; var ok = document.createElement('span'); ok.className = 'plok'; ok.textContent = 'OK'; r.st.appendChild(ok); return; }
       var ng = document.createElement('span'); ng.className = 'plng'; ng.textContent = 'not in songs.json'; r.st.appendChild(ng);
       (plCands(t) || []).forEach(function (c) { r.st.appendChild(wbtn(c, function () { snap(); r.title = c; r.ti.value = c; stat(r); changed(); })); });
     }
@@ -2176,10 +2177,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         if (cfg.extra) { var lb = alInput('DVD1', 'plnt'); lb.style.flex = '0 0 4.5em'; lb.value = r.no; lb.oninput = function () { r.no = lb.value; changed(); }; top.appendChild(lb); }
         else { var no = document.createElement('span'); no.className = 'plno'; no.textContent = i + 1; top.appendChild(no); }
         var ti = alInput('title'); ti.value = r.title; r.ti = ti; top.appendChild(ti);
+        var go = wbtn('\u2192', function () { goSong(r.title); }); go.title = 'open this song in the songs tab'; go.disabled = true; r.go = go; top.appendChild(go);
+        top.appendChild(wbtn('\u2715', function () { snap(); rows.splice(i, 1); draw(); changed(); }));
         sub.appendChild(wbtn('up', function () { if (i < 1) return; snap(); rows.splice(i - 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }));
         sub.appendChild(wbtn('down', function () { if (i >= rows.length - 1) return; snap(); rows.splice(i + 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }));
-        sub.appendChild(wbtn('x', function () { snap(); rows.splice(i, 1); draw(); changed(); }));
-        var sb = wbtn('songs', function () { goSong(r.title); }); sb.title = 'open this song in the songs tab'; sub.appendChild(sb);
         r.st = document.createElement('div'); r.st.className = 'plst'; sub.appendChild(r.st);
         list.appendChild(line);
         var sug = addSuggest(ti, alTitleOpts, line, true);
@@ -2193,7 +2194,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       });
     }
     function set(arr) { rows = (arr || []).map(function (t) { return { title: String(t.title || ''), no: t.no == null ? '' : String(t.no) }; }); hist = []; if (un) un.disabled = true; draw(); }
-    bar.appendChild(wbtn('+ track', function () { snap(); rows.push({ title: '', no: '' }); draw(); rows[rows.length - 1].ti.focus(); changed(); }));
+    var addT = wbtn('+ track', function () { snap(); rows.push({ title: '', no: '' }); draw(); rows[rows.length - 1].ti.focus(); changed(); }); if (cfg.barTop) addT.style.flex = '1'; bar.appendChild(addT);
     var pt = wbtn('paste', function () { pbox.hidden = !pbox.hidden; }); bar.appendChild(pt);
     un = wbtn('undo', function () { if (!hist.length) return; rows = JSON.parse(hist.pop()); un.disabled = !hist.length; draw(); changed(); }); un.disabled = true; bar.appendChild(un);
     pbar.appendChild(wbtn('replace', function () { var p = alParse(ta.value, cfg.extra); if (!p.length) return; snap(); rows = p; ta.value = ''; draw(); changed(); }));
@@ -2310,7 +2311,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       upd();
     });
     me.addEventListener('input', upd);
-    var main = alTracks({ onchange: function () { upd(); } });
+    var main = alTracks({ barTop: true, onchange: function () { upd(); } });
     $('altk').appendChild(main.el);
     var cp = alInput('copy tracks from another release'); $('alcp').appendChild(cp);
     addSuggest(cp, function () { return (cache.albums || []).map(function (a) { var v = a.title + ' (' + a.type + ')'; return { v: v, k: normQ(v) }; }); }, $('alcp').closest('.field'), true);
