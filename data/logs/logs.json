@@ -3538,6 +3538,57 @@
     ]
   },
   {
+    "logid": "ce968fe77af9",
+    "date": "20261028",
+    "time": "1900",
+    "contents": "WEB",
+    "title": "TOPLOG　【Girls²の“自分らしさ\"】",
+    "url": "https://toplog.jp/1119685",
+    "groups": [
+      "G2",
+      "MSK",
+      "YOK",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "Love Me!!!",
+      "カラーチェンジしていてざわつく",
+      "こだわってます"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2115383082987762058?a=JqJaGOelrvhS8ZdVb48&s=19",
+            "member": [
+              "MSK",
+              "YOK",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "メディア出演情報"
+            ]
+          },
+          {
+            "url": "https://x.com/toplog_official/status/2115383069423112281?a=-dAGpWPYmjF9mCfPl_k&s=19",
+            "member": [
+              "MSK",
+              "YOK",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "TOPLOG"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "ff8584dc095a",
     "date": "20261028",
     "time": "1800",
@@ -4121,52 +4172,6 @@
               "Heads or Tails",
               "EXILE",
               "LakiダンスWEEK"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "logid": "ce968fe77af9",
-    "date": "20261028",
-    "time": "",
-    "contents": "WEB",
-    "title": "TOPLOG　【Girls²の“自分らしさ\"】",
-    "url": "https://toplog.jp/1119685",
-    "groups": [
-      "G2",
-      "MSK",
-      "YOK",
-      "MNM",
-      "KIR"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/2115383082987762058?a=JqJaGOelrvhS8ZdVb48&s=19",
-            "member": [
-              "MSK",
-              "YOK",
-              "MNM",
-              "KIR"
-            ],
-            "tags": [
-              "メディア出演情報"
-            ]
-          },
-          {
-            "url": "https://x.com/toplog_official/status/2115383069423112281?a=-dAGpWPYmjF9mCfPl_k&s=19",
-            "member": [
-              "MSK",
-              "YOK",
-              "MNM",
-              "KIR"
-            ],
-            "tags": [
-              "TOPLOG"
             ]
           }
         ]
