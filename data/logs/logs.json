@@ -3870,6 +3870,7 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YZH",
       "MSK"
     ],
     "sns": [
@@ -3914,6 +3915,23 @@
               "芸人交換日記初日組",
               "岩谷翔吾",
               "浦川翔平"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DfBbFE3mBBi/?cplk=MXBrMG96dzBvdjR3bQ==",
+            "member": [
+              "MSK"
+            ],
+            "with": [
+              "YZH"
+            ],
+            "tags": [
+              "芸人交換日記"
             ]
           }
         ]
