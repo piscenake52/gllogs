@@ -1,0 +1,35 @@
+{
+  "date": "20261104",
+  "time": "1300",
+  "contents": "RADIO",
+  "title": "TOKAI RADIO 「OH! MY CHANNEL!」",
+  "url": "https://www.tokairadio.co.jp/program/ohmy/",
+  "groups": [
+    "G2",
+    "KUR",
+    "KIR"
+  ],
+  "tags": [
+    "=",
+    "生出演"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2115424198973894891?a=ppFBx-Yd36qE5RQNCkw&s=19",
+          "member": [
+            "KUR",
+            "KIR"
+          ],
+          "tags": [
+            "メディア出演情報",
+            "名古屋キャンペーン"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2333"
+}
