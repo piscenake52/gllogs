@@ -314,6 +314,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="field"><label for="glih-sa">artist</label><input type="text" id="glih-sa" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label for="glih-st">title</label><input type="text" id="glih-st" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label for="glih-sl">link</label><input type="text" id="glih-sl" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://..."></div>
+  <div class="field"><label for="glih-sy">lyrics</label><input type="text" id="glih-sy" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://www.uta-net.com/song/..."><button type="button" class="small" id="glih-syq" title="search this song on uta-net (a new tab)">search</button></div>
   <a class="go" id="glih-go-songs" target="_blank" rel="noopener" aria-disabled="true">songs</a>
 </section>
 
@@ -392,7 +393,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, old); else old();
   }
   function ckFmtD(d, t) { d = String(d || ''); t = String(t || ''); return (d.length === 8 ? d.slice(0, 4) + '/' + d.slice(4, 6) + '/' + d.slice(6) : d) + (t.length === 4 ? ' ' + t.slice(0, 2) + ':' + t.slice(2) : ''); }
-  function ckRun(rows, lrep) {
+  function ckRun(rows, lrep, songs) {
     var order = [], C = {};
     function mk(id, lv, name, note) { C[id] = { id: id, lv: lv, name: name, note: note, items: [] }; order.push(id); }
     mk('date', 'e', 'date: bad format / not a real date', 'must be 8 digits and a real day');
@@ -407,6 +408,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     mk('gap', 'w', '# numbers: gaps / duplicates', 'series with #n in the title: a missing or repeated number');
     mk('noend', 'w', 'start without end / deadline', 'past rows only; e.g. a start of sales with no end of sales');
     mk('noann', 'w', 'LIVE / EVENT / RELEASE without ANNIVERSARY', 'LIVE, TOUR, EVENT (incl. RELEASEEVENT, FANMEETING), RELEASE (incl. CD, DVD, BD, DIGITAL, MUSICCARD, EP) with no linked ANNIVERSARY row');
+    mk('nolyr', 'i', 'songs without a lyrics link', 'songs.json: no lyrics url (uta-net). The viewer falls back to a uta-net search');
     mk('tag1', 'i', 'tags used only once', 'where a typo or variant hides');
     mk('nostart', 'i', 'end / deadline without start', 'the start row may be missing');
     mk('nourl', 'i', 'rows without url', 'rows with a title only');
@@ -451,6 +453,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     C.date.items.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
     C.dup.items.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
 
+    (Array.isArray(songs) ? songs : []).forEach(function (sg) { if (!sg || !sg.title || sg.lyrics) return; C.nolyr.items.push({ k: 'lyr:' + (sg.artist || '') + '|' + sg.title, rows: [], song: sg, head: sg.title, sub: sg.artist || '' }); });
     ckLinks(rows, lrep, C.link.items);
     ckGaps(rows, C.gap.items); ckSE(rows, C.noend.items, C.nostart.items);
     return { n: rows.length, order: order, C: C, at: new Date(), lrep: lrep || null };
@@ -515,7 +518,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
     out.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
   }
-  var CK_IG = { noann: 1, dup: 1, gap: 1, noend: 1, nostart: 1, link: 1 }; // the checks whose items can be ignored (kept in this browser)
+  var CK_IG = { nolyr: 1, noann: 1, dup: 1, gap: 1, noend: 1, nostart: 1, link: 1 }; // the checks whose items can be ignored (kept in this browser)
   function ckCnt(c) { if (!CK_IG[c.id]) return c.items.length; var ig = ckIgn(); return c.items.filter(function (it) { return ig.indexOf(it.k) < 0; }).length; }
   function ckList() {
     var R = ckRes, sum = { e: 0, w: 0, i: 0, o: 0 }, host = $('cklist'), secs = { e: 'errors', w: 'to check', i: 'info', o: 'ok' }, by = { e: [], w: [], i: [], o: [] };
@@ -548,7 +551,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     host.innerHTML = '';
     list.forEach(function (it, i) {
       if (i >= ckLim) return; shown++;
-      var isIgn = CK_IG[c.id] && ig.indexOf(it.k) >= 0, r0 = it.rows[0], card = document.createElement('div');
+      var isIgn = CK_IG[c.id] && ig.indexOf(it.k) >= 0, r0 = it.rows[0] || {}, card = document.createElement('div');
       card.className = 'ckcard' + (isIgn ? ' ign' : '');
       var head = document.createElement('div'); head.className = 'ckct'; head.textContent = it.head || (c.id === 'tag1' ? it.tag : (r0.title || r0.display_pc || r0.logid || '(no title)')); card.appendChild(head);
       var sub = document.createElement('div'); sub.className = 'cksub';
@@ -570,7 +573,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var open1 = function (id) { $('fid').value = id; tab('logs'); toTop(); try { history.replaceState(null, '', '#logs'); } catch (e) {} doFind(); };
       it.rows.forEach(function (r, j) { if (r.logid) mkb(it.rows.length > 1 ? 'open ' + (j + 1) : 'open', function () { open1(r.logid); }); });
       it.rows.forEach(function (r, j) { if (!r.logid || it.lines) return; var lb = it.rows.length > 1 ? 'copy ' + (j + 1) : 'copy id', cp = mkb(lb, function () { ckCopy(r.logid, function () { cp.textContent = 'copied'; setTimeout(function () { cp.textContent = lb; }, 1200); }); }); });
-      var jb = mkb('json', function () { jp.hidden = !jp.hidden; });
+      if (it.song) { mkb('search', function () { window.open('https://www.uta-net.com/search/?Aselect=2&Bselect=4&Keyword=' + encodeURIComponent(it.song.title), '_blank', 'noopener'); }); mkb('open', function () { tab('songs'); toTop(); try { history.replaceState(null, '', '#songs'); } catch (e) {} if (songApi) songApi.open(it.song.artist, it.song.title); }); }
+      var jb = it.song ? null : mkb('json', function () { jp.hidden = !jp.hidden; });
       var jp = document.createElement('pre'); jp.className = 'ckjson'; jp.hidden = true; jp.textContent = JSON.stringify(it.rows, null, 2);
       if (CK_IG[c.id]) mkb(isIgn ? 'restore' : 'ignore', function () { var a = ckIgn(), p = a.indexOf(it.k); if (p >= 0) a.splice(p, 1); else a.push(it.k); ckSetIgn(a); ckDetail(); });
       card.appendChild(btns); card.appendChild(jp); host.appendChild(card);
@@ -582,8 +586,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function ckStart() {
     $('ckmeta').textContent = 'loading logs.json ...'; $('ckrun').disabled = true;
     var lp = fetch('https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/data/logs/link_report.json?v=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); // not there until the first link check has run
-    Promise.all([fetchData('logs'), lp]).then(function (a) {
-      var d = a[0]; ckData = d; ckRes = ckRun(Array.isArray(d) ? d : [], a[1]); $('ckrun').disabled = false; ckList();
+    Promise.all([fetchData('logs'), lp, fetchData('songs').catch(function () { return []; })]).then(function (a) {
+      var d = a[0]; ckData = d; ckRes = ckRun(Array.isArray(d) ? d : [], a[1], a[2]); $('ckrun').disabled = false; ckList();
     }).catch(function (e) { $('ckrun').disabled = false; $('ckmeta').textContent = 'load failed: ' + (e && e.message ? e.message : e); });
   }
   function ckInit() { if (!ckRes && !$('ckrun').disabled) ckStart(); }
@@ -2074,8 +2078,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   var songsReady = false;
   function songsInit() {
     if (songsReady) return; songsReady = true;
-    var sa = $('sa'), st = $('st'), sl = $('sl'), match = null, auto = false, prog = false;
-    addClear(sa); addClear(st); addClear(sl); addOpen(sl, 28);
+    var sa = $('sa'), st = $('st'), sl = $('sl'), sy = $('sy'), match = null, auto = false, prog = false, autoY = false, progY = false;
+    addClear(sa); addClear(st); addClear(sl); addOpen(sl, 28); addClear(sy); addOpen(sy, 28);
+    var UTA = 'https://www.uta-net.com/', UTA_SEARCH = UTA + 'search/?Aselect=2&Bselect=4&Keyword='; // uta-net only. Search = song title (partial match)
+    $('syq').onclick = function () { var t = st.value.trim(); if (t) window.open(UTA_SEARCH + encodeURIComponent(t), '_blank', 'noopener'); };
+    $('syq').onmousedown = function (e) { e.preventDefault(); };
     var artistOnly = makeOpts('artist-only', ['songs'], function (m) { (cache.songs || []).forEach(function (r) { if (r) addTo(m, r.artist); }); });
     function titleOpts() {
       var a = normQ(sa.value.trim()), all = (cache.songs || []).filter(function (r) { return r && typeof r.title === 'string' && r.title.trim(); });
@@ -2097,31 +2104,38 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var afield = sa.closest('.field'); afield.parentNode.insertBefore(arow, afield.nextSibling);
     addSuggest(st, titleOpts, st.closest('.field'));
     function setLink(v) { prog = true; sl.value = v; sl.dispatchEvent(new Event('input', { bubbles: true })); prog = false; }
+    function setLyr(v) { progY = true; sy.value = v; sy.dispatchEvent(new Event('input', { bubbles: true })); progY = false; }
     function upd() {
       var a = sa.value.trim(), t = st.value.trim(), list = cache.songs;
+      $('syq').disabled = !t;
       if (!list) { setLink2(''); return; }
       match = null;
       if (a && t) list.forEach(function (r) { if (!match && r && String(r.artist || '').trim() === a && String(r.title || '').trim() === t) match = r; });
+      if (auto && !(match && String(match.link || '').trim() === sl.value.trim())) { auto = false; setLink(''); } // the value was filled from another song
       if (match && match.link && !sl.value.trim() && !sl._touched) { auto = true; setLink(match.link); }
-      if (!match && auto) { auto = false; setLink(''); }
+      if (autoY && !(match && String(match.lyrics || '').trim() === sy.value.trim())) { autoY = false; setLyr(''); }
+      if (match && match.lyrics && !sy.value.trim() && !sy._touched) { autoY = true; setLyr(match.lyrics); }
+      var ly = sy.value.trim(), lyBad = !!ly && ly.indexOf(UTA) !== 0; sy.classList.toggle('bad', lyBad);
       var l = sl.value.trim(), p = {};
       if (a) p.artist_free = a; if (t) p.item_title = t;
       if (l && !(match && l === String(match.link || '').trim())) p.link = l;
-      var ok = !!(a && t);
+      if (ly && !lyBad && !(match && ly === String(match.lyrics || '').trim())) p.lyrics = ly;
+      var ok = !!(a && t) && !lyBad;
       setLink2(ok ? issueUrl(TPL_SONGS, p) : '');
     }
     function setLink2(url) { var g = $('go-songs'); if (url) { g.href = url; g.setAttribute('aria-disabled', 'false'); } else { g.removeAttribute('href'); g.setAttribute('aria-disabled', 'true'); } }
     sl.addEventListener('input', function () { if (!prog) { sl._touched = true; auto = false; } upd(); });
+    sy.addEventListener('input', function () { if (!progY) { sy._touched = true; autoY = false; } upd(); });
     sa.addEventListener('input', upd); st.addEventListener('input', upd);
-    st.addEventListener('input', function () { if (!st.value.trim() && !prog) sl._touched = false; });
+    st.addEventListener('input', function () { if (!st.value.trim() && !prog) { sl._touched = false; sy._touched = false; } });
     // the songs button: after the form page is opened, the input is reset
     $('go-songs').addEventListener('click', function () {
       if ($('go-songs').getAttribute('aria-disabled') === 'true') return;
-      setTimeout(function () { sl._touched = false; auto = false; [sa, st, sl].forEach(function (e) { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); }); }, 300);
+      setTimeout(function () { sl._touched = false; auto = false; sy._touched = false; autoY = false; [sa, st, sl, sy].forEach(function (e) { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); }); }, 300);
     });
-    $('songnew').onclick = function () { sl._touched = false; auto = false; [sa, st, sl].forEach(function (e) { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); }); };
+    $('songnew').onclick = function () { sl._touched = false; auto = false; sy._touched = false; autoY = false; [sa, st, sl, sy].forEach(function (e) { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); }); };
     songApi = { open: function (artist, title) {
-      sl._touched = false; auto = false; prog = true; sl.value = ''; prog = false;
+      sl._touched = false; auto = false; prog = true; sl.value = ''; prog = false; sy._touched = false; autoY = false; progY = true; sy.value = ''; progY = false;
       sa.value = artist || ''; sa.dispatchEvent(new Event('input', { bubbles: true })); st.value = title || ''; st.dispatchEvent(new Event('input', { bubbles: true }));
     } };
     upd();

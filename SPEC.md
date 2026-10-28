@@ -1052,3 +1052,11 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 
 - helper の type は自由入力欄+チップ(album / ep / single / mu-ca / digital / dvd / blu-ray)。入力は小文字・前後の空白なしに正規化する(入力欄に候補は出さない)。
 - パイプライン(issue_to_json.py / merge_json.py)は 1〜30文字(改行と | は不可)の小文字なら受け付ける。上の7種は候補であって制限ではない。
+
+### songs の歌詞リンク(📜)
+
+- songs.json の各曲に任意項目 `lyrics`(uta-net の曲ページURL。`https://www.uta-net.com/` から始まるものだけ)。Issueフォーム(add_songs.yml / add_setlist_songs.yml)に `lyrics` 入力と「値の削除」の選択肢を追加。issue_to_json.py は uta-net 以外のURLをエラーにする。merge_json.py の songs の項目順は artist / title / link / lyrics。
+- ビューア(index.html): 📜 を曲紹介バー(♪)・アルバムポップアップ・セトリポップアップの各曲に表示(披露実績📊の左、常に表示。セトリの mc / dt / dj / towel の行は空き)。押すと新しいタブで開く。`lyrics` があればその曲のページ、なければ曲名で uta-net を検索するページ(`https://www.uta-net.com/search/?Aselect=2&Bselect=4&Keyword=曲名`)。
+- helper(songs): `lyrics` 欄(入力・開く・✕)と「search」ボタン(曲名で uta-net の検索を新しいタブで開く)。uta-net 以外のURLは赤枠でIssueリンクが無効。曲を選ぶと既存の `lyrics` が入る。
+- helper(check): 「songs without a lyrics link」(info・ignore可): `lyrics` が無い曲の一覧。各行に「search」(uta-net検索)と「open」(songsタブで開く)。
+- 検索URLのパラメータ(Aselect=2: 曲名、Bselect=4: 部分一致)は記憶に基づく値で、未確認。

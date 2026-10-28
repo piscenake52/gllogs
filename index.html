@@ -856,6 +856,10 @@ body .item-contents.is-content-open {
 .stat-icon { display: none; }
 html.stat-on .stat-icon { display: inline-block; }
 .stat-icon.is-blank { visibility: hidden; pointer-events: none; cursor: default; } /* 📊が無い行も、ON中は右の幅をあけておく */
+.song-lyrics-btn { display: flex; flex: 0 0 auto; width: 24px; height: 24px; padding: 0; border: none; background: none; font-size: 14px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; } /* 歌詞(📜): uta-net。常に表示 */
+.song-bar.is-entering .song-lyrics-btn { visibility: hidden; }
+.song-lyrics { display: inline-block; flex: 0 0 auto; width: 1.6em; text-align: center; font-size: 12px; cursor: pointer; user-select: none; padding: 0; } /* セトリ・アルバムのポップアップの曲の行の📜。披露実績(📊)の左 */
+.song-lyrics.is-blank { visibility: hidden; pointer-events: none; }
 .song-stat-btn { display: flex; flex: 0 0 auto; width: 0; height: 24px; margin: 0 0 0 -10px; padding: 0; border: none; background: none; font-size: 14px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; overflow: hidden; opacity: 0; pointer-events: none; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* 披露実績ONで、幅が0から広がって右端に出る(間の10pxの隙間も一緒に) */
 html.stat-on .song-stat-btn { width: 24px; margin-left: 0; opacity: 1; pointer-events: auto; }
 .song-bar.is-entering .song-stat-btn { visibility: hidden; } /* 曲名が飛んでくる動きが終わってから右端に出す */
@@ -1076,6 +1080,7 @@ html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; poin
       <div class="song-ticker-viewport" id="songTickerViewport">
         <span class="song-ticker-text" id="songTickerText"></span>
       </div>
+      <button type="button" class="song-lyrics-btn" id="songLyricsBtn" aria-label="Lyrics">&#128220;</button>
       <button type="button" class="song-stat-btn" id="songStatBtn" aria-label="Stats">&#128202;</button>
     </div>
     <div class="collapsible-area" id="collapsibleArea">
@@ -3460,6 +3465,20 @@ html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; poin
     const found = songsData.find(s => norm(s.title) === target);
     return found && found.link ? found.link : null;
   };
+  // 歌詞(📜)のリンク(uta-netだけ): songs.jsonのlyricsがあればその曲のページ、なければ曲名でuta-netを検索するページ
+  const UTA_NET_SEARCH = 'https://www.uta-net.com/search/?Aselect=2&Bselect=4&Keyword=';
+  const lyricsUrlOfSong = song => {
+    const u = song && typeof song.lyrics === 'string' ? song.lyrics.trim() : '';
+    return /^https:\/\/www\.uta-net\.com\//.test(u) ? u : '';
+  };
+  const lyricsUrlByTitle = title => {
+    const t = (title || '').trim();
+    if (!t) return '';
+    const key = t.toLowerCase();
+    const found = songsData.find(s => (s.title || '').trim().toLowerCase() === key && lyricsUrlOfSong(s));
+    return found ? lyricsUrlOfSong(found) : UTA_NET_SEARCH + encodeURIComponent(t);
+  };
+  const openLyrics = url => { if (url) window.open(url, '_blank', 'noopener'); };
   // セトリ・収録曲のポップアップ: 曲の行を上から順に、少しずつ時間をずらしてなめらかに表示する(開いたとき・盤を切り替えたとき)
   const staggerRows = root => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -3613,11 +3632,13 @@ html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; poin
         const n = statIndex().get(statNorm(t.title));
         const link = findSongLinkByTitle(t.title); // 再生ボタンはセトリのポップアップと同じ(songs.jsonにリンクがある曲だけ。ないときは同じ幅の空き)
         const playBtn = link ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>` : '<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>';
-        return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}"><span class="setlist-song-order">${t.no != null ? escapeHtml(t.no) : ''}</span>${playBtn}<span class="setlist-song-main"><span class="setlist-song-title">${escapeHtml(t.title || '')}</span></span><span class="alb-stat${n && n.size ? '' : ' is-blank'}">\uD83D\uDCCA</span></li>`;
+        return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}"><span class="setlist-song-order">${t.no != null ? escapeHtml(t.no) : ''}</span>${playBtn}<span class="setlist-song-main"><span class="setlist-song-title">${escapeHtml(t.title || '')}</span></span><span class="song-lyrics" data-song="${escapeHtml(t.title || '')}" role="button" aria-label="Lyrics">\uD83D\uDCDC</span><span class="alb-stat${n && n.size ? '' : ' is-blank'}">\uD83D\uDCCA</span></li>`;
       }).join('')}</ul>` : '<div class="setlist-modal-empty">NO TRACKS</div>');
   };
   const openAlbumModal = list => { albCur = { list, ti: 0, ei: 0 }; renderAlbum(); albumModalOverlay.classList.add('is-open'); };
   $('albumModalBody').addEventListener('click', e => {
+    const lyb = e.target.closest('.song-lyrics[data-song]');
+    if (lyb) { e.stopPropagation(); openLyrics(lyricsUrlByTitle(lyb.dataset.song)); return; } // 歌詞(uta-net)は新しいタブで開く。行の披露実績は開かない
     const pb = e.target.closest('.setlist-song-play-btn[data-link]');
     if (pb) { e.stopPropagation(); openSongLink(pb.dataset.link); return; } // 再生ボタン: セトリのポップアップと同じ動き(行の披露実績は開かない)
     const ta = e.target.closest('[data-alt]'), te = e.target.closest('[data-aled]'), li = e.target.closest('.alb-stat:not(.is-blank)')?.closest('li[data-song]');
@@ -3696,11 +3717,14 @@ html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; poin
   statModalOverlay.onclick = e => { if (e.target === statModalOverlay) closeStatModal(); };
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && statModalOverlay.classList.contains('is-open')) closeStatModal(); });
   setlistModalBody.addEventListener('click', e => {
+    const ly = e.target.closest('.song-lyrics[data-song]');
+    if (ly) { e.stopPropagation(); openLyrics(lyricsUrlByTitle(ly.dataset.song)); return; }
     const b = e.target.closest('.setlist-song-stat[data-song]');
     if (!b) return;
     e.stopPropagation();
     openStatModal(b.dataset.song);
   });
+  $('songLyricsBtn').onclick = e => { e.stopPropagation(); if (currentSong) openLyrics(lyricsUrlOfSong(currentSong) || lyricsUrlByTitle(currentSong.title)); };
   $('songStatBtn').onclick = e => { e.stopPropagation(); if (currentSong) openStatModal(currentSong.title); };
   window.glOpenStat = openStatModal;
   const openSetlistModal = setlistid => {
@@ -3745,8 +3769,9 @@ html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; poin
             : heartsOf(songMembers, 'setlist-song-heart');
           const songHeartsHtml = songHearts ? `<span class="setlist-song-hearts">${songHearts}</span>` : '';
           const noStat = /(^|[,\s])(mc|dt|dj|towel)([,\s]|$)/.test(String(s.type || ''));
+          const lyrHtml = noStat ? '<span class="song-lyrics is-blank" aria-hidden="true">\uD83D\uDCDC</span>' : `<span class="song-lyrics" data-song="${escapeHtml(s.title || '')}" role="button" aria-label="Lyrics">\uD83D\uDCDC</span>`;
           const statHtml = noStat ? '<span class="setlist-song-stat is-blank" aria-hidden="true">\uD83D\uDCCA</span>' : `<span class="setlist-song-stat" data-song="${escapeHtml(s.title || '')}" role="button" aria-label="Stats">\uD83D\uDCCA</span>`;
-          return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}${statHtml}</li>`;
+          return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}${lyrHtml}${statHtml}</li>`;
         })
         .join('');
       setlistModalBody.innerHTML =
