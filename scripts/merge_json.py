@@ -491,8 +491,8 @@ def finalize_new(target, item, main_data):
         # venue / songs は空なら属性を作らない
 
     elif name == "albums":
-        if item.get("type") not in ALBUM_TYPES_OK:
-            print(f"【スキップ】albumsのtypeは album / ep / single / musiccard / digital / dvd / bd のどれかにしてください: {item}")
+        if not album_type_ok(item.get("type")):
+            print(f"【スキップ】albumsのtypeが不正です(1〜30文字の小文字、改行と | は不可): {item}")
             return None
         if item.get("date") and not re.fullmatch(r"\d{8}", str(item["date"])):
             print(f"【スキップ】albumsのdateは8桁の数字で指定してください: {item}")
@@ -725,7 +725,11 @@ def apply_repeat(target, main_data, item, repeat, issue, issue_map, anniv=False,
 
 # albums の処理で logs.json の albumid も書き換えるため、albums の処理中だけ logs を読み込んで持つ
 LOGS_CTX = {"data": None, "changed": False}
-ALBUM_TYPES_OK = ("album", "ep", "single", "musiccard", "digital", "dvd", "bd")
+ALBUM_TYPES_OK = ("album", "ep", "single", "musiccard", "digital", "dvd", "bd")  # 候補。typeは自由入力も可
+
+
+def album_type_ok(t):
+    return isinstance(t, str) and bool(re.fullmatch(r"[^\s|][^\n\r|]{0,29}", t)) and t == t.strip().lower()
 ALBUM_ID_RE = re.compile(r"[0-9a-f]{12}")
 
 
@@ -801,7 +805,7 @@ def apply_album(target, main_data, raw):
         for k in ("title", "type"):
             if item.get(k):
                 existing[k] = item[k]
-        if existing.get("type") not in ALBUM_TYPES_OK:
+        if not album_type_ok(existing.get("type")):
             print(f"【スキップ】albumsのtypeが不正です: {existing.get('type')}")
             return "invalid"
         upd = {k: v for k, v in item.items() if k not in ("id", "title", "type")}
