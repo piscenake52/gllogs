@@ -4116,6 +4116,51 @@
     ]
   },
   {
+    "logid": "fd6762a47db8",
+    "date": "20261029",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2115712242637582579?a=z7xpPs79QU5n5Pl5Z90&s=19",
+            "member": [
+              "KAN",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "TikTok更新"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2115716863003123821?a=rv6u2GkEUFXA37krMjg&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "RRK"
+            ],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "d202cf83c319",
     "date": "20261028",
     "time": "2359",
