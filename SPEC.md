@@ -1061,3 +1061,6 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - helper(check): 「songs without a lyrics link」(info・ignore可): `lyrics` が無い曲の一覧。各行に「search」(uta-net検索)と「open」(songsタブで開く)。
 - 検索URLのパラメータ(Aselect=2: 曲名、Bselect=4: 部分一致)は記憶に基づく値で、未確認。
 - ポップアップのスイッチ(index): セトリ・アルバムのポップアップの右上(×の左)に📜・📊のスイッチ。📊はヘッダーの📊ボタンと同じ状態(どちらで切り替えても連動。ポップアップのスイッチは、ヘッダー側の「他のボタンがすべてON」の条件を問わず切り替えられる)。📜はこの端末に記憶(`gl_lyrics_mode`、初期はON)。OFFの間は各曲の行の📜がなめらかに消える。曲紹介バー(♪)の📜は常に表示(📊はこれまでどおりヘッダー連動)。
+
+## helper: sns未addのIssue
+- findタブ(logs)のsns入力欄にURLを入力したままaddせずに下のIssueボタンを押すと、そのURLを自動でaddしてからIssueを開く。URLの形式が不正な場合はIssueを開かず、入力欄を赤枠にする。

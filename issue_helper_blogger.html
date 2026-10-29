@@ -1045,6 +1045,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       url.value = ''; tg.value = ''; [setM, setW].forEach(function (st) { [].forEach.call(st.box.querySelectorAll('.chip.on'), function (b) { b.classList.remove('on'); }); [].forEach.call(st.box.querySelectorAll('.chip.gh-on'), function (b) { b.click(); }); });
     }
     add.onclick = doAdd;
+    // pressing Issue with a url typed but not added yet: it is added first (an invalid url blocks the Issue and is flagged). returns false when blocked.
+    box._flush = function () { var u = url.value.trim(); if (!u) return true; if (!/^https?:\/\/\S+$/i.test(u)) { url.classList.add('bad'); url.focus(); return false; } doAdd(); return true; };
     url.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doAdd(); } });
     url.addEventListener('input', function () { url.classList.remove('bad'); });
   }
@@ -2766,6 +2768,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   window.addEventListener('pagehide', drFlush);
   $('ff').addEventListener('input', function (e) { if (e.target && e.target.id === 'glih-fjson') return; drSched(); });
   ['fdd', 'fdt', 'fany'].forEach(function (id) { $(id).addEventListener('input', drSched); $(id).addEventListener('change', drSched); });
+  $('go-find').addEventListener('click', function (e) { // a sns url typed but not added yet is added before the Issue opens (updateFind runs on the input event, so the link is up to date)
+    var hs = [].slice.call($('ff').querySelectorAll('.snsh')), ok = true;
+    hs.forEach(function (h) { if (h._flush && !h._flush()) ok = false; });
+    if (!ok) { e.preventDefault(); e.stopImmediatePropagation(); }
+  }, true);
   $('go-find').addEventListener('click', function () { if ($('go-find').getAttribute('aria-disabled') === 'true') return; drDrop(drCtx()); }, true);
   $('fkind').addEventListener('change', function () { draftBanner(); });
   // setlist paste converter: numbered lines pasted from a post become `order: title | | | notes` lines for the songs box. Titles that are not in songs.json get up to 3 candidates (never fixed automatically).

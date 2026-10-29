@@ -184,7 +184,7 @@ html.zoom-wrap .extra-tools-row:not(.tools-open) .text-size-wrap, html.zoom-wrap
 .header-btn-group > * { flex-shrink: 0; }
 .date-part-btn { padding: 4px 5px; font-size: 12px; }
 /* 時計ボタンを押すと、時計の枠が他のアイコンの上に横へ伸びて、中に年/月/日/曜/時が出る(幅はJSで動かす) */
-.dp-pill { position: absolute; left: 0; top: 0; height: 30px; width: 0; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 3px; border-radius: 15px; background: var(--bg); box-shadow: 0 0 0 1px var(--input-border), 0 2px 8px rgba(0,0,0,.18); overflow: hidden; z-index: 30; visibility: hidden; opacity: 0; transition: width .26s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .16s ease, visibility 0s linear .26s; }
+.dp-pill { position: absolute; left: 0; top: 0; height: 30px; width: 0; box-sizing: border-box; display: flex; align-items: center; gap: 6px; padding: 0 3px; border-radius: 15px; background: var(--bg); box-shadow: 0 0 0 1px var(--input-border), 0 2px 8px rgba(0,0,0,.18); overflow: hidden; z-index: 30; visibility: hidden; opacity: 0; transition: width .26s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .16s ease, visibility 0s linear .26s; }
 .dp-pill.is-open { visibility: visible; opacity: 1; transition: width .26s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .12s ease, visibility 0s; }
 /* ヘッダーの左側のアイコン(🕐 年月日曜時 📍 📋 🏷️ 🔗)は、すべて同じ大きさ(24px四方)にそろえる */
 #headerBtnGroup .date-part-btn, .dp-pill > .date-part-btn { flex: 0 0 auto; width: 24px; height: 24px; min-width: 0; box-sizing: border-box; padding: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; line-height: 1; border-radius: 12px; }
@@ -861,8 +861,9 @@ html.stat-on .stat-icon { display: inline-block; }
 .song-lyrics { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0; overflow: hidden; text-align: center; font-size: 12px; cursor: pointer; user-select: none; padding: 0; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* セトリ・アルバムのポップアップの曲の行の📜。披露実績(📊)の左。ポップアップの📜スイッチで出し入れ */
 html.lyrics-off .song-lyrics { width: 0; margin-left: -8px; opacity: 0; pointer-events: none; }
 .pop-sw-wrap { position: absolute; top: 10px; right: 40px; display: flex; gap: 6px; z-index: 1; } /* ポップアップ右上の📜・📊スイッチ(×の左) */
-.pop-sw { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 12px; line-height: 1; padding: 0; cursor: pointer; opacity: 0.45; display: flex; align-items: center; justify-content: center; }
-.pop-sw.is-on { opacity: 1; border-color: #0ea5e9; box-shadow: inset 0 0 0 1px #0ea5e9; }
+.pop-sw { width: 24px; height: 24px; border-radius: 12px; border: none; background: none; color: var(--muted); font-size: 12px; line-height: 1; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; } /* ヘッダーの📊などのアイコンと同じ見た目(OFF: 枠なし、ON: 青地) */
+.pop-sw:hover { color: var(--text); background-color: var(--btn-bg); }
+.pop-sw.is-on { color: #fff; background-color: #0ea5e9; -webkit-text-stroke: 0.4px #fff; text-shadow: 0 0 0.5px #fff, 0 1px 1px rgba(3, 60, 110, 0.5); }
 .setlist-modal.has-sw .setlist-modal-title { margin-right: 86px; }
 .setlist-modal.has-sw .alb-chips:first-child { padding-right: 86px; }
 .song-lyrics.is-blank { visibility: hidden; pointer-events: none; }
@@ -872,7 +873,6 @@ html.stat-on .song-stat-btn { width: 24px; margin-left: 0; opacity: 1; pointer-e
 .setlist-song-stat { display: inline-block; flex: 0 0 auto; width: 0; margin: 0 0 0 -8px; overflow: hidden; text-align: center; opacity: 0; pointer-events: none; font-size: 12px; cursor: pointer; user-select: none; padding: 0; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* 行の間の8pxの隙間ごと、幅が0から広がる */
 html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-events: auto; }
 .setlist-song-stat.is-blank { visibility: hidden; pointer-events: none; }
-#statToggleBtn.is-disabled:not(.is-active) { opacity: .35; cursor: default; }
 #statToggleBtn { touch-action: manipulation; }
 .alb-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; } /* 💽は常に表示。🔗の出入りで横にずれるときは、JS(slideAlbIcons)でなめらかに動かす */
 .alb-icon.is-off { display: none; }
@@ -906,6 +906,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .stat-chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 10px; }
 .stat-chip { border: 1px solid var(--input-border); background: none; color: var(--text); border-radius: 999px; padding: 3px 12px; font-size: 12px; cursor: pointer; }
 .stat-chip.is-on { background: #0ea5e9; border-color: #0ea5e9; color: #fff; }
+.stat-subchips { margin-top: -4px; }
 .stat-chip:disabled { opacity: .35; cursor: default; }
 .stat-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
 .stat-tile { border: 1px solid var(--input-border); border-radius: 10px; padding: 8px 4px; text-align: center; min-width: 0; }
@@ -1035,7 +1036,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
         <button class="toggle-btn date-part-btn" id="heartToggleBtn" aria-label="Hearts">&#128158;</button>
         <button class="toggle-btn date-part-btn" id="tagToggleBtn" aria-label="Tags">&#127991;&#65039;</button>
         <button class="toggle-btn date-part-btn" id="linkToggleBtn">&#128279;</button>
-        <button class="toggle-btn date-part-btn is-disabled" id="statToggleBtn" aria-label="Song stats" aria-pressed="false" aria-disabled="true">&#128202;</button>
+        <button class="toggle-btn date-part-btn" id="statToggleBtn" aria-label="Song stats" aria-pressed="false">&#128202;</button>
       </div>
       <div class="dp-pill" id="dpPill" aria-hidden="true">
         <button class="toggle-btn date-part-btn dp-pill-clock" id="dpPillClockBtn" tabindex="-1" aria-label="&#38281;&#12376;&#12427;">&#128336;</button>
@@ -3658,29 +3659,38 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
   albumModalOverlay.onclick = e => { if (e.target === albumModalOverlay) closeAlbumModal(); };
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && albumModalOverlay.classList.contains('is-open') && !statModalOverlay.classList.contains('is-open')) closeAlbumModal(); });
   const statModalOverlay = $('statModalOverlay');
-  // 公演がLIVEか: 同じsetlistidを持つlogsの行のcontentsがLIVEのものだけ「LIVE」。それ以外(リリースイベント・ファンミなど、logsに行が無いものも)は「それ以外」
-  function statLiveSet() {
+  // 公演の分類: 同じsetlistidを持つlogsの行のcontentsで決める(TOUR > FANMEETING > LIVE > RELEASEEVENT > それ以外 の優先順)。
+  // 上段: LIVE = TOUR・FANMEETING・LIVE、EVENT = それ以外(logsに行が無いものも)。下段(LIVE選択時: TOUR / FAN MEETING / ETC、EVENT選択時: RELEASE EVENT / ETC)
+  function statClassMap() {
     const src = (Array.isArray(lastDedupedLogs) && lastDedupedLogs.length) ? lastDedupedLogs : logs;
-    if (statLiveSet.src === src && statLiveSet.set) return statLiveSet.set;
-    const set = new Set();
-    (src || []).forEach(it => { if (it && it.setlistid && String(it.contents || '').trim().toUpperCase() === 'LIVE') set.add(it.setlistid); });
-    statLiveSet.src = src; statLiveSet.set = set;
-    return set;
+    if (statClassMap.src === src && statClassMap.map) return statClassMap.map;
+    const seen = new Map();
+    (src || []).forEach(it => { if (it && it.setlistid) { const c = String(it.contents || '').trim().toUpperCase(); if (!seen.has(it.setlistid)) seen.set(it.setlistid, new Set()); seen.get(it.setlistid).add(c); } });
+    const map = new Map();
+    seen.forEach((cs, id) => map.set(id, cs.has('TOUR') ? 'tour' : cs.has('FANMEETING') ? 'fan' : cs.has('LIVE') ? 'liveetc' : cs.has('RELEASEEVENT') ? 'rel' : 'etc'));
+    statClassMap.src = src; statClassMap.map = map;
+    return map;
   }
-  let statCur = { title: '', filter: 'all' };
+  const STAT_SUBS = { live: [['tour', 'TOUR'], ['fan', 'FAN MEETING'], ['liveetc', 'ETC']], other: [['rel', 'RELEASE EVENT'], ['etc', 'ETC']] };
+  let statCur = { title: '', filter: 'all', sub: '' };
   const renderStat = () => renderWithHeightAnim($('statModalBody'), statModalOverlay, renderStatBody);
   const renderStatBody = () => {
     const t = statCur.title;
     const m = statIndex().get(statNorm(t));
     const all = m ? [...m.entries()].sort((a, b) => String(b[0]).localeCompare(String(a[0]))) : []; // 新しい順
-    const live = statLiveSet();
-    const nLive = all.filter(([id]) => live.has(id)).length;
-    const counts = { all: all.length, live: nLive, other: all.length - nLive };
-    const f = statCur.filter;
-    const rows = f === 'live' ? all.filter(([id]) => live.has(id)) : f === 'other' ? all.filter(([id]) => !live.has(id)) : all;
+    const cm = statClassMap();
+    const cls = id => cm.get(id) || 'etc'; // logsに行が無いものはETC
+    const isLive = id => ['tour', 'fan', 'liveetc'].includes(cls(id));
+    const f = statCur.filter, sub = statCur.sub;
+    const counts = { all: all.length, live: all.filter(([id]) => isLive(id)).length };
+    counts.other = all.length - counts.live;
+    const subCounts = {}; all.forEach(([id]) => { subCounts[cls(id)] = (subCounts[cls(id)] || 0) + 1; });
+    const inTop = f === 'live' ? all.filter(([id]) => isLive(id)) : f === 'other' ? all.filter(([id]) => !isLive(id)) : all;
+    const rows = sub && STAT_SUBS[f] ? inTop.filter(([id]) => cls(id) === sub) : inTop;
     const ymd = id => { const x = formatSetlistDateTime(id).dateStr; return x ? x.replace(/ \[.*$/, '') : '-'; };
     const tile = (label, val) => `<div class="stat-tile"><div class="stat-tile-label">${label}</div><div class="stat-tile-value">${escapeHtml(val)}</div></div>`;
     const chip = (key, label) => `<button type="button" class="stat-chip${f === key ? ' is-on' : ''}" data-stat-filter="${key}"${counts[key] === 0 && key !== 'all' ? ' disabled' : ''}>${label} ${counts[key]}</button>`;
+    const subChip = ([key, label]) => `<button type="button" class="stat-chip${sub === key ? ' is-on' : ''}" data-stat-sub="${key}"${!subCounts[key] ? ' disabled' : ''}>${label} ${subCounts[key] || 0}</button>`;
     const listHtml = rows.map(([id, r]) => {
       const d = formatSetlistDateTime(id).dateStr || id;
       const enc = /(^|[,\s])encore([,\s]|$)/.test(String(r.type || '')) ? ' <span class="setlist-song-type">ENCORE</span>' : '';
@@ -3689,20 +3699,23 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     $('statModalBody').innerHTML =
       `<div class="stat-modal-title">${escapeHtml(t)}</div>` +
       `<div class="stat-chips">${chip('all', 'ALL')}${chip('live', 'LIVE')}${chip('other', 'EVENT')}</div>` +
+      (STAT_SUBS[f] ? `<div class="stat-chips stat-subchips">${STAT_SUBS[f].map(subChip).join('')}</div>` : '') +
       `<div class="stat-tiles">${tile('COUNT', String(rows.length))}${tile('FIRST', rows.length ? ymd(rows[rows.length - 1][0]) : '-')}${tile('LATEST', rows.length ? ymd(rows[0][0]) : '-')}</div>` +
       (rows.length ? `<ul class="stat-list">${listHtml}</ul>` : '<div class="setlist-modal-empty">NO RECORDS</div>');
   };
   const openStatModal = title => {
     const t = String(title || '').trim();
     if (!t) return;
-    statCur = { title: t, filter: 'all' }; // 開くたびに「総数」から始める
+    statCur = { title: t, filter: 'all', sub: '' }; // 開くたびに「総数」から始める
     renderStat();
     statModalOverlay.classList.add('is-open');
   };
   $('statModalBody').addEventListener('click', e => {
+    const sb = e.target.closest('.stat-chip[data-stat-sub]');
+    if (sb) { if (sb.disabled) return; statCur.sub = statCur.sub === sb.dataset.statSub ? '' : sb.dataset.statSub; renderStat(); return; } // 下段は押し直すと解除
     const b = e.target.closest('.stat-chip[data-stat-filter]');
     if (!b || b.disabled) return;
-    statCur.filter = b.dataset.statFilter;
+    statCur.filter = b.dataset.statFilter; statCur.sub = '';
     renderStat();
   });
   // 披露実績・アルバムのポップアップ(PC): ドラッグで変えた横幅を、開き直しても使う(同じ幅を3つで共有)
@@ -4653,16 +4666,17 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     icons.forEach(a => a.animate(on ? [{ transform: `translateX(${d}px)` }, { transform: 'translateX(0)' }] : [{ transform: 'translateX(0)' }, { transform: `translateX(${d}px)` }], opt));
   }
   // 📊ボタン(披露実績(📊)の表示モード):今はON/OFFの切り替えだけ(中身は未実装)。ONの間は#itemsに stat-mode クラスが付く
-  // ヘッダーの丸いボタン(🕐📍📋💞🏷️🔗)と♪がすべてONのときだけ、📊をダブルタップでON/OFFできる(暫定。普段は非活性の見た目)。保存はしない
-  let statMode = false;
-  const STAT_GATE_IDS = ['dpClockBtn', 'mapToggleBtn', 'setlistIconToggleBtn', 'heartToggleBtn', 'tagToggleBtn', 'linkToggleBtn', 'songToggleBtn'];
+  // 他のヘッダーボタンと同じく、1回押すごとにON/OFF。状態はこの端末に記憶する
+  const STAT_MODE_KEY = 'gl_stat_mode';
+  let statMode = localStorage.getItem(STAT_MODE_KEY) === 'true';
   const applyStatMode = () => {
     $('statToggleBtn').classList.toggle('is-active', statMode);
     $('statToggleBtn').setAttribute('aria-pressed', statMode ? 'true' : 'false');
     $('items').classList.toggle('stat-mode', statMode);
     document.documentElement.classList.toggle('stat-on', statMode);
+    localStorage.setItem(STAT_MODE_KEY, statMode);
     syncPopSwitches();
-    if (typeof updateSongTickerScroll === 'function') updateSongTickerScroll(); // 曲名バーの右端の幅が変わるので測り直す
+    try { updateSongTickerScroll(); } catch (e) { /* 初期化前(起動時の最初の反映)は測らない */ } // 曲名バーの右端の幅が変わるので測り直す
   };
   // ポップアップ(セトリ・アルバム)右上の📜・📊スイッチ: 📊はヘッダーの📊ボタンと同じ状態(連動)、📜はこの端末に記憶(初期はON)
   const LYRICS_MODE_KEY = 'gl_lyrics_mode';
@@ -4688,16 +4702,8 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     m.insertBefore(wrap, m.firstChild);
   });
   syncPopSwitches();
-  let statLastTap = 0;
-  $('statToggleBtn').onclick = () => {
-    const now = Date.now();
-    const dbl = now - statLastTap < 400;
-    statLastTap = dbl ? 0 : now;
-    if (!dbl) return;
-    if (!statMode && !STAT_GATE_IDS.every(id => $(id).classList.contains('is-active'))) return;
-    statMode = !statMode;
-    applyStatMode();
-  };
+  $('statToggleBtn').onclick = () => { statMode = !statMode; applyStatMode(); };
+  applyStatMode();
   // 🏷️ボタン(タグ表示モード):ONの間、タグがある行のタイトルの下にタグのチップを出す
   const TAG_MODE_KEY = 'gl_log_tag_mode';
   let tagMode = localStorage.getItem(TAG_MODE_KEY) === 'true';
