@@ -2344,10 +2344,14 @@
     "time": "2030",
     "contents": "RADIO",
     "title": "文化放送 「Girls²のがるがるトーク！」",
+    "url": "https://www.joqr.co.jp/qr/program/girls/",
     "groups": [
       "G2",
-      "YZH",
-      "MNM"
+      "MSK",
+      "KIR"
+    ],
+    "tags": [
+      "がるがるトーク"
     ]
   },
   {
