@@ -1,13 +1,13 @@
 {
-  "logid": "6ad5bc3bb4be",
+  "logid": "d69f45100fef",
   "sns": [
     {
       "type": "youtube",
       "urls": [
         {
-          "url": "https://youtube.com/shorts/mrnnMARdPHE?si=kVFzoOP24VtEYXxo",
+          "url": "https://youtube.com/shorts/2NYcM8jBWiA?si=osGvfCu4Ssx3PpwR",
           "member": [
-            "MMK"
+            "KIR"
           ],
           "tags": [
             "EASY"
@@ -16,5 +16,5 @@
       ]
     }
   ],
-  "_issue": "2419"
+  "_issue": "2420"
 }
