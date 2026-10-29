@@ -1,0 +1,34 @@
+{
+  "logid": "dd0a162cb4a9",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/LiveenMu/status/2115101881198633073?a=PlBWzrSMplSQvqeGpq4&s=19",
+          "member": [
+            "MSK"
+          ],
+          "tags": [
+            "LIVEEN TIMES"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "etc",
+      "urls": [
+        {
+          "url": "https://www.lvtimes.net/star/80604/",
+          "member": [
+            "MSK"
+          ],
+          "tags": [
+            "LIVEEN TIMES"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2359"
+}
