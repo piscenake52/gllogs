@@ -1280,6 +1280,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = ''; setM([]); mTouched = false; title.focus();
     }
     add.onclick = doAdd;
+    // pressing Issue with a song typed but not added yet: it is added first. Blocked (and flagged) when it cannot be added: an empty / invalid title, or an existing order (insert / update / delete has to be chosen by hand). returns false when blocked.
+    box._flush = function () {
+      var t = title.value.trim(), any = t || DG(num.value) || orig2.value.trim() || notes.value.trim() || sel.value;
+      if (!any) return true;
+      if (hit()) { num.classList.add('bad'); num.focus(); return false; }
+      if (!t || /[|\uff5c]/.test(t)) { title.classList.add('bad'); title.focus(); return false; }
+      doAdd(); return true;
+    };
     [title, num, orig2, notes].forEach(function (i) { i.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.defaultPrevented) { e.preventDefault(); doAdd(); } }); i.addEventListener('input', function () { i.classList.remove('bad'); }); });
   }
   var found = null, orig = {};

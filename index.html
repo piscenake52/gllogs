@@ -856,19 +856,19 @@ body .item-contents.is-content-open {
 .stat-icon { display: none; }
 html.stat-on .stat-icon { display: inline-block; }
 .stat-icon.is-blank { visibility: hidden; pointer-events: none; cursor: default; } /* 📊が無い行も、ON中は右の幅をあけておく */
-.song-lyrics-btn { display: flex; flex: 0 0 auto; width: 24px; height: 24px; padding: 0; border: none; background: none; font-size: 14px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; } /* 歌詞(📜): uta-net。常に表示 */
+.song-lyrics-btn { display: flex; flex: 0 0 auto; width: auto; height: 20px; margin: 0 2px; padding: 0 8px; border: 1px solid var(--input-border); border-radius: 999px; background: none; color: var(--muted); font-size: 10px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; white-space: nowrap; } /* 歌詞(📜): uta-net。常に表示 */
 .song-bar.is-entering .song-lyrics-btn { visibility: hidden; }
-.song-lyrics { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0; overflow: hidden; text-align: center; font-size: 12px; cursor: pointer; user-select: none; padding: 0; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* セトリ・アルバムのポップアップの曲の行の📜。披露実績(📊)の左。ポップアップの📜スイッチで出し入れ */
-html.lyrics-off .song-lyrics { width: 0; margin-left: -8px; opacity: 0; pointer-events: none; }
+.song-lyrics { display: inline-block; flex: 0 0 auto; width: 5em; margin: 0; overflow: hidden; text-align: center; font-size: 10px; line-height: 16px; height: 18px; box-sizing: border-box; border: 1px solid var(--input-border); border-radius: 999px; color: var(--muted); white-space: nowrap; vertical-align: middle; cursor: pointer; user-select: none; padding: 0; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* セトリ・アルバムのポップアップの曲の行の📜。披露実績(📊)の左。ポップアップの📜スイッチで出し入れ */
+html.lyrics-off .song-lyrics { width: 0; margin-left: -8px; border-width: 0; opacity: 0; pointer-events: none; }
 .pop-sw-wrap { position: absolute; top: 10px; right: 40px; display: flex; gap: 6px; z-index: 1; } /* ポップアップ右上の📜・📊スイッチ(×の左) */
 .pop-sw { width: 24px; height: 24px; border-radius: 12px; border: none; background: none; color: var(--muted); font-size: 12px; line-height: 1; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; } /* ヘッダーの📊などのアイコンと同じ見た目(OFF: 枠なし、ON: 青地) */
+.pop-sw[data-sw="lyrics"] { width: auto; padding: 0 9px; font-size: 10px; }
 .pop-sw:hover { color: var(--text); background-color: var(--btn-bg); }
 .pop-sw.is-on { color: #fff; background-color: #0ea5e9; -webkit-text-stroke: 0.4px #fff; text-shadow: 0 0 0.5px #fff, 0 1px 1px rgba(3, 60, 110, 0.5); }
-.setlist-modal.has-sw .setlist-modal-title { margin-right: 86px; }
-.setlist-modal.has-sw .alb-chips:first-child { padding-right: 86px; }
+.setlist-modal.has-sw .setlist-modal-title { margin-right: 130px; }
+.setlist-modal.has-sw .alb-chips:first-child { padding-right: 130px; }
 .song-lyrics.is-blank { visibility: hidden; pointer-events: none; }
-.song-stat-btn { display: flex; flex: 0 0 auto; width: 0; height: 24px; margin: 0 0 0 -10px; padding: 0; border: none; background: none; font-size: 14px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; overflow: hidden; opacity: 0; pointer-events: none; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* 披露実績ONで、幅が0から広がって右端に出る(間の10pxの隙間も一緒に) */
-html.stat-on .song-stat-btn { width: 24px; margin-left: 0; opacity: 1; pointer-events: auto; }
+.song-stat-btn { display: none; flex: 0 0 auto; width: 0; height: 24px; margin: 0 0 0 -10px; padding: 0; border: none; background: none; font-size: 14px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; overflow: hidden; opacity: 0; pointer-events: none; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* 披露実績ONで、幅が0から広がって右端に出る(間の10pxの隙間も一緒に) */
 .song-bar.is-entering .song-stat-btn { visibility: hidden; } /* 曲名が飛んでくる動きが終わってから右端に出す */
 .setlist-song-stat { display: inline-block; flex: 0 0 auto; width: 0; margin: 0 0 0 -8px; overflow: hidden; text-align: center; opacity: 0; pointer-events: none; font-size: 12px; cursor: pointer; user-select: none; padding: 0; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* 行の間の8pxの隙間ごと、幅が0から広がる */
 html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-events: auto; }
@@ -876,6 +876,7 @@ html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; poin
 #statToggleBtn { touch-action: manipulation; }
 .alb-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; } /* 💽は常に表示。🔗の出入りで横にずれるときは、JS(slideAlbIcons)でなめらかに動かす */
 .alb-icon.is-off { display: none; }
+html.alb-off .alb-icon { display: none; } /* ヘッダーの💽がOFFのとき */
 .album-modal-overlay { z-index: 1050; }
 .alb-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
 .alb-chip { border: 1px solid var(--input-border); background: none; color: var(--text); border-radius: 999px; padding: 3px 10px; font-size: 12px; cursor: pointer; }
@@ -1036,7 +1037,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
         <button class="toggle-btn date-part-btn" id="heartToggleBtn" aria-label="Hearts">&#128158;</button>
         <button class="toggle-btn date-part-btn" id="tagToggleBtn" aria-label="Tags">&#127991;&#65039;</button>
         <button class="toggle-btn date-part-btn" id="linkToggleBtn">&#128279;</button>
-        <button class="toggle-btn date-part-btn" id="statToggleBtn" aria-label="Song stats" aria-pressed="false">&#128202;</button>
+        <button class="toggle-btn date-part-btn" id="statToggleBtn" aria-label="Albums" aria-pressed="true">&#128189;</button>
       </div>
       <div class="dp-pill" id="dpPill" aria-hidden="true">
         <button class="toggle-btn date-part-btn dp-pill-clock" id="dpPillClockBtn" tabindex="-1" aria-label="&#38281;&#12376;&#12427;">&#128336;</button>
@@ -1088,7 +1089,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
       <div class="song-ticker-viewport" id="songTickerViewport">
         <span class="song-ticker-text" id="songTickerText"></span>
       </div>
-      <button type="button" class="song-lyrics-btn" id="songLyricsBtn" aria-label="Lyrics">&#128220;</button>
+      <button type="button" class="song-lyrics-btn" id="songLyricsBtn" aria-label="Lyrics">Uta-Net</button>
       <button type="button" class="song-stat-btn" id="songStatBtn" aria-label="Stats">&#128202;</button>
     </div>
     <div class="collapsible-area" id="collapsibleArea">
@@ -3640,7 +3641,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
         const n = statIndex().get(statNorm(t.title));
         const link = findSongLinkByTitle(t.title); // 再生ボタンはセトリのポップアップと同じ(songs.jsonにリンクがある曲だけ。ないときは同じ幅の空き)
         const playBtn = link ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>` : '<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>';
-        return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}"><span class="setlist-song-order">${t.no != null ? escapeHtml(t.no) : ''}</span>${playBtn}<span class="setlist-song-main"><span class="setlist-song-title">${escapeHtml(t.title || '')}</span></span><span class="song-lyrics" data-song="${escapeHtml(t.title || '')}" role="button" aria-label="Lyrics">\uD83D\uDCDC</span><span class="alb-stat${n && n.size ? '' : ' is-blank'}">\uD83D\uDCCA</span></li>`;
+        return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}"><span class="setlist-song-order">${t.no != null ? escapeHtml(t.no) : ''}</span>${playBtn}<span class="setlist-song-main"><span class="setlist-song-title">${escapeHtml(t.title || '')}</span></span><span class="song-lyrics" data-song="${escapeHtml(t.title || '')}" role="button" aria-label="Lyrics">Uta-Net</span><span class="alb-stat${n && n.size ? '' : ' is-blank'}">\uD83D\uDCCA</span></li>`;
       }).join('')}</ul>` : '<div class="setlist-modal-empty">NO TRACKS</div>');
   };
   const openAlbumModal = list => { albCur = { list, ti: 0, ei: 0 }; renderAlbum(); albumModalOverlay.classList.add('is-open'); };
@@ -3789,7 +3790,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
             : heartsOf(songMembers, 'setlist-song-heart');
           const songHeartsHtml = songHearts ? `<span class="setlist-song-hearts">${songHearts}</span>` : '';
           const noStat = /(^|[,\s])(mc|dt|dj|towel)([,\s]|$)/.test(String(s.type || ''));
-          const lyrHtml = noStat ? '<span class="song-lyrics is-blank" aria-hidden="true">\uD83D\uDCDC</span>' : `<span class="song-lyrics" data-song="${escapeHtml(s.title || '')}" role="button" aria-label="Lyrics">\uD83D\uDCDC</span>`;
+          const lyrHtml = noStat ? '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>' : `<span class="song-lyrics" data-song="${escapeHtml(s.title || '')}" role="button" aria-label="Lyrics">Uta-Net</span>`;
           const statHtml = noStat ? '<span class="setlist-song-stat is-blank" aria-hidden="true">\uD83D\uDCCA</span>' : `<span class="setlist-song-stat" data-song="${escapeHtml(s.title || '')}" role="button" aria-label="Stats">\uD83D\uDCCA</span>`;
           return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}${lyrHtml}${statHtml}</li>`;
         })
@@ -4665,13 +4666,21 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     const opt = { duration: 280, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' };
     icons.forEach(a => a.animate(on ? [{ transform: `translateX(${d}px)` }, { transform: 'translateX(0)' }] : [{ transform: 'translateX(0)' }, { transform: `translateX(${d}px)` }], opt));
   }
-  // 📊ボタン(披露実績(📊)の表示モード):今はON/OFFの切り替えだけ(中身は未実装)。ONの間は#itemsに stat-mode クラスが付く
-  // 他のヘッダーボタンと同じく、1回押すごとにON/OFF。状態はこの端末に記憶する
+  // ヘッダーの💽ボタン: 一覧の行の💽(アルバムポップアップを開くアイコン)の表示/非表示。この端末に記憶(初期はON)
+  const ALB_MODE_KEY = 'gl_alb_mode';
+  let albMode = localStorage.getItem(ALB_MODE_KEY) !== 'false';
+  const applyAlbMode = () => {
+    $('statToggleBtn').classList.toggle('is-active', albMode);
+    $('statToggleBtn').setAttribute('aria-pressed', albMode ? 'true' : 'false');
+    document.documentElement.classList.toggle('alb-off', !albMode);
+    localStorage.setItem(ALB_MODE_KEY, albMode);
+  };
+  $('statToggleBtn').onclick = () => { albMode = !albMode; applyAlbMode(); };
+  applyAlbMode();
+  // 披露実績(📊)の表示モード: ポップアップ右上の📊スイッチで切り替える(この端末に記憶)。ONの間、ポップアップの曲の行に📊が出る
   const STAT_MODE_KEY = 'gl_stat_mode';
   let statMode = localStorage.getItem(STAT_MODE_KEY) === 'true';
   const applyStatMode = () => {
-    $('statToggleBtn').classList.toggle('is-active', statMode);
-    $('statToggleBtn').setAttribute('aria-pressed', statMode ? 'true' : 'false');
     $('items').classList.toggle('stat-mode', statMode);
     document.documentElement.classList.toggle('stat-on', statMode);
     localStorage.setItem(STAT_MODE_KEY, statMode);
@@ -4690,7 +4699,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     const m = ov.querySelector('.setlist-modal'); if (!m) return;
     m.classList.add('has-sw');
     const wrap = document.createElement('div'); wrap.className = 'pop-sw-wrap';
-    [['lyrics', '\uD83D\uDCDC', 'Lyrics'], ['stat', '\uD83D\uDCCA', 'Stats']].forEach(([k, ch, label]) => {
+    [['lyrics', 'Uta-Net', 'Lyrics'], ['stat', '\uD83D\uDCCA', 'Stats']].forEach(([k, ch, label]) => {
       const b = document.createElement('button'); b.type = 'button'; b.className = 'pop-sw'; b.dataset.sw = k; b.textContent = ch; b.setAttribute('aria-label', label + ' icons');
       b.onclick = e => {
         e.stopPropagation();
@@ -4702,7 +4711,6 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     m.insertBefore(wrap, m.firstChild);
   });
   syncPopSwitches();
-  $('statToggleBtn').onclick = () => { statMode = !statMode; applyStatMode(); };
   applyStatMode();
   // 🏷️ボタン(タグ表示モード):ONの間、タグがある行のタイトルの下にタグのチップを出す
   const TAG_MODE_KEY = 'gl_log_tag_mode';
