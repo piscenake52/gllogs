@@ -327,6 +327,18 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
   :root { --container-w: 720px; }
 }
 .checks-row-years::-webkit-scrollbar, .checks-row-other::-webkit-scrollbar, .checks-row-months::-webkit-scrollbar, .active-filters-row::-webkit-scrollbar, .item-title::-webkit-scrollbar { display: none; }
+.fold-dock { display: flex; flex-wrap: wrap; gap: 6px; padding: 2px 0 1px; } /* 折りたたみボタンの帯: YEAR / GIRLS² / LAKI / CONTENTS を横並び */
+.fold-btn { position: relative; flex: 0 0 auto; height: 28px; box-sizing: border-box; padding: 0 9px; border-radius: 14px; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--muted); cursor: pointer; display: inline-flex; align-items: center; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; line-height: 1; white-space: nowrap; transition: color 0.2s, background-color 0.2s, border-color 0.2s; }
+.fold-btn:hover { color: var(--text); }
+.fold-btn:not(.is-folded):not(.fold-all-mixed) { background: #0ea5e9; border-color: #0ea5e9; color: #fff; } /* 開いている間は青、畳んでいる間は通常の色(青い枠なし) */
+.fold-all.fold-all-mixed, .fold-all.is-folded { background: var(--btn-bg); border-color: var(--input-border); color: var(--muted); } /* ALL: 全部開いているときだけ青 */
+.fold-btn svg { width: 11px; height: 11px; margin-left: 3px; transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1); flex: 0 0 auto; }
+.fold-btn.is-folded svg { transform: rotate(180deg); }
+.fold-badge { position: absolute; top: -6px; right: -6px; min-width: 16px; height: 16px; box-sizing: border-box; padding: 0 4px; border-radius: 8px; background: #0ea5e9; color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0.4); transition: opacity 0.2s, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; } /* 畳んでいる行で選択中の数。BADGEモードのときだけ */
+.fold-badge.is-shown { opacity: 1; transform: scale(1); }
+.fold-unit { display: flex; flex-direction: column; row-gap: 5px; }
+.fold-unit.is-gone { display: none; }
+.fold-unit.is-folding .checks-row { overflow: visible; } /* 動いている間だけ、ボタンが行の外へ縦に動けるようにする */
 .checks-row-members { display: flex; flex-wrap: nowrap; gap: 3px; width: 100%; padding-right: 4px; }
 .checks label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
 
@@ -1091,12 +1103,21 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     </div>
     <div class="collapsible-area" id="collapsibleArea">
       <div class="checks">
-        <div class="checks-row checks-row-years" id="yearChecks"></div>
+        <div class="fold-dock" id="foldDock">
+          <button type="button" class="fold-btn fold-all" id="foldAllBtn" aria-label="All filters"><span class="fold-tx">ALL</span></button>
+          <button type="button" class="fold-btn" data-fold="year" aria-expanded="true"><span class="fold-tx">YEAR</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fold-badge"></span></button>
+          <button type="button" class="fold-btn" data-fold="g2" aria-expanded="true"><span class="fold-tx">GIRLS&#178;</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fold-badge"></span></button>
+          <button type="button" class="fold-btn" data-fold="l2" aria-expanded="true"><span class="fold-tx">LAKI</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fold-badge"></span></button>
+          <button type="button" class="fold-btn" data-fold="cont" aria-expanded="true"><span class="fold-tx">CONTENTS</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fold-badge"></span></button>
+        </div>
+        <div class="fold-unit" id="foldUnit-year"><div class="checks-row checks-row-years" id="yearChecks"></div></div>
         <div class="checks-row checks-row-months" id="monthChecks"></div>
-        <div class="checks-row checks-row-members" id="memberChecks1"></div>
-        <div class="checks-row checks-row-members" id="memberChecks2"></div>
-        <div class="checks-row checks-row-other" id="otherChecks"></div>
-        <div class="checks-row checks-row-other checks-row-other-2" id="otherChecks2"></div>
+        <div class="fold-unit" id="foldUnit-g2"><div class="checks-row checks-row-members" id="memberChecks1"></div></div>
+        <div class="fold-unit" id="foldUnit-l2"><div class="checks-row checks-row-members" id="memberChecks2"></div></div>
+        <div class="fold-unit fold-unit-cont" id="foldUnit-cont">
+          <div class="checks-row checks-row-other" id="otherChecks"></div>
+          <div class="checks-row checks-row-other checks-row-other-2" id="otherChecks2"></div>
+        </div>
       </div>
     </div>
 
@@ -2140,7 +2161,9 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     });
     searchSuggestions.classList.add('is-open');
   };
+  let suppressFocusSuggest = false; // ✕でクリアしたあとのfocus()では、候補を出さない
   searchInput.addEventListener('focus', () => {
+    if (suppressFocusSuggest) return;
     renderSearchSuggestions();
   });
   searchInput.addEventListener('blur', () => {
@@ -2318,7 +2341,8 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       updateManualIndicators();
     }
     updateDisplay(true);
-    searchInput.focus();
+    clearTimeout(timer); searchSuggestions.classList.remove('is-open'); // ✕で消したときは、カーソルが検索窓にあっても候補は出さない(次に文字を入力したときから出す)
+    suppressFocusSuggest = true; searchInput.focus(); suppressFocusSuggest = false;
   };
 
   window.onkeydown = e => {
@@ -4437,6 +4461,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   let badgeMode = false;
   const CAP = 9999;
   const updateAllBadges = () => {
+    updateYearFoldBadge();
     labels.forEach(l => {
       const badge = l.querySelector('.count-badge');
       if (!badge) return;
@@ -4470,6 +4495,104 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       updateManualIndicators();
     });
   };
+
+  // フィルターの折りたたみ(上の帯のYEAR / GIRLS² / LAKI / CONTENTSボタン): 押すと、その行のボタンが帯のボタンへ吸い込まれ、行は0pxまで畳まれて下が上へ詰まる。
+  // 開いている間は青、畳んでいる間は通常の色。畳んだ状態は記憶する。畳んでいる間も、選択済みの絞り込みは有効のまま。
+  // BADGEモードのときだけ、畳んでいるボタンの角に、その行で選択中の数を出す
+  const FOLD_KEY = 'gl_filter_fold';
+  var FOLD_IDS = ['year', 'g2', 'l2', 'cont'];
+  var foldState = { year: false, g2: false, l2: false, cont: false }, foldBusy = {};
+  function updateYearFoldBadge() {
+    FOLD_IDS.forEach(id => {
+      const btn = document.querySelector('.fold-btn[data-fold="' + id + '"]'), unit = $('foldUnit-' + id);
+      if (!btn || !unit) return;
+      const n = unit.querySelectorAll('input:checked').length, b = btn.querySelector('.fold-badge');
+      b.textContent = String(n);
+      b.classList.toggle('is-shown', badgeMode && foldState[id] && n > 0);
+    });
+  }
+  (() => {
+    const reduce = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)', MOVE = 'cubic-bezier(0.4, 0, 0.2, 1)', GAP = 5;
+    const T_H = 300, T_V = 220, T_A = 300; // 横に集まる/開く、縦に集まる/開く(複数段のときだけ)、ボタンに吸収される/ボタンから出る
+    const btnOf = id => document.querySelector('.fold-btn[data-fold="' + id + '"]');
+    const save = () => { try { localStorage.setItem(FOLD_KEY, JSON.stringify(foldState)); } catch (e) {} };
+    // ALLボタン: 1つでも開いていれば全部畳み、全部畳んでいれば全部開く。青いのは全部開いているときだけ
+    const allBtn = $('foldAllBtn');
+    const syncAll = () => { const open = FOLD_IDS.filter(id => !foldState[id]).length; allBtn.classList.toggle('is-folded', open === 0); allBtn.classList.toggle('fold-all-mixed', open > 0 && open < FOLD_IDS.length); };
+    allBtn.onclick = () => { const anyOpen = FOLD_IDS.some(id => !foldState[id]); FOLD_IDS.forEach(id => setFolded(id, anyOpen, false)); };
+    // 見えているボタンを行ごとにまとめ、左端のもの(行の先頭)と、一番上の行の先頭(leader)を求める
+    const plan = (unit, btn) => {
+      const rows = [...unit.querySelectorAll('.checks-row')].map(r => {
+        const rr = r.getBoundingClientRect();
+        const ls = [...r.querySelectorAll('label')].filter(l => { const q = l.getBoundingClientRect(); return q.width > 0 && q.height > 0 && q.right > rr.left && q.left < rr.right; });
+        return { row: r, ls, rects: ls.map(l => l.getBoundingClientRect()) };
+      }).filter(g => g.ls.length);
+      if (!rows.length) return null;
+      const lead = rows[0].rects[0], fb = btn.getBoundingClientRect();
+      const tx = (fb.left + fb.width / 2) - (lead.left + lead.width / 2), ty = (fb.top + fb.height / 2) - (lead.top + lead.height / 2);
+      const items = [];
+      rows.forEach((g, ri) => g.ls.forEach((l, i) => {
+        const q = g.rects[i], first = g.rects[0];
+        items.push({ el: l, dx: first.left - q.left, dy: lead.top - first.top, isLeader: ri === 0 && i === 0, isRowFirst: i === 0 && ri > 0 });
+      }));
+      const hide = rows.map(g => g.row);
+      return { items, tx, ty, multi: rows.length > 1, rowsEls: hide };
+    };
+    const setFolded = (id, next, instant) => {
+      const unit = $('foldUnit-' + id), btn = btnOf(id);
+      if (!unit || !btn || foldBusy[id] || foldState[id] === next) return;
+      foldState[id] = next; save(); syncAll();
+      btn.classList.toggle('is-folded', next); btn.setAttribute('aria-expanded', String(!next));
+      if (instant || reduce()) { unit.classList.toggle('is-gone', next); updateYearFoldBadge(); return; }
+      foldBusy[id] = true;
+      let H;
+      if (!next) { unit.classList.remove('is-gone'); }
+      unit.classList.add('is-folding'); // 動いている間だけ、行のはみ出しを隠さない(縦に動くため)
+      H = unit.scrollHeight;
+      const P = plan(unit, btn);
+      const finish = () => { unit.classList.remove('is-folding'); unit.style.cssText = ''; if (next) unit.classList.add('is-gone'); foldBusy[id] = false; updateYearFoldBadge(); };
+      if (!P) { // 見えているボタンが無い(まれ)
+        unit.classList.toggle('is-gone', next); finish(); return;
+      }
+      const tV = P.multi ? T_V : 0, T = T_H + tV + T_A;
+      const o1 = next ? T_H / T : T_A / T, o2 = next ? (T_H + tV) / T : (T_A + tV) / T;
+      const tr = (ms) => 'height ' + ms + 'ms ' + EASE + ', margin-bottom ' + ms + 'ms ' + EASE;
+      // 見えていないボタンは、動いている間は隠す(はみ出して見えないように)
+      [...unit.querySelectorAll('label')].forEach(l => { if (!P.items.some(it => it.el === l)) l.style.visibility = 'hidden'; });
+      const cleanLabels = () => [...unit.querySelectorAll('label')].forEach(l => { l.style.visibility = ''; });
+      const tf = (x, y, sc) => 'translate(' + x + 'px,' + y + 'px) scale(' + sc + ')';
+      let anims;
+      if (next) {
+        // 閉じる: 左端へ横に集まる → (複数段なら)左上へ縦に集まる → 左上のひとつが開閉ボタンに吸い込まれる。吸い込みの途中から行が畳まれる
+        anims = P.items.map(it => it.el.animate([
+          { transform: tf(0, 0, 1), opacity: 1, offset: 0, easing: MOVE },
+          { transform: tf(it.dx, 0, 1), opacity: it.isLeader || it.isRowFirst ? 1 : 0.0, offset: o1, easing: MOVE },
+          { transform: tf(it.dx, it.dy, 1), opacity: it.isLeader ? 1 : 0, offset: o2, easing: MOVE },
+          { transform: tf(it.dx + P.tx, it.dy + P.ty, 0.2), opacity: 0, offset: 1 }
+        ], { duration: T, fill: 'forwards' }));
+        setTimeout(() => { unit.style.height = H + 'px'; void unit.offsetHeight; unit.style.transition = tr(T_A * 0.9); unit.style.height = '0px'; unit.style.marginBottom = -GAP + 'px'; }, T_H + tV + T_A * 0.4);
+        Promise.all(anims.map(a => a.finished)).then(() => setTimeout(() => { anims.forEach(a => a.cancel()); cleanLabels(); finish(); }, T_A * 0.5));
+      } else {
+        // 開く: 開閉ボタンから左上にひとつ出る → (複数段なら)下へ縦に展開 → それぞれ横に展開。行の高さも広がる
+        unit.style.height = '0px'; unit.style.marginBottom = -GAP + 'px'; void unit.offsetHeight;
+        unit.style.transition = tr(T_A + tV); unit.style.height = H + 'px'; unit.style.marginBottom = '0px';
+        anims = P.items.map(it => it.el.animate([
+          { transform: tf(it.dx + P.tx, it.dy + P.ty, 0.2), opacity: 0, offset: 0, easing: MOVE },
+          { transform: tf(it.dx, it.dy, 1), opacity: it.isLeader ? 1 : 0, offset: o1, easing: MOVE },
+          { transform: tf(it.dx, 0, 1), opacity: it.isLeader || it.isRowFirst ? 1 : 0, offset: o2, easing: MOVE },
+          { transform: tf(0, 0, 1), opacity: 1, offset: 1 }
+        ], { duration: T, fill: 'backwards' }));
+        updateYearFoldBadge();
+        Promise.all(anims.map(a => a.finished)).then(() => { cleanLabels(); finish(); });
+      }
+    };
+    FOLD_IDS.forEach(id => { const b = btnOf(id); if (b) b.onclick = () => setFolded(id, !foldState[id], false); });
+    document.querySelector('.checks').addEventListener('change', updateYearFoldBadge);
+    let saved = null; try { saved = JSON.parse(localStorage.getItem(FOLD_KEY) || 'null'); } catch (e) {}
+    if (saved) FOLD_IDS.forEach(id => { if (saved[id]) setFolded(id, true, true); });
+    syncAll();
+  })();
 
   // ICONボタン:コンテンツ種類フィルターの表示をテキストのみ⇔アイコンのみで切り替える。次回訪問時も記憶する
   const ICON_MODE_KEY = 'gl_log_icon_mode';
