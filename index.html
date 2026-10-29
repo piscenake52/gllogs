@@ -856,13 +856,14 @@ body .item-contents.is-content-open {
 .stat-icon { display: none; }
 html.stat-on .stat-icon { display: inline-block; }
 .stat-icon.is-blank { visibility: hidden; pointer-events: none; cursor: default; } /* 📊が無い行も、ON中は右の幅をあけておく */
-.song-lyrics-btn { display: flex; flex: 0 0 auto; width: auto; height: 20px; margin: 0 2px; padding: 0 8px; border: 1px solid var(--input-border); border-radius: 999px; background: none; color: var(--muted); font-size: 10px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; white-space: nowrap; } /* 歌詞(📜): uta-net。常に表示 */
+.song-lyrics-btn { display: flex; flex: 0 0 auto; width: auto; height: 20px; margin: 0 2px; padding: 0 8px; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-size: 10px; font-weight: 700; line-height: 1; cursor: pointer; align-items: center; justify-content: center; white-space: nowrap; } /* 歌詞(📜): uta-net。常に表示 */
 .song-bar.is-entering .song-lyrics-btn { visibility: hidden; }
-.song-lyrics { display: inline-block; flex: 0 0 auto; width: 5em; margin: 0; overflow: hidden; text-align: center; font-size: 10px; line-height: 16px; height: 18px; box-sizing: border-box; border: 1px solid var(--input-border); border-radius: 999px; color: var(--muted); white-space: nowrap; vertical-align: middle; cursor: pointer; user-select: none; padding: 0; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* セトリ・アルバムのポップアップの曲の行の📜。披露実績(📊)の左。ポップアップの📜スイッチで出し入れ */
+.song-lyrics { display: inline-block; flex: 0 0 auto; width: 5em; margin: 0; overflow: hidden; text-align: center; font-size: 10px; line-height: 16px; height: 18px; box-sizing: border-box; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-weight: 700; white-space: nowrap; vertical-align: middle; cursor: pointer; user-select: none; padding: 0; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* セトリ・アルバムのポップアップの曲の行の📜。披露実績(📊)の左。ポップアップの📜スイッチで出し入れ */
 html.lyrics-off .song-lyrics { width: 0; margin-left: -8px; border-width: 0; opacity: 0; pointer-events: none; }
 .pop-sw-wrap { position: absolute; top: 10px; right: 40px; display: flex; gap: 6px; z-index: 1; } /* ポップアップ右上の📜・📊スイッチ(×の左) */
 .pop-sw { width: 24px; height: 24px; border-radius: 12px; border: none; background: none; color: var(--muted); font-size: 12px; line-height: 1; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; } /* ヘッダーの📊などのアイコンと同じ見た目(OFF: 枠なし、ON: 青地) */
-.pop-sw[data-sw="lyrics"] { width: auto; padding: 0 9px; font-size: 10px; }
+.pop-sw[data-sw="lyrics"] { width: auto; padding: 0 9px; font-size: 10px; font-weight: 700; color: var(--text); border: 1px solid var(--muted); }
+.pop-sw[data-sw="lyrics"].is-on { border-color: #0ea5e9; color: #fff; -webkit-text-stroke: 0; text-shadow: none; } /* 文字がにじまないよう、アイコン用の縁取り・影は付けない */
 .pop-sw:hover { color: var(--text); background-color: var(--btn-bg); }
 .pop-sw.is-on { color: #fff; background-color: #0ea5e9; -webkit-text-stroke: 0.4px #fff; text-shadow: 0 0 0.5px #fff, 0 1px 1px rgba(3, 60, 110, 0.5); }
 .setlist-modal.has-sw .setlist-modal-title { margin-right: 130px; }
@@ -876,7 +877,10 @@ html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; poin
 #statToggleBtn { touch-action: manipulation; }
 .alb-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; } /* 💽は常に表示。🔗の出入りで横にずれるときは、JS(slideAlbIcons)でなめらかに動かす */
 .alb-icon.is-off { display: none; }
-html.alb-off .alb-icon { display: none; } /* ヘッダーの💽がOFFのとき */
+/* ヘッダーの💽がOFFのとき: 🔗(.link-icon)と同じく、右へ滑って消える(消えたあとに幅を0にする)/ ONに戻すと幅がすぐ戻り、右から滑って出る */
+.alb-icon { transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0s, width 0s, margin 0s; }
+html.alb-off .alb-icon { width: 0; margin: 0; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0.9em); overflow: hidden; transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0s linear 0.28s, width 0s linear 0.28s, margin 0s linear 0.28s; }
+@media (prefers-reduced-motion: reduce) { .alb-icon, html.alb-off .alb-icon { transition: none; } }
 .album-modal-overlay { z-index: 1050; }
 .alb-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
 .alb-chip { border: 1px solid var(--input-border); background: none; color: var(--text); border-radius: 999px; padding: 3px 10px; font-size: 12px; cursor: pointer; }
@@ -992,7 +996,8 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .sns-modal.is-post .sns-modal-lamps > i.w { display: none; } /* POST表示:投稿者(member)のみ */
 .sns-modal-lamps.is-single { grid-template-columns: 5px; } /* 1人のときは従来どおり角に1つだけ */
 .sns-modal-lamps.is-nine { grid-template-columns: repeat(3, 5px); } /* 9人のときだけ3列×3段(大きさは同じ)。右端基準なので左へ広がり、番号に少し重なってもよい */
-.sns-modal-lamps > i { display: block; width: 5px; height: 5px; box-sizing: border-box; border-radius: 50%; background-color: var(--lamp-color); box-shadow: 0 0 0 1px var(--bg), inset 0 0 0 1px rgba(128,128,128,.45); } /* 色の部分は常に5px。縁(背景色の輪)は外側に描き、内側の薄い灰色の線で白・黄など明るい色も同じ大きさに見えるようにする */
+.sns-modal-lamps > i { display: block; width: 5px; height: 5px; box-sizing: border-box; border-radius: 50%; background-color: var(--lamp-color); box-shadow: 0 0 0 1px var(--bg), inset 0 0 0 1px rgba(0,0,0,.4); } /* 色の部分は常に5px。縁(背景色の輪)は外側に描き、内側の薄い灰色の線で白・黄など明るい色も同じ大きさに見えるようにする */
+html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-shadow: 0 0 0 1px var(--bg), inset 0 0 0 1px rgba(255,255,255,.35); } /* ダーク時は内側の線を明るくする(暗い線だと色が沈んで暗く見えるため) */
 .sns-modal-body { margin-bottom: 0; }
 /* スイッチ行: ポップアップ内の最下部に固定(内容がスクロールしても追随する) */
 .sns-modal-foot { position: sticky; bottom: -18px; z-index: 2; display: flex; justify-content: space-between; align-items: center; margin: 0 -18px -18px; padding: 8px 32px 10px; background: var(--bg); border-radius: 0 0 12px 12px; }
@@ -1036,8 +1041,8 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
         <button class="toggle-btn date-part-btn" id="setlistIconToggleBtn">&#128203;&#65039;</button>
         <button class="toggle-btn date-part-btn" id="heartToggleBtn" aria-label="Hearts">&#128158;</button>
         <button class="toggle-btn date-part-btn" id="tagToggleBtn" aria-label="Tags">&#127991;&#65039;</button>
-        <button class="toggle-btn date-part-btn" id="linkToggleBtn">&#128279;</button>
         <button class="toggle-btn date-part-btn" id="statToggleBtn" aria-label="Albums" aria-pressed="true">&#128189;</button>
+        <button class="toggle-btn date-part-btn" id="linkToggleBtn">&#128279;</button>
       </div>
       <div class="dp-pill" id="dpPill" aria-hidden="true">
         <button class="toggle-btn date-part-btn dp-pill-clock" id="dpPillClockBtn" tabindex="-1" aria-label="&#38281;&#12376;&#12427;">&#128336;</button>
@@ -3061,99 +3066,25 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
     }, true);
   })();
 
-  // 【隠し機能】年・月・日・曜日・時刻の表示と、📍・📋️の表示がすべてONの間だけ有効
+  // 【隠し機能】年・月・日・曜日・時刻の表示と、📍・📋️・💞・🏷️・💽・🔗がすべてONの間だけ有効: 日付/時刻の3回連続タップでhelperを開く
   (() => {
     const DOUBLE_TAP_MS = 350;
-    let lastRow = null, lastTime = 0, hideTimer = null, toast = null;
+    let lastRow = null, lastTime = 0;
     let tapCount = 0;
     const HELPER_URL = 'https://gl-log.blogspot.com/p/issuehelper.html';
-    // 🔗まで全部ONならlogid(logsタブ)、それ以外はsetlistid(setlistタブ)のIDでhelperを別タブで開く。IDのない行は何もしない
-    // helperを開く操作は、♪(songMode)と💞(heartModeOn)もONのときだけ有効にする(setlistへの遷移はさらに📋セトリ検索もON、logsはOFF)
-    // helperを開ける状態か(この状態では、2回タップのIDコピーは行わない)
-    const helperModeOn = () => songMode && heartModeOn && isAllTogglesOn() !== setlistMode; // setlistへの遷移はセトリ検索ボタン(📋)ON、logsへの遷移はOFFのときだけ
-    const openHelper = row => {
-      if (!helperModeOn()) return;
-      const all = isAllTogglesOn();
-      const id = all ? (row.dataset.logid || '') : (row.dataset.setlistid || '');
-      if (!id) return;
-      window.open(HELPER_URL + '?id=' + encodeURIComponent(id) + (all ? '#logs' : '#setlist'), '_blank', 'noopener');
-    };
-
+    // 上の全部がONのとき、♪がOFFならlogidで#logs、♪もONならsetlistidで#setlistを、helperで別タブに開く。IDのない行は何もしない
     const isEnabled = () =>
-      dateParts.year && dateParts.month && dateParts.day && dateParts.weekday && dateParts.time && mapMode && setlistIconMode;
-    // 🔗ボタンまで全部ONならlogidを、それ以外はsetlistidをコピーする
-    const isAllTogglesOn = () => isEnabled() && linkMode; // 🔗まで全部ONかどうか
+      dateParts.year && dateParts.month && dateParts.day && dateParts.weekday && dateParts.time && mapMode && setlistIconMode && heartModeOn && tagMode && albMode && linkMode;
+    const openHelper = row => {
+      if (!isEnabled()) return;
+      const toSetlist = songMode;
+      const id = toSetlist ? (row.dataset.setlistid || '') : (row.dataset.logid || '');
+      if (!id) return;
+      window.open(HELPER_URL + '?id=' + encodeURIComponent(id) + (toSetlist ? '#setlist' : '#logs'), '_blank', 'noopener');
+    };
 
     // 有効な間だけ、日付/時刻の文字選択を止めるクラスを付ける
     const syncGestureClass = () => $('items').classList.toggle('logid-gesture', !!isEnabled());
-
-    const copyText = text => {
-      if (navigator.clipboard && window.isSecureContext) {
-        return navigator.clipboard.writeText(text).then(() => true, () => false);
-      }
-      try { // クリップボードAPIが使えない環境向けの代替(execCommand)
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.setAttribute('readonly', '');
-        ta.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0;';
-        document.body.appendChild(ta);
-        ta.select();
-        ta.setSelectionRange(0, text.length);
-        const ok = document.execCommand('copy');
-        document.body.removeChild(ta);
-        return Promise.resolve(ok);
-      } catch (_) {
-        return Promise.resolve(false);
-      }
-    };
-
-    const showToast = (fieldLabel, value, note, ms) => {
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.className = 'logid-toast';
-        toast.setAttribute('role', 'status');
-        document.body.appendChild(toast);
-      }
-      toast.textContent = '';
-      if (value) {
-        const label = document.createElement('span');
-        label.className = 'logid-note';
-        label.textContent = fieldLabel;
-        const valueEl = document.createElement('span');
-        valueEl.className = 'logid-value';
-        valueEl.textContent = value;
-        toast.append(label, valueEl);
-      }
-      const n = document.createElement('span');
-      n.className = 'logid-note';
-      n.textContent = note;
-      toast.appendChild(n);
-      toast.hidden = false;
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(() => { toast.hidden = true; }, ms);
-    };
-
-    const showLogid = row => {
-      const logid = row.dataset.logid || '';
-      if (!logid) {
-        showToast('', '', '\u3053\u306E\u884C\u306B\u306Flogid\u304C\u3042\u308A\u307E\u305B\u3093', 2500);
-        return;
-      }
-      copyText(logid).then(ok => {
-        if (ok) showToast('logid', logid, '\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F', 3000);
-        else showToast('logid', logid, '\u30B3\u30D4\u30FC\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F(\u9577\u62BC\u3057\u3067\u9078\u629E\u3057\u3066\u30B3\u30D4\u30FC)', 6000);
-      });
-    };
-
-    // 🔗ボタンまでONの場合のコピー対象。setlistidが無い行は(logidと違い)何も表示せず無反応にする
-    const showSetlistid = row => {
-      const setlistid = row.dataset.setlistid || '';
-      if (!setlistid) return;
-      copyText(setlistid).then(ok => {
-        if (ok) showToast('setlistid', setlistid, '\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F', 3000);
-        else showToast('setlistid', setlistid, '\u30B3\u30D4\u30FC\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F(\u9577\u62BC\u3057\u3067\u9078\u629E\u3057\u3066\u30B3\u30D4\u30FC)', 6000);
-      });
-    };
 
     // PCのダブルクリックで、日付/時刻の文字が選択されてしまうのを防ぐ
     $('items').addEventListener('mousedown', e => {
@@ -3183,11 +3114,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
         tapCount++;
         lastTime = now;
         if (window.getSelection) window.getSelection().removeAllRanges();
-        if (tapCount === 2) { // 2回タップ: IDをコピー(helperを開ける状態では、3回タップに備えてコピーしない)
-          if (helperModeOn()) { /* 何もしない */ }
-          else if (isAllTogglesOn()) showLogid(row);
-          else showSetlistid(row);
-        } else if (tapCount >= 3) { // 3回連続タップ: helperを開く
+        if (tapCount >= 3) { // 3回連続タップ: helperを開く
           lastRow = null; tapCount = 0;
           openHelper(row);
         }
@@ -3789,7 +3716,9 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
               }).filter(Boolean).join('<span class="setlist-song-hsep">/</span>')
             : heartsOf(songMembers, 'setlist-song-heart');
           const songHeartsHtml = songHearts ? `<span class="setlist-song-hearts">${songHearts}</span>` : '';
-          const noStat = /(^|[,\s])(mc|dt|dj|towel)([,\s]|$)/.test(String(s.type || ''));
+          // Uta-Netと披露実績(📊)は、typeに関わらず曲名がsongs.jsonにあれば出す(songs.jsonが未取得のときだけ、従来どおりmc・dt・dj・towelを除く)
+          const sNorm = (s.title || '').trim().toLowerCase();
+          const noStat = songsData.length ? !(sNorm && songsData.some(x => (x.title || '').trim().toLowerCase() === sNorm)) : /(^|[,\s])(mc|dt|dj|towel)([,\s]|$)/.test(String(s.type || ''));
           const lyrHtml = noStat ? '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>' : `<span class="song-lyrics" data-song="${escapeHtml(s.title || '')}" role="button" aria-label="Lyrics">Uta-Net</span>`;
           const statHtml = noStat ? '<span class="setlist-song-stat is-blank" aria-hidden="true">\uD83D\uDCCA</span>' : `<span class="setlist-song-stat" data-song="${escapeHtml(s.title || '')}" role="button" aria-label="Stats">\uD83D\uDCCA</span>`;
           return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}${lyrHtml}${statHtml}</li>`;
@@ -3844,15 +3773,15 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
   const SNS_TYPE_DISPLAY_NAMES = { x: 'X', instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube', gl2family: 'GL\u00B2family', cl: 'CL', threads: 'Threads', line: 'LINE', radiko: 'radiko', etc: 'ETC' };
   // SNSリンクの投稿者ランプ用の色(各メンバーのハート絵文字の色に合わせた色)
   const MEMBER_LAMP_COLORS = {
-    YZH: '#18b8ff', HIR: '#18b8ff', // 水色
-    MMK: '#1f5fff', KAN: '#1f5fff', // 青
-    MSK: '#ff8200', TBK: '#ff8200', // オレンジ
-    YOK: '#9a3cf5', RIN: '#9a3cf5', // 紫
+    YZH: '#25d0ff', HIR: '#25d0ff', // 水色
+    MMK: '#3b6bff', KAN: '#3b6bff', // 青
+    MSK: '#ff9a1a', TBK: '#ff9a1a', // オレンジ
+    YOK: '#c04dff', RIN: '#c04dff', // 紫
     KUR: '#ffffff', YUR: '#ffffff', // 白
-    MNM: '#ff4f9f', RRK: '#ff4f9f', // ピンク
-    KIR: '#ffd000', KIK: '#ffd000', // 黄
-    TOA: '#1fcf5a', AKR: '#1fcf5a', // 緑
-    RAN: '#f01e2c', YUW: '#f01e2c', // 赤
+    MNM: '#ff4db2', RRK: '#ff4db2', // ピンク
+    KIR: '#ffe326', KIK: '#ffe326', // 黄
+    TOA: '#2cf06a', AKR: '#2cf06a', // 緑
+    RAN: '#ff3d4d', YUW: '#ff3d4d', // 赤
   };
   // typeごとのアイコン(24x24のSVGパス
   const SNS_TYPE_ICON_PATHS = { x: 'M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z', instagram: 'M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077', youtube: 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z', tiktok: 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z',

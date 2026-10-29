@@ -589,7 +589,7 @@ TODAY/セトリ検索モードのどちらでもないとき、年/月/グルー
 - `http(s)`で始まらない不正なURLは番号だけ表示しクリック不可にする(`is-invalid`)
 - typeアイコンはSimple Icons由来のSVGパスで単色(`currentColor`)表示。未登録typeは同じ幅だけ空ける
 
-### logid / setlistid コピー機能
+### logid / setlistid コピー機能(廃止: 末尾の「helper遷移の条件変更」を参照)
 
 日付・時刻のダブルクリック/ダブルタップでクリップボードにコピーしトースト表示する(2回目のタップでコピー)。
 
@@ -642,7 +642,7 @@ TODAY/セトリ検索モードのどちらでもないとき、年/月/グルー
 - 位置は`position: fixed`で、リサイズ・スクロールのたびに計算し直す
 - 画面の文字は`\uXXXX`のエスケープで書く(後述のBloggerの文字化け対策と同じ流儀。index.htmlでは必須ではないが揃えてある)
 
-### helperへの遷移(隠し機能)
+### helperへの遷移(隠し機能)(条件を変更: 末尾の「helper遷移の条件変更」が現行)
 
 データ部の日付・時刻を**3回連続タップ**(PCは Ctrl / Shift / Cmd + クリック)すると、その行のIDでhelperを別タブで開く(`https://gl-log.blogspot.com/p/issuehelper.html?id=<ID>#logs` または `#setlist`)。
 
@@ -1064,3 +1064,46 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 
 ## helper: sns未addのIssue
 - findタブ(logs)のsns入力欄にURLを入力したままaddせずに下のIssueボタンを押すと、そのURLを自動でaddしてからIssueを開く。URLの形式が不正な場合はIssueを開かず、入力欄を赤枠にする。
+
+## helper: songs未addのIssue
+- findタブ(setlist)の songs 入力欄(title / # / original / notes / typeチップ)に入力があって add を押していない状態で Issue を押すと、先に add してから Issue が開く(snsと同じ)。
+- 止める場合(赤枠): titleが空のまま他の欄だけ入力されている / titleに `|` を含む / # が既存の番号(insert・update・deleteを手で選ぶ必要があるため、# 欄を赤枠にする)。
+- setlistのpasteボックスは自動適用しない(songs.jsonに無い曲名の候補を手で選ぶ設計のため)。
+
+## ヘッダの💽ボタンと一覧行の💽
+- ヘッダの旧📊ボタン(`statToggleBtn`)は💽ボタンに変更。位置は🔗の左(🕐📍📋💞🏷️💽🔗の順)。
+- 💽ボタン = 一覧の行の💽(アルバムポップアップを開くアイコン)の表示/非表示。1回押すごとにON/OFF、`gl_alb_mode` に保存、初期はON。
+- 出入りは🔗と同じ動き: OFFは右へ0.28秒滑りながら薄くなり、消えたあとに幅が0になる。ONは幅がすぐ戻り、右から滑って出る。`prefers-reduced-motion` では動きなし。
+- 披露実績(📊)の表示は、ポップアップ右上の📊スイッチだけで切り替える(ヘッダとは連動しない)。`gl_stat_mode` に保存、初期はOFF。
+- 曲紹介バーの披露実績アイコン(`songStatBtn`)は常に非表示。
+
+## Uta-Netチップ
+- 歌詞の📜は、すべて「Uta-Net」ラベルのチップに変更: アルバム・セトリのポップアップの曲の行 / 曲紹介バー / ポップアップ右上のスイッチ。
+- 見た目: 太字(700)、文字色は通常の文字色、枠線は濃いグレー(`--muted`)、背景は`--btn-bg`。スイッチONは青地(#0ea5e9)に白文字で、アイコン用の縁取り・影は付けない(文字がにじむため)。
+- 曲行のチップの幅は5em固定(OFF時は幅0に畳む)。
+
+## セトリポップアップの曲行のUta-Net・📊
+- 曲のtypeに関わらず、曲名(前後の空白・大文字小文字を無視した完全一致)が songs.json にあれば表示。無い曲は見えない(ブランク)。
+- songs.json が未取得の間だけ、従来どおりtypeが mc / dt / dj / towel の曲を除く。
+
+## 披露実績ポップアップのチップ
+- 上段(初期表示): ALL / LIVE / EVENT。判定は同じsetlistidを持つlogsの行のcontentsで行う(優先順 TOUR > FANMEETING > LIVE > RELEASEEVENT > それ以外)。
+- LIVE = contentsが TOUR・FANMEETING・LIVE のもの。EVENT = それ以外(logsに行が無いsetlistidも含む)。
+- 下段: LIVE選択時に TOUR / FAN MEETING / ETC(ETC = contentsがLIVEのもの)、EVENT選択時に RELEASE EVENT / ETC。押すと絞り込み、もう一度押すと解除。上段を切り替えると解除。件数0のチップは押せない。
+
+## SNSポップアップのメンバーランプ
+- 色(C案・明るいネオン調): 水色 #25d0ff / 青 #3b6bff / オレンジ #ff9a1a / 紫 #c04dff / 白 #ffffff / ピンク #ff4db2 / 黄 #ffe326 / 緑 #2cf06a / 赤 #ff3d4d。大きさは5px。
+- 内側の縁線: ライトは黒40%、ダーク(`html.dark-mode`)は白35%(暗い線だと色が沈むため)。
+
+## ヘッダの🕐から開くボタン
+- 年・月・日・曜・時のボタンの間隔は他のヘッダアイコンと同じ6px(大きさは24px)。
+
+## helper遷移の条件変更(logid / setlistid コピーの廃止)
+- 日付・時刻のダブルタップ/ダブルクリックでlogid・setlistidをコピーする機能は廃止(トーストも無し)。
+- 3回連続タップ(PCは Ctrl / Shift / Cmd + クリック)でhelperを別タブで開く機能だけが残る。
+- 発動条件: 年・月・日・曜・時のボタン、📍、📋、💞、🏷️、💽、🔗がすべてON。
+  - ♪がOFF: その行のlogidで `#logs` を開く。
+  - ♪もON: その行のsetlistidで `#setlist` を開く。
+- 条件を満たさないときは何も起きない。IDが無い行(♪OFFでlogid無し、♪ONでsetlistid無し)も何もしない。
+- 📋セトリ検索(setlistMode)の状態は条件に含めない。
+- 発動条件が揃っている間だけ、日付/時刻の文字選択(ダブルタップの単語選択とコピーメニュー)を止める。
