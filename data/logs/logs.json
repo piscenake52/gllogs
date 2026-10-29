@@ -3696,6 +3696,32 @@
     ]
   },
   {
+    "logid": "6a212e42b91e",
+    "date": "20261029",
+    "time": "1900",
+    "contents": "CL",
+    "title": "CLキャス　山口綺羅く",
+    "url": "https://www.cl-live.com/artists/yamaguchi_k",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/68miLv8zhEt8hQ5Y1Y6QdB",
+            "member": [],
+            "tags": [
+              "キャス配信"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "a6eb588e8972",
     "date": "20261029",
     "time": "1800",
