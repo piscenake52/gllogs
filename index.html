@@ -860,14 +860,6 @@ html.stat-on .stat-icon { display: inline-block; }
 .song-bar.is-entering .song-lyrics-btn { visibility: hidden; }
 .song-lyrics { display: inline-block; flex: 0 0 auto; width: 5em; margin: 0; overflow: hidden; text-align: center; font-size: 10px; line-height: 16px; height: 18px; box-sizing: border-box; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-weight: 700; white-space: nowrap; vertical-align: middle; cursor: pointer; user-select: none; padding: 0; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* セトリ・アルバムのポップアップの曲の行の📜。披露実績(📊)の左。ポップアップの📜スイッチで出し入れ */
 html.lyrics-off .song-lyrics { width: 0; margin-left: -8px; border-width: 0; opacity: 0; pointer-events: none; }
-.pop-sw-wrap { position: absolute; top: 10px; right: 40px; display: flex; gap: 6px; z-index: 1; } /* ポップアップ右上の📜・📊スイッチ(×の左) */
-.pop-sw { width: 24px; height: 24px; border-radius: 12px; border: none; background: none; color: var(--muted); font-size: 12px; line-height: 1; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; } /* ヘッダーの📊などのアイコンと同じ見た目(OFF: 枠なし、ON: 青地) */
-.pop-sw[data-sw="lyrics"] { width: auto; padding: 0 9px; font-size: 10px; font-weight: 700; color: var(--text); border: 1px solid var(--muted); }
-.pop-sw[data-sw="lyrics"].is-on { border-color: #0ea5e9; color: #fff; -webkit-text-stroke: 0; text-shadow: none; } /* 文字がにじまないよう、アイコン用の縁取り・影は付けない */
-.pop-sw:hover { color: var(--text); background-color: var(--btn-bg); }
-.pop-sw.is-on { color: #fff; background-color: #0ea5e9; -webkit-text-stroke: 0.4px #fff; text-shadow: 0 0 0.5px #fff, 0 1px 1px rgba(3, 60, 110, 0.5); }
-.setlist-modal.has-sw .setlist-modal-title { margin-right: 130px; }
-.setlist-modal.has-sw .alb-chips:first-child { padding-right: 130px; }
 .song-lyrics.is-blank { visibility: hidden; pointer-events: none; }
 .song-stat-btn { display: none; flex: 0 0 auto; width: 0; height: 24px; margin: 0 0 0 -10px; padding: 0; border: none; background: none; font-size: 14px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; overflow: hidden; opacity: 0; pointer-events: none; transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease; } /* 披露実績ONで、幅が0から広がって右端に出る(間の10pxの隙間も一緒に) */
 .song-bar.is-entering .song-stat-btn { visibility: hidden; } /* 曲名が飛んでくる動きが終わってから右端に出す */
@@ -3432,6 +3424,9 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     box.querySelectorAll('.setlist-modal-songlist, .alb-list, .stat-list').forEach(ul => {
       const w = ul.style.width; ul.style.width = 'max-content'; need = Math.max(need, ul.offsetWidth); ul.style.width = w; // offsetWidth: 開く動きの拡大(transform)に影響されない幅
     });
+    box.querySelectorAll('.setlist-modal-title').forEach(t => { // ライブのタイトル(改行は元のまま): 折り返さずに入る幅まで広げる(右の×・スイッチの余白ぶんを足す)
+      const w = t.style.width; t.style.width = 'max-content'; const tw = t.offsetWidth + (parseFloat(getComputedStyle(t).marginRight) || 0); t.style.width = w; need = Math.max(need, tw);
+    });
     if (!need) return base;
     const cs = getComputedStyle(box), extra = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
     return Math.min(cap, Math.max(base, Math.ceil(need + extra + 2)));
@@ -4606,40 +4601,16 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   };
   $('statToggleBtn').onclick = () => { albMode = !albMode; applyAlbMode(); };
   applyAlbMode();
-  // 披露実績(📊)の表示モード: ポップアップ右上の📊スイッチで切り替える(この端末に記憶)。ONの間、ポップアップの曲の行に📊が出る
-  const STAT_MODE_KEY = 'gl_stat_mode';
-  let statMode = localStorage.getItem(STAT_MODE_KEY) === 'true';
+  const statMode = true; // 曲の行の📊は常に表示
   const applyStatMode = () => {
     $('items').classList.toggle('stat-mode', statMode);
     document.documentElement.classList.toggle('stat-on', statMode);
-    localStorage.setItem(STAT_MODE_KEY, statMode);
     syncPopSwitches();
     try { updateSongTickerScroll(); } catch (e) { /* 初期化前(起動時の最初の反映)は測らない */ } // 曲名バーの右端の幅が変わるので測り直す
   };
-  // ポップアップ(セトリ・アルバム)右上の📜・📊スイッチ: 📊はヘッダーの📊ボタンと同じ状態(連動)、📜はこの端末に記憶(初期はON)
-  const LYRICS_MODE_KEY = 'gl_lyrics_mode';
-  let lyricsMode = localStorage.getItem(LYRICS_MODE_KEY) !== 'false';
-  document.documentElement.classList.toggle('lyrics-off', !lyricsMode);
-  function syncPopSwitches() {
-    document.querySelectorAll('.pop-sw[data-sw="lyrics"]').forEach(b => { b.classList.toggle('is-on', lyricsMode); b.setAttribute('aria-pressed', lyricsMode ? 'true' : 'false'); });
-    document.querySelectorAll('.pop-sw[data-sw="stat"]').forEach(b => { b.classList.toggle('is-on', statMode); b.setAttribute('aria-pressed', statMode ? 'true' : 'false'); });
-  }
-  [albumModalOverlay, setlistModalOverlay].forEach(ov => {
-    const m = ov.querySelector('.setlist-modal'); if (!m) return;
-    m.classList.add('has-sw');
-    const wrap = document.createElement('div'); wrap.className = 'pop-sw-wrap';
-    [['lyrics', 'Uta-Net', 'Lyrics'], ['stat', '\uD83D\uDCCA', 'Stats']].forEach(([k, ch, label]) => {
-      const b = document.createElement('button'); b.type = 'button'; b.className = 'pop-sw'; b.dataset.sw = k; b.textContent = ch; b.setAttribute('aria-label', label + ' icons');
-      b.onclick = e => {
-        e.stopPropagation();
-        if (k === 'lyrics') { lyricsMode = !lyricsMode; localStorage.setItem(LYRICS_MODE_KEY, lyricsMode); document.documentElement.classList.toggle('lyrics-off', !lyricsMode); syncPopSwitches(); }
-        else { statMode = !statMode; applyStatMode(); }
-      };
-      wrap.appendChild(b);
-    });
-    m.insertBefore(wrap, m.firstChild);
-  });
-  syncPopSwitches();
+  // 曲の行のUta-Net・📊は常に表示する(ポップアップ右上のスイッチは廃止)
+  document.documentElement.classList.remove('lyrics-off');
+  const syncPopSwitches = () => {};
   applyStatMode();
   // 🏷️ボタン(タグ表示モード):ONの間、タグがある行のタイトルの下にタグのチップを出す
   const TAG_MODE_KEY = 'gl_log_tag_mode';
