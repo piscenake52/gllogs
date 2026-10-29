@@ -221,7 +221,37 @@
       "KIR"
     ],
     "title": "Girls² EP 「EASY」 リリースイベント 東京",
-    "venue": "汐留シオサイト 地下歩道"
+    "venue": "汐留シオサイト 地下歩道",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Nocturne",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "EASY",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "EASY",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "ヒマワリ",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202610241815",

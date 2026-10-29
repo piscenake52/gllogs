@@ -1,0 +1,33 @@
+{
+  "setlistid": "202610251300",
+  "songs": [
+    {
+      "order": 1,
+      "title": "Nocturne",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    },
+    {
+      "order": 2,
+      "title": "EASY",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    },
+    {
+      "order": 3,
+      "title": "EASY",
+      "type": "allow",
+      "original": "",
+      "notes": ""
+    },
+    {
+      "order": 4,
+      "title": "ヒマワリ",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    }
+  ]
+}
