@@ -4041,6 +4041,33 @@
     ]
   },
   {
+    "logid": "fd986c3d7a47",
+    "date": "20261029",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "MSK"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfEUrUtRxcT/?exln=MWY1N3psNHprYzRyNg==",
+            "member": [
+              "MSK"
+            ],
+            "tags": [
+              "芸人交換日記"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "d202cf83c319",
     "date": "20261028",
     "time": "2359",
