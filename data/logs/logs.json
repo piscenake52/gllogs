@@ -4315,6 +4315,10 @@
     "contents": "SNS",
     "title": "SNS　Laki",
     "groups": [
+      "G2",
+      "YOK",
+      "KUR",
+      "MNM",
       "L2",
       "RIN",
       "TBK",
@@ -4362,6 +4366,18 @@
             ],
             "tags": [
               "本日の出演情報"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2115770896296325440?a=3ChpOZxhQ4jzumT_IP8&s=19",
+            "member": [
+              "YOK",
+              "KUR",
+              "MNM"
+            ],
+            "tags": [
+              "Umbrella",
+              "コメント返信"
             ]
           }
         ]
