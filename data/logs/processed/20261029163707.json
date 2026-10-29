@@ -1,0 +1,34 @@
+{
+  "logid": "fd986c3d7a47",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2115690433452122405?a=iUYdw3A8PANkxGaB9QY&s=19",
+          "member": [
+            "MSK"
+          ],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgGh6daA/",
+          "member": [
+            "MSK"
+          ],
+          "tags": [
+            "芸人交換日記"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2403"
+}
