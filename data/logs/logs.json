@@ -4457,7 +4457,8 @@
     "title": "POST　Laki",
     "groups": [
       "L2",
-      "AKR"
+      "AKR",
+      "KIK"
     ],
     "sns": [
       {
@@ -4467,6 +4468,15 @@
             "url": "https://www.cl-live.com/posts/fDhrRau2M2fgERnyJYFsrT",
             "member": [
               "AKR"
+            ],
+            "tags": [
+              "PLAYLIST"
+            ]
+          },
+          {
+            "url": "https://www.cl-live.com/posts/JYf8tNRSNNNB7rjqN9MjC",
+            "member": [
+              "KIK"
             ],
             "tags": [
               "PLAYLIST"
