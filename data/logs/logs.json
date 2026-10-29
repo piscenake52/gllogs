@@ -6033,6 +6033,28 @@
       "ハッピーな",
       "割愛",
       "がるがるちゃんねる"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/T_7UYuft344?si=V_LD_1O3P61GIls9",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "Short"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
