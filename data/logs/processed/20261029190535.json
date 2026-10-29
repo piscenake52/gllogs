@@ -1,0 +1,49 @@
+{
+  "logid": "fd986c3d7a47",
+  "sns": [
+    {
+      "type": "youtube",
+      "urls": [
+        {
+          "url": "https://youtube.com/shorts/opsbCHI73Fw?si=RYFWjlwHi5YcX2dE",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "DANCE HOLIC"
+          ]
+        },
+        {
+          "url": "https://youtube.com/shorts/I-RV7Ug7Z4Q?si=LqYnwsy5JFyyMQrU",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "Neko"
+          ]
+        },
+        {
+          "url": "https://youtube.com/shorts/WzuL_8-z1OM?si=R9q_q2X-UU-Kmjkq",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "Umbrella",
+            "REC Scene"
+          ]
+        },
+        {
+          "url": "https://youtube.com/shorts/XdofF4Q3IY0?si=ZiACOo8j2MrX80rE",
+          "member": [
+            "KUR"
+          ],
+          "tags": [
+            "Umbrella",
+            "REC Scene"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2418"
+}
