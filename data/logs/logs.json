@@ -2354,6 +2354,20 @@
     ]
   },
   {
+    "logid": "e373674fab32",
+    "date": "20261105",
+    "time": "",
+    "contents": "RESULT",
+    "title": "第66回 Girls² マジカルテレフォン 当選連絡",
+    "display_sp": "Girls² マジカルテレフォン 当選連絡",
+    "groups": [
+      "G2"
+    ],
+    "tags": [
+      "マジカルテレフォン"
+    ]
+  },
+  {
     "logid": "1505de864cbb",
     "date": "20261104",
     "time": "2359",
@@ -2913,6 +2927,20 @@
     "setlistid": "202611011830",
     "tags": [
       "新宿住友ビル三角広場"
+    ]
+  },
+  {
+    "logid": "c94e8a0329ab",
+    "date": "20261101",
+    "time": "1800",
+    "contents": "CLOSE",
+    "title": "第66回 Girls² マジカルテレフォン 応募受付締切",
+    "display_sp": "Girls² マジカルテレフォン 応募受付締切",
+    "groups": [
+      "G2"
+    ],
+    "tags": [
+      "マジカルテレフォン"
     ]
   },
   {
@@ -3800,6 +3828,20 @@
           }
         ]
       }
+    ]
+  },
+  {
+    "logid": "b3fd4d8caf27",
+    "date": "20261029",
+    "time": "1800",
+    "contents": "CAMPAIGN",
+    "title": "第66回 Girls² マジカルテレフォン 応募受付開始",
+    "display_sp": "Girls² マジカルテレフォン 応募受付開始",
+    "groups": [
+      "G2"
+    ],
+    "tags": [
+      "マジカルテレフォン"
     ]
   },
   {

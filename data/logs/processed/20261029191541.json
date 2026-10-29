@@ -1,0 +1,37 @@
+{
+  "date": "20261029",
+  "time": "1800",
+  "contents": "CAMPAIGN",
+  "title": "第66回 Girls² マジカルテレフォン",
+  "groups": [
+    "G2"
+  ],
+  "tags": [
+    "=",
+    "マジカルテレフォン"
+  ],
+  "_repeat": [
+    {
+      "date": "20261029",
+      "time": "1800",
+      "title": "第66回 Girls² マジカルテレフォン 応募受付開始",
+      "contents": "CAMPAIGN",
+      "display_sp": "Girls² マジカルテレフォン 応募受付開始"
+    },
+    {
+      "date": "20261101",
+      "time": "1800",
+      "title": "第66回 Girls² マジカルテレフォン 応募受付締切",
+      "contents": "CLOSE",
+      "display_sp": "Girls² マジカルテレフォン 応募受付締切"
+    },
+    {
+      "date": "20261105",
+      "time": "",
+      "title": "第66回 Girls² マジカルテレフォン 当選連絡",
+      "contents": "RESULT",
+      "display_sp": "Girls² マジカルテレフォン 当選連絡"
+    }
+  ],
+  "_issue": "2425"
+}
