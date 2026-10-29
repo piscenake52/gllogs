@@ -4360,7 +4360,27 @@
     "date": "20261028",
     "contents": "ANNIVERSARY",
     "ref": "f6ec72aa0b99",
-    "suffix": "記念日"
+    "suffix": "記念日",
+    "groups": [
+      "G2",
+      "MNM"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/mCdxVZtGGJ26W2QsYFi3SK",
+            "member": [
+              "MNM"
+            ],
+            "tags": [
+              "私の好きなパート"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "logid": "6ad5bc3bb4be",
