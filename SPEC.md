@@ -1159,3 +1159,12 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - SETTINGのRESETは、グループ・メンバー・コンテンツの表示に加えて、この3つもONに戻す。
 - ポップアップ右上のスイッチ(廃止済み)の代わりが、このDISPLAY。HELPの⚙️の行にも反映。
 - 畳んだ状態の記録(`gl_filter_fold`)は従来どおり自動記録のまま。
+
+### DISPLAYの改訂(個別に表示/非表示)
+- DISPLAYのスイッチは、上から Uta-Net / 📊 STATS / ALL / YEAR / GIRLS² / LAKI / CONTENTS の7つ。ラベルは実際のボタンと同じ見た目(Uta-Netは枠つきの太字チップ、開閉チップは青いチップ+矢印、📊はアイコンを左に英単語)。
+- 開閉チップはALL・YEAR・GIRLS²・LAKI・CONTENTSを個別に表示/非表示できる。非表示にした行は、畳んだ状態を無視して開いて見せる(保存した状態は残り、表示に戻すと元の状態に戻る)。ALLは、チップを出している行だけを開閉する。5つ全部OFFなら帯ごと出さない。
+- 保存: `gl_display_prefs` = `{"lyrics":bool,"stat":bool,"chips":{"all","year","g2","l2","cont"}}`。旧形式(`foldChips`)がfalseなら、チップ全部OFFとして読み替える。RESETは7つともONに戻す。
+- 前の「SETTINGのDISPLAY」の3スイッチの記述は、この改訂で置き換え。
+- DISPLAYの並びは、上から ALL / YEAR / GIRLS² / LAKI / CONTENTS / Uta-Net / 📊 STATS の順に変更(開閉チップが上)。📊のラベルは STATS で確定。
+- DISPLAYの開閉チップ(ALL・YEAR・GIRLS²・LAKI・CONTENTS)のラベルの色は、スイッチのON/OFFに連動: ONは青、OFFは通常の色(グレー)。スイッチを切り替えた時点で変わる。
+- ALLボタン(帯・DISPLAYのラベルとも)にも矢印を付ける: 全部開いている間と一部開いている間は ‹、全部畳んでいるときは ›。前の「矢印とバッジは無し」の記述は置き換え。

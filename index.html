@@ -338,8 +338,13 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 .fold-badge.is-shown { opacity: 1; transform: scale(1); }
 .fold-unit { display: flex; flex-direction: column; row-gap: 5px; }
 .fold-unit.is-gone { display: none; }
-html.fold-chips-off .fold-dock { display: none; }
-html.fold-chips-off .fold-unit.is-gone { display: flex; } /* 開閉チップを出さない設定のときは、畳んだ状態を無視して全部開いて見せる(保存した状態はそのまま) */
+html.fold-chips-off .fold-dock { display: none; } /* 開閉チップを全部出さない設定 */
+html.chip-off-all #foldAllBtn, html.chip-off-year .fold-btn[data-fold="year"], html.chip-off-g2 .fold-btn[data-fold="g2"], html.chip-off-l2 .fold-btn[data-fold="l2"], html.chip-off-cont .fold-btn[data-fold="cont"] { display: none; }
+html.chip-off-year #foldUnit-year.is-gone, html.chip-off-g2 #foldUnit-g2.is-gone, html.chip-off-l2 #foldUnit-l2.is-gone, html.chip-off-cont #foldUnit-cont.is-gone { display: flex; } /* チップを出さない行は、畳んだ状態を無視して開いて見せる(保存した状態はそのまま) */
+.set-chip { display: inline-flex; align-items: center; height: 22px; box-sizing: border-box; padding: 0 10px; border-radius: 11px; border: 1px solid var(--muted); background: var(--btn-bg); color: var(--text); font-size: 10px; font-weight: 700; letter-spacing: 0.3px; line-height: 1; white-space: nowrap; } /* SETTINGのDISPLAYのラベル: 実際のボタンと同じ見た目 */
+.set-chip.is-fold { height: 28px; border-radius: 14px; border-color: #0ea5e9; background: #0ea5e9; color: #fff; }
+.set-chip.is-fold.is-off { border-color: var(--input-border); background: var(--btn-bg); color: var(--muted); } /* スイッチがOFFのときは、畳んでいるときと同じ通常の色 */
+.set-chip svg { width: 11px; height: 11px; margin-left: 3px; }
 html.lyrics-off .song-lyrics-btn { display: none; }
 .fold-unit.is-folding .checks-row { overflow: visible; } /* 動いている間だけ、ボタンが行の外へ縦に動けるようにする */
 .checks-row-members { display: flex; flex-wrap: nowrap; gap: 3px; width: 100%; padding-right: 4px; }
@@ -1107,7 +1112,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     <div class="collapsible-area" id="collapsibleArea">
       <div class="checks">
         <div class="fold-dock" id="foldDock">
-          <button type="button" class="fold-btn fold-all" id="foldAllBtn" aria-label="All filters"><span class="fold-tx">ALL</span></button>
+          <button type="button" class="fold-btn fold-all" id="foldAllBtn" aria-label="All filters"><span class="fold-tx">ALL</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
           <button type="button" class="fold-btn" data-fold="year" aria-expanded="true"><span class="fold-tx">YEAR</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fold-badge"></span></button>
           <button type="button" class="fold-btn" data-fold="g2" aria-expanded="true"><span class="fold-tx">GIRLS&#178;</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fold-badge"></span></button>
           <button type="button" class="fold-btn" data-fold="l2" aria-expanded="true"><span class="fold-tx">LAKI</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fold-badge"></span></button>
@@ -2491,14 +2496,23 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
 
   // 表示の設定(SETTINGのDISPLAY): 開閉チップ(YEAR・ALLなど)・披露実績📊・歌詞(Uta-Net)の表示。すべて初期はON。この端末に保存
   const DISPLAY_PREFS_KEY = 'gl_display_prefs';
-  var displayPrefs = { foldChips: true, stat: true, lyrics: true };
-  try { Object.assign(displayPrefs, JSON.parse(localStorage.getItem(DISPLAY_PREFS_KEY) || '{}')); } catch (e) {}
+  var displayPrefs = { lyrics: true, stat: true, chips: { all: true, year: true, g2: true, l2: true, cont: true } };
+  try {
+    const sv = JSON.parse(localStorage.getItem(DISPLAY_PREFS_KEY) || '{}');
+    if (typeof sv.lyrics === 'boolean') displayPrefs.lyrics = sv.lyrics;
+    if (typeof sv.stat === 'boolean') displayPrefs.stat = sv.stat;
+    if (sv.chips && typeof sv.chips === 'object') Object.keys(displayPrefs.chips).forEach(k => { if (typeof sv.chips[k] === 'boolean') displayPrefs.chips[k] = sv.chips[k]; });
+    else if (sv.foldChips === false) Object.keys(displayPrefs.chips).forEach(k => { displayPrefs.chips[k] = false; }); // 旧形式(全部まとめて非表示)
+  } catch (e) {}
+  var syncFoldAll = null; // 開閉チップのALLの表示状態を更新する(折りたたみのコードが後から入れる)
   function applyDisplayPrefs() {
-    const h = document.documentElement.classList;
-    h.toggle('fold-chips-off', !displayPrefs.foldChips);
+    const h = document.documentElement.classList, c = displayPrefs.chips;
+    Object.keys(c).forEach(k => h.toggle('chip-off-' + k, !c[k]));
+    h.toggle('fold-chips-off', !Object.keys(c).some(k => c[k]));
     h.toggle('stat-on', !!displayPrefs.stat);
     h.toggle('lyrics-off', !displayPrefs.lyrics);
     $('items').classList.toggle('stat-mode', !!displayPrefs.stat);
+    if (syncFoldAll) syncFoldAll();
     try { updateSongTickerScroll(); } catch (e) { /* 初期化前は測らない */ }
   }
   const saveDisplayPrefs = () => { try { localStorage.setItem(DISPLAY_PREFS_KEY, JSON.stringify(displayPrefs)); } catch (e) {} applyDisplayPrefs(); };
@@ -2600,19 +2614,25 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     secCont.appendChild(gridCont);
     body.appendChild(secCont);
 
-    // --- DISPLAY(開閉チップ・披露実績・歌詞の表示。切り替えるとすぐ反映) ---
+    // --- DISPLAY(Uta-Net・披露実績・開閉チップの表示。切り替えるとすぐ反映)。ラベルは実際のボタンと同じ見た目 ---
     const secDisp = el('div', 'settings-section');
     secDisp.appendChild(makeHead('DISPLAY'));
     const dispRows = [];
-    [['foldChips', 'YEAR / ALL \u958B\u9589\u30C1\u30C3\u30D7', 'YEAR\u30FBGIRLS\u00B2\u30FBLAKI\u30FBCONTENTS\u3068ALL\u306E\u958B\u9589\u30C1\u30C3\u30D7(OFF\u306E\u9593\u306F\u5168\u90E8\u958B\u3044\u3066\u898B\u305B\u308B)'],
-      ['stat', '\u62AB\u9732\u5B9F\u7E3E \uD83D\uDCCA', '\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u306E\u66F2\u306E\u884C\u306E\uD83D\uDCCA'],
-      ['lyrics', '\u6B4C\u8A5E Uta-Net', '\u66F2\u306E\u884C\u30FB\u697D\u66F2\u30D0\u30FC\u306EUta-Net']].forEach(([k, name, tip]) => {
-      const row = el('label', 'set-row'); row.title = tip;
-      const label = el('span', 'set-row-label'); label.appendChild(el('span', 'set-row-name', name));
+    const ARW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+    const dispDefs = [
+      ...[['all', 'ALL', true], ['year', 'YEAR', true], ['g2', 'GIRLS²', true], ['l2', 'LAKI', true], ['cont', 'CONTENTS', true]].map(([k, t, arw]) => ({ get: () => displayPrefs.chips[k], set: v => { displayPrefs.chips[k] = v; }, chip: t, cls: 'is-fold', arw, tip: '開閉チップ ' + t })),
+      { get: () => displayPrefs.lyrics, set: v => { displayPrefs.lyrics = v; }, chip: 'Uta-Net', cls: '', tip: '曲の行・楽曲バーのUta-Net' },
+      { get: () => displayPrefs.stat, set: v => { displayPrefs.stat = v; }, icon: '📊', name: 'STATS', tip: 'ポップアップの曲の行の📊(披露実績)' }
+    ];
+    dispDefs.forEach(d => {
+      const row = el('label', 'set-row'); row.title = d.tip;
+      const label = el('span', 'set-row-label');
+      if (d.chip) { const c = el('span', 'set-chip ' + d.cls); c.textContent = d.chip; if (d.arw) c.insertAdjacentHTML('beforeend', ARW); label.appendChild(c); }
+      else { label.appendChild(el('span', 'set-row-icon', d.icon)); label.appendChild(el('span', 'set-row-name', d.name)); }
       const sw = el('span', 'set-switch'); const input = document.createElement('input'); input.type = 'checkbox'; input.setAttribute('role', 'switch');
       sw.append(input, el('span', 'set-switch-track')); row.append(label, sw);
-      input.onchange = () => { displayPrefs[k] = input.checked; saveDisplayPrefs(); };
-      dispRows.push({ k, input }); secDisp.appendChild(row);
+      input.onchange = () => { d.set(input.checked); saveDisplayPrefs(); refresh(); };
+      dispRows.push({ d, input, row }); secDisp.appendChild(row);
     });
     body.appendChild(secDisp);
 
@@ -2621,7 +2641,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     resetBtn.type = 'button';
     resetBtn.onclick = () => {
       Object.keys(visibility).forEach(k => visibility[k].clear());
-      displayPrefs.foldChips = displayPrefs.stat = displayPrefs.lyrics = true; saveDisplayPrefs();
+      displayPrefs.stat = displayPrefs.lyrics = true; Object.keys(displayPrefs.chips).forEach(k => { displayPrefs.chips[k] = true; }); saveDisplayPrefs();
       refresh();
       saveVisibility();
     };
@@ -2648,7 +2668,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       });
       shown.contents = others.filter(v => isVisibleSetting('contents', v)).length + '/' + others.length;
       countEls.forEach(c => { c.el.textContent = shown[c.key]; });
-      dispRows.forEach(r => { r.input.checked = !!displayPrefs[r.k]; });
+      dispRows.forEach(r => { const on = !!r.d.get(); r.input.checked = on; const c = r.row.querySelector('.set-chip.is-fold'); if (c) c.classList.toggle('is-off', !on); });
     };
     refresh();
   };
@@ -4560,8 +4580,10 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     const save = () => { try { localStorage.setItem(FOLD_KEY, JSON.stringify(foldState)); } catch (e) {} };
     // ALLボタン: 1つでも開いていれば全部畳み、全部畳んでいれば全部開く。青いのは全部開いているときだけ
     const allBtn = $('foldAllBtn');
-    const syncAll = () => { const open = FOLD_IDS.filter(id => !foldState[id]).length; allBtn.classList.toggle('is-folded', open === 0); allBtn.classList.toggle('fold-all-mixed', open > 0 && open < FOLD_IDS.length); };
-    allBtn.onclick = () => { const anyOpen = FOLD_IDS.some(id => !foldState[id]); FOLD_IDS.forEach(id => setFolded(id, anyOpen, false)); };
+    const shownIds = () => FOLD_IDS.filter(id => displayPrefs.chips[id]); // チップを出している行だけが対象
+    const syncAll = () => { const ids = shownIds(), open = ids.filter(id => !foldState[id]).length; allBtn.classList.toggle('is-folded', ids.length > 0 && open === 0); allBtn.classList.toggle('fold-all-mixed', open > 0 && open < ids.length); };
+    syncFoldAll = syncAll;
+    allBtn.onclick = () => { const ids = shownIds(), anyOpen = ids.some(id => !foldState[id]); ids.forEach(id => setFolded(id, anyOpen, false)); };
     // 見えているボタンを行ごとにまとめ、左端のもの(行の先頭)と、一番上の行の先頭(leader)を求める
     const plan = (unit, btn) => {
       const rows = [...unit.querySelectorAll('.checks-row')].map(r => {
