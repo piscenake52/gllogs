@@ -1,0 +1,34 @@
+{
+  "logid": "fd986c3d7a47",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2115731081127481561?a=b8g3Ck_ZzOnQNlB3eeU&s=19",
+          "member": [
+            "MSK"
+          ],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgG9QJTR/",
+          "member": [
+            "MSK"
+          ],
+          "tags": [
+            "EASY"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2413"
+}
