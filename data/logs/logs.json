@@ -3398,6 +3398,46 @@
     ]
   },
   {
+    "logid": "0df1daeab306",
+    "date": "20261030",
+    "time": "0800",
+    "contents": "TV",
+    "title": "TBS 「ラヴィット！」",
+    "url": "https://www.tbs.co.jp/loveit/",
+    "groups": [
+      "G2",
+      "YOK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2115612734821978569?a=fkgeP6nCwSvpUFzUrfk&s=19",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "出演情報"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://tver.jp/live/simul/lenwwyid3t?utm_medium=share",
+            "member": [],
+            "tags": [
+              "TVer"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "5ae2f1e63558",
     "date": "20261030",
     "time": "0158",
