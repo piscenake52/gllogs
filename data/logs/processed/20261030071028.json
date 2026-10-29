@@ -1,0 +1,26 @@
+{
+  "date": "20261030",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "YUW"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/p/DfFmeVgAV5N/?obrf=MTIxZGk0bGV3N2lpcw==",
+          "member": [
+            "YUW"
+          ],
+          "tags": [
+            "PLAYLIST"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2449"
+}

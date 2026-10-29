@@ -3713,6 +3713,33 @@
     ]
   },
   {
+    "logid": "039f2c8e7955",
+    "date": "20261030",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "YUW"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DfFmeVgAV5N/?obrf=MTIxZGk0bGV3N2lpcw==",
+            "member": [
+              "YUW"
+            ],
+            "tags": [
+              "PLAYLIST"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "23ecf6a97316",
     "date": "20261029",
     "time": "2359",
