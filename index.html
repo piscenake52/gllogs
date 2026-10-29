@@ -338,6 +338,9 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 .fold-badge.is-shown { opacity: 1; transform: scale(1); }
 .fold-unit { display: flex; flex-direction: column; row-gap: 5px; }
 .fold-unit.is-gone { display: none; }
+html.fold-chips-off .fold-dock { display: none; }
+html.fold-chips-off .fold-unit.is-gone { display: flex; } /* 開閉チップを出さない設定のときは、畳んだ状態を無視して全部開いて見せる(保存した状態はそのまま) */
+html.lyrics-off .song-lyrics-btn { display: none; }
 .fold-unit.is-folding .checks-row { overflow: visible; } /* 動いている間だけ、ボタンが行の外へ縦に動けるようにする */
 .checks-row-members { display: flex; flex-wrap: nowrap; gap: 3px; width: 100%; padding-right: 4px; }
 .checks label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
@@ -1168,6 +1171,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       <div class="help-row"><span class="help-key">📋️</span><span class="help-desc">セトリリストアイコン表示</span></div>
       <div class="help-row"><span class="help-key">💞</span><span class="help-desc">関連メンバーハートを一括展開</span></div>
       <div class="help-row"><span class="help-key">🏷️</span><span class="help-desc">タグチップをデータの下に表示。チップを押すとそのタグで検索</span></div>
+      <div class="help-row"><span class="help-key">💽</span><span class="help-desc">一覧の💽(アルバムのポップアップ)を表示/非表示</span></div>
       <div class="help-row"><span class="help-key">🔗</span><span class="help-desc">SNSリンクアイコン表示(開いたポップアップのTAGで、リンクごとのタグも表示)</span></div>
       <div class="help-row"><span class="help-key">BADGE</span><span class="help-desc">押した時の件数を各ボタンに表示</span></div>
       <div class="help-row"><span class="help-key">ICON</span><span class="help-desc">コンテンツ種類ボタンを文字⇔アイコンに切替</span></div>
@@ -1180,10 +1184,12 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       <div class="help-row"><span class="help-key">↺</span><span class="help-desc">直前の検索・絞り込み条件に戻る(チップ検索・サジェストなどの前の状態を記憶)</span></div>
       <div class="help-row"><span class="help-key">📋️ 検索</span><span class="help-desc">セトリ検索モード(曲名・タグで探す)</span></div>
       <div class="help-row"><span class="help-key">カレンダー</span><span class="help-desc">日付を選んで検索</span></div>
+      <div class="help-row"><span class="help-key">✕</span><span class="help-desc">検索ワードを消す(消した直後は検索候補を出さない)</span></div>
     </div>
     <div class="help-sec">
       <div class="help-sec-title">絞り込み</div>
       <div class="help-row"><span class="help-key">各ボタン</span><span class="help-desc">タップで絞込、ダブルタップで除外</span></div>
+      <div class="help-row"><span class="help-key">ALL</span><span class="help-desc">YEAR・GIRLS²・LAKI・CONTENTSで行を畳む/開く(青=開)。ALLで全部。畳んでも絞込は有効</span></div>
       <div class="help-row"><span class="help-key">FILTER</span><span class="help-desc">▲▼で検索・絞り込み欄を開閉/現在の条件を表示</span></div>
       <div class="help-row"><span class="help-key">CLEAR</span><span class="help-desc">検索・絞り込み条件を全解除</span></div>
       <div class="help-row"><span class="help-key">↓↑</span><span class="help-desc">新しい順・古い順を切替</span></div>
@@ -1200,7 +1206,9 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       <div class="help-row"><span class="help-key"><span class="help-key-icon"><span class="icon-sun"></span></span></span><span class="help-desc">ライトモード・ダークモードを切替</span></div>
       <div class="help-row"><span class="help-key">🔓</span><span class="help-desc">ヘッダー固定のON/OFF</span></div>
       <div class="help-row"><span class="help-key">スマホ</span><span class="help-desc">フリックで前後の日/長押しでTODAY</span></div>
-      <div class="help-row"><span class="help-key">⚙️</span><span class="help-desc">表示するグループ・メンバー・コンテンツ種類を選択</span></div>
+      <div class="help-row"><span class="help-key">⚙️</span><span class="help-desc">表示するグループ・メンバー・コンテンツ種類と、開閉チップ・📊・Uta-Netの表示を選択</span></div>
+      <div class="help-row"><span class="help-key">Uta-Net</span><span class="help-desc">曲の歌詞ページ(uta-net)を開く</span></div>
+      <div class="help-row"><span class="help-key">📊</span><span class="help-desc">その曲の披露実績(LIVE・EVENTなどで絞込)</span></div>
     </div>
   </div>
   </div>
@@ -2481,6 +2489,21 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     reapplyVisibility();
   };
 
+  // 表示の設定(SETTINGのDISPLAY): 開閉チップ(YEAR・ALLなど)・披露実績📊・歌詞(Uta-Net)の表示。すべて初期はON。この端末に保存
+  const DISPLAY_PREFS_KEY = 'gl_display_prefs';
+  var displayPrefs = { foldChips: true, stat: true, lyrics: true };
+  try { Object.assign(displayPrefs, JSON.parse(localStorage.getItem(DISPLAY_PREFS_KEY) || '{}')); } catch (e) {}
+  function applyDisplayPrefs() {
+    const h = document.documentElement.classList;
+    h.toggle('fold-chips-off', !displayPrefs.foldChips);
+    h.toggle('stat-on', !!displayPrefs.stat);
+    h.toggle('lyrics-off', !displayPrefs.lyrics);
+    $('items').classList.toggle('stat-mode', !!displayPrefs.stat);
+    try { updateSongTickerScroll(); } catch (e) { /* 初期化前は測らない */ }
+  }
+  const saveDisplayPrefs = () => { try { localStorage.setItem(DISPLAY_PREFS_KEY, JSON.stringify(displayPrefs)); } catch (e) {} applyDisplayPrefs(); };
+  applyDisplayPrefs();
+
   const buildSettingsUI = () => {
     const body = $('settingsModalBody');
     body.textContent = '';
@@ -2577,11 +2600,28 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     secCont.appendChild(gridCont);
     body.appendChild(secCont);
 
+    // --- DISPLAY(開閉チップ・披露実績・歌詞の表示。切り替えるとすぐ反映) ---
+    const secDisp = el('div', 'settings-section');
+    secDisp.appendChild(makeHead('DISPLAY'));
+    const dispRows = [];
+    [['foldChips', 'YEAR / ALL \u958B\u9589\u30C1\u30C3\u30D7', 'YEAR\u30FBGIRLS\u00B2\u30FBLAKI\u30FBCONTENTS\u3068ALL\u306E\u958B\u9589\u30C1\u30C3\u30D7(OFF\u306E\u9593\u306F\u5168\u90E8\u958B\u3044\u3066\u898B\u305B\u308B)'],
+      ['stat', '\u62AB\u9732\u5B9F\u7E3E \uD83D\uDCCA', '\u30DD\u30C3\u30D7\u30A2\u30C3\u30D7\u306E\u66F2\u306E\u884C\u306E\uD83D\uDCCA'],
+      ['lyrics', '\u6B4C\u8A5E Uta-Net', '\u66F2\u306E\u884C\u30FB\u697D\u66F2\u30D0\u30FC\u306EUta-Net']].forEach(([k, name, tip]) => {
+      const row = el('label', 'set-row'); row.title = tip;
+      const label = el('span', 'set-row-label'); label.appendChild(el('span', 'set-row-name', name));
+      const sw = el('span', 'set-switch'); const input = document.createElement('input'); input.type = 'checkbox'; input.setAttribute('role', 'switch');
+      sw.append(input, el('span', 'set-switch-track')); row.append(label, sw);
+      input.onchange = () => { displayPrefs[k] = input.checked; saveDisplayPrefs(); };
+      dispRows.push({ k, input }); secDisp.appendChild(row);
+    });
+    body.appendChild(secDisp);
+
     // --- RESET(ポップアップ左上) ---
     const resetBtn = el('button', 'settings-reset', 'RESET');
     resetBtn.type = 'button';
     resetBtn.onclick = () => {
       Object.keys(visibility).forEach(k => visibility[k].clear());
+      displayPrefs.foldChips = displayPrefs.stat = displayPrefs.lyrics = true; saveDisplayPrefs();
       refresh();
       saveVisibility();
     };
@@ -2608,6 +2648,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       });
       shown.contents = others.filter(v => isVisibleSetting('contents', v)).length + '/' + others.length;
       countEls.forEach(c => { c.el.textContent = shown[c.key]; });
+      dispRows.forEach(r => { r.input.checked = !!displayPrefs[r.k]; });
     };
     refresh();
   };
@@ -4724,17 +4765,8 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   };
   $('statToggleBtn').onclick = () => { albMode = !albMode; applyAlbMode(); };
   applyAlbMode();
-  const statMode = true; // 曲の行の📊は常に表示
-  const applyStatMode = () => {
-    $('items').classList.toggle('stat-mode', statMode);
-    document.documentElement.classList.toggle('stat-on', statMode);
-    syncPopSwitches();
-    try { updateSongTickerScroll(); } catch (e) { /* 初期化前(起動時の最初の反映)は測らない */ } // 曲名バーの右端の幅が変わるので測り直す
-  };
-  // 曲の行のUta-Net・📊は常に表示する(ポップアップ右上のスイッチは廃止)
-  document.documentElement.classList.remove('lyrics-off');
-  const syncPopSwitches = () => {};
-  applyStatMode();
+  // 曲の行の📊・歌詞(Uta-Net)・開閉チップの表示は、SETTINGのDISPLAYで切り替える(applyDisplayPrefs)
+  applyDisplayPrefs();
   // 🏷️ボタン(タグ表示モード):ONの間、タグがある行のタイトルの下にタグのチップを出す
   const TAG_MODE_KEY = 'gl_log_tag_mode';
   let tagMode = localStorage.getItem(TAG_MODE_KEY) === 'true';
