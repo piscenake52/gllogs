@@ -4151,6 +4151,20 @@
             ]
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/XMhON5mJHig?si=L10mCGU4OmzzDhhr",
+            "member": [
+              "MSK"
+            ],
+            "tags": [
+              "EASY"
+            ]
+          }
+        ]
       }
     ]
   },
