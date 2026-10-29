@@ -3700,7 +3700,7 @@
     "date": "20261029",
     "time": "1900",
     "contents": "CL",
-    "title": "CLキャス　山口綺羅く",
+    "title": "CLキャス　山口綺羅",
     "url": "https://www.cl-live.com/artists/yamaguchi_k",
     "groups": [
       "G2",
@@ -3715,6 +3715,18 @@
             "member": [],
             "tags": [
               "キャス配信"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/CL_OFFICIAL_ACC/status/2115646096475308401?a=kRRmsq3dQeYgYHN_4p0&s=19",
+            "member": [],
+            "tags": [
+              "配信情報"
             ]
           }
         ]
