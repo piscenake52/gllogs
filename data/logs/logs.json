@@ -1485,6 +1485,49 @@
     ]
   },
   {
+    "logid": "fbf9fc114276",
+    "date": "20261117",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "『Umbrella』 配信記念 ダウンロードキャンペーン 応募受付締切",
+    "display_sp": "『Umbrella』 配信記念 ダウンロードCP 応募受付締切",
+    "url": "https://girls2-fc.jp/page/familyNews/1243395330959998976",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "Umbrella"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2114646197424242981",
+            "member": [],
+            "tags": [
+              "リリース情報"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2115640373095887039?a=mjXgIx0LlbkvHUITONs&s=19",
+            "member": [],
+            "tags": [
+              "訂正"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "577f4beee870",
     "date": "20261117",
     "time": "1000",
@@ -2492,42 +2535,6 @@
           {
             "url": "https://x.com/wandance_movie/status/2111008458866913396",
             "member": []
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "logid": "fbf9fc114276",
-    "date": "20261103",
-    "time": "2359",
-    "contents": "CLOSE",
-    "title": "『Umbrella』 配信記念 ダウンロードキャンペーン 応募受付締切",
-    "display_sp": "『Umbrella』 配信記念 ダウンロードCP 応募受付締切",
-    "url": "https://girls2-fc.jp/page/familyNews/1243395330959998976",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR"
-    ],
-    "tags": [
-      "Umbrella"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/Girls2_official/status/2114646197424242981",
-            "member": [],
-            "tags": [
-              "リリース情報"
-            ]
           }
         ]
       }
