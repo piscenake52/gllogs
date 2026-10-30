@@ -1212,3 +1212,5 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - helperのalbums type チップの並びを2行(4個ずつ)に変更: `single / ep / album / mini album` と `digital / mu-ca / dvd / blu-ray`。
 
 - helperの幅: 画面幅800px以上(PC)では最大760px(スマホ・狭い画面は従来どおり最大520px)。
+
+- helperのalbums type チップの2行表示はスマホ幅のみ。画面幅800px以上(PC)では8個を1行に並べる。

@@ -12,7 +12,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih { --bg:#121212; --card:#1b1b1d; --text:#f4f4f5; --sub:#a1a1aa; --line:#3f3f46; --btn:#27272a; --accent:#3b82f6; --accent-text:#fff; color-scheme:dark;
   box-sizing:border-box; max-width:520px; margin:0 auto; padding:14px; background:var(--bg); color:var(--text);
   font:14px/1.5 -apple-system,"Hiragino Sans","Noto Sans JP",system-ui,sans-serif; border-radius:12px; text-align:left; }
-@media (min-width:800px) { #glih { max-width:760px; } } /* PC: wider (the phone width stays 520px) */
+@media (min-width:800px) { #glih { max-width:760px; } #glih .tybr { display:none; } } /* PC: type chips in one row (two rows on the phone); wider than the phone width of 520px */
 #glih *, #glih *::before, #glih *::after { box-sizing:border-box; }
 #glih h1 { font-size:16px; margin:0 0 4px; padding:0; color:var(--text); border:0; }
 #glih .lead { font-size:12px; color:var(--sub); margin:0 0 14px; line-height:1.6; }
@@ -2357,7 +2357,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     addSuggest(cp, function () { return (cache.albums || []).map(function (a) { var v = a.title + ' (' + a.type + ')'; return { v: v, k: normQ(v) }; }); }, $('alcp').closest('.field'), true);
     cp.addEventListener('input', function () { var a = findRec(cp.value); if (a) { main.set(a.tracks || []); cp.value = ''; upd(); } });
     function findRec(label) { var r = null; (cache.albums || []).forEach(function (a) { if (!r && a.title + ' (' + a.type + ')' === label.trim()) r = a; }); return r; }
-    AL_TYPES.forEach(function (t, ti) { if (ti === 4) { var br = document.createElement('span'); br.style.cssText = 'flex-basis:100%;height:0'; tyBox.appendChild(br); } var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t === 'musiccard' ? 'mu-ca' : t; b.setAttribute('data-v', t); b.onclick = function () { type = type === t ? '' : t; syncType(); upd(); }; tyBox.appendChild(b); });
+    AL_TYPES.forEach(function (t, ti) { if (ti === 4) { var br = document.createElement('span'); br.className = 'tybr'; br.style.cssText = 'flex-basis:100%;height:0'; tyBox.appendChild(br); } var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t === 'musiccard' ? 'mu-ca' : t; b.setAttribute('data-v', t); b.onclick = function () { type = type === t ? '' : t; syncType(); upd(); }; tyBox.appendChild(b); });
     var tyIn = $('alty');
     function syncType(fromInput) { [].forEach.call(tyBox.children, function (b) { b.classList.toggle('on', b.getAttribute('data-v') === type); }); if (fromInput !== true && tyIn.value !== type) tyIn.value = type; }
     tyIn.addEventListener('input', function () { type = tyIn.value.trim().toLowerCase(); syncType(true); upd(); });
