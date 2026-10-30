@@ -40,7 +40,136 @@
         "price": 11000,
         "extra": [
           {
-            "section": "Girls² 7th Anniversary \"Seven×Seven in Bloom -The Live-\""
+            "no": "DVD1",
+            "title": "BLOOM! BLOOM! BLOOM!"
+          },
+          {
+            "no": "DVD2",
+            "title": "Eagle Eyes"
+          },
+          {
+            "no": "DVD3",
+            "title": "I wanna 宣言"
+          },
+          {
+            "no": "DVD4",
+            "title": "Enjoy"
+          },
+          {
+            "no": "DVD5",
+            "title": "Countdown"
+          },
+          {
+            "no": "DVD6",
+            "title": "CLICK"
+          },
+          {
+            "no": "DVD7",
+            "title": "LET ME DANCE"
+          },
+          {
+            "no": "DVD8",
+            "title": "80's Lover"
+          },
+          {
+            "no": "DVD9",
+            "title": "センチメートル"
+          },
+          {
+            "no": "DVD10",
+            "title": "ツナグツナグ"
+          },
+          {
+            "no": "DVD11",
+            "title": "\"Seven×Seven in Bloom -The Live-\" Dance Track"
+          },
+          {
+            "no": "DVD12",
+            "title": "VICTORY"
+          },
+          {
+            "no": "DVD13",
+            "title": "C'mon Neo Zipang!!!"
+          },
+          {
+            "no": "DVD14",
+            "title": "HERE WE GO"
+          },
+          {
+            "no": "DVD15",
+            "title": "Good Days"
+          },
+          {
+            "no": "DVD16",
+            "title": "#キズナプラス"
+          },
+          {
+            "no": "DVD17",
+            "title": "私がモテてどうすんだ"
+          },
+          {
+            "no": "DVD18",
+            "title": "ヒマワリ"
+          },
+          {
+            "no": "DVD19",
+            "title": "LETTERS"
+          },
+          {
+            "no": "DVD20",
+            "title": "さくら、届け"
+          },
+          {
+            "no": "DVD21",
+            "title": "First Love"
+          },
+          {
+            "no": "DVD22",
+            "title": "Make My Day"
+          },
+          {
+            "no": "DVD23",
+            "title": "Melty Love"
+          },
+          {
+            "no": "DVD24",
+            "title": "Love Genic"
+          },
+          {
+            "no": "DVD25",
+            "title": "BFF"
+          },
+          {
+            "no": "DVD26",
+            "title": "♡桃色片想い♡ feat. Gorie"
+          },
+          {
+            "no": "DVD27",
+            "title": "FIRE!!"
+          },
+          {
+            "no": "DVD28",
+            "title": "Magic"
+          },
+          {
+            "no": "DVD29",
+            "title": "ダイジョウブ"
+          },
+          {
+            "no": "DVD30",
+            "title": "TIP TOP"
+          },
+          {
+            "no": "DVD31",
+            "title": "LET ME GO"
+          },
+          {
+            "no": "DVD32",
+            "title": "Feel Like Home"
+          },
+          {
+            "no": "DVD33",
+            "title": "チュワパネ!"
           }
         ]
       },
@@ -51,7 +180,136 @@
         "price": 11000,
         "extra": [
           {
-            "section": "Girls² 7th Anniversary \"Seven×Seven in Bloom -The Live-\""
+            "no": "BD1",
+            "title": "BLOOM! BLOOM! BLOOM!"
+          },
+          {
+            "no": "BD2",
+            "title": "Eagle Eyes"
+          },
+          {
+            "no": "BD3",
+            "title": "I wanna 宣言"
+          },
+          {
+            "no": "BD4",
+            "title": "Enjoy"
+          },
+          {
+            "no": "BD5",
+            "title": "Countdown"
+          },
+          {
+            "no": "BD6",
+            "title": "CLICK"
+          },
+          {
+            "no": "BD7",
+            "title": "LET ME DANCE"
+          },
+          {
+            "no": "BD8",
+            "title": "80's Lover"
+          },
+          {
+            "no": "BD9",
+            "title": "センチメートル"
+          },
+          {
+            "no": "BD10",
+            "title": "ツナグツナグ"
+          },
+          {
+            "no": "BD11",
+            "title": "\"Seven×Seven in Bloom -The Live-\" Dance Track"
+          },
+          {
+            "no": "BD12",
+            "title": "VICTORY"
+          },
+          {
+            "no": "BD13",
+            "title": "C'mon Neo Zipang!!!"
+          },
+          {
+            "no": "BD14",
+            "title": "HERE WE GO"
+          },
+          {
+            "no": "BD15",
+            "title": "Good Days"
+          },
+          {
+            "no": "BD16",
+            "title": "#キズナプラス"
+          },
+          {
+            "no": "BD17",
+            "title": "私がモテてどうすんだ"
+          },
+          {
+            "no": "BD18",
+            "title": "ヒマワリ"
+          },
+          {
+            "no": "BD19",
+            "title": "LETTERS"
+          },
+          {
+            "no": "BD20",
+            "title": "さくら、届け"
+          },
+          {
+            "no": "BD21",
+            "title": "First Love"
+          },
+          {
+            "no": "BD22",
+            "title": "Make My Day"
+          },
+          {
+            "no": "BD23",
+            "title": "Melty Love"
+          },
+          {
+            "no": "BD24",
+            "title": "Love Genic"
+          },
+          {
+            "no": "BD25",
+            "title": "BFF"
+          },
+          {
+            "no": "BD26",
+            "title": "♡桃色片想い♡ feat. Gorie"
+          },
+          {
+            "no": "BD27",
+            "title": "FIRE!!"
+          },
+          {
+            "no": "BD28",
+            "title": "Magic"
+          },
+          {
+            "no": "BD29",
+            "title": "ダイジョウブ"
+          },
+          {
+            "no": "BD30",
+            "title": "TIP TOP"
+          },
+          {
+            "no": "BD31",
+            "title": "LET ME GO"
+          },
+          {
+            "no": "BD32",
+            "title": "Feel Like Home"
+          },
+          {
+            "no": "BD33",
+            "title": "チュワパネ!"
           }
         ]
       },
