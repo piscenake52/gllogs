@@ -1,0 +1,21 @@
+{
+  "logid": "fd986c3d7a47",
+  "sns": [
+    {
+      "type": "youtube",
+      "urls": [
+        {
+          "url": "https://youtube.com/shorts/mhO1X3tPiDQ?si=ypHVnRWqHKRO2PyC",
+          "member": [
+            "MMK"
+          ],
+          "tags": [
+            "Umbrella",
+            "REC Scene"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2476"
+}
