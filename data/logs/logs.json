@@ -3478,12 +3478,28 @@
     "time": "2000",
     "contents": "SNS",
     "title": "あかりんごの元気モリモリール　#125",
+    "url": "https://www.instagram.com/reel/DfHdr65peaj/?srtk=eW8xbzRyN2NicXl6",
     "groups": [
       "L2",
       "AKR"
     ],
     "tags": [
+      "愛をくださいませ",
+      "≠ME",
       "ダンスは遊びじゃない！"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfHdr65peaj/?srtk=eW8xbzRyN2NicXl6",
+            "member": [
+              "AKR"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
