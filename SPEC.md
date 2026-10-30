@@ -1201,3 +1201,14 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - helper(albumsの曲目): track / section とも、→ ↑ ↓ ✕ のボタンは入力欄の下に1行で並べ、縦幅の小さい同じ幅のボタンにする。sectionには → が無いので、その位置は空けて ↑ ↓ ✕ の位置をtrackとそろえる。曲の番号の表示は区分の後で1に戻る。
 
 - helper(albums): editionの行も同様に、↑ ↓ ✕ を名前欄の下に1行で並べ、縦幅の小さい同じ幅のボタンにした。
+
+- helper(albums の曲目): ボタンの行は入力欄と同じ幅に収め、曲番号の列にかぶらない。曲名の候補は、ボタンの上にかぶさるように表示する。
+
+## albums の type に mini album を追加
+
+- type の候補に `mini album`(album の次)。helperのtypeチップ、issue_to_json.py / merge_json.py の候補、add_albums.yml の説明に追加。viewerでは「MINI ALBUM」と大文字で表示。
+- logs行から盤を引くとき(💽・helper)は、タイトル/タグの「MINI ALBUM」を album とは別の type として扱う(album の盤を引かない)。
+
+- helperのalbums type チップの並びを2行(4個ずつ)に変更: `single / ep / album / mini album` と `digital / mu-ca / dvd / blu-ray`。
+
+- helperの幅: 画面幅800px以上(PC)では最大760px(スマホ・狭い画面は従来どおり最大520px)。

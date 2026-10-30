@@ -12,6 +12,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih { --bg:#121212; --card:#1b1b1d; --text:#f4f4f5; --sub:#a1a1aa; --line:#3f3f46; --btn:#27272a; --accent:#3b82f6; --accent-text:#fff; color-scheme:dark;
   box-sizing:border-box; max-width:520px; margin:0 auto; padding:14px; background:var(--bg); color:var(--text);
   font:14px/1.5 -apple-system,"Hiragino Sans","Noto Sans JP",system-ui,sans-serif; border-radius:12px; text-align:left; }
+@media (min-width:800px) { #glih { max-width:760px; } } /* PC: wider (the phone width stays 520px) */
 #glih *, #glih *::before, #glih *::after { box-sizing:border-box; }
 #glih h1 { font-size:16px; margin:0 0 4px; padding:0; color:var(--text); border:0; }
 #glih .lead { font-size:12px; color:var(--sub); margin:0 0 14px; line-height:1.6; }
@@ -117,7 +118,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .plrow .fin { flex:1 1 40%; min-width:0; }
 #glih .plno { width:2em; text-align:right; color:var(--sub); font-size:12px; }
 #glih .alrow { display:block; }
-#glih .alrow .alt { display:flex; align-items:center; gap:4px; }
+#glih .alrow .alt { display:flex; align-items:flex-start; gap:4px; }
+#glih .alrow .alt .plno { line-height:34px; }
+#glih .alrow .alin { flex:1 1 auto; min-width:0; }
+#glih .alrow .alinp { position:relative; } #glih .alrow .alinp .fin { width:100%; box-sizing:border-box; }
+#glih .alrow .alinp .fsug { position:absolute; left:0; right:0; top:100%; z-index:30; margin-top:2px; background:var(--card); box-shadow:0 4px 14px rgba(0,0,0,.35); } /* the candidates cover the buttons under the input */
 #glih .alrow .alt .fin { flex:1 1 auto; min-width:0; }
 #glih .albtn { display:flex; gap:4px; padding:4px 0 0; }
 #glih .albtn .small { flex:1 1 0; min-width:0; padding:2px 6px; line-height:1.3; text-align:center; } /* track / section buttons: one row under the input, small height, equal width */
@@ -1699,7 +1704,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function alTypesOf(row) {
     var hay = ' ' + [row.title, (row.tags || []).join(' '), row.display_pc, row.display_sp].join(' ').normalize('NFKC').toUpperCase().replace(/[^A-Z0-9]+/g, ' ') + ' ', out = [], c = String(row.contents || '').toUpperCase();
     function has(re) { return re.test(hay); }
-    if (has(/ (ALBUM|AL) /)) out.push('album');
+    if (has(/ MINI ?ALBUM /) || has(/ MINI ALBUM /)) out.push('mini album');
+    else if (has(/ (ALBUM|AL) /)) out.push('album');
     if (c === 'EP' || has(/ EP /)) out.push('ep');
     if (has(/ (SINGLE|SG) /)) out.push('single');
     if (c === 'MUSICCARD' || has(/ (MUSICCARD|MUSIC CARD) /)) out.push('musiccard');
@@ -2156,7 +2162,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     fetchData('songs').then(function () { upd(); }).catch(function () {});
   }
   // ---- albums tab: release (album / ep / single) tracklist + editions -> one Issue (add_albums.yml). Key = title + type. ----
-  var alReady = false, AL_TYPES = ['album', 'ep', 'single', 'musiccard', 'digital', 'dvd', 'blu-ray'];
+  var alReady = false, AL_TYPES = ['single', 'ep', 'album', 'mini album', 'digital', 'musiccard', 'dvd', 'blu-ray']; // two rows of 4
   function loadAlbums() { return fetchData('albums').catch(function () { if (!cache.albums) cache.albums = []; return cache.albums; }); }
   function alTitleOpts() {
     var m = {}, out = [];
@@ -2210,8 +2216,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         var ti;
         if (r.sec) { ti = document.createElement('textarea'); ti.className = 'fin alsec'; ti.rows = 1; ti.placeholder = 'section (LIVE TOUR 2025 ...) - Enter = line break'; ti.setAttribute('spellcheck', 'false'); ti.value = r.title; var fit = function () { ti.style.height = 'auto'; if (ti.scrollHeight > 8) ti.style.height = ti.scrollHeight + 2 + 'px'; }; ti._fit = fit; ti.addEventListener('input', fit); }
         else { ti = alInput('title'); ti.value = r.title; }
-        r.ti = ti; top.appendChild(ti);
-        var bt = document.createElement('div'); bt.className = 'albtn'; line.insertBefore(bt, sub); // buttons: under the input, equal width
+        r.ti = ti; var cw = document.createElement('div'); cw.className = 'alin'; var inp = document.createElement('div'); inp.className = 'alinp'; inp.appendChild(ti); cw.appendChild(inp); top.appendChild(cw); // the buttons go under the input (same width); the candidates cover them
+        var bt = document.createElement('div'); bt.className = 'albtn'; cw.appendChild(bt); // buttons: under the input, equal width
         if (!r.sec) { var go = wbtn('\u2192', function () { goSong(r.title); }); go.title = 'open this song in the songs tab'; go.disabled = true; r.go = go; bt.appendChild(go); }
         else { var sp = document.createElement('span'); sp.className = 'albsp'; bt.appendChild(sp); }
         var upB = wbtn('\u2191', function () { if (i < 1) return; rows.splice(i - 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }); upB.title = 'move up'; upB.disabled = i < 1; bt.appendChild(upB);
@@ -2219,11 +2225,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         var xB = wbtn('\u2715', function () { rows.splice(i, 1); draw(); changed(); }); bt.appendChild(xB);
         r.st = document.createElement('div'); r.st.className = 'plst'; sub.appendChild(r.st);
         list.appendChild(line);
-        if (!r.sec) var sug = addSuggest(ti, alTitleOpts, line, true);
+        if (!r.sec) var sug = addSuggest(ti, alTitleOpts, ti, true);
         ti.oninput = function () { r.title = ti.value; if (!r.sec) stat(r); changed(); };
         ti.onkeydown = function (e) {
           if (e.key !== 'Enter' || r.sec) return; e.preventDefault(); // sections: Enter is a line break
-          var box = line.nextSibling; if (box && box.classList && box.classList.contains('fsug') && !box.hidden) return; // candidates are shown: pick one by pressing it (Enter does not pick)
+          var box = ti.nextSibling; if (box && box.classList && box.classList.contains('fsug') && !box.hidden) return; // candidates are shown: pick one by pressing it (Enter does not pick)
           rows.splice(i + 1, 0, { title: '', no: '' }); draw(); rows[i + 1].ti.focus();
         };
         if (!r.sec) stat(r); else ti._fit();
@@ -2351,7 +2357,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     addSuggest(cp, function () { return (cache.albums || []).map(function (a) { var v = a.title + ' (' + a.type + ')'; return { v: v, k: normQ(v) }; }); }, $('alcp').closest('.field'), true);
     cp.addEventListener('input', function () { var a = findRec(cp.value); if (a) { main.set(a.tracks || []); cp.value = ''; upd(); } });
     function findRec(label) { var r = null; (cache.albums || []).forEach(function (a) { if (!r && a.title + ' (' + a.type + ')' === label.trim()) r = a; }); return r; }
-    AL_TYPES.forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t === 'musiccard' ? 'mu-ca' : t; b.setAttribute('data-v', t); b.onclick = function () { type = type === t ? '' : t; syncType(); upd(); }; tyBox.appendChild(b); });
+    AL_TYPES.forEach(function (t, ti) { if (ti === 4) { var br = document.createElement('span'); br.style.cssText = 'flex-basis:100%;height:0'; tyBox.appendChild(br); } var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t === 'musiccard' ? 'mu-ca' : t; b.setAttribute('data-v', t); b.onclick = function () { type = type === t ? '' : t; syncType(); upd(); }; tyBox.appendChild(b); });
     var tyIn = $('alty');
     function syncType(fromInput) { [].forEach.call(tyBox.children, function (b) { b.classList.toggle('on', b.getAttribute('data-v') === type); }); if (fromInput !== true && tyIn.value !== type) tyIn.value = type; }
     tyIn.addEventListener('input', function () { type = tyIn.value.trim().toLowerCase(); syncType(true); upd(); });

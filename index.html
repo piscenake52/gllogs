@@ -907,7 +907,7 @@ html.alb-off .alb-icon { width: 0; margin: 0; opacity: 0; visibility: hidden; po
 .alb-list { list-style: none; margin: 0; padding: 0; }
 .alb-list li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; } /* 曲の行はセトリのポップアップと同じ並び(曲順・再生ボタン・曲名)。曲名の文字はデータ部の文字サイズ設定に合わせる */
 .alb-list li:last-child { border-bottom: none; }
-.alb-list li.alb-sec { display: block; padding: 10px 0 4px; border-bottom: none; font-size: 12px; font-weight: 700; color: var(--muted); } /* 追加ディスク内の区分の見出し */
+.alb-list li.alb-sec { white-space: pre-line; display: block; padding: 10px 0 4px; border-bottom: none; font-size: 12px; font-weight: 700; color: var(--muted); } /* 追加ディスク内の区分の見出し */
 .row-in { animation: rowIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both; }
 @keyframes rowIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .row-in { animation: none; } }
@@ -3596,7 +3596,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   }
   function statHasTitle(title) { const m = statIndex().get(statNorm(title)); return !!(m && m.size); }
   // ---- 💽 収録曲(albums.json):album / ep / single の収録曲と各種盤 ----
-  const ALB_TYPE_WORDS = { ALBUM: 'album', AL: 'album', EP: 'ep', SINGLE: 'single', SG: 'single', MUSICCARD: 'musiccard', 'MUSIC CARD': 'musiccard' };
+  const ALB_TYPE_WORDS = { ALBUM: 'album', AL: 'album', EP: 'ep', SINGLE: 'single', SG: 'single', MUSICCARD: 'musiccard', 'MUSIC CARD': 'musiccard', MINIALBUM: 'mini album' };
   const ALB_TYPE_LABELS = { musiccard: 'MUSIC CARD', 'blu-ray': 'BLU-RAY', bd: 'BD' };
   const albTypeLabel = t => ALB_TYPE_LABELS[t] || String(t || '').toUpperCase();
   function albumMatches(item, text) {
@@ -3617,8 +3617,9 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     const types = new Set();
     (Array.isArray(item.tags) ? item.tags : []).forEach(tg => { const w = ALB_TYPE_WORDS[String(tg || '').trim().toUpperCase()]; if (w) types.add(w); });
     const hay = (String(text || '') + ' ' + String(item.title || '') + ' ' + String(item.display_pc || '') + ' ' + String(item.display_sp || '')).normalize('NFKC');
+    let hay2 = hay; if (/(^|[^A-Za-z0-9])MINI ?ALBUM(?![A-Za-z0-9])/i.test(hay)) { types.add('mini album'); hay2 = hay.replace(/MINI ?ALBUM/gi, ' '); } // MINI ALBUMの語は、ALBUMとは別のtype
     const re = /(^|[^A-Za-z0-9])(ALBUM|AL|EP|SINGLE|SG|MUSIC ?CARD)(?![A-Za-z0-9])/g;
-    let m; while ((m = re.exec(hay))) types.add(ALB_TYPE_WORDS[m[2].replace(/ /g, '')]);
+    let m; while ((m = re.exec(hay2))) types.add(ALB_TYPE_WORDS[m[2].replace(/ /g, '')]);
     return types.size ? same.filter(a => types.has(a.type)) : same;
   }
   function applyAlbumIcon(el) { el.classList.toggle('is-off', !albumMatches(el._item, el._text).length); }
