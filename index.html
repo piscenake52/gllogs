@@ -2893,7 +2893,8 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     // SETLISTアイコン表示:①セトリ検索モード中
     let sl = null;
     if (setlistIconMode || !setlistMode) { // 📋ボタンON/OFFは#itemsのsetlist-icon-modeクラスで切り替える(常に作っておく)。セトリ検索モード単独のときだけ下の分岐
-      const hasSetlistId = !!item.setlistid;
+      const slId = item.setlistid || item._refSetlistid || ''; // 記念日の行は参照元のセトリを開く
+      const hasSetlistId = !!slId;
       sl = document.createElement('span');
       sl.className = 'setlist-icon' + (hasSetlistId ? '' : ' is-blank');
       sl.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない
@@ -2903,7 +2904,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
         sl.setAttribute('aria-label', 'Setlist');
         sl.onclick = e => {
           e.stopPropagation();
-          openSetlistModal(item.setlistid);
+          openSetlistModal(slId);
         };
       }
     } else if (setlistMode && item.setlistid) {
@@ -6116,6 +6117,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       ['url', 'groups', 'relations', 'tags', 'sns', 'albumid'].forEach(k => {
         if (!has(r[k]) && has(src[k])) r[k] = src[k];
       });
+      if (src.setlistid && !r.setlistid) r._refSetlistid = src.setlistid; // 参照元のセトリ。📋アイコンだけに使う(セトリ検索・メンバー判定・helperのIDには使わない)
       r._refContents = src.contents; // 参照元(リリースなど)のcontents。記念日の行にも💽を出すために使う
       out.push(r);
     });
