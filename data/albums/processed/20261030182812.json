@@ -1,0 +1,117 @@
+{
+  "title": "寄り道 -Take it easy baby-",
+  "type": "ep",
+  "artist": "Girls²",
+  "member": [
+    "YZH",
+    "MMK",
+    "MSK",
+    "YOK",
+    "KUR",
+    "MNM",
+    "KIR",
+    "TOA"
+  ],
+  "id": "a6c207bc5978",
+  "_logids": [
+    "58cfb118e6c1"
+  ],
+  "date": "20241030",
+  "tracks": [
+    {
+      "no": 1,
+      "title": "寄り道 -Take it easy baby-"
+    },
+    {
+      "no": 2,
+      "title": "BFF"
+    },
+    {
+      "no": 3,
+      "title": "Good Night Santa"
+    },
+    {
+      "no": 4,
+      "title": "寄り道 -Take it easy baby- (Instrumental)"
+    },
+    {
+      "no": 5,
+      "title": "BFF (Instrumental)"
+    },
+    {
+      "no": 6,
+      "title": "Good Night Santa (Instrumental)"
+    }
+  ],
+  "editions": [
+    {
+      "name": "初回生産限定盤",
+      "format": "CD+BD",
+      "note": "AICL-4613～4614",
+      "price": 5900,
+      "extra": [
+        {
+          "no": "BD1",
+          "title": "寄り道 -Take it easy baby – Music Video"
+        },
+        {
+          "no": "BD2",
+          "title": "寄り道 -Take it easy baby – Music Video Making Movie"
+        },
+        {
+          "section": "Girls² 5th Anniversary「We are Girls² - The Live –」2024.06.30\nat 国立代々木競技場 第一体育館"
+        },
+        {
+          "no": "BD1",
+          "title": "I wanna 宣言"
+        }
+      ],
+      "tracks": [
+        {
+          "no": 1,
+          "title": "寄り道 -Take it easy baby-"
+        },
+        {
+          "no": 2,
+          "title": "BFF"
+        },
+        {
+          "no": 3,
+          "title": "Good Night Santa"
+        }
+      ]
+    },
+    {
+      "name": "通常盤",
+      "format": "CD",
+      "note": "AICL-4617",
+      "price": 1650,
+      "tracks": [
+        {
+          "no": 1,
+          "title": "寄り道 -Take it easy baby-"
+        },
+        {
+          "no": 2,
+          "title": "BFF"
+        },
+        {
+          "no": 3,
+          "title": "Good Night Santa"
+        },
+        {
+          "no": 4,
+          "title": "寄り道 -Take it easy baby- (Instrumental)"
+        },
+        {
+          "no": 5,
+          "title": "BFF (Instrumental)"
+        },
+        {
+          "no": 6,
+          "title": "Good Night Santa (Instrumental)"
+        }
+      ]
+    }
+  ]
+}
