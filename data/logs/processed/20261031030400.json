@@ -1,0 +1,32 @@
+{
+  "date": "20261031",
+  "time": "0545",
+  "contents": "TV",
+  "title": "TBS 「夜明けのラヴィット！」",
+  "url": "https://www.tbs.co.jp/loveit/",
+  "groups": [
+    "G2",
+    "YOK"
+  ],
+  "tags": [
+    "=",
+    "ラヴィット"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2116145270434275715?a=5rv9JvyaiRRnFBxRfBI&s=19",
+          "member": [
+            "YOK"
+          ],
+          "tags": [
+            "出演情報"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2544"
+}
