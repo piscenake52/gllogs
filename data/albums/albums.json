@@ -40,6 +40,9 @@
         "price": 11000,
         "extra": [
           {
+            "section": "Girls² 7th Anniversary \"Seven×Seven in Bloom -The Live-\""
+          },
+          {
             "no": "DVD1",
             "title": "BLOOM! BLOOM! BLOOM!"
           },
@@ -170,6 +173,21 @@
           {
             "no": "DVD33",
             "title": "チュワパネ!"
+          },
+          {
+            "section": "映像収録"
+          },
+          {
+            "no": "DVD1",
+            "title": "Girls² 7th Anniversary \"Seven×Seven in Bloom -The Live-\" DOCUMENTARY"
+          },
+          {
+            "no": "DVD2",
+            "title": "EASY (Music Video)"
+          },
+          {
+            "no": "DVD3",
+            "title": "EASY (Music Video Making Movie)"
           }
         ]
       },
@@ -179,6 +197,9 @@
         "note": "RZCD-67716/B",
         "price": 11000,
         "extra": [
+          {
+            "section": "Girls² 7th Anniversary \"Seven×Seven in Bloom -The Live-\""
+          },
           {
             "no": "BD1",
             "title": "BLOOM! BLOOM! BLOOM!"
@@ -310,6 +331,21 @@
           {
             "no": "BD33",
             "title": "チュワパネ!"
+          },
+          {
+            "section": "映像収録"
+          },
+          {
+            "no": "BD1",
+            "title": "Girls² 7th Anniversary \"Seven×Seven in Bloom -The Live-\" DOCUMENTARY"
+          },
+          {
+            "no": "BD2",
+            "title": "EASY (Music Video)"
+          },
+          {
+            "no": "BD3",
+            "title": "EASY (Music Video Making Movie)"
           }
         ]
       },
