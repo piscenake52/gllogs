@@ -213,5 +213,119 @@
         ]
       }
     ]
+  },
+  {
+    "id": "4657fc4114ba",
+    "title": "恋するカモ",
+    "type": "album",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "date": "20191030",
+    "tracks": [
+      {
+        "no": 1,
+        "title": "恋するカモ"
+      },
+      {
+        "no": 2,
+        "title": "Give Me ❤"
+      },
+      {
+        "no": 3,
+        "title": "ハッピーメリクリ！"
+      },
+      {
+        "no": 4,
+        "title": "学校行っちゃお"
+      },
+      {
+        "no": 5,
+        "title": "恋するカモ (mirage² ver.)"
+      },
+      {
+        "no": 6,
+        "title": "恋するカモ（カラオケ）"
+      },
+      {
+        "no": 7,
+        "title": "GIVE ME LOVE（カラオケ）"
+      },
+      {
+        "no": 8,
+        "title": "ハッピーメリクリ！（カラオケ）"
+      },
+      {
+        "no": 9,
+        "title": "学校行っちゃお（カラオケ）"
+      }
+    ],
+    "editions": [
+      {
+        "name": "通常盤",
+        "format": "CD",
+        "note": "AICL-3777",
+        "price": 1980
+      },
+      {
+        "name": "初回生産限定盤",
+        "format": "CD+DVD",
+        "note": "AICL-3775 ～ AICL-3776",
+        "price": 3190,
+        "extra": [
+          {
+            "no": "DVD1",
+            "title": "恋するカモ - ミュージックビデオ -"
+          },
+          {
+            "no": "DVD2",
+            "title": "恋するカモ - ダンスパフォーマンスビデオ -"
+          },
+          {
+            "no": "DVD3",
+            "title": "恋するカモ - ドラマオープニングノンクレジットver. -"
+          },
+          {
+            "no": "DVD4",
+            "title": "GIVE ME ❤ - ダンスプラクティスビデオ -"
+          },
+          {
+            "no": "DVD5",
+            "title": "ハッピーメリクリ！- ダンスプラクティスビデオ -"
+          }
+        ],
+        "tracks": [
+          {
+            "no": 1,
+            "title": "恋するカモ"
+          },
+          {
+            "no": 2,
+            "title": "Give Me ❤"
+          },
+          {
+            "no": 3,
+            "title": "ハッピーメリクリ！"
+          },
+          {
+            "no": 4,
+            "title": "学校行っちゃお"
+          },
+          {
+            "no": 5,
+            "title": "恋するカモ (mirage² ver.)"
+          }
+        ]
+      }
+    ]
   }
 ]
