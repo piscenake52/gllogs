@@ -3781,6 +3781,9 @@
       "L2",
       "KIK"
     ],
+    "tags": [
+      "LDH紅白"
+    ],
     "sns": [
       {
         "type": "x",
@@ -3801,6 +3804,15 @@
             ],
             "tags": [
               "ライブ配信"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2116139598812500055?a=mZpq1xSkubJ8AFQURK0&s=19",
+            "member": [
+              "KIK"
+            ],
+            "tags": [
+              "配信中です"
             ]
           }
         ]
