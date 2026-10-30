@@ -825,13 +825,16 @@ def build_albums(body):
     if not isinstance(j, dict):
         return None, ["- **album json**: オブジェクト形式で入力してください"]
 
-    def clean_tracks(v, where):
+    def clean_tracks(v, where, sections=False):
         out = []
         for t in (v if isinstance(v, list) else []):
             if not isinstance(t, dict):
                 continue
             ti = str(t.get("title") or "").strip()
             if not ti:
+                sec = str(t.get("section") or "").strip() if sections else ""
+                if sec:
+                    out.append({"section": sec})  # 追加ディスク内の区分の見出し(曲ではない)
                 continue
             x = {}
             no = t.get("no")
@@ -871,7 +874,7 @@ def build_albums(body):
             x["price"] = int(pr)
         elif isinstance(pr, str) and re.fullmatch(r"\d+", to_halfwidth(pr).strip()):
             x["price"] = int(to_halfwidth(pr).strip())
-        ex = clean_tracks(e.get("extra"), "extra")
+        ex = clean_tracks(e.get("extra"), "extra", True)
         if ex:
             x["extra"] = ex
         tk = clean_tracks(e.get("tracks"), "tracks")
