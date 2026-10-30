@@ -1950,13 +1950,27 @@
       "MNM",
       "KIR"
     ],
+    "albumid": "d2ee9e6f38eb",
     "tags": [
       "EASY",
       "Nocturne",
       "Girls PARADE",
       "Girls² 7th Anniversary Seven×Seven in Bloom -The Live-"
     ],
-    "albumid": "d2ee9e6f38eb"
+    "sns": [
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1220990234909474818",
+            "member": [],
+            "tags": [
+              "全特典絵柄解禁"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "logid": "a0e963dfd783",
