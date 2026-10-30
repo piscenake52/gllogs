@@ -3702,6 +3702,35 @@
     ]
   },
   {
+    "logid": "0a2effbbda45",
+    "date": "20261031",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "HIR",
+      "YUW"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2116266391661887746?a=uCy2kwqqDS32YRa77uw&s=19",
+            "member": [
+              "HIR",
+              "YUW"
+            ],
+            "tags": [
+              "本日の出演情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "6612456694b7",
     "date": "20261030",
     "time": "2359",
