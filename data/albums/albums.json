@@ -385,15 +385,9 @@
     ],
     "editions": [
       {
-        "name": "通常盤",
-        "format": "CD",
-        "note": "AICL-3777",
-        "price": 1980
-      },
-      {
         "name": "初回生産限定盤",
         "format": "CD+DVD",
-        "note": "AICL-3775 ～ AICL-3776",
+        "note": "AICL-3775～AICL-3776",
         "price": 3190,
         "extra": [
           {
@@ -439,6 +433,12 @@
             "title": "恋するカモ (mirage² ver.)"
           }
         ]
+      },
+      {
+        "name": "通常盤",
+        "format": "CD",
+        "note": "AICL-3777",
+        "price": 1980
       }
     ]
   }
