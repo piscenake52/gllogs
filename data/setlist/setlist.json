@@ -2767,10 +2767,84 @@
       "YOK",
       "KUR",
       "MNM",
-      "KIR"
+      "KIR",
+      "TOA",
+      "RAN"
     ],
-    "title": "Girls² First Live Tour -Enjoy The Good Days- 東京公演",
-    "venue": "東京ガーデンシアター"
+    "title": "Girls² First Live Tour -Enjoy The Good Days-\n東京公演",
+    "venue": "東京ガーデンシアター",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Good Days",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "Party Time!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "Chu-Lu-Chu-Chu",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "ABCDEFガール",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "STARRRT!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 6,
+        "title": "Ring Ring♪",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 7,
+        "title": "大事なモノ",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 8,
+        "title": "JEWEL GIRL",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 9,
+        "title": "スキップ！",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 10,
+        "title": "#キズナプラス",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202110031730",
