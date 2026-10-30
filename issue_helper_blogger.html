@@ -12,7 +12,16 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih { --bg:#121212; --card:#1b1b1d; --text:#f4f4f5; --sub:#a1a1aa; --line:#3f3f46; --btn:#27272a; --accent:#3b82f6; --accent-text:#fff; color-scheme:dark;
   box-sizing:border-box; max-width:520px; margin:0 auto; padding:14px; background:var(--bg); color:var(--text);
   font:14px/1.5 -apple-system,"Hiragino Sans","Noto Sans JP",system-ui,sans-serif; border-radius:12px; text-align:left; }
-@media (min-width:800px) { #glih { max-width:760px; } #glih .tybr { display:none; } } /* PC: type chips in one row (two rows on the phone); wider than the phone width of 520px */
+@media (min-width:800px) { #glih { max-width:760px; } #glih .tybr { display:none; }
+  /* PC: the buttons go to the right of the input (same size, in one row) */
+  #glih .alrow .alin { display:flex; align-items:flex-start; gap:4px; }
+  #glih .alrow .alinp { flex:1 1 auto; min-width:0; }
+  #glih .alrow .alin .albtn, #glih .alnr .albtn { flex:0 0 auto; padding:0; }
+  #glih .alrow .alin .albtn { align-self:flex-start; }
+  #glih .alrow .alin .albtn .small, #glih .alnr .albtn .small, #glih .alrow .alin .albtn .albsp, #glih .alnr .albtn .albsp { flex:0 0 2.6em; width:2.6em; padding:7px 0; }
+  #glih .alnr { display:flex; align-items:center; gap:4px; }
+  #glih .alnr > input { flex:1 1 auto; width:auto !important; min-width:0; }
+} /* PC: type chips in one row (two rows on the phone); wider than the phone width of 520px */
 #glih *, #glih *::before, #glih *::after { box-sizing:border-box; }
 #glih h1 { font-size:16px; margin:0 0 4px; padding:0; color:var(--text); border:0; }
 #glih .lead { font-size:12px; color:var(--sub); margin:0 0 14px; line-height:1.6; }
@@ -2378,7 +2387,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         fchips.appendChild(b);
       });
       fm.addEventListener('input', syncFmt);
-      var nrow = document.createElement('div'); nrow.style.cssText = 'flex:1;min-width:0'; nm.style.width = '100%'; nm.style.boxSizing = 'border-box'; nrow.appendChild(nm); var nbt = document.createElement('div'); nbt.className = 'albtn'; nrow.appendChild(nbt); // buttons under the name, equal width
+      var nrow = document.createElement('div'); nrow.className = 'alnr'; nrow.style.cssText = 'flex:1;min-width:0'; nm.style.width = '100%'; nm.style.boxSizing = 'border-box'; nrow.appendChild(nm); var nbt = document.createElement('div'); nbt.className = 'albtn'; nrow.appendChild(nbt); // buttons under the name, equal width
       var upE = wbtn('\u2191', function () { var i = eds.indexOf(ob); if (i < 1) return; eds.splice(i - 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }), dnE = wbtn('\u2193', function () { var i = eds.indexOf(ob); if (i < 0 || i >= eds.length - 1) return; eds.splice(i + 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }), rmE = wbtn('\u2715', function () { var i = eds.indexOf(ob); if (i >= 0) eds.splice(i, 1); drawEds(); upd(); });
       [upE, dnE, rmE].forEach(function (b) { nbt.appendChild(b); }); upE.title = 'move up'; dnE.title = 'move down'; rmE.title = 'remove edition'; ob.upB = upE; ob.dnB = dnE;
       box.appendChild(alFld('edition', nrow)); box.appendChild(alFld('format', fcol, true)); box.appendChild(alFld('price', pr)); box.appendChild(alFld('note', nt));
