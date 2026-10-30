@@ -76499,6 +76499,7 @@
     "contents": "CD",
     "title": "Girls² 11th EP 「寄り道 -Take it easy baby-」 リリース",
     "display_sp": "11th EP 「寄り道 -Take it easy baby-」 リリース",
+    "url": "https://www.ldh.co.jp/news/detail.php?lang=jpn&site=Egirls&newsid=0000048562",
     "groups": [
       "G2",
       "YZH",
@@ -76510,7 +76511,12 @@
       "KIR",
       "TOA"
     ],
-    "albumid": "a6c207bc5978"
+    "albumid": "a6c207bc5978",
+    "tags": [
+      "寄り道 -Take it easy baby-",
+      "BFF",
+      "Good Night Santa"
+    ]
   },
   {
     "logid": "d139493dd9d9",
