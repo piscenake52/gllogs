@@ -127804,6 +127804,29 @@
     ]
   },
   {
+    "logid": "4453c8ed7c72",
+    "date": "20221031",
+    "time": "1600",
+    "contents": "TOUR",
+    "title": "Girls² Live Tour 2022 \"Shangri-la\" 宮城公演",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "setlistid": "202210311600",
+    "tags": [
+      "トークネットホール仙台"
+    ]
+  },
+  {
     "logid": "c3b2a3358e07",
     "date": "20221031",
     "time": "1200",
@@ -127857,28 +127880,6 @@
     "groups": [
       "L2",
       "AKR"
-    ]
-  },
-  {
-    "logid": "4453c8ed7c72",
-    "date": "20221031",
-    "time": "",
-    "contents": "TOUR",
-    "title": "Girls² Live Tour 2022 \"Shangri-la\" 宮城公演",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
-    ],
-    "tags": [
-      "トークネットホール仙台"
     ]
   },
   {
