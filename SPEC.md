@@ -921,7 +921,7 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - ブラウザは日本語入力(IME)のオン・オフを強制できないため、①スマホのキーボード種別を`inputmode`で指定(url/map/link=url、setlistid=numeric、ほか=text。`autocapitalize=off`など)、②入力時に全角の英数字・記号を半角へ自動変換(変換中は行わず、確定後に変換)、③groups/relations/memberは全角・読点のカンマも`,`にする。
 - title・display・tags・sns・曲名など日本語を入れる項目は対象外。
 
-## helper: 重複警告 / タグ表記ゆれ警告 / 下書き自動保存 / setlist 貼り付け変換
+## helper: 重複警告 / タグ表記ゆれ警告 / setlist 貼り付け変換
 
 ### 重複警告(logs 新規・単発のみ)
 - 日付 + 時刻 + title + contents(空は ETC) + groups(順不同の集合)が **すべて一致** する既存行があると、Issue ボタン上に警告を出す(`open` = その行を読み込む、`json` = 読み込んで JSON 欄を開く)。groups が違う行は重複とみなさない。
@@ -932,9 +932,8 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 入力したタグが既存タグと完全一致しないが、全角半角・大文字小文字・空白・記号・長音・ひらがな/カタカナ違いを無視すると既存タグと一致する場合に警告。`use existing`(既存表記に置換) / `keep mine`(そのまま、この画面の間は再警告しない)。
 - 編集で元から入っていたタグは対象外。編集距離による判定はしない(誤検出が多いため)。
 
-### 下書き自動保存
-- 入力が 30 秒止まるたびに、変更した項目を localStorage(`glih_drafts`)へ保存。ページを閉じる/隠すときにも保存(30秒待たない)。保存は 1 日で削除。
-- キーは `new:logs` / `new:setlist` / `edit:{kind}:{id}`。同じ画面を開くと `restore` / `discard` のバナーを表示(未変更のときのみ)。Issue ボタンを押すと、その画面の下書きを削除。
+### 下書き自動保存(廃止)
+- 入力途中の内容を保存して復元・破棄を確認する機能(`glih_drafts`、`restore` / `discard` のバナー)は廃止した。helperを開いたときに、以前の保存分(localStorage の `glih_drafts`)は消す。
 
 ### setlist 貼り付け変換
 - setlist の songs 欄の下の `setlist paste` で開く。`1.` `1)` `①` `M1` 形式の番号を解釈、`EN1` / `アンコール` は連番で notes に `encore`。`※` / `MC` 行・見出し行は無視。末尾の `( )` と `★` 以降は notes。
@@ -1222,3 +1221,13 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 貼り付け: 開閉ボタンの表示を両方「paste」に。貼り付けの操作を両方「replace / append / undo」に統一。setlistは従来の「apply to songs」を「append」に改称し、songsの欄を丸ごと置き換える「replace」と「undo」を追加(読み込み済みのsetlistの編集中は、番号指定のinsert / update / deleteで直すため replace は使えない)。albumsにも「undo」を追加(replace / append の直前の状態へ戻す)。
 - 曲名の確認: setlistの1曲入力(#・title)にも、albumsと同じ「OK / not in songs.json + 候補」の表示と、songsタブを開く「→」を追加。
 - データの形・番号の付け方(setlistは番号を入力、albumsは自動)・差分編集は従来のまま。
+
+- helperの日付入力欄の幅を150pxから138pxに。空のときは右の余白を詰めて、プレースホルダ(YYYY/MM/DD)が切れないようにする(入力後は曜日と✕の分を空ける)。
+
+- helper: 入力欄のサンプル表示(placeholder。YYYY/MM/DD・HH:MM・https://・title・notes・tags・type・各貼り付け欄の書き方の例など)をすべて削除。残したのは、既存の曲を編集するときに現在の値を薄く見せる表示(title / original / notes)と、次の曲の番号の自動表示(#)、日付・時刻欄の内部用の空白1文字(空のとき✕と曜日を隠すため)。
+
+## helper: setlist の曲の入力(一覧形式)
+
+- setlistの songs は albums の曲目と同じ一覧(1曲1行)。曲名の入力欄の右(スマホは下)に → ↑ ↓ ✕(削除) と ⋯(詳細)を同じ大きさで並べる。add / insert / update と、番号を指定する patch 欄は廃止(一覧の編集と ↑ ↓ ✕ で足りるため。送る内容は一覧全体)。songsのテキスト欄は隠し、値は保持する。
+- ⋯ を開くと type チップ、original / notes(ラベル付きで1行)、メンバーを編集。original は type に cover を選んでいるときだけ表示(値は保持)。
+- paste(replace / append / undo)で一覧を入れ替え・追加できるので、テキスト欄での自由入力は不要。paste の入力欄は枠なしで、他の入力欄と同じ幅(albumsの paste も同様)。
