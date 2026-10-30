@@ -1234,6 +1234,16 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function memOf(sg) { var m = sg && sg.member; return Array.isArray(m) ? m : (typeof m === 'string' && m ? m.split(/[,\s]+/) : []); }
     function withM(ti, a) { return a.length ? (ti ? ti + ' ' : '') + '{' + a.join(',') + '}' : ti; }
     addSuggest(title, songOptions, r1);
+    var goB = wbtn('\u2192', function () { goSong(title.value.trim()); }); goB.title = 'open this song in the songs tab'; goB.disabled = true; r1.appendChild(goB); // same as the albums tab
+    var tst = document.createElement('div'); tst.className = 'plst'; tst.style.cssText = 'padding:2px 0 0 2.4em'; r1.parentNode.insertBefore(tst, r1.nextSibling.classList && r1.nextSibling.classList.contains('fsug') ? r1.nextSibling.nextSibling : r1.nextSibling);
+    function tStat() { // title check: OK / not in songs.json + candidates (like the albums tab)
+      tst.innerHTML = ''; goB.disabled = true; var t = title.value.replace(/\s*\{[^}]*\}\s*$/, '').trim(); if (!t) return;
+      var si = songIdx(); if (!si) return;
+      if (si.ex[t]) { goB.disabled = false; var ok = document.createElement('span'); ok.className = 'plok'; ok.textContent = 'OK'; tst.appendChild(ok); return; }
+      var ng = document.createElement('span'); ng.className = 'plng'; ng.textContent = 'not in songs.json'; tst.appendChild(ng);
+      (plCands(t) || []).forEach(function (c) { tst.appendChild(wbtn(c, function () { title.value = c; tStat(); title.dispatchEvent(new Event('input', { bubbles: true })); })); });
+    }
+    title.addEventListener('input', tStat); fetchData('songs').then(tStat).catch(function () {});
     function rowSong(n) { var a = (row && row.songs) || [], i; for (i = 0; i < a.length; i++) if (a[i] && a[i].order === n) return a[i]; return null; }
     function nextOrder() {
       var last = 0;
@@ -1281,7 +1291,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var pe = $('f-songs_patch'); if (!pe) return;
       var cur = pe.value.replace(/\s+$/, '');
       pe.value = (cur ? cur + '\n' : '') + line; pe.dispatchEvent(new Event('input', { bubbles: true }));
-      title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = ''; touched = false; pre = 0; setM([]); mTouched = false; syncMode(); num.focus();
+      title.value = ''; tStat(); num.value = ''; orig2.value = ''; notes.value = ''; sel.value = ''; touched = false; pre = 0; setM([]); mTouched = false; syncMode(); num.focus();
     }
     if (edit) ['insert', 'update', 'delete', 'up', 'down'].forEach(function (m) { ops[m].onclick = function () { doPatch(m); }; });
     function doAdd() {
@@ -1295,7 +1305,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var line = no + ': ' + [withM(t, getM())].concat(rest).join(' | ');
       var cur = el.value.replace(/\s+$/, '');
       el.value = (cur ? cur + '\n' : '') + line; el.dispatchEvent(new Event('input', { bubbles: true }));
-      title.value = ''; num.value = ''; orig2.value = ''; notes.value = ''; sel.value = ''; setM([]); mTouched = false; title.focus();
+      title.value = ''; tStat(); num.value = ''; orig2.value = ''; notes.value = ''; sel.value = ''; setM([]); mTouched = false; title.focus();
     }
     add.onclick = doAdd;
     // pressing Issue with a song typed but not added yet: it is added first. Blocked (and flagged) when it cannot be added: an empty / invalid title, or an existing order (insert / update / delete has to be chosen by hand). returns false when blocked.
@@ -2248,8 +2258,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var addT = wbtn('+ track', function () { rows.push({ title: '', no: '' }); draw(); rows[rows.length - 1].ti.focus(); changed(); }); addT.style.flex = '1'; bar.appendChild(addT);
     if (cfg.sec) { var addS = wbtn('+ section', function () { rows.push({ title: '', no: '', sec: true }); draw(); rows[rows.length - 1].ti.focus(); changed(); }); addS.title = 'a heading in this disc (e.g. LIVE TOUR 2025). The numbers start again from 1 under it'; addS.style.flex = '1'; bar.appendChild(addS); }
     var pt = wbtn('', function () { pbox.hidden = !pbox.hidden; psync(); }); function psync() { pt.textContent = 'paste ' + (pbox.hidden ? '\u25BE' : '\u25B4'); pt.setAttribute('aria-expanded', pbox.hidden ? 'false' : 'true'); } psync(); pwrap.appendChild(pt); pwrap.appendChild(pbox);
-    pbar.appendChild(wbtn('replace', function () { var p = alParse(ta.value, cfg.extra, cfg.sec); if (!p.length) return; rows = p; ta.value = ''; draw(); changed(); }));
-    pbar.appendChild(wbtn('append', function () { var p = alParse(ta.value, cfg.extra, cfg.sec); if (!p.length) return; rows = cur().concat(p); ta.value = ''; draw(); changed(); }));
+    var prevRows = null, unB = wbtn('undo', function () { if (!prevRows) return; rows = prevRows; prevRows = null; unB.disabled = true; draw(); changed(); }); unB.disabled = true;
+    function snap() { prevRows = rows.map(function (x) { return { title: x.title, no: x.no, sec: x.sec }; }); unB.disabled = false; }
+    pbar.appendChild(wbtn('replace', function () { var p = alParse(ta.value, cfg.extra, cfg.sec); if (!p.length) return; snap(); rows = p; ta.value = ''; draw(); changed(); }));
+    pbar.appendChild(wbtn('append', function () { var p = alParse(ta.value, cfg.extra, cfg.sec); if (!p.length) return; snap(); rows = cur().concat(p); ta.value = ''; draw(); changed(); }));
+    pbar.appendChild(unB);
     fetchData('songs').then(function () { draw(); }).catch(function () {});
     return { el: wrap, get: get, set: set, redraw: draw };
   }
@@ -2872,19 +2885,23 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (!found || found.kind !== 'setlist') return;
     var se = $('f-songs'), fld = se && se.closest('.field'); if (!fld) return;
     var head = document.createElement('div'); head.className = 'field'; var hl = document.createElement('label'); hl.textContent = 'paste'; head.appendChild(hl);
-    var tog = wbtn('setlist paste ' + ARR_D, function () { panel.hidden = !panel.hidden; tog.textContent = panel.hidden ? 'setlist paste ' + ARR_D : 'setlist paste ' + ARR_U; }); head.appendChild(tog);
+    var tog = wbtn('paste ' + ARR_D, function () { panel.hidden = !panel.hidden; tog.textContent = panel.hidden ? 'paste ' + ARR_D : 'paste ' + ARR_U; }); head.appendChild(tog);
     var panel = document.createElement('div'); panel.className = 'plbox'; panel.hidden = true;
     var ta = document.createElement('textarea'); ta.className = 'fta'; ta.rows = 6; ta.placeholder = '1. title\n2. title (note)\nEN1. title'; ta.setAttribute('spellcheck', 'false'); panel.appendChild(ta);
     var prev = document.createElement('div'); prev.className = 'plprev'; panel.appendChild(prev);
     var bar = document.createElement('div'); bar.className = 'plbar'; panel.appendChild(bar);
-    var rows = [], before = null, ap = wbtn('apply to songs', function () {
+    function editing() { var pe = $('f-songs_patch'), f = pe && pe.closest('.field'); return !!(f && !f.hidden); } // a loaded setlist (insert / update / delete by order): the songs box is not replaced as a whole
+    var rows = [], before = null, ap = wbtn('append', function () {
       if (!rows.length) return; before = se.value;
       var add = plLines(rows); se.value = se.value.trim() === '' ? add : se.value.replace(/\s+$/, '') + '\n' + add;
       se.dispatchEvent(new Event('input', { bubbles: true })); un.disabled = false;
+    }), rp = wbtn('replace', function () {
+      if (!rows.length || editing()) return; before = se.value; se.value = plLines(rows);
+      se.dispatchEvent(new Event('input', { bubbles: true })); un.disabled = false;
     }), un = wbtn('undo', function () { if (before === null) return; se.value = before; before = null; se.dispatchEvent(new Event('input', { bubbles: true })); un.disabled = true; });
-    un.disabled = true; bar.appendChild(ap); bar.appendChild(un);
+    un.disabled = true; ap.disabled = rp.disabled = true; bar.appendChild(rp); bar.appendChild(ap); bar.appendChild(un);
     function draw() {
-      prev.innerHTML = ''; ap.disabled = !rows.length;
+      prev.innerHTML = ''; ap.disabled = !rows.length; rp.disabled = !rows.length || editing(); rp.title = editing() ? 'not for a loaded setlist (use append, or insert / update / delete)' : '';
       if (!cache.songs) { var ld = document.createElement('div'); ld.className = 'plnote'; ld.textContent = 'songs.json is not loaded yet (titles are not checked)'; prev.appendChild(ld); }
       rows.forEach(function (r) {
         var line = document.createElement('div'); line.className = 'plrow';

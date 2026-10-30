@@ -1216,3 +1216,9 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - helperのalbums type チップの2行表示はスマホ幅のみ。画面幅800px以上(PC)では8個を1行に並べる。
 
 - helper(albums の曲目・edition): 画面幅800px以上(PC)では、ボタン(→ ↑ ↓ ✕)を入力欄の右に1行で表示(スマホは入力欄の下)。
+
+## helper: setlistとalbumsの曲の入力の見た目・操作を統一
+
+- 貼り付け: 開閉ボタンの表示を両方「paste」に。貼り付けの操作を両方「replace / append / undo」に統一。setlistは従来の「apply to songs」を「append」に改称し、songsの欄を丸ごと置き換える「replace」と「undo」を追加(読み込み済みのsetlistの編集中は、番号指定のinsert / update / deleteで直すため replace は使えない)。albumsにも「undo」を追加(replace / append の直前の状態へ戻す)。
+- 曲名の確認: setlistの1曲入力(#・title)にも、albumsと同じ「OK / not in songs.json + 候補」の表示と、songsタブを開く「→」を追加。
+- データの形・番号の付け方(setlistは番号を入力、albumsは自動)・差分編集は従来のまま。
