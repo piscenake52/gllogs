@@ -119,6 +119,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .alrow { display:block; }
 #glih .alrow .alt { display:flex; align-items:center; gap:4px; }
 #glih .alrow .alt .fin { flex:1 1 auto; min-width:0; }
+#glih .albtn { display:flex; gap:4px; padding:4px 0 0; }
+#glih .albtn .small { flex:1 1 0; min-width:0; padding:2px 6px; line-height:1.3; text-align:center; } /* track / section buttons: one row under the input, small height, equal width */
+#glih .albtn .albsp { flex:1 1 0; min-width:0; } /* the empty slot where the arrow button would be (sections have no arrow) */
+#glih .alrow .alsec { flex:1 1 auto; min-width:0; width:100%; box-sizing:border-box; font-weight:700; resize:none; overflow:hidden; min-height:0; } /* section heading: a multi-line text box, full width */
 #glih .alrow .alsub { display:flex; flex-wrap:wrap; align-items:center; gap:4px; padding:4px 0 0 2.4em; }
 #glih .alrow .alsub .plst { flex:1 1 auto; padding-left:4px; }
 #glih .field.stk { flex-direction:column; align-items:stretch; gap:4px; }
@@ -2200,24 +2204,29 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       list.innerHTML = '';
       rows.forEach(function (r, i) {
         var line = document.createElement('div'); line.className = 'plrow alrow'; var top = document.createElement('div'); top.className = 'alt'; var sub = document.createElement('div'); sub.className = 'alsub'; line.appendChild(top); line.appendChild(sub);
-        if (r.sec) { var sl = document.createElement('span'); sl.className = 'plno'; sl.textContent = 'sec'; sl.style.flex = '0 0 4.5em'; top.appendChild(sl); }
+        if (r.sec) { /* no label: the text box runs to the left edge */ }
         else if (cfg.extra) { var lb = alInput('DVD1', 'plnt'); lb.style.flex = '0 0 4.5em'; lb.value = r.no; lb.oninput = function () { r.no = lb.value; changed(); }; top.appendChild(lb); }
-        else { var no = document.createElement('span'); no.className = 'plno'; no.textContent = rows.slice(0, i + 1).filter(function (x) { return !x.sec; }).length; top.appendChild(no); }
-        var ti = alInput(r.sec ? 'section (LIVE TOUR 2025 ...)' : 'title'); ti.value = r.title; r.ti = ti; top.appendChild(ti); if (r.sec) ti.style.fontWeight = '700';
-        if (!r.sec) { var go = wbtn('\u2192', function () { goSong(r.title); }); go.classList.add('ib'); go.title = 'open this song in the songs tab'; go.disabled = true; r.go = go; top.appendChild(go); }
-        var upB = wbtn('\u2191', function () { if (i < 1) return; rows.splice(i - 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }); upB.classList.add('ib'); upB.title = 'move up'; upB.disabled = i < 1; top.appendChild(upB);
-        var dnB = wbtn('\u2193', function () { if (i >= rows.length - 1) return; rows.splice(i + 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }); dnB.classList.add('ib'); dnB.title = 'move down'; dnB.disabled = i >= rows.length - 1; top.appendChild(dnB);
-        var xB = wbtn('\u2715', function () { rows.splice(i, 1); draw(); changed(); }); xB.classList.add('ib'); top.appendChild(xB);
+        else { var no = document.createElement('span'); no.className = 'plno'; no.textContent = (function () { var k = 0; for (var q = i; q >= 0 && !rows[q].sec; q--) k++; return k; })(); /* numbering restarts after a section */ top.appendChild(no); }
+        var ti;
+        if (r.sec) { ti = document.createElement('textarea'); ti.className = 'fin alsec'; ti.rows = 1; ti.placeholder = 'section (LIVE TOUR 2025 ...) - Enter = line break'; ti.setAttribute('spellcheck', 'false'); ti.value = r.title; var fit = function () { ti.style.height = 'auto'; if (ti.scrollHeight > 8) ti.style.height = ti.scrollHeight + 2 + 'px'; }; ti._fit = fit; ti.addEventListener('input', fit); }
+        else { ti = alInput('title'); ti.value = r.title; }
+        r.ti = ti; top.appendChild(ti);
+        var bt = document.createElement('div'); bt.className = 'albtn'; line.insertBefore(bt, sub); // buttons: under the input, equal width
+        if (!r.sec) { var go = wbtn('\u2192', function () { goSong(r.title); }); go.title = 'open this song in the songs tab'; go.disabled = true; r.go = go; bt.appendChild(go); }
+        else { var sp = document.createElement('span'); sp.className = 'albsp'; bt.appendChild(sp); }
+        var upB = wbtn('\u2191', function () { if (i < 1) return; rows.splice(i - 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }); upB.title = 'move up'; upB.disabled = i < 1; bt.appendChild(upB);
+        var dnB = wbtn('\u2193', function () { if (i >= rows.length - 1) return; rows.splice(i + 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }); dnB.title = 'move down'; dnB.disabled = i >= rows.length - 1; bt.appendChild(dnB);
+        var xB = wbtn('\u2715', function () { rows.splice(i, 1); draw(); changed(); }); bt.appendChild(xB);
         r.st = document.createElement('div'); r.st.className = 'plst'; sub.appendChild(r.st);
         list.appendChild(line);
         if (!r.sec) var sug = addSuggest(ti, alTitleOpts, line, true);
         ti.oninput = function () { r.title = ti.value; if (!r.sec) stat(r); changed(); };
         ti.onkeydown = function (e) {
-          if (e.key !== 'Enter') return; e.preventDefault();
+          if (e.key !== 'Enter' || r.sec) return; e.preventDefault(); // sections: Enter is a line break
           var box = line.nextSibling; if (box && box.classList && box.classList.contains('fsug') && !box.hidden) return; // candidates are shown: pick one by pressing it (Enter does not pick)
           rows.splice(i + 1, 0, { title: '', no: '' }); draw(); rows[i + 1].ti.focus();
         };
-        if (!r.sec) stat(r);
+        if (!r.sec) stat(r); else ti._fit();
       });
     }
     function set(arr) { rows = (arr || []).map(function (t) { return t && t.section != null ? { title: String(t.section), no: '', sec: true } : { title: String(t.title || ''), no: t.no == null ? '' : String(t.no) }; }); draw(); }
@@ -2363,9 +2372,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         fchips.appendChild(b);
       });
       fm.addEventListener('input', syncFmt);
-      var nrow = document.createElement('div'); nrow.style.cssText = 'flex:1;min-width:0;display:flex;align-items:center;gap:4px'; nm.style.flex = '1 1 auto'; nm.style.minWidth = '0'; nrow.appendChild(nm);
+      var nrow = document.createElement('div'); nrow.style.cssText = 'flex:1;min-width:0'; nm.style.width = '100%'; nm.style.boxSizing = 'border-box'; nrow.appendChild(nm); var nbt = document.createElement('div'); nbt.className = 'albtn'; nrow.appendChild(nbt); // buttons under the name, equal width
       var upE = wbtn('\u2191', function () { var i = eds.indexOf(ob); if (i < 1) return; eds.splice(i - 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }), dnE = wbtn('\u2193', function () { var i = eds.indexOf(ob); if (i < 0 || i >= eds.length - 1) return; eds.splice(i + 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }), rmE = wbtn('\u2715', function () { var i = eds.indexOf(ob); if (i >= 0) eds.splice(i, 1); drawEds(); upd(); });
-      [upE, dnE, rmE].forEach(function (b) { b.classList.add('ib'); nrow.appendChild(b); }); upE.title = 'move up'; dnE.title = 'move down'; rmE.title = 'remove edition'; ob.upB = upE; ob.dnB = dnE;
+      [upE, dnE, rmE].forEach(function (b) { nbt.appendChild(b); }); upE.title = 'move up'; dnE.title = 'move down'; rmE.title = 'remove edition'; ob.upB = upE; ob.dnB = dnE;
       box.appendChild(alFld('edition', nrow)); box.appendChild(alFld('format', fcol, true)); box.appendChild(alFld('price', pr)); box.appendChild(alFld('note', nt));
       var ex = alExtra({ onchange: function () { upd(); } }); box.appendChild(alFld('extra', ex.el, true));
       var own = null, ownRow = document.createElement('div'); ownRow.className = 'field top'; var ol = document.createElement('label'); ol.textContent = 'tracklist'; ownRow.appendChild(ol);
