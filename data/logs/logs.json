@@ -2306,6 +2306,131 @@
     ]
   },
   {
+    "logid": "106d9b81ec29",
+    "date": "20261106",
+    "time": "0759",
+    "contents": "CLOSE",
+    "title": "TVer 「ラヴィット！」 前半 配信終了",
+    "url": "https://tver.jp/episodes/epy5l2pt6q?utm_medium=share",
+    "groups": [
+      "G2",
+      "YOK"
+    ],
+    "tags": [
+      "仮装",
+      "一番予算使われたハーレイ・クイン",
+      "直ももビリビリ椅子"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2115612734821978569?a=fkgeP6nCwSvpUFzUrfk&s=19",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "出演情報"
+            ]
+          },
+          {
+            "url": "https://x.com/tbs_loveit/status/2115744991528333591?a=WV6Ebb3hDwV9Ryy52zs&s=19",
+            "member": [],
+            "tags": [
+              "ラヴィット!"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2115946381257126150?a=pF7-nVKcx8wbPDVZ1_c&s=19",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "ハロウィンパーティ"
+            ]
+          },
+          {
+            "url": "https://x.com/TVer_info/status/2116109444753080449?a=OwmPAA83rYDxJ6e4vAs&s=19",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "配信情報"
+            ]
+          },
+          {
+            "url": "https://x.com/TVer_info/status/2116109461219938410?a=OVJWICfiE8lNPnCUaag&s=19",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "配信情報"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://tver.jp/live/simul/lenwwyid3t?utm_medium=share",
+            "member": [],
+            "tags": [
+              "TVer"
+            ]
+          },
+          {
+            "url": "https://tver.jp/episodes/epy5l2pt6q?utm_medium=share",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "TVer",
+              "前半"
+            ]
+          },
+          {
+            "url": "https://tver.jp/episodes/epulmeeqjp?utm_medium=share",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "TVer",
+              "後半"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/sEVrVYFPh4g8NsAe5vHbzp",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "出演情報"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1245322012868476928",
+            "member": [],
+            "tags": [
+              "出演情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "ab781ba9cb52",
     "date": "20261105",
     "time": "2359",
