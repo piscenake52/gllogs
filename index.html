@@ -1015,7 +1015,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .sns-modal-lamps.is-nine { grid-template-columns: repeat(3, 5px); } /* 9人のときだけ3列×3段(大きさは同じ)。右端基準なので左へ広がり、番号に少し重なってもよい */
 .sns-modal-lamps > i { display: block; width: 5px; height: 5px; box-sizing: border-box; border-radius: 50%; background-color: var(--lamp-color); box-shadow: 0 0 0 1px var(--bg), inset 0 0 0 1px rgba(0,0,0,.4); } /* 色の部分は常に5px。縁(背景色の輪)は外側に描き、内側の薄い灰色の線で白・黄など明るい色も同じ大きさに見えるようにする */
 html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-shadow: 0 0 0 1px var(--bg), inset 0 0 0 1px rgba(255,255,255,.35); } /* ダーク時は内側の線を明るくする(暗い線だと色が沈んで暗く見えるため) */
-.sns-modal-body { margin-bottom: 0; }
+.sns-modal-body { margin-bottom: 0; margin-top: 10px; } /* 1行目の右端の番号のランプが、右上の✕ボタンに重ならないよう、✕の下まで下げる */
 /* スイッチ行: ポップアップ内の最下部に固定(内容がスクロールしても追随する) */
 .sns-modal-foot { position: sticky; bottom: -18px; z-index: 2; display: flex; justify-content: space-between; align-items: center; margin: 0 -18px -18px; padding: 8px 32px 10px; background: var(--bg); border-radius: 0 0 12px 12px; }
 .sns-tag-switch { position: static; height: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 0; border: none; background: none; color: var(--text); font-size: 11px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
