@@ -3815,7 +3815,14 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
-      "YUW"
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "sns": [
       {
@@ -3825,6 +3832,24 @@
             "url": "https://www.instagram.com/p/DfFmeVgAV5N/?obrf=MTIxZGk0bGV3N2lpcw==",
             "member": [
               "YUW"
+            ],
+            "tags": [
+              "PLAYLIST"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/DfGkPxtifdJ/?rpxt=OWRlamJoY2QxMHU0",
+            "member": [
+              "RIN",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "with": [
+              "TBK",
+              "HIR"
             ],
             "tags": [
               "PLAYLIST"
