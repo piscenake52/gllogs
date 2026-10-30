@@ -204675,6 +204675,7 @@
       "RAN"
     ],
     "relations": [],
+    "albumid": "4657fc4114ba",
     "tags": [
       "恋するカモ",
       "Give Me ❤",
@@ -204682,7 +204683,29 @@
       "学校行っちゃお",
       "GIVE ME LOVE"
     ],
-    "albumid": "4657fc4114ba"
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/1189346279878471680?a=wdYsgO8y0aXF8iJcRNc&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "TOA",
+              "RAN"
+            ],
+            "tags": [
+              "9人体制初"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "logid": "d6f6fb7fec56",
