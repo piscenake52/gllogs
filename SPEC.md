@@ -1231,3 +1231,19 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - setlistの songs は albums の曲目と同じ一覧(1曲1行)。曲名の入力欄の右(スマホは下)に → ↑ ↓ ✕(削除) と ⋯(詳細)を同じ大きさで並べる。add / insert / update と、番号を指定する patch 欄は廃止(一覧の編集と ↑ ↓ ✕ で足りるため。送る内容は一覧全体)。songsのテキスト欄は隠し、値は保持する。
 - ⋯ を開くと type チップ、original / notes(ラベル付きで1行)、メンバーを編集。original は type に cover を選んでいるときだけ表示(値は保持)。
 - paste(replace / append / undo)で一覧を入れ替え・追加できるので、テキスト欄での自由入力は不要。paste の入力欄は枠なしで、他の入力欄と同じ幅(albumsの paste も同様)。
+
+## helper(logs): id / groups / display / repeat の整理
+
+- id: 「find」ボタンを廃止(候補の表示と選択、またはEnterで読み込む)。
+- groups: チップのみ(テキスト欄は隠し、値は保持)。
+- display_pc / display_sp: 1行の入力欄(複数行ではない)。
+- repeat: 新規作成では、repeat(チェックと設定の枠)を contents の上(groups の下)へ移動。repeat が schedule のときは、title の上の contents 欄を隠す(各行が自分の contents を持つ。start の行は最初に、隠した contents の値が入る)。
+
+- helper(songs): artist のチップに miracle / magical / mirage / lovely を追加(Girls² / Laki の次。押すとその名前が入り、もう一度押すと外れる)。lyrics の「search」ボタン(uta-netの検索)は廃止。
+
+## helper: artist と member を1つの欄に統合(setlist・albums)
+
+- artist の欄の下に、artist チップ(Girls² / Laki)と member のチップ(G2 / L2 と各メンバー)を続けて表示。member のテキスト欄は隠し(値の保持用)、member の行は出さない。artist のテキスト欄は、Girls² / Laki 以外の名前の自由入力用として残す。
+- artist のチップを押すと member が自動で入る(従来どおり。手で直した member は上書きしない)。
+- 逆に、member のチップを選ぶと artist のチップが自動で付く(G2 のメンバーがいれば Girls²、L2 のメンバーがいれば Laki、両方なら「Girls² × Laki」。artist に手で入れた他の名前は残す)。member が空のときは artist を変えない。
+- 送るデータの形(artist / member)は従来のまま。

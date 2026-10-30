@@ -336,7 +336,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="field"><label for="glih-sa">artist</label><input type="text" id="glih-sa" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label for="glih-st">title</label><input type="text" id="glih-st" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label for="glih-sl">link</label><input type="text" id="glih-sl" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
-  <div class="field"><label for="glih-sy">lyrics</label><input type="text" id="glih-sy" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-syq" title="search this song on uta-net (a new tab)">search</button></div>
+  <div class="field"><label for="glih-sy">lyrics</label><input type="text" id="glih-sy" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <a class="go" id="glih-go-songs" target="_blank" rel="noopener" aria-disabled="true">songs</a>
 </section>
 
@@ -355,7 +355,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 <section id="glih-p-find" hidden>
   <button type="button" class="go" id="glih-topnew">new</button>
   <select id="glih-fkind" hidden><option value="logs">logs</option><option value="setlist">setlist</option></select>
-  <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fgo">find</button><button type="button" class="small" id="glih-fnew" hidden>new</button></div>
+  <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fnew" hidden>new</button></div>
   <div class="field" id="glih-frd"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdprev" title="prev day">&lt;</button><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdnext" title="next day">&gt;</button></div>
   <div class="field" id="glih-frt"><label for="glih-fdt">time</label><input type="text" id="glih-fdt" class="fin" autocomplete="off"><label class="chk" id="glih-fanyl" style="margin:0"><input type="checkbox" id="glih-fany">anytime</label></div>
   <div class="fcand" id="glih-fdl" hidden></div>
@@ -630,7 +630,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   var BRANCH = 'main', DATA = { logs: 'data/logs/logs.json', setlist: 'data/setlist/setlist.json', songs: 'data/songs/songs.json', albums: 'data/albums/albums.json' }, cache = {};
   var DEFS = {
     logs: { idKey: 'logid', tpl: TPL_LOGS, fields: [
-      { k: 'date' }, { k: 'time' }, { k: 'groups', p: 'groups_free', list: 1 }, { k: 'contents', p: 'contents_free' }, { k: 'title', p: 'item_title', ta: 1 }, { k: 'display_pc', ta: 1 }, { k: 'display_sp', ta: 1 }, { k: 'url' }, { k: 'map' }, { k: 'setlistid' },
+      { k: 'date' }, { k: 'time' }, { k: 'groups', p: 'groups_free', list: 1 }, { k: 'contents', p: 'contents_free' }, { k: 'title', p: 'item_title', ta: 1 }, { k: 'display_pc' }, { k: 'display_sp' }, { k: 'url' }, { k: 'map' }, { k: 'setlistid' },
       { k: 'relations', p: 'relations_free', list: 1 }, { k: 'tags', list: 1 }, { k: 'sns', ta: 1 } ] },
     setlist: { idKey: 'setlistid', tpl: TPL_SETLIST, fields: [
       { k: 'title', p: 'item_title', ta: 1 }, { k: 'artist', p: 'artist_free' }, { k: 'member', p: 'member_free', list: 1 }, { k: 'venue' }, { k: 'source', chk: 1 }, { k: 'songs', ta: 1 }, { k: 'songs_patch', lb: 'patch', ta: 1 } ] }
@@ -959,7 +959,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     refresh();
   }
   // member chips under the groups input of the find tab (same chips as the logs tab): two-way synced with the comma-separated text
-  function addGroupChips(el, membersOnly) {
+  function addGroupChips(el, membersOnly, chipsOnly) {
     var fw = el.parentNode, col = document.createElement('div'); col.className = 'fgcol';
     fw.parentNode.classList.add('top', 'tl'); // label aligned to the top (the input is the first row of the column)
     fw.parentNode.insertBefore(col, fw); col.appendChild(fw);
@@ -977,6 +977,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
     el.addEventListener('input', sync); sync();
     foldGroups(chips, !!membersOnly);
+    if (chipsOnly) fw.hidden = true; // chips only: the text box stays as the value holder
   }
   // setlist artist chips (Girls2 / Laki): toggle the name in the text (both on = joined with ' x ' as the form does). The members of the artist's group are switched on in the member field.
   var G2_MEM = ['YZH', 'MMK', 'MSK', 'YOK', 'KUR', 'MNM', 'KIR'], L2_MEM = ['RIN', 'TBK', 'HIR', 'YUW', 'KAN', 'RRK', 'AKR', 'KIK'], AJOIN = ' \u00D7 ';
@@ -990,6 +991,20 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       autoMember = next;
       if (m.value !== next) { m.value = next; m.dispatchEvent(new Event('input', { bubbles: true })); }
     }
+  }
+  // artist + member in one field: the member chips move under the artist chips (the member text box stays hidden as the value holder). Picking members also sets the artist chips (G2 members = Girls2, L2 members = Laki; other names typed in the artist box are kept).
+  function mergeMember(arEl, memEl, memField) {
+    var arCol = arEl.closest('.fgcol') || arEl.parentNode, memCol = memEl.closest('.fgcol');
+    if (memCol) [].slice.call(memCol.children).forEach(function (c) { if (!c.contains(memEl)) arCol.appendChild(c); });
+    if (memField) memField.hidden = true;
+    memEl.addEventListener('input', function () {
+      var m = memEl.value.split(/[,\u3001\s]+/).filter(Boolean).map(function (x) { return x.toUpperCase(); });
+      if (!m.length) return;
+      var g2 = m.some(function (x) { return x === 'G2' || G2_MEM.indexOf(x) >= 0; }), l2 = m.some(function (x) { return x === 'L2' || L2_MEM.indexOf(x) >= 0; });
+      var rest = artistTokens(arEl.value).filter(function (x) { return x !== ART_G2 && x !== ART_L2; });
+      var next = (g2 ? [ART_G2] : []).concat(l2 ? [ART_L2] : []).concat(rest).join(AJOIN);
+      if (next !== arEl.value && (g2 || l2)) { arEl.value = next; arEl.dispatchEvent(new Event('input', { bubbles: true })); }
+    });
   }
   function addArtistChips(el) {
     autoMember = '';
@@ -1771,12 +1786,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
       el.addEventListener('input', updateFind); if (kind === 'logs' && (f.k === 'contents' || f.k === 'groups')) el.addEventListener('input', autoSnsTitle);
       if (f.chk) { addSourceChips(wrap, lb, el); box.appendChild(wrap); return; } // OFFICIAL / UNOFFICIAL: two exclusive chips (the text box stays hidden and keeps the value; both off = empty)
-      wrap.appendChild(lb); wrap.appendChild(el); (kind === 'logs' && f.k === 'sns' ? snsHolder(box, el) : box).appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'tags') addSuggest(el, tagOptsFor('logs'), null, true, true); if (kind === 'logs' && f.k === 'sns') addNewSnsList(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsList(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
+      wrap.appendChild(lb); wrap.appendChild(el); (kind === 'logs' && f.k === 'sns' ? snsHolder(box, el) : box).appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el, false, f.k === 'groups'); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'tags') addSuggest(el, tagOptsFor('logs'), null, true, true); if (kind === 'logs' && f.k === 'sns') addNewSnsList(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsList(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
     var jb = $('fjson'); jb.value = JSON.stringify([row], null, 2); origJson = jb.value; jb.classList.remove('bad'); setJsonOpen(jsonOpen); $('fcprow').hidden = !!isNew; $('fjrow').hidden = !!isNew;
+    if (kind === 'setlist') { var sa0 = $('f-artist'), sm0 = $('f-member'); if (sa0 && sm0) mergeMember(sa0, sm0, sm0.closest('.field')); } // artist + member in one field
     if (kind === 'setlist') { var spe = $('f-songs_patch'); if (spe && spe.closest('.field')) spe.closest('.field').hidden = true; } // the whole songs list is sent (no per-song patch box)
     if (isNew && kind === 'logs') { ['date', 'time'].forEach(function (k) { var e = $('f-' + k); if (e) { var fl = e.closest('.field'); if (fl) fl.hidden = true; } }); } // new mode: the top date / time are used
-    if (isNew && kind === 'logs') { var tw = $('f-title'); if (tw && tw.closest('.field')) addRepeat(tw.closest('.field')); } // new mode: repeat registration block under the title
+    if (isNew && kind === 'logs') { var cw0 = $('f-contents'); if (cw0 && cw0.closest('.field')) addRepeat(cw0.closest('.field')); } // new mode: repeat registration block above contents
     snsFoldInit(); extraUI(); asciiInit(); applyModeUI(); updateFind(); refInfo();
   }
   // JSON box of the find tab: collapsed at first, opened / closed with the button, and editable. Valid JSON edits are written into the input fields (the Issue link follows); invalid JSON gets a red border and is ignored.
@@ -1862,7 +1878,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       + '<div class="field"><label for="glih-rpx">skip</label><input type="text" id="glih-rpx" class="fin" autocomplete="off" spellcheck="false"></div>'
       + '</div><div id="glih-rpsc" hidden></div><div id="glih-rptr" hidden></div>'
       + '<div class="fcand" id="glih-rpl"></div><div class="fstat" id="glih-rpm"></div></div>';
-    after.parentNode.insertBefore(box, after.nextSibling);
+    after.parentNode.insertBefore(box, after);
     var on = $('rpon'), body = $('rpbody'), num = $('rpn'), unit = $('rpu'), until = $('rpd'), cnt = $('rpc'), skipEl = $('rpx'), list = $('rpl'), msg = $('rpm'), off = {}, last = null, memo = '', asked = false, cTouched = false;
     dtText(until, 'date'); dtPicker(until, 'date'); var wdUntil = addWeekday(until); until.addEventListener('input', wdUntil);
     [['weekly', 1, 'week'], ['biweekly', 2, 'week'], ['monthly', 1, 'month']].forEach(function (q) {
@@ -2010,6 +2026,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var qs = $('rpq').children, i;
       for (i = 0; i < qs.length; i++) qs[i].classList.toggle('on', qs[i].getAttribute('data-n') === String(parseInt(num.value, 10)) && qs[i].getAttribute('data-u') === unit.value);
       body.hidden = !on.checked;
+      var cf = $('f-contents') && $('f-contents').closest('.field'); if (cf) cf.hidden = on.checked && mode === 'schedule'; // schedule: each row has its own contents (the start row starts from the value typed here)
       var qm = $('rpmd').children; for (i = 0; i < qm.length; i++) qm[i].classList.toggle('on', qm[i].getAttribute('data-m') === mode);
       var tourOn = on.checked && mode === 'tour';
       ['map', 'setlistid', 'tags'].forEach(function (k) { var e = $('f-' + k), fl = e && e.closest('.field'); if (fl) fl.hidden = tourOn; }); // tour mode: map / setlistid / tags are per show (below)
@@ -2095,20 +2112,18 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (songsReady) return; songsReady = true;
     var sa = $('sa'), st = $('st'), sl = $('sl'), sy = $('sy'), match = null, auto = false, prog = false, autoY = false, progY = false;
     addClear(sa); addClear(st); addClear(sl); addOpen(sl, 28); addClear(sy); addOpen(sy, 28);
-    var UTA = 'https://www.uta-net.com/', UTA_SEARCH = UTA + 'search/?Aselect=2&Bselect=4&Keyword='; // uta-net only. Search = song title (partial match)
-    $('syq').onclick = function () { var t = st.value.trim(); if (t) window.open(UTA_SEARCH + encodeURIComponent(t), '_blank', 'noopener'); };
-    $('syq').onmousedown = function (e) { e.preventDefault(); };
+    var UTA = 'https://www.uta-net.com/'; // uta-net only
     var artistOnly = makeOpts('artist-only', ['songs'], function (m) { (cache.songs || []).forEach(function (r) { if (r) addTo(m, r.artist); }); });
     function titleOpts() {
       var a = normQ(sa.value.trim()), all = (cache.songs || []).filter(function (r) { return r && typeof r.title === 'string' && r.title.trim(); });
       var mine = a ? all.filter(function (r) { return normQ(r.artist) === a; }) : [];
       return (mine.length ? mine : all).map(function (r) { return { v: r.title.trim(), k: normQ(r.title) }; });
     }
-    addSuggest(sa, function () { var v = sa.value.trim(); return v === 'Girls\u00B2' || v === 'Laki' ? [] : artistOnly(); }, sa.closest('.field')); // no candidates while an artist chip is selected
+    var CH = ['Girls\u00B2', 'Laki', 'miracle', 'magical', 'mirage', 'lovely']; // artist chips
+    addSuggest(sa, function () { var v = sa.value.trim(); return CH.indexOf(v) >= 0 ? [] : artistOnly(); }, sa.closest('.field')); // no candidates while an artist chip is selected
     // artist chips: Girls2 / Laki (the same values as the artist check of the setlist form). Click sets the artist; click again clears it.
     var arow = document.createElement('div'); arow.className = 'field'; var alb = document.createElement('label'); arow.appendChild(alb);
     var acs = document.createElement('div'); acs.className = 'chipr'; arow.appendChild(acs);
-    var CH = ['Girls\u00B2', 'Laki'];
     function syncArt() { [].forEach.call(acs.children, function (b) { b.classList.toggle('on', sa.value.trim() === b.getAttribute('data-v')); }); }
     CH.forEach(function (v) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v; b.setAttribute('data-v', v);
@@ -2122,7 +2137,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function setLyr(v) { progY = true; sy.value = v; sy.dispatchEvent(new Event('input', { bubbles: true })); progY = false; }
     function upd() {
       var a = sa.value.trim(), t = st.value.trim(), list = cache.songs;
-      $('syq').disabled = !t;
       if (!list) { setLink2(''); return; }
       match = null;
       if (a && t) list.forEach(function (r) { if (!match && r && String(r.artist || '').trim() === a && String(r.title || '').trim() === t) match = r; });
@@ -2339,7 +2353,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function syncAr() { var t = artistTokens(ar.value); [].forEach.call(arChips.children, function (b) { b.classList.toggle('on', t.indexOf(b.getAttribute('data-v')) >= 0); }); }
     // member: the same input + chips as the setlist tab (hearts of the popup). It follows the artist while it is empty or still the automatic value.
     var me = alInput('member'), mw = document.createElement('span'); mw.className = 'fw'; mw.appendChild(me);
-    var meFld = alFld('member', mw); arFld.parentNode.insertBefore(meFld, arFld.nextSibling); addGroupChips(me, true);
+    var meFld = alFld('member', mw); arFld.parentNode.insertBefore(meFld, arFld.nextSibling); addGroupChips(me, true); mergeMember(ar, me, meFld); // artist + member in one field
     var autoMem = '';
     function setMember(v) { me.value = v; autoMem = v; me.dispatchEvent(new Event('input', { bubbles: true })); }
     ar.addEventListener('input', function () {
@@ -2627,7 +2641,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   $('fan').addEventListener('change', updateFind); $('ff').addEventListener('change', updateFind);
   $('fcp').addEventListener('change', function () { [].forEach.call(document.querySelectorAll('#glih .dtarr'), function (b) { b.hidden = !$('fcp').checked; }); applyModeUI(); updateFind(); }); // setlist copy: the top date / time become the new setlistid
   addClear($('fid'));
-  $('fgo').onclick = doFind;
   $('fid').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doFind(); } });
   $('fkind').addEventListener('change', function () { clearFound(); hideCands(); $('fid').value = ''; dtSearch(); syncNew(); });
   $('fid').addEventListener('input', function () {
