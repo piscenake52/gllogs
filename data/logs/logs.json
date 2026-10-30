@@ -102031,36 +102031,9 @@
     ]
   },
   {
-    "logid": "1b0fb394099d",
-    "date": "20231028",
-    "time": "1200",
-    "contents": "DIARY",
-    "title": "ハロウィンだあ🎃👻🦇🕸",
-    "display_pc": "佐藤妃希　ハロウィンだあ🎃👻🦇🕸",
-    "display_sp": "佐藤妃希　ハロウィンだあ🎃👻🦇🕸",
-    "url": "https://girls2-fc.jp/page/lucky2blogs/847995896846090241",
-    "groups": [
-      "L2",
-      "KIK"
-    ]
-  },
-  {
-    "logid": "ff9647e659a3",
-    "date": "20231028",
-    "time": "0000",
-    "contents": "CL",
-    "title": "CLハロウィンWEEK ハロウィンフォト公開",
-    "url": "https://www.cl-live.com/news/gJwMaDFCTtSTZQPvj5w8YH?app=1&nolayout=1&theme=0",
-    "groups": [
-      "G2",
-      "YZH",
-      "TOA"
-    ]
-  },
-  {
     "logid": "27702c488248",
     "date": "20231028",
-    "time": "",
+    "time": "1600",
     "contents": "TOUR",
     "title": "Girls² LIVE TOUR 2023 -activate- 宮城公演",
     "url": "https://girls2-fc.jp/page/news/796687717785142329",
@@ -102076,6 +102049,7 @@
       "KIR",
       "TOA"
     ],
+    "setlistid": "202310281600",
     "tags": [
       "仙台サンプラザホール",
       "activate"
@@ -102102,6 +102076,33 @@
           }
         ]
       }
+    ]
+  },
+  {
+    "logid": "1b0fb394099d",
+    "date": "20231028",
+    "time": "1200",
+    "contents": "DIARY",
+    "title": "ハロウィンだあ🎃👻🦇🕸",
+    "display_pc": "佐藤妃希　ハロウィンだあ🎃👻🦇🕸",
+    "display_sp": "佐藤妃希　ハロウィンだあ🎃👻🦇🕸",
+    "url": "https://girls2-fc.jp/page/lucky2blogs/847995896846090241",
+    "groups": [
+      "L2",
+      "KIK"
+    ]
+  },
+  {
+    "logid": "ff9647e659a3",
+    "date": "20231028",
+    "time": "0000",
+    "contents": "CL",
+    "title": "CLハロウィンWEEK ハロウィンフォト公開",
+    "url": "https://www.cl-live.com/news/gJwMaDFCTtSTZQPvj5w8YH?app=1&nolayout=1&theme=0",
+    "groups": [
+      "G2",
+      "YZH",
+      "TOA"
     ]
   },
   {
