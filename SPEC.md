@@ -1168,3 +1168,11 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - DISPLAYの並びは、上から ALL / YEAR / GIRLS² / LAKI / CONTENTS / Uta-Net / 📊 STATS の順に変更(開閉チップが上)。📊のラベルは STATS で確定。
 - DISPLAYの開閉チップ(ALL・YEAR・GIRLS²・LAKI・CONTENTS)のラベルの色は、スイッチのON/OFFに連動: ONは青、OFFは通常の色(グレー)。スイッチを切り替えた時点で変わる。
 - ALLボタン(帯・DISPLAYのラベルとも)にも矢印を付ける: 全部開いている間と一部開いている間は ‹、全部畳んでいるときは ›。前の「矢印とバッジは無し」の記述は置き換え。
+
+## SETTING > DISPLAY: BADGE / ICON / TODAY
+
+- DISPLAYの最上段に BADGE・ICON・TODAY のスイッチを上からこの順で配置(ALL・YEAR…の上)。
+- OFFにするとヘッダーの該当ボタンを非表示にする(`html.hdr-off-badge/icon/today`)。BADGE・ICONが両方OFFのときは「<」(hdrMoreBtn)も非表示。
+- OFFにした時点でそのモードがONなら自動でOFFに戻す。
+- ラベルはヘッダーのボタンと同じ見た目で、スイッチONのとき青(ヘッダーのON色)、OFFのときは文字のみ。
+- 設定は `gl_display_prefs` の `hdr` に保存。RESETで全てONに戻る。
