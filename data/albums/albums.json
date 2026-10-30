@@ -1,5 +1,69 @@
 [
   {
+    "id": "d2ee9e6f38eb",
+    "title": "EASY",
+    "type": "ep",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "date": "20261111",
+    "tracks": [
+      {
+        "no": 1,
+        "title": "EASY"
+      },
+      {
+        "no": 2,
+        "title": "Umbrella"
+      },
+      {
+        "no": 3,
+        "title": "Magic Xmas"
+      },
+      {
+        "no": 4,
+        "title": "Nocturne"
+      }
+    ],
+    "editions": [
+      {
+        "name": "CD+DVD2枚組",
+        "format": "CD+DVD",
+        "note": "RZCD-67715/B～C",
+        "price": 11000,
+        "extra": [
+          {
+            "section": "Girls² 7th Anniversary \"Seven×Seven in Bloom -The Live-\""
+          }
+        ]
+      },
+      {
+        "name": "CD+Blu-ray",
+        "format": "CD+BD",
+        "note": "RZCD-67716/B",
+        "price": 11000,
+        "extra": [
+          {
+            "section": "Girls² 7th Anniversary \"Seven×Seven in Bloom -The Live-\""
+          }
+        ]
+      },
+      {
+        "name": "CD ONLY",
+        "format": "CD",
+        "note": "RZCD-67717",
+        "price": 2200
+      }
+    ]
+  },
+  {
     "id": "12d27a292a64",
     "title": "Umbrella",
     "type": "digital",
