@@ -2162,11 +2162,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     return out;
   }
   // "1. title" / "1) title" / circled digits are cut off at the head of a line. For extra tracks a label like "DVD1." is kept as the label.
-  function alParse(text, extra) {
+  function alParse(text, extra, sec) {
     var rows = [];
     String(text || '').split(/\r?\n/).forEach(function (raw) {
       var s = raw.replace(CIRC_RE, function (c) { return (c.charCodeAt(0) - 0x245f) + '. '; }).normalize('NFKC').trim(), m, no = '';
       if (!s) return;
+      if (sec && (m = s.match(/^\[(.+)\]$/))) { rows.push({ title: m[1].trim(), no: '', sec: true }); return; } // [LIVE TOUR 2025] = a section heading (the numbers start again from 1)
       if (extra && (m = s.match(/^([A-Za-z]+\s*\d+)\s*[.):\]\-]\s*/))) { no = m[1].replace(/\s+/g, ''); s = s.slice(m[0].length); }
       else if ((m = s.match(/^\d+\s*[.):\]\-]\s*/)) || (m = s.match(/^\d+\s+(?=\S)/))) { s = s.slice(m[0].length); }
       s = s.trim(); if (s) rows.push({ title: s, no: no });
@@ -2181,12 +2182,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var list = document.createElement('div');
     var bar = document.createElement('div'); bar.className = 'plbar'; bar.style.cssText = 'display:flex;margin-bottom:4px'; wrap.appendChild(bar); wrap.appendChild(list);
     var pbox = document.createElement('div'); pbox.className = 'plbox'; pbox.hidden = true; pbox.style.marginTop = '6px';
-    var ta = document.createElement('textarea'); ta.className = 'fta'; ta.rows = 5; ta.setAttribute('spellcheck', 'false'); ta.placeholder = cfg.extra ? 'DVD1. title' : '1. title\n2. title'; pbox.appendChild(ta);
+    var ta = document.createElement('textarea'); ta.className = 'fta'; ta.rows = 5; ta.setAttribute('spellcheck', 'false'); ta.placeholder = cfg.extra ? 'DVD1. title' : cfg.sec ? '1. title\n2. title\n[LIVE TOUR 2025]\n1. title' : '1. title\n2. title'; pbox.appendChild(ta);
     var pbar = document.createElement('div'); pbar.className = 'plbar'; pbar.style.marginTop = '6px'; pbox.appendChild(pbar);
     var pwrap = document.createElement('div'); pwrap.style.marginTop = '6px'; wrap.appendChild(pwrap); // paste: always at the bottom of the tracks frame
     var rows = [];
     function cur() { return rows.filter(function (r) { return r.title.trim(); }); }
-    function get() { return cur().map(function (r, i) { var o = { title: r.title.trim() }; if (cfg.extra) { if (r.no.trim()) o.no = r.no.trim(); } else o.no = i + 1; return o; }); }
+    function get() { return cur().map(function (r, i) { if (r.sec) return { section: r.title.trim() }; var o = { title: r.title.trim() }; if (cfg.extra) { if (r.no.trim()) o.no = r.no.trim(); } else o.no = i + 1; return o; }); }
     function changed() { if (cfg.onchange) cfg.onchange(); }
     function stat(r) {
       r.st.innerHTML = ''; if (r.go) r.go.disabled = true; var t = r.title.trim(); if (!t) return;
@@ -2199,30 +2200,32 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       list.innerHTML = '';
       rows.forEach(function (r, i) {
         var line = document.createElement('div'); line.className = 'plrow alrow'; var top = document.createElement('div'); top.className = 'alt'; var sub = document.createElement('div'); sub.className = 'alsub'; line.appendChild(top); line.appendChild(sub);
-        if (cfg.extra) { var lb = alInput('DVD1', 'plnt'); lb.style.flex = '0 0 4.5em'; lb.value = r.no; lb.oninput = function () { r.no = lb.value; changed(); }; top.appendChild(lb); }
-        else { var no = document.createElement('span'); no.className = 'plno'; no.textContent = i + 1; top.appendChild(no); }
-        var ti = alInput('title'); ti.value = r.title; r.ti = ti; top.appendChild(ti);
-        var go = wbtn('\u2192', function () { goSong(r.title); }); go.classList.add('ib'); go.title = 'open this song in the songs tab'; go.disabled = true; r.go = go; top.appendChild(go);
+        if (r.sec) { var sl = document.createElement('span'); sl.className = 'plno'; sl.textContent = 'sec'; sl.style.flex = '0 0 4.5em'; top.appendChild(sl); }
+        else if (cfg.extra) { var lb = alInput('DVD1', 'plnt'); lb.style.flex = '0 0 4.5em'; lb.value = r.no; lb.oninput = function () { r.no = lb.value; changed(); }; top.appendChild(lb); }
+        else { var no = document.createElement('span'); no.className = 'plno'; no.textContent = rows.slice(0, i + 1).filter(function (x) { return !x.sec; }).length; top.appendChild(no); }
+        var ti = alInput(r.sec ? 'section (LIVE TOUR 2025 ...)' : 'title'); ti.value = r.title; r.ti = ti; top.appendChild(ti); if (r.sec) ti.style.fontWeight = '700';
+        if (!r.sec) { var go = wbtn('\u2192', function () { goSong(r.title); }); go.classList.add('ib'); go.title = 'open this song in the songs tab'; go.disabled = true; r.go = go; top.appendChild(go); }
         var upB = wbtn('\u2191', function () { if (i < 1) return; rows.splice(i - 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }); upB.classList.add('ib'); upB.title = 'move up'; upB.disabled = i < 1; top.appendChild(upB);
         var dnB = wbtn('\u2193', function () { if (i >= rows.length - 1) return; rows.splice(i + 1, 0, rows.splice(i, 1)[0]); draw(); changed(); }); dnB.classList.add('ib'); dnB.title = 'move down'; dnB.disabled = i >= rows.length - 1; top.appendChild(dnB);
         var xB = wbtn('\u2715', function () { rows.splice(i, 1); draw(); changed(); }); xB.classList.add('ib'); top.appendChild(xB);
         r.st = document.createElement('div'); r.st.className = 'plst'; sub.appendChild(r.st);
         list.appendChild(line);
-        var sug = addSuggest(ti, alTitleOpts, line, true);
-        ti.oninput = function () { r.title = ti.value; stat(r); changed(); };
+        if (!r.sec) var sug = addSuggest(ti, alTitleOpts, line, true);
+        ti.oninput = function () { r.title = ti.value; if (!r.sec) stat(r); changed(); };
         ti.onkeydown = function (e) {
           if (e.key !== 'Enter') return; e.preventDefault();
           var box = line.nextSibling; if (box && box.classList && box.classList.contains('fsug') && !box.hidden) return; // candidates are shown: pick one by pressing it (Enter does not pick)
           rows.splice(i + 1, 0, { title: '', no: '' }); draw(); rows[i + 1].ti.focus();
         };
-        stat(r);
+        if (!r.sec) stat(r);
       });
     }
-    function set(arr) { rows = (arr || []).map(function (t) { return { title: String(t.title || ''), no: t.no == null ? '' : String(t.no) }; }); draw(); }
+    function set(arr) { rows = (arr || []).map(function (t) { return t && t.section != null ? { title: String(t.section), no: '', sec: true } : { title: String(t.title || ''), no: t.no == null ? '' : String(t.no) }; }); draw(); }
     var addT = wbtn('+ track', function () { rows.push({ title: '', no: '' }); draw(); rows[rows.length - 1].ti.focus(); changed(); }); addT.style.flex = '1'; bar.appendChild(addT);
+    if (cfg.sec) { var addS = wbtn('+ section', function () { rows.push({ title: '', no: '', sec: true }); draw(); rows[rows.length - 1].ti.focus(); changed(); }); addS.title = 'a heading in this disc (e.g. LIVE TOUR 2025). The numbers start again from 1 under it'; addS.style.flex = '1'; bar.appendChild(addS); }
     var pt = wbtn('', function () { pbox.hidden = !pbox.hidden; psync(); }); function psync() { pt.textContent = 'paste ' + (pbox.hidden ? '\u25BE' : '\u25B4'); pt.setAttribute('aria-expanded', pbox.hidden ? 'false' : 'true'); } psync(); pwrap.appendChild(pt); pwrap.appendChild(pbox);
-    pbar.appendChild(wbtn('replace', function () { var p = alParse(ta.value, cfg.extra); if (!p.length) return; rows = p; ta.value = ''; draw(); changed(); }));
-    pbar.appendChild(wbtn('append', function () { var p = alParse(ta.value, cfg.extra); if (!p.length) return; rows = cur().concat(p); ta.value = ''; draw(); changed(); }));
+    pbar.appendChild(wbtn('replace', function () { var p = alParse(ta.value, cfg.extra, cfg.sec); if (!p.length) return; rows = p; ta.value = ''; draw(); changed(); }));
+    pbar.appendChild(wbtn('append', function () { var p = alParse(ta.value, cfg.extra, cfg.sec); if (!p.length) return; rows = cur().concat(p); ta.value = ''; draw(); changed(); }));
     fetchData('songs').then(function () { draw(); }).catch(function () {});
     return { el: wrap, get: get, set: set, redraw: draw };
   }
@@ -2243,7 +2246,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function addDisc(name, tracks) {
       var box = document.createElement('div'); box.className = 'plbox'; box.style.marginBottom = '6px';
       var nm = alInput('disc name (DVD / BD / CD2 ...)'); nm.value = name; nm.style.width = '100%';
-      var tk = alTracks({ barTop: true, onchange: cfg.onchange }); tk.set(tracks);
+      var tk = alTracks({ barTop: true, sec: true, onchange: cfg.onchange }); tk.set(tracks);
       var o = { el: box, nm: nm, tk: tk };
       nm.addEventListener('input', cfg.onchange);
       nm.style.marginBottom = '6px'; box.appendChild(nm); box.appendChild(tk.el);
@@ -2255,14 +2258,17 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       el: wrap,
       get: function () {
         var out = [];
-        discs.forEach(function (d) { var name = d.nm.value.trim(); d.tk.get().forEach(function (t, i) { var x = {}; if (name) x.no = name + (i + 1); x.title = t.title; out.push(x); }); });
+        discs.forEach(function (d) { var name = d.nm.value.trim(), n = 0; d.tk.get().forEach(function (t) { if (t.section != null) { out.push({ section: t.section }); n = 0; return; } var x = {}; n++; if (name) x.no = name + n; x.title = t.title; out.push(x); }); });
         return out;
       },
       set: function (arr) {
         list.innerHTML = ''; discs = []; var groups = [];
+        var pend = [];
         (arr || []).forEach(function (t) {
+          if (t && t.section != null) { pend.push({ section: t.section }); return; }
           var raw = String(t.no == null ? '' : t.no), m = raw.match(/^(.*?)(\d+)$/), name = m ? m[1] : raw, g = groups[groups.length - 1];
           if (!g || g.name !== name) { g = { name: name, tracks: [] }; groups.push(g); }
+          pend.forEach(function (sx) { g.tracks.push(sx); }); pend = [];
           g.tracks.push({ title: t.title });
         });
         groups.forEach(function (g) { addDisc(g.name, g.tracks); });

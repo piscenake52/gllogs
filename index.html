@@ -907,6 +907,7 @@ html.alb-off .alb-icon { width: 0; margin: 0; opacity: 0; visibility: hidden; po
 .alb-list { list-style: none; margin: 0; padding: 0; }
 .alb-list li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; } /* 曲の行はセトリのポップアップと同じ並び(曲順・再生ボタン・曲名)。曲名の文字はデータ部の文字サイズ設定に合わせる */
 .alb-list li:last-child { border-bottom: none; }
+.alb-list li.alb-sec { display: block; padding: 10px 0 4px; border-bottom: none; font-size: 12px; font-weight: 700; color: var(--muted); } /* 追加ディスク内の区分の見出し */
 .row-in { animation: rowIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both; }
 @keyframes rowIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .row-in { animation: none; } }
@@ -3656,6 +3657,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       (eds.length ? chips(eds.map(x => x.name || ''), ei, 'data-aled') : '') +
       (info ? `<div class="alb-edinfo">${info}</div>` : '') +
       (rows.length ? `<ul class="alb-list${rows.some(([t]) => t.no != null && !/^\d+$/.test(String(t.no))) ? ' has-label' : ''}">${rows.map(([t, ex]) => {
+        if (t && t.section) return `<li class="alb-sec">${escapeHtml(t.section)}</li>`; // 区分の見出し(LIVE TOUR 2025など)
         const n = statIndex().get(statNorm(t.title));
         const link = findSongLinkByTitle(t.title); // 再生ボタンはセトリのポップアップと同じ(songs.jsonにリンクがある曲だけ。ないときは同じ幅の空き)
         const playBtn = link ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>` : '<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>';
@@ -4594,7 +4596,11 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     const shownIds = () => FOLD_IDS.filter(id => displayPrefs.chips[id]); // チップを出している行だけが対象
     const syncAll = () => { const ids = shownIds(), open = ids.filter(id => !foldState[id]).length; allBtn.classList.toggle('is-folded', ids.length > 0 && open === 0); allBtn.classList.toggle('fold-all-mixed', open > 0 && open < ids.length); };
     syncFoldAll = syncAll;
-    allBtn.onclick = () => { const ids = shownIds(), anyOpen = ids.some(id => !foldState[id]); ids.forEach(id => setFolded(id, anyOpen, false)); };
+    allBtn.onclick = () => { const ids = shownIds(), anyOpen = ids.some(id => !foldState[id]); if (!anyOpen) { ids.forEach(id => setFolded(id, false, false)); return; }
+      // 全部畳むときは、段数の違う行(CONTENTSは多段で長い)も同時に終わるよう、短い行は開始を遅らせてそろえる
+      const tot = id => { const u = $('foldUnit-' + id), b = btnOf(id), P = u && b && !foldState[id] ? plan(u, b) : null; return P ? T_H + (P.multi ? T_V : 0) + T_A : 0; };
+      const tmax = Math.max(...ids.map(tot));
+      ids.forEach(id => setFolded(id, true, false, tmax)); };
     // 見えているボタンを行ごとにまとめ、左端のもの(行の先頭)と、一番上の行の先頭(leader)を求める
     const plan = (unit, btn) => {
       const rows = [...unit.querySelectorAll('.checks-row')].map(r => {
@@ -4613,7 +4619,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       const hide = rows.map(g => g.row);
       return { items, tx, ty, multi: rows.length > 1, rowsEls: hide };
     };
-    const setFolded = (id, next, instant) => {
+    const setFolded = (id, next, instant, late) => { // late: ALLで畳むときの全体の所要時間(ms)。全行の終わりをそろえる
       const unit = $('foldUnit-' + id), btn = btnOf(id);
       if (!unit || !btn || foldBusy[id] || foldState[id] === next) return;
       foldState[id] = next; save(); syncAll();
@@ -4644,9 +4650,9 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
           { transform: tf(it.dx, 0, 1), opacity: it.isLeader || it.isRowFirst ? 1 : 0.0, offset: o1, easing: MOVE },
           { transform: tf(it.dx, it.dy, 1), opacity: it.isLeader ? 1 : 0, offset: o2, easing: MOVE },
           { transform: tf(it.dx + P.tx, it.dy + P.ty, 0.2), opacity: 0, offset: 1 }
-        ], { duration: T, fill: 'forwards' }));
-        setTimeout(() => { unit.style.height = H + 'px'; void unit.offsetHeight; unit.style.transition = tr(T_A * 0.9); unit.style.height = '0px'; unit.style.marginBottom = -GAP + 'px'; }, T_H + tV + T_A * 0.4);
-        Promise.all(anims.map(a => a.finished)).then(() => setTimeout(() => { anims.forEach(a => a.cancel()); cleanLabels(); finish(); }, T_A * 0.5));
+        ], { duration: T, delay: late ? late - T : 0, fill: 'forwards' }));
+        setTimeout(() => { unit.style.height = H + 'px'; void unit.offsetHeight; unit.style.transition = tr(T_A * 0.9); unit.style.height = '0px'; unit.style.marginBottom = -GAP + 'px'; }, late ? late : T_H + tV + T_A * 0.4);
+        Promise.all(anims.map(a => a.finished)).then(() => setTimeout(() => { anims.forEach(a => a.cancel()); cleanLabels(); finish(); }, late ? T_A : T_A * 0.5));
       } else {
         // 開く: 開閉ボタンから左上にひとつ出る → (複数段なら)下へ縦に展開 → それぞれ横に展開。行の高さも広がる
         unit.style.height = '0px'; unit.style.marginBottom = -GAP + 'px'; void unit.offsetHeight;
