@@ -1,0 +1,34 @@
+{
+  "logid": "57a5a02f172c",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/modelpress/status/2116372575542726937?a=QEK1rw_Symcn_NiV6nA&s=19",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "モデルプレス"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "etc",
+      "urls": [
+        {
+          "url": "https://mdpr.jp/cinema/detail/4868627",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "モデルプレス"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2602"
+}

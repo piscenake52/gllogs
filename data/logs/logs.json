@@ -3861,6 +3861,29 @@
           {
             "url": "https://x.com/wandance_movie/status/2110249246050120020",
             "member": []
+          },
+          {
+            "url": "https://x.com/modelpress/status/2116372575542726937?a=QEK1rw_Symcn_NiV6nA&s=19",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "モデルプレス"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://mdpr.jp/cinema/detail/4868627",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "モデルプレス"
+            ]
           }
         ]
       }
