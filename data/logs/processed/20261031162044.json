@@ -1,0 +1,34 @@
+{
+  "logid": "57a5a02f172c",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/TOKYO_HEADLINE/status/2116419947505320132?a=2U_60YmS0juc9n_aSnU&s=19",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "TOKYO HEADLINE"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "etc",
+      "urls": [
+        {
+          "url": "https://www.tokyoheadline.com/877316/",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "TOKYO HEADLINE"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2615"
+}
