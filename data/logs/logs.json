@@ -3573,6 +3573,10 @@
       "L2",
       "HIR"
     ],
+    "relations": [
+      "TBK",
+      "RIN"
+    ],
     "sns": [
       {
         "type": "x",
