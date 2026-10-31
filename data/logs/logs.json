@@ -4039,6 +4039,45 @@
     ]
   },
   {
+    "logid": "e514aa46d116",
+    "date": "20261031",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/2dWFqwMjFYMbErk7zHzPH2",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "Happy Halloween"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "6612456694b7",
     "date": "20261030",
     "time": "2359",
