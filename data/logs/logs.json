@@ -4255,8 +4255,14 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "RIN",
+      "TBK",
       "HIR",
-      "YUW"
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "sns": [
       {
@@ -4301,6 +4307,45 @@
             "tags": [
               "オフラキ",
               "Getだぜ"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2116443145235992668?a=lBNzw5D-5hDFBEyHsUI&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgctU6Br/",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "Choo Choo TRAIN",
+              "EXILE",
+              "LakiダンスWEEK"
             ]
           }
         ]
