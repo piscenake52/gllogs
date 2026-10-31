@@ -3852,6 +3852,7 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YOK",
       "KIR"
     ],
     "sns": [
@@ -3866,6 +3867,15 @@
             "tags": [
               "イベント出演情報",
               "ワンダンス"
+            ]
+          },
+          {
+            "url": "https://x.com/encountofficial/status/2116337982722433309?a=fd5uOiBbh8Cr3v9VJzU&s=19",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "ENCOUNT"
             ]
           }
         ]
