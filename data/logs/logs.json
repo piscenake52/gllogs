@@ -4538,6 +4538,47 @@
     ]
   },
   {
+    "logid": "8172aa23854b",
+    "date": "20261031",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/46gKS5NdF3obKpqBbk92WZ",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "Happy Halloween"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "6612456694b7",
     "date": "20261030",
     "time": "2359",
