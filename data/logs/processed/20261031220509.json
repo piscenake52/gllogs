@@ -1,0 +1,39 @@
+{
+  "logid": "a69d4946efc0",
+  "groups": [
+    "G2",
+    "YZH",
+    "YOK",
+    "KUR",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2116456301756879264?a=4J3o74Qj1_ejrHReoAI&s=19",
+          "member": [],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgct9NSC/",
+          "member": [
+            "KUR"
+          ],
+          "tags": [
+            "EASY"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2630"
+}
