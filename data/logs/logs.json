@@ -4270,6 +4270,7 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YZH",
       "YOK",
       "KIR"
     ],
@@ -4321,6 +4322,29 @@
             "tags": [
               "ワンダンス",
               "ジャパンプレミア"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2116381030622056830?a=Lq68f0VhQmxFKP5T2so&s=19",
+            "member": [
+              "YZH"
+            ],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgvKPGWE/",
+            "member": [
+              "YZH"
+            ],
+            "tags": [
+              "芸人交換日記"
             ]
           }
         ]
