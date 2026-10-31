@@ -1,25 +1,25 @@
 {
-  "logid": "a69d4946efc0",
+  "logid": "57a5a02f172c",
   "sns": [
     {
-      "type": "x",
+      "type": "youtube",
       "urls": [
         {
-          "url": "https://x.com/Girls2_official/status/2116434218465272215?a=hjIWYOJFwh9UynYem8I&s=19",
+          "url": "https://youtu.be/abPzUx7FfJY?si=SM5Os4ZBiDxmuHX2",
           "member": [
             "KIR"
           ],
           "tags": [
-            "TikTok更新"
+            "oricon"
           ]
         }
       ]
     },
     {
-      "type": "tiktok",
+      "type": "x",
       "urls": [
         {
-          "url": "https://vt.tiktok.com/ZSgc1CuM4/",
+          "url": "https://x.com/wandance_movie/status/2116455142966858176?a=ZFEvf5cEascyFyx_qeM&s=19",
           "member": [
             "KIR"
           ],
@@ -30,5 +30,5 @@
       ]
     }
   ],
-  "_issue": "2620"
+  "_issue": "2624"
 }

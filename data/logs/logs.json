@@ -3931,6 +3931,15 @@
             "tags": [
               "TOKYO HEADLINE"
             ]
+          },
+          {
+            "url": "https://x.com/wandance_movie/status/2116455142966858176?a=ZFEvf5cEascyFyx_qeM&s=19",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "ジャパンプレミア"
+            ]
           }
         ]
       },
@@ -3953,6 +3962,20 @@
             ],
             "tags": [
               "TOKYO HEADLINE"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtu.be/abPzUx7FfJY?si=SM5Os4ZBiDxmuHX2",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "oricon"
             ]
           }
         ]
