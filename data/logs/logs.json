@@ -3576,7 +3576,8 @@
     "logid": "13d9876c3a36",
     "date": "20261101",
     "time": "",
-    "contents": "ETC",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
     "groups": [
       "G2",
       "YZH",
@@ -3596,6 +3597,20 @@
             "member": [],
             "tags": [
               "特典会情報"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DfL0Z6qDwWH/?xtok=MWlxejVibGt0eTNjbQ==",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "LOVE ITな朝"
             ]
           }
         ]
