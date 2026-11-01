@@ -3867,8 +3867,13 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "RIN",
+      "TBK",
       "HIR",
+      "YUW",
       "KAN",
+      "RRK",
+      "AKR",
       "KIK"
     ],
     "sns": [
@@ -3882,6 +3887,22 @@
             ],
             "tags": [
               "月刊わんこ"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2116852416322888119?a=aKIWlfgIEU7QG4HmHl8&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "TikTok更新"
             ]
           }
         ]
@@ -3899,6 +3920,27 @@
             ],
             "tags": [
               "PLAYLIST"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgwn5nwU/",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "個性豊かなファンサ"
             ]
           }
         ]
