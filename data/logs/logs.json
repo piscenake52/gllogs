@@ -2242,6 +2242,63 @@
     ]
   },
   {
+    "logid": "62e476c22ec8",
+    "date": "20261107",
+    "time": "0321",
+    "contents": "TV",
+    "title": "テレビ東京 「超⚡️超音波」",
+    "url": "https://www.tv-tokyo.co.jp/choonpa/",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "tags": [
+      "超⚡️超音波"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2116696726283457007?a=kb1kgPXgLj1GYi8q0Zc&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "テレビ出演"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://tver.jp/series/sr05vfzmwl?utm_medium=share",
+            "member": [],
+            "tags": [
+              "TVer"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "947250606057",
     "date": "20261107",
     "time": "",
