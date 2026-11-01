@@ -3557,6 +3557,33 @@
     ]
   },
   {
+    "logid": "d388b5e31a79",
+    "date": "20261101",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Girls²",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/eZ2Jz1i58qmoCSy4GmD3hD",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "ワンダンス"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "5b3933072351",
     "date": "20261031",
     "time": "2359",
