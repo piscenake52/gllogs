@@ -64,7 +64,7 @@ LEGACY_SONGS_LABEL = "曲目 (songs / setlist用 - 1行1曲)"  # setlist / songs
 
 ANNIV_OPTION = "ANNIVERSARY（記念日を一緒に登録）"
 CLEAR = "!clear"  # 既存値を消したいときに入力する特別な値
-ARTIST_JOIN = " × "  # アーティストを複数選択したときの連結文字（merge_json.py と揃える）
+ARTIST_JOIN = ", "  # アーティストを複数選択したときの連結文字（merge_json.py と揃える）。旧データの「 × 」も読める
 
 # G2だけ／L2だけにチェックがあるときに補完するメンバー（フォームの並び順）
 G2_MEMBERS = ["YZH", "MMK", "MSK", "YOK", "KUR", "MNM", "KIR"]

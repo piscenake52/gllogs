@@ -9,7 +9,7 @@ import sys
 
 MAX_PROCESSED_FILES = 30
 CLEAR = "!clear"  # 既存値を消したいときにIssueへ入力する特別な値
-ARTIST_JOIN = " × "  # 複数アーティストの連結文字（issue_to_json.py と揃える）
+ARTIST_JOIN = ", "  # 複数アーティストの連結文字（issue_to_json.py と揃える）。分割は「, 」「、」「×」のどれでも読む
 LOGID_LENGTH = 12  # logid の桁数（UUIDの先頭から取る16進数）
 NOTICE_FILE = "merge_notice.md"  # 削除対象が見つからなかった等をIssueにコメントするための一時ファイル（コミットされない）
 NOTICES = []
@@ -481,10 +481,10 @@ def finalize_new(target, item, main_data):
             print(f"【スキップ】setlistの新規追加にはartistとtitleが必要です: {item}")
             return None
         # member は artist が Girls² / Laki のときだけ既定値を補完（それ以外は属性を作らない）
-        # 「Girls² × Laki」のように複数の場合は、該当分を合わせる（G2, L2）
+        # 「Girls², Laki」のように複数の場合は、該当分を合わせる（G2, L2）
         if "member" not in item:
             default_member = []
-            for a in item["artist"].split(ARTIST_JOIN):
+            for a in re.split(r"\s*[,、×]\s*", item["artist"]):
                 default_member += DEFAULT_MEMBERS.get(a.strip(), [])
             if default_member:
                 item["member"] = default_member
