@@ -3307,7 +3307,36 @@
     "display_sp": "『Umbrella』 Music Video プレミア公開",
     "url": "https://youtu.be/O037-c3AO-I?si=f--kU7itaH9AlYEs",
     "groups": [
-      "G2"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2116819353983476103?a=3LhUF56YSLPDVc1SICI&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "MV公開"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
