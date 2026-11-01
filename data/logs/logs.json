@@ -3616,6 +3616,23 @@
             ]
           }
         ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfMKPoSTq7_/?srtk=NDJycHNoeWV3dTk0",
+            "member": [
+              "MSK",
+              "YOK",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "RUNWAY"
+            ]
+          }
+        ]
       }
     ]
   },
