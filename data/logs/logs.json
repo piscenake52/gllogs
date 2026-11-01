@@ -3920,6 +3920,33 @@
     "suffix": "記念日"
   },
   {
+    "logid": "78cd570deff2",
+    "date": "20261101",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/qfk8sCVfzxhyjX5aQ8EWt1",
+            "member": [
+              "AKR"
+            ],
+            "tags": [
+              "11月生誕イベント"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "5b3933072351",
     "date": "20261031",
     "time": "2359",
