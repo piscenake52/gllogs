@@ -3749,10 +3749,13 @@
     "date": "20261101",
     "time": "",
     "contents": "SNS",
-    "title": "SNS　Laki",
+    "title": "SNS",
     "groups": [
+      "G2",
       "L2",
-      "HIR"
+      "HIR",
+      "KAN",
+      "KIK"
     ],
     "sns": [
       {
@@ -3768,8 +3771,32 @@
             ]
           }
         ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DfMd6nxierp/?mdxt=MW5iNDFob3N0b3pvYw==",
+            "member": [
+              "KAN"
+            ],
+            "with": [
+              "KIK"
+            ],
+            "tags": [
+              "PLAYLIST"
+            ]
+          }
+        ]
       }
     ]
+  },
+  {
+    "logid": "e5f8db6f33a4",
+    "date": "20261101",
+    "contents": "ANNIVERSARY",
+    "ref": "60bdae102cb9",
+    "suffix": "記念日"
   },
   {
     "logid": "5b3933072351",
