@@ -7669,7 +7669,8 @@
     "map": "https://maps.app.goo.gl/chZNWXGgcuVfLs3q7",
     "groups": [
       "G2",
-      "YZH"
+      "YZH",
+      "MSK"
     ],
     "tags": [
       "THEATER MILANO-Za",
@@ -7711,6 +7712,21 @@
             "tags": [
               "BBZ",
               "奥田力也"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://entameclip.com/news/493014/",
+            "member": [
+              "YZH",
+              "MSK"
+            ],
+            "tags": [
+              "日刊エンタメクリップ"
             ]
           }
         ]
