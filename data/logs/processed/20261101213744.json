@@ -1,0 +1,51 @@
+{
+  "logid": "90918b59666c",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2116823473154892196?a=t8d6PWEa2pAHZKDkJns&s=19",
+          "member": [
+            "RIN",
+            "TBK",
+            "HIR",
+            "YUW",
+            "KAN",
+            "RRK",
+            "AKR",
+            "KIK"
+          ],
+          "tags": [
+            "SETLIST"
+          ]
+        },
+        {
+          "url": "https://x.com/Laki922official/status/2116851532843098410?a=5SQpAAxBMzNz267-yzw&s=19",
+          "member": [
+            "RIN",
+            "TBK",
+            "HIR",
+            "YUW"
+          ],
+          "tags": [
+            "ソロショット"
+          ]
+        },
+        {
+          "url": "https://x.com/Laki922official/status/2116851875828109702?a=q6PGqmdh4BIVKiCgx6M&s=19",
+          "member": [
+            "KAN",
+            "RRK",
+            "AKR",
+            "KIK"
+          ],
+          "tags": [
+            "ソロショット"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2679"
+}
