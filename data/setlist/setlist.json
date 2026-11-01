@@ -207,7 +207,44 @@
       "KIK"
     ],
     "title": "11月生誕メンバーイベント\n東京・豊洲 2部",
-    "venue": "アーバンドック ららぽーと豊洲 ウッドデッキ"
+    "venue": "アーバンドック ららぽーと豊洲 ウッドデッキ",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Like it!!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "Starry pop Canvas",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "Dub♡Love!!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Girls Revolution",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "Best Friends",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202611011230",

@@ -1,5 +1,5 @@
 {
-  "setlistid": "202611011230",
+  "setlistid": "202611011430",
   "songs": [
     {
       "order": 1,
@@ -10,21 +10,21 @@
     },
     {
       "order": 2,
-      "title": "こくご・さんすう・りか・恋愛！",
+      "title": "Starry pop Canvas",
       "type": "song",
       "original": "",
       "notes": ""
     },
     {
       "order": 3,
-      "title": "CLOVER",
+      "title": "Dub♡Love!!",
       "type": "song",
       "original": "",
       "notes": ""
     },
     {
       "order": 4,
-      "title": "Love is Magic",
+      "title": "Girls Revolution",
       "type": "song",
       "original": "",
       "notes": ""
@@ -36,6 +36,5 @@
       "original": "",
       "notes": ""
     }
-  ],
-  "source": "official"
+  ]
 }
