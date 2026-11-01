@@ -191,7 +191,16 @@
       "KIR"
     ],
     "title": "atmoscon 2026",
-    "venue": "新宿住友ビル三角広場"
+    "venue": "新宿住友ビル三角広場",
+    "songs": [
+      {
+        "order": 1,
+        "title": "BLOOM! BLOOM! BLOOM!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202611011430",
