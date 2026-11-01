@@ -3724,6 +3724,33 @@
     ]
   },
   {
+    "logid": "60bdae102cb9",
+    "date": "20261101",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "HIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/gekkan_wanko/status/2116783644035756481?a=_UD8as1LZdXnD5j-qto&s=19",
+            "member": [
+              "HIR"
+            ],
+            "tags": [
+              "月刊わんこ"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "5b3933072351",
     "date": "20261031",
     "time": "2359",
