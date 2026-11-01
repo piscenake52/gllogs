@@ -125,6 +125,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih #glih-alcp > .fin, #glih .allgcol > .fin { display:block; width:100%; box-sizing:border-box; } /* albums: logs / copy input to the right edge */
 #glih .plrow { display:flex; flex-wrap:wrap; align-items:center; gap:4px; padding:4px 0; border-bottom:1px solid var(--line); }
 #glih .plrow .fin { flex:1 1 40%; min-width:0; }
+#glih .plsec { flex:0 0 2.5em; width:2.5em; text-align:center; font-size:12px; font-weight:600; color:var(--sub); line-height:36px; }
+#glih .algated { display:none !important; }
 #glih .plnoin, #glih .alrow .alt .fin.plnoin { flex:0 0 2.5em; width:2.5em; padding:8px 2px; text-align:center; font-size:14px; }
 #glih .plno { width:2em; text-align:right; color:var(--sub); font-size:12px; }
 #glih .alrow { display:block; }
@@ -218,7 +220,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .cal-pop button.is-sel { background-color:var(--accent) !important; color:var(--accent-text); font-weight:700; }
 #glih .cal-foot { display:flex; justify-content:flex-end; margin-top:8px; }
 #glih .cal-foot button { height:34px; padding:0 16px; font-size:13px; color:var(--accent); font-weight:700; }
-#glih .fpi { position:absolute; left:0; top:100%; width:1px; height:1px; opacity:0; pointer-events:none; border:0; padding:0; }
+#glih .fpi { position:absolute; left:0; top:0; width:1px; height:1px; opacity:0; pointer-events:none; border:0; padding:0; }
 #glih .fx.fr { right:28px; font-size:14px; }
 #glih .fx.fr.ta { top:8px; transform:none; }
 #glih .fx.fp { right:51px; font-size:13px; }
@@ -241,7 +243,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .small:disabled { opacity:.35; cursor:default; }
 #glih .rep { margin:0 0 10px; padding-top:10px; }
 #glih .rep .fstat:empty { display:none; } /* no blank space for an empty message (schedule / tour) */
-#glih-p-find .field, #glih-p-find .rep .field { flex-wrap:wrap; row-gap:2px; } #glih-p-find .field > label:first-child { flex:0 0 100%; width:100%; } #glih-p-find .field > label:empty { display:none; } /* labels above the inputs */
+#glih-p-find .field, #glih-p-find .rep .field, #glih-p-songs .field, #glih-p-albums .field { flex-wrap:wrap; row-gap:2px; } #glih-p-find .field > label:first-child, #glih-p-songs .field > label:first-child, #glih-p-albums .field > label:first-child { flex:0 0 100%; width:100%; } #glih-p-find .field > label:empty, #glih-p-songs .field > label:empty, #glih-p-albums .field > label:empty { display:none; } /* labels above the inputs */
 #glih .fin.num { flex:0 0 4.5em; width:4.5em; text-align:center; }
 #glih .rep .fsel { flex:0 0 8em; font-size:13px; }
 #glih .chipr.nw { flex-wrap:nowrap; }
@@ -1283,7 +1285,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var no = document.createElement('input'); no.type = 'text'; no.className = 'fin plnoin'; no.setAttribute('inputmode', 'numeric'); no.setAttribute('autocomplete', 'off'); no.title = 'order (a new song: the number of songs + 1)'; if (sel < 0) parse(); no.value = sel >= 0 ? String(sel + 1) : String(rows.length + 1); top.appendChild(no);
       var cw = document.createElement('div'); cw.className = 'alin'; var inp = document.createElement('div'); inp.className = 'alinp'; var ti = document.createElement('input'); ti.type = 'text'; ti.className = 'fin'; ti.value = r.title; ti.setAttribute('autocomplete', 'off'); ti.setAttribute('spellcheck', 'false'); inp.appendChild(ti); cw.appendChild(inp); top.appendChild(cw);
       var bt = document.createElement('div'); bt.className = 'albtn'; cw.appendChild(bt);
-      var go = wbtn('\u2192', function () { goSong(r.title.replace(/\s*\{[^}]*\}\s*$/, '').trim()); }); go.title = 'open this song in the songs tab'; go.disabled = true; bt.appendChild(go);
+      var go = wbtn('\u2192', function () { goSong(r.title.replace(/\s*\{[^}]*\}\s*$/, '').trim(), ($('f-artist') || {}).value); }); go.title = 'open this song in the songs tab'; go.disabled = true; bt.appendChild(go);
       var dB = wbtn('\u22ef', function () { open = !open; draw(); }); dB.title = 'type / members / original / notes'; if (open) dB.classList.add('on'); bt.appendChild(dB);
       var sub = document.createElement('div'); sub.className = 'alsub'; var st = document.createElement('div'); st.className = 'plst'; sub.appendChild(st); frame.appendChild(sub);
       var sm = document.createElement('span'); sm.className = 'slsum';
@@ -1306,7 +1308,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       function stat() { // title check: OK / not in songs.json + candidates
         st.innerHTML = ''; go.disabled = true; var t = r.title.replace(/\s*\{[^}]*\}\s*$/, '').trim();
         if (t) { var si = songIdx(); if (si) {
-          if (si.ex[t]) { go.disabled = false; var ok = document.createElement('span'); ok.className = 'plok'; ok.textContent = 'OK'; st.appendChild(ok); }
+          if (si.ex[t]) { go.disabled = false; var ok = document.createElement('span'); ok.className = 'plok'; var an = artistNote(si, t, ($('f-artist') || {}).value); ok.textContent = an ? 'OK (only under: ' + an + ')' : 'OK'; st.appendChild(ok); }
           else { var ng = document.createElement('span'); ng.className = 'plng'; ng.textContent = 'not in songs.json'; st.appendChild(ng); (plCands(t) || []).forEach(function (c) { st.appendChild(wbtn(c, function () { r.title = c; ti.value = c; stat(); })); }); }
         } }
         summary(); st.appendChild(sm);
@@ -1789,12 +1791,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     tab('albums'); toTop();
     Promise.all([loadAlbums(), fetchIndex('logs').catch(function () {})]).then(function () { if (!alApi) return; if (a) alApi.load(a, seed.logid); else alApi.fresh(seed.title, seed.type, seed.date, seed.logid, seed.groups); alFrom = { groups: seed.groups || '' }; });
   }
-  function goSong(title) {
+  function goSong(title, artistHint) { // artistHint: the artist of the setlist / album (it decides which of the same-titled songs opens)
     var t = String(title || '').trim(); if (!t) return;
     tab('songs'); toTop();
     fetchData('songs').catch(function () {}).then(function () {
       var gs = String((alFrom && alFrom.groups) || '').split(/[,\n]/).map(function (x) { return x.trim(); }), g2 = gs.indexOf('G2') >= 0, l2 = gs.indexOf('L2') >= 0;
-      var guess = g2 && !l2 ? ART_G2 : l2 && !g2 ? ART_L2 : '', nt = normQ(t), rec = null;
+      var guess = g2 && !l2 ? ART_G2 : l2 && !g2 ? ART_L2 : '', nt = normQ(t), rec = null, ah = String(artistHint || ''), ag = ah.indexOf(ART_G2) >= 0, al = ah.indexOf(ART_L2) >= 0; if (ag !== al) guess = ag ? ART_G2 : ART_L2;
       (cache.songs || []).forEach(function (r) { if (r && normQ(String(r.title || '').trim()) === nt && (!rec || (guess && String(r.artist || '').trim() === guess && String(rec.artist || '').trim() !== guess))) rec = r; });
       if (songApi) songApi.open(rec ? String(rec.artist || '').trim() : guess, rec ? String(rec.title).trim() : t);
     });
@@ -2295,7 +2297,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function draw() {
       frame.innerHTML = ''; var r = fr;
       var top = document.createElement('div'); top.className = 'alt'; frame.appendChild(top);
-      var no = document.createElement('input'); no.type = 'text'; no.className = 'fin plnoin'; no.setAttribute('inputmode', 'numeric'); no.setAttribute('autocomplete', 'off'); no.title = 'order in its section (a new track: the number of tracks + 1)'; if (sel < 0 && !r.sec) parse(); no.value = r.sec ? '' : sel >= 0 && sel < rows.length ? String(numIn(sel)) : (function () { var g = segFor(Math.min(anchor, rows.length - 1)); return String(g[1] - g[0] + 2); })(); if (r.sec) no.style.visibility = 'hidden'; top.appendChild(no);
+      var no = document.createElement('input'); no.type = 'text'; no.className = 'fin plnoin'; no.setAttribute('inputmode', 'numeric'); no.setAttribute('autocomplete', 'off'); no.title = 'order in its section (a new track: the number of tracks + 1)'; if (sel < 0 && !r.sec) parse(); no.value = r.sec ? '' : sel >= 0 && sel < rows.length ? String(numIn(sel)) : (function () { var g = segFor(Math.min(anchor, rows.length - 1)); return String(g[1] - g[0] + 2); })(); if (r.sec) { var sc = document.createElement('span'); sc.className = 'plsec'; sc.textContent = 'sec'; top.appendChild(sc); } else top.appendChild(no);
       if (cfg.extra && !r.sec) { var lb = alInput('DVD1', 'plnt'); lb.style.flex = '0 0 4.5em'; lb.value = r.no; lb.oninput = function () { r.no = lb.value; }; top.appendChild(lb); }
       var ti;
       if (r.sec) { ti = document.createElement('textarea'); ti.className = 'fin alsec'; ti.rows = 1; ti.setAttribute('spellcheck', 'false'); ti.value = r.title; var fit = function () { ti.style.height = 'auto'; if (ti.scrollHeight > 8) ti.style.height = ti.scrollHeight + 2 + 'px'; }; ti.addEventListener('input', fit); setTimeout(fit, 0); ti.placeholder = 'section heading'; }
@@ -2304,13 +2306,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var bt = document.createElement('div'); bt.className = 'albtn'; cw.appendChild(bt);
       var go = null;
       if (!r.sec) {
-        go = wbtn('\u2192', function () { goSong(r.title); }); go.title = 'open this song in the songs tab'; go.disabled = true; bt.appendChild(go);
+        go = wbtn('\u2192', function () { goSong(r.title, cfg.artist ? cfg.artist() : ''); }); go.title = 'open this song in the songs tab'; go.disabled = true; bt.appendChild(go);
       }
       var sub = document.createElement('div'); sub.className = 'alsub'; var st = document.createElement('div'); st.className = 'plst'; sub.appendChild(st); frame.appendChild(sub);
       function stat() {
         st.innerHTML = ''; if (go) go.disabled = true; var t = r.title.trim(); if (!t || r.sec) return;
         var si = songIdx(); if (!si) return;
-        if (si.ex[t]) { if (go) go.disabled = false; var ok = document.createElement('span'); ok.className = 'plok'; ok.textContent = 'OK'; st.appendChild(ok); return; }
+        if (si.ex[t]) { if (go) go.disabled = false; var ok = document.createElement('span'); ok.className = 'plok'; var an = artistNote(si, t, cfg.artist ? cfg.artist() : ''); ok.textContent = an ? 'OK (only under: ' + an + ')' : 'OK'; st.appendChild(ok); return; }
         var ng = document.createElement('span'); ng.className = 'plng'; ng.textContent = 'not in songs.json'; st.appendChild(ng);
         (plCands(t) || []).forEach(function (c) { st.appendChild(wbtn(c, function () { r.title = c; ti.value = c; stat(); })); });
       }
@@ -2364,10 +2366,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function addDisc(name, tracks) {
       var box = document.createElement('div'); box.className = 'plbox'; box.style.marginBottom = '6px';
       var nm = alInput('disc name (DVD / BD / CD2 ...)'); nm.value = name; nm.style.width = '100%';
-      var tk = alTracks({ barTop: true, sec: true, onchange: cfg.onchange }); tk.set(tracks);
+      var tk = alTracks({ barTop: true, sec: true, onchange: cfg.onchange, artist: cfg.artist }); tk.set(tracks);
       var o = { el: box, nm: nm, tk: tk };
       nm.addEventListener('input', cfg.onchange);
-      nm.style.marginBottom = '6px'; box.appendChild(nm); box.appendChild(tk.el);
+      nm.style.marginBottom = '6px'; box.appendChild(nm);
+      var dch = document.createElement('div'); dch.className = 'chipr'; dch.style.margin = '0 0 6px'; // disc name chips
+      ['DVD', 'BD', 'CD'].forEach(function (w) { var cb = document.createElement('button'); cb.type = 'button'; cb.className = 'chip'; cb.textContent = w; cb.onclick = function () { nm.value = nm.value.trim() === w ? '' : w; nm.dispatchEvent(new Event('input', { bubbles: true })); }; dch.appendChild(cb); });
+      function dsync() { [].forEach.call(dch.children, function (b) { b.classList.toggle('on', b.textContent === nm.value.trim()); }); } nm.addEventListener('input', dsync); dsync();
+      box.appendChild(dch); box.appendChild(tk.el);
       var bar = document.createElement('div'); bar.className = 'plbar'; bar.style.marginTop = '6px';
       bar.appendChild(wbtn('remove disc', function () { var i = discs.indexOf(o); if (i >= 0) discs.splice(i, 1); box.parentNode.removeChild(box); cfg.onchange(); }));
       box.appendChild(bar); list.appendChild(box); discs.push(o);
@@ -2401,21 +2407,17 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     dtText(dt, 'date'); dtPicker(dt, 'date');
     // id (top of the tab): shows the id of the release in the form. Typing a keyword lists the releases (like the id box of the logs tab); a release id or a logid loads that release / starts from that logs row.
     var idIn = alInput('id / title / logid (new: auto)'); idIn.id = 'glih-alid'; idIn.setAttribute('autocapitalize', 'off'); var idFld = alFld('id', idIn); $('alnew').parentNode.insertBefore(idFld, $('alnew').nextSibling); addClear(idIn);
-    var idGo = wbtn('find', function () { runIdSearch(true); }); idGo.onmousedown = function (e) { e.preventDefault(); }; idFld.appendChild(idGo); // the id is decided when the release is registered: this box only searches
     var idCand = document.createElement('div'); idCand.className = 'fcand'; idCand.hidden = true; idFld.parentNode.insertBefore(idCand, idFld.nextSibling);
+    var dtFld = dt.closest('.field'); idCand.parentNode.insertBefore(dtFld, idCand.nextSibling); var wdDt = addWeekday(dt); dt.addEventListener('input', wdDt); // date: right under the id, with its weekday
+    function dateGate() { var ok = okDate(DG(dt.value)); wdDt(); for (var n = dtFld.nextSibling; n; n = n.nextSibling) if (n.nodeType === 1) n.classList.toggle('algated', !ok); } // everything under the date stays hidden until a date is typed (or a release is loaded)
+    dt.addEventListener('input', dateGate);
     // the logs rows linked to this release (one row each; the first column of a logs row = its albumid)
-    var lgBox = document.createElement('div'), lgAdd = alInput('add logs row: logid or title');
-    var lgCol = document.createElement('div'); lgCol.className = 'allgcol'; lgCol.style.flex = '1'; lgCol.style.minWidth = '0'; lgCol.appendChild(lgBox); lgCol.appendChild(lgAdd);
-    var lgFld = alFld('logs', lgCol, true); dt.closest('.field').parentNode.insertBefore(lgFld, dt.closest('.field').nextSibling);
-    var lgOptsMemo = null, lgOptsSrc = null;
-    function lgOpts() {
-      var src = rowsOf('logs'); if (lgOptsSrc === src && lgOptsMemo) return lgOptsMemo;
-      lgOptsMemo = src.filter(function (r) { return r && r.logid && r.title; }).map(function (r) { var v = r.logid + ' ' + r.title; return { v: v, k: normQ(v) }; }); lgOptsSrc = src; return lgOptsMemo;
-    }
-    addSuggest(lgAdd, lgOpts, lgAdd.closest('.field'), true);
+    var lgBox = document.createElement('div');
+    var lgCol = document.createElement('div'); lgCol.className = 'allgcol'; lgCol.style.flex = '1'; lgCol.style.minWidth = '0'; lgCol.appendChild(lgBox);
+    var lgFld = alFld('logs', lgCol, true); $('alst').parentNode.insertBefore(lgFld, $('alst')); // the linked logs rows (display only): at the bottom
     function logRow(id) { var r = null; rowsOf('logs').forEach(function (x) { if (!r && x && x.logid === id) r = x; }); return r; }
     function drawLinks() {
-      idIn.value = albumId; idIn.dispatchEvent(new Event('input', { bubbles: true })); lgBox.innerHTML = '';
+      idIn.value = albumId; idIn.dispatchEvent(new Event('input', { bubbles: true })); lgBox.innerHTML = ''; lgFld.style.display = links.length ? '' : 'none';
       links.forEach(function (id, i) {
         var r = logRow(id), d = document.createElement('div'); d.className = 'plrow';
         var c = document.createElement('span'); c.className = 'rid'; c.textContent = id; c.style.fontFamily = 'monospace'; d.appendChild(c);
@@ -2426,22 +2428,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       });
     }
     function addLink(id) { id = String(id || '').toLowerCase(); if (/^[0-9a-f]{12}$/.test(id) && links.indexOf(id) < 0) links.push(id); }
-    lgAdd.addEventListener('input', function () { var m = lgAdd.value.trim().match(/^([0-9a-fA-F]{12})(\s|$)/); if (m) { addLink(m[1]); lgAdd.value = ''; drawLinks(); upd(); } });
     function linksOf(a) { return a && a.id ? rowsOf('logs').filter(function (r) { return r && r.albumid === a.id; }).map(function (r) { return r.logid; }) : []; }
     fetchIndex('logs').then(function () { logsReady = true; drawLinks(); upd(); }).catch(function () {});
     addSuggest(ti, function () { var m = {}; (cache.albums || []).forEach(function (a) { m[a.title] = 1; }); return Object.keys(m).map(function (v) { return { v: v, k: normQ(v) }; }); }, ti.closest('.field'), false);
     var ar = alInput('artist'), arChips = document.createElement('div'); arChips.className = 'chipr'; arChips.style.marginTop = '4px';
-    var arCol = document.createElement('div'); arCol.style.flex = '1'; arCol.style.minWidth = '0'; ar.style.width = '100%'; arCol.appendChild(ar); arCol.appendChild(arChips);
+    var arCol = document.createElement('div'); arCol.style.flex = '1'; arCol.style.minWidth = '0'; ar.style.width = '100%'; arCol.appendChild(ar); // the Girls2 / Laki chips are gone: G2 / L2 of the member chips set the artist (like the setlist tab)
     var arFld = alFld('artist', arCol, true); ti.closest('.field').parentNode.insertBefore(arFld, ti.closest('.field').nextSibling);
-    [ART_G2, ART_L2].forEach(function (v) {
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v; b.setAttribute('data-v', v);
-      b.onclick = function () {
-        var t = artistTokens(ar.value); // the chips choose one of the two (pressing the chosen one again clears it). Both names can still be typed by hand.
-        ar.value = t.length === 1 && t[0] === v ? '' : v; ar.dispatchEvent(new Event('input', { bubbles: true }));
-      };
-      arChips.appendChild(b);
-    });
-    function syncAr() { var t = artistTokens(ar.value); [].forEach.call(arChips.children, function (b) { b.classList.toggle('on', t.indexOf(b.getAttribute('data-v')) >= 0); }); }
+    function syncAr() {}
     // member: the same input + chips as the setlist tab (hearts of the popup). It follows the artist while it is empty or still the automatic value.
     var me = alInput('member'), mw = document.createElement('span'); mw.className = 'fw'; mw.appendChild(me);
     var meFld = alFld('member', mw); arFld.parentNode.insertBefore(meFld, arFld.nextSibling); addGroupChips(me, true); mergeMember(ar, me, meFld); // artist + member in one field
@@ -2454,7 +2447,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       upd();
     });
     me.addEventListener('input', upd);
-    var main = alTracks({ barTop: true, onchange: function () { upd(); } });
+    var main = alTracks({ barTop: true, artist: function () { return ar.value; }, onchange: function () { upd(); } });
     $('altk').appendChild(main.el);
     var cp = alInput('copy tracks from another release'); $('alcp').appendChild(cp);
     addSuggest(cp, function () { return (cache.albums || []).map(function (a) { var v = a.title + ' (' + a.type + ')'; return { v: v, k: normQ(v) }; }); }, $('alcp').closest('.field'), true);
@@ -2485,7 +2478,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var upE = wbtn('\u2191', function () { var i = eds.indexOf(ob); if (i < 1) return; eds.splice(i - 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }), dnE = wbtn('\u2193', function () { var i = eds.indexOf(ob); if (i < 0 || i >= eds.length - 1) return; eds.splice(i + 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }), rmE = wbtn('\u2715', function () { var i = eds.indexOf(ob); if (i >= 0) eds.splice(i, 1); drawEds(); upd(); });
       [upE, dnE, rmE].forEach(function (b) { nbt.appendChild(b); }); upE.title = 'move up'; dnE.title = 'move down'; rmE.title = 'remove edition'; ob.upB = upE; ob.dnB = dnE;
       box.appendChild(alFld('edition', nrow)); box.appendChild(alFld('format', fcol, true)); box.appendChild(alFld('price', pr)); box.appendChild(alFld('note', nt));
-      var ex = alExtra({ onchange: function () { upd(); } }); box.appendChild(alFld('extra', ex.el, true));
+      var ex = alExtra({ artist: function () { return ar.value; }, onchange: function () { upd(); } }); box.appendChild(alFld('extra', ex.el, true));
       var own = null, ownRow = document.createElement('div'); ownRow.className = 'field top'; var ol = document.createElement('label'); ol.textContent = 'tracklist'; ownRow.appendChild(ol);
       var ocol = document.createElement('div'); ocol.style.flex = '1'; ocol.style.minWidth = '0'; ownRow.appendChild(ocol);
       var onote = document.createElement('span'); onote.className = 'plnote'; onote.textContent = 'same as the main tracks (the tracks above)'; onote.style.marginRight = '8px';
@@ -2549,7 +2542,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var e = eds.map(function (x) { return x.get(); }).filter(Boolean); if (e.length) o.editions = e; return o;
     }
     function upd() {
-      var t = ti.value.trim(), d = DG(dt.value), dBad = d !== '' && !okDate(d); dt.classList.toggle('bad', dBad);
+      dateGate(); var t = ti.value.trim(), d = DG(dt.value), dBad = d !== '' && !okDate(d); dt.classList.toggle('bad', dBad);
       var key = t + '|' + type, ex = null, exId = null, clash = false;
       (cache.albums || []).forEach(function (a) { if (a.id && a.id === albumId) exId = a; if (a.title + '|' + a.type === key) ex = a; });
       if (ex && ex.id && ex.id !== albumId) clash = true;
@@ -2859,8 +2852,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   function songIdx() {
     var s = cache.songs; if (!s) return null;
-    if (!s._ix) { s._ix = { ex: {}, list: [] }; s.forEach(function (r) { if (r && typeof r.title === 'string' && r.title.trim() && !s._ix.ex[r.title]) { s._ix.ex[r.title] = 1; s._ix.list.push({ t: r.title, k: nk(r.title) }); } }); }
+    if (!s._ix) { s._ix = { ex: {}, list: [], ar: {} }; s.forEach(function (r) { if (r && typeof r.title === 'string' && r.title.trim()) { (s._ix.ar[r.title] = s._ix.ar[r.title] || []).push(String(r.artist || '').trim()); } if (r && typeof r.title === 'string' && r.title.trim() && !s._ix.ex[r.title]) { s._ix.ex[r.title] = 1; s._ix.list.push({ t: r.title, k: nk(r.title) }); } }); }
     return s._ix;
+  }
+  // OK note for a title that exists in songs.json: '' when the song of the setlist / album artist (hint) exists (or nothing to compare), else the artist(s) it was found under
+  function artistNote(si, title, hint) {
+    var a = (si.ar && si.ar[title]) || [], h = String(hint || '').replace(/\s+/g, '').toLowerCase(); if (!h || !a.length) return '';
+    if (a.some(function (x) { x = x.replace(/\s+/g, '').toLowerCase(); return x && h.indexOf(x) >= 0; })) return '';
+    return a.filter(Boolean).join(', ');
   }
   function plCands(title) {
     var si = songIdx(); if (!si) return null;
