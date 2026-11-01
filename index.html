@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script>try{var __f=JSON.parse(localStorage.getItem('gl_filter_fold')||'null');if(__f){var __n=0;['year','g2','l2','cont'].forEach(function(k){if(__f[k]){document.documentElement.classList.add('pf-'+k);__n++}});if(__n===4)document.documentElement.classList.add('pf-all');else if(__n>0)document.documentElement.classList.add('pf-mix')}}catch(e){}</script>
 <meta charset="UTF-8">
 <meta name="google-site-verification" content="iub5FoOVwZoAoQtbf26-fSn31NK5CnIoYllvmMlwshY" />
 <script type="text/javascript">
@@ -315,6 +316,7 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 .checks-row-other-2.drag-target-active { max-height: 50px; opacity: 0.5; padding-top: 0; padding-bottom: 2px; pointer-events: auto; }
 .checks-row-other-2.has-items { max-height: 50px; opacity: 1; padding-top: 0; padding-bottom: 2px; pointer-events: auto; }
 /* 月フィルターは、年フィルターが1つ以上選択されている時だけ表示する */
+.checks-row-months.year-hidden { display: none !important; }
 .checks-row-months {
   display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;
   gap: 6px;
@@ -329,6 +331,9 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 .checks-row-years::-webkit-scrollbar, .checks-row-other::-webkit-scrollbar, .checks-row-months::-webkit-scrollbar, .active-filters-row::-webkit-scrollbar, .item-title::-webkit-scrollbar { display: none; }
 .fold-dock { display: flex; flex-wrap: wrap; gap: 6px; padding: 2px 0 1px; } /* 折りたたみボタンの帯: YEAR / GIRLS² / LAKI / CONTENTS を横並び */
 .fold-btn { position: relative; flex: 0 0 auto; height: 28px; box-sizing: border-box; padding: 0 9px; border-radius: 14px; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--muted); cursor: pointer; display: inline-flex; align-items: center; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; line-height: 1; white-space: nowrap; transition: color 0.2s, background-color 0.2s, border-color 0.2s; }
+/* 初回描画前に、保存済みの開閉状態をボタンと行に反映する(青→灰色/灰色→青のちらつき防止。JSが適用後に外す) */
+html.pf-year .fold-btn[data-fold="year"], html.pf-g2 .fold-btn[data-fold="g2"], html.pf-l2 .fold-btn[data-fold="l2"], html.pf-cont .fold-btn[data-fold="cont"], html.pf-all .fold-all, html.pf-mix .fold-all { background: var(--btn-bg) !important; border-color: var(--input-border) !important; color: var(--muted) !important; transition: none !important; }
+html.pf-year #foldUnit-year, html.pf-g2 #foldUnit-g2, html.pf-l2 #foldUnit-l2, html.pf-cont #foldUnit-cont { display: none; }
 .fold-btn:hover { color: var(--text); }
 .fold-btn:not(.is-folded):not(.fold-all-mixed) { background: #0ea5e9; border-color: #0ea5e9; color: #fff; } /* 開いている間は青、畳んでいる間は通常の色(青い枠なし) */
 .fold-all.fold-all-mixed, .fold-all.is-folded { background: var(--btn-bg); border-color: var(--input-border); color: var(--muted); } /* ALL: 全部開いているときだけ青 */
@@ -2521,6 +2526,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     $('items').classList.toggle('stat-mode', !!displayPrefs.stat);
     if (syncFoldAll) syncFoldAll();
     try { updateSongTickerScroll(); } catch (e) { /* 初期化前は測らない */ }
+    try { updateMonthFilterVisibility(); } catch (e) { /* 初期化前は不要 */ }
   }
   const saveDisplayPrefs = () => { try { localStorage.setItem(DISPLAY_PREFS_KEY, JSON.stringify(displayPrefs)); } catch (e) {} applyDisplayPrefs(); };
   applyDisplayPrefs();
@@ -3484,11 +3490,14 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     return { dateStr, timeStr };
   };
     // type:songの曲名でsongs.jsonを完全一致検索しlinkを取得する
-  const findSongLinkByTitle = title => {
+  // 同じ曲名でグループ違いの曲があるとき: 公演・アルバムのartist(hint)を含むartistの曲を優先し、なければ曲名だけで探す
+  const artistHit = (hint, art) => { const n = t => String(t || '').normalize('NFKC').toLowerCase().replace(/\s+/g, ''); const a = n(art); return !!a && n(hint).includes(a); };
+  const pickSong = (hits, artist) => (artist && hits.find(s => artistHit(artist, s.artist))) || hits[0];
+  const findSongLinkByTitle = (title, artist) => {
     const norm = t => (t || '').trim().toLowerCase();
     const target = norm(title);
     if (!target) return null;
-    const found = songsData.find(s => norm(s.title) === target);
+    const found = pickSong(songsData.filter(s => norm(s.title) === target), artist);
     return found && found.link ? found.link : null;
   };
   // 歌詞(📜)のリンク(uta-netだけ): songs.jsonのlyricsがあればその曲のページ、なければ曲名でuta-netを検索するページ
@@ -3497,11 +3506,11 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     const u = song && typeof song.lyrics === 'string' ? song.lyrics.trim() : '';
     return /^https:\/\/www\.uta-net\.com\//.test(u) ? u : '';
   };
-  const lyricsUrlByTitle = title => {
+  const lyricsUrlByTitle = (title, artist) => {
     const t = (title || '').trim();
     if (!t) return '';
     const key = t.toLowerCase();
-    const found = songsData.find(s => (s.title || '').trim().toLowerCase() === key && lyricsUrlOfSong(s));
+    const found = pickSong(songsData.filter(s => (s.title || '').trim().toLowerCase() === key && lyricsUrlOfSong(s)), artist);
     return found ? lyricsUrlOfSong(found) : UTA_NET_SEARCH + encodeURIComponent(t);
   };
   const openLyrics = url => { if (url) window.open(url, '_blank', 'noopener'); };
@@ -3661,21 +3670,22 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       (rows.length ? `<ul class="alb-list${rows.some(([t]) => t.no != null && !/^\d+$/.test(String(t.no))) ? ' has-label' : ''}">${rows.map(([t, ex]) => {
         if (t && t.section) return `<li class="alb-sec">${escapeHtml(t.section)}</li>`; // 区分の見出し(LIVE TOUR 2025など)
         const n = statIndex().get(statNorm(t.title));
-        const link = findSongLinkByTitle(t.title); // 再生ボタンはセトリのポップアップと同じ(songs.jsonにリンクがある曲だけ。ないときは同じ幅の空き)
+        const tNorm = (t.title || '').trim().toLowerCase(), lyrOk = !songsData.length || (tNorm && songsData.some(x => (x.title || '').trim().toLowerCase() === tNorm)); // songs.jsonに無い曲はUta-Netを出さない
+        const link = findSongLinkByTitle(t.title, a.artist); // 再生ボタンはセトリのポップアップと同じ(songs.jsonにリンクがある曲だけ。ないときは同じ幅の空き)
         const playBtn = link ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>` : '<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>';
-        return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}"><span class="setlist-song-order">${t.no != null ? escapeHtml(t.no) : ''}</span>${playBtn}<span class="setlist-song-main"><span class="setlist-song-title">${escapeHtml(t.title || '')}</span></span><span class="song-lyrics" data-song="${escapeHtml(t.title || '')}" role="button" aria-label="Lyrics">Uta-Net</span><span class="alb-stat${n && n.size ? '' : ' is-blank'}">\uD83D\uDCCA</span></li>`;
+        return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}" data-artist="${escapeHtml(a.artist || '')}"><span class="setlist-song-order">${t.no != null ? escapeHtml(t.no) : ''}</span>${playBtn}<span class="setlist-song-main"><span class="setlist-song-title">${escapeHtml(t.title || '')}</span></span>${lyrOk ? `<span class="song-lyrics" data-song="${escapeHtml(t.title || '')}" data-artist="${escapeHtml(a.artist || '')}" role="button" aria-label="Lyrics">Uta-Net</span>` : '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>'}<span class="alb-stat${n && n.size ? '' : ' is-blank'}">\uD83D\uDCCA</span></li>`;
       }).join('')}</ul>` : '<div class="setlist-modal-empty">NO TRACKS</div>');
   };
   const openAlbumModal = list => { albCur = { list, ti: 0, ei: 0 }; renderAlbum(); albumModalOverlay.classList.add('is-open'); };
   $('albumModalBody').addEventListener('click', e => {
     const lyb = e.target.closest('.song-lyrics[data-song]');
-    if (lyb) { e.stopPropagation(); openLyrics(lyricsUrlByTitle(lyb.dataset.song)); return; } // 歌詞(uta-net)は新しいタブで開く。行の披露実績は開かない
+    if (lyb) { e.stopPropagation(); openLyrics(lyricsUrlByTitle(lyb.dataset.song, lyb.dataset.artist)); return; } // 歌詞(uta-net)は新しいタブで開く。行の披露実績は開かない
     const pb = e.target.closest('.setlist-song-play-btn[data-link]');
     if (pb) { e.stopPropagation(); openSongLink(pb.dataset.link); return; } // 再生ボタン: セトリのポップアップと同じ動き(行の披露実績は開かない)
     const ta = e.target.closest('[data-alt]'), te = e.target.closest('[data-aled]'), li = e.target.closest('.alb-stat:not(.is-blank)')?.closest('li[data-song]');
     if (ta) { albCur.ti = +ta.dataset.alt; albCur.ei = 0; renderAlbum(); }
     else if (te) { albCur.ei = +te.dataset.aled; renderAlbum(); }
-    else if (li) openStatModal(li.dataset.song); // 披露実績アイコン(📊)だけが披露実績を開く(曲名・行は押しても開かない)。閉じると、この収録曲の画面に戻る
+    else if (li) openStatModal(li.dataset.song, li.dataset.artist); // 披露実績アイコン(📊)だけが披露実績を開く(曲名・行は押しても開かない)。閉じると、この収録曲の画面に戻る
   });
   const closeAlbumModal = () => albumModalOverlay.classList.remove('is-open');
   $('albumModalCloseBtn').onclick = closeAlbumModal;
@@ -3700,7 +3710,8 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   const renderStatBody = () => {
     const t = statCur.title;
     const m = statIndex().get(statNorm(t));
-    const all = m ? [...m.entries()].sort((a, b) => String(b[0]).localeCompare(String(a[0]))) : []; // 新しい順
+    let all = m ? [...m.entries()].sort((a, b) => String(b[0]).localeCompare(String(a[0]))) : []; // 新しい順
+    if (statCur.artist) { const mine = all.filter(([, v]) => artistHit(v.entry.artist, statCur.artist) || artistHit(statCur.artist, v.entry.artist)); if (mine.length) all = mine; } // 同じ曲名でグループ違いの曲があるとき: その曲のグループの公演だけ数える(該当が無ければ曲名だけで数える)
     const cm = statClassMap();
     const cls = id => cm.get(id) || 'etc'; // logsに行が無いものはETC
     const isLive = id => ['tour', 'fan', 'liveetc'].includes(cls(id));
@@ -3726,10 +3737,10 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       `<div class="stat-tiles">${tile('COUNT', String(rows.length))}${tile('FIRST', rows.length ? ymd(rows[rows.length - 1][0]) : '-')}${tile('LATEST', rows.length ? ymd(rows[0][0]) : '-')}</div>` +
       (rows.length ? `<ul class="stat-list">${listHtml}</ul>` : '<div class="setlist-modal-empty">NO RECORDS</div>');
   };
-  const openStatModal = title => {
+  const openStatModal = (title, artist) => {
     const t = String(title || '').trim();
     if (!t) return;
-    statCur = { title: t, filter: 'all', sub: '' }; // 開くたびに「総数」から始める
+    statCur = { title: t, artist: String(artist || ''), filter: 'all', sub: '' }; // 開くたびに「総数」から始める
     renderStat();
     statModalOverlay.classList.add('is-open');
   };
@@ -3761,14 +3772,14 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && statModalOverlay.classList.contains('is-open')) closeStatModal(); });
   setlistModalBody.addEventListener('click', e => {
     const ly = e.target.closest('.song-lyrics[data-song]');
-    if (ly) { e.stopPropagation(); openLyrics(lyricsUrlByTitle(ly.dataset.song)); return; }
+    if (ly) { e.stopPropagation(); openLyrics(lyricsUrlByTitle(ly.dataset.song, ly.dataset.artist)); return; }
     const b = e.target.closest('.setlist-song-stat[data-song]');
     if (!b) return;
     e.stopPropagation();
-    openStatModal(b.dataset.song);
+    openStatModal(b.dataset.song, b.dataset.artist);
   });
-  $('songLyricsBtn').onclick = e => { e.stopPropagation(); if (currentSong) openLyrics(lyricsUrlOfSong(currentSong) || lyricsUrlByTitle(currentSong.title)); };
-  $('songStatBtn').onclick = e => { e.stopPropagation(); if (currentSong) openStatModal(currentSong.title); };
+  $('songLyricsBtn').onclick = e => { e.stopPropagation(); if (currentSong) openLyrics(lyricsUrlOfSong(currentSong) || lyricsUrlByTitle(currentSong.title, currentSong.artist)); };
+  $('songStatBtn').onclick = e => { e.stopPropagation(); if (currentSong) openStatModal(currentSong.title, currentSong.artist); };
   window.glOpenStat = openStatModal;
   const openSetlistModal = setlistid => {
     const entry = setlistData.find(e => e.setlistid === setlistid);
@@ -3787,7 +3798,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
         .sort((a, b) => (a.order || 0) - (b.order || 0))
         .map(s => {
           // typeに関わらずtitle一致だけで再生ボタンの有無を決める
-          const link = findSongLinkByTitle(s.title);
+          const link = findSongLinkByTitle(s.title, entry.artist);
           const playBtnHtml = link
             ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>`
             : `<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>`;
@@ -3814,8 +3825,8 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
           // Uta-Netと披露実績(📊)は、typeに関わらず曲名がsongs.jsonにあれば出す(songs.jsonが未取得のときだけ、従来どおりmc・dt・dj・towelを除く)
           const sNorm = (s.title || '').trim().toLowerCase();
           const noStat = songsData.length ? !(sNorm && songsData.some(x => (x.title || '').trim().toLowerCase() === sNorm)) : /(^|[,\s])(mc|dt|dj|towel)([,\s]|$)/.test(String(s.type || ''));
-          const lyrHtml = noStat ? '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>' : `<span class="song-lyrics" data-song="${escapeHtml(s.title || '')}" role="button" aria-label="Lyrics">Uta-Net</span>`;
-          const statHtml = noStat ? '<span class="setlist-song-stat is-blank" aria-hidden="true">\uD83D\uDCCA</span>' : `<span class="setlist-song-stat" data-song="${escapeHtml(s.title || '')}" role="button" aria-label="Stats">\uD83D\uDCCA</span>`;
+          const lyrHtml = noStat ? '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>' : `<span class="song-lyrics" data-song="${escapeHtml(s.title || '')}" data-artist="${escapeHtml(entry.artist || '')}" role="button" aria-label="Lyrics">Uta-Net</span>`;
+          const statHtml = noStat ? '<span class="setlist-song-stat is-blank" aria-hidden="true">\uD83D\uDCCA</span>' : `<span class="setlist-song-stat" data-song="${escapeHtml(s.title || '')}" data-artist="${escapeHtml(entry.artist || '')}" role="button" aria-label="Stats">\uD83D\uDCCA</span>`;
           return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}${lyrHtml}${statHtml}</li>`;
         })
         .join('');
@@ -4177,6 +4188,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     const monthRow = $('monthChecks');
     const anyYearChecked = Array.from($('yearChecks').querySelectorAll('input[type="checkbox"]')).some(cb => cb.checked);
     monthRow.classList.toggle('is-visible', anyYearChecked);
+    monthRow.classList.toggle('year-hidden', !!(typeof foldState !== 'undefined' && foldState.year) || document.documentElement.classList.contains('chip-off-year')); // YEAR行を畳む/非表示にした時は月も隠す(選択状態はそのまま)
     if (!anyYearChecked) {
       monthRow.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = false; });
     }
@@ -4590,13 +4602,13 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   (() => {
     const reduce = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)', MOVE = 'cubic-bezier(0.4, 0, 0.2, 1)', GAP = 5;
-    const T_H = 300, T_V = 220, T_A = 300; // 横に集まる/開く、縦に集まる/開く(複数段のときだけ)、ボタンに吸収される/ボタンから出る
+    const T_H = 220, T_V = 160, T_A = 220; // 横に集まる/開く、縦に集まる/開く(複数段のときだけ)、ボタンに吸収される/ボタンから出る
     const btnOf = id => document.querySelector('.fold-btn[data-fold="' + id + '"]');
-    const save = () => { try { localStorage.setItem(FOLD_KEY, JSON.stringify(foldState)); } catch (e) {} };
+    let noSave = false; const save = () => { if (noSave) return; try { localStorage.setItem(FOLD_KEY, JSON.stringify(foldState)); } catch (e) {} };
     // ALLボタン: 1つでも開いていれば全部畳み、全部畳んでいれば全部開く。青いのは全部開いているときだけ
     const allBtn = $('foldAllBtn');
     const shownIds = () => FOLD_IDS.filter(id => displayPrefs.chips[id]); // チップを出している行だけが対象
-    const syncAll = () => { const ids = shownIds(), open = ids.filter(id => !foldState[id]).length; allBtn.classList.toggle('is-folded', ids.length > 0 && open === 0); allBtn.classList.toggle('fold-all-mixed', open > 0 && open < ids.length); };
+    const syncAll = () => { if (noSave) return; const ids = shownIds(), open = ids.filter(id => !foldState[id]).length; allBtn.classList.toggle('is-folded', ids.length > 0 && open === 0); allBtn.classList.toggle('fold-all-mixed', open > 0 && open < ids.length); };
     syncFoldAll = syncAll;
     allBtn.onclick = () => { const ids = shownIds(), anyOpen = ids.some(id => !foldState[id]); if (!anyOpen) { ids.forEach(id => setFolded(id, false, false)); return; }
       // 全部畳むときは、段数の違う行(CONTENTSは多段で長い)も同時に終わるよう、短い行は開始を遅らせてそろえる
@@ -4625,15 +4637,20 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       const unit = $('foldUnit-' + id), btn = btnOf(id);
       if (!unit || !btn || foldBusy[id] || foldState[id] === next) return;
       foldState[id] = next; save(); syncAll();
+      if (id === 'year') updateMonthFilterVisibility();
       btn.classList.toggle('is-folded', next); btn.setAttribute('aria-expanded', String(!next));
       if (instant || reduce()) { unit.classList.toggle('is-gone', next); updateYearFoldBadge(); return; }
       foldBusy[id] = true;
       let H;
       if (!next) { unit.classList.remove('is-gone'); }
       unit.classList.add('is-folding'); // 動いている間だけ、行のはみ出しを隠さない(縦に動くため)
+      // 区切りの「/」はチップと一緒に動かないので、畳む時は先に消し、開く時は動きが終わる頃に出す(取り残し防止)
+      const seps = [...unit.querySelectorAll('.sep')];
+      seps.forEach(e => { e.style.transition = 'opacity 150ms'; e.style.opacity = '0'; });
+      if (!next) setTimeout(() => seps.forEach(e => { e.style.opacity = foldBusy[id] ? '1' : ''; }), T_H + (T_V) + T_A * 0.6);
       H = unit.scrollHeight;
       const P = plan(unit, btn);
-      const finish = () => { unit.classList.remove('is-folding'); unit.style.cssText = ''; if (next) unit.classList.add('is-gone'); foldBusy[id] = false; updateYearFoldBadge(); };
+      const finish = () => { seps.forEach(e => { e.style.transition = ''; e.style.opacity = ''; }); unit.classList.remove('is-folding'); unit.style.cssText = ''; if (next) unit.classList.add('is-gone'); foldBusy[id] = false; updateYearFoldBadge(); };
       if (!P) { // 見えているボタンが無い(まれ)
         unit.classList.toggle('is-gone', next); finish(); return;
       }
@@ -4674,6 +4691,17 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     let saved = null; try { saved = JSON.parse(localStorage.getItem(FOLD_KEY) || 'null'); } catch (e) {}
     if (saved) FOLD_IDS.forEach(id => { if (saved[id]) setFolded(id, true, true); });
     syncAll();
+    // 初回表示(開いた直後)だけ、開いている行を「開くとき」と同じ動きで出す。裏でJSONが更新されても再生しない
+    const initIds = FOLD_IDS.filter(id => !((saved && saved[id]) || document.documentElement.classList.contains('chip-off-' + id)));
+    noSave = true; initIds.forEach(id => { setFolded(id, true, true); const bt = btnOf(id); if (bt) { bt.classList.remove('is-folded'); bt.setAttribute('aria-expanded', 'true'); } }); /* 全行が開き終わるまで、記憶とALLの更新を止める */ // 見せるための一時的な畳みなので、記憶せずボタンも開いた見た目のまま
+    ['year', 'g2', 'l2', 'cont'].forEach(k => document.documentElement.classList.remove('pf-' + k));
+    const goAll = n => { // 年のチップはデータ読込後に作られるので、できるまで待ち、全行を同時に開く(最大約3秒)
+      const u = $('foldUnit-year');
+      if (initIds.includes('year') && u && !u.querySelector('label') && n < 60) { setTimeout(() => goAll(n + 1), 50); return; }
+      initIds.forEach(id => setFolded(id, false, false)); noSave = false; // 途中でALLが一瞬灰色にならないよう、最後にまとめて反映
+      save(); syncAll(); document.documentElement.classList.remove('pf-all', 'pf-mix');
+    };
+    requestAnimationFrame(() => requestAnimationFrame(() => goAll(0)));
   })();
 
   // ICONボタン:コンテンツ種類フィルターの表示をテキストのみ⇔アイコンのみで切り替える。次回訪問時も記憶する
@@ -4797,7 +4825,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   }
   // ヘッダーの💽ボタン: 一覧の行の💽(アルバムポップアップを開くアイコン)の表示/非表示。この端末に記憶(初期はON)
   const ALB_MODE_KEY = 'gl_alb_mode';
-  let albMode = localStorage.getItem(ALB_MODE_KEY) !== 'false';
+  let albMode = localStorage.getItem(ALB_MODE_KEY) === 'true';
   const applyAlbMode = () => {
     $('statToggleBtn').classList.toggle('is-active', albMode);
     $('statToggleBtn').setAttribute('aria-pressed', albMode ? 'true' : 'false');
@@ -5739,6 +5767,13 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       desc = setlistTodaySavedState.desc;
       preTodaySort = setlistTodaySavedState.preTodaySort;
       setlistTodaySavedState = null;
+      { // 検索窓にキーワードが残っている(検索でTODAYを一時停止中)なら、TODAYはOFFのまま。検索が空になった時に戻す
+        const rk = searchInput.value.trim();
+        if (todayMode && rk && !getExactSearchDate(rk)) {
+          todaySearchSnap = { todayMode: true, todayOffset };
+          turnOffTodayMode();
+        }
+      }
       updateSortBtnLabel();
       updateTodayButtonStyle();
       // 突入直前の除外状態(コンテンツ種類含む)へ完全復元する
@@ -5935,6 +5970,14 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     // 2010年以前はボタンとしては表示しない(データ自体は検索や日付クエリで引き続き閲覧可能)
     const years = Array.from(yearsSet).filter(y => parseInt(y, 10) > 2010).sort((a, b) => b.localeCompare(a));
 
+    try { localStorage.setItem(YEARS_KEY, JSON.stringify(years)); } catch (e) {}
+    buildYearChips(years);
+  };
+  const YEARS_KEY = 'gl_log_years';
+  const buildYearChips = years => {
+    // 前回の年一覧で先に作ってある場合、同じ内容なら作り直さない(チェック状態・表示アニメーションを保つ)
+    const cur = Array.from($('yearChecks').querySelectorAll('input')).map(c => c.value);
+    if (cur.length && cur.join() === years.join()) return;
     $('yearChecks').innerHTML = '';
     years.forEach(y => $('yearChecks').appendChild(createLabel(y)));
 
@@ -5943,6 +5986,11 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     labels = document.querySelectorAll('.checks label:has(input)');
     bindCheckboxAndLabelEvents();
   };
+  // データ読込を待たず、前回の年一覧でYEAR行を先に作る(初回訪問時は従来どおりデータ読込後)
+  try {
+    const sy = JSON.parse(localStorage.getItem(YEARS_KEY) || 'null');
+    if (Array.isArray(sy) && sy.length && sy.every(y => /^\d{4}$/.test(y))) buildYearChips(sy);
+  } catch (e) {}
 
   const restoreFromHash = () => {
     if (updating) return;

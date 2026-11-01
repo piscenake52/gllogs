@@ -2369,15 +2369,20 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var tk = alTracks({ barTop: true, sec: true, onchange: cfg.onchange, artist: cfg.artist }); tk.set(tracks);
       var o = { el: box, nm: nm, tk: tk };
       nm.addEventListener('input', cfg.onchange);
-      nm.style.marginBottom = '6px'; box.appendChild(nm);
+      var nrow = document.createElement('div'); nrow.style.cssText = 'display:flex;gap:4px;align-items:flex-start;margin-bottom:6px'; nm.style.flex = '1 1 auto'; nm.style.minWidth = '0'; nm.style.width = 'auto'; nrow.appendChild(nm);
+      var nbt = document.createElement('div'); nbt.className = 'albtn'; nbt.style.cssText = 'padding:0;flex:0 0 auto'; nrow.appendChild(nbt); // up / down / remove: right of the disc name
+      var upD = wbtn('\u2191', function () { var i = discs.indexOf(o); if (i < 1) return; discs.splice(i - 1, 0, discs.splice(i, 1)[0]); list.insertBefore(box, discs[i].el); refreshBtns(); cfg.onchange(); });
+      var dnD = wbtn('\u2193', function () { var i = discs.indexOf(o); if (i < 0 || i >= discs.length - 1) return; discs.splice(i + 1, 0, discs.splice(i, 1)[0]); list.insertBefore(discs[i].el, box); refreshBtns(); cfg.onchange(); });
+      var rmD = wbtn('\u2715', function () { var i = discs.indexOf(o); if (i >= 0) discs.splice(i, 1); box.parentNode.removeChild(box); refreshBtns(); cfg.onchange(); });
+      upD.title = 'move up'; dnD.title = 'move down'; rmD.title = 'remove disc'; [upD, dnD, rmD].forEach(function (b) { b.style.cssText = 'flex:0 0 2.6em;width:2.6em;padding:7px 0'; nbt.appendChild(b); }); o.up = upD; o.dn = dnD;
+      box.appendChild(nrow);
       var dch = document.createElement('div'); dch.className = 'chipr'; dch.style.margin = '0 0 6px'; // disc name chips
       ['DVD', 'BD', 'CD'].forEach(function (w) { var cb = document.createElement('button'); cb.type = 'button'; cb.className = 'chip'; cb.textContent = w; cb.onclick = function () { nm.value = nm.value.trim() === w ? '' : w; nm.dispatchEvent(new Event('input', { bubbles: true })); }; dch.appendChild(cb); });
       function dsync() { [].forEach.call(dch.children, function (b) { b.classList.toggle('on', b.textContent === nm.value.trim()); }); } nm.addEventListener('input', dsync); dsync();
       box.appendChild(dch); box.appendChild(tk.el);
-      var bar = document.createElement('div'); bar.className = 'plbar'; bar.style.marginTop = '6px';
-      bar.appendChild(wbtn('remove disc', function () { var i = discs.indexOf(o); if (i >= 0) discs.splice(i, 1); box.parentNode.removeChild(box); cfg.onchange(); }));
-      box.appendChild(bar); list.appendChild(box); discs.push(o);
+      list.appendChild(box); discs.push(o); refreshBtns();
     }
+    function refreshBtns() { discs.forEach(function (d, i) { d.up.disabled = i < 1; d.dn.disabled = i >= discs.length - 1; }); }
     return {
       el: wrap,
       get: function () {
