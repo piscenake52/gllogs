@@ -223,7 +223,45 @@
       "KIK"
     ],
     "title": "11月生誕メンバーイベント\n東京・豊洲 1部",
-    "venue": "アーバンドック ららぽーと豊洲 ウッドデッキ"
+    "venue": "アーバンドック ららぽーと豊洲 ウッドデッキ",
+    "source": "official",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Like it!!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "こくご・さんすう・りか・恋愛！",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 3,
+        "title": "CLOVER",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Love is Magic",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "Best Friends",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202610311600",

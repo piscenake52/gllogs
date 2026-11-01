@@ -1,0 +1,41 @@
+{
+  "setlistid": "202611011230",
+  "songs": [
+    {
+      "order": 1,
+      "title": "Like it!!",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    },
+    {
+      "order": 2,
+      "title": "こくご・さんすう・りか・恋愛！",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    },
+    {
+      "order": 3,
+      "title": "CLOVER",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    },
+    {
+      "order": 4,
+      "title": "Love is Magic",
+      "type": "song",
+      "original": "",
+      "notes": ""
+    },
+    {
+      "order": 5,
+      "title": "Best Friends",
+      "type": "allow",
+      "original": "",
+      "notes": ""
+    }
+  ],
+  "source": "official"
+}
