@@ -1,0 +1,23 @@
+{
+  "logid": "acbe4688bfc0",
+  "sns": [
+    {
+      "type": "youtube",
+      "urls": [
+        {
+          "url": "https://youtu.be/hLXeRp1MeWg?si=h6N08k-woa4tTxUn",
+          "member": [
+            "MSK",
+            "YOK",
+            "MNM",
+            "KIR"
+          ],
+          "tags": [
+            "VOIS"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2668"
+}
