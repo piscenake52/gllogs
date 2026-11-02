@@ -6259,6 +6259,20 @@
             ]
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/9Ppnm6B6PYE?si=GXHfns-6AbJxCdUp",
+            "member": [
+              "YZH"
+            ],
+            "tags": [
+              "芸人交換日記"
+            ]
+          }
+        ]
       }
     ]
   },
