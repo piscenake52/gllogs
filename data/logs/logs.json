@@ -3565,6 +3565,39 @@
     ]
   },
   {
+    "logid": "18eec24a26d7",
+    "date": "20261102",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Girls²",
+    "groups": [
+      "G2",
+      "MSK",
+      "L2",
+      "HIR"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/5YJAb1D74ZTj8YvS3XpeEC",
+            "member": [
+              "MSK"
+            ],
+            "with": [
+              "HIR"
+            ],
+            "tags": [
+              "コラボキャス",
+              "CIRRA"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "f2def7cce8c6",
     "date": "20261101",
     "time": "2359",
