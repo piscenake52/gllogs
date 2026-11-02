@@ -73,6 +73,7 @@ body:
         - EVENT
         - FANMEETING
         - RELEASEEVENT
+        - ANNIVERSARYLIVE
         - FANCLUB
         - TELEPHONE
         - GLRADIO
