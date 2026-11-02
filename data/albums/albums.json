@@ -701,6 +701,104 @@
       {
         "no": 1,
         "title": "キミすき"
+      },
+      {
+        "no": 2,
+        "title": "Lucky day☆ - リナ&ユウラ -"
+      },
+      {
+        "no": 3,
+        "title": "Smily Moon - ツバキ&ヒイロ -"
+      },
+      {
+        "no": 4,
+        "title": "パリララ! - ユウワ&カンナ -"
+      },
+      {
+        "no": 5,
+        "title": "神様Noでも僕らはYes"
+      }
+    ],
+    "editions": [
+      {
+        "name": "初回生産限定盤",
+        "format": "CD+DVD",
+        "note": "AICL-4127～AICL-4128",
+        "price": 5200,
+        "extra": [
+          {
+            "no": "DVD1",
+            "title": "キミすき - ミュージックビデオ -"
+          },
+          {
+            "no": "DVD2",
+            "title": "キミすき - ダンスパフォーマンスビデオ -"
+          },
+          {
+            "no": "DVD3",
+            "title": "キミすき - ドラマエンディングノンクレジット ver. –"
+          },
+          {
+            "no": "DVD4",
+            "title": "キラパワ変身ダンス(キラリ,ユヅキver.)"
+          },
+          {
+            "no": "DVD5",
+            "title": "ビッ友ダンス(キラリ,ユヅキver.)"
+          },
+          {
+            "no": "DVD6",
+            "title": "lovely2『lovely2 SPECIAL LIVE 2021』完全収録"
+          }
+        ]
+      },
+      {
+        "name": "通常盤",
+        "format": "CD",
+        "note": "AICL-4129",
+        "price": 1980,
+        "tracks": [
+          {
+            "no": 1,
+            "title": "キミすき"
+          },
+          {
+            "no": 2,
+            "title": "Lucky day☆ - リナ&ユウラ -"
+          },
+          {
+            "no": 3,
+            "title": "Smily Moon - ツバキ&ヒイロ -"
+          },
+          {
+            "no": 4,
+            "title": "パリララ! - ユウワ&カンナ -"
+          },
+          {
+            "no": 5,
+            "title": "神様Noでも僕らはYes"
+          },
+          {
+            "no": 6,
+            "title": "キミすき(カラオケ)"
+          },
+          {
+            "no": 7,
+            "title": "Lucky day☆ - リナ&ユウラ - (カラオケ)"
+          },
+          {
+            "no": 8,
+            "title": "Smily Moon - ツバキ&ヒイロ - (カラオケ)"
+          },
+          {
+            "no": 9,
+            "title": "パリララ! - ユウワ&カンナ - (カラオケ)"
+          },
+          {
+            "no": 10,
+            "title": "神様Noでも僕らはYes (カラオケ)"
+          }
+        ]
       }
     ]
   },
