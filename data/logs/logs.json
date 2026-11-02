@@ -162963,19 +162963,21 @@
     "display_sp": "Lucky² 1st MINI AL「キミすき」 リリース",
     "url": "https://girls2-fc.jp/page/lucky2news/571270189484606401",
     "groups": [
+      "G2",
       "L2",
       "RIN",
-      "YUR",
       "TBK",
       "HIR",
       "YUW",
-      "KAN"
+      "KAN",
+      "YUR"
     ],
     "relations": [
       "RRK",
       "AKR",
       "KIK"
     ],
+    "albumid": "b21b8c085612",
     "tags": [
       "キミすき",
       "Lucky day☆ - リナ＆ユウラ -",
@@ -162984,7 +162986,109 @@
       "神様Noでも僕らはYes",
       "lovely²『lovely² SPECIAL LIVE 2021』"
     ],
-    "albumid": "b21b8c085612"
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/1455752361968750602?a=TAC_GBBmUjYql6WAHQ0&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "YUR"
+            ],
+            "tags": [
+              "本日発売"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/1455481423121375241?a=ntp1zg57VmIaeJpbRa4&s=19",
+            "member": [
+              "RIN"
+            ],
+            "tags": [
+              "あと1日"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/1455404084811341826?a=B4CkOYIPRyoKKZ9J5bU&s=19",
+            "member": [
+              "YUR"
+            ],
+            "tags": [
+              "あと1日"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/1455120531594772483?a=3quFCDowj4ivLgXwjw0&s=19",
+            "member": [
+              "TBK"
+            ],
+            "tags": [
+              "あと2日"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/1455012323949625344?a=DI2HFAjFDjuVetvzqb0&s=19",
+            "member": [
+              "HIR"
+            ],
+            "tags": [
+              "あと2日"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/1454766509155176456?a=WJP_AS8SZ1BN3_XUHLA&s=19",
+            "member": [
+              "YUW"
+            ],
+            "tags": [
+              "あと3日"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/1454649298570788871?a=vzAu62uKl-Jm9k67t8k&s=19",
+            "member": [
+              "KAN"
+            ],
+            "tags": [
+              "あと3日"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/1455741936728305664?a=_mzZOTDUIAa8SdIuPpE&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "YUR"
+            ],
+            "tags": [
+              "本日発売"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/1454011023300595718?a=O4wBbS3cqAms87tYVwk&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "YUR"
+            ],
+            "tags": [
+              "あと5日"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "logid": "5644d7f7e426",
