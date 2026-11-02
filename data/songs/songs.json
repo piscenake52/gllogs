@@ -244,7 +244,25 @@
     "artist": "Laki",
     "title": "神様Noでも僕らはYes",
     "link": "https://music.youtube.com/watch?v=_cQbMhmT6hA&si=JsHU7Q7xD2UNfju6",
-    "lyrics": "https://www.uta-net.com/song/310095/"
+    "lyrics": "https://www.uta-net.com/song/310095/",
+    "videos": [
+      {
+        "type": "Live",
+        "url": "https://youtu.be/n1Hs-D-CeSs?si=tntBJRs2kshTtVhU"
+      },
+      {
+        "type": "short edit",
+        "url": "https://youtu.be/wr-HRc5oh3w?si=IIsWowhojJ9-MxRP"
+      },
+      {
+        "type": "Fancam",
+        "url": "https://youtu.be/YVAo7tGk6Ic?si=j_QIj37jI55mAmAd"
+      },
+      {
+        "type": "Fancam",
+        "url": "https://youtu.be/-fg1-RNX1go?si=80rJTtitGkZa26cZ"
+      }
+    ]
   },
   {
     "artist": "Laki",
