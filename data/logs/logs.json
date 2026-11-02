@@ -3419,6 +3419,56 @@
     ]
   },
   {
+    "logid": "b4a6a8eea3c7",
+    "date": "20261102",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "G2",
+      "MSK",
+      "L2",
+      "HIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2117207641537855683?a=SE5R5_L8op_bzOvEh-8&s=19",
+            "member": [
+              "HIR"
+            ],
+            "with": [
+              "MSK"
+            ],
+            "tags": [
+              "CIRRA"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSgookurJ/",
+            "member": [
+              "HIR"
+            ],
+            "with": [
+              "MSK"
+            ],
+            "tags": [
+              "盛り上げコラボ",
+              "CIRRA"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "f2def7cce8c6",
     "date": "20261101",
     "time": "2359",

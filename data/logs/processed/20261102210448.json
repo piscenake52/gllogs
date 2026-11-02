@@ -1,0 +1,47 @@
+{
+  "date": "20261102",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "HIR"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2117207641537855683?a=SE5R5_L8op_bzOvEh-8&s=19",
+          "member": [
+            "HIR"
+          ],
+          "with": [
+            "MSK"
+          ],
+          "tags": [
+            "CIRRA"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSgookurJ/",
+          "member": [
+            "HIR"
+          ],
+          "with": [
+            "MSK"
+          ],
+          "tags": [
+            "盛り上げコラボ",
+            "CIRRA"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2778"
+}
