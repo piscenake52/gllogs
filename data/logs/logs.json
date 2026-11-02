@@ -3563,12 +3563,18 @@
     "date": "20261101",
     "time": "2100",
     "contents": "CL",
-    "title": "ACTOR'S TV #1 【山口乃々華】パラコードに挑戦！ feat. 小田柚葉",
-    "display_pc": "ACTOR'S TV #1 山口乃々華 パラコードに挑戦！",
+    "title": "ACTOR'S TV　#1 【山口乃々華】パラコードに挑戦！ feat. 小田柚葉",
+    "display_pc": "ACTOR'S TV　#1 山口乃々華 パラコードに挑戦！ feat. 小田柚葉",
+    "display_sp": "ACTOR'S TV　#1 山口乃々華 feat. 小田柚葉",
     "url": "https://www.cl-live.com/programs/ondemand/nCbbXB7Y8HeNg5zQdnuh4d",
     "groups": [
       "G2",
       "YZH"
+    ],
+    "tags": [
+      "ハンズでお買い物",
+      "釘崎野薔薇のパラコード",
+      "Highschool ♡ love"
     ]
   },
   {
