@@ -3198,6 +3198,46 @@
     ]
   },
   {
+    "logid": "655df7c3710e",
+    "date": "20261102",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2117100046596612603?a=X3CuvBDMHtIeED3RrMg&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "atomoscon",
+              "センターチッケム"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "f2def7cce8c6",
     "date": "20261101",
     "time": "2359",
