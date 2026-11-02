@@ -343,6 +343,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="field"><label for="glih-st">title</label><input type="text" id="glih-st" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label for="glih-sl">link</label><input type="text" id="glih-sl" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label for="glih-sy">lyrics</label><input type="text" id="glih-sy" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+  <div class="field top"><label>videos</label><div class="fgcol" id="glih-svid"><div id="glih-svrows"></div><div class="chipr" id="glih-svch"></div></div></div>
   <a class="go" id="glih-go-songs" target="_blank" rel="noopener" aria-disabled="true">songs</a>
 </section>
 
@@ -436,6 +437,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     mk('noend', 'w', 'start without end / deadline', 'past rows only; e.g. a start of sales with no end of sales');
     mk('noann', 'w', 'LIVE / EVENT / RELEASE without ANNIVERSARY', 'LIVE, TOUR, EVENT (incl. RELEASEEVENT, FANMEETING), RELEASE (incl. CD, DVD, BD, DIGITAL, MUSICCARD, EP) with no linked ANNIVERSARY row');
     mk('nolyr', 'i', 'songs without a lyrics link', 'songs.json: no lyrics url (uta-net). The viewer falls back to a uta-net search');
+    mk('novid', 'i', 'songs without a video link', 'songs.json: no videos (YouTube MV / Dance Practice / ...). Add them in the songs tab');
     mk('tag1', 'i', 'tags used only once', 'where a typo or variant hides');
     mk('nostart', 'i', 'end / deadline without start', 'the start row may be missing');
     mk('nourl', 'i', 'rows without url', 'rows with a title only');
@@ -481,6 +483,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     C.dup.items.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
 
     (Array.isArray(songs) ? songs : []).forEach(function (sg) { if (!sg || !sg.title || sg.lyrics) return; C.nolyr.items.push({ k: 'lyr:' + (sg.artist || '') + '|' + sg.title, rows: [], song: sg, head: sg.title, sub: sg.artist || '' }); });
+    (Array.isArray(songs) ? songs : []).forEach(function (sg) { if (!sg || !sg.title || (Array.isArray(sg.videos) && sg.videos.length)) return; C.novid.items.push({ k: 'vid:' + (sg.artist || '') + '|' + sg.title, rows: [], song: sg, head: sg.title, sub: sg.artist || '' }); });
     ckLinks(rows, lrep, C.link.items);
     ckGaps(rows, C.gap.items); ckSE(rows, C.noend.items, C.nostart.items);
     return { n: rows.length, order: order, C: C, at: new Date(), lrep: lrep || null };
@@ -545,7 +548,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
     out.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
   }
-  var CK_IG = { nolyr: 1, noann: 1, dup: 1, gap: 1, noend: 1, nostart: 1, link: 1 }; // the checks whose items can be ignored (kept in this browser)
+  var CK_IG = { nolyr: 1, novid: 1, noann: 1, dup: 1, gap: 1, noend: 1, nostart: 1, link: 1 }; // the checks whose items can be ignored (kept in this browser)
   function ckCnt(c) { if (!CK_IG[c.id]) return c.items.length; var ig = ckIgn(); return c.items.filter(function (it) { return ig.indexOf(it.k) < 0; }).length; }
   function ckList() {
     var R = ckRes, sum = { e: 0, w: 0, i: 0, o: 0 }, host = $('cklist'), secs = { e: 'errors', w: 'to check', i: 'info', o: 'ok' }, by = { e: [], w: [], i: [], o: [] };
@@ -2208,6 +2211,27 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     sa.addEventListener('input', syncArt); syncArt();
     var afield = sa.closest('.field'); afield.parentNode.insertBefore(arow, afield.nextSibling);
     addSuggest(st, titleOpts, st.closest('.field'));
+    // videos (YouTube): rows of [type][url][x]. A type chip adds a row; typing in a row is free text. Sent as lines `type | url` (replaces the whole list).
+    var VT = ['MV', 'Dance Practice', 'Call Lecture', 'Lyric', 'Live', 'Reaction'], YT = /^https?:\/\/(www\.|m\.|music\.)?(youtube\.com|youtu\.be)\//i;
+    var vrows = $('svrows'), vch = $('svch'), vTouched = false, autoV = false, autoM = null;
+    function vList() { return [].map.call(vrows.children, function (r) { return { type: r.children[0].value.trim(), url: r.children[1].value.trim(), el: r }; }); }
+    function vText(list) { return list.filter(function (v) { return v.url; }).map(function (v) { return (v.type || 'Other') + ' | ' + v.url; }).join('\n'); }
+    function vAdd(type, url) {
+      var r = document.createElement('div'); r.style.cssText = 'display:flex;gap:6px;margin:0 0 6px;align-items:center';
+      var t = alInput(); t.placeholder = 'type'; t.style.cssText = 'flex:0 0 7.5em;min-width:0'; t.value = type || '';
+      var u = alInput(); u.placeholder = 'https://youtu.be/...'; u.style.cssText = 'flex:1;min-width:0'; u.value = url || '';
+      var x = document.createElement('button'); x.type = 'button'; x.className = 'small'; x.textContent = '\u2715'; x.setAttribute('aria-label', 'remove');
+      x.onclick = function () { r.remove(); vTouched = true; autoV = false; upd(); };
+      [t, u].forEach(function (e) { e.addEventListener('input', function () { vTouched = true; autoV = false; upd(); }); });
+      r.appendChild(t); r.appendChild(u); r.appendChild(x); vrows.appendChild(r); return r;
+    }
+    VT.concat(['+']).forEach(function (v) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v === '+' ? '+ other' : '+ ' + v;
+      b.onclick = function () { var r = vAdd(v === '+' ? '' : v, ''); vTouched = true; autoV = false; r.children[1].focus(); upd(); };
+      vch.appendChild(b);
+    });
+    function vSet(list) { vrows.innerHTML = ''; (list || []).forEach(function (v) { vAdd(v.type, v.url); }); }
+    function vClear() { vTouched = false; autoV = false; vSet([]); }
     function setLink(v) { prog = true; sl.value = v; sl.dispatchEvent(new Event('input', { bubbles: true })); prog = false; }
     function setLyr(v) { progY = true; sy.value = v; sy.dispatchEvent(new Event('input', { bubbles: true })); progY = false; }
     function upd() {
@@ -2219,27 +2243,34 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (match && match.link && !sl.value.trim() && !sl._touched) { auto = true; setLink(match.link); }
       if (autoY && !(match && String(match.lyrics || '').trim() === sy.value.trim())) { autoY = false; setLyr(''); }
       if (match && match.lyrics && !sy.value.trim() && !sy._touched) { autoY = true; setLyr(match.lyrics); }
+      var mv = match && Array.isArray(match.videos) ? match.videos : [];
+      if (autoV && match !== autoM) { autoV = false; vSet([]); } // the rows were filled from another song
+      if (match && mv.length && !vList().length && !vTouched) { autoV = true; autoM = match; vSet(mv); }
+      var vl = vList(), vBad = false;
+      vl.forEach(function (v) { var bad = !!v.url && !YT.test(v.url); v.el.children[1].classList.toggle('bad', bad); if (bad) vBad = true; });
+      var vt = vText(vl), mt = vText(mv.map(function (v) { return { type: v.type, url: v.url }; }));
       var ly = sy.value.trim(), lyBad = !!ly && ly.indexOf(UTA) !== 0; sy.classList.toggle('bad', lyBad);
       var l = sl.value.trim(), p = {};
       if (a) p.artist_free = a; if (t) p.item_title = t;
       if (l && !(match && l === String(match.link || '').trim())) p.link = l;
       if (ly && !lyBad && !(match && ly === String(match.lyrics || '').trim())) p.lyrics = ly;
-      var ok = !!(a && t) && !lyBad;
+      if (!vBad && vt !== mt) p.videos = vt || '!clear';
+      var ok = !!(a && t) && !lyBad && !vBad;
       setLink2(ok ? issueUrl(TPL_SONGS, p) : '');
     }
     function setLink2(url) { var g = $('go-songs'); if (url) { g.href = url; g.setAttribute('aria-disabled', 'false'); } else { g.removeAttribute('href'); g.setAttribute('aria-disabled', 'true'); } }
     sl.addEventListener('input', function () { if (!prog) { sl._touched = true; auto = false; } upd(); });
     sy.addEventListener('input', function () { if (!progY) { sy._touched = true; autoY = false; } upd(); });
     sa.addEventListener('input', upd); st.addEventListener('input', upd);
-    st.addEventListener('input', function () { if (!st.value.trim() && !prog) { sl._touched = false; sy._touched = false; } });
+    st.addEventListener('input', function () { if (!st.value.trim() && !prog) { sl._touched = false; sy._touched = false; vTouched = false; } });
     // the songs button: after the form page is opened, the input is reset
     $('go-songs').addEventListener('click', function () {
       if ($('go-songs').getAttribute('aria-disabled') === 'true') return;
-      setTimeout(function () { sl._touched = false; auto = false; sy._touched = false; autoY = false; [sa, st, sl, sy].forEach(function (e) { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); }); }, 300);
+      setTimeout(function () { sl._touched = false; auto = false; sy._touched = false; autoY = false; vClear(); [sa, st, sl, sy].forEach(function (e) { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); }); }, 300);
     });
-    $('songnew').onclick = function () { sl._touched = false; auto = false; sy._touched = false; autoY = false; [sa, st, sl, sy].forEach(function (e) { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); }); };
+    $('songnew').onclick = function () { sl._touched = false; auto = false; sy._touched = false; autoY = false; vClear(); [sa, st, sl, sy].forEach(function (e) { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); }); };
     songApi = { open: function (artist, title) {
-      sl._touched = false; auto = false; prog = true; sl.value = ''; prog = false; sy._touched = false; autoY = false; progY = true; sy.value = ''; progY = false;
+      sl._touched = false; auto = false; prog = true; sl.value = ''; prog = false; sy._touched = false; autoY = false; progY = true; sy.value = ''; progY = false; vClear();
       sa.value = artist || ''; sa.dispatchEvent(new Event('input', { bubbles: true })); st.value = title || ''; st.dispatchEvent(new Event('input', { bubbles: true }));
     } };
     upd();

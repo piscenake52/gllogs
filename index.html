@@ -961,6 +961,14 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .setlist-song-order { flex: 0 0 22px; color: var(--muted); font-size: 11px; text-align: left; }
 .setlist-song-play-btn { flex: 0 0 auto; width: 14.4px; height: 14.4px; border-radius: 50%; background: #fff; color: #121212; font-size: 6.4px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; border: 1px solid var(--input-border); }
 .setlist-song-play-btn.is-hidden { visibility: hidden; cursor: default; }
+.song-vid { flex: 0 0 auto; width: 16px; height: 16px; margin-right: -3px; display: flex; align-items: center; justify-content: center; font-size: 12px; line-height: 1; cursor: pointer; user-select: none; border-radius: 4px; } /* YOUTUBEフィルターと同じ🎞️。番号と▶の間(左右の間隔が詰まらないよう、実質6px) */
+.song-vid:hover { background: var(--border); }
+.song-vid.is-hidden { visibility: hidden; cursor: default; }
+.song-vid-btn { flex: 0 0 auto; width: 24px; height: 24px; margin-right: -4px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); font-size: 13px; line-height: 1; cursor: pointer; display: none; align-items: center; justify-content: center; padding: 0; user-select: none; }
+.song-vid-btn.is-shown { display: flex; }
+.vid-menu { position: fixed; z-index: 100000; min-width: 150px; max-width: 86vw; padding: 4px; border: 1px solid var(--input-border); border-radius: 10px; background: var(--bg, #fff); color: var(--text); box-shadow: 0 6px 22px rgba(0,0,0,.28); font-size: 13px; }
+.vid-menu a { display: block; padding: 8px 12px; border-radius: 7px; color: inherit; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vid-menu a:hover, .vid-menu a:focus { background: var(--border); outline: none; }
 .setlist-song-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; } /* 曲名 / ハート / original・notes を縦に並べる */
 .setlist-song-title { display: block; font-size: calc(var(--data-font-scale) * 13px); }
 .setlist-song-hearts { display: flex; flex-wrap: nowrap; gap: 1px; margin-top: 2px; line-height: 1; } /* 曲ごとの歌唱メンバー(曲名の下) */
@@ -1112,6 +1120,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       <button type="button" class="lock-toggle-btn" id="lockToggleBtn" aria-label="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;(&#29694;&#22312;OFF)">&#128275;</button>
     </div>
     <div class="song-bar" id="songBar">
+      <button type="button" class="song-vid-btn" id="songVidBtn" aria-label="Video">&#127902;&#65039;</button>
       <button type="button" class="song-play-btn" id="songPlayBtn" aria-label="Play">&#9654;</button>
       <div class="song-ticker-viewport" id="songTickerViewport">
         <span class="song-ticker-text" id="songTickerText"></span>
@@ -3513,9 +3522,44 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     const found = pickSong(songsData.filter(s => (s.title || '').trim().toLowerCase() === key && lyricsUrlOfSong(s)), artist);
     return found ? lyricsUrlOfSong(found) : UTA_NET_SEARCH + encodeURIComponent(t);
   };
+  // 動画(YouTube): songs.jsonの videos [{type,url}] 。曲名(+artist)で引く。無い曲は空配列
+  const videosByTitle = (title, artist) => {
+    const key = (title || '').trim().toLowerCase();
+    if (!key) return [];
+    const hits = songsData.filter(s => (s.title || '').trim().toLowerCase() === key && Array.isArray(s.videos) && s.videos.some(v => v && /^https?:\/\//.test(v.url || '')));
+    const f = pickSong(hits, artist);
+    return f ? f.videos.filter(v => v && /^https?:\/\//.test(v.url || '')) : [];
+  };
+  const closeVidMenu = () => { const m = document.querySelector('.vid-menu'); if (m) m.remove(); };
+  document.addEventListener('click', e => { if (!e.target.closest('.vid-menu, .song-vid, .song-vid-btn')) closeVidMenu(); }, true);
+  window.addEventListener('scroll', closeVidMenu, { passive: true, capture: true });
+  // 1本ならそのまま開く。複数なら種類のメニューを出す
+  const openVideos = (vids, anchor) => {
+    closeVidMenu();
+    if (!vids.length) return;
+    if (vids.length === 1) { window.open(vids[0].url, '_blank', 'noopener'); return; }
+    const m = document.createElement('div');
+    m.className = 'vid-menu';
+    vids.forEach(v => { const a = document.createElement('a'); a.href = v.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = v.type || 'Video'; a.onclick = () => closeVidMenu(); m.appendChild(a); });
+    document.body.appendChild(m);
+    const r = anchor.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight;
+    m.style.left = Math.max(8, Math.min(r.left, window.innerWidth - w - 8)) + 'px';
+    m.style.top = (r.bottom + h + 8 > window.innerHeight ? Math.max(8, r.top - h - 4) : r.bottom + 4) + 'px';
+  };
+  const vidHtml = (title, artist) => videosByTitle(title, artist).length
+    ? `<span class="song-vid" data-song="${escapeHtml(title || '')}" data-artist="${escapeHtml(artist || '')}" role="button" aria-label="Video">\uD83C\uDF9E\uFE0F</span>`
+    : '<span class="song-vid is-hidden" aria-hidden="true"></span>';
+  document.addEventListener('click', e => {
+    const b = e.target.closest('.song-vid[data-song]');
+    if (!b) return;
+    e.stopPropagation();
+    openVideos(videosByTitle(b.dataset.song, b.dataset.artist), b);
+  });
+  const trimVidCols = root => { if (!root.querySelector('.song-vid:not(.is-hidden)')) root.querySelectorAll('.song-vid.is-hidden').forEach(x => x.remove()); }; // 動画のある曲が1つも無いポップアップでは、列ごと出さない
   const openLyrics = url => { if (url) window.open(url, '_blank', 'noopener'); };
   // セトリ・収録曲のポップアップ: 曲の行を上から順に、少しずつ時間をずらしてなめらかに表示する(開いたとき・盤を切り替えたとき)
   const staggerRows = root => {
+    trimVidCols(root);
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     root.querySelectorAll('.setlist-modal-songlist > li, .alb-list > li, .stat-list > li').forEach((li, i) => {
       li.style.animationDelay = (50 + Math.min(i, 16) * 28) + 'ms'; // 17行目以降は同じタイミング(長いリストで待たせない)
@@ -3673,7 +3717,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
         const tNorm = (t.title || '').trim().toLowerCase(), lyrOk = !songsData.length || (tNorm && songsData.some(x => (x.title || '').trim().toLowerCase() === tNorm)); // songs.jsonに無い曲はUta-Netを出さない
         const link = findSongLinkByTitle(t.title, a.artist); // 再生ボタンはセトリのポップアップと同じ(songs.jsonにリンクがある曲だけ。ないときは同じ幅の空き)
         const playBtn = link ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>` : '<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>';
-        return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}" data-artist="${escapeHtml(a.artist || '')}"><span class="setlist-song-order">${t.no != null ? escapeHtml(t.no) : ''}</span>${playBtn}<span class="setlist-song-main"><span class="setlist-song-title">${escapeHtml(t.title || '')}</span></span>${lyrOk ? `<span class="song-lyrics" data-song="${escapeHtml(t.title || '')}" data-artist="${escapeHtml(a.artist || '')}" role="button" aria-label="Lyrics">Uta-Net</span>` : '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>'}<span class="alb-stat${n && n.size ? '' : ' is-blank'}">\uD83D\uDCCA</span></li>`;
+        return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}" data-artist="${escapeHtml(a.artist || '')}"><span class="setlist-song-order">${t.no != null ? escapeHtml(t.no) : ''}</span>${vidHtml(t.title, a.artist)}${playBtn}<span class="setlist-song-main"><span class="setlist-song-title">${escapeHtml(t.title || '')}</span></span>${lyrOk ? `<span class="song-lyrics" data-song="${escapeHtml(t.title || '')}" data-artist="${escapeHtml(a.artist || '')}" role="button" aria-label="Lyrics">Uta-Net</span>` : '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>'}<span class="alb-stat${n && n.size ? '' : ' is-blank'}">\uD83D\uDCCA</span></li>`;
       }).join('')}</ul>` : '<div class="setlist-modal-empty">NO TRACKS</div>');
   };
   const openAlbumModal = list => { albCur = { list, ti: 0, ei: 0 }; renderAlbum(); albumModalOverlay.classList.add('is-open'); };
@@ -3827,7 +3871,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
           const noStat = songsData.length ? !(sNorm && songsData.some(x => (x.title || '').trim().toLowerCase() === sNorm)) : /(^|[,\s])(mc|dt|dj|towel)([,\s]|$)/.test(String(s.type || ''));
           const lyrHtml = noStat ? '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>' : `<span class="song-lyrics" data-song="${escapeHtml(s.title || '')}" data-artist="${escapeHtml(entry.artist || '')}" role="button" aria-label="Lyrics">Uta-Net</span>`;
           const statHtml = noStat ? '<span class="setlist-song-stat is-blank" aria-hidden="true">\uD83D\uDCCA</span>' : `<span class="setlist-song-stat" data-song="${escapeHtml(s.title || '')}" data-artist="${escapeHtml(entry.artist || '')}" role="button" aria-label="Stats">\uD83D\uDCCA</span>`;
-          return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}${lyrHtml}${statHtml}</li>`;
+          return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${vidHtml(s.title, entry.artist)}${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}${lyrHtml}${statHtml}</li>`;
         })
         .join('');
       setlistModalBody.innerHTML =
@@ -6395,8 +6439,10 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     openSongLink(currentSong.link);
   };
 
+  $('songVidBtn').onclick = e => { e.stopPropagation(); if (currentSong) openVideos(videosByTitle(currentSong.title, currentSong.artist), $('songVidBtn')); };
   const applySong = song => {
     currentSong = song || null;
+    $('songVidBtn').classList.toggle('is-shown', !!(currentSong && videosByTitle(currentSong.title, currentSong.artist).length));
     const textEl = $('songTickerText');
     textEl.dataset.label = currentSong ? `${currentSong.title || ''} / ${currentSong.artist || ''}` : '';
     updateSongTickerScroll();
