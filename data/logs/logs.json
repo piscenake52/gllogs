@@ -3583,6 +3583,20 @@
             ]
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/7QqjBQO-oN8?si=ITJOc2EDwJQ3m4i7",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "EASY"
+            ]
+          }
+        ]
       }
     ]
   },
