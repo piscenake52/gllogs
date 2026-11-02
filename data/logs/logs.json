@@ -3358,7 +3358,9 @@
       "YOK",
       "KUR",
       "MNM",
-      "KIR"
+      "KIR",
+      "L2",
+      "HIR"
     ],
     "sns": [
       {
@@ -3439,6 +3441,23 @@
             "tags": [
               "Thank you 2.5M",
               "撮影前円陣"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/4qfcQoDCqxsRDLddZAb9GR",
+            "member": [],
+            "with": [
+              "MSK",
+              "HIR"
+            ],
+            "tags": [
+              "CIRRA",
+              "おつるさん"
             ]
           }
         ]
