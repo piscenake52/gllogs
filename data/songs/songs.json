@@ -19,7 +19,25 @@
     "artist": "Girls²",
     "title": "BLOOM! BLOOM! BLOOM!",
     "link": "https://music.youtube.com/watch?v=B5yKz2HnBjQ&si=QXwjMyNc4Qncekba",
-    "lyrics": "https://www.uta-net.com/song/393082/"
+    "lyrics": "https://www.uta-net.com/song/393082/",
+    "videos": [
+      {
+        "type": "MV",
+        "url": "https://www.youtube.com/watch?v=0YhvQXbPsJk"
+      },
+      {
+        "type": "Live",
+        "url": "https://www.youtube.com/watch?v=03IGaeZ-wcs"
+      },
+      {
+        "type": "Dance Practice",
+        "url": "https://www.youtube.com/watch?v=isHD9OnJwNQ"
+      },
+      {
+        "type": "Reaction",
+        "url": "https://www.youtube.com/watch?v=j-JtKEHXmR4"
+      }
+    ]
   },
   {
     "artist": "Girls²",

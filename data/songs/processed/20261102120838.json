@@ -1,0 +1,22 @@
+{
+  "artist": "Girls²",
+  "title": "BLOOM! BLOOM! BLOOM!",
+  "videos": [
+    {
+      "type": "MV",
+      "url": "https://www.youtube.com/watch?v=0YhvQXbPsJk"
+    },
+    {
+      "type": "Live",
+      "url": "https://www.youtube.com/watch?v=03IGaeZ-wcs"
+    },
+    {
+      "type": "Dance Practice",
+      "url": "https://www.youtube.com/watch?v=isHD9OnJwNQ"
+    },
+    {
+      "type": "Reaction",
+      "url": "https://www.youtube.com/watch?v=j-JtKEHXmR4"
+    }
+  ]
+}
