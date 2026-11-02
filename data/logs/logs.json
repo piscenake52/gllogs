@@ -3469,6 +3469,43 @@
     ]
   },
   {
+    "logid": "c67368a460eb",
+    "date": "20261102",
+    "time": "",
+    "contents": "WEB",
+    "title": "Girls²「EASY」 福岡・西鉄バス 「Fukuoka Bus Vision」 2026年11月 MUSIC INFOMATION枠放映開始",
+    "display_pc": "Girls²「EASY」 Fukuoka Bus Vision MUSIC INFOMATION放映開始",
+    "display_sp": "「EASY」 Fukuoka Bus Vision放映開始",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "EASY",
+      "福岡・西鉄バス"
+    ],
+    "sns": [
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1247130298395656192",
+            "member": [],
+            "tags": [
+              "Bus Vision"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "f2def7cce8c6",
     "date": "20261101",
     "time": "2359",
