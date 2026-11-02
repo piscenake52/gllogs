@@ -223,7 +223,21 @@
     "artist": "Laki",
     "title": "キミすき",
     "link": "https://music.youtube.com/watch?v=7jiMrWY5syM&si=YIkzaPYW0GCf0QAP",
-    "lyrics": "https://www.uta-net.com/song/305707/"
+    "lyrics": "https://www.uta-net.com/song/305707/",
+    "videos": [
+      {
+        "type": "MV",
+        "url": "https://youtu.be/To6DY1k7fbA?si=du5ziNSpdxl2yH3L"
+      },
+      {
+        "type": "YouTube ver.",
+        "url": "https://youtu.be/bQu2kdE-yOg?si=r9RHHZMy5cWxwqI1"
+      },
+      {
+        "type": "踊ってみた",
+        "url": "https://youtu.be/EP03rulrDpo?si=MZBewlfyQRxBYoXl"
+      }
+    ]
   },
   {
     "artist": "Laki - リナ＆ユウラ -",
