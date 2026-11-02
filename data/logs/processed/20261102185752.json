@@ -1,0 +1,33 @@
+{
+  "date": "20261115",
+  "time": "1000",
+  "contents": "RADIO",
+  "title": "Girls² 「EASY」 文化放送プラスチューン放送",
+  "display_sp": "「EASY」 文化放送プラスチューン放送",
+  "url": "https://girls2-fc.jp/page/familyNews/1245984544289456129",
+  "groups": [
+    "G2",
+    "YZH",
+    "MMK",
+    "MSK",
+    "YOK",
+    "KUR",
+    "MNM",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "gl2family",
+      "urls": [
+        {
+          "url": "https://girls2-fc.jp/page/familyNews/1245984544289456129",
+          "member": [],
+          "tags": [
+            "プラスチューン決定"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2768"
+}
