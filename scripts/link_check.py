@@ -17,7 +17,7 @@ import socket
 LOGS = "data/logs/logs.json"
 STATE = "data/logs/link_state.json"
 REPORT = "data/logs/link_report.json"
-LIMIT = int(os.environ.get("LINK_LIMIT", "250") or 250)          # 1回に調べる件数
+LIMIT = int(os.environ.get("LINK_LIMIT", "400") or 400)          # 1回に調べる件数
 MAX_SECONDS = int(os.environ.get("LINK_MAX_SECONDS", "1500") or 1500)  # 1回の実行時間の上限(秒)
 RETRY_WAIT = 60                                                  # 最初のNGから再確認までの待ち(秒)
 PAGE_DELAY = 1.0                                                 # ページを開く間隔(秒)
