@@ -1,0 +1,31 @@
+{
+  "date": "20261102",
+  "contents": "CL",
+  "title": "POST　CIRRA",
+  "groups": [
+    "G2",
+    "MSK",
+    "L2",
+    "HIR"
+  ],
+  "sns": [
+    {
+      "type": "cl",
+      "urls": [
+        {
+          "url": "https://www.cl-live.com/posts/4qfcQoDCqxsRDLddZAb9GR",
+          "member": [],
+          "with": [
+            "MSK",
+            "HIR"
+          ],
+          "tags": [
+            "LDH LIVE EXPO",
+            "コラボキャス"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2781"
+}
