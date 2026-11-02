@@ -3387,6 +3387,38 @@
     ]
   },
   {
+    "logid": "c23c31b29d62",
+    "date": "20261102",
+    "time": "",
+    "contents": "CL",
+    "title": "POST Laki",
+    "groups": [
+      "G2",
+      "MSK",
+      "L2",
+      "HIR"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/3crMoSLtysdQQSWdkMy23v",
+            "member": [
+              "HIR"
+            ],
+            "with": [
+              "MSK"
+            ],
+            "tags": [
+              "LDH LIVE EXPO"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "f2def7cce8c6",
     "date": "20261101",
     "time": "2359",
