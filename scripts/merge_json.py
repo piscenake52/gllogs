@@ -172,7 +172,7 @@ def ref_title(main_data):
 # ---------- 更新・新規追加 ----------
 
 # setlistid を date+time で自動付与する contents
-SETLISTID_CONTENTS = ("LIVE", "TOUR", "RELEASEEVENT", "FANMEETING")
+SETLISTID_CONTENTS = ("LIVE", "TOUR", "ANNIVERSARYLIVE", "RELEASEEVENT", "FANMEETING")
 
 
 def autofill_setlistid(record, explicit_clear=False):
@@ -968,7 +968,7 @@ def apply_bulk(target, main_data, bulk):
 # ---------- ファイル操作 ----------
 
 
-INDEX_MAP_CONTENTS = ("LIVE", "RELEASEEVENT", "FANMEETING")
+INDEX_MAP_CONTENTS = ("LIVE", "ANNIVERSARYLIVE", "RELEASEEVENT", "FANMEETING")
 
 
 def write_index(target, main_data):
