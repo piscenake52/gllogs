@@ -48,6 +48,7 @@ LABELS_SS = {
     "title": "title",
     "link": "link",
     "lyrics": "lyrics",
+    "videos": "videos",
     "member_g2": "member / Girls²",
     "member_l2": "member / Laki",
     "member_free": "member / 自由入力",
@@ -82,7 +83,7 @@ CLEARABLE = {
     "logs": ["time", "contents", "title", "display_pc", "display_sp", "url", "map",
              "groups", "relations", "setlistid", "tags", "sns"],
     "setlist": ["artist", "title", "member", "venue", "source", "songs"],
-    "songs": ["link", "lyrics"],
+    "songs": ["link", "lyrics", "videos"],
 }
 
 # 削除チェックボックスの選択肢名（add_logs.yml / add_setlist_songs.yml と揃える）
@@ -703,12 +704,45 @@ def parse_songs_patch(raw_str):
     return ops, errors
 
 
+VIDEO_HOST_RE = re.compile(r"^https?://(www\.|m\.|music\.)?(youtube\.com|youtu\.be)/", re.I)
+
+
+def parse_videos(raw):
+    """videos欄（1行1件 `type | URL`）を [{"type","url"}] にする。typeを省略したURLだけの行は Other。
+    入力すると動画リンク全体が置き換わる。`!clear` で全部消す。URLはYouTube(youtube.com / youtu.be)のみ。
+    戻り値: (リスト or None, エラーのリスト)"""
+    raw = (raw or "").strip()
+    if not raw or raw == "_No response_":
+        return None, []
+    if raw == CLEAR:
+        return [CLEAR], []
+    out, errors, seen = [], [], set()
+    for line in raw.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if "|" in line:
+            t, u = [x.strip() for x in line.split("|", 1)]
+        else:
+            t, u = "Other", line
+        if not VIDEO_HOST_RE.match(u):
+            shown = line.replace("`", "'")
+            errors.append(f"- **videos**: URLはYouTube(youtube.com / youtu.be)のものを `type | URL` の形で入力してください（入力値: `{shown}`）")
+            continue
+        if u in seen:
+            continue
+        seen.add(u)
+        out.append({"type": t or "Other", "url": u})
+    return (out or None), errors
+
+
 def build_songs(f):
     return {
         "artist": f["artist"],
         "title": f["title"],
         "link": f["link"],
         "lyrics": f.get("lyrics", ""),
+        "videos": f.get("_videos") or "",
     }
 
 
@@ -1057,6 +1091,13 @@ def main():
     else:
         data = build_songs(f)
         must = bool(f["artist"] and f["title"])
+        vids, vid_errors = parse_videos(f.get("videos", ""))
+        if vid_errors and not is_delete_requested(f):
+            write_error(vid_errors)
+            print("入力エラーのため処理を中止しました:\n" + "\n".join(vid_errors))
+            return
+        if vids:
+            data["videos"] = vids
         ly = str(data.get("lyrics") or "").strip()
         if ly and ly != CLEAR and not is_delete_requested(f) and not re.match(r"https://www\.uta-net\.com/", ly):
             errors = ["- **lyrics**: 歌詞リンクは https://www.uta-net.com/ から始まるURLを入力してください"]
