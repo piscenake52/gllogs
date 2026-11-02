@@ -944,6 +944,10 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .stat-list-date { flex: 0 0 auto; color: var(--sub); white-space: nowrap; }
 .stat-list-title { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
 .stat-list-no { flex: 0 0 auto; color: var(--sub); font-size: 10px; }
+.stat-list-sl { flex: 0 0 auto; cursor: pointer; font-size: 12px; line-height: 1.2; user-select: none; }
+.stat-list-types { display: block; margin-top: 2px; }
+.stat-list-types .setlist-song-type { margin-right: 4px; }
+.stat-rel { text-align: center; font-size: 11px; color: var(--sub); margin: -2px 0 8px; }
 .setlist-modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
 .setlist-modal { position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1); }
 .setlist-modal-overlay.is-open .setlist-modal { transform: scale(1); }
@@ -962,6 +966,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .setlist-song-play-btn { flex: 0 0 auto; width: 14.4px; height: 14.4px; border-radius: 50%; background: #fff; color: #121212; font-size: 6.4px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; border: 1px solid var(--input-border); }
 .setlist-song-play-btn.is-hidden { visibility: hidden; cursor: default; }
 .song-vid { flex: 0 0 auto; width: 16px; height: 16px; margin-right: -3px; display: flex; align-items: center; justify-content: center; font-size: 12px; line-height: 1; cursor: pointer; user-select: none; border-radius: 4px; } /* YOUTUBEフィルターと同じ🎞️。番号と▶の間(左右の間隔が詰まらないよう、実質6px) */
+.setlist-modal-songlist li:has(.song-vid) .setlist-song-order, .alb-list:not(.has-label) li:has(.song-vid) .setlist-song-order { flex-basis: 15px; } /* 番号は最大2桁なので、🎞️がある行は番号の列を詰めて🎞️を左に寄せる */
 .song-vid:hover { background: var(--border); }
 .song-vid.is-hidden { visibility: hidden; cursor: default; }
 .song-vid-btn { flex: 0 0 auto; width: 24px; height: 24px; margin-right: -4px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); font-size: 13px; line-height: 1; cursor: pointer; display: none; align-items: center; justify-content: center; padding: 0; user-select: none; }
@@ -1448,13 +1453,13 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     // GOODSはフィルター上"SALES"として扱う(ボタンは別表示)
     'GOODS': '\uD83D\uDED2',
     // RELEASEEVENT/TOURはフィルター判定上は"LIVE"、FANMEETINGは"EVENT"(どちらもフィルターボタンには表示しない)
-    'COOKING': '\uD83C\uDF7D\uFE0F', 'RELEASEEVENT': '\uD83C\uDFA4', 'TOUR': '\uD83C\uDF99\uFE0F', 'FANMEETING': '\uD83C\uDFA4', 'STAGE': '\uD83C\uDFAD',
+    'COOKING': '\uD83C\uDF7D\uFE0F', 'RELEASEEVENT': '\uD83C\uDFA4', 'TOUR': '\uD83C\uDF99\uFE0F', 'ANNIVERSARYLIVE': '\uD83C\uDF99\uFE0F', 'FANMEETING': '\uD83C\uDFA4', 'STAGE': '\uD83C\uDFAD',
     // DEBUT/FORMATIONはフィルターボタンには表示せず、フィルター判定上は"BIRTHDAY"として扱う
     'DEBUT': '\u2B50', 'FORMATION': '\u2728'
   };
 
   // 内部値と表示名が異なるものだけ登録する
-  const contentDisplayNames = { 'GLRADIO': 'GL\u00B2RADIO' };
+  const contentDisplayNames = { 'GLRADIO': 'GL\u00B2RADIO', 'ANNIVERSARYLIVE': 'LIVE' }; // ANNIVERSARYLIVE(周年ライブ)は、画面ではLIVEと表示する
   const displayNameFor = v => contentDisplayNames[v] || v;
 
   const dayNames = ['\u65E5', '\u6708', '\u706B', '\u6C34', '\u6728', '\u91D1', '\u571F'];
@@ -1828,7 +1833,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   const mediaAliasConts = ['BOOK', 'NEWSPAPER']; // TV/RADIOは独立したフィルターボタンになった
   const webAliasConts = ['PODCAST']; // STREAMING/COLUMNは独立したフィルターボタンになった
   const salesAliasConts = ['GOODS'];
-  const liveAliasConts = ['RELEASEEVENT', 'TOUR']; // フィルターボタンには表示せず、フィルター判定上は"LIVE"として扱う(LIVEフィルターON時に表示)
+  const liveAliasConts = ['RELEASEEVENT', 'TOUR', 'ANNIVERSARYLIVE']; // フィルターボタンには表示せず、フィルター判定上は"LIVE"として扱う(LIVEフィルターON時に表示)
   const eventAliasConts = ['FANMEETING']; // COOKING/STAGEは独立したフィルターボタンになった
   const birthdayAliasConts = ['DEBUT', 'FORMATION'];
   const fanclubAliasConts = ['TELEPHONE'];
@@ -3090,12 +3095,13 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     if (countTween) { cancelAnimationFrame(countTween); countTween = null; }
     const m = /^> (\d+)$/.exec(text || '');
     const to = m ? parseInt(m[1], 10) : null;
-    const from = shownCount;
+    const first = shownCount === null; // 初回表示
+    const from = first ? 0 : shownCount; // 初回は0から数え上げる
     shownCount = to;
-    if (to === null || from === null || from === to || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) { rc.textContent = text; return; }
-    const t0 = performance.now(), dur = 360;
+    if (to === null || from === to || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) { rc.textContent = text; return; }
+    const t0 = performance.now(), dur = first ? 700 : 360;
     const step = now => {
-      const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      const k = Math.max(0, Math.min(1, (now - t0) / dur)), e = 1 - Math.pow(1 - k, 3);
       rc.textContent = k >= 1 ? text : '> ' + Math.round(from + (to - from) * e);
       countTween = k >= 1 ? null : requestAnimationFrame(step);
     };
@@ -3528,8 +3534,11 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     if (!key) return [];
     const hits = songsData.filter(s => (s.title || '').trim().toLowerCase() === key && Array.isArray(s.videos) && s.videos.some(v => v && /^https?:\/\//.test(v.url || '')));
     const f = pickSong(hits, artist);
-    return f ? f.videos.filter(v => v && /^https?:\/\//.test(v.url || '')) : [];
+    return f ? sortVideos(f.videos.filter(v => v && /^https?:\/\//.test(v.url || ''))) : [];
   };
+  // 表示順: MV, Dance Practice, Lyric, Live, Reaction, Call Lecture の順。それ以外(Otherや自由入力)は後ろに、登録順のまま
+  const VIDEO_ORDER = ['mv', 'dance practice', 'lyric', 'live', 'reaction', 'call lecture'];
+  const sortVideos = list => list.map((v, i) => { const r = VIDEO_ORDER.indexOf(String(v.type || '').trim().toLowerCase()); return { v, i, r: r < 0 ? 99 : r }; }).sort((x, y) => x.r - y.r || x.i - y.i).map(x => x.v);
   const closeVidMenu = () => { const m = document.querySelector('.vid-menu'); if (m) m.remove(); };
   document.addEventListener('click', e => { if (!e.target.closest('.vid-menu, .song-vid, .song-vid-btn')) closeVidMenu(); }, true);
   window.addEventListener('scroll', closeVidMenu, { passive: true, capture: true });
@@ -3537,7 +3546,6 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   const openVideos = (vids, anchor) => {
     closeVidMenu();
     if (!vids.length) return;
-    if (vids.length === 1) { window.open(vids[0].url, '_blank', 'noopener'); return; }
     const m = document.createElement('div');
     m.className = 'vid-menu';
     vids.forEach(v => { const a = document.createElement('a'); a.href = v.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = v.type || 'Video'; a.onclick = () => closeVidMenu(); m.appendChild(a); });
@@ -3702,6 +3710,8 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     const ed = ei >= 0 ? eds[ei] : null;
     const base = ed && Array.isArray(ed.tracks) && ed.tracks.length ? ed.tracks : (Array.isArray(a.tracks) ? a.tracks : []);
     const rows = base.map(t => [t, false]).concat(ed && Array.isArray(ed.extra) ? ed.extra.map(t => [t, true]) : []);
+    // DVD1のような名前の番号が、このアルバムのどの盤にでもあれば、全部の盤で番号の列幅をそろえる(盤を切り替えても🎞️・▶の位置が動かない)
+    const albHasLabel = [a].concat(eds).some(x => [].concat(x.tracks || [], x.extra || []).some(t => t && t.no != null && !/^\d+$/.test(String(t.no))));
     const chips = (items, cur, attr) => `<div class="alb-chips">${items.map((x, i) => `<button type="button" class="alb-chip${i === cur ? ' is-on' : ''}" ${attr}="${i}">${escapeHtml(x)}</button>`).join('')}</div>`;
     const info = ed ? [ed.format, ed.price != null ? `\u00A5${Number(ed.price).toLocaleString()}` : '', ed.note].filter(v => v && String(v).trim() !== '').map(v => escapeHtml(String(v))).join(' / ') : '';
     $('albumModalBody').innerHTML =
@@ -3711,7 +3721,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       `<div class="alb-meta">${escapeHtml([albTypeLabel(a.type), albYmd(a.date)].filter(Boolean).join(' / '))}</div>` +
       (eds.length ? chips(eds.map(x => x.name || ''), ei, 'data-aled') : '') +
       (info ? `<div class="alb-edinfo">${info}</div>` : '') +
-      (rows.length ? `<ul class="alb-list${rows.some(([t]) => t.no != null && !/^\d+$/.test(String(t.no))) ? ' has-label' : ''}">${rows.map(([t, ex]) => {
+      (rows.length ? `<ul class="alb-list${albHasLabel ? ' has-label' : ''}">${rows.map(([t, ex]) => {
         if (t && t.section) return `<li class="alb-sec">${escapeHtml(t.section)}</li>`; // 区分の見出し(LIVE TOUR 2025など)
         const n = statIndex().get(statNorm(t.title));
         const tNorm = (t.title || '').trim().toLowerCase(), lyrOk = !songsData.length || (tNorm && songsData.some(x => (x.title || '').trim().toLowerCase() === tNorm)); // songs.jsonに無い曲はUta-Netを出さない
@@ -3736,7 +3746,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   albumModalOverlay.onclick = e => { if (e.target === albumModalOverlay) closeAlbumModal(); };
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && albumModalOverlay.classList.contains('is-open') && !statModalOverlay.classList.contains('is-open')) closeAlbumModal(); });
   const statModalOverlay = $('statModalOverlay');
-  // 公演の分類: 同じsetlistidを持つlogsの行のcontentsで決める(TOUR > FANMEETING > LIVE > RELEASEEVENT > それ以外 の優先順)。
+  // 公演の分類: 同じsetlistidを持つlogsの行のcontentsで決める(ANNIVERSARYLIVE > TOUR > FANMEETING > LIVE > RELEASEEVENT > それ以外 の優先順)。
   // 上段: LIVE = TOUR・FANMEETING・LIVE、EVENT = それ以外(logsに行が無いものも)。下段(LIVE選択時: TOUR / FAN MEETING / ETC、EVENT選択時: RELEASE EVENT / ETC)
   function statClassMap() {
     const src = (Array.isArray(lastDedupedLogs) && lastDedupedLogs.length) ? lastDedupedLogs : logs;
@@ -3744,11 +3754,11 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     const seen = new Map();
     (src || []).forEach(it => { if (it && it.setlistid) { const c = String(it.contents || '').trim().toUpperCase(); if (!seen.has(it.setlistid)) seen.set(it.setlistid, new Set()); seen.get(it.setlistid).add(c); } });
     const map = new Map();
-    seen.forEach((cs, id) => map.set(id, cs.has('TOUR') ? 'tour' : cs.has('FANMEETING') ? 'fan' : cs.has('LIVE') ? 'liveetc' : cs.has('RELEASEEVENT') ? 'rel' : 'etc'));
+    seen.forEach((cs, id) => map.set(id, cs.has('ANNIVERSARYLIVE') ? 'anniv' : cs.has('TOUR') ? 'tour' : cs.has('FANMEETING') ? 'fan' : cs.has('LIVE') ? 'liveetc' : cs.has('RELEASEEVENT') ? 'rel' : 'etc'));
     statClassMap.src = src; statClassMap.map = map;
     return map;
   }
-  const STAT_SUBS = { live: [['tour', 'TOUR'], ['fan', 'FAN MEETING'], ['liveetc', 'ETC']], other: [['rel', 'RELEASE EVENT'], ['etc', 'ETC']] };
+  const STAT_SUBS = { live: [['tour', 'TOUR'], ['fan', 'FAN MEETING'], ['anniv', 'ANNIVERSARY'], ['liveetc', 'ETC']], other: [['rel', 'RELEASE EVENT'], ['etc', 'ETC']] };
   let statCur = { title: '', filter: 'all', sub: '' };
   const renderStat = () => renderWithHeightAnim($('statModalBody'), statModalOverlay, renderStatBody);
   const renderStatBody = () => {
@@ -3758,7 +3768,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     if (statCur.artist) { const mine = all.filter(([, v]) => artistHit(v.entry.artist, statCur.artist) || artistHit(statCur.artist, v.entry.artist)); if (mine.length) all = mine; } // 同じ曲名でグループ違いの曲があるとき: その曲のグループの公演だけ数える(該当が無ければ曲名だけで数える)
     const cm = statClassMap();
     const cls = id => cm.get(id) || 'etc'; // logsに行が無いものはETC
-    const isLive = id => ['tour', 'fan', 'liveetc'].includes(cls(id));
+    const isLive = id => ['tour', 'fan', 'anniv', 'liveetc'].includes(cls(id));
     const f = statCur.filter, sub = statCur.sub;
     const counts = { all: all.length, live: all.filter(([id]) => isLive(id)).length };
     counts.other = all.length - counts.live;
@@ -3766,16 +3776,29 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     const inTop = f === 'live' ? all.filter(([id]) => isLive(id)) : f === 'other' ? all.filter(([id]) => !isLive(id)) : all;
     const rows = sub && STAT_SUBS[f] ? inTop.filter(([id]) => cls(id) === sub) : inTop;
     const ymd = id => { const x = formatSetlistDateTime(id).dateStr; return x ? x.replace(/ \[.*$/, '') : '-'; };
+    // リリース日: albums.jsonの収録曲に同じ曲名があるもののうち、いちばん古いalbum / ep / single等の日付(グループが分かるときは同じグループのもの)
+    const relDate = (() => {
+      const key = statNorm(t); let best = '';
+      (Array.isArray(albumsData) ? albumsData : []).forEach(al => {
+        if (!al || !/^\d{8}$/.test(al.date || '') || ['dvd', 'blu-ray', 'musiccard'].includes(al.type)) return;
+        if (statCur.artist && al.artist && !(artistHit(al.artist, statCur.artist) || artistHit(statCur.artist, al.artist))) return;
+        const trs = [].concat(al.tracks || [], ...(Array.isArray(al.editions) ? al.editions.map(e => [].concat(e.tracks || [], e.extra || [])) : []));
+        if (trs.some(x => x && statNorm(x.title) === key) && (!best || al.date < best)) best = al.date;
+      });
+      return best;
+    })();
     const tile = (label, val) => `<div class="stat-tile"><div class="stat-tile-label">${label}</div><div class="stat-tile-value">${escapeHtml(val)}</div></div>`;
     const chip = (key, label) => `<button type="button" class="stat-chip${f === key ? ' is-on' : ''}" data-stat-filter="${key}"${counts[key] === 0 && key !== 'all' ? ' disabled' : ''}>${label} ${counts[key]}</button>`;
     const subChip = ([key, label]) => `<button type="button" class="stat-chip${sub === key ? ' is-on' : ''}" data-stat-sub="${key}"${!subCounts[key] ? ' disabled' : ''}>${label} ${subCounts[key] || 0}</button>`;
     const listHtml = rows.map(([id, r]) => {
       const d = formatSetlistDateTime(id).dateStr || id;
-      const enc = /(^|[,\s])encore([,\s]|$)/.test(String(r.type || '')) ? ' <span class="setlist-song-type">ENCORE</span>' : '';
-      return `<li><span class="stat-list-date">${escapeHtml(d)}</span><span class="stat-list-title">${escapeHtml(r.entry.title || '')}${enc}</span>${r.order != null ? `<span class="stat-list-no">#${escapeHtml(r.order)}</span>` : ''}</li>`;
+      // 曲ごとのtype(encore / medley など。songは出さない)は、曲名の下に並べる
+      const tys = String(r.type || '').split(/[,\s]+/).filter(t => t && t !== 'song').map(t => `<span class="setlist-song-type">${escapeHtml(displayNameForSetlistType(t))}</span>`).join('');
+      return `<li><span class="stat-list-date">${escapeHtml(d)}</span><span class="stat-list-title">${escapeHtml(r.entry.title || '')}${tys ? `<span class="stat-list-types">${tys}</span>` : ''}</span>${r.order != null ? `<span class="stat-list-no">#${escapeHtml(r.order)}</span>` : ''}<span class="stat-list-sl" data-setlistid="${escapeHtml(id)}" role="button" aria-label="Setlist">\uD83D\uDCCB\uFE0F</span></li>`;
     }).join('');
     $('statModalBody').innerHTML =
       `<div class="stat-modal-title">${escapeHtml(t)}</div>` +
+      (relDate ? `<div class="stat-rel">RELEASE ${escapeHtml(albYmd(relDate))}</div>` : '') +
       `<div class="stat-chips">${chip('all', 'ALL')}${chip('live', 'LIVE')}${chip('other', 'EVENT')}</div>` +
       (STAT_SUBS[f] ? `<div class="stat-chips stat-subchips">${STAT_SUBS[f].map(subChip).join('')}</div>` : '') +
       `<div class="stat-tiles">${tile('COUNT', String(rows.length))}${tile('FIRST', rows.length ? ymd(rows[rows.length - 1][0]) : '-')}${tile('LATEST', rows.length ? ymd(rows[0][0]) : '-')}</div>` +
@@ -3789,6 +3812,8 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     statModalOverlay.classList.add('is-open');
   };
   $('statModalBody').addEventListener('click', e => {
+    const slb = e.target.closest('.stat-list-sl[data-setlistid]');
+    if (slb) { e.stopPropagation(); setlistModalOverlay.style.zIndex = '1200'; openSetlistModal(slb.dataset.setlistid); return; } // 披露実績の上にセトリを重ねる(閉じると披露実績に戻る)
     const sb = e.target.closest('.stat-chip[data-stat-sub]');
     if (sb) { if (sb.disabled) return; statCur.sub = statCur.sub === sb.dataset.statSub ? '' : sb.dataset.statSub; renderStat(); return; } // 下段は押し直すと解除
     const b = e.target.closest('.stat-chip[data-stat-filter]');
@@ -3825,6 +3850,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   $('songLyricsBtn').onclick = e => { e.stopPropagation(); if (currentSong) openLyrics(lyricsUrlOfSong(currentSong) || lyricsUrlByTitle(currentSong.title, currentSong.artist)); };
   $('songStatBtn').onclick = e => { e.stopPropagation(); if (currentSong) openStatModal(currentSong.title, currentSong.artist); };
   window.glOpenStat = openStatModal;
+  new MutationObserver(() => { if (!setlistModalOverlay.classList.contains('is-open')) setlistModalOverlay.style.zIndex = ''; }).observe(setlistModalOverlay, { attributes: true, attributeFilter: ['class'] });
   const openSetlistModal = setlistid => {
     const entry = setlistData.find(e => e.setlistid === setlistid);
     if (!entry) {
