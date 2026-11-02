@@ -3115,6 +3115,37 @@
     ]
   },
   {
+    "logid": "cf20e0c6d4de",
+    "date": "20261102",
+    "time": "1800",
+    "contents": "CL",
+    "title": "LDH LIVE EXPO 2026 -PERFECT YEAR BEST- 盛り上げコラボキャス",
+    "display_sp": "LDH LIVE EXPO 2026 盛り上げコラボキャス",
+    "groups": [
+      "G2",
+      "MSK",
+      "L2",
+      "HIR"
+    ],
+    "tags": [
+      "LDH LIVE EXPO"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/rV2SY9JKJLzTM5DjQFoYzK",
+            "member": [],
+            "tags": [
+              "配信決定"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "cb2eba94a8d8",
     "date": "20261102",
     "time": "1700",
