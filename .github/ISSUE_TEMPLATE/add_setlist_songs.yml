@@ -41,6 +41,17 @@ body:
       label: "lyrics"
       description: "https://www.uta-net.com/ から始まるURL"
 
+  - type: textarea
+    id: videos
+    attributes:
+      label: "videos"
+      description: |
+        YouTubeの動画。1行1件で `type | URL`（typeを省略するとOther）。入力すると動画リンク全体が**置き換わります**（空欄なら既存を維持）。
+        typeの例: MV / Dance Practice / Call Lecture / Lyric / Live / Reaction（自由入力も可）
+      placeholder: |
+        MV | https://youtu.be/xxxxxxxxxxx
+        Dance Practice | https://www.youtube.com/watch?v=xxxxxxxxxxx
+
   - type: dropdown
     id: member_g2
     attributes:
@@ -117,6 +128,7 @@ body:
         - label: "title"
         - label: "link"
         - label: "lyrics"
+        - label: "videos"
         - label: "member"
         - label: "venue"
         - label: "source"
