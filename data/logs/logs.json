@@ -3522,12 +3522,14 @@
     "date": "20261102",
     "time": "",
     "contents": "SNS",
-    "title": "SNS　Laki",
+    "title": "SNS",
     "groups": [
       "G2",
       "MSK",
       "L2",
-      "HIR"
+      "TBK",
+      "HIR",
+      "RRK"
     ],
     "sns": [
       {
@@ -3543,6 +3545,13 @@
             ],
             "tags": [
               "CIRRA"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2117204986950283421?a=5zXngZUJuObjwN8Sk2U&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
             ]
           }
         ]
@@ -3561,6 +3570,17 @@
             "tags": [
               "盛り上げコラボ",
               "CIRRA"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSpJNa6FR/",
+            "member": [
+              "TBK",
+              "RRK"
+            ],
+            "tags": [
+              "ぷにるんず",
+              "おふろは大事"
             ]
           }
         ]
