@@ -3481,6 +3481,32 @@
             ]
           }
         ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfReFmuyl3m/?psln=MXhmdzN5cnZnNXE5ZQ==",
+            "member": [],
+            "tags": [
+              "Fancam"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DfRZFHLTHq-/?dlrf=dnFvZnBodmEwd3A0",
+            "member": [],
+            "tags": [
+              "Fancam"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DfRYfmXzGSe/?obrf=MXhpaW01em9nbHB2dQ==",
+            "member": [],
+            "tags": [
+              "Fancam"
+            ]
+          }
+        ]
       }
     ]
   },
