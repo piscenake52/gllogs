@@ -3831,7 +3831,12 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
       "KUR",
+      "MNM",
       "KIR"
     ],
     "sns": [
@@ -3843,6 +3848,34 @@
             "member": [],
             "tags": [
               "明日の出演情報"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2117547530405999065?a=kjv2FOL0mrm8jLkEKVs&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSpevauoG/",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "Umbrella",
+              "Outnow"
             ]
           }
         ]
