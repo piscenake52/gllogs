@@ -92,6 +92,13 @@ body:
 
 
   - type: input
+    id: weather
+    attributes:
+      label: "weather"
+      description: "sunny / cloudy / rain / snow / thunder / partly（カンマ区切り。選んだ順に表示し、2つ以上は → でつなぐ。例 sunny,rain）。消すときは !clear か、下の「値の削除」で weather"
+
+
+  - type: input
     id: source
     attributes:
       label: "source"
@@ -140,6 +147,7 @@ body:
         - label: "title"
         - label: "member"
         - label: "venue"
+        - label: "weather"
         - label: "source"
         - label: "songs"
 
