@@ -2944,6 +2944,18 @@
             ]
           }
         ]
+      },
+      {
+        "type": "radiko",
+        "urls": [
+          {
+            "url": "https://radiko.jp/share/?t=20261105130000&sid=TOKAIRADIO",
+            "member": [],
+            "tags": [
+              "radiko"
+            ]
+          }
+        ]
       }
     ]
   },
