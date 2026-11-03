@@ -2722,6 +2722,20 @@
     ],
     "tags": [
       "がるがるトーク"
+    ],
+    "sns": [
+      {
+        "type": "radiko",
+        "urls": [
+          {
+            "url": "https://radiko.jp/share/?t=20261104203000&sid=QRR",
+            "member": [],
+            "tags": [
+              "radiko"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
