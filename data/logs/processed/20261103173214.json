@@ -1,0 +1,40 @@
+{
+  "date": "20261103",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "KAN",
+    "AKR"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2117528725931889028?a=FhaajWWZ913hwVPg3eY&s=19",
+          "member": [],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSpep4XwQ/",
+          "member": [
+            "KAN",
+            "AKR"
+          ],
+          "tags": [
+            "Noフィルターは関係"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2855"
+}

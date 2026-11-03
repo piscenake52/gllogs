@@ -3372,6 +3372,47 @@
     "suffix": "開催記念日"
   },
   {
+    "logid": "daf211fb48f9",
+    "date": "20261103",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "KAN",
+      "AKR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2117528725931889028?a=FhaajWWZ913hwVPg3eY&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSpep4XwQ/",
+            "member": [
+              "KAN",
+              "AKR"
+            ],
+            "tags": [
+              "Noフィルターは関係"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "3a6892f7c051",
     "date": "20261102",
     "time": "2359",
