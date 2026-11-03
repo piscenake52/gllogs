@@ -1,0 +1,38 @@
+{
+  "logid": "daf211fb48f9",
+  "groups": [
+    "L2",
+    "TBK",
+    "KAN",
+    "AKR"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2117558237793054758?a=oxcXtpYn1oXZX_RQyqk&s=19",
+          "member": [],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSpeE3cXU/",
+          "member": [
+            "TBK"
+          ],
+          "tags": [
+            "Lose Control"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2883"
+}
