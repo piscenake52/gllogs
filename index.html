@@ -1006,7 +1006,10 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .setlist-song-hname { font-size: 8px; line-height: 1; color: var(--sub); margin-right: 2px; } /* Girls\u00B2 / Laki の両方がartistのときの、ハートの前のグループ名 */
 .setlist-song-hsep { font-size: 8px; line-height: 1; color: var(--sub); margin: 0 3px; }
 .setlist-modal-artist.is-split { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 6px; row-gap: 2px; } /* Girls\u00B2 / Laki の両方がartistのとき:名前の列とハートの列(左端そろえ)の2段 */
-.setlist-song-type { flex: 0 0 auto; align-self: flex-start; margin-top: 1px; /* 中央ではなく上付き(曲名1行目と横位置を揃える) */ font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
+.setlist-song-types { flex: 0 0 auto; align-self: center; display: grid; grid-auto-flow: column; grid-auto-columns: auto; gap: 2px 4px; justify-items: start; align-items: start; } /* typeバッジのまとまり: 縦2段まで・横4列まで。全体は縦中央(奇数個の最後の1個は上に詰まる) */
+.setlist-modal-songlist li:has(.setlist-song-types.is-wide) { flex-wrap: wrap; row-gap: 3px; }
+.setlist-song-types.is-wide { order: 9; flex: 0 0 100%; box-sizing: border-box; padding-left: 30px; align-self: auto; gap: 2px 4px; } /* 5個以上(3列〜): 横幅に入らず右端のUta-Net・📊を押し出すので、曲の下の段に出す(縦2段・横4列の並びは同じ) */
+.setlist-song-type { flex: 0 0 auto; font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
 .setlist-song-sub { display: flex; flex-wrap: wrap; gap: 0 8px; margin-top: 2px; font-size: 10px; line-height: 1.4; color: var(--sub); opacity: 0.85; } /* original と notes(括弧なし・小さく薄く) */
 .setlist-modal-source { display: flex; margin: -6px 0 10px; }
 .setlist-source-chip { display: inline-flex; align-items: center; height: 18px; padding: 0 9px; border-radius: 9px; box-sizing: border-box; font-size: 10px; font-weight: 600; letter-spacing: .03em; line-height: 1; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--sub); } /* 曲リストの上: OFFICIAL / UNOFFICIAL(情報の出どころ。分からないときは出さない) */
@@ -3535,6 +3538,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     'dj': 'DJ',
     'towel': 'TOWEL',
     'medley': 'MEDLEY',
+    'short': 'SHORT',
     'arrange': 'ARRANGE'
   };
   const displayNameForSetlistType = t => setlistTypeDisplayNames[t] || t;
@@ -3918,7 +3922,9 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
             ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>`
             : `<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>`;
           // typeはカンマ区切りで複数指定できる(例: "allow,medley")。songは表示せず、それ以外を1つずつバッジにする
-          const typeBadge = String(s.type || '').split(/[,\s]+/).filter(t => t && t !== 'song').map(t => `<span class="setlist-song-type">${escapeHtml(displayNameForSetlistType(t))}</span>`).join('');
+          // 曲のtypeバッジ: 縦は最大2段・横は最大4列(8個まで)。上から下、左から右の順に並べる。1個・偶数個は全体を縦中央、3個など奇数個(2個以上)は最後の1個だけ上に詰める
+          const typeList = [...new Set(String(s.type || '').split(/[,\s]+/).filter(t => t && t !== 'song'))].slice(0, 8);
+          const typeBadge = typeList.length ? `<span class="setlist-song-types${typeList.length > 4 ? ' is-wide' : ''}" style="grid-template-rows:repeat(${Math.min(typeList.length, 2)}, auto)">${typeList.map(t => `<span class="setlist-song-type">${escapeHtml(displayNameForSetlistType(t))}</span>`).join('')}</span>` : '';
           const titleText = escapeHtml(s.title || '');
           // original / notes: 曲名の下の3行目に、括弧なしで小さく薄く並べる
           const subText = [s.original, s.notes].filter(v => v && String(v).trim() !== '').map(v => `<span>${escapeHtml(String(v))}</span>`).join('');

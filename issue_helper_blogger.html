@@ -1275,7 +1275,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
   }
   // songs list (setlist): one row per song, like the albums tracks. The songs text box stays hidden and keeps the value (`order: title {members} | type | original | notes`); the list writes it on every change.
-  var SL_TYPES = ['arrange', 'medley', 'mc', 'dt', 'dj', 'towel', 'encore', 'allow', 'cover'];
+  var SL_TYPES = ['arrange', 'medley', 'short', 'mc', 'dt', 'dj', 'towel', 'encore', 'allow', 'cover'];
   function slParse(text) {
     var out = [];
     String(text || '').split(/\r?\n/).forEach(function (l) {
