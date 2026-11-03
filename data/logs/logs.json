@@ -3637,6 +3637,32 @@
     ]
   },
   {
+    "logid": "da96739b260a",
+    "date": "20261103",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "KUR",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2117536386576470064?a=RSMVDAmAdxWKFMVnFl0&s=19",
+            "member": [],
+            "tags": [
+              "明日の出演情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "3a6892f7c051",
     "date": "20261102",
     "time": "2359",
