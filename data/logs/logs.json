@@ -1371,6 +1371,35 @@
     ]
   },
   {
+    "logid": "17f4d2d036af",
+    "date": "20261116",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "映画 「ワンダンス」HMVキャンペーン ムビチケプレゼント応募受付締切",
+    "display_pc": "映画 「ワンダンス」HMVキャンペーン 応募受付締切",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+      "ワンダンス"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/HMV_Japan/status/2117180377886491113?a=eC5P7Pe3Bv7a1SQnF78&s=19",
+            "member": [],
+            "tags": [
+              "キャンペーン"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "c15008273797",
     "date": "20261116",
     "time": "0000",
