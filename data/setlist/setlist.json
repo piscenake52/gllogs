@@ -176,7 +176,44 @@
       "KIR"
     ],
     "title": "Girls² EP「EASY」発売記念 リリースイベント\n愛知・金山",
-    "venue": "アスナル金山"
+    "venue": "アスナル金山",
+    "songs": [
+      {
+        "order": 1,
+        "title": "EASY",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 2,
+        "title": "EASY",
+        "type": "allow",
+        "original": "",
+        "notes": "short"
+      },
+      {
+        "order": 3,
+        "title": "Nocturne",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 4,
+        "title": "Umbrella",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "order": 5,
+        "title": "Umbrella",
+        "type": "allow",
+        "original": "",
+        "notes": "shrot"
+      }
+    ]
   },
   {
     "setlistid": "202611011830",

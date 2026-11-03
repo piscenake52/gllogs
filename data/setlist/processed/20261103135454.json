@@ -1,23 +1,23 @@
 {
-  "setlistid": "202611011830",
+  "setlistid": "202611031300",
   "songs": [
     {
       "order": 1,
-      "title": "BLOOM! BLOOM! BLOOM!",
+      "title": "EASY",
       "type": "song",
       "original": "",
       "notes": ""
     },
     {
       "order": 2,
-      "title": "Eagle Eyes",
-      "type": "song",
+      "title": "EASY",
+      "type": "allow",
       "original": "",
-      "notes": ""
+      "notes": "short"
     },
     {
       "order": 3,
-      "title": "EASY",
+      "title": "Nocturne",
       "type": "song",
       "original": "",
       "notes": ""
@@ -31,17 +31,10 @@
     },
     {
       "order": 5,
-      "title": "I wanna 宣言",
-      "type": "song",
+      "title": "Umbrella",
+      "type": "allow",
       "original": "",
-      "notes": ""
-    },
-    {
-      "order": 6,
-      "title": "LET ME GO",
-      "type": "song",
-      "original": "",
-      "notes": ""
+      "notes": "shrot"
     }
   ]
 }
