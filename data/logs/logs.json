@@ -19388,6 +19388,7 @@
       "G2",
       "YZH",
       "MMK",
+      "MSK",
       "YOK",
       "KUR",
       "MNM",
@@ -19409,6 +19410,21 @@
             "member": [
               "YZH",
               "KUR"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSpJxYkRu/",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "ガルアワ"
             ]
           }
         ]
