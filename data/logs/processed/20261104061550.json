@@ -1,0 +1,32 @@
+{
+  "logid": "5c1ac0f20995",
+  "sns": [
+    {
+      "type": "youtube",
+      "urls": [
+        {
+          "url": "https://youtu.be/y1C4kqCZzaQ?si=ANxHqveSlgDQuiuH",
+          "member": [],
+          "tags": [
+            "Fancam"
+          ]
+        },
+        {
+          "url": "https://youtu.be/u7UwxspIO7E?si=tbAQE7G8oAJHz_xK",
+          "member": [],
+          "tags": [
+            "Fancam"
+          ]
+        },
+        {
+          "url": "https://youtu.be/A8VOk4qSaNk?si=NdBEnIU-cI9k1sAW",
+          "member": [],
+          "tags": [
+            "Fancam"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2914"
+}
