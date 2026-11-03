@@ -2802,6 +2802,55 @@
     ]
   },
   {
+    "logid": "fe29c8f6a0f5",
+    "date": "20261104",
+    "time": "1500",
+    "contents": "CLOSE",
+    "title": "Girls²のがるがるトーク！メッセージ募集受付締切",
+    "display_sp": "がるがるトーク！メッセージ募集受付締切",
+    "url": "https://www.joqr.co.jp/qr/program/girls/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "YOK",
+      "MNM"
+    ],
+    "tags": [
+      "フェイクエッション",
+      "がるがるトーク！"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/joqrgirls/status/2111701353945043254",
+            "member": []
+          },
+          {
+            "url": "https://x.com/joqrgirls/status/2112775284143583689",
+            "member": []
+          },
+          {
+            "url": "https://x.com/joqrgirls/status/2117505305898893360?a=coiIMK-e2-mc8JteMls&s=19",
+            "member": [],
+            "tags": [
+              "急募"
+            ]
+          },
+          {
+            "url": "https://x.com/joqrgirls/status/2117505620824015050?a=oWAdDs0pC3DF8NKZrbY&s=19",
+            "member": [],
+            "tags": [
+              "フェイクエッションとは"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "1d00123075c4",
     "date": "20261104",
     "time": "1300",
