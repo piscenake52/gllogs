@@ -279,7 +279,8 @@ def parse_sns(raw):
         return [CLEAR], []
     items, errors = [], []
     for line in raw.split("\n"):
-        line = unicodedata.normalize("NFKC", line).strip()
+        raw_line = line.strip()
+        line = unicodedata.normalize("NFKC", line).strip()  # type / URL / member は半角にそろえて読む(tagsだけは入力のまま残す。NFKCだと ² が 2 になる)
         if not line or line.startswith("#"):
             continue
         shown = line.replace("`", "'")
@@ -310,9 +311,13 @@ def parse_sns(raw):
         else:
             errors.append(f"- **sns**: `|` が多すぎます。`type | url | member | tags` の形で入力してください（入力値: `{shown}`）")
             continue
+        if tag_raw:
+            orig_parts = [x.strip() for x in re.split(r"[|｜]", raw_line)]
+            if len(orig_parts) == len(parts):
+                tag_raw = orig_parts[-1]  # tagsは最後の欄。NFKCをかける前の文字のまま使う
         link_tags = []
         clear_tags = tag_raw.strip() == "-"  # tags欄が `-` だけ = 既存リンクのtagsを消す指定
-        for t in re.split(r"[,、]", "" if clear_tags else tag_raw):
+        for t in re.split(r"[,、，]", "" if clear_tags else tag_raw):
             t = t.strip()
             if t and t not in link_tags:
                 link_tags.append(t)
