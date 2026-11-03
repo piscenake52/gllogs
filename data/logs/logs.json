@@ -2965,7 +2965,6 @@
     "display_pc": "佐藤栞奈　生誕イベント🩵💜❤️",
     "url": "https://girls2-fc.jp/page/lucky2blogs/1247127599063236610",
     "groups": [
-      "G2",
       "L2",
       "KAN"
     ],
@@ -2975,6 +2974,15 @@
         "urls": [
           {
             "url": "https://x.com/Laki922official/status/2117451951986327629?a=VuPLhmp64P9N8Gw0F9s&s=19",
+            "member": [
+              "KAN"
+            ],
+            "tags": [
+              "日記更新"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2117451951986327629?s=19",
             "member": [
               "KAN"
             ],
