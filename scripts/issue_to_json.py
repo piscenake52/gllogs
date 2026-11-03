@@ -761,6 +761,7 @@ def creation_stamp():
 
 BULK_MAX = 100
 BULK_OPS = ("replace", "add", "remove", "contents")
+BULK_TARGETS = ("tags", "sns", "both")  # タグの場所: 行のtags / 各snsリンクのtags / 両方
 
 
 def build_bulk(body):
@@ -769,6 +770,9 @@ def build_bulk(body):
     op = extract_field("bulk op", body).strip().lower()
     v_from = extract_field("bulk from", body).strip()
     v_to = extract_field("bulk to", body).strip()
+    target = extract_field("bulk target", body).strip().lower()
+    if target in ("", "none", "_no response_"):
+        target = "tags"
     errors = []
     ids = []
     for x in re.split(r"[\s,]+", ids_raw or ""):
@@ -784,6 +788,8 @@ def build_bulk(body):
         errors.append(f"- **bulk ids**: {BULK_MAX}件を超えているため処理しません（{len(ids)}件）")
     if op not in BULK_OPS:
         errors.append("- **bulk op**: replace / add / remove / contents のどれかを入力してください")
+    if target not in BULK_TARGETS:
+        errors.append("- **bulk target**: tags / sns / both のどれかを入力してください")
     value = ""
     if op == "replace":
         if not v_from or not v_to:
@@ -805,6 +811,8 @@ def build_bulk(body):
     if errors:
         return None, errors
     bulk = {"op": op, "ids": ids}
+    if op != "contents":
+        bulk["target"] = target
     if op == "replace":
         bulk["from"], bulk["to"] = v_from, v_to
     else:

@@ -288,12 +288,12 @@ def apply_removals(record, key, removes):
 
 
 def sns_members(sns):
-    """snsの全URLに書かれたmember(投稿者)とwith(同写り)のコード（重複なし・出てきた順。groupsに足す対象）"""
+    """snsの全URLに書かれたmember(投稿者)のコード（重複なし・出てきた順。groupsと連動する対象）。with(同写り)は対象外"""
     out = []
     for e in (sns if isinstance(sns, list) else []):
         if isinstance(e, dict):
             for u in _sns_urls(e):
-                for m in list(u["member"]) + list(u.get("with") or []):
+                for m in u["member"]:
                     if m not in out:
                         out.append(m)
     return out
@@ -386,6 +386,7 @@ def apply_songs_patch(existing, ops, label=""):
 def apply_update(target, existing, new_item):
     """空の項目は既存値を残す。値が !clear の項目だけ消す。append_lists の項目は既存値に追記する。
     tags / sns は個別削除（`-タグ名` / `-URL`）も受け付ける（追記のあとに適用する）"""
+    members_before = sns_members(existing.get("sns"))  # 更新前のsnsのmember（外れたmemberをgroupsからも外すため）
     removals = {}
     new_item = dict(new_item)
     patch = new_item.pop("songs_patch", None) if target["name"] == "setlist" else None
@@ -427,22 +428,29 @@ def apply_update(target, existing, new_item):
         if rem:
             apply_removals(existing, k, rem)
     if target["name"] == "logs" and "sns" in new_item:
-        sync_groups_with_sns(existing, new_item)
+        sync_groups_with_sns(existing, new_item, members_before)
     if isinstance(patch, list) and patch:
         apply_songs_patch(existing, patch, existing.get("setlistid", ""))  # 曲目全体の置き換えがあれば、そのあとに適用する
 
 
-def sync_groups_with_sns(existing, new_item):
-    """このIssueで追加・変更したsnsのmemberを、groups に無ければ足す（そのグループのコード G2 / L2 も）。
-    groups を消す指定と同時でも足す。snsからmemberが外れても、groups からは外さない（足すだけ）"""
+def sync_groups_with_sns(existing, new_item, members_before=()):
+    """snsのmemberとgroupsを連動させる（with は対象外）。
+    ・このIssueで追加・変更したsnsのmemberを、groups に無ければ足す（そのグループのコード G2 / L2 も）。groups を消す指定と同時でも足す
+    ・このIssueでsnsから外れたmember（更新前にあり、更新後のsnsのどこにも無い）は、groups からも外す。G2 / L2 のコードは残す"""
     sns_in = new_item.get("sns")
     incoming = sns_members(sns_in) if isinstance(sns_in, list) and not is_clear(sns_in) else []
-    if not incoming:
-        return
+    after = sns_members(existing.get("sns"))
+    removed = [m for m in members_before if m not in after]
     groups = existing.get("groups") if isinstance(existing.get("groups"), list) else []
-    new_groups = add_member_groups(groups, incoming)
-    if new_groups != groups:
+    new_groups = [g for g in groups if g not in removed] if removed else list(groups)
+    if incoming:
+        new_groups = add_member_groups(new_groups, incoming)
+    if new_groups == groups:
+        return
+    if new_groups:
         existing["groups"] = new_groups
+    else:
+        existing.pop("groups", None)
 
 
 def finalize_new(target, item, main_data):
@@ -465,7 +473,7 @@ def finalize_new(target, item, main_data):
         members = sns_members(item.get("sns"))
         if item.get("groups"):
             if members:
-                item["groups"] = add_member_groups(item["groups"], members)  # 入力された groups に、snsのmemberも足す
+                item["groups"] = add_member_groups(item["groups"], members)  # 入力された groups に、snsのmemberも足す(withは対象外)
         elif members:
             item["groups"] = add_member_groups([], members)  # groups 未入力でsnsにmemberがあれば、既定の G2, L2 ではなくmemberのグループにする
         elif not item.get("ref"):
@@ -903,6 +911,33 @@ def apply_item(target, main_data, raw, issue_map):
     return "added"
 
 
+def _bulk_tags(obj, bulk):
+    """obj(logsの行 / snsの1リンク)の tags に bulk の replace / add / remove を当てる。変わったら True"""
+    op = bulk.get("op")
+    tags = obj.get("tags") if isinstance(obj.get("tags"), list) else []
+    if op == "replace":
+        old, new = bulk.get("from"), bulk.get("to")
+        if old not in tags:
+            return False
+        obj["tags"] = list(dict.fromkeys(new if t == old else t for t in tags))
+        return True
+    if op == "add":
+        v = bulk.get("value")
+        if not v or v in tags:
+            return False
+        obj["tags"] = tags + [v]
+        return True
+    v = bulk.get("value")  # remove
+    if v not in tags:
+        return False
+    out = [t for t in tags if t != v]
+    if out:
+        obj["tags"] = out
+    else:
+        obj.pop("tags", None)
+    return True
+
+
 def apply_bulk(target, main_data, bulk):
     """bulk変更(logsのみ): tags の置換 / 追加 / 削除、contents の変更。戻り値: 実際に変わった行数。
     すでに同じ状態の行（同じタグがある・無い、同じ contents）は黙って飛ばす。見つからない logid は通知する"""
@@ -923,27 +958,18 @@ def apply_bulk(target, main_data, bulk):
             missing.append(lid)
             continue
         row = rows[0]
-        tags = row.get("tags") if isinstance(row.get("tags"), list) else []
-        if op == "replace":
-            old, new = bulk.get("from"), bulk.get("to")
-            if old not in tags:
+        tgt = bulk.get("target") if bulk.get("target") in ("tags", "sns", "both") else "tags"
+        if op in ("replace", "add", "remove"):
+            did = False
+            if tgt in ("tags", "both"):
+                did = _bulk_tags(row, bulk) or did
+            if tgt in ("sns", "both"):
+                for e in (row.get("sns") if isinstance(row.get("sns"), list) else []):
+                    for u in (e.get("urls") if isinstance(e, dict) and isinstance(e.get("urls"), list) else []):
+                        if isinstance(u, dict):
+                            did = _bulk_tags(u, bulk) or did
+            if not did:
                 continue
-            out = list(dict.fromkeys(new if t == old else t for t in tags))
-            row["tags"] = out
-        elif op == "add":
-            v = bulk.get("value")
-            if not v or v in tags:
-                continue
-            row["tags"] = tags + [v]
-        elif op == "remove":
-            v = bulk.get("value")
-            if v not in tags:
-                continue
-            out = [t for t in tags if t != v]
-            if out:
-                row["tags"] = out
-            else:
-                row.pop("tags", None)
         elif op == "contents":
             v = bulk.get("value")
             if not v or row.get("contents") == v:
