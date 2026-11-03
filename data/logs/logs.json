@@ -2915,8 +2915,9 @@
     "date": "20261103",
     "time": "1000",
     "contents": "GTUBE",
-    "title": "#764　Laki 「IDORISE!! FESTIVAL 2025」 Spotify O-EAST",
-    "url": "https://girls2-fc.jp/page/gtube",
+    "title": "#764　Laki(Lucky²)「IDORISE!! FESTIVAL 2025」＠Spotify O-EAST",
+    "display_pc": "#764　Laki 「IDORISE!! FESTIVAL 2025」 Spotify O-EAST",
+    "url": "https://x.com/Laki922official/status/2117421502127845519?a=Q-EfUpCDgDzlc57J1_A&s=19",
     "groups": [
       "L2",
       "RIN",
@@ -2931,6 +2932,20 @@
     ],
     "tags": [
       "Gtube"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2117421502127845519?a=Q-EfUpCDgDzlc57J1_A&s=19",
+            "member": [],
+            "tags": [
+              "FC情報"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
