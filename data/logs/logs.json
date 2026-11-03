@@ -2800,6 +2800,18 @@
             ]
           }
         ]
+      },
+      {
+        "type": "radiko",
+        "urls": [
+          {
+            "url": "https://radiko.jp/share/?t=20261105150000&sid=ZIP-FM",
+            "member": [],
+            "tags": [
+              "radiko"
+            ]
+          }
+        ]
       }
     ]
   },
