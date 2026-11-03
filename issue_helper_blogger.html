@@ -158,6 +158,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .bkh { font-size:13px; }
 #glih .bkdt { display:flex; align-items:center; gap:6px; flex:1; min-width:0; }
 #glih .bkdt .fin { min-width:0; }
+#glih .bkdt .dtw { flex:1 1 0; min-width:0; }
+#glih .bkdt .dtw:not(.t) > .fin { flex:1 1 auto; width:auto; min-width:0; padding-right:28px; }
 #glih .bkl { border:1px solid var(--line); border-radius:8px; margin:0 0 8px; padding:0 8px; max-height:26em; overflow:auto; }
 #glih .bkrow { border-bottom:1px solid var(--line); padding:6px 2px; font-size:12px; }
 #glih .bkrow:last-child { border-bottom:0; }
@@ -314,13 +316,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="field"><label for="glih-bktag">tag</label><input type="text" id="glih-bktag" class="fin" autocomplete="off"></div>
   <div class="field"><label for="glih-bkd1">date</label><div class="bkdt"><input type="text" id="glih-bkd1" class="fin" inputmode="numeric" autocomplete="off"><span>-</span><input type="text" id="glih-bkd2" class="fin" inputmode="numeric" autocomplete="off"></div></div>
   <div class="field"><label for="glih-bkcon">contents</label><input type="text" id="glih-bkcon" class="fin" autocomplete="off" autocapitalize="off"></div>
-  <div class="field"><label for="glih-bkgrp">groups</label><input type="text" id="glih-bkgrp" class="fin" autocomplete="off" autocapitalize="off"></div>
+  <div class="field"><label for="glih-bkgrp">groups</label><span class="fw"><input type="text" id="glih-bkgrp" class="fin" autocomplete="off" autocapitalize="off"></span></div>
   <div class="field"><label for="glih-bktxt">text</label><input type="text" id="glih-bktxt" class="fin" autocomplete="off"></div>
   <button type="button" class="go" id="glih-bkgo">search</button>
   <div class="field bkstep"><label>step 2</label><b class="bkh">operation</b></div>
   <div class="field"><label>do</label><div class="chipr" id="glih-bkops"><button type="button" class="chip on" data-op="replace" aria-pressed="true">tag replace</button><button type="button" class="chip" data-op="add" aria-pressed="false">tag add</button><button type="button" class="chip" data-op="remove" aria-pressed="false">tag remove</button><button type="button" class="chip" data-op="contents" aria-pressed="false">contents</button></div></div>
-  <div class="field" id="glih-bkfromrow"><label for="glih-bkfrom" id="glih-bkfromlb">from</label><input type="text" id="glih-bkfrom" class="fin" autocomplete="off"></div>
-  <div class="field" id="glih-bktorow"><label for="glih-bkto" id="glih-bktolb">to</label><input type="text" id="glih-bkto" class="fin" autocomplete="off"></div>
+  <div class="field" id="glih-bktgrow"><label>target</label><div class="chipr" id="glih-bktg"><button type="button" class="chip on" data-tg="tags" aria-pressed="true">tags</button><button type="button" class="chip" data-tg="sns" aria-pressed="false">sns tags</button><button type="button" class="chip" data-tg="both" aria-pressed="false">both</button></div></div>
+  <div class="field" id="glih-bkfromrow"><label for="glih-bkfrom" id="glih-bkfromlb">before</label><input type="text" id="glih-bkfrom" class="fin" autocomplete="off"></div>
+  <div class="field" id="glih-bktorow"><label for="glih-bkto" id="glih-bktolb">after</label><input type="text" id="glih-bkto" class="fin" autocomplete="off"></div>
   <button type="button" class="go" id="glih-bkpv">preview</button>
   <div class="field bkstep"><label>step 3</label><b class="bkh">preview <span id="glih-bkcount"></span></b></div>
   <div class="bkl" id="glih-bklist" hidden></div>
@@ -2968,19 +2971,26 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   var CIRC_RE = new RegExp('[' + String.fromCharCode(0x2460) + '-' + String.fromCharCode(0x2473) + ']', 'g'), KS_RE = new RegExp('^(' + String.fromCharCode(0x203b) + '|mc\\b)', 'i'), ENC_RE = new RegExp('^(encore|' + String.fromCharCode(0x30a2, 0x30f3, 0x30b3, 0x30fc, 0x30eb) + ')\\s*$', 'i'), SL_RE = new RegExp('set\\s*list|' + String.fromCharCode(0x30bb, 0x30c3, 0x30c8, 0x30ea, 0x30b9, 0x30c8), 'i'), EN_RE = new RegExp('^(?:encore|en|' + String.fromCharCode(0x30a2, 0x30f3, 0x30b3, 0x30fc, 0x30eb) + ')\\s*(\\d+)\\s*[.):\\-]?\\s*', 'i'), STAR_RE = new RegExp('\\s*[' + String.fromCharCode(0x2605, 0x2606) + ']\\s*(.*)$');
   function extraUI() {} // (the paste block was removed: the songs box takes numbered lines directly)
   // ---- bulk tab (logs only): filter -> choose rows -> one operation (tag replace / add / remove, contents) -> one Issue (add_bulk.yml). Up to 100 rows. Rows that are already in the target state are skipped. ----
-  var TPL_BULK = 'add_bulk.yml', BK_MAX = 100, BK_SHOW = 300, bk = { rows: [], sel: {}, op: 'replace', total: 0, msg: '', show: false }; // show: the list of step 3 is drawn only after the preview button
+  var TPL_BULK = 'add_bulk.yml', BK_MAX = 100, BK_SHOW = 300, bk = { rows: [], sel: {}, op: 'replace', tg: 'tags', total: 0, msg: '', show: false }; // show: the list of step 3 is drawn only after the preview button
   function bkTags(r) { return Array.isArray(r.tags) ? r.tags : []; }
   function bkVals() { return { a: $('bkfrom').value.trim(), b: $('bkto').value.trim() }; }
-  function bkChange(r) { // the change of one row for the chosen operation, or '' when the row would not change
-    var v = bkVals(), t = bkTags(r), op = bk.op;
-    if (op === 'replace') return v.a && v.b && v.a !== v.b && t.indexOf(v.a) >= 0 ? 'tags: ' + v.a + ' > ' + v.b : '';
-    if (op === 'add') return v.b && t.indexOf(v.b) < 0 ? 'tags: + ' + v.b : '';
-    if (op === 'remove') return v.a && t.indexOf(v.a) >= 0 ? 'tags: - ' + v.a : '';
-    var c = v.b.toUpperCase(); return c && c !== 'ANNIVERSARY' && c !== 'BIRTHDAY' && (r.contents || 'ETC') !== c ? 'contents: ' + (r.contents || 'ETC') + ' > ' + c : '';
+  function bkSnsUrls(r) { var o = []; (Array.isArray(r.sns) ? r.sns : []).forEach(function (e) { (e && Array.isArray(e.urls) ? e.urls : []).forEach(function (u) { if (u && typeof u === 'object') o.push(u); }); }); return o; }
+  function bkSnsTags(u) { return Array.isArray(u.tags) ? u.tags : []; }
+  function bkChange(r) { // the change of one row for the chosen operation (target: tags / sns tags of each link / both), or '' when the row would not change
+    var v = bkVals(), op = bk.op, tg = bk.tg;
+    if (op === 'contents') { var c = v.b.toUpperCase(); return c && c !== 'ANNIVERSARY' && c !== 'BIRTHDAY' && (r.contents || 'ETC') !== c ? 'contents: ' + (r.contents || 'ETC') + ' > ' + c : ''; }
+    function hit(t) { return op === 'replace' ? v.a && v.b && v.a !== v.b && t.indexOf(v.a) >= 0 : op === 'add' ? v.b && t.indexOf(v.b) < 0 : v.a && t.indexOf(v.a) >= 0; }
+    var lb = op === 'replace' ? v.a + ' > ' + v.b : op === 'add' ? '+ ' + v.b : '- ' + v.a, out = [];
+    if (tg !== 'sns' && hit(bkTags(r))) out.push('tags: ' + lb);
+    if (tg !== 'tags') { var n = bkSnsUrls(r).filter(function (u) { return hit(bkSnsTags(u)); }).length; if (n) out.push('sns tags: ' + lb + ' (' + n + ' link' + (n > 1 ? 's' : '') + ')'); }
+    return out.join(' / ');
   }
   function bkMatch(r, f) {
     if (!r || !r.logid) return false;
-    if (f.tag && !bkTags(r).some(function (x) { return normQ(x).indexOf(f.tag) >= 0; })) return false;
+    if (f.tag) { // the tag filter looks at the same place as the target (tags / sns tags / both)
+      var hasT = function (a) { return a.some(function (x) { return normQ(x).indexOf(f.tag) >= 0; }); };
+      if (!((bk.tg !== 'sns' && hasT(bkTags(r))) || (bk.tg !== 'tags' && bkSnsUrls(r).some(function (u) { return hasT(bkSnsTags(u)); })))) return false;
+    }
     if (f.d1 && String(r.date || '') < f.d1) return false;
     if (f.d2 && String(r.date || '') > f.d2) return false;
     if (f.con.length && f.con.indexOf(String(r.contents || 'ETC').toUpperCase()) < 0) return false;
@@ -3002,7 +3012,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }).catch(function () { bk.msg = 'could not load logs.json'; bkDraw(); });
   }
   function bkSync() { // op-dependent inputs + the Issue link
-    var op = bk.op, lbA = { replace: 'from', remove: 'tag' }[op], lbB = { replace: 'to', add: 'tag', contents: 'contents' }[op];
+    var op = bk.op, lbA = { replace: 'before', remove: 'tag' }[op], lbB = { replace: 'after', add: 'tag', contents: 'contents' }[op];
+    $('bktgrow').hidden = op === 'contents'; [].forEach.call(root.querySelectorAll('#glih-bktg .chip'), function (b) { var on = b.getAttribute('data-tg') === bk.tg; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
     $('bkfromrow').hidden = !lbA; $('bktorow').hidden = !lbB; if (lbA) $('bkfromlb').textContent = lbA; if (lbB) $('bktolb').textContent = lbB;
     [].forEach.call(root.querySelectorAll('#glih-bkops .chip'), function (b) { var on = b.getAttribute('data-op') === op; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
     var ids = [], v = bkVals();
@@ -3018,6 +3029,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     $('bkinfo').textContent = info; $('bkcount').textContent = bk.rows.length ? '(' + ids.length + ' / ' + bk.rows.length + ' checked, max ' + BK_MAX + ')' : '';
     var ok = bk.show && need && !$('bkcon').classList.contains('asbad') && !$('bkgrp').classList.contains('asbad') && ids.length >= 1 && ids.length <= BK_MAX && bk.total <= BK_SHOW, p = { bulk_ids: ids.join('\n'), bulk_op: op };
     if (op === 'replace') { p.bulk_from = v.a; p.bulk_to = v.b; } else if (op === 'remove') p.bulk_from = v.a; else p.bulk_to = v.b;
+    if (op !== 'contents') p.bulk_target = bk.tg;
     var url = ok ? issueUrl(TPL_BULK, p) : '';
     if (url.length > 7000) { url = ''; $('bkinfo').textContent = 'the URL is too long; uncheck some rows'; }
     setLink($('go-bulk'), url); $('go-bulk').textContent = ids.length ? 'Issue (' + ids.length + ')' : 'Issue';
@@ -3037,12 +3049,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     bkSync();
   }
   [].forEach.call(root.querySelectorAll('#glih-bkops .chip'), function (b) { b.onclick = function () { bk.op = b.getAttribute('data-op'); bkDraw(); }; });
+  [].forEach.call(root.querySelectorAll('#glih-bktg .chip'), function (b) { b.onclick = function () { bk.tg = b.getAttribute('data-tg'); bkDraw(); }; });
   ['bkfrom', 'bkto'].forEach(function (id) { $(id).addEventListener('input', bkDraw); });
   ['bktag', 'bkd1', 'bkd2', 'bkcon', 'bkgrp', 'bktxt'].forEach(function (id) { $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); bkSearch(false); } }); });
   $('bkgo').onclick = function () { bkSearch(false); };
   $('bkpv').onclick = function () { if (bk.rows.length) { bk.show = true; bkDraw(); } else bkSearch(true); }; // preview: draws the list with the changes of step 2 (no rows yet: searches first)
   // candidates while typing: tags used in logs.json (tag / from / to), contents values, group codes
   var bkGrpOpts = function () { return CK_VALID.map(function (g) { return { v: g, k: normQ(g) }; }); };
+  [$('bkd1'), $('bkd2')].forEach(function (e) { dtText(e, 'date'); dtPicker(e, 'date'); }); // date: YYYY/MM/DD + the calendar icon (the same as the other tabs)
+  addGroupChips($('bkgrp')); // groups: member chips under the text box (two-way synced)
   addSuggest($('bktag'), tagOptsFor('logs'), $('bktag').closest('.field'), true);
   addSuggest($('bkfrom'), tagOptsFor('logs'), $('bkfrom').closest('.field'), true);
   addSuggest($('bkto'), function () { return bk.op === 'contents' ? lxContents() : tagOptsFor('logs')(); }, $('bkto').closest('.field'), true);

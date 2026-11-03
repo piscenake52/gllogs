@@ -2,6 +2,27 @@
 <html lang="ja">
 <head>
 <script>try{var __f=JSON.parse(localStorage.getItem('gl_filter_fold')||'null');if(__f){var __n=0;['year','g2','l2','cont'].forEach(function(k){if(__f[k]){document.documentElement.classList.add('pf-'+k);__n++}});if(__n===4)document.documentElement.classList.add('pf-all');else if(__n>0)document.documentElement.classList.add('pf-mix')}}catch(e){}</script>
+<script>
+/* 共有URL(#v=1&f=...&q=...)で開いたとき: 共有の内容を「読み取り用」に差し込み、そのON/OFFの保存は止める(見る人自身の設定を上書きしない) */
+try {
+  var __h = location.hash.slice(1);
+  if (__h.indexOf('=') > 0) {
+    var __S = {};
+    __h.split('&').forEach(function (p) { var k = p.indexOf('='); if (k > 0) { try { __S[p.slice(0, k)] = decodeURIComponent(p.slice(k + 1).replace(/\+/g, ' ')); } catch (e) {} } });
+    window.__share = __S;
+    var __I = __S.i || '', __D = __S.d || '', __ov = {}, __b = function (c) { return __I.indexOf(c) >= 0 ? 'true' : 'false'; };
+    __ov.gl_log_map_mode = __b('m'); __ov.gl_log_setlist_icon_mode = __b('s'); __ov.gl_log_link_mode = __b('l'); __ov.gl_alb_mode = __b('a');
+    __ov.gl_log_tag_mode = __b('g'); __ov.gl_log_song_mode = __b('n'); __ov.gl_log_icon_mode = __b('c');
+    __ov.gl_log_date_parts = JSON.stringify({ year: __D.indexOf('y') >= 0, month: __D.indexOf('m') >= 0, day: __D.indexOf('d') >= 0, weekday: __D.indexOf('w') >= 0, time: __D.indexOf('t') >= 0 });
+    __ov.gl_log_today_mode = 'false';
+    __ov.gl_log_excluded_filters = JSON.stringify((__S.x || '').split(',').filter(Boolean));
+    var __gi = Storage.prototype.getItem, __si = Storage.prototype.setItem, __ri = Storage.prototype.removeItem;
+    Storage.prototype.getItem = function (k) { return this === window.localStorage && Object.prototype.hasOwnProperty.call(__ov, k) ? __ov[k] : __gi.call(this, k); };
+    Storage.prototype.setItem = function (k, v) { if (this === window.localStorage && Object.prototype.hasOwnProperty.call(__ov, k)) { __ov[k] = String(v); return; } return __si.call(this, k, v); };
+    Storage.prototype.removeItem = function (k) { if (this === window.localStorage && Object.prototype.hasOwnProperty.call(__ov, k)) return; return __ri.call(this, k); };
+  }
+} catch (e) {}
+</script>
 <meta charset="UTF-8">
 <meta name="google-site-verification" content="iub5FoOVwZoAoQtbf26-fSn31NK5CnIoYllvmMlwshY" />
 <script type="text/javascript">
@@ -259,7 +280,7 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 .extra-tools-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
 
 /* --- 検索ボックス(クリアボタン付き) --- */
-.search-box-wrap { flex: 1 1 150px; position: relative; display: flex; align-items: center; }
+.search-box-wrap { flex: 1 1 110px; min-width: 0; position: relative; display: flex; align-items: center; }
 .search-input { width: 100%; padding: 5px 28px 5px 32px; font-size: 12px; border: 1px solid var(--input-border); border-radius: 10px; outline: none; background: var(--input-bg); color: var(--text); }
 .search-input:focus { border-color: var(--text); background: var(--bg); }
 /* SETLISTモード切替アイコン(検索窓の左側に内包) */
@@ -1108,6 +1129,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
         <div class="cal-pop" id="calPop" role="dialog" aria-label="&#26085;&#20184;&#12363;&#12425;&#26908;&#32034;" hidden></div>
       </div>
       <button class="toggle-btn more-btn" id="toolsMoreBtn" aria-expanded="false" aria-label="more">&lt;</button>
+      <button type="button" class="lock-toggle-btn share-btn" id="shareBtn" aria-label="Share"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
       <div class="text-size-wrap" id="textSizeWrap">
         <button type="button" class="text-size-btn" id="textSizeBtn" aria-label="&#12487;&#12540;&#12479;&#37096;&#12398;&#25991;&#23383;&#12469;&#12452;&#12474;&#12434;&#22793;&#26356;" aria-haspopup="true" aria-expanded="false">A</button>
         <div class="text-size-panel" id="textSizePanel">
@@ -6078,7 +6100,8 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
 
   const restoreFromHash = () => {
     if (updating) return;
-    const active = window.location.hash.replace('#', '').split(',').filter(Boolean);
+    const hv = window.location.hash.replace('#', '');
+    const active = (hv.indexOf('=') > 0 && window.__share ? (window.__share.f || '') : hv).split(',').filter(Boolean); // 共有URL(#v=1&f=...)は f の値、従来の #2026,YZH はそのまま
     // 除外指定中の値は、URLで明示的にONと指定されていても常にOFFのままにする(除外との矛盾を防止)
     checkboxes.forEach(cb => cb.checked = active.includes(cb.value) && !excludedFilterValues.has(cb.value));
     // URLで明示的にONになっているコンテンツ種類は手動操作扱いにして保護する
@@ -6257,6 +6280,58 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     return out;
   };
 
+  // ---- 共有(share): 今の表示条件をURLにして渡す。開いた側は同じ結果になる(データが同じなら) ----
+  const SHARE_ICONS = [['m', () => mapMode], ['s', () => setlistIconMode], ['l', () => linkMode], ['a', () => albMode], ['g', () => tagMode], ['n', () => songMode], ['c', () => iconMode]];
+  const ymdOf = dt => dt.getFullYear() + String(dt.getMonth() + 1).padStart(2, '0') + String(dt.getDate()).padStart(2, '0');
+  const buildShareUrl = () => {
+    const P = ['v=1'], enc = encodeURIComponent;
+    const f = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+    if (f.length) P.push('f=' + f.map(enc).join(','));
+    const x = Array.from(excludedFilterValues);
+    if (x.length) P.push('x=' + x.map(enc).join(','));
+    const q = searchInput.value.trim();
+    if (q) P.push('q=' + enc(q));
+    if (setlistMode) P.push('sl=1');
+    if (todayMode) { const dt = new Date(); dt.setHours(0, 0, 0, 0); dt.setDate(dt.getDate() + (todayOffset || 0)); P.push('t=' + ymdOf(dt)); } // TODAYは日付で固定する(開いた日がずれても同じ日を表示)
+    P.push('o=' + (desc ? 'd' : 'a'));
+    P.push('i=' + SHARE_ICONS.filter(([, g]) => g()).map(([c]) => c).join(''));
+    P.push('d=' + [['y', 'year'], ['m', 'month'], ['d', 'day'], ['w', 'weekday'], ['t', 'time']].filter(([, k]) => dateParts[k]).map(([c]) => c).join(''));
+    if (heartModeOn) P.push('h=1');
+    const u = new URL(location.href);
+    u.searchParams.delete('_fresh');
+    u.hash = P.join('&');
+    return u.toString();
+  };
+  const applySharedToday = dstr => {
+    const dt = getExactSearchDate(dstr);
+    if (!dt) return;
+    const today = new Date(); today.setHours(0, 0, 0, 0); dt.setHours(0, 0, 0, 0);
+    if (!todayMode) { todayMode = true; preTodaySort = desc; if (desc) desc = false; }
+    todayOffset = Math.round((dt - today) / 86400000);
+    updateSortBtnLabel(); updateTodayButtonStyle();
+  };
+  function applySharedState(S) {
+    if (S.sl === '1' && !setlistMode) $('setlistToggleBtn').onclick();
+    if (S.q) { searchInput.value = S.q; updateSearchClearState(); }
+    if (S.t) applySharedToday(S.t);
+    if (S.o === 'd' || S.o === 'a') { desc = S.o === 'd'; updateSortBtnLabel(); }
+    autoUpdateContentTypeFilters(); updateManualIndicators(); updateDisplay(true);
+    if (S.h === '1' && !heartModeOn) setTimeout(() => $('heartToggleBtn').click(), 400); // ハートは表示後に開く
+  }
+  const shareToast = msg => {
+    let t = $('shareToast');
+    if (!t) { t = document.createElement('div'); t.id = 'shareToast'; t.className = 'logid-toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(shareToast._t); shareToast._t = setTimeout(() => { t.hidden = true; }, 2200);
+  };
+  $('shareBtn').onclick = async () => {
+    const url = buildShareUrl();
+    if (navigator.share) { try { await navigator.share({ title: document.title, url }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+    try { await navigator.clipboard.writeText(url); }
+    catch (e) { const ta = document.createElement('textarea'); ta.value = url; ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e2) {} ta.remove(); }
+    shareToast('URL copied');
+  };
+
   const applyLogs = data => {
     data = resolveRefs(data);
     // 日付、時刻、コンテンツ種類、タイトル、URLがすべて一致する重複データを排除
@@ -6279,6 +6354,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       if (todayMode) autoUpdateContentTypeFilters();
       updateDisplay(true);
     }
+    if (window.__share && !applyLogs._shared) { applyLogs._shared = true; applySharedState(window.__share); } // 共有URLの検索語・セトリ検索・TODAY・ソートは最初に1回だけ反映する
   };
 
   // logs.jsonのキャッシュはIndexedDBに保存する(localStorageの容量上限5MBを避けるため)。
