@@ -30,3 +30,9 @@ body:
     attributes:
       label: "bulk to"
       description: "replace: the new tag / add: the tag to add / contents: the new contents"
+
+  - type: input
+    id: bulk_target
+    attributes:
+      label: "bulk target"
+      description: "tags / sns / both (where the tag is: the tags of the row, the tags of each sns link, or both). Empty = tags"
