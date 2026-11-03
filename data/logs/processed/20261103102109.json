@@ -1,0 +1,28 @@
+{
+  "date": "20260914",
+  "contents": "SNS",
+  "title": "SNS　Girls²",
+  "groups": [
+    "G2",
+    "KUR",
+    "MNM"
+  ],
+  "sns": [
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSpJ4TVxv/",
+          "member": [
+            "KUR",
+            "MNM"
+          ],
+          "tags": [
+            "SPIRALGIRL"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "2835"
+}
