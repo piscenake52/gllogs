@@ -54,6 +54,7 @@ LABELS_SS = {
     "member_free": "member / 自由入力",
     "venue": "venue",
     "source": "source",
+    "weather": "weather",
     "songs": "曲目 (1行1曲)",
     "songs_patch": "曲目の個別変更 (1行1操作)",
     "delete": "DELETE",
@@ -82,7 +83,7 @@ ERROR_FILE = "issue_error.md"
 CLEARABLE = {
     "logs": ["time", "contents", "title", "display_pc", "display_sp", "url", "map",
              "groups", "relations", "setlistid", "tags", "sns"],
-    "setlist": ["artist", "title", "member", "venue", "source", "songs"],
+    "setlist": ["artist", "title", "member", "venue", "weather", "source", "songs"],
     "songs": ["link", "lyrics", "videos"],
 }
 
@@ -639,6 +640,31 @@ def parse_source(raw):
     return "", f"- **source**: OFFICIAL か UNOFFICIAL で入力してください（空は不明）。入力値: `{shown}`"
 
 
+WEATHER_CODES = ("sunny", "cloudy", "rain", "snow", "thunder", "partly")  # 天気(晴れ / くもり / 雨 / 雪 / 雷 / 晴れ時々くもり)
+
+
+def parse_weather(raw):
+    """setlistのweather欄: 天気コードをカンマ区切りで、選んだ順に（のち = 後ろ）。例 `sunny,rain` = 晴れのち雨。
+    空は ""(変更なし)。!clear は消去。戻り値: (リスト or "" or CLEAR, エラー文 or None)"""
+    v = unicodedata.normalize("NFKC", raw or "").strip()
+    if not v or v == "_No response_":
+        return "", None
+    if v == CLEAR:
+        return CLEAR, None
+    out, bad = [], []
+    for t in re.split(r"[,\s、>→]+", v.lower()):
+        if not t:
+            continue
+        if t not in WEATHER_CODES:
+            bad.append(t)
+        elif t not in out:
+            out.append(t)
+    if bad:
+        shown = ", ".join(b.replace("`", "'") for b in bad)
+        return "", f"- **weather**: {' / '.join(WEATHER_CODES)} のカンマ区切りで入力してください。不明: `{shown}`"
+    return (out or ""), None
+
+
 def build_setlist(f):
     member = (expand_members(parse_selected(f["member_g2"], G2_OPTIONS), "G2", G2_MEMBERS)
               + expand_members(parse_selected(f["member_l2"], L2_OPTIONS), "L2", L2_MEMBERS))
@@ -1078,6 +1104,12 @@ def main():
             print("入力エラーのため処理を中止しました:\n" + src_err)
             return
         data["source"] = src
+        wx, wx_err = parse_weather(f.get("weather", ""))
+        if wx_err:
+            write_error([wx_err])
+            print("入力エラーのため処理を中止しました:\n" + wx_err)
+            return
+        data["weather"] = wx
         patch_ops, patch_errors = parse_songs_patch(f.get("songs_patch", ""))
         if patch_errors:
             write_error(patch_errors)

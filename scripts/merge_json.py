@@ -49,7 +49,7 @@ TARGETS = [
         "processed_dir": "data/setlist/processed/",
         "main_file": "data/setlist/setlist.json",
         "key_fields": ["setlistid"],
-        "order": ["setlistid", "artist", "member", "title", "venue", "source", "songs"],
+        "order": ["setlistid", "artist", "member", "title", "venue", "weather", "source", "songs"],
         "clear_to_empty_list": [],
         "sort_key": lambda x: x.get("setlistid") or "",
         "sort_reverse": True,
@@ -386,7 +386,6 @@ def apply_songs_patch(existing, ops, label=""):
 def apply_update(target, existing, new_item):
     """空の項目は既存値を残す。値が !clear の項目だけ消す。append_lists の項目は既存値に追記する。
     tags / sns は個別削除（`-タグ名` / `-URL`）も受け付ける（追記のあとに適用する）"""
-    members_before = sns_members(existing.get("sns"))  # 更新前のsnsのmember（外れたmemberをgroupsからも外すため）
     removals = {}
     new_item = dict(new_item)
     patch = new_item.pop("songs_patch", None) if target["name"] == "setlist" else None
@@ -428,29 +427,22 @@ def apply_update(target, existing, new_item):
         if rem:
             apply_removals(existing, k, rem)
     if target["name"] == "logs" and "sns" in new_item:
-        sync_groups_with_sns(existing, new_item, members_before)
+        sync_groups_with_sns(existing, new_item)
     if isinstance(patch, list) and patch:
         apply_songs_patch(existing, patch, existing.get("setlistid", ""))  # 曲目全体の置き換えがあれば、そのあとに適用する
 
 
-def sync_groups_with_sns(existing, new_item, members_before=()):
-    """snsのmemberとgroupsを連動させる（with は対象外）。
-    ・このIssueで追加・変更したsnsのmemberを、groups に無ければ足す（そのグループのコード G2 / L2 も）。groups を消す指定と同時でも足す
-    ・このIssueでsnsから外れたmember（更新前にあり、更新後のsnsのどこにも無い）は、groups からも外す。G2 / L2 のコードは残す"""
+def sync_groups_with_sns(existing, new_item):
+    """このIssueで追加・変更したsnsのmember(投稿者)を、groups に無ければ足す（そのグループのコード G2 / L2 も）。
+    groups を消す指定と同時でも足す。with(同写り)は対象外。snsからmemberが外れても、groups からは外さない（足すだけ）"""
     sns_in = new_item.get("sns")
     incoming = sns_members(sns_in) if isinstance(sns_in, list) and not is_clear(sns_in) else []
-    after = sns_members(existing.get("sns"))
-    removed = [m for m in members_before if m not in after]
-    groups = existing.get("groups") if isinstance(existing.get("groups"), list) else []
-    new_groups = [g for g in groups if g not in removed] if removed else list(groups)
-    if incoming:
-        new_groups = add_member_groups(new_groups, incoming)
-    if new_groups == groups:
+    if not incoming:
         return
-    if new_groups:
+    groups = existing.get("groups") if isinstance(existing.get("groups"), list) else []
+    new_groups = add_member_groups(groups, incoming)
+    if new_groups != groups:
         existing["groups"] = new_groups
-    else:
-        existing.pop("groups", None)
 
 
 def finalize_new(target, item, main_data):
