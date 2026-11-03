@@ -2912,6 +2912,37 @@
     ]
   },
   {
+    "logid": "ba1f0db15550",
+    "date": "20261104",
+    "time": "1230",
+    "contents": "CL",
+    "title": "LDH LIVE EXPO 2026 -PERFECT YEAR BEST- 盛り上げコラボキャス",
+    "display_sp": "LDH LIVE EXPO 2026 盛り上げコラボキャス",
+    "groups": [
+      "G2",
+      "YZH",
+      "L2",
+      "RIN"
+    ],
+    "tags": [
+      "LDH LIVE EXPO"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/CL_OFFICIAL_ACC/status/2117557407203360917?a=tNJrrTXjmJEa1ebcUVw&s=19",
+            "member": [],
+            "tags": [
+              "コラボキャス"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "fc9ede357c13",
     "date": "20261104",
     "time": "0000",

@@ -1,0 +1,49 @@
+{
+  "date": "20261104",
+  "time": "1230",
+  "url": "!clear",
+  "groups": [
+    "G2",
+    "YZH",
+    "L2",
+    "RIN"
+  ],
+  "tags": [
+    "=",
+    "LDH LIVE EXPO"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/CL_OFFICIAL_ACC/status/2117557407203360917?a=tNJrrTXjmJEa1ebcUVw&s=19",
+          "member": [],
+          "tags": [
+            "コラボキャス"
+          ]
+        }
+      ]
+    },
+    {
+      "_remove": "https://www.cl-live.com/posts/rV2SY9JKJLzTM5DjQFoYzK"
+    },
+    {
+      "_remove": "https://x.com/CL_OFFICIAL_ACC/status/2117135335641448670?s=19"
+    },
+    {
+      "_remove": "https://x.com/Girls2_official/status/2117157432506151220?a=XaTJev2cCjEIYlzz4_Y&s=19"
+    },
+    {
+      "_remove": "https://x.com/Laki922official/status/2117139103636652254?a=Cj69e91j47YGqnehV80&s=19"
+    },
+    {
+      "_remove": "https://x.com/CL_OFFICIAL_ACC/status/2117181756105523226?a=8GMG0kYND_-OSfMX1gU&s=19"
+    },
+    {
+      "_remove": "https://x.com/ldhliveexpo/status/2117251262664335575?a=WEEyY30y4-aYvqXzG3A&s=19"
+    }
+  ],
+  "_copy_from": "cf20e0c6d4de",
+  "_issue": "2882"
+}
