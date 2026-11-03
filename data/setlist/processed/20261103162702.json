@@ -11,9 +11,9 @@
     {
       "order": 2,
       "title": "EASY",
-      "type": "allow",
+      "type": "short,allow",
       "original": "",
-      "notes": "short"
+      "notes": ""
     },
     {
       "order": 3,
@@ -32,9 +32,13 @@
     {
       "order": 5,
       "title": "Umbrella",
-      "type": "allow",
+      "type": "short,allow",
       "original": "",
-      "notes": "short"
+      "notes": ""
     }
+  ],
+  "source": "unofficial",
+  "weather": [
+    "sunny"
   ]
 }

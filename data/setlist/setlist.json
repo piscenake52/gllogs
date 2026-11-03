@@ -177,6 +177,10 @@
     ],
     "title": "Girls² EP「EASY」発売記念 リリースイベント\n愛知・金山",
     "venue": "アスナル金山",
+    "weather": [
+      "sunny"
+    ],
+    "source": "unofficial",
     "songs": [
       {
         "order": 1,
@@ -188,9 +192,9 @@
       {
         "order": 2,
         "title": "EASY",
-        "type": "allow",
+        "type": "short,allow",
         "original": "",
-        "notes": "short"
+        "notes": ""
       },
       {
         "order": 3,
@@ -209,9 +213,9 @@
       {
         "order": 5,
         "title": "Umbrella",
-        "type": "allow",
+        "type": "short,allow",
         "original": "",
-        "notes": "short"
+        "notes": ""
       }
     ]
   },
