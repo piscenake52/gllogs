@@ -1082,6 +1082,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw);
     function tagList(v) { return v.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean); }
     var arow = document.createElement('div'); arow.className = 'row btns'; arow.appendChild(add); box.appendChild(arow); // the add button: full width under the tags
+    fancamChip(tg, trow);
     addSuggest(tg, tagOptsFor('sns'), trow, true, true); // typed tags -> candidates (the tags already used by sns links)
     function urlOf(line) { var m = line.match(/https?:\/\/[^\s|]+/i); return m ? m[0] : ''; }
     function doAdd() {
@@ -1100,7 +1101,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var line = parts.join(' | ');
       if (hit >= 0) lines[hit] = line; else lines.push(line);
       el.value = lines.join('\n'); el.dispatchEvent(new Event('input', { bubbles: true }));
-      url.value = ''; tg.value = ''; [setM, setW].forEach(function (st) { [].forEach.call(st.box.querySelectorAll('.chip.on'), function (b) { b.classList.remove('on'); }); [].forEach.call(st.box.querySelectorAll('.chip.gh-on'), function (b) { b.click(); }); }); lkW.sync();
+      url.value = ''; tg.value = ''; tg._sync(); [setM, setW].forEach(function (st) { [].forEach.call(st.box.querySelectorAll('.chip.on'), function (b) { b.classList.remove('on'); }); [].forEach.call(st.box.querySelectorAll('.chip.gh-on'), function (b) { b.click(); }); }); lkW.sync();
     }
     add.onclick = doAdd;
     // pressing Issue with a url typed but not added yet: it is added first (an invalid url blocks the Issue and is flagged). returns false when blocked.
@@ -1507,6 +1508,19 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (tv) parts.push(tv); else if (oi.hadTags) parts.push('-'); // no tags left on a link that had some: `-` clears them
     return parts.join(' | ');
   }
+  // Fancam chip beside a link's tags box: ON while the box holds the tag Fancam (any case); a click adds / removes it. tg._sync() re-reads the box (after it is set from code)
+  function fancamChip(tg, trow) {
+    var cw = document.createElement('span'); cw.className = 'chipr'; cw.style.flex = '0 0 auto';
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = 'Fancam'; b.title = 'tag Fancam (the link is shown under Fancam in the viewer)'; cw.appendChild(b); trow.appendChild(cw);
+    function list() { return tg.value.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean); }
+    function has() { return list().some(function (x) { return x.toLowerCase() === 'fancam'; }); }
+    function sync() { var on = has(); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+    b.onclick = function () {
+      var l = list(), nl = has() ? l.filter(function (x) { return x.toLowerCase() !== 'fancam'; }) : l.concat('Fancam');
+      tg.value = nl.join(','); sync(); tg.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+    tg.addEventListener('input', sync); tg._sync = sync; sync();
+  }
   // one small chip per tag of one link (under the link): a click removes that tag from the link's line
   function attachTagRow(el, u, w, box) {
     var tr = document.createElement('div'); tr.className = 'ltags'; tr.hidden = true; box.insertBefore(tr, w.nextSibling); w._tr = tr;
@@ -1515,7 +1529,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var tr = w._tr; if (!tr) return;
     var cl = lineOf(el, u), tags = cl ? parseLine(cl).tg : [];
     tr.innerHTML = ''; tr.hidden = !tags.length;
-    if (w._ed && w._ed._tg && document.activeElement !== w._ed._tg) w._ed._tg.value = tags.join(','); // keep an open editor's tags box in step
+    if (w._ed && w._ed._tg && document.activeElement !== w._ed._tg) { w._ed._tg.value = tags.join(','); if (w._ed._tg._sync) w._ed._tg._sync(); } // keep an open editor's tags box in step
     tags.forEach(function (t) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t + ' \u00d7'; b.title = 'remove tag'; b.setAttribute('aria-label', 'remove tag ' + t);
       b.onclick = function () {
@@ -1535,6 +1549,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var trow = document.createElement('div'); trow.className = 'row'; ed.appendChild(trow);
     var tg = document.createElement('input'); tg.type = 'text'; tg.className = 'fin'; tg.value = q.tg.join(','); tg.setAttribute('autocomplete', 'off'); tg.setAttribute('spellcheck', 'false');
     var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw); ed._tg = tg;
+    fancamChip(tg, trow);
     addSuggest(tg, tagOptsFor('sns'), trow, true, true);
     function apply() {
       var cur = lineOf(el, u); if (!cur) return;
@@ -1779,7 +1794,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (!out.length) { var cm = { DIGITAL: 'digital', DVD: 'dvd', BD: 'blu-ray' }[c]; if (cm) out.push(cm); } // no ALBUM / EP / SINGLE word: DIGITAL / DVD / BD rows start with that type
     return out;
   }
-  function alNameOf(title) { var m = String(title || '').normalize('NFKC').match(/[\u300C\u300E]([^\u300D\u300F]+)[\u300D\u300F]/); return m ? m[1].trim() : ''; }
+  function alNameOf(title) { var t = String(title || ''), n = t.replace(/\uFF62/g, '\u300C').replace(/\uFF63/g, '\u300D'), m = n.match(/[\u300C\u300E]([^\u300D\u300F]+)[\u300D\u300F]/); return m ? t.substr(m.index + 1, m[1].length).trim() : ''; } // half-width corner brackets are read as full-width ones; the name itself is cut as written (NFKC would turn the superscript 2 into 2)
   function albLinks() {
     var f = found, rowEl = albRow(), box = rowEl && $('falbbox'); if (rowEl) { rowEl.hidden = true; box.innerHTML = ''; }
     if (!rowEl || !f || f.kind !== 'logs' || f.isNew || !f.row || f.row.ref) return;
@@ -2344,14 +2359,16 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     return out;
   }
   // "1. title" / "1) title" / circled digits are cut off at the head of a line. For extra tracks a label like "DVD1." is kept as the label.
+  function fwAscii(t) { return t.replace(/[\uFF01-\uFF5E]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); }).replace(/\u3000/g, ' '); } // full-width ASCII -> half-width, one character for one (the length does not change)
   function alParse(text, extra, sec) {
     var rows = [];
     String(text || '').split(/\r?\n/).forEach(function (raw) {
-      var s = raw.replace(CIRC_RE, function (c) { return (c.charCodeAt(0) - 0x245f) + '. '; }).normalize('NFKC').trim(), m, no = '';
+      // the head (number / DVD1 label / [heading] brackets) is read from a half-width copy of the line (same length), but the title itself is cut from the line as typed: NFKC would turn the superscript 2 into 2 (and the full-width ! ? ~ into half-width)
+      var o = raw.replace(CIRC_RE, function (c) { return (c.charCodeAt(0) - 0x245f) + '. '; }).trim(), n = fwAscii(o), s = o, m, no = '';
       if (!s) return;
-      if (sec && (m = s.match(/^\[(.+)\]$/))) { rows.push({ title: m[1].trim().replace(/\\n/g, '\n'), no: '', sec: true }); return; } // [LIVE TOUR 2025] = a section heading (the numbers start again from 1)
-      if (extra && (m = s.match(/^([A-Za-z]+\s*\d+)\s*[.):\]\-]\s*/))) { no = m[1].replace(/\s+/g, ''); s = s.slice(m[0].length); }
-      else if ((m = s.match(/^\d+\s*[.):\]\-]\s*/)) || (m = s.match(/^\d+\s+(?=\S)/))) { s = s.slice(m[0].length); }
+      if (sec && (m = n.match(/^\[(.+)\]$/))) { rows.push({ title: o.slice(1, -1).trim().replace(/\\n/g, '\n'), no: '', sec: true }); return; } // [LIVE TOUR 2025] = a section heading (the numbers start again from 1)
+      if (extra && (m = n.match(/^([A-Za-z]+\s*\d+)\s*[.):\]\-]\s*/))) { no = m[1].replace(/\s+/g, ''); s = o.slice(m[0].length); }
+      else if ((m = n.match(/^\d+\s*[.):\]\-]\s*/)) || (m = n.match(/^\d+\s+(?=\S)/))) { s = o.slice(m[0].length); }
       s = s.trim(); if (s) rows.push({ title: s, no: no });
     });
     return rows;
