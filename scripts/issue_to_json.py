@@ -739,7 +739,7 @@ VIDEO_HOST_RE = re.compile(r"^https?://(www\.|m\.|music\.)?(youtube\.com|youtu\.
 
 
 def parse_videos(raw):
-    """videos欄（1行1件 `type | URL`）を [{"type","url"}] にする。typeを省略したURLだけの行は Other。
+    """videos欄（1行1件 `type | URL | tags`）を [{"type","url","tags"?}] にする。typeを省略したURLだけの行は Other。tags(カンマ区切り・省略可)はその動画だけの検索用タグ。
     入力すると動画リンク全体が置き換わる。`!clear` で全部消す。URLはYouTube(youtube.com / youtu.be)のみ。
     戻り値: (リスト or None, エラーのリスト)"""
     raw = (raw or "").strip()
@@ -752,8 +752,13 @@ def parse_videos(raw):
         line = line.strip()
         if not line:
             continue
+        tag_raw = ""
         if "|" in line:
-            t, u = [x.strip() for x in line.split("|", 1)]
+            parts = [x.strip() for x in line.split("|")]
+            if len(parts) == 2:
+                t, u = parts
+            else:
+                t, u, tag_raw = parts[0], parts[1], " ".join(parts[2:])  # 3つめ以降はtags
         else:
             t, u = "Other", line
         if not VIDEO_HOST_RE.match(u):
@@ -763,7 +768,15 @@ def parse_videos(raw):
         if u in seen:
             continue
         seen.add(u)
-        out.append({"type": t or "Other", "url": u})
+        item = {"type": t or "Other", "url": u}
+        tags = []
+        for tg in re.split(r"[,、，]", tag_raw):
+            tg = tg.strip()
+            if tg and tg not in tags:
+                tags.append(tg)
+        if tags:
+            item["tags"] = tags
+        out.append(item)
     return (out or None), errors
 
 
