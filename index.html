@@ -979,6 +979,9 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .setlist-modal-hearts { display: inline-flex; gap: 2px; }
 .setlist-heart { font-size: 12px; line-height: 1; }
 .setlist-modal-datetime { font-size: 12px; color: var(--sub); margin-bottom: 2px; }
+.setlist-wx { display: inline-flex; align-items: center; gap: 3px; margin-left: 6px; vertical-align: -3px; } /* 天気: 時刻の右。2つ以上は → でつなぐ */
+.setlist-wx svg { width: 15px; height: 15px; display: block; }
+.setlist-wx .wx-ar { font-size: 11px; line-height: 1; opacity: .75; }
 .setlist-modal-venue { font-size: 12px; color: var(--sub); margin-bottom: 14px; }
 .setlist-modal-songlist { list-style: none; margin: 0; padding: 0; }
 .setlist-modal-songlist li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
@@ -3962,8 +3965,9 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
         })() +
         (() => {
           const { dateStr, timeStr } = formatSetlistDateTime(entry.setlistid);
-          if (!dateStr && !timeStr) return '';
-          return `<div class="setlist-modal-datetime">${escapeHtml(dateStr)}${timeStr ? ` ${escapeHtml(timeStr)}` : ''}</div>`;
+          const wx = weatherHtml(entry.weather);
+          if (!dateStr && !timeStr && !wx) return '';
+          return `<div class="setlist-modal-datetime">${escapeHtml(dateStr)}${timeStr ? ` ${escapeHtml(timeStr)}` : ''}${wx}</div>`;
         })() +
         (entry.venue ? `<div class="setlist-modal-venue">${escapeHtml(entry.venue)}</div>` : '') +
         // source: official=公式の情報 / fan=ファンメイド。どちらでもない(空・未設定)ときは何も出さない
@@ -3977,6 +3981,22 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     }
     staggerRows(setlistModalBody);
     setlistModalOverlay.classList.add('is-open');
+  };
+  // 天気(setlistのweather: コード配列。選んだ順 = 時間の順)。アイコンを並べ、2つ以上のときは間に → を付ける
+  const WEATHER_PATHS = {
+    sunny: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>',
+    cloudy: '<path d="M7 18.5h10.2a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.3 9.6 4.5 4.5 0 0 0 7 18.5z"/>',
+    rain: '<path d="M7 14.5h10.2a3.8 3.8 0 0 0 .6-7.55A5.8 5.8 0 0 0 6.4 6.2 4.2 4.2 0 0 0 7 14.5z"/><path d="M8.5 17.5l-1 2.5M12.5 17.5l-1 2.5M16.5 17.5l-1 2.5"/>',
+    snow: '<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9"/><path d="M9.8 4.6L12 6.4l2.2-1.8M9.8 19.4L12 17.6l2.2 1.8"/>',
+    thunder: '<path d="M7 14.5h1.2a3.8 3.8 0 0 1-.9-7.4A5.8 5.8 0 0 1 18.4 7a3.8 3.8 0 0 1-.6 7.5H17"/><path d="M12.8 12l-3 4.5h3.4l-2 4.5"/>',
+    partly: '<path d="M9 4v1.6M3.6 6.3l1.2 1.2M2.5 11.5h1.6M14.4 6.3l-1.2 1.2"/><path d="M6.2 12.3a3.3 3.3 0 1 1 5.6-3.4"/><path d="M9 20h8.6a3.4 3.4 0 0 0 .4-6.8 5 5 0 0 0-9.6 1.2A3 3 0 0 0 9 20z"/>'
+  };
+  const WEATHER_NAMES = { sunny: '晴れ', cloudy: 'くもり', rain: '雨', snow: '雪', thunder: '雷', partly: '晴れ時々くもり' };
+  const weatherHtml = raw => {
+    const list = (Array.isArray(raw) ? raw : []).map(x => String(x || '').trim().toLowerCase()).filter((x, i, a) => WEATHER_PATHS[x] && a.indexOf(x) === i);
+    if (!list.length) return '';
+    const inner = list.map(c => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="${WEATHER_NAMES[c]}"><title>${WEATHER_NAMES[c]}</title>${WEATHER_PATHS[c]}</svg>`).join('<span class="wx-ar" aria-hidden="true">\u2192</span>');
+    return `<span class="setlist-wx">${inner}</span>`;
   };
   const closeSetlistModal = () => setlistModalOverlay.classList.remove('is-open');
   $('setlistModalCloseBtn').onclick = closeSetlistModal;

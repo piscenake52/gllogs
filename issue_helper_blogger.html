@@ -263,6 +263,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih #glih-frd #glih-fdtoday { padding-left:13px; padding-right:13px; } /* today: wider (6px more on each side than the other buttons) */ /* narrow screens: the < today > buttons go to the next line instead of widening the card */
 #glih #glih-rpw { gap:4px; }
 #glih #glih-rpw .chip { flex:1 1 0; width:auto; min-width:0; padding:5px 0; font-size:11px; }
+#glih .chipr .chip.wx { padding:5px 9px; display:inline-flex; align-items:center; justify-content:center; line-height:0; }
+#glih .wxchips { gap:6px; align-items:center; }
+#glih .wxprev { display:inline-flex; align-items:center; gap:4px; margin-left:8px; color:var(--sub); }
+#glih .wxprev .wxi { display:inline-flex; color:var(--text); }
+#glih .wxprev .wxar { font-size:12px; }
 #glih .chipr .chip:disabled { opacity:.35; cursor:default; }
 #glih .dtw:not(.t) > .fin { width:138px; padding-right:56px; } /* the calendar icon is outside the box (to its right); +24px so the YYYY/MM/DD placeholder is not cut (it is wider than digits) */ /* YYYY/MM/DD + the weekday + the calendar icon: the weekday room is always reserved */
 #glih .dtw .wdl { position:absolute; right:55px; top:50%; transform:translateY(-50%); flex:none; font-size:13px; line-height:1; pointer-events:none; }
@@ -653,7 +658,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       { k: 'date' }, { k: 'time' }, { k: 'groups', p: 'groups_free', list: 1 }, { k: 'contents', p: 'contents_free' }, { k: 'title', p: 'item_title', ta: 1 }, { k: 'display_pc' }, { k: 'display_sp' }, { k: 'url' }, { k: 'map' }, { k: 'setlistid' },
       { k: 'relations', p: 'relations_free', list: 1 }, { k: 'tags', list: 1 }, { k: 'sns', ta: 1 } ] },
     setlist: { idKey: 'setlistid', tpl: TPL_SETLIST, fields: [
-      { k: 'title', p: 'item_title', ta: 1 }, { k: 'artist', p: 'artist_free' }, { k: 'member', p: 'member_free', list: 1 }, { k: 'venue' }, { k: 'source', chk: 1 }, { k: 'songs', ta: 1 } ] }
+      { k: 'title', p: 'item_title', ta: 1 }, { k: 'artist', p: 'artist_free' }, { k: 'member', p: 'member_free', list: 1 }, { k: 'venue' }, { k: 'weather', chk: 2 }, { k: 'source', chk: 1 }, { k: 'songs', ta: 1 } ] }
   };
   // clear (x) button at the right end of an input: empties the field and fires an input event so the preview and link update
   // setlist source: OFFICIAL / UNOFFICIAL chips. Clicking the active chip turns it off (both off = unknown = empty). The value is kept in a hidden text box so the diff / Issue link work as for the other fields.
@@ -666,6 +671,37 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       row.appendChild(b);
     });
     function paint() { Object.keys(bs).forEach(function (k) { var on = el.value === k; bs[k].classList.toggle('on', on); bs[k].setAttribute('aria-pressed', on ? 'true' : 'false'); }); }
+    el.addEventListener('input', paint); paint();
+    wrap.appendChild(lb); wrap.appendChild(el); wrap.appendChild(row);
+    el._paint = paint;
+  }
+  // setlist weather: icon-only chips (the same line icons as the viewer). Several can be ON; the order of the clicks is the order stored (sunny,rain = sunny, then rain). The preview at the right end shows the chain with arrows. A chip pressed again turns off. The value is kept in a hidden text box (comma separated codes).
+  var WX = ['sunny', 'cloudy', 'rain', 'snow', 'thunder', 'partly'];
+  var WX_LABEL = { sunny: 'Sunny', cloudy: 'Cloudy', rain: 'Rain', snow: 'Snow', thunder: 'Thunder', partly: 'Partly cloudy' };
+  var WX_PATH = {
+    sunny: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>',
+    cloudy: '<path d="M7 18.5h10.2a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.3 9.6 4.5 4.5 0 0 0 7 18.5z"/>',
+    rain: '<path d="M7 14.5h10.2a3.8 3.8 0 0 0 .6-7.55A5.8 5.8 0 0 0 6.4 6.2 4.2 4.2 0 0 0 7 14.5z"/><path d="M8.5 17.5l-1 2.5M12.5 17.5l-1 2.5M16.5 17.5l-1 2.5"/>',
+    snow: '<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9"/><path d="M9.8 4.6L12 6.4l2.2-1.8M9.8 19.4L12 17.6l2.2 1.8"/>',
+    thunder: '<path d="M7 14.5h1.2a3.8 3.8 0 0 1-.9-7.4A5.8 5.8 0 0 1 18.4 7a3.8 3.8 0 0 1-.6 7.5H17"/><path d="M12.8 12l-3 4.5h3.4l-2 4.5"/>',
+    partly: '<path d="M9 4v1.6M3.6 6.3l1.2 1.2M2.5 11.5h1.6M14.4 6.3l-1.2 1.2"/><path d="M6.2 12.3a3.3 3.3 0 1 1 5.6-3.4"/><path d="M9 20h8.6a3.4 3.4 0 0 0 .4-6.8 5 5 0 0 0-9.6 1.2A3 3 0 0 0 9 20z"/>'
+  };
+  function wxSvg(c, sz) { return '<svg viewBox="0 0 24 24" width="' + sz + '" height="' + sz + '" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + WX_PATH[c] + '</svg>'; }
+  function addWeatherChips(wrap, lb, el) {
+    el.type = 'hidden'; lb.removeAttribute('for');
+    var row = document.createElement('div'); row.className = 'chipr wxchips'; var bs = {};
+    function list() { var seen = {}; return el.value.split(/[,\u3001\s]+/).map(function (x) { return x.trim().toLowerCase(); }).filter(function (x) { if (WX.indexOf(x) < 0 || seen[x]) return false; seen[x] = 1; return true; }); }
+    WX.forEach(function (c) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip wx'; b.innerHTML = wxSvg(c, 18); b.title = WX_LABEL[c]; b.setAttribute('aria-label', WX_LABEL[c]); b.setAttribute('aria-pressed', 'false'); bs[c] = b;
+      b.onclick = function () { var l = list(), i = l.indexOf(c); if (i >= 0) l.splice(i, 1); else l.push(c); el.value = l.join(','); el.dispatchEvent(new Event('input', { bubbles: true })); };
+      row.appendChild(b);
+    });
+    var pv = document.createElement('span'); pv.className = 'wxprev'; row.appendChild(pv);
+    function paint() {
+      var l = list();
+      WX.forEach(function (c) { var on = l.indexOf(c) >= 0; bs[c].classList.toggle('on', on); bs[c].setAttribute('aria-pressed', on ? 'true' : 'false'); });
+      pv.innerHTML = l.map(function (c) { return '<span class="wxi" title="' + WX_LABEL[c] + '">' + wxSvg(c, 16) + '</span>'; }).join('<span class="wxar">\u2192</span>');
+    }
     el.addEventListener('input', paint); paint();
     wrap.appendChild(lb); wrap.appendChild(el); wrap.appendChild(row);
     el._paint = paint;
@@ -1681,7 +1717,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     r.suffix = sx.value.trim() || DEFSX;
     return r;
   }
-  var CLRK = { logs: ['time', 'groups', 'contents', 'title', 'display_pc', 'display_sp', 'url', 'map', 'setlistid', 'relations'], setlist: ['title', 'artist', 'member', 'venue', 'songs'] }; // fields that an emptied value clears (date / songs_patch / tags / sns have their own rules)
+  var CLRK = { logs: ['time', 'groups', 'contents', 'title', 'display_pc', 'display_sp', 'url', 'map', 'setlistid', 'relations'], setlist: ['weather', 'title', 'artist', 'member', 'venue', 'songs'] }; // fields that an emptied value clears (date / songs_patch / tags / sns have their own rules)
   function updateFind() {
     if (!found) { setLink($('go-find'), ''); showDiff([]); warnRun(); return; }
     refreshJson();
@@ -1858,7 +1894,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (!f.ta) { el.type = 'text'; el.setAttribute('autocomplete', 'off'); }
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
       el.addEventListener('input', updateFind); if (kind === 'logs' && (f.k === 'contents' || f.k === 'groups')) el.addEventListener('input', autoSnsTitle);
-      if (f.chk) { addSourceChips(wrap, lb, el); box.appendChild(wrap); return; } // OFFICIAL / UNOFFICIAL: two exclusive chips (the text box stays hidden and keeps the value; both off = empty)
+      if (f.chk) { (f.chk === 2 ? addWeatherChips : addSourceChips)(wrap, lb, el); box.appendChild(wrap); return; } // OFFICIAL / UNOFFICIAL: two exclusive chips (the text box stays hidden and keeps the value; both off = empty)
       wrap.appendChild(lb); wrap.appendChild(el); (kind === 'logs' && f.k === 'sns' ? snsHolder(box, el) : box).appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'tags') addSuggest(el, tagOptsFor('logs'), null, true, true); if (kind === 'logs' && f.k === 'sns') addNewSnsList(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsList(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
     var jb = $('fjson'); jb.classList.remove('bad'); $('fcprow').hidden = !!isNew; $('fjrow').hidden = false; refreshJson(true); setJsonOpen(jsonOpen);
@@ -1915,7 +1951,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (k === 'source') { var u = t.trim().toUpperCase(); return u === 'OFFICIAL' ? 'official' : u === 'UNOFFICIAL' ? 'unofficial' : undefined; }
     if (Array.isArray(base)) { if (base.join(',') === t) return base; }
     else if (base != null && String(base) === t) return base;
-    if (k === 'groups' || k === 'relations' || k === 'tags' || k === 'member') { var a = t.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean); return a.length ? a : undefined; }
+    if (k === 'groups' || k === 'relations' || k === 'tags' || k === 'member' || k === 'weather') { var a = t.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean); return a.length ? a : undefined; }
     return t.trim() === '' ? undefined : t;
   }
   function refreshJson(force) {
