@@ -995,9 +995,6 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .song-vid.is-hidden { visibility: hidden; cursor: default; }
 .song-vid-btn { flex: 0 0 auto; width: 24px; height: 24px; margin-right: -4px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); font-size: 13px; line-height: 1; cursor: pointer; display: none; align-items: center; justify-content: center; padding: 0; user-select: none; }
 .song-vid-btn.is-shown { display: flex; }
-.vid-menu { position: fixed; z-index: 100000; min-width: 150px; max-width: 86vw; padding: 4px; border: 1px solid var(--input-border); border-radius: 10px; background: var(--bg, #fff); color: var(--text); box-shadow: 0 6px 22px rgba(0,0,0,.28); font-size: 13px; }
-.vid-menu a { display: block; padding: 8px 12px; border-radius: 7px; color: inherit; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.vid-menu a:hover, .vid-menu a:focus { background: var(--border); outline: none; }
 .setlist-song-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; } /* 曲名 / ハート / original・notes を縦に並べる */
 .setlist-song-title { display: block; font-size: calc(var(--data-font-scale) * 13px); }
 .setlist-song-hearts { display: flex; flex-wrap: nowrap; gap: 1px; margin-top: 2px; line-height: 1; } /* 曲ごとの歌唱メンバー(曲名の下) */
@@ -1070,6 +1067,13 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
 .sns-modal-item { display: inline-flex; align-items: center; gap: 8px; min-width: 0; max-width: 100%; }
 .sns-modal-tagtext { display: none; flex-wrap: wrap; gap: 4px; align-items: center; min-width: 0; }
 .sns-modal-tagtext .tag-chip { box-sizing: border-box; min-height: 20px; padding-top: 2px; padding-bottom: 2px; display: inline-flex; align-items: center; cursor: pointer; font-size: calc(var(--data-font-scale) * 11.5px); white-space: normal; overflow-wrap: anywhere; } /* データ部のタグチップ(.tag-chip)と同じ見た目(高さだけ、リンクの番号ボタンと同じ20pxにして、TAG切替で行の高さが変わらないようにする)。押すとデータ部のチップと同じくそのタグで検索 */
+.vid-modal-overlay { z-index: 1300; } /* 動画リンク: snsポップアップと同じ見た目(セトリ・アルバム・披露実績の上に重ねる) */
+.vid-modal .sns-modal-type-label { flex-basis: 9.6em; }
+.vid-modal .sns-modal-foot { justify-content: flex-end; }
+.vid-modal .sns-modal-title { font-size: 13px; margin: 0 28px 4px 0; display: flex; align-items: center; gap: 7px; }
+.vid-modal .vid-yt { flex: 0 0 auto; width: 20px; height: 14px; border-radius: 4px; background: #f03; display: flex; align-items: center; justify-content: center; }
+.vid-modal .vid-yt::after { content: ""; border-left: 6px solid #fff; border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent; margin-left: 1px; }
+.vid-modal .vid-ttl { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sns-modal.is-tags .sns-modal-links { flex-direction: column; flex-wrap: nowrap; align-items: flex-start; }
 .sns-modal.is-tags .sns-modal-item { width: 100%; }
 .sns-modal.is-tags .sns-modal-tagtext { display: flex; animation: snsTagFade .35s ease both; }
@@ -1284,6 +1288,16 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     <div class="sns-modal-foot">
       <button type="button" class="sns-tag-switch sns-scope-switch" id="snsScopeSwitch" role="switch" aria-checked="true"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span id="snsScopeLabel">ALL</span></button>
       <button type="button" class="sns-tag-switch" id="snsTagSwitch" role="switch" aria-label="TAG" aria-checked="false"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span class="sns-tag-emoji" aria-hidden="true">&#127991;&#65039;</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="sns-modal-overlay vid-modal-overlay" id="vidModalOverlay">
+  <div class="sns-modal vid-modal" id="vidModal" role="dialog" aria-modal="true">
+    <button type="button" class="sns-modal-close" id="vidModalCloseBtn" aria-label="Close">&#215;</button>
+    <div class="sns-modal-body" id="vidModalBody"></div>
+    <div class="sns-modal-foot">
+      <button type="button" class="sns-tag-switch" id="vidTagSwitch" role="switch" aria-label="TAG" aria-checked="false"><span class="sns-tag-track"><span class="sns-tag-knob"></span></span><span class="sns-tag-emoji" aria-hidden="true">&#127991;&#65039;</span></button>
     </div>
   </div>
 </div>
@@ -3586,21 +3600,8 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   // 表示順: MV, Dance Practice, Lyric, Live, Reaction, Call Lecture の順。それ以外(Otherや自由入力)は後ろに、登録順のまま
   const VIDEO_ORDER = ['mv', 'dance practice', 'lyric', 'live', 'reaction', 'call lecture'];
   const sortVideos = list => list.map((v, i) => { const r = VIDEO_ORDER.indexOf(String(v.type || '').trim().toLowerCase()); return { v, i, r: r < 0 ? 99 : r }; }).sort((x, y) => x.r - y.r || x.i - y.i).map(x => x.v);
-  const closeVidMenu = () => { const m = document.querySelector('.vid-menu'); if (m) m.remove(); };
-  document.addEventListener('click', e => { if (!e.target.closest('.vid-menu, .song-vid, .song-vid-btn')) closeVidMenu(); }, true);
-  window.addEventListener('scroll', closeVidMenu, { passive: true, capture: true });
-  // 1本ならそのまま開く。複数なら種類のメニューを出す
-  const openVideos = (vids, anchor) => {
-    closeVidMenu();
-    if (!vids.length) return;
-    const m = document.createElement('div');
-    m.className = 'vid-menu';
-    vids.forEach(v => { const a = document.createElement('a'); a.href = v.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = v.type || 'Video'; a.onclick = () => closeVidMenu(); m.appendChild(a); });
-    document.body.appendChild(m);
-    const r = anchor.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight;
-    m.style.left = Math.max(8, Math.min(r.left, window.innerWidth - w - 8)) + 'px';
-    m.style.top = (r.bottom + h + 8 > window.innerHeight ? Math.max(8, r.top - h - 4) : r.bottom + 4) + 'px';
-  };
+  // 動画リンクのポップアップはsnsポップアップと同じ作り(openVideoModal)。複数ある種類は番号チップで並べ、TAGスイッチでタグを出す
+  const openVideos = (vids, anchor, title) => { if (vids.length) openVideoModal(vids, title); };
   const vidHtml = (title, artist) => videosByTitle(title, artist).length
     ? `<span class="song-vid" data-song="${escapeHtml(title || '')}" data-artist="${escapeHtml(artist || '')}" role="button" aria-label="Video">\uD83C\uDF9E\uFE0F</span>`
     : '<span class="song-vid is-hidden" aria-hidden="true"></span>';
@@ -3608,7 +3609,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     const b = e.target.closest('.song-vid[data-song]');
     if (!b) return;
     e.stopPropagation();
-    openVideos(videosByTitle(b.dataset.song, b.dataset.artist), b);
+    openVideos(videosByTitle(b.dataset.song, b.dataset.artist), b, b.dataset.song);
   });
   const trimVidCols = root => { if (!root.querySelector('.song-vid:not(.is-hidden)')) root.querySelectorAll('.song-vid.is-hidden').forEach(x => x.remove()); }; // 動画のある曲が1つも無いポップアップでは、列ごと出さない
   const openLyrics = url => { if (url) window.open(url, '_blank', 'noopener'); };
@@ -4053,7 +4054,8 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   const snsModalBox = $('snsModal');
   const snsTagSwitch = $('snsTagSwitch');
   // TAG表示の切替。ONで各リンクを縦に並べ、右にtagsを出す。並び替えは位置の差分(FLIP)で滑らかに動かす
-  const setSnsTagMode = (on, animate) => {
+  const setTagModeFor = (ctx, on, animate) => {
+    const { body: snsModalBody, box: snsModalBox, sw: snsTagSwitch } = ctx; // snsポップアップと動画リンクのポップアップで共通
     const items = animate ? [...snsModalBody.querySelectorAll('.sns-modal-item')] : [];
     const first = items.map(el => el.getBoundingClientRect());
     const h0 = snsModalBox.getBoundingClientRect().height;
@@ -4077,6 +4079,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
       a.addEventListener('cancel', restore);
     }
   };
+  const setSnsTagMode = (on, animate) => setTagModeFor({ body: snsModalBody, box: snsModalBox, sw: snsTagSwitch }, on, animate);
   // ALL / POST:ALLは投稿者(member)と同写り(with)の両方、POSTは投稿者のみのランプを出す。状態は保存する
   const snsScopeSwitch = $('snsScopeSwitch');
   // ランプの列数:表示するランプが1個なら1列、9個以上なら3列、それ以外は2列(従来のmember 1人/9人の扱いを、memberとwithの合計に広げた)
@@ -4216,6 +4219,71 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && snsModalOverlay.classList.contains('is-open')) closeSnsModal();
   });
+
+  // 動画リンクのポップアップ(snsポップアップと同じ見た目・動き)。種類ごとに行を作り、動画は番号チップ。TAGスイッチでタグを出す(状態は保存)
+  const vidModalOverlay = $('vidModalOverlay'), vidModalBody = $('vidModalBody'), vidModalBox = $('vidModal'), vidTagSwitch = $('vidTagSwitch');
+  const VIDEO_ICON_PATHS = {
+    'mv': '<path d="M4 11l1.3-5.2L20 9v2"/><rect x="4" y="11" width="16" height="9" rx="1.4"/><path d="M8.3 6.8l1.7 3.2M13 7.7l1.7 3.1"/>',
+    'dance practice': '<circle cx="13" cy="4.8" r="2"/><path d="M12.5 8l-3.5 5 3.3 2.2L10.5 21M12.5 8l4 3.2 3-1M12.3 15.2l4.2 2.3"/>',
+    'lyric': '<path d="M4 6h16M4 10.5h16M4 15h10M4 19.5h6"/>',
+    'live': '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/>',
+    'reaction': '<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5a4 4 0 0 0 7 0M9 9.6h.01M15 9.6h.01"/>',
+    'call lecture': '<path d="M4 10v4h3l7 4V6L7 10H4z"/><path d="M17.5 9a4 4 0 0 1 0 6"/>',
+    'other': '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/>'
+  };
+  const VIDEO_TYPE_LABELS = { 'mv': 'Music Video' }; // 表示名が登録名と違うものだけ(それ以外は登録した名前のまま)
+  const videoIconHtml = key => `<svg class="sns-modal-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${VIDEO_ICON_PATHS[key] || VIDEO_ICON_PATHS.other}</svg>`;
+  const setVidTagMode = (on, animate) => setTagModeFor({ body: vidModalBody, box: vidModalBox, sw: vidTagSwitch }, on, animate);
+  vidTagSwitch.onclick = () => {
+    const on = vidTagSwitch.getAttribute('aria-checked') !== 'true';
+    setVidTagMode(on, true);
+    try { localStorage.setItem('vidTagMode', on ? '1' : '0'); } catch (e) {}
+  };
+  const openVideoModal = (vids, title) => {
+    try {
+      // 同じ種類(大文字小文字は区別しない)をまとめる。種類の並びと、その中の登録順は videosByTitle の並びのまま
+      const groups = [];
+      vids.forEach(v => {
+        const raw = String(v.type || '').trim() || 'Other', key = raw.toLowerCase();
+        let g = groups.find(x => x.key === key);
+        if (!g) { g = { key, label: VIDEO_TYPE_LABELS[key] || raw, list: [] }; groups.push(g); }
+        g.list.push(v);
+      });
+      const rowsHtml = groups.map(g => {
+        const itemsHtml = g.list.map((v, i) => {
+          const tags = Array.isArray(v.tags) ? v.tags.filter(Boolean) : [];
+          const tagHtml = tags.length ? `<span class="sns-modal-tagtext">${tags.map(t => `<button type="button" class="tag-chip" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join('')}</span>` : '';
+          return `<span class="sns-modal-item"><a class="sns-modal-link" href="${escapeHtml(v.url)}" target="_blank" rel="noopener noreferrer">${i + 1}</a>${tagHtml}</span>`;
+        }).join('');
+        return `<div class="sns-modal-type-row"><span class="sns-modal-type-label">${videoIconHtml(g.key)}<span>${escapeHtml(g.label)}</span></span><span class="sns-modal-links">${itemsHtml}</span></div>`;
+      }).join('');
+      vidModalBody.innerHTML = (title ? `<div class="sns-modal-title"><span class="vid-yt" aria-hidden="true"></span><span class="vid-ttl">${escapeHtml(title)}</span></div>` : '') + (rowsHtml || '<div class="sns-modal-empty">NO LINKS</div>');
+    } catch (err) {
+      console.error('Failed to render video modal:', err);
+      vidModalBody.innerHTML = '<div class="sns-modal-empty">LOAD ERROR</div>';
+    }
+    let tagOn = false;
+    try { tagOn = localStorage.getItem('vidTagMode') === '1'; } catch (e) {}
+    setVidTagMode(tagOn, false);
+    vidModalOverlay.classList.add('is-open');
+  };
+  const closeVidModal = () => vidModalOverlay.classList.remove('is-open');
+  $('vidModalCloseBtn').onclick = closeVidModal;
+  vidModalOverlay.onclick = e => { if (e.target === vidModalOverlay) closeVidModal(); };
+  vidModalBody.addEventListener('click', e => { // タグチップ: snsポップアップと同じ(今の絞り込みを外してそのタグで検索。ポップアップは閉じる)
+    const chip = e.target.closest('.tag-chip[data-tag]');
+    if (!chip) return;
+    e.stopPropagation();
+    const tg = chip.dataset.tag;
+    closeVidModal();
+    [snsModalOverlay, setlistModalOverlay, albumModalOverlay, statModalOverlay].forEach(o => o && o.classList.remove('is-open'));
+    clearFiltersForTagSearch();
+    applySuggestion(tg);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  });
+  document.addEventListener('keydown', e => { // Escape: 一番上の動画リンクだけ閉じる(下のポップアップは残す)
+    if (e.key === 'Escape' && vidModalOverlay.classList.contains('is-open')) { e.stopImmediatePropagation(); closeVidModal(); }
+  }, true);
 
   // コンテンツ種類を除く条件でアイテムが一致するか判定する
   let setlistIdToMemberMap = new Map();
@@ -6593,7 +6661,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
     openSongLink(currentSong.link);
   };
 
-  $('songVidBtn').onclick = e => { e.stopPropagation(); if (currentSong) openVideos(videosByTitle(currentSong.title, currentSong.artist), $('songVidBtn')); };
+  $('songVidBtn').onclick = e => { e.stopPropagation(); if (currentSong) openVideos(videosByTitle(currentSong.title, currentSong.artist), $('songVidBtn'), currentSong.title); };
   const applySong = song => {
     currentSong = song || null;
     $('songVidBtn').classList.toggle('is-shown', !!(currentSong && videosByTitle(currentSong.title, currentSong.artist).length));

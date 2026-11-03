@@ -2318,27 +2318,29 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     sa.addEventListener('input', syncArt); syncArt();
     var afield = sa.closest('.field'); afield.parentNode.insertBefore(arow, afield.nextSibling);
     addSuggest(st, titleOpts, st.closest('.field'));
-    // videos (YouTube): rows of [type][url][x]. A type chip adds a row; typing in a row is free text. Sent as lines `type | url` (replaces the whole list).
+    // videos (YouTube): rows of [type][url][x] + a tags box under each row. A type chip adds a row; typing in a row is free text. Sent as lines `type | url | tags` (replaces the whole list).
     var VT = ['MV', 'Dance Practice', 'Lyric', 'Live', 'Reaction', 'Call Lecture'], YT = /^https?:\/\/(www\.|m\.|music\.)?(youtube\.com|youtu\.be)\//i;
     var vrows = $('svrows'), vch = $('svch'), vTouched = false, autoV = false, autoM = null;
-    function vList() { return [].map.call(vrows.children, function (r) { return { type: r.children[0].value.trim(), url: r.children[1].value.trim(), el: r }; }); }
-    function vText(list) { return list.filter(function (v) { return v.url; }).map(function (v) { return (v.type || 'Other') + ' | ' + v.url; }).join('\n'); }
-    function vAdd(type, url) {
-      var r = document.createElement('div'); r.style.cssText = 'display:flex;gap:6px;margin:0 0 6px;align-items:center';
+    function vTagList(v) { return String(v || '').split(/[,\u3001\uFF0C]/).map(function (x) { return x.trim(); }).filter(function (x, i, a) { return x && a.indexOf(x) === i; }); }
+    function vList() { return [].map.call(vrows.children, function (r) { return { type: r.children[0].value.trim(), url: r.children[1].value.trim(), tags: r._tg ? r._tg.value : '', el: r }; }); }
+    function vText(list) { return list.filter(function (v) { return v.url; }).map(function (v) { var tg = vTagList(v.tags).join(','); return (v.type || 'Other') + ' | ' + v.url + (tg ? ' | ' + tg : ''); }).join('\n'); }
+    function vAdd(type, url, tags) {
+      var r = document.createElement('div'); r.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px;align-items:center';
       var t = alInput(); t.placeholder = 'type'; t.style.cssText = 'flex:0 0 6.5em;min-width:0'; t.value = type || '';
       var u = alInput(); u.placeholder = 'https://youtu.be/...'; u.style.cssText = 'flex:1;min-width:0'; u.value = url || '';
       var x = document.createElement('button'); x.type = 'button'; x.className = 'small'; x.textContent = '\u2715'; x.setAttribute('aria-label', 'remove');
       x.onclick = function () { r.remove(); vTouched = true; autoV = false; upd(); };
-      [t, u].forEach(function (e) { e.addEventListener('input', function () { vTouched = true; autoV = false; upd(); }); });
+      var tg = alInput(); tg.placeholder = 'tags (comma separated, optional)'; tg.style.cssText = 'flex:0 0 100%;min-width:0'; tg.value = Array.isArray(tags) ? tags.join(',') : (tags || ''); r._tg = tg;
+      [t, u, tg].forEach(function (e) { e.addEventListener('input', function () { vTouched = true; autoV = false; upd(); }); });
       function mvb(txt, lab, dir) { var m = document.createElement('button'); m.type = 'button'; m.className = 'small'; m.textContent = txt; m.setAttribute('aria-label', lab); m.onclick = function () { var sib = dir < 0 ? r.previousElementSibling : r.nextElementSibling; if (!sib) return; if (dir < 0) vrows.insertBefore(r, sib); else vrows.insertBefore(sib, r); vTouched = true; autoV = false; upd(); }; return m; }
-      r.appendChild(t); r.appendChild(u); r.appendChild(mvb('\u2191', 'up', -1)); r.appendChild(mvb('\u2193', 'down', 1)); r.appendChild(x); vrows.appendChild(r); return r;
+      r.appendChild(t); r.appendChild(u); r.appendChild(mvb('\u2191', 'up', -1)); r.appendChild(mvb('\u2193', 'down', 1)); r.appendChild(x); r.appendChild(tg); vrows.appendChild(r); return r;
     }
     VT.concat(['+']).forEach(function (v) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v === '+' ? '+ other' : '+ ' + v;
       b.onclick = function () { var r = vAdd(v === '+' ? '' : v, ''); vTouched = true; autoV = false; r.children[1].focus(); upd(); };
       vch.appendChild(b);
     });
-    function vSet(list) { vrows.innerHTML = ''; (list || []).forEach(function (v) { vAdd(v.type, v.url); }); }
+    function vSet(list) { vrows.innerHTML = ''; (list || []).forEach(function (v) { vAdd(v.type, v.url, v.tags); }); }
     function vClear() { vTouched = false; autoV = false; vSet([]); }
     function setLink(v) { prog = true; sl.value = v; sl.dispatchEvent(new Event('input', { bubbles: true })); prog = false; }
     function setLyr(v) { progY = true; sy.value = v; sy.dispatchEvent(new Event('input', { bubbles: true })); progY = false; }
@@ -2356,7 +2358,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (match && mv.length && !vList().length && !vTouched) { autoV = true; autoM = match; vSet(mv); }
       var vl = vList(), vBad = false;
       vl.forEach(function (v) { var bad = !!v.url && !YT.test(v.url); v.el.children[1].classList.toggle('bad', bad); if (bad) vBad = true; });
-      var vt = vText(vl), mt = vText(mv.map(function (v) { return { type: v.type, url: v.url }; }));
+      var vt = vText(vl), mt = vText(mv.map(function (v) { return { type: v.type, url: v.url, tags: Array.isArray(v.tags) ? v.tags.join(',') : '' }; }));
       var ly = sy.value.trim(), lyBad = !!ly && ly.indexOf(UTA) !== 0; sy.classList.toggle('bad', lyBad);
       var l = sl.value.trim(), p = {};
       if (a) p.artist_free = a; if (t) p.item_title = t;
