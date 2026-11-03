@@ -2924,12 +2924,15 @@
     "date": "20261104",
     "time": "",
     "contents": "CLOSE",
-    "title": "映画「ワンダンス」Pontaパス試写会応募受付締切",
-    "display_sp": "「ワンダンス」Pontaパス試写会応募受付締切",
+    "title": "映画 「ワンダンス」 Pontaパス試写会応募受付締切",
+    "display_sp": "「ワンダンス」 Pontaパス試写会応募受付締切",
     "url": "https://cp.cinecon.jp/au/wandance/",
     "groups": [
       "G2",
       "KIR"
+    ],
+    "tags": [
+      "ワンダンス"
     ],
     "sns": [
       {
