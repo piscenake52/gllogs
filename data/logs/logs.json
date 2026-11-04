@@ -2874,6 +2874,36 @@
     ]
   },
   {
+    "logid": "c69261f1a9f0",
+    "date": "20261104",
+    "time": "2000",
+    "contents": "SNS",
+    "title": "ききの踊ってみたチャレンジ　#125",
+    "url": "https://www.instagram.com/reel/DfUTJ9xJbMO/?srtk=MWNjZHoyZ2MzajUydw==",
+    "groups": [
+      "L2",
+      "KIK"
+    ],
+    "tags": [
+      "f(x)",
+      "4 Walls",
+      "ききの踊ってみたチャレンジ"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfUTJ9xJbMO/?srtk=MWNjZHoyZ2MzajUydw==",
+            "member": [
+              "KIK"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "6a9f4b80f914",
     "date": "20261104",
     "time": "1700",
