@@ -3619,12 +3619,15 @@
     "date": "20261104",
     "time": "",
     "contents": "SNS",
-    "title": "SNS　Laki",
+    "title": "SNS",
     "groups": [
+      "G2",
       "L2",
       "TBK",
       "HIR",
-      "KAN"
+      "YUW",
+      "KAN",
+      "RRK"
     ],
     "sns": [
       {
@@ -3632,6 +3635,13 @@
         "urls": [
           {
             "url": "https://x.com/Laki922official/status/2117908194853073081?a=oqpLYxTqwd8wTaLVTrw&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2117921709194183036?a=gr2iuggCEkSN5mkSQrA&s=19",
             "member": [],
             "tags": [
               "TikTok更新"
@@ -3651,6 +3661,16 @@
             "tags": [
               "What time is It?",
               "Crystal Kay"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSpNox5VQ/",
+            "member": [
+              "YUW",
+              "RRK"
+            ],
+            "tags": [
+              "ぷにるんず"
             ]
           }
         ]
