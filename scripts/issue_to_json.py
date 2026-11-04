@@ -927,6 +927,9 @@ def build_albums(body):
             if isinstance(no, (int, str)) and not isinstance(no, bool) and str(no).strip() != "":
                 x["no"] = no if isinstance(no, int) else str(no).strip()
             x["title"] = ti
+            ta = str(t.get("artist") or "").strip()
+            if ta and "\n" not in ta:
+                x["artist"] = ta  # この曲だけ歌うアーティストが違うとき(通常は付けない)
             out.append(x)
         return out
 
