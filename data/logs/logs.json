@@ -54928,6 +54928,10 @@
             "member": [
               "YUW",
               "AKR"
+            ],
+            "tags": [
+              "オフラキ",
+              "いつの間にか"
             ]
           }
         ]
@@ -54940,6 +54944,13 @@
     "time": "",
     "contents": "ANNIVERSARY",
     "ref": "abec934950ed"
+  },
+  {
+    "logid": "b5d6eb399e65",
+    "date": "20251116",
+    "contents": "ANNIVERSARY",
+    "ref": "5234e514b0e8",
+    "suffix": "記念日"
   },
   {
     "logid": "9ed0e8f4cb0b",
