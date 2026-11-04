@@ -129,7 +129,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .algated { display:none !important; }
 #glih .plnoin, #glih .alrow .alt .fin.plnoin { flex:0 0 2.5em; width:2.5em; padding:8px 2px; text-align:center; font-size:14px; }
 #glih .plno { width:2em; text-align:right; color:var(--sub); font-size:12px; }
-#glih .alrow { display:block; }
+#glih .alrow { display:block; } #glih .alart { margin:4px 0 0; } #glih .alart .fin { width:100%; box-sizing:border-box; font-size:13px; padding:6px 8px; } #glih .alart .chipr { margin-top:4px; } /* singing artist of a track */
 #glih .alrow .alt { display:flex; align-items:flex-start; gap:4px; }
 #glih .alrow .alt .plno { line-height:34px; }
 #glih .alrow .alin { flex:1 1 auto; min-width:0; }
@@ -2454,7 +2454,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (sec && (m = n.match(/^\[(.+)\]$/))) { rows.push({ title: o.slice(1, -1).trim().replace(/\\n/g, '\n'), no: '', sec: true }); return; } // [LIVE TOUR 2025] = a section heading (the numbers start again from 1)
       if (extra && (m = n.match(/^([A-Za-z]+\s*\d+)\s*[.):\]\-]\s*/))) { no = m[1].replace(/\s+/g, ''); s = o.slice(m[0].length); }
       else if ((m = n.match(/^\d+\s*[.):\]\-]\s*/)) || (m = n.match(/^\d+\s+(?=\S)/))) { s = o.slice(m[0].length); }
-      s = s.trim(); if (s) rows.push({ title: s, no: no });
+      s = s.trim(); var art = ''; if ((m = s.match(/^(.*\S)\s\|\s(.+)$/))) { s = m[1]; art = m[2].trim(); } // `title | singing artist` (the artist is usually empty)
+      if (s) rows.push({ title: s, no: no, artist: art });
     });
     return rows;
   }
@@ -2462,7 +2463,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function alInput(ph, cls) { var i = document.createElement('input'); i.type = 'text'; i.className = 'fin' + (cls ? ' ' + cls : ''); i.setAttribute('autocomplete', 'off'); i.setAttribute('spellcheck', 'false'); return i; }
   // one tracklist: a text box (one line per track: `1. title`, `[heading]` = a section when cfg.sec, `DVD1. title` when cfg.extra) and ONE track frame below it. A line pressed in the text box goes into the frame; update puts the frame back (new or update, the order is inserted and the others are renumbered); delete removes the line; + track / + section empty the frame. cfg.extra: the number is a free label (DVD1 ...)
   function alText(rows, cfg) {
-    var n = 0; return rows.map(function (r) { if (r.sec) { n = 0; return '[' + r.title.replace(/\r?\n/g, '\\n') + ']'; } n++; return (cfg.extra ? (r.no || '') : String(n)) + (cfg.extra && !r.no ? '' : '. ') + r.title; }).join('\n');
+    var n = 0; return rows.map(function (r) { if (r.sec) { n = 0; return '[' + r.title.replace(/\r?\n/g, '\\n') + ']'; } n++; return (cfg.extra ? (r.no || '') : String(n)) + (cfg.extra && !r.no ? '' : '. ') + r.title + (r.artist ? ' | ' + r.artist : ''); }).join('\n');
   }
   function alTracks(cfg) {
     var wrap = document.createElement('div'); wrap.className = 'altk'; wrap.style.flex = '1'; wrap.style.minWidth = '0';
@@ -2471,11 +2472,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var frame = document.createElement('div'); frame.className = 'plrow alrow'; wrap.appendChild(frame);
     var acts = document.createElement('div'); acts.className = 'plbar'; acts.style.cssText = 'display:flex;gap:6px;margin:6px 0'; wrap.appendChild(acts);
     var rows = [], sel = -1, anchor = -1, fr = blank(false);
-    function blank(sec) { return { title: '', no: '', sec: !!sec }; }
+    function blank(sec) { return { title: '', no: '', artist: '', sec: !!sec }; }
     function parse() { rows = alParse(ta.value, cfg.extra, cfg.sec); }
     function changed() { if (cfg.onchange) cfg.onchange(); }
     function commit() { ta.value = alText(rows, cfg); fitTa(ta, 90); changed(); }
-    function get() { return alParse(ta.value, cfg.extra, cfg.sec).map(function (r, i) { if (r.sec) return { section: r.title.trim() }; var o = { title: r.title.trim() }; if (cfg.extra) { if (r.no.trim()) o.no = r.no.trim(); } else o.no = i + 1; return o; }); }
+    function get() { return alParse(ta.value, cfg.extra, cfg.sec).map(function (r, i) { if (r.sec) return { section: r.title.trim() }; var o = { title: r.title.trim() }; if (r.artist && r.artist.trim()) o.artist = r.artist.trim(); if (cfg.extra) { if (r.no.trim()) o.no = r.no.trim(); } else o.no = i + 1; return o; }); }
     function segOf(i) { var a = i, z = i; while (a > 0 && !rows[a - 1].sec) a--; while (z < rows.length - 1 && !rows[z + 1].sec) z++; return [a, z]; } // the track rows around i (no section inside)
     function segFor(ref) { // the track rows a new track goes into: the section that holds ref (a section row = the tracks under it); [a, z] with z = a - 1 when it is empty
       if (rows.length === 0) return [0, -1];
@@ -2498,6 +2499,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (!r.sec) {
         go = wbtn('\u2192', function () { goSong(r.title, cfg.artist ? cfg.artist() : ''); }); go.title = 'open this song in the songs tab'; go.disabled = true; bt.appendChild(go);
       }
+      if (!r.sec) { // singing artist of this track: free input + chips (normally left empty)
+        var ao = document.createElement('div'), ai = alInput('singing artist (usually empty)'), ach = document.createElement('div'); ao.className = 'alart'; ach.className = 'chipr'; ai.value = r.artist || ''; ao.appendChild(ai); ao.appendChild(ach); frame.appendChild(ao);
+        var asy = function () { var tk = artistTokens(ai.value); [].forEach.call(ach.children, function (b) { b.classList.toggle('on', tk.indexOf(b.getAttribute('data-v')) >= 0); }); };
+        [ART_G2, ART_L2].forEach(function (v) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v; b.setAttribute('data-v', v); b.onclick = function () { var tk = artistTokens(ai.value), i = tk.indexOf(v); if (i >= 0) tk.splice(i, 1); else tk.push(v); ai.value = tk.join(AJOIN); r.artist = ai.value; asy(); }; ach.appendChild(b); });
+        ai.addEventListener('input', function () { r.artist = ai.value; asy(); }); asy();
+      }
       var sub = document.createElement('div'); sub.className = 'alsub'; var st = document.createElement('div'); st.className = 'plst'; sub.appendChild(st); frame.appendChild(sub);
       function stat() {
         st.innerHTML = ''; if (go) go.disabled = true; var t = r.title.trim(); if (!t || r.sec) return;
@@ -2514,7 +2521,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       acts.innerHTML = ''; var ub = wbtn('update', upd); ub.style.cssText = 'flex:1;padding:12px 6px;font-size:14px'; acts.appendChild(ub); var dl = wbtn('delete', del); dl.style.cssText = 'flex:1;padding:12px 6px;font-size:14px'; dl.disabled = sel < 0; acts.appendChild(dl);
       function upd() { // new (no line selected) or update (the selected line); a track number is its place inside its section
         var t = fr.title.trim(); if (!t) return; parse();
-        var rr = { title: t, no: fr.sec ? '' : fr.no.trim(), sec: fr.sec }, had = sel >= 0 && sel < rows.length, n = parseInt(no.value, 10), ref, pos;
+        var rr = { title: t, no: fr.sec ? '' : fr.no.trim(), artist: fr.sec ? '' : String(fr.artist || '').trim(), sec: fr.sec }, had = sel >= 0 && sel < rows.length, n = parseInt(no.value, 10), ref, pos;
         if (had) rows.splice(sel, 1);
         ref = had ? Math.min(sel, rows.length - 1) : Math.min(anchor, rows.length - 1);
         if (fr.sec) pos = had ? Math.min(sel, rows.length) : (ref >= 0 ? ref + 1 : rows.length);
@@ -2528,13 +2535,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       function del() { if (sel < 0) return; parse(); if (sel < rows.length) rows.splice(sel, 1); anchor = Math.min(sel, rows.length - 1); sel = -1; fr = blank(false); commit(); draw(); }
     }
     function caretRow() { var ls = ta.value.split(/\r?\n/), pos = ta.selectionStart || 0, line = ta.value.slice(0, pos).split(/\r?\n/).length - 1; if (!(ls[line] || '').trim()) return -1; var k = 0; for (var i = 0; i < line; i++) if (ls[i].trim()) k++; return k; }
-    function pick() { var k = caretRow(); if (k < 0) return; parse(); if (k >= rows.length) return; anchor = k; if (k === sel && rows[k].title === fr.title) return; sel = k; fr = { title: rows[k].title, no: rows[k].no || '', sec: !!rows[k].sec }; draw(); }
+    function pick() { var k = caretRow(); if (k < 0) return; parse(); if (k >= rows.length) return; anchor = k; if (k === sel && rows[k].title === fr.title) return; sel = k; fr = { title: rows[k].title, no: rows[k].no || '', artist: rows[k].artist || '', sec: !!rows[k].sec }; draw(); }
     ['click', 'keyup', 'focus'].forEach(function (ev) { ta.addEventListener(ev, pick); });
     ta.addEventListener('input', function () { fitTa(ta, 90); changed(); });
     ta.addEventListener('blur', function () { parse(); var t = alText(rows, cfg); if (t !== ta.value) { ta.value = t; fitTa(ta, 90); changed(); } });
     var addT = wbtn('+ track', function () { sel = -1; fr = blank(false); draw(); var t = frame.querySelector('.alinp input'); if (t) t.focus(); }); addT.style.flex = '1'; bar.appendChild(addT); // a new track
     if (cfg.sec) { var addS = wbtn('+ section', function () { sel = -1; fr = blank(true); draw(); var t = frame.querySelector('.alinp textarea'); if (t) t.focus(); }); addS.title = 'a heading in this disc (e.g. LIVE TOUR 2025). The numbers start again from 1 under it'; addS.style.flex = '1'; bar.appendChild(addS); }
-    function set(arr) { rows = (arr || []).map(function (t) { return t && t.section != null ? { title: String(t.section), no: '', sec: true } : { title: String(t.title || ''), no: t.no == null ? '' : String(t.no) }; }); ta.value = alText(rows, cfg); fitTa(ta, 90); sel = -1; anchor = -1; fr = blank(false); draw(); }
+    function set(arr) { rows = (arr || []).map(function (t) { return t && t.section != null ? { title: String(t.section), no: '', sec: true } : { title: String(t.title || ''), no: t.no == null ? '' : String(t.no), artist: String(t.artist || '') }; }); ta.value = alText(rows, cfg); fitTa(ta, 90); sel = -1; anchor = -1; fr = blank(false); draw(); }
     fetchData('songs').then(function () { draw(); }).catch(function () {});
     draw();
     return { el: wrap, get: get, set: set, redraw: draw };
@@ -2604,7 +2611,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var idIn = alInput('id / title / logid (new: auto)'); idIn.id = 'glih-alid'; idIn.setAttribute('autocapitalize', 'off'); var idFld = alFld('id', idIn); $('alnew').parentNode.insertBefore(idFld, $('alnew').nextSibling); addClear(idIn);
     var idCand = document.createElement('div'); idCand.className = 'fcand'; idCand.hidden = true; idFld.parentNode.insertBefore(idCand, idFld.nextSibling);
     var dtFld = dt.closest('.field'); idCand.parentNode.insertBefore(dtFld, idCand.nextSibling); var wdDt = addWeekday(dt); dt.addEventListener('input', wdDt); // date: right under the id, with its weekday
-    function dateGate() { var ok = okDate(DG(dt.value)); wdDt(); for (var n = dtFld.nextSibling; n; n = n.nextSibling) if (n.nodeType === 1) n.classList.toggle('algated', !ok); } // everything under the date stays hidden until a date is typed (or a release is loaded)
+    var tiFld = ti.closest('.field'), arFld = null, tiCand = null; // title / artist stay visible before a date is typed
+    function dateGate() { var ok = okDate(DG(dt.value)); wdDt(); for (var n = dtFld.nextSibling; n; n = n.nextSibling) if (n.nodeType === 1) n.classList.toggle('algated', !ok && n !== tiFld && n !== arFld && n !== tiCand); } // everything under the date stays hidden until a date is typed (or a release is loaded)
     dt.addEventListener('input', dateGate);
     // the logs rows linked to this release (one row each; the first column of a logs row = its albumid)
     var lgBox = document.createElement('div');
@@ -2625,10 +2633,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function addLink(id) { id = String(id || '').toLowerCase(); if (/^[0-9a-f]{12}$/.test(id) && links.indexOf(id) < 0) links.push(id); }
     function linksOf(a) { return a && a.id ? rowsOf('logs').filter(function (r) { return r && r.albumid === a.id; }).map(function (r) { return r.logid; }) : []; }
     fetchIndex('logs').then(function () { logsReady = true; drawLinks(); upd(); }).catch(function () {});
-    addSuggest(ti, function () { var m = {}; (cache.albums || []).forEach(function (a) { m[a.title] = 1; }); return Object.keys(m).map(function (v) { return { v: v, k: normQ(v) }; }); }, ti.closest('.field'), false);
     var ar = alInput('artist'), arChips = document.createElement('div'); arChips.className = 'chipr'; arChips.style.marginTop = '4px';
     var arCol = document.createElement('div'); arCol.style.flex = '1'; arCol.style.minWidth = '0'; ar.style.width = '100%'; arCol.appendChild(ar); // the Girls2 / Laki chips are gone: G2 / L2 of the member chips set the artist (like the setlist tab)
-    var arFld = alFld('artist', arCol, true); ti.closest('.field').parentNode.insertBefore(arFld, ti.closest('.field').nextSibling);
+    arFld = alFld('artist', arCol, true); ti.closest('.field').parentNode.insertBefore(arFld, ti.closest('.field').nextSibling);
     function syncAr() {}
     // member: the same input + chips as the setlist tab (hearts of the popup). It follows the artist while it is empty or still the automatic value.
     var me = alInput('member'), mw = document.createElement('span'); mw.className = 'fw'; mw.appendChild(me);
@@ -2704,6 +2711,16 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (a) { alApi.load(a, id); return true; }
       var tys = alTypesOf(r), nm = alNameOf(r.title); alApi.fresh(nm || String(r.title || '').trim(), tys[0] || '', DG(r.date || ''), id, (r.groups || []).join(',')); alFrom = { groups: (r.groups || []).join(',') }; return true;
     }
+    function albumRows(qq) { return (cache.albums || []).filter(function (x) { return x && normQ(x.title + ' ' + x.type + ' ' + (x.artist || '') + ' ' + (x.id || '')).indexOf(qq) >= 0; }).slice(0, 30); }
+    function drawCand(box, rows, hide) { // line 1: date + type, line 2: title / artist (the id is not shown, as in the logs tab)
+      box.innerHTML = '';
+      rows.forEach(function (x) {
+        var b = document.createElement('button'); b.type = 'button'; b.appendChild(document.createTextNode(fmtD(x.date || '', '') + '  ' + x.type));
+        var m2 = document.createElement('span'); m2.className = 'm l2'; m2.textContent = (String(x.title || '') + (x.artist ? ' / ' + x.artist : '')).slice(0, 70); b.appendChild(m2);
+        b.onmousedown = function (e) { e.preventDefault(); }; b.onclick = function () { hide(); alApi.load(x); };
+        box.appendChild(b);
+      });
+    }
     function hideIdC() { idCand.hidden = true; idCand.innerHTML = ''; }
     function runIdSearch(force) {
       var v = idIn.value.trim(); if (!v || v === albumId) { hideIdC(); return; }
@@ -2713,18 +2730,16 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         if (fromLog(id)) { hideIdC(); return; }
       }
       var qq = normQ(v); if (qq.length < (force ? 1 : 2)) { hideIdC(); return; }
-      var rows = (cache.albums || []).filter(function (x) { return x && normQ(x.title + ' ' + x.type + ' ' + (x.id || '')).indexOf(qq) >= 0; }).slice(0, 30);
-      idCand.innerHTML = '';
-      rows.forEach(function (x) { // line 1: date + type, line 2: title (the id is not shown, as in the logs tab)
-        var b = document.createElement('button'); b.type = 'button'; b.appendChild(document.createTextNode(fmtD(x.date || '', '') + '  ' + x.type));
-        var m2 = document.createElement('span'); m2.className = 'm l2'; m2.textContent = String(x.title || '').slice(0, 60); b.appendChild(m2);
-        b.onmousedown = function (e) { e.preventDefault(); }; b.onclick = function () { hideIdC(); alApi.load(x); };
-        idCand.appendChild(b);
-      });
+      var rows = albumRows(qq); drawCand(idCand, rows, hideIdC);
       if (force && rows.length === 1) { hideIdC(); alApi.load(rows[0]); return; }
       if (force && !rows.length) { var nf = document.createElement('span'); nf.className = 'fnone'; nf.textContent = 'not found'; nf.style.cssText = 'padding:6px 8px;font-size:12px;color:var(--sub)'; idCand.appendChild(nf); idCand.hidden = false; return; }
       idCand.hidden = !rows.length;
     }
+    // typing in the title box lists the matching releases too (a pick loads it)
+    tiCand = document.createElement('div'); tiCand.className = 'fcand'; tiCand.hidden = true; tiFld.parentNode.insertBefore(tiCand, tiFld.nextSibling);
+    function hideTiC() { tiCand.hidden = true; tiCand.innerHTML = ''; }
+    function runTiSearch() { var v = ti.value.trim(), qq = normQ(v); if (qq.length < 2 || v === loadedKey.split('|')[0]) { hideTiC(); return; } var rows = albumRows(qq); drawCand(tiCand, rows, hideTiC); tiCand.hidden = !rows.length; }
+    ti.addEventListener('input', runTiSearch); ti.addEventListener('blur', function () { setTimeout(hideTiC, 150); });
     idIn.addEventListener('input', function () { runIdSearch(false); });
     idIn.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); runIdSearch(true); } });
     idIn.addEventListener('blur', function () { setTimeout(function () { if (idIn.value.trim() !== albumId) { idIn.value = albumId; idIn.dispatchEvent(new Event('input', { bubbles: true })); } hideIdC(); }, 150); });
