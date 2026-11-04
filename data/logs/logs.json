@@ -5456,6 +5456,34 @@
     ]
   },
   {
+    "logid": "c2f91124841e",
+    "date": "20261103",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　ワンダンス",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfRgpotBbcy/?srtk=YWN0N3A1N3F6cDNu",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "ジャパンプレミア",
+              "ビハインド"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "3a6892f7c051",
     "date": "20261102",
     "time": "2359",
