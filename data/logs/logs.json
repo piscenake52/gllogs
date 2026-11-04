@@ -3548,6 +3548,7 @@
     "groups": [
       "L2",
       "TBK",
+      "HIR",
       "KAN"
     ],
     "sns": [
@@ -3575,6 +3576,20 @@
             "tags": [
               "What time is It?",
               "Crystal Kay"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfUZnirokx3/?exln=M2xueW54amY1bjdi",
+            "member": [
+              "HIR"
+            ],
+            "tags": [
+              "真顔！ティニピン"
             ]
           }
         ]
