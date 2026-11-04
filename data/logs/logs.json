@@ -2936,12 +2936,13 @@
   {
     "logid": "1d00123075c4",
     "date": "20261104",
-    "time": "1300",
+    "time": "1335",
     "contents": "RADIO",
     "title": "TOKAI RADIO 「OH! MY CHANNEL!」",
     "url": "https://www.tokairadio.co.jp/program/ohmy/",
     "groups": [
       "G2",
+      "YOK",
       "KUR",
       "KIR"
     ],
@@ -2975,6 +2976,16 @@
             "member": [],
             "tags": [
               "TOKAI RADIO"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2117829282181570582?a=gK4yvsU18HT3ReFRlQs&s=19",
+            "member": [
+              "KUR",
+              "KIR"
+            ],
+            "tags": [
+              "このあと"
             ]
           }
         ]
