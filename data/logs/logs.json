@@ -3106,6 +3106,57 @@
     ]
   },
   {
+    "logid": "072f28981810",
+    "date": "20261104",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2117818680725954981?a=LT7VO8dJmoyNiVKz4v4&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSp8u95uf/",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "GirlsAward 2026"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "94d78db5dbfa",
     "date": "20261103",
     "time": "2359",
