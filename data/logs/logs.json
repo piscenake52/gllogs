@@ -3666,6 +3666,33 @@
     ]
   },
   {
+    "logid": "d9b3a2163e57",
+    "date": "20261104",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　ワンダンス",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfT3uWrNNWe/?xtok=ZXh5eGZkNWtjb3cw",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "コンテストに向けて"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "94d78db5dbfa",
     "date": "20261103",
     "time": "2359",
