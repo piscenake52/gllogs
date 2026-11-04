@@ -1635,6 +1635,34 @@
     "suffix": "放送記念日"
   },
   {
+    "logid": "97a6ecdfa382",
+    "date": "20261115",
+    "time": "",
+    "contents": "CLOSE",
+    "title": "映画 「ワンダンス」 × ME TOKYO IKEBUKURO プレゼントキャンペーン応募受付締切",
+    "display_pc": "映画 「ワンダンス」 × ME TOKYO IKEBUKURO プレゼントCP応募受付締切",
+    "display_sp": "映画 「ワンダンス」 × ME TOKYO プレゼントCP応募受付締切",
+    "url": "https://x.com/Metokyo_Bukuro/status/2117798989135294804?a=aHz1YF34VPKZy1j-Ebo&s=19",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Metokyo_Bukuro/status/2117798989135294804?a=aHz1YF34VPKZy1j-Ebo&s=19",
+            "member": [],
+            "tags": [
+              "ME TOKYO IKEBUKURO"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "f7125e1da63b",
     "date": "20261113",
     "time": "2000",
