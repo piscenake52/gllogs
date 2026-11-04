@@ -3600,6 +3600,30 @@
     ]
   },
   {
+    "logid": "2ce9dc9c3d8a",
+    "date": "20261104",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/22PJpXH5mjdZk7GdW2gD6r",
+            "member": [],
+            "tags": [
+              "テレビ出演情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "94d78db5dbfa",
     "date": "20261103",
     "time": "2359",
