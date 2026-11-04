@@ -2154,6 +2154,36 @@
     ]
   },
   {
+    "logid": "a65a22910d51",
+    "date": "20261107",
+    "time": "1000",
+    "contents": "TICKET",
+    "title": "TGC TOYAMA 2026 by TOKYO GIRLS COLLECTION チケット追加販売",
+    "display_sp": "TGC TOYAMA 2026 チケット追加販売",
+    "url": "https://tgc.girlswalker.com/toyama/2026/ticket/",
+    "groups": [
+      "G2",
+      "YOK"
+    ],
+    "tags": [
+      "TGC"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/TGCnews/status/2117835478586056910?s=19",
+            "member": [],
+            "tags": [
+              "TGC"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "62e476c22ec8",
     "date": "20261107",
     "time": "0321",
