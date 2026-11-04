@@ -3396,6 +3396,48 @@
     ]
   },
   {
+    "logid": "3882d02d998c",
+    "date": "20261104",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "TBK",
+      "KAN"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2117908194853073081?a=oqpLYxTqwd8wTaLVTrw&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSpLy2o73/",
+            "member": [
+              "TBK",
+              "KAN"
+            ],
+            "tags": [
+              "What time is It?",
+              "Crystal Kay"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "94d78db5dbfa",
     "date": "20261103",
     "time": "2359",
