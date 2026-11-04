@@ -2807,6 +2807,9 @@
       "KIR"
     ],
     "tags": [
+      "鶴屋たるふ",
+      "CO₂リーダー",
+      "どぶがえる",
       "がるがるトーク"
     ],
     "sns": [
@@ -2844,6 +2847,25 @@
             "tags": [
               "みさきらコンビ",
               "ポーズの真相"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtu.be/O037-c3AO-I?si=H_aX0G2j0mbq4ih4",
+            "member": [],
+            "tags": [
+              "Umbrella"
+            ]
+          },
+          {
+            "url": "https://youtu.be/a77qjI2100w?si=M8yszvAVDFNcJAJm",
+            "member": [],
+            "tags": [
+              "Nocturne"
             ]
           }
         ]
