@@ -1663,6 +1663,43 @@
     ]
   },
   {
+    "logid": "15ae9912bdf5",
+    "date": "20261114",
+    "time": "1300",
+    "contents": "RELEASEEVENT",
+    "title": "Girls² EP「EASY」発売記念 リリースイベント 静岡・浜松",
+    "display_pc": "Girls² EP「EASY」リリースイベント 静岡・浜松",
+    "display_sp": "「EASY」リリースイベント 静岡・浜松",
+    "url": "https://girls2-fc.jp/page/news/1238012060911009792",
+    "map": "https://maps.app.goo.gl/54LBA8or5L8tZwri6",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "setlistid": "202611141300",
+    "tags": [
+      "プレ葉ウォーク浜北",
+      "プレ葉コート"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2108331608684249280",
+            "member": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "f7125e1da63b",
     "date": "20261113",
     "time": "2000",
