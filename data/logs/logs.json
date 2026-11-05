@@ -2038,6 +2038,18 @@
             ]
           }
         ]
+      },
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://limista.com/projects/8443",
+            "member": [],
+            "tags": [
+              "販売ページ"
+            ]
+          }
+        ]
       }
     ]
   },
