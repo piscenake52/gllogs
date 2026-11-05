@@ -2920,6 +2920,33 @@
     ]
   },
   {
+    "logid": "d0e5d7e152b6",
+    "date": "20261105",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　ワンダンス",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2118161377936150556?a=4wQJi0WlulbUbMfEBy4&s=19",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "ロング予告解禁"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "1505de864cbb",
     "date": "20261104",
     "time": "2359",
