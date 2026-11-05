@@ -8152,6 +8152,18 @@
             ]
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://www.youtube.com/watch?v=ot5nuA4_fr8",
+            "member": [],
+            "tags": [
+              "Fancam"
+            ]
+          }
+        ]
       }
     ]
   },
