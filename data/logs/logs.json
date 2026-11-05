@@ -2521,6 +2521,34 @@
     ]
   },
   {
+    "logid": "1ada31cb8056",
+    "date": "20261106",
+    "time": "1800",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　小川桜花",
+    "groups": [
+      "G2",
+      "YOK"
+    ],
+    "tags": [
+      "LDH NEWS CAST"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/CL_OFFICIAL_ACC/status/2117040305379967249?a=T5oWrJOszY6E8zgWysU&s=19",
+            "member": [],
+            "tags": [
+              "スケジュール発表"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "15c0de1db2a5",
     "date": "20261106",
     "time": "1000",
@@ -2787,34 +2815,6 @@
             "member": [],
             "tags": [
               "出演情報"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "logid": "1ada31cb8056",
-    "date": "20261106",
-    "time": "",
-    "contents": "CL",
-    "title": "LDH NEWS CAST　小川桜花",
-    "groups": [
-      "G2",
-      "YOK"
-    ],
-    "tags": [
-      "LDH NEWS CAST"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/CL_OFFICIAL_ACC/status/2117040305379967249?a=T5oWrJOszY6E8zgWysU&s=19",
-            "member": [],
-            "tags": [
-              "スケジュール発表"
             ]
           }
         ]
