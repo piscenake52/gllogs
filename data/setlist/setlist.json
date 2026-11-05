@@ -245,7 +245,7 @@
       {
         "order": 2,
         "title": "Eagle Eyes",
-        "type": "song",
+        "type": "short",
         "original": "",
         "notes": ""
       },
@@ -259,21 +259,21 @@
       {
         "order": 4,
         "title": "Umbrella",
-        "type": "song",
+        "type": "short",
         "original": "",
         "notes": ""
       },
       {
         "order": 5,
         "title": "I wanna 宣言",
-        "type": "song",
+        "type": "short",
         "original": "",
         "notes": ""
       },
       {
         "order": 6,
         "title": "LET ME GO",
-        "type": "song",
+        "type": "short",
         "original": "",
         "notes": ""
       }
