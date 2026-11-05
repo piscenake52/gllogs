@@ -2702,6 +2702,7 @@
     "time": "1800",
     "contents": "SALES",
     "title": "EP「EASY」発売記念インターネットサイン会 対象商品販売開始",
+    "display_sp": "「EASY」発売記念ネットサイン会 対象商品販売開始",
     "url": "https://girls2-fc.jp/page/familyNews/1247821411741859842",
     "groups": [
       "G2",
@@ -2733,6 +2734,26 @@
             "member": [],
             "tags": [
               "日程3"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2117953044910637281?a=C0d06XDqlRz3UG9MARE&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "開催決定"
             ]
           }
         ]
