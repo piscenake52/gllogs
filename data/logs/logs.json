@@ -3568,6 +3568,34 @@
     ]
   },
   {
+    "logid": "f3b165ffbc05",
+    "date": "20261105",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2",
+      "KAN"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/qpXHFRjPqMkurTiMVUrs1b",
+            "member": [
+              "KAN"
+            ],
+            "tags": [
+              "カエデマン",
+              "ラリちゃん"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "1505de864cbb",
     "date": "20261104",
     "time": "2359",
