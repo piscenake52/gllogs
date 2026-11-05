@@ -1,0 +1,25 @@
+{
+  "logid": "5c1ac0f20995",
+  "sns": [
+    {
+      "type": "youtube",
+      "urls": [
+        {
+          "url": "https://www.youtube.com/watch?v=JbQUBdlZ2ck",
+          "member": [],
+          "tags": [
+            "Fancam"
+          ]
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=CJAhmj9rHyo",
+          "member": [],
+          "tags": [
+            "Fancam"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3037"
+}
