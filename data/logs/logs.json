@@ -2924,6 +2924,47 @@
     ]
   },
   {
+    "logid": "12df33f42c56",
+    "date": "20261105",
+    "time": "1630",
+    "contents": "CL",
+    "title": "木曜日のフォーエイト　佐藤栞奈",
+    "url": "https://www.cl-live.com/artists/thursday_48?utm_medium=referral&utm_source=referral&utm_campaign=url_share",
+    "groups": [
+      "L2",
+      "KAN"
+    ],
+    "tags": [
+      "木曜日のフォーエイト"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/CL_OFFICIAL_ACC/status/2117040305379967249?a=T5oWrJOszY6E8zgWysU&s=19",
+            "member": [],
+            "tags": [
+              "スケジュール発表"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/qjWLUUx4GJXRTjhMgeFEMP",
+            "member": [],
+            "tags": [
+              "CL"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "1a2f6e804615",
     "date": "20261105",
     "time": "1400",
@@ -3113,34 +3154,6 @@
     ],
     "tags": [
       "マジカルテレフォン"
-    ]
-  },
-  {
-    "logid": "12df33f42c56",
-    "date": "20261105",
-    "time": "",
-    "contents": "CL",
-    "title": "木曜日のフォーエイト　佐藤栞奈",
-    "groups": [
-      "L2",
-      "KAN"
-    ],
-    "tags": [
-      "木曜日のフォーエイト"
-    ],
-    "sns": [
-      {
-        "type": "x",
-        "urls": [
-          {
-            "url": "https://x.com/CL_OFFICIAL_ACC/status/2117040305379967249?a=T5oWrJOszY6E8zgWysU&s=19",
-            "member": [],
-            "tags": [
-              "スケジュール発表"
-            ]
-          }
-        ]
-      }
     ]
   },
   {
