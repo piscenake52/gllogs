@@ -2697,6 +2697,48 @@
     ]
   },
   {
+    "logid": "7a89009330b8",
+    "date": "20261105",
+    "time": "1800",
+    "contents": "SALES",
+    "title": "EP「EASY」発売記念インターネットサイン会 対象商品販売開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1247821411741859842",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "リミスタ"
+    ],
+    "sns": [
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://limista.com/projects/8443",
+            "member": [],
+            "tags": [
+              "日程1&2"
+            ]
+          },
+          {
+            "url": "https://limista.com/projects/8444",
+            "member": [],
+            "tags": [
+              "日程3"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "c497a495ef96",
     "date": "20261105",
     "time": "1700",
