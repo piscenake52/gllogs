@@ -107814,6 +107814,30 @@
     ]
   },
   {
+    "logid": "5f21dc8f988c",
+    "date": "20231105",
+    "time": "1600",
+    "contents": "TOUR",
+    "title": "Girls² LIVE TOUR 2023 -activate- 愛知公演",
+    "url": "https://girls2-fc.jp/page/news/796687717785142329",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "setlistid": "202311051600",
+    "tags": [
+      "センチュリーホール",
+      "activate"
+    ]
+  },
+  {
     "logid": "7e37a7cda5fc",
     "date": "20231105",
     "time": "1200",
@@ -107931,27 +107955,6 @@
       "KIR",
       "TOA",
       "RAN"
-    ]
-  },
-  {
-    "logid": "5f21dc8f988c",
-    "date": "20231105",
-    "time": "",
-    "contents": "TOUR",
-    "title": "Girls² LIVE TOUR 2023 -activate- 愛知公演",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "名古屋国際会議場"
     ]
   },
   {
