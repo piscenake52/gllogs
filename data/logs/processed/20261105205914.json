@@ -1,0 +1,53 @@
+{
+  "date": "20261106",
+  "time": "2100",
+  "url": "!clear",
+  "groups": [
+    "G2",
+    "KIR",
+    "L2",
+    "KIK"
+  ],
+  "tags": [
+    "=",
+    "LDH LIVE EXPO"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/CL_OFFICIAL_ACC/status/2118306877838966815?a=dqZpin5g-RxgT9ywO3s&s=19",
+          "member": [],
+          "tags": [
+            "CL"
+          ]
+        },
+        {
+          "url": "https://x.com/ldhliveexpo/status/2118308608945602585?a=sRPQvuQzZfrXBZJ05XY&s=19",
+          "member": [],
+          "tags": [
+            "LDH LIVE EXPO"
+          ]
+        }
+      ]
+    },
+    {
+      "_remove": "https://x.com/CL_OFFICIAL_ACC/status/2118199333237686615?a=XhUgrelg_CY598Kta_o&s=19"
+    },
+    {
+      "_remove": "https://x.com/Laki922official/status/2118235143999832259?a=aegMJmr_rpnMKjf8Uh8&s=19"
+    },
+    {
+      "_remove": "https://x.com/CL_OFFICIAL_ACC/status/2118252492828074005?a=gZ26iULyfq0HaLZD9rE&s=19"
+    },
+    {
+      "_remove": "https://x.com/Laki922official/status/2118268615757844847?a=Yn-jZmpz_fz4T2oM1R8&s=19"
+    },
+    {
+      "_remove": "https://x.com/ldhliveexpo/status/2118279275346567580?a=HUHFkRigFSomOfEXN2c&s=19"
+    }
+  ],
+  "_copy_from": "5146a3cbb76f",
+  "_issue": "3081"
+}

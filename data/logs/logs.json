@@ -2530,6 +2530,44 @@
     "suffix": "開催記念日"
   },
   {
+    "logid": "43e3ccb74c5a",
+    "date": "20261106",
+    "time": "2100",
+    "contents": "CL",
+    "title": "LDH LIVE EXPO 2026 -PERFECT YEAR BEST- 盛り上げコラボキャス",
+    "display_sp": "LDH LIVE EXPO 2026 盛り上げコラボキャス",
+    "groups": [
+      "G2",
+      "KIR",
+      "L2",
+      "KIK"
+    ],
+    "tags": [
+      "LDH LIVE EXPO"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/CL_OFFICIAL_ACC/status/2118306877838966815?a=dqZpin5g-RxgT9ywO3s&s=19",
+            "member": [],
+            "tags": [
+              "CL"
+            ]
+          },
+          {
+            "url": "https://x.com/ldhliveexpo/status/2118308608945602585?a=sRPQvuQzZfrXBZJ05XY&s=19",
+            "member": [],
+            "tags": [
+              "LDH LIVE EXPO"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "77e64538e41a",
     "date": "20261106",
     "time": "2000",
