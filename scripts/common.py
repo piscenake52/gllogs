@@ -9,3 +9,9 @@ def is_blank(v):
 
 def album_type_ok(t):
     return isinstance(t, str) and bool(re.fullmatch(r"[^\s|][^\n\r|]{0,29}", t)) and t == t.strip().lower()
+
+
+def map_from_html(v):
+    """mapに貼られた Google マップの埋め込みHTML(<iframe src="...">)を、埋め込みURLに直す。URLやそれ以外はそのまま返す"""
+    m = re.search(r"""<iframe[^>]*\ssrc\s*=\s*["']([^"']+)["']""", v or "", re.I)
+    return m.group(1).replace("&amp;", "&").strip() if m else v

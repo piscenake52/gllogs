@@ -4,7 +4,7 @@ import re
 import unicodedata
 from datetime import datetime, timedelta, timezone
 
-from common import is_blank, album_type_ok
+from common import is_blank, album_type_ok, map_from_html
 
 # フォームのラベルと完全一致させること
 # add_logs.yml
@@ -449,6 +449,7 @@ def parse_repeat(raw_str):
                 t = t.strip()
                 if t and t not in row_tags:
                     row_tags.append(t)
+            map_ = map_from_html(map_)
             if map_ and not re.fullmatch(r"https?://\S+", map_):
                 errors.append(f"- **繰り返し登録**: mapはhttp(s)://から始めてください（`{shown}`）")
                 continue
