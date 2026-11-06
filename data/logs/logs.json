@@ -2821,7 +2821,24 @@
     "url": "https://girls2-fc.jp/page/familyNews/1248455410868813824",
     "groups": [
       "G2",
-      "YOK"
+      "YOK",
+      "L2"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfYfAhkMghE/?mdxt=MW9idmgyNXd0OGNjZw==",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "何履いてますか"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
