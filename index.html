@@ -96,8 +96,13 @@ window.uiIc = function (n) { return '<svg class="ui-ic" viewBox="0 0 24 24" aria
   --team-g2: #f472b6; --team-l2: #facc15; /* チーム色(G2/L2) */
   --ok: #34d399; --warn: #f59e0b; --lamp-data: #fbbf24; /* 状態色(次/データあり/前) */
   --dur-s: .18s; --dur-m: .28s; --dur-l: .5s; /* 動きの時間: 小(色・フェード)/中(開閉・伸縮)/大(登場演出) */
-  --ease-s: ease; --ease-m: cubic-bezier(0.16, 1, 0.3, 1); --ease-l: ease-out;
+  --ease-s: ease; --ease-m: cubic-bezier(0.16, 1, 0.3, 1); --ease-l: ease-out; --ease-move: cubic-bezier(0.4, 0, 0.2, 1); /* ease-move: 位置の入れ替え(折りたたみの移動)用 */
   --knob: #fff; --yt-red: #ff0033; --play-bg: #fff; --play-fg: #121212;
+  --r-xs: 4px; --r-s: 8px; --r-m: 12px; --r-l: 16px; --r-pill: 999px; /* 角丸: 小/中/大/特大/完全な丸(pill)。円(50%)は別 */
+  --fs-2xs: 10px; --fs-xs: 11px; --fs-s: 12px; --fs-m: 13px; --fs-l: 14px; --fs-xl: 15px; --fs-2xl: 16px; /* 文字サイズの段階 */
+  --z-header: 100; --z-fab: 999; --z-modal: 1000; --z-modal-2: 1050; --z-modal-3: 1100; --z-modal-top: 1300; --z-ripple: 9999; --z-toast: 10000; /* 重なり順(下から) */
+  --shadow-s: 0 1px 4px rgba(0,0,0,0.15); --shadow-m: 0 4px 12px rgba(0,0,0,0.15); --shadow-l: 0 10px 30px rgba(0,0,0,0.3); /* 影: 小(ボタン)/中(浮くボタン・通知)/大(ポップアップ) */
+  --op-disabled: .4; --op-mid: .5; --op-sub: .8; --op-hover: .85; /* 透明度: 無効・除外/ドラッグ中/補助の文字/ホバーで少し薄く */
   --container-w: 620px;
   --data-font-scale: 1; /* データ部の文字サイズ倍率(-/+ボタンで変更、既定100%=1) */
 }
@@ -119,9 +124,10 @@ a:focus-visible,
 input:focus-visible,
 [role="button"]:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent) !important; /* IDつきの個別指定(outline: none)に負けず、キーボード操作では必ず枠を出す */
   outline-offset: 2px;
 }
+.set-switch input:focus-visible { outline: none !important; } /* スイッチは隣のつまみ側に枠を出す */
 
 /* スマホのPC版表示対応 ＆ カクつき防止（scrollbar-gutter: stable） */
 /* 「PC版サイト」表示時、横幅が広い仮想ビューポートになることで指の縦ドラッグが横パン */
@@ -188,15 +194,15 @@ body.is-resizing-container { cursor: ew-resize; user-select: none; }
   .width-resize-handle.right { left: calc(50% + var(--container-w) / 2); }
 }
 /* --- 上部固定ヘッダー(タイトル・検索・テーマ切替・フィルター開閉) --- */
-.sticky-header { position: sticky; top: 0; background: var(--bg); z-index: 100; padding: 12px 0 0; margin-bottom: 12px; border-bottom: 1px solid var(--border); transition: background-color var(--dur-s); }
+.sticky-header { position: sticky; top: 0; background: var(--bg); z-index: var(--z-header); padding: 12px 0 0; margin-bottom: 12px; border-bottom: 1px solid var(--border); transition: background-color var(--dur-s); }
 .sticky-header-inner { position: relative; padding-bottom: 8px; }
 .header-row { display: flex; justify-content: flex-start; align-items: flex-end; margin-bottom: 14px; position: relative; }
 h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側のボタンが増えても、タイトル「GL log」は縮めず1行のままにする */
 #headerBtnGroupRight .toggle-btn { padding: 4px clamp(1px, calc(1px + (100vw - 392px) / 8), 8px); } /* BADGE/ICON/TODAYの左右余白を少し詰めて、スマホ幅でも左のアイコン列と並べる */
 .reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; letter-spacing: -2px; }
 .reset-link sup { font-size: 0.67em; }
-.reset-link:hover { opacity: 0.8; }
-.toggle-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; padding: 4px 8px; border-radius: 12px; line-height: 1; }
+.reset-link:hover { opacity: var(--op-hover); }
+.toggle-btn { background: none; border: none; color: var(--muted); font-size: var(--fs-xs); cursor: pointer; padding: 4px 8px; border-radius: var(--r-pill); line-height: 1; }
 .toggle-btn:hover { color: var(--text); background-color: var(--btn-bg); }
 .header-btn-group { display: flex; align-items: center; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; min-width: 0; }
 /* スマホ幅でリンクボタン分のはみ出しを減らすため、ボタン間の間隔だけ少し詰める(タップ領域自体は変わらないので操作性への影響は小さい) */
@@ -215,12 +221,12 @@ html.zoom-wrap .search-box-wrap { flex: 1 1 0; min-width: 0; }
 html.zoom-wrap .extra-tools-row:not(.tools-open) .text-size-wrap, html.zoom-wrap .extra-tools-row:not(.tools-open) #themeToggleBtn, html.zoom-wrap .extra-tools-row:not(.tools-open) #lockToggleBtn { display: none; }
 .header-btn-group::-webkit-scrollbar { display: none; }
 .header-btn-group > * { flex-shrink: 0; }
-.date-part-btn { padding: 4px 5px; font-size: 12px; }
+.date-part-btn { padding: 4px 5px; font-size: var(--fs-s); }
 /* 時計ボタンを押すと、時計の枠が他のアイコンの上に横へ伸びて、中に年/月/日/曜/時が出る(幅はJSで動かす) */
-.dp-pill { position: absolute; left: 0; top: 0; height: 30px; width: 0; box-sizing: border-box; display: flex; align-items: center; gap: 6px; padding: 0 3px; border-radius: 15px; background: var(--bg); box-shadow: 0 0 0 1px var(--input-border), 0 2px 8px rgba(0,0,0,.18); overflow: hidden; z-index: 30; visibility: hidden; opacity: 0; transition: width var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s), visibility 0s linear var(--dur-m); }
+.dp-pill { position: absolute; left: 0; top: 0; height: 30px; width: 0; box-sizing: border-box; display: flex; align-items: center; gap: 6px; padding: 0 3px; border-radius: var(--r-pill); background: var(--bg); box-shadow: 0 0 0 1px var(--input-border), 0 2px 8px rgba(0,0,0,.18); overflow: hidden; z-index: 30; visibility: hidden; opacity: 0; transition: width var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s), visibility 0s linear var(--dur-m); }
 .dp-pill.is-open { visibility: visible; opacity: 1; transition: width var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s), visibility 0s; }
 /* ヘッダーの左側のアイコン(🕐 年月日曜時 📍 📋 🏷️ 🔗)は、すべて同じ大きさ(24px四方)にそろえる */
-#headerBtnGroup .date-part-btn, .dp-pill > .date-part-btn { flex: 0 0 auto; width: 24px; height: 24px; min-width: 0; box-sizing: border-box; padding: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; line-height: 1; border-radius: 12px; }
+#headerBtnGroup .date-part-btn, .dp-pill > .date-part-btn { flex: 0 0 auto; width: 24px; height: 24px; min-width: 0; box-sizing: border-box; padding: 0; display: inline-flex; align-items: center; justify-content: center; font-size: var(--fs-s); line-height: 1; border-radius: var(--r-pill); }
 @media (prefers-reduced-motion: reduce) { .dp-pill, .dp-pill.is-open { transition: none; } }
 /* 🏷️ボタン(タグ表示モード):ONの間、タグがある行のタイトルの下にタグのチップを出す。押すとそのタグで絞り込む */
 .item-tags { flex: 0 0 100%; box-sizing: border-box; display: grid; grid-template-rows: 0fr; opacity: 0; pointer-events: none; transition: grid-template-rows var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); } /* 左の余白(タイトルの左端)はJSで入れる */
@@ -230,15 +236,22 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 .items.tag-mode .item-tags { grid-template-rows: 1fr; opacity: 1; pointer-events: auto; }
 .item.has-tags { flex-wrap: wrap; } /* 常に折り返し可にする(タグ表示OFFでも、幅100%のチップ行が同じ段に居座って、データ部のタイトルを押しつぶさないように) */
 .items.tag-mode .item.has-tags { padding-bottom: 4px; }
+/* 行の下端(下線のあたり)を押した行だけ、全体のタグ表示と逆にする: OFFのとき=その行だけ表示(tag-show)、ONのとき=その行だけ非表示(tag-hide) */
+.items:not(.tag-mode) .item.tag-show .item-tags { grid-template-rows: 1fr; opacity: 1; pointer-events: auto; }
+.items:not(.tag-mode) .item.has-tags.tag-show { padding-bottom: 4px; }
+.items:not(.tag-mode) .item.tag-show .item-tags-in { padding-top: 3px; }
+.items.tag-mode .item.tag-hide .item-tags { grid-template-rows: 0fr; opacity: 0; pointer-events: none; }
+.items.tag-mode .item.has-tags.tag-hide { padding-bottom: 6px; }
+.items.tag-mode .item.tag-hide .item-tags-in { padding-top: 0; }
 .items.tag-mode .item-tags-in { padding-top: 3px; }
 .item.has-tags { transition: padding-bottom var(--dur-m) var(--ease-s); }
-.tag-chip { flex: 0 0 auto; font: inherit; font-size: calc(var(--data-font-scale) * 11.5px); line-height: 1; padding: 4px 8px; border-radius: 5px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); cursor: pointer; white-space: nowrap; }
+.tag-chip { flex: 0 0 auto; font: inherit; font-size: calc(var(--data-font-scale) * 11.5px); line-height: 1; padding: 4px 8px; border-radius: var(--r-xs); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); cursor: pointer; white-space: nowrap; }
 .tag-chip:hover { background-color: var(--btn-hover); }
 @media (prefers-reduced-motion: reduce) { .item-tags, .item.has-tags { transition: none; } }
 /* リンクボタン追加でスマホ幅が窮屈になるため、地図・セトリボタンは少し小さくして幅を節約する */
-#mapToggleBtn, #setlistIconToggleBtn { padding: 4px 4px; font-size: 11px; }
+#mapToggleBtn, #setlistIconToggleBtn { padding: 4px 4px; font-size: var(--fs-xs); }
 .toggle-btn.is-active { color: var(--text); background-color: var(--btn-bg); text-shadow: 0 0 0.4px currentColor, 0 0 0.4px currentColor; }
-.toggle-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.toggle-btn:disabled { opacity: var(--op-disabled); cursor: not-allowed; }
 .toggle-btn:disabled:hover { background: none; color: var(--muted); }
 .date-part-btn.is-active { color: var(--on-accent); background-color: var(--accent); }
 #badgeToggleBtn.is-active, #iconToggleBtn.is-active, #filterSummaryToggleBtn.is-active { color: var(--on-accent); background-color: var(--accent); }
@@ -264,7 +277,7 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
   background-color: var(--bg);
   border: 1px solid var(--border);
   padding: 2px 10px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  box-shadow: var(--shadow-s);
 }
 @media (max-width: 420px) {
   .filter-center-btn { padding: 2px 6px; }
@@ -292,38 +305,38 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 
 /* --- 検索ボックス(クリアボタン付き) --- */
 .search-box-wrap { flex: 1 1 110px; min-width: 0; position: relative; display: flex; align-items: center; }
-.search-input { width: 100%; padding: 5px 28px 5px 32px; font-size: 12px; border: 1px solid var(--input-border); border-radius: 10px; outline: none; background: var(--input-bg); color: var(--text); }
+.search-input { width: 100%; padding: 5px 28px 5px 32px; font-size: var(--fs-s); border: 1px solid var(--input-border); border-radius: var(--r-m); outline: none; background: var(--input-bg); color: var(--text); }
 .search-input:focus { border-color: var(--text); background: var(--bg); }
 /* SETLISTモード切替アイコン(検索窓の左側に内包) */
-.search-setlist-btn { position: absolute; left: 9px; width: 19px; height: 19px; border-radius: 50%; background: none; border: none; color: var(--muted); font-size: 10px; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; user-select: none; }
+.search-setlist-btn { position: absolute; left: 9px; width: 19px; height: 19px; border-radius: 50%; background: none; border: none; color: var(--muted); font-size: var(--fs-2xs); cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; user-select: none; }
 .search-setlist-btn:hover { background-color: var(--btn-hover); }
-.search-clear-btn { position: absolute; right: 8px; background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 0; line-height: 1; display: none; user-select: none; }
+.search-clear-btn { position: absolute; right: 8px; background: none; border: none; color: var(--muted); font-size: var(--fs-l); cursor: pointer; padding: 0; line-height: 1; display: none; user-select: none; }
 .search-clear-btn:hover { color: var(--text); }
 .search-box-wrap.has-text .search-clear-btn { display: block; }
-.search-suggestions { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 10px; z-index: 20; overflow: hidden; display: block; opacity: 0; visibility: hidden; transform: translateY(-4px); pointer-events: none; }
+.search-suggestions { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--r-m); z-index: 20; overflow: hidden; display: block; opacity: 0; visibility: hidden; transform: translateY(-4px); pointer-events: none; }
 .search-suggestions.is-open { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; transition: opacity var(--dur-s) var(--ease-s), transform var(--dur-s) var(--ease-s); } /* 開くときだけフェード(閉じは即時。入力のたびに閉じて開き直すため) */
 .search-suggestion-row { display: flex; align-items: stretch; }
 .search-suggestion-row:hover, .search-suggestion-row.is-highlighted { background: var(--btn-hover); }
-.search-suggestion-term { flex: 1 1 auto; min-width: 0; display: block; text-align: left; background: none; border: none; color: var(--text); font-size: 13px; padding: 7px 12px; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.search-suggestion-pin { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 30px; background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer; padding: 0; }
+.search-suggestion-term { flex: 1 1 auto; min-width: 0; display: block; text-align: left; background: none; border: none; color: var(--text); font-size: var(--fs-m); padding: 7px 12px; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search-suggestion-pin { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 30px; background: none; border: none; color: var(--muted); font-size: var(--fs-s); cursor: pointer; padding: 0; }
 .search-suggestion-pin:hover { color: var(--text); }
 .search-suggestion-pin .ui-ic { width: 1.4em; height: 1.4em; }
 .search-suggestion-row.is-pinned .search-suggestion-delete { display: none; }
-.search-suggestion-delete { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 34px; background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 0; }
+.search-suggestion-delete { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 34px; background: none; border: none; color: var(--muted); font-size: var(--fs-l); cursor: pointer; padding: 0; }
 .search-suggestion-delete:hover { color: var(--text); }
 
-.tool-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 11px; cursor: pointer; padding: 5px 10px; border-radius: 14px; user-select: none; white-space: nowrap; }
+.tool-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: var(--fs-xs); cursor: pointer; padding: 5px 10px; border-radius: var(--r-pill); user-select: none; white-space: nowrap; }
 .tool-btn:hover { background-color: var(--btn-hover); }
 
 /* --- 曲紹介バー(♪ボタンで開閉。検索窓の下に表示) --- */
 .song-bar { display: flex; align-items: center; gap: 10px; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0; margin-bottom: 0; transition: max-height var(--dur-m) var(--ease-s), opacity var(--dur-m) var(--ease-s), margin-top var(--dur-m) var(--ease-s), margin-bottom var(--dur-m) var(--ease-s); }
 .sticky-header.is-initializing .song-bar { transition: none !important; }
 .song-bar.is-open { max-height: 44px; opacity: 1; margin-top: 0; margin-bottom: 4px; }
-.song-play-btn { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--play-bg); color: var(--play-fg); font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
+.song-play-btn { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--play-bg); color: var(--play-fg); font-size: var(--fs-s); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
 .song-play-btn:hover { background-color: var(--btn-hover); }
-.song-play-btn:focus, .song-play-btn:focus-visible { outline: none; } /* 押したあと(別タブから戻った時など)に青い枠を出さない */
+.song-play-btn:focus, .song-play-btn:focus-visible { outline: none !important; } /* 押したあと(別タブから戻った時など)に青い枠を出さない */
 .song-ticker-viewport { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; position: relative; }
-.song-ticker-text { display: inline-block; font-size: 13px; line-height: 1.4; padding: 1px 0; color: var(--text); white-space: nowrap; }
+.song-ticker-text { display: inline-block; font-size: var(--fs-m); line-height: 1.4; padding: 1px 0; color: var(--text); white-space: nowrap; }
 .song-ticker-viewport.is-scrolling .song-ticker-text { animation-name: songTicker; animation-timing-function: linear; animation-iteration-count: infinite; }
 @keyframes songTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 /* ♪ボタンでバーを開いた時、曲名(表示エリアごと)を右から飛んでこさせる。少し行き過ぎて戻る */
@@ -346,7 +359,7 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
   max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; overflow-y: hidden; pointer-events: none;
   transition: max-height var(--dur-s) var(--ease-s), opacity var(--dur-s) var(--ease-s), padding-top var(--dur-s) var(--ease-s), padding-bottom var(--dur-s) var(--ease-s);
 }
-.checks-row-other-2.drag-target-active { max-height: 50px; opacity: 0.5; padding-top: 0; padding-bottom: 2px; pointer-events: auto; }
+.checks-row-other-2.drag-target-active { max-height: 50px; opacity: var(--op-mid); padding-top: 0; padding-bottom: 2px; pointer-events: auto; }
 .checks-row-other-2.has-items { max-height: 50px; opacity: 1; padding-top: 0; padding-bottom: 2px; pointer-events: auto; }
 /* 月フィルターは、年フィルターが1つ以上選択されている時だけ表示する */
 .checks-row-months.year-hidden { display: none !important; }
@@ -363,7 +376,7 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 }
 .checks-row-years::-webkit-scrollbar, .checks-row-other::-webkit-scrollbar, .checks-row-months::-webkit-scrollbar, .active-filters-row::-webkit-scrollbar, .item-title::-webkit-scrollbar { display: none; }
 .fold-dock { display: flex; flex-wrap: wrap; gap: 6px; padding: 2px 0 1px; } /* 折りたたみボタンの帯: YEAR / GIRLS² / LAKI / CONTENTS を横並び */
-.fold-btn { position: relative; flex: 0 0 auto; height: 28px; box-sizing: border-box; padding: 0 9px; border-radius: 14px; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--muted); cursor: pointer; display: inline-flex; align-items: center; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; line-height: 1; white-space: nowrap; transition: color var(--dur-s), background-color var(--dur-s), border-color var(--dur-s); }
+.fold-btn { position: relative; flex: 0 0 auto; height: 28px; box-sizing: border-box; padding: 0 9px; border-radius: var(--r-pill); border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--muted); cursor: pointer; display: inline-flex; align-items: center; font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.3px; line-height: 1; white-space: nowrap; transition: color var(--dur-s), background-color var(--dur-s), border-color var(--dur-s); }
 /* 初回描画前に、保存済みの開閉状態をボタンと行に反映する(青→灰色/灰色→青のちらつき防止。JSが適用後に外す) */
 html.pf-year .fold-btn[data-fold="year"], html.pf-g2 .fold-btn[data-fold="g2"], html.pf-l2 .fold-btn[data-fold="l2"], html.pf-cont .fold-btn[data-fold="cont"], html.pf-all .fold-all, html.pf-mix .fold-all { background: var(--btn-bg) !important; border-color: var(--input-border) !important; color: var(--muted) !important; transition: none !important; }
 html.pf-year #foldUnit-year, html.pf-g2 #foldUnit-g2, html.pf-l2 #foldUnit-l2, html.pf-cont #foldUnit-cont { display: none; }
@@ -372,19 +385,19 @@ html.pf-year #foldUnit-year, html.pf-g2 #foldUnit-g2, html.pf-l2 #foldUnit-l2, h
 .fold-all.fold-all-mixed, .fold-all.is-folded { background: var(--btn-bg); border-color: var(--input-border); color: var(--muted); } /* ALL: 全部開いているときだけ青 */
 .fold-btn svg { width: 11px; height: 11px; margin-left: 3px; transition: transform var(--dur-m) var(--ease-m); flex: 0 0 auto; }
 .fold-btn.is-folded svg { transform: rotate(180deg); }
-.fold-badge { position: absolute; top: -6px; right: -6px; min-width: 16px; height: 16px; box-sizing: border-box; padding: 0 4px; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0.4); transition: opacity var(--dur-s), transform var(--dur-m) var(--ease-m); pointer-events: none; } /* 畳んでいる行で選択中の数。BADGEモードのときだけ */
+.fold-badge { position: absolute; top: -6px; right: -6px; min-width: 16px; height: 16px; box-sizing: border-box; padding: 0 4px; border-radius: var(--r-s); background: var(--accent); color: var(--on-accent); font-size: var(--fs-2xs); font-weight: 700; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0.4); transition: opacity var(--dur-s), transform var(--dur-m) var(--ease-m); pointer-events: none; } /* 畳んでいる行で選択中の数。BADGEモードのときだけ */
 .fold-badge.is-shown { opacity: 1; transform: scale(1); }
 .fold-unit { display: flex; flex-direction: column; row-gap: 5px; }
 .fold-unit.is-gone { display: none; }
 html.hdr-off-badge #badgeToggleBtn, html.hdr-off-icon #iconToggleBtn, html.hdr-off-today #todayToggleBtn { display: none !important; } /* ヘッダーのBADGE・ICON・TODAYを出さない設定 */
 html.hdr-off-badge.hdr-off-icon #hdrMoreBtn { display: none !important; }
-.set-chip.set-hdr { height: auto; border: none; background: none; padding: 4px 8px; font-size: 11px; font-weight: 400; color: var(--muted); } /* BADGE・ICON・TODAYのラベル: ヘッダーのボタンと同じ見た目(文字だけ) */
-.set-chip.set-hdr.is-on { color: var(--on-accent); background: var(--accent); border-radius: 6px; } /* スイッチONのときはヘッダーのONと同じ青 */
+.set-chip.set-hdr { height: auto; border: none; background: none; padding: 4px 8px; font-size: var(--fs-xs); font-weight: 400; color: var(--muted); } /* BADGE・ICON・TODAYのラベル: ヘッダーのボタンと同じ見た目(文字だけ) */
+.set-chip.set-hdr.is-on { color: var(--on-accent); background: var(--accent); border-radius: var(--r-s); } /* スイッチONのときはヘッダーのONと同じ青 */
 html.fold-chips-off .fold-dock { display: none; } /* 開閉チップを全部出さない設定 */
 html.chip-off-all #foldAllBtn, html.chip-off-year .fold-btn[data-fold="year"], html.chip-off-g2 .fold-btn[data-fold="g2"], html.chip-off-l2 .fold-btn[data-fold="l2"], html.chip-off-cont .fold-btn[data-fold="cont"] { display: none; }
 html.chip-off-year #foldUnit-year.is-gone, html.chip-off-g2 #foldUnit-g2.is-gone, html.chip-off-l2 #foldUnit-l2.is-gone, html.chip-off-cont #foldUnit-cont.is-gone { display: flex; } /* チップを出さない行は、畳んだ状態を無視して開いて見せる(保存した状態はそのまま) */
-.set-chip { display: inline-flex; align-items: center; height: 22px; box-sizing: border-box; padding: 0 10px; border-radius: 11px; border: 1px solid var(--muted); background: var(--btn-bg); color: var(--text); font-size: 10px; font-weight: 700; letter-spacing: 0.3px; line-height: 1; white-space: nowrap; } /* SETTINGのDISPLAYのラベル: 実際のボタンと同じ見た目 */
-.set-chip.is-fold { height: 28px; border-radius: 14px; border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
+.set-chip { display: inline-flex; align-items: center; height: 22px; box-sizing: border-box; padding: 0 10px; border-radius: var(--r-pill); border: 1px solid var(--muted); background: var(--btn-bg); color: var(--text); font-size: var(--fs-2xs); font-weight: 700; letter-spacing: 0.3px; line-height: 1; white-space: nowrap; } /* SETTINGのDISPLAYのラベル: 実際のボタンと同じ見た目 */
+.set-chip.is-fold { height: 28px; border-radius: var(--r-pill); border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
 .set-chip.is-fold.is-off { border-color: var(--input-border); background: var(--btn-bg); color: var(--muted); } /* スイッチがOFFのときは、畳んでいるときと同じ通常の色 */
 .set-chip svg { width: 11px; height: 11px; margin-left: 3px; }
 html.lyrics-off .song-lyrics-btn { display: none; }
@@ -393,19 +406,19 @@ html.lyrics-off .song-lyrics-btn { display: none; }
 .checks label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
 
 /* 年数ボタンのサイズをメンバーボタン（.checks-row-members label）のサイズ感に統一 */
-.checks-row-years label, .checks-row-months label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 8px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 17px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
+.checks-row-years label, .checks-row-months label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 8px; font-size: var(--fs-s); background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: var(--r-pill); cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
 /* 月は"1"〜"12"と年より桁数が少なく文字幅で自然に小さくなってしまうため、年ボタンと同じ見た目の大きさになるよう最小幅を揃える */
 /* 月フィルターは年フィルターの0.7倍のサイズにする(文字だけは視認性のため大きめにする) */
-.checks-row-months label { padding: 3.5px 5.6px; font-size: 11px; border-radius: 11.2px; min-height: 23.8px; min-width: 29.4px; }
+.checks-row-months label { padding: 3.5px 5.6px; font-size: var(--fs-xs); border-radius: var(--r-pill); min-height: 23.8px; min-width: 29.4px; }
 
-.checks-row-other label { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 17px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
+.checks-row-other label { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: var(--fs-s); background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: var(--r-pill); cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex: 0 0 auto; position: relative; }
 /* アイコン表示モード時は、アイコンの文字幅によってボタンごとの横幅がばらつく */
 body.icon-only-mode .checks-row-other label { width: 50.57px; min-width: 50.57px; padding: 0; }
-.checks-row-other label.is-dragging-reorder { opacity: 0.4; }
-.checks-row-members label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 4px; font-size: 12px; background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 17px; cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex-grow: 1; flex-shrink: 1; min-width: 0; position: relative; }
-.checks-row-members label.btn-group { flex-grow: 0; flex-shrink: 0; flex-basis: 50px; font-size: 12px; padding: 7px 0; text-align: center; letter-spacing: -0.5px; }
+.checks-row-other label.is-dragging-reorder { opacity: var(--op-disabled); }
+.checks-row-members label { display: inline-flex; align-items: center; justify-content: center; padding: 5px 4px; font-size: var(--fs-s); background-color: var(--btn-bg); color: var(--text); border: 1px solid var(--input-border); border-radius: var(--r-pill); cursor: pointer; user-select: none; min-height: 34px; line-height: 1; white-space: nowrap; flex-grow: 1; flex-shrink: 1; min-width: 0; position: relative; }
+.checks-row-members label.btn-group { flex-grow: 0; flex-shrink: 0; flex-basis: 50px; font-size: var(--fs-s); padding: 7px 0; text-align: center; letter-spacing: -0.5px; }
 .checks-row-members label:not(.btn-group) { padding: 5px 0; }
-.checks .sep { display: inline-flex; align-items: center; justify-content: center; padding: 0 1px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
+.checks .sep { display: inline-flex; align-items: center; justify-content: center; padding: 0 1px; font-size: var(--fs-s); color: var(--muted); flex-shrink: 0; }
 @media (hover: hover) { .checks label:hover { background-color: var(--btn-hover); } }
 /* checkboxは非表示 */
 .checks label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -419,17 +432,17 @@ body.icon-only-mode .checks-row-other label { width: 50.57px; min-width: 50.57px
 /* 年/月/グループ/メンバーでフィルターした時、実際にはチェックせず、該当データがあるコンテンツ種類の ボタンに */
 .checks label.has-data-lamp::after { opacity: 1; background-color: var(--lamp-data); }
 /* ダブルクリック/ダブルタップで除外指定したボタン:薄い色にして、そのフィルター値に該当するデータが 常に非表示 */
-.checks label.is-excluded { opacity: 0.35; }
-@media (hover: hover) { .checks label.is-excluded:hover { background-color: var(--btn-hover); opacity: 0.5; } }
-.checks label span[title] { font-size: 14px; line-height: 1; }
+.checks label.is-excluded { opacity: var(--op-disabled); }
+@media (hover: hover) { .checks label.is-excluded:hover { background-color: var(--btn-hover); opacity: var(--op-mid); } }
+.checks label span[title] { font-size: var(--fs-l); line-height: 1; }
 /* ICONモード:コンテンツ種類ボタンの表示をテキストのみ⇔アイコンのみで切り替える */
 .label-icon-part { display: none; }
 body.icon-only-mode .checks .label-text-part { display: none; }
-body.icon-only-mode .checks .label-icon-part { display: inline; font-size: 14px; } /* アイコンの大きさはハートと同じ */
+body.icon-only-mode .checks .label-icon-part { display: inline; font-size: var(--fs-l); } /* アイコンの大きさはハートと同じ */
 /* --- 検索結果の件数表示・並び替え・クリアボタン --- */
 .result-header-row { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; margin-bottom: 8px; min-height: 1.2em; position: relative; }
 .result-count-group { display: flex; align-items: center; gap: 6px; }
-.result-count { font-size: 12px; color: var(--sub); letter-spacing: 0.5px; }
+.result-count { font-size: var(--fs-s); color: var(--sub); letter-spacing: 0.5px; }
 /* メンバー/グループフィルターホバー時のPREVIEW表示専用アイコン */
 /* メンバー/グループ/コンテンツ種類、いずれのフィルターをホバーした時もPREVIEW内のアイコンが同じ幅の 枠 */
 .preview-icon { display: inline-block; width: 1em; text-align: center; margin-right: 4px; vertical-align: middle; line-height: 1; }
@@ -437,15 +450,15 @@ body.icon-only-mode .checks .label-icon-part { display: inline; font-size: 14px;
 .preview-icon-square.team-g2 { background-color: var(--team-g2); }
 .preview-icon-square.team-l2 { background-color: var(--team-l2); }
 .day-nav-group { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 4px; }
-.sort-arrow-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 8px; min-width: 68px; box-sizing: border-box; text-align: center; white-space: nowrap; border-radius: 12px; outline: none; line-height: 1.2; }
+.sort-arrow-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: var(--fs-s); cursor: pointer; padding: 2px 8px; min-width: 68px; box-sizing: border-box; text-align: center; white-space: nowrap; border-radius: var(--r-pill); outline: none; line-height: 1.2; }
 .sort-arrow-btn .sd { display: inline-block; width: var(--sd-w, 0.6em); text-align: center; font-style: normal; } /* 日付の数字1文字ぶんの固定幅 */
 .sort-arrow-btn .sw { display: inline-block; width: var(--sw-w, 2.4em); text-align: left; font-style: normal; } /* 曜日の固定幅(一番広い曜日に合わせる) */
 .sort-arrow-btn:hover { background-color: var(--btn-hover); }
 .sort-arrow-btn.is-real-today, .sort-arrow-btn.is-real-today:hover { color: var(--on-accent); background-color: var(--accent); border-color: var(--accent); } /* 今日のデータ表示中は、TODAYボタンのONと同じ青いボタンにする */
-.day-nav-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 12px; cursor: pointer; padding: 2px 16.875px; border-radius: 12px; outline: none; line-height: 1.2; display: none; }
+.day-nav-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: var(--fs-s); cursor: pointer; padding: 2px 16.875px; border-radius: var(--r-pill); outline: none; line-height: 1.2; display: none; }
 .day-nav-btn:hover { background-color: var(--btn-hover); }
 .day-nav-btn.is-visible { display: block; }
-.inline-clear-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--sub); font-size: 11px; cursor: pointer; padding: 3px 8px; border-radius: 12px; display: none; outline: none; letter-spacing: 0.5px; }
+.inline-clear-btn { background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--sub); font-size: var(--fs-xs); cursor: pointer; padding: 3px 8px; border-radius: var(--r-pill); display: none; outline: none; letter-spacing: 0.5px; }
 .inline-clear-btn:hover { background-color: var(--btn-hover); color: var(--text); }
 
 /* 錠前ボタン:OFF(既定)ではsticky-headerを画面固定せず通常スクロールにする */
@@ -459,22 +472,22 @@ body.icon-only-mode .checks .label-icon-part { display: inline; font-size: 14px;
   border: 1px solid var(--input-border);
   background-color: var(--btn-bg);
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--fs-s);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   outline: none;
   padding: 0;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  box-shadow: var(--shadow-s);
 }
 /* ヘッダーのアイコン列に移した💞ボタン:他のヘッダーアイコン(24px四方、枠・影なし)と同じ見た目にする。ONの色(水色)はそのまま */
-#headerBtnGroup #heartToggleBtn { border: none; box-shadow: none; background-color: transparent; color: var(--muted); border-radius: 12px; }
+#headerBtnGroup #heartToggleBtn { border: none; box-shadow: none; background-color: transparent; color: var(--muted); border-radius: var(--r-m); }
 #headerBtnGroup #heartToggleBtn:hover { color: var(--text); background-color: var(--btn-bg); }
 #headerBtnGroup #heartToggleBtn.is-active { color: var(--on-accent); background-color: var(--accent); }
 .theme-toggle-btn { overflow: hidden; }
-#backBtn { font-size: 17px; line-height: 1; padding-bottom: 2px; } /* ↺:直前の検索条件に戻す。戻せるものが無い間は押せない(非活性) */
-#backBtn:disabled, #backBtn:disabled:hover { opacity: 0.35; cursor: not-allowed; background-color: var(--btn-bg); color: var(--text); }
+#backBtn { font-size: var(--fs-2xl); line-height: 1; padding-bottom: 2px; } /* ↺:直前の検索条件に戻す。戻せるものが無い間は押せない(非活性) */
+#backBtn:disabled, #backBtn:disabled:hover { opacity: var(--op-disabled); cursor: not-allowed; background-color: var(--btn-bg); color: var(--text); }
 .lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #textSizeBtn:hover, #dateSearchBtn:hover { background-color: var(--btn-hover); }
 .lock-toggle-btn.is-active { background-color: var(--accent); color: var(--on-accent); border-color: transparent; }
 /* 「A」ボタン自体の大きさは変えず、データ部の文字サイズだけを拡大縮小する */
@@ -483,25 +496,25 @@ body.icon-only-mode .checks .label-icon-part { display: inline; font-size: 14px;
 .text-size-wrap { position: relative; }
 .date-search-wrap { position: relative; flex-shrink: 0; display: flex; } /* 検索窓と文字サイズボタンの間のカレンダー(日付を選ぶと検索窓にYYYYMMDDを入れる) */
 #dateSearchBtn svg { width: 14px; height: 14px; display: block; }
-.cal-pop { position: fixed; z-index: 1100; width: 290px; max-width: calc(100vw - 16px); box-sizing: border-box; padding: 10px; background: var(--bg); color: var(--text); border: 1px solid var(--input-border); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); user-select: none; -webkit-user-select: none; }
+.cal-pop { position: fixed; z-index: var(--z-modal-3); width: 290px; max-width: calc(100vw - 16px); box-sizing: border-box; padding: 10px; background: var(--bg); color: var(--text); border: 1px solid var(--input-border); border-radius: var(--r-m); box-shadow: var(--shadow-l); user-select: none; -webkit-user-select: none; }
 .cal-pop { transform-origin: top right; transition: opacity var(--dur-s) var(--ease-s), transform var(--dur-s) var(--ease-m), visibility 0s; }
 .cal-pop[hidden] { display: block; visibility: hidden; opacity: 0; transform: translateY(-6px) scale(0.97); pointer-events: none; transition: opacity var(--dur-s) var(--ease-s), transform var(--dur-s) var(--ease-s), visibility 0s linear var(--dur-s); } /* 開閉をフェード+わずかな拡大縮小にする(hidden属性のまま) */
 .cal-head { display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
-.cal-head button, .cal-foot button, .cal-mgrid button, .cal-grid button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; border-radius: 8px; }
-.cal-nav { flex: 0 0 34px; height: 34px; font-size: 15px; background: var(--btn-bg) !important; border: 1px solid var(--input-border) !important; }
-.cal-title { flex: 1 1 auto; height: 34px; font-size: 14px; font-weight: 700; }
+.cal-head button, .cal-foot button, .cal-mgrid button, .cal-grid button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; border-radius: var(--r-s); }
+.cal-nav { flex: 0 0 34px; height: 34px; font-size: var(--fs-xl); background: var(--btn-bg) !important; border: 1px solid var(--input-border) !important; }
+.cal-title { flex: 1 1 auto; height: 34px; font-size: var(--fs-l); font-weight: 700; }
 .cal-nav:hover, .cal-title:hover, .cal-foot button:hover { background-color: var(--btn-hover) !important; }
 .cal-grid, .cal-mgrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
 .cal-mgrid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.cal-wd { text-align: center; font-size: 11px; color: var(--sub); padding: 2px 0 4px; }
-.cal-grid button { height: 36px; font-size: 14px; }
+.cal-wd { text-align: center; font-size: var(--fs-xs); color: var(--sub); padding: 2px 0 4px; }
+.cal-grid button { height: 36px; font-size: var(--fs-l); }
 .cal-grid button.is-out { color: var(--muted); }
 .cal-grid button:hover, .cal-mgrid button:hover { background-color: var(--btn-hover); }
 .cal-grid button.is-today, .cal-mgrid button.is-today { box-shadow: inset 0 0 0 2px var(--accent); }
 .cal-grid button.is-sel, .cal-mgrid button.is-sel { background-color: var(--accent); color: var(--on-accent); font-weight: 700; }
-.cal-mgrid button { height: 44px; font-size: 14px; }
+.cal-mgrid button { height: 44px; font-size: var(--fs-l); }
 .cal-foot { display: flex; justify-content: flex-end; margin-top: 8px; }
-.cal-foot button { height: 34px; padding: 0 16px; font-size: 13px; color: var(--accent); font-weight: 700; }
+.cal-foot button { height: 34px; padding: 0 16px; font-size: var(--fs-m); color: var(--accent); font-weight: 700; }
 .text-size-panel {
   position: absolute;
   top: calc(100% + 6px);
@@ -511,7 +524,7 @@ body.icon-only-mode .checks .label-icon-part { display: inline; font-size: 14px;
   box-sizing: border-box;
   background: var(--input-bg);
   border: 1px solid var(--input-border);
-  border-radius: 10px;
+  border-radius: var(--r-m);
   padding: 14px 8px 10px;
   display: flex;
   flex-direction: column;
@@ -525,12 +538,12 @@ body.icon-only-mode .checks .label-icon-part { display: inline; font-size: 14px;
   transition: transform var(--dur-s) var(--ease-s), opacity var(--dur-s) var(--ease-s);
 }
 .text-size-panel.is-open { transform: scaleY(1); opacity: 1; pointer-events: auto; }
-.text-size-panel-sign { font-size: 13px; color: var(--sub); line-height: 1; }
+.text-size-panel-sign { font-size: var(--fs-m); color: var(--sub); line-height: 1; }
 .text-size-step-btn { background: none; border: none; padding: 4px 10px; margin: 0; cursor: pointer; }
 .text-size-step-btn:hover, .text-size-step-btn:active { color: var(--text); }
 /* writing-mode:vertical-lr で縦型スライダーにする(上=最小値/-50%、下=最大値/+100%) */
 .text-size-slider { writing-mode: vertical-lr; width: 2.25px; height: 140px; margin: 0; }
-.text-size-wrap-btn { width: 26px; height: 24px; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; border: none; border-radius: 6px; background: none; color: var(--sub); cursor: pointer; }
+.text-size-wrap-btn { width: 26px; height: 24px; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; border: none; border-radius: var(--r-s); background: none; color: var(--sub); cursor: pointer; }
 .text-size-wrap-btn svg { width: 16px; height: 16px; display: block; }
 .text-size-wrap-btn:hover { color: var(--text); }
 .text-size-wrap-btn.is-on { color: var(--on-accent); background-color: var(--accent); }
@@ -540,7 +553,7 @@ body.wrap-mode .item-title:hover, body.wrap-mode .item-title:focus { text-overfl
 /* 2行になるタイトルでも、グループの四角とハートは1行目の高さにそろえる(上端に寄せ、1行目の中央に来るよう余白を足す) */
 body.wrap-mode .team-icon { align-self: flex-start; margin-top: calc((var(--data-font-scale) * 13px * 1.4 - 11.25px) / 2); }
 body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--data-font-scale) * 0.7px); }
-.text-size-panel-pct { border-top: 1px solid var(--input-border); width: 100%; margin: 4px auto 0; padding-top: 8px; text-align: center; font-size: 9.75px; font-weight: bold; color: var(--text); white-space: nowrap; }
+.text-size-panel-pct { border-top: 1px solid var(--input-border); width: 100%; margin: 4px auto 0; padding-top: 8px; text-align: center; font-size: var(--fs-2xs); font-weight: bold; color: var(--text); white-space: nowrap; }
 
 /* BLACK/WHITEボタン:文字化け対策としてCSSのみで太陽(切替先=ライト)/月(切替先=ダーク)を描画 */
 .theme-toggle-btn .icon-sun, .theme-toggle-btn .icon-moon { display: none; }
@@ -592,9 +605,9 @@ body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--dat
 .active-filters-row { display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; padding-bottom: 0; gap: 4px; margin-bottom: 0; align-items: center; max-height: 0; opacity: 0; visibility: hidden; pointer-events: none; transition: max-height var(--dur-m) var(--ease-s), opacity var(--dur-s) var(--ease-s), padding-bottom var(--dur-m) var(--ease-s), margin-bottom var(--dur-m) var(--ease-s), visibility 0s linear var(--dur-m); } /* 開閉は高さとフェードで動かす */
 /* FILTERボタンのON/OFF(is-open)だけで表示・非表示を決める(フィルターエリアの開閉状態からは独立) */
 .active-filters-row.is-open { max-height: 80px; opacity: 1; visibility: visible; pointer-events: auto; padding-bottom: 4px; margin-bottom: 10px; transition-delay: 0s; }
-.filter-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: 11px; padding: 3px 10px; border-radius: 12px; cursor: pointer; user-select: none; white-space: nowrap; flex: 0 0 auto; }
-.filter-badge:hover { background-color: var(--btn-hover); opacity: 0.8; }
-.filter-badge .badge-x { font-size: 10px; color: var(--muted); font-weight: bold; }
+.filter-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); font-size: var(--fs-xs); padding: 3px 10px; border-radius: var(--r-pill); cursor: pointer; user-select: none; white-space: nowrap; flex: 0 0 auto; }
+.filter-badge:hover { background-color: var(--btn-hover); opacity: var(--op-hover); }
+.filter-badge .badge-x { font-size: var(--fs-2xs); color: var(--muted); font-weight: bold; }
 .filter-badge .badge-square { display: inline-block; width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
 /* --- 項目一覧(ログ本体) --- */
 /* TODAYモードのフリック時に#items */
@@ -603,7 +616,7 @@ body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--dat
 #dayFlickFill { position: fixed; left: 0; right: 0; z-index: -1; display: none; }
 .items { display: flex; flex-direction: column; align-items: flex-start; width: 100%; transition: opacity var(--dur-s) var(--ease-s), transform var(--dur-s) var(--ease-s); }
 .items.is-animating { opacity: 0; transform: translateY(6px); }
-.item { display: flex; align-items: baseline; width: 100%; font-size: 13px; line-height: 1.4; color: var(--text); padding: 6px 2px; border-bottom: 1px solid var(--item-border); animation: accordionIn var(--dur-m) var(--ease-m) forwards; opacity: 0; transform: translateY(4px); }
+.item { display: flex; align-items: baseline; width: 100%; font-size: var(--fs-m); line-height: 1.4; color: var(--text); padding: 6px 2px; border-bottom: 1px solid var(--item-border); animation: accordionIn var(--dur-m) var(--ease-m) forwards; opacity: 0; transform: translateY(6px); }
 @keyframes accordionIn { to { opacity: 1; transform: translateY(0); } }
 .item.no-anim { animation: none; opacity: 1; transform: none; } /* ICON切替などの即時再描画:フェードインを付けずに差し替える */
 
@@ -613,7 +626,7 @@ body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--dat
 .item-scroll-container > :not(.item-title) { flex-shrink: 0; }
 
 /* 日付とコンテンツ種類は固定 */
-.item-date { flex: 0 0 auto; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
+.item-date { flex: 0 0 auto; font-size: calc(var(--data-font-scale) * var(--fs-s)); line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
 /* 日付の部品(年/月/日/曜と区切り):幅は 0fr→1fr のグリッド列で、中身の幅に合わせてなめらかに伸縮する */
 .item-date.has-parts { display: flex; align-items: center; }
 .dp { display: grid; grid-template-columns: 0fr; opacity: 0; transition: grid-template-columns var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); }
@@ -624,13 +637,13 @@ body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--dat
 .items.dp-weekday.dp-year .dp-sw, .items.dp-weekday.dp-month .dp-sw, .items.dp-weekday.dp-day .dp-sw { grid-template-columns: 1fr; opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .dp { transition: none; } }
 .items.time-mode .item-date:has(+ .item-time) { margin-right: 4px; } /* 時刻が続く場合は日付との間隔を1文字分程度に詰める */
-.item-time { flex: 0 0 auto; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
+.item-time { flex: 0 0 auto; font-size: calc(var(--data-font-scale) * var(--fs-s)); line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
 .item-date, .item-time { touch-action: manipulation; } /* 日付/時刻のダブルタップ(logid表示)で、ページが拡大されないようにする */
 .items.logid-gesture .item-date, .items.logid-gesture .item-time { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; } /* logid表示が有効な間は、ダブルタップで文字が選択されコピーメニューが出るのを防ぐ */
-.logid-toast { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 10000; max-width: calc(100vw - 24px); box-sizing: border-box; padding: 8px 14px; border-radius: 10px; background: var(--text); color: var(--bg); font-size: 12px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px 8px; box-shadow: 0 2px 10px rgba(0,0,0,.3); user-select: text; -webkit-user-select: text; }
+.logid-toast { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: var(--z-toast); max-width: calc(100vw - 24px); box-sizing: border-box; padding: 8px 14px; border-radius: var(--r-m); background: var(--text); color: var(--bg); font-size: var(--fs-s); line-height: 1.5; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px 8px; box-shadow: var(--shadow-m); user-select: text; -webkit-user-select: text; }
 .logid-toast[hidden] { display: none; }
-.logid-toast .logid-value { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; font-weight: bold; letter-spacing: .5px; }
-.logid-toast .logid-note { opacity: .75; font-size: 11px; }
+.logid-toast .logid-value { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: var(--fs-m); font-weight: bold; letter-spacing: .5px; }
+.logid-toast .logid-note { opacity: var(--op-sub); font-size: var(--fs-xs); }
 .item-time.is-blank { visibility: hidden; } /* time未設定の行も"00:00"と同じ幅を確保したまま見た目だけブランクにする */
 /* 今日の日付の行を目立たせる(TODAYモード中は全行が「今日」になるため対象外) */
 .item-date.is-today-date, .item-time.is-today-date,
@@ -642,11 +655,11 @@ body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--dat
 /* PC版：最長サイズに合わせて幅を統一し、テキストを左寄せにする */
 .item-contents { 
   flex: 0 0 11.5em; 
-  font-size: calc(var(--data-font-scale) * 11px); 
+  font-size: calc(var(--data-font-scale) * var(--fs-xs)); 
   padding: 1px 5px; 
   background: var(--btn-bg); 
   border: 1px solid var(--input-border); 
-  border-radius: 6px; 
+  border-radius: var(--r-xs); 
   margin-right: 6px; 
   white-space: nowrap; 
   overflow: hidden;
@@ -689,7 +702,7 @@ body .item-contents.is-content-open {
 /* タイトル部分だけが通常は省略表示され、ホバーやスクロールで個別スライド（全表示）可能に */
 .item-title { 
   flex: 1 1 auto; 
-  font-size: calc(var(--data-font-scale) * 13px); 
+  font-size: calc(var(--data-font-scale) * var(--fs-m)); 
   line-height: 1.4; 
   white-space: nowrap; 
   overflow-x: auto; 
@@ -715,7 +728,7 @@ body .item-contents.is-content-open {
 .team-icon.team-g2 { background-color: var(--team-g2); }
 .team-icon.team-l2 { background-color: var(--team-l2); }
 .team-icon.team-both { background: linear-gradient(135deg, var(--team-g2) 50%, var(--team-l2) 50%); }
-.map-pin { display: inline-block; margin: 0 4px 0 2px; text-decoration: none; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; }
+.map-pin { display: inline-block; margin: 0 4px 0 2px; text-decoration: none; font-size: calc(var(--data-font-scale) * var(--fs-s)); line-height: 1.4; vertical-align: middle; }
 .map-pin:not(a) { visibility: hidden; } /* mapに値が無い行は、アイコン分の幅は保ったまま見た目だけブランクにする */
 /* 📍/📋/時刻は常に行へ作っておき、#itemsのクラス(map-mode / setlist-icon-mode / time-mode)の付け外しだけで、🔗と同じ仕組みで左からスッと出入りさせる。
    幅と余白も同じ時間・同じイージングで動かすので、開閉に合わせて右側(タイトルなど)もなめらかに動く(autoは動かせないため、幅は文字サイズ連動のem固定) */
@@ -726,10 +739,10 @@ body .item-contents.is-content-open {
 .items.map-mode .map-pin, .items.setlist-icon-mode .setlist-icon:not(.is-always), .items.time-mode .item-time { overflow: visible; opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); transition-delay: 0s; }
 .items.map-mode .map-pin:not(a), .items.setlist-icon-mode .setlist-icon.is-blank, .items.time-mode .item-time.is-blank { visibility: hidden; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { .map-pin, .setlist-icon, .item-time, .items.map-mode .map-pin, .items.setlist-icon-mode .setlist-icon, .items.time-mode .item-time { transition: none; } }
-.setlist-icon { display: inline-block; margin: 0 4px 0 2px; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; }
+.setlist-icon { display: inline-block; margin: 0 4px 0 2px; font-size: calc(var(--data-font-scale) * var(--fs-s)); line-height: 1.4; vertical-align: middle; cursor: pointer; }
 .setlist-icon.is-blank { visibility: hidden; cursor: default; } /* setlistidが無い行は、アイコン分の幅は保ったまま見た目だけブランクにする(setlistIconMode時) */
 /* 🔗アイコンは行の右端(タイトルの後ろ)に固定する */
-.link-icon { display: inline-block; flex: 0 0 auto; width: 0; margin: 0; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer;
+.link-icon { display: inline-block; flex: 0 0 auto; width: 0; margin: 0; text-align: center; font-size: calc(var(--data-font-scale) * var(--fs-s)); line-height: 1.4; vertical-align: middle; cursor: pointer;
   opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0.9em);
   transition: transform var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s), visibility 0s linear var(--dur-m), width 0s linear var(--dur-m), margin 0s linear var(--dur-m); }
 .items.link-mode .link-icon { width: 1.6em; margin: 0 0 0 4px; opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0);
@@ -740,7 +753,7 @@ body .item-contents.is-content-open {
 /* G2/L2アイコンを押すと、該当メンバーのハートがタイトル側にアコーディオンのように広がって表示される */
 .team-hearts { display: inline-flex; align-items: center; align-self: center; gap: 2px; max-width: 0; overflow: hidden; white-space: nowrap; flex-shrink: 0; margin-left: 0; vertical-align: middle; line-height: 1.4; transition: max-width var(--dur-m) var(--ease-s), margin-left var(--dur-m) var(--ease-s); }
 .team-hearts.is-open { max-width: 480px; margin-left: 2px; margin-right: 2px; }
-.team-heart { position: relative; display: inline-block; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; }
+.team-heart { position: relative; display: inline-block; font-size: calc(var(--data-font-scale) * var(--fs-s)); line-height: 1.4; }
 /* both(G2/L2混在)の行のみ、各グループの先頭ハートの左下に色付きバッジを重ねて表示する */
 .team-heart.group-start-g2::before, .team-heart.group-start-l2::before {
   content: '';
@@ -772,7 +785,7 @@ body .item-contents.is-content-open {
   border-radius: 50%;
   background: var(--accent);
   pointer-events: none;
-  z-index: 9999;
+  z-index: var(--z-ripple);
   animation: longpress-ripple-anim var(--dur-l) var(--ease-l) forwards;
 }
 @keyframes longpress-ripple-anim {
@@ -780,14 +793,13 @@ body .item-contents.is-content-open {
   100% { transform: scale(6); opacity: 0; }
 }
 
-.no-result.is-fadein { animation: noResultIn var(--dur-m) var(--ease-s) both; }
-@keyframes noResultIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-.no-result { font-size: 13px; color: var(--muted); padding: 25px 0; text-align: center; display: none; letter-spacing: 0.5px; }
-.quick-reset-btn { display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: var(--active-bg); color: var(--active-color); font-size: 11px; border: none; border-radius: 16px; cursor: pointer; outline: none; }
-.quick-reset-btn:hover { opacity: 0.85; }
+.no-result.is-fadein { animation: rowIn var(--dur-m) var(--ease-m) both; }
+.no-result { font-size: var(--fs-m); color: var(--muted); padding: 25px 0; text-align: center; display: none; letter-spacing: 0.5px; }
+.quick-reset-btn { display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: var(--active-bg); color: var(--active-color); font-size: var(--fs-xs); border: none; border-radius: var(--r-pill); cursor: pointer; outline: none; }
+.quick-reset-btn:hover { opacity: var(--op-hover); }
 
 /* 一番下に配置する更新日時のスタイル（中央揃え） */
-.footer-update-time { text-align: center; margin-top: 30px; font-size: 11px; color: var(--sub); letter-spacing: 0.5px; }
+.footer-update-time { text-align: center; margin-top: 30px; font-size: var(--fs-xs); color: var(--sub); letter-spacing: 0.5px; }
 /* updated表示の下に出すヘルプ(?)・設定(⚙)ボタンの行。2つを横並びでセンタリングする */
 .footer-btn-row { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 10px; }
 /* ヘルプ・設定ボタン共通スタイル。他の丸ボタン群と同じ見た目に揃える */
@@ -799,83 +811,83 @@ body .item-contents.is-content-open {
   border: 1px solid var(--input-border);
   background-color: var(--btn-bg);
   color: var(--text);
-  font-size: 12px;
+  font-size: var(--fs-s);
   align-items: center;
   justify-content: center;
   cursor: pointer;
   outline: none;
   padding: 0;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  box-shadow: var(--shadow-s);
 }
 .help-btn:hover { background-color: var(--btn-hover); }
 
 /* 汎用ポップアップ(HELP/SETTINGなど、中身がまだ無いものも含む) */
 .popup-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000;
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: var(--z-modal);
   display: flex; align-items: center; justify-content: center; padding: 20px;
   opacity: 0; visibility: hidden; pointer-events: none;
   transition: opacity var(--dur-m) var(--ease-s), visibility var(--dur-m) var(--ease-s);
 }
 .popup-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
 .popup-box {
-  position: relative; background: var(--bg); color: var(--text); border-radius: 12px;
+  position: relative; background: var(--bg); color: var(--text); border-radius: var(--r-m);
   max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: var(--shadow-l);
   transform: scale(0.9); transition: transform var(--dur-m) var(--ease-m);
 }
 .popup-overlay.is-open .popup-box { transform: scale(1); }
-.popup-close { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.popup-close { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: var(--fs-l); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
 .popup-close:hover { background-color: var(--btn-hover); }
-.popup-title { font-size: 15px; font-weight: bold; margin: 0 0 4px; line-height: 1.4; text-align: center; }
-.popup-body { font-size: 11px; line-height: 1.6; color: var(--muted); text-align: center; padding: 10px 0; }
+.popup-title { font-size: var(--fs-xl); font-weight: bold; margin: 0 0 4px; line-height: 1.4; text-align: center; }
+.popup-body { font-size: var(--fs-xs); line-height: 1.6; color: var(--muted); text-align: center; padding: 10px 0; }
 
 /* HELPポップアップ:1画面(スクロール無し)に収まるよう、キー(ボタン名)と説明を1行ずつ並べる */
 #helpModal { max-height: 92vh; padding: 16px 14px 14px; }
-.help-body { text-align: left; color: var(--text); font-size: 11px; line-height: 1.4; padding: 2px 0 0; }
+.help-body { text-align: left; color: var(--text); font-size: var(--fs-xs); line-height: 1.4; padding: 2px 0 0; }
 .help-sec { margin-top: 8px; }
 .help-sec:first-child { margin-top: 0; }
-.help-sec-title { font-size: 10px; font-weight: bold; letter-spacing: 0.08em; color: var(--sub); padding-bottom: 2px; margin-bottom: 3px; border-bottom: 1px solid var(--border); }
+.help-sec-title { font-size: var(--fs-2xs); font-weight: bold; letter-spacing: 0.08em; color: var(--sub); padding-bottom: 2px; margin-bottom: 3px; border-bottom: 1px solid var(--border); }
 .help-row { display: grid; grid-template-columns: 66px 1fr; column-gap: 6px; align-items: baseline; padding: 1.5px 0; }
-.help-key { justify-self: start; align-self: center; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; height: 20px; width: 64px; white-space: nowrap; font-size: 10px; font-weight: bold; line-height: 1; padding: 0 6px; border-radius: 8px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); }
+.help-key { justify-self: start; align-self: center; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; height: 20px; width: 64px; white-space: nowrap; font-size: var(--fs-2xs); font-weight: bold; line-height: 1; padding: 0 6px; border-radius: var(--r-s); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); }
 .help-desc { color: var(--text); }
 .help-key-icon { display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; }
 .help-key-icon .icon-sun, .help-key-icon .icon-moon { display: block !important; }
 
 /* SETTINGポップアップ内の「表示/非表示スイッチ」一覧(グループ・メンバー・コンテンツ種類) */
-.settings-body { text-align: left; color: var(--text); font-size: 12px; line-height: 1.4; padding: 8px 0 0; }
+.settings-body { text-align: left; color: var(--text); font-size: var(--fs-s); line-height: 1.4; padding: 8px 0 0; }
 .settings-section { margin-top: 18px; }
 .settings-section:first-child { margin-top: 6px; }
 .settings-section-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-.settings-section-title { font-size: 11px; font-weight: bold; letter-spacing: 0.08em; color: var(--sub); }
+.settings-section-title { font-size: var(--fs-xs); font-weight: bold; letter-spacing: 0.08em; color: var(--sub); }
 .settings-count { margin-left: 6px; font-weight: normal; letter-spacing: 0; color: var(--muted); }
 .settings-bulk { display: flex; gap: 4px; flex-shrink: 0; }
-.settings-bulk button { background: var(--btn-bg); border: none; color: var(--sub); font-size: 10px; line-height: 1.2; padding: 3px 8px; border-radius: 10px; cursor: pointer; }
+.settings-bulk button { background: var(--btn-bg); border: none; color: var(--sub); font-size: var(--fs-2xs); line-height: 1.2; padding: 3px 8px; border-radius: var(--r-m); cursor: pointer; }
 .settings-bulk button:hover { background: var(--btn-hover); color: var(--text); }
 .settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
 .settings-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
 .settings-col { min-width: 0; }
 .set-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 0; min-width: 0; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; transition: opacity var(--dur-s); }
-.set-row.is-group { padding: 9px 0; margin-bottom: 2px; font-size: 13px; font-weight: bold; border-bottom: 1px solid var(--border); }
-.set-row.is-disabled { opacity: 0.35; pointer-events: none; }
+.set-row.is-group { padding: 9px 0; margin-bottom: 2px; font-size: var(--fs-m); font-weight: bold; border-bottom: 1px solid var(--border); }
+.set-row.is-disabled { opacity: var(--op-disabled); pointer-events: none; }
 .set-row-label { display: flex; align-items: center; gap: 6px; min-width: 0; }
 .set-row-icon { flex: 0 0 auto; width: 1.5em; text-align: center; }
-.set-row-count { flex: 0 0 auto; font-size: 11px; font-weight: normal; color: var(--muted); }
+.set-row-count { flex: 0 0 auto; font-size: var(--fs-xs); font-weight: normal; color: var(--muted); }
 .settings-group-bulk { display: flex; justify-content: flex-end; gap: 4px; padding: 6px 0 2px; }
-.settings-group-bulk button { background: var(--btn-bg); border: none; color: var(--sub); font-size: 10px; line-height: 1.2; padding: 3px 8px; border-radius: 10px; cursor: pointer; }
+.settings-group-bulk button { background: var(--btn-bg); border: none; color: var(--sub); font-size: var(--fs-2xs); line-height: 1.2; padding: 3px 8px; border-radius: var(--r-m); cursor: pointer; }
 .settings-group-bulk button:hover { background: var(--btn-hover); color: var(--text); }
 .set-row-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .set-switch { position: relative; flex: 0 0 auto; width: 34px; height: 20px; }
 .set-switch input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; outline: none; }
-.set-switch-track { position: absolute; inset: 0; border-radius: 10px; background: var(--input-border); transition: background-color var(--dur-s); pointer-events: none; }
+.set-switch-track { position: absolute; inset: 0; border-radius: var(--r-pill); background: var(--input-border); transition: background-color var(--dur-s); pointer-events: none; }
 .set-switch-track::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: var(--knob); box-shadow: 0 1px 2px rgba(0,0,0,0.3); transition: transform var(--dur-s); }
 .set-switch input:checked + .set-switch-track { background: var(--accent); }
 .set-switch input:checked + .set-switch-track::after { transform: translateX(14px); }
 .set-switch input:focus-visible + .set-switch-track { outline: 2px solid var(--accent); outline-offset: 2px; }
-.settings-reset { position: absolute; top: 10px; left: 10px; height: 26px; box-sizing: border-box; padding: 0 12px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--sub); font-size: 11px; line-height: 1; border-radius: 13px; cursor: pointer; }
+.settings-reset { position: absolute; top: 10px; left: 10px; height: 26px; box-sizing: border-box; padding: 0 12px; background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--sub); font-size: var(--fs-xs); line-height: 1; border-radius: var(--r-pill); cursor: pointer; }
 .settings-reset:hover { background: var(--btn-hover); color: var(--text); }
 /* 下部のOKボタン: 設定一覧が長くスクロールしても、常にポップアップの下端に表示する */
 .settings-footer { position: sticky; bottom: -18px; margin: 14px -18px -18px; padding: 10px 18px 16px; background: var(--bg); border-top: 1px solid var(--border); }
-.settings-ok { display: block; width: 100%; max-width: 220px; margin: 0 auto; padding: 9px 0; border: none; border-radius: 18px; background: var(--accent); color: var(--on-accent); font-size: 13px; font-weight: bold; letter-spacing: 0.06em; cursor: pointer; }
+.settings-ok { display: block; width: 100%; max-width: 220px; margin: 0 auto; padding: 9px 0; border: none; border-radius: var(--r-pill); background: var(--accent); color: var(--on-accent); font-size: var(--fs-m); font-weight: bold; letter-spacing: 0.06em; cursor: pointer; }
 .settings-ok:hover { filter: brightness(1.08); }
 /* SETTINGで「非表示」にした項目のフィルターボタン(および中身が全て非表示になった段) */
 .vis-hidden { display: none !important; }
@@ -887,9 +899,9 @@ body .item-contents.is-content-open {
 }
 
 /* トップへ移動するボタン（コンテナの右端に追従するように修正） */
-.to-top-btn { position: fixed; bottom: 24px; left: calc(50% + var(--container-w) / 2 - 40px); width: 40px; height: 40px; background-color: var(--active-bg); color: var(--active-color); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; visibility: hidden; transition: opacity var(--dur-s), visibility var(--dur-s); z-index: 999; outline: none; }
+.to-top-btn { position: fixed; bottom: 24px; left: calc(50% + var(--container-w) / 2 - 40px); width: 40px; height: 40px; background-color: var(--active-bg); color: var(--active-color); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: var(--fs-l); box-shadow: var(--shadow-m); opacity: 0; visibility: hidden; transition: opacity var(--dur-s), visibility var(--dur-s); z-index: var(--z-fab); outline: none; }
 .to-top-btn.is-visible { opacity: 1; visibility: visible; }
-.to-top-btn:hover { opacity: 0.85; }
+.to-top-btn:hover { opacity: var(--op-hover); }
 #scrollSentinel { height: 20px; margin-top: 10px; }
 
 @media (max-width: 680px) {
@@ -909,116 +921,119 @@ body .item-contents.is-content-open {
 
 /* セットリストポップアップ(SETLISTアイコン押下時に表示) */
 .setlist-modal-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000;
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: var(--z-modal);
   display: flex; align-items: center; justify-content: center; padding: 20px;
   opacity: 0; visibility: hidden; pointer-events: none;
   transition: opacity var(--dur-m) var(--ease-s), visibility var(--dur-m) var(--ease-s);
 }
-.stat-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; }
+.stat-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * var(--fs-s)); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; }
 .stat-icon { display: none; }
 html.stat-on .stat-icon { display: inline-block; }
 .stat-icon.is-blank { visibility: hidden; pointer-events: none; cursor: default; } /* 📊が無い行も、ON中は右の幅をあけておく */
-.song-lyrics-btn { display: flex; flex: 0 0 auto; width: auto; height: 20px; margin: 0 2px; padding: 0 8px; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-size: 10px; font-weight: 700; line-height: 1; cursor: pointer; align-items: center; justify-content: center; white-space: nowrap; } /* 歌詞(📜): uta-net。常に表示 */
+.song-lyrics-btn { display: flex; flex: 0 0 auto; width: auto; height: 20px; margin: 0 2px; padding: 0 8px; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-size: var(--fs-2xs); font-weight: 700; line-height: 1; cursor: pointer; align-items: center; justify-content: center; white-space: nowrap; } /* 歌詞(📜): uta-net。常に表示 */
 .song-bar.is-entering .song-lyrics-btn { visibility: hidden; }
-.song-lyrics { display: inline-block; flex: 0 0 auto; width: 5em; margin: 0; overflow: hidden; text-align: center; font-size: 10px; line-height: 16px; height: 18px; box-sizing: border-box; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-weight: 700; white-space: nowrap; vertical-align: middle; cursor: pointer; user-select: none; padding: 0; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); } /* セトリ・アルバムのポップアップの曲の行の📜。披露実績(📊)の左。ポップアップの📜スイッチで出し入れ */
+.song-lyrics { display: inline-block; flex: 0 0 auto; width: 5em; margin: 0; overflow: hidden; text-align: center; font-size: var(--fs-2xs); line-height: 16px; height: 18px; box-sizing: border-box; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-weight: 700; white-space: nowrap; vertical-align: middle; cursor: pointer; user-select: none; padding: 0; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); } /* セトリ・アルバムのポップアップの曲の行の📜。披露実績(📊)の左。ポップアップの📜スイッチで出し入れ */
 html.lyrics-off .song-lyrics { width: 0; margin-left: -8px; border-width: 0; opacity: 0; pointer-events: none; }
 .song-lyrics.is-blank { visibility: hidden; pointer-events: none; }
-.song-stat-btn { display: none; flex: 0 0 auto; width: 0; height: 24px; margin: 0 0 0 -10px; padding: 0; border: none; background: none; font-size: 14px; line-height: 1; cursor: pointer; align-items: center; justify-content: center; overflow: hidden; opacity: 0; pointer-events: none; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); } /* 披露実績ONで、幅が0から広がって右端に出る(間の10pxの隙間も一緒に) */
+.song-stat-btn { display: none; flex: 0 0 auto; width: 0; height: 24px; margin: 0 0 0 -10px; padding: 0; border: none; background: none; font-size: var(--fs-l); line-height: 1; cursor: pointer; align-items: center; justify-content: center; overflow: hidden; opacity: 0; pointer-events: none; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); } /* 披露実績ONで、幅が0から広がって右端に出る(間の10pxの隙間も一緒に) */
 .song-bar.is-entering .song-stat-btn { visibility: hidden; } /* 曲名が飛んでくる動きが終わってから右端に出す */
-.setlist-song-stat { display: inline-block; flex: 0 0 auto; width: 0; margin: 0 0 0 -8px; overflow: hidden; text-align: center; opacity: 0; pointer-events: none; font-size: 12px; cursor: pointer; user-select: none; padding: 0; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); } /* 行の間の8pxの隙間ごと、幅が0から広がる */
+.setlist-song-stat { display: inline-block; flex: 0 0 auto; width: 0; margin: 0 0 0 -8px; overflow: hidden; text-align: center; opacity: 0; pointer-events: none; font-size: var(--fs-s); cursor: pointer; user-select: none; padding: 0; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); } /* 行の間の8pxの隙間ごと、幅が0から広がる */
 html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-events: auto; }
 .setlist-song-stat.is-blank { visibility: hidden; pointer-events: none; }
 #statToggleBtn { touch-action: manipulation; }
-.alb-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * 12px); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; } /* 💽は常に表示。🔗の出入りで横にずれるときは、JS(slideAlbIcons)でなめらかに動かす */
+.alb-icon { display: inline-block; flex: 0 0 auto; width: 1.6em; margin: 0 0 0 4px; text-align: center; font-size: calc(var(--data-font-scale) * var(--fs-s)); line-height: 1.4; vertical-align: middle; cursor: pointer; user-select: none; } /* 💽は常に表示。🔗の出入りで横にずれるときは、JS(slideAlbIcons)でなめらかに動かす */
 .alb-icon.is-off { display: none; }
 /* ヘッダーの💽がOFFのとき: 🔗(.link-icon)と同じく、右へ滑って消える(消えたあとに幅を0にする)/ ONに戻すと幅がすぐ戻り、右から滑って出る */
 .alb-icon { transition: transform var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s), visibility 0s, width 0s, margin 0s; }
 html.alb-off .alb-icon { width: 0; margin: 0; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0.9em); overflow: hidden; transition: transform var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s), visibility 0s linear var(--dur-m), width 0s linear var(--dur-m), margin 0s linear var(--dur-m); }
 @media (prefers-reduced-motion: reduce) { .alb-icon, html.alb-off .alb-icon { transition: none; } }
-.album-modal-overlay { z-index: 1050; }
+.album-modal-overlay { z-index: var(--z-modal-2); }
 .alb-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
-.alb-chip { border: 1px solid var(--input-border); background: none; color: var(--text); border-radius: 999px; padding: 3px 10px; font-size: 12px; cursor: pointer; }
+.alb-chip { border: 1px solid var(--input-border); background: none; color: var(--text); border-radius: 999px; padding: 3px 10px; font-size: var(--fs-s); cursor: pointer; }
 .alb-chip.is-on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
-.alb-meta { font-size: 12px; color: var(--sub); margin: 0 0 14px; } /* セトリの日時・会場の行と同じ文字の大きさ・下の間隔 */
+.alb-meta { font-size: var(--fs-s); color: var(--sub); margin: 0 0 14px; } /* セトリの日時・会場の行と同じ文字の大きさ・下の間隔 */
 .alb-artist + .alb-meta { margin-top: 0; }
-.alb-edinfo { font-size: 12px; color: var(--sub); margin: 0 0 8px; line-height: 1.5; }
+.alb-edinfo { font-size: var(--fs-s); color: var(--sub); margin: 0 0 8px; line-height: 1.5; }
 .alb-list { list-style: none; margin: 0; padding: 0; }
-.alb-list li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; } /* 曲の行はセトリのポップアップと同じ並び(曲順・再生ボタン・曲名)。曲名の文字はデータ部の文字サイズ設定に合わせる */
+.alb-list li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: var(--fs-m); } /* 曲の行はセトリのポップアップと同じ並び(曲順・再生ボタン・曲名)。曲名の文字はデータ部の文字サイズ設定に合わせる */
 .alb-list li:last-child { border-bottom: none; }
-.alb-list li.alb-sec { white-space: pre-line; display: block; padding: 10px 0 4px; border-bottom: none; font-size: 12px; font-weight: 700; color: var(--muted); } /* 追加ディスク内の区分の見出し */
+.alb-list li.alb-sec { white-space: pre-line; display: block; padding: 10px 0 4px; border-bottom: none; font-size: var(--fs-s); font-weight: 700; color: var(--muted); } /* 追加ディスク内の区分の見出し */
 .row-in { animation: rowIn var(--dur-m) var(--ease-m) both; }
-@keyframes rowIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes rowIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .row-in { animation: none; } }
 .alb-list.has-label .setlist-song-order { flex-basis: 3.4em; } /* DVD1のような名前の番号がある盤は、全行の列幅を広げてそろえる */
 .alb-list li.is-extra .setlist-song-order { color: var(--accent); }
-.alb-no { flex: 0 0 2.6em; color: var(--sub); font-size: 11px; text-align: right; }
+.alb-no { flex: 0 0 2.6em; color: var(--sub); font-size: var(--fs-xs); text-align: right; }
 .alb-ttl { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
-.alb-stat { display: inline-block; flex: 0 0 auto; width: 0; margin: 0 0 0 -8px; overflow: hidden; text-align: center; opacity: 0; pointer-events: none; font-size: 12px; cursor: pointer; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); }
+.alb-stat { display: inline-block; flex: 0 0 auto; width: 0; margin: 0 0 0 -8px; overflow: hidden; text-align: center; opacity: 0; pointer-events: none; font-size: var(--fs-s); cursor: pointer; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); }
 html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-events: auto; } /* 披露実績(📊)は、ヘッダーの📊(またはポップアップの📊スイッチ)がONのときだけ。出入りは幅をなめらかに変える */
 @media (prefers-reduced-motion: reduce) { .song-stat-btn, .setlist-song-stat, .alb-stat, .song-lyrics { transition: none; } }
 .alb-stat.is-blank { visibility: hidden; }
-.stat-modal-overlay { z-index: 1100; }
+.stat-modal-overlay { z-index: var(--z-modal-3); }
 /* PC(マウス)だけ: 披露実績・アルバム・セトリのポップアップは、右下の角をドラッグして横幅を広げられる(いまの420pxが最小。幅は開き直しても保つ) */
 @media (hover: hover) and (pointer: fine) {
-  .stat-modal-overlay .setlist-modal, .album-modal-overlay .setlist-modal, #setlistModalOverlay .setlist-modal { resize: horizontal; width: 420px; min-width: 420px; max-width: calc(100vw - 40px); }
+  .stat-modal-overlay .setlist-modal, .album-modal-overlay .setlist-modal, #setlistModalOverlay .setlist-modal { resize: horizontal; width: min(420px, 100%); min-width: 0; max-width: calc(100vw - 40px); }
 }
-.stat-modal-title { font-size: 17px; font-weight: bold; margin: 0 26px 12px 0; line-height: 1.4; overflow-wrap: anywhere; }
+.stat-modal-title { font-size: var(--fs-xl); font-weight: bold; margin: 0 26px 8px 0; line-height: 1.4; overflow-wrap: anywhere; }
 .stat-chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 10px; }
-.stat-chip { border: 1px solid var(--input-border); background: none; color: var(--text); border-radius: 999px; padding: 3px 12px; font-size: 12px; cursor: pointer; }
+.stat-chip { border: 1px solid var(--input-border); background: none; color: var(--text); border-radius: 999px; padding: 3px 12px; font-size: var(--fs-s); cursor: pointer; }
 .stat-chip.is-on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .stat-subchips { margin-top: -4px; }
-.stat-chip:disabled { opacity: .35; cursor: default; }
+.stat-chip:disabled { opacity: var(--op-disabled); cursor: default; }
 .stat-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
-.stat-tile { border: 1px solid var(--input-border); border-radius: 10px; padding: 8px 4px; text-align: center; min-width: 0; }
-.stat-tile-label { font-size: 10px; color: var(--sub); letter-spacing: .05em; }
-.stat-tile-value { font-size: 15px; font-weight: bold; margin-top: 2px; white-space: nowrap; }
+.stat-tile { border: 1px solid var(--input-border); border-radius: var(--r-m); padding: 8px 4px; text-align: center; min-width: 0; }
+.stat-tile-label { font-size: var(--fs-2xs); color: var(--sub); letter-spacing: .05em; }
+.stat-tile-value { font-size: var(--fs-xl); font-weight: bold; margin-top: 2px; white-space: nowrap; }
 .stat-list { list-style: none; margin: 0; padding: 0; }
-.stat-list li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-top: 1px solid var(--border); font-size: calc(var(--data-font-scale) * 12px); } /* 披露実績の一覧も、データ部の文字サイズ設定に合わせる */
+.stat-list li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-top: 1px solid var(--border); font-size: calc(var(--data-font-scale) * var(--fs-s)); } /* 披露実績の一覧も、データ部の文字サイズ設定に合わせる */
 .stat-list-date { flex: 0 0 auto; color: var(--sub); white-space: nowrap; }
 .stat-list-title { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
-.stat-list-no { flex: 0 0 auto; color: var(--sub); font-size: 10px; }
+.stat-list-no { flex: 0 0 auto; color: var(--sub); font-size: var(--fs-2xs); }
 .stat-list-types { display: block; margin-top: 2px; }
 .stat-list-types .setlist-song-type { margin-right: 4px; }
-.stat-rel { text-align: left; font-size: 11px; color: var(--sub); margin: -2px 0 8px; }
+.stat-rel { text-align: left; font-size: var(--fs-xs); color: var(--sub); margin: -2px 0 8px; }
 .setlist-modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
-.setlist-modal { position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform var(--dur-m) var(--ease-m); }
+.setlist-modal { position: relative; background: var(--bg); color: var(--text); border-radius: var(--r-m); max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: var(--shadow-l); transform: scale(0.9); transition: transform var(--dur-m) var(--ease-m); }
 .setlist-modal-overlay.is-open .setlist-modal { transform: scale(1); }
-.setlist-modal-close { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.setlist-modal-close { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: var(--fs-l); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
 .setlist-modal-close:hover { background-color: var(--btn-hover); }
-.setlist-modal-title { font-size: 15px; font-weight: bold; margin: 0 26px 4px 0; line-height: 1.4; white-space: pre-line; }
-.setlist-modal-artist { font-size: 12px; font-weight: 600; color: var(--sub); margin: 0 26px 4px 0; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.setlist-modal-title { font-size: var(--fs-xl); font-weight: bold; margin: 0 26px 8px 0; line-height: 1.4; white-space: pre-line; }
+.setlist-modal-artist { font-size: var(--fs-s); font-weight: 600; color: var(--sub); margin: 0 26px 4px 0; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
 .setlist-modal-hearts { display: inline-flex; gap: 2px; }
-.setlist-heart { font-size: 12px; line-height: 1; }
-.setlist-modal-datetime { font-size: 12px; color: var(--sub); margin-bottom: 2px; }
+.setlist-heart { font-size: var(--fs-s); line-height: 1; }
+.setlist-modal-datetime { font-size: var(--fs-s); color: var(--sub); margin-bottom: 2px; }
 .setlist-wx { display: inline-flex; align-items: center; gap: 3px; margin-left: 6px; vertical-align: -3px; } /* 天気: 時刻の右。2つ以上は → でつなぐ */
 .setlist-wx svg { width: 15px; height: 15px; display: block; }
-.setlist-wx .wx-ar { font-size: 11px; line-height: 1; opacity: .75; }
-.setlist-modal-venue { font-size: 12px; color: var(--sub); margin-bottom: 14px; }
+.setlist-wx .wx-ar { font-size: var(--fs-xs); line-height: 1; opacity: var(--op-sub); }
+.setlist-modal-venue { font-size: var(--fs-s); color: var(--sub); margin-bottom: 14px; }
 .setlist-modal-songlist { list-style: none; margin: 0; padding: 0; }
-.setlist-modal-songlist li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+/* 曲・公演の一覧は、Blogger側のul/liの余白(post-bodyなど、こちらより優先度の高い指定)に左へずらされないよう、!importantで固定する */
+.setlist-modal-songlist, .alb-list, .stat-list { list-style: none !important; margin: 0 !important; padding: 0 !important; }
+.setlist-modal-songlist > li, .alb-list > li, .stat-list > li { margin-left: 0 !important; margin-right: 0 !important; padding-left: 0 !important; list-style: none !important; }
+.setlist-modal-songlist li { display: flex; align-items: center; gap: 8px; padding: 4px 0; min-height: 36px; box-sizing: border-box; border-bottom: 1px solid var(--border); font-size: var(--fs-m); } /* 曲行の高さ: typeが0〜4個でも同じ(最小36px)。中身は縦中央 */
 .setlist-modal-songlist li:last-child { border-bottom: none; }
-.setlist-song-order { flex: 0 0 22px; color: var(--muted); font-size: 11px; text-align: left; }
+.setlist-song-order { flex: 0 0 22px; color: var(--muted); font-size: var(--fs-xs); text-align: left; }
 .setlist-song-play-btn { flex: 0 0 auto; width: 14.4px; height: 14.4px; border-radius: 50%; background: var(--play-bg); color: var(--play-fg); font-size: 6.4px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; border: 1px solid var(--input-border); }
 .setlist-song-play-btn.is-hidden { visibility: hidden; cursor: default; }
-.song-vid { flex: 0 0 auto; width: 16px; height: 16px; margin-right: -3px; display: flex; align-items: center; justify-content: center; font-size: 12px; line-height: 1; cursor: pointer; user-select: none; border-radius: 4px; } /* YOUTUBEフィルターと同じ🎞️。番号と▶の間(左右の間隔が詰まらないよう、実質6px) */
+.song-vid { flex: 0 0 auto; width: 16px; height: 16px; margin-right: -3px; display: flex; align-items: center; justify-content: center; font-size: var(--fs-s); line-height: 1; cursor: pointer; user-select: none; border-radius: var(--r-xs); } /* YOUTUBEフィルターと同じ🎞️。番号と▶の間(左右の間隔が詰まらないよう、実質6px) */
 .setlist-modal-songlist li:has(.song-vid) .setlist-song-order, .alb-list:not(.has-label) li:has(.song-vid) .setlist-song-order { flex-basis: 15px; } /* 番号は最大2桁なので、🎞️がある行は番号の列を詰めて🎞️を左に寄せる */
 .song-vid:hover { background: var(--border); }
 .song-vid.is-hidden { visibility: hidden; cursor: default; }
-.song-vid-btn { flex: 0 0 auto; width: 24px; height: 24px; margin-right: -4px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); font-size: 13px; line-height: 1; cursor: pointer; display: none; align-items: center; justify-content: center; padding: 0; user-select: none; }
+.song-vid-btn { flex: 0 0 auto; width: 24px; height: 24px; margin-right: -4px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); font-size: var(--fs-m); line-height: 1; cursor: pointer; display: none; align-items: center; justify-content: center; padding: 0; user-select: none; }
 .song-vid-btn.is-shown { display: flex; }
 .setlist-song-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; } /* 曲名 / ハート / original・notes を縦に並べる */
-.setlist-song-title { display: block; font-size: calc(var(--data-font-scale) * 13px); }
+.setlist-song-title { display: block; font-size: calc(var(--data-font-scale) * var(--fs-m)); }
 .setlist-song-hearts { display: flex; flex-wrap: nowrap; gap: 1px; margin-top: 2px; line-height: 1; } /* 曲ごとの歌唱メンバー(曲名の下) */
 .setlist-song-heart { font-size: 7px; line-height: 1; }
 .setlist-song-hgrp { display: inline-flex; align-items: center; gap: 1px; }
 .setlist-song-hname { font-size: 8px; line-height: 1; color: var(--sub); margin-right: 2px; } /* Girls\u00B2 / Laki の両方がartistのときの、ハートの前のグループ名 */
 .setlist-song-hsep { font-size: 8px; line-height: 1; color: var(--sub); margin: 0 3px; }
 .setlist-modal-artist.is-split { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 6px; row-gap: 2px; } /* Girls\u00B2 / Laki の両方がartistのとき:名前の列とハートの列(左端そろえ)の2段 */
-.setlist-song-types { flex: 0 0 auto; align-self: center; display: grid; grid-auto-flow: column; grid-auto-columns: auto; gap: 2px 4px; justify-items: start; align-items: start; } /* typeバッジのまとまり: 縦2段まで・横2列まで(全部で4個まで)。全体は縦中央(奇数個の最後の1個は上に詰まる) */
-.setlist-song-type { flex: 0 0 auto; font-size: 10px; color: var(--sub); background: var(--btn-bg); border-radius: 8px; padding: 1px 6px; }
-.setlist-song-sub { display: flex; flex-wrap: wrap; gap: 0 8px; margin-top: 2px; font-size: 10px; line-height: 1.4; color: var(--sub); opacity: 0.85; } /* original と notes(括弧なし・小さく薄く) */
+.setlist-song-types { flex: 0 0 auto; align-self: center; display: grid; grid-auto-flow: column; grid-auto-columns: auto; gap: 1px 4px; justify-items: start; align-items: center; } .setlist-song-types .setlist-song-type:nth-child(3):last-child { grid-row: 1 / span 2; align-self: center; } /* 3個のときの3個目は2段分の中央に置く */ /* typeバッジのまとまり: 縦2段まで・横2列まで(全部で4個まで)。全体は縦中央(奇数個の最後の1個は上に詰まる) */
+.setlist-song-type { flex: 0 0 auto; font-size: 9px; line-height: 12px; color: var(--sub); background: var(--btn-bg); border-radius: var(--r-xs); padding: 0 6px; }
+.setlist-song-sub { display: flex; flex-wrap: wrap; gap: 0 8px; margin-top: 2px; font-size: var(--fs-2xs); line-height: 1.4; color: var(--sub); opacity: var(--op-sub); } /* original と notes(括弧なし・小さく薄く) */
 .setlist-modal-source { display: flex; margin: -6px 0 10px; }
-.setlist-source-chip { display: inline-flex; align-items: center; height: 18px; padding: 0 9px; border-radius: 9px; box-sizing: border-box; font-size: 10px; font-weight: 600; letter-spacing: .03em; line-height: 1; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--sub); } /* 曲リストの上: OFFICIAL / UNOFFICIAL(情報の出どころ。分からないときは出さない) */
+.setlist-source-chip { display: inline-flex; align-items: center; height: 18px; padding: 0 9px; border-radius: var(--r-xs); box-sizing: border-box; font-size: var(--fs-2xs); font-weight: 600; letter-spacing: .03em; line-height: 1; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--sub); } /* 曲リストの上: OFFICIAL / UNOFFICIAL(情報の出どころ。分からないときは出さない) */
 .setlist-source-chip.is-official { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 /* ポップアップ内のスクロールバー:細くして、画面の色になじませる(背景は透明、つまみは枠線色) */
 .popup-box, .setlist-modal, .sns-modal { scrollbar-width: thin; scrollbar-color: var(--input-border) transparent; }
@@ -1027,24 +1042,24 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
   .popup-box::-webkit-scrollbar-track, .setlist-modal::-webkit-scrollbar-track, .sns-modal::-webkit-scrollbar-track { background: transparent; }
   .popup-box::-webkit-scrollbar-thumb, .setlist-modal::-webkit-scrollbar-thumb, .sns-modal::-webkit-scrollbar-thumb { background: var(--input-border); border-radius: 3px; }
 }
-.setlist-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
+.setlist-modal-empty { font-size: var(--fs-m); color: var(--sub); text-align: center; padding: 20px 0; }
 /* SNSリンクポップアップ(セトリポップアップと見た目を揃える) */
 .sns-modal-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000;
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: var(--z-modal);
   display: flex; align-items: center; justify-content: center; padding: 20px;
   opacity: 0; visibility: hidden; pointer-events: none;
   transition: opacity var(--dur-m) var(--ease-s), visibility var(--dur-m) var(--ease-s);
 }
 .sns-modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
-.sns-modal { overflow-x: hidden; position: relative; background: var(--bg); color: var(--text); border-radius: 12px; max-width: 360px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform var(--dur-m) var(--ease-m); }
+.sns-modal { overflow-x: hidden; position: relative; background: var(--bg); color: var(--text); border-radius: var(--r-m); max-width: 360px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: var(--shadow-l); transform: scale(0.9); transition: transform var(--dur-m) var(--ease-m); }
 .sns-modal-overlay.is-open .sns-modal { transform: scale(1); }
-.sns-modal-close { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.sns-modal-close { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: var(--fs-l); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
 .sns-modal-close:hover { background-color: var(--btn-hover); }
-.sns-modal-title { font-size: 15px; font-weight: bold; margin: 0 26px 10px 0; line-height: 1.4; }
+.sns-modal-title { font-size: var(--fs-xl); font-weight: bold; margin: 0 26px 8px 0; line-height: 1.4; }
 .sns-modal-type-row { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
 .sns-modal-type-row:last-child { border-bottom: none; }
 /* 見出し欄(アイコン+文字)は全行同じ幅にして、右の番号ボタンが左寄せで縦にそろうようにする */
-.sns-modal-type-label { flex: 0 0 7.4em; display: flex; align-items: center; gap: 6px; height: 20px; font-size: calc(var(--data-font-scale) * 13px); font-weight: 600; }
+.sns-modal-type-label { flex: 0 0 7.4em; display: flex; align-items: center; gap: 6px; height: 20px; font-size: calc(var(--data-font-scale) * var(--fs-m)); font-weight: 600; }
 .sns-modal-ic { flex: 0 0 15px; width: 15px; height: 15px; display: block; } /* 単色(currentColor)なので文字色=テーマに追従する */
 .sns-modal-ic.sns-modal-ic-cl { flex: 0 0 19.96px; width: 19.96px; height: 14.22px; margin: 0 -2.96px 0 -2px; } /* CLアイコンは従来の1.75倍。見た目は広がるが、レイアウト上の幅は他と同じ15pxに保ち、文字の開始位置をそろえる */
 .sns-modal-ic.sns-modal-ic-gl2family { flex: 0 0 16.72px; width: 16.72px; height: 14.22px; margin: 0 -1.72px 0 0; } /* GL²のアイコン(縦長の太字フォント)。CLと同じ高さで、レイアウト上の幅は他と同じ15pxに保つ */
@@ -1052,12 +1067,12 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .sns-modal-links { flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 6px; }
 .sns-modal-link, .sns-modal-link.is-invalid {
   display: inline-flex; align-items: center; justify-content: center;
-  min-width: 40px; height: 20px; padding: 0 10px; border-radius: 10px; box-sizing: border-box; /* 番号だけの横長ボタン */
+  min-width: 40px; height: 20px; padding: 0 10px; border-radius: var(--r-pill); box-sizing: border-box; /* 番号だけの横長ボタン */
   background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text);
-  font-size: 10px; line-height: 1; text-decoration: none; cursor: pointer;
+  font-size: var(--fs-2xs); line-height: 1; text-decoration: none; cursor: pointer;
 }
 .sns-modal-link:hover { background-color: var(--btn-hover); }
-.sns-modal-link.is-invalid { opacity: 0.4; cursor: not-allowed; pointer-events: none; } /* http(s)で始まらない不正なURL:番号は出すがクリック不可にする */
+.sns-modal-link.is-invalid { opacity: var(--op-disabled); cursor: not-allowed; pointer-events: none; } /* http(s)で始まらない不正なURL:番号は出すがクリック不可にする */
 .sns-modal-link.has-member-lamp { position: relative; } /* 誰の投稿か分かるよう、投稿者のメンバーカラーで右上にランプを出す(最大4人。2個ずつ2段で並べる) */
 .sns-modal-lamps { position: absolute; top: -3px; right: -3px; display: grid; grid-template-columns: repeat(2, 5px); gap: 1px; pointer-events: none; }
 .sns-modal-lamps > i.w { border-radius: 0; } /* with(同写り):memberと同じ大きさの四角。memberの丸に続けて並べる */
@@ -1069,27 +1084,31 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
 .sns-modal-body { margin-bottom: 0; margin-top: 10px; } /* 1行目の右端の番号のランプが、右上の✕ボタンに重ならないよう、✕の下まで下げる */
 /* スイッチ行: ポップアップ内の最下部に固定(内容がスクロールしても追随する) */
 #snsModal .sns-modal-body { margin-top: 25px; } /* ✕ボタンと1行目のチップの間を、最後の行とスイッチの間と同じくらいあける */
-.sns-modal-foot { position: sticky; bottom: -18px; z-index: 2; display: flex; justify-content: space-between; align-items: center; margin: 0 -18px -18px; padding: 8px 18px 10px; background: var(--bg); border-radius: 0 0 12px 12px; }
-.sns-tag-switch { position: static; height: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 0; border: none; background: none; color: var(--text); font-size: 11px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-.sns-tag-emoji { font-size: 16px; line-height: 1; display: inline-flex; } /* TAGスイッチのラベル(ヘッダのタグボタンと同じ🏷️)。文字(11px)より大きめにして見やすくする */
+.sns-modal-foot { position: sticky; bottom: -18px; z-index: 2; display: flex; justify-content: space-between; align-items: center; margin: 0 -18px -18px; padding: 8px 18px 10px; background: var(--bg); border-radius: 0 0 var(--r-m) var(--r-m); }
+.sns-tag-switch { position: static; height: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 0; border: none; background: none; color: var(--text); font-size: var(--fs-xs); font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.sns-tag-emoji { font-size: var(--fs-2xl); line-height: 1; display: inline-flex; } /* TAGスイッチのラベル(ヘッダのタグボタンと同じ🏷️)。文字(11px)より大きめにして見やすくする */
 .sns-tag-emoji .ui-ic { width: 1.15em; height: 1.15em; vertical-align: 0; }
 .ui-ic { width: 1.25em; height: 1.25em; display: inline-block; vertical-align: -0.22em; fill: none; stroke: none; pointer-events: none; }
 .setlist-icon .ui-ic, .link-icon .ui-ic, .stat-icon .ui-ic, .alb-icon .ui-ic, .map-pin .ui-ic { width: 1.55em; height: 1.55em; margin: -3px 0; vertical-align: middle; position: relative; top: -0.06em; } /* データ行の右端・左端のアイコンは、少し大きめ */
 .items.map-mode .map-pin, .items.setlist-icon-mode .setlist-icon:not(.is-always) { width: 1.6em; }
 .help-key .ui-ic { width: 15px; height: 15px; margin-right: 2px; vertical-align: -3px; }
 .song-stat-btn .ui-ic, .song-vid-btn .ui-ic { width: 1.2em; height: 1.2em; }
-.sns-tag-track { position: relative; width: 28px; height: 16px; border-radius: 8px; box-sizing: border-box; background: var(--btn-bg); border: 1px solid var(--input-border); transition: background-color var(--dur-m); }
+.sns-tag-track { position: relative; width: 28px; height: 16px; border-radius: var(--r-pill); box-sizing: border-box; background: var(--btn-bg); border: 1px solid var(--input-border); transition: background-color var(--dur-m); }
 .sns-tag-knob { position: absolute; top: 1px; left: 1px; width: 12px; height: 12px; border-radius: 50%; background: var(--sub); transition: transform var(--dur-m) var(--ease-m), background-color var(--dur-m); }
 .sns-tag-switch[aria-checked="true"] .sns-tag-track { background: var(--accent); border-color: var(--accent); }
 .sns-tag-switch[aria-checked="true"] .sns-tag-knob { transform: translateX(12px); background: var(--knob); }
 .sns-modal-item { display: inline-flex; align-items: center; gap: 8px; min-width: 0; max-width: 100%; }
 .sns-modal-tagtext { display: none; flex-wrap: wrap; gap: 4px; align-items: center; min-width: 0; }
 .sns-modal-tagtext .tag-chip { box-sizing: border-box; min-height: 20px; padding-top: 2px; padding-bottom: 2px; display: inline-flex; align-items: center; cursor: pointer; font-size: calc(var(--data-font-scale) * 11.5px); white-space: normal; overflow-wrap: anywhere; } /* データ部のタグチップ(.tag-chip)と同じ見た目(高さだけ、リンクの番号ボタンと同じ20pxにして、TAG切替で行の高さが変わらないようにする)。押すとデータ部のチップと同じくそのタグで検索 */
-.vid-modal-overlay { z-index: 1300; } /* 動画リンク: snsポップアップと同じ見た目(セトリ・アルバム・披露実績の上に重ねる) */
+/* マップのポップアップ: 埋め込み地図(Googleの埋め込み用URL)を出す(幅は最大560px・高さは画面の6割まで) */
+.map-modal-overlay { z-index: var(--z-modal-top); }
+.map-modal { max-width: min(560px, 100%); padding: 20px 18px 18px; }
+.map-modal-frame { display: block; width: 100%; height: min(460px, 62vh); border: 0; border-radius: var(--r-s); background: var(--btn-bg); margin-top: 24px; }
+.vid-modal-overlay { z-index: var(--z-modal-top); } /* 動画リンク: snsポップアップと同じ見た目(セトリ・アルバム・披露実績の上に重ねる) */
 .vid-modal .sns-modal-type-label { flex-basis: 9.6em; }
 .vid-modal .sns-modal-foot { justify-content: flex-end; }
-.vid-modal .sns-modal-title { font-size: 13px; margin: 0 28px 4px 0; display: flex; align-items: center; gap: 7px; }
-.vid-modal .vid-yt { flex: 0 0 auto; width: 20px; height: 14px; border-radius: 4px; background: var(--yt-red); display: flex; align-items: center; justify-content: center; }
+.vid-modal .sns-modal-title { font-size: var(--fs-m); margin: 0 28px 4px 0; display: flex; align-items: center; gap: 7px; }
+.vid-modal .vid-yt { flex: 0 0 auto; width: 20px; height: 14px; border-radius: var(--r-xs); background: var(--yt-red); display: flex; align-items: center; justify-content: center; }
 .vid-modal .vid-yt::after { content: ""; border-left: 6px solid var(--knob); border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent; margin-left: 1px; }
 .vid-modal .vid-ttl { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sns-modal.is-tags .sns-modal-links { flex-direction: column; flex-wrap: nowrap; align-items: flex-start; }
@@ -1100,20 +1119,23 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
 .sns-modal.is-tags .is-fancam .sns-modal-tagtext { display: none; }
 /* Fancamの行: 最初は「Fancam(タグ)+件数」だけ。押すと番号チップをすべて開く(開いている間はタグを出さず、「▲」で戻す) */
 .sns-modal-item.is-over { display: none; }
-.sns-modal-item.is-fc-in { animation: fcIn var(--dur-m) var(--ease-m) both; }
+.sns-modal-item.is-fc-in { animation: rowIn var(--dur-m) var(--ease-m) both; }
 /* 番号チップは横5個ずつ(画面の幅が変わっても5個のまま。幅が足りないときはチップを少し細くする)。Fancamは開いている間だけ。「▲」は最後の行の左下 */
 .sns-modal:not(.is-tags) .sns-modal-links:not([data-fc="closed"]), .sns-modal.is-tags .is-fancam .sns-modal-links[data-fc="open"] { display: grid; grid-template-columns: repeat(5, minmax(0, 40px)); justify-content: start; }
 .sns-modal:not(.is-tags) .sns-modal-links:not([data-fc="closed"]) .sns-modal-link, .sns-modal.is-tags .is-fancam .sns-modal-links[data-fc="open"] .sns-modal-link { min-width: 0; width: 100%; padding: 0 4px; }
 .sns-modal-links[data-fc="open"] > .sns-modal-link.is-less { grid-column: 1; }
+/* 動画ポップアップ: 横幅は中身(タイトルの文字数・番号チップの列数)にあわせる。Fancamを開いて5列になれば、その分だけ広がる */
+.vid-modal { width: fit-content; min-width: 200px; max-width: min(400px, 100%); }
+.sns-modal.vid-modal .sns-modal-links:not([data-fc="closed"]) { grid-template-columns: repeat(var(--cols, 5), minmax(0, 40px)); }
+.vid-modal .sns-modal-foot { display: none; } /* TAGスイッチはいったん非表示 */
 .sns-modal-links.is-out .sns-modal-item { opacity: 0; transition: opacity var(--dur-s) var(--ease-s); }
-@keyframes fcIn { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
 .is-fancam .sns-modal-links { align-items: center; }
 button.sns-modal-link.is-more, button.sns-modal-link.is-less { font-family: inherit; color: var(--sub); border-style: dashed; }
 button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
 @media (prefers-reduced-motion: reduce) { .sns-modal-item.is-fc-in { animation: none; } }
 .sns-modal.is-tags .sns-modal-tagtext { display: flex; animation: snsTagFade var(--dur-m) var(--ease-s) both; }
 @keyframes snsTagFade { from { opacity: 0; } to { opacity: 1; } }
-.sns-modal-empty { font-size: 13px; color: var(--sub); text-align: center; padding: 20px 0; }
+.sns-modal-empty { font-size: var(--fs-m); color: var(--sub); text-align: center; padding: 20px 0; }
 /*]]>*/
 /* 青地の白文字を読みやすく:太字にせず(文字幅を変えず)縁取りと影で疑似的に太く見せる */
 .date-part-btn.is-active, #badgeToggleBtn.is-active, #iconToggleBtn.is-active, #filterSummaryToggleBtn.is-active,
@@ -1122,6 +1144,10 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   -webkit-text-stroke: 0.4px var(--on-accent);
   text-shadow: 0 0 0.5px var(--on-accent), 0 1px 1px rgba(3, 60, 110, 0.5);
 }
+
+/* 押した瞬間のフィードバック: ボタン・チップ・リンクは、押している間だけ少し暗くする(スマホはホバーが効かないため。位置や大きさは変えない) */
+button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks label:active, .alb-chip:active, .set-chip:active, .stat-chip:active, .sns-modal-link:active, .song-vid:active, .song-lyrics:active, .setlist-icon:active, .map-pin:active, .link-icon:active, .alb-icon:active { filter: brightness(0.9); }
+@media (prefers-reduced-motion: reduce) { button:not(:disabled):active, [role="button"]:active { filter: none; } }
 </style>
 </head>
 <body>
@@ -1327,6 +1353,13 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   </div>
 </div>
 
+<div class="sns-modal-overlay map-modal-overlay" id="mapModalOverlay">
+  <div class="sns-modal map-modal" id="mapModal" role="dialog" aria-modal="true" aria-label="Map">
+    <button type="button" class="sns-modal-close" id="mapModalCloseBtn" aria-label="Close">&#215;</button>
+    <div id="mapModalBody"></div>
+  </div>
+</div>
+
 <div class="sns-modal-overlay vid-modal-overlay" id="vidModalOverlay">
   <div class="sns-modal vid-modal" id="vidModal" role="dialog" aria-modal="true">
     <button type="button" class="sns-modal-close" id="vidModalCloseBtn" aria-label="Close">&#215;</button>
@@ -1368,6 +1401,14 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     };
     return simpleHash(location.hostname) === -1626720631 && simpleHash(location.pathname) === 982197929;
   };
+  // 動き(JS側): 時間とイージングは CSS の --dur-* / --ease-* を読む(CSSと同じ値を1か所で管理)
+  const reduceMotion = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); // 「視差効果を減らす」設定がONか(動きを出さない判定)
+  const MOTION = (() => {
+    const cs = getComputedStyle(document.documentElement);
+    const ms = (n, d) => { const v = cs.getPropertyValue(n).trim(), x = parseFloat(v); return isNaN(x) ? d : Math.round(/ms$/.test(v) ? x : x * 1000); };
+    const ez = (n, d) => cs.getPropertyValue(n).trim() || d;
+    return { s: ms('--dur-s', 180), m: ms('--dur-m', 280), l: ms('--dur-l', 500), easeS: ez('--ease-s', 'ease'), easeM: ez('--ease-m', 'cubic-bezier(0.16, 1, 0.3, 1)'), easeL: ez('--ease-l', 'ease-out'), easeMove: ez('--ease-move', 'cubic-bezier(0.4, 0, 0.2, 1)') };
+  })();
   let logs = [], filtered = [], rendered = 0, updating = false;
   let desc = true, defaultText = '', timer = null, renderFrame = null;
   let setlistData = []; // setlist.json(公演ごとのセットリスト)のキャッシュ
@@ -1384,6 +1425,14 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   let setlistExcludedSavedState = null;
   const pageSize = 40, isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const $ = id => document.getElementById(id);
+  // localStorageの共通ラッパー: 使えない環境(プライベートモード・保存禁止・容量超過)でも例外で止めず、取得は既定値、保存は false を返す
+  const store = {
+    get: (k, d = null) => { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } },
+    set: (k, v) => { try { localStorage.setItem(k, String(v)); return true; } catch (e) { return false; } },
+    remove: k => { try { localStorage.removeItem(k); } catch (e) {} },
+    getJSON: (k, d = null) => { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } }, // 壊れた値は既定値に戻す
+    setJSON: (k, v) => store.set(k, JSON.stringify(v))
+  };
   // ==================== 年月日曜時等のボタン群を検索窓の左端に揃える ===========
   const syncHeaderBtnGroupPosition = () => {
     const row = document.querySelector('.header-row');
@@ -1443,7 +1492,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     };
 
     // 起動時、保存値があればPC幅の場合だけ復元する(スマホ幅では既定値のまま)
-    const savedW = parseFloat(localStorage.getItem(CONTAINER_W_KEY));
+    const savedW = parseFloat(store.get(CONTAINER_W_KEY));
     if (!isNaN(savedW) && window.innerWidth >= PC_BREAKPOINT) applyContainerW(savedW);
 
     let dragSide = null; // 'left' | 'right' | null
@@ -1470,7 +1519,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
       rightHandle.classList.remove('is-dragging');
       document.body.classList.remove('is-resizing-container');
       dragSide = null;
-      localStorage.setItem(CONTAINER_W_KEY, currentContainerW());
+      store.set(CONTAINER_W_KEY, currentContainerW());
       syncHeaderBtnGroupPosition(); // コンテナ幅が変わったので、年月日曜時ボタン群の位置も再計算する
     };
 
@@ -1538,12 +1587,16 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   const displayNameFor = v => contentDisplayNames[v] || v;
 
   const dayNames = ['\u65E5', '\u6708', '\u706B', '\u6C34', '\u6728', '\u91D1', '\u571F'];
+  // YYYY・MM・DD(文字列)から曜日(日〜土)を返す。日付として不正なら空文字
+  const weekdayOf = (y, m, d) => { const dt = new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10)); return isNaN(dt.getTime()) ? '' : dayNames[dt.getDay()]; };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'instant' });
+  const hideSuggestions = () => searchSuggestions.classList.remove('is-open');
 
   // 項目左端の日付表示:年/月/日/曜日/時分をそれぞれ個別に表示on/offできる(次回訪問時も記憶)
   const DATE_PARTS_KEY = 'gl_log_date_parts';
   let dateParts = { year: true, month: true, day: true, weekday: true, time: false };
   try {
-    const savedParts = JSON.parse(localStorage.getItem(DATE_PARTS_KEY) || 'null');
+    const savedParts = store.getJSON(DATE_PARTS_KEY, null);
     if (savedParts && typeof savedParts === 'object') dateParts = Object.assign(dateParts, savedParts);
   } catch (e) { /* 壊れていたら既定値のまま使う */ }
 
@@ -1559,8 +1612,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     if (!dateStr) return;
     if (!/^\d{8}$/.test(dateStr)) { el.textContent = dateStr; return; } // 想定外フォーマットはそのまま表示
     const y = dateStr.slice(0, 4), m = dateStr.slice(4, 6), d = dateStr.slice(6, 8);
-    const dateObj = new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10));
-    const dayStr = isNaN(dateObj.getTime()) ? '' : dayNames[dateObj.getDay()];
+    const dayStr = weekdayOf(y, m, d);
     const parts = [['dp-y', y], ['dp-sep dp-sm', '.'], ['dp-m', m], ['dp-sep dp-sd', '.'], ['dp-d', d]];
     if (dayStr) parts.push(['dp-sep dp-sw', ' '], ['dp-w', `[${dayStr}]`]);
     el.classList.add('has-parts');
@@ -1640,7 +1692,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
 
   const applySavedContentOrder = arr => {
     try {
-      const saved = JSON.parse(localStorage.getItem('gl_log_content_order') || 'null');
+      const saved = store.getJSON('gl_log_content_order', null);
       let rows;
       if (Array.isArray(saved)) rows = [saved];
       else if (saved && Array.isArray(saved.rows)) rows = saved.rows.filter(Array.isArray);
@@ -1677,7 +1729,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     const saveOrder = () => {
       const all = rows.map(valsOf);
       while (all.length > 1 && all[all.length - 1].length === 0) all.pop();
-      localStorage.setItem('gl_log_content_order', JSON.stringify({ rows: all, row1: all[0] || [], row2: all[1] || [] }));
+      store.setJSON('gl_log_content_order', { rows: all, row1: all[0] || [], row2: all[1] || [] });
     };
 
     // 空になった段を詰める(中身のある段を、上から順に並べ直す)
@@ -1971,17 +2023,17 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     document.documentElement.classList.toggle('dark-mode', isDark);
     document.body.classList.toggle('dark-mode', isDark);
   };
-  if (localStorage.getItem('gl_log_theme') === 'dark') setThemeClass(true);
+  if (store.get('gl_log_theme') === 'dark') setThemeClass(true);
   updateThemeButtonStyle(document.body.classList.contains('dark-mode'));
 
   $('themeToggleBtn').onclick = () => {
     const isDark = !document.body.classList.contains('dark-mode');
     const root = document.documentElement;
     const apply = () => { setThemeClass(isDark); updateThemeButtonStyle(isDark); };
-    localStorage.setItem('gl_log_theme', isDark ? 'dark' : 'light');
+    store.set('gl_log_theme', isDark ? 'dark' : 'light');
     root.classList.add('theme-switching'); // 全部の色を同じ瞬間に切り替える
     const done = () => requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('theme-switching')));
-    const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduce = reduceMotion();
     if (document.startViewTransition && !reduce) {
       const vt = document.startViewTransition(apply); // 画面全体を1枚の絵として、短く重ねて切り替える
       vt.finished.then(done, done);
@@ -1991,7 +2043,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     }
   };
 
-  if (localStorage.getItem('gl_log_collapsed') === 'true') {
+  if (store.get('gl_log_collapsed') === 'true') {
     $('stickyHeader').classList.add('collapsed');
     $('toggleBtn').textContent = '\u25BC';
     $('activeFiltersRow').classList.add('is-open');
@@ -2005,7 +2057,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   $('toggleBtn').onclick = () => {
     const c = $('stickyHeader').classList.toggle('collapsed');
     $('toggleBtn').textContent = c ? '\u25BC' : '\u25B2';
-    localStorage.setItem('gl_log_collapsed', c);
+    store.set('gl_log_collapsed', c);
     // フィルターエリアを閉じた時は、一度も手動でFILTERボタンをOFFにしたことが無ければ「現在のフィルター 一
     if (c && !filterSummaryManuallyOff) {
       $('activeFiltersRow').classList.add('is-open');
@@ -2026,10 +2078,10 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     $('lockToggleBtn').classList.toggle('is-active', locked);
     $('lockToggleBtn').innerHTML = uiIc(locked ? 'lock' : 'unlock');
     $('lockToggleBtn').setAttribute('aria-label', locked ? '\u30D8\u30C3\u30C0\u30FC\u56FA\u5B9A\u5207\u66FF(\u73FE\u5728ON)' : '\u30D8\u30C3\u30C0\u30FC\u56FA\u5B9A\u5207\u66FF(\u73FE\u5728OFF)');
-    if (persist) localStorage.setItem('gl_log_header_locked', locked);
+    if (persist) store.set('gl_log_header_locked', locked);
   };
 
-  setHeaderLocked(localStorage.getItem('gl_log_header_locked') === 'true', false);
+  setHeaderLocked(store.get('gl_log_header_locked') === 'true', false);
 
   $('lockToggleBtn').onclick = () => {
     setHeaderLocked(!$('lockToggleBtn').classList.contains('is-active'), true);
@@ -2071,7 +2123,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   // 旧形式(文字列の配列)で保存されている場合は{term, pinned:false}へ読み込み時に変換する(後
   const getRecentSearches = () => {
     try {
-      const arr = JSON.parse(localStorage.getItem(getRecentSearchKey()) || '[]');
+      const arr = store.getJSON(getRecentSearchKey(), []);
       if (!Array.isArray(arr)) return [];
       const list = arr.map(v => typeof v === 'string' ? { term: v, pinned: false } : { term: v.term, pinned: !!v.pinned });
       let pinnedList = list.filter(v => v.pinned);
@@ -2087,7 +2139,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
       return [];
     }
   };
-  const setRecentSearches = list => localStorage.setItem(getRecentSearchKey(), JSON.stringify(list));
+  const setRecentSearches = list => store.setJSON(getRecentSearchKey(), list);
   const saveRecentSearch = kw => {
     const trimmed = kw.trim();
     if (!trimmed) return;
@@ -2136,7 +2188,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     searchInput.value = term;
     updateSearchClearState();
     saveRecentSearch(term);
-    searchSuggestions.classList.remove('is-open');
+    hideSuggestions();
     syncTodayModeFromSearch(); // 年月日8桁の候補が選ばれた場合もTODAYモードに反映する
     // 検索ワードが確定したタイミングなので、ヒットしたデータのコンテンツ種類フィルターを自動更新する
     autoUpdateContentTypeFilters();
@@ -2217,7 +2269,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   const renderSearchSuggestions = () => {
     // フォーカスが外れている間の遅延実行(デバウンス後)で誤って再表示しないようにする
     if (document.activeElement !== searchInput) {
-      searchSuggestions.classList.remove('is-open');
+      hideSuggestions();
       return;
     }
     const rawQuery = searchInput.value.trim();
@@ -2238,7 +2290,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     searchSuggestions.textContent = '';
     highlightedSuggestionIndex = -1;
     if (!filteredHistory.length && !dataSuggestions.length) {
-      searchSuggestions.classList.remove('is-open');
+      hideSuggestions();
       return;
     }
     filteredHistory.forEach(entry => {
@@ -2299,7 +2351,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     renderSearchSuggestions();
   });
   searchInput.addEventListener('blur', () => {
-    searchSuggestions.classList.remove('is-open');
+    hideSuggestions();
     if (searchInput.value.trim()) saveRecentSearch(searchInput.value);
     // 検索ワードが確定したタイミング
     autoUpdateContentTypeFilters();
@@ -2308,7 +2360,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
 
   searchInput.oninput = () => {
     updateSearchClearState();
-    searchSuggestions.classList.remove('is-open'); // 入力の度に一旦候補を閉じ、デバウンス後に最新の内容で再表示する
+    hideSuggestions(); // 入力の度に一旦候補を閉じ、デバウンス後に最新の内容で再表示する
     syncTodayModeFromSearch(); // 年月日8桁の入力/削除に応じてTODAYモードをON/OFFする
     clearTimeout(timer);
     timer = setTimeout(() => {
@@ -2447,7 +2499,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     }
 
     if (e.key === 'Escape' && isOpen) {
-      searchSuggestions.classList.remove('is-open');
+      hideSuggestions();
       // 検索ワードが確定したタイミング
       autoUpdateContentTypeFilters();
       updateManualIndicators();
@@ -2459,7 +2511,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     }
     // Enter(スマホ版の仮想キーボードの→/決定キーも同じキーイベントとして届く)で検索候補を閉じて確定する
     if (e.key === 'Enter') {
-      searchSuggestions.classList.remove('is-open');
+      hideSuggestions();
       searchInput.blur();
     }
   });
@@ -2473,7 +2525,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
       updateManualIndicators();
     }
     updateDisplay(true);
-    clearTimeout(timer); searchSuggestions.classList.remove('is-open'); // ✕で消したときは、カーソルが検索窓にあっても候補は出さない(次に文字を入力したときから出す)
+    clearTimeout(timer); hideSuggestions(); // ✕で消したときは、カーソルが検索窓にあっても候補は出さない(次に文字を入力したときから出す)
     suppressFocusSuggest = true; searchInput.focus(); suppressFocusSuggest = false;
   };
 
@@ -2488,6 +2540,24 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   window.onscroll = () => $('toTopBtn').classList.toggle('is-visible', window.scrollY > 300);
   $('toTopBtn').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
+  // ポップアップ(オーバーレイ)の共通管理: 背景クリックで閉じる / Escapeは「いちばん上」のポップアップだけ閉じる。
+  // いちばん上 = 開いているうちの z-index が大きいもの(同じなら後から開いたもの)。重なり順はCSSの --z-modal* に従う
+  const overlayRecs = [];
+  let overlaySeq = 0;
+  const registerOverlay = (ov, close) => {
+    const rec = { ov, close, seq: 0 };
+    overlayRecs.push(rec);
+    new MutationObserver(() => { rec.seq = ov.classList.contains('is-open') ? (rec.seq || ++overlaySeq) : 0; }).observe(ov, { attributes: true, attributeFilter: ['class'] });
+    ov.addEventListener('click', e => { if (e.target === ov) close(); }); // オーバーレイ部分クリックで閉じる(中身のクリックでは閉じない)
+    return rec;
+  };
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    const z = r => parseInt(getComputedStyle(r.ov).zIndex, 10) || 0;
+    const top = overlayRecs.filter(r => r.ov.classList.contains('is-open')).sort((a, b) => z(a) - z(b) || a.seq - b.seq).pop();
+    if (top) top.close();
+  }, true);
+
   // ヘルプ(?)・設定(⚙)共通の汎用ポップアップ開閉(セトリポップアップと同じズーム+フェード)
   const bindSimplePopup = (btnId, overlayId, closeBtnId) => {
     const overlay = $(overlayId);
@@ -2495,12 +2565,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     const close = () => overlay.classList.remove('is-open');
     $(btnId).onclick = open;
     $(closeBtnId).onclick = close;
-    overlay.onclick = e => {
-      if (e.target === overlay) close(); // オーバーレイ部分クリックで閉じる(中身のクリックでは閉じない)
-    };
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
-    });
+    registerOverlay(overlay, close);
     return close;
   };
   bindSimplePopup('helpBtn', 'helpModalOverlay', 'helpModalCloseBtn');
@@ -2510,7 +2575,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   const VISIBILITY_KEY = 'gl_log_visibility';
   const visibility = { groups: new Set(), members: new Set(), contents: new Set() }; // 各Setに「非表示」の値を入れる
   try {
-    const savedVis = JSON.parse(localStorage.getItem(VISIBILITY_KEY) || 'null');
+    const savedVis = store.getJSON(VISIBILITY_KEY, null);
     if (savedVis && typeof savedVis === 'object') {
       Object.keys(visibility).forEach(k => {
         if (Array.isArray(savedVis[k])) savedVis[k].forEach(v => visibility[k].add(v));
@@ -2604,7 +2669,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   };
   const saveVisibility = () => {
     try {
-      localStorage.setItem(VISIBILITY_KEY, JSON.stringify({
+      store.setJSON(VISIBILITY_KEY, ({
         groups: Array.from(visibility.groups),
         members: Array.from(visibility.members),
         contents: Array.from(visibility.contents)
@@ -2617,7 +2682,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   const DISPLAY_PREFS_KEY = 'gl_display_prefs';
   var displayPrefs = { lyrics: true, stat: true, chips: { all: true, year: true, g2: true, l2: true, cont: true }, hdr: { badge: true, icon: true, today: true } };
   try {
-    const sv = JSON.parse(localStorage.getItem(DISPLAY_PREFS_KEY) || '{}');
+    const sv = store.getJSON(DISPLAY_PREFS_KEY, {});
     if (typeof sv.lyrics === 'boolean') displayPrefs.lyrics = sv.lyrics;
     if (typeof sv.stat === 'boolean') displayPrefs.stat = sv.stat;
     if (sv.hdr && typeof sv.hdr === 'object') Object.keys(displayPrefs.hdr).forEach(k => { if (typeof sv.hdr[k] === 'boolean') displayPrefs.hdr[k] = sv.hdr[k]; });
@@ -2637,7 +2702,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     try { updateSongTickerScroll(); } catch (e) { /* 初期化前は測らない */ }
     try { updateMonthFilterVisibility(); } catch (e) { /* 初期化前は不要 */ }
   }
-  const saveDisplayPrefs = () => { try { localStorage.setItem(DISPLAY_PREFS_KEY, JSON.stringify(displayPrefs)); } catch (e) {} applyDisplayPrefs(); };
+  const saveDisplayPrefs = () => { store.set(DISPLAY_PREFS_KEY, JSON.stringify(displayPrefs)); applyDisplayPrefs(); };
   applyDisplayPrefs();
 
   const buildSettingsUI = () => {
@@ -2816,6 +2881,13 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   });
 
   // チップの左端をタイトルの左端にそろえる
+  // マップ: mapが「埋め込み用のURL(https://www.google.com/maps/embed...)」または<iframe ... src="...">のときだけ、地図ポップアップで開く(それ以外のURLはこれまでどおり別タブ)
+  const mapEmbedSrc = v => {
+    v = String(v || '').trim();
+    const m = v.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i); if (m) v = m[1].replace(/&amp;/g, '&');
+    return /^https:\/\/(www\.)?google\.com\/maps\/embed/i.test(v) ? v : '';
+  };
+  const mapViewUrl = src => { const m = src.match(/!2d(-?[\d.]+)!3d(-?[\d.]+)/); return m ? 'https://www.google.com/maps?q=' + m[2] + ',' + m[1] : src; }; // 埋め込みURLの中心(!2d経度!3d緯度)からGoogleマップの通常のURLを作る
   const tagIndent = t => {
     const w = t.closest('.item');
     const tr = w && w.querySelector(':scope > .item-tags');
@@ -2996,13 +3068,15 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     // MAPモードON+有効なmap URLがある行だけ📍をリンク化する
     let mp = null;
     { // 常に作っておき、表示のON/OFFは#itemsのmap-modeクラスで切り替える
-      const hasMap = !!(item.map && /^https?:\/\//i.test(item.map.trim()));
+      const emb = mapEmbedSrc(item.map);
+      const hasMap = !!(emb || (item.map && /^https?:\/\//i.test(item.map.trim())));
       mp = document.createElement(hasMap ? 'a' : 'span');
       mp.className = 'map-pin';
       mp.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない
       mp.innerHTML = uiIc('pin'); // map値の有無にかかわらず同じ幅を確保するため、常にアイコン文字を入れておく
       if (hasMap) {
-        mp.href = item.map;
+        mp.href = emb ? mapViewUrl(emb) : item.map;
+        if (emb) mp.dataset.embed = emb;
         mp.target = '_blank';
         mp.rel = 'noopener noreferrer';
         mp.setAttribute('aria-label', 'Map');
@@ -3175,7 +3249,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
         c.className = 'tag-chip';
         c.tabIndex = -1;
         c.textContent = tg;
-        c.onclick = e => { e.stopPropagation(); clearFiltersForTagSearch(); applySuggestion(tg); window.scrollTo({ top: 0, behavior: 'instant' }); }; // 今の絞り込み(TODAY・各フィルター)を解除してから、そのタグで検索する
+        c.onclick = e => { e.stopPropagation(); clearFiltersForTagSearch(); applySuggestion(tg); scrollToTop(); }; // 今の絞り込み(TODAY・各フィルター)を解除してから、そのタグで検索する
         tin.appendChild(c);
       });
       tr.appendChild(tin);
@@ -3197,7 +3271,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     const first = shownCount === null; // 初回表示
     const from = first ? 0 : shownCount; // 初回は0から数え上げる
     shownCount = to;
-    if (to === null || from === to || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) { rc.textContent = text; return; }
+    if (to === null || from === to || reduceMotion()) { rc.textContent = text; return; }
     const t0 = performance.now(), dur = first ? 700 : 360;
     const step = now => {
       const k = Math.max(0, Math.min(1, (now - t0) / dur)), e = 1 - Math.pow(1 - k, 3);
@@ -3598,8 +3672,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     if (!/^\d{12}$/.test(setlistid || '')) return { dateStr: '', timeStr: '' };
     const y = setlistid.slice(0, 4), m = setlistid.slice(4, 6), d = setlistid.slice(6, 8);
     const hh = setlistid.slice(8, 10), mm = setlistid.slice(10, 12);
-    const dateObj = new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10));
-    const dayStr = isNaN(dateObj.getTime()) ? '' : dayNames[dateObj.getDay()];
+    const dayStr = weekdayOf(y, m, d);
     const dateStr = `${y}.${m}.${d}` + (dayStr ? ` [${dayStr}]` : '');
     const timeStr = `${hh}:${mm}`;
     return { dateStr, timeStr };
@@ -3655,7 +3728,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   // セトリ・収録曲のポップアップ: 曲の行を上から順に、少しずつ時間をずらしてなめらかに表示する(開いたとき・盤を切り替えたとき)
   const staggerRows = root => {
     trimVidCols(root);
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (reduceMotion()) return;
     root.querySelectorAll('.setlist-modal-songlist > li, .alb-list > li, .stat-list > li').forEach((li, i) => {
       li.style.animationDelay = (50 + Math.min(i, 16) * 28) + 'ms'; // 17行目以降は同じタイミング(長いリストで待たせない)
       li.classList.add('row-in');
@@ -3677,7 +3750,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     const cs = getComputedStyle(box), extra = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
     return Math.min(cap, Math.max(base, Math.ceil(need + extra + 2)));
   };
-  const POPUP_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+  const POPUP_EASE = MOTION.easeM;
   // ポップアップを開いたとき: 基本の幅から、行の長さに合わせた幅へ広げる(開く動きの拡大はそのまま)
   const fitPopupOnOpen = ov => {
     const box = ov.querySelector('.setlist-modal'); if (!box) return;
@@ -3686,17 +3759,17 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     const w0 = box.offsetWidth, w1 = fitWidthPx(ov, box);
     if (Math.abs(w1 - w0) < 2) return;
     box.style.maxWidth = 'calc(100vw - 40px)'; box.style.width = w0 + 'px';
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { box.style.width = w1 + 'px'; box._fit = box.style.width; return; }
+    if (reduceMotion()) { box.style.width = w1 + 'px'; box._fit = box.style.width; return; }
     const base = getComputedStyle(box).transition; // 開く動き(transform)の指定を残したまま、幅の動きを足す
     void box.offsetWidth;
-    box.style.transition = base + `, width 0.28s ${POPUP_EASE}`;
+    box.style.transition = base + `, width ${MOTION.m}ms ${POPUP_EASE}`;
     box.style.width = w1 + 'px'; box._fit = box.style.width;
     box._wT = setTimeout(() => { box.style.transition = ''; }, 320);
   };
   // ポップアップが開いている間に中身が入れ替わって高さ・幅が変わるとき(盤の切り替え・ALL/LIVE/EVENTの切り替えなど)は、今の大きさから新しい大きさへなめらかに広げる(縮める)
   const renderWithHeightAnim = (bodyEl, overlay, renderFn) => {
     const boxEl = bodyEl.parentElement;
-    const animate = overlay.classList.contains('is-open') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const animate = overlay.classList.contains('is-open') && !reduceMotion();
     const h0 = animate ? boxEl.offsetHeight : 0, w0 = animate ? boxEl.offsetWidth : 0;
     if (animate) { clearTimeout(boxEl._hT); clearTimeout(boxEl._wT); boxEl.style.transition = 'none'; boxEl.style.height = 'auto'; boxEl.style.overflow = ''; }
     renderFn();
@@ -3711,7 +3784,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     if (dH) boxEl.style.height = h0 + 'px';
     boxEl.style.overflow = 'hidden';
     void boxEl.offsetHeight; // 開始の大きさを確定させてから、新しい大きさへ
-    boxEl.style.transition = `height 0.28s ${POPUP_EASE}, width 0.28s ${POPUP_EASE}`;
+    boxEl.style.transition = `height ${MOTION.m}ms ${POPUP_EASE}, width ${MOTION.m}ms ${POPUP_EASE}`;
     boxEl.style.height = h1 + 'px'; boxEl.style.width = w1 + 'px';
     boxEl._hT = setTimeout(() => { boxEl.style.transition = ''; boxEl.style.height = ''; boxEl.style.overflow = ''; }, 320);
   };
@@ -3830,8 +3903,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   });
   const closeAlbumModal = () => albumModalOverlay.classList.remove('is-open');
   $('albumModalCloseBtn').onclick = closeAlbumModal;
-  albumModalOverlay.onclick = e => { if (e.target === albumModalOverlay) closeAlbumModal(); };
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && albumModalOverlay.classList.contains('is-open') && !statModalOverlay.classList.contains('is-open')) closeAlbumModal(); });
+  registerOverlay(albumModalOverlay, closeAlbumModal);
   const statModalOverlay = $('statModalOverlay');
   // 公演の分類: 同じsetlistidを持つlogsの行のcontentsで決める(ANNIVERSARYLIVE > TOUR > FANMEETING > LIVE > RELEASEEVENT > それ以外 の優先順)。
   // 上段: LIVE = TOUR・FANMEETING・LIVE、EVENT = それ以外(logsに行が無いものも)。下段(LIVE選択時: TOUR / FAN MEETING / ETC、EVENT選択時: RELEASE EVENT / ETC)
@@ -3922,8 +3994,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   });
   const closeStatModal = () => statModalOverlay.classList.remove('is-open');
   $('statModalCloseBtn').onclick = closeStatModal;
-  statModalOverlay.onclick = e => { if (e.target === statModalOverlay) closeStatModal(); };
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && statModalOverlay.classList.contains('is-open')) closeStatModal(); });
+  registerOverlay(statModalOverlay, closeStatModal);
   setlistModalBody.addEventListener('click', e => {
     const ly = e.target.closest('.song-lyrics[data-song]');
     if (ly) { e.stopPropagation(); openLyrics(lyricsUrlByTitle(ly.dataset.song, ly.dataset.artist)); return; }
@@ -3935,7 +4006,6 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   $('songLyricsBtn').onclick = e => { e.stopPropagation(); if (currentSong) openLyrics(lyricsUrlOfSong(currentSong) || lyricsUrlByTitle(currentSong.title, currentSong.artist)); };
   $('songStatBtn').onclick = e => { e.stopPropagation(); if (currentSong) openStatModal(currentSong.title, currentSong.artist); };
   window.glOpenStat = openStatModal;
-  new MutationObserver(() => { if (!setlistModalOverlay.classList.contains('is-open')) setlistModalOverlay.style.zIndex = ''; }).observe(setlistModalOverlay, { attributes: true, attributeFilter: ['class'] });
   const openSetlistModal = setlistid => {
     const entry = setlistData.find(e => e.setlistid === setlistid);
     if (!entry) {
@@ -4042,12 +4112,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   };
   const closeSetlistModal = () => setlistModalOverlay.classList.remove('is-open');
   $('setlistModalCloseBtn').onclick = closeSetlistModal;
-  setlistModalOverlay.onclick = e => {
-    if (e.target === setlistModalOverlay) closeSetlistModal(); // オーバーレイ部分クリックで閉じる(中身のクリックでは閉じない)
-  };
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && setlistModalOverlay.classList.contains('is-open') && !(statModalOverlay && statModalOverlay.classList.contains('is-open'))) closeSetlistModal();
-  });
+  registerOverlay(setlistModalOverlay, closeSetlistModal);
 
   // SNSリンクポップアップ:sns属性
   const SNS_TYPE_DISPLAY_NAMES = { x: 'X', instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube', gl2family: 'GL\u00B2family', cl: 'CL', threads: 'Threads', line: 'LINE', radiko: 'radiko', etc: 'ETC', fancam: 'Fancam' };
@@ -4092,7 +4157,6 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   const snsTagSwitch = $('snsTagSwitch');
   // TAG表示の切替。ONで各リンクを縦に並べ、右にtagsを出す。並び替えは位置の差分(FLIP)で滑らかに動かす
   // Fancamの行: 最初は「+件数」だけを出し、押すと番号チップをすべて開く。末尾の「▲」で元の状態に戻す
-  const reduceMotion = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   const refreshChipRow = links => {
     const items = [...links.querySelectorAll('.sns-modal-item')], open = links.dataset.fc === 'open';
     links.querySelectorAll('.is-more, .is-less').forEach(x => x.remove());
@@ -4114,8 +4178,10 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     if (links._busy) return;
     const apply = () => {
       const h0 = links.getBoundingClientRect().height;
+      const vm = links.closest('.vid-modal'), w0 = vm ? vm.offsetWidth : 0; // 動画ポップアップは、開閉で列数が変わると横幅も変わる
       links.dataset.fc = open ? 'open' : 'closed';
       refreshChipRow(links);
+      if (vm) { const w1 = vm.offsetWidth; if (w0 && Math.abs(w1 - w0) > 1 && !reduceMotion() && vm.animate) vm.animate([{ width: w0 + 'px' }, { width: w1 + 'px' }], { duration: MOTION.m, easing: MOTION.easeM }); }
       const items = [...links.querySelectorAll('.sns-modal-item')];
       items.forEach(it => { it.classList.remove('is-fc-in'); it.style.animationDelay = ''; });
       if (reduceMotion() || !links.animate) return;
@@ -4123,7 +4189,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
       const h1 = links.getBoundingClientRect().height;
       if (Math.abs(h1 - h0) > 1) {
         links.style.overflow = 'hidden';
-        const an = links.animate([{ height: h0 + 'px' }, { height: h1 + 'px' }], { duration: 280, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+        const an = links.animate([{ height: h0 + 'px' }, { height: h1 + 'px' }], { duration: MOTION.m, easing: MOTION.easeM });
         an.onfinish = an.oncancel = () => { links.style.overflow = ''; };
       }
     };
@@ -4152,8 +4218,8 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     const h0 = snsModalBox.getBoundingClientRect().height;
     snsTagSwitch.setAttribute('aria-checked', on ? 'true' : 'false');
     snsModalBox.classList.toggle('is-tags', on);
-    if (!animate || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-    const opt = { duration: 340, easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)' };
+    if (!animate || reduceMotion()) return;
+    const opt = { duration: MOTION.m, easing: MOTION.easeM };
     items.forEach((el, i) => {
       const r = el.getBoundingClientRect();
       const dx = first[i].left - r.left, dy = first[i].top - r.top;
@@ -4197,12 +4263,12 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   snsScopeSwitch.onclick = () => {
     const all = snsScopeSwitch.getAttribute('aria-checked') !== 'true';
     setSnsScope(all);
-    try { localStorage.setItem('snsScopeMode', all ? 'all' : 'post'); } catch (e) {}
+    store.set('snsScopeMode', all ? 'all' : 'post');
   };
   snsTagSwitch.onclick = () => {
     const on = snsTagSwitch.getAttribute('aria-checked') !== 'true';
     setSnsTagMode(on, true);
-    try { localStorage.setItem('snsTagMode', on ? '1' : '0'); } catch (e) {}
+    store.set('snsTagMode', on ? '1' : '0');
   };
   const openSnsModal = sns => {
     try {
@@ -4286,10 +4352,10 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
       snsModalBody.innerHTML = '<div class="sns-modal-empty">LOAD ERROR</div>';
     }
     let tagOn = false;
-    try { tagOn = localStorage.getItem('snsTagMode') === '1'; } catch (e) {} // 前回のON/OFFを引き継ぐ(保存がなければOFF)
+    tagOn = store.get('snsTagMode') === '1'; // 前回のON/OFFを引き継ぐ(保存がなければOFF)
     setSnsTagMode(tagOn, false);
     let scopeAll = true;
-    try { scopeAll = localStorage.getItem('snsScopeMode') !== 'post'; } catch (e) {}
+    scopeAll = store.get('snsScopeMode') !== 'post';
     setSnsScope(scopeAll);
     snsModalOverlay.classList.add('is-open');
   };
@@ -4305,14 +4371,9 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     closeSnsModal();
     clearFiltersForTagSearch();
     applySuggestion(tg);
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();
   });
-  snsModalOverlay.onclick = e => {
-    if (e.target === snsModalOverlay) closeSnsModal();
-  };
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && snsModalOverlay.classList.contains('is-open')) closeSnsModal();
-  });
+  registerOverlay(snsModalOverlay, closeSnsModal);
 
   // 動画リンクのポップアップ(snsポップアップと同じ見た目・動き)。種類ごとに行を作り、動画は番号チップ。TAGスイッチでタグを出す(状態は保存)
   const vidModalOverlay = $('vidModalOverlay'), vidModalBody = $('vidModalBody'), vidModalBox = $('vidModal'), vidTagSwitch = $('vidTagSwitch');
@@ -4331,7 +4392,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   vidTagSwitch.onclick = () => {
     const on = vidTagSwitch.getAttribute('aria-checked') !== 'true';
     setVidTagMode(on, true);
-    try { localStorage.setItem('vidTagMode', on ? '1' : '0'); } catch (e) {}
+    store.set('vidTagMode', on ? '1' : '0');
   };
   const openVideoModal = (vids, title) => {
     try {
@@ -4349,7 +4410,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
           const tagHtml = tags.length ? `<span class="sns-modal-tagtext">${tags.map(t => `<button type="button" class="tag-chip" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join('')}</span>` : '';
           return `<span class="sns-modal-item"><a class="sns-modal-link" href="${escapeHtml(v.url)}" target="_blank" rel="noopener noreferrer">${i + 1}</a>${tagHtml}</span>`;
         }).join('');
-        return `<div class="sns-modal-type-row${g.key === 'fancam' ? ' is-fancam' : ''}"><span class="sns-modal-type-label">${videoIconHtml(g.key)}<span>${escapeHtml(g.label)}</span></span><span class="sns-modal-links">${itemsHtml}</span></div>`;
+        return `<div class="sns-modal-type-row${g.key === 'fancam' ? ' is-fancam' : ''}"><span class="sns-modal-type-label">${videoIconHtml(g.key)}<span>${escapeHtml(g.label)}</span></span><span class="sns-modal-links" style="--cols:${Math.min(g.list.length, 5)}">${itemsHtml}</span></div>`;
       }).join('');
       vidModalBody.innerHTML = (title ? `<div class="sns-modal-title"><span class="vid-yt" aria-hidden="true"></span><span class="vid-ttl">${escapeHtml(title)}</span></div>` : '') + (rowsHtml || '<div class="sns-modal-empty">NO LINKS</div>');
       vidModalBody.querySelectorAll('.is-fancam .sns-modal-links').forEach(limitChipRow);
@@ -4359,14 +4420,13 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
       vidModalBody.innerHTML = '<div class="sns-modal-empty">LOAD ERROR</div>';
     }
     let tagOn = false;
-    try { tagOn = localStorage.getItem('vidTagMode') === '1'; } catch (e) {}
-    setVidTagMode(tagOn, false);
+    setVidTagMode(false, false); // TAGスイッチは非表示にしたので、常にタグなしで開く
     vidModalOverlay.classList.add('is-open');
   };
   bindMoreChips(vidModalBody);
   const closeVidModal = () => vidModalOverlay.classList.remove('is-open');
   $('vidModalCloseBtn').onclick = closeVidModal;
-  vidModalOverlay.onclick = e => { if (e.target === vidModalOverlay) closeVidModal(); };
+  registerOverlay(vidModalOverlay, closeVidModal);
   vidModalBody.addEventListener('click', e => { // タグチップ: snsポップアップと同じ(今の絞り込みを外してそのタグで検索。ポップアップは閉じる)
     const chip = e.target.closest('.tag-chip[data-tag]');
     if (!chip) return;
@@ -4376,11 +4436,8 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     [snsModalOverlay, setlistModalOverlay, albumModalOverlay, statModalOverlay].forEach(o => o && o.classList.remove('is-open'));
     clearFiltersForTagSearch();
     applySuggestion(tg);
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();
   });
-  document.addEventListener('keydown', e => { // Escape: 一番上の動画リンクだけ閉じる(下のポップアップは残す)
-    if (e.key === 'Escape' && vidModalOverlay.classList.contains('is-open')) { e.stopImmediatePropagation(); closeVidModal(); }
-  }, true);
 
   // コンテンツ種類を除く条件でアイテムが一致するか判定する
   let setlistIdToMemberMap = new Map();
@@ -4399,14 +4456,14 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   const EXCLUDED_FILTERS_KEY = 'gl_log_excluded_filters';
   const loadExcludedFilters = () => {
     try {
-      const arr = JSON.parse(localStorage.getItem(EXCLUDED_FILTERS_KEY) || '[]');
+      const arr = store.getJSON(EXCLUDED_FILTERS_KEY, []);
       return new Set(Array.isArray(arr) ? arr : []);
     } catch {
       return new Set();
     }
   };
   const excludedFilterValues = loadExcludedFilters();
-  const saveExcludedFilters = () => localStorage.setItem(EXCLUDED_FILTERS_KEY, JSON.stringify(Array.from(excludedFilterValues)));
+  const saveExcludedFilters = () => store.setJSON(EXCLUDED_FILTERS_KEY, Array.from(excludedFilterValues));
 
   // アイテムが、除外指定されたいずれかのフィルター値
   const isExcludedByFilter = (item, precomputedGroups) => {
@@ -4431,8 +4488,30 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     return false;
   };
 
-  const matchesOtherFilters = (item, ctx) => {
-    const { cYears, cMonths, sGroups, mGroups, kw, dq, dateToken, setlistIds } = ctx;
+  // 今の絞り込み条件(チェック中のボタン・検索窓・セトリ検索モード)を1回で集める。表示・件数プレビュー・自動ON/OFFで共通に使う
+  const getFilterState = () => {
+    const checked = Array.from(checkboxes).filter(cb => cb.checked);
+    const cVals = new Set(checked.map(cb => cb.value));
+    const cYears = checked.filter(cb => /^\d{4}$/.test(cb.value)).map(cb => cb.value);
+    const cMonths = checked.filter(cb => /^\d{2}$/.test(cb.value)).map(cb => cb.value);
+    const cConts = checked.filter(cb => allConts.includes(cb.value)).map(cb => cb.value);
+    const sGroups = allGroupVals.filter(v => cVals.has(v));
+    const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
+    const rawKw = searchInput.value.trim();
+    const fullKw = rawKw.toLowerCase();
+    // 日付・年・月日クエリのパース処理(セトリ検索モード中はkwを曲名検索に使うため不要)
+    const { dq, dateToken, remainingKw } = setlistMode
+      ? { dq: { isDateQuery: false }, dateToken: '', remainingKw: fullKw }
+      : extractDateQuery(rawKw);
+    // セトリ検索モード中、キーワードがあればsetlist.jsonから該当するsetlistidを検索しておく
+    const setlistIds = setlistMode && fullKw ? getMatchedSetlistIds(fullKw) : null;
+    return { checked, cVals, cYears, cMonths, cConts, sGroups, mGroups, rawKw, fullKw, dq, dateToken, kw: remainingKw, setlistIds };
+  };
+
+  // アイテムが今の絞り込み条件(年・月・グループ/メンバー・日付/キーワード/セトリ・TODAY・除外)に合うか。表示・件数プレビュー・コンテンツ種類の自動ON/OFFで共通に使う。
+  // ctx.cConts があるときは、コンテンツ種類の絞り込み(isContentTypeOk)も判定に含める。無いときは種類を問わない(どの種類が残るかを調べる用)
+  const matchesFilters = (item, ctx) => {
+    const { cYears, cMonths, sGroups, mGroups, kw, dq, dateToken, setlistIds, cConts, fullKw } = ctx;
     const yr = item.date ? item.date.slice(0, 4) : '';
     const mo = item.date ? item.date.slice(4, 6) : '';
     const itemGroupsAndRelations = getFilterGroupsForItem(item);
@@ -4441,17 +4520,12 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     const yOk = cYears.length === 0 || cYears.includes(yr);
     const monthOk = cMonths.length === 0 || cMonths.includes(mo);
 
-    const itemHasMeta = m => {
-      if (itemGroupsAndRelations.includes(m)) return true; // groupsまたはrelationsに"G2"等のメタ表記そのものがある場合
-      const mValues = cats.find(c => c.meta === m)?.values || [];
-      return itemGroupsAndRelations.some(g => mValues.includes(g)); // 個別メンバーコードからメタ所属を推測
-    };
-      // グループごとにOR、グループの中ではメンバーがAND(groupMemberOkの説明を参照)
-      const memberOk = groupMemberOk(itemGroupsAndRelations, sGroups, mGroups);
-      const metaOk = true;
+    // グループごとにOR、グループの中ではメンバーがAND(groupMemberOkの説明を参照)
+    const memberOk = groupMemberOk(itemGroupsAndRelations, sGroups, mGroups);
     // メンバーフィルターのみ選択時(グループフィルター未選択)は、groupsにSTFがある項目を除外する
     const stfExcluded = sGroups.length > 0 && mGroups.length === 0 && itemGroups.includes('STF');
-    const gOk = memberOk && metaOk && !stfExcluded;
+    const gOk = memberOk && !stfExcluded;
+    const cOk = !cConts || isContentTypeOk(item, normalizeContType(item.contents || ''), cConts, cYears, todayMode, !!(dq && dq.isDateQuery), fullKw);
 
     let dateOk = true;
     let textOk = true;
@@ -4490,7 +4564,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
 
     const todayOk = isTodayDateOk(item, cYears);
 
-    return yOk && monthOk && gOk && dateOk && textOk && setlistOk && todayOk && !isExcludedByFilter(item, itemGroupsAndRelations);
+    return yOk && monthOk && gOk && cOk && dateOk && textOk && setlistOk && todayOk && !isExcludedByFilter(item, itemGroupsAndRelations);
   };
 
   // コンテンツ種類ボタンの自動ON/OFFは、TODAY/前後日/セトリ検索の条件変化時のみ行う
@@ -4532,24 +4606,12 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
       return;
     }
 
-    const checked = checkedAll;
-    const cVals = new Set(checked.map(cb => cb.value));
-    const cYears = checked.filter(cb => /^\d{4}$/.test(cb.value)).map(cb => cb.value);
-    const cMonths = checked.filter(cb => /^\d{2}$/.test(cb.value)).map(cb => cb.value);
-    const sGroups = allGroupVals.filter(v => cVals.has(v));
-    const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
-    const rawKw = searchInput.value.trim();
-    const fullKw = rawKw.toLowerCase();
-    // セトリ検索モード中は日付抽出を行わず、kwはそのまま曲名検索に使う
-    const { dq, dateToken, remainingKw } = setlistMode
-      ? { dq: null, dateToken: '', remainingKw: fullKw }
-      : extractDateQuery(rawKw);
-    const setlistIds = setlistMode && fullKw ? getMatchedSetlistIds(fullKw) : null;
-    const ctx = { cYears, cMonths, sGroups, mGroups, kw: remainingKw, dq, dateToken, setlistIds };
+    const ctx = { ...getFilterState(), cConts: null }; // コンテンツ種類は問わず、どの種類が残るかを調べる
+    const { cYears, cMonths } = ctx;
 
     const matched = new Set();
     expandTodayBirthdayItems(logs, cYears, cMonths).forEach(item => {
-      if (matchesOtherFilters(item, ctx)) matched.add(normalizeContType(item.contents || ''));
+      if (matchesFilters(item, ctx)) matched.add(normalizeContType(item.contents || ''));
     });
 
     contentCheckboxes.forEach(cb => {
@@ -4587,90 +4649,10 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     // データ部の再描画では、コンテンツ名アコーディオンの展開状態を通常は全て閉じる
     if (!preserveContentExpand) expandedContentKeys.clear();
 
-    const checked = Array.from(checkboxes).filter(cb => cb.checked);
-    const cVals = new Set(checked.map(cb => cb.value));
-    const cYears = checked.filter(cb => /^\d{4}$/.test(cb.value)).map(cb => cb.value);
-    const cMonths = checked.filter(cb => /^\d{2}$/.test(cb.value)).map(cb => cb.value);
-    const cConts = checked.filter(cb => allConts.includes(cb.value)).map(cb => cb.value);
-    const sGroups = allGroupVals.filter(v => cVals.has(v));
-    const mGroups = cats.map(c => c.meta).filter(m => cVals.has(m));
-    const rawKw = searchInput.value.trim();
-    const fullKw = rawKw.toLowerCase();
+    const fs = getFilterState();
+    const { checked, cYears, cMonths, fullKw } = fs;
 
-    // 日付・年・月日クエリのパース処理(セトリ検索モード中はkwを曲名検索に使うため不要)
-    const { dq, dateToken, remainingKw } = setlistMode
-      ? { dq: { isDateQuery: false }, dateToken: '', remainingKw: fullKw }
-      : extractDateQuery(rawKw);
-    const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = dq;
-    const kw = remainingKw;
-    // セトリ検索モード中、キーワードがあればsetlist.jsonから該当するsetlistidを検索しておく
-    const setlistIds = setlistMode && fullKw ? getMatchedSetlistIds(fullKw) : null;
-
-    filtered = expandTodayBirthdayItems(logs, cYears, cMonths).filter(item => {
-      const yr = item.date ? item.date.slice(0, 4) : '';
-      const mo = item.date ? item.date.slice(4, 6) : '';
-      const itemGroupsAndRelations = getFilterGroupsForItem(item);
-      const itemGroups = itemGroupsAndRelations; // STF除外判定もセトリ検索モード中は同じ配列(member)を参照する
-      const ic = normalizeContType(item.contents || '');
-      
-      const yOk = cYears.length === 0 || cYears.includes(yr);
-      const monthOk = cMonths.length === 0 || cMonths.includes(mo);
-      
-      const itemHasMeta = m => {
-        if (itemGroupsAndRelations.includes(m)) return true;
-        const mValues = cats.find(c => c.meta === m)?.values || [];
-        return itemGroupsAndRelations.some(g => mValues.includes(g));
-      };
-      // グループごとにOR、グループの中ではメンバーがAND(groupMemberOkの説明を参照)
-      const memberOk = groupMemberOk(itemGroupsAndRelations, sGroups, mGroups);
-      const metaOk = true;
-      // メンバーフィルターのみ選択時(グループフィルター未選択)は、groupsにSTFがある項目を除外する
-      const stfExcluded = sGroups.length > 0 && mGroups.length === 0 && itemGroups.includes('STF');
-      const gOk = memberOk && metaOk && !stfExcluded;
-
-      const cOk = isContentTypeOk(item, ic, cConts, cYears, todayMode, isDateQuery, fullKw);
-      
-      let dateOk = true;
-      let textOk = true;
-      let setlistOk = true;
-
-      if (setlistMode) {
-        // セトリ検索モード:通常の日付検索・テキスト検索の代わりにsetlistidベースで判定する
-        setlistOk = isSetlistOk(item, kw, setlistIds);
-      } else {
-        if (isDateQuery) {
-          const itemDateNum = item.date || '';
-          let matchesDate = true;
-          if (targetMonthDay) {
-            const itemMD = itemDateNum.slice(4, 8);
-            matchesDate = itemMD === targetMonthDay;
-          } else if (targetMonthDayRange) {
-            const itemMD = itemDateNum.slice(4, 8);
-            const [fromMD, toMD] = targetMonthDayRange;
-            matchesDate = fromMD <= toMD
-              ? (itemMD >= fromMD && itemMD <= toMD)
-              : (itemMD >= fromMD || itemMD <= toMD); // 年をまたぐ範囲(例:1201-0131)にも対応
-          } else {
-            if (startDate && itemDateNum < startDate) matchesDate = false;
-            if (endDate && itemDateNum > endDate) matchesDate = false;
-          }
-          // 日付検索を優先しつつ、tagsに一致するものがあればそちらも結果に含める
-          const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(dateToken)));
-          dateOk = matchesDate || tagsMatch;
-          // ANNIVERSARYは登録年自体を検索でも見せない(翌年以降のみ、日付検索でも同じ扱いにする)
-          if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, anniversaryRegisteredYear(item, itemDateNum))) dateOk = false;
-        }
-
-        if (kw) {
-          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '') + snsTagsText(item)).toLowerCase();
-          textOk = matchesSearchKeyword(searchText, kw, item);
-        }
-      }
-      
-      const todayOk = isTodayDateOk(item, cYears);
-
-      return yOk && monthOk && gOk && cOk && dateOk && textOk && setlistOk && todayOk && !isExcludedByFilter(item, itemGroupsAndRelations);
-    });
+    filtered = expandTodayBirthdayItems(logs, cYears, cMonths).filter(item => matchesFilters(item, fs));
 
     // ソート比較のたびに同じ計算をやり直さないよう、各アイテムのソートキーを1回だけ計算してキャッシュする
     const sortKeyCache = new Map();
@@ -4737,7 +4719,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
 
     if (!isZero) { if (instant) renderSync(instant === 'fresh' ? 0 : prevRendered); else renderBatch(); }
     // 'fresh'(表示内容が変わる即時再描画):空白フレームなしで差し替え、ごく短い淡いフェードだけ付けて切り替わりを分かりやすくする
-    if (instant === 'fresh' && $('items').animate && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) $('items').animate([{ opacity: 0.35 }, { opacity: 1 }], { duration: 180, easing: 'ease-out' });
+    if (instant === 'fresh' && $('items').animate && !reduceMotion()) $('items').animate([{ opacity: 0.35 }, { opacity: 1 }], { duration: MOTION.s, easing: MOTION.easeS });
     // 0件時もupdateItemsMinHeight内で分岐して処理する
     updateItemsMinHeight();
     // 新しい内容のフェードインを発火させる
@@ -4757,21 +4739,8 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   };
 
   const previewCountFor = (val, isChecked) => {
-    const checked = Array.from(checkboxes).filter(c => c.checked);
-    const cVals = new Set(checked.map(c => c.value));
-    let cY = checked.filter(c => /^\d{4}$/.test(c.value)).map(c => c.value);
-    let cM = checked.filter(c => /^\d{2}$/.test(c.value)).map(c => c.value);
-    let sG = allGroupVals.filter(v => cVals.has(v));
-    let mG = cats.map(c => c.meta).filter(m => cVals.has(m));
-    let cC = checked.filter(c => allConts.includes(c.value)).map(c => c.value);
-    const rawKw = searchInput.value.trim();
-    const fullKw = rawKw.toLowerCase();
-    const { dq, dateToken, remainingKw } = setlistMode
-      ? { dq: { isDateQuery: false }, dateToken: '', remainingKw: fullKw }
-      : extractDateQuery(rawKw);
-    const { isDateQuery, targetMonthDay, targetMonthDayRange, startDate, endDate } = dq;
-    const kw = remainingKw;
-    const setlistIds = setlistMode && fullKw ? getMatchedSetlistIds(fullKw) : null;
+    const fs = getFilterState();
+    let cY = fs.cYears.slice(), cM = fs.cMonths.slice(), sG = fs.sGroups.slice(), mG = fs.mGroups.slice(), cC = fs.cConts.slice(); // このボタンを切り替えた場合の条件にして数える
 
     if (isChecked) {
       if (/^\d{4}$/.test(val)) cY = cY.filter(y => y !== val);
@@ -4787,71 +4756,8 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
       if (allConts.includes(val) && !cC.includes(val)) cC.push(val);
     }
 
-    return expandTodayBirthdayItems(logs, cY, cM).filter(item => {
-      const yr = item.date ? item.date.slice(0, 4) : '';
-      const mo = item.date ? item.date.slice(4, 6) : '';
-      const itemGroupsAndRelations = getFilterGroupsForItem(item);
-      const itemGroups = itemGroupsAndRelations; // STF除外判定もセトリ検索モード中は同じ配列(member)を参照する
-      const ic = normalizeContType(item.contents || '');
-
-      const itemHasMeta = m => {
-        if (itemGroupsAndRelations.includes(m)) return true;
-        const mValues = cats.find(c => c.meta === m)?.values || [];
-        return itemGroupsAndRelations.some(g => mValues.includes(g));
-      };
-      // グループごとにOR、グループの中ではメンバーがAND(groupMemberOkの説明を参照)
-      const memberOk = groupMemberOk(itemGroupsAndRelations, sG, mG);
-      const metaOk = true;
-      // メンバーフィルターのみ選択時(グループフィルター未選択)は、groupsにSTFがある項目を除外する
-      const stfExcluded = sG.length > 0 && mG.length === 0 && itemGroups.includes('STF');
-      const gOk = memberOk && metaOk && !stfExcluded;
-
-      let dateOk = true;
-      let kwOk = true;
-      let setlistOk = true;
-
-      if (setlistMode) {
-        setlistOk = isSetlistOk(item, kw, setlistIds);
-      } else {
-        if (isDateQuery) {
-          const itemDateNum = item.date || '';
-          let matchesDate = true;
-          if (targetMonthDay) {
-            const itemMD = itemDateNum.slice(4, 8);
-            matchesDate = itemMD === targetMonthDay;
-          } else if (targetMonthDayRange) {
-            const itemMD = itemDateNum.slice(4, 8);
-            const [fromMD, toMD] = targetMonthDayRange;
-            matchesDate = fromMD <= toMD
-              ? (itemMD >= fromMD && itemMD <= toMD)
-              : (itemMD >= fromMD || itemMD <= toMD);
-          } else {
-            if (startDate && itemDateNum < startDate) matchesDate = false;
-            if (endDate && itemDateNum > endDate) matchesDate = false;
-          }
-          const tagsMatch = !!(item.tags && item.tags.some(t => t.toLowerCase().includes(dateToken)));
-          dateOk = matchesDate || tagsMatch;
-          // ANNIVERSARYは登録年自体を検索でも見せない(翌年以降のみ、日付検索でも同じ扱いにする)
-          if (dateOk && item.contents === 'ANNIVERSARY' && itemDateNum.slice(0, 4) < minRecurrenceYear(item, anniversaryRegisteredYear(item, itemDateNum))) dateOk = false;
-        }
-
-        if (kw) {
-          const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '') + snsTagsText(item)).toLowerCase();
-          kwOk = matchesSearchKeyword(searchText, kw, item);
-        }
-      }
-
-      const todayOk = isTodayDateOk(item, cY);
-      const yOk = cY.length === 0 || cY.includes(yr);
-      const monthOk = cM.length === 0 || cM.includes(mo);
-      const cOk = isContentTypeOk(item, ic, cC, cY, todayMode, isDateQuery, fullKw);
-
-      return yOk &&
-             monthOk &&
-             gOk &&
-             cOk &&
-             dateOk && kwOk && setlistOk && todayOk && !isExcludedByFilter(item, itemGroupsAndRelations);
-    }).length;
+    const ctx = { ...fs, cYears: cY, cMonths: cM, sGroups: sG, mGroups: mG, cConts: cC };
+    return expandTodayBirthdayItems(logs, cY, cM).filter(item => matchesFilters(item, ctx)).length;
   };
 
   // BADGEモード:各フィルターボタンに、現在の他条件と連動した件数を常時表示する
@@ -4909,11 +4815,11 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     });
   }
   (() => {
-    const reduce = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)', MOVE = 'cubic-bezier(0.4, 0, 0.2, 1)', GAP = 5;
-    const T_H = 220, T_V = 160, T_A = 220; // 横に集まる/開く、縦に集まる/開く(複数段のときだけ)、ボタンに吸収される/ボタンから出る
+    const reduce = reduceMotion;
+    const EASE = MOTION.easeM, MOVE = MOTION.easeMove, GAP = 5;
+    const T_H = Math.round(MOTION.m * 0.8), T_V = Math.round(MOTION.s * 0.9), T_A = T_H; // 横に集まる/開く、縦に集まる/開く(複数段のときだけ)、ボタンに吸収される/ボタンから出る
     const btnOf = id => document.querySelector('.fold-btn[data-fold="' + id + '"]');
-    let noSave = false; const save = () => { if (noSave) return; try { localStorage.setItem(FOLD_KEY, JSON.stringify(foldState)); } catch (e) {} };
+    let noSave = false; const save = () => { if (noSave) return; store.set(FOLD_KEY, JSON.stringify(foldState)); };
     // ALLボタン: 1つでも開いていれば全部畳み、全部畳んでいれば全部開く。青いのは全部開いているときだけ
     const allBtn = $('foldAllBtn');
     const shownIds = () => FOLD_IDS.filter(id => displayPrefs.chips[id]); // チップを出している行だけが対象
@@ -4955,7 +4861,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
       unit.classList.add('is-folding'); // 動いている間だけ、行のはみ出しを隠さない(縦に動くため)
       // 区切りの「/」はチップと一緒に動かないので、畳む時は先に消し、開く時は動きが終わる頃に出す(取り残し防止)
       const seps = [...unit.querySelectorAll('.sep')];
-      seps.forEach(e => { e.style.transition = 'opacity 150ms'; e.style.opacity = '0'; });
+      seps.forEach(e => { e.style.transition = 'opacity ' + MOTION.s + 'ms'; e.style.opacity = '0'; });
       if (!next) setTimeout(() => seps.forEach(e => { e.style.opacity = foldBusy[id] ? '1' : ''; }), T_H + (T_V) + T_A * 0.6);
       H = unit.scrollHeight;
       const P = plan(unit, btn);
@@ -4997,7 +4903,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     };
     FOLD_IDS.forEach(id => { const b = btnOf(id); if (b) b.onclick = () => setFolded(id, !foldState[id], false); });
     document.querySelector('.checks').addEventListener('change', updateYearFoldBadge);
-    let saved = null; try { saved = JSON.parse(localStorage.getItem(FOLD_KEY) || 'null'); } catch (e) {}
+    const saved = store.getJSON(FOLD_KEY, null);
     if (saved) FOLD_IDS.forEach(id => { if (saved[id]) setFolded(id, true, true); });
     syncAll();
     // 初回表示(開いた直後)だけ、開いている行を「開くとき」と同じ動きで出す。裏でJSONが更新されても再生しない
@@ -5015,7 +4921,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
 
   // ICONボタン:コンテンツ種類フィルターの表示をテキストのみ⇔アイコンのみで切り替える。次回訪問時も記憶する
   const ICON_MODE_KEY = 'gl_log_icon_mode';
-  let iconMode = localStorage.getItem(ICON_MODE_KEY) === 'true';
+  let iconMode = store.get(ICON_MODE_KEY) === 'true';
 
   // ICONモード時のみ、コンテンツ種類ボタンにツールチップ(名前)を表示する
   const updateContentTooltips = () => {
@@ -5034,9 +4940,8 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     const filterLabels = Array.from(document.querySelectorAll('.checks-row-other label'));
     const widthsBefore = filterLabels.map(l => l.getBoundingClientRect().width);
     // データ部のコンテンツ種類枠も同様に、切替前の幅(画面内の行だけ)を記録しておく
-    const reduceMotion = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
     const ctBefore = [];
-    if (!reduceMotion) {
+    if (!reduceMotion()) {
       const vh = window.innerHeight;
       document.querySelectorAll('#items .item-contents').forEach((el, i) => {
         const r = el.getBoundingClientRect();
@@ -5047,18 +4952,18 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     }
     const ctCountBefore = document.querySelectorAll('#items .item-contents').length;
     document.body.classList.toggle('icon-only-mode', iconMode);
-    if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    if (!reduceMotion()) {
       filterLabels.forEach((l, i) => {
         const w1 = l.getBoundingClientRect().width, w0 = widthsBefore[i];
         if (!w0 || !w1 || Math.abs(w1 - w0) < 0.5 || !l.animate) return;
         l.animate(
           [{ width: w0 + 'px', minWidth: w0 + 'px', boxSizing: 'border-box', overflow: 'hidden' }, { width: w1 + 'px', minWidth: w1 + 'px', boxSizing: 'border-box', overflow: 'hidden' }],
-          { duration: 380, easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)' }
+          { duration: MOTION.m, easing: MOTION.easeM }
         );
       });
     }
     $('iconToggleBtn').classList.toggle('is-active', iconMode);
-    localStorage.setItem(ICON_MODE_KEY, iconMode);
+    store.set(ICON_MODE_KEY, iconMode);
     updateContentTooltips();
     updateDisplay(false, false, true); // 同じフレームで即時に差し替える(フェードイン・空白フレームなし)
     // データ部のコンテンツ種類枠:作り直された枠を、切替前の幅から新しい幅へ動かす(ハートの開閉と同じ 0.3s ease)
@@ -5073,7 +4978,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
           const nm = el.querySelector('.item-contents-name');
           const keepName = !!nm && nameShown && nm.style.display === 'none'; // 縮む間は文字を残し、終わってから隠す
           if (keepName) nm.style.display = '';
-          const anim = el.animate([{ flexBasis: w + 'px' }, { flexBasis: w1 + 'px' }], { duration: 300, easing: 'ease' });
+          const anim = el.animate([{ flexBasis: w + 'px' }, { flexBasis: w1 + 'px' }], { duration: MOTION.m, easing: MOTION.easeM });
           if (keepName) {
             const restore = () => { if (nm.isConnected && !el.classList.contains('is-content-open')) nm.style.display = 'none'; };
             anim.onfinish = restore; anim.oncancel = restore;
@@ -5087,19 +4992,19 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
 
   // 📍ボタン(MAPモード):ONの間、データ部にmap属性へのリンクアイコンを表示する(状態は保存)
   const MAP_MODE_KEY = 'gl_log_map_mode';
-  let mapMode = localStorage.getItem(MAP_MODE_KEY) === 'true';
+  let mapMode = store.get(MAP_MODE_KEY) === 'true';
   $('mapToggleBtn').classList.toggle('is-active', mapMode);
   $('items').classList.toggle('map-mode', mapMode);
   $('mapToggleBtn').onclick = () => {
     mapMode = !mapMode;
     $('mapToggleBtn').classList.toggle('is-active', mapMode);
-    localStorage.setItem(MAP_MODE_KEY, mapMode);
+    store.set(MAP_MODE_KEY, mapMode);
     $('items').classList.toggle('map-mode', mapMode); // 行の再描画はせず、クラス切替だけで左からスライドして出入りする
   };
 
   // 📋️ボタン(SETLISTアイコン表示モード):セトリ検索モードとは別物の独立したON/OFF
   const SETLIST_ICON_MODE_KEY = 'gl_log_setlist_icon_mode';
-  let setlistIconMode = localStorage.getItem(SETLIST_ICON_MODE_KEY) === 'true';
+  let setlistIconMode = store.get(SETLIST_ICON_MODE_KEY) === 'true';
   $('setlistIconToggleBtn').classList.toggle('is-active', setlistIconMode);
   $('items').classList.toggle('setlist-icon-mode', setlistIconMode);
   $('setlistIconToggleBtn').onclick = () => {
@@ -5107,58 +5012,85 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     if (setlistMode) return;
     setlistIconMode = !setlistIconMode;
     $('setlistIconToggleBtn').classList.toggle('is-active', setlistIconMode);
-    localStorage.setItem(SETLIST_ICON_MODE_KEY, setlistIconMode);
+    store.set(SETLIST_ICON_MODE_KEY, setlistIconMode);
     $('items').classList.toggle('setlist-icon-mode', setlistIconMode); // 行の再描画はせず、クラス切替だけで左からスライドして出入りする
   };
   // 🔗ボタン(SNSリンク表示モード):ONの間、データ行の右端にSNSリンクアイコンを表示する
   const LINK_MODE_KEY = 'gl_log_link_mode';
-  let linkMode = localStorage.getItem(LINK_MODE_KEY) === 'true';
+  let linkMode = store.get(LINK_MODE_KEY) === 'true';
   $('linkToggleBtn').classList.toggle('is-active', linkMode);
   $('items').classList.toggle('link-mode', linkMode); // 行の再描画はせず、#itemsのクラス切替だけで🔗が右からスライドして出入りする
   $('linkToggleBtn').onclick = () => {
     linkMode = !linkMode;
     $('linkToggleBtn').classList.toggle('is-active', linkMode);
-    localStorage.setItem(LINK_MODE_KEY, linkMode);
+    store.set(LINK_MODE_KEY, linkMode);
     $('items').classList.toggle('link-mode', linkMode);
     slideAlbIcons(linkMode);
   };
   // 🔗の幅の分だけ💽の位置がずれるので、元の位置から新しい位置へ🔗と同じ動きでスライドさせる。
   // ON: 🔗の幅がすぐ広がり💽が左へずれる → 右にずれた位置から元へ。OFF: 🔗が出ていく動き(0.28s)のあとに幅が0になり💽が右へずれる → 同じ0.28sで、右へ動いたところで幅の変化と重なって終わる(終わりの位置はずれ幅と一致するので飛ばない)
   function slideAlbIcons(on) {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (reduceMotion()) return;
     const icons = [...document.querySelectorAll('#items .alb-icon:not(.is-off)')];
     if (!icons.length || !icons[0].animate) return;
     const d = parseFloat(getComputedStyle(icons[0]).fontSize) * 1.6 + 4; // 🔗の幅(1.6em)+左の余白4px
-    const opt = { duration: 280, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' };
+    const opt = { duration: MOTION.m, easing: MOTION.easeM };
     icons.forEach(a => a.animate(on ? [{ transform: `translateX(${d}px)` }, { transform: 'translateX(0)' }] : [{ transform: 'translateX(0)' }, { transform: `translateX(${d}px)` }], opt));
   }
   // ヘッダーの💽ボタン: 一覧の行の💽(アルバムポップアップを開くアイコン)の表示/非表示。この端末に記憶(初期はON)
   const ALB_MODE_KEY = 'gl_alb_mode';
-  let albMode = localStorage.getItem(ALB_MODE_KEY) === 'true';
+  let albMode = store.get(ALB_MODE_KEY) === 'true';
   const applyAlbMode = () => {
     $('statToggleBtn').classList.toggle('is-active', albMode);
     $('statToggleBtn').setAttribute('aria-pressed', albMode ? 'true' : 'false');
     document.documentElement.classList.toggle('alb-off', !albMode);
-    localStorage.setItem(ALB_MODE_KEY, albMode);
+    store.set(ALB_MODE_KEY, albMode);
   };
   $('statToggleBtn').onclick = () => { albMode = !albMode; applyAlbMode(); };
   applyAlbMode();
   // 曲の行の📊・歌詞(Uta-Net)・開閉チップの表示は、SETTINGのDISPLAYで切り替える(applyDisplayPrefs)
   applyDisplayPrefs();
+  // マップのポップアップ: 📍(data-embedつき)を押すと、埋め込み地図を出す
+  const mapModalOverlay = $('mapModalOverlay'), mapModalBody = $('mapModalBody');
+  let mapCloseT = 0; // 閉じる動き(フェード)が終わってから中身を消す(すぐ消すと、枠が空になって縮んで見える)
+  const closeMapModal = () => { mapModalOverlay.classList.remove('is-open'); clearTimeout(mapCloseT); mapCloseT = setTimeout(() => { if (!mapModalOverlay.classList.contains('is-open')) mapModalBody.innerHTML = ''; }, MOTION.m + 60); };
+  $('mapModalCloseBtn').onclick = closeMapModal;
+  registerOverlay(mapModalOverlay, closeMapModal);
+  $('items').addEventListener('click', e => {
+    const a = e.target.closest('a.map-pin[data-embed]'); if (!a) return;
+    e.preventDefault();
+    clearTimeout(mapCloseT);
+    mapModalBody.innerHTML = '<iframe class="map-modal-frame" title="Map" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>';
+    mapModalBody.querySelector('iframe').src = a.dataset.embed;
+    mapModalOverlay.classList.add('is-open');
+  });
   // 🏷️ボタン(タグ表示モード):ONの間、タグがある行のタイトルの下にタグのチップを出す
   const TAG_MODE_KEY = 'gl_log_tag_mode';
-  let tagMode = localStorage.getItem(TAG_MODE_KEY) === 'true';
+  let tagMode = store.get(TAG_MODE_KEY) === 'true';
   $('tagToggleBtn').classList.toggle('is-active', tagMode);
   $('items').classList.toggle('tag-mode', tagMode);
   $('tagToggleBtn').onclick = () => {
     tagMode = !tagMode;
     $('tagToggleBtn').classList.toggle('is-active', tagMode);
-    localStorage.setItem(TAG_MODE_KEY, tagMode);
+    store.set(TAG_MODE_KEY, tagMode);
     $('items').classList.toggle('tag-mode', tagMode);
+    $('items').querySelectorAll('.item.tag-show, .item.tag-hide').forEach(w => w.classList.remove('tag-show', 'tag-hide')); // 行ごとの切り替えは、全体を切り替えたら元に戻す
     if (tagMode) $('items').querySelectorAll('.item-title').forEach(tagIndent);
   };
+  // 行の下端(下線のあたり)、またはタグの段の空いたところ(チップ以外)を押すと、その行のタグだけ表示/非表示を反転する(タグのある行のみ。ボタン・リンク・日付/タイトルなど他の操作は除く)
+  $('items').addEventListener('click', e => {
+    const w = e.target.closest('.item.has-tags'); if (!w) return;
+    if (e.target.closest('.item-tags')) { if (e.target.closest('button, a, [role="button"], .tag-chip')) return; } // タグが開いているとき、タグの段の空いたところ(チップ以外)を押しても閉じる
+    else {
+      if (e.target.closest('button, a, [role="button"], .tag-chip, .item-title, .item-date, .item-time, .item-contents, .item-contents-icon')) return;
+      const r = w.getBoundingClientRect(); if (e.clientY < r.bottom - 10) return;
+    }
+    const showing = tagMode ? !w.classList.contains('tag-hide') : w.classList.contains('tag-show');
+    if (tagMode) w.classList.toggle('tag-hide', showing); else w.classList.toggle('tag-show', !showing);
+    if (!showing && w._tagTitle) tagIndent(w._tagTitle);
+  });
   const SONG_MODE_KEY = 'gl_log_song_mode';
-  let songMode = localStorage.getItem(SONG_MODE_KEY) === 'true';
+  let songMode = store.get(SONG_MODE_KEY) === 'true';
   $('songToggleBtn').classList.toggle('is-active', songMode);
   $('songBar').classList.toggle('is-open', songMode);
   // 曲名を右から飛んでこさせる(終了後はクラスを外し、テロップのスクロールと干渉させない)
@@ -5176,7 +5108,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     songMode = !songMode;
     $('songToggleBtn').classList.toggle('is-active', songMode);
     $('songBar').classList.toggle('is-open', songMode);
-    localStorage.setItem(SONG_MODE_KEY, songMode);
+    store.set(SONG_MODE_KEY, songMode);
     if (songMode && Array.isArray(songsData) && songsData.length > 1) { // ONにするたびに、直前と別の曲へ差し替える(通信・再描画なし)
       let next;
       do { next = songsData[Math.floor(Math.random() * songsData.length)]; } while (next === currentSong);
@@ -5204,7 +5136,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   const TEXT_SIZE_MAX = 50;
   const clampTextSize = v => Math.max(TEXT_SIZE_MIN, Math.min(TEXT_SIZE_MAX, v));
   const TEXT_SIZE_KEY = 'gl_log_text_size_percent';
-  let textSizePercent = clampTextSize(parseInt(localStorage.getItem(TEXT_SIZE_KEY) || '0', 10) || 0);
+  let textSizePercent = clampTextSize(parseInt(store.get(TEXT_SIZE_KEY, '0'), 10) || 0);
 
   const textSizeBtn = $('textSizeBtn');
   const textSizePanel = $('textSizePanel');
@@ -5216,7 +5148,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     textSizeBtn.classList.toggle('is-active', textSizePercent !== 0);
     textSizeSlider.value = String(textSizePercent);
     textSizePanelPct.textContent = (100 + textSizePercent) + '%';
-    localStorage.setItem(TEXT_SIZE_KEY, String(textSizePercent));
+    store.set(TEXT_SIZE_KEY, String(textSizePercent));
     // 既に展開中のコンテンツ名ボックスは、文字サイズ変更前のpx幅
     requestAnimationFrame(() => {
       document.querySelectorAll('.item-contents.is-content-open').forEach(ct => {
@@ -5239,12 +5171,12 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
       wrapBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
     };
     let on = false;
-    try { on = localStorage.getItem(WRAP_KEY) === '1'; } catch (e) {}
+    on = store.get(WRAP_KEY) === '1';
     applyWrap(on);
     wrapBtn.addEventListener('click', () => {
       on = !on;
       applyWrap(on);
-      try { localStorage.setItem(WRAP_KEY, on ? '1' : '0'); } catch (e) {}
+      store.set(WRAP_KEY, on ? '1' : '0');
     });
   }
 
@@ -5364,14 +5296,14 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
       dateParts[key] = !dateParts[key];
       datePartButtons[key].classList.toggle('is-active', dateParts[key]);
       syncDpClock();
-      localStorage.setItem(DATE_PARTS_KEY, JSON.stringify(dateParts));
+      store.setJSON(DATE_PARTS_KEY, dateParts);
       $('items').classList.toggle(dateParts_CLASS[key], !!dateParts[key]); // 再描画はせず、クラス切替だけでなめらかに出入りする
     };
   });
 
   // TODAYモード:todayOffset日ずらした当日データに絞り込む(長押しで次回訪問時も保持)
   const TODAY_MODE_KEY = 'gl_log_today_mode';
-  let todayHeld = localStorage.getItem(TODAY_MODE_KEY) === 'true';
+  let todayHeld = store.get(TODAY_MODE_KEY) === 'true';
   let todayMode = todayHeld; // 保持ONなら初期表示からTODAYモードON
   let todayOffset = 0; // 0=当日, 負=前日方向, 正=翌日方向
   let preTodaySort = null; // TODAYをONにする直前のソート状態(descの値)を退避
@@ -5693,7 +5625,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   // 長押しで保持状態そのものをトグルする
   const toggleTodayHeld = () => {
     todayHeld = !todayHeld;
-    localStorage.setItem(TODAY_MODE_KEY, todayHeld);
+    store.set(TODAY_MODE_KEY, todayHeld);
     applyTodayHeldStyle();
   };
 
@@ -5755,7 +5687,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   const slideAreaEl = $('daySlideArea'); // フリックでのスライド演出の対象(データ行全体)
   // NO DATA表示時、表示位置を変えずにその下の余白だけをフリック可能にするための透明な当たり判定
   const flickFillEl = $('dayFlickFill');
-  const DAY_SLIDE_MS = 150;      // スライドイン/アウトの所要時間(体感速度優先でやや短めに調整)
+  const DAY_SLIDE_MS = Math.round(MOTION.s * 0.85);      // スライドイン/アウトの所要時間(体感速度優先でやや短めに調整)
   const DAY_SWAP_WAIT_MS = 130;  // データ切替(updateDisplay内部の120msフェード)を画面外で待つ時間(120msに10msの安全マージンのみ持たせる)
   let daySlideAnimating = false; // 演出の多重発火防止(演出中は新たな操作を受け付けない)
 
@@ -5794,7 +5726,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   }
 
   const setItemsTransform = (dx, withTransition) => {
-    slideAreaEl.style.transition = withTransition ? `transform ${DAY_SLIDE_MS}ms ease-out` : 'none';
+    slideAreaEl.style.transition = withTransition ? `transform ${DAY_SLIDE_MS}ms ${MOTION.easeL}` : 'none';
     slideAreaEl.style.transform = dx === 0 ? '' : `translateX(${dx}px)`;
   };
   const resetItemsTransform = () => {
@@ -6042,7 +5974,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     setlistMode = !setlistMode;
     backStack.length = 0; updateBackBtn(); // モードをまたいで戻すと条件が食い違うので、↺の記憶は一度空にする
     $('setlistToggleBtn').classList.toggle('is-active', setlistMode);
-    searchSuggestions.classList.remove('is-open'); // モード切替時は検索候補ポップアップを一旦閉じる
+    hideSuggestions(); // モード切替時は検索候補ポップアップを一旦閉じる
     updateSearchPlaceholder();
     // セトリ検索モード中は上部の📋️ボタンを強制ONの色つき表示にする(クリック操作とは独立)
     $('setlistIconToggleBtn').classList.toggle('is-active', setlistMode || setlistIconMode);
@@ -6191,7 +6123,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
           updateMonthFilterVisibility(); // 年フィルターの選択状態が変わるので月フィルターの表示/非表示も再評価
           updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
           updateSortBtnLabel(); // 年フィルターの選択状態が変わるので、TODAYモード中の日付表示も再評価
-          window.scrollTo({ top: 0, behavior: 'instant' });
+          scrollToTop();
           // updateManualIndicatorsはフィルターボタン全部
           deferHeavyUpdate(() => {
             updateManualIndicators();
@@ -6253,7 +6185,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
       updateMonthFilterVisibility(); // 年フィルターの選択状態が変わるので月フィルターの表示/非表示も再評価
       updateTodayButtonStyle(); // 年フィルターの選択状態が変わるのでTODAYボタンの色を再評価
       updateSortBtnLabel(); // 年フィルターの選択状態が変わるので、TODAYモード中の日付表示も再評価
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      scrollToTop();
       // ボタンの色変化(CSS)を先に描画させてから、全件フィルター等の重い処理を次フレームで行う
       deferHeavyUpdate(() => {
         updateManualIndicators();
@@ -6279,7 +6211,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     // 2010年以前はボタンとしては表示しない(データ自体は検索や日付クエリで引き続き閲覧可能)
     const years = Array.from(yearsSet).filter(y => parseInt(y, 10) > 2010).sort((a, b) => b.localeCompare(a));
 
-    try { localStorage.setItem(YEARS_KEY, JSON.stringify(years)); } catch (e) {}
+    store.set(YEARS_KEY, JSON.stringify(years));
     buildYearChips(years);
   };
   const YEARS_KEY = 'gl_log_years';
@@ -6297,7 +6229,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   };
   // データ読込を待たず、前回の年一覧でYEAR行を先に作る(初回訪問時は従来どおりデータ読込後)
   try {
-    const sy = JSON.parse(localStorage.getItem(YEARS_KEY) || 'null');
+    const sy = store.getJSON(YEARS_KEY, null);
     if (Array.isArray(sy) && sy.length && sy.every(y => /^\d{4}$/.test(y))) buildYearChips(sy);
   } catch (e) {}
 
@@ -6355,7 +6287,7 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     // CLEARでコンテンツ名アコーディオンも全行OFFにする
     expandedContentKeys.clear();
   // セトリ検索モードはCLEARでは終了しない(抜けるのはセトリボタン押下時のみ)
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();
     updateDisplay(true);
   };
 
@@ -6456,6 +6388,47 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   const DATA_KEY = 'gl_log_data';
   const CHECK_TIME_KEY = 'gl_log_checked_at';
   const CHECK_COOLDOWN_MS = 1 * 60 * 1000; // 5分以内の再チェックはスキップ(同一端末でのAPI消費を抑制)
+
+  // データ取得の共通処理(logs / songs / setlist / albums で共通)。キャッシュを先に表示 → 最新コミットSHAを確認 → 変更があれば取り直す。
+  // 取得はSHA固定のjsDelivr、SHAが取れないときはキャッシュバスト付きのrawから。o: { file, verKey, dataKey, checkKey, apply(data), isEmpty(), cache?: { load(), save(data) }, onFail?() }
+  const makeDataSource = o => {
+    const lsGet = store.get, lsSet = store.set, lsDel = store.remove;
+    const cache = o.cache || {
+      load: () => { const c = lsGet(o.dataKey); if (!c) return false; try { o.apply(JSON.parse(c)); return true; } catch (e) { return false; } }, // 壊れたキャッシュは無視して素通り(新規取得に進む)
+      save: data => store.setJSON(o.dataKey, data) // 容量超過などは保存せず続ける(falseを返す)
+    };
+    const fetchFresh = sha => {
+      const url = sha
+        ? `https://cdn.jsdelivr.net/gh/${REPO}@${sha}/${o.file}`
+        : `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${o.file}?v=${Date.now()}`;
+      return fetch(url)
+        .then(res => { if (!res.ok) throw new Error('Network response was not ok'); return res.text(); })
+        .then(txt => JSON.parse(txt.replace(/^\uFEFF/, '')))
+        .then(data => {
+          o.apply(data);
+          return Promise.resolve(cache.save(data)).then(ok => { // データを保存できた時だけSHAを記録する(保存失敗時に古いSHAだけ残らないように)
+            if (sha && ok) lsSet(o.verKey, sha); else lsDel(o.verKey);
+          });
+        });
+    };
+    const latestSha = () => fetch(`https://api.github.com/repos/${REPO}/commits?path=${o.file}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
+      .then(res => { if (!res.ok) throw new Error('GitHub API error'); return res.json(); })
+      .then(commits => { lsSet(o.checkKey, String(Date.now())); return commits[0] && commits[0].sha; });
+    // force=true: SHAの比較を無視して必ず取り直す(タイトルクリック・特定の配信元)
+    const check = force => latestSha()
+      .then(sha => { if (force || (sha && sha !== lsGet(o.verKey)) || o.isEmpty()) return fetchFresh(sha); }) // 変更なし:表示済みでなければ念のため取得
+      .catch(err => {
+        console.error('Failed to check ' + o.file + ':', err);
+        if (force || o.isEmpty()) fetchFresh(null).catch(err2 => { console.error('Failed to load ' + o.file + ':', err2); if (o.onFail) o.onFail(); }); // API失敗時のフォールバック
+      });
+    // キャッシュ表示 → 直近チェックから一定時間以内なら、GitHub APIへの問い合わせ自体をスキップ
+    const start = () => Promise.resolve(cache.load()).catch(() => false).then(had => {
+      const last = parseInt(lsGet(o.checkKey) || '0', 10);
+      if (isForcedFreshSource()) check(true);
+      else if (!(had && !o.isEmpty() && Date.now() - last < CHECK_COOLDOWN_MS)) check(false);
+    });
+    return { check, start };
+  };
 
   // 参照型データ(ref)を、参照元の値で補って1件のデータにする。自分の値があればそちらを優先する。
   // title / display_pc / display_sp は「参照元の値 + 記念日」。map・setlistid は参照しない。参照元がなければ表示しない
@@ -6588,51 +6561,25 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   const saveLogsCache = data => {
     const str = JSON.stringify(data);
     return idbSet(DATA_KEY, str)
-      .then(() => { try { localStorage.removeItem(DATA_KEY); } catch (e) {} return true; }) // 旧localStorageキャッシュを削除して容量を空ける
+      .then(() => { store.remove(DATA_KEY); return true; }) // 旧localStorageキャッシュを削除して容量を空ける
       .catch(() => {
-        try { localStorage.setItem(DATA_KEY, str); return true; } catch (e) { return false; }
+        return store.set(DATA_KEY, str); // 保存できたら true
       });
   };
 
-  const loadFromCacheIfAny = () => idbGet(DATA_KEY)
+  const loadLogsCache = () => idbGet(DATA_KEY)
     .catch(() => null)
     .then(cached => {
-      if (!cached) { try { cached = localStorage.getItem(DATA_KEY); } catch (e) { cached = null; } } // 旧形式からの移行
+      if (!cached) { try { cached = store.get(DATA_KEY); } catch (e) { cached = null; } } // 旧形式からの移行
       if (!cached) return false;
       try {
         applyLogs(JSON.parse(cached));
         return true;
       } catch (e) {
-        // 壊れたキャッシュは無視して素通り(新規取得に進む)
-        return false;
+        return false; // 壊れたキャッシュは無視して素通り(新規取得に進む)
       }
     });
-
-  const fetchFreshData = sha => {
-    const url = sha
-      ? `https://cdn.jsdelivr.net/gh/${REPO}@${sha}/${FILE}`
-      // SHA取得に失敗した場合の保険:キャッシュバスト付きでrawから直接取得
-      : `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${FILE}?v=${Date.now()}`;
-
-    return fetch(url)
-      .then(res => {
-        if (!res.ok) throw new Error('Network response was not ok');
-        return res.json();
-      })
-      .then(data => {
-        applyLogs(data);
-        return saveLogsCache(data).then(ok => {
-          try {
-            // データを保存できた時だけSHAを記録する(保存失敗時に古いSHAだけ残らないように)
-            if (sha && ok) localStorage.setItem(VERSION_KEY, sha);
-            else localStorage.removeItem(VERSION_KEY);
-          } catch (e) {}
-        });
-      });
-  };
-
-  // まずキャッシュがあれば即表示(体感速度アップ)
-  const cacheReady = loadFromCacheIfAny().catch(() => false);
+  const logsSrc = makeDataSource({ file: FILE, verKey: VERSION_KEY, dataKey: DATA_KEY, checkKey: CHECK_TIME_KEY, apply: d => applyLogs(d), isEmpty: () => !logs.length, cache: { load: loadLogsCache, save: saveLogsCache }, onFail: () => showLoadError() });
 
   const showLoadError = () => {
     $('resultCount').textContent = '';
@@ -6648,67 +6595,9 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     checkForUpdates();
   };
 
-  // 最新コミットSHAを確認し、更新があれば取り直す(初回読み込み・再試行ボタンの両方から呼ばれる)
-  const checkForUpdates = () => {
-    fetch(`https://api.github.com/repos/${REPO}/commits?path=${FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
-      .then(res => {
-        if (!res.ok) throw new Error('GitHub API error');
-        return res.json();
-      })
-      .then(commits => {
-        localStorage.setItem(CHECK_TIME_KEY, String(Date.now()));
-        const latestSha = commits[0]?.sha;
-        const cachedSha = localStorage.getItem(VERSION_KEY);
-        if (latestSha && latestSha !== cachedSha) {
-          return fetchFreshData(latestSha);
-        }
-        // 変更なし:キャッシュを表示済みでなければ念のため取得
-        if (!logs.length) return fetchFreshData(latestSha);
-      })
-      .catch(error => {
-        console.error('Failed to check logs.json version:', error);
-        // API失敗時のフォールバック:キャッシュがなければ直接取得を試みる
-        if (!logs.length) {
-          fetchFreshData(null).catch(err2 => {
-            console.error('Failed to load logs.json:', err2);
-            showLoadError();
-          });
-        }
-      });
-  };
-
-  // 直近チェックから一定時間以内なら、GitHub APIへの問い合わせ自体をスキップする
-  const lastCheckedAt = parseInt(localStorage.getItem(CHECK_TIME_KEY) || '0', 10);
-
-  // トップのタイトルリンク
-  const forceReloadLogs = () => {
-    fetch(`https://api.github.com/repos/${REPO}/commits?path=${FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
-      .then(res => {
-        if (!res.ok) throw new Error('GitHub API error');
-        return res.json();
-      })
-      .then(commits => {
-        localStorage.setItem(CHECK_TIME_KEY, String(Date.now()));
-        return fetchFreshData(commits[0]?.sha);
-      })
-      .catch(error => {
-        console.error('Failed to force-reload logs.json:', error);
-        fetchFreshData(null).catch(err2 => {
-          console.error('Failed to load logs.json:', err2);
-          showLoadError();
-        });
-      });
-  };
-
-  // 特定の配信元からのアクセス時は、キャッシュ判定をスキップして常に最新のlogs.jsonを取得する
-  cacheReady.then(hadCache => {
-    const withinCooldown = hadCache && (Date.now() - lastCheckedAt < CHECK_COOLDOWN_MS);
-    if (isForcedFreshSource()) {
-      forceReloadLogs();
-    } else if (!withinCooldown) {
-      checkForUpdates();
-    }
-  });
+  const checkForUpdates = () => logsSrc.check(false); // 再試行ボタンから
+  const forceReloadLogs = () => logsSrc.check(true); // トップのタイトルリンク: 直近チェック時刻やSHA比較を無視し、常に最新を取得し直す
+  logsSrc.start(); // 特定の配信元からのアクセス時は、キャッシュ判定をスキップして常に最新のlogs.jsonを取得する
 
   // ================= 楽曲紹介バー
   const SONG_FILE = 'data/songs/songs.json';
@@ -6775,88 +6664,9 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     applySong(data[Math.floor(Math.random() * data.length)]);
   };
 
-  const loadSongsFromCacheIfAny = () => {
-    const cached = localStorage.getItem(SONG_DATA_KEY);
-    if (!cached) return false;
-    try {
-      applySongs(JSON.parse(cached));
-      return true;
-    } catch (e) {
-      return false; // 壊れたキャッシュは無視して素通り(新規取得に進む)
-    }
-  };
-
-  const fetchFreshSongs = sha => {
-    const url = sha
-      ? `https://cdn.jsdelivr.net/gh/${REPO}@${sha}/${SONG_FILE}`
-      : `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${SONG_FILE}?v=${Date.now()}`;
-    return fetch(url)
-      .then(res => {
-        if (!res.ok) throw new Error('Network response was not ok');
-        return res.json();
-      })
-      .then(data => {
-        applySongs(data);
-        localStorage.setItem(SONG_DATA_KEY, JSON.stringify(data));
-        if (sha) localStorage.setItem(SONG_VERSION_KEY, sha);
-      });
-  };
-
-  const hadSongCache = loadSongsFromCacheIfAny();
-
-  const checkForSongUpdates = () => {
-    fetch(`https://api.github.com/repos/${REPO}/commits?path=${SONG_FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
-      .then(res => {
-        if (!res.ok) throw new Error('GitHub API error');
-        return res.json();
-      })
-      .then(commits => {
-        localStorage.setItem(SONG_CHECK_TIME_KEY, String(Date.now()));
-        const latestSha = commits[0]?.sha;
-        const cachedSha = localStorage.getItem(SONG_VERSION_KEY);
-        if (latestSha && latestSha !== cachedSha) {
-          return fetchFreshSongs(latestSha);
-        }
-        if (!currentSong) return fetchFreshSongs(latestSha);
-      })
-      .catch(error => {
-        console.error('Failed to check songs.json version:', error);
-        if (!currentSong) {
-          fetchFreshSongs(null).catch(err2 => {
-            console.error('Failed to load songs.json:', err2);
-          });
-        }
-      });
-  };
-
-  const lastSongCheckedAt = parseInt(localStorage.getItem(SONG_CHECK_TIME_KEY) || '0', 10);
-  const withinSongCooldown = hadSongCache && (Date.now() - lastSongCheckedAt < CHECK_COOLDOWN_MS);
-
-  // トップのタイトルリンク
-  const forceReloadSongs = () => {
-    fetch(`https://api.github.com/repos/${REPO}/commits?path=${SONG_FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
-      .then(res => {
-        if (!res.ok) throw new Error('GitHub API error');
-        return res.json();
-      })
-      .then(commits => {
-        localStorage.setItem(SONG_CHECK_TIME_KEY, String(Date.now()));
-        return fetchFreshSongs(commits[0]?.sha);
-      })
-      .catch(error => {
-        console.error('Failed to force-reload songs.json:', error);
-        fetchFreshSongs(null).catch(err2 => {
-          console.error('Failed to load songs.json:', err2);
-        });
-      });
-  };
-
-  // 特定の配信元からのアクセス時は、logs.json同様にsongs.jsonも常に取得し直す
-  if (isForcedFreshSource()) {
-    forceReloadSongs();
-  } else if (!withinSongCooldown) {
-    checkForSongUpdates();
-  }
+  const songsSrc = makeDataSource({ file: SONG_FILE, verKey: SONG_VERSION_KEY, dataKey: SONG_DATA_KEY, checkKey: SONG_CHECK_TIME_KEY, apply: applySongs, isEmpty: () => !currentSong });
+  const forceReloadSongs = () => songsSrc.check(true); // トップのタイトルリンク
+  songsSrc.start(); // 特定の配信元からのアクセス時は、logs.json同様にsongs.jsonも常に取得し直す
 
   // ================= セトリ検索モード
   const SETLIST_FILE = 'data/setlist/setlist.json';
@@ -6875,88 +6685,9 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
     }
   };
 
-  const loadSetlistFromCacheIfAny = () => {
-    const cached = localStorage.getItem(SETLIST_DATA_KEY);
-    if (!cached) return false;
-    try {
-      applySetlistData(JSON.parse(cached));
-      return true;
-    } catch (e) {
-      return false; // 壊れたキャッシュは無視して素通り(新規取得に進む)
-    }
-  };
-
-  const fetchFreshSetlist = sha => {
-    const url = sha
-      ? `https://cdn.jsdelivr.net/gh/${REPO}@${sha}/${SETLIST_FILE}`
-      : `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${SETLIST_FILE}?v=${Date.now()}`;
-    return fetch(url)
-      .then(res => {
-        if (!res.ok) throw new Error('Network response was not ok');
-        return res.json();
-      })
-      .then(data => {
-        applySetlistData(data);
-        localStorage.setItem(SETLIST_DATA_KEY, JSON.stringify(data));
-        if (sha) localStorage.setItem(SETLIST_VERSION_KEY, sha);
-      });
-  };
-
-  const hadSetlistCache = loadSetlistFromCacheIfAny();
-
-  const checkForSetlistUpdates = () => {
-    fetch(`https://api.github.com/repos/${REPO}/commits?path=${SETLIST_FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
-      .then(res => {
-        if (!res.ok) throw new Error('GitHub API error');
-        return res.json();
-      })
-      .then(commits => {
-        localStorage.setItem(SETLIST_CHECK_TIME_KEY, String(Date.now()));
-        const latestSha = commits[0]?.sha;
-        const cachedSha = localStorage.getItem(SETLIST_VERSION_KEY);
-        if (latestSha && latestSha !== cachedSha) {
-          return fetchFreshSetlist(latestSha);
-        }
-        if (!setlistData.length) return fetchFreshSetlist(latestSha);
-      })
-      .catch(error => {
-        console.error('Failed to check setlist.json version:', error);
-        if (!setlistData.length) {
-          fetchFreshSetlist(null).catch(err2 => {
-            console.error('Failed to load setlist.json:', err2);
-          });
-        }
-      });
-  };
-
-  const lastSetlistCheckedAt = parseInt(localStorage.getItem(SETLIST_CHECK_TIME_KEY) || '0', 10);
-  const withinSetlistCooldown = hadSetlistCache && (Date.now() - lastSetlistCheckedAt < CHECK_COOLDOWN_MS);
-
-  // トップのタイトルリンク
-  const forceReloadSetlist = () => {
-    fetch(`https://api.github.com/repos/${REPO}/commits?path=${SETLIST_FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
-      .then(res => {
-        if (!res.ok) throw new Error('GitHub API error');
-        return res.json();
-      })
-      .then(commits => {
-        localStorage.setItem(SETLIST_CHECK_TIME_KEY, String(Date.now()));
-        return fetchFreshSetlist(commits[0]?.sha);
-      })
-      .catch(error => {
-        console.error('Failed to force-reload setlist.json:', error);
-        fetchFreshSetlist(null).catch(err2 => {
-          console.error('Failed to load setlist.json:', err2);
-        });
-      });
-  };
-
-  // 特定の配信元からのアクセス時はsetlist.jsonも常に取得し直す
-  if (isForcedFreshSource()) {
-    forceReloadSetlist();
-  } else if (!withinSetlistCooldown) {
-    checkForSetlistUpdates();
-  }
+  const setlistSrc = makeDataSource({ file: SETLIST_FILE, verKey: SETLIST_VERSION_KEY, dataKey: SETLIST_DATA_KEY, checkKey: SETLIST_CHECK_TIME_KEY, apply: applySetlistData, isEmpty: () => !setlistData.length });
+  const forceReloadSetlist = () => setlistSrc.check(true); // トップのタイトルリンク
+  setlistSrc.start(); // 特定の配信元からのアクセス時はsetlist.jsonも常に取得し直す
 
   // ---- albums.json(album / ep / single の収録曲と各種盤):setlist.jsonと同じ取得方式 ----
   const ALBUM_FILE = 'data/albums/albums.json';
@@ -6964,34 +6695,9 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
   const ALBUM_DATA_KEY = 'gl_albums_data';
   const ALBUM_CHECK_TIME_KEY = 'gl_albums_checked_at';
   const applyAlbumsData = data => { albumsData = Array.isArray(data) ? data.filter(a => a && typeof a === 'object') : []; refreshAlbumIcons(); };
-  let hadAlbumCache = false;
-  try { const c = localStorage.getItem(ALBUM_DATA_KEY); if (c) { applyAlbumsData(JSON.parse(c)); hadAlbumCache = true; } } catch (e) { /* 壊れたキャッシュは無視 */ }
-  const fetchFreshAlbums = sha => {
-    const url = sha
-      ? `https://cdn.jsdelivr.net/gh/${REPO}@${sha}/${ALBUM_FILE}`
-      : `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${ALBUM_FILE}?v=${Date.now()}`;
-    return fetch(url)
-      .then(res => { if (!res.ok) throw new Error('Network response was not ok'); return res.text(); })
-      .then(txt => { return JSON.parse(txt.replace(/^\uFEFF/, '')); })
-      .then(data => {
-        applyAlbumsData(data);
-        try { localStorage.setItem(ALBUM_DATA_KEY, JSON.stringify(data)); if (sha) localStorage.setItem(ALBUM_VERSION_KEY, sha); } catch (e) { /* 容量超過などは保存せず続ける */ }
-      });
-  };
-  const albumsLatestSha = () => fetch(`https://api.github.com/repos/${REPO}/commits?path=${ALBUM_FILE}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
-    .then(res => { if (!res.ok) throw new Error('GitHub API error'); return res.json(); })
-    .then(commits => { localStorage.setItem(ALBUM_CHECK_TIME_KEY, String(Date.now())); return commits[0] && commits[0].sha; });
-  const checkForAlbumUpdates = force => albumsLatestSha()
-    .then(latestSha => {
-      if (force || (latestSha && latestSha !== localStorage.getItem(ALBUM_VERSION_KEY)) || !albumsData.length) return fetchFreshAlbums(latestSha);
-    })
-    .catch(() => { if (force || !albumsData.length) fetchFreshAlbums(null).catch(() => { /* albums.jsonがまだ無いときは何もしない(💽は出ない) */ }); });
-  forceReloadAlbums = () => checkForAlbumUpdates(true);
-  {
-    const last = parseInt(localStorage.getItem(ALBUM_CHECK_TIME_KEY) || '0', 10);
-    if (isForcedFreshSource()) checkForAlbumUpdates(true);
-    else if (!(hadAlbumCache && albumsData.length && Date.now() - last < CHECK_COOLDOWN_MS)) checkForAlbumUpdates(false); // 保存した albums が空のあいだは、待ち時間なしで毎回確認する(空のまま居残らないように)
-  }
+  const albumsSrc = makeDataSource({ file: ALBUM_FILE, verKey: ALBUM_VERSION_KEY, dataKey: ALBUM_DATA_KEY, checkKey: ALBUM_CHECK_TIME_KEY, apply: applyAlbumsData, isEmpty: () => !albumsData.length }); // 保存した albums が空のあいだは、待ち時間なしで毎回確認する(空のまま居残らないように)
+  forceReloadAlbums = () => albumsSrc.check(true);
+  albumsSrc.start();
 })();
 //]]>
 </script>

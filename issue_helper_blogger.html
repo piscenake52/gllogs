@@ -13,15 +13,16 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   box-sizing:border-box; max-width:520px; margin:0 auto; padding:14px; background:var(--bg); color:var(--text);
   font:14px/1.5 -apple-system,"Hiragino Sans","Noto Sans JP",system-ui,sans-serif; border-radius:12px; text-align:left; }
 @media (min-width:800px) { #glih { max-width:760px; } #glih .tybr { display:none; }
-  /* PC: the buttons go to the right of the input (same size, in one row) */
-  #glih .alrow .alin { display:flex; align-items:flex-start; gap:4px; }
-  #glih .alrow .alinp { flex:1 1 auto; min-width:0; }
-  #glih .alrow .alin .albtn, #glih .alnr .albtn { flex:0 0 auto; padding:0; }
-  #glih .alrow .alin .albtn { align-self:flex-start; }
-  #glih .alrow .alin .albtn .small, #glih .alnr .albtn .small, #glih .alrow .alin .albtn .albsp, #glih .alnr .albtn .albsp { flex:0 0 2.6em; width:2.6em; padding:7px 0; }
-  #glih .alnr { display:flex; align-items:center; gap:4px; }
-  #glih .alnr > input { flex:1 1 auto; width:auto !important; min-width:0; }
 } /* PC: type chips in one row (two rows on the phone); wider than the phone width of 520px */
+/* the buttons go to the right of the input (same size, in one row) on the phone too */
+#glih .alrow .alin { display:flex; align-items:flex-start; gap:4px; }
+#glih .alrow .alinp { flex:1 1 auto; min-width:0; }
+#glih .alrow .alin .albtn, #glih .alnr .albtn { flex:0 0 auto; padding:0; }
+#glih .alrow .alin .albtn { align-self:flex-start; }
+#glih .alrow .alin .albtn .small, #glih .alnr .albtn .small, #glih .alrow .alin .albtn .albsp, #glih .alnr .albtn .albsp { flex:0 0 2.6em; width:2.6em; padding:7px 0; }
+#glih .alnr { display:flex; align-items:center; gap:4px; }
+#glih .alnr > input { flex:1 1 auto; width:auto !important; min-width:0; }
+#glih .aled .alpn { flex-wrap:nowrap; align-items:flex-start; gap:8px; } #glih .alpc { display:flex; flex-direction:column; gap:2px; min-width:0; } #glih .alpc.alpp { flex:0 0 7em; } #glih .alpc.alpq { flex:1 1 0; } #glih .alpc > label { font-size:12px; font-weight:600; color:var(--sub); margin:0; } #glih .alpc > input { width:100%; min-width:0; } /* price and note side by side (the labels above the inputs, as the other fields) */
 #glih *, #glih *::before, #glih *::after { box-sizing:border-box; }
 #glih h1 { font-size:16px; margin:0 0 4px; padding:0; color:var(--text); border:0; }
 #glih .lead { font-size:12px; color:var(--sub); margin:0 0 14px; line-height:1.6; }
@@ -96,7 +97,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .fcand button:hover { background:var(--btn); }
 #glih .fcand .m { color:var(--sub); font-size:11px; }
 #glih .fcand .m.l2 { display:block; }
+#glih #glih-svrows:empty { display:none; } /* no extra gap above the video chips while there is no row */
 #glih .chipr { flex:1; display:flex; gap:6px; flex-wrap:wrap; }
+#glih .chipr.artgrid { display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; } #glih .chipr.artgrid .chip { width:100%; padding:5px 0; text-align:center; white-space:nowrap; } #glih .chipr.artgrid .chip.artlong { font-size:clamp(7.5px, 2.4vw, 10px); letter-spacing:-.2px; padding:5px 0; } /* the long label shrinks with the width so it stays inside the chip */ #glih .chipr.artgrid .artnl { grid-column-start:1; } /* artist chips: Girls2 / Laki on the first row, the others on the second, all the same width */
 #glih .chipr .chip { width:auto; padding:5px 12px; font-size:12px; }
 #glih .chipw { display:inline-flex; align-items:stretch; }
 #glih .chipw .chip { border-top-right-radius:0; border-bottom-right-radius:0; }
@@ -129,14 +132,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .algated { display:none !important; }
 #glih .plnoin, #glih .alrow .alt .fin.plnoin { flex:0 0 2.5em; width:2.5em; padding:8px 2px; text-align:center; font-size:14px; }
 #glih .plno { width:2em; text-align:right; color:var(--sub); font-size:12px; }
-#glih .alrow { display:block; } #glih .alart { margin:4px 0 0; } #glih .alart .fin { width:100%; box-sizing:border-box; font-size:13px; padding:6px 8px; } #glih .alart .chipr { margin-top:4px; } /* singing artist of a track */
+#glih .alrow { display:block; } #glih .alart { margin:6px 0 0 calc(2.5em + 4px); }  #glih .alart .fin { width:100%; box-sizing:border-box; font-size:13px; padding:6px 8px; } /* singing artist of a track */
 #glih .alrow .alt { display:flex; align-items:flex-start; gap:4px; }
 #glih .alrow .alt .plno { line-height:34px; }
 #glih .alrow .alin { flex:1 1 auto; min-width:0; }
 #glih .alrow .alinp { position:relative; } #glih .alrow .alinp .fin { width:100%; box-sizing:border-box; }
 #glih .alrow .alinp .fsug { position:absolute; left:0; right:0; top:100%; z-index:30; margin-top:2px; background:var(--card); box-shadow:0 4px 14px rgba(0,0,0,.35); } /* the candidates cover the buttons under the input */
 #glih .alrow .alt .fin { flex:1 1 auto; min-width:0; }
-#glih .sldet { padding:6px 0 2px; } #glih .sldet .chipr { margin-bottom:6px; }
+#glih .slhd { font-size:12px; font-weight:600; color:var(--sub); margin:0 0 2px; } #glih .sldet { padding:6px 0 2px; } #glih .sldet .chipr { margin-bottom:6px; }
 #glih .slon { display:flex; gap:6px; margin-top:6px; } #glih .slon label { flex:1 1 0; min-width:0; display:flex; align-items:center; gap:6px; font-size:12px; color:var(--sub); } #glih .slon label[hidden] { display:none; } #glih .slon .fin { flex:1; min-width:0; } /* original (cover only) and notes: labelled, in one row */
 #glih .slsum { color:var(--sub); font-size:11px; margin-left:6px; overflow-wrap:anywhere; }
 #glih .albtn .small.on { background:var(--accent); color:var(--accent-text); border-color:var(--accent); }
@@ -185,6 +188,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih #glih-fdprev, #glih #glih-fdnext { flex:0 0 36px; width:36px; padding-left:0; padding-right:0; text-align:center; } /* < > : twice as wide as before */
 #glih .dtb:hover { color:var(--text); }
 #glih #glih-frd .dtb { margin:0 2px 0 6px; } /* top date: the calendar icon sits in the middle of the space between the box and the next button (the same total width as before: 28px) */
+#glih #glih-p-albums .dtb { margin:0 2px 0 6px; } /* albums date: the calendar icon at the same place as the logs / setlist date */
 #glih #glih-frt .dtb { margin:0 0 0 8px; } /* top time: the clock icon sits in the middle of the space between the box and the anytime check */
 #glih .dtb svg { width:16px; height:16px; display:block; }
 #glih .cal-pop { position:fixed; z-index:1100; width:290px; max-width:calc(100vw - 16px); padding:10px; background:var(--card); color:var(--text); border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.45); user-select:none; -webkit-user-select:none; }
@@ -1060,7 +1064,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   // artist + member in one field: the member chips move under the artist chips (the member text box stays hidden as the value holder). Picking members also sets the artist chips (G2 members = Girls2, L2 members = Laki; other names typed in the artist box are kept).
   function mergeMember(arEl, memEl, memField) {
     var arCol = arEl.closest('.fgcol') || arEl.parentNode, memCol = memEl.closest('.fgcol');
-    if (memCol) [].slice.call(memCol.children).forEach(function (c) { if (!c.contains(memEl)) arCol.appendChild(c); });
+    if (memCol) [].slice.call(memCol.children).forEach(function (c) { if (!c.contains(memEl)) { if (!arCol.classList.contains('fgcol') && !arCol.querySelector('.chips')) c.style.marginTop = '6px'; /* the box -> chips gap, as in the logs tab */ arCol.appendChild(c); } });
     if (memField) memField.hidden = true;
     memEl.addEventListener('input', function () {
       var m = memEl.value.split(/[,\u3001\s]+/).filter(Boolean).map(function (x) { return x.toUpperCase(); });
@@ -1101,7 +1105,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var row = document.createElement('div'); row.className = 'row'; box.appendChild(row);
     var url = document.createElement('input'); url.type = 'text'; url.className = 'fin'; url.setAttribute('autocomplete', 'off'); url.setAttribute('autocapitalize', 'off'); url.setAttribute('spellcheck', 'false');
     var add = document.createElement('button'); add.type = 'button'; add.className = 'small'; add.textContent = 'add';
-    var uw = document.createElement('span'); uw.className = 'fw'; uw.appendChild(url);
+    url.placeholder = 'url'; var uw = document.createElement('span'); uw.className = 'fw'; uw.appendChild(url);
     row.appendChild(uw);
     addOpen(url, 5);
     var setM = makeCodeSet(box, 'member', []), setW = makeCodeSet(box, 'with', []), lkW = linkWith(setM, setW); // member = the poster, with = the people shown with the poster (shown by the + chip)
@@ -1113,13 +1117,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         if (add.length) { ge.value = cur.concat(add).join(','); ge.dispatchEvent(new Event('input', { bubbles: true })); }
       }, 0);
     });
-    var tcap = document.createElement('div'); tcap.className = 'setlbl'; tcap.textContent = 'tags'; box.appendChild(tcap); // caption of the tags box (the same small label as member / with)
     var trow = document.createElement('div'); trow.className = 'row'; box.appendChild(trow);
     var tg = document.createElement('input'); tg.type = 'text'; tg.className = 'fin'; tg.setAttribute('autocomplete', 'off'); tg.setAttribute('spellcheck', 'false');
     var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw);
     function tagList(v) { return v.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean); }
     var arow = document.createElement('div'); arow.className = 'row btns'; arow.appendChild(add); box.appendChild(arow); // the add button: full width under the tags
-    fancamChip(tg, trow);
+    tg._sync = function () {}; tg.placeholder = 'tag'; // Fancam is entered only from the Fancam box
     addSuggest(tg, tagOptsFor('sns'), trow, true, true); // typed tags -> candidates (the tags already used by sns links)
     function urlOf(line) { var m = line.match(/https?:\/\/[^\s|]+/i); return m ? m[0] : ''; }
     function doAdd() {
@@ -1142,11 +1145,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }
     add.onclick = doAdd;
     // Fancam bulk: one url per line -> each becomes a line `url | | Fancam` (the type is detected by the server). A url that is already in the box is overwritten: its tags become Fancam, its type / member / with stay
-    var fcap = document.createElement('div'); fcap.className = 'setlbl'; fcap.textContent = 'Fancam bulk (one url per line / the tag Fancam is added)'; fcap.style.marginTop = '10px'; box.appendChild(fcap);
+    var fcb = document.createElement('div'); fcb.style.display = 'none'; // the Fancam box: folded at first (no caption)
+    var ftog = document.createElement('div'); ftog.className = 'row btns'; var ftb = document.createElement('button'); ftb.type = 'button'; ftb.className = 'small'; ftog.appendChild(ftb); box.appendChild(ftog); box.appendChild(fcb);
+    function fcOpen(on) { fcb.style.display = on ? '' : 'none'; ftb.textContent = 'Fancam ' + (on ? '\u25B4' : '\u25BE'); ftb.setAttribute('aria-expanded', on ? 'true' : 'false'); } fcOpen(false); ftb.onclick = function () { fcOpen(fcb.style.display === 'none'); };
     var fta = document.createElement('textarea'); fta.className = 'fin'; fta.rows = 4; fta.setAttribute('autocomplete', 'off'); fta.setAttribute('spellcheck', 'false'); fta.setAttribute('autocapitalize', 'off'); fta.placeholder = 'https://...';
-    var ftw = document.createElement('span'); ftw.className = 'fw'; ftw.appendChild(fta); box.appendChild(ftw);
-    var frow = document.createElement('div'); frow.className = 'row btns'; var fadd = document.createElement('button'); fadd.type = 'button'; fadd.className = 'small'; fadd.textContent = 'add Fancam'; frow.appendChild(fadd); box.appendChild(frow);
-    var fmsg = document.createElement('div'); fmsg.className = 'setlbl'; box.appendChild(fmsg);
+    var ftw = document.createElement('span'); ftw.className = 'fw'; ftw.appendChild(fta); fcb.appendChild(ftw);
+    var frow = document.createElement('div'); frow.className = 'row btns'; var fadd = document.createElement('button'); fadd.type = 'button'; fadd.className = 'small'; fadd.textContent = 'add Fancam'; frow.appendChild(fadd); fcb.appendChild(frow);
+    var fmsg = document.createElement('div'); fmsg.className = 'setlbl'; fcb.appendChild(fmsg);
     function doBulk() {
       var src = fta.value.split(/\r?\n/).map(function (x) { return x.trim(); }).filter(Boolean), seen = {}, bad = [], news = 0, over = 0;
       var lines = el.value.split('\n').filter(function (l) { return l.trim() !== ''; });
@@ -1169,7 +1174,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     fadd.onclick = doBulk;
     fta.addEventListener('input', function () { fta.classList.remove('bad'); });
     // pressing Issue with a url typed but not added yet: it is added first (an invalid url blocks the Issue and is flagged). returns false when blocked.
-    box._flush = function () { if (fta.value.trim() && !doBulk()) { fta.focus(); return false; } var u = url.value.trim(); if (!u) return true; if (!/^https?:\/\/\S+$/i.test(u)) { url.classList.add('bad'); url.focus(); return false; } doAdd(); return true; };
+    box._flush = function () { if (fta.value.trim() && !doBulk()) { fcOpen(true); fta.focus(); return false; } var u = url.value.trim(); if (!u) return true; if (!/^https?:\/\/\S+$/i.test(u)) { url.classList.add('bad'); url.focus(); return false; } doAdd(); return true; };
     url.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doAdd(); } });
     url.addEventListener('input', function () { url.classList.remove('bad'); });
   }
@@ -1183,6 +1188,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (needs.every(function (k) { return ix[k] || cache[k]; })) optMemo[name] = list; // keep the result only when every source is loaded
       return list;
     };
+  }
+  // single artist names (a collaboration `A, B` / `A x B` is split) used in songs.json (songs tab) / albums.json (albums tab), the most used first: candidates of the artist box
+  function artistNameOpts(key) { // key: 'songs' or 'albums' = only the names of that file
+    var m = {}; (cache[key] || []).forEach(function (r) { if (r && typeof r.artist === 'string') artistTokens(r.artist).forEach(function (t) { m[t] = (m[t] || 0) + 1; }); });
+    return Object.keys(m).sort(function (a, b) { return m[b] - m[a] || (a < b ? -1 : a > b ? 1 : 0); }).map(function (c) { return { v: c, n: m[c], k: normQ(c) }; });
   }
   function addTo(m, v) { v = typeof v === 'string' ? v.trim() : ''; if (v) m[v] = (m[v] || 0) + 1; }
   var CONTENTS_LIST = ['ANNIVERSARY','BIRTHDAY','DEBUT','FORMATION','CL','COLUMN','COOKING','DIARY','ETC','CAMPAIGN','CLOSE','MESSAGE','PLAYING','RESULT','EVENT','FANMEETING','RELEASEEVENT','ANNIVERSARYLIVE','FANCLUB','TELEPHONE','GLRADIO','GTUBE','LIVE','TOUR','MAGAZINE','MEDIA','BOOK','NEWSPAPER','MODEL','MOVIE','RADIO','RELEASE','BD','CD','DIGITAL','EP','DVD','MUSICCARD','SALES','GOODS','SNS','STAGE','STREAMING','TICKET','TV','WEB','PODCAST','YOUTUBE','GARUGARUCH'];
@@ -1259,7 +1269,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   });
   // el: the input. optsFn: returns [{v, n, k}]. after: (optional) node the list is placed after; without it the input is wrapped (.fw) and the list goes under it.
   // partial: also match the typed text anywhere inside a value (prefix matches come first)
-  function addSuggest(el, optsFn, after, partial, token) {
+  function addSuggest(el, optsFn, after, partial, token, focusAll) { // focusAll() true = the whole list is shown as soon as the box gets the cursor (while it is empty); typing narrows it
     var box = document.createElement('div'); box.className = 'fcand fsug'; box.hidden = true;
     if (after) { after.parentNode.insertBefore(box, after.nextSibling); }
     else {
@@ -1275,12 +1285,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function show() {
       var v = el.value.trim(), q, used = {};
       head = '';
-      if (token) { var mt = el.value.match(/^([\s\S]*[,\u3001])([^,\u3001]*)$/); head = mt ? mt[1] : ''; v = (mt ? mt[2] : el.value).trim(); tagTokens(head).forEach(function (t) { used[t] = 1; }); } // the last comma-separated token is the one being typed
-      q = normQ(v);
-      if (!q) { hide(); return; }
+      if (token) { var mt = el.value.match(token === 'artist' ? /^([\s\S]*[,\u3001\u00D7])([^,\u3001\u00D7]*)$/ : /^([\s\S]*[,\u3001])([^,\u3001]*)$/); head = mt ? mt[1] : ''; v = (mt ? mt[2] : el.value).trim(); tagTokens(head).forEach(function (t) { used[t] = 1; }); } // the last comma-separated token is the one being typed
+      q = normQ(v); var allOn = !q && focusAll && focusAll();
+      if (!q && !allOn) { hide(); return; }
       var all = optsFn().filter(function (o) { return o.v !== v && !used[o.v]; });
       var pre = all.filter(function (o) { return o.k.indexOf(q) === 0; });
-      items = (partial ? pre.concat(all.filter(function (o) { return o.k.indexOf(q) > 0; })) : pre).slice(0, 8); idx = -1;
+      items = allOn ? all.slice(0, 40) : (partial ? pre.concat(all.filter(function (o) { return o.k.indexOf(q) > 0; })) : pre).slice(0, 8); idx = -1;
       box.innerHTML = '';
       items.forEach(function (o, i) {
         var b = document.createElement('button'); b.type = 'button'; b.appendChild(document.createTextNode(o.v));
@@ -1292,8 +1302,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       box.hidden = !items.length;
     }
     el.addEventListener('input', show);
-    el.addEventListener('focus', function () { if (token) needTags().then(function () { optMemo = {}; }).catch(function () {}); }); // the tags come from the light index (the full logs.json only when the index is an old one)
+    el.addEventListener('focus', function () { if (focusAll && !el.value.trim()) show(); if (token) needTags().then(function () { optMemo = {}; }).catch(function () {}); }); // the tags come from the light index (the full logs.json only when the index is an old one)
     el.addEventListener('blur', hide);
+    document.addEventListener('mousedown', function (e) { if (!box.hidden && e.target !== el && !box.contains(e.target)) hide(); }); // a list opened without the cursor in the box closes on any outside tap
     el.addEventListener('keydown', function (e) {
       if (box.hidden) return;
       if (e.key === 'ArrowDown') { e.preventDefault(); idx = (idx + 1) % items.length; mark(); }
@@ -1301,6 +1312,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       else if (e.key === 'Enter' && idx >= 0) { e.preventDefault(); pick(idx); }
       else if (e.key === 'Escape') { hide(); }
     });
+    return { show: show, hide: hide };
   }
   // songs list (setlist): one row per song, like the albums tracks. The songs text box stays hidden and keeps the value (`order: title {members} | type | original | notes`); the list writes it on every change.
   var SL_TYPES = ['arrange', 'medley', 'short', 'mc', 'dt', 'dj', 'towel', 'encore', 'allow', 'cover'];
@@ -1333,15 +1345,26 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }).join('\n');
   }
   // songs of the setlist: the text box (one line per song `order: title | type | original | notes`) and ONE song frame below it. Pressing a line in the text box loads it into the frame; update puts the frame back into the text box (new or update, the order is inserted and the others are renumbered); delete removes the line; + song empties the frame for a new song.
+  // shared by the two song editors (setlist songs / album tracks): the bar (+ buttons), the ONE song frame and the update / delete row, appended to wrap
+  function edBox(wrap) {
+    var bar = document.createElement('div'); bar.className = 'plbar'; bar.style.cssText = 'display:flex;margin:6px 0 4px'; wrap.appendChild(bar);
+    var frame = document.createElement('div'); frame.className = 'plrow alrow'; wrap.appendChild(frame);
+    var acts = document.createElement('div'); acts.className = 'plbar'; acts.style.cssText = 'display:flex;gap:6px;margin:6px 0'; wrap.appendChild(acts);
+    function show(on) { frame.style.display = on ? '' : 'none'; acts.style.display = on ? 'flex' : 'none'; if (on && frame._align) frame._align(); }
+    return { bar: bar, frame: frame, acts: acts, show: show };
+  }
+  function edActs(acts, upd, del, canDel) { // update / delete under the frame (delete only while a line is selected)
+    acts.innerHTML = ''; var ub = wbtn('update', upd); ub.style.cssText = 'flex:1;padding:12px 6px;font-size:14px'; acts.appendChild(ub);
+    var dl = wbtn('delete', del); dl.style.cssText = 'flex:1;padding:12px 6px;font-size:14px'; dl.disabled = !canDel; acts.appendChild(dl);
+  }
   function addSongsList(el, row, isNew) {
     fetchData('songs').catch(function () {});
     var fw = el.closest('.field'); if (!fw) return;
     el.setAttribute('spellcheck', 'false'); el.rows = 6; el.style.overflow = 'hidden';
     var wrap = document.createElement('div'); wrap.className = 'slrows'; fw.parentNode.insertBefore(wrap, fw.nextSibling);
-    var bar = document.createElement('div'); bar.className = 'plbar'; bar.style.cssText = 'display:flex;margin:6px 0 4px'; wrap.appendChild(bar);
-    var frame = document.createElement('div'); frame.className = 'plrow alrow'; wrap.appendChild(frame);
-    var acts = document.createElement('div'); acts.className = 'plbar'; acts.style.cssText = 'display:flex;gap:6px;margin:6px 0'; wrap.appendChild(acts);
+    var ed = edBox(wrap), bar = ed.bar, frame = ed.frame, acts = ed.acts, showEd = ed.show;
     var rows = [], sel = -1, fr = blank(), open = false, last = el.value;
+    showEd(false); // the song box is shown when + song is pressed or a line of the text box is picked
     function blank() { return { title: '', type: '', original: '', notes: '', member: [] }; }
     function copy(r) { return { title: r.title, type: r.type, original: r.original, notes: r.notes, member: r.member.slice() }; }
     function parse() { rows = slParse(el.value).filter(function (r) { return r.title.trim(); }); }
@@ -1361,10 +1384,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       foldGroups(mch, true);
     }
     function draw() {
-      frame.innerHTML = ''; var r = fr;
+      frame.innerHTML = ''; frame._align = null; var r = fr;
       var top = document.createElement('div'); top.className = 'alt'; frame.appendChild(top);
       var no = document.createElement('input'); no.type = 'text'; no.className = 'fin plnoin'; no.setAttribute('inputmode', 'numeric'); no.setAttribute('autocomplete', 'off'); no.title = 'order (a new song: the number of songs + 1)'; if (sel < 0) parse(); no.value = sel >= 0 ? String(sel + 1) : String(rows.length + 1); top.appendChild(no);
-      var cw = document.createElement('div'); cw.className = 'alin'; var inp = document.createElement('div'); inp.className = 'alinp'; var ti = document.createElement('input'); ti.type = 'text'; ti.className = 'fin'; ti.value = r.title; ti.setAttribute('autocomplete', 'off'); ti.setAttribute('spellcheck', 'false'); inp.appendChild(ti); cw.appendChild(inp); top.appendChild(cw);
+      var cw = document.createElement('div'); cw.className = 'alin'; var inp = document.createElement('div'); inp.className = 'alinp'; var ti = document.createElement('input'); ti.type = 'text'; ti.className = 'fin'; ti.placeholder = 'title'; ti.value = r.title; ti.setAttribute('autocomplete', 'off'); ti.setAttribute('spellcheck', 'false'); inp.appendChild(ti); cw.appendChild(inp); top.appendChild(cw);
       var bt = document.createElement('div'); bt.className = 'albtn'; cw.appendChild(bt);
       var go = wbtn('\u2192', function () { goSong(r.title.replace(/\s*\{[^}]*\}\s*$/, '').trim(), ($('f-artist') || {}).value); }); go.title = 'open this song in the songs tab'; go.disabled = true; bt.appendChild(go);
       var dB = wbtn('\u22ef', function () { open = !open; draw(); }); dB.title = 'type / members / original / notes'; if (open) dB.classList.add('on'); bt.appendChild(dB);
@@ -1373,13 +1396,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       function summary() { var a = typesOf(r), t = a.join(','), m = r.member.length ? '{' + r.member.join(',') + '}' : ''; sm.textContent = [t, r.original && a.indexOf('cover') >= 0 ? r.original : '', m, r.notes].filter(Boolean).join(' / '); }
       if (open) {
         var det = document.createElement('div'); det.className = 'sldet'; frame.appendChild(det);
-        var tc = document.createElement('div'); tc.className = 'chipr tchips'; tc.title = 'type (multiple allowed; none = song)'; det.appendChild(tc);
+        var alignDet = function () { if (cw.offsetParent) det.style.marginLeft = Math.round(cw.getBoundingClientRect().left - frame.getBoundingClientRect().left) + 'px'; }; alignDet(); setTimeout(alignDet, 0); frame._align = alignDet; // the left edge = the left edge of the title box
+        var lab = function (t) { var d = document.createElement('div'); d.className = 'slhd'; d.textContent = t; det.appendChild(d); };
+        lab('type'); var tc = document.createElement('div'); tc.className = 'chipr tchips'; tc.title = 'type (multiple allowed; none = song)'; det.appendChild(tc);
         var onr = document.createElement('div'); onr.className = 'slon'; det.appendChild(onr);
         var ol = document.createElement('label'); ol.appendChild(document.createTextNode('original')); var oi = alInput(''); oi.value = r.original; ol.appendChild(oi); onr.appendChild(ol);
         function showOrig() { ol.hidden = typesOf(r).indexOf('cover') < 0; } // original: only while the type cover is selected (the value is kept)
         SL_TYPES.forEach(function (t) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (typesOf(r).indexOf(t) >= 0 ? ' on' : ''); b.setAttribute('data-v', t); b.textContent = t; b.onclick = function () { var a = typesOf(r), k = a.indexOf(t); if (k >= 0) a.splice(k, 1); else a.push(t); setTypes(r, a); [].forEach.call(tc.children, function (c) { c.classList.toggle('on', typesOf(r).indexOf(c.getAttribute('data-v')) >= 0); }); showOrig(); summary(); }; tc.appendChild(b); });
         showOrig(); oi.addEventListener('input', function () { r.original = oi.value; });
-        memberChips(r, det);
+        lab('member'); memberChips(r, det);
         var nr = document.createElement('div'); nr.className = 'slon'; det.appendChild(nr); // note: under the member chips
         var nl = document.createElement('label'); var ni = alInput(''); ni.placeholder = 'note'; ni.value = r.notes; nl.appendChild(ni); nr.appendChild(nl);
         ni.addEventListener('input', function () { r.notes = ni.value; summary(); }); addClear(ni);
@@ -1396,8 +1421,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       }
       ti.addEventListener('input', function () { r.title = ti.value; stat(); }); stat();
       ti.onkeydown = function (e) { if (e.key === 'Enter') { var box = ti.parentNode.nextSibling; e.preventDefault(); if (box && box.classList && box.classList.contains('fsug') && !box.hidden) return; upd(); } };
-      acts.innerHTML = '';
-      var ub = wbtn('update', upd); ub.style.cssText = 'flex:1;padding:12px 6px;font-size:14px'; acts.appendChild(ub); var dl = wbtn('delete', del); dl.style.cssText = 'flex:1;padding:12px 6px;font-size:14px'; dl.disabled = sel < 0; acts.appendChild(dl);
+      edActs(acts, upd, del, sel >= 0);
       function upd() { // new (no line selected) or update (the selected line); the order is inserted and the others are renumbered
         var t = fr.title.trim(); if (!t) return; parse();
         var rr = copy(fr); rr.title = t; var n = parseInt(no.value, 10);
@@ -1408,10 +1432,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       function del() { if (sel < 0) return; parse(); if (sel < rows.length) rows.splice(sel, 1); sel = -1; fr = blank(); commit(); draw(); }
     }
     function caretRow() { var ls = el.value.split(/\r?\n/), pos = el.selectionStart || 0, line = el.value.slice(0, pos).split(/\r?\n/).length - 1, c = (ls[line] || '').trim(); if (!c || c.charAt(0) === '#') return -1; var k = 0; for (var i = 0; i < line; i++) { var x = ls[i].trim(); if (x && x.charAt(0) !== '#') k++; } return k; }
-    function pick() { var k = caretRow(); if (k < 0) return; parse(); if (k >= rows.length) return; if (k === sel && rows[k].title === fr.title) return; sel = k; fr = copy(rows[k]); draw(); } // the line under the caret goes into the frame
+    function pick() { var k = caretRow(); if (k < 0) return; parse(); if (k >= rows.length) return; if (k === sel && rows[k].title === fr.title) return; sel = k; fr = copy(rows[k]); open = typesOf(fr).length > 0 || fr.member.length > 0 || !!String(fr.notes || '').trim(); /* a line that has a type / member / note opens the details; one without keeps them folded */ draw(); showEd(true); } // the line under the caret goes into the frame
     ['click', 'keyup', 'focus'].forEach(function (ev) { el.addEventListener(ev, pick); });
-    var addB = wbtn('+ song', function () { sel = -1; fr = blank(); draw(); var t = frame.querySelector('.alinp input'); if (t) t.focus(); }); addB.style.flex = '1'; bar.appendChild(addB); // a new song
-    el._slReload = function () { fitTa(el, 120); if (sel >= 0) { parse(); if (sel >= rows.length) sel = -1; } last = el.value; }; // after the text box was changed from outside
+    var addB = wbtn('+ song', function () { sel = -1; fr = blank(); open = false; /* a new song always starts with the details folded */ draw(); showEd(true); var t = frame.querySelector('.alinp input'); if (t) t.focus(); }); addB.style.flex = '1'; bar.appendChild(addB); // a new song
+    el._slReload = function () { fitTa(el, 120); if (sel >= 0) { parse(); if (sel >= rows.length) sel = -1; } if (sel < 0) showEd(false); last = el.value; }; // after the text box was changed from outside
     el.addEventListener('input', function () { fitTa(el, 120); });
     el.addEventListener('blur', function () { var n = slNorm(el.value); if (n !== el.value) { el.value = n; el.dispatchEvent(new Event('input', { bubbles: true })); } });
     el.addEventListener('paste', function () { setTimeout(function () { var n = slNorm(el.value); if (n !== el.value) { el.value = n; el.dispatchEvent(new Event('input', { bubbles: true })); } }, 0); });
@@ -1572,19 +1596,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (tv) parts.push(tv); else if (oi.hadTags) parts.push('-'); // no tags left on a link that had some: `-` clears them
     return parts.join(' | ');
   }
-  // Fancam chip beside a link's tags box: ON while the box holds the tag Fancam (any case); a click adds / removes it. tg._sync() re-reads the box (after it is set from code)
-  function fancamChip(tg, trow) {
-    var cw = document.createElement('span'); cw.className = 'chipr'; cw.style.flex = '0 0 auto';
-    var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = 'Fancam'; b.title = 'tag Fancam (the link is shown under Fancam in the viewer)'; cw.appendChild(b); trow.appendChild(cw);
-    function list() { return tg.value.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean); }
-    function has() { return list().some(function (x) { return x.toLowerCase() === 'fancam'; }); }
-    function sync() { var on = has(); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); }
-    b.onclick = function () {
-      var l = list(), nl = has() ? l.filter(function (x) { return x.toLowerCase() !== 'fancam'; }) : l.concat('Fancam');
-      tg.value = nl.join(','); sync(); tg.dispatchEvent(new Event('input', { bubbles: true }));
-    };
-    tg.addEventListener('input', sync); tg._sync = sync; sync();
-  }
   // sort the links of one list: Fancam (the tags are exactly Fancam, like the viewer) first, then the others. Each link and its tag row / editor is marked is-fc / is-ot (the two toggle buttons show one of them)
   function isFancamLine(l) { var t = l ? parseLine(l).tg : []; return t.length === 1 && t[0].toLowerCase() === 'fancam'; }
   function markGroup(w, fc) { [w, w._tr, w._ed].forEach(function (n) { if (n && n.classList) { n.classList.toggle('is-fc', fc); n.classList.toggle('is-ot', !fc); } }); }
@@ -1626,7 +1637,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var trow = document.createElement('div'); trow.className = 'row'; ed.appendChild(trow);
     var tg = document.createElement('input'); tg.type = 'text'; tg.className = 'fin'; tg.value = q.tg.join(','); tg.setAttribute('autocomplete', 'off'); tg.setAttribute('spellcheck', 'false');
     var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw); ed._tg = tg;
-    fancamChip(tg, trow);
+    tg._sync = function () {}; tg.placeholder = 'tag'; // Fancam is entered only from the Fancam box
     addSuggest(tg, tagOptsFor('sns'), trow, true, true);
     function apply() {
       var cur = lineOf(el, u); if (!cur) return;
@@ -2346,27 +2357,27 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       prog = true; sl.value = ''; prog = false; progY = true; sy.value = ''; progY = false; vSet([]);
       if (artKey(sa.value) !== artKey(r.artist)) { sa.value = r.artist || ''; sa.dispatchEvent(new Event('input', { bubbles: true })); }
     }
-    var CH = ['Girls\u00B2', 'Laki', 'miracle', 'magical', 'mirage', 'lovely']; // artist chips
-    addSuggest(sa, function () { var v = sa.value.trim(); return artistTokens(v).some(function (x) { return CH.indexOf(x) >= 0; }) ? [] : artistOnly(); }, sa.closest('.field')); // no candidates while an artist chip is selected
+    var CH = ['Girls\u00B2', 'Laki', 'Girls\u00B2 \u00D7 iScream', 'miracle\u00B2', 'magical\u00B2', 'mirage\u00B2', 'lovely\u00B2']; // artist chips
+    addSuggest(sa, function () { return artistNameOpts('songs'); }, sa.closest('.field'), true, 'artist'); // names used before; after a `,` or `\u00D7` the next name is suggested
     // artist chips: Girls2 / Laki (the same values as the artist check of the setlist form). Click sets the artist; click again clears it.
     var arow = document.createElement('div'); arow.className = 'field'; var alb = document.createElement('label'); arow.appendChild(alb);
-    var acs = document.createElement('div'); acs.className = 'chipr'; arow.appendChild(acs);
-    function syncArt() { var cur = artistTokens(sa.value); [].forEach.call(acs.children, function (b) { b.classList.toggle('on', cur.indexOf(b.getAttribute('data-v')) >= 0); }); }
-    CH.forEach(function (v) {
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v; b.setAttribute('data-v', v);
+    var acs = document.createElement('div'); acs.className = 'chipr artgrid'; arow.appendChild(acs);
+    function syncArt() { var cur = sa.value.trim(); [].forEach.call(acs.children, function (b) { b.classList.toggle('on', cur === b.getAttribute('data-v')); }); }
+    var tsug = null; // the title suggest: opened when an artist is chosen / confirmed
+    CH.forEach(function (v, vi) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (vi === 3 ? ' artnl' : '') + (v.length > 10 ? ' artlong' : ''); b.textContent = v; b.setAttribute('data-v', v);
       b.onclick = function () {
-        var cur = artistTokens(sa.value), G = ['Girls\u00B2', 'Laki'], i = cur.indexOf(v);
-        if (G.indexOf(v) >= 0 && cur.every(function (x) { return G.indexOf(x) >= 0; })) { if (i >= 0) cur.splice(i, 1); else cur.push(v); cur.sort(function (x, y) { return G.indexOf(x) - G.indexOf(y); }); sa.value = cur.join(', '); } // Girls2 and Laki can both be on
-        else sa.value = sa.value.trim() === v ? '' : v; // the other names are one at a time
-        sa.dispatchEvent(new Event('input', { bubbles: true }));
+        sa.value = sa.value.trim() === v ? '' : v; // one chip at a time (a new one replaces the chosen one; a collaboration is typed in the box: `A, B` or `A \u00D7 B`)
+        sa.dispatchEvent(new Event('input', { bubbles: true })); if (tsug && sa.value.trim()) tsug.show();
       };
       acs.appendChild(b);
     });
     sa.addEventListener('input', syncArt); syncArt();
-    var afield = sa.closest('.field'); afield.parentNode.insertBefore(arow, afield.nextSibling);
-    addSuggest(st, titleOpts, st.closest('.field'));
+    var afield = sa.closest('.field'); afield.style.marginBottom = '6px'; /* the box -> chips gap, as in the logs tab */ afield.parentNode.insertBefore(arow, afield.nextSibling);
+    function hasMine() { var a = artSet(sa.value); return a.length > 0 && (cache.songs || []).some(function (r) { if (!r || !r.title) return false; var rs = artSet(r.artist); return a.every(function (x) { return rs.indexOf(x) >= 0; }); }); }
+    tsug = addSuggest(st, titleOpts, st.closest('.field'), false, false, hasMine); sa.addEventListener('change', function () { if (sa.value.trim()) tsug.show(); }); // an artist is chosen: the songs of it are listed when the cursor enters the title
     // videos (YouTube): rows of [type][url][x] + a tags box under each row. A type chip adds a row; typing in a row is free text. Sent as lines `type | url | tags` (replaces the whole list).
-    var VT = ['MV', 'Dance Practice', 'Lyric', 'Live', 'Reaction', 'Call Lecture'], YT = /^https?:\/\/(www\.|m\.|music\.)?(youtube\.com|youtu\.be)\//i;
+    var VT = ['MV', 'Dance Practice', 'Lyric', 'Live', 'Reaction', 'Call Lecture', 'Fancam'], YT = /^https?:\/\/(www\.|m\.|music\.)?(youtube\.com|youtu\.be)\//i;
     var vrows = $('svrows'), vch = $('svch'), vTouched = false, autoV = false, autoM = null;
     function vTagList(v) { return String(v || '').split(/[,\u3001\uFF0C]/).map(function (x) { return x.trim(); }).filter(function (x, i, a) { return x && a.indexOf(x) === i; }); }
     function vList() { return [].map.call(vrows.children, function (r) { return { type: r.children[0].value.trim(), url: r.children[1].value.trim(), tags: r._tg ? r._tg.value : '', el: r }; }); }
@@ -2468,10 +2479,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function alTracks(cfg) {
     var wrap = document.createElement('div'); wrap.className = 'altk'; wrap.style.flex = '1'; wrap.style.minWidth = '0';
     var ta = document.createElement('textarea'); ta.className = 'fta'; ta.rows = 5; ta.setAttribute('spellcheck', 'false'); ta.style.cssText = 'width:100%;overflow:hidden'; wrap.appendChild(ta);
-    var bar = document.createElement('div'); bar.className = 'plbar'; bar.style.cssText = 'display:flex;margin:6px 0 4px'; wrap.appendChild(bar);
-    var frame = document.createElement('div'); frame.className = 'plrow alrow'; wrap.appendChild(frame);
-    var acts = document.createElement('div'); acts.className = 'plbar'; acts.style.cssText = 'display:flex;gap:6px;margin:6px 0'; wrap.appendChild(acts);
+    var ed = edBox(wrap), bar = ed.bar, frame = ed.frame, acts = ed.acts, showEd = ed.show;
     var rows = [], sel = -1, anchor = -1, fr = blank(false);
+    showEd(false); // the track box is shown when + track is pressed or a line of the text box is picked
     function blank(sec) { return { title: '', no: '', artist: '', sec: !!sec }; }
     function parse() { rows = alParse(ta.value, cfg.extra, cfg.sec); }
     function changed() { if (cfg.onchange) cfg.onchange(); }
@@ -2492,18 +2502,17 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (cfg.extra && !r.sec) { var lb = alInput('DVD1', 'plnt'); lb.style.flex = '0 0 4.5em'; lb.value = r.no; lb.oninput = function () { r.no = lb.value; }; top.appendChild(lb); }
       var ti;
       if (r.sec) { ti = document.createElement('textarea'); ti.className = 'fin alsec'; ti.rows = 1; ti.setAttribute('spellcheck', 'false'); ti.value = r.title; var fit = function () { ti.style.height = 'auto'; if (ti.scrollHeight > 8) ti.style.height = ti.scrollHeight + 2 + 'px'; }; ti.addEventListener('input', fit); setTimeout(fit, 0); ti.placeholder = 'section heading'; }
-      else { ti = alInput('title'); ti.value = r.title; }
+      else { ti = alInput('title'); ti.placeholder = 'title'; ti.value = r.title; }
       var cw = document.createElement('div'); cw.className = 'alin'; var inp = document.createElement('div'); inp.className = 'alinp'; inp.appendChild(ti); cw.appendChild(inp); top.appendChild(cw);
       var bt = document.createElement('div'); bt.className = 'albtn'; cw.appendChild(bt);
       var go = null;
       if (!r.sec) {
         go = wbtn('\u2192', function () { goSong(r.title, cfg.artist ? cfg.artist() : ''); }); go.title = 'open this song in the songs tab'; go.disabled = true; bt.appendChild(go);
       }
-      if (!r.sec) { // singing artist of this track: free input + chips (normally left empty)
-        var ao = document.createElement('div'), ai = alInput('singing artist (usually empty)'), ach = document.createElement('div'); ao.className = 'alart'; ach.className = 'chipr'; ai.value = r.artist || ''; ao.appendChild(ai); ao.appendChild(ach); frame.appendChild(ao);
-        var asy = function () { var tk = artistTokens(ai.value); [].forEach.call(ach.children, function (b) { b.classList.toggle('on', tk.indexOf(b.getAttribute('data-v')) >= 0); }); };
-        [ART_G2, ART_L2].forEach(function (v) { var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v; b.setAttribute('data-v', v); b.onclick = function () { var tk = artistTokens(ai.value), i = tk.indexOf(v); if (i >= 0) tk.splice(i, 1); else tk.push(v); ai.value = tk.join(AJOIN); r.artist = ai.value; asy(); }; ach.appendChild(b); });
-        ai.addEventListener('input', function () { r.artist = ai.value; asy(); }); asy();
+      if (!r.sec) { // vocal (singing artist) of this track: a free input under the title, normally left empty
+        var ao = document.createElement('div'), ai = alInput('vocal'); ao.className = 'alart'; ai.placeholder = 'vocal';
+        ai.value = r.artist || ''; ai.addEventListener('input', function () { r.artist = ai.value; }); ao.appendChild(ai); frame.appendChild(ao);
+        var alignAo = function () { if (cw.offsetParent) ao.style.marginLeft = Math.round(cw.getBoundingClientRect().left - frame.getBoundingClientRect().left) + 'px'; }; alignAo(); setTimeout(alignAo, 0); frame._align = alignAo; // the left edge = the left edge of the title box
       }
       var sub = document.createElement('div'); sub.className = 'alsub'; var st = document.createElement('div'); st.className = 'plst'; sub.appendChild(st); frame.appendChild(sub);
       function stat() {
@@ -2518,7 +2527,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var tx = ti.parentNode.querySelector('.fx'); if (tx) tx.addEventListener('click', function () { sel = -1; fr = blank(false); draw(); }); // the x of the title = start a new track (nothing selected)
       stat();
       ti.onkeydown = function (e) { if (e.key !== 'Enter' || r.sec) return; e.preventDefault(); var box = ti.parentNode.nextSibling; if (box && box.classList && box.classList.contains('fsug') && !box.hidden) return; upd(); };
-      acts.innerHTML = ''; var ub = wbtn('update', upd); ub.style.cssText = 'flex:1;padding:12px 6px;font-size:14px'; acts.appendChild(ub); var dl = wbtn('delete', del); dl.style.cssText = 'flex:1;padding:12px 6px;font-size:14px'; dl.disabled = sel < 0; acts.appendChild(dl);
+      edActs(acts, upd, del, sel >= 0);
       function upd() { // new (no line selected) or update (the selected line); a track number is its place inside its section
         var t = fr.title.trim(); if (!t) return; parse();
         var rr = { title: t, no: fr.sec ? '' : fr.no.trim(), artist: fr.sec ? '' : String(fr.artist || '').trim(), sec: fr.sec }, had = sel >= 0 && sel < rows.length, n = parseInt(no.value, 10), ref, pos;
@@ -2535,13 +2544,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       function del() { if (sel < 0) return; parse(); if (sel < rows.length) rows.splice(sel, 1); anchor = Math.min(sel, rows.length - 1); sel = -1; fr = blank(false); commit(); draw(); }
     }
     function caretRow() { var ls = ta.value.split(/\r?\n/), pos = ta.selectionStart || 0, line = ta.value.slice(0, pos).split(/\r?\n/).length - 1; if (!(ls[line] || '').trim()) return -1; var k = 0; for (var i = 0; i < line; i++) if (ls[i].trim()) k++; return k; }
-    function pick() { var k = caretRow(); if (k < 0) return; parse(); if (k >= rows.length) return; anchor = k; if (k === sel && rows[k].title === fr.title) return; sel = k; fr = { title: rows[k].title, no: rows[k].no || '', artist: rows[k].artist || '', sec: !!rows[k].sec }; draw(); }
+    function pick() { var k = caretRow(); if (k < 0) return; parse(); if (k >= rows.length) return; anchor = k; if (k === sel && rows[k].title === fr.title) return; sel = k; fr = { title: rows[k].title, no: rows[k].no || '', artist: rows[k].artist || '', sec: !!rows[k].sec }; draw(); showEd(true); }
     ['click', 'keyup', 'focus'].forEach(function (ev) { ta.addEventListener(ev, pick); });
     ta.addEventListener('input', function () { fitTa(ta, 90); changed(); });
     ta.addEventListener('blur', function () { parse(); var t = alText(rows, cfg); if (t !== ta.value) { ta.value = t; fitTa(ta, 90); changed(); } });
-    var addT = wbtn('+ track', function () { sel = -1; fr = blank(false); draw(); var t = frame.querySelector('.alinp input'); if (t) t.focus(); }); addT.style.flex = '1'; bar.appendChild(addT); // a new track
-    if (cfg.sec) { var addS = wbtn('+ section', function () { sel = -1; fr = blank(true); draw(); var t = frame.querySelector('.alinp textarea'); if (t) t.focus(); }); addS.title = 'a heading in this disc (e.g. LIVE TOUR 2025). The numbers start again from 1 under it'; addS.style.flex = '1'; bar.appendChild(addS); }
-    function set(arr) { rows = (arr || []).map(function (t) { return t && t.section != null ? { title: String(t.section), no: '', sec: true } : { title: String(t.title || ''), no: t.no == null ? '' : String(t.no), artist: String(t.artist || '') }; }); ta.value = alText(rows, cfg); fitTa(ta, 90); sel = -1; anchor = -1; fr = blank(false); draw(); }
+    var addT = wbtn('+ track', function () { sel = -1; fr = blank(false); draw(); showEd(true); var t = frame.querySelector('.alinp input'); if (t) t.focus(); }); addT.style.flex = '1'; bar.appendChild(addT); // a new track
+    if (cfg.sec) { var addS = wbtn('+ section', function () { sel = -1; fr = blank(true); draw(); showEd(true); var t = frame.querySelector('.alinp textarea'); if (t) t.focus(); }); addS.title = 'a heading in this disc (e.g. LIVE TOUR 2025). The numbers start again from 1 under it'; addS.style.flex = '1'; bar.appendChild(addS); }
+    function set(arr) { rows = (arr || []).map(function (t) { return t && t.section != null ? { title: String(t.section), no: '', sec: true } : { title: String(t.title || ''), no: t.no == null ? '' : String(t.no), artist: String(t.artist || '') }; }); ta.value = alText(rows, cfg); fitTa(ta, 90); sel = -1; anchor = -1; fr = blank(false); draw(); showEd(false); }
     fetchData('songs').then(function () { draw(); }).catch(function () {});
     draw();
     return { el: wrap, get: get, set: set, redraw: draw };
@@ -2610,7 +2619,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     // id (top of the tab): shows the id of the release in the form. Typing a keyword lists the releases (like the id box of the logs tab); a release id or a logid loads that release / starts from that logs row.
     var idIn = alInput('id / title / logid (new: auto)'); idIn.id = 'glih-alid'; idIn.setAttribute('autocapitalize', 'off'); var idFld = alFld('id', idIn); $('alnew').parentNode.insertBefore(idFld, $('alnew').nextSibling); addClear(idIn);
     var idCand = document.createElement('div'); idCand.className = 'fcand'; idCand.hidden = true; idFld.parentNode.insertBefore(idCand, idFld.nextSibling);
-    var dtFld = dt.closest('.field'); idCand.parentNode.insertBefore(dtFld, idCand.nextSibling); var wdDt = addWeekday(dt); dt.addEventListener('input', wdDt); // date: right under the id, with its weekday
+    var dtFld = dt.closest('.field'); dtFld.style.rowGap = '4px'; /* label-to-input gap like the logs / setlist date */ idCand.parentNode.insertBefore(dtFld, idCand.nextSibling); var wdDt = addWeekday(dt); dt.addEventListener('input', wdDt); // date: right under the id, with its weekday
     var tiFld = ti.closest('.field'), arFld = null, tiCand = null; // title / artist stay visible before a date is typed
     function dateGate() { var ok = okDate(DG(dt.value)); wdDt(); for (var n = dtFld.nextSibling; n; n = n.nextSibling) if (n.nodeType === 1) n.classList.toggle('algated', !ok && n !== tiFld && n !== arFld && n !== tiCand); } // everything under the date stays hidden until a date is typed (or a release is loaded)
     dt.addEventListener('input', dateGate);
@@ -2635,11 +2644,23 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     fetchIndex('logs').then(function () { logsReady = true; drawLinks(); upd(); }).catch(function () {});
     var ar = alInput('artist'), arChips = document.createElement('div'); arChips.className = 'chipr'; arChips.style.marginTop = '4px';
     var arCol = document.createElement('div'); arCol.style.flex = '1'; arCol.style.minWidth = '0'; ar.style.width = '100%'; arCol.appendChild(ar); // the Girls2 / Laki chips are gone: G2 / L2 of the member chips set the artist (like the setlist tab)
-    arFld = alFld('artist', arCol, true); ti.closest('.field').parentNode.insertBefore(arFld, ti.closest('.field').nextSibling);
-    function syncAr() {}
+    arFld = alFld('artist', arCol, true); tiFld.parentNode.insertBefore(arFld, tiFld); // artist above title
+    var AL_ART = ['Girls\u00B2', 'Laki', 'Girls\u00B2 \u00D7 iScream', 'miracle\u00B2', 'magical\u00B2', 'mirage\u00B2', 'lovely\u00B2']; // artist chips (as the songs tab): Girls2 and Laki can both be on, the others one at a time
+    arChips.style.marginTop = '6px'; arCol.appendChild(arChips);
+    arChips.classList.add('artgrid');
+    AL_ART.forEach(function (v, vi) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (vi === 3 ? ' artnl' : '') + (v.length > 10 ? ' artlong' : ''); b.textContent = v; b.setAttribute('data-v', v);
+      b.onclick = function () {
+        ar.value = ar.value.trim() === v ? '' : v; // one chip at a time (a collaboration is typed in the box)
+        ar.dispatchEvent(new Event('input', { bubbles: true })); if (ar.value.trim()) runTiSearch(); // the releases of the chosen artist are listed under the title
+      };
+      arChips.appendChild(b);
+    });
+    function syncAr() { var cur = ar.value.trim(); [].forEach.call(arChips.children, function (b) { b.classList.toggle('on', cur === b.getAttribute('data-v')); }); }
+    addSuggest(ar, function () { return artistNameOpts('albums'); }, ar, true, 'artist');
     // member: the same input + chips as the setlist tab (hearts of the popup). It follows the artist while it is empty or still the automatic value.
     var me = alInput('member'), mw = document.createElement('span'); mw.className = 'fw'; mw.appendChild(me);
-    var meFld = alFld('member', mw); arFld.parentNode.insertBefore(meFld, arFld.nextSibling); addGroupChips(me, true); mergeMember(ar, me, meFld); // artist + member in one field
+    var meFld = alFld('member', mw); arFld.parentNode.insertBefore(meFld, arFld.nextSibling); meFld.hidden = true; /* no member chips: the member follows the artist */ // artist + member in one field
     var autoMem = '';
     function setMember(v) { me.value = v; autoMem = v; me.dispatchEvent(new Event('input', { bubbles: true })); }
     ar.addEventListener('input', function () {
@@ -2679,7 +2700,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var nrow = document.createElement('div'); nrow.className = 'alnr'; nrow.style.cssText = 'flex:1;min-width:0'; nm.style.width = '100%'; nm.style.boxSizing = 'border-box'; nrow.appendChild(nm); var nbt = document.createElement('div'); nbt.className = 'albtn'; nrow.appendChild(nbt); // buttons under the name, equal width
       var upE = wbtn('\u2191', function () { var i = eds.indexOf(ob); if (i < 1) return; eds.splice(i - 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }), dnE = wbtn('\u2193', function () { var i = eds.indexOf(ob); if (i < 0 || i >= eds.length - 1) return; eds.splice(i + 1, 0, eds.splice(i, 1)[0]); drawEds(); upd(); }), rmE = wbtn('\u2715', function () { var i = eds.indexOf(ob); if (i >= 0) eds.splice(i, 1); drawEds(); upd(); });
       [upE, dnE, rmE].forEach(function (b) { nbt.appendChild(b); }); upE.title = 'move up'; dnE.title = 'move down'; rmE.title = 'remove edition'; ob.upB = upE; ob.dnB = dnE;
-      box.appendChild(alFld('edition', nrow)); box.appendChild(alFld('format', fcol, true)); box.appendChild(alFld('price', pr)); box.appendChild(alFld('note', nt));
+      box.appendChild(alFld('edition', nrow)); box.appendChild(alFld('format', fcol, true)); var pnF = document.createElement('div'); pnF.className = 'field alpn'; [['price', pr, 'alpp'], ['note', nt, 'alpq']].forEach(function (x) { var c = document.createElement('div'); c.className = 'alpc ' + x[2]; var l = document.createElement('label'); l.textContent = x[0]; c.appendChild(l); c.appendChild(x[1]); pnF.appendChild(c); }); box.appendChild(pnF); // price and note side by side
       var ex = alExtra({ artist: function () { return ar.value; }, onchange: function () { upd(); } }); box.appendChild(alFld('extra', ex.el, true));
       var own = null, ownRow = document.createElement('div'); ownRow.className = 'field top'; var ol = document.createElement('label'); ol.textContent = 'tracklist'; ownRow.appendChild(ol);
       var ocol = document.createElement('div'); ocol.style.flex = '1'; ocol.style.minWidth = '0'; ownRow.appendChild(ocol);
@@ -2702,7 +2723,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }
     function drawEds() { edBox.innerHTML = ''; eds.forEach(function (e, i) { edBox.appendChild(e.el); if (e.upB) { e.upB.disabled = i < 1; e.dnB.disabled = i >= eds.length - 1; } }); }
     $('aladd').onclick = function () { eds.push(edBlock(null)); drawEds(); upd(); };
-    function clearAll() { alFrom = null; albumId = ''; links = []; ar.value = ''; syncAr(); me.value = ''; autoMem = ''; ti.value = ''; dt.value = ''; type = ''; loadedKey = ''; main.set([]); eds = []; drawEds(); drawLinks(); syncType(); upd(); }
+    function clearAll() { alFrom = null; albumId = ''; links = []; autoMem = ''; me.value = ''; me.dispatchEvent(new Event('input', { bubbles: true })); ar.value = ''; ar.dispatchEvent(new Event('input', { bubbles: true })); syncAr(); autoMem = ''; cp.value = ''; hideTiC(); /* the member / artist chips follow the emptied boxes */ ti.value = ''; dt.value = ''; type = ''; loadedKey = ''; main.set([]); eds = []; drawEds(); drawLinks(); syncType(); upd(); }
     function load(a) { albumId = a.id || ''; links = linksOf(a); drawLinks(); ar.value = a.artist || ''; syncAr(); me.value = (a.member || []).join(','); autoMem = me.value; me.dispatchEvent(new Event('input', { bubbles: true })); ti.value = a.title || ''; type = a.type || ''; dt.value = fmtDigits(a.date || '', 'date'); main.set(a.tracks || []); eds = (a.editions || []).map(function (d) { return edBlock(d); }); drawEds(); syncType(); loadedKey = (a.title || '') + '|' + (a.type || ''); upd(); }
     $('alnew').onclick = clearAll;
     function fromLog(id) { // a logid typed in the find box: the release the row is linked to, or a new release started from that row
@@ -2711,7 +2732,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (a) { alApi.load(a, id); return true; }
       var tys = alTypesOf(r), nm = alNameOf(r.title); alApi.fresh(nm || String(r.title || '').trim(), tys[0] || '', DG(r.date || ''), id, (r.groups || []).join(',')); alFrom = { groups: (r.groups || []).join(',') }; return true;
     }
-    function albumRows(qq) { return (cache.albums || []).filter(function (x) { return x && normQ(x.title + ' ' + x.type + ' ' + (x.artist || '') + ' ' + (x.id || '')).indexOf(qq) >= 0; }).slice(0, 30); }
+    function albumAll(qq) { return (cache.albums || []).filter(function (x) { return x && normQ(x.title + ' ' + x.type + ' ' + (x.artist || '') + ' ' + (x.id || '')).indexOf(qq) >= 0; }); }
+    function albumRows(qq) { return albumAll(qq).slice(0, 30); }
     function drawCand(box, rows, hide) { // line 1: date + type, line 2: title / artist (the id is not shown, as in the logs tab)
       box.innerHTML = '';
       rows.forEach(function (x) {
@@ -2738,8 +2760,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     // typing in the title box lists the matching releases too (a pick loads it)
     tiCand = document.createElement('div'); tiCand.className = 'fcand'; tiCand.hidden = true; tiFld.parentNode.insertBefore(tiCand, tiFld.nextSibling);
     function hideTiC() { tiCand.hidden = true; tiCand.innerHTML = ''; }
-    function runTiSearch() { var v = ti.value.trim(), qq = normQ(v); if (qq.length < 2 || v === loadedKey.split('|')[0]) { hideTiC(); return; } var rows = albumRows(qq); drawCand(tiCand, rows, hideTiC); tiCand.hidden = !rows.length; }
-    ti.addEventListener('input', runTiSearch); ti.addEventListener('blur', function () { setTimeout(hideTiC, 150); });
+    function artRows(rows) { var a = artistTokens(ar.value).map(normQ); return a.length ? rows.filter(function (x) { var rs = artistTokens(x.artist).map(normQ); return a.every(function (t) { return rs.indexOf(t) >= 0; }); }) : rows; }
+    function runTiSearch() { // an artist is chosen: its releases are listed when the cursor enters the title, and every typed character narrows them. No artist: a search from 2 characters
+      var v = ti.value.trim(), qq = normQ(v), hasA = artistTokens(ar.value).length > 0, dd = DG(dt.value), hasK = hasA || !!dd; // the artist and the date (when typed) narrow the list; an empty one is left out
+      if ((v && v === loadedKey.split('|')[0]) || (!qq && !hasK) || (qq && qq.length < 2 && !hasK)) { hideTiC(); return; }
+      var rows = artRows(!qq ? (cache.albums || []).filter(Boolean) : hasK ? (cache.albums || []).filter(function (x) { return x && normQ(x.title).indexOf(qq) >= 0; }) : albumAll(qq));
+      if (dd) rows = rows.filter(function (x) { return String(x.date || '').indexOf(dd) === 0; });
+      rows = rows.slice(0, 30); drawCand(tiCand, rows, hideTiC); tiCand.hidden = !rows.length;
+    }
+    ti.addEventListener('input', runTiSearch); ar.addEventListener('change', function () { if (ar.value.trim()) runTiSearch(); }); dt.addEventListener('input', function () { if (!tiCand.hidden) runTiSearch(); }); document.addEventListener('mousedown', function (e) { if (!tiCand.hidden && e.target !== ti && !tiCand.contains(e.target)) hideTiC(); }); var tiTm = 0; ti.addEventListener('focus', function () { clearTimeout(tiTm); if (!ti.value.trim()) runTiSearch(); }); ti.addEventListener('blur', function () { clearTimeout(tiTm); tiTm = setTimeout(hideTiC, 150); });
     idIn.addEventListener('input', function () { runIdSearch(false); });
     idIn.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); runIdSearch(true); } });
     idIn.addEventListener('blur', function () { setTimeout(function () { if (idIn.value.trim() !== albumId) { idIn.value = albumId; idIn.dispatchEvent(new Event('input', { bubbles: true })); } hideIdC(); }, 150); });
