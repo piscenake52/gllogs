@@ -75,6 +75,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .small { font:inherit; font-size:12px; padding:7px 10px; margin:0; border-radius:8px; border:1px solid var(--line); background:var(--btn); color:var(--text); cursor:pointer; white-space:nowrap; box-shadow:none; }
 #glih .chk { font-size:12px; color:var(--sub); display:flex; align-items:center; gap:6px; margin:0 0 0 4px; white-space:nowrap; } /* time の値のすぐ右 */
 #glih .chk input { margin:0; }
+#glih .field > label.cpchip { font-weight:400; box-sizing:border-box; flex:0 0 calc((100% - 12px) / 3); min-width:0; justify-content:center; text-align:center; white-space:nowrap; position:relative; margin:0; padding:9px 4px; font-size:13px; line-height:1.2; color:var(--text); background:var(--btn); border:1px solid var(--line); border-radius:999px; cursor:pointer; user-select:none; } #glih .field > label.cpchip:first-child { flex:0 0 calc((100% - 12px) / 3); width:auto; } #glih .cpchip input { position:absolute; opacity:0; pointer-events:none; } #glih .cpchip:has(input:checked) { background:var(--accent); border-color:var(--accent); color:var(--accent-text); } #glih .cpchip:has(input:disabled) { opacity:.5; cursor:default; } #glih .cpchip:has(input:focus-visible) { outline:2px solid var(--accent); outline-offset:2px; } /* logs copy: a chip (the checkbox stays inside, hidden) */
+#glih .snsh .row.btns .small { flex:1 1 100%; } #glih .snsh .row.btns.fcdiv { border-top:1px solid var(--line); margin-top:10px; padding-top:10px; } /* add / Fancam: the same full width buttons, a line between them */
 #glih .rad { flex:1; display:flex; gap:18px; align-items:center; }
 #glih .rad .chk { margin:0; font-size:13px; color:var(--text); cursor:pointer; padding:6px 0; }
 #glih .out { font-size:12px; color:var(--sub); margin:12px 0; display:flex; flex-wrap:wrap; align-items:center; gap:6px 8px; }
@@ -262,9 +264,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .chipr.nw { flex-wrap:nowrap; }
 #glih #glih-rpq { gap:4px; }
 #glih #glih-rpq .chip { flex:1 1 auto; width:auto; min-width:0; padding:5px 4px; }
-#glih #glih-frd { flex-wrap:wrap; gap:4px; }
+#glih #glih-frd { flex-wrap:wrap; gap:2px 4px; }
 #glih #glih-frd > label { margin-right:4px; } /* the row gap is 4px (the others 8px): keeps the date box aligned with the id / time boxes */
 #glih #glih-frd .small { padding:7px 4px; }
+#glih #glih-fcc, #glih #glih-rpmd { flex-wrap:nowrap; } #glih #glih-fcc .chip, #glih #glih-rpmd .chip { text-transform:uppercase; flex:1 1 0; min-width:0; width:auto; padding:9px 4px; font-size:13px; border-radius:999px; } /* the repeat chips (new / existing / repeat from existing): the same larger, fully rounded chips */
+#glih #glih-ff .field:has(#glih-f-time) .dtb { margin:0 0 0 8px; } #glih #glih-ff .field:has(#glih-f-date) { column-gap:4px; } #glih #glih-ff .field:has(#glih-f-date) .dtb { margin:0 2px 0 6px; } #glih #glih-ff .field:has(#glih-f-date) .small { padding:7px 13px; } #glih #glih-ff .field:has(#glih-f-date) .dtarr { flex:0 0 36px; width:36px; padding-left:0; padding-right:0; text-align:center; } /* existing data: the form's own date looks like the top date of a new entry */
 #glih #glih-frd #glih-fdtoday { padding-left:13px; padding-right:13px; } /* today: wider (6px more on each side than the other buttons) */ /* narrow screens: the < today > buttons go to the next line instead of widening the card */
 #glih #glih-rpw { gap:4px; }
 #glih #glih-rpw .chip { flex:1 1 0; width:auto; min-width:0; padding:5px 0; font-size:11px; }
@@ -386,13 +390,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fnew" hidden>new</button></div>
   <div class="field" id="glih-frd"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdprev" title="prev day">&lt;</button><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdnext" title="next day">&gt;</button></div>
   <div class="field" id="glih-frt"><label for="glih-fdt">time</label><input type="text" id="glih-fdt" class="fin" autocomplete="off"><label class="chk" id="glih-fanyl" style="margin:0"><input type="checkbox" id="glih-fany">anytime</label></div>
+  <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk cpchip"><input type="checkbox" id="glih-fcp">COPY</label></div>
+  <div class="field" id="glih-fcontrow" hidden><label>repeat</label><div class="chipr" id="glih-fcc"><button type="button" class="chip" data-m="interval" title="new entry on the same date, repeat: interval, next # number">interval</button><button type="button" class="chip" data-m="schedule" title="new entry on the same date, repeat: schedule, next # number">schedule</button><button type="button" class="chip" data-m="tour" title="new entry in tour mode (same title base / contents / url / groups; add shows)">tour</button></div></div>
   <div class="fcand" id="glih-fdl" hidden></div>
   <div class="fstat" id="glih-fstat" hidden></div>
   <div class="fcand" id="glih-fcand" hidden></div>
-  <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk" style="margin:0"><input type="checkbox" id="glih-fcp">copy (new entry)</label></div>
-  <div class="field" id="glih-fcontrow" hidden><label>next</label><div class="chipr" id="glih-fcc"><button type="button" class="small" data-m="interval" title="new entry on the same date, repeat: interval, next # number">interval</button><button type="button" class="small" data-m="schedule" title="new entry on the same date, repeat: schedule, next # number">schedule</button><button type="button" class="small" data-m="tour" title="new entry in tour mode (same title base / contents / url / groups; add shows)">tour</button><button type="button" class="small" data-m="week" title="new entry: +7 days, next # number">weekly</button><button type="button" class="small" data-m="month" title="new entry: the same day of the next month, next # number">monthly</button><button type="button" class="small" data-m="year" title="new entry: the same day of the next year, next # number">yearly</button></div></div>
   <div id="glih-ff"></div>
-  <div class="field" id="glih-fanrow" hidden><label class="chk" style="margin:0"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
+  <div class="field" id="glih-fanrow" hidden><label class="chk cpchip"><input type="checkbox" id="glih-fan">ANNIVERSARY</label><span id="glih-fanwhy" class="chk" style="margin-left:8px"></span></div>
   <div class="field" id="glih-fansrow" hidden><label for="glih-fansx"></label><div class="fgcol"><input type="text" id="glih-fansx" class="fin" autocomplete="off" value="&#35352;&#24565;&#26085;"><div class="chipr" id="glih-fansch"></div></div></div>
   <div class="field" id="glih-frefrow" hidden><label id="glih-freflb">ref</label><div class="refbox" id="glih-frefbox"></div></div>
   <!-- 注記(非表示にした): 変更した項目(青枠)だけがIssueフォームに事前入力されます。tags / sns は更新時に追記、既存データの項目を空欄にすると、その項目は !clear で送られ、要素ごと削除されます(削除チェックは不要)。relations は事前入力できません(JSONで確認)。 -->
@@ -722,6 +726,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   // open-in-a-new-window icon inside a url input: a plain link that follows the value (shown only for http(s) values). right: distance from the right end in px.
   var ICON_EXT = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5h4.5V7M13.5 2.5L7.5 8.5M12 9.5v3a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h3"/></svg>';
+  // map: a pasted Google Maps embed HTML (<iframe src="https://www.google.com/maps/embed?...">) becomes its embed URL (the viewer opens it in the map popup); a map page URL / short link is kept as it is
+  function mapFromHtml(v) { var m = String(v || '').match(/<iframe[^>]*\ssrc\s*=\s*["']([^"']+)["']/i); return m ? m[1].replace(/&amp;/g, '&').trim() : v; }
+  function addMapHtml(el) { el.addEventListener('input', function () { var n = mapFromHtml(el.value); if (n !== el.value) { el.value = n; el.dispatchEvent(new Event('input', { bubbles: true })); } }); }
   function addOpen(el, right) {
     var fw = el.parentNode;
     var a = document.createElement('a'); a.className = 'fx'; a.style.right = right + 'px'; a.innerHTML = ICON_EXT; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.title = 'open'; a.setAttribute('aria-label', 'open in a new window');
@@ -966,14 +973,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     field.appendChild(ti); dtPicker(ti, type);
     var wdu = type === 'date' ? addWeekday(ti) : null; if (wdu) { ti.addEventListener('input', wdu); wdu(); }
     function mk(text, title, fn) { var b = document.createElement('button'); b.type = 'button'; b.className = 'small'; b.textContent = text; b.title = title; b.onclick = fn; field.appendChild(b); return b; }
-    // copy mode (id given + the copy checkbox ON): < > buttons beside today move the date by one day (hidden otherwise)
+    // existing data: < > buttons beside today move the date by one day (always shown)
     function shiftTi(n) {
       var d = digitsOf(ti.value), t = new Date(), base = d.length === 8 ? new Date(+d.slice(0, 4), +d.slice(4, 6) - 1, +d.slice(6, 8)) : new Date(t.getFullYear(), t.getMonth(), t.getDate());
       if (isNaN(base.getTime())) base = new Date(t.getFullYear(), t.getMonth(), t.getDate());
       base.setDate(base.getDate() + n);
       ti.value = fmtDigits(base.getFullYear() + ('0' + (base.getMonth() + 1)).slice(-2) + ('0' + base.getDate()).slice(-2), 'date'); fromTi();
     }
-    function mkArr(text, title, n) { var b = mk(text, title, function () { shiftTi(n); }); b.classList.add('dtarr'); b.hidden = !$('fcp').checked; return b; }
+    function mkArr(text, title, n) { var b = mk(text, title, function () { shiftTi(n); }); b.classList.add('dtarr'); return b; }
     var pv = null, nx = null;
     if (type === 'date') pv = mkArr('<', 'prev day', -1);
     if (type === 'date') mk('today', 'today', function () { ti.value = fmtDigits(DG(today()), 'date'); fromTi(); });
@@ -1121,7 +1128,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var tg = document.createElement('input'); tg.type = 'text'; tg.className = 'fin'; tg.setAttribute('autocomplete', 'off'); tg.setAttribute('spellcheck', 'false');
     var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw);
     function tagList(v) { return v.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean); }
-    var arow = document.createElement('div'); arow.className = 'row btns'; arow.appendChild(add); box.appendChild(arow); // the add button: full width under the tags
+    var arow = document.createElement('div'); arow.className = 'row btns'; arow.appendChild(add); box.appendChild(arow); // the add button: full width under the tags (the same size as the Fancam button)
     tg._sync = function () {}; tg.placeholder = 'tag'; // Fancam is entered only from the Fancam box
     addSuggest(tg, tagOptsFor('sns'), trow, true, true); // typed tags -> candidates (the tags already used by sns links)
     function urlOf(line) { var m = line.match(/https?:\/\/[^\s|]+/i); return m ? m[0] : ''; }
@@ -1146,7 +1153,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     add.onclick = doAdd;
     // Fancam bulk: one url per line -> each becomes a line `url | | Fancam` (the type is detected by the server). A url that is already in the box is overwritten: its tags become Fancam, its type / member / with stay
     var fcb = document.createElement('div'); fcb.style.display = 'none'; // the Fancam box: folded at first (no caption)
-    var ftog = document.createElement('div'); ftog.className = 'row btns'; var ftb = document.createElement('button'); ftb.type = 'button'; ftb.className = 'small'; ftog.appendChild(ftb); box.appendChild(ftog); box.appendChild(fcb);
+    var ftog = document.createElement('div'); ftog.className = 'row btns fcdiv'; var ftb = document.createElement('button'); ftb.type = 'button'; ftb.className = 'small'; ftog.appendChild(ftb); box.appendChild(ftog); box.appendChild(fcb);
     function fcOpen(on) { fcb.style.display = on ? '' : 'none'; ftb.textContent = 'Fancam ' + (on ? '\u25B4' : '\u25BE'); ftb.setAttribute('aria-expanded', on ? 'true' : 'false'); } fcOpen(false); ftb.onclick = function () { fcOpen(fcb.style.display === 'none'); };
     var fta = document.createElement('textarea'); fta.className = 'fin'; fta.rows = 4; fta.setAttribute('autocomplete', 'off'); fta.setAttribute('spellcheck', 'false'); fta.setAttribute('autocapitalize', 'off'); fta.placeholder = 'https://...';
     var ftw = document.createElement('span'); ftw.className = 'fw'; ftw.appendChild(fta); fcb.appendChild(ftw);
@@ -1944,6 +1951,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function renderFound(kind, id, row, isNew) {
     snsFold = null;
     found = { kind: kind, id: id, isNew: !!isNew, row: row }; orig = {}; rep = null; $('fan').checked = false; $('fan').disabled = false; $('fansx').value = DEFSX;
+    parkCopyRows(); // before the form is rebuilt (the form box is cleared next)
     var box = $('ff'); box.innerHTML = '';
     DEFS[kind].fields.forEach(function (f) {
       var wrap = document.createElement('div'); wrap.className = 'field' + (f.ta ? ' top' : '');
@@ -1953,8 +1961,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
       el.addEventListener('input', updateFind); if (kind === 'logs' && (f.k === 'contents' || f.k === 'groups')) el.addEventListener('input', autoSnsTitle);
       if (f.chk) { (f.chk === 2 ? addWeatherChips : addSourceChips)(wrap, lb, el); box.appendChild(wrap); return; } // OFFICIAL / UNOFFICIAL: two exclusive chips (the text box stays hidden and keeps the value; both off = empty)
-      wrap.appendChild(lb); wrap.appendChild(el); (kind === 'logs' && f.k === 'sns' ? snsHolder(box, el) : box).appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'tags') addSuggest(el, tagOptsFor('logs'), null, true, true); if (kind === 'logs' && f.k === 'sns') addNewSnsList(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsList(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
+      wrap.appendChild(lb); wrap.appendChild(el); (kind === 'logs' && f.k === 'sns' ? snsHolder(box, el) : box).appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'map') addMapHtml(el); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'tags') addSuggest(el, tagOptsFor('logs'), null, true, true); if (kind === 'logs' && f.k === 'sns') addNewSnsList(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsList(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
+    if (kind === 'logs' && !isNew) { var tf = $('f-time'), tfl = tf && tf.closest('.field'); if (tfl) { box.insertBefore($('fcprow'), tfl.nextSibling); box.insertBefore($('fcontrow'), $('fcprow').nextSibling); } } // existing logs: copy / next go right under the form's own time
     var jb = $('fjson'); jb.classList.remove('bad'); $('fcprow').hidden = !!isNew; $('fjrow').hidden = false; refreshJson(true); setJsonOpen(jsonOpen);
     if (kind === 'setlist') { var sa0 = $('f-artist'), sm0 = $('f-member'); if (sa0 && sm0) mergeMember(sa0, sm0, sm0.closest('.field')); } // artist + member in one field
     if (isNew && kind === 'logs') { ['date', 'time'].forEach(function (k) { var e = $('f-' + k); if (e) { var fl = e.closest('.field'); if (fl) fl.hidden = true; } }); } // new mode: the top date / time are used
@@ -2021,7 +2030,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
     jb.value = JSON.stringify([row], null, 2); jb.classList.remove('bad'); if (jsonOpen) sizeJson();
   }
-  function clearFound() { found = null; seedId = ''; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('fansrow').hidden = true; $('fansx').value = DEFSX; $('ff').innerHTML = ''; $('frefrow').hidden = true; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
+  function parkCopyRows() { var f0 = $('frt'); f0.parentNode.insertBefore($('fcprow'), f0.nextSibling); f0.parentNode.insertBefore($('fcontrow'), $('fcprow').nextSibling); } // copy / next live under the form's time in existing-logs mode; back to the top place before the form box is cleared
+  function clearFound() { parkCopyRows(); found = null; seedId = ''; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('fansrow').hidden = true; $('fansx').value = DEFSX; $('ff').innerHTML = ''; $('frefrow').hidden = true; $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
   // ---- repeat registration (new logs only): the date list is built here (every N days / weeks / months, until a date and / or a count, minus skipped dates), previewed with check boxes and sent as the repeat field of the form (one yyyymmdd per line; the server counts up the #number of the title for each row) ----
   var rep = null, REP_MAX = 60;
   function pad2(n) { return ('0' + n).slice(-2); }
@@ -2084,7 +2094,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       + '<div class="field rpsop"><label for="glih-rpop">optional</label><div class="fgcol"><input type="text" id="glih-rpop" class="fin" autocomplete="off" placeholder="display_sp"></div></div>'
       + '</div><div id="glih-rpsc" hidden></div><div id="glih-rptr" hidden></div>'
       + '<div class="fcand" id="glih-rpl"></div><div class="fstat" id="glih-rpm"></div></div>';
-    after.parentNode.insertBefore(box, after.nextSibling); // under the groups field
+    var ffb = $('ff'); ffb.insertBefore(box, ffb.firstChild); // top of the form = right under date / time (it is cleared with the form)
     var MK = {}; ['contents', 'title'].forEach(function (k) { var f = $('f-' + k) && $('f-' + k).closest('.field'); if (!f) return; MK[k] = document.createElement('span'); MK[k].hidden = true; f.parentNode.insertBefore(MK[k], f); }); // where contents / title go back to when repeat is off
     (function () { var ef = $('rpn').closest('.field'), uf = $('rpd').closest('.field'), cf0 = $('rpc').closest('.field'), w = document.createElement('div'); w.className = 'rpuc'; ef.parentNode.insertBefore(w, ef); w.appendChild(ef); w.appendChild(uf); w.appendChild(cf0); })(); // until / count sit right of every
     var on = $('rpon'), body = $('rpbody'), num = $('rpn'), unit = $('rpu'), until = $('rpd'), cnt = $('rpc'), skipEl = $('rpx'), list = $('rpl'), msg = $('rpm'), off = {}, last = null, memo = '', asked = false, cTouched = false;
@@ -2119,7 +2129,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
     (function () {
       var sc = $('rpsc');
-      SC.forEach(function (r) {
+      function scBuild(r, removable) {
         var row = document.createElement('div'); row.className = 'rpsrow';
         var nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = r.lb; row.appendChild(nm);
         var col = document.createElement('div'); col.className = 'rpcol'; row.appendChild(col); var row0 = row; row = col;
@@ -2140,10 +2150,21 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         row.appendChild(chr);
         r.sf2.addEventListener('input', function () { [].forEach.call(chr.children, function (b2) { b2.classList.toggle('on', b2.textContent === r.sf2.value.trim()); }); });
         [].forEach.call(chr.children, function (b2) { b2.classList.toggle('on', b2.textContent === r.sf2.value.trim()); });
-        sc.appendChild(row0);
-      });
+        if (removable) { r.x = document.createElement('button'); r.x.type = 'button'; r.x.className = 'small rpxb'; r.x.textContent = '\u00d7'; r.x.title = 'remove'; r.x.style.cssText = 'display:block;margin:6px 0 0'; nm.appendChild(r.x); }
+        [].forEach.call(row0.querySelectorAll('input'), function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
+        return row0;
+      }
+      SC.forEach(function (r) { sc.appendChild(scBuild(r, false)); });
+      var scn = 0, scAdd = document.createElement('button'); scAdd.type = 'button'; scAdd.className = 'small'; scAdd.textContent = '+ schedule'; scAdd.title = 'add one more schedule row'; scAdd.style.cssText = 'display:block;width:100%;margin:8px 0 0;padding:8px 6px';
+      scAdd.onclick = function () {
+        var r = { k: 'extra', lb: '+' + (++scn), ct: '', sf: '', ch: [] }, rw = scBuild(r, true);
+        sc.insertBefore(rw, scAdd); SC.push(r); r.sel.value = SC[0].sel.value; // the contents of the start row to begin with
+        r.x.onclick = function () { SC.splice(SC.indexOf(r), 1); sc.removeChild(rw); changed(); };
+        changed(); try { r.d.focus(); } catch (e) {}
+      };
+      sc.appendChild(scAdd);
       var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rpsp">optional</label><div class="fgcol"><input type="text" id="glih-rpsp" class="fin" autocomplete="off"></div>'; sc.appendChild(sw);
-      [].forEach.call(sc.querySelectorAll('input,select'), function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
+      [].forEach.call(sw.querySelectorAll('input,select'), function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
     })();
     // tour mode: one row per show (date / time / area / map). The title of a row = the title above + a full-width space + area + suffix; contents / url / groups ... are the ones above. A + button adds a row.
     var TR = { rows: [] };
@@ -2162,7 +2183,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         var l2 = document.createElement('div'); l2.className = 'rpl2'; col.appendChild(l2); // area (narrow) and the tags of this show on one line
         r.a = mk('fin rpa', '\u611b\u77e5'); l2.appendChild(r.a);
         r.g = mk('fin rpg', '\u30bf\u30b01,\u30bf\u30b02'); l2.appendChild(r.g);
-        r.m = mk('fin rpf rpmap', 'https://...'); col.appendChild(r.m);
+        r.m = mk('fin rpf rpmap', 'https://...'); col.appendChild(r.m); addMapHtml(r.m);
         addSuggest(r.a, areaOptions, r.a, true);
         addRowSuggest(r.m, r, 'map'); addRowSuggest(r.g, r, 'tags');
         [r.d, r.t].forEach(function (e) { e.addEventListener('input', function () { r.touched = true; }); });
@@ -2619,7 +2640,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     // id (top of the tab): shows the id of the release in the form. Typing a keyword lists the releases (like the id box of the logs tab); a release id or a logid loads that release / starts from that logs row.
     var idIn = alInput('id / title / logid (new: auto)'); idIn.id = 'glih-alid'; idIn.setAttribute('autocapitalize', 'off'); var idFld = alFld('id', idIn); $('alnew').parentNode.insertBefore(idFld, $('alnew').nextSibling); addClear(idIn);
     var idCand = document.createElement('div'); idCand.className = 'fcand'; idCand.hidden = true; idFld.parentNode.insertBefore(idCand, idFld.nextSibling);
-    var dtFld = dt.closest('.field'); dtFld.style.rowGap = '4px'; /* label-to-input gap like the logs / setlist date */ idCand.parentNode.insertBefore(dtFld, idCand.nextSibling); var wdDt = addWeekday(dt); dt.addEventListener('input', wdDt); // date: right under the id, with its weekday
+    var dtFld = dt.closest('.field'); dtFld.style.rowGap = '2px'; /* label-to-input gap like the logs / setlist date */ idCand.parentNode.insertBefore(dtFld, idCand.nextSibling); var wdDt = addWeekday(dt); dt.addEventListener('input', wdDt); // date: right under the id, with its weekday
     var tiFld = ti.closest('.field'), arFld = null, tiCand = null; // title / artist stay visible before a date is typed
     function dateGate() { var ok = okDate(DG(dt.value)); wdDt(); for (var n = dtFld.nextSibling; n; n = n.nextSibling) if (n.nodeType === 1) n.classList.toggle('algated', !ok && n !== tiFld && n !== arFld && n !== tiCand); } // everything under the date stays hidden until a date is typed (or a release is loaded)
     dt.addEventListener('input', dateGate);
@@ -2962,7 +2983,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   $('fdprev').onclick = function () { shiftDate(-1); };
   $('fdnext').onclick = function () { shiftDate(1); };
   $('fan').addEventListener('change', updateFind); $('ff').addEventListener('change', updateFind);
-  $('fcp').addEventListener('change', function () { [].forEach.call(document.querySelectorAll('#glih .dtarr'), function (b) { b.hidden = !$('fcp').checked; }); applyModeUI(); updateFind(); }); // setlist copy: the top date / time become the new setlistid
+  $('fcp').addEventListener('change', function () { applyModeUI(); updateFind(); }); // setlist copy: the top date / time become the new setlistid
   addClear($('fid'));
   $('fid').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doFind(); } });
   $('fkind').addEventListener('change', function () { clearFound(); hideCands(); $('fid').value = ''; dtSearch(); syncNew(); });
