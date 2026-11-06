@@ -4,6 +4,8 @@ import re
 import unicodedata
 from datetime import datetime, timedelta, timezone
 
+from common import is_blank, album_type_ok
+
 # フォームのラベルと完全一致させること
 # add_logs.yml
 # add_logs.yml の contents プルダウンの選択肢（自由入力の判定に使う）
@@ -90,10 +92,6 @@ CLEARABLE = {
 # 削除チェックボックスの選択肢名（add_logs.yml / add_setlist_songs.yml と揃える）
 DELETE_OPTION = "削除する"
 COPY_OPTION = "コピーして新規登録"  # logs: logid のデータをコピーして新規登録
-
-
-def is_blank(v):
-    return v is None or v == "" or v == [] or v == {}
 
 
 def extract_field(label, text):
@@ -865,10 +863,6 @@ def build_bulk(body):
 
 
 ALBUM_TYPES = ("album", "mini album", "ep", "single", "musiccard", "digital", "dvd", "blu-ray")  # 候補。typeは自由入力(小文字・1〜30文字・改行や|は不可)も可
-
-
-def album_type_ok(t):
-    return isinstance(t, str) and bool(re.fullmatch(r"[^\s|][^\n\r|]{0,29}", t)) and t == t.strip().lower()
 
 
 def build_albums(body):

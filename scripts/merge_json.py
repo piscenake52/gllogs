@@ -7,6 +7,8 @@ import uuid
 import copy
 import sys
 
+from common import is_blank, album_type_ok
+
 MAX_PROCESSED_FILES = 30
 CLEAR = "!clear"  # 既存値を消したいときにIssueへ入力する特別な値
 ARTIST_JOIN = ", "  # 複数アーティストの連結文字（issue_to_json.py と揃える）。分割は「, 」「、」「×」のどれでも読む
@@ -83,10 +85,6 @@ TARGETS = [
 
 
 # ---------- 共通ヘルパー ----------
-
-def is_blank(v):
-    return v is None or v == "" or v == [] or v == {}
-
 
 def is_clear(v):
     return v == CLEAR or v == [CLEAR]
@@ -728,8 +726,6 @@ LOGS_CTX = {"data": None, "changed": False}
 ALBUM_TYPES_OK = ("album", "mini album", "ep", "single", "musiccard", "digital", "dvd", "blu-ray")  # 候補。typeは自由入力も可
 
 
-def album_type_ok(t):
-    return isinstance(t, str) and bool(re.fullmatch(r"[^\s|][^\n\r|]{0,29}", t)) and t == t.strip().lower()
 ALBUM_ID_RE = re.compile(r"[0-9a-f]{12}")
 
 
