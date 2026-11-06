@@ -1,0 +1,29 @@
+{
+  "logid": "62e476c22ec8",
+  "sns": [
+    {
+      "type": "cl",
+      "urls": [
+        {
+          "url": "https://www.cl-live.com/posts/3Qbt4rRmcYTxALSCxUVsDn",
+          "member": [
+            "YUW"
+          ],
+          "tags": [
+            "深夜帯ですが"
+          ]
+        },
+        {
+          "url": "https://www.cl-live.com/posts/41UtsgnBBALh1DQc87Nw7Z",
+          "member": [
+            "AKR"
+          ],
+          "tags": [
+            "日付かわって"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3125"
+}
