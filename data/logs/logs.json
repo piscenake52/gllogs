@@ -3671,7 +3671,8 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
-      "HIR"
+      "HIR",
+      "KAN"
     ],
     "sns": [
       {
@@ -3689,6 +3690,16 @@
             "member": [],
             "tags": [
               "明日コラボキャス"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2118651892058488933?a=molcSe6mWcVubTbRf8Y&s=19",
+            "member": [
+              "KAN"
+            ],
+            "tags": [
+              "オフラキ",
+              "顔真っ赤"
             ]
           }
         ]
