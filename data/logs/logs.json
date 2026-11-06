@@ -3661,6 +3661,20 @@
             ]
           }
         ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSpj21EWM/",
+            "member": [
+              "MMK"
+            ],
+            "tags": [
+              "Umbrella"
+            ]
+          }
+        ]
       }
     ]
   },
