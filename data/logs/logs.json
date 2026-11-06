@@ -6312,7 +6312,21 @@
     "time": "",
     "contents": "ANNIVERSARY",
     "ref": "5c1ac0f20995",
-    "suffix": "開催記念日"
+    "suffix": "開催記念日",
+    "sns": [
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSp6acrrW/",
+            "member": [],
+            "tags": [
+              "Fancam"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "logid": "daf211fb48f9",
