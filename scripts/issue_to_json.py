@@ -47,6 +47,7 @@ LABELS_SS = {
     "copy_from": "COPY / コピー元 setlistid",
     "artist_check": "artist / 選択",
     "artist_free": "artist / 自由入力",
+    "vocal": "vocal",
     "title": "title",
     "link": "link",
     "lyrics": "lyrics",
@@ -86,7 +87,7 @@ CLEARABLE = {
     "logs": ["time", "contents", "title", "display_pc", "display_sp", "url", "map",
              "groups", "relations", "setlistid", "tags", "sns"],
     "setlist": ["artist", "title", "member", "venue", "weather", "source", "songs"],
-    "songs": ["link", "lyrics", "videos"],
+    "songs": ["vocal", "link", "lyrics", "videos"],
 }
 
 # 削除チェックボックスの選択肢名（add_logs.yml / add_setlist_songs.yml と揃える）
@@ -782,6 +783,7 @@ def parse_videos(raw):
 def build_songs(f):
     return {
         "artist": f["artist"],
+        "vocal": f.get("vocal", ""),
         "title": f["title"],
         "link": f["link"],
         "lyrics": f.get("lyrics", ""),
