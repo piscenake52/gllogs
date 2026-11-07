@@ -3700,6 +3700,33 @@
     ]
   },
   {
+    "logid": "b6a21e35ad49",
+    "date": "20261106",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2118696610276499869?s=19",
+            "member": [
+              "KIK"
+            ],
+            "tags": [
+              "3連続キャス配信"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "ab781ba9cb52",
     "date": "20261105",
     "time": "2359",
