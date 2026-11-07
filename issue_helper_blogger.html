@@ -2408,6 +2408,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function titleOpts() {
       var aSet = artSet(sa.value), all = (cache.songs || []).filter(function (r) { return r && typeof r.title === 'string' && r.title.trim(); });
       var mine = aSet.length ? all.filter(function (r) { var rs = artSet(r.artist); return aSet.every(function (x) { return rs.indexOf(x) >= 0; }); }) : [];
+      var vq = normQ(vo.value.trim()); // a vocal narrows the artist's songs further (empty vocal: as before)
+      if (vq && mine.length) { var mv2 = mine.filter(function (r) { return normQ(String(r.vocal || '')).indexOf(vq) >= 0; }); if (mv2.length) mine = mv2; }
       var out = [], seen = {};
       (mine.length ? mine : all).forEach(function (r) {
         var k = artKey(r.artist) + '\u0001' + r.title.trim(); if (seen[k]) return; seen[k] = 1;
@@ -2437,7 +2439,17 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       acs.appendChild(b);
     });
     sa.addEventListener('input', syncArt); syncArt();
-    var afield = sa.closest('.field'); afield.style.marginBottom = '6px'; /* the box -> chips gap, as in the logs tab */ afield.parentNode.insertBefore(arow, afield.nextSibling); arow.parentNode.insertBefore(vo.closest('.field'), arow.nextSibling); // vocal: free text, under the artist chips
+    var afield = sa.closest('.field'); afield.style.marginBottom = '6px'; /* the box -> chips gap, as in the logs tab */ var sugA = afield.nextSibling; if (sugA && sugA.classList && sugA.classList.contains('fsug')) afield = sugA; // the artist candidates stay right under the box, the chips come after them
+    afield.parentNode.insertBefore(arow, afield.nextSibling);
+    // vocal: free text under the artist chips. The cursor in it lists the vocals already used with the chosen artist (same artist set)
+    function vocalOpts() {
+      var k = artKey(sa.value), cnt = {}, out = []; if (!k) return out;
+      (cache.songs || []).forEach(function (r) { var v = r && String(r.vocal || '').trim(); if (v && artKey(r.artist) === k) cnt[v] = (cnt[v] || 0) + 1; });
+      Object.keys(cnt).forEach(function (v) { out.push({ v: v, k: normQ(v), n: cnt[v] }); });
+      return out;
+    }
+    arow.parentNode.insertBefore(vo.closest('.field'), arow.nextSibling);
+    addSuggest(vo, vocalOpts, vo.closest('.field'), true, false, function () { return !!artKey(sa.value); });
     function hasMine() { var a = artSet(sa.value); return a.length > 0 && (cache.songs || []).some(function (r) { if (!r || !r.title) return false; var rs = artSet(r.artist); return a.every(function (x) { return rs.indexOf(x) >= 0; }); }); }
     tsug = addSuggest(st, titleOpts, st.closest('.field'), false, false, hasMine); sa.addEventListener('change', function () { if (sa.value.trim()) tsug.show(); }); // an artist is chosen: the songs of it are listed when the cursor enters the title
     // videos (YouTube): rows of [type][url][x] + a tags box under each row. A type chip adds a row; typing in a row is free text. Sent as lines `type | url | tags` (replaces the whole list).
@@ -2714,11 +2726,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var ar = alInput('artist'), arChips = document.createElement('div'); arChips.className = 'chipr'; arChips.style.marginTop = '4px';
     var arCol = document.createElement('div'); arCol.style.flex = '1'; arCol.style.minWidth = '0'; ar.style.width = '100%'; arCol.appendChild(ar); // the Girls2 / Laki chips are gone: G2 / L2 of the member chips set the artist (like the setlist tab)
     arFld = alFld('artist', arCol, true); tiFld.parentNode.insertBefore(arFld, tiFld); // artist above title
-    var AL_ART = ['Girls\u00B2', 'Laki', 'Girls\u00B2 \u00D7 iScream', 'miracle\u00B2', 'magical\u00B2', 'mirage\u00B2', 'lovely\u00B2']; // artist chips (as the songs tab): Girls2 and Laki can both be on, the others one at a time
+    var AL_ART = ['Girls\u00B2', 'Laki', 'Girls\u00B2 \u00D7 iScream', '\u304A\u306F\u30AC\u30FC\u30EB', 'miracle\u00B2', 'magical\u00B2', 'mirage\u00B2', 'lovely\u00B2']; // artist chips (as the songs tab): Girls2 and Laki can both be on, the others one at a time
     arChips.style.marginTop = '6px'; arCol.appendChild(arChips);
     arChips.classList.add('artgrid');
     AL_ART.forEach(function (v, vi) {
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (vi === 3 ? ' artnl' : '') + (v.length > 10 ? ' artlong' : ''); b.textContent = v; b.setAttribute('data-v', v);
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (vi === 4 ? ' artnl' : '') + (v.length > 10 ? ' artlong' : ''); b.textContent = v; b.setAttribute('data-v', v);
       b.onclick = function () {
         ar.value = ar.value.trim() === v ? '' : v; // one chip at a time (a collaboration is typed in the box)
         ar.dispatchEvent(new Event('input', { bubbles: true })); if (ar.value.trim()) runTiSearch(); // the releases of the chosen artist are listed under the title
@@ -2729,7 +2741,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     addSuggest(ar, function () { return artistNameOpts('albums'); }, ar, true, 'artist');
     // member: the same input + chips as the setlist tab (hearts of the popup). It follows the artist while it is empty or still the automatic value.
     var me = alInput('member'), mw = document.createElement('span'); mw.className = 'fw'; mw.appendChild(me);
-    var meFld = alFld('member', mw); arFld.parentNode.insertBefore(meFld, arFld.nextSibling); meFld.hidden = true; /* no member chips: the member follows the artist */ // artist + member in one field
+    var meFld = alFld('member', mw); arFld.parentNode.insertBefore(meFld, arFld.nextSibling); meFld.hidden = true; dtFld.parentNode.insertBefore(arFld, dtFld); arFld.parentNode.insertBefore(meFld, arFld.nextSibling); /* artist: above the date */ /* no member chips: the member follows the artist */ // artist + member in one field
     var autoMem = '';
     function setMember(v) { me.value = v; autoMem = v; me.dispatchEvent(new Event('input', { bubbles: true })); }
     ar.addEventListener('input', function () {
