@@ -16,6 +16,12 @@ body:
     attributes:
       label: "artist / 自由入力"
 
+  - type: input
+    id: vocal
+    attributes:
+      label: "vocal"
+      description: "歌唱メンバー・ユニット名などの自由入力（例: artist=Girls² のとき vocal=○○）"
+
 
   - type: input
     id: item_title
@@ -52,6 +58,7 @@ body:
     attributes:
       label: "値の削除（更新時）"
       options:
+        - label: "vocal"
         - label: "link"
         - label: "lyrics"
         - label: "videos"
