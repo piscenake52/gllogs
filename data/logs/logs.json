@@ -3667,7 +3667,8 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
-      "MSK"
+      "MSK",
+      "YOK"
     ],
     "sns": [
       {
@@ -3678,6 +3679,13 @@
             "member": [],
             "tags": [
               "明日開催"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2118673072702312838?a=7ZkGhihGIVAq-LqLM0c&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
             ]
           }
         ]
@@ -3692,6 +3700,20 @@
             ],
             "tags": [
               "Umbrella"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSphdRDVB/",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "Wyw my sweetie"
             ]
           }
         ]

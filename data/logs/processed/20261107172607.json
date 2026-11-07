@@ -1,0 +1,37 @@
+{
+  "logid": "73629c62f2eb",
+  "groups": [
+    "G2",
+    "MSK",
+    "YOK"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2118673072702312838?a=7ZkGhihGIVAq-LqLM0c&s=19",
+          "member": [],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSphdRDVB/",
+          "member": [
+            "YOK"
+          ],
+          "tags": [
+            "Wyw my sweetie"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3168"
+}
