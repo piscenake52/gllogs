@@ -3344,6 +3344,7 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "YUW",
       "KIK"
     ],
     "sns": [
@@ -3357,6 +3358,20 @@
             ],
             "tags": [
               "あと8日ぷに"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DfcIpc7AVCb/?exln=YmR0MHc1cnQ5NDFk",
+            "member": [
+              "YUW"
+            ],
+            "tags": [
+              "片足立ち"
             ]
           }
         ]
