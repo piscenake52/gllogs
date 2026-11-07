@@ -3181,6 +3181,44 @@
     "suffix": "開催記念日"
   },
   {
+    "logid": "4cac3485be61",
+    "date": "20261107",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2118897706165055493?a=jRGuy-NaMzfoKljUEho&s=19",
+            "member": [],
+            "tags": [
+              "イベント情報"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2118871118404805036?a=sEE80-4EOAJSjUbxWBg&s=19",
+            "member": [],
+            "tags": [
+              "お願い"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "cfc0105d7262",
     "date": "20261106",
     "time": "2145",
