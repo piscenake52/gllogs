@@ -3417,7 +3417,10 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "HIR",
       "YUW",
+      "RRK",
+      "AKR",
       "KIK"
     ],
     "sns": [
@@ -3445,6 +3448,18 @@
             ],
             "tags": [
               "片足立ち"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DfbtBL9JKQ2/?psln=ODJlbmEyOGY3Zmdy",
+            "member": [
+              "HIR",
+              "YUW",
+              "RRK",
+              "AKR"
+            ],
+            "tags": [
+              "WORK≒LIFE"
             ]
           }
         ]

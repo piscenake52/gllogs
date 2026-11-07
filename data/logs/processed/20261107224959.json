@@ -1,0 +1,31 @@
+{
+  "logid": "945f3f736597",
+  "groups": [
+    "L2",
+    "HIR",
+    "YUW",
+    "RRK",
+    "AKR",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DfbtBL9JKQ2/?psln=ODJlbmEyOGY3Zmdy",
+          "member": [
+            "HIR",
+            "YUW",
+            "RRK",
+            "AKR"
+          ],
+          "tags": [
+            "WORK≒LIFE"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3189"
+}
