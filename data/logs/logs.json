@@ -3308,6 +3308,33 @@
     ]
   },
   {
+    "logid": "945f3f736597",
+    "date": "20261107",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2118991850803691916?a=mOBSOA7bZgoYPCtCNYA&s=19",
+            "member": [
+              "KIK"
+            ],
+            "tags": [
+              "あと8日ぷに"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "301a1d333ef9",
     "date": "20261106",
     "time": "2145",
