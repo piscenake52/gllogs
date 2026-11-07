@@ -3667,8 +3667,13 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YZH",
+      "MMK",
       "MSK",
-      "YOK"
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -3686,6 +3691,21 @@
             "member": [],
             "tags": [
               "TikTok更新"
+            ]
+          },
+          {
+            "url": "https://x.com/anation_navi/status/2118629485733990463?a=FGysDUhlXpEmaqcu8Fc&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "a-nation 2026"
             ]
           }
         ]
