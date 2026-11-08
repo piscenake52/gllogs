@@ -1,0 +1,29 @@
+{
+  "logid": "56b28a4c2aa6",
+  "groups": [
+    "G2",
+    "YZH",
+    "MMK",
+    "KUR",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/p/DfeV5ykGLEa/?obrf=ZHN6aDZrYmZsams0",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "いきなり本読み",
+            "石井杏奈",
+            "Dream Ami"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3219"
+}
