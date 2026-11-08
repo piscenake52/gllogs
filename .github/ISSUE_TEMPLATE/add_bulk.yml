@@ -35,4 +35,4 @@ body:
     id: bulk_target
     attributes:
       label: "bulk target"
-      description: "tags / sns / both (where the tag is: the tags of the row, the tags of each sns link, or both). Empty = tags"
+      description: "tags / sns / both (where the tag is: the tags of the row, the tags of each sns link, or both). Empty = tags. For title: title / pc / sp, comma separated (pc, sp = also display_pc, display_sp)"
