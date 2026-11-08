@@ -2682,6 +2682,48 @@
     ]
   },
   {
+    "logid": "83524709c209",
+    "date": "20261108",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/punirunes/status/2119225894480867503?a=GZUX_OB1lf9Dlgtj-S0&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "ぷにるんず",
+              "演技の模様"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "8f8c8f2edeaa",
     "date": "20261107",
     "time": "2359",

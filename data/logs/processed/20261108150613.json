@@ -1,0 +1,41 @@
+{
+  "date": "20261108",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "RIN",
+    "TBK",
+    "HIR",
+    "YUW",
+    "KAN",
+    "RRK",
+    "AKR",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/punirunes/status/2119225894480867503?a=GZUX_OB1lf9Dlgtj-S0&s=19",
+          "member": [
+            "RIN",
+            "TBK",
+            "HIR",
+            "YUW",
+            "KAN",
+            "RRK",
+            "AKR",
+            "KIK"
+          ],
+          "tags": [
+            "ぷにるんず",
+            "演技の模様"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3200"
+}
