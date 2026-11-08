@@ -807,7 +807,7 @@ def creation_stamp():
 
 
 BULK_MAX = 100
-BULK_OPS = ("replace", "add", "remove", "contents")
+BULK_OPS = ("replace", "add", "remove", "contents", "title")
 BULK_TARGETS = ("tags", "sns", "both")  # タグの場所: 行のtags / 各snsリンクのtags / 両方
 
 
@@ -834,13 +834,18 @@ def build_bulk(body):
     if len(ids) > BULK_MAX:
         errors.append(f"- **bulk ids**: {BULK_MAX}件を超えているため処理しません（{len(ids)}件）")
     if op not in BULK_OPS:
-        errors.append("- **bulk op**: replace / add / remove / contents のどれかを入力してください")
+        errors.append("- **bulk op**: replace / add / remove / contents / title のどれかを入力してください")
     if target not in BULK_TARGETS:
         errors.append("- **bulk target**: tags / sns / both のどれかを入力してください")
     value = ""
     if op == "replace":
         if not v_from or not v_to:
             errors.append("- **bulk from / to**: replace では from と to の両方が必要です")
+        elif v_from == v_to:
+            errors.append("- **bulk from / to**: from と to が同じです")
+    elif op == "title":
+        if not v_from:
+            errors.append("- **bulk from**: title の置換前の文字列を入力してください")
         elif v_from == v_to:
             errors.append("- **bulk from / to**: from と to が同じです")
     elif op in ("add", "contents"):
@@ -858,9 +863,9 @@ def build_bulk(body):
     if errors:
         return None, errors
     bulk = {"op": op, "ids": ids}
-    if op != "contents":
+    if op not in ("contents", "title"):
         bulk["target"] = target
-    if op == "replace":
+    if op in ("replace", "title"):
         bulk["from"], bulk["to"] = v_from, v_to
     else:
         bulk["value"] = value

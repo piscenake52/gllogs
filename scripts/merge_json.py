@@ -927,7 +927,7 @@ def _bulk_tags(obj, bulk):
 
 
 def apply_bulk(target, main_data, bulk):
-    """bulk変更(logsのみ): tags の置換 / 追加 / 削除、contents の変更。戻り値: 実際に変わった行数。
+    """bulk変更(logsのみ): tags の置換 / 追加 / 削除、contents の変更、title の文字列置換。戻り値: 実際に変わった行数。
     すでに同じ状態の行（同じタグがある・無い、同じ contents）は黙って飛ばす。見つからない logid は通知する"""
     if target["name"] != "logs" or not isinstance(bulk, dict):
         return 0
@@ -958,6 +958,12 @@ def apply_bulk(target, main_data, bulk):
                             did = _bulk_tags(u, bulk) or did
             if not did:
                 continue
+        elif op == "title":
+            old, new = bulk.get("from"), bulk.get("to") or ""
+            t = row.get("title")
+            if not old or not isinstance(t, str) or old not in t or old == new:
+                continue
+            row["title"] = t.replace(old, new)
         elif op == "contents":
             v = bulk.get("value")
             if not v or row.get("contents") == v:
