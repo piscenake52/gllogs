@@ -248,7 +248,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .snstog { margin:6px 0 4px; display:flex; gap:6px; } #glih .snstog > button { flex:1 1 0; min-width:0; } /* two toggles: sns links (left) / Fancam links (right); only one list is open at a time */
 #glih .snsc.v-fc .snsl .is-ot, #glih .snsc.v-ot .snsl .is-fc { display:none !important; } #glih .snsc.v-fc .snstog ~ .fw { display:none; } /* the free text box belongs to the sns links view */
 #glih .snsc { border:1px solid var(--line); border-radius:10px; padding:8px 8px 2px; margin:8px 0; } /* the whole sns block in a frame */
-#glih .bkstep { margin-top:20px; } #glih .bkstep:first-child { margin-top:0; } /* a little space between the steps */
+#glih .bkp .field { flex-direction:column; align-items:stretch; gap:3px; } #glih .bkp .field > label { flex:none; } #glih .bkp .field .fin { width:100%; } #glih .bkp .bkdt { width:100%; } /* bulk: the label sits above the box and the box uses the full width */
+#glih .bkp .bkgap { margin-top:20px; } #glih .bkp > .go { margin-bottom:10px; }
+#glih .bks { font-size:12px; line-height:1.5; padding:4px 0; border-bottom:1px solid var(--line); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } #glih .bks:last-child { border-bottom:0; } #glih .bks i { font-style:normal; color:var(--sub); margin-right:6px; } /* search result: one line per row */
 #glih .fbh { margin-bottom:4px; } #glih .fbh + .fbox, #glih .fbh + .snsc { margin-top:0; } /* the title / sns label sits above its frame */
 #glih .fbox > .field:not([hidden]):nth-of-type(1) > label:first-child, #glih .snsc > .field:first-child > label:first-child { display:none; }
 #glih .fbox { border:1px solid var(--line); border-radius:10px; padding:8px 8px 2px; margin:8px 0; } /* title / display_pc / display_sp in a frame */
@@ -325,21 +327,19 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 
 <div hidden><div class="chips" id="glih-groups"><div class="cr"><button type="button" class="chip" data-v="G2">G2</button><button type="button" class="chip" data-v="L2">L2</button></div><div class="cr"><button type="button" class="chip" data-v="YZH">YZH</button><button type="button" class="chip" data-v="MMK">MMK</button><button type="button" class="chip" data-v="MSK">MSK</button><button type="button" class="chip" data-v="YOK">YOK</button><button type="button" class="chip" data-v="KUR">KUR</button><button type="button" class="chip" data-v="MNM">MNM</button><button type="button" class="chip" data-v="KIR">KIR</button></div><div class="cr"><button type="button" class="chip" data-v="TOA">TOA</button><button type="button" class="chip" data-v="RAN">RAN</button></div><div class="cr"><button type="button" class="chip" data-v="RIN">RIN</button><button type="button" class="chip" data-v="TBK">TBK</button><button type="button" class="chip" data-v="HIR">HIR</button><button type="button" class="chip" data-v="YUW">YUW</button><button type="button" class="chip" data-v="KAN">KAN</button><button type="button" class="chip" data-v="RRK">RRK</button><button type="button" class="chip" data-v="AKR">AKR</button><button type="button" class="chip" data-v="KIK">KIK</button></div><div class="cr"><button type="button" class="chip" data-v="YUR">YUR</button></div></div></div>
 
-<section id="glih-p-bulk" hidden>
-  <div class="field bkstep"><label>step 1</label><b class="bkh">filter</b></div>
-  <div class="field"><label for="glih-bktag">tag</label><input type="text" id="glih-bktag" class="fin" autocomplete="off"></div>
+<section id="glih-p-bulk" class="bkp" hidden>
+  <button type="button" class="go" id="glih-bknew">new</button>
   <div class="field"><label for="glih-bkd1">date</label><div class="bkdt"><input type="text" id="glih-bkd1" class="fin" inputmode="numeric" autocomplete="off"><span>-</span><input type="text" id="glih-bkd2" class="fin" inputmode="numeric" autocomplete="off"></div></div>
+  <div class="field"><label>groups</label><div class="chipr" id="glih-bkgrp"><button type="button" class="chip" data-v="G2" aria-pressed="false">G2</button><button type="button" class="chip" data-v="L2" aria-pressed="false">L2</button></div></div>
   <div class="field"><label for="glih-bkcon">contents</label><input type="text" id="glih-bkcon" class="fin" autocomplete="off" autocapitalize="off"></div>
-  <div class="field"><label for="glih-bkgrp">groups</label><span class="fw"><input type="text" id="glih-bkgrp" class="fin" autocomplete="off" autocapitalize="off"></span></div>
-  <div class="field"><label for="glih-bktxt">text</label><input type="text" id="glih-bktxt" class="fin" autocomplete="off"></div>
+  <div class="field"><label for="glih-bktitle">title</label><input type="text" id="glih-bktitle" class="fin" autocomplete="off"></div>
+  <div class="field"><label for="glih-bktag">tags</label><input type="text" id="glih-bktag" class="fin" autocomplete="off"></div>
   <button type="button" class="go" id="glih-bkgo">search</button>
-  <div class="field bkstep"><label>step 2</label><b class="bkh">operation</b></div>
-  <div class="field"><label>do</label><div class="chipr" id="glih-bkops"><button type="button" class="chip on" data-op="replace" aria-pressed="true">tag replace</button><button type="button" class="chip" data-op="add" aria-pressed="false">tag add</button><button type="button" class="chip" data-op="remove" aria-pressed="false">tag remove</button><button type="button" class="chip" data-op="contents" aria-pressed="false">contents</button></div></div>
+  <div class="field bkgap"><label>do</label><div class="chipr" id="glih-bkops"><button type="button" class="chip on" data-op="replace" aria-pressed="true">tag replace</button><button type="button" class="chip" data-op="add" aria-pressed="false">tag add</button><button type="button" class="chip" data-op="remove" aria-pressed="false">tag remove</button><button type="button" class="chip" data-op="contents" aria-pressed="false">contents</button><button type="button" class="chip" data-op="title" aria-pressed="false">title replace</button></div></div>
   <div class="field" id="glih-bktgrow"><label>target</label><div class="chipr" id="glih-bktg"><button type="button" class="chip on" data-tg="tags" aria-pressed="true">tags</button><button type="button" class="chip" data-tg="sns" aria-pressed="false">sns tags</button><button type="button" class="chip" data-tg="both" aria-pressed="false">both</button></div></div>
   <div class="field" id="glih-bkfromrow"><label for="glih-bkfrom" id="glih-bkfromlb">before</label><input type="text" id="glih-bkfrom" class="fin" autocomplete="off"></div>
   <div class="field" id="glih-bktorow"><label for="glih-bkto" id="glih-bktolb">after</label><input type="text" id="glih-bkto" class="fin" autocomplete="off"></div>
   <button type="button" class="go" id="glih-bkpv">preview</button>
-  <div class="field bkstep"><label>step 3</label><b class="bkh">preview <span id="glih-bkcount"></span></b></div>
   <div class="bkl" id="glih-bklist" hidden></div>
   <div class="fdiff" id="glih-bkinfo"></div>
   <a class="go" id="glih-go-bulk" target="_blank" rel="noopener" aria-disabled="true">Issue</a>
@@ -1013,15 +1013,28 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       });
       busy = false;
     }
-    var GRAD = ['TOA', 'RAN', 'YUR'], lastTap = { G2: 0, L2: 0 }, bypass = false; // graduated members: not picked by a double tap on G2 / L2
+    var GRAD = ['TOA', 'RAN', 'YUR'], bypass = false; // graduated members: not picked by a long press on G2 / L2
     ['G2', 'L2'].forEach(function (g) {
       var h = head[g]; if (!h) return;
-      h.addEventListener('click', function (e) { // double tap (2 clicks within 350ms): the group ON and all of its members picked (graduated ones excluded)
+      // long press (about 0.4s) on G2 / L2: the group ON and all of its members picked (graduated ones excluded). A short tap works as before, so nothing flickers
+      var timer = 0, fired = false, sx = 0, sy = 0;
+      function stop() { if (timer) { clearTimeout(timer); timer = 0; } }
+      h.addEventListener('pointerdown', function (e) {
+        if (e.button) return; fired = false; sx = e.clientX; sy = e.clientY; stop();
+        timer = setTimeout(function () {
+          timer = 0; fired = true;
+          if (!h.classList.contains(cls)) { bypass = true; h.click(); bypass = false; }
+          mem[g].forEach(function (b) { if (GRAD.indexOf(b.getAttribute('data-v')) < 0 && !b.classList.contains('on')) b.click(); });
+          try { if (navigator.vibrate) navigator.vibrate(15); } catch (er) {}
+        }, 400);
+      });
+      ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (t) { h.addEventListener(t, stop); });
+      h.addEventListener('pointermove', function (e) { if (timer && (Math.abs(e.clientX - sx) > 8 || Math.abs(e.clientY - sy) > 8)) stop(); });
+      h.addEventListener('contextmenu', function (e) { e.preventDefault(); }); // no menu on a long press (phones)
+      h.style.webkitTouchCallout = 'none'; h.style.userSelect = 'none'; h.style.webkitUserSelect = 'none';
+      h.addEventListener('click', function (e) { // the click that follows a long press must not toggle the group
         if (bypass) return;
-        var now = Date.now(), dbl = now - lastTap[g] < 350; lastTap[g] = dbl ? 0 : now; if (!dbl) return;
-        e.stopImmediatePropagation(); e.preventDefault();
-        if (!h.classList.contains(cls)) { bypass = true; h.click(); bypass = false; }
-        mem[g].forEach(function (b) { if (GRAD.indexOf(b.getAttribute('data-v')) < 0 && !b.classList.contains('on')) b.click(); });
+        if (fired) { fired = false; e.stopImmediatePropagation(); e.preventDefault(); }
       }, true);
       h.addEventListener('click', function (e) { // capture-phase work: a chip that only looks ON (members selected, data not ON) turns the group OFF at once
         if (h.classList.contains('fold-on') && !h.classList.contains(cls)) { e.stopImmediatePropagation(); h.classList.remove('fold-on'); offMembers(g); refresh(); }
@@ -1105,6 +1118,36 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     el.addEventListener('input', sync); sync();
     wrap.appendChild(b);
   }
+  // Fancam box paste -> every url found in the pasted text is inserted on its own line (the sns box is not touched).
+  // 1) the paste event. 2) a fallback for keyboards that insert the text without a paste event (the clipboard panel of an IME): the input event that inserted urls is split the same way.
+  function pasteUrls(ta) {
+    var URL_RE = /https?:\/\/[\x21-\x7b\x7d-\x7e]+/gi; // ASCII only, no space / | : text glued to the url (kana / kanji) is not part of it
+    function split(text) { return text.match(URL_RE) || []; }
+    function put(ins) {
+      var a = ta.selectionStart, b = ta.selectionEnd, v = ta.value, pre = v.slice(0, a), post = v.slice(b);
+      if (pre && !/\n$/.test(pre)) ins = '\n' + ins;
+      ta.value = pre + ins + post; ta.selectionStart = ta.selectionEnd = (pre + ins).length;
+      ta.dispatchEvent(new Event('input', { bubbles: true, composed: false }));
+    }
+    var busy = false, last = ta.value;
+    ta.addEventListener('paste', function (e) {
+      var cd = e.clipboardData || window.clipboardData; if (!cd) return;
+      var urls = split(cd.getData('text') || ''); if (!urls.length) return;
+      e.preventDefault(); busy = true; put(urls.join('\n') + '\n'); busy = false; last = ta.value;
+    });
+    ta.addEventListener('input', function (e) {
+      if (busy) return;
+      var v = ta.value, p = ta.selectionStart, it = e && e.inputType || '', d = e && e.data || '';
+      // text that went in without a paste event: a paste type, or a long run of text holding a url
+      var pasted = /^insertFromPaste|^insertReplacementText|^insertFromYank|^insertFromDrop/.test(it) || (d.length > 8 && split(d).length > 0);
+      if (!pasted) { last = v; return; }
+      var ins = v.length - last.length; if (ins <= 0) { last = v; return; }
+      var start = p - ins; if (start < 0 || v.slice(0, start) !== last.slice(0, start)) { last = v; return; }
+      var chunk = v.slice(start, p), urls = split(chunk);
+      if (!urls.length) { last = v; return; }
+      busy = true; ta.value = v.slice(0, start) + v.slice(p); ta.selectionStart = ta.selectionEnd = start; put(urls.join('\n') + '\n'); busy = false; last = ta.value;
+    });
+  }
   // sns input helper (find tab, logs): a url box + type + member chips. 'add' appends one line (type | url | member) to the sns textarea, which stays as it is.
   function addSnsHelper(el) {
     var fw = el.parentNode, col = document.createElement('div'); col.className = 'fgcol';
@@ -1126,10 +1169,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         if (add.length) { ge.value = cur.concat(add).join(','); ge.dispatchEvent(new Event('input', { bubbles: true })); }
       }, 0);
     });
+    // focus guard: a tap on a chip (a button) does not move the focus on iOS, so the caret stayed in the url box (and the keyboard with it). A chip tap now releases the url box, and a tap on the tags box always takes the focus.
+    box.addEventListener('pointerdown', function (e) { var c = e.target && e.target.closest ? e.target.closest('.chip') : null; if (c && box.contains(c)) { var ae = document.activeElement; if (ae && ae !== document.body && /^(INPUT|TEXTAREA)$/.test(ae.tagName) && box.contains(ae)) ae.blur(); } }, true);
     var tlb = document.createElement('div'); tlb.className = 'setlbl'; tlb.textContent = 'tags'; box.appendChild(tlb);
     var trow = document.createElement('div'); trow.className = 'row'; box.appendChild(trow);
     var tg = document.createElement('input'); tg.type = 'text'; tg.className = 'fin'; tg.setAttribute('autocomplete', 'off'); tg.setAttribute('spellcheck', 'false');
     var tw = document.createElement('span'); tw.className = 'fw'; tw.appendChild(tg); trow.appendChild(tw);
+    tg.addEventListener('pointerup', function () { setTimeout(function () { if (document.activeElement !== tg) tg.focus(); }, 0); }); // the tap lands on the tags box: the caret goes there even when the layout moved under the finger
     function tagList(v) { return v.split(/[,\u3001]/).map(function (x) { return x.trim(); }).filter(Boolean); }
     var arow = document.createElement('div'); arow.className = 'row btns'; arow.appendChild(add); box.appendChild(arow); // the add button: full width under the tags (the same size as the Fancam button)
     tg._sync = function () {}; // Fancam is entered only from the Fancam box
@@ -1159,6 +1205,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var ftog = document.createElement('div'); ftog.className = 'row btns fcdiv'; var ftb = document.createElement('button'); ftb.type = 'button'; ftb.className = 'small'; ftog.appendChild(ftb); box.appendChild(ftog); box.appendChild(fcb);
     function fcOpen(on) { fcb.style.display = on ? '' : 'none'; ftb.textContent = 'Fancam ' + (on ? '\u25B4' : '\u25BE'); ftb.setAttribute('aria-expanded', on ? 'true' : 'false'); } fcOpen(false); ftb.onclick = function () { fcOpen(fcb.style.display === 'none'); };
     var fta = document.createElement('textarea'); fta.className = 'fin'; fta.rows = 4; fta.setAttribute('autocomplete', 'off'); fta.setAttribute('spellcheck', 'false'); fta.setAttribute('autocapitalize', 'off'); fta.placeholder = 'https://...';
+    pasteUrls(fta);
     var ftw = document.createElement('span'); ftw.className = 'fw'; ftw.appendChild(fta); fcb.appendChild(ftw);
     var frow = document.createElement('div'); frow.className = 'row btns'; var fadd = document.createElement('button'); fadd.type = 'button'; fadd.className = 'small'; fadd.textContent = 'add Fancam'; frow.appendChild(fadd); fcb.appendChild(frow);
     var fmsg = document.createElement('div'); fmsg.className = 'setlbl'; fcb.appendChild(fmsg);
@@ -3198,13 +3245,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   var CIRC_RE = new RegExp('[' + String.fromCharCode(0x2460) + '-' + String.fromCharCode(0x2473) + ']', 'g'), KS_RE = new RegExp('^(' + String.fromCharCode(0x203b) + '|mc\\b)', 'i'), ENC_RE = new RegExp('^(encore|' + String.fromCharCode(0x30a2, 0x30f3, 0x30b3, 0x30fc, 0x30eb) + ')\\s*$', 'i'), SL_RE = new RegExp('set\\s*list|' + String.fromCharCode(0x30bb, 0x30c3, 0x30c8, 0x30ea, 0x30b9, 0x30c8), 'i'), EN_RE = new RegExp('^(?:encore|en|' + String.fromCharCode(0x30a2, 0x30f3, 0x30b3, 0x30fc, 0x30eb) + ')\\s*(\\d+)\\s*[.):\\-]?\\s*', 'i'), STAR_RE = new RegExp('\\s*[' + String.fromCharCode(0x2605, 0x2606) + ']\\s*(.*)$');
   function extraUI() {} // (the paste block was removed: the songs box takes numbered lines directly)
   // ---- bulk tab (logs only): filter -> choose rows -> one operation (tag replace / add / remove, contents) -> one Issue (add_bulk.yml). Up to 100 rows. Rows that are already in the target state are skipped. ----
-  var TPL_BULK = 'add_bulk.yml', BK_MAX = 100, BK_SHOW = 300, bk = { rows: [], sel: {}, op: 'replace', tg: 'tags', total: 0, msg: '', show: false }; // show: the list of step 3 is drawn only after the preview button
+  var TPL_BULK = 'add_bulk.yml', BK_MAX = 100, BK_SHOW = 300, bk = { rows: [], sel: {}, op: 'replace', tg: 'tags', total: 0, msg: '', show: false, grp: [] }; // show: the list of step 3 is drawn only after the preview button
   function bkTags(r) { return Array.isArray(r.tags) ? r.tags : []; }
   function bkVals() { return { a: $('bkfrom').value.trim(), b: $('bkto').value.trim() }; }
   function bkSnsUrls(r) { var o = []; (Array.isArray(r.sns) ? r.sns : []).forEach(function (e) { (e && Array.isArray(e.urls) ? e.urls : []).forEach(function (u) { if (u && typeof u === 'object') o.push(u); }); }); return o; }
   function bkSnsTags(u) { return Array.isArray(u.tags) ? u.tags : []; }
   function bkChange(r) { // the change of one row for the chosen operation (target: tags / sns tags of each link / both), or '' when the row would not change
     var v = bkVals(), op = bk.op, tg = bk.tg;
+    if (op === 'title') { var t0 = String(r.title || ''); return v.a && v.a !== v.b && t0.indexOf(v.a) >= 0 ? 'title: ' + v.a + ' > ' + (v.b || '(delete)') : ''; }
     if (op === 'contents') { var c = v.b.toUpperCase(); return c && c !== 'ANNIVERSARY' && c !== 'BIRTHDAY' && (r.contents || 'ETC') !== c ? 'contents: ' + (r.contents || 'ETC') + ' > ' + c : ''; }
     function hit(t) { return op === 'replace' ? v.a && v.b && v.a !== v.b && t.indexOf(v.a) >= 0 : op === 'add' ? v.b && t.indexOf(v.b) < 0 : v.a && t.indexOf(v.a) >= 0; }
     var lb = op === 'replace' ? v.a + ' > ' + v.b : op === 'add' ? '+ ' + v.b : '- ' + v.a, out = [];
@@ -3228,7 +3276,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function bkSearch(showAfter) {
     bk.show = !!showAfter;
     var d1 = digits($('bkd1').value), d2 = digits($('bkd2').value);
-    var f = { tag: normQ($('bktag').value.trim()), d1: d1.length === 8 ? d1 : '', d2: d2.length === 8 ? d2 : '', con: $('bkcon').value.split(/[,\s]+/).filter(Boolean).map(function (x) { return x.toUpperCase(); }), grp: $('bkgrp').value.split(/[,\s]+/).filter(Boolean).map(function (x) { return x.toUpperCase(); }), txt: normQ($('bktxt').value.trim()) };
+    var f = { tag: normQ($('bktag').value.trim()), d1: d1.length === 8 ? d1 : '', d2: d2.length === 8 ? d2 : '', con: $('bkcon').value.split(/[,\s]+/).filter(Boolean).map(function (x) { return x.toUpperCase(); }), grp: bk.grp.slice(), txt: normQ($('bktitle').value.trim()) };
     if (!f.tag && !f.d1 && !f.d2 && !f.con.length && !f.grp.length && !f.txt) { bk.rows = []; bk.total = 0; bk.msg = 'set at least one filter'; bkDraw(); return; }
     bk.msg = 'loading...'; bkDraw();
     fetchData('logs').then(function (all) {
@@ -3239,31 +3287,34 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }).catch(function () { bk.msg = 'could not load logs.json'; bkDraw(); });
   }
   function bkSync() { // op-dependent inputs + the Issue link
-    var op = bk.op, lbA = { replace: 'before', remove: 'tag' }[op], lbB = { replace: 'after', add: 'tag', contents: 'contents' }[op];
-    $('bktgrow').hidden = op === 'contents'; [].forEach.call(root.querySelectorAll('#glih-bktg .chip'), function (b) { var on = b.getAttribute('data-tg') === bk.tg; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+    var op = bk.op, lbA = { replace: 'before', remove: 'tag', title: 'before' }[op], lbB = { replace: 'after', add: 'tag', contents: 'contents', title: 'after' }[op];
+    $('bktgrow').hidden = op === 'contents' || op === 'title'; [].forEach.call(root.querySelectorAll('#glih-bktg .chip'), function (b) { var on = b.getAttribute('data-tg') === bk.tg; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
     $('bkfromrow').hidden = !lbA; $('bktorow').hidden = !lbB; if (lbA) $('bkfromlb').textContent = lbA; if (lbB) $('bktolb').textContent = lbB;
     [].forEach.call(root.querySelectorAll('#glih-bkops .chip'), function (b) { var on = b.getAttribute('data-op') === op; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
     var ids = [], v = bkVals();
     bk.rows.forEach(function (r) { if (bk.sel[r.logid] && bkChange(r)) ids.push(r.logid); });
-    var need = op === 'replace' ? v.a && v.b && v.a !== v.b : op === 'remove' ? !!v.a : !!v.b, info = '';
+    var need = op === 'replace' ? v.a && v.b && v.a !== v.b : op === 'title' ? v.a && v.a !== v.b : op === 'remove' ? !!v.a : !!v.b, info = '';
     if (!bk.rows.length) info = bk.msg || (bk.total ? '' : 'no rows');
     else if (bk.total > BK_SHOW) info = bk.total + ' rows match; narrow the filter (shows ' + BK_SHOW + ')';
-    else if (!bk.show) info = bk.total + ' rows match. Set step 2, then press preview.';
+    else if (!bk.show) info = bk.total + ' rows match. Set the operation, then press preview.';
     else if (!need) info = 'enter the values';
     else if (!ids.length) info = 'no row will change';
     else if (ids.length > BK_MAX) info = ids.length + ' rows checked: over ' + BK_MAX + ', not sent. Uncheck or narrow the filter.';
     else info = ids.length + ' rows will change.';
-    $('bkinfo').textContent = info; $('bkcount').textContent = bk.rows.length ? '(' + ids.length + ' / ' + bk.rows.length + ' checked, max ' + BK_MAX + ')' : '';
-    var ok = bk.show && need && !$('bkcon').classList.contains('asbad') && !$('bkgrp').classList.contains('asbad') && ids.length >= 1 && ids.length <= BK_MAX && bk.total <= BK_SHOW, p = { bulk_ids: ids.join('\n'), bulk_op: op };
-    if (op === 'replace') { p.bulk_from = v.a; p.bulk_to = v.b; } else if (op === 'remove') p.bulk_from = v.a; else p.bulk_to = v.b;
-    if (op !== 'contents') p.bulk_target = bk.tg;
+    $('bkinfo').textContent = info; 
+    var ok = bk.show && need && !$('bkcon').classList.contains('asbad') && ids.length >= 1 && ids.length <= BK_MAX && bk.total <= BK_SHOW, p = { bulk_ids: ids.join('\n'), bulk_op: op };
+    if (op === 'replace' || op === 'title') { p.bulk_from = v.a; p.bulk_to = v.b; } else if (op === 'remove') p.bulk_from = v.a; else p.bulk_to = v.b;
+    if (op !== 'contents' && op !== 'title') p.bulk_target = bk.tg;
     var url = ok ? issueUrl(TPL_BULK, p) : '';
     if (url.length > 7000) { url = ''; $('bkinfo').textContent = 'the URL is too long; uncheck some rows'; }
     setLink($('go-bulk'), url); $('go-bulk').textContent = ids.length ? 'Issue (' + ids.length + ')' : 'Issue';
     return ids.length;
   }
   function bkDraw() {
-    var box = $('bklist'); box.innerHTML = ''; box.hidden = !bk.rows.length || !bk.show;
+    var box = $('bklist'); box.innerHTML = ''; box.hidden = !bk.rows.length;
+    if (!bk.show) { // after search: one short line per row (date time contents title); the checkboxes come with preview
+      bk.rows.forEach(function (r) { var d = document.createElement('div'); d.className = 'bks'; var i = document.createElement('i'); i.textContent = fmtD(r.date, r.time) + ' ' + (r.contents || 'ETC'); d.appendChild(i); d.appendChild(document.createTextNode(r.title || '')); box.appendChild(d); });
+    }
     (bk.show ? bk.rows : []).forEach(function (r) {
       var ch = bkChange(r), row = document.createElement('div'); row.className = 'bkrow' + (ch ? '' : ' off');
       var lb = document.createElement('label'); lb.className = 'chk'; var cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!(ch && bk.sel[r.logid]); cb.disabled = !ch;
@@ -3278,23 +3329,28 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   [].forEach.call(root.querySelectorAll('#glih-bkops .chip'), function (b) { b.onclick = function () { bk.op = b.getAttribute('data-op'); bkDraw(); }; });
   [].forEach.call(root.querySelectorAll('#glih-bktg .chip'), function (b) { b.onclick = function () { bk.tg = b.getAttribute('data-tg'); bkDraw(); }; });
   ['bkfrom', 'bkto'].forEach(function (id) { $(id).addEventListener('input', bkDraw); });
-  ['bktag', 'bkd1', 'bkd2', 'bkcon', 'bkgrp', 'bktxt'].forEach(function (id) { $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); bkSearch(false); } }); });
+  ['bktag', 'bkd1', 'bkd2', 'bkcon', 'bktitle'].forEach(function (id) { $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); bkSearch(false); } }); });
   $('bkgo').onclick = function () { bkSearch(false); };
   $('bkpv').onclick = function () { if (bk.rows.length) { bk.show = true; bkDraw(); } else bkSearch(true); }; // preview: draws the list with the changes of step 2 (no rows yet: searches first)
   // candidates while typing: tags used in logs.json (tag / from / to), contents values, group codes
-  var bkGrpOpts = function () { return CK_VALID.map(function (g) { return { v: g, k: normQ(g) }; }); };
   [$('bkd1'), $('bkd2')].forEach(function (e) { dtText(e, 'date'); dtPicker(e, 'date'); }); // date: YYYY/MM/DD + the calendar icon (the same as the other tabs)
-  addGroupChips($('bkgrp')); // groups: member chips under the text box (two-way synced)
+  [].forEach.call(root.querySelectorAll('#glih-bkgrp .chip'), function (b) { // groups: G2 / L2 only (no member picks)
+    b.onclick = function () { var v = b.getAttribute('data-v'), i = bk.grp.indexOf(v); if (i >= 0) bk.grp.splice(i, 1); else bk.grp.push(v); [].forEach.call(root.querySelectorAll('#glih-bkgrp .chip'), function (c) { var on = bk.grp.indexOf(c.getAttribute('data-v')) >= 0; c.classList.toggle('on', on); c.setAttribute('aria-pressed', on ? 'true' : 'false'); }); };
+  });
+  $('bknew').onclick = function () { // new: clear every input and go back to the first state
+    ['bktag', 'bkd1', 'bkd2', 'bkcon', 'bktitle', 'bkfrom', 'bkto'].forEach(function (id) { var e = $(id); e.value = ''; e.classList.remove('asbad', 'bad'); if (e._ah) e._ah.hidden = true; e.dispatchEvent(new Event('input', { bubbles: true })); });
+    bk.grp = []; [].forEach.call(root.querySelectorAll('#glih-bkgrp .chip'), function (c) { c.classList.remove('on'); c.setAttribute('aria-pressed', 'false'); });
+    bk.rows = []; bk.sel = {}; bk.op = 'replace'; bk.tg = 'tags'; bk.total = 0; bk.msg = ''; bk.show = false; bkDraw();
+  };
   addSuggest($('bktag'), tagOptsFor('logs'), $('bktag').closest('.field'), true);
-  addSuggest($('bkfrom'), tagOptsFor('logs'), $('bkfrom').closest('.field'), true);
-  addSuggest($('bkto'), function () { return bk.op === 'contents' ? lxContents() : tagOptsFor('logs')(); }, $('bkto').closest('.field'), true);
+  addSuggest($('bkfrom'), function () { return bk.op === 'title' ? [] : tagOptsFor('logs')(); }, $('bkfrom').closest('.field'), true);
+  addSuggest($('bkto'), function () { return bk.op === 'contents' ? lxContents() : bk.op === 'title' ? [] : tagOptsFor('logs')(); }, $('bkto').closest('.field'), true);
   addSuggest($('bkcon'), lxContents, $('bkcon').closest('.field'), true, true);
-  addSuggest($('bkgrp'), bkGrpOpts, $('bkgrp').closest('.field'), true, true);
   bkSync();
   // ---- ASCII-only fields: id / contents / groups / relations / member / url / map / setlistid / songs link ----
   // The browser cannot force the IME off, so: the soft keyboard type is hinted (inputmode), and full-width letters / digits / symbols are turned into half-width as they are entered (not while composing). Fields that take Japanese text are left alone.
-  var ASCII_IDS = { 'fid': 'email', 'f-contents': 'email', 'f-groups': 'email', 'f-relations': 'email', 'f-member': 'email', 'f-url': 'url', 'f-map': 'url', 'f-setlistid': 'numeric', 'sl': 'url', 'fdd': 'numeric', 'fdt': 'numeric', 'bkd1': 'numeric', 'bkd2': 'numeric', 'bkcon': 'email', 'bkgrp': 'email' }; // email: the Latin keyboard on phones (the keyboard language cannot be switched from a page, only the keyboard type is hinted)
-  var ASCII_LIST = { 'f-groups': 1, 'f-relations': 1, 'f-member': 1, 'bkcon': 1, 'bkgrp': 1 }; // comma separated codes: a full-width / ideographic comma becomes ','
+  var ASCII_IDS = { 'fid': 'email', 'f-contents': 'email', 'f-groups': 'email', 'f-relations': 'email', 'f-member': 'email', 'f-url': 'url', 'f-map': 'url', 'f-setlistid': 'numeric', 'sl': 'url', 'fdd': 'numeric', 'fdt': 'numeric', 'bkd1': 'numeric', 'bkd2': 'numeric', 'bkcon': 'email' }; // email: the Latin keyboard on phones (the keyboard language cannot be switched from a page, only the keyboard type is hinted)
+  var ASCII_LIST = { 'f-groups': 1, 'f-relations': 1, 'f-member': 1, 'bkcon': 1 }; // comma separated codes: a full-width / ideographic comma becomes ','
   function asciiKey(el) { var id = el && el.id ? el.id.replace(/^glih-/, '') : ''; return ASCII_IDS[id] ? id : ''; }
   var FW_RE = new RegExp('[' + String.fromCharCode(0xFF01) + '-' + String.fromCharCode(0xFF5E) + ']', 'g'), IDEO_SP = String.fromCharCode(0x3000), COMMA_RE = new RegExp('[' + String.fromCharCode(0x3001, 0xFF0C, 0xFF64) + ']', 'g');
   function toAscii(v, list) {

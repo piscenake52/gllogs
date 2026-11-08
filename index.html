@@ -319,7 +319,7 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 .song-ticker-viewport { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; position: relative; }
 .song-ticker-text { display: inline-block; font-size: var(--fs-m); line-height: 1.4; padding: 1px 0; color: var(--text); white-space: nowrap; }
 .song-ticker-viewport.is-scrolling .song-ticker-text { animation-name: songTicker; animation-timing-function: linear; animation-iteration-count: infinite; }
-@keyframes songTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes songTicker { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-1 * var(--tk-shift, 50%))); } } /* 1周ぶん(曲名+空き)の実測px。-50%だと空きの半分だけずれて、ループの継ぎ目でガクッとなる */
 /* ♪ボタンでバーを開いた時、曲名(表示エリアごと)を右から飛んでこさせる。少し行き過ぎて戻る */
 .song-ticker-viewport.song-enter { animation: songEnter var(--dur-l) var(--ease-l) 0.1s both; }
 @keyframes songEnter { 0% { transform: translateX(110%); opacity: 0; } 15% { opacity: 1; } 70% { transform: translateX(-8px); } 100% { transform: none; opacity: 1; } }
@@ -1284,14 +1284,14 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       <div class="help-row"><span class="help-key"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(11 .4) scale(.6)"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#f472b6"/></g><g transform="translate(-2.6 3.6) scale(.9)"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#ef4444"/></g></svg></span><span class="help-desc">関連メンバーハートを一括展開</span></div>
       <div class="help-row"><span class="help-key"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(12 12) scale(1.12) translate(-12 -12)"><path d="M3 3.5A.5.5 0 0 1 3.5 3H11.7a1 1 0 0 1 .7.3l8.3 8.3a1.6 1.6 0 0 1 0 2.2l-6.9 6.9a1.6 1.6 0 0 1-2.2 0L2.3 12.4A1 1 0 0 1 2 11.7z" fill="#fcd29a" stroke="#e39a3d" stroke-width="1.3" stroke-linejoin="round"/><circle cx="7.6" cy="7.6" r="1.7" fill="#fff" stroke="#e39a3d" stroke-width="1"/></g></svg></span><span class="help-desc">タグチップをデータの下に表示。チップを押すとそのタグで検索</span></div>
       <div class="help-row"><span class="help-key"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.8" y="2" width="20.4" height="20" rx="2.6" fill="#5b6068"/><circle cx="11.4" cy="12" r="8.2" fill="#e5e7eb"/><path d="M11.4 12L17.5 6.5A8.2 8.2 0 0 1 19.6 12z" fill="#a5b4fc" fill-opacity=".65"/><path d="M11.4 12L6 6.8A8.2 8.2 0 0 1 11.4 3.8z" fill="#fbcfe8" fill-opacity=".8"/><circle cx="11.4" cy="12" r="5" fill="none" stroke="#cbd5e1" stroke-width=".8"/><circle cx="11.4" cy="12" r="1.7" fill="#5b6068"/><rect x="17.6" y="9" width="4.6" height="6" rx="1" fill="#f3f4f6"/></svg></span><span class="help-desc">一覧の<svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.8" y="2" width="20.4" height="20" rx="2.6" fill="#5b6068"/><circle cx="11.4" cy="12" r="8.2" fill="#e5e7eb"/><path d="M11.4 12L17.5 6.5A8.2 8.2 0 0 1 19.6 12z" fill="#a5b4fc" fill-opacity=".65"/><path d="M11.4 12L6 6.8A8.2 8.2 0 0 1 11.4 3.8z" fill="#fbcfe8" fill-opacity=".8"/><circle cx="11.4" cy="12" r="5" fill="none" stroke="#cbd5e1" stroke-width=".8"/><circle cx="11.4" cy="12" r="1.7" fill="#5b6068"/><rect x="17.6" y="9" width="4.6" height="6" rx="1" fill="#f3f4f6"/></svg>(アルバムのポップアップ)を表示/非表示</span></div>
-      <div class="help-row"><span class="help-key"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(12 12) scale(1.18) translate(-12 -12)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" stroke="#7b8594" stroke-width="2.8"/><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" stroke="#c3cad5" stroke-width="1"/></g></svg></span><span class="help-desc">SNSリンクアイコン表示(開いたポップアップのTAGで、リンクごとのタグも表示)</span></div>
+      <div class="help-row"><span class="help-key"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(12 12) scale(1.18) translate(-12 -12)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" stroke="#7b8594" stroke-width="2.8"/><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" stroke="#c3cad5" stroke-width="1"/></g></svg></span><span class="help-desc">SNSリンクアイコン表示(開いたポップアップのTAGで、リンクごとのタグも表示。Fancamは種類(X・Instagramなど)ごとにまとめ、「+件数」も種類ごと)</span></div>
       <div class="help-row"><span class="help-key">ICON</span><span class="help-desc">コンテンツ種類ボタンを文字⇔アイコンに切替</span></div>
-      <div class="help-row"><span class="help-key">TODAY</span><span class="help-desc">本日の予定を表示。←→で前後の日。ソートボタンに日付(曜日つき)を表示し、今日の日付のときは青</span></div>
+      <div class="help-row"><span class="help-key">TODAY</span><span class="help-desc">本日の予定を表示。PCは←→キー、スマホはフリックで前後の日(連続して送れる)。ソートボタンに日付(曜日つき)を表示し、今日の日付のときは青</span></div>
       <div class="help-row"><span class="help-key">TODAY×2</span><span class="help-desc">ダブルタップで次回表示時も本日の予定で開始。再度で解除</span></div>
     </div>
     <div class="help-sec">
       <div class="help-sec-title">検索行</div>
-      <div class="help-row"><span class="help-key">♪</span><span class="help-desc">楽曲バーの表示/非表示</span></div>
+      <div class="help-row"><span class="help-key">♪</span><span class="help-desc">楽曲バーの表示/非表示(右端の📊でその曲の披露実績。歌唱メンバー(vocal)があれば、artistのあとに表示)</span></div>
       <div class="help-row"><span class="help-key">↺</span><span class="help-desc">直前の検索・絞り込み条件に戻る(チップ検索・サジェストなどの前の状態を記憶)</span></div>
       <div class="help-row"><span class="help-key"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="20" rx="2.4" fill="#c98a4b"/><rect x="5.8" y="6.5" width="12.4" height="14.5" rx="1.2" fill="#fff"/><path d="M8.6 11h6.8M8.6 14.5h6.8M8.6 18h4" stroke="#b8bec9" stroke-width="1.6" stroke-linecap="round"/><rect x="8" y="1" width="8" height="5" rx="1.5" fill="#9aa3b0"/><rect x="10.2" y="2.3" width="3.6" height="1.4" rx=".7" fill="#e5e7eb"/></svg> 検索</span><span class="help-desc">セトリ検索モード(曲名・タグで探す)</span></div>
       <div class="help-row"><span class="help-key">カレンダー</span><span class="help-desc">日付を選んで検索</span></div>
@@ -1315,8 +1315,8 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       <div class="help-sec-title">その他</div>
       <div class="help-row"><span class="help-key">A</span><span class="help-desc">文字サイズ(長押しで100%に戻す)</span></div>
       <div class="help-row"><span class="help-key"><span class="help-key-icon"><span class="icon-sun"></span></span></span><span class="help-desc">ライトモード・ダークモードを切替</span></div>
-      <div class="help-row"><span class="help-key"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 10.5V7.2a4.4 4.4 0 0 1 8.6-1.4" fill="none" stroke="#9ca3af" stroke-width="2.4" stroke-linecap="round"/><rect x="3.8" y="10" width="16.4" height="12" rx="2.4" fill="#f5b82e"/><circle cx="12" cy="15.2" r="1.7" fill="#b45309"/><path d="M12 16v2.6" stroke="#b45309" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="help-desc">ヘッダー固定のON/OFF</span></div>
-      <div class="help-row"><span class="help-key">スマホ</span><span class="help-desc">フリックで前後の日/長押しでTODAY</span></div>
+      <div class="help-row"><span class="help-key"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 10.5V7.2a4.4 4.4 0 0 1 8.6-1.4" fill="none" stroke="#9ca3af" stroke-width="2.4" stroke-linecap="round"/><rect x="3.8" y="10" width="16.4" height="12" rx="2.4" fill="#f5b82e"/><circle cx="12" cy="15.2" r="1.7" fill="#b45309"/><path d="M12 16v2.6" stroke="#b45309" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="help-desc">ヘッダー固定のON/OFF(固定中は、データ部との間のラインが青い)</span></div>
+      <div class="help-row"><span class="help-key">スマホ</span><span class="help-desc">TODAY中は左右フリックで前後の日/操作要素の無い場所の長押しでTODAY</span></div>
       <div class="help-row"><span class="help-key">⚙️</span><span class="help-desc">表示するグループ・メンバー・コンテンツ種類と、開閉チップ・<svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="1.5" width="21" height="21" rx="3" fill="#fff" stroke="#cfd5de" stroke-width="1"/><rect x="5" y="12" width="3.8" height="7" rx="1" fill="#3b82f6"/><rect x="10.1" y="5.5" width="3.8" height="13.5" rx="1" fill="#f59e0b"/><rect x="15.2" y="9" width="3.8" height="10" rx="1" fill="#22c55e"/></svg>・Uta-Netの表示を選択</span></div>
       <div class="help-row"><span class="help-key">Uta-Net</span><span class="help-desc">曲の歌詞ページ(uta-net)を開く</span></div>
       <div class="help-row"><span class="help-key"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="1.5" width="21" height="21" rx="3" fill="#fff" stroke="#cfd5de" stroke-width="1"/><rect x="5" y="12" width="3.8" height="7" rx="1" fill="#3b82f6"/><rect x="10.1" y="5.5" width="3.8" height="13.5" rx="1" fill="#f59e0b"/><rect x="15.2" y="9" width="3.8" height="10" rx="1" fill="#22c55e"/></svg></span><span class="help-desc">その曲の披露実績(LIVE・EVENTなどで絞込)</span></div>
@@ -5858,6 +5858,19 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     }, { passive: false }));
   })();
 
+  // ================= TODAYモード:キーボードの ← → で前日・翌日へ(スマホのフリックと同じ向き: ←=前日、→=翌日) =================
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    if (!todayMode || e.defaultPrevented || e.isComposing) return;
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return; // Alt+←(戻る)などのブラウザの操作は触らない
+    const t = e.target;
+    if (t && t.closest && t.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"], [role="slider"]')) return; // 入力欄・スライダーの左右キーは、そのまま使う
+    if (document.querySelector('.is-open[id$="Overlay"]') || !$('calPop').hidden) return; // ポップアップ・カレンダーが開いている間は動かさない
+    if (daySlideAnimating) { e.preventDefault(); return; } // 動作中は無視(押しっぱなしでは、動きが終わるたびに次の日へ進む)
+    e.preventDefault();
+    playDaySlideChange(e.key === 'ArrowRight' ? 1 : -1);
+  });
+
   // ================= TODAYモード:データ部でのフリック操作 ===============
   (() => {
     if (!isTouch) return; // タッチ非対応環境(PCのマウス操作等)では登録しない
@@ -6643,6 +6656,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     const label = textEl.dataset.label || '';
     viewport.classList.remove('is-scrolling');
     textEl.style.animationDuration = '';
+    textEl.style.removeProperty('--tk-shift');
     textEl.textContent = label;
     if (!label) return;
     // 表示中(is-open)でなければ幅が0のため正しく測れない。表示中のみ判定する
@@ -6657,7 +6671,8 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       const second = document.createElement('span');
       second.textContent = label;
       textEl.append(first, gap, second);
-      const singleWidth = first.getBoundingClientRect().width + gap.getBoundingClientRect().width;
+      const singleWidth = second.getBoundingClientRect().left - first.getBoundingClientRect().left; // 1周ぶん(曲名+空き)。2つ目の先頭までの実距離
+      textEl.style.setProperty('--tk-shift', singleWidth + 'px');
       const duration = Math.max(6, singleWidth / 40); // 速度:約40px/秒、最短6秒
       textEl.style.animationDuration = duration + 's';
       viewport.classList.add('is-scrolling');

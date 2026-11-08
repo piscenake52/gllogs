@@ -12,7 +12,7 @@
 |---|---|---|
 | `data/logs/logs.json` | 日程・ログ(`date` `time` `contents` `title` `groups` `setlistid` `tags` `sns` ほか) | `logid` |
 | `data/setlist/setlist.json` | セットリスト(`artist` `member` `venue` `songs`。曲ごとに歌唱メンバー `member` を持てる) | `setlistid` |
-| `data/songs/songs.json` | 楽曲リスト(再生リンク用) | `artist` + `title` |
+| `data/songs/songs.json` | 楽曲リスト(`link` `lyrics` `videos`、歌唱メンバーなどの自由入力 `vocal`)。ビューアの楽曲バー・披露実績・動画で使う | `artist` + `title` |
 | `data/albums/albums.json` | アルバム・EP・シングルの収録曲と各種盤(`date` `tracks` `editions`)。データ部の🎶で表示 | `title` + `type` |
 | `data/logs/logs_index.json` `data/setlist/setlist_index.json` | helper用の軽量インデックス(自動生成) | |
 
@@ -58,6 +58,8 @@ type | url | member
 ```
 
 - type は URL から自動判定します(X / Instagram / YouTube / TikTok / CL / radiko / GL²family。判定できなければ `etc`)。`threads` / `line` は type を書いて指定します。
+- type を `site` や `etc` にしても、URL が X などと判定できるときは、その種類に直して登録します(ビューアでも、すでに `site` で入っているものを URL から判定して表示します)。
+- Fancam(tags に `Fancam` を付けたリンク)は、ポップアップで SNS の種類ごとにまとめて表示されます。
 - `-URL` で、そのURLだけを削除します。
 
 **繰り返し登録(新規のlogsのみ)**: 1行1回、最大60件
@@ -68,6 +70,13 @@ YYYYMMDD [時刻] | タイトル | contents | URL | display_sp
 
 - 時刻は `HHMM` で、`-` は時刻なし。省略すると、フォームの時刻を使います。
 - タイトルの `#数字` は、回ごとに自動で+1されます。
+
+### helper の songs タブ
+
+- `id` 欄にタイトルの一部を入れると、`songs.json` から候補が出ます。選ぶと、その曲の artist・vocal・title・link・lyrics・動画が読み込まれます(同じタイトルが複数あるときは artist も表示)。
+- `vocal` は自由入力です(例: artist は `Girls²`、vocal は歌唱メンバー)。artist を選んで `vocal` 欄にカーソルを置くと、その artist の曲で使われている vocal が候補に出ます。title の候補も、artist と vocal で絞り込まれます。
+- 曲を特定するのは `artist` と `title` の組み合わせです。どちらかを変えると別の曲になります(名前を直すときは、新しい名前で登録して、旧データを `DELETE` してください)。
+- ビューアの楽曲バーの3回タップから、`#songs` で開くこともできます。
 
 ### helper の使い方(関連日程の一括登録)
 
@@ -82,10 +91,16 @@ YYYYMMDD [時刻] | タイトル | contents | URL | display_sp
 
 ## データ部の便利機能(隠し機能)
 
-日付・時刻の部分を、条件付きで操作します(条件は [SPEC.md](SPEC.md) を参照)。
+年・月・日・曜日・時刻のボタン、📍、📋、💞、🏷️、💽、🔗が**すべてON**のときだけ有効です(♪は条件に含めません。詳細は [SPEC.md](SPEC.md))。PC は Ctrl / Shift / Cmd を押しながらクリックで、1回で動きます。
 
-- **ダブルタップ**: logid / setlistid をコピー
-- **トリプルタップ**: その行のIDで helper を別タブで開く
+- **日付・時刻を3回タップ**: その行を helper で別タブに開きます。📋セトリ検索が OFF なら `logid` で `#logs`、ON なら `setlistid` で `#setlist`。ID のない行は何も起きません。
+- **楽曲バー(♪が ON)の曲名を3回タップ**: その曲を helper の songs タブで開きます(`?artist=…&title=…#songs`)。
+- ダブルタップで ID をコピーする機能は廃止しました。
+
+### キーボード・スマホの操作
+
+- TODAY モード: PC は `←` で前日、`→` で翌日(押しっぱなしで連続して送れます)。スマホは左右のフリック。
+- 入力欄・スライダーの操作中や、ポップアップ・カレンダーを開いている間は、`←` `→` は反応しません。
 
 ## 自動処理(GitHub Actions)
 
@@ -94,6 +109,9 @@ YYYYMMDD [時刻] | タイトル | contents | URL | display_sp
 | `auto_merge.yml` | Issue → JSON に変換 → マージ → コミット | Issue の作成・編集時 |
 | `rebuild_index.yml` | helper用インデックスの作り直し | 手動(Run workflow) |
 | `check_gaps.yml` | logs のタイトルの `#数字` の連番の抜けを調べる | 手動(Run workflow) |
+| `link_check.yml` | logs の `url` / `map` のリンク切れを少しずつ確認(結果は `data/logs/link_state.json`) | 毎日 03:00(JST)・手動 |
+
+`scripts/` には、`issue_to_json.py`、`merge_json.py`、**`common.py`** の3つを一緒に置きます(前の2つが `common.py` を読み込むので、欠けると動きません)。
 
 ## helper を Blogger に貼るときの注意
 
