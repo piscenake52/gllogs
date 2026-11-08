@@ -2770,6 +2770,8 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YZH",
+      "MMK",
       "KUR"
     ],
     "sns": [
@@ -2790,6 +2792,32 @@
         "urls": [
           {
             "url": "https://vt.tiktok.com/ZSpBreE1H/",
+            "member": [
+              "KUR"
+            ],
+            "tags": [
+              "Umbrella",
+              "瀬口黎弥",
+              "日髙竜太"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfgvtAWJ2vr/?srtk=dnlxYm91ZHczZHY0",
+            "member": [
+              "YZH",
+              "MMK"
+            ],
+            "tags": [
+              "ワンダンスチャレンジ"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DfdvA3OvtWW/?rpxt=dHlxMm1jbWtldDgw",
             "member": [
               "KUR"
             ],

@@ -1,0 +1,38 @@
+{
+  "logid": "56b28a4c2aa6",
+  "groups": [
+    "G2",
+    "YZH",
+    "MMK",
+    "KUR"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DfgvtAWJ2vr/?srtk=dnlxYm91ZHczZHY0",
+          "member": [
+            "YZH",
+            "MMK"
+          ],
+          "tags": [
+            "ワンダンスチャレンジ"
+          ]
+        },
+        {
+          "url": "https://www.instagram.com/reel/DfdvA3OvtWW/?rpxt=dHlxMm1jbWtldDgw",
+          "member": [
+            "KUR"
+          ],
+          "tags": [
+            "Umbrella",
+            "瀬口黎弥",
+            "日髙竜太"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3214"
+}
