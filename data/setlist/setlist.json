@@ -2356,8 +2356,17 @@
       "AKR",
       "KIK"
     ],
-    "title": "Laki LIVE TOUR 2025 -Infinity- 福岡公演",
-    "venue": "UNITED LAB"
+    "title": "Laki LIVE TOUR 2025 -Infinity-\n福岡公演",
+    "venue": "UNITED LAB",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Like it!!",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202511071800",
