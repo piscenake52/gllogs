@@ -1,0 +1,27 @@
+{
+  "date": "20261108",
+  "contents": "SNS",
+  "title": "SNS　ワンダンス",
+  "groups": [
+    "G2",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/wandance_movie/status/2119263656240091506?a=28jilK-7Xo5fSgfF1Vc&s=19",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "ワンダンス",
+            "DANCE LOG"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3199"
+}
