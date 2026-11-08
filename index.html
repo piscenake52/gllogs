@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script>try{if(localStorage.getItem('gl_log_header_locked')==='true')document.documentElement.classList.add('hdr-locked')}catch(e){}</script>
 <script>try{var __f=JSON.parse(localStorage.getItem('gl_filter_fold')||'null');if(__f){var __n=0;['year','g2','l2','cont'].forEach(function(k){if(__f[k]){document.documentElement.classList.add('pf-'+k);__n++}});if(__n===4)document.documentElement.classList.add('pf-all');else if(__n>0)document.documentElement.classList.add('pf-mix')}}catch(e){}</script>
 <script>
 /* 共有URL(#v=1&f=...&q=...)で開いたとき: 共有の内容を「読み取り用」に差し込み、そのON/OFFの保存は止める(見る人自身の設定を上書きしない) */
@@ -194,11 +195,11 @@ body.is-resizing-container { cursor: ew-resize; user-select: none; }
   .width-resize-handle.right { left: calc(50% + var(--container-w) / 2); }
 }
 /* --- 上部固定ヘッダー(タイトル・検索・テーマ切替・フィルター開閉) --- */
-.sticky-header { position: sticky; top: 0; background: var(--bg); z-index: var(--z-header); padding: 12px 0 0; margin-bottom: 12px; border-bottom: 1px solid var(--border); transition: background-color var(--dur-s); }
+.sticky-header { position: sticky; top: 0; background: var(--bg); z-index: var(--z-header); padding: 12px 0 0; margin-bottom: 12px; border-bottom: 1px solid var(--border); transition: background-color var(--dur-s), border-color var(--dur-s), box-shadow var(--dur-s); }
 .sticky-header-inner { position: relative; padding-bottom: 8px; }
 .header-row { display: flex; justify-content: flex-start; align-items: flex-end; margin-bottom: 14px; position: relative; }
 h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側のボタンが増えても、タイトル「GL log」は縮めず1行のままにする */
-#headerBtnGroupRight .toggle-btn { padding: 4px clamp(1px, calc(1px + (100vw - 392px) / 8), 8px); } /* BADGE/ICON/TODAYの左右余白を少し詰めて、スマホ幅でも左のアイコン列と並べる */
+#headerBtnGroupRight .toggle-btn { padding: 4px clamp(1px, calc(1px + (100vw - 392px) / 8), 8px); } /* ICON/TODAYの左右余白を少し詰めて、スマホ幅でも左のアイコン列と並べる */
 .reset-link { color: var(--text); text-decoration: none; cursor: pointer; user-select: none; display: inline-block; padding: 4px 8px; margin: -4px -8px; font-weight: bold; letter-spacing: -2px; }
 .reset-link sup { font-size: 0.67em; }
 .reset-link:hover { opacity: var(--op-hover); }
@@ -208,14 +209,13 @@ h1 { font-size: 20px; margin: 0; line-height: 1; flex: 0 0 auto; } /* 右側の�
 /* スマホ幅でリンクボタン分のはみ出しを減らすため、ボタン間の間隔だけ少し詰める(タップ領域自体は変わらないので操作性への影響は小さい) */
 #headerBtnGroup { gap: 6px; position: relative; top: 2px; } /* タイトル「GL log」(下端そろえ・高さ20px)の縦中心に、24pxのアイコン列の中心をそろえる */
 /* スマホでブラウザのズームが100%より大きいときだけ(html.zoom-wrap): 1段のまま、ボタンを「<」で畳む。
-   ヘッダー: 右端はTODAYだけ。その左の「<」で BADGE・ICON が左に展開。 検索行: 検索窓を広げ、📅の右の「<」で A・🌙・🔓 が右に展開。 */
+   ヘッダー: ICON・TODAY はそのまま表示。 検索行: 検索窓を広げ、📅の右の「<」で A・🌙・🔓 が右に展開。 */
 .more-btn { display: none; }
 html.zoom-wrap .more-btn { display: inline-block; min-width: 20px; text-align: center; }
 html.zoom-wrap .search-box-wrap .search-input { min-width: 0; width: 100%; }
 html.zoom-wrap .header-row { flex-wrap: nowrap; }
 html.zoom-wrap #headerBtnGroup { flex: 1 1 0; min-width: 0; margin-left: 8px !important; }
 html.zoom-wrap #headerBtnGroupRight { flex: 0 0 auto; margin-left: auto; }
-html.zoom-wrap #headerBtnGroupRight:not(.is-open) #badgeToggleBtn, html.zoom-wrap #headerBtnGroupRight:not(.is-open) #iconToggleBtn { display: none; }
 html.zoom-wrap .extra-tools-row { flex-wrap: nowrap; }
 html.zoom-wrap .search-box-wrap { flex: 1 1 0; min-width: 0; }
 html.zoom-wrap .extra-tools-row:not(.tools-open) .text-size-wrap, html.zoom-wrap .extra-tools-row:not(.tools-open) #themeToggleBtn, html.zoom-wrap .extra-tools-row:not(.tools-open) #lockToggleBtn { display: none; }
@@ -254,7 +254,7 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 .toggle-btn:disabled { opacity: var(--op-disabled); cursor: not-allowed; }
 .toggle-btn:disabled:hover { background: none; color: var(--muted); }
 .date-part-btn.is-active { color: var(--on-accent); background-color: var(--accent); }
-#badgeToggleBtn.is-active, #iconToggleBtn.is-active, #filterSummaryToggleBtn.is-active { color: var(--on-accent); background-color: var(--accent); }
+#iconToggleBtn.is-active, #filterSummaryToggleBtn.is-active { color: var(--on-accent); background-color: var(--accent); }
 #todayToggleBtn.is-active { color: var(--on-accent); background-color: var(--accent); }
 #songToggleBtn.is-active { color: var(--on-accent); background-color: var(--accent); }
 #heartToggleBtn.is-active { color: var(--on-accent); background-color: var(--accent); }
@@ -281,25 +281,6 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 }
 @media (max-width: 420px) {
   .filter-center-btn { padding: 2px 6px; }
-}
-.count-badge {
-  position: absolute;
-  top: 0;
-  right: -3px;
-  background: var(--accent);
-  color: var(--accent-ink);
-  font-size: 9px;
-  line-height: 1;
-  min-width: 14px;
-  height: 14px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 3px;
-  pointer-events: none;
-  font-weight: bold;
-  z-index: 1;
 }
 .extra-tools-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
 
@@ -385,13 +366,10 @@ html.pf-year #foldUnit-year, html.pf-g2 #foldUnit-g2, html.pf-l2 #foldUnit-l2, h
 .fold-all.fold-all-mixed, .fold-all.is-folded { background: var(--btn-bg); border-color: var(--input-border); color: var(--muted); } /* ALL: 全部開いているときだけ青 */
 .fold-btn svg { width: 11px; height: 11px; margin-left: 3px; transition: transform var(--dur-m) var(--ease-m); flex: 0 0 auto; }
 .fold-btn.is-folded svg { transform: rotate(180deg); }
-.fold-badge { position: absolute; top: -6px; right: -6px; min-width: 16px; height: 16px; box-sizing: border-box; padding: 0 4px; border-radius: var(--r-s); background: var(--accent); color: var(--on-accent); font-size: var(--fs-2xs); font-weight: 700; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0.4); transition: opacity var(--dur-s), transform var(--dur-m) var(--ease-m); pointer-events: none; } /* 畳んでいる行で選択中の数。BADGEモードのときだけ */
-.fold-badge.is-shown { opacity: 1; transform: scale(1); }
 .fold-unit { display: flex; flex-direction: column; row-gap: 5px; }
 .fold-unit.is-gone { display: none; }
-html.hdr-off-badge #badgeToggleBtn, html.hdr-off-icon #iconToggleBtn, html.hdr-off-today #todayToggleBtn { display: none !important; } /* ヘッダーのBADGE・ICON・TODAYを出さない設定 */
-html.hdr-off-badge.hdr-off-icon #hdrMoreBtn { display: none !important; }
-.set-chip.set-hdr { height: auto; border: none; background: none; padding: 4px 8px; font-size: var(--fs-xs); font-weight: 400; color: var(--muted); } /* BADGE・ICON・TODAYのラベル: ヘッダーのボタンと同じ見た目(文字だけ) */
+html.hdr-off-icon #iconToggleBtn, html.hdr-off-today #todayToggleBtn { display: none !important; } /* ヘッダーのICON・TODAYを出さない設定 */
+.set-chip.set-hdr { height: auto; border: none; background: none; padding: 4px 8px; font-size: var(--fs-xs); font-weight: 400; color: var(--muted); } /* ICON・TODAYのラベル: ヘッダーのボタンと同じ見た目(文字だけ) */
 .set-chip.set-hdr.is-on { color: var(--on-accent); background: var(--accent); border-radius: var(--r-s); } /* スイッチONのときはヘッダーのONと同じ青 */
 html.fold-chips-off .fold-dock { display: none; } /* 開閉チップを全部出さない設定 */
 html.chip-off-all #foldAllBtn, html.chip-off-year .fold-btn[data-fold="year"], html.chip-off-g2 .fold-btn[data-fold="g2"], html.chip-off-l2 .fold-btn[data-fold="l2"], html.chip-off-cont .fold-btn[data-fold="cont"] { display: none; }
@@ -463,6 +441,9 @@ body.icon-only-mode .checks .label-icon-part { display: inline; font-size: var(-
 
 /* 錠前ボタン:OFF(既定)ではsticky-headerを画面固定せず通常スクロールにする */
 .sticky-header.unlocked { position: static; }
+/* 錠前ON(ヘッダー固定中): データ部との間のラインを強調色の2pxにする(下に1px足す影で、レイアウトを動かさない) */
+html.hdr-locked .sticky-header { border-bottom-color: var(--accent); box-shadow: 0 1px 0 var(--accent); } /* html.hdr-locked: <head>の先頭と錠前ボタンが付ける。ヘッダーの.unlockedは読み込み後に付くため、それを条件にすると起動時に青く光ってしまう */
+.sticky-header.is-initializing { transition: none !important; }
 /* 錠前・BLACK/WHITEテーマボタンを同じ丸ボタンサイズ・見た目に統一 */
 .lock-toggle-btn, .theme-toggle-btn, #songToggleBtn, #heartToggleBtn, #backBtn, #textSizeBtn, #dateSearchBtn {
   flex-shrink: 0;
@@ -638,6 +619,7 @@ body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--dat
 @media (prefers-reduced-motion: reduce) { .dp { transition: none; } }
 .items.time-mode .item-date:has(+ .item-time) { margin-right: 4px; } /* 時刻が続く場合は日付との間隔を1文字分程度に詰める */
 .item-time { flex: 0 0 auto; font-size: calc(var(--data-font-scale) * var(--fs-s)); line-height: 1.4; color: var(--sub); white-space: nowrap; margin-right: 8px; font-variant-numeric: tabular-nums; }
+.song-ticker-viewport { touch-action: manipulation; } /* 楽曲バーの3回タップで、ページが拡大されないようにする */
 .item-date, .item-time { touch-action: manipulation; } /* 日付/時刻のダブルタップ(logid表示)で、ページが拡大されないようにする */
 .items.logid-gesture .item-date, .items.logid-gesture .item-time { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; } /* logid表示が有効な間は、ダブルタップで文字が選択されコピーメニューが出るのを防ぐ */
 .logid-toast { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: var(--z-toast); max-width: calc(100vw - 24px); box-sizing: border-box; padding: 8px 14px; border-radius: var(--r-m); background: var(--text); color: var(--bg); font-size: var(--fs-s); line-height: 1.5; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px 8px; box-shadow: var(--shadow-m); user-select: text; -webkit-user-select: text; }
@@ -935,7 +917,8 @@ html.stat-on .stat-icon { display: inline-block; }
 .song-lyrics { display: inline-block; flex: 0 0 auto; width: 5em; margin: 0; overflow: hidden; text-align: center; font-size: var(--fs-2xs); line-height: 16px; height: 18px; box-sizing: border-box; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-weight: 700; white-space: nowrap; vertical-align: middle; cursor: pointer; user-select: none; padding: 0; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); } /* セトリ・アルバムのポップアップの曲の行の📜。披露実績(📊)の左。ポップアップの📜スイッチで出し入れ */
 html.lyrics-off .song-lyrics { width: 0; margin-left: -8px; border-width: 0; opacity: 0; pointer-events: none; }
 .song-lyrics.is-blank { visibility: hidden; pointer-events: none; }
-.song-stat-btn { display: none; flex: 0 0 auto; width: 0; height: 24px; margin: 0 0 0 -10px; padding: 0; border: none; background: none; font-size: var(--fs-l); line-height: 1; cursor: pointer; align-items: center; justify-content: center; overflow: hidden; opacity: 0; pointer-events: none; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); } /* 披露実績ONで、幅が0から広がって右端に出る(間の10pxの隙間も一緒に) */
+.song-stat-btn { display: inline-flex; flex: 0 0 auto; width: 24px; height: 24px; margin: 0; padding: 0; border: none; background: none; font-size: var(--fs-l); line-height: 1; cursor: pointer; align-items: center; justify-content: center; }
+.song-stat-btn:not(.is-shown) { visibility: hidden; } /* 曲紹介バーの右端に、披露実績(📊)をいつも出す */
 .song-bar.is-entering .song-stat-btn { visibility: hidden; } /* 曲名が飛んでくる動きが終わってから右端に出す */
 .setlist-song-stat { display: inline-block; flex: 0 0 auto; width: 0; margin: 0 0 0 -8px; overflow: hidden; text-align: center; opacity: 0; pointer-events: none; font-size: var(--fs-s); cursor: pointer; user-select: none; padding: 0; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); } /* 行の間の8pxの隙間ごと、幅が0から広がる */
 html.stat-on .setlist-song-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-events: auto; }
@@ -1110,6 +1093,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
 .vid-modal .sns-modal-title { font-size: var(--fs-m); margin: 0 28px 4px 0; display: flex; align-items: center; gap: 7px; }
 .vid-modal .vid-yt { flex: 0 0 auto; width: 20px; height: 14px; border-radius: var(--r-xs); background: var(--yt-red); display: flex; align-items: center; justify-content: center; }
 .vid-modal .vid-yt::after { content: ""; border-left: 6px solid var(--knob); border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent; margin-left: 1px; }
+.song-vocal { font-size: 0.85em; color: var(--sub); } /* 曲名のうしろのvocal */
 .vid-modal .vid-ttl { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sns-modal.is-tags .sns-modal-links { flex-direction: column; flex-wrap: nowrap; align-items: flex-start; }
 .sns-modal.is-tags .sns-modal-item { width: 100%; }
@@ -1127,9 +1111,17 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
 /* 動画ポップアップ: 横幅は中身(タイトルの文字数・番号チップの列数)にあわせる。Fancamを開いて5列になれば、その分だけ広がる */
 .vid-modal { width: fit-content; min-width: 200px; max-width: min(400px, 100%); }
 .sns-modal.vid-modal .sns-modal-links:not([data-fc="closed"]) { grid-template-columns: repeat(var(--cols, 5), minmax(0, 40px)); }
-.vid-modal .sns-modal-foot { display: none; } /* TAGスイッチはいったん非表示 */
 .sns-modal-links.is-out .sns-modal-item { opacity: 0; transition: opacity var(--dur-s) var(--ease-s); }
 .is-fancam .sns-modal-links { align-items: center; }
+/* Fancam: one group per SNS. The group shows its own +N (closed) or its numbers (open). The SNS name is shown only with TAG on */
+.sns-fc-groups { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.sns-fc-group { min-width: 0; }
+.sns-fc-group .sns-modal-links { flex: 1 1 auto; align-items: center; }
+.sns-fc-kind { flex: 0 0 auto; box-sizing: border-box; min-height: 20px; padding: 2px 8px; display: inline-flex; align-items: center; border-radius: var(--r-xs); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--sub); font-size: calc(var(--data-font-scale) * 11.5px); line-height: 1; white-space: nowrap; }
+.sns-modal-links[data-fc="open"] > .sns-fc-kind { grid-column: 2 / -1; justify-self: start; align-self: center; } /* open: the SNS name sits beside the close button */
+button.sns-modal-link.is-more { width: 40px; padding: 0 2px; overflow: hidden; } /* always the same size, even for +100 */
+button.sns-modal-link.is-more.is-sm { font-size: 9px; }
+button.sns-modal-link.is-more.is-xs { font-size: 7.5px; }
 button.sns-modal-link.is-more, button.sns-modal-link.is-less { font-family: inherit; color: var(--sub); border-style: dashed; }
 button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
 @media (prefers-reduced-motion: reduce) { .sns-modal-item.is-fc-in { animation: none; } }
@@ -1138,13 +1130,15 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
 .sns-modal-empty { font-size: var(--fs-m); color: var(--sub); text-align: center; padding: 20px 0; }
 /*]]>*/
 /* 青地の白文字を読みやすく:太字にせず(文字幅を変えず)縁取りと影で疑似的に太く見せる */
-.date-part-btn.is-active, #badgeToggleBtn.is-active, #iconToggleBtn.is-active, #filterSummaryToggleBtn.is-active,
+.date-part-btn.is-active, #iconToggleBtn.is-active, #filterSummaryToggleBtn.is-active,
 #todayToggleBtn.is-active, #songToggleBtn.is-active, #heartToggleBtn.is-active, #setlistToggleBtn.is-active,
 #textSizeBtn.is-active, .sort-arrow-btn.is-real-today, .lock-toggle-btn.is-active, .text-size-wrap-btn.is-on {
   -webkit-text-stroke: 0.4px var(--on-accent);
   text-shadow: 0 0 0.5px var(--on-accent), 0 1px 1px rgba(3, 60, 110, 0.5);
 }
 
+/* スマホのタップ時にブラウザが重ねる、四角い半透明のハイライトを消す(丸いボタンでも四角い残像が一瞬見えるため)。押した感触は、下の:activeの暗転が丸い形のまま出す */
+*, *::before, *::after { -webkit-tap-highlight-color: transparent; }
 /* 押した瞬間のフィードバック: ボタン・チップ・リンクは、押している間だけ少し暗くする(スマホはホバーが効かないため。位置や大きさは変えない) */
 button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks label:active, .alb-chip:active, .set-chip:active, .stat-chip:active, .sns-modal-link:active, .song-vid:active, .song-lyrics:active, .setlist-icon:active, .map-pin:active, .link-icon:active, .alb-icon:active { filter: brightness(0.9); }
 @media (prefers-reduced-motion: reduce) { button:not(:disabled):active, [role="button"]:active { filter: none; } }
@@ -1178,9 +1172,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         <button class="toggle-btn date-part-btn" tabindex="-1" id="showTimeBtn">&#26178;</button>
       </div>
       <div class="header-btn-group" id="headerBtnGroupRight" style="margin-left:auto;">
-        <button class="toggle-btn" id="badgeToggleBtn">BADGE</button>
         <button class="toggle-btn" id="iconToggleBtn">ICON</button>
-        <button class="toggle-btn more-btn" id="hdrMoreBtn" aria-expanded="false" aria-label="BADGE/ICON">&lt;</button>
         <button class="toggle-btn" id="todayToggleBtn">TODAY</button>
       </div>
     </div>
@@ -1228,10 +1220,10 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       <div class="checks">
         <div class="fold-dock" id="foldDock">
           <button type="button" class="fold-btn fold-all" id="foldAllBtn" aria-label="All filters"><span class="fold-tx">ALL</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-          <button type="button" class="fold-btn" data-fold="year" aria-expanded="true"><span class="fold-tx">YEAR</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fold-badge"></span></button>
-          <button type="button" class="fold-btn" data-fold="g2" aria-expanded="true"><span class="fold-tx">GIRLS&#178;</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fold-badge"></span></button>
-          <button type="button" class="fold-btn" data-fold="l2" aria-expanded="true"><span class="fold-tx">LAKI</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fold-badge"></span></button>
-          <button type="button" class="fold-btn" data-fold="cont" aria-expanded="true"><span class="fold-tx">CONTENTS</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fold-badge"></span></button>
+          <button type="button" class="fold-btn" data-fold="year" aria-expanded="true"><span class="fold-tx">YEAR</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" class="fold-btn" data-fold="g2" aria-expanded="true"><span class="fold-tx">GIRLS&#178;</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" class="fold-btn" data-fold="l2" aria-expanded="true"><span class="fold-tx">LAKI</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" class="fold-btn" data-fold="cont" aria-expanded="true"><span class="fold-tx">CONTENTS</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
         </div>
         <div class="fold-unit" id="foldUnit-year"><div class="checks-row checks-row-years" id="yearChecks"></div></div>
         <div class="checks-row checks-row-months" id="monthChecks"></div>
@@ -1293,7 +1285,6 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       <div class="help-row"><span class="help-key"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(12 12) scale(1.12) translate(-12 -12)"><path d="M3 3.5A.5.5 0 0 1 3.5 3H11.7a1 1 0 0 1 .7.3l8.3 8.3a1.6 1.6 0 0 1 0 2.2l-6.9 6.9a1.6 1.6 0 0 1-2.2 0L2.3 12.4A1 1 0 0 1 2 11.7z" fill="#fcd29a" stroke="#e39a3d" stroke-width="1.3" stroke-linejoin="round"/><circle cx="7.6" cy="7.6" r="1.7" fill="#fff" stroke="#e39a3d" stroke-width="1"/></g></svg></span><span class="help-desc">タグチップをデータの下に表示。チップを押すとそのタグで検索</span></div>
       <div class="help-row"><span class="help-key"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.8" y="2" width="20.4" height="20" rx="2.6" fill="#5b6068"/><circle cx="11.4" cy="12" r="8.2" fill="#e5e7eb"/><path d="M11.4 12L17.5 6.5A8.2 8.2 0 0 1 19.6 12z" fill="#a5b4fc" fill-opacity=".65"/><path d="M11.4 12L6 6.8A8.2 8.2 0 0 1 11.4 3.8z" fill="#fbcfe8" fill-opacity=".8"/><circle cx="11.4" cy="12" r="5" fill="none" stroke="#cbd5e1" stroke-width=".8"/><circle cx="11.4" cy="12" r="1.7" fill="#5b6068"/><rect x="17.6" y="9" width="4.6" height="6" rx="1" fill="#f3f4f6"/></svg></span><span class="help-desc">一覧の<svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.8" y="2" width="20.4" height="20" rx="2.6" fill="#5b6068"/><circle cx="11.4" cy="12" r="8.2" fill="#e5e7eb"/><path d="M11.4 12L17.5 6.5A8.2 8.2 0 0 1 19.6 12z" fill="#a5b4fc" fill-opacity=".65"/><path d="M11.4 12L6 6.8A8.2 8.2 0 0 1 11.4 3.8z" fill="#fbcfe8" fill-opacity=".8"/><circle cx="11.4" cy="12" r="5" fill="none" stroke="#cbd5e1" stroke-width=".8"/><circle cx="11.4" cy="12" r="1.7" fill="#5b6068"/><rect x="17.6" y="9" width="4.6" height="6" rx="1" fill="#f3f4f6"/></svg>(アルバムのポップアップ)を表示/非表示</span></div>
       <div class="help-row"><span class="help-key"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(12 12) scale(1.18) translate(-12 -12)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" stroke="#7b8594" stroke-width="2.8"/><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" stroke="#c3cad5" stroke-width="1"/></g></svg></span><span class="help-desc">SNSリンクアイコン表示(開いたポップアップのTAGで、リンクごとのタグも表示)</span></div>
-      <div class="help-row"><span class="help-key">BADGE</span><span class="help-desc">押した時の件数を各ボタンに表示</span></div>
       <div class="help-row"><span class="help-key">ICON</span><span class="help-desc">コンテンツ種類ボタンを文字⇔アイコンに切替</span></div>
       <div class="help-row"><span class="help-key">TODAY</span><span class="help-desc">本日の予定を表示。←→で前後の日。ソートボタンに日付(曜日つき)を表示し、今日の日付のときは青</span></div>
       <div class="help-row"><span class="help-key">TODAY×2</span><span class="help-desc">ダブルタップで次回表示時も本日の予定で開始。再度で解除</span></div>
@@ -1464,7 +1455,6 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     btn.setAttribute('aria-expanded', on ? 'true' : 'false');
     btn.textContent = on ? '>' : '<';
   });
-  bindMore(document.getElementById('hdrMoreBtn'), document.getElementById('headerBtnGroupRight'), 'is-open');
   bindMore(document.getElementById('toolsMoreBtn'), document.querySelector('.extra-tools-row'), 'tools-open');
   updateZoomWrap();
   window.addEventListener('resize', updateZoomWrap);
@@ -1666,10 +1656,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       sp.textContent = item.t || item;
     }
     if (item.v && item.t) l.className = 'btn-group';
-    const badge = document.createElement('span');
-    badge.className = 'count-badge';
-    badge.style.display = 'none';
-    l.append(cb, sp, badge);
+    l.append(cb, sp);
     return l;
   };
 
@@ -2075,6 +2062,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   // 錠前ボタン:既定はOFF(画面固定しない、通常スクロール)。ONにするとヘッダーが画面上部に固定される。
   const setHeaderLocked = (locked, persist) => {
     $('stickyHeader').classList.toggle('unlocked', !locked);
+    document.documentElement.classList.toggle('hdr-locked', locked);
     $('lockToggleBtn').classList.toggle('is-active', locked);
     $('lockToggleBtn').innerHTML = uiIc(locked ? 'lock' : 'unlock');
     $('lockToggleBtn').setAttribute('aria-label', locked ? '\u30D8\u30C3\u30C0\u30FC\u56FA\u5B9A\u5207\u66FF(\u73FE\u5728ON)' : '\u30D8\u30C3\u30C0\u30FC\u56FA\u5B9A\u5207\u66FF(\u73FE\u5728OFF)');
@@ -2680,7 +2668,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
 
   // 表示の設定(SETTINGのDISPLAY): 開閉チップ(YEAR・ALLなど)・披露実績📊・歌詞(Uta-Net)の表示。すべて初期はON。この端末に保存
   const DISPLAY_PREFS_KEY = 'gl_display_prefs';
-  var displayPrefs = { lyrics: true, stat: true, chips: { all: true, year: true, g2: true, l2: true, cont: true }, hdr: { badge: true, icon: true, today: true } };
+  var displayPrefs = { lyrics: true, stat: true, chips: { all: true, year: true, g2: true, l2: true, cont: true }, hdr: { icon: true, today: true } };
   try {
     const sv = store.getJSON(DISPLAY_PREFS_KEY, {});
     if (typeof sv.lyrics === 'boolean') displayPrefs.lyrics = sv.lyrics;
@@ -2806,9 +2794,9 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     secDisp.appendChild(makeHead('DISPLAY'));
     const dispRows = [];
     const ARW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
-    const HDR_BTN = { badge: 'badgeToggleBtn', icon: 'iconToggleBtn', today: 'todayToggleBtn' };
+    const HDR_BTN = { icon: 'iconToggleBtn', today: 'todayToggleBtn' };
     const dispDefs = [
-      ...[['badge', 'BADGE'], ['icon', 'ICON'], ['today', 'TODAY']].map(([k, t]) => ({ get: () => displayPrefs.hdr[k], set: v => {
+      ...[['icon', 'ICON'], ['today', 'TODAY']].map(([k, t]) => ({ get: () => displayPrefs.hdr[k], set: v => {
         displayPrefs.hdr[k] = v;
         const b = $(HDR_BTN[k]); if (!v && b && b.classList.contains('is-active')) b.click(); // 出さなくするときは、そのモードをOFFに戻す
       }, chip: t, cls: 'set-hdr', tip: '\u30D8\u30C3\u30C0\u30FC\u306E ' + t })),
@@ -3062,7 +3050,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     // 表示テキストの優先順位:スマホはdisplay_sp→display_pc→title、PCはdisplay_pc→title
     const rawDisplayText = (isMobileState ? (item.display_sp || item.display_pc || item.title) : (item.display_pc || item.title)) || ''; // 全項目が空(titleなし)でも空文字にする(スマホ側で undefined のまま .trim() してしまい、一覧が全件表示されなくなっていた)
     // BIRTHDAYの年別複製アイテムは「名前 誕生日」を「名前 N歳の誕生日」に置換
-    t.textContent = applyBirthdayAgeText(item, rawDisplayText).trim();
+    t.textContent = spaceBrackets(applyBirthdayAgeText(item, rawDisplayText).trim());
 
     const teamClass = getTeamClass(item);
     // MAPモードON+有効なmap URLがある行だけ📍をリンク化する
@@ -3356,16 +3344,42 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     let lastRow = null, lastTime = 0;
     let tapCount = 0;
     const HELPER_URL = 'https://gl-log.blogspot.com/p/issuehelper.html';
-    // 上の全部がONのとき、♪がOFFならlogidで#logs、♪もONならsetlistidで#setlistを、helperで別タブに開く。IDのない行は何もしない
+    // 上の全部がONのとき、データ部の日付/時刻の3回タップは、📋セトリ検索がOFFならlogidで#logs、ONならsetlistidで#setlistを、helperで別タブに開く(♪は条件に含めない)。IDのない行は何もしない。
+    // さらに♪がONのとき、楽曲バーの3回タップは、その曲を#songsで開く
     const isEnabled = () =>
       dateParts.year && dateParts.month && dateParts.day && dateParts.weekday && dateParts.time && mapMode && setlistIconMode && heartModeOn && tagMode && albMode && linkMode;
     const openHelper = row => {
       if (!isEnabled()) return;
-      const toSetlist = songMode;
+      const toSetlist = setlistMode;
       const id = toSetlist ? (row.dataset.setlistid || '') : (row.dataset.logid || '');
       if (!id) return;
       window.open(HELPER_URL + '?id=' + encodeURIComponent(id) + (toSetlist ? '#setlist' : '#logs'), '_blank', 'noopener');
     };
+
+    // 楽曲バー: 発動条件に加えて♪がONのとき、バーの行(曲名)の3回タップ(PCはCtrl/Shift/Cmd+クリック)で、その曲のsongsをhelperで開く
+    const openHelperSong = () => {
+      if (!isEnabled() || !songMode || !currentSong) return;
+      const q = new URLSearchParams();
+      if (currentSong.artist) q.set('artist', String(currentSong.artist));
+      q.set('title', String(currentSong.title || ''));
+      window.open(HELPER_URL + '?' + q.toString() + '#songs', '_blank', 'noopener');
+    };
+    const barOn = () => isEnabled() && songMode;
+    const barVp = $('songTickerViewport');
+    if (barVp) {
+      let barTaps = 0, barLast = 0;
+      barVp.addEventListener('mousedown', e => { if (e.detail > 1 && barOn()) e.preventDefault(); });
+      barVp.addEventListener('selectstart', e => { if (barOn()) e.preventDefault(); });
+      barVp.addEventListener('click', e => {
+        if (!barOn()) { barTaps = 0; return; }
+        const now = Date.now();
+        if (e.ctrlKey || e.shiftKey || e.metaKey) { barTaps = 0; if (window.getSelection) window.getSelection().removeAllRanges(); openHelperSong(); return; }
+        barTaps = (now - barLast <= DOUBLE_TAP_MS) ? barTaps + 1 : 1;
+        barLast = now;
+        if (barTaps > 1 && window.getSelection) window.getSelection().removeAllRanges();
+        if (barTaps >= 3) { barTaps = 0; openHelperSong(); }
+      });
+    }
 
     // 有効な間だけ、日付/時刻の文字選択を止めるクラスを付ける
     const syncGestureClass = () => $('items').classList.toggle('logid-gesture', !!isEnabled());
@@ -3681,6 +3695,13 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   // 同じ曲名でグループ違いの曲があるとき: 公演・アルバムのartist(hint)を含むartistの曲を優先し、なければ曲名だけで探す
   const artistHit = (hint, art) => { const n = t => String(t || '').normalize('NFKC').toLowerCase().replace(/\s+/g, ''); const a = n(art); return !!a && n(hint).includes(a); };
   const pickSong = (hits, artist) => (artist && hits.find(s => artistHit(artist, s.artist))) || hits[0];
+  // songs.jsonのvocal(歌唱メンバーなどの自由入力)。曲名とartistで同じ曲を探す(artistが無ければ曲名だけ)。ないときは空文字
+  const findVocalByTitle = (title, artist) => {
+    const target = String(title || '').trim().toLowerCase(); if (!target) return '';
+    const found = pickSong(songsData.filter(x => String(x.title || '').trim().toLowerCase() === target), artist);
+    return found ? String(found.vocal || '').trim() : '';
+  };
+  const vocalSpan = v => v ? ` <span class="song-vocal">${escapeHtml(v)}</span>` : ''; // 曲名のうしろ: 半角スペース + 少し小さいvocal
   const findSongLinkByTitle = (title, artist) => {
     const norm = t => (t || '').trim().toLowerCase();
     const target = norm(title);
@@ -3713,7 +3734,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   const VIDEO_ORDER = ['mv', 'dance practice', 'lyric', 'live', 'reaction', 'call lecture'];
   const sortVideos = list => list.map((v, i) => { const r = VIDEO_ORDER.indexOf(String(v.type || '').trim().toLowerCase()); return { v, i, r: r < 0 ? 99 : r }; }).sort((x, y) => x.r - y.r || x.i - y.i).map(x => x.v);
   // 動画リンクのポップアップはsnsポップアップと同じ作り(openVideoModal)。複数ある種類は番号チップで並べ、TAGスイッチでタグを出す
-  const openVideos = (vids, anchor, title) => { if (vids.length) openVideoModal(vids, title); };
+  const openVideos = (vids, anchor, title, artist) => { if (vids.length) openVideoModal(vids, title, artist); };
   const vidHtml = (title, artist) => videosByTitle(title, artist).length
     ? `<span class="song-vid" data-song="${escapeHtml(title || '')}" data-artist="${escapeHtml(artist || '')}" role="button" aria-label="Video">${uiIc('film')}</span>`
     : '<span class="song-vid is-hidden" aria-hidden="true"></span>';
@@ -3721,7 +3742,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     const b = e.target.closest('.song-vid[data-song]');
     if (!b) return;
     e.stopPropagation();
-    openVideos(videosByTitle(b.dataset.song, b.dataset.artist), b, b.dataset.song);
+    openVideos(videosByTitle(b.dataset.song, b.dataset.artist), b, b.dataset.song, b.dataset.artist);
   });
   const trimVidCols = root => { if (!root.querySelector('.song-vid:not(.is-hidden)')) root.querySelectorAll('.song-vid.is-hidden').forEach(x => x.remove()); }; // 動画のある曲が1つも無いポップアップでは、列ごと出さない
   const openLyrics = url => { if (url) window.open(url, '_blank', 'noopener'); };
@@ -3798,7 +3819,21 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     openSongLink(btn.dataset.link);
   });
   // ---- 披露実績(📊):setlist.jsonの曲名で、披露した公演を集計する ----
+  // 括弧(「」『』【】()())の前後が詰まって見づらいので、表示するときだけ半角スペースを足す(データは変えない)。
+  // すでにスペース(全角含む)があるところ、括弧どうしが並ぶところ(閉じ括弧と閉じ括弧など)、後ろが句読点・記号のときは足さない。
+  // 記号はBloggerで文字参照に変えられるため、\uの書き方にしておく
+  let bracketSpaceRe = null;
+  function spaceBrackets(str) {
+    if (!str) return str;
+    if (!bracketSpaceRe) {
+      const O = '\u300C\u300E\u3010(\uFF08', C = '\u300D\u300F\u3011)\uFF09', P = '\\s\u3000\u3001\u3002,.!?\uFF01\uFF1F\u30FB:;\uFF0C\uFF0E\uFF1A\uFF1B';
+      bracketSpaceRe = new RegExp('([^' + P + O + C + '])(?=[' + O + '])|([' + C + '])(?=[^' + P + O + C + '])|([' + C + '])(?=[' + O + '])', 'g');
+    }
+    return String(str).replace(bracketSpaceRe, m => m + ' ');
+  }
   function statNorm(t) { return String(t || '').normalize('NFKC').toLowerCase().replace(/\s+/g, ''); }
+  // 披露実績(📊)のアイコンは、songs.jsonにある曲だけに出す(披露が0件でも出す)。曲名の一致は披露実績の集計と同じ正規化
+  const inSongsData = title => { const k = statNorm(title); return !!k && songsData.some(x => statNorm(x.title) === k); };
   function statIndex() {
     if (statIndex.src === setlistData && statIndex.map) return statIndex.map;
     const map = new Map(); // 正規化した曲名 → Map(setlistid → {entry, order})
@@ -3887,7 +3922,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         const tNorm = (t.title || '').trim().toLowerCase(), lyrOk = !songsData.length || (tNorm && songsData.some(x => (x.title || '').trim().toLowerCase() === tNorm)); // songs.jsonに無い曲はUta-Netを出さない
         const link = findSongLinkByTitle(t.title, a.artist); // 再生ボタンはセトリのポップアップと同じ(songs.jsonにリンクがある曲だけ。ないときは同じ幅の空き)
         const playBtn = link ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>` : '<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>';
-        return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}" data-artist="${escapeHtml(a.artist || '')}"><span class="setlist-song-order">${t.no != null ? escapeHtml(t.no) : ''}</span>${vidHtml(t.title, a.artist)}${playBtn}<span class="setlist-song-main"><span class="setlist-song-title">${escapeHtml(t.title || '')}</span></span>${lyrOk ? `<span class="song-lyrics" data-song="${escapeHtml(t.title || '')}" data-artist="${escapeHtml(a.artist || '')}" role="button" aria-label="Lyrics">Uta-Net</span>` : '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>'}<span class="alb-stat${n && n.size ? '' : ' is-blank'}">${uiIc('chart')}</span></li>`;
+        return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}" data-artist="${escapeHtml(a.artist || '')}"><span class="setlist-song-order">${t.no != null ? escapeHtml(t.no) : ''}</span>${vidHtml(t.title, a.artist)}${playBtn}<span class="setlist-song-main"><span class="setlist-song-title">${escapeHtml(t.title || '')}${vocalSpan(findVocalByTitle(t.title, a.artist))}</span></span>${lyrOk ? `<span class="song-lyrics" data-song="${escapeHtml(t.title || '')}" data-artist="${escapeHtml(a.artist || '')}" role="button" aria-label="Lyrics">Uta-Net</span>` : '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>'}<span class="alb-stat${(songsData.length ? inSongsData(t.title) : !!(n && n.size)) ? '' : ' is-blank'}">${uiIc('chart')}</span></li>`;
       }).join('')}</ul>` : '<div class="setlist-modal-empty">NO TRACKS</div>');
   };
   const openAlbumModal = list => { albCur = { list, ti: 0, ei: 0 }; renderAlbum(); albumModalOverlay.classList.add('is-open'); };
@@ -4053,7 +4088,8 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
           const sNorm = (s.title || '').trim().toLowerCase();
           const noStat = songsData.length ? !(sNorm && songsData.some(x => (x.title || '').trim().toLowerCase() === sNorm)) : /(^|[,\s])(mc|dt|dj|towel)([,\s]|$)/.test(String(s.type || ''));
           const lyrHtml = noStat ? '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>' : `<span class="song-lyrics" data-song="${escapeHtml(s.title || '')}" data-artist="${escapeHtml(entry.artist || '')}" role="button" aria-label="Lyrics">Uta-Net</span>`;
-          const statHtml = noStat ? `<span class="setlist-song-stat is-blank" aria-hidden="true">${uiIc('chart')}</span>` : `<span class="setlist-song-stat" data-song="${escapeHtml(s.title || '')}" data-artist="${escapeHtml(entry.artist || '')}" role="button" aria-label="Stats">${uiIc('chart')}</span>`;
+          const statBlank = songsData.length ? !inSongsData(s.title) : noStat;
+          const statHtml = statBlank ? `<span class="setlist-song-stat is-blank" aria-hidden="true">${uiIc('chart')}</span>` : `<span class="setlist-song-stat" data-song="${escapeHtml(s.title || '')}" data-artist="${escapeHtml(entry.artist || '')}" role="button" aria-label="Stats">${uiIc('chart')}</span>`;
           return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${vidHtml(s.title, entry.artist)}${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}${lyrHtml}${statHtml}</li>`;
         })
         .join('');
@@ -4165,8 +4201,11 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     if (open) {
       links.appendChild(mk('button', 'sns-modal-link is-less', '\u25B2', 'close'));
     } else {
-      links.appendChild(mk('button', 'sns-modal-link is-more', '+' + items.length, 'show all'));
+      const more = mk('button', 'sns-modal-link is-more', '+' + items.length, 'show all');
+      const nl = more.textContent.length; if (nl >= 5) more.classList.add('is-xs'); else if (nl >= 4) more.classList.add('is-sm'); // +100 and up: smaller text so the button keeps its size
+      links.appendChild(more);
     }
+    const kd = links.querySelector('.sns-fc-kind'); if (kd) links.appendChild(kd); // Fancam: the SNS name always comes right after the +N / the close button
   };
   const limitChipRow = links => {
     if (!links.querySelector('.sns-modal-item')) return;
@@ -4283,16 +4322,44 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       };
       // tagsにFancam(大文字小文字は問わない)があるリンクは、typeに関わらずFancamにまとめる(元のtypeの行からは外す)
       const isFancamLink = u => !!(u && typeof u === 'object' && Array.isArray(u.tags) && u.tags.some(t => String(t || '').trim().toLowerCase() === 'fancam'));
-      const fancamUrls = [];
+      const fancamUrls = []; // {u, kind}: kind = the SNS the link belongs to (the entry's type; a `fancam` entry is judged from the url host)
+      const SNS_HOST_KIND = { 'x.com': 'x', 'twitter.com': 'x', 'instagram.com': 'instagram', 'youtube.com': 'youtube', 'youtu.be': 'youtube', 'tiktok.com': 'tiktok', 'cl-live.com': 'cl', 'radiko.jp': 'radiko', 'girls2-fc.jp': 'gl2family' };
+      const fcKindOf = (type, u) => {
+        const t = String(type || '').trim().toLowerCase();
+        if (t && t !== 'fancam') return SNS_TYPE_DISPLAY_NAMES[t] ? t : 'etc';
+        const url = typeof u === 'string' ? u : (u && typeof u === 'object' ? u.url : '');
+        const m = String(url || '').match(/^https?:\/\/([^\/?#]+)/i), host = m ? m[1].toLowerCase().split('@').pop().split(':')[0] : '';
+        for (const d in SNS_HOST_KIND) if (host === d || host.endsWith('.' + d)) return SNS_HOST_KIND[d];
+        return 'etc'; // not judged: ETC
+      };
+      // typeが site / etc / 空 のエントリでも、URLのドメインが X・Instagram などと判定できるリンクは、その種類に移して表示する(typeを手入力で site にした登録の救済。データは変えない)
+      const snsFixed = (Array.isArray(sns) ? sns : []).map(e => (e && typeof e === 'object' && Array.isArray(e.urls)) ? Object.assign({}, e, { urls: e.urls.slice() }) : e); // 元のデータは書き換えない
+      snsFixed.slice().forEach(entry => {
+        const tt = entry && typeof entry === 'object' && Array.isArray(entry.urls) ? String(entry.type || '').trim().toLowerCase() : '';
+        if (!(entry && typeof entry === 'object' && Array.isArray(entry.urls) && (tt === 'site' || tt === 'etc' || tt === ''))) return;
+        entry.urls = entry.urls.filter(u => {
+          const k = fcKindOf('', u); // ドメインだけで判定(判定できなければ 'etc')
+          if (k === 'etc') return true;
+          let g = snsFixed.find(x => x && typeof x === 'object' && Array.isArray(x.urls) && String(x.type || '').trim().toLowerCase() === k);
+          if (!g) { g = { type: k, urls: [] }; snsFixed.push(g); }
+          g.urls.push(u);
+          return false;
+        });
+      });
+      for (let i = snsFixed.length - 1; i >= 0; i--) { const e = snsFixed[i]; if (e && typeof e === 'object' && Array.isArray(e.urls) && !e.urls.length) snsFixed.splice(i, 1); }
       const baseList = [];
-      (Array.isArray(sns) ? sns : []).forEach(entry => {
+      snsFixed.forEach(entry => {
         if (!(entry && typeof entry === 'object' && Array.isArray(entry.urls))) { baseList.push(entry); return; }
         const isFcType = String(entry.type || '').trim().toLowerCase() === 'fancam'; // type自体がfancamのデータも同じ行に入れる
         const keep = [];
-        entry.urls.forEach(u => { if (isFcType || isFancamLink(u)) fancamUrls.push(u); else keep.push(u); });
+        entry.urls.forEach(u => { if (isFcType || isFancamLink(u)) fancamUrls.push({ u, kind: fcKindOf(entry.type, u) }); else keep.push(u); });
         if (keep.length === entry.urls.length) baseList.push(entry); else if (keep.length) baseList.push(Object.assign({}, entry, { urls: keep }));
       });
-      if (fancamUrls.length) baseList.push({ type: 'fancam', urls: fancamUrls });
+      if (fancamUrls.length) { // Fancam: one group per SNS (X / Instagram / ... / ETC last); each group has its own numbers and its own +N
+        const kinds = []; fancamUrls.forEach(x => { if (kinds.indexOf(x.kind) < 0) kinds.push(x.kind); });
+        kinds.sort((a, b) => orderRank(a) - orderRank(b));
+        baseList.push({ type: 'fancam', urls: fancamUrls.map(x => x.u), groups: kinds.map(k => ({ kind: k, urls: fancamUrls.filter(x => x.kind === k).map(x => x.u) })) });
+      }
       const list = baseList
         .map((entry, i) => ({ entry, i }))
         .sort((a, b) => orderRank(a.entry && a.entry.type) - orderRank(b.entry && b.entry.type) || a.i - b.i)
@@ -4311,7 +4378,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       const rowsHtml = list
         .filter(entry => entry && typeof entry === 'object' && Array.isArray(entry.urls) && entry.urls.length)
         .map(entry => {
-          const linksHtml = entry.urls.map((u, i) => {
+          const mkLinks = urls => urls.map((u, i) => {
             if (!shown.has(u)) return '';
             const n = i + 1;
             // urlsの各要素は、旧形式(文字列そのもの)・新形式({url, member})のどちらも受け付ける
@@ -4339,6 +4406,11 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
             const tagTextHtml = linkTagList.length ? `<span class="sns-modal-tagtext">${linkTagList.map(t => `<button type="button" class="tag-chip" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join('')}</span>` : '';
             return `<span class="sns-modal-item">${btnHtml}${tagTextHtml}</span>`;
           }).join('');
+          if (entry.groups) {
+            const gh = entry.groups.map(g => { const lh = mkLinks(g.urls); return lh ? `<div class="sns-fc-group"><span class="sns-modal-links">${lh}<span class="sns-fc-kind">${escapeHtml(displayNameForSnsType(g.kind))}</span></span></div>` : ''; }).join('');
+            return gh ? `<div class="sns-modal-type-row is-fancam"><span class="sns-modal-type-label">${snsTypeIconHtml(entry.type)}<span>${escapeHtml(displayNameForSnsType(entry.type))}</span></span><div class="sns-fc-groups">${gh}</div></div>` : '';
+          }
+          const linksHtml = mkLinks(entry.urls);
           if (!linksHtml) return '';
           return `<div class="sns-modal-type-row${String(entry.type || '').trim().toLowerCase() === 'fancam' ? ' is-fancam' : ''}"><span class="sns-modal-type-label">${snsTypeIconHtml(entry.type)}<span>${escapeHtml(displayNameForSnsType(entry.type))}</span></span><span class="sns-modal-links">${linksHtml}</span></div>`;
         })
@@ -4394,7 +4466,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     setVidTagMode(on, true);
     store.set('vidTagMode', on ? '1' : '0');
   };
-  const openVideoModal = (vids, title) => {
+  const openVideoModal = (vids, title, artist) => {
     try {
       // 同じ種類(大文字小文字は区別しない)をまとめる。種類の並びと、その中の登録順は videosByTitle の並びのまま
       const groups = [];
@@ -4412,15 +4484,14 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         }).join('');
         return `<div class="sns-modal-type-row${g.key === 'fancam' ? ' is-fancam' : ''}"><span class="sns-modal-type-label">${videoIconHtml(g.key)}<span>${escapeHtml(g.label)}</span></span><span class="sns-modal-links" style="--cols:${Math.min(g.list.length, 5)}">${itemsHtml}</span></div>`;
       }).join('');
-      vidModalBody.innerHTML = (title ? `<div class="sns-modal-title"><span class="vid-yt" aria-hidden="true"></span><span class="vid-ttl">${escapeHtml(title)}</span></div>` : '') + (rowsHtml || '<div class="sns-modal-empty">NO LINKS</div>');
+      vidModalBody.innerHTML = (title ? `<div class="sns-modal-title"><span class="vid-yt" aria-hidden="true"></span><span class="vid-ttl">${escapeHtml(title)}${vocalSpan(findVocalByTitle(title, artist))}</span></div>` : '') + (rowsHtml || '<div class="sns-modal-empty">NO LINKS</div>');
       vidModalBody.querySelectorAll('.is-fancam .sns-modal-links').forEach(limitChipRow);
       staggerSnsRows(vidModalBody);
     } catch (err) {
       console.error('Failed to render video modal:', err);
       vidModalBody.innerHTML = '<div class="sns-modal-empty">LOAD ERROR</div>';
     }
-    let tagOn = false;
-    setVidTagMode(false, false); // TAGスイッチは非表示にしたので、常にタグなしで開く
+    setVidTagMode(store.get('vidTagMode', '0') === '1', false); // TAGスイッチの前回の状態で開く
     vidModalOverlay.classList.add('is-open');
   };
   bindMoreChips(vidModalBody);
@@ -4703,7 +4774,6 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     defaultText = '> ' + filtered.length;
     animateCount(defaultText);
     renderActiveBadges(checked, fullKw);
-    updateAllBadges();
     updateManualIndicators();
 
     const isZero = filtered.length === 0;
@@ -4760,26 +4830,6 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     return expandTodayBirthdayItems(logs, cY, cM).filter(item => matchesFilters(item, ctx)).length;
   };
 
-  // BADGEモード:各フィルターボタンに、現在の他条件と連動した件数を常時表示する
-  let badgeMode = false;
-  const CAP = 9999;
-  const updateAllBadges = () => {
-    updateYearFoldBadge();
-    labels.forEach(l => {
-      const badge = l.querySelector('.count-badge');
-      if (!badge) return;
-      const cb = l.querySelector('input');
-      if (!badgeMode || !cb || cb.checked) {
-        // 選択中のボタンは「外した場合の件数」になり分かりにくいためバッジを表示しない
-        badge.style.display = 'none';
-        return;
-      }
-      const cnt = previewCountFor(cb.value, cb.checked);
-      badge.textContent = cnt > CAP ? String(CAP) : String(cnt);
-      badge.style.display = 'flex';
-    });
-  };
-
   // 右上のランプの色を切り替える:コンテンツ種類はmanuallyTouchedContsに含まれていれば手動操作
   const updateManualIndicators = () => {
     labels.forEach(l => {
@@ -4790,30 +4840,11 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     });
   };
 
-  $('badgeToggleBtn').onclick = () => {
-    badgeMode = !badgeMode;
-    $('badgeToggleBtn').classList.toggle('is-active', badgeMode);
-    deferHeavyUpdate(() => {
-      updateAllBadges();
-      updateManualIndicators();
-    });
-  };
-
   // フィルターの折りたたみ(上の帯のYEAR / GIRLS² / LAKI / CONTENTSボタン): 押すと、その行のボタンが帯のボタンへ吸い込まれ、行は0pxまで畳まれて下が上へ詰まる。
   // 開いている間は青、畳んでいる間は通常の色。畳んだ状態は記憶する。畳んでいる間も、選択済みの絞り込みは有効のまま。
-  // BADGEモードのときだけ、畳んでいるボタンの角に、その行で選択中の数を出す
   const FOLD_KEY = 'gl_filter_fold';
   var FOLD_IDS = ['year', 'g2', 'l2', 'cont'];
   var foldState = { year: false, g2: false, l2: false, cont: false }, foldBusy = {};
-  function updateYearFoldBadge() {
-    FOLD_IDS.forEach(id => {
-      const btn = document.querySelector('.fold-btn[data-fold="' + id + '"]'), unit = $('foldUnit-' + id);
-      if (!btn || !unit) return;
-      const n = unit.querySelectorAll('input:checked').length, b = btn.querySelector('.fold-badge');
-      b.textContent = String(n);
-      b.classList.toggle('is-shown', badgeMode && foldState[id] && n > 0);
-    });
-  }
   (() => {
     const reduce = reduceMotion;
     const EASE = MOTION.easeM, MOVE = MOTION.easeMove, GAP = 5;
@@ -4854,7 +4885,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       foldState[id] = next; save(); syncAll();
       if (id === 'year') updateMonthFilterVisibility();
       btn.classList.toggle('is-folded', next); btn.setAttribute('aria-expanded', String(!next));
-      if (instant || reduce()) { unit.classList.toggle('is-gone', next); updateYearFoldBadge(); return; }
+      if (instant || reduce()) { unit.classList.toggle('is-gone', next); return; }
       foldBusy[id] = true;
       let H;
       if (!next) { unit.classList.remove('is-gone'); }
@@ -4865,7 +4896,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       if (!next) setTimeout(() => seps.forEach(e => { e.style.opacity = foldBusy[id] ? '1' : ''; }), T_H + (T_V) + T_A * 0.6);
       H = unit.scrollHeight;
       const P = plan(unit, btn);
-      const finish = () => { seps.forEach(e => { e.style.transition = ''; e.style.opacity = ''; }); unit.classList.remove('is-folding'); unit.style.cssText = ''; if (next) unit.classList.add('is-gone'); foldBusy[id] = false; updateYearFoldBadge(); };
+      const finish = () => { seps.forEach(e => { e.style.transition = ''; e.style.opacity = ''; }); unit.classList.remove('is-folding'); unit.style.cssText = ''; if (next) unit.classList.add('is-gone'); foldBusy[id] = false; };
       if (!P) { // 見えているボタンが無い(まれ)
         unit.classList.toggle('is-gone', next); finish(); return;
       }
@@ -4897,12 +4928,10 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
           { transform: tf(it.dx, 0, 1), opacity: it.isLeader || it.isRowFirst ? 1 : 0, offset: o2, easing: MOVE },
           { transform: tf(0, 0, 1), opacity: 1, offset: 1 }
         ], { duration: T, fill: 'backwards' }));
-        updateYearFoldBadge();
         Promise.all(anims.map(a => a.finished)).then(() => { cleanLabels(); finish(); });
       }
     };
     FOLD_IDS.forEach(id => { const b = btnOf(id); if (b) b.onclick = () => setFolded(id, !foldState[id], false); });
-    document.querySelector('.checks').addEventListener('change', updateYearFoldBadge);
     const saved = store.getJSON(FOLD_KEY, null);
     if (saved) FOLD_IDS.forEach(id => { if (saved[id]) setFolded(id, true, true); });
     syncAll();
@@ -6195,7 +6224,6 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       });
     });
 
-    updateAllBadges();
       updateManualIndicators();
       applyExcludedStyles(); // ラベル再生成(年フィルター等)後も除外中の見た目(薄い色)を再適用する
   };
@@ -6647,12 +6675,13 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     openSongLink(currentSong.link);
   };
 
-  $('songVidBtn').onclick = e => { e.stopPropagation(); if (currentSong) openVideos(videosByTitle(currentSong.title, currentSong.artist), $('songVidBtn'), currentSong.title); };
+  $('songVidBtn').onclick = e => { e.stopPropagation(); if (currentSong) openVideos(videosByTitle(currentSong.title, currentSong.artist), $('songVidBtn'), currentSong.title, currentSong.artist); };
   const applySong = song => {
     currentSong = song || null;
     $('songVidBtn').classList.toggle('is-shown', !!(currentSong && videosByTitle(currentSong.title, currentSong.artist).length));
+    $('songStatBtn').classList.toggle('is-shown', !!currentSong);
     const textEl = $('songTickerText');
-    textEl.dataset.label = currentSong ? `${currentSong.title || ''} / ${currentSong.artist || ''}` : '';
+    textEl.dataset.label = currentSong ? `${currentSong.title || ''} / ${[currentSong.artist, currentSong.vocal].map(x => String(x || '').trim()).filter(Boolean).join(' ')}` : ''; // 「曲名 / artist vocal」
     updateSongTickerScroll();
     if (songEnterPending && songMode && currentSong) { songEnterPending = false; playSongEnter(); }
   };

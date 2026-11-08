@@ -3332,6 +3332,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   asciiInit();
 
   tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : location.hash === '#check' ? 'check' : location.hash === '#bulk' ? 'bulk' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
+  if (location.hash === '#songs' && songApi) { // opened with ?artist=...&title=... (the 3-tap on the viewer's song bar): load that song in the songs tab
+    var qa = '', qt = '';
+    try { var qs = new URLSearchParams(location.search); qa = (qs.get('artist') || '').trim(); qt = (qs.get('title') || '').trim(); } catch (e) {}
+    if (qt) songApi.open(qa, qt);
+  }
   applyModeUI();
   if (qid0) { $('fid').value = qid0; doFind(); } // opened with ?id=...: load that id in the tab given by the hash (#logs / #setlist)
 })();
