@@ -2613,6 +2613,47 @@
     "suffix": "開催記念日"
   },
   {
+    "logid": "56b28a4c2aa6",
+    "date": "20261108",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "KUR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2119266338590093425?a=0Mi3JaikB9q490mBkAo&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSpBreE1H/",
+            "member": [
+              "KUR"
+            ],
+            "tags": [
+              "Umbrella",
+              "瀬口黎弥",
+              "日髙竜太"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "8f8c8f2edeaa",
     "date": "20261107",
     "time": "2359",

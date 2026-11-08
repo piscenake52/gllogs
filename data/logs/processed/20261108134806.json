@@ -1,0 +1,40 @@
+{
+  "date": "20261108",
+  "contents": "SNS",
+  "title": "SNS　Girls²",
+  "groups": [
+    "G2",
+    "KUR"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2119266338590093425?a=0Mi3JaikB9q490mBkAo&s=19",
+          "member": [],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSpBreE1H/",
+          "member": [
+            "KUR"
+          ],
+          "tags": [
+            "Umbrella",
+            "瀬口黎弥",
+            "日髙竜太"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3198"
+}
