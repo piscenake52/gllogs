@@ -819,8 +819,16 @@ def build_bulk(body):
     v_to = extract_field("bulk to", body).strip()
     target = extract_field("bulk target", body).strip().lower()
     if target in ("", "none", "_no response_"):
-        target = "tags"
+        target = "title" if op == "title" else "tags"
     errors = []
+    title_fields = []
+    if op == "title":  # 対象: title は常に。pc / sp を足すと display_pc / display_sp も置換する(例: title,pc,sp)
+        title_fields = [t for t in re.split(r"[\s,]+", target) if t]
+        if title_fields and all(t in BULK_TARGETS for t in title_fields):  # 古い helper が送る tags / sns / both は、title では使わない値なので title のみ扱いにする
+            title_fields = ["title"]
+        if not title_fields or any(t not in ("title", "pc", "sp") for t in title_fields):
+            errors.append("- **bulk target**: title の場合は title / pc / sp をカンマ区切りで指定してください")
+        target = "tags"
     ids = []
     for x in re.split(r"[\s,]+", ids_raw or ""):
         x = x.strip().lower()
@@ -865,6 +873,8 @@ def build_bulk(body):
     bulk = {"op": op, "ids": ids}
     if op not in ("contents", "title"):
         bulk["target"] = target
+    if op == "title":
+        bulk["fields"] = ["title"] + [t for t in ("pc", "sp") if t in title_fields]
     if op in ("replace", "title"):
         bulk["from"], bulk["to"] = v_from, v_to
     else:
