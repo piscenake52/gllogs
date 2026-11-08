@@ -344,6 +344,8 @@ def parse_sns(raw):
         withs = expand_group_codes(withs)
         if not type_:
             type_ = detect_sns_type(url) or "etc"  # 判定できないURLはすべてetc
+        elif type_ in ("site", "etc") and detect_sns_type(url):
+            type_ = detect_sns_type(url)  # typeを手入力で site / etc にしても、URLがX・Instagramなどと判定できるときは、その種類にする
         if not re.fullmatch(r"[a-z0-9_-]+", type_):
             errors.append(f"- **sns**: typeは半角英数字・ハイフン・アンダーバーで入力してください（入力値: `{shown}`）")
             continue
