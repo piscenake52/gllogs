@@ -4365,6 +4365,7 @@
       "L2",
       "HIR",
       "YUW",
+      "KAN",
       "RRK",
       "AKR",
       "KIK"
@@ -4406,6 +4407,21 @@
             ],
             "tags": [
               "WORK≒LIFE"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSpAR5stQ/",
+            "member": [
+              "KAN"
+            ],
+            "tags": [
+              "WORK≒LIFE",
+              "SWEET REVENGE"
             ]
           }
         ]
