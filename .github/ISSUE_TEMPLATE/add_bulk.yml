@@ -1,5 +1,5 @@
 name: "logs bulk"
-description: "tag / contents bulk change (logs only, up to 100 rows)"
+description: "tag / contents / title bulk change (logs only, up to 100 rows)"
 title: "[DATA] logs bulk"
 body:
   - type: markdown
@@ -17,19 +17,19 @@ body:
     id: bulk_op
     attributes:
       label: "bulk op"
-      description: "replace / add / remove / contents"
+      description: "replace / add / remove / contents / title"
 
   - type: input
     id: bulk_from
     attributes:
       label: "bulk from"
-      description: "replace: the old tag / remove: the tag to remove"
+      description: "replace: the old tag / remove: the tag to remove / title: the text to replace"
 
   - type: input
     id: bulk_to
     attributes:
       label: "bulk to"
-      description: "replace: the new tag / add: the tag to add / contents: the new contents"
+      description: "replace: the new tag / add: the tag to add / contents: the new contents / title: the new text (empty = delete the text)"
 
   - type: input
     id: bulk_target
