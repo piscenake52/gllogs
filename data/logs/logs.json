@@ -2431,6 +2431,35 @@
     ]
   },
   {
+    "logid": "5f4d911fda75",
+    "date": "20261109",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "MSK",
+      "YOK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/oshitabi_update/status/2119595855514857938?a=4wDiz3u_Z4bMcJlD3hw&s=19",
+            "member": [
+              "MSK",
+              "YOK"
+            ],
+            "tags": [
+              "推し旅"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "c3bb734a420b",
     "date": "20261108",
     "time": "2300",
