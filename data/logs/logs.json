@@ -19348,6 +19348,21 @@
             "member": []
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://www.youtube.com/watch?v=3sJbsDPL6Sk",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "VIBE",
+              "GENERATIONS"
+            ]
+          }
+        ]
       }
     ]
   },
