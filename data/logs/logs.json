@@ -4912,12 +4912,28 @@
     "time": "2000",
     "contents": "SNS",
     "title": "あかりんごの元気モリモリール　#126",
+    "url": "https://www.instagram.com/reel/DfZcypNJDVW/?xtok=YWZsZHBpYXA4MnFp",
     "groups": [
       "L2",
       "AKR"
     ],
     "tags": [
+      "Ice Cream",
+      "YEONJUN",
       "ダンスは遊びじゃない！"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfZcypNJDVW/?xtok=YWZsZHBpYXA4MnFp",
+            "member": [
+              "AKR"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
