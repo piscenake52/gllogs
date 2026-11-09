@@ -6174,6 +6174,28 @@
       "ガルサケエヨ",
       "サムギョプるニダ",
       "がるがるちゃんねる"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/RkMnuimwuIE?si=uDBkM59TdlWVesy5",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "Short"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
