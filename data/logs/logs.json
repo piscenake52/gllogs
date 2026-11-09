@@ -2417,6 +2417,23 @@
     ]
   },
   {
+    "logid": "534520870b48",
+    "date": "20261109",
+    "time": "2030",
+    "contents": "CL",
+    "title": "LDH LIVE EXPO 2026 -PERFECT YEAR BEST- 盛り上げコラボキャス",
+    "display_sp": "LDH LIVE EXPO 2026 盛り上げコラボキャス",
+    "groups": [
+      "G2",
+      "KUR",
+      "L2",
+      "TBK"
+    ],
+    "tags": [
+      "LDH LIVE EXPO"
+    ]
+  },
+  {
     "logid": "cdafe97963eb",
     "date": "20261109",
     "time": "1900",
@@ -4947,23 +4964,6 @@
           }
         ]
       }
-    ]
-  },
-  {
-    "logid": "534520870b48",
-    "date": "20261106",
-    "time": "2030",
-    "contents": "CL",
-    "title": "LDH LIVE EXPO 2026 -PERFECT YEAR BEST- 盛り上げコラボキャス",
-    "display_sp": "LDH LIVE EXPO 2026 盛り上げコラボキャス",
-    "groups": [
-      "G2",
-      "KUR",
-      "L2",
-      "TBK"
-    ],
-    "tags": [
-      "LDH LIVE EXPO"
     ]
   },
   {
