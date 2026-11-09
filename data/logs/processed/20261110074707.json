@@ -1,22 +1,16 @@
 {
-  "date": "20261109",
-  "contents": "CL",
-  "title": "POST　Laki",
-  "groups": [
-    "L2",
-    "TBK"
-  ],
+  "logid": "fd4084926fb9",
   "sns": [
     {
       "type": "cl",
       "urls": [
         {
-          "url": "https://www.cl-live.com/posts/viWhFbqSoJP3YYKCNXCsdF",
+          "url": "https://www.cl-live.com/posts/eyHdiYBb7pDeyE1o3m7CuQ",
           "member": [
-            "TBK"
+            "KUR"
           ],
           "with": [
-            "KUR"
+            "TBK"
           ],
           "tags": [
             "ありがとうございました"
@@ -25,5 +19,5 @@
       ]
     }
   ],
-  "_issue": "3339"
+  "_issue": "3340"
 }
