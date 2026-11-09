@@ -2852,6 +2852,20 @@
             ]
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/uorxRM063go?si=kl2eTzu0n-WUVja3",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "Umbrella"
+            ]
+          }
+        ]
       }
     ]
   },
