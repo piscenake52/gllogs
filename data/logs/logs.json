@@ -2946,11 +2946,13 @@
     "date": "20261109",
     "time": "",
     "contents": "SNS",
-    "title": "SNS　Girls²",
+    "title": "SNS",
     "groups": [
       "G2",
       "MSK",
-      "YOK"
+      "YOK",
+      "KUR",
+      "L2"
     ],
     "sns": [
       {
@@ -2980,6 +2982,13 @@
               "mu-mo",
               "オンライントーク"
             ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2119784737351102822?a=TQAsnv66Rpx6iS1GFkQ&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
+            ]
           }
         ]
       },
@@ -3007,6 +3016,19 @@
             ],
             "tags": [
               "Umbrella"
+            ]
+          },
+          {
+            "url": "https://vt.tiktok.com/ZSpUKkGJk/",
+            "member": [
+              "KUR"
+            ],
+            "with": [
+              "TBK"
+            ],
+            "tags": [
+              "Umbrella",
+              "CIRRA"
             ]
           }
         ]
