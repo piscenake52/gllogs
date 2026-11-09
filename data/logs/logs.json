@@ -2871,6 +2871,13 @@
             "tags": [
               "推し旅"
             ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2119717522346037607?a=27Tq9a86DjrrusIrtBw&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
+            ]
           }
         ]
       },
@@ -2879,6 +2886,20 @@
         "urls": [
           {
             "url": "https://youtube.com/shorts/uorxRM063go?si=kl2eTzu0n-WUVja3",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "Umbrella"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSpDHPxpJ/",
             "member": [
               "YOK"
             ],
