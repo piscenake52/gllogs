@@ -3155,6 +3155,36 @@
     ]
   },
   {
+    "logid": "9d864eae7048",
+    "date": "20261109",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2",
+      "TBK"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/viWhFbqSoJP3YYKCNXCsdF",
+            "member": [
+              "TBK"
+            ],
+            "with": [
+              "KUR"
+            ],
+            "tags": [
+              "ありがとうございました"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "c3bb734a420b",
     "date": "20261108",
     "time": "2300",
