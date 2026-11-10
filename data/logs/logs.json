@@ -2849,9 +2849,7 @@
     "albumid": "d2ee9e6f38eb",
     "tags": [
       "EASY",
-      "Nocturne",
-      "Girls PARADE",
-      "Girls² 7th Anniversary Seven×Seven in Bloom -The Live-"
+      "Seven×Seven in Bloom"
     ],
     "sns": [
       {
@@ -2862,6 +2860,45 @@
             "member": [],
             "tags": [
               "全特典絵柄解禁"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2120170604032884740?a=kpR4p4x8D1_r8rTN2o0&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "リリース日"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://rhythmzone.lnk.to/easy1111",
+            "member": [],
+            "tags": [
+              "Linktree"
+            ]
+          },
+          {
+            "url": "https://rhythmzone.lnk.to/G2easyCD",
+            "member": [],
+            "tags": [
+              "Linktree"
             ]
           }
         ]
