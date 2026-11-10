@@ -2612,6 +2612,48 @@
     ]
   },
   {
+    "logid": "c3a9d999cf00",
+    "date": "20261111",
+    "time": "2000",
+    "contents": "RADIO",
+    "title": "Date fm「Music Fusion」",
+    "groups": [
+      "G2",
+      "KUR",
+      "MNM"
+    ],
+    "tags": [
+      "ZIMOTOでRADIO",
+      "コメント出演"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2120115352231354641?a=jUT3PwVVR2uqOav3mJU&s=19",
+            "member": [],
+            "tags": [
+              "ラジオ出演情報"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "radiko",
+        "urls": [
+          {
+            "url": "https://radiko.jp/share/?t=20261111200000&sid=DATEFM",
+            "member": [],
+            "tags": [
+              "radiko"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "2002906ed829",
     "date": "20261111",
     "time": "1900",
