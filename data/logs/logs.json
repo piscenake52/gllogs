@@ -3105,6 +3105,13 @@
             "tags": [
               "Umbrella日和"
             ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2120080139631636914?a=KfDuSFpyYqjm3iwNUls&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
+            ]
           }
         ]
       },
@@ -3128,6 +3135,20 @@
           },
           {
             "url": "https://youtube.com/shorts/a_sNAskG7Ac?si=q6fsgWq3RzD8bMLU",
+            "member": [
+              "KUR"
+            ],
+            "tags": [
+              "Umbrella"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSpfar1a4/",
             "member": [
               "KUR"
             ],
