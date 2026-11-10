@@ -1,0 +1,38 @@
+{
+  "logid": "dfc3b56368c2",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/CL_OFFICIAL_ACC/status/2119989587267514571?a=wRTgSRIlQ4YHvbGTGs8&s=19",
+          "member": [
+            "MNM"
+          ],
+          "tags": [
+            "ライブ配信"
+          ]
+        },
+        {
+          "url": "https://x.com/Girls2_official/status/2119983610338197928?a=jAlXLCwWdm72YnwNQt0&s=19",
+          "member": [
+            "MNM"
+          ],
+          "tags": [
+            "このあと"
+          ]
+        },
+        {
+          "url": "https://x.com/CL_OFFICIAL_ACC/status/2119982762505760889?a=JKDJ3W6ChtEqIS1BsaQ&s=19",
+          "member": [
+            "MNM"
+          ],
+          "tags": [
+            "CL"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3408"
+}
