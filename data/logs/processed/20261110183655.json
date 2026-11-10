@@ -1,0 +1,37 @@
+{
+  "logid": "5f4d911fda75",
+  "title": "SNS",
+  "groups": [
+    "G2",
+    "YZH",
+    "MSK",
+    "YOK",
+    "KUR",
+    "L2"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/p/DfhOLMvEkYt/?obrf=MWF0OHVlNXFrM3M1bQ==",
+          "member": [
+            "YZH"
+          ],
+          "with": [
+            "MMK",
+            "MSK",
+            "YOK",
+            "KUR",
+            "MNM",
+            "KIR"
+          ],
+          "tags": [
+            "幸せ共有"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3369"
+}

@@ -3431,9 +3431,10 @@
     "date": "20261109",
     "time": "",
     "contents": "SNS",
-    "title": "SNS　Girls²",
+    "title": "SNS",
     "groups": [
       "G2",
+      "YZH",
       "MSK",
       "YOK",
       "KUR",
@@ -3514,6 +3515,28 @@
             "tags": [
               "Umbrella",
               "CIRRA"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DfhOLMvEkYt/?obrf=MWF0OHVlNXFrM3M1bQ==",
+            "member": [
+              "YZH"
+            ],
+            "with": [
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "幸せ共有"
             ]
           }
         ]
