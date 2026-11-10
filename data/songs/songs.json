@@ -349,7 +349,42 @@
     "artist": "Laki",
     "title": "Like it!!",
     "link": "https://music.youtube.com/watch?v=_VQhKNY5VeM&si=u2-zoJHco9eRUwAk",
-    "lyrics": "https://www.uta-net.com/song/382594/"
+    "lyrics": "https://www.uta-net.com/song/382594/",
+    "videos": [
+      {
+        "type": "MV",
+        "url": "https://youtu.be/hTTAbz7p7mU?si=zAwsGNhCL3GnIaiu"
+      },
+      {
+        "type": "Performance",
+        "url": "https://youtu.be/XYZmuQzS2n8?si=Yi9jdk91-C0qjmRw"
+      },
+      {
+        "type": "Call Lecture",
+        "url": "https://youtu.be/t2L8Wu1Mt0g?si=x9Wl5HN6XmuxuEdC"
+      },
+      {
+        "type": "Fancam",
+        "url": "https://youtu.be/Lw-bFKKSxzk?si=WKMZL21UUzI6Mgvf",
+        "tags": [
+          "イクスピアリ"
+        ]
+      },
+      {
+        "type": "Fancam",
+        "url": "https://youtu.be/kZ4kUjaCsyw?si=fzDRoU2AgO0BpOzo",
+        "tags": [
+          "イクスピアリ"
+        ]
+      },
+      {
+        "type": "Fancam",
+        "url": "https://youtu.be/nArI_VxQAAI?si=TZSl4BRn7BZpquNp",
+        "tags": [
+          "イオン幕張"
+        ]
+      }
+    ]
   },
   {
     "artist": "Laki",
