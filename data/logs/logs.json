@@ -112610,6 +112610,30 @@
     ]
   },
   {
+    "logid": "2b7dbcf2302f",
+    "date": "20231111",
+    "time": "1600",
+    "contents": "TOUR",
+    "title": "Girls² LIVE TOUR 2023 -activate- 群馬公演",
+    "url": "https://girls2-fc.jp/page/news/796687717785142329",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "setlistid": "202311111600",
+    "tags": [
+      "ベイシア文化ホール",
+      "activate"
+    ]
+  },
+  {
     "logid": "535c9897062a",
     "date": "20231111",
     "time": "1200",
@@ -112677,27 +112701,6 @@
     "groups": [
       "L2",
       "HIR"
-    ]
-  },
-  {
-    "logid": "2b7dbcf2302f",
-    "date": "20231111",
-    "time": "",
-    "contents": "TOUR",
-    "title": "Girls² LIVE TOUR 2023 -activate- 群馬公演",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "ベイシア文化ホール"
     ]
   },
   {
