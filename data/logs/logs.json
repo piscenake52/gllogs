@@ -2718,6 +2718,20 @@
     ],
     "tags": [
       "Magic Xmas"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2120059680290660425?a=0-1Rv7NTz8G8t9_1GeM&s=19",
+            "member": [],
+            "tags": [
+              "配信スタート"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
@@ -2789,6 +2803,13 @@
     "time": "",
     "contents": "ANNIVERSARY",
     "ref": "3a451a78bcd9"
+  },
+  {
+    "logid": "11a9ea0a6a40",
+    "date": "20261111",
+    "contents": "ANNIVERSARY",
+    "ref": "87c2a77abed9",
+    "suffix": "記念日"
   },
   {
     "logid": "baced1f231fd",
