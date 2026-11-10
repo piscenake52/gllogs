@@ -2608,7 +2608,7 @@
     "time": "1000",
     "contents": "GLRADIO",
     "title": "隅谷百花＆小川桜花のがるらじ 前編",
-    "url": "https://girls2-fc.jp/page/familyNews/1242335195315568642",
+    "url": "https://girls2-fc.jp/page/girls2radio/1247798459138834433",
     "groups": [
       "G2",
       "MMK",
@@ -2616,6 +2616,20 @@
     ],
     "tags": [
       "がるらじ"
+    ],
+    "sns": [
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1242335195315568642",
+            "member": [],
+            "tags": [
+              "メッセージ募集"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
