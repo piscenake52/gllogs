@@ -2882,6 +2882,36 @@
     ]
   },
   {
+    "logid": "d5dc973a53fa",
+    "date": "20261111",
+    "time": "1110",
+    "contents": "RADIO",
+    "title": "NBCラジオ「あさかラ」",
+    "url": "https://girls2-fc.jp/page/familyNews/1250031162181550080",
+    "groups": [
+      "G2",
+      "MSK",
+      "KIR"
+    ],
+    "tags": [
+      "コメント出演"
+    ],
+    "sns": [
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://www.nbc-radio.jp/radio/asakara/",
+            "member": [],
+            "tags": [
+              "番組サイト"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "87c2a77abed9",
     "date": "20261111",
     "time": "0000",
