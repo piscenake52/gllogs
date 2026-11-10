@@ -1,9 +1,20 @@
 {
- "updated": "2026-11-10T01:33:17Z",
- "total": 11703,
- "checked": 4500,
+ "updated": "2026-11-10T23:12:17Z",
+ "total": 11716,
+ "checked": 4750,
  "ng": 2,
  "items": [
+  {
+   "url": "https://girls2-fc.jp/page/gtube",
+   "logids": [
+    "744da0d42574"
+   ],
+   "fields": [
+    "url"
+   ],
+   "reason": "page not found (site title only)",
+   "since": 1792874058
+  },
   {
    "url": "https://girls2-fc.jp/page/forms/garuraji_2026_October",
    "logids": [
@@ -15,17 +26,6 @@
    ],
    "reason": "page not found (site title only)",
    "since": 1792788141
-  },
-  {
-   "url": "https://girls2-fc.jp/page/gtube",
-   "logids": [
-    "b35ad01c4c4b"
-   ],
-   "fields": [
-    "url"
-   ],
-   "reason": "page not found (site title only)",
-   "since": 1792874058
   }
  ]
 }
