@@ -1,0 +1,29 @@
+{
+  "artist": "Girls²",
+  "title": "BLOOM! BLOOM! BLOOM!",
+  "videos": [
+    {
+      "type": "MV",
+      "url": "https://www.youtube.com/watch?v=0YhvQXbPsJk"
+    },
+    {
+      "type": "Dance Practice",
+      "url": "https://www.youtube.com/watch?v=isHD9OnJwNQ"
+    },
+    {
+      "type": "Live",
+      "url": "https://www.youtube.com/watch?v=03IGaeZ-wcs"
+    },
+    {
+      "type": "Reaction",
+      "url": "https://www.youtube.com/watch?v=j-JtKEHXmR4"
+    },
+    {
+      "type": "Fancam",
+      "url": "https://www.youtube.com/watch?v=8r_abdK3keY",
+      "tags": [
+        "ウエノデ.パンダビア"
+      ]
+    }
+  ]
+}
