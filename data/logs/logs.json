@@ -3085,7 +3085,13 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
-      "MSK"
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -3098,6 +3104,35 @@
             ],
             "tags": [
               "Umbrella日和"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/vA8dklcQN4E?si=wUdIXcWHkZwHCTpn",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "ウッキーウキウキ🐒"
+            ]
+          },
+          {
+            "url": "https://youtube.com/shorts/a_sNAskG7Ac?si=q6fsgWq3RzD8bMLU",
+            "member": [
+              "KUR"
+            ],
+            "tags": [
+              "Umbrella"
             ]
           }
         ]
