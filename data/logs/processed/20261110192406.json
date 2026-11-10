@@ -1,0 +1,27 @@
+{
+  "logid": "572fa43ae749",
+  "groups": [
+    "L2",
+    "KAN",
+    "RRK",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DfjbYdDJ94c/?rpxt=MTdpMHVkOWMxNTNm",
+          "member": [
+            "RRK",
+            "KIK"
+          ],
+          "tags": [
+            "Best friends"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3383"
+}

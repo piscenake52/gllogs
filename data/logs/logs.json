@@ -3227,7 +3227,9 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
-      "KAN"
+      "KAN",
+      "RRK",
+      "KIK"
     ],
     "sns": [
       {
@@ -3241,6 +3243,21 @@
             "tags": [
               "ぷにるんず",
               "あと5日"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfjbYdDJ94c/?rpxt=MTdpMHVkOWMxNTNm",
+            "member": [
+              "RRK",
+              "KIK"
+            ],
+            "tags": [
+              "Best friends"
             ]
           }
         ]
