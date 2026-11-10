@@ -2952,6 +2952,33 @@
     ]
   },
   {
+    "logid": "6a13ceffb998",
+    "date": "20261110",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　ワンダンス",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2120048816095101164?a=csAirILnWxEJbDyEUi4&s=19",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "TEAM ON DIARY"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "ff01538e0185",
     "date": "20261109",
     "time": "2300",
