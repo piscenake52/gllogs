@@ -2741,6 +2741,35 @@
     ]
   },
   {
+    "logid": "5dcaba146b03",
+    "date": "20261111",
+    "time": "1800",
+    "contents": "SNS",
+    "title": "Instagram live",
+    "url": "https://www.instagram.com/laki_official0922",
+    "groups": [
+      "L2",
+      "HIR"
+    ],
+    "tags": [
+      "ハタチのふかさわんこ"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2120140525722583430?s=19",
+            "member": [],
+            "tags": [
+              "配信情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "98b4f4984a7b",
     "date": "20261111",
     "time": "1500",
