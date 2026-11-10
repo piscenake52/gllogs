@@ -1,0 +1,39 @@
+{
+  "artist": "Laki",
+  "title": "Unicorn Dance",
+  "lyrics": "https://www.uta-net.com/song/376502/",
+  "videos": [
+    {
+      "type": "Dance Practice",
+      "url": "https://youtu.be/u9E_iGKtH1M?si=q6LSD3nXTiMY0sFe"
+    },
+    {
+      "type": "Fancam",
+      "url": "https://youtu.be/5whVv8akBu4?si=uyn2PwnkaPMmsNV5",
+      "tags": [
+        "SUMMER STATION"
+      ]
+    },
+    {
+      "type": "Fancam",
+      "url": "https://www.youtube.com/watch?v=WNo2jkB2O9w",
+      "tags": [
+        "SPARK"
+      ]
+    },
+    {
+      "type": "Fancam",
+      "url": "https://www.youtube.com/watch?v=yv5gmrS54pg",
+      "tags": [
+        "ちゃおフェス"
+      ]
+    },
+    {
+      "type": "Fancam",
+      "url": "https://www.youtube.com/watch?v=-LRMLyqSEDI",
+      "tags": [
+        "SUMMER STATION"
+      ]
+    }
+  ]
+}
