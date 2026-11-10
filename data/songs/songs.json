@@ -601,7 +601,25 @@
   {
     "artist": "Girls²",
     "title": "UNCOOL",
-    "link": "https://music.youtube.com/watch?v=Qzg7ElOF2h4&si=gx9H0pOYEdp2tWV2"
+    "link": "https://music.youtube.com/watch?v=Qzg7ElOF2h4&si=gx9H0pOYEdp2tWV2",
+    "lyrics": "https://www.uta-net.com/song/330195/",
+    "videos": [
+      {
+        "type": "MV",
+        "url": "https://youtu.be/2UgwsssLIeY?si=-9hd2O7To0WRcd7z"
+      },
+      {
+        "type": "Dance Practice",
+        "url": "https://youtu.be/9xU4t6RAYSE?si=wUbGa6iXmWPJUnHc"
+      },
+      {
+        "type": "Other",
+        "url": "https://youtu.be/XVJFWE5Et5o?si=nd-JLw4B9RRilb_B",
+        "tags": [
+          "がるがるちゃんねる"
+        ]
+      }
+    ]
   },
   {
     "artist": "Girls²",
