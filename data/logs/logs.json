@@ -3368,6 +3368,28 @@
       "BLOOM衣装",
       "アホ毛",
       "がるがるちゃんねる"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/mQYdq_6T1X8?si=Xcd0jSAjJKqnvjLH",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "Short"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
