@@ -1,0 +1,37 @@
+{
+  "logid": "6c32f3da8fc3",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2120109761459081369?a=tmzKwlg2OBFXOo-kv8A&s=19",
+          "member": [
+            "YZH",
+            "MMK"
+          ],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSpPsrSNx/",
+          "member": [
+            "YZH",
+            "MMK"
+          ],
+          "tags": [
+            "あのね",
+            "それでね"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3404"
+}
