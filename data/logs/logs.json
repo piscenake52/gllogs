@@ -3229,7 +3229,13 @@
     "title": "POST　Girls²",
     "groups": [
       "G2",
-      "YOK"
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -3242,6 +3248,21 @@
             ],
             "tags": [
               "release"
+            ]
+          },
+          {
+            "url": "https://www.cl-live.com/posts/iLE7gxv7zpt8F3w4wRHPFW?lang=ja",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "リリース日"
             ]
           }
         ]
