@@ -1,0 +1,30 @@
+{
+  "date": "20261111",
+  "contents": "SNS",
+  "title": "SNS　Girls²",
+  "groups": [
+    "G2",
+    "YZH",
+    "MMK",
+    "MSK",
+    "YOK",
+    "KUR",
+    "MNM",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2120290404612354095?a=aj6M2xYPikSw11M_pIg&s=19",
+          "member": [],
+          "tags": [
+            "本日のラジオ出演情報"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3422"
+}
