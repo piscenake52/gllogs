@@ -3911,6 +3911,33 @@
     ]
   },
   {
+    "logid": "93830bd1ebf1",
+    "date": "20261110",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/pDo5PaJu4KniJ2PnJ9XZE9?lang=ja",
+            "member": [
+              "AKR"
+            ],
+            "tags": [
+              "コラボキャス配信"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "ff01538e0185",
     "date": "20261109",
     "time": "2300",
