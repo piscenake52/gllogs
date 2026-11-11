@@ -1,0 +1,28 @@
+{
+  "title": "EASY",
+  "type": "digital",
+  "artist": "Girls²",
+  "member": [
+    "YZH",
+    "MMK",
+    "MSK",
+    "YOK",
+    "KUR",
+    "MNM",
+    "KIR"
+  ],
+  "_logids": [],
+  "date": "20261002",
+  "tracks": [
+    {
+      "no": 1,
+      "title": "EASY"
+    }
+  ],
+  "editions": [
+    {
+      "name": "配信",
+      "format": "DIGITAL"
+    }
+  ]
+}
