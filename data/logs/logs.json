@@ -3974,6 +3974,34 @@
     ]
   },
   {
+    "logid": "3321315279b5",
+    "date": "20261110",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2",
+      "TBK"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/efQN8mBnwbvAfwHsxdj5Vi?lang=ja",
+            "member": [],
+            "with": [
+              "TBK"
+            ],
+            "tags": [
+              "CIRRA"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "ff01538e0185",
     "date": "20261109",
     "time": "2300",
