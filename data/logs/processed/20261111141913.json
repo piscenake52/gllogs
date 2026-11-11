@@ -1,0 +1,22 @@
+{
+  "logid": "6c32f3da8fc3",
+  "sns": [
+    {
+      "type": "youtube",
+      "urls": [
+        {
+          "url": "https://youtube.com/shorts/pEqeEFskaY8?si=2Bpp9oColHnJu7HP",
+          "member": [
+            "YZH",
+            "MMK"
+          ],
+          "tags": [
+            "あのね",
+            "それでね"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3440"
+}
