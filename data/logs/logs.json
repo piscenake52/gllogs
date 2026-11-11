@@ -3235,6 +3235,47 @@
     ]
   },
   {
+    "logid": "320714219cfb",
+    "date": "20261111",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/nGGtQ2rB1BPPJYnj5V4Ft9?lang=ja",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "デジタルトレカ販売中"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "baced1f231fd",
     "date": "20261110",
     "time": "1900",
