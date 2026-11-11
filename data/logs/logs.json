@@ -3208,6 +3208,33 @@
     ]
   },
   {
+    "logid": "400336ae16dc",
+    "date": "20261111",
+    "time": "",
+    "contents": "CL",
+    "title": "POST　Girls²",
+    "groups": [
+      "G2",
+      "YOK"
+    ],
+    "sns": [
+      {
+        "type": "cl",
+        "urls": [
+          {
+            "url": "https://www.cl-live.com/posts/eZ4VR4zEGe1KzqYwcPxnMy?lang=ja",
+            "member": [
+              "YOK"
+            ],
+            "tags": [
+              "release"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "baced1f231fd",
     "date": "20261110",
     "time": "1900",
