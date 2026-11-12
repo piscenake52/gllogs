@@ -512,6 +512,27 @@
     ]
   },
   {
+    "logid": "448d3d93d988",
+    "date": "20261216",
+    "time": "0000",
+    "contents": "CLOSE",
+    "title": "Laki NATSLIVE レシピ年賀状2027 販売終了",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "tags": [
+      "Lakiガチャクッキング"
+    ]
+  },
+  {
     "logid": "acfae4a04c8e",
     "date": "20261215",
     "time": "1000",
@@ -13400,6 +13421,27 @@
           }
         ]
       }
+    ]
+  },
+  {
+    "logid": "1ea4618ad207",
+    "date": "20261101",
+    "time": "0000",
+    "contents": "SALES",
+    "title": "Laki NATSLIVE レシピ年賀状2027 販売開始",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "tags": [
+      "Lakiガチャクッキング"
     ]
   },
   {
