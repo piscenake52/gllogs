@@ -3019,7 +3019,9 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
-      "TBK"
+      "TBK",
+      "AKR",
+      "KIK"
     ],
     "sns": [
       {
@@ -3035,6 +3037,16 @@
             ],
             "tags": [
               "ディズニーシー"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DfrJvapJ4rQ/?cplk=NTNyMHExNHJmZmRw",
+            "member": [
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "ワンダンスチャレンジ"
             ]
           }
         ]
