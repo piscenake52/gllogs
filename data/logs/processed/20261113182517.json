@@ -1,0 +1,41 @@
+{
+  "logid": "0a8a2a27bfae",
+  "groups": [
+    "G2",
+    "MMK",
+    "MSK",
+    "YOK",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2121172251492159569?a=cTOEddxKw126p8olX7Y&s=19",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSpQUwa4P/",
+          "member": [
+            "KIR"
+          ],
+          "tags": [
+            "Umbrella"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3504"
+}
