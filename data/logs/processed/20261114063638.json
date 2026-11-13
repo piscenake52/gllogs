@@ -1,0 +1,29 @@
+{
+  "date": "20261113",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "TBK"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/p/DfrZfnSicXJ/?rpxt=MWF6bm83N2NsaW1yZw==",
+          "member": [
+            "TBK"
+          ],
+          "with": [
+            "HIR"
+          ],
+          "tags": [
+            "ディズニーシー"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3531"
+}
