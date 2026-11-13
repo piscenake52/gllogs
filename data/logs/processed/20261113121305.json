@@ -1,0 +1,26 @@
+{
+  "logid": "8c57f6d8910d",
+  "sns": [
+    {
+      "type": "youtube",
+      "urls": [
+        {
+          "url": "https://www.youtube.com/shorts/TBh41AlECX8",
+          "member": [
+            "YZH",
+            "MMK",
+            "MSK",
+            "YOK",
+            "KUR",
+            "MNM",
+            "KIR"
+          ],
+          "tags": [
+            "Short"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3477"
+}
