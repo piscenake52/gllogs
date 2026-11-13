@@ -1,0 +1,34 @@
+{
+  "logid": "d7aa489e1f73",
+  "groups": [
+    "L2",
+    "HIR",
+    "YUW",
+    "KAN",
+    "RRK",
+    "AKR",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DfmMwUiJ_jR/?mdxt=MXV2OGpxMG00N2U2Nw==",
+          "member": [
+            "HIR",
+            "YUW",
+            "KAN",
+            "RRK",
+            "AKR",
+            "KIK"
+          ],
+          "tags": [
+            "HBD"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3545"
+}

@@ -4520,7 +4520,11 @@
     "groups": [
       "L2",
       "HIR",
-      "YUW"
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "sns": [
       {
@@ -4533,6 +4537,20 @@
             ],
             "tags": [
               "20歳になりました"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DfmMwUiJ_jR/?mdxt=MXV2OGpxMG00N2U2Nw==",
+            "member": [
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "HBD"
             ]
           }
         ]
