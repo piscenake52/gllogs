@@ -6049,6 +6049,18 @@
             "member": []
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/AQ03ezwnH8Q?si=yxY1HZc17fYjUPTp",
+            "member": [],
+            "tags": [
+              "Fancam"
+            ]
+          }
+        ]
       }
     ]
   },
