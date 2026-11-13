@@ -3174,6 +3174,33 @@
     ]
   },
   {
+    "logid": "a04ebdd68bfc",
+    "date": "20261112",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　ワンダンス",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2120803799627596143",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "ワンダンスチャレンジ"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "d43b74632d87",
     "date": "20261111",
     "time": "2359",
