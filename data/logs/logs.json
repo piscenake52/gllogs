@@ -3962,7 +3962,7 @@
     "time": "1800",
     "contents": "SNS",
     "title": "Instagram live　深澤日彩",
-    "url": "https://www.instagram.com/laki_official0922",
+    "url": "https://www.instagram.com/reel/DfmLoB_idPP/?srtk=bzA0bXBseWUyNGlh",
     "groups": [
       "L2",
       "HIR"
@@ -3979,6 +3979,20 @@
             "member": [],
             "tags": [
               "配信情報"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfmLoB_idPP/?srtk=bzA0bXBseWUyNGlh",
+            "member": [
+              "HIR"
+            ],
+            "tags": [
+              "バースデー配信"
             ]
           }
         ]
