@@ -2,6 +2,8 @@
   "logid": "d7aa489e1f73",
   "groups": [
     "L2",
+    "RIN",
+    "TBK",
     "HIR",
     "YUW",
     "KAN",
@@ -14,8 +16,10 @@
       "type": "instagram",
       "urls": [
         {
-          "url": "https://www.instagram.com/reel/DfmMwUiJ_jR/?mdxt=MXV2OGpxMG00N2U2Nw==",
+          "url": "https://www.instagram.com/p/DfmUuqJD8C9/?dlrf=Z2lpbml4MWd1dG9p",
           "member": [
+            "RIN",
+            "TBK",
             "HIR",
             "YUW",
             "KAN",
@@ -30,5 +34,5 @@
       ]
     }
   ],
-  "_issue": "3545"
+  "_issue": "3546"
 }
