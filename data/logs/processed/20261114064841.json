@@ -1,0 +1,26 @@
+{
+  "date": "20260826",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "HIR"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DcgGTl9oUUk/?xtok=ZzRrczNicmM2dWR4",
+          "member": [
+            "HIR"
+          ],
+          "tags": [
+            "make up"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3538"
+}
