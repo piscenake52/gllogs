@@ -2880,6 +2880,33 @@
     ]
   },
   {
+    "logid": "154c8f4c4885",
+    "date": "20261113",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　ワンダンス",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2121076082581361074?a=uIJ3xdMo-hptXkG-nT8&s=19",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "サントラ発売決定"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "291fa35f093b",
     "date": "20261112",
     "time": "2359",
