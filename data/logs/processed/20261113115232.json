@@ -1,0 +1,44 @@
+{
+  "date": "20261112",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "HIR",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSpx5nUr1/",
+          "member": [
+            "HIR",
+            "KIK"
+          ],
+          "tags": [
+            "ぷにるんず",
+            "ぷに活"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2120831158619636001?a=XzsMyRY-RXYIHlKv-AY&s=19",
+          "member": [
+            "HIR",
+            "KIK"
+          ],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3472"
+}
