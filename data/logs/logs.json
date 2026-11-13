@@ -4464,6 +4464,34 @@
     ]
   },
   {
+    "logid": "d7aa489e1f73",
+    "date": "20261111",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "HIR",
+      "YUW"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DfmWL-XmitR/?mdxt=bWw4ZnhvYjRmM2Rl",
+            "member": [
+              "HIR"
+            ],
+            "tags": [
+              "20歳になりました"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "baced1f231fd",
     "date": "20261110",
     "time": "1900",
