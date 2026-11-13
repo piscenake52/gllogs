@@ -1436,6 +1436,39 @@
     ]
   },
   {
+    "logid": "827738fca1b8",
+    "date": "20261121",
+    "time": "0600",
+    "contents": "RADIO",
+    "title": "J-WAVE 「POP OF THE WORLD」",
+    "url": "https://www.j-wave.co.jp/original/popworld/sp/",
+    "groups": [
+      "G2",
+      "KUR",
+      "KIR"
+    ],
+    "tags": [
+      "POP OF THE WORLD"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/pop_813/status/2121377810887680044?a=E7AluaIXgdCDBTs3PLc&s=19",
+            "member": [
+              "KUR",
+              "KIR"
+            ],
+            "tags": [
+              "出演決定"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "868871ab8fe5",
     "date": "20261120",
     "time": "2359",
