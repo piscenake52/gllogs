@@ -2433,6 +2433,31 @@
     ]
   },
   {
+    "logid": "25470f6c4bd7",
+    "date": "20261113",
+    "time": "1800",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　深澤日彩",
+    "groups": [
+      "L2",
+      "HIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/CL_OFFICIAL_ACC/status/2120849103173124532?a=Cw9Mtqqg9BPT4WuT9tk&s=19",
+            "member": [],
+            "tags": [
+              "CL"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "7db94a6940cc",
     "date": "20261113",
     "time": "1730",
@@ -2533,17 +2558,6 @@
           }
         ]
       }
-    ]
-  },
-  {
-    "logid": "25470f6c4bd7",
-    "date": "20261113",
-    "time": "",
-    "contents": "CL",
-    "title": "LDH NEWS CAST　深澤日彩",
-    "groups": [
-      "L2",
-      "HIR"
     ]
   },
   {
