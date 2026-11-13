@@ -3387,6 +3387,9 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YZH",
+      "MMK",
+      "MSK",
       "MNM"
     ],
     "sns": [
@@ -3401,6 +3404,32 @@
             "tags": [
               "Sugar×Bitter",
               "moxymill"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/Dfo5mfspEY7/?xtok=dHVjem96Z3pxdnN3",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK"
+            ],
+            "tags": [
+              "EASY",
+              "STYLE FILE"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DfmG_mGJDkF/?mdxt=MWViZ2gzMDQyb2xwNg==",
+            "member": [
+              "MNM"
+            ],
+            "tags": [
+              "Umbrella"
             ]
           }
         ]
