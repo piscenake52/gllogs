@@ -3300,7 +3300,10 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "RIN",
+      "TBK",
       "HIR",
+      "YUW",
       "KIK"
     ],
     "sns": [
@@ -3331,6 +3334,18 @@
             ],
             "tags": [
               "TikTok更新"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2120733175257473177?a=gR6K_90ldMVnySUyrM8&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW"
+            ],
+            "tags": [
+              "本日の出演情報"
             ]
           }
         ]
