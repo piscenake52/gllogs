@@ -3694,7 +3694,7 @@
     "time": "1930",
     "contents": "SNS",
     "title": "Instagram Live　Girls²",
-    "url": "https://girls2-fc.jp/page/familyNews/1249911165165764610",
+    "url": "https://www.instagram.com/reel/DfmvrrOD8tK/?vrfl=MTExMWZ6ZGR0Y3JiOQ==",
     "groups": [
       "G2",
       "YZH",
@@ -3725,6 +3725,38 @@
             ],
             "tags": [
               "生配信情報"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfmvrrOD8tK/?vrfl=MTExMWZ6ZGR0Y3JiOQ==",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "リリース記念"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1249911165165764610",
+            "member": [],
+            "tags": [
+              "生配信"
             ]
           }
         ]
