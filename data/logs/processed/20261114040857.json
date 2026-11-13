@@ -1,0 +1,37 @@
+{
+  "logid": "2f7bb70c4b22",
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DfmUud5J2gX/?xtok=MTNneGRibXh0eWo4bg==",
+          "member": [
+            "KUR",
+            "MNM"
+          ],
+          "tags": [
+            "EASY",
+            "STYLE FILE"
+          ]
+        },
+        {
+          "url": "https://www.instagram.com/reel/DfmG-_3JA0X/?rpxt=aTZ3bGN5ZDd0aTZl",
+          "member": [
+            "YZH",
+            "MMK",
+            "MSK",
+            "YOK",
+            "KUR",
+            "MNM",
+            "KIR"
+          ],
+          "tags": [
+            "Release!!"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3520"
+}
