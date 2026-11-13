@@ -2544,12 +2544,31 @@
     "time": "2000",
     "contents": "SNS",
     "title": "あかりんごの元気モリモリール　#127",
+    "url": "https://www.instagram.com/reel/DfreWTcJIbO/?psln=MWh1dXcwNjVjYTV2aw==",
     "groups": [
       "L2",
       "AKR"
     ],
     "tags": [
+      "MINE",
+      "SWEET REVENGE",
       "ダンスは遊びじゃない！"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/reel/DfreWTcJIbO/?psln=MWh1dXcwNjVjYTV2aw==",
+            "member": [
+              "AKR"
+            ],
+            "tags": [
+              "SWEET REVENGE"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
