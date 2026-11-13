@@ -1,0 +1,30 @@
+{
+  "date": "20261113",
+  "contents": "SNS",
+  "title": "SNS　Girls²",
+  "groups": [
+    "G2",
+    "MMK",
+    "MSK",
+    "YOK"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2121006271289835644?a=wPAdziSWOq5-EVcZPwk&s=19",
+          "member": [
+            "MMK",
+            "MSK",
+            "YOK"
+          ],
+          "tags": [
+            "オールスター合唱バトル"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3467"
+}

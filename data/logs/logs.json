@@ -2547,6 +2547,37 @@
     ]
   },
   {
+    "logid": "0a8a2a27bfae",
+    "date": "20261113",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "MMK",
+      "MSK",
+      "YOK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2121006271289835644?a=wPAdziSWOq5-EVcZPwk&s=19",
+            "member": [
+              "MMK",
+              "MSK",
+              "YOK"
+            ],
+            "tags": [
+              "オールスター合唱バトル"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "291fa35f093b",
     "date": "20261112",
     "time": "2359",
