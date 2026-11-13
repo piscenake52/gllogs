@@ -2796,7 +2796,10 @@
       "G2",
       "MMK",
       "MSK",
-      "YOK"
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -2811,6 +2814,33 @@
             ],
             "tags": [
               "オールスター合唱バトル"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2121171611068014800?a=mztIvmlBSi5jzGFrnRQ&s=19",
+            "member": [
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSpQUkCr4/",
+            "member": [
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "いきなり本読み"
             ]
           }
         ]
