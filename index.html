@@ -3,6 +3,26 @@
 <head>
 <script>try{if(localStorage.getItem('gl_log_header_locked')==='true')document.documentElement.classList.add('hdr-locked')}catch(e){}</script>
 <script>try{var __f=JSON.parse(localStorage.getItem('gl_filter_fold')||'null');if(__f){var __n=0;['year','g2','l2','cont'].forEach(function(k){if(__f[k]){document.documentElement.classList.add('pf-'+k);__n++}});if(__n===4)document.documentElement.classList.add('pf-all');else if(__n>0)document.documentElement.classList.add('pf-mix')}}catch(e){}</script>
+<script>/* PC表示はhtmlにzoom:1.25をかける。座標を返すAPIをzoom分だけ割って、styleのpxと同じ単位に揃える */
+(function(){var Z=null,H=null;function zf(el){var z=Z;if(z===null){z=1;try{z=parseFloat(getComputedStyle(document.documentElement).zoom)||1}catch(e){}if(document.readyState!=='loading')Z=z}
+if(el&&el.closest&&el.closest('.sticky-header')){var h=H;if(h===null){h=1;try{h=parseFloat(getComputedStyle(document.querySelector('.sticky-header')).zoom)||1}catch(e){}H=h}z=z*h}return z}
+function inv(){Z=null;H=null}window.addEventListener('resize',inv);document.addEventListener('DOMContentLoaded',inv);window.__zoom=zf;window.__zoomInv=inv;
+var g=Element.prototype.getBoundingClientRect;
+Element.prototype.getBoundingClientRect=function(){var r=g.call(this);var z=zf(this);return z===1?r:new DOMRect(r.x/z,r.y/z,r.width/z,r.height/z)};
+function dv(proto,names){names.forEach(function(n){var d=Object.getOwnPropertyDescriptor(proto,n);if(!d||!d.get)return;Object.defineProperty(proto,n,{configurable:true,enumerable:d.enumerable,get:function(){var v=d.get.call(this);var z=zf(this.target instanceof Element?this.target:null);return z===1?v:v/z}})})}
+dv(MouseEvent.prototype,['clientX','clientY','pageX','pageY']);
+if(window.Touch)dv(Touch.prototype,['clientX','clientY','pageX','pageY']);
+})();</script>
+<script>
+/* 保存済みの画面幅(PC幅のみ)と文字サイズを、最初の描画より前に<html>へ反映する(読み込み中に変更前の幅・サイズで一瞬表示されるのを防ぐ。後ろのメインスクリプトでも同じ値を再度適用する) */
+try {
+  var __ls = localStorage, __root = document.documentElement;
+  var __cw = parseFloat(__ls.getItem('gl_log_container_w'));
+  if (!isNaN(__cw) && window.innerWidth >= 760) __root.style.setProperty('--container-w', Math.min(Math.max(__cw, 440), window.innerWidth / 1.25) + 'px');
+  var __tp = parseInt(__ls.getItem('gl_log_text_size_percent'), 10) || 0;
+  __root.style.setProperty('--data-font-scale', String(1 + Math.max(-50, Math.min(50, __tp)) / 100));
+} catch (e) {}
+</script>
 <script>
 /* 共有URL(#v=1&f=...&q=...)で開いたとき: 共有の内容を「読み取り用」に差し込み、そのON/OFFの保存は止める(見る人自身の設定を上書きしない) */
 try {
@@ -88,6 +108,7 @@ window.uiIc = function (n) { return '<svg class="ui-ic" viewBox="0 0 24 24" aria
 <style type="text/css">
 /*<![CDATA[*/
 /* ==================== カラーテーマ(ライト/ダーク共通のCSS変数) ==================== */
+:root { --vz: 1; } /* html zoom(PC幅で1.25)の倍率。vh指定をzoom後の単位に直すために使う */
 :root {
   --bg: #fff; --text: #222; --sub: #555; --muted: #888;
   --border: #f4f4f5; --input-border: #e4e4e7; --btn-bg: #f4f4f5;
@@ -190,6 +211,9 @@ body {
 .width-resize-handle.is-dragging { background: rgba(14,165,233,0.08); }
 body.is-resizing-container { cursor: ew-resize; user-select: none; }
 @media (min-width: 760px) {
+  :root { --vz: 1.25; }
+  html { zoom: 1.25; } /* PC表示は、ブラウザ拡大125%相当を基準(100%)にする */
+  .sticky-header { zoom: var(--data-font-scale); } /* 文字サイズ変更に合わせて、ヘッダーのボタン類も同じ倍率で拡大縮小 */
   .width-resize-handle { display: block; }
   .width-resize-handle.left { left: calc(50% - var(--container-w) / 2); }
   .width-resize-handle.right { left: calc(50% + var(--container-w) / 2); }
@@ -286,10 +310,10 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 
 /* --- 検索ボックス(クリアボタン付き) --- */
 .search-box-wrap { flex: 1 1 110px; min-width: 0; position: relative; display: flex; align-items: center; }
-.search-input { width: 100%; padding: 5px 28px 5px 32px; font-size: var(--fs-s); border: 1px solid var(--input-border); border-radius: var(--r-m); outline: none; background: var(--input-bg); color: var(--text); }
+.search-input { width: 100%; padding: 5px 28px 5px 29px; font-size: var(--fs-s); border: 1px solid var(--input-border); border-radius: var(--r-m); outline: none; background: var(--input-bg); color: var(--text); }
 .search-input:focus { border-color: var(--text); background: var(--bg); }
 /* SETLISTモード切替アイコン(検索窓の左側に内包) */
-.search-setlist-btn { position: absolute; left: 9px; width: 19px; height: 19px; border-radius: 50%; background: none; border: none; color: var(--muted); font-size: var(--fs-2xs); cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; user-select: none; }
+.search-setlist-btn { position: absolute; left: 2px; width: 21px; height: 21px; border-radius: 50%; background: none; border: none; color: var(--muted); font-size: var(--fs-2xs); cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; user-select: none; }
 .search-setlist-btn:hover { background-color: var(--btn-hover); }
 .search-clear-btn { position: absolute; right: 8px; background: none; border: none; color: var(--muted); font-size: var(--fs-l); cursor: pointer; padding: 0; line-height: 1; display: none; user-select: none; }
 .search-clear-btn:hover { color: var(--text); }
@@ -313,8 +337,8 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 .song-bar { display: flex; align-items: center; gap: 10px; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0; margin-bottom: 0; transition: max-height var(--dur-m) var(--ease-s), opacity var(--dur-m) var(--ease-s), margin-top var(--dur-m) var(--ease-s), margin-bottom var(--dur-m) var(--ease-s); }
 .sticky-header.is-initializing .song-bar { transition: none !important; }
 .song-bar.is-open { max-height: 44px; opacity: 1; margin-top: 0; margin-bottom: 4px; }
-.song-play-btn { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--play-bg); color: var(--play-fg); font-size: var(--fs-s); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
-.song-play-btn:hover { background-color: var(--btn-hover); }
+.song-play-btn { flex: 0 0 auto; width: 22px; height: 22px; margin-left: 1px; /* ♪ボタン(24px)と中心をそろえる */ border-radius: 50%; border: 1px solid var(--accent); background: var(--accent); color: var(--on-accent); font-size: var(--fs-s); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; user-select: none; }
+.song-play-btn:hover, .song-play-btn:active { filter: none; background: var(--accent); color: var(--on-accent); } /* ホバー・押下で見た目を変えない */
 .song-play-btn:focus, .song-play-btn:focus-visible { outline: none !important; } /* 押したあと(別タブから戻った時など)に青い枠を出さない */
 .song-ticker-viewport { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; position: relative; }
 .song-ticker-text { display: inline-block; font-size: var(--fs-m); line-height: 1.4; padding: 1px 0; color: var(--text); white-space: nowrap; }
@@ -356,7 +380,7 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
   :root { --container-w: 720px; }
 }
 .checks-row-years::-webkit-scrollbar, .checks-row-other::-webkit-scrollbar, .checks-row-months::-webkit-scrollbar, .active-filters-row::-webkit-scrollbar, .item-title::-webkit-scrollbar { display: none; }
-.fold-dock { display: flex; flex-wrap: wrap; gap: 6px; padding: 2px 0 1px; } /* 折りたたみボタンの帯: YEAR / GIRLS² / LAKI / CONTENTS を横並び */
+.fold-dock { display: flex; flex-wrap: wrap; gap: 6px; padding: 2px 0 1px; } /* 折りたたみボタンの帯: YEAR / GIRLS2 / LAKI / CONTENTS を横並び */
 .fold-btn { position: relative; flex: 0 0 auto; height: 28px; box-sizing: border-box; padding: 0 9px; border-radius: var(--r-pill); border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--muted); cursor: pointer; display: inline-flex; align-items: center; font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.3px; line-height: 1; white-space: nowrap; transition: color var(--dur-s), background-color var(--dur-s), border-color var(--dur-s); }
 /* 初回描画前に、保存済みの開閉状態をボタンと行に反映する(青→灰色/灰色→青のちらつき防止。JSが適用後に外す) */
 html.pf-year .fold-btn[data-fold="year"], html.pf-g2 .fold-btn[data-fold="g2"], html.pf-l2 .fold-btn[data-fold="l2"], html.pf-cont .fold-btn[data-fold="cont"], html.pf-all .fold-all, html.pf-mix .fold-all { background: var(--btn-bg) !important; border-color: var(--input-border) !important; color: var(--muted) !important; transition: none !important; }
@@ -370,14 +394,15 @@ html.pf-year #foldUnit-year, html.pf-g2 #foldUnit-g2, html.pf-l2 #foldUnit-l2, h
 .fold-unit.is-gone { display: none; }
 html.hdr-off-icon #iconToggleBtn, html.hdr-off-today #todayToggleBtn { display: none !important; } /* ヘッダーのICON・TODAYを出さない設定 */
 .set-chip.set-hdr { height: auto; border: none; background: none; padding: 4px 8px; font-size: var(--fs-xs); font-weight: 400; color: var(--muted); } /* ICON・TODAYのラベル: ヘッダーのボタンと同じ見た目(文字だけ) */
-.set-chip.set-hdr.is-on { color: var(--on-accent); background: var(--accent); border-radius: var(--r-s); } /* スイッチONのときはヘッダーのONと同じ青 */
+.set-chip.set-hdr.is-on { color: var(--on-accent); background: var(--accent); border-radius: var(--r-pill); } /* スイッチONのときはヘッダーのONと同じ青 */
 html.fold-chips-off .fold-dock { display: none; } /* 開閉チップを全部出さない設定 */
 html.chip-off-all #foldAllBtn, html.chip-off-year .fold-btn[data-fold="year"], html.chip-off-g2 .fold-btn[data-fold="g2"], html.chip-off-l2 .fold-btn[data-fold="l2"], html.chip-off-cont .fold-btn[data-fold="cont"] { display: none; }
 html.chip-off-year #foldUnit-year.is-gone, html.chip-off-g2 #foldUnit-g2.is-gone, html.chip-off-l2 #foldUnit-l2.is-gone, html.chip-off-cont #foldUnit-cont.is-gone { display: flex; } /* チップを出さない行は、畳んだ状態を無視して開いて見せる(保存した状態はそのまま) */
 .set-chip { display: inline-flex; align-items: center; height: 22px; box-sizing: border-box; padding: 0 10px; border-radius: var(--r-pill); border: 1px solid var(--muted); background: var(--btn-bg); color: var(--text); font-size: var(--fs-2xs); font-weight: 700; letter-spacing: 0.3px; line-height: 1; white-space: nowrap; } /* SETTINGのDISPLAYのラベル: 実際のボタンと同じ見た目 */
-.set-chip.is-fold { height: 28px; border-radius: var(--r-pill); border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
-.set-chip.is-fold.is-off { border-color: var(--input-border); background: var(--btn-bg); color: var(--muted); } /* スイッチがOFFのときは、畳んでいるときと同じ通常の色 */
+.set-chip.is-fold { height: 28px; padding: 0 9px; font-size: var(--fs-xs); border-radius: var(--r-pill); border-color: var(--accent); background: var(--accent); color: var(--on-accent); } /* 画面の折りたたみボタン(.fold-btn)と同じ大きさ・余白・文字 */
+.set-chip.is-fold.is-off { border-color: var(--input-border); background: var(--btn-bg); color: var(--muted); text-shadow: none; } /* スイッチがOFFのときは、畳んでいるときと同じ通常の色 */
 .set-chip svg { width: 11px; height: 11px; margin-left: 3px; }
+.set-chip.set-lyrics { height: 20px; padding: 0 8px; } /* 楽曲バーのUta-Netボタン(.song-lyrics-btn)と同じ大きさ */
 html.lyrics-off .song-lyrics-btn { display: none; }
 .fold-unit.is-folding .checks-row { overflow: visible; } /* 動いている間だけ、ボタンが行の外へ縦に動けるようにする */
 .checks-row-members { display: flex; flex-wrap: nowrap; gap: 3px; width: 100%; padding-right: 4px; }
@@ -468,6 +493,7 @@ html.hdr-locked .sticky-header { border-bottom-color: var(--accent); box-shadow:
 #headerBtnGroup #heartToggleBtn.is-active { color: var(--on-accent); background-color: var(--accent); }
 .theme-toggle-btn { overflow: hidden; }
 #backBtn { font-size: var(--fs-2xl); line-height: 1; padding-bottom: 2px; } /* ↺:直前の検索条件に戻す。戻せるものが無い間は押せない(非活性) */
+#backBtn { display: none; } /* ↺は非表示(中のしくみ=直前の検索条件の記録・復元は残してある。再表示はこの1行を消す) */
 #backBtn:disabled, #backBtn:disabled:hover { opacity: var(--op-disabled); cursor: not-allowed; background-color: var(--btn-bg); color: var(--text); }
 .lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #textSizeBtn:hover, #dateSearchBtn:hover { background-color: var(--btn-hover); }
 .lock-toggle-btn.is-active { background-color: var(--accent); color: var(--on-accent); border-color: transparent; }
@@ -477,6 +503,12 @@ html.hdr-locked .sticky-header { border-bottom-color: var(--accent); box-shadow:
 .text-size-wrap { position: relative; }
 .date-search-wrap { position: relative; flex-shrink: 0; display: flex; } /* 検索窓と文字サイズボタンの間のカレンダー(日付を選ぶと検索窓にYYYYMMDDを入れる) */
 #dateSearchBtn svg { width: 14px; height: 14px; display: block; }
+/* カレンダーは検索窓の右端の内側に重ねて置く(左端のセトリアイコンと左右対称。×ボタンはその左に寄せる) */
+.date-search-wrap { margin-left: -31px; z-index: 2; }
+#dateSearchBtn { width: 21px; height: 21px; border-color: transparent; background: none; box-shadow: none; }
+#dateSearchBtn:hover { background-color: var(--btn-hover); }
+.search-input { padding-right: 48px; }
+.search-clear-btn { right: 28px; }
 .cal-pop { position: fixed; z-index: var(--z-modal-3); width: 290px; max-width: calc(100vw - 16px); box-sizing: border-box; padding: 10px; background: var(--bg); color: var(--text); border: 1px solid var(--input-border); border-radius: var(--r-m); box-shadow: var(--shadow-l); user-select: none; -webkit-user-select: none; }
 .cal-pop { transform-origin: top right; transition: opacity var(--dur-s) var(--ease-s), transform var(--dur-s) var(--ease-m), visibility 0s; }
 .cal-pop[hidden] { display: block; visibility: hidden; opacity: 0; transform: translateY(-6px) scale(0.97); pointer-events: none; transition: opacity var(--dur-s) var(--ease-s), transform var(--dur-s) var(--ease-s), visibility 0s linear var(--dur-s); } /* 開閉をフェード+わずかな拡大縮小にする(hidden属性のまま) */
@@ -756,6 +788,9 @@ body .item-contents.is-content-open {
 .item-title.is-dragging {
   user-select: none;
 }
+/* スマホ: はみ出したタイトル・タグは、横の標準スクロールを止めて、0.3秒の長押し後だけスクロールさせる(日付のスワイプとの競合を避ける) */
+@media (pointer: coarse) { .item-title, .item-tags-in { touch-action: pan-y; -webkit-touch-callout: none; } }
+.item-title.is-hold-scroll, .item-tags-in.is-hold-scroll { background: rgba(14,165,233,.14); border-radius: var(--r-s); text-overflow: clip; }
 
 /* 操作要素の無い場所を長押ししてTODAYモードを切り替えた際、押した位置に一瞬表示するフィードバック */
 .longpress-ripple {
@@ -813,7 +848,7 @@ body .item-contents.is-content-open {
 .popup-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
 .popup-box {
   position: relative; background: var(--bg); color: var(--text); border-radius: var(--r-m);
-  max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px;
+  max-width: 420px; width: 100%; max-height: calc(80vh / var(--vz)); overflow-y: auto; padding: 20px 18px 18px;
   box-shadow: var(--shadow-l);
   transform: scale(0.9); transition: transform var(--dur-m) var(--ease-m);
 }
@@ -824,7 +859,7 @@ body .item-contents.is-content-open {
 .popup-body { font-size: var(--fs-xs); line-height: 1.6; color: var(--muted); text-align: center; padding: 10px 0; }
 
 /* HELPポップアップ:1画面(スクロール無し)に収まるよう、キー(ボタン名)と説明を1行ずつ並べる */
-#helpModal { max-height: 92vh; padding: 16px 14px 14px; }
+#helpModal { max-height: calc(92vh / var(--vz)); padding: 16px 14px 14px; }
 .help-body { text-align: left; color: var(--text); font-size: var(--fs-xs); line-height: 1.4; padding: 2px 0 0; }
 .help-sec { margin-top: 8px; }
 .help-sec:first-child { margin-top: 0; }
@@ -913,7 +948,7 @@ body .item-contents.is-content-open {
 html.stat-on .stat-icon { display: inline-block; }
 .stat-icon.is-blank { visibility: hidden; pointer-events: none; cursor: default; } /* 📊が無い行も、ON中は右の幅をあけておく */
 .song-lyrics-btn { display: flex; flex: 0 0 auto; width: auto; height: 20px; margin: 0 2px; padding: 0 8px; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-size: var(--fs-2xs); font-weight: 700; line-height: 1; cursor: pointer; align-items: center; justify-content: center; white-space: nowrap; } /* 歌詞(📜): uta-net。常に表示 */
-.song-bar.is-entering .song-lyrics-btn { visibility: hidden; }
+.song-bar.is-entering .song-lyrics-btn, .song-bar.is-entering .song-vid-btn { visibility: hidden; }
 .song-lyrics { display: inline-block; flex: 0 0 auto; width: 5em; margin: 0; overflow: hidden; text-align: center; font-size: var(--fs-2xs); line-height: 16px; height: 18px; box-sizing: border-box; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-weight: 700; white-space: nowrap; vertical-align: middle; cursor: pointer; user-select: none; padding: 0; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); } /* セトリ・アルバムのポップアップの曲の行の📜。披露実績(📊)の左。ポップアップの📜スイッチで出し入れ */
 html.lyrics-off .song-lyrics { width: 0; margin-left: -8px; border-width: 0; opacity: 0; pointer-events: none; }
 .song-lyrics.is-blank { visibility: hidden; pointer-events: none; }
@@ -976,7 +1011,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .stat-list-types .setlist-song-type { margin-right: 4px; }
 .stat-rel { text-align: left; font-size: var(--fs-xs); color: var(--sub); margin: -2px 0 8px; }
 .setlist-modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
-.setlist-modal { position: relative; background: var(--bg); color: var(--text); border-radius: var(--r-m); max-width: 420px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: var(--shadow-l); transform: scale(0.9); transition: transform var(--dur-m) var(--ease-m); }
+.setlist-modal { position: relative; background: var(--bg); color: var(--text); border-radius: var(--r-m); max-width: 420px; width: 100%; max-height: calc(80vh / var(--vz)); overflow-y: auto; padding: 20px 18px 18px; box-shadow: var(--shadow-l); transform: scale(0.9); transition: transform var(--dur-m) var(--ease-m); }
 .setlist-modal-overlay.is-open .setlist-modal { transform: scale(1); }
 .setlist-modal-close { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: var(--fs-l); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
 .setlist-modal-close:hover { background-color: var(--btn-hover); }
@@ -1034,7 +1069,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
   transition: opacity var(--dur-m) var(--ease-s), visibility var(--dur-m) var(--ease-s);
 }
 .sns-modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
-.sns-modal { overflow-x: hidden; position: relative; background: var(--bg); color: var(--text); border-radius: var(--r-m); max-width: 360px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 20px 18px 18px; box-shadow: var(--shadow-l); transform: scale(0.9); transition: transform var(--dur-m) var(--ease-m); }
+.sns-modal { overflow-x: hidden; position: relative; background: var(--bg); color: var(--text); border-radius: var(--r-m); max-width: 360px; width: 100%; max-height: calc(80vh / var(--vz)); overflow-y: auto; padding: 20px 18px 18px; box-shadow: var(--shadow-l); transform: scale(0.9); transition: transform var(--dur-m) var(--ease-m); }
 .sns-modal-overlay.is-open .sns-modal { transform: scale(1); }
 .sns-modal-close { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--input-border); background: var(--btn-bg); color: var(--text); font-size: var(--fs-l); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
 .sns-modal-close:hover { background-color: var(--btn-hover); }
@@ -1045,7 +1080,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .sns-modal-type-label { flex: 0 0 7.4em; display: flex; align-items: center; gap: 6px; height: 20px; font-size: calc(var(--data-font-scale) * var(--fs-m)); font-weight: 600; }
 .sns-modal-ic { flex: 0 0 15px; width: 15px; height: 15px; display: block; } /* 単色(currentColor)なので文字色=テーマに追従する */
 .sns-modal-ic.sns-modal-ic-cl { flex: 0 0 19.96px; width: 19.96px; height: 14.22px; margin: 0 -2.96px 0 -2px; } /* CLアイコンは従来の1.75倍。見た目は広がるが、レイアウト上の幅は他と同じ15pxに保ち、文字の開始位置をそろえる */
-.sns-modal-ic.sns-modal-ic-gl2family { flex: 0 0 16.72px; width: 16.72px; height: 14.22px; margin: 0 -1.72px 0 0; } /* GL²のアイコン(縦長の太字フォント)。CLと同じ高さで、レイアウト上の幅は他と同じ15pxに保つ */
+.sns-modal-ic.sns-modal-ic-gl2family { flex: 0 0 16.72px; width: 16.72px; height: 14.22px; margin: 0 -1.72px 0 0; } /* GL2のアイコン(縦長の太字フォント)。CLと同じ高さで、レイアウト上の幅は他と同じ15pxに保つ */
 .sns-modal-ic.is-ph { visibility: hidden; } /* アイコン未登録のtypeは、同じ幅の空きを置いて文字の開始位置をそろえる */
 .sns-modal-links { flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 6px; }
 .sns-modal-link, .sns-modal-link.is-invalid {
@@ -1086,7 +1121,7 @@ html.dark-mode .sns-modal-lamps > i, body.dark-mode .sns-modal-lamps > i { box-s
 /* マップのポップアップ: 埋め込み地図(Googleの埋め込み用URL)を出す(幅は最大560px・高さは画面の6割まで) */
 .map-modal-overlay { z-index: var(--z-modal-top); }
 .map-modal { max-width: min(560px, 100%); padding: 20px 18px 18px; }
-.map-modal-frame { display: block; width: 100%; height: min(460px, 62vh); border: 0; border-radius: var(--r-s); background: var(--btn-bg); margin-top: 24px; }
+.map-modal-frame { display: block; width: 100%; height: min(460px, calc(62vh / var(--vz))); border: 0; border-radius: var(--r-s); background: var(--btn-bg); margin-top: 24px; }
 .vid-modal-overlay { z-index: var(--z-modal-top); } /* 動画リンク: snsポップアップと同じ見た目(セトリ・アルバム・披露実績の上に重ねる) */
 .vid-modal .sns-modal-type-label { flex-basis: 9.6em; }
 .vid-modal .sns-modal-foot { justify-content: flex-end; }
@@ -1139,9 +1174,15 @@ button.sns-modal-link.is-less { min-width: 28px; padding: 0 8px; }
 
 /* スマホのタップ時にブラウザが重ねる、四角い半透明のハイライトを消す(丸いボタンでも四角い残像が一瞬見えるため)。押した感触は、下の:activeの暗転が丸い形のまま出す */
 *, *::before, *::after { -webkit-tap-highlight-color: transparent; }
+button { font-family: inherit; } /* ボタンも本文と同じ書体にする(ブラウザ標準のArialだと、英数字と漢字で見た目が分かれるため) */
 /* 押した瞬間のフィードバック: ボタン・チップ・リンクは、押している間だけ少し暗くする(スマホはホバーが効かないため。位置や大きさは変えない) */
 button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks label:active, .alb-chip:active, .set-chip:active, .stat-chip:active, .sns-modal-link:active, .song-vid:active, .song-lyrics:active, .setlist-icon:active, .map-pin:active, .link-icon:active, .alb-icon:active { filter: brightness(0.9); }
 @media (prefers-reduced-motion: reduce) { button:not(:disabled):active, [role="button"]:active { filter: none; } }
+/* 青背景(ON状態)の白文字を見やすくする: 太字にはせず通常の太さで、文字の下に濃い青の薄い影を付ける(青そのものは変えない) */
+.date-part-btn.is-active, #iconToggleBtn.is-active, #filterSummaryToggleBtn.is-active, #todayToggleBtn.is-active, #songToggleBtn.is-active, #heartToggleBtn.is-active, #setlistToggleBtn.is-active, #textSizeBtn.is-active, .lock-toggle-btn.is-active, .text-size-wrap-btn.is-on, .set-chip.set-hdr.is-on, .set-chip.is-fold, .fold-btn:not(.is-folded):not(.fold-all-mixed), .fold-btn:not(.is-folded):not(.fold-all-mixed) .fold-tx, .alb-chip.is-on, .stat-chip.is-on, .setlist-source-chip.is-official, .cal-grid button.is-sel, .cal-mgrid button.is-sel, .sort-arrow-btn.is-real-today { font-weight: 400; text-shadow: 0 1px 1px rgba(0, 60, 100, .55); }
+.fold-btn, .fold-btn .fold-tx, .set-chip.is-fold { font-weight: 700 !important; } /* 折りたたみボタン(ALL/YEAR…)は、ON/OFFとも太字 */
+/* ヘッダーなどの文字ボタンは、折りたたみボタン(ALL/YEAR/…)と同じ文字サイズ・字間にそろえる。ON/OFFで幅が変わらないよう、状態に関係なく常に適用する(アイコンだけのボタンは対象外) */
+.date-part-btn:not(:has(svg)), #iconToggleBtn, #filterSummaryToggleBtn, #todayToggleBtn, #songToggleBtn, #textSizeBtn, .sort-arrow-btn { font-size: var(--fs-xs); letter-spacing: 0.3px; }
 </style>
 </head>
 <body>
@@ -1158,7 +1199,6 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         <button class="toggle-btn date-part-btn" id="dpClockBtn" aria-haspopup="true" aria-expanded="false" aria-label="&#24180;&#26376;&#26085;&#26332;&#26178;"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="#f8fafc" stroke="#4b5563" stroke-width="1.8"/><path d="M12 3.6v1.6M20.4 12h-1.6M12 20.4v-1.6M3.6 12h1.6" stroke="#9ca3af" stroke-width="1.4" stroke-linecap="round"/><path d="M12 12V6.2" stroke="#1f2937" stroke-width="1.9" stroke-linecap="round"/><path d="M12 12l2.7-3.4" stroke="#1f2937" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="12" r="1.2" fill="#1f2937"/></svg></button>
         <button class="toggle-btn date-part-btn" id="mapToggleBtn"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.5V22" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="8.2" r="6.6" fill="#ef4444"/><circle cx="9.7" cy="5.9" r="1.9" fill="#fff" fill-opacity=".55"/></svg></button>
         <button class="toggle-btn date-part-btn" id="setlistIconToggleBtn"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="20" rx="2.4" fill="#c98a4b"/><rect x="5.8" y="6.5" width="12.4" height="14.5" rx="1.2" fill="#fff"/><path d="M8.6 11h6.8M8.6 14.5h6.8M8.6 18h4" stroke="#b8bec9" stroke-width="1.6" stroke-linecap="round"/><rect x="8" y="1" width="8" height="5" rx="1.5" fill="#9aa3b0"/><rect x="10.2" y="2.3" width="3.6" height="1.4" rx=".7" fill="#e5e7eb"/></svg></button>
-        <button class="toggle-btn date-part-btn" id="heartToggleBtn" aria-label="Hearts"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(11 .4) scale(.6)"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#f472b6"/></g><g transform="translate(-2.6 3.6) scale(.9)"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#ef4444"/></g></svg></button>
         <button class="toggle-btn date-part-btn" id="tagToggleBtn" aria-label="Tags"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(12 12) scale(1.12) translate(-12 -12)"><path d="M3 3.5A.5.5 0 0 1 3.5 3H11.7a1 1 0 0 1 .7.3l8.3 8.3a1.6 1.6 0 0 1 0 2.2l-6.9 6.9a1.6 1.6 0 0 1-2.2 0L2.3 12.4A1 1 0 0 1 2 11.7z" fill="#fcd29a" stroke="#e39a3d" stroke-width="1.3" stroke-linejoin="round"/><circle cx="7.6" cy="7.6" r="1.7" fill="#fff" stroke="#e39a3d" stroke-width="1"/></g></svg></button>
         <button class="toggle-btn date-part-btn" id="statToggleBtn" aria-label="Albums" aria-pressed="true"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.8" y="2" width="20.4" height="20" rx="2.6" fill="#5b6068"/><circle cx="11.4" cy="12" r="8.2" fill="#e5e7eb"/><path d="M11.4 12L17.5 6.5A8.2 8.2 0 0 1 19.6 12z" fill="#a5b4fc" fill-opacity=".65"/><path d="M11.4 12L6 6.8A8.2 8.2 0 0 1 11.4 3.8z" fill="#fbcfe8" fill-opacity=".8"/><circle cx="11.4" cy="12" r="5" fill="none" stroke="#cbd5e1" stroke-width=".8"/><circle cx="11.4" cy="12" r="1.7" fill="#5b6068"/><rect x="17.6" y="9" width="4.6" height="6" rx="1" fill="#f3f4f6"/></svg></button>
         <button class="toggle-btn date-part-btn" id="linkToggleBtn"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(12 12) scale(1.18) translate(-12 -12)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" stroke="#7b8594" stroke-width="2.8"/><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" stroke="#c3cad5" stroke-width="1"/></g></svg></button>
@@ -1178,6 +1218,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     </div>
     <div class="extra-tools-row">
       <button class="toggle-btn" id="songToggleBtn">&#9834;</button>
+      <button class="toggle-btn" id="heartToggleBtn" aria-label="Hearts"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(11 .4) scale(.6)"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#f472b6"/></g><g transform="translate(-2.6 3.6) scale(.9)"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#ef4444"/></g></svg></button>
       <button class="toggle-btn" id="backBtn" disabled aria-label="Back (restore the previous search)" title="back">&#8634;</button>
       <div class="search-box-wrap">
         <button type="button" class="toggle-btn search-setlist-btn" id="setlistToggleBtn" aria-label="Setlist search mode"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="20" rx="2.4" fill="#c98a4b"/><rect x="5.8" y="6.5" width="12.4" height="14.5" rx="1.2" fill="#fff"/><path d="M8.6 11h6.8M8.6 14.5h6.8M8.6 18h4" stroke="#b8bec9" stroke-width="1.6" stroke-linecap="round"/><rect x="8" y="1" width="8" height="5" rx="1.5" fill="#9aa3b0"/><rect x="10.2" y="2.3" width="3.6" height="1.4" rx=".7" fill="#e5e7eb"/></svg></button>
@@ -1208,11 +1249,11 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       <button type="button" class="lock-toggle-btn" id="lockToggleBtn" aria-label="&#12504;&#12483;&#12480;&#12540;&#22266;&#23450;&#20999;&#26367;(&#29694;&#22312;OFF)"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 10.5V7.2a4.4 4.4 0 0 1 8.6-1.4" fill="none" stroke="#9ca3af" stroke-width="2.4" stroke-linecap="round"/><rect x="3.8" y="10" width="16.4" height="12" rx="2.4" fill="#f5b82e"/><circle cx="12" cy="15.2" r="1.7" fill="#b45309"/><path d="M12 16v2.6" stroke="#b45309" stroke-width="1.6" stroke-linecap="round"/></svg></button>
     </div>
     <div class="song-bar" id="songBar">
-      <button type="button" class="song-vid-btn" id="songVidBtn" aria-label="Video"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.2" y="3.5" width="21.6" height="17" rx="2.2" fill="#4b4f58"/><rect x="6.8" y="5.5" width="10.4" height="13" rx="1.2" fill="#b9c0cc"/><g fill="#fff"><rect x="2.6" y="5.6" width="2.4" height="2" rx=".5"/><rect x="2.6" y="11" width="2.4" height="2" rx=".5"/><rect x="2.6" y="16.4" width="2.4" height="2" rx=".5"/><rect x="19" y="5.6" width="2.4" height="2" rx=".5"/><rect x="19" y="11" width="2.4" height="2" rx=".5"/><rect x="19" y="16.4" width="2.4" height="2" rx=".5"/></g></svg></button>
       <button type="button" class="song-play-btn" id="songPlayBtn" aria-label="Play">&#9654;</button>
       <div class="song-ticker-viewport" id="songTickerViewport">
         <span class="song-ticker-text" id="songTickerText"></span>
       </div>
+      <button type="button" class="song-vid-btn" id="songVidBtn" aria-label="Video"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.2" y="3.5" width="21.6" height="17" rx="2.2" fill="#4b4f58"/><rect x="6.8" y="5.5" width="10.4" height="13" rx="1.2" fill="#b9c0cc"/><g fill="#fff"><rect x="2.6" y="5.6" width="2.4" height="2" rx=".5"/><rect x="2.6" y="11" width="2.4" height="2" rx=".5"/><rect x="2.6" y="16.4" width="2.4" height="2" rx=".5"/><rect x="19" y="5.6" width="2.4" height="2" rx=".5"/><rect x="19" y="11" width="2.4" height="2" rx=".5"/><rect x="19" y="16.4" width="2.4" height="2" rx=".5"/></g></svg></button>
       <button type="button" class="song-lyrics-btn" id="songLyricsBtn" aria-label="Lyrics">Uta-Net</button>
       <button type="button" class="song-stat-btn" id="songStatBtn" aria-label="Stats"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="1.5" width="21" height="21" rx="3" fill="#fff" stroke="#cfd5de" stroke-width="1"/><rect x="5" y="12" width="3.8" height="7" rx="1" fill="#3b82f6"/><rect x="10.1" y="5.5" width="3.8" height="13.5" rx="1" fill="#f59e0b"/><rect x="15.2" y="9" width="3.8" height="10" rx="1" fill="#22c55e"/></svg></button>
     </div>
@@ -1300,7 +1341,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     <div class="help-sec">
       <div class="help-sec-title">絞り込み</div>
       <div class="help-row"><span class="help-key">各ボタン</span><span class="help-desc">タップで絞込、ダブルタップで除外</span></div>
-      <div class="help-row"><span class="help-key">ALL</span><span class="help-desc">YEAR・GIRLS²・LAKI・CONTENTSで行を畳む/開く(青=開)。ALLで全部。畳んでも絞込は有効</span></div>
+      <div class="help-row"><span class="help-key">ALL</span><span class="help-desc">YEAR・GIRLS&#178;・LAKI・CONTENTSで行を畳む/開く(青=開)。ALLで全部。畳んでも絞込は有効</span></div>
       <div class="help-row"><span class="help-key">FILTER</span><span class="help-desc">▲▼で検索・絞り込み欄を開閉/現在の条件を表示</span></div>
       <div class="help-row"><span class="help-key">CLEAR</span><span class="help-desc">検索・絞り込み条件を全解除</span></div>
       <div class="help-row"><span class="help-key">↓↑</span><span class="help-desc">新しい順・古い順を切替</span></div>
@@ -1407,6 +1448,9 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   let albumsData = []; // albums.json(album / ep / single の収録曲と各種盤)のキャッシュ
   let songsData = []; // songs.json(artist/title/link)のキャッシュ。SETLISTポップアップの再生ボタンにも使う
   let setlistMode = false; // SETLISTボタンでON/OFFする「セトリ検索モード」
+  let setlistKeep = false; // 絞り込み済みの状態でSETLISTを押した時: 絞り込み(TODAY含む)はそのままで、setlistidを持つデータだけに絞る。検索ワードは曲名検索にはしない
+  let setlistKeepForce = false; // 共有URL(slk=1)から開く時だけ使う
+  const isSetlistSong = () => setlistMode && !setlistKeep; // 検索ワードを曲名/タグの検索として扱うセトリ検索(絞り込み維持の時はfalse)
   // セトリ検索モードに入る直前のTODAY状態のスナップショット(モード中でなければnull)
   let setlistTodaySavedState = null;
   // セトリ検索モード中、コンテンツフィルターの LIVE/EVENT 以外を「ダブルクリックした時と同じ除外状態」
@@ -1471,7 +1515,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     const rightHandle = $('widthHandleRight');
     if (!leftHandle || !rightHandle) return;
 
-    const getMaxContainerW = () => window.innerWidth; // 上限はウィンドウの横幅いっぱいまで
+    const getMaxContainerW = () => window.innerWidth / (window.__zoom ? window.__zoom() : 1); // 上限はウィンドウの横幅いっぱいまで
     const currentContainerW = () => parseFloat(getComputedStyle(root).getPropertyValue('--container-w')) || 620;
 
     // 指定した幅を上下限内に収めてCSS変数へ反映する。実際に適用された値を返す
@@ -1534,7 +1578,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
 
   // ボタン/checkboxを押した直後の見た目の変化
   const deferHeavyUpdate = fn => requestAnimationFrame(fn);
-  const g2 = [ // Girls²メンバー。コード(v)・名前(n)・ハート絵文字(c)
+  const g2 = [ // Girls2メンバー。コード(v)・名前(n)・ハート絵文字(c)
     {v:'G2',t:'Girls\u00B2'},{v:'YZH',n:'YUZUHA',c:'\uD83E\uDE75'},{v:'MMK',n:'MOMOKA',c:'\uD83D\uDC99'},{v:'MSK',n:'MISAKI',c:'\uD83E\uDDE1'},
     {v:'YOK',n:'YOKA',c:'\uD83D\uDC9C'},{v:'KUR',n:'KUREA',c:'\uD83E\uDD0D'},{v:'MNM',n:'MINAMI',c:'\uD83E\uDE77'},{v:'KIR',n:'KIRA',c:'\uD83D\uDC9B'},
     'sep',{v:'TOA',n:'TOA',c:'\uD83D\uDC9A'},{v:'RAN',n:'RAN',c:'\u2764\uFE0F'}
@@ -2098,7 +2142,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   const SEARCH_PLACEHOLDER_NORMAL = 'search keyword';
   const SEARCH_PLACEHOLDER_SETLIST = 'search setlist';
   const updateSearchPlaceholder = () => {
-    searchInput.placeholder = setlistMode ? SEARCH_PLACEHOLDER_SETLIST : SEARCH_PLACEHOLDER_NORMAL;
+    searchInput.placeholder = isSetlistSong() ? SEARCH_PLACEHOLDER_SETLIST : SEARCH_PLACEHOLDER_NORMAL;
   };
 
   // 検索窓:直近使った検索ワードを最大8件まで記憶し、フォーカス時に候補として表示する セトリ検索モード中に入力さ
@@ -2107,7 +2151,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   const MAX_RECENT_SEARCHES = 8;
   const MAX_PINNED_SEARCHES = 8;
   let highlightedSuggestionIndex = -1;
-  const getRecentSearchKey = () => setlistMode ? SETLIST_RECENT_SEARCH_KEY : RECENT_SEARCH_KEY;
+  const getRecentSearchKey = () => isSetlistSong() ? SETLIST_RECENT_SEARCH_KEY : RECENT_SEARCH_KEY;
   // 旧形式(文字列の配列)で保存されている場合は{term, pinned:false}へ読み込み時に変換する(後
   const getRecentSearches = () => {
     try {
@@ -2210,7 +2254,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       result.push(t);
       return result.length >= MAX_DATA_SUGGESTIONS;
     };
-    if (setlistMode) {
+    if (isSetlistSong()) {
       let full = false;
       for (const s of songsData) {
         if (tryAdd(s.title)) { full = true; break; }
@@ -2374,7 +2418,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; if (tag === 'button') e.type = 'button'; return e; };
     const place = () => { // ボタンの下に右端をそろえて出す(画面からはみ出さないよう補正)
       const r = btn.getBoundingClientRect(), w = pop.offsetWidth || 290;
-      pop.style.left = Math.max(8, Math.min(r.right - w, window.innerWidth - w - 8)) + 'px';
+      pop.style.left = Math.max(8, Math.min(r.right - w, window.innerWidth / window.__zoom(btn) - w - 8)) + 'px';
       pop.style.top = (r.bottom + 6) + 'px';
     };
     const close = () => { pop.hidden = true; btn.classList.remove('is-open'); };
@@ -2800,8 +2844,8 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         displayPrefs.hdr[k] = v;
         const b = $(HDR_BTN[k]); if (!v && b && b.classList.contains('is-active')) b.click(); // 出さなくするときは、そのモードをOFFに戻す
       }, chip: t, cls: 'set-hdr', tip: '\u30D8\u30C3\u30C0\u30FC\u306E ' + t })),
-      ...[['all', 'ALL', true], ['year', 'YEAR', true], ['g2', 'GIRLS²', true], ['l2', 'LAKI', true], ['cont', 'CONTENTS', true]].map(([k, t, arw]) => ({ get: () => displayPrefs.chips[k], set: v => { displayPrefs.chips[k] = v; }, chip: t, cls: 'is-fold', arw, tip: '開閉チップ ' + t })),
-      { get: () => displayPrefs.lyrics, set: v => { displayPrefs.lyrics = v; }, chip: 'Uta-Net', cls: '', tip: '曲の行・楽曲バーのUta-Net' },
+      ...[['all', 'ALL', true], ['year', 'YEAR', true], ['g2', 'GIRLS\u00B2', true], ['l2', 'LAKI', true], ['cont', 'CONTENTS', true]].map(([k, t, arw]) => ({ get: () => displayPrefs.chips[k], set: v => { displayPrefs.chips[k] = v; }, chip: t, cls: 'is-fold', arw, tip: '開閉チップ ' + t })),
+      { get: () => displayPrefs.lyrics, set: v => { displayPrefs.lyrics = v; }, chip: 'Uta-Net', cls: 'set-lyrics', tip: '曲の行・楽曲バーのUta-Net' },
       { get: () => displayPrefs.stat, set: v => { displayPrefs.stat = v; }, icon: 'chart', name: 'STATS', tip: 'ポップアップの曲の行の📊(披露実績)' }
     ];
     dispDefs.forEach(d => {
@@ -3338,13 +3382,57 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     }, true);
   })();
 
+  // スマホ(タッチ): はみ出しているタイトル・タグは「0.3秒押してから動かす」と横スクロールする。押してすぐ動かした場合は、日付のスワイプ(前日/翌日)になる
+  let holdScrollActive = false; // 長押しスクロール中(この間は日付のスワイプを動かさない)
+  (() => {
+    if (!isTouch) return;
+    const HOLD_SCROLL_MS = 300;   // この時間、ほぼ動かさずに押し続けると、スクロールの構えになる
+    const HOLD_MOVE_PX = 8;       // 構える前にこれ以上動いたら、長押しではなく通常の操作(日付スワイプ・縦スクロール)
+    let timer = 0, el = null, sx = 0, sy = 0, base = 0, moved = false, suppressClick = false;
+    const clear = () => { clearTimeout(timer); timer = 0; };
+    const end = () => {
+      clear();
+      if (el) el.classList.remove('is-hold-scroll');
+      if (holdScrollActive && moved) suppressClick = true; // スクロールした後に、タイトルのリンクやタグが押されたことにならないようにする
+      holdScrollActive = false; el = null; moved = false;
+    };
+    $('items').addEventListener('touchstart', e => {
+      suppressClick = false; // 前回のスクロール後にクリックが発生しなかった場合に、次の本当のタップを打ち消してしまわないよう、タッチの開始でリセットする
+      end();
+      if (e.touches.length !== 1) return;
+      const t = e.target.closest ? e.target.closest('.item-title, .item-tags-in') : null;
+      if (!t || t.scrollWidth <= t.clientWidth + 1) return; // はみ出していなければ対象外(日付のスワイプのまま)
+      el = t; sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+      timer = setTimeout(() => {
+        timer = 0; if (!el) return;
+        holdScrollActive = true; moved = false; base = el.scrollLeft;
+        el.classList.add('is-hold-scroll');
+        if (navigator.vibrate) { try { navigator.vibrate(8); } catch (err) {} }
+      }, HOLD_SCROLL_MS);
+    }, { passive: true });
+    $('items').addEventListener('touchmove', e => {
+      if (!el) return;
+      const dx = e.touches[0].clientX - sx, dy = e.touches[0].clientY - sy;
+      if (!holdScrollActive) { if (Math.abs(dx) > HOLD_MOVE_PX || Math.abs(dy) > HOLD_MOVE_PX) { clear(); el = null; } return; } // 構える前に動いた=通常の操作
+      moved = moved || Math.abs(dx) > 2;
+      el.scrollLeft = base - dx;
+      e.preventDefault();
+    }, { passive: false });
+    $('items').addEventListener('touchend', end);
+    $('items').addEventListener('touchcancel', end);
+    $('items').addEventListener('contextmenu', e => { if (holdScrollActive) e.preventDefault(); }); // 長押しのメニューを出さない
+    $('items').addEventListener('click', e => {
+      if (suppressClick) { suppressClick = false; e.preventDefault(); e.stopPropagation(); }
+    }, true);
+  })();
+
   // 【隠し機能】年・月・日・曜日・時刻の表示と、📍・📋️・💞・🏷️・💽・🔗がすべてONの間だけ有効: 日付/時刻の3回連続タップでhelperを開く
   (() => {
     const DOUBLE_TAP_MS = 350;
     let lastRow = null, lastTime = 0;
     let tapCount = 0;
     const HELPER_URL = 'https://gl-log.blogspot.com/p/issuehelper.html';
-    // 上の全部がONのとき、データ部の日付/時刻の3回タップは、📋セトリ検索がOFFならlogidで#logs、ONならsetlistidで#setlistを、helperで別タブに開く(♪は条件に含めない)。IDのない行は何もしない。
+    // 上の全部(日付の各項目・📍・📋・💕・🏷・💿・🔗)がONのとき、データ部の日付/時刻の3回タップは、📋セトリ検索がOFFならlogidで#logs、ONならsetlistidで#setlistを、helperで別タブに開く(♪は条件に含めない)。IDのない行は何もしない。
     // さらに♪がONのとき、楽曲バーの3回タップは、その曲を#songsで開く
     const isEnabled = () =>
       dateParts.year && dateParts.month && dateParts.day && dateParts.weekday && dateParts.time && mapMode && setlistIconMode && heartModeOn && tagMode && albMode && linkMode;
@@ -3448,7 +3536,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     };
 
     if (kw) {
-      const badgeLabel = (setlistMode ? 'Setlist: "' : 'Keyword: "') + kw + '"';
+      const badgeLabel = (isSetlistSong() ? 'Setlist: "' : 'Keyword: "') + kw + '"';
       frag.appendChild(makeBadge(badgeLabel, () => {
         searchInput.value = '';
         updateSearchClearState();
@@ -3855,6 +3943,22 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   const ALB_TYPE_WORDS = { ALBUM: 'album', AL: 'album', EP: 'ep', SINGLE: 'single', SG: 'single', MUSICCARD: 'musiccard', 'MUSIC CARD': 'musiccard', MINIALBUM: 'mini album' };
   const ALB_TYPE_LABELS = { musiccard: 'MUSIC CARD', 'blu-ray': 'BLU-RAY', bd: 'BD' };
   const albTypeLabel = t => ALB_TYPE_LABELS[t] || String(t || '').toUpperCase();
+  // 検索: リリース日の行(contents が CD / DVD / BD / MUSICCARD / RELEASE / EP / DIGITAL)は、その盤(albumid、なければ「」内の名前)の収録曲名(追加ディスク・editionの曲も含む)でもヒットする。行の表示は変えない。曲名はキーワードの部分一致(通常の検索語と同じ)
+  let albumTrackTextCache = new WeakMap();
+  const albumTrackText = item => {
+    if (!item || !Array.isArray(albumsData) || !albumsData.length || !ALBUM_ICON_CONTENTS.has(String(item.contents || '').trim().toUpperCase())) return '';
+    let v = albumTrackTextCache.get(item);
+    if (v !== undefined) return v;
+    const names = [];
+    try {
+      albumMatches(item, item.title || '').forEach(al => {
+        [].concat(al.tracks || [], ...(Array.isArray(al.editions) ? al.editions.map(e => [].concat(e.tracks || [], e.extra || [])) : [])).forEach(x => { if (x && x.title) names.push(String(x.title)); });
+      });
+    } catch (e) { /* 曲名が引けなければ、従来の検索だけ */ }
+    v = names.length ? ' ' + names.join(' ').toLowerCase() : '';
+    albumTrackTextCache.set(item, v);
+    return v;
+  };
   function albumMatches(item, text) {
     if (!Array.isArray(albumsData) || !albumsData.length) return [];
     if (item && item.albumid) { const byId = albumsData.filter(a => a && a.id === item.albumid); if (byId.length) return byId; } // albumid(盤のid)が付いた行は、名前ではなくidで引く
@@ -4055,7 +4159,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         // 文字列だけの要素(""など)や、titleが空のオブジェクトは「曲ではない」として除外する
         .filter(s => s && typeof s === 'object' && String(s.title || '').trim() !== '')
         .slice()
-        .sort((a, b) => (a.order || 0) - (b.order || 0))
+        .sort((a, b) => { const ao = Number.isFinite(a.order), bo = Number.isFinite(b.order); return ao && bo ? a.order - b.order : ao ? -1 : bo ? 1 : 0; }) // 順番なし(order無し)の曲は後ろ(入力順のまま)
         .map(s => {
           // typeに関わらずtitle一致だけで再生ボタンの有無を決める
           const link = findSongLinkByTitle(s.title, entry.artist);
@@ -4090,7 +4194,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
           const lyrHtml = noStat ? '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>' : `<span class="song-lyrics" data-song="${escapeHtml(s.title || '')}" data-artist="${escapeHtml(entry.artist || '')}" role="button" aria-label="Lyrics">Uta-Net</span>`;
           const statBlank = songsData.length ? !inSongsData(s.title) : noStat;
           const statHtml = statBlank ? `<span class="setlist-song-stat is-blank" aria-hidden="true">${uiIc('chart')}</span>` : `<span class="setlist-song-stat" data-song="${escapeHtml(s.title || '')}" data-artist="${escapeHtml(entry.artist || '')}" role="button" aria-label="Stats">${uiIc('chart')}</span>`;
-          return `<li><span class="setlist-song-order">${s.order != null ? s.order : ''}</span>${vidHtml(s.title, entry.artist)}${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}${lyrHtml}${statHtml}</li>`;
+          return `<li><span class="setlist-song-order">${s.order != null ? s.order : '\uFF0D'}</span>${vidHtml(s.title, entry.artist)}${playBtnHtml}<span class="setlist-song-main"><span class="setlist-song-title">${titleText}</span>${songHeartsHtml}${subHtml}</span>${typeBadge}${lyrHtml}${statHtml}</li>`;
         })
         .join('');
       setlistModalBody.innerHTML =
@@ -4119,8 +4223,14 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         })() +
         (entry.venue ? `<div class="setlist-modal-venue">${escapeHtml(entry.venue)}</div>` : '') +
         // source: official=公式の情報 / fan=ファンメイド。どちらでもない(空・未設定)ときは何も出さない
-        (entry.source === 'official' ? '<div class="setlist-modal-source"><span class="setlist-source-chip is-official">OFFICIAL</span></div>'
-          : entry.source === 'unofficial' ? '<div class="setlist-modal-source"><span class="setlist-source-chip">UNOFFICIAL</span></div>' : '') +
+        (() => {
+          const chips = (entry.source === 'official' ? '<span class="setlist-source-chip is-official">OFFICIAL</span>'
+            : entry.source === 'unofficial' ? '<span class="setlist-source-chip">UNOFFICIAL</span>' : '')
+            // 全曲がorder無し(曲順が分からない)ときだけ「曲順不明」。一部だけ順番が分かる場合は出さない(番号のない行が \uFF0D で並ぶ)
+            + ((Array.isArray(entry.songs) && entry.songs.some(x => x && String(x.title || '').trim()) && !entry.songs.some(x => x && Number.isFinite(x.order)))
+              ? '<span class="setlist-source-chip">\u66F2\u9806\u4E0D\u660E</span>' : '');
+          return chips ? `<div class="setlist-modal-source" style="gap:6px">${chips}</div>` : '';
+        })() +
         (songsHtml ? `<ul class="setlist-modal-songlist">${songsHtml}</ul>` : '<div class="setlist-modal-empty">no songs</div>');
     } catch (err) {
       // データ形状が想定外でも、ポップアップ自体は必ず開いてエラー内容が分かるようにする
@@ -4459,7 +4569,10 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     'other': '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/>'
   };
   const VIDEO_TYPE_LABELS = { 'mv': 'Music Video' }; // 表示名が登録名と違うものだけ(それ以外は登録した名前のまま)
-  const videoIconHtml = key => `<svg class="sns-modal-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${VIDEO_ICON_PATHS[key] || VIDEO_ICON_PATHS.other}</svg>`;
+  // 線画のアイコン: snsのFancam / ETCと同じ作り(余白を切り詰めた viewBox=20x20、線の太さ2)にして、大きさと線の太さをsnsポップアップのアイコンにそろえる
+  // 各アイコンの表示範囲(viewBox): 図形の外枠(線の太さ2を含む)の長いほうの辺が、snsのアイコン(Fancam/ETC)と同じく枠いっぱいになるようにそろえる。線の太さは描画後に1.5pxで同じになるよう、枠の大きさに比例させる(=2×枠/20)
+  const VIDEO_ICON_VB = { 'mv': [3, 3.9, 18], 'dance practice': [4.15, 1.8, 20.2], 'lyric': [3, 3.75, 18], 'live': [2, 2, 20], 'reaction': [2, 2, 20], 'call lecture': [3, 3.58, 16.85], 'other': [2, 2, 20] };
+  const videoIconHtml = key => { const k = VIDEO_ICON_PATHS[key] ? key : 'other', b = VIDEO_ICON_VB[k]; return `<svg class="sns-modal-ic" viewBox="${b[0]} ${b[1]} ${b[2]} ${b[2]}" fill="none" stroke="currentColor" stroke-width="${+(2 * b[2] / 20).toFixed(3)}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${VIDEO_ICON_PATHS[k]}</svg>`; };
   const setVidTagMode = (on, animate) => setTagModeFor({ body: vidModalBody, box: vidModalBox, sw: vidTagSwitch }, on, animate);
   vidTagSwitch.onclick = () => {
     const on = vidTagSwitch.getAttribute('aria-checked') !== 'true';
@@ -4482,10 +4595,9 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
           const tagHtml = tags.length ? `<span class="sns-modal-tagtext">${tags.map(t => `<button type="button" class="tag-chip" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join('')}</span>` : '';
           return `<span class="sns-modal-item"><a class="sns-modal-link" href="${escapeHtml(v.url)}" target="_blank" rel="noopener noreferrer">${i + 1}</a>${tagHtml}</span>`;
         }).join('');
-        return `<div class="sns-modal-type-row${g.key === 'fancam' ? ' is-fancam' : ''}"><span class="sns-modal-type-label">${videoIconHtml(g.key)}<span>${escapeHtml(g.label)}</span></span><span class="sns-modal-links" style="--cols:${Math.min(g.list.length, 5)}">${itemsHtml}</span></div>`;
+        return `<div class="sns-modal-type-row"><span class="sns-modal-type-label">${videoIconHtml(g.key)}<span>${escapeHtml(g.label)}</span></span><span class="sns-modal-links" style="--cols:${Math.min(g.list.length, 5)}">${itemsHtml}</span></div>`;
       }).join('');
       vidModalBody.innerHTML = (title ? `<div class="sns-modal-title"><span class="vid-yt" aria-hidden="true"></span><span class="vid-ttl">${escapeHtml(title)}${vocalSpan(findVocalByTitle(title, artist))}</span></div>` : '') + (rowsHtml || '<div class="sns-modal-empty">NO LINKS</div>');
-      vidModalBody.querySelectorAll('.is-fancam .sns-modal-links').forEach(limitChipRow);
       staggerSnsRows(vidModalBody);
     } catch (err) {
       console.error('Failed to render video modal:', err);
@@ -4516,7 +4628,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     setlistIdToMemberMap = new Map(setlistData.filter(e => e && e.setlistid).map(e => [e.setlistid, Array.isArray(e.member) ? e.member : []]));
   };
   const getFilterGroupsForItem = item => {
-    if (setlistMode && item.setlistid) {
+    if (isSetlistSong() && item.setlistid) {
       return setlistIdToMemberMap.get(item.setlistid) || [];
     }
     // relationsを持つデータは全体のごく一部
@@ -4571,11 +4683,11 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     const rawKw = searchInput.value.trim();
     const fullKw = rawKw.toLowerCase();
     // 日付・年・月日クエリのパース処理(セトリ検索モード中はkwを曲名検索に使うため不要)
-    const { dq, dateToken, remainingKw } = setlistMode
+    const { dq, dateToken, remainingKw } = isSetlistSong()
       ? { dq: { isDateQuery: false }, dateToken: '', remainingKw: fullKw }
       : extractDateQuery(rawKw);
     // セトリ検索モード中、キーワードがあればsetlist.jsonから該当するsetlistidを検索しておく
-    const setlistIds = setlistMode && fullKw ? getMatchedSetlistIds(fullKw) : null;
+    const setlistIds = isSetlistSong() && fullKw ? getMatchedSetlistIds(fullKw) : null;
     return { checked, cVals, cYears, cMonths, cConts, sGroups, mGroups, rawKw, fullKw, dq, dateToken, kw: remainingKw, setlistIds };
   };
 
@@ -4601,7 +4713,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     let dateOk = true;
     let textOk = true;
     let setlistOk = true;
-    if (setlistMode) {
+    if (isSetlistSong()) {
       // セトリ検索モード中は、通常の日付検索・テキスト検索の代わりにsetlistidベースの判定を行う
       setlistOk = isSetlistOk(item, kw, setlistIds);
     } else {
@@ -4628,12 +4740,13 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       }
 
       if (kw) {
-        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '') + snsTagsText(item)).toLowerCase();
+        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '') + snsTagsText(item)).toLowerCase() + albumTrackText(item);
         textOk = matchesSearchKeyword(searchText, kw, item);
       }
     }
 
     const todayOk = isTodayDateOk(item, cYears);
+    if (setlistKeep && setlistMode && !item.setlistid) setlistOk = false; // 絞り込み維持のセトリ検索: 今の絞り込みのうち、setlistidを持つデータだけ
 
     return yOk && monthOk && gOk && cOk && dateOk && textOk && setlistOk && todayOk && !isExcludedByFilter(item, itemGroupsAndRelations);
   };
@@ -4840,7 +4953,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     });
   };
 
-  // フィルターの折りたたみ(上の帯のYEAR / GIRLS² / LAKI / CONTENTSボタン): 押すと、その行のボタンが帯のボタンへ吸い込まれ、行は0pxまで畳まれて下が上へ詰まる。
+  // フィルターの折りたたみ(上の帯のYEAR / GIRLS2 / LAKI / CONTENTSボタン): 押すと、その行のボタンが帯のボタンへ吸い込まれ、行は0pxまで畳まれて下が上へ詰まる。
   // 開いている間は青、畳んでいる間は通常の色。畳んだ状態は記憶する。畳んでいる間も、選択済みの絞り込みは有効のまま。
   const FOLD_KEY = 'gl_filter_fold';
   var FOLD_IDS = ['year', 'g2', 'l2', 'cont'];
@@ -4971,7 +5084,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     // データ部のコンテンツ種類枠も同様に、切替前の幅(画面内の行だけ)を記録しておく
     const ctBefore = [];
     if (!reduceMotion()) {
-      const vh = window.innerHeight;
+      const vh = window.innerHeight / window.__zoom();
       document.querySelectorAll('#items .item-contents').forEach((el, i) => {
         const r = el.getBoundingClientRect();
         if (r.bottom < 0 || r.top > vh) return;
@@ -5174,6 +5287,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
 
   const applyTextSize = () => {
     document.documentElement.style.setProperty('--data-font-scale', String(1 + textSizePercent / 100));
+    if (window.__zoomInv) window.__zoomInv(); // ヘッダーの拡大率が変わるので、座標の補正値を取り直す
     textSizeBtn.classList.toggle('is-active', textSizePercent !== 0);
     textSizeSlider.value = String(textSizePercent);
     textSizePanelPct.textContent = (100 + textSizePercent) + '%';
@@ -5512,7 +5626,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   const syncTodayModeFromSearch = () => {
     const rawKw = searchInput.value.trim();
     const exactDate = getExactSearchDate(rawKw);
-    if (setlistMode) {
+    if (isSetlistSong()) {
       if (exactDate) enableTodayFromSearchDate(exactDate); else disableTodayFromSearchDate();
       return;
     }
@@ -5732,7 +5846,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       itemsEl.style.minHeight = '';
       // #dayFlickFillはposition:fixedなので、ここでtop/heightを直接指定する
       const bottom = noResultEl.getBoundingClientRect().bottom;
-      const extra = window.innerHeight - bottom;
+      const extra = window.innerHeight / window.__zoom() - bottom;
       if (extra > 0) {
         flickFillEl.style.top = bottom + 'px';
         flickFillEl.style.height = extra + 'px';
@@ -5744,8 +5858,8 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     }
     flickFillEl.style.display = 'none';
     // スクロール位置に依存しないよう、ビューポート基準のtopにscrollYを足してドキュメント基準に変換する
-    const docTop = itemsEl.getBoundingClientRect().top + window.scrollY;
-    const extra = window.innerHeight - docTop;
+    const docTop = itemsEl.getBoundingClientRect().top + window.scrollY / window.__zoom();
+    const extra = window.innerHeight / window.__zoom() - docTop;
     itemsEl.style.minHeight = extra > 0 ? extra + 'px' : '';
   };
   window.addEventListener('resize', () => { if (todayMode) updateItemsMinHeight(); });
@@ -5889,7 +6003,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       if (!todayMode || daySlideAnimating || e.touches.length !== 1) { axisLock = null; return; }
       // タイトルが横スクロール可能な行の上で触れ始めた場合は、日付フリックと競合させない
       const titleEl = e.target.closest ? e.target.closest('.item-title') : null;
-      touchOnScrollableTitle = !!(titleEl && titleEl.scrollWidth > titleEl.clientWidth + 1);
+      touchOnScrollableTitle = false; // タイトル上でも日付のスワイプは有効(タイトルのスクロールは「0.3秒押してから動かす」)
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
       startTime = Date.now();
@@ -5898,7 +6012,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     };
 
     const onTouchMove = e => {
-      if (!todayMode || daySlideAnimating || e.touches.length !== 1 || axisLock === 'v' || touchOnScrollableTitle) return;
+      if (!todayMode || daySlideAnimating || e.touches.length !== 1 || axisLock === 'v' || touchOnScrollableTitle || holdScrollActive) return;
       const dx = e.touches[0].clientX - startX;
       const dy = e.touches[0].clientY - startY;
 
@@ -6021,14 +6135,18 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     // セトリ検索モード中は上部の📋️ボタンを強制ONの色つき表示にする(クリック操作とは独立)
     $('setlistIconToggleBtn').classList.toggle('is-active', setlistMode || setlistIconMode);
     if (setlistMode) {
-      // セトリ検索モードへ突入:直前のTODAY状態を保存しTODAYモードを一旦OFFにする
-      setlistTodaySavedState = { todayMode, todayOffset, desc, preTodaySort };
-      if (todaySearchSnap) { // 検索でTODAYを一時停止/切替中なら、検索前のTODAY状態を保存する
+      // すでに絞り込まれている(TODAY・年/月・グループ/メンバー・コンテンツ種類・検索ワード)なら、絞り込みはそのままでsetlistidのあるデータだけを表示する
+      setlistKeep = setlistKeepForce || todayMode || !!todaySearchSnap || searchInput.value.trim() !== '' || Array.from(checkboxes).some(cb => cb.checked);
+      setlistKeepForce = false;
+      updateSearchPlaceholder();
+      // セトリ検索モードへ突入:直前のTODAY状態を保存しTODAYモードを一旦OFFにする(絞り込み維持の時はTODAYをそのまま残す)
+      if (!setlistKeep) setlistTodaySavedState = { todayMode, todayOffset, desc, preTodaySort };
+      if (!setlistKeep && todaySearchSnap) { // 検索でTODAYを一時停止/切替中なら、検索前のTODAY状態を保存する
         const sn = todaySearchSnap;
         setlistTodaySavedState = sn.todayMode ? { todayMode: true, todayOffset: sn.todayOffset, desc: todayMode ? desc : false, preTodaySort: todayMode ? preTodaySort : desc } : { todayMode: false, todayOffset: 0, desc: todayMode ? preTodaySort : desc, preTodaySort: null };
         todaySearchSnap = null;
       }
-      if (todayMode) turnOffTodayMode();
+      if (todayMode && !setlistKeep) turnOffTodayMode();
       // 直前の除外状態を保存し、LIVE/EVENT以外のコンテンツ種類を除外状態にする
       setlistExcludedSavedState = new Set(excludedFilterValues);
       const checkboxArr = Array.from(checkboxes);
@@ -6043,7 +6161,9 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         }
       });
       applyExcludedStyles();
-    } else if (setlistTodaySavedState) {
+    } else {
+      const wasKeep = setlistKeep; setlistKeep = false; updateSearchPlaceholder();
+      if (setlistTodaySavedState && !wasKeep) {
       // セトリ検索モードを終了:突入直前のTODAY状態(ON/OFF・前後日オフセット・ソート順)へ完全復元する
       todayMode = setlistTodaySavedState.todayMode;
       todayOffset = setlistTodaySavedState.todayOffset;
@@ -6059,6 +6179,8 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       }
       updateSortBtnLabel();
       updateTodayButtonStyle();
+      }
+      setlistTodaySavedState = null;
       // 突入直前の除外状態(コンテンツ種類含む)へ完全復元する
       if (setlistExcludedSavedState) {
         excludedFilterValues.clear();
@@ -6306,7 +6428,8 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     manuallyTouchedConts.clear();
     document.querySelectorAll('.checks label.has-data-lamp').forEach(l => l.classList.remove('has-data-lamp')); // CLEARでランプも消す
     if (setlistMode) {
-      // セトリ検索モード中のCLEARは、除外指定をセトリモードの初期表示状態に戻すだけ
+      // セトリ検索モード中のCLEARは、除外指定をセトリモードの初期表示状態に戻すだけ(絞り込み維持も解除して、通常のセトリ検索に戻す)
+      if (setlistKeep) { setlistKeep = false; updateSearchPlaceholder(); }
       excludedFilterValues.clear();
       setlistExcludedConts().forEach(v => excludedFilterValues.add(v));
     } else {
@@ -6397,6 +6520,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   $('resetLink').onclick = e => {
     resetAll(e);
     forceReloadLogs(); // タイトルクリック時は直近チェック時刻やSHA比較を無視し、常に最新のlogs.jsonを取得し直す
+    if (songMode) songEnterPending = true; // 楽曲バーが開いていれば、差し替わった曲も飛んでくる動きを付ける
     forceReloadSongs(); // songs.json(♪の楽曲データ)も同様に強制的に取得し直す
     forceReloadSetlist(); // setlist.json(セトリ検索用データ)も同様に強制的に取得し直す
     forceReloadAlbums(); // albums.json(収録曲)も同様に取得し直す
@@ -6509,6 +6633,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     const q = searchInput.value.trim();
     if (q) P.push('q=' + enc(q));
     if (setlistMode) P.push('sl=1');
+    if (setlistMode && setlistKeep) P.push('slk=1');
     if (todayMode) { const dt = new Date(); dt.setHours(0, 0, 0, 0); dt.setDate(dt.getDate() + (todayOffset || 0)); P.push('t=' + ymdOf(dt)); } // TODAYは日付で固定する(開いた日がずれても同じ日を表示)
     P.push('o=' + (desc ? 'd' : 'a'));
     P.push('i=' + SHARE_ICONS.filter(([, g]) => g()).map(([c]) => c).join(''));
@@ -6528,7 +6653,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     updateSortBtnLabel(); updateTodayButtonStyle();
   };
   function applySharedState(S) {
-    if (S.sl === '1' && !setlistMode) $('setlistToggleBtn').onclick();
+    if (S.sl === '1' && !setlistMode) { setlistKeepForce = S.slk === '1'; $('setlistToggleBtn').onclick(); }
     if (S.q) { searchInput.value = S.q; updateSearchClearState(); }
     if (S.t) applySharedToday(S.t);
     if (S.o === 'd' || S.o === 'a') { desc = S.o === 'd'; updateSortBtnLabel(); }
@@ -6738,7 +6863,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   const ALBUM_VERSION_KEY = 'gl_albums_sha';
   const ALBUM_DATA_KEY = 'gl_albums_data';
   const ALBUM_CHECK_TIME_KEY = 'gl_albums_checked_at';
-  const applyAlbumsData = data => { albumsData = Array.isArray(data) ? data.filter(a => a && typeof a === 'object') : []; refreshAlbumIcons(); };
+  const applyAlbumsData = data => { albumsData = Array.isArray(data) ? data.filter(a => a && typeof a === 'object') : []; albumTrackTextCache = new WeakMap(); refreshAlbumIcons(); };
   const albumsSrc = makeDataSource({ file: ALBUM_FILE, verKey: ALBUM_VERSION_KEY, dataKey: ALBUM_DATA_KEY, checkKey: ALBUM_CHECK_TIME_KEY, apply: applyAlbumsData, isEmpty: () => !albumsData.length }); // 保存した albums が空のあいだは、待ち時間なしで毎回確認する(空のまま居残らないように)
   forceReloadAlbums = () => albumsSrc.check(true);
   albumsSrc.start();
