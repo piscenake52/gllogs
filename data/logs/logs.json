@@ -2719,7 +2719,14 @@
     "contents": "SNS",
     "title": "SNS　Girls²",
     "groups": [
-      "G2"
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -2730,6 +2737,26 @@
             "member": [],
             "tags": [
               "生出演決定"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2121553791057314114?a=OLFQ7WckJtyiN7DrXQg&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "明日最終日"
             ]
           }
         ]
