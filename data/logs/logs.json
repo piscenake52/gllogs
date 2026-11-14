@@ -2660,6 +2660,30 @@
     ]
   },
   {
+    "logid": "50fef5859bcc",
+    "date": "20261114",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2"
+    ],
+    "sns": [
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1243490947015114753",
+            "member": [],
+            "tags": [
+              "生出演決定"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "950702d7242f",
     "date": "20261113",
     "time": "2030",
