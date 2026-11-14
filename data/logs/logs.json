@@ -2911,6 +2911,30 @@
             ]
           }
         ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DfuETi9lBfh/?obrf=dXVrNzhpN3ljemty",
+            "member": [
+              "MNM"
+            ],
+            "tags": [
+              "涼しくなってきた"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/reel/DftMN6wJdl7/?mdxt=MXBuNTA3azN5NWs3cA==",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "ワンダンス",
+              "ジャパンプレミア"
+            ]
+          }
+        ]
       }
     ]
   },
