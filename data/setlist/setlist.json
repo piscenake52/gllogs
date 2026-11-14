@@ -146,7 +146,21 @@
       "KIR"
     ],
     "title": "Girls² EP「EASY」発売記念 リリースイベント\n静岡・浜松",
-    "venue": "プレ葉ウォーク浜北"
+    "venue": "プレ葉ウォーク浜北",
+    "songs": [
+      {
+        "title": "Umbrella",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "title": "Magic Xmas",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202611081300",
