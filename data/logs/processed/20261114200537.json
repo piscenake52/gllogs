@@ -1,0 +1,19 @@
+{
+  "logid": "9da883da801f",
+  "time": "1510",
+  "sns": [
+    {
+      "type": "radiko",
+      "urls": [
+        {
+          "url": "https://radiko.jp/share/?t=20261114151511&sid=GBS",
+          "member": [],
+          "tags": [
+            "radiko"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3566"
+}
