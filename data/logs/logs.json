@@ -2939,6 +2939,33 @@
     ]
   },
   {
+    "logid": "f9bcf1e8645f",
+    "date": "20261114",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "YUW"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DfuDIPZAZsd/?dlrf=MWNmdDVqcXJheW14dA==",
+            "member": [
+              "YUW"
+            ],
+            "tags": [
+              "寒すぎてマフラー"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "950702d7242f",
     "date": "20261113",
     "time": "2030",
