@@ -2983,7 +2983,8 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
-      "YUW"
+      "YUW",
+      "AKR"
     ],
     "sns": [
       {
@@ -2996,6 +2997,15 @@
             ],
             "tags": [
               "寒すぎてマフラー"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/Dft8Tw8iZp3/?obrf=em5hNW83ZDYzOGkx",
+            "member": [
+              "AKR"
+            ],
+            "tags": [
+              "ラーメン博物館"
             ]
           }
         ]
