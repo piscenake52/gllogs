@@ -173,6 +173,7 @@ def parse_songs(raw_str):
     1行1曲。書式: [順番:] 曲名 | type | original | notes
       - 曲名の直後に {YZH,MMK} と書くと、その曲の歌唱メンバーになる（省略＝全員扱い）
       - 順番を省略すると前の曲+1（先頭は1）
+      - 順番が分からない曲は「?:」「-:」（全角も可）と書く。その曲は order を持たない。次に番号を書くまで、番号なしの行も順番なし扱い
       - type を省略すると song。空にしたいときは - を書く
       - # で始まる行と空行は無視
     """
@@ -182,15 +183,18 @@ def parse_songs(raw_str):
         return CLEAR
     songs = []
     order = 0
+    unordered = False
     for line in raw_str.split("\n"):
         line = line.strip()
         if not line or line.startswith("#"):
             continue
-        m = re.match(r"^(\d+)\s*[:：]\s*(.*)$", line)
+        m = re.match(r"^(\d+|[?？\-－])\s*[:：]\s*(.*)$", line)
         if m:
-            order = int(m.group(1))
+            unordered = not m.group(1).isdigit()
+            if not unordered:
+                order = int(m.group(1))
             line = m.group(2)
-        else:
+        elif not unordered:
             order += 1
         parts = [p.strip() for p in re.split(r"[|｜]", line)]
         title, members = split_song_member(parts[0] if parts else "")
@@ -206,15 +210,17 @@ def parse_songs(raw_str):
         original = parts[2] if len(parts) > 2 else ""
         notes = " | ".join(parts[3:]) if len(parts) > 3 else ""
         song = {
-            "order": order,
             "title": title,
             "type": type_,
             "original": original,
             "notes": notes,
         }
+        if not unordered:
+            song = {"order": order, **song}  # 順番が分からない曲は order を持たない
         if members:
             song["member"] = members  # 指定があるときだけ持つ（ない曲は全員扱い）
         songs.append(song)
+    songs = [x for x in songs if "order" in x] + [x for x in songs if "order" not in x]  # 順番なしの曲は後ろ（入力順のまま）
     return songs
 
 
@@ -706,16 +712,26 @@ def parse_songs_patch(raw_str):
                 op["title"] = mt
             ops.append(op)
             continue
-        m = re.match(r"^([+\-＋－]?)\s*(\d+)\s*(?:[:：]\s*(.*))?$", line)
+        m = re.match(r"^([+\-＋－]?)\s*(\d+|[?？])\s*(?:[:：]\s*(.*))?$", line)
         if not m:
             errors.append(f"- **曲目の個別変更**: 読み取れない行です（`{line.replace(chr(96), chr(39))}`）。`N: 曲名 | type`、`+N: 曲名`、`-N` の形式で入力してください")
             continue
         sign = {"＋": "+", "－": "-"}.get(m.group(1), m.group(1))
-        op = {"op": {"+": "insert", "-": "delete", "": "update"}[sign], "order": int(m.group(2))}
+        op = {"op": {"+": "insert", "-": "delete", "": "update"}[sign]}
+        if m.group(2).isdigit():
+            op["order"] = int(m.group(2))
+        elif op["op"] == "update":
+            errors.append(f"- **曲目の個別変更**: 順番なし（`?`）は挿入（`+?:`）と削除（`-?: 曲名`）だけ使えます（`{line.replace(chr(96), chr(39))}`）")
+            continue
+        else:
+            op["unordered"] = True  # 順番なしの曲（orderを持たない曲）を対象にする
         parts = [p.strip() for p in re.split(r"[|｜]", m.group(3) or "")]
         title, members = split_song_member(parts[0] if parts else "")
         if members is not None and op["op"] != "delete":
             op["member"] = members  # [] は消去（{-}）
+        if op["op"] == "delete" and op.get("unordered") and not title:
+            errors.append(f"- **曲目の個別変更**: 順番なしの曲の削除には曲名が必要です（`{line.replace(chr(96), chr(39))}`）")
+            continue
         if op["op"] == "insert" and not title:
             errors.append(f"- **曲目の個別変更**: 挿入には曲名が必要です（`{line.replace(chr(96), chr(39))}`）")
             continue
@@ -807,7 +823,8 @@ def creation_stamp():
 
 
 BULK_MAX = 100
-BULK_OPS = ("replace", "add", "remove", "contents", "title")
+BULK_OPS = ("replace", "add", "remove", "contents", "title", "groups_add", "groups_remove", "groups_replace")
+BULK_GROUP_TARGETS = ("groups", "relations", "both")  # groups_* の変更先: 行の groups / relations / 両方
 BULK_TARGETS = ("tags", "sns", "both")  # タグの場所: 行のtags / 各snsリンクのtags / 両方
 
 
@@ -819,7 +836,7 @@ def build_bulk(body):
     v_to = extract_field("bulk to", body).strip()
     target = extract_field("bulk target", body).strip().lower()
     if target in ("", "none", "_no response_"):
-        target = "title" if op == "title" else "tags"
+        target = "title" if op == "title" else "groups" if op.startswith("groups_") else "tags"
     errors = []
     title_fields = []
     if op == "title":  # 対象: title は常に。pc / sp を足すと display_pc / display_sp も置換する(例: title,pc,sp)
@@ -843,10 +860,29 @@ def build_bulk(body):
         errors.append(f"- **bulk ids**: {BULK_MAX}件を超えているため処理しません（{len(ids)}件）")
     if op not in BULK_OPS:
         errors.append("- **bulk op**: replace / add / remove / contents / title のどれかを入力してください")
-    if target not in BULK_TARGETS:
+    if op.startswith("groups_"):
+        if target not in BULK_GROUP_TARGETS:
+            errors.append("- **bulk target**: groups / relations / both のどれかを入力してください")
+        target_g, target = target, "tags"
+    elif target not in BULK_TARGETS:
         errors.append("- **bulk target**: tags / sns / both のどれかを入力してください")
     value = ""
-    if op == "replace":
+    g_from, g_to = [], []
+    if op.startswith("groups_"):
+        g_from = [x for x in dict.fromkeys(to_halfwidth(t).upper() for t in re.split(r"[\s,]+", v_from) if t) if x not in ("NONE", "_NO", "RESPONSE_")]
+        g_to = [x for x in dict.fromkeys(to_halfwidth(t).upper() for t in re.split(r"[\s,]+", v_to) if t) if x not in ("NONE", "_NO", "RESPONSE_")]
+        bad_c = [x for x in g_from + g_to if x not in SNS_MEMBER_CODES]
+        if bad_c:
+            errors.append("- **bulk from / to**: 使えないコードがあります（" + ", ".join("`" + b.replace(chr(96), chr(39)) + "`" for b in bad_c[:5]) + "）")
+        if op == "groups_add" and not g_to:
+            errors.append("- **bulk to**: 追加するコードを入力してください")
+        elif op == "groups_remove" and not g_from:
+            errors.append("- **bulk from**: 削除するコードを入力してください")
+        elif op == "groups_replace" and (not g_from or not g_to):
+            errors.append("- **bulk from / to**: 置換では from と to の両方が必要です")
+        elif op == "groups_replace" and g_from == g_to:
+            errors.append("- **bulk from / to**: from と to が同じです")
+    elif op == "replace":
         if not v_from or not v_to:
             errors.append("- **bulk from / to**: replace では from と to の両方が必要です")
         elif v_from == v_to:
@@ -870,6 +906,8 @@ def build_bulk(body):
             errors.append("- **bulk to**: contents の選択肢にある値を入力してください（ANNIVERSARY / BIRTHDAY は指定できません）")
     if errors:
         return None, errors
+    if op.startswith("groups_"):
+        return {"_bulk": {"op": "groups", "action": op[len("groups_"):], "ids": ids, "target": target_g, "from": g_from, "to": g_to}}, []
     bulk = {"op": op, "ids": ids}
     if op not in ("contents", "title"):
         bulk["target"] = target

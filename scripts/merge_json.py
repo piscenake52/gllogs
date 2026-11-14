@@ -322,6 +322,19 @@ def apply_songs_patch(existing, ops, label=""):
         return next((i for i, x in enumerate(songs) if x.get("order") == n), None)
     for op in ops:
         n, kind = op.get("order"), op.get("op")
+        if op.get("unordered"):  # 順番なしの曲（orderを持たない曲）: 挿入は末尾に追加、削除は曲名が一致する最初の1曲
+            same = next((k for k, x in enumerate(songs) if not isinstance(x.get("order"), int) and x.get("title") == op.get("title")), None)
+            if kind == "insert":
+                if same is None:
+                    songs.append({"title": op.get("title", ""), "type": op.get("type", "song"),
+                                  "original": op.get("original", ""), "notes": op.get("notes", ""),
+                                  **({"member": op["member"]} if op.get("member") else {})})
+            elif kind == "delete":
+                if same is None:
+                    NOTICES.append(f"- **setlist**: {label} に順番なしの曲 `{op.get('title')}` がないため削除できませんでした")
+                else:
+                    del songs[same]
+            continue
         i = find(n)
         where = f"{label} の {n}番"
         if kind == "update":
@@ -926,11 +939,83 @@ def _bulk_tags(obj, bulk):
     return True
 
 
+G2_ORDER = ["G2", "YZH", "MMK", "MSK", "YOK", "KUR", "MNM", "KIR", "TOA", "RAN"]
+L2_ORDER = ["L2", "RIN", "TBK", "HIR", "YUW", "KAN", "RRK", "AKR", "KIK", "YUR"]
+
+
+def _bulk_group_codes(codes, action, frm, to, header):
+    """groups / relations のコード配列に add / remove / replace を当てた新しい配列を返す。
+    replace は「from のどれかが入っている行」で from を外して to を足す。header=True(groups)のときは、メンバーが入っていれば G2 / L2 も足す。
+    並びはフォームの並び順(G2 とメンバー → L2 とメンバー → それ以外)"""
+    cur = [c for c in codes if isinstance(c, str)]
+    if action == "add":
+        new = cur + [c for c in to if c not in cur]
+    elif action == "remove":
+        new = [c for c in cur if c not in frm]
+    else:  # replace
+        if not any(c in cur for c in frm):
+            return cur
+        new = [c for c in cur if c not in frm]
+        new += [c for c in to if c not in new]
+    if header and action != "remove":
+        for head, order in (("G2", G2_ORDER), ("L2", L2_ORDER)):
+            if head not in new and any(c in new for c in order[1:]):
+                new.append(head)
+    ordered = [o for o in G2_ORDER + L2_ORDER if o in new]
+    return ordered + [c for c in new if c not in ordered]
+
+
+def apply_bulk_groups(target, main_data, bulk):
+    """bulk の groups / member の変更: 行の groups / relations にコードを add / remove / replace する。戻り値: 変わった行数"""
+    ids, action = bulk.get("ids"), bulk.get("action")
+    frm = [c for c in (bulk.get("from") or []) if isinstance(c, str)]
+    to = [c for c in (bulk.get("to") or []) if isinstance(c, str)]
+    tgt = bulk.get("target") if bulk.get("target") in ("groups", "relations", "both") else "groups"
+    if not isinstance(ids, list) or not ids or len(ids) > 100 or action not in ("add", "remove", "replace"):
+        print("【スキップ】bulk: 対象が不正です（1〜100件）")
+        return 0
+    by_id = {}
+    for r in main_data:
+        if isinstance(r, dict) and r.get("logid"):
+            by_id.setdefault(r["logid"], []).append(r)
+    changed, missing, emptied = 0, [], []
+    for lid in ids:
+        rows = by_id.get(lid, [])
+        if len(rows) != 1:
+            missing.append(lid)
+            continue
+        row, did = rows[0], False
+        for field in (("groups", "relations") if tgt == "both" else (tgt,)):
+            old = row.get(field) if isinstance(row.get(field), list) else []
+            new = _bulk_group_codes(old, action, frm, to, field == "groups")
+            if new == old:
+                continue
+            if not new and field == "groups":
+                emptied.append(lid)  # groups を空にはしない
+                continue
+            if new:
+                row[field] = new
+            else:
+                row.pop(field, None)
+            did = True
+        if not did:
+            continue
+        main_data[main_data.index(row)] = reorder(target, row)
+        changed += 1
+    if missing:
+        NOTICES.append("- **logs bulk**: 見つからない logid があります（" + ", ".join("`" + m + "`" for m in missing[:10]) + (" ..." if len(missing) > 10 else "") + "）")
+    if emptied:
+        NOTICES.append("- **logs bulk**: groups が空になるため変えなかった行があります（" + ", ".join("`" + b + "`" for b in emptied[:10]) + "）")
+    return changed
+
+
 def apply_bulk(target, main_data, bulk):
     """bulk変更(logsのみ): tags の置換 / 追加 / 削除、contents の変更、title(任意で display_pc / display_sp)の文字列置換。戻り値: 実際に変わった行数。
     すでに同じ状態の行（同じタグがある・無い、同じ contents）は黙って飛ばす。見つからない logid は通知する"""
     if target["name"] != "logs" or not isinstance(bulk, dict):
         return 0
+    if bulk.get("op") == "groups":
+        return apply_bulk_groups(target, main_data, bulk)
     op, ids = bulk.get("op"), bulk.get("ids")
     if not isinstance(ids, list) or not ids or len(ids) > 100:
         print("【スキップ】bulk: 対象が不正です（1〜100件）")
