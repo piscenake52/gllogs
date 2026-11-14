@@ -1,11 +1,11 @@
 name: "logs bulk"
-description: "tag / contents / title bulk change (logs only, up to 100 rows)"
+description: "tag / contents / title / groups bulk change (logs only, up to 100 rows)"
 title: "[DATA] logs bulk"
 body:
   - type: markdown
     attributes:
       value: |
-        helper の bulk タブから開いてください。入力済みの内容をそのまま送信します。
+        helper の bulk タブから開いてください（入力済みの内容を送信します）。
 
   - type: textarea
     id: bulk_ids
@@ -17,22 +17,22 @@ body:
     id: bulk_op
     attributes:
       label: "bulk op"
-      description: "replace / add / remove / contents / title"
+      description: "replace / add / remove / contents / title / groups_add / groups_remove / groups_replace"
 
   - type: input
     id: bulk_from
     attributes:
       label: "bulk from"
-      description: "replace: the old tag / remove: the tag to remove / title: the text to replace"
+      description: "replace: the old tag / remove: the tag to remove / title: the text to replace / groups_*: the codes (comma separated) to remove or replace"
 
   - type: input
     id: bulk_to
     attributes:
       label: "bulk to"
-      description: "replace: the new tag / add: the tag to add / contents: the new contents / title: the new text (empty = delete the text)"
+      description: "replace: the new tag / add: the tag to add / contents: the new contents / title: the new text (empty = delete the text) / groups_*: the codes (comma separated) to add"
 
   - type: input
     id: bulk_target
     attributes:
       label: "bulk target"
-      description: "tags / sns / both (where the tag is: the tags of the row, the tags of each sns link, or both). Empty = tags. For title: title / pc / sp, comma separated (pc, sp = also display_pc, display_sp)"
+      description: "tags / sns / both (where the tag is: the tags of the row, the tags of each sns link, or both). Empty = tags. For title: title / pc / sp, comma separated (pc, sp = also display_pc, display_sp). For groups_*: groups / relations / both (empty = groups)"

@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        📅 [日付・開演時刻をカレンダーで選ぶ（setlistid）](https://gl-log.blogspot.com/p/issuehelper.html#setlist) — 選んだ値が入力済みのフォームが開きます。このフォームの入力欄は、そのまま自由入力もできます。
+        📅 [カレンダーで日付・開演時刻を選ぶ](https://gl-log.blogspot.com/p/issuehelper.html#setlist) — 選んだ値が入力済みで開きます。直接入力もできます。
 
   - type: input
     id: setlistid
@@ -46,8 +46,8 @@ body:
     attributes:
       label: "videos"
       description: |
-        YouTubeの動画。1行1件で `type | URL`（typeを省略するとOther）。入力すると動画リンク全体が**置き換わります**（空欄なら既存を維持）。
-        typeの例: MV / Dance Practice / Call Lecture / Lyric / Live / Reaction（自由入力も可）
+        YouTube動画。1行1件で `type | URL`（type 省略は Other）。入力すると動画リンク全体が**置き換わります**（空欄なら維持）。
+        type の例: MV / Dance Practice / Call Lecture / Lyric / Live / Reaction（自由入力も可）
       placeholder: |
         MV | https://youtu.be/xxxxxxxxxxx
         Dance Practice | https://www.youtube.com/watch?v=xxxxxxxxxxx
@@ -102,7 +102,7 @@ body:
     id: source
     attributes:
       label: "source"
-      description: "OFFICIAL（公式の情報）/ FAN MADE（ファンメイド）。分からない場合は空のまま（空は変更なし・不明）。消すときは !clear か、下の「値の削除」で source"
+      description: "OFFICIAL（公式）/ FAN MADE（ファンメイド）。不明なら空のまま（変更なし）。消すときは !clear か「値の削除」"
 
   - type: textarea
     id: songs
@@ -110,8 +110,8 @@ body:
       label: "曲目 (songs / setlist用 - 1行1曲)"
       description: |
         書式: `[順番:] 曲名 | type | original | notes`
-        順番を省略すると前の曲+1。typeを省略すると song（allow / encore / medley も可、空にしたいときは - ）。
-        入力すると曲目全体が**置き換わります**（空欄なら既存の曲目を維持）。
+        順番を省略すると前の曲+1、type を省略すると song（空にするときは `-`）。
+        入力すると曲目全体が**置き換わります**（空欄なら維持）。
       placeholder: |
         1: OPENING | -
         2: Fun!Fun!Fun! ～夢∞～

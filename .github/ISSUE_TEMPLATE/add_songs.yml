@@ -20,7 +20,7 @@ body:
     id: vocal
     attributes:
       label: "vocal"
-      description: "歌唱メンバー・ユニット名などの自由入力（例: artist=Girls² のとき vocal=○○）"
+      description: "歌唱メンバー・ユニット名（例: artist=Girls² のとき vocal=○○）"
 
 
   - type: input
@@ -45,8 +45,8 @@ body:
     attributes:
       label: "videos"
       description: |
-        YouTubeの動画。1行1件で `type | URL | tags`（typeを省略するとOther。tagsは省略可・カンマ区切り）。入力すると動画リンク全体が**置き換わります**（空欄なら既存を維持）。
-        typeの例: MV / Dance Practice / Call Lecture / Lyric / Live / Reaction（自由入力も可）
+        YouTube動画。1行1件で `type | URL | tags`（type 省略は Other、tags は省略可・カンマ区切り）。入力すると動画リンク全体が**置き換わります**（空欄なら維持）。
+        type の例: MV / Dance Practice / Call Lecture / Lyric / Live / Reaction（自由入力も可）
       placeholder: |
         MV | https://youtu.be/xxxxxxxxxxx
         Dance Practice | https://www.youtube.com/watch?v=xxxxxxxxxxx

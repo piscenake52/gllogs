@@ -5,19 +5,19 @@ body:
   - type: markdown
     attributes:
       value: |
-        📅 [日付・開演時刻をカレンダーで選ぶ（setlistid）](https://gl-log.blogspot.com/p/issuehelper.html#setlist) — 選んだ値が入力済みのフォームが開きます。このフォームの入力欄は、そのまま自由入力もできます。
+        📅 [カレンダーで日付・開演時刻を選ぶ](https://gl-log.blogspot.com/p/issuehelper.html#setlist) — 選んだ値が入力済みで開きます。直接入力もできます。
 
   - type: input
     id: setlistid
     attributes:
       label: "setlistid"
-      description: "コピーして新規登録するときは、ここに新しい setlistid（日付+開演時刻 12桁）を入力"
+      description: "コピーして新規登録するとき: 新しい setlistid（12桁）"
 
   - type: input
     id: copy_from
     attributes:
       label: "COPY / コピー元 setlistid"
-      description: "コピーして新規登録するときだけ、コピー元の setlistid を入力。入力した項目だけ上書きし、空の項目（曲目・member など）はコピー元を引き継ぎます。上の setlistid がすでに存在するときはコピーしません"
+      description: "コピー元の setlistid（コピー新規登録のみ）。入力した項目だけ上書きし、空の項目はコピー元を引き継ぎます。上の setlistid が既存ならコピーしません"
 
 
   - type: checkboxes
@@ -39,7 +39,7 @@ body:
     id: item_title
     attributes:
       label: "title"
-      description: "改行を入れると、サイト側でもそのまま改行表示されます"
+      description: "改行はそのまま表示されます"
 
 
   - type: dropdown
@@ -95,14 +95,14 @@ body:
     id: weather
     attributes:
       label: "weather"
-      description: "sunny / cloudy / rain / snow / thunder / partly（カンマ区切り。選んだ順に表示し、2つ以上は → でつなぐ。例 sunny,rain）。消すときは !clear か、下の「値の削除」で weather"
+      description: "sunny / cloudy / rain / snow / thunder / partly（カンマ区切り、選んだ順。例: sunny,rain）。消すときは !clear か「値の削除」"
 
 
   - type: input
     id: source
     attributes:
       label: "source"
-      description: "OFFICIAL（公式の情報）/ UNOFFICIAL（ファンメイド）。分からない場合は空のまま（空は変更なし・不明）。消すときは !clear か、下の「値の削除」で source"
+      description: "OFFICIAL（公式）/ UNOFFICIAL（ファンメイド）。不明なら空のまま（変更なし）。消すときは !clear か「値の削除」"
 
 
   - type: textarea
@@ -110,10 +110,12 @@ body:
     attributes:
       label: "曲目 (1行1曲)"
       description: |
-        書式: `[順番:] 曲名 | type | original | notes`
-        順番を省略すると前の曲+1。typeを省略すると song（arrange / medley / short / mc / dt / dj / towel / encore / allow / cover も可、複数はカンマ区切り 例: allow,medley、空にしたいときは - ）。
-        その曲を歌うメンバーは曲名の直後に `{YZH,MMK}` と書きます（指定した曲だけ、曲名の下にハートが出ます。省略すると全員扱い）。
-        入力すると曲目全体が**置き換わります**（空欄なら既存の曲目を維持）。
+        書式: `[順番:] 曲名 {メンバー} | type | original | notes`
+        ・順番を省略すると前の曲+1。順番が不明な曲は `-:`
+        ・type は省略すると song。複数はカンマ区切り（例: allow,medley）、空にするときは `-`
+        ・type: arrange / medley / short / mc / dt / dj / towel / encore / allow / cover
+        ・歌唱メンバーは `{YZH,MMK}`（省略は全員）
+        入力すると曲目全体が**置き換わります**（空欄なら維持）。
       placeholder: |
         1: OPENING | -
         2: Fun!Fun!Fun! ～夢∞～
@@ -127,11 +129,12 @@ body:
     attributes:
       label: "曲目の個別変更 (1行1操作)"
       description: |
-        既存の曲目を一部だけ変更します（上の「曲目」は空のままにしてください）。書いた順に適用されます。
-        `N: 曲名 {YZH,MMK} | type | original | notes` … N番の曲を更新（空欄・省略した項目は今のまま、`-` は空にする。メンバーは `{YZH,MMK}`、指定を消すときは `{-}`）
-        `+N: 曲名 | type` … N番に曲を挿入（N番以降は1つ後ろへ。typeを省略すると song）
-        `-N: 曲名` … N番の曲を削除（N番以降は1つ前へ。曲名を書くと一致したときだけ削除）
-        `N>M: 曲名` … N番の曲をM番へ移動（間の曲は1つずつずれる。曲名を書くと一致したときだけ移動）
+        曲目の一部だけ変更します（上の「曲目」は空のまま）。書いた順に適用。
+        `N: 曲名 {YZH,MMK} | type | original | notes` … N番を更新（空欄は今のまま、`-` は空にする、`{-}` はメンバー指定を消す）
+        `+N: 曲名 | type` … N番に挿入（以降は1つ後ろへ）
+        `-N: 曲名` … N番を削除（以降は1つ前へ。曲名があれば一致時のみ）
+        `N>M: 曲名` … N番をM番へ移動（曲名があれば一致時のみ）
+        `+?: 曲名` / `-?: 曲名` … 順番なしの曲を追加 / 削除
       placeholder: |
         3: キミすき | allow
         +5: 新しい曲

@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        helper の albums タブから開いてください。入力済みの内容をそのまま送信します。
+        helper の albums タブから開いてください（入力済みの内容を送信します）。
 
   - type: input
     id: album_title
@@ -22,19 +22,19 @@ body:
     id: album_id
     attributes:
       label: "album id"
-      description: "12桁のid(helperが作ります。空なら title + type で判定し、新規はサーバー側で採番)"
+      description: "12桁の id（helper が作成。空なら title + type で判定し、新規は自動採番）"
 
   - type: textarea
     id: logids
     attributes:
       label: "logids"
-      description: "この盤に紐づけるlogsのlogid(1行に1つ)。ここにないlogs行のalbumidは外れます。helperが入力します"
+      description: "この盤に紐づける logid（1行に1つ。ここにない行の albumid は外れます。helper が入力）"
 
   - type: textarea
     id: album_json
     attributes:
       label: "album json"
-      description: "date / tracks / editions (JSON). helper が作ります"
+      description: "date / tracks / editions（JSON。helper が作成）"
 
   - type: checkboxes
     id: delete
