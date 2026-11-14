@@ -1,0 +1,29 @@
+{
+  "logid": "f9bcf1e8645f",
+  "groups": [
+    "L2",
+    "RIN",
+    "TBK",
+    "YUW",
+    "AKR"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/DftuidMpEZc/?cplk=MW9qZ3l6dTlhNjJpbQ==",
+          "member": [
+            "RIN",
+            "TBK",
+            "YUW"
+          ],
+          "tags": [
+            "Best friends"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3592"
+}
