@@ -131,7 +131,21 @@
       "KIR"
     ],
     "title": "Girls² EP 「EASY」 発売記念 リリースイベント\n千葉・松戸",
-    "venue": "テラスモール松戸 こもれびステージ"
+    "venue": "テラスモール松戸 こもれびステージ",
+    "songs": [
+      {
+        "title": "Umbrella",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "title": "Magic Xmas",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202611141300",
