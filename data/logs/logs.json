@@ -2163,7 +2163,7 @@
     "time": "1000",
     "contents": "GLRADIO",
     "title": "永山椿＆森朱里のがるらじ　前編",
-    "url": "https://girls2-fc.jp/page/familyNews/1242335195315568642",
+    "url": "https://girls2-fc.jp/page/lucky2radio/1249681122736996352",
     "groups": [
       "L2",
       "TBK",
@@ -2171,6 +2171,35 @@
     ],
     "tags": [
       "がるらじ"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2121770159694135427?a=9S2dfWfm7vEd6lPZQzo&s=19",
+            "member": [
+              "TBK",
+              "AKR"
+            ],
+            "tags": [
+              "FC情報"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1242335195315568642",
+            "member": [],
+            "tags": [
+              "エピソード募集"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
