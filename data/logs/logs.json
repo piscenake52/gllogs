@@ -2458,6 +2458,65 @@
     ]
   },
   {
+    "logid": "f3d330c6296f",
+    "date": "20261115",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/HMV_Toyosu/status/2121807029992108509?a=3IuFcLyPNNnSE-9F9oo&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "色紙",
+              "HMVららぽーと豊洲"
+            ]
+          },
+          {
+            "url": "https://x.com/punirunes/status/2121762857205563785?a=muuCgdQdo2yjez5t-eQ&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "ぷにるんず",
+              "メッセージムービー"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "34b9b6498357",
     "date": "20261114",
     "time": "2000",
