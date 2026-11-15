@@ -173,7 +173,7 @@ def parse_songs(raw_str):
     1行1曲。書式: [順番:] 曲名 | type | original | notes
       - 曲名の直後に {YZH,MMK} と書くと、その曲の歌唱メンバーになる（省略＝全員扱い）
       - 順番を省略すると前の曲+1（先頭は1）
-      - 順番が分からない曲は「?:」「-:」（全角も可）と書く。その曲は order を持たない。次に番号を書くまで、番号なしの行も順番なし扱い
+      - 順番が分からない曲は「?:」「-:」「:」（番号を空欄にする。全角も可）と書く。その曲は order を持たない。次に番号を書くまで、番号なしの行も順番なし扱い
       - type を省略すると song。空にしたいときは - を書く
       - # で始まる行と空行は無視
     """
@@ -188,7 +188,7 @@ def parse_songs(raw_str):
         line = line.strip()
         if not line or line.startswith("#"):
             continue
-        m = re.match(r"^(\d+|[?？\-－])\s*[:：]\s*(.*)$", line)
+        m = re.match(r"^(\d*|[?？\-－])\s*[:：]\s*(.*)$", line)
         if m:
             unordered = not m.group(1).isdigit()
             if not unordered:
