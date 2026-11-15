@@ -2590,6 +2590,46 @@
     ]
   },
   {
+    "logid": "5580c1bb7866",
+    "date": "20261115",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/cancamtv/status/2121891007029768366?a=vdtM77e_lH5EStLx2HQ&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "CanCam",
+              "ビジュ強のヒミツ"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "34b9b6498357",
     "date": "20261114",
     "time": "2000",
