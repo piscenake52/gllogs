@@ -455,7 +455,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, old); else old();
   }
   function ckFmtD(d, t) { d = String(d || ''); t = String(t || ''); return (d.length === 8 ? d.slice(0, 4) + '/' + d.slice(4, 6) + '/' + d.slice(6) : d) + (t.length === 4 ? ' ' + t.slice(0, 2) + ':' + t.slice(2) : ''); }
-  function ckRun(rows, lrep, songs) {
+  function ckRun(rows, lrep, songs, setlists, albums) {
     var order = [], C = {};
     function mk(id, lv, name, note) { C[id] = { id: id, lv: lv, name: name, note: note, items: [] }; order.push(id); }
     mk('date', 'e', 'date: bad format / not a real date', 'must be 8 digits and a real day');
@@ -470,6 +470,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     mk('gap', 'w', '# numbers: gaps / duplicates', 'series with #n in the title: a missing or repeated number');
     mk('noend', 'w', 'start without end / deadline', 'past rows only; e.g. a start of sales with no end of sales');
     mk('noann', 'w', 'LIVE / EVENT / RELEASE without ANNIVERSARY', 'LIVE, TOUR, EVENT (incl. RELEASEEVENT, FANMEETING), RELEASE (incl. CD, DVD, BD, DIGITAL, MUSICCARD, EP) with no linked ANNIVERSARY row');
+    mk('nosl', 'w', 'setlist not registered', 'past LIVE / TOUR / RELEASEEVENT / FANMEETING rows whose setlistid (date + time if empty) is not in setlist.json. Open it to register');
+    mk('noalbum', 'w', 'album not registered', 'CD / DVD / BD / MUSICCARD / RELEASE / EP / DIGITAL rows with no album in albums.json (no albumid, or the albumid / name does not match)');
+    mk('slsong', 'w', 'song not registered (setlist)', 'songs in setlist.json that are not in songs.json (mc / dt / dj / towel excluded)');
+    mk('alsong', 'w', 'song not registered (album)', 'tracks of albums.json that are not in songs.json');
+    mk('slnosong', 'i', 'setlist without songs', 'setlist.json entries with no song list');
+    mk('alnotrack', 'i', 'album without tracks', 'albums.json entries with no tracks (in the album or in any edition)');
+    mk('noedition', 'i', 'album without editions', 'albums.json entries with no edition');
     mk('nolyr', 'i', 'songs without a lyrics link', 'songs.json: no lyrics url (uta-net). The viewer falls back to a uta-net search');
     mk('novid', 'i', 'songs without a video link', 'songs.json: no videos (YouTube MV / Dance Practice / ...). Add them in the songs tab');
     mk('tag1', 'i', 'tags used only once', 'where a typo or variant hides');
@@ -518,9 +525,87 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 
     (Array.isArray(songs) ? songs : []).forEach(function (sg) { if (!sg || !sg.title || sg.lyrics) return; C.nolyr.items.push({ k: 'lyr:' + (sg.artist || '') + '|' + sg.title, rows: [], song: sg, head: sg.title, sub: sg.artist || '' }); });
     (Array.isArray(songs) ? songs : []).forEach(function (sg) { if (!sg || !sg.title || (Array.isArray(sg.videos) && sg.videos.length)) return; C.novid.items.push({ k: 'vid:' + (sg.artist || '') + '|' + sg.title, rows: [], song: sg, head: sg.title, sub: sg.artist || '' }); });
+    ckReg(rows, songs, setlists, albums, C);
     ckLinks(rows, lrep, C.link.items);
     ckGaps(rows, C.gap.items); ckSE(rows, C.noend.items, C.nostart.items);
     return { n: rows.length, order: order, C: C, at: new Date(), lrep: lrep || null };
+  }
+  // registration checks: logs / setlist / albums / songs that point to data that is not registered yet. Each item has go buttons (it.go) that open the place where it can be registered.
+  function ckReg(rows, songs, setlists, albums, C) {
+    var SL = Array.isArray(setlists) ? setlists : [], AL = Array.isArray(albums) ? albums : [], now = new Date(), today = String(now.getFullYear()) + pad2(now.getMonth() + 1) + pad2(now.getDate());
+    var sk = function (t) { return normQ(t).replace(/\s+/g, ''); }, songKeys = {};
+    (Array.isArray(songs) ? songs : []).forEach(function (r) { if (r && typeof r.title === 'string' && r.title.trim()) songKeys[sk(r.title)] = 1; });
+    var haveSongs = Object.keys(songKeys).length > 0; // songs.json could not be read: the song checks are skipped (everything would look unregistered)
+    var slById = {}; SL.forEach(function (e) { if (e && e.setlistid) slById[String(e.setlistid)] = e; });
+    var alIds = {}; AL.forEach(function (a) { if (a && a.id) alIds[a.id] = a; });
+    var openSl = function (sid, r) { return function () { var g = function (a) { return (r && r[a] && r[a].join) ? r[a].join(',') : ''; }; jumpSeed = r ? { sid: sid, title: r.title || '', groups: g('groups'), tags: g('tags') } : null; tab('setlist'); toTop(); try { history.replaceState(null, '', '#setlist'); } catch (e) {} $('fid').value = sid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); }; };
+    var openAl = function (a, seed) { return function () { gotoAlbum(a, seed || { title: a.title || '', type: a.type || '', date: a.date || '', groups: '', logid: '' }); }; };
+    // 1) setlist not registered (past only; the rows that share one setlistid are one item)
+    var SLC = ['LIVE', 'TOUR', 'RELEASEEVENT', 'FANMEETING'], bySid = {};
+    rows.forEach(function (r) {
+      if (!r || r.ref || SLC.indexOf(String(r.contents || '').toUpperCase()) < 0) return;
+      var sid = r.setlistid ? String(r.setlistid) : (r.date && r.time ? String(r.date) + String(r.time) : ''); if (!/^\d{12}$/.test(sid) || String(r.date || '') >= today || slById[sid]) return;
+      (bySid[sid] = bySid[sid] || []).push(r);
+    });
+    Object.keys(bySid).forEach(function (sid) { var rs = bySid[sid], r0 = rs[0]; C.nosl.items.push({ k: 'nosl:' + sid, rows: rs.slice(0, 3), extra: sid, go: [{ t: 'setlist', fn: openSl(sid, r0) }] }); });
+    C.nosl.items.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
+    // 2) album not registered
+    rows.forEach(function (r) {
+      if (!r || r.ref || !r.title || AL_CONT.indexOf(String(r.contents || '').toUpperCase()) < 0) return;
+      var name = alNameOf(r.title), nm = normQ(name), hit = false;
+      if (r.albumid && alIds[r.albumid]) hit = true;
+      else if (nm) hit = AL.some(function (a) { return a && normQ(a.title) === nm; });
+      else { var nt = normQ(r.title); hit = AL.some(function (a) { return a && a.title && normQ(a.title).length > 1 && nt.indexOf(normQ(a.title)) >= 0; }); }
+      if (hit) return;
+      var tys = alTypesOf(r), seed = { title: name || String(r.title || '').trim(), type: tys[0] || '', date: DG(r.date || ''), groups: (r.groups || []).join(','), logid: r.logid || '' };
+      C.noalbum.items.push({ k: 'noalbum:' + (r.logid || r.title), rows: [r], extra: r.albumid ? 'albumid not found' : '', go: [{ t: 'album', fn: function () { gotoAlbum(null, seed); } }] });
+    });
+    C.noalbum.items.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
+    // 3) setlist without songs
+    SL.forEach(function (e) {
+      if (!e || !e.setlistid) return;
+      var n = (Array.isArray(e.songs) ? e.songs : []).filter(function (x) { return x && String(x.title || '').trim(); }).length; if (n) return;
+      C.slnosong.items.push({ k: 'slnosong:' + e.setlistid, rows: [], head: e.title || e.setlistid, sub: ckFmtD(String(e.setlistid).slice(0, 8), String(e.setlistid).slice(8)) + (e.venue ? ' / ' + e.venue : ''), go: [{ t: 'setlist', fn: openSl(String(e.setlistid), null) }] });
+    });
+    C.slnosong.items.sort(function (a, b) { return a.k < b.k ? 1 : -1; });
+    // 4) song not registered (setlist): one item per title
+    var skip = /(^|[,\s])(mc|dt|dj|towel)([,\s]|$)/, gs = {};
+    if (haveSongs) SL.forEach(function (e) {
+      if (!e || !e.setlistid || !Array.isArray(e.songs)) return;
+      e.songs.forEach(function (x) {
+        if (!x || typeof x !== 'object') return; var t = String(x.title || '').trim(); if (!t || skip.test(String(x.type || '')) || songKeys[sk(t)]) return;
+        var o = gs[sk(t)] = gs[sk(t)] || { t: t, es: [] }; if (o.es.indexOf(e) < 0) o.es.push(e);
+      });
+    });
+    Object.keys(gs).forEach(function (k) {
+      var o = gs[k], es = o.es.slice().sort(function (a, b) { return String(b.setlistid).localeCompare(String(a.setlistid)); });
+      var go = [{ t: 'add song', fn: function () { goSong(o.t, es[0].artist); } }];
+      es.slice(0, 3).forEach(function (e, j) { go.push({ t: es.length > 1 ? 'setlist ' + (j + 1) : 'setlist', fn: openSl(String(e.setlistid), null) }); });
+      C.slsong.items.push({ k: 'slsong:' + k, rows: [], head: o.t, sub: es.length + ' setlist' + (es.length > 1 ? 's' : '') + ' / latest ' + ckFmtD(String(es[0].setlistid).slice(0, 8), String(es[0].setlistid).slice(8)) + ' ' + (es[0].title || ''), go: go, n: es.length });
+    });
+    C.slsong.items.sort(function (a, b) { return b.n - a.n || (a.head < b.head ? -1 : 1); });
+    // 5) albums: no tracks / no editions / track not registered
+    var as = {};
+    AL.forEach(function (a) {
+      if (!a || !a.title) return;
+      var key = a.id || a.title + '|' + (a.type || ''), eds = Array.isArray(a.editions) ? a.editions : [], tl = (Array.isArray(a.tracks) ? a.tracks : []).slice();
+      eds.forEach(function (ed) { tl = tl.concat(ed && ed.tracks || [], ed && ed.extra || []); });
+      tl = tl.filter(function (t) { return t && String(t.title || '').trim(); });
+      var head = a.title + (a.type ? ' (' + a.type + ')' : ''), sub = a.date ? ckFmtD(a.date, '') : '';
+      if (!tl.length) C.alnotrack.items.push({ k: 'alnotrack:' + key, rows: [], head: head, sub: sub, go: [{ t: 'album', fn: openAl(a) }] });
+      if (!eds.length) C.noedition.items.push({ k: 'noedition:' + key, rows: [], head: head, sub: sub, go: [{ t: 'album', fn: openAl(a) }] });
+      if (!haveSongs) return;
+      tl.forEach(function (t) {
+        var ti = String(t.title).trim(); if (songKeys[sk(ti)]) return;
+        var o = as[sk(ti)] = as[sk(ti)] || { t: ti, al: [] }; if (o.al.indexOf(a) < 0) o.al.push(a);
+      });
+    });
+    Object.keys(as).forEach(function (k) {
+      var o = as[k], go = [{ t: 'add song', fn: function () { goSong(o.t, o.al[0].artist); } }];
+      o.al.slice(0, 3).forEach(function (a, j) { go.push({ t: o.al.length > 1 ? 'album ' + (j + 1) : 'album', fn: openAl(a) }); });
+      C.alsong.items.push({ k: 'alsong:' + k, rows: [], head: o.t, sub: o.al.map(function (a) { return a.title; }).slice(0, 3).join(' / ') + (o.al.length > 3 ? ' ...' : ''), go: go, n: o.al.length });
+    });
+    C.alsong.items.sort(function (a, b) { return b.n - a.n || (a.head < b.head ? -1 : 1); });
   }
   // # number gaps: the series is contents + the title without its last #number (the same rule as check_gaps.py). 3+ distinct numbers, a range of 400 or less; a series that is mostly gaps is not a numbered series.
   function ckGaps(rows, out) {
@@ -582,7 +667,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
     out.sort(function (a, b) { return String(b.rows[0].date).localeCompare(String(a.rows[0].date)); });
   }
-  var CK_IG = { nolyr: 1, novid: 1, noann: 1, dup: 1, gap: 1, noend: 1, nostart: 1, link: 1 }; // the checks whose items can be ignored (kept in this browser)
+  var CK_IG = { nosl: 1, noalbum: 1, slsong: 1, alsong: 1, slnosong: 1, alnotrack: 1, noedition: 1, nolyr: 1, novid: 1, noann: 1, dup: 1, gap: 1, noend: 1, nostart: 1, link: 1 }; // the checks whose items can be ignored (kept in this browser)
   function ckCnt(c) { if (!CK_IG[c.id]) return c.items.length; var ig = ckIgn(); return c.items.filter(function (it) { return ig.indexOf(it.k) < 0; }).length; }
   function ckList() {
     var R = ckRes, sum = { e: 0, w: 0, i: 0, o: 0 }, host = $('cklist'), secs = { e: 'errors', w: 'to check', i: 'info', o: 'ok' }, by = { e: [], w: [], i: [], o: [] };
@@ -638,7 +723,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       it.rows.forEach(function (r, j) { if (r.logid) mkb(it.rows.length > 1 ? 'open ' + (j + 1) : 'open', function () { open1(r.logid); }); });
       it.rows.forEach(function (r, j) { if (!r.logid || it.lines) return; var lb = it.rows.length > 1 ? 'copy ' + (j + 1) : 'copy id', cp = mkb(lb, function () { ckCopy(r.logid, function () { cp.textContent = 'copied'; setTimeout(function () { cp.textContent = lb; }, 1200); }); }); });
       if (it.song) { mkb('search', function () { window.open('https://www.uta-net.com/search/?Aselect=2&Bselect=4&Keyword=' + encodeURIComponent(it.song.title), '_blank', 'noopener'); }); mkb('open', function () { tab('songs'); toTop(); try { history.replaceState(null, '', '#songs'); } catch (e) {} if (songApi) songApi.open(it.song.artist, it.song.title); }); }
-      var jb = it.song ? null : mkb('json', function () { jp.hidden = !jp.hidden; });
+      (it.go || []).forEach(function (g) { mkb(g.t, g.fn); }); // open the place where the unregistered data can be added
+      var jb = it.song || !it.rows.length ? null : mkb('json', function () { jp.hidden = !jp.hidden; });
       var jp = document.createElement('pre'); jp.className = 'ckjson'; jp.hidden = true; jp.textContent = JSON.stringify(it.rows, null, 2);
       if (CK_IG[c.id]) mkb(isIgn ? 'restore' : 'ignore', function () { var a = ckIgn(), p = a.indexOf(it.k); if (p >= 0) a.splice(p, 1); else a.push(it.k); ckSetIgn(a); ckDetail(); });
       card.appendChild(btns); card.appendChild(jp); host.appendChild(card);
@@ -650,12 +736,12 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function ckStart() {
     $('ckmeta').textContent = 'loading logs.json ...'; $('ckrun').disabled = true;
     var lp = fetch('https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/data/logs/link_report.json?v=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); // not there until the first link check has run
-    Promise.all([fetchData('logs'), lp, fetchData('songs').catch(function () { return []; })]).then(function (a) {
-      var d = a[0]; ckData = d; ckRes = ckRun(Array.isArray(d) ? d : [], a[1], a[2]); $('ckrun').disabled = false; ckList();
+    Promise.all([fetchData('logs'), lp, fetchData('songs').catch(function () { return []; }), fetchData('setlist').catch(function () { return []; }), fetchData('albums').catch(function () { return []; })]).then(function (a) {
+      var d = a[0]; ckData = d; ckRes = ckRun(Array.isArray(d) ? d : [], a[1], a[2], a[3], a[4]); $('ckrun').disabled = false; ckList();
     }).catch(function (e) { $('ckrun').disabled = false; $('ckmeta').textContent = 'load failed: ' + (e && e.message ? e.message : e); });
   }
   function ckInit() { if (!ckRes && !$('ckrun').disabled) ckStart(); }
-  $('ckrun').onclick = function () { delete cache.logs; ckRes = null; ckStart(); };
+  $('ckrun').onclick = function () { delete cache.logs; delete cache.setlist; delete cache.albums; delete cache.songs; ckRes = null; ckStart(); };
   $('ckback').onclick = function () { ckList(); };
   $('ckmore').onclick = function () { ckLim += 50; ckDetail(); };
   $('ckshow').onclick = function () { ckShowIg = !ckShowIg; ckDetail(); };
@@ -1440,8 +1526,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var out = [];
     String(text || '').split(/\r?\n/).forEach(function (l) {
       l = l.trim(); if (!l || l.charAt(0) === '#') return;
-      var no = /^[-\uff0d?\uff1f]\s*[:\uff1a]/.test(l); // `-:` / `?:` = the order is not known
-      l = l.replace(/^(\d+|[-\uff0d?\uff1f])\s*[:\uff1a]\s*/, '');
+      var no = /^[-\uff0d?\uff1f]?\s*[:\uff1a]/.test(l); // `-:` / `?:` / `:` (empty) = the order is not known
+      l = l.replace(/^(\d+|[-\uff0d?\uff1f])?\s*[:\uff1a]\s*/, '');
       var ps = l.split('|').map(function (x) { return x.trim(); }), t = ps[0] || '', mem = [], m = t.match(/^(.*?)\s*\{([^}]*)\}\s*$/);
       if (m) { t = m[1]; mem = m[2].split(/[,\s]+/).filter(function (v) { return v && v !== '-'; }); }
       out.push({ title: t, type: ps[1] || '', original: ps[2] || '', notes: ps.slice(3).join(' | '), member: mem, noOrd: no });
@@ -1462,7 +1548,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var l = raw.replace(CIRC_RE, function (c) { return (c.charCodeAt(0) - 0x245f) + '. '; }).replace(/^\s+/, '').replace(/\s+$/, '');
       if (!l || l.charAt(0) === '#') return l; n++;
       var m = l.match(/^(\d+)\s*[:\uff1a]\s*(.*)$/) || l.match(/^(\d+)\s*[.)\]\uff09\uff0e\-]\s*(.*)$/) || l.match(/^(\d+)\s+(\S.*)$/);
-      var u = !m && l.match(/^[-\uff0d?\uff1f]\s*[:\uff1a]\s*(.*)$/);
+      var u = !m && l.match(/^[-\uff0d?\uff1f]?\s*[:\uff1a]\s*(.*)$/);
       return u ? '-: ' + u[1] : m ? m[1] + ': ' + m[2] : n + ': ' + l;
     }).join('\n');
   }
@@ -1508,7 +1594,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function draw() {
       frame.innerHTML = ''; frame._align = null; var r = fr;
       var top = document.createElement('div'); top.className = 'alt'; frame.appendChild(top);
-      var no = document.createElement('input'); no.type = 'text'; no.className = 'fin plnoin'; no.setAttribute('inputmode', 'numeric'); no.setAttribute('autocomplete', 'off'); no.title = 'order (a new song: the number of songs + 1). - = the order is not known'; if (sel < 0) parse(); no.value = sel >= 0 ? (r.noOrd ? '-' : String(sel + 1)) : String(rows.length + 1); top.appendChild(no);
+      var no = document.createElement('input'); no.type = 'text'; no.className = 'fin plnoin'; no.setAttribute('inputmode', 'numeric'); no.setAttribute('autocomplete', 'off'); no.placeholder = '-'; no.title = 'order (a new song: the number of songs + 1). empty = the order is not known'; if (sel < 0) parse(); no.value = sel >= 0 ? (r.noOrd ? '' : String(sel + 1)) : String(rows.length + 1); top.appendChild(no);
       var cw = document.createElement('div'); cw.className = 'alin'; var inp = document.createElement('div'); inp.className = 'alinp'; var ti = document.createElement('input'); ti.type = 'text'; ti.className = 'fin'; ti.placeholder = 'title'; ti.value = r.title; ti.setAttribute('autocomplete', 'off'); ti.setAttribute('spellcheck', 'false'); inp.appendChild(ti); cw.appendChild(inp); top.appendChild(cw);
       var bt = document.createElement('div'); bt.className = 'albtn'; cw.appendChild(bt);
       var go = inJump(inp, ti, function () { goSong(r.title.replace(/\s*\{[^}]*\}\s*$/, '').trim(), ($('f-artist') || {}).value); }); go.disabled = true;
@@ -1547,7 +1633,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       edActs(acts, upd, del, sel >= 0);
       function upd() { // new (no line selected) or update (the selected line); the order is inserted and the others are renumbered
         var t = fr.title.trim(); if (!t) return; parse();
-        var rr = copy(fr); rr.title = t; var nv = no.value.trim(), n = parseInt(nv, 10); rr.noOrd = /^[-\uff0d?\uff1f]/.test(nv); if (rr.noOrd) n = 0; // `-` = the order is not known (the song stays at its place; a new one goes to the end)
+        var rr = copy(fr); rr.title = t; var nv = no.value.trim(), n = parseInt(nv, 10); rr.noOrd = nv === '' || /^[-\uff0d?\uff1f]/.test(nv); if (rr.noOrd) n = 0; // empty (or `-`) = the order is not known (the song stays at its place; a new one goes to the end)
         if (sel >= 0 && sel < rows.length) rows.splice(sel, 1); else if (sel >= 0) sel = -1;
         var pos = n > 0 ? Math.min(n - 1, rows.length) : (sel >= 0 ? Math.min(sel, rows.length) : rows.length);
         rows.splice(pos, 0, rr); sel = -1; fr = blank(); commit(); draw(); // cleared for the next input
@@ -2166,7 +2252,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var out = [], n = 0;
       t.split(/\r?\n/).forEach(function (l) {
         l = l.trim(); if (!l || l.charAt(0) === '#') return; n++;
-        var om = l.match(/^(\d+|[-\uff0d?\uff1f])\s*[:\uff1a]\s*/), nord = !!om && !/^\d/.test(om[1]), ord = om && !nord ? +om[1] : n; if (om) l = l.slice(om[0].length);
+        var om = l.match(/^(\d+|[-\uff0d?\uff1f])?\s*[:\uff1a]\s*/), nord = !!om && !/^\d/.test(om[1] || ''), ord = om && !nord ? +om[1] : n; if (om) l = l.slice(om[0].length);
         var ps = l.split('|').map(function (x) { return x.trim(); }), ti = ps[0] || '', mem = [], mm = ti.match(/^(.*?)\s*\{([^}]*)\}\s*$/);
         if (mm) { ti = mm[1]; mem = mm[2].split(/[,\s]+/).filter(function (v) { return v && v !== '-'; }); }
         var o = nord ? { title: ti } : { order: ord, title: ti }; if (ps[1] && ps[1] !== '-') o.type = ps[1]; if (ps[2]) o.original = ps[2]; if (mem.length) o.member = mem; var nt = ps.slice(3).join(' | '); if (nt) o.notes = nt; out.push(o);
