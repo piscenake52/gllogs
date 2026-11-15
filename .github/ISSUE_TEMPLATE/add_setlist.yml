@@ -111,7 +111,7 @@ body:
       label: "曲目 (1行1曲)"
       description: |
         書式: `[順番:] 曲名 {メンバー} | type | original | notes`
-        ・順番を省略すると前の曲+1。順番が不明な曲は `-:`
+        ・順番を省略すると前の曲+1。順番が不明な曲は `-:`（番号を空欄にして `:` だけでも可）
         ・type は省略すると song。複数はカンマ区切り（例: allow,medley）、空にするときは `-`
         ・type: arrange / medley / short / mc / dt / dj / towel / encore / allow / cover
         ・歌唱メンバーは `{YZH,MMK}`（省略は全員）
