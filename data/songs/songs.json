@@ -557,7 +557,17 @@
   {
     "artist": "Girls²",
     "title": "LET ME GO",
-    "link": "https://music.youtube.com/watch?v=Aw5iAluMKag&si=NIJDhcVY7Wskseby"
+    "link": "https://music.youtube.com/watch?v=Aw5iAluMKag&si=NIJDhcVY7Wskseby",
+    "videos": [
+      {
+        "type": "Live",
+        "url": "https://youtu.be/BFPazunW0gE?si=kNuE81KKGYSMwhfS",
+        "tags": [
+          "The Live",
+          "日本武道館"
+        ]
+      }
+    ]
   },
   {
     "artist": "Laki",
