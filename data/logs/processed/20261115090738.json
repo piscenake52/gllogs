@@ -1,0 +1,40 @@
+{
+  "date": "20261002",
+  "contents": "SNS",
+  "title": "SNS　Laki",
+  "groups": [
+    "L2",
+    "RIN",
+    "TBK",
+    "HIR",
+    "YUW",
+    "KAN",
+    "RRK",
+    "AKR",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/reel/Dd_Tfs4BkG2/?rpxt=MWZ4dG9nY2lidDY4eQ==",
+          "member": [
+            "RIN",
+            "TBK",
+            "HIR",
+            "YUW",
+            "KAN",
+            "RRK",
+            "AKR",
+            "KIK"
+          ],
+          "tags": [
+            "THE FLOOR撮影の日"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3595"
+}
