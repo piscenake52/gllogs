@@ -2091,6 +2091,45 @@
     ]
   },
   {
+    "logid": "4876b8f54199",
+    "date": "20261116",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2122133722250227858?a=_HH2xiaDZ6cjl5bSmX0&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "プレイリストイン"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "7cffca502fc7",
     "date": "20261115",
     "time": "2359",
