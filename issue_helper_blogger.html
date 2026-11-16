@@ -2173,6 +2173,38 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     f.el.addEventListener('input', sync); row.appendChild(bo); row.appendChild(bf); col.insertBefore(row, hb.nextSibling); sync();
     snsFold = null;
   }
+  // new setlist: `copy from` list. The same title (= the same tour) comes first, nearest date first; then the latest ones. Picking one fills artist / member / source / songs (and the title when it is empty) in the form, so it can be edited before the Issue; venue / weather are not copied.
+  function addSlCopyFrom(box, sid) {
+    var fl = document.createElement('div'); fl.className = 'field'; fl.id = 'glih-slcp';
+    var lb = document.createElement('label'); lb.textContent = 'copy from'; lb.setAttribute('for', 'glih-slcpsel');
+    var sl = document.createElement('select'); sl.id = 'glih-slcpsel'; sl.className = 'fin'; sl.style.cssText = 'min-width:0;flex:1 1 auto'; sl.title = 'copy the songs / artist / member / source of a past setlist (the same title first)';
+    fl.appendChild(lb); fl.appendChild(sl); box.insertBefore(fl, box.firstChild);
+    var list = [];
+    function lab(e) { var d = String(e.setlistid); return fmtDigits(d.slice(0, 8), 'date') + ' ' + fmtDigits(d.slice(8), 'time') + '  ' + (e.title || '') + ' (' + e.songs.length + ')'; }
+    function near(a, b) { var x = String(a.setlistid), y = String(b.setlistid), pa = x < sid, pb = y < sid; if (pa !== pb) return pa ? -1 : 1; return pa ? (x < y ? 1 : -1) : (x < y ? -1 : 1); } // earlier shows first (the newest of them), then later ones (the oldest of them)
+    function build() {
+      var cur = sl.value, tv = ($('f-title') || {}).value || '', tk = normQ(tv).replace(/\s+/g, '');
+      var all = list.filter(function (e) { return e && e.setlistid && String(e.setlistid) !== sid && Array.isArray(e.songs) && e.songs.length; });
+      var same = tk ? all.filter(function (e) { return normQ(e.title || '').replace(/\s+/g, '') === tk; }).sort(near) : [];
+      var rest = all.filter(function (e) { return same.indexOf(e) < 0; }).sort(near).slice(0, 15);
+      sl.innerHTML = ''; sl.add(new Option('-', ''));
+      [['same title', same], ['others', rest]].forEach(function (g) {
+        if (!g[1].length) return; var og = document.createElement('optgroup'); og.label = g[0];
+        g[1].forEach(function (e) { og.appendChild(new Option(lab(e), String(e.setlistid))); }); sl.appendChild(og);
+      });
+      sl.value = cur;
+    }
+    ['focus', 'mousedown'].forEach(function (ev) { sl.addEventListener(ev, build); }); // the title may have been filled from the logs row after this list was made
+    sl.onchange = function () {
+      var e = null; list.forEach(function (x) { if (x && String(x.setlistid) === sl.value) e = x; }); if (!e) return;
+      if (e.artist) setVal('artist', String(e.artist));
+      setVal('member', Array.isArray(e.member) ? e.member.join(',') : '');
+      setVal('source', e.source === 'official' ? 'OFFICIAL' : e.source === 'unofficial' ? 'UNOFFICIAL' : '');
+      if (!(($('f-title') || {}).value || '').trim() && e.title) setVal('title', String(e.title));
+      var ta = $('f-songs'); if (ta) { ta.value = fmtSongs(e.songs); ta.dispatchEvent(new Event('input', { bubbles: true })); if (ta._slReload) ta._slReload(); }
+    };
+    fetchData('setlist').then(function (d) { list = Array.isArray(d) ? d : []; if (found && found.id === sid) build(); }, function () {});
+  }
   function renderFound(kind, id, row, isNew) {
     snsFold = null;
     found = { kind: kind, id: id, isNew: !!isNew, row: row }; orig = {}; rep = null; $('fan').checked = false; $('fan').disabled = false; $('fansx').value = DEFSX;
@@ -2201,6 +2233,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (kind === 'logs' && !isNew) { var tf = $('f-time'), tfl = tf && tf.closest('.field'); if (tfl) { box.insertBefore($('fcprow'), tfl.nextSibling); box.insertBefore($('fcontrow'), $('fcprow').nextSibling); } } // existing logs: copy / next go right under the form's own time
     var jb = $('fjson'); jb.classList.remove('bad'); $('fcprow').hidden = !!isNew; $('fjrow').hidden = false; refreshJson(true); setJsonOpen(jsonOpen);
     if (kind === 'setlist') { var sa0 = $('f-artist'), sm0 = $('f-member'); if (sa0 && sm0) mergeMember(sa0, sm0, sm0.closest('.field')); } // artist + member in one field
+    if (kind === 'setlist' && isNew) addSlCopyFrom(box, id); // new setlist: pick a past one (the same title first) to copy its songs / artist / member / source from
     if (isNew && kind === 'logs') { ['date', 'time'].forEach(function (k) { var e = $('f-' + k); if (e) { var fl = e.closest('.field'); if (fl) fl.hidden = true; } }); } // new mode: the top date / time are used
     if (isNew && kind === 'logs') { var gw0 = $('f-groups'); if (gw0 && gw0.closest('.field')) addRepeat(gw0.closest('.field')); } // new mode: repeat registration block under groups
     if (kind === 'logs') { // title / display_pc / display_sp in one frame (with the marker where the title goes back to when repeat is off)
