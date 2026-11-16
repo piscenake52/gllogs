@@ -6,6 +6,7 @@ import shutil
 import uuid
 import copy
 import sys
+import hashlib
 
 from common import is_blank, album_type_ok
 
@@ -1224,6 +1225,33 @@ def process_target(target, issue_map):
     return changed > 0
 
 
+MANIFEST_FILE = "data/manifest.json"
+
+
+def write_manifest():
+    """viewer用のバージョン表。メインのデータファイルごとに、中身のハッシュ(sha256の先頭16文字)とバイト数を書く。
+    viewerはこの小さなファイル1つを見るだけで、どのファイルが変わったか分かる(GitHub APIを使わない)。
+    時刻などは入れない: データが同じなら同じ内容になり、空のコミットが増えない"""
+    files = {}
+    for target in TARGETS:
+        path = target["main_file"]
+        if not os.path.exists(path):
+            continue
+        with open(path, "rb") as f:
+            raw = f.read()
+        files[path] = {"hash": hashlib.sha256(raw).hexdigest()[:16], "size": len(raw)}
+    os.makedirs(os.path.dirname(MANIFEST_FILE), exist_ok=True)
+    new_text = json.dumps({"files": files}, ensure_ascii=False, sort_keys=True, indent=1) + "\n"
+    old_text = None
+    if os.path.exists(MANIFEST_FILE):
+        with open(MANIFEST_FILE, "r", encoding="utf-8") as f:
+            old_text = f.read()
+    if new_text != old_text:
+        with open(MANIFEST_FILE, "w", encoding="utf-8", newline="\n") as f:
+            f.write(new_text)
+        print(f"マニフェストを更新しました: {MANIFEST_FILE}")
+
+
 def rebuild_indexes():
     """メインファイルから軽量インデックスだけを作り直す（初回の作成用: python merge_json.py --rebuild-index）"""
     for target in TARGETS:
@@ -1231,11 +1259,15 @@ def rebuild_indexes():
             data = load_json_list(target["main_file"], "メインファイル")
             write_index(target, data)
             print(f"[{target['name']}] インデックスを作成しました: {target['index_file']} ({len(data)}件)")
+    write_manifest()
 
 
 def main():
     if "--rebuild-index" in sys.argv:
         rebuild_indexes()
+        return
+    if "--rebuild-manifest" in sys.argv:  # データを手で直接編集したときなど: マニフェストだけ作り直す
+        write_manifest()
         return
     issue_map_raw = {}
     if os.path.exists(ISSUE_MAP_FILE):
@@ -1263,6 +1295,7 @@ def main():
 
     if not updated:
         print("新規に追加・更新された有効なデータはありませんでした。")
+    write_manifest()  # 毎回(変更がなくても)。内容が同じなら何も書かない
 
 
 if __name__ == "__main__":
