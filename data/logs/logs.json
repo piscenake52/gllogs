@@ -2021,6 +2021,34 @@
     ]
   },
   {
+    "logid": "d7dfcfd79d23",
+    "date": "20261116",
+    "time": "2100",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "url": "https://youtube.com/@girls2.official",
+    "groups": [
+      "G2"
+    ],
+    "tags": [
+      "がるがるちゃんねる"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2122231980188410130?a=zF19MOYwBGjXxyJJbPk&s=19",
+            "member": [],
+            "tags": [
+              "配信時間変更"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "34ff57af0cdd",
     "date": "20261116",
     "time": "2000",
@@ -2035,20 +2063,6 @@
     ],
     "tags": [
       "がるがるトーク"
-    ]
-  },
-  {
-    "logid": "d7dfcfd79d23",
-    "date": "20261116",
-    "time": "1700",
-    "contents": "YOUTUBE",
-    "title": "がるがるちゃんねる",
-    "url": "https://youtube.com/@girls2.official",
-    "groups": [
-      "G2"
-    ],
-    "tags": [
-      "がるがるちゃんねる"
     ]
   },
   {
