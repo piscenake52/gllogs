@@ -3,6 +3,7 @@
 <head>
 <script>try{if(localStorage.getItem('gl_log_header_locked')==='true')document.documentElement.classList.add('hdr-locked')}catch(e){}</script>
 <script>try{var __f=JSON.parse(localStorage.getItem('gl_filter_fold')||'null');if(__f){var __n=0;['year','g2','l2','cont'].forEach(function(k){if(__f[k]){document.documentElement.classList.add('pf-'+k);__n++}});if(__n===4)document.documentElement.classList.add('pf-all');else if(__n>0)document.documentElement.classList.add('pf-mix')}}catch(e){}</script>
+<script>/* logs cache read: start the IndexedDB read now so it runs while the big script below is parsed (the value is used once by loadLogsCache) */try{var __r=indexedDB.open('gl_log_cache',1);__r.onupgradeneeded=function(){__r.result.createObjectStore('kv')};window.__glIdb=new Promise(function(res){__r.onsuccess=function(){try{var g=__r.result.transaction('kv','readonly').objectStore('kv').get('gl_log_data');g.onsuccess=function(){__r.result.close();res(g.result==null?null:g.result)};g.onerror=function(){res(null)}}catch(e){res(null)}};__r.onerror=function(){res(null)};__r.onblocked=function(){res(null)}})}catch(e){window.__glIdb=null}</script>
 <script>/* PC表示はhtmlにzoom:1.25をかける。座標を返すAPIをzoom分だけ割って、styleのpxと同じ単位に揃える */
 (function(){var Z=null,H=null;function zf(el){var z=Z;if(z===null){z=1;try{z=parseFloat(getComputedStyle(document.documentElement).zoom)||1}catch(e){}if(document.readyState!=='loading')Z=z}
 if(el&&el.closest&&el.closest('.sticky-header')){var h=H;if(h===null){h=1;try{h=parseFloat(getComputedStyle(document.querySelector('.sticky-header')).zoom)||1}catch(e){}H=h}z=z*h}return z}
@@ -493,7 +494,6 @@ html.hdr-locked .sticky-header { border-bottom-color: var(--accent); box-shadow:
 #headerBtnGroup #heartToggleBtn.is-active { color: var(--on-accent); background-color: var(--accent); }
 .theme-toggle-btn { overflow: hidden; }
 #backBtn { font-size: var(--fs-2xl); line-height: 1; padding-bottom: 2px; } /* ↺:直前の検索条件に戻す。戻せるものが無い間は押せない(非活性) */
-#backBtn { display: none; } /* ↺は非表示(中のしくみ=直前の検索条件の記録・復元は残してある。再表示はこの1行を消す) */
 #backBtn:disabled, #backBtn:disabled:hover { opacity: var(--op-disabled); cursor: not-allowed; background-color: var(--btn-bg); color: var(--text); }
 .lock-toggle-btn:hover, .theme-toggle-btn:hover, #songToggleBtn:hover, #heartToggleBtn:hover, #textSizeBtn:hover, #dateSearchBtn:hover { background-color: var(--btn-hover); }
 .lock-toggle-btn.is-active { background-color: var(--accent); color: var(--on-accent); border-color: transparent; }
@@ -947,7 +947,7 @@ body .item-contents.is-content-open {
 .stat-icon { display: none; }
 html.stat-on .stat-icon { display: inline-block; }
 .stat-icon.is-blank { visibility: hidden; pointer-events: none; cursor: default; } /* 📊が無い行も、ON中は右の幅をあけておく */
-.song-lyrics-btn { display: flex; flex: 0 0 auto; width: auto; height: 20px; margin: 0 2px; padding: 0 8px; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-size: var(--fs-2xs); font-weight: 700; line-height: 1; cursor: pointer; align-items: center; justify-content: center; white-space: nowrap; } /* 歌詞(📜): uta-net。常に表示 */
+.song-lyrics-btn { display: flex; flex: 0 0 auto; width: 56px; /* 上のA・ダークボタン(24px+隙間8px+24px)と同じ幅・同じ位置 */ box-sizing: border-box; height: 20px; margin: 0 -2px 0 2px; padding: 0; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-size: var(--fs-2xs); font-weight: 700; line-height: 1; cursor: pointer; align-items: center; justify-content: center; white-space: nowrap; } /* 歌詞(📜): uta-net。常に表示 */
 .song-bar.is-entering .song-lyrics-btn, .song-bar.is-entering .song-vid-btn { visibility: hidden; }
 .song-lyrics { display: inline-block; flex: 0 0 auto; width: 5em; margin: 0; overflow: hidden; text-align: center; font-size: var(--fs-2xs); line-height: 16px; height: 18px; box-sizing: border-box; border: 1px solid var(--muted); border-radius: 999px; background: var(--btn-bg); color: var(--text); font-weight: 700; white-space: nowrap; vertical-align: middle; cursor: pointer; user-select: none; padding: 0; transition: width var(--dur-m) var(--ease-m), margin var(--dur-m) var(--ease-m), opacity var(--dur-s) var(--ease-s); } /* セトリ・アルバムのポップアップの曲の行の📜。披露実績(📊)の左。ポップアップの📜スイッチで出し入れ */
 html.lyrics-off .song-lyrics { width: 0; margin-left: -8px; border-width: 0; opacity: 0; pointer-events: none; }
@@ -1009,6 +1009,7 @@ html.stat-on .alb-stat { width: 1.6em; margin-left: 0; opacity: 1; pointer-event
 .stat-list-no { flex: 0 0 auto; color: var(--sub); font-size: var(--fs-2xs); }
 .stat-list-types { display: block; margin-top: 2px; }
 .stat-list-types .setlist-song-type { margin-right: 4px; }
+.stat-artist { font-size: var(--fs-s); color: var(--sub); margin: -4px 26px 8px 0; line-height: 1.4; overflow-wrap: anywhere; } /* 曲名の下のartist */
 .stat-rel { text-align: left; font-size: var(--fs-xs); color: var(--sub); margin: -2px 0 8px; }
 .setlist-modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
 .setlist-modal { position: relative; background: var(--bg); color: var(--text); border-radius: var(--r-m); max-width: 420px; width: 100%; max-height: calc(80vh / var(--vz)); overflow-y: auto; padding: 20px 18px 18px; box-shadow: var(--shadow-l); transform: scale(0.9); transition: transform var(--dur-m) var(--ease-m); }
@@ -1219,7 +1220,6 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     <div class="extra-tools-row">
       <button class="toggle-btn" id="songToggleBtn">&#9834;</button>
       <button class="toggle-btn" id="heartToggleBtn" aria-label="Hearts"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(11 .4) scale(.6)"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#f472b6"/></g><g transform="translate(-2.6 3.6) scale(.9)"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#ef4444"/></g></svg></button>
-      <button class="toggle-btn" id="backBtn" disabled aria-label="Back (restore the previous search)" title="back">&#8634;</button>
       <div class="search-box-wrap">
         <button type="button" class="toggle-btn search-setlist-btn" id="setlistToggleBtn" aria-label="Setlist search mode"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="20" rx="2.4" fill="#c98a4b"/><rect x="5.8" y="6.5" width="12.4" height="14.5" rx="1.2" fill="#fff"/><path d="M8.6 11h6.8M8.6 14.5h6.8M8.6 18h4" stroke="#b8bec9" stroke-width="1.6" stroke-linecap="round"/><rect x="8" y="1" width="8" height="5" rx="1.5" fill="#9aa3b0"/><rect x="10.2" y="2.3" width="3.6" height="1.4" rx=".7" fill="#e5e7eb"/></svg></button>
         <input type="text" id="searchInput" class="search-input" placeholder="search keyword">
@@ -1231,6 +1231,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         <div class="cal-pop" id="calPop" role="dialog" aria-label="&#26085;&#20184;&#12363;&#12425;&#26908;&#32034;" hidden></div>
       </div>
       <button class="toggle-btn more-btn" id="toolsMoreBtn" aria-expanded="false" aria-label="more">&lt;</button>
+      <button class="toggle-btn" id="backBtn" disabled aria-label="Back (restore the previous search)" title="back">&#8634;</button>
       <button type="button" class="lock-toggle-btn share-btn" id="shareBtn" aria-label="Share"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
       <div class="text-size-wrap" id="textSizeWrap">
         <button type="button" class="text-size-btn" id="textSizeBtn" aria-label="&#12487;&#12540;&#12479;&#37096;&#12398;&#25991;&#23383;&#12469;&#12452;&#12474;&#12434;&#22793;&#26356;" aria-haspopup="true" aria-expanded="false">A</button>
@@ -3782,11 +3783,25 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     // type:songの曲名でsongs.jsonを完全一致検索しlinkを取得する
   // 同じ曲名でグループ違いの曲があるとき: 公演・アルバムのartist(hint)を含むartistの曲を優先し、なければ曲名だけで探す
   const artistHit = (hint, art) => { const n = t => String(t || '').normalize('NFKC').toLowerCase().replace(/\s+/g, ''); const a = n(art); return !!a && n(hint).includes(a); };
+  // songs.jsonの索引(曲名→曲の配列 / 披露実績用に正規化した曲名のSet)。songsDataが差し替わったときだけ作り直す。行や曲ごとに全件を探し直さないため
+  let songIdxSrc = null, songIdxVal = null;
+  const songIndex = () => {
+    if (songIdxVal && songIdxSrc === songsData) return songIdxVal;
+    const lower = new Map(), stat = new Set();
+    songsData.forEach(x => {
+      if (!x) return;
+      const k = String(x.title || '').trim().toLowerCase();
+      if (k) { let a = lower.get(k); if (!a) lower.set(k, a = []); a.push(x); }
+      const sk = statNorm(x.title); if (sk) stat.add(sk);
+    });
+    songIdxSrc = songsData; songIdxVal = { lower, stat };
+    return songIdxVal;
+  };
   const pickSong = (hits, artist) => (artist && hits.find(s => artistHit(artist, s.artist))) || hits[0];
   // songs.jsonのvocal(歌唱メンバーなどの自由入力)。曲名とartistで同じ曲を探す(artistが無ければ曲名だけ)。ないときは空文字
   const findVocalByTitle = (title, artist) => {
     const target = String(title || '').trim().toLowerCase(); if (!target) return '';
-    const found = pickSong(songsData.filter(x => String(x.title || '').trim().toLowerCase() === target), artist);
+    const found = pickSong(songIndex().lower.get(target) || [], artist);
     return found ? String(found.vocal || '').trim() : '';
   };
   const vocalSpan = v => v ? ` <span class="song-vocal">${escapeHtml(v)}</span>` : ''; // 曲名のうしろ: 半角スペース + 少し小さいvocal
@@ -3794,7 +3809,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     const norm = t => (t || '').trim().toLowerCase();
     const target = norm(title);
     if (!target) return null;
-    const found = pickSong(songsData.filter(s => norm(s.title) === target), artist);
+    const found = pickSong(songIndex().lower.get(target) || [], artist);
     return found && found.link ? found.link : null;
   };
   // 歌詞(📜)のリンク(uta-netだけ): songs.jsonのlyricsがあればその曲のページ、なければ曲名でuta-netを検索するページ
@@ -3807,14 +3822,14 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     const t = (title || '').trim();
     if (!t) return '';
     const key = t.toLowerCase();
-    const found = pickSong(songsData.filter(s => (s.title || '').trim().toLowerCase() === key && lyricsUrlOfSong(s)), artist);
+    const found = pickSong((songIndex().lower.get(key) || []).filter(s => lyricsUrlOfSong(s)), artist);
     return found ? lyricsUrlOfSong(found) : UTA_NET_SEARCH + encodeURIComponent(t);
   };
   // 動画(YouTube): songs.jsonの videos [{type,url}] 。曲名(+artist)で引く。無い曲は空配列
   const videosByTitle = (title, artist) => {
     const key = (title || '').trim().toLowerCase();
     if (!key) return [];
-    const hits = songsData.filter(s => (s.title || '').trim().toLowerCase() === key && Array.isArray(s.videos) && s.videos.some(v => v && /^https?:\/\//.test(v.url || '')));
+    const hits = (songIndex().lower.get(key) || []).filter(s => Array.isArray(s.videos) && s.videos.some(v => v && /^https?:\/\//.test(v.url || '')));
     const f = pickSong(hits, artist);
     return f ? sortVideos(f.videos.filter(v => v && /^https?:\/\//.test(v.url || ''))) : [];
   };
@@ -3921,7 +3936,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   }
   function statNorm(t) { return String(t || '').normalize('NFKC').toLowerCase().replace(/\s+/g, ''); }
   // 披露実績(📊)のアイコンは、songs.jsonにある曲だけに出す(披露が0件でも出す)。曲名の一致は披露実績の集計と同じ正規化
-  const inSongsData = title => { const k = statNorm(title); return !!k && songsData.some(x => statNorm(x.title) === k); };
+  const inSongsData = title => { const k = statNorm(title); return !!k && songIndex().stat.has(k); };
   function statIndex() {
     if (statIndex.src === setlistData && statIndex.map) return statIndex.map;
     const map = new Map(); // 正規化した曲名 → Map(setlistid → {entry, order})
@@ -4023,7 +4038,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       (rows.length ? `<ul class="alb-list${albHasLabel ? ' has-label' : ''}">${rows.map(([t, ex]) => {
         if (t && t.section) return `<li class="alb-sec">${escapeHtml(t.section)}</li>`; // 区分の見出し(LIVE TOUR 2025など)
         const n = statIndex().get(statNorm(t.title));
-        const tNorm = (t.title || '').trim().toLowerCase(), lyrOk = !songsData.length || (tNorm && songsData.some(x => (x.title || '').trim().toLowerCase() === tNorm)); // songs.jsonに無い曲はUta-Netを出さない
+        const tNorm = (t.title || '').trim().toLowerCase(), lyrOk = !songsData.length || (tNorm && songIndex().lower.has(tNorm)); // songs.jsonに無い曲はUta-Netを出さない
         const link = findSongLinkByTitle(t.title, a.artist); // 再生ボタンはセトリのポップアップと同じ(songs.jsonにリンクがある曲だけ。ないときは同じ幅の空き)
         const playBtn = link ? `<span class="setlist-song-play-btn" data-link="${escapeHtml(link)}" role="button" aria-label="Play">\u25B6</span>` : '<span class="setlist-song-play-btn is-hidden" aria-hidden="true">\u25B6</span>';
         return `<li class="${ex ? 'is-extra' : ''}" data-song="${escapeHtml(t.title || '')}" data-artist="${escapeHtml(a.artist || '')}"><span class="setlist-song-order">${t.no != null ? escapeHtml(t.no) : ''}</span>${vidHtml(t.title, a.artist)}${playBtn}<span class="setlist-song-main"><span class="setlist-song-title">${escapeHtml(t.title || '')}${vocalSpan(findVocalByTitle(t.title, a.artist))}</span></span>${lyrOk ? `<span class="song-lyrics" data-song="${escapeHtml(t.title || '')}" data-artist="${escapeHtml(a.artist || '')}" role="button" aria-label="Lyrics">Uta-Net</span>` : '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>'}<span class="alb-stat${(songsData.length ? inSongsData(t.title) : !!(n && n.size)) ? '' : ' is-blank'}">${uiIc('chart')}</span></li>`;
@@ -4085,6 +4100,8 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       });
       return best;
     })();
+    // artist名: 開いた曲のartist。無いときは、集計した公演のsetlistのartist(1種類のときだけ。複数あれば「 / 」でつなぐ)
+    const artistName = statCur.artist || [...new Set(all.map(([, v]) => String(v.entry.artist || '').trim()).filter(Boolean))].join(' / ');
     const tile = (label, val) => `<div class="stat-tile"><div class="stat-tile-label">${label}</div><div class="stat-tile-value">${escapeHtml(val)}</div></div>`;
     const chip = (key, label) => `<button type="button" class="stat-chip${f === key ? ' is-on' : ''}" data-stat-filter="${key}"${counts[key] === 0 && key !== 'all' ? ' disabled' : ''}>${label} ${counts[key]}</button>`;
     const subChip = ([key, label]) => `<button type="button" class="stat-chip${sub === key ? ' is-on' : ''}" data-stat-sub="${key}"${!subCounts[key] ? ' disabled' : ''}>${label} ${subCounts[key] || 0}</button>`;
@@ -4096,6 +4113,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     }).join('');
     $('statModalBody').innerHTML =
       `<div class="stat-modal-title">${escapeHtml(t)}</div>` +
+      (artistName ? `<div class="stat-artist">${escapeHtml(artistName)}</div>` : '') +
       (relDate ? `<div class="stat-rel">RELEASE ${escapeHtml(albYmd(relDate))}</div>` : '') +
       `<div class="stat-chips">${chip('all', 'ALL')}${chip('live', 'LIVE')}${chip('other', 'EVENT')}</div>` +
       (STAT_SUBS[f] ? `<div class="stat-chips stat-subchips">${STAT_SUBS[f].map(subChip).join('')}</div>` : '') +
@@ -4190,7 +4208,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
           const songHeartsHtml = songHearts ? `<span class="setlist-song-hearts">${songHearts}</span>` : '';
           // Uta-Netと披露実績(📊)は、typeに関わらず曲名がsongs.jsonにあれば出す(songs.jsonが未取得のときだけ、従来どおりmc・dt・dj・towelを除く)
           const sNorm = (s.title || '').trim().toLowerCase();
-          const noStat = songsData.length ? !(sNorm && songsData.some(x => (x.title || '').trim().toLowerCase() === sNorm)) : /(^|[,\s])(mc|dt|dj|towel)([,\s]|$)/.test(String(s.type || ''));
+          const noStat = songsData.length ? !(sNorm && songIndex().lower.has(sNorm)) : /(^|[,\s])(mc|dt|dj|towel)([,\s]|$)/.test(String(s.type || ''));
           const lyrHtml = noStat ? '<span class="song-lyrics is-blank" aria-hidden="true">Uta-Net</span>' : `<span class="song-lyrics" data-song="${escapeHtml(s.title || '')}" data-artist="${escapeHtml(entry.artist || '')}" role="button" aria-label="Lyrics">Uta-Net</span>`;
           const statBlank = songsData.length ? !inSongsData(s.title) : noStat;
           const statHtml = statBlank ? `<span class="setlist-song-stat is-blank" aria-hidden="true">${uiIc('chart')}</span>` : `<span class="setlist-song-stat" data-song="${escapeHtml(s.title || '')}" data-artist="${escapeHtml(entry.artist || '')}" role="button" aria-label="Stats">${uiIc('chart')}</span>`;
@@ -4828,6 +4846,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     });
   };
 
+  const SORT_TITLE_COLLATOR = new Intl.Collator('ja', { numeric: true }); // 並べ替えのたびに作り直さない
   const updateDisplay = (syncHash = true, preserveContentExpand = false, instant = false) => {
     const prevRendered = rendered; // instant時は、描画済みの件数を保ったまま差し替える(スクロール位置を保つ)
     // データ部の再描画では、コンテンツ名アコーディオンの展開状態を通常は全て閉じる
@@ -4858,7 +4877,6 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       }
       return keys;
     };
-    const SORT_TITLE_COLLATOR = new Intl.Collator('ja', { numeric: true });
     filtered.sort((a, b) => {
       const ka = getSortKeys(a), kb = getSortKeys(b);
       if (ka.dateKey !== kb.dateKey) return desc ? kb.dateKey.localeCompare(ka.dateKey) : ka.dateKey.localeCompare(kb.dateKey);
@@ -6552,7 +6570,21 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   const VERSION_KEY = 'gl_log_sha';
   const DATA_KEY = 'gl_log_data';
   const CHECK_TIME_KEY = 'gl_log_checked_at';
-  const CHECK_COOLDOWN_MS = 1 * 60 * 1000; // 5分以内の再チェックはスキップ(同一端末でのAPI消費を抑制)
+  const CHECK_COOLDOWN_MS = 1 * 60 * 1000; // 1分以内の再チェックはスキップ(同一端末での確認の回数を抑える)
+
+  // マニフェスト(data/manifest.json): データファイルごとの内容ハッシュとバイト数。merge_json.py が書く。これ1つで4つのデータの更新が分かる(GitHub APIを使わない)。
+  // 通常はrawの短いキャッシュ(最大5分ほど古いことがある)でよい。force(タイトルクリック)のときだけキャッシュを避ける。20秒以内の呼び出しは同じ結果を共有する
+  let manifestP = null, manifestAt = 0;
+  const getManifest = force => {
+    const now = Date.now();
+    if (!manifestP || now - manifestAt > 20000 || (force && !getManifest._forced && now - manifestAt > 3000)) {
+      manifestAt = now; getManifest._forced = !!force;
+      manifestP = fetch(`https://raw.githubusercontent.com/${REPO}/${BRANCH}/data/manifest.json` + (force ? '?v=' + now : ''), { cache: force ? 'no-store' : 'no-cache' })
+        .then(res => { if (!res.ok) throw new Error('manifest ' + res.status); return res.json(); })
+        .then(j => { if (!j || typeof j.files !== 'object' || !j.files) throw new Error('bad manifest'); return j.files; });
+    }
+    return manifestP;
+  };
 
   // データ取得の共通処理(logs / songs / setlist / albums で共通)。キャッシュを先に表示 → 最新コミットSHAを確認 → 変更があれば取り直す。
   // 取得はSHA固定のjsDelivr、SHAが取れないときはキャッシュバスト付きのrawから。o: { file, verKey, dataKey, checkKey, apply(data), isEmpty(), cache?: { load(), save(data) }, onFail?() }
@@ -6562,35 +6594,53 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       load: () => { const c = lsGet(o.dataKey); if (!c) return false; try { o.apply(JSON.parse(c)); return true; } catch (e) { return false; } }, // 壊れたキャッシュは無視して素通り(新規取得に進む)
       save: data => store.setJSON(o.dataKey, data) // 容量超過などは保存せず続ける(falseを返す)
     };
-    const fetchFresh = sha => {
-      const url = sha
-        ? `https://cdn.jsdelivr.net/gh/${REPO}@${sha}/${o.file}`
+    // 取得先: マニフェストの内容ハッシュ('m:'+hash)があればraw(?v=ハッシュで、新しい版ごとに別のURL)、コミットSHAならSHA固定のjsDelivr、どちらも無ければキャッシュバスト付きのraw
+    const urlOf = info => info.ver && info.ver.startsWith('m:')
+      ? `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${o.file}?v=${info.ver.slice(2)}`
+      : info.ver
+        ? `https://cdn.jsdelivr.net/gh/${REPO}@${info.ver}/${o.file}`
         : `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${o.file}?v=${Date.now()}`;
-      return fetch(url)
-        .then(res => { if (!res.ok) throw new Error('Network response was not ok'); return res.text(); })
-        .then(txt => JSON.parse(txt.replace(/^\uFEFF/, '')))
-        .then(data => {
-          o.apply(data);
-          return Promise.resolve(cache.save(data)).then(ok => { // データを保存できた時だけSHAを記録する(保存失敗時に古いSHAだけ残らないように)
-            if (sha && ok) lsSet(o.verKey, sha); else lsDel(o.verKey);
-          });
+    const fetchFresh = info => fetch(urlOf(info))
+      .then(res => { if (!res.ok) throw new Error('Network response was not ok'); return res.arrayBuffer(); })
+      .then(buf => {
+        // マニフェストのバイト数と合わないとき(CDNの古い内容など)は、表示には使うが版は記録しない(次回また取り直す)
+        const verified = !(info.size && buf.byteLength !== info.size);
+        return { data: JSON.parse(new TextDecoder('utf-8').decode(buf).replace(/^﻿/, '')), verified };
+      })
+      .then(({ data, verified }) => {
+        o.apply(data);
+        return Promise.resolve(cache.save(data)).then(ok => { // データを保存できた時だけ版を記録する(保存失敗時に古い版だけ残らないように)
+          if (info.ver && ok && verified) lsSet(o.verKey, info.ver); else lsDel(o.verKey);
         });
-    };
+      });
     const latestSha = () => fetch(`https://api.github.com/repos/${REPO}/commits?path=${o.file}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
       .then(res => { if (!res.ok) throw new Error('GitHub API error'); return res.json(); })
       .then(commits => { lsSet(o.checkKey, String(Date.now())); return commits[0] && commits[0].sha; });
-    // force=true: SHAの比較を無視して必ず取り直す(タイトルクリック・特定の配信元)
-    const check = force => latestSha()
-      .then(sha => { if (force || (sha && sha !== lsGet(o.verKey)) || o.isEmpty()) return fetchFresh(sha); }) // 変更なし:表示済みでなければ念のため取得
+    // 最新の版: まずマニフェスト(小さなファイル1つ。4つのデータで共有)。取れないとき・載っていないときだけ、従来のGitHub API(コミットSHA)
+    const latest = force => getManifest(force)
+      .then(files => {
+        const e = files[o.file];
+        if (!e || !e.hash) throw new Error('not in manifest');
+        lsSet(o.checkKey, String(Date.now()));
+        return { ver: 'm:' + e.hash, size: e.size };
+      })
+      .catch(() => latestSha().then(sha => ({ ver: sha || null })));
+    // force=true: 版の比較を無視して必ず取り直す(タイトルクリック・特定の配信元)
+    const check = force => latest(force)
+      .then(info => { if (force || (info.ver && info.ver !== lsGet(o.verKey)) || o.isEmpty()) return fetchFresh(info); }) // 変更なし:表示済みでなければ念のため取得
       .catch(err => {
         console.error('Failed to check ' + o.file + ':', err);
-        if (force || o.isEmpty()) fetchFresh(null).catch(err2 => { console.error('Failed to load ' + o.file + ':', err2); if (o.onFail) o.onFail(); }); // API失敗時のフォールバック
+        if (force || o.isEmpty()) return fetchFresh({ ver: null }).catch(err2 => { console.error('Failed to load ' + o.file + ':', err2); if (o.onFail) o.onFail(); }); // 版の確認に失敗: 版なしで取り直す
       });
-    // キャッシュ表示 → 直近チェックから一定時間以内なら、GitHub APIへの問い合わせ自体をスキップ
+    // キャッシュ表示 → 直近チェックから一定時間以内なら、確認自体をスキップ。
+    // o.defer(): 返したPromiseが終わる(最大4秒)まで確認を待つ。キャッシュを表示できているときだけ(logsの確認・更新を先に済ませるため)
     const start = () => Promise.resolve(cache.load()).catch(() => false).then(had => {
       const last = parseInt(lsGet(o.checkKey) || '0', 10);
-      if (isForcedFreshSource()) check(true);
-      else if (!(had && !o.isEmpty() && Date.now() - last < CHECK_COOLDOWN_MS)) check(false);
+      if (isForcedFreshSource()) return check(true);
+      const cached = had && !o.isEmpty();
+      if (cached && Date.now() - last < CHECK_COOLDOWN_MS) return;
+      const wait = cached && o.defer ? Promise.race([Promise.resolve(o.defer()).catch(() => {}), new Promise(r => setTimeout(r, 4000))]) : Promise.resolve();
+      return wait.then(() => check(false));
     });
     return { check, start };
   };
@@ -6733,7 +6783,9 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       });
   };
 
-  const loadLogsCache = () => idbGet(DATA_KEY)
+  // head内のスクリプトが先に始めたIndexedDBの読み出し(あれば1回だけ使う)。なければ、ここで読む
+  const takeLogsPrefetch = () => { const pre = window.__glIdb; window.__glIdb = null; return pre ? Promise.resolve(pre).then(v => v == null ? idbGet(DATA_KEY) : v) : idbGet(DATA_KEY); };
+  const loadLogsCache = () => takeLogsPrefetch()
     .catch(() => null)
     .then(cached => {
       if (!cached) { try { cached = store.get(DATA_KEY); } catch (e) { cached = null; } } // 旧形式からの移行
@@ -6763,7 +6815,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
 
   const checkForUpdates = () => logsSrc.check(false); // 再試行ボタンから
   const forceReloadLogs = () => logsSrc.check(true); // トップのタイトルリンク: 直近チェック時刻やSHA比較を無視し、常に最新を取得し直す
-  logsSrc.start(); // 特定の配信元からのアクセス時は、キャッシュ判定をスキップして常に最新のlogs.jsonを取得する
+  const logsStarted = logsSrc.start(); // 特定の配信元からのアクセス時は、キャッシュ判定をスキップして常に最新のlogs.jsonを取得する(songs / setlist / albumsの確認は、キャッシュ表示ができていればこの後に回す)
 
   // ================= 楽曲紹介バー
   const SONG_FILE = 'data/songs/songs.json';
@@ -6833,7 +6885,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     applySong(data[Math.floor(Math.random() * data.length)]);
   };
 
-  const songsSrc = makeDataSource({ file: SONG_FILE, verKey: SONG_VERSION_KEY, dataKey: SONG_DATA_KEY, checkKey: SONG_CHECK_TIME_KEY, apply: applySongs, isEmpty: () => !currentSong });
+  const songsSrc = makeDataSource({ file: SONG_FILE, defer: () => logsStarted, verKey: SONG_VERSION_KEY, dataKey: SONG_DATA_KEY, checkKey: SONG_CHECK_TIME_KEY, apply: applySongs, isEmpty: () => !currentSong });
   const forceReloadSongs = () => songsSrc.check(true); // トップのタイトルリンク
   songsSrc.start(); // 特定の配信元からのアクセス時は、logs.json同様にsongs.jsonも常に取得し直す
 
@@ -6854,7 +6906,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     }
   };
 
-  const setlistSrc = makeDataSource({ file: SETLIST_FILE, verKey: SETLIST_VERSION_KEY, dataKey: SETLIST_DATA_KEY, checkKey: SETLIST_CHECK_TIME_KEY, apply: applySetlistData, isEmpty: () => !setlistData.length });
+  const setlistSrc = makeDataSource({ file: SETLIST_FILE, defer: () => logsStarted, verKey: SETLIST_VERSION_KEY, dataKey: SETLIST_DATA_KEY, checkKey: SETLIST_CHECK_TIME_KEY, apply: applySetlistData, isEmpty: () => !setlistData.length });
   const forceReloadSetlist = () => setlistSrc.check(true); // トップのタイトルリンク
   setlistSrc.start(); // 特定の配信元からのアクセス時はsetlist.jsonも常に取得し直す
 
@@ -6864,7 +6916,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   const ALBUM_DATA_KEY = 'gl_albums_data';
   const ALBUM_CHECK_TIME_KEY = 'gl_albums_checked_at';
   const applyAlbumsData = data => { albumsData = Array.isArray(data) ? data.filter(a => a && typeof a === 'object') : []; albumTrackTextCache = new WeakMap(); refreshAlbumIcons(); };
-  const albumsSrc = makeDataSource({ file: ALBUM_FILE, verKey: ALBUM_VERSION_KEY, dataKey: ALBUM_DATA_KEY, checkKey: ALBUM_CHECK_TIME_KEY, apply: applyAlbumsData, isEmpty: () => !albumsData.length }); // 保存した albums が空のあいだは、待ち時間なしで毎回確認する(空のまま居残らないように)
+  const albumsSrc = makeDataSource({ file: ALBUM_FILE, defer: () => logsStarted, verKey: ALBUM_VERSION_KEY, dataKey: ALBUM_DATA_KEY, checkKey: ALBUM_CHECK_TIME_KEY, apply: applyAlbumsData, isEmpty: () => !albumsData.length }); // 保存した albums が空のあいだは、待ち時間なしで毎回確認する(空のまま居残らないように)
   forceReloadAlbums = () => albumsSrc.check(true);
   albumsSrc.start();
 })();
