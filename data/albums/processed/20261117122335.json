@@ -1,0 +1,29 @@
+{
+  "title": "Lucky Time",
+  "type": "digital",
+  "artist": "Laki",
+  "member": [
+    "RIN",
+    "YUR",
+    "TBK",
+    "HIR",
+    "YUW",
+    "KAN"
+  ],
+  "_logids": [
+    "4bbb45ba9c1f"
+  ],
+  "date": "20211117",
+  "tracks": [
+    {
+      "no": 1,
+      "title": "Lucky Time"
+    }
+  ],
+  "editions": [
+    {
+      "name": "配信",
+      "format": "DIGITAL"
+    }
+  ]
+}
