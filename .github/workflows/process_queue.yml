@@ -37,22 +37,25 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/
-          if git diff --staged --quiet; then
-            echo "コミットする変更はありません"
-            exit 0
-          fi
-          git commit -m "Process queue, merge JSON"
           for i in 1 2 3 4 5; do
+            git add data/
+            if git diff --staged --quiet; then
+              echo "コミットする変更はありません"
+              exit 0
+            fi
+            git commit -m "Process queue, merge JSON"
             if git push; then
               echo "push 成功（${i}回目）"
               exit 0
             fi
-            echo "push に失敗しました（${i}回目）。最新を取り込んで再試行します"
+            # 他の実行が先にpushした。rebaseはデータJSONが競合するため、最新に合わせ直してキューを再処理する
+            echo "push に失敗しました（${i}回目）。最新を取得して処理をやり直します"
             sleep $((i * 5))
-            git pull --rebase origin "${GITHUB_REF_NAME}" || { git rebase --abort 2>/dev/null; echo "::error::rebase に失敗しました。競合の可能性があります"; exit 1; }
+            git fetch origin "${GITHUB_REF_NAME}"
+            git reset --hard "origin/${GITHUB_REF_NAME}"
+            python scripts/merge_json.py || true
           done
-          echo "::error::5回試しても push できませんでした。Actions の Run workflow で再実行してください"
+          echo "::error::5回試しても push できませんでした。Run workflow で再実行してください"
           exit 1
 
       - name: Fail if some queue files could not be read

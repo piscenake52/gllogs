@@ -43,6 +43,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh issue comment "${{ github.event.issue.number }}" --body-file issue_error.md
 
+      - name: Save queue files (for retry)
+        run: |
+          mkdir -p /tmp/qsnap
+          for d in data/*/queue; do
+            [ -d "$d" ] && mkdir -p "/tmp/qsnap/$d" && cp "$d"/*.json "/tmp/qsnap/$d/" 2>/dev/null || true
+          done
+
       - name: Run merge script (Queue to Main & Processed)
         id: merge
         continue-on-error: true  # 読めないファイルがあっても、処理できた分は保存する
@@ -67,22 +74,26 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/
-          if git diff --staged --quiet; then
-            echo "コミットする変更はありません"
-            exit 0
-          fi
-          git commit -m "Process issue #${{ github.event.issue.number }}, merge JSON"
           for i in 1 2 3 4 5; do
+            git add data/
+            if git diff --staged --quiet; then
+              echo "コミットする変更はありません"
+              exit 0
+            fi
+            git commit -m "Process issue #${{ github.event.issue.number }}, merge JSON"
             if git push; then
               echo "push 成功（${i}回目）"
               exit 0
             fi
-            echo "push に失敗しました（${i}回目）。最新を取り込んで再試行します"
+            # 他の実行が先にpushした。rebaseはデータJSONが競合するため、最新に合わせ直してキューを再処理する
+            echo "push に失敗しました（${i}回目）。最新を取得して処理をやり直します"
             sleep $((i * 5))
-            git pull --rebase origin "${GITHUB_REF_NAME}" || { git rebase --abort 2>/dev/null; echo "::error::rebase に失敗しました"; exit 1; }
+            git fetch origin "${GITHUB_REF_NAME}"
+            git reset --hard "origin/${GITHUB_REF_NAME}"
+            cp -r /tmp/qsnap/data/. data/
+            python scripts/merge_json.py || true
           done
-          echo "::error::5回試しても push できませんでした。Issueを編集すると再処理されます"
+          echo "::error::5回試しても push できませんでした。Run workflow で再実行してください"
           exit 1
 
       - name: Fail if some queue files could not be read
