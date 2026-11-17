@@ -16,6 +16,7 @@ ARTIST_JOIN = ", "  # 複数アーティストの連結文字（issue_to_json.py
 LOGID_LENGTH = 12  # logid の桁数（UUIDの先頭から取る16進数）
 NOTICE_FILE = "merge_notice.md"  # 削除対象が見つからなかった等をIssueにコメントするための一時ファイル（コミットされない）
 NOTICES = []
+REPORT_JSON = "queue_report.json"  # 同じ内容の機械可読版（inbox_to_json.py --finish が使う。コミットされない）
 REPORT_FILE = "queue_report.md"  # 詳細なエラー原因の一覧（コミットされない。Actionsの実行結果画面にも出す）
 REPORT = []  # {"target","file","index","level","reason"}
 CTX = {"target": "", "file": "", "index": None}
@@ -78,10 +79,13 @@ def explain_json_error(file_path, e):
 
 def write_report():
     """REPORT を queue_report.md と GITHUB_STEP_SUMMARY に書く。問題がなければ何も出さない"""
-    if os.path.exists(REPORT_FILE):
-        os.remove(REPORT_FILE)
+    for fp in (REPORT_FILE, REPORT_JSON):
+        if os.path.exists(fp):
+            os.remove(fp)
     if not REPORT:
         return
+    with open(REPORT_JSON, "w", encoding="utf-8") as f:
+        json.dump(REPORT, f, ensure_ascii=False)
     names = {"skip": "スキップ", "warn": "警告", "error": "エラー"}
     lines = ["### キュー処理の詳細（エラー・スキップの原因）", "",
              "| 種別 | 対象 | ファイル | 件目 | 原因 |", "|---|---|---|---|---|"]
