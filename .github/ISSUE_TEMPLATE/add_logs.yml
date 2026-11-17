@@ -179,6 +179,12 @@ body:
       label: "url"
 
   - type: input
+    id: venue
+    attributes:
+      label: "venue"
+      description: "会場名（viewerでタグの先頭に表示。mapにGoogleマップのリンクがないとき、会場名でGoogleマップを検索）"
+
+  - type: input
     id: map
     attributes:
       label: "map"
@@ -254,6 +260,7 @@ body:
         - label: "display_pc"
         - label: "display_sp"
         - label: "url"
+        - label: "venue"
         - label: "map"
         - label: "groups"
         - label: "relations"
