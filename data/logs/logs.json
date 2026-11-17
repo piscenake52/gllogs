@@ -2797,6 +2797,26 @@
             ]
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/c1Vz88seaRY?si=ynzUSS2HyAJH6vy1",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "Short"
+            ]
+          }
+        ]
       }
     ]
   },
