@@ -1,0 +1,8 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "b3e9590e0a8b",
+  "sns": "https://x.com/CL_OFFICIAL_ACC/status/2122638880851816611?a=3C0kf6w3TOsOvUL3z6E&s=19 |  | weekly schedule"
+ },
+ "created": "2026-11-17T11:32:25Z"
+}
