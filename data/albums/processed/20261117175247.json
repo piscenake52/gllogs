@@ -1,0 +1,30 @@
+{
+  "title": "Magic Xmas",
+  "type": "digital",
+  "artist": "Girls²",
+  "member": [
+    "YZH",
+    "MMK",
+    "MSK",
+    "YOK",
+    "KUR",
+    "MNM",
+    "KIR"
+  ],
+  "_logids": [
+    "87c2a77abed9"
+  ],
+  "date": "20261111",
+  "tracks": [
+    {
+      "no": 1,
+      "title": "Magic Xmas"
+    }
+  ],
+  "editions": [
+    {
+      "name": "配信",
+      "format": "DIGITAL"
+    }
+  ]
+}

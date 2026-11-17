@@ -1,5 +1,33 @@
 [
   {
+    "id": "8b50a325ae49",
+    "title": "Magic Xmas",
+    "type": "digital",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "date": "20261111",
+    "tracks": [
+      {
+        "no": 1,
+        "title": "Magic Xmas"
+      }
+    ],
+    "editions": [
+      {
+        "name": "配信",
+        "format": "DIGITAL"
+      }
+    ]
+  },
+  {
     "id": "d2ee9e6f38eb",
     "title": "EASY",
     "type": "ep",
