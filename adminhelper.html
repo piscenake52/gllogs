@@ -17,7 +17,7 @@ html,body{background:#000!important}
 <h1>SARD UNDERLINKS DATA ENTRY</h1>
 <div class="tabs" id="tabs"></div>
 <form id="f" onsubmit="return false"></form>
-<div class="row"><button class="go" id="add">追加（キューへ）</button><span id="msg"></span></div>
+<div class="row"><button class="go" id="add">追加（キューへ）</button><button id="add2">ISSUEで送信</button><span id="msg"></span></div>
 <div class="box"><b>QUEUE</b> <span id="qc"></span><div id="ql"></div>
 <div class="row"><button id="retry">今すぐ再試行</button><button id="drop">失敗を破棄</button></div></div>
 <details class="box"><summary>SETTINGS</summary>
@@ -64,13 +64,16 @@ if(t==='lyr'){var lm=v.match(/uta-net\.com\/song\/(\d+)/);if(lm)return lm[1];if(
 if(t==='tl')return v.split('\n').map(function(x){return x.trim()}).filter(Boolean);
 if(t==='sl')return v.split('\n').filter(function(r){return r.trim()}).map(function(r,i){var p=r.split('|').map(function(x){return x.trim()});var o={no:i+1,title:p[0]};if(!p[0])throw Error('SONGS \u306e\u66f2\u540d\u304c\u7a7a\u306e\u884c\u304c\u3042\u308a\u307e\u3059');if(p[1])o.type=p[1];if(p.length>2)o.note=p.slice(2).join(' | ');return o});
 return v}
-function add(){try{var it={},cv=document.getElementById('f_cat'),vg=kind==='logs'&&cv?grp(cv.value):'';F[kind].forEach(function(d){if(d[4]&&d[4]!==vg)return;var e=document.getElementById('f_'+d[0]),v=conv(d,d[3]==='chk'?e.checked:e.value);if(v!==undefined){var p=d[0].split('.');if(p.length>1){it[p[0]]=it[p[0]]||{};it[p[0]][p[1]]=v}else it[d[0]]=v}});
+function add(dest){try{var it={},cv=document.getElementById('f_cat'),vg=kind==='logs'&&cv?grp(cv.value):'';F[kind].forEach(function(d){if(d[4]&&d[4]!==vg)return;var e=document.getElementById('f_'+d[0]),v=conv(d,d[3]==='chk'?e.checked:e.value);if(v!==undefined){var p=d[0].split('.');if(p.length>1){it[p[0]]=it[p[0]]||{};it[p[0]][p[1]]=v}else it[d[0]]=v}});
 if(kind==='logs'){
 if(it._live){if(!it.time&&!it.live)throw Error('LIVE/EVENT \u306e\u60c5\u5831\u3092\u5165\u308c\u308b\u3068\u304d\u306f TIME \u304c\u5fc5\u8981\u3067\u3059');}
 if(it.cat==='tour'&&!(it._live&&it._live.tour))throw Error('CAT \u304c tour \u306e\u3068\u304d\u306f TOUR\uff08\u30c4\u30a2\u30fc\u540d\uff09\u304c\u5fc5\u8981\u3067\u3059');
 if(it._release){if(!it._release.name||!it._release.type||!it._release.songs)throw Error('RELEASE \u306f \u4f5c\u54c1\u540d\u30fb\u7a2e\u5225\u30fb\u53ce\u9332\u66f2 \u3092\u3059\u3079\u3066\u5165\u308c\u3066\u304f\u3060\u3055\u3044')}
 if(it._video&&!it.url)throw Error('\u52d5\u753b\u3092\u767b\u9332\u3059\u308b\u3068\u304d\u306f URL \u304c\u5fc5\u8981\u3067\u3059')}
 if(kind==='logs'){var o={id:gen('L')};for(var k in it)o[k]=it[k];it=o}
+if(dest==='issue'){var u='https://github.com/'+cfg().repo+'/issues/new?template=add_queue.yml&title='+encodeURIComponent('[QUEUE] '+kind+' '+(it.title||''))+'&kind='+encodeURIComponent(kind)+'&item='+encodeURIComponent(JSON.stringify(it));
+if(u.length>7500)throw Error('\u5185\u5bb9\u304c\u9577\u3059\u304e\u3066 ISSUE \u3067\u306f\u9001\u308c\u307e\u305b\u3093\u3002\u300c\u8ffd\u52a0\uff08\u30ad\u30e5\u30fc\u3078\uff09\u300d\u3092\u4f7f\u3063\u3066\u304f\u3060\u3055\u3044');
+var w=window.open(u,'_blank');if(!w)throw Error('\u30dd\u30c3\u30d7\u30a2\u30c3\u30d7\u304c\u30d6\u30ed\u30c3\u30af\u3055\u308c\u307e\u3057\u305f\u3002\u8a31\u53ef\u3057\u3066\u304b\u3089\u3082\u3046\u4e00\u5ea6\u62bc\u3057\u3066\u304f\u3060\u3055\u3044');w.opener=null;form();say('GitHub \u306e\u753b\u9762\u3092\u958b\u304d\u307e\u3057\u305f\u3002\u5185\u5bb9\u306f\u5909\u3048\u305a\u306b\u9001\u4fe1\u3057\u3066\u304f\u3060\u3055\u3044','ok');return}
 Q.push({kind:kind,path:newPath(kind),body:b64(JSON.stringify({item:it})),title:it.title,tries:0,st:'wait',next:0});save();form();say('\u30ad\u30e5\u30fc\u306b\u8ffd\u52a0\u3057\u307e\u3057\u305f','ok');run()}catch(e){say(e.message,'err')}}
 async function run(){if(busy)return;busy=true;try{for(;;){var it=Q.find(function(x){return x.st!=='failed'&&Date.now()>=(x.next||0)});if(!it)break;var c=cfg();if(!c.tk){say('\u30c8\u30fc\u30af\u30f3\u3092\u8a2d\u5b9a\u3057\u3066\u304f\u3060\u3055\u3044','err');break}
 var r;try{r=await fetch('https://api.github.com/repos/'+c.repo+'/contents/'+it.path,{method:'PUT',headers:{Authorization:'Bearer '+c.tk,Accept:'application/vnd.github+json'},body:JSON.stringify({message:'queue: '+it.kind+' '+(it.title||''),content:it.body,branch:c.br})})}catch(e){r={ok:false,status:0}}
@@ -81,7 +84,7 @@ it.next=Date.now()+Math.min(60000,2000*Math.pow(2,it.tries));save()}}finally{bus
 function draw(){var n=Q.length;$('#qc').textContent='\uff08'+n+'\u4ef6\uff09';var l=$('#ql');l.innerHTML='';Q.forEach(function(x){var d=document.createElement('div');d.className='q';var a=document.createElement('span'),b=document.createElement('span');
 a.textContent=x.kind.toUpperCase()+' '+(x.title||'');b.textContent=x.st==='failed'?'\u5931\u6557':x.tries?'\u518d\u8a66\u884c\u5f85\u3061('+x.tries+')':'\u9001\u4fe1\u5f85\u3061';if(x.st==='failed')b.className='err';d.append(a,b);l.append(d)})}
 var tabs=$('#tabs');Object.keys(F).forEach(function(k){var b=document.createElement('button');b.textContent=k.toUpperCase();b.dataset.k=k;b.onclick=function(){kind=k;form()};tabs.append(b)});
-$('#add').onclick=add;$('#retry').onclick=function(){Q.forEach(function(x){x.next=0;if(x.st==='failed'){x.st='wait';x.tries=0}});save();run()};
+$('#add').onclick=function(){add('queue')};$('#add2').onclick=function(){add('issue')};$('#retry').onclick=function(){Q.forEach(function(x){x.next=0;if(x.st==='failed'){x.st='wait';x.tries=0}});save();run()};
 $('#drop').onclick=function(){Q=Q.filter(function(x){return x.st!=='failed'});save()};
 var c0=cfg();$('#s_repo').value=c0.repo;$('#s_br').value=c0.br;$('#s_tk').value=c0.tk;
 $('#s_save').onclick=function(){LS.su_repo=$('#s_repo').value.trim();LS.su_br=$('#s_br').value.trim();LS.su_tk=$('#s_tk').value.trim();say('\u8a2d\u5b9a\u3092\u4fdd\u5b58\u3057\u307e\u3057\u305f','ok');run()};
