@@ -1,0 +1,42 @@
+{
+  "artist": "Laki",
+  "title": "ichigo ～一期一会～",
+  "lyrics": "https://www.uta-net.com/song/314112/",
+  "videos": [
+    {
+      "type": "Live",
+      "url": "https://youtu.be/FPcdKUvyLVY?si=UGGX4ggWhCxCJHqH",
+      "tags": [
+        "ナカGフェス"
+      ]
+    },
+    {
+      "type": "Fancam",
+      "url": "https://youtu.be/b3gpqE66F8k?si=3byl_7juEzR27B0m",
+      "tags": [
+        "ららぽーと豊洲"
+      ]
+    },
+    {
+      "type": "Fancam",
+      "url": "https://youtu.be/3BV6uFpVZ9w?si=K3aVG9r7y_K2q-bc",
+      "tags": [
+        "ららぽーと豊洲"
+      ]
+    },
+    {
+      "type": "Other",
+      "url": "https://youtu.be/SnUio4fzLS4?si=9ZGxl_IX80hwN1L2",
+      "tags": [
+        "ガル学。Ⅱ線撮OP映像"
+      ]
+    },
+    {
+      "type": "Fancam",
+      "url": "https://youtu.be/6jArON2p8Qc?si=4D9RIuqADCRNDqMc",
+      "tags": [
+        "ららぽーと豊洲"
+      ]
+    }
+  ]
+}
