@@ -1,5 +1,106 @@
 [
-{"id":"202605051600","title":"リリースイベント SINGLE 3","venue":"サンプルモール広場","area":"神奈川","cat":"event","kind":"releaseevent","members":["YUA","IZM","HRM","MIU"],"open":"1500","songs":[{"no":1,"song":"s002"},{"no":2,"song":"s003"}]},
-{"id":"202609271800","title":"TEST TOUR 2026 初日","venue":"テストホール東京","area":"東京","cat":"tour","tour":"TEST TOUR 2026","members":["YUA","IZM","HRM","MIU"],"open":"1700","songs":[{"no":1,"song":"s001"},{"no":2,"song":"s002","note":"初演"},{"no":3,"song":"s004"},{"no":4,"song":"s003","type":"encore"}]},
-{"id":"202611221700","title":"TEST TOUR 2026 FINAL","venue":"サンプルアリーナ大阪","area":"大阪","cat":"tour","tour":"TEST TOUR 2026","members":["YUA","IZM","HRM","MIU"],"open":"1600"}
+  {
+    "setlistid": "202611151300",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "title": "Girls² EP「EASY」発売記念 リリースイベント\n千葉・松戸",
+    "venue": "テラスモール松戸",
+    "songs": [
+      {
+        "title": "Umbrella",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      },
+      {
+        "title": "Magic Xmas",
+        "type": "allow",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "id": "202605051600",
+    "title": "リリースイベント SINGLE 3",
+    "venue": "サンプルモール広場",
+    "area": "神奈川",
+    "cat": "event",
+    "kind": "releaseevent",
+    "members": [
+      "YUA",
+      "IZM",
+      "HRM",
+      "MIU"
+    ],
+    "open": "1500",
+    "songs": [
+      {
+        "no": 1,
+        "song": "s002"
+      },
+      {
+        "no": 2,
+        "song": "s003"
+      }
+    ]
+  },
+  {
+    "id": "202609271800",
+    "title": "TEST TOUR 2026 初日",
+    "venue": "テストホール東京",
+    "area": "東京",
+    "cat": "tour",
+    "tour": "TEST TOUR 2026",
+    "members": [
+      "YUA",
+      "IZM",
+      "HRM",
+      "MIU"
+    ],
+    "open": "1700",
+    "songs": [
+      {
+        "no": 1,
+        "song": "s001"
+      },
+      {
+        "no": 2,
+        "song": "s002",
+        "note": "初演"
+      },
+      {
+        "no": 3,
+        "song": "s004"
+      },
+      {
+        "no": 4,
+        "song": "s003",
+        "type": "encore"
+      }
+    ]
+  },
+  {
+    "id": "202611221700",
+    "title": "TEST TOUR 2026 FINAL",
+    "venue": "サンプルアリーナ大阪",
+    "area": "大阪",
+    "cat": "tour",
+    "tour": "TEST TOUR 2026",
+    "members": [
+      "YUA",
+      "IZM",
+      "HRM",
+      "MIU"
+    ],
+    "open": "1600"
+  }
 ]
