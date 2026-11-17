@@ -1,0 +1,9 @@
+{
+ "template": "add_songs.yml",
+ "params": {
+  "artist_free": "magical²",
+  "item_title": "絶対友情宣言！",
+  "lyrics": "https://www.uta-net.com/song/255987/"
+ },
+ "created": "2026-11-17T22:12:17Z"
+}
