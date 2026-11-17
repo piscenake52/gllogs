@@ -966,6 +966,114 @@
     ]
   },
   {
+    "id": "da9e716e8f3d",
+    "title": "大事なモノ / #キズナプラス",
+    "type": "ep",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA",
+      "RAN"
+    ],
+    "date": "20201118",
+    "tracks": [
+      {
+        "no": 1,
+        "title": "大事なモノ"
+      },
+      {
+        "no": 2,
+        "title": "#キズナプラス"
+      },
+      {
+        "no": 3,
+        "title": "HERE WE GO"
+      }
+    ],
+    "editions": [
+      {
+        "name": "ダンスDVD盤(初回生産限定盤)",
+        "format": "CD+DVD",
+        "note": "AICL-3953～AICL-3954",
+        "price": 3850,
+        "extra": [
+          {
+            "no": "DVD1",
+            "title": "大事なモノ -ミュージックビデオ -"
+          },
+          {
+            "no": "DVD2",
+            "title": "大事なモノ -ダンスパフォーマンスビデオ –"
+          },
+          {
+            "no": "DVD3",
+            "title": "大事なモノ - ドラマオープニングノンクレジット ver. -"
+          },
+          {
+            "no": "DVD4",
+            "title": "#キズナプラス -ミュージックビデオ –"
+          },
+          {
+            "no": "DVD5",
+            "title": "HERE WE GO -ミュージックビデオ -"
+          },
+          {
+            "section": "「Girls² スペシャル生配信イベント ～おうちでチュワパネ！～」全編"
+          }
+        ]
+      },
+      {
+        "name": "ライブDVD盤(初回生産限定盤)",
+        "format": "CD+DVD",
+        "note": "AICL-3955～AICL-3956",
+        "price": 4400,
+        "extra": [
+          {
+            "section": "「mirage² DIGITAL LIVE 2020」 完全収録"
+          }
+        ]
+      },
+      {
+        "name": "通常盤",
+        "format": "CD",
+        "note": "AICL-3957",
+        "price": 1650,
+        "tracks": [
+          {
+            "no": 1,
+            "title": "大事なモノ"
+          },
+          {
+            "no": 2,
+            "title": "#キズナプラス"
+          },
+          {
+            "no": 3,
+            "title": "HERE WE GO"
+          },
+          {
+            "no": 4,
+            "title": "大事なモノ(カラオケ)"
+          },
+          {
+            "no": 5,
+            "title": "#キズナプラス (カラオケ)"
+          },
+          {
+            "no": 6,
+            "title": "HERE WE GO (カラオケ)"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "4657fc4114ba",
     "title": "恋するカモ",
     "type": "album",
