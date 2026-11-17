@@ -3114,6 +3114,26 @@
             ]
           }
         ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/ETjCTlgWmJE?si=EpYkDyepcjhbONnZ",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "Magic Xmas"
+            ]
+          }
+        ]
       }
     ]
   },
