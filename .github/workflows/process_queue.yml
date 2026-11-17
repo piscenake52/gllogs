@@ -1,6 +1,9 @@
 name: Process Queue
 
-# data/*/queue/ にJSONをpushしたとき、または手動(Run workflow)で、キューを処理する
+# 次のどれかで、キューを処理する
+#  - data/*/queue/ にJSONをpush
+#  - helper から直接送られた依頼 data/inbox/*.json をpush
+#  - 手動(Run workflow)
 on:
   push:
     paths:
@@ -8,6 +11,7 @@ on:
       - 'data/setlist/queue/*.json'
       - 'data/songs/queue/*.json'
       - 'data/albums/queue/*.json'
+      - 'data/inbox/*.json'
   workflow_dispatch:
 
 permissions:
@@ -27,39 +31,43 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Run merge script (Queue to Main & Processed)
-        id: merge
-        continue-on-error: true  # 読めないファイルがあっても、処理できた分は保存する
-        run: python scripts/merge_json.py
+      - run: pip install pyyaml
 
-      - name: Commit and push (with retry)
-        if: always()
+      - name: Process, commit and push (with retry)
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          MERGE_STATUS=0
+          run_all() {
+            python scripts/inbox_to_json.py || true          # helperからの依頼 → キュー
+            python scripts/merge_json.py || MERGE_STATUS=$?  # キュー → メインJSON（読めないファイルがあると 1）
+            python scripts/inbox_to_json.py --finish || true # 依頼ごとの結果を書き足す
+          }
+          run_all
           for i in 1 2 3 4 5; do
             git add data/
             if git diff --staged --quiet; then
               echo "コミットする変更はありません"
-              exit 0
+              break
             fi
             git commit -m "Process queue, merge JSON"
             if git push; then
               echo "push 成功（${i}回目）"
-              exit 0
+              break
             fi
-            # 他の実行が先にpushした。rebaseはデータJSONが競合するため、最新に合わせ直してキューを再処理する
+            # 他の実行が先にpushした。rebaseはデータJSONが競合するため、最新に合わせ直して再処理する
             echo "push に失敗しました（${i}回目）。最新を取得して処理をやり直します"
             sleep $((i * 5))
             git fetch origin "${GITHUB_REF_NAME}"
             git reset --hard "origin/${GITHUB_REF_NAME}"
-            python scripts/merge_json.py || true
+            MERGE_STATUS=0
+            run_all
+            if [ "$i" = 5 ]; then
+              echo "::error::5回試しても push できませんでした。Run workflow で再実行してください"
+              exit 1
+            fi
           done
-          echo "::error::5回試しても push できませんでした。Run workflow で再実行してください"
-          exit 1
-
-      - name: Fail if some queue files could not be read
-        if: steps.merge.outcome == 'failure'
-        run: |
-          echo "::error::読み込めないキューファイルがあります。上の「キュー処理の詳細」（Summary）を確認してください"
-          exit 1
+          if [ "$MERGE_STATUS" != 0 ]; then
+            echo "::error::読み込めないキューファイルがあります。Summary の「キュー処理の詳細」を確認してください"
+            exit 1
+          fi

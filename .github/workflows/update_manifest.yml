@@ -10,6 +10,7 @@ on:
       - 'data/**'
       - '!data/manifest.json'
       - '!data/*/queue/**'
+      - '!data/inbox/**'
 
 # データ更新のワークフローと同時に動いてコミットが衝突しないよう、同じグループで直列に実行する
 concurrency:
