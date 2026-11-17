@@ -383,7 +383,7 @@
     "display_pc": "Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special 東京公演",
     "display_sp": "LIVE TOUR 2026 -Seven Blooms Beyond- Xmas SP 東京",
     "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
-    "map": "https://maps.app.goo.gl/Tnq8ze6GoTGzbQkk8",
+    "venue": "Shibuya LOVEZ",
     "groups": [
       "G2",
       "YZH",
@@ -396,8 +396,7 @@
     ],
     "setlistid": "202612251800",
     "tags": [
-      "Shibuya LOVEZ",
-      "クリスマス"
+      "Seven Blooms Beyond"
     ]
   },
   {
