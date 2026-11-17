@@ -87,6 +87,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih a.go { display:block; text-align:center; padding:11px; border-radius:10px; background:var(--accent); color:var(--accent-text) !important; text-decoration:none !important; font-size:14px; font-weight:600; }
 #glih button.go { display:block; width:100%; text-align:center; padding:11px; border-radius:10px; border:0; background:var(--accent); color:var(--accent-text); font:inherit; font-size:14px; font-weight:600; cursor:pointer; margin:0 0 10px; box-shadow:none; }
 #glih a.go[aria-disabled="true"] { opacity:.4; pointer-events:none; }
+#glih .sendrow { display:flex; gap:6px; margin-top:8px; } #glih .sendrow button.go { flex:1; margin:0; } #glih .sendrow button.go:disabled { opacity:.4; } #glih .sendrow .small { flex:0 0 auto; } #glih .sendst { white-space:pre-wrap; margin-top:6px; }
 #glih .fin, #glih .fta, #glih .fsel { flex:1; min-width:0; width:auto; margin:0; padding:8px; font:inherit; font-size:16px; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; box-shadow:none; }
 #glih .fta { min-height:4.5em; resize:vertical; font-size:13px; line-height:1.4; }
 #glih .fin { font-size:13px; line-height:1.4; } /* テキストボックスもテキストエリアと同じ文字サイズに */
@@ -329,7 +330,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 
 <div class="toplink"><a href="https://gl-log.blogspot.com/" target="_blank" rel="noopener">GL log</a></div>
 
-<div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="albums">albums</button><button type="button" data-tab="songs">songs</button><button type="button" data-tab="bulk">bulk</button><button type="button" data-tab="check">check</button></div>
+<div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="albums">albums</button><button type="button" data-tab="songs">songs</button><button type="button" data-tab="bulk">bulk</button><button type="button" data-tab="check">check</button><button type="button" data-tab="setting">setting</button></div>
 
 <div hidden><div class="chips" id="glih-groups"><div class="cr"><button type="button" class="chip" data-v="G2">G2</button><button type="button" class="chip" data-v="L2">L2</button></div><div class="cr"><button type="button" class="chip" data-v="YZH">YZH</button><button type="button" class="chip" data-v="MMK">MMK</button><button type="button" class="chip" data-v="MSK">MSK</button><button type="button" class="chip" data-v="YOK">YOK</button><button type="button" class="chip" data-v="KUR">KUR</button><button type="button" class="chip" data-v="MNM">MNM</button><button type="button" class="chip" data-v="KIR">KIR</button></div><div class="cr"><button type="button" class="chip" data-v="TOA">TOA</button><button type="button" class="chip" data-v="RAN">RAN</button></div><div class="cr"><button type="button" class="chip" data-v="RIN">RIN</button><button type="button" class="chip" data-v="TBK">TBK</button><button type="button" class="chip" data-v="HIR">HIR</button><button type="button" class="chip" data-v="YUW">YUW</button><button type="button" class="chip" data-v="KAN">KAN</button><button type="button" class="chip" data-v="RRK">RRK</button><button type="button" class="chip" data-v="AKR">AKR</button><button type="button" class="chip" data-v="KIK">KIK</button></div><div class="cr"><button type="button" class="chip" data-v="YUR">YUR</button></div></div></div>
 
@@ -416,6 +417,18 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <a class="go" id="glih-go-find" target="_blank" rel="noopener" aria-disabled="true">Issue</a>
 </section>
 
+<section id="glih-p-set" hidden>
+  <div class="field"><label for="glih-srepo">repo</label><input type="text" id="glih-srepo" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="owner/name"></div>
+  <div class="field"><label for="glih-sbr">branch</label><input type="text" id="glih-sbr" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="main"></div>
+  <div class="field"><label for="glih-stok">token</label><input type="password" id="glih-stok" class="fin" autocomplete="new-password" autocapitalize="off" spellcheck="false" placeholder="(empty = keep the saved one)"></div>
+  <div class="field"><label>lock</label><label class="chk cpchip"><input type="checkbox" id="glih-senc">ENCRYPT</label></div>
+  <div class="field" id="glih-spassrow" hidden><label for="glih-spass">pass</label><input type="password" id="glih-spass" class="fin" autocomplete="off" spellcheck="false" placeholder="passphrase"></div>
+  <div class="sendrow"><button type="button" class="small" id="glih-ssave">save</button><button type="button" class="small" id="glih-sunlock" hidden>unlock</button><button type="button" class="small" id="glih-stest">test</button><button type="button" class="small" id="glih-sclear">clear token</button></div>
+  <div class="cknote" id="glih-sstate"></div>
+  <div class="cknote sendst" id="glih-sst"></div>
+  <div class="cknote">Use a fine-grained token limited to this repository (Contents: Read and write only) with an expiry date. It is kept in this browser only. With ENCRYPT the token is stored encrypted by the passphrase and has to be unlocked once per page load. The send buttons put the same values as the Issue forms into data/inbox/ of the repository.</div>
+</section>
+
 <script>
 //<![CDATA[
 (function () {
@@ -441,6 +454,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     $('p-find').hidden = !isFind; $('p-songs').hidden = name !== 'songs'; if (name === 'songs') songsInit();
     $('p-albums').hidden = name !== 'albums'; if (name === 'albums') albumsInit();
     $('p-check').hidden = name !== 'check'; if (name === 'check') ckInit();
+    $('p-set').hidden = name !== 'setting'; if (name === 'setting') setInit();
     $('p-bulk').hidden = name !== 'bulk'; if (name === 'bulk') fetchData('logs').catch(function () {});
     if (isFind && $('fkind').value !== name) { $('fkind').value = name; $('fkind').dispatchEvent(new Event('change')); } // logs / setlist share one panel
     [].forEach.call(root.querySelectorAll('.tabs button'), function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === name); });
@@ -757,6 +771,132 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 
   // ---- find tab: look up a logid / setlistid in the data file on GitHub (raw, always latest) and prefill the issue form with the changed fields only ----
   var BRANCH = 'main', DATA = { logs: 'data/logs/logs.json', setlist: 'data/setlist/setlist.json', songs: 'data/songs/songs.json', albums: 'data/albums/albums.json' }, cache = {};
+  // ---- setting tab + direct send: instead of opening an Issue, put the same form values into data/inbox/<id>.json of the repository (GitHub contents API). The workflow turns it into the queue json (same code as the Issue forms) and writes data/inbox/results/<id>.json, which is polled here ----
+  var SET_KEY = 'glih_set', DELTXT = '\u524a\u9664\u3059\u308b', cfg = { mode: 'plain', token: '', enc: null }, tok = '', delFns = {};
+  (function () { try { var o = JSON.parse(localStorage.getItem(SET_KEY) || 'null'); if (o && typeof o === 'object') { cfg = Object.assign(cfg, o); if (/^[\w.-]+\/[\w.-]+$/.test(o.repo || '')) REPO = o.repo; if (/^[\w.\/-]+$/.test(o.branch || '')) BRANCH = o.branch; if (cfg.mode !== 'enc') tok = cfg.token || ''; } } catch (e) {} })();
+  function cfgSave() { try { localStorage.setItem(SET_KEY, JSON.stringify({ repo: REPO, branch: BRANCH, mode: cfg.mode, token: cfg.mode === 'enc' ? '' : cfg.token, enc: cfg.mode === 'enc' ? cfg.enc : null })); return true; } catch (e) { return false; } }
+  function b64(buf) { var s = '', a = new Uint8Array(buf); for (var i = 0; i < a.length; i++) s += String.fromCharCode(a[i]); return btoa(s); }
+  function unb64(t) { var s = atob(t), a = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; }
+  function deriveKey(pass, salt) {
+    return crypto.subtle.importKey('raw', new TextEncoder().encode(pass), 'PBKDF2', false, ['deriveKey']).then(function (k) {
+      return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: salt, iterations: 250000, hash: 'SHA-256' }, k, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+    });
+  }
+  function encTok(token, pass) {
+    var salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+    return deriveKey(pass, salt).then(function (k) { return crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, k, new TextEncoder().encode(token)); }).then(function (ct) { return { s: b64(salt), i: b64(iv), c: b64(ct) }; });
+  }
+  function decTok(e, pass) {
+    return deriveKey(pass, unb64(e.s)).then(function (k) { return crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(e.i) }, k, unb64(e.c)); }).then(function (pt) { return new TextDecoder().decode(pt); });
+  }
+  function hasCrypto() { return !!(window.crypto && crypto.subtle && window.TextEncoder); }
+  function setInit() {
+    var st = $('sst');
+    function show(m) { st.textContent = m; }
+    function state() {
+      var s = !cfg.token && !cfg.enc ? 'token: not set' : cfg.mode === 'enc' ? (tok ? 'token: encrypted, unlocked (until this page is closed)' : 'token: encrypted, locked (enter the passphrase and press unlock)') : 'token: saved in this browser (not encrypted)';
+      $('sstate').textContent = REPO + ' / ' + BRANCH + ' - ' + s;
+      $('sunlock').hidden = !(cfg.mode === 'enc' && cfg.enc && !tok);
+    }
+    if (!$('srepo')._init) {
+      $('srepo')._init = true;
+      $('senc').onchange = function () { $('spassrow').hidden = !$('senc').checked; };
+      $('ssave').onclick = function () {
+        var repo = $('srepo').value.trim(), br = $('sbr').value.trim() || 'main', t = $('stok').value.trim(), enc = $('senc').checked, pass = $('spass').value;
+        if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) { show('repo: owner/name'); return; }
+        if (!/^[\w.\/-]+$/.test(br)) { show('branch: invalid name'); return; }
+        if (!t && !tok) { show('token: enter the token'); return; }
+        var token = t || tok;
+        if (enc) {
+          if (!hasCrypto()) { show('encryption is not available in this browser (https is required)'); return; }
+          if (pass.length < 4) { show('passphrase: 4 characters or more'); return; }
+          encTok(token, pass).then(function (e) { REPO = repo; BRANCH = br; cfg.mode = 'enc'; cfg.enc = e; cfg.token = ''; tok = token; var ok = cfgSave(); $('stok').value = ''; $('spass').value = ''; state(); show(ok ? 'saved (encrypted)' : 'could not save: browser storage is blocked'); }, function () { show('encryption failed'); });
+        } else {
+          REPO = repo; BRANCH = br; cfg.mode = 'plain'; cfg.token = token; cfg.enc = null; tok = token; var ok = cfgSave(); $('stok').value = ''; $('spass').value = ''; state(); show(ok ? 'saved' : 'could not save: browser storage is blocked');
+        }
+      };
+      $('sunlock').onclick = function () {
+        var pass = $('spass').value; if (!pass) { show('enter the passphrase'); return; }
+        decTok(cfg.enc, pass).then(function (t) { tok = t; $('spass').value = ''; state(); show('unlocked'); }, function () { show('wrong passphrase'); });
+      };
+      $('stest').onclick = function () {
+        if (!tok) { show(cfg.mode === 'enc' && cfg.enc ? 'unlock the token first' : 'set the token first'); return; }
+        show('checking ...');
+        ghFetch('https://api.github.com/repos/' + REPO).then(function (r) {
+          if (!r.ok) { show(httpMsg(r.status)); return null; }
+          return r.json().then(function (j) {
+            var push = j.permissions && j.permissions.push;
+            return ghFetch('https://api.github.com/repos/' + REPO + '/branches/' + encodeURIComponent(BRANCH).replace(/%2F/g, '/')).then(function (b) {
+              show((b.ok ? 'branch ' + BRANCH + ': ok' : 'branch ' + BRANCH + ': not found') + ' / write access: ' + (push ? 'ok' : 'NO (the token needs Contents: Read and write)'));
+            });
+          });
+        }, function () { show('network error'); });
+      };
+      $('sclear').onclick = function () {
+        var b = $('sclear'); if (!b._arm) { b._arm = true; b.textContent = 'tap again'; setTimeout(function () { b._arm = false; b.textContent = 'clear token'; }, 3000); return; }
+        b._arm = false; b.textContent = 'clear token'; cfg.token = ''; cfg.enc = null; cfg.mode = 'plain'; tok = ''; cfgSave(); state(); show('the saved token was removed');
+      };
+    }
+    $('srepo').value = REPO; $('sbr').value = BRANCH; $('senc').checked = cfg.mode === 'enc'; $('spassrow').hidden = !$('senc').checked;
+    state(); show('');
+  }
+  function ghFetch(url, opt) { opt = opt || {}; opt.headers = Object.assign({ 'Authorization': 'Bearer ' + tok, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }, opt.headers || {}); opt.cache = 'no-store'; return fetch(url, opt); }
+  function httpMsg(s) {
+    return s === 401 ? 'the token is invalid or expired (401)' : s === 403 ? 'no permission or rate limited (403): the token needs Contents: Read and write on this repository' : s === 404 ? 'repository or branch not found, or the token cannot see it (404)' : s === 409 ? 'conflict (409): another update was in progress' : s === 422 ? 'GitHub rejected the request (422)' : 'GitHub error (' + s + ')';
+  }
+  function stampId() { var d = new Date(Date.now() + 9 * 3600000), p = function (n) { return ('0' + n).slice(-2); }; return '' + d.getUTCFullYear() + p(d.getUTCMonth() + 1) + p(d.getUTCDate()) + p(d.getUTCHours()) + p(d.getUTCMinutes()) + p(d.getUTCSeconds()) + '-' + Math.random().toString(36).slice(2, 6); }
+  function putFile(path, text, msg, tries) { // retry on network errors / 409 / 429 / 5xx (the file name is unique, so a repeat is safe)
+    tries = tries || 1;
+    return ghFetch('https://api.github.com/repos/' + REPO + '/contents/' + path, { method: 'PUT', body: JSON.stringify({ message: msg, content: btoa(unescape(encodeURIComponent(text))), branch: BRANCH }) }).then(function (r) {
+      if (r.ok) return r;
+      if ((r.status === 409 || r.status === 429 || r.status >= 500) && tries < 4) return new Promise(function (ok) { setTimeout(ok, 1500 * tries); }).then(function () { return putFile(path, text, msg, tries + 1); });
+      var e = new Error(httpMsg(r.status)); e.status = r.status; throw e;
+    }, function (err) {
+      if (tries < 4) return new Promise(function (ok) { setTimeout(ok, 1500 * tries); }).then(function () { return putFile(path, text, msg, tries + 1); });
+      throw new Error('network error: ' + (err && err.message ? err.message : ''));
+    });
+  }
+  function waitResult(id, st, n) {
+    n = n || 0;
+    return ghFetch('https://api.github.com/repos/' + REPO + '/contents/data/inbox/results/' + id + '.json?ref=' + encodeURIComponent(BRANCH), { headers: { 'Accept': 'application/vnd.github.raw+json' } }).then(function (r) { return r.status === 200 ? r.json() : null; }, function () { return null; }).then(function (res) {
+      if (res && (res.status === 'done' || res.status === 'error')) return res;
+      if (n >= 45) return { status: 'timeout' };
+      st.textContent = 'sent. waiting for the server ... (' + (n * 4) + 's)';
+      return new Promise(function (ok) { setTimeout(ok, 4000); }).then(function () { return waitResult(id, st, n + 1); });
+    });
+  }
+  function sendReq(tpl, params, st, btns) {
+    if (!tok) { st.textContent = cfg.mode === 'enc' && cfg.enc ? 'the token is locked: open the setting tab and unlock it' : 'no token: open the setting tab'; return; }
+    var id = stampId(), req = { template: tpl, params: params, created: new Date().toISOString().replace(/\.\d+Z$/, 'Z') };
+    btns.forEach(function (b) { b.disabled = true; }); st.textContent = 'sending ...';
+    putFile('data/inbox/' + id + '.json', JSON.stringify(req, null, 1), 'helper: ' + id).then(function () { return waitResult(id, st); }).then(function (res) {
+      if (res.status === 'done') { st.textContent = 'done: reflected' + (res.notes && res.notes.length ? '\n' + res.notes.join('\n') : ''); delete cache.logs; delete cache.setlist; delete cache.albums; delete cache.songs; }
+      else if (res.status === 'error') st.textContent = 'not reflected:\n' + (res.errors || []).concat(res.notes || []).join('\n');
+      else st.textContent = 'sent, but the result did not arrive in time. Check the Actions tab of the repository.';
+    }, function (e) { st.textContent = 'failed: ' + e.message; }).then(function () { btns.forEach(function (b) { b.disabled = false; }); syncAll(); });
+  }
+  var sendSyncs = [];
+  function syncAll() { sendSyncs.forEach(function (f) { f(); }); }
+  function addSend(aid, delFn) { // a send button under the Issue link: it sends the same values (read back from the link), plus an optional delete
+    var a = $(aid); if (!a) return;
+    var row = document.createElement('div'); row.className = 'sendrow'; var sb = document.createElement('button'); sb.type = 'button'; sb.className = 'go'; sb.textContent = 'send'; row.appendChild(sb);
+    var db = null; if (delFn) { db = document.createElement('button'); db.type = 'button'; db.className = 'small'; db.textContent = 'delete'; row.appendChild(db); }
+    var st = document.createElement('div'); st.className = 'cknote sendst'; a.parentNode.insertBefore(row, a.nextSibling); row.parentNode.insertBefore(st, row.nextSibling);
+    var busy = false;
+    function sync() { sb.disabled = busy || a.getAttribute('aria-disabled') === 'true' || !a.getAttribute('href'); if (db) db.disabled = busy || !delFn(); }
+    sendSyncs.push(sync); try { new MutationObserver(sync).observe(a, { attributes: true, attributeFilter: ['aria-disabled', 'href'] }); } catch (e) {}
+    sb.onclick = function () {
+      var u; try { u = new URL(a.href); } catch (e) { return; }
+      var p = {}; u.searchParams.forEach(function (v, k) { if (k !== 'template') p[k] = v; });
+      busy = true; sync(); sendReq(u.searchParams.get('template'), p, st, [sb]); var t = setInterval(function () { if (!sb.disabled || sb.textContent !== 'send') { } if (!/^(sending|sent)/.test(st.textContent)) { clearInterval(t); busy = false; sync(); } }, 500);
+    };
+    if (db) db.onclick = function () {
+      var d = delFn(); if (!d) return;
+      if (!window.confirm('Delete this record?\n' + d.label)) return;
+      busy = true; sync(); sendReq(d.tpl, d.params, st, [sb, db]); var t = setInterval(function () { if (!/^(sending|sent)/.test(st.textContent)) { clearInterval(t); busy = false; sync(); } }, 500);
+    };
+    sync();
+  }
   var DEFS = {
     logs: { idKey: 'logid', tpl: TPL_LOGS, fields: [
       { k: 'date' }, { k: 'time' }, { k: 'groups', p: 'groups_free', list: 1 }, { k: 'contents', p: 'contents_free' }, { k: 'title', p: 'item_title', ta: 1 }, { k: 'display_pc' }, { k: 'display_sp' }, { k: 'url' }, { k: 'map' }, { k: 'setlistid' },
@@ -2769,6 +2909,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var ok = !!(a && t) && !lyBad && !vBad;
       setLink2(ok ? issueUrl(TPL_SONGS, p) : '');
     }
+    delFns.songs = function () { return match ? { tpl: TPL_SONGS, label: match.artist + ' / ' + match.title, params: { artist_free: match.artist, item_title: match.title, delete: DELTXT } } : null; };
     function setLink2(url) { var g = $('go-songs'); if (url) { g.href = url; g.setAttribute('aria-disabled', 'false'); } else { g.removeAttribute('href'); g.setAttribute('aria-disabled', 'true'); } }
     sl.addEventListener('input', function () { if (!prog) { sl._touched = true; auto = false; } upd(); });
     sy.addEventListener('input', function () { if (!progY) { sy._touched = true; autoY = false; } upd(); });
@@ -3120,6 +3261,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       load: function (a, logid) { alFrom = null; load(a); if (logid) { addLink(logid); drawLinks(); upd(); } },
       fresh: function (t, ty, d, logid, groups) { clearAll(); ar.value = artistOfGroups(groups); syncAr(); setMember(memberOfGroups(groups)); ti.value = t || ''; type = ty || ''; dt.value = d ? fmtDigits(d, 'date') : ''; if (logid) addLink(logid); syncType(); drawLinks(); upd(); }
     };
+    delFns.albums = function () { return albumId ? { tpl: TPL_ALBUMS, label: ti.value.trim() + ' (' + type + ')', params: { album_title: ti.value.trim(), album_type: type, album_id: albumId, delete: DELTXT } } : null; };
     function body() {
       var o = {}, d = DG(dt.value); if (ar.value.trim()) o.artist = ar.value.trim(); var mm = me.value.split(/[,\u3001\s]+/).filter(Boolean).map(function (x) { return x.toUpperCase(); }); if (mm.length) o.member = mm; if (d) o.date = d; var t = main.get(); if (t.length) o.tracks = t;
       var e = eds.map(function (x) { return x.get(); }).filter(Boolean); if (e.length) o.editions = e; return o;
@@ -3680,7 +3822,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   root.addEventListener('change', function (e) { asciiFix(e.target, true); asciiCheck(e.target); }, true);
   asciiInit();
 
-  tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : location.hash === '#check' ? 'check' : location.hash === '#bulk' ? 'bulk' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
+  addSend('go-find', function () { if (!found || found.isNew) return null; var d = DEFS[found.kind], o = {}; o[d.idKey] = found.id; o.delete = DELTXT; return { tpl: d.tpl, label: found.kind + ' ' + found.id, params: o }; });
+  addSend('go-songs', function () { return delFns.songs ? delFns.songs() : null; });
+  addSend('go-albums', function () { return delFns.albums ? delFns.albums() : null; });
+  addSend('go-bulk');
+  tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : location.hash === '#check' ? 'check' : location.hash === '#setting' ? 'setting' : location.hash === '#bulk' ? 'bulk' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
   if (location.hash === '#songs' && songApi) { // opened with ?artist=...&title=... (the 3-tap on the viewer's song bar): load that song in the songs tab
     var qa = '', qt = '';
     try { var qs = new URLSearchParams(location.search); qa = (qs.get('artist') || '').trim(); qt = (qs.get('title') || '').trim(); } catch (e) {}
