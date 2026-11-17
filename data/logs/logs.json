@@ -173661,9 +173661,8 @@
     "date": "20211117",
     "time": "",
     "contents": "DIGITAL",
-    "title": "おはガール from Lucky² 「Lucky Time」 配信リリース",
-    "display_pc": "おはガール from Lucky² 「Lucky Time」 配信リリース",
-    "display_sp": "おはガール from Lucky² 「Lucky Time」 配信リリース",
+    "title": "おはガール from Lucky²「Lucky Time」配信リリース",
+    "url": "https://www.sonymusic.co.jp/artist/Lucky2/info/534905",
     "groups": [
       "L2",
       "RIN",
@@ -173673,7 +173672,10 @@
       "YUW",
       "KAN"
     ],
-    "relations": []
+    "relations": [],
+    "tags": [
+      "おはガール"
+    ]
   },
   {
     "logid": "d40a6019ee44",
