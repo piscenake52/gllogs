@@ -21,6 +21,7 @@ LABELS_LOGS = {
     "display_pc": "display_pc",
     "display_sp": "display_sp",
     "url": "url",
+    "venue": "venue",
     "map": "map",
     "setlistid": "setlistid",
     "groups_g2": "groups / Girls²",
@@ -84,7 +85,7 @@ ERROR_FILE = "issue_error.md"
 
 # 「値の削除（更新時）」チェックボックスで消せる項目（識別キーは除く。フォームの選択肢名と揃える）
 CLEARABLE = {
-    "logs": ["time", "contents", "title", "display_pc", "display_sp", "url", "map",
+    "logs": ["time", "contents", "title", "display_pc", "display_sp", "url", "venue", "map",
              "groups", "relations", "setlistid", "tags", "sns"],
     "setlist": ["artist", "title", "member", "venue", "weather", "source", "songs"],
     "songs": ["vocal", "link", "lyrics", "videos"],
@@ -621,6 +622,7 @@ def build_logs(f):
         "display_pc": f["display_pc"],
         "display_sp": f["display_sp"],
         "url": f["url"],
+        "venue": f.get("venue", ""),
         "map": f["map"],
         "groups": groups,
         "relations": build_relations(f),

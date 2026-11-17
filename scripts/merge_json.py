@@ -125,7 +125,7 @@ TARGETS = [
         "main_file": "data/logs/logs.json",
         "key_fields": ["logid"],
         "order": ["logid", "date", "time", "contents", "ref", "suffix", "title", "display_pc", "display_sp",
-                  "url", "map", "groups", "relations", "setlistid", "albumid", "tags", "sns"],
+                  "url", "venue", "map", "groups", "relations", "setlistid", "albumid", "tags", "sns"],
         "clear_to_empty_list": [],
         "append_lists": ["tags", "sns"],  # 更新時は上書きせず、既存の値に新しいものだけ追記する
         "sort_key": lambda x: (x.get("date") or "", x.get("time") or ""),
@@ -1189,6 +1189,8 @@ def write_index(target, main_data):
             # helperのタグ候補用: タグは全行に入れる(全体のlogs.jsonを読まなくても候補が作れる)。stags = snsリンクごとのタグを並べたもの(出現数の集計用)
             if not is_blank(e.get("tags")):
                 row["tags"] = e["tags"]
+            if not is_blank(e.get("venue")):
+                row["venue"] = e["venue"]  # helperの会場名の候補用
             stags = [t for s in (e.get("sns") or []) if isinstance(s, dict)
                      for u in (s.get("urls") or []) if isinstance(u, dict)
                      for t in (u.get("tags") or []) if isinstance(t, str) and t.strip()]
