@@ -1,0 +1,25 @@
+{
+  "artist": "Girls²",
+  "title": "大事なモノ",
+  "lyrics": "https://www.uta-net.com/song/288924/",
+  "videos": [
+    {
+      "type": "MV",
+      "url": "https://youtu.be/s1y_2wnjfRw?si=kGMxblH0IhV4FjcH"
+    },
+    {
+      "type": "Performance",
+      "url": "https://youtu.be/zApBuCmH2JY?si=DXTpfdb_J0m7_HlW",
+      "tags": [
+        "YouTube ver."
+      ]
+    },
+    {
+      "type": "MV",
+      "url": "https://www.youtube.com/watch?v=9Pmqt79FLJA",
+      "tags": [
+        "YouTube ver."
+      ]
+    }
+  ]
+}
