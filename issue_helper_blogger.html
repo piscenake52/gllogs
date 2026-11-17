@@ -319,7 +319,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .fsug button.sel { background:var(--btn); }
 #glih a.fx { display:block; text-decoration:none !important; }
 #glih a.fx svg { width:14px; height:14px; vertical-align:middle; margin-top:-2px; }
-#glih .toplink { margin:0 0 8px; font-size:13px; font-weight:600; }
+#glih .toplink { margin:0 0 8px; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:space-between; }
+#glih .setbtn { position:fixed; right:12px; bottom:12px; z-index:50; font-size:11px; padding:5px 11px; margin:0; background:var(--btn); color:var(--text); border:1px solid var(--line); box-shadow:0 2px 8px rgba(0,0,0,.35); } #glih .setbtn[aria-expanded="true"] { background:var(--accent); color:var(--accent-text); }
+#glih .setp { position:fixed; right:12px; bottom:52px; z-index:50; width:min(380px, calc(100vw - 24px)); max-height:calc(100vh - 80px); overflow:auto; box-sizing:border-box; background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:10px; box-shadow:0 4px 18px rgba(0,0,0,.45); }
 #glih .toplink a { color:var(--sub) !important; text-decoration:none !important; }
 #glih .toplink a:hover { color:var(--text) !important; text-decoration:underline !important; }
 #glih .fx.ta { top:8px; transform:none; }
@@ -330,7 +332,20 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 
 <div class="toplink"><a href="https://gl-log.blogspot.com/" target="_blank" rel="noopener">GL log</a></div>
 
-<div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="albums">albums</button><button type="button" data-tab="songs">songs</button><button type="button" data-tab="bulk">bulk</button><button type="button" data-tab="check">check</button><button type="button" data-tab="setting">setting</button></div>
+<button type="button" class="small setbtn" id="glih-setbtn" aria-expanded="false" title="setting">setting</button>
+<section id="glih-p-set" class="setp" hidden>
+  <div class="field"><label for="glih-srepo">repo</label><input type="text" id="glih-srepo" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="owner/name"></div>
+  <div class="field"><label for="glih-sbr">branch</label><input type="text" id="glih-sbr" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="main"></div>
+  <div class="field"><label for="glih-stok">token</label><input type="password" id="glih-stok" class="fin" autocomplete="new-password" autocapitalize="off" spellcheck="false" placeholder="(empty = keep the saved one)"></div>
+  <div class="field"><label>lock</label><label class="chk cpchip"><input type="checkbox" id="glih-senc">ENCRYPT</label></div>
+  <div class="field" id="glih-spassrow" hidden><label for="glih-spass">pass</label><input type="password" id="glih-spass" class="fin" autocomplete="off" spellcheck="false" placeholder="passphrase"></div>
+  <div class="sendrow"><button type="button" class="small" id="glih-ssave">save</button><button type="button" class="small" id="glih-sunlock" hidden>unlock</button><button type="button" class="small" id="glih-stest">test</button><button type="button" class="small" id="glih-sclear">clear token</button></div>
+  <div class="cknote" id="glih-sstate"></div>
+  <div class="cknote sendst" id="glih-sst"></div>
+  <div class="cknote">Use a fine-grained token limited to this repository (Contents: Read and write only) with an expiry date. It is kept in this browser only. With ENCRYPT the token is stored encrypted by the passphrase and has to be unlocked once per page load. The send buttons put the same values as the Issue forms into data/inbox/ of the repository.</div>
+</section>
+
+<div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="albums">albums</button><button type="button" data-tab="songs">songs</button><button type="button" data-tab="bulk">bulk</button><button type="button" data-tab="check">check</button></div>
 
 <div hidden><div class="chips" id="glih-groups"><div class="cr"><button type="button" class="chip" data-v="G2">G2</button><button type="button" class="chip" data-v="L2">L2</button></div><div class="cr"><button type="button" class="chip" data-v="YZH">YZH</button><button type="button" class="chip" data-v="MMK">MMK</button><button type="button" class="chip" data-v="MSK">MSK</button><button type="button" class="chip" data-v="YOK">YOK</button><button type="button" class="chip" data-v="KUR">KUR</button><button type="button" class="chip" data-v="MNM">MNM</button><button type="button" class="chip" data-v="KIR">KIR</button></div><div class="cr"><button type="button" class="chip" data-v="TOA">TOA</button><button type="button" class="chip" data-v="RAN">RAN</button></div><div class="cr"><button type="button" class="chip" data-v="RIN">RIN</button><button type="button" class="chip" data-v="TBK">TBK</button><button type="button" class="chip" data-v="HIR">HIR</button><button type="button" class="chip" data-v="YUW">YUW</button><button type="button" class="chip" data-v="KAN">KAN</button><button type="button" class="chip" data-v="RRK">RRK</button><button type="button" class="chip" data-v="AKR">AKR</button><button type="button" class="chip" data-v="KIK">KIK</button></div><div class="cr"><button type="button" class="chip" data-v="YUR">YUR</button></div></div></div>
 
@@ -417,17 +432,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <a class="go" id="glih-go-find" target="_blank" rel="noopener" aria-disabled="true">Issue</a>
 </section>
 
-<section id="glih-p-set" hidden>
-  <div class="field"><label for="glih-srepo">repo</label><input type="text" id="glih-srepo" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="owner/name"></div>
-  <div class="field"><label for="glih-sbr">branch</label><input type="text" id="glih-sbr" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="main"></div>
-  <div class="field"><label for="glih-stok">token</label><input type="password" id="glih-stok" class="fin" autocomplete="new-password" autocapitalize="off" spellcheck="false" placeholder="(empty = keep the saved one)"></div>
-  <div class="field"><label>lock</label><label class="chk cpchip"><input type="checkbox" id="glih-senc">ENCRYPT</label></div>
-  <div class="field" id="glih-spassrow" hidden><label for="glih-spass">pass</label><input type="password" id="glih-spass" class="fin" autocomplete="off" spellcheck="false" placeholder="passphrase"></div>
-  <div class="sendrow"><button type="button" class="small" id="glih-ssave">save</button><button type="button" class="small" id="glih-sunlock" hidden>unlock</button><button type="button" class="small" id="glih-stest">test</button><button type="button" class="small" id="glih-sclear">clear token</button></div>
-  <div class="cknote" id="glih-sstate"></div>
-  <div class="cknote sendst" id="glih-sst"></div>
-  <div class="cknote">Use a fine-grained token limited to this repository (Contents: Read and write only) with an expiry date. It is kept in this browser only. With ENCRYPT the token is stored encrypted by the passphrase and has to be unlocked once per page load. The send buttons put the same values as the Issue forms into data/inbox/ of the repository.</div>
-</section>
+
 
 <script>
 //<![CDATA[
@@ -454,7 +459,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     $('p-find').hidden = !isFind; $('p-songs').hidden = name !== 'songs'; if (name === 'songs') songsInit();
     $('p-albums').hidden = name !== 'albums'; if (name === 'albums') albumsInit();
     $('p-check').hidden = name !== 'check'; if (name === 'check') ckInit();
-    $('p-set').hidden = name !== 'setting'; if (name === 'setting') setInit();
     $('p-bulk').hidden = name !== 'bulk'; if (name === 'bulk') fetchData('logs').catch(function () {});
     if (isFind && $('fkind').value !== name) { $('fkind').value = name; $('fkind').dispatchEvent(new Event('change')); } // logs / setlist share one panel
     [].forEach.call(root.querySelectorAll('.tabs button'), function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === name); });
@@ -3826,7 +3830,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   addSend('go-songs', function () { return delFns.songs ? delFns.songs() : null; });
   addSend('go-albums', function () { return delFns.albums ? delFns.albums() : null; });
   addSend('go-bulk');
-  tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : location.hash === '#check' ? 'check' : location.hash === '#setting' ? 'setting' : location.hash === '#bulk' ? 'bulk' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
+  function setOpen(on) { $('p-set').hidden = !on; $('setbtn').setAttribute('aria-expanded', on ? 'true' : 'false'); if (on) setInit(); }
+  $('setbtn').onclick = function () { setOpen($('p-set').hidden); };
+  if (location.hash === '#setting') setOpen(true);
+  tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : location.hash === '#check' ? 'check' : location.hash === '#bulk' ? 'bulk' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
   if (location.hash === '#songs' && songApi) { // opened with ?artist=...&title=... (the 3-tap on the viewer's song bar): load that song in the songs tab
     var qa = '', qt = '';
     try { var qs = new URLSearchParams(location.search); qa = (qs.get('artist') || '').trim(); qt = (qs.get('title') || '').trim(); } catch (e) {}
