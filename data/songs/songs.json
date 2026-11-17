@@ -706,7 +706,18 @@
   {
     "artist": "Girls²",
     "title": "#キズナプラス",
-    "link": "https://music.youtube.com/watch?v=xNNhQUzdHK8&si=4KwKhWSkA7oPXbUy"
+    "link": "https://music.youtube.com/watch?v=xNNhQUzdHK8&si=4KwKhWSkA7oPXbUy",
+    "lyrics": "https://www.uta-net.com/song/292623/",
+    "videos": [
+      {
+        "type": "MV",
+        "url": "https://www.youtube.com/watch?v=FNcyhCDt9-k"
+      },
+      {
+        "type": "Dance Practice",
+        "url": "https://www.youtube.com/watch?v=xMkAgXCGv9U"
+      }
+    ]
   },
   {
     "artist": "Girls²",
