@@ -785,6 +785,32 @@
     "date": "20220427"
   },
   {
+    "id": "82f0425de1d9",
+    "title": "ガル学。II - Lucky Stars - コンプリートベスト",
+    "type": "album",
+    "artist": "Laki",
+    "member": [
+      "RIN",
+      "YUR",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN"
+    ],
+    "date": "20220323",
+    "tracks": [
+      {
+        "no": 1,
+        "title": "ichigo ～一期一会～"
+      },
+      {
+        "no": 2,
+        "title": "シュワシュワ",
+        "artist": "リナ&ユウラ"
+      }
+    ]
+  },
+  {
     "id": "972bcce8160d",
     "title": "Lucky Time",
     "type": "digital",

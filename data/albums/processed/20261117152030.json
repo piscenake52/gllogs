@@ -1,0 +1,29 @@
+{
+  "title": "ガル学。II - Lucky Stars - コンプリートベスト",
+  "type": "album",
+  "artist": "Laki",
+  "member": [
+    "RIN",
+    "YUR",
+    "TBK",
+    "HIR",
+    "YUW",
+    "KAN"
+  ],
+  "_logids": [
+    "02343dbae4cc"
+  ],
+  "date": "20220323",
+  "tracks": [
+    {
+      "no": 1,
+      "title": "ichigo ～一期一会～"
+    },
+    {
+      "no": 2,
+      "title": "シュワシュワ",
+      "artist": "リナ&ユウラ"
+    }
+  ],
+  "editions": "!clear"
+}
