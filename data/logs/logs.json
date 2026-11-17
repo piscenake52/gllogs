@@ -116241,6 +116241,30 @@
     ]
   },
   {
+    "logid": "84678156659b",
+    "date": "20231119",
+    "time": "1600",
+    "contents": "TOUR",
+    "title": "Girls² LIVE TOUR 2023 -activate- 新潟公演",
+    "url": "https://girls2-fc.jp/page/news/796687717785142329",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "setlistid": "202311191600",
+    "tags": [
+      "新潟テルサ",
+      "activate"
+    ]
+  },
+  {
     "logid": "cd303e22a59b",
     "date": "20231119",
     "time": "1200",
@@ -116280,27 +116304,6 @@
     "groups": [
       "L2",
       "YUR"
-    ]
-  },
-  {
-    "logid": "84678156659b",
-    "date": "20231119",
-    "time": "",
-    "contents": "TOUR",
-    "title": "Girls² LIVE TOUR 2023 -activate- 新潟公演",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "新潟テルサ"
     ]
   },
   {
