@@ -16,6 +16,89 @@ ARTIST_JOIN = ", "  # 複数アーティストの連結文字（issue_to_json.py
 LOGID_LENGTH = 12  # logid の桁数（UUIDの先頭から取る16進数）
 NOTICE_FILE = "merge_notice.md"  # 削除対象が見つからなかった等をIssueにコメントするための一時ファイル（コミットされない）
 NOTICES = []
+REPORT_FILE = "queue_report.md"  # 詳細なエラー原因の一覧（コミットされない。Actionsの実行結果画面にも出す）
+REPORT = []  # {"target","file","index","level","reason"}
+CTX = {"target": "", "file": "", "index": None}
+
+
+class _Tee:
+    """標準出力をそのまま流しつつ、【スキップ】【警告】【エラー】の行を、どのファイル何件目かと一緒に記録する"""
+
+    def __init__(self, base):
+        self.base = base
+        self.buf = ""
+
+    def write(self, text):
+        self.base.write(text)
+        self.buf += text
+        while "\n" in self.buf:
+            line, self.buf = self.buf.split("\n", 1)
+            for mark, level in (("【スキップ】", "skip"), ("【警告】", "warn"), ("【エラー】", "error")):
+                if line.startswith(mark):
+                    report_add(level, line[len(mark):].strip())
+                    break
+        return len(text)
+
+    def flush(self):
+        self.base.flush()
+
+    def __getattr__(self, name):
+        return getattr(self.base, name)
+
+
+def report_add(level, reason, **over):
+    row = {"target": CTX["target"], "file": CTX["file"], "index": CTX["index"], "level": level, "reason": reason}
+    row.update(over)
+    REPORT.append(row)
+
+
+def explain_json_error(file_path, e):
+    """JSONの構文エラーを、行・桁・該当箇所つきで分かりやすい文にする"""
+    msg = f"JSONの形式が不正です（{e.lineno}行目 {e.colno}桁目付近: {e.msg}）"
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            lines = f.read().split("\n")
+        if 0 < e.lineno <= len(lines):
+            msg += f" / 該当行: `{lines[e.lineno - 1].strip()[:80]}`"
+    except Exception:
+        pass
+    hints = {
+        "Expecting ',' delimiter": "（カンマ , の付け忘れ、または括弧・引用符の閉じ忘れの可能性）",
+        "Expecting property name": "（最後の項目の後ろに余計なカンマ , がある可能性）",
+        "Expecting value": "（値が空、または余計なカンマの可能性）",
+        "Unterminated string": "（文字列の \" が閉じられていません）",
+        "Extra data": "（JSONの後ろに余計な文字があります。複数のオブジェクトは [ ] で囲んでください）",
+    }
+    for k, v in hints.items():
+        if e.msg.startswith(k):
+            msg += v
+            break
+    return msg
+
+
+def write_report():
+    """REPORT を queue_report.md と GITHUB_STEP_SUMMARY に書く。問題がなければ何も出さない"""
+    if os.path.exists(REPORT_FILE):
+        os.remove(REPORT_FILE)
+    if not REPORT:
+        return
+    names = {"skip": "スキップ", "warn": "警告", "error": "エラー"}
+    lines = ["### キュー処理の詳細（エラー・スキップの原因）", "",
+             "| 種別 | 対象 | ファイル | 件目 | 原因 |", "|---|---|---|---|---|"]
+    for r in REPORT:
+        reason = str(r["reason"]).replace("|", "\\|").replace("\n", " ")
+        if len(reason) > 300:
+            reason = reason[:300] + "…"
+        idx = "" if r["index"] is None else str(r["index"] + 1)
+        lines.append(f"| {names.get(r['level'], r['level'])} | {r['target']} | {os.path.basename(r['file'])} | {idx} | {reason} |")
+    lines += ["", "エラーのファイルはキューに残り、次回の実行で再試行されます（JSONを直して同じ場所に置き直すか、Actionsの Run workflow で再実行）。"]
+    text = "\n".join(lines) + "\n"
+    with open(REPORT_FILE, "w", encoding="utf-8") as f:
+        f.write(text)
+    summ = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summ:
+        with open(summ, "a", encoding="utf-8") as f:
+            f.write(text)
 REPEAT_LIMIT = 60  # 繰り返し登録の最大件数
 ISSUE_MAP_FILE = "data/issue_map.json"  # {Issue番号: logid}  Issue再編集時に同じログを更新するための対応表
 
@@ -1167,30 +1250,49 @@ def process_target(target, issue_map):
     stats = {"added": 0, "updated": 0, "deleted": 0, "notfound": 0, "conflict": 0, "invalid": 0}
     parsed_files = []
 
+    CTX["target"] = target["name"]
     for file_path in json_files:
+        CTX["file"] = file_path
+        CTX["index"] = None
         try:
             with open(file_path, "r", encoding="utf-8") as f:
                 new_items = json.load(f)
         except json.JSONDecodeError as e:
-            print(f"【エラー】不正なJSON形式のためファイルをスキップします: {file_path} -> {e}")
+            reason = explain_json_error(file_path, e)
+            print(f"処理を中断: {file_path} -> {reason}")
+            report_add("error", reason + "。キューに残します")
+            continue
+        except UnicodeDecodeError as e:
+            report_add("error", f"UTF-8として読めません（{e.reason}）。文字コードをUTF-8にして保存し直してください。キューに残します")
             continue
         except Exception as e:
-            print(f"【エラー】ファイルの処理中に予期せぬエラーが発生しました {file_path} -> {e}")
+            print(f"処理を中断: {file_path} -> {e}")
+            report_add("error", f"ファイルを読み込めません（{type(e).__name__}: {e}）。キューに残します")
             continue
 
         if isinstance(new_items, dict):
             new_items = [new_items]
         elif not isinstance(new_items, list):
-            print(f"スキップ: {file_path} の中身がオブジェクトまたは配列ではありません。")
+            report_add("error", f"中身がオブジェクト {{ }} または配列 [ ] ではありません（{type(new_items).__name__}）。キューに残します")
             continue
 
-        for raw in new_items:
+        for i, raw in enumerate(new_items):
+            CTX["index"] = i
             if not isinstance(raw, dict):
+                report_add("skip", f"{i + 1}件目がオブジェクト {{ }} ではありません（{type(raw).__name__}）")
+                stats["invalid"] += 1
                 continue
-            if "_bulk" in raw:
-                stats["updated"] += apply_bulk(target, main_data, raw["_bulk"])
-                continue
-            stats[apply_item(target, main_data, raw, issue_map)] += 1
+            try:
+                if "_bulk" in raw:
+                    stats["updated"] += apply_bulk(target, main_data, raw["_bulk"])
+                    continue
+                stats[apply_item(target, main_data, raw, issue_map)] += 1
+            except Exception as e:  # 1件の想定外エラーで全体を止めない
+                import traceback
+                tb = traceback.extract_tb(e.__traceback__)[-1]
+                report_add("error", f"想定外のエラー: {type(e).__name__}: {e}（merge_json.py {tb.lineno}行目 {tb.name}）")
+                stats["invalid"] += 1
+        CTX["index"] = None
         parsed_files.append(file_path)
 
     changed = stats["added"] + stats["updated"] + stats["deleted"]
@@ -1269,6 +1371,7 @@ def main():
     if "--rebuild-manifest" in sys.argv:  # データを手で直接編集したときなど: マニフェストだけ作り直す
         write_manifest()
         return
+    sys.stdout = _Tee(sys.stdout)
     issue_map_raw = {}
     if os.path.exists(ISSUE_MAP_FILE):
         try:
@@ -1296,6 +1399,10 @@ def main():
     if not updated:
         print("新規に追加・更新された有効なデータはありませんでした。")
     write_manifest()  # 毎回(変更がなくても)。内容が同じなら何も書かない
+    write_report()
+    # 読み込めなかったファイルがあるときは終了コード1（Actionsで失敗表示にして気づけるように。データの保存は先に済んでいる）
+    if any(r["level"] == "error" for r in REPORT):
+        sys.exit(1)
 
 
 if __name__ == "__main__":
