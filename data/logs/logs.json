@@ -2565,6 +2565,45 @@
     ]
   },
   {
+    "logid": "b30dca5bf2c3",
+    "date": "20261117",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　ワンダンス",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2122601155503227018?a=iBkZJ56B8Qykvrpus-k&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSpt2Kx6c/",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "リズムゲーム"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "17f4d2d036af",
     "date": "20261116",
     "time": "2359",
