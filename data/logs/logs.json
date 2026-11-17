@@ -2287,6 +2287,45 @@
     ]
   },
   {
+    "logid": "d8f4ab9a29d3",
+    "date": "20261117",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2122525139635966384?a=8eKZm1Lh8PMREoadfvY&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "TV出演情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "17f4d2d036af",
     "date": "20261116",
     "time": "2359",
