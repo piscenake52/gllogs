@@ -1,8 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "a4ada628d4b6",
-  "tags": "=,がるがるトーク"
- },
- "created": "2026-11-17T22:14:46Z"
-}
