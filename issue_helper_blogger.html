@@ -86,8 +86,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .out code { font-size:14px; color:var(--text); background:var(--btn); border:0; border-radius:6px; padding:3px 8px; min-width:6em; text-align:center; }
 #glih a.go { display:block; text-align:center; padding:11px; border-radius:10px; background:var(--accent); color:var(--accent-text) !important; text-decoration:none !important; font-size:14px; font-weight:600; }
 #glih button.go { display:block; width:100%; text-align:center; padding:11px; border-radius:10px; border:0; background:var(--accent); color:var(--accent-text); font:inherit; font-size:14px; font-weight:600; cursor:pointer; margin:0 0 10px; box-shadow:none; }
-#glih a.go[aria-disabled="true"] { opacity:.4; pointer-events:none; }
-#glih .sendrow { display:flex; gap:6px; margin-top:8px; } #glih .sendrow button.go { flex:1; margin:0; } #glih .sendrow button.go:disabled { opacity:.4; } #glih .sendrow .small { flex:0 0 auto; } #glih .sendst { white-space:pre-wrap; margin-top:6px; }
+#glih a.go[aria-disabled="true"] { display:none; } /* nothing to send yet (first view, after new, input not complete): the Issue and send buttons are hidden */
+#glih .sendrow[hidden] { display:none; } #glih .sendrow { display:flex; gap:6px; margin-top:8px; } #glih .sendrow button.go { flex:1; margin:0; } #glih .sendrow button.go:disabled { opacity:.4; } #glih .sendrow .small { flex:0 0 auto; } #glih .sendst { white-space:pre-wrap; margin-top:6px; }
 #glih .fin, #glih .fta, #glih .fsel { flex:1; min-width:0; width:auto; margin:0; padding:8px; font:inherit; font-size:16px; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; box-shadow:none; }
 #glih .fta { min-height:4.5em; resize:vertical; font-size:13px; line-height:1.4; }
 #glih .fin { font-size:13px; line-height:1.4; } /* テキストボックスもテキストエリアと同じ文字サイズに */
@@ -320,8 +320,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih a.fx { display:block; text-decoration:none !important; }
 #glih a.fx svg { width:14px; height:14px; vertical-align:middle; margin-top:-2px; }
 #glih .toplink { margin:0 0 8px; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:space-between; }
-#glih .setbtn { position:fixed; right:12px; bottom:12px; z-index:50; font-size:11px; padding:5px 11px; margin:0; background:var(--btn); color:var(--text); border:1px solid var(--line); box-shadow:0 2px 8px rgba(0,0,0,.35); } #glih .setbtn[aria-expanded="true"] { background:var(--accent); color:var(--accent-text); }
-#glih .setp { position:fixed; right:12px; bottom:52px; z-index:50; width:min(380px, calc(100vw - 24px)); max-height:calc(100vh - 80px); overflow:auto; box-sizing:border-box; background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:10px; box-shadow:0 4px 18px rgba(0,0,0,.45); }
+#glih .setbtnrow { text-align:right; margin-top:8px; } #glih .setbtn { font-size:11px; padding:4px 11px; margin:0; } #glih .setbtn[aria-expanded="true"] { background:var(--accent); color:var(--accent-text); }
+#glih .setp { border:1px solid var(--line); border-radius:10px; padding:10px; margin:12px 0 0; }
 #glih .toplink a { color:var(--sub) !important; text-decoration:none !important; }
 #glih .toplink a:hover { color:var(--text) !important; text-decoration:underline !important; }
 #glih .fx.ta { top:8px; transform:none; }
@@ -332,18 +332,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 
 <div class="toplink"><a href="https://gl-log.blogspot.com/" target="_blank" rel="noopener">GL log</a></div>
 
-<button type="button" class="small setbtn" id="glih-setbtn" aria-expanded="false" title="setting">setting</button>
-<section id="glih-p-set" class="setp" hidden>
-  <div class="field"><label for="glih-srepo">repo</label><input type="text" id="glih-srepo" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="owner/name"></div>
-  <div class="field"><label for="glih-sbr">branch</label><input type="text" id="glih-sbr" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="main"></div>
-  <div class="field"><label for="glih-stok">token</label><input type="password" id="glih-stok" class="fin" autocomplete="new-password" autocapitalize="off" spellcheck="false" placeholder="(empty = keep the saved one)"></div>
-  <div class="field"><label>lock</label><label class="chk cpchip"><input type="checkbox" id="glih-senc">ENCRYPT</label></div>
-  <div class="field" id="glih-spassrow" hidden><label for="glih-spass">pass</label><input type="password" id="glih-spass" class="fin" autocomplete="off" spellcheck="false" placeholder="passphrase"></div>
-  <div class="sendrow"><button type="button" class="small" id="glih-ssave">save</button><button type="button" class="small" id="glih-sunlock" hidden>unlock</button><button type="button" class="small" id="glih-stest">test</button><button type="button" class="small" id="glih-sclear">clear token</button></div>
-  <div class="cknote" id="glih-sstate"></div>
-  <div class="cknote sendst" id="glih-sst"></div>
-  <div class="cknote">Use a fine-grained token limited to this repository (Contents: Read and write only) with an expiry date. It is kept in this browser only. With ENCRYPT the token is stored encrypted by the passphrase and has to be unlocked once per page load. The send buttons put the same values as the Issue forms into data/inbox/ of the repository.</div>
-</section>
+
 
 <div class="tabs"><button type="button" data-tab="logs" class="on">logs</button><button type="button" data-tab="setlist">setlist</button><button type="button" data-tab="albums">albums</button><button type="button" data-tab="songs">songs</button><button type="button" data-tab="bulk">bulk</button><button type="button" data-tab="check">check</button></div>
 
@@ -433,6 +422,21 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 </section>
 
 
+
+<div class="setfoot">
+<section id="glih-p-set" class="setp" hidden>
+  <div class="field"><label for="glih-srepo">repo</label><input type="text" id="glih-srepo" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="owner/name"></div>
+  <div class="field"><label for="glih-sbr">branch</label><input type="text" id="glih-sbr" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="main"></div>
+  <div class="field"><label for="glih-stok">token</label><input type="password" id="glih-stok" class="fin" autocomplete="new-password" autocapitalize="off" spellcheck="false" placeholder="(empty = keep the saved one)"></div>
+  <div class="field"><label>lock</label><label class="chk cpchip"><input type="checkbox" id="glih-senc">ENCRYPT</label></div>
+  <div class="field" id="glih-spassrow" hidden><label for="glih-spass">pass</label><input type="password" id="glih-spass" class="fin" autocomplete="off" spellcheck="false" placeholder="passphrase"></div>
+  <div class="sendrow"><button type="button" class="small" id="glih-ssave">save</button><button type="button" class="small" id="glih-sunlock" hidden>unlock</button><button type="button" class="small" id="glih-stest">test</button><button type="button" class="small" id="glih-sclear">clear token</button></div>
+  <div class="cknote" id="glih-sstate"></div>
+  <div class="cknote sendst" id="glih-sst"></div>
+  <div class="cknote">Use a fine-grained token limited to this repository (Contents: Read and write only) with an expiry date. It is kept in this browser only. With ENCRYPT the token is stored encrypted by the passphrase and has to be unlocked once per page load. The send buttons put the same values as the Issue forms into data/inbox/ of the repository.</div>
+</section>
+<div class="setbtnrow"><button type="button" class="small setbtn" id="glih-setbtn" aria-expanded="false" title="setting">setting</button></div>
+</div>
 
 <script>
 //<![CDATA[
@@ -776,7 +780,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   // ---- find tab: look up a logid / setlistid in the data file on GitHub (raw, always latest) and prefill the issue form with the changed fields only ----
   var BRANCH = 'main', DATA = { logs: 'data/logs/logs.json', setlist: 'data/setlist/setlist.json', songs: 'data/songs/songs.json', albums: 'data/albums/albums.json' }, cache = {};
   // ---- setting tab + direct send: instead of opening an Issue, put the same form values into data/inbox/<id>.json of the repository (GitHub contents API). The workflow turns it into the queue json (same code as the Issue forms) and writes data/inbox/results/<id>.json, which is polled here ----
-  var SET_KEY = 'glih_set', DELTXT = '\u524a\u9664\u3059\u308b', cfg = { mode: 'plain', token: '', enc: null }, tok = '', delFns = {};
+  var SHOW_DEL = false, /* the delete buttons are off (delete from the Issue form); the code stays: set true to show them */ SET_KEY = 'glih_set', DELTXT = '\u524a\u9664\u3059\u308b', cfg = { mode: 'plain', token: '', enc: null }, tok = '', delFns = {};
   (function () { try { var o = JSON.parse(localStorage.getItem(SET_KEY) || 'null'); if (o && typeof o === 'object') { cfg = Object.assign(cfg, o); if (/^[\w.-]+\/[\w.-]+$/.test(o.repo || '')) REPO = o.repo; if (/^[\w.\/-]+$/.test(o.branch || '')) BRANCH = o.branch; if (cfg.mode !== 'enc') tok = cfg.token || ''; } } catch (e) {} })();
   function cfgSave() { try { localStorage.setItem(SET_KEY, JSON.stringify({ repo: REPO, branch: BRANCH, mode: cfg.mode, token: cfg.mode === 'enc' ? '' : cfg.token, enc: cfg.mode === 'enc' ? cfg.enc : null })); return true; } catch (e) { return false; } }
   function b64(buf) { var s = '', a = new Uint8Array(buf); for (var i = 0; i < a.length; i++) s += String.fromCharCode(a[i]); return btoa(s); }
@@ -884,10 +888,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function addSend(aid, delFn) { // a send button under the Issue link: it sends the same values (read back from the link), plus an optional delete
     var a = $(aid); if (!a) return;
     var row = document.createElement('div'); row.className = 'sendrow'; var sb = document.createElement('button'); sb.type = 'button'; sb.className = 'go'; sb.textContent = 'send'; row.appendChild(sb);
-    var db = null; if (delFn) { db = document.createElement('button'); db.type = 'button'; db.className = 'small'; db.textContent = 'delete'; row.appendChild(db); }
+    var db = null; if (delFn && SHOW_DEL) { db = document.createElement('button'); db.type = 'button'; db.className = 'small'; db.textContent = 'delete'; row.appendChild(db); }
     var st = document.createElement('div'); st.className = 'cknote sendst'; a.parentNode.insertBefore(row, a.nextSibling); row.parentNode.insertBefore(st, row.nextSibling);
     var busy = false;
-    function sync() { sb.disabled = busy || a.getAttribute('aria-disabled') === 'true' || !a.getAttribute('href'); if (db) db.disabled = busy || !delFn(); }
+    function sync() { var off = a.getAttribute('aria-disabled') === 'true' || !a.getAttribute('href'); row.hidden = off && !busy; sb.disabled = busy || off; if (db) db.disabled = busy || !delFn(); }
     sendSyncs.push(sync); try { new MutationObserver(sync).observe(a, { attributes: true, attributeFilter: ['aria-disabled', 'href'] }); } catch (e) {}
     sb.onclick = function () {
       var u; try { u = new URL(a.href); } catch (e) { return; }
@@ -903,7 +907,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   var DEFS = {
     logs: { idKey: 'logid', tpl: TPL_LOGS, fields: [
-      { k: 'date' }, { k: 'time' }, { k: 'groups', p: 'groups_free', list: 1 }, { k: 'contents', p: 'contents_free' }, { k: 'title', p: 'item_title', ta: 1 }, { k: 'display_pc' }, { k: 'display_sp' }, { k: 'url' }, { k: 'map' }, { k: 'setlistid' },
+      { k: 'date' }, { k: 'time' }, { k: 'groups', p: 'groups_free', list: 1 }, { k: 'contents', p: 'contents_free' }, { k: 'title', p: 'item_title', ta: 1 }, { k: 'display_pc' }, { k: 'display_sp' }, { k: 'url' }, { k: 'venue' }, { k: 'map' }, { k: 'setlistid' },
       { k: 'relations', p: 'relations_free', list: 1 }, { k: 'tags', list: 1 }, { k: 'sns', ta: 1 } ] },
     setlist: { idKey: 'setlistid', tpl: TPL_SETLIST, fields: [
       { k: 'title', p: 'item_title', ta: 1 }, { k: 'artist', p: 'artist_free' }, { k: 'member', p: 'member_free', list: 1 }, { k: 'venue' }, { k: 'weather', chk: 2 }, { k: 'source', chk: 1 }, { k: 'songs', ta: 1 } ] }
@@ -1507,6 +1511,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     return base.concat(CONTENTS_LIST.filter(function (c) { return !seen[c]; }).map(function (c) { return { v: c, k: normQ(c) }; }));
   }
   var contentsOptions = makeOpts('contents', ['logs'], function (m) { rowsOf('logs').forEach(function (r) { if (r) addTo(m, r.contents); }); });
+  var venueOpts = makeOpts('venue', ['logs'], function (m) { rowsOf('logs').forEach(function (r) { if (r) addTo(m, r.venue); }); }); // venue names already used in logs (most used first)
+  var venueAsked = false; // the light index of an older build has no venue: the full logs.json is read once for the candidates
+  function venueNeed() { if (venueAsked || cache.logs) return; venueAsked = true; fetchIndex('logs').then(function (ixr) { if (!(ixr || []).some(function (r) { return r && r.venue; })) fetchData('logs').then(function () { optMemo = {}; }, function () {}); }, function () {}); }
   var AREA_CONTENTS = ['LIVE', 'RELEASEEVENT', 'FANMEETING', 'ANNIVERSARYLIVE'];
   function areaOf(r) { if (!r || AREA_CONTENTS.indexOf(r.contents) < 0 || typeof r.title !== 'string') return ''; var ps = r.title.trim().split(/[ \u3000]+/); if (ps.length < 2) return ''; var a = ps[ps.length - 1].replace(/\u516c\u6f14$/, ''); return a && a.length <= 12 && a.charAt(0) !== '#' ? a : ''; }
   var areaOptions = makeOpts('area', ['logs'], function (m) { rowsOf('logs').forEach(function (r) { var a = areaOf(r); if (a) addTo(m, a); }); });
@@ -2139,7 +2146,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     r.suffix = sx.value.trim() || DEFSX;
     return r;
   }
-  var CLRK = { logs: ['time', 'groups', 'contents', 'title', 'display_pc', 'display_sp', 'url', 'map', 'setlistid', 'relations'], setlist: ['weather', 'title', 'artist', 'member', 'venue', 'songs'] }; // fields that an emptied value clears (date / songs_patch / tags / sns have their own rules)
+  var CLRK = { logs: ['time', 'groups', 'contents', 'title', 'display_pc', 'display_sp', 'url', 'venue', 'map', 'setlistid', 'relations'], setlist: ['weather', 'title', 'artist', 'member', 'venue', 'songs'] }; // fields that an emptied value clears (date / songs_patch / tags / sns have their own rules)
   function updateFind() {
     if (!found) { setLink($('go-find'), ''); showDiff([]); warnRun(); return; }
     refreshJson();
@@ -2157,7 +2164,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       else if (ch && !found.isNew && CLRK[found.kind].indexOf(f.k) >= 0) { p[f.p || f.k] = '!clear'; n++; dl.push([f.k, '(cleared)', one(orig[f.k])]); } // emptied on an existing record: sent as !clear (the whole element is removed; no delete check needed)
       else if (ch) dl.push([f.k, '(empty)', one(orig[f.k]), 'not sent']);
     });
-    if (found.kind === 'logs' && found.isNew && $('rpon') && $('rpon').checked && repMode() === 'tour') { ['map', 'setlistid'].forEach(function (k) { if (p[k] !== undefined) { delete p[k]; n--; } }); dl = dl.filter(function (x) { return ['map', 'setlistid'].indexOf(x[0]) < 0; }); } // tour mode: those are per show
+    if (found.kind === 'logs' && found.isNew && $('rpon') && $('rpon').checked && repMode() === 'tour') { ['map', 'venue', 'setlistid'].forEach(function (k) { if (p[k] !== undefined) { delete p[k]; n--; } }); dl = dl.filter(function (x) { return ['map', 'setlistid'].indexOf(x[0]) < 0; }); } // tour mode: those are per show
     if (found.kind === 'logs' && found.isNew && $('rpon') && $('rpon').checked) { // repeat: display_pc is not used; display_sp only comes from the interval optional (schedule / tour have their own)
       ['display_pc'].concat(repMode() === 'interval' ? [] : ['display_sp']).forEach(function (k) { if (p[k] !== undefined) { delete p[k]; n--; } }); dl = dl.filter(function (x) { return x[0] !== 'display_pc' && (repMode() === 'interval' || x[0] !== 'display_sp'); });
     }
@@ -2372,8 +2379,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var t = toText(kind, f, row); orig[f.k] = t; el.value = t;
       el.addEventListener('input', updateFind); if (kind === 'logs' && (f.k === 'contents' || f.k === 'groups')) el.addEventListener('input', autoSnsTitle);
       if (f.chk) { (f.chk === 2 ? addWeatherChips : addSourceChips)(wrap, lb, el); box.appendChild(wrap); return; } // OFFICIAL / UNOFFICIAL: two exclusive chips (the text box stays hidden and keeps the value; both off = empty)
-      wrap.appendChild(lb); wrap.appendChild(el); (kind === 'logs' && f.k === 'sns' ? snsHolder(box, el) : box).appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'map') addMapHtml(el); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'tags') addSuggest(el, tagOptsSmart, null, true, true, function () { return 12; }); if (kind === 'logs' && f.k === 'sns') addNewSnsList(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'logs' && f.k === 'title') addSuggest(el, logsTitleOpts, null, true, false, function () { return 8; }); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsList(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
+      wrap.appendChild(lb); wrap.appendChild(el); (kind === 'logs' && f.k === 'sns' ? snsHolder(box, el) : box).appendChild(wrap); addClear(el); addRevert(el, f.k); if (kind === 'logs' && (f.k === 'groups' || f.k === 'relations')) addGroupChips(el); if (kind === 'logs' && f.k === 'setlistid') addJump(el); if (kind === 'logs' && (f.k === 'url' || f.k === 'map')) addOpen(el, 51); if (kind === 'logs' && f.k === 'map') addMapHtml(el); if (kind === 'logs' && f.k === 'sns') addSnsHelper(el); if (kind === 'logs' && (f.k === 'tags' || f.k === 'sns')) addOrigToggles(el, f.k); if (kind === 'logs' && f.k === 'tags') addSuggest(el, tagOptsSmart, null, true, true, function () { return 12; }); if (kind === 'logs' && f.k === 'sns') addNewSnsList(el); if (kind === 'logs' && f.k === 'contents') addSuggest(el, lxContents, null, true); if (kind === 'logs' && f.k === 'venue') { addSuggest(el, venueOpts, null, true, false, function () { return 12; }); el.addEventListener('focus', venueNeed); } if (kind === 'logs' && f.k === 'title') addSuggest(el, logsTitleOpts, null, true, false, function () { return 8; }); if (kind === 'setlist' && f.k === 'venue') addSuggest(el, venueOptions, null, true); if (kind === 'setlist' && f.k === 'artist') addArtistChips(el); if (kind === 'setlist' && f.k === 'member') addGroupChips(el, true); if (kind === 'setlist' && f.k === 'songs') addSongsList(el, row, isNew); if (kind === 'logs' && (f.k === 'date' || f.k === 'time')) useNative(el, f.k, f.k);
     });
+    if (kind === 'logs' && !isNew && $('f-time')) addAnyCopy($('f-time'));
     if (kind === 'logs' && !isNew) { var tf = $('f-time'), tfl = tf && tf.closest('.field'); if (tfl) { box.insertBefore($('fcprow'), tfl.nextSibling); box.insertBefore($('fcontrow'), $('fcprow').nextSibling); } } // existing logs: copy / next go right under the form's own time
     var jb = $('fjson'); jb.classList.remove('bad'); $('fcprow').hidden = !!isNew; $('fjrow').hidden = false; refreshJson(true); setJsonOpen(jsonOpen);
     if (kind === 'setlist') { var sa0 = $('f-artist'), sm0 = $('f-member'); if (sa0 && sm0) mergeMember(sa0, sm0, sm0.closest('.field')); } // artist + member in one field
@@ -2451,6 +2459,16 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
     jb.value = JSON.stringify([row], null, 2); jb.classList.remove('bad'); if (jsonOpen) sizeJson();
   }
+  // logs COPY: the anytime check next to the form's own time (shown only while COPY is on). Checking it empties the time (sent as !clear = the copy has no time); a time typed unchecks it
+  var anyCp = null;
+  function syncAnyCopy(e) { if (!anyCp) return; anyCp.l.hidden = !$('fcp').checked; if (!e || e.target !== $('fcp')) anyCp.c.checked = anyCp.t.value.trim() === ''; else if (anyCp.t.value.trim() !== '') anyCp.c.checked = false; }
+  function addAnyCopy(tf) {
+    var l = document.createElement('label'), c = document.createElement('input'); l.className = 'chk'; l.style.margin = '0 0 0 8px'; c.type = 'checkbox'; l.appendChild(c); l.appendChild(document.createTextNode('anytime'));
+    var wrap = tf.closest('.field') || tf.parentNode; wrap.appendChild(l); anyCp = { l: l, c: c, t: tf };
+    c.addEventListener('change', function () { if (c.checked) { tf.value = ''; tf.dispatchEvent(new Event('input', { bubbles: true })); } else if (tf.value.trim() === '' && orig.time) { tf.value = orig.time; tf.dispatchEvent(new Event('input', { bubbles: true })); c.checked = false; } }); // unchecked: the original time comes back (a source without a time stays empty)
+    tf.addEventListener('input', syncAnyCopy); syncAnyCopy();
+  }
+  $('fcp').addEventListener('change', syncAnyCopy);
   function parkCopyRows() { var f0 = $('frt'); f0.parentNode.insertBefore($('fcprow'), f0.nextSibling); f0.parentNode.insertBefore($('fcontrow'), $('fcprow').nextSibling); } // copy / next live under the form's time in existing-logs mode; back to the top place before the form box is cleared
   function clearFound() { parkCopyRows(); found = null; seedId = ''; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('fansrow').hidden = true; $('fansx').value = DEFSX; $('ff').innerHTML = ''; $('frefrow').hidden = true; if ($('falbrow')) { $('falbrow').hidden = true; $('falbbox').innerHTML = ''; } $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
   // ---- repeat registration (new logs only): the date list is built here (every N days / weeks / months, until a date and / or a count, minus skipped dates), previewed with check boxes and sent as the repeat field of the form (one yyyymmdd per line; the server counts up the #number of the title for each row) ----
@@ -2694,7 +2712,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var cf = $('f-contents') && $('f-contents').closest('.field'); if (cf) cf.hidden = on.checked && mode === 'schedule'; // schedule: each row has its own contents (the start row starts from the value typed here)
       var qm = $('rpmd').children; for (i = 0; i < qm.length; i++) qm[i].classList.toggle('on', on.checked && qm[i].getAttribute('data-m') === mode);
       var tourOn = on.checked && mode === 'tour';
-      ['map'].forEach(function (k) { var e = $('f-' + k), fl = e && e.closest('.field'); if (fl) fl.hidden = tourOn; }); sidSync(); // tour mode: map / setlistid are per show (below). tags stay: they are common to every show (each show adds its own)
+      ['map', 'venue'].forEach(function (k) { var e = $('f-' + k), fl = e && e.closest('.field'); if (fl) fl.hidden = tourOn; }); sidSync(); // tour mode: map / setlistid are per show (below). tags stay: they are common to every show (each show adds its own)
       ['display_pc', 'display_sp'].forEach(function (k) { var e = $('f-' + k), fl = e && e.closest('.field'); if (fl) fl.hidden = on.checked; }); // repeat: display_pc / display_sp are not typed here (optional below / each mode has its own)
       var fbx = $('f-display_pc') && $('f-display_pc').closest('.fbox'); if (fbx) { fbx.hidden = !fbx.querySelector('.field:not([hidden])'); if (fbx.previousElementSibling && fbx.previousElementSibling.classList.contains('fbh')) fbx.previousElementSibling.hidden = fbx.hidden; }
       if (tourOn && !asked) { asked = true; fetchIndex('logs').catch(function () {}); }
