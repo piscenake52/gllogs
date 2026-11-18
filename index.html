@@ -4583,12 +4583,13 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     'live': '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/>',
     'reaction': '<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5a4 4 0 0 0 7 0M9 9.6h.01M15 9.6h.01"/>',
     'call lecture': '<path d="M4 10v4h3l7 4V6L7 10H4z"/><path d="M17.5 9a4 4 0 0 1 0 6"/>',
-    'other': '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/>'
+    'other': '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/>',
+    'fancam': SNS_TYPE_ICON_PATHS.fancam // snsポップアップのFancamと同じアイコン
   };
   const VIDEO_TYPE_LABELS = { 'mv': 'Music Video' }; // 表示名が登録名と違うものだけ(それ以外は登録した名前のまま)
   // 線画のアイコン: snsのFancam / ETCと同じ作り(余白を切り詰めた viewBox=20x20、線の太さ2)にして、大きさと線の太さをsnsポップアップのアイコンにそろえる
   // 各アイコンの表示範囲(viewBox): 図形の外枠(線の太さ2を含む)の長いほうの辺が、snsのアイコン(Fancam/ETC)と同じく枠いっぱいになるようにそろえる。線の太さは描画後に1.5pxで同じになるよう、枠の大きさに比例させる(=2×枠/20)
-  const VIDEO_ICON_VB = { 'mv': [3, 3.9, 18], 'dance practice': [4.15, 1.8, 20.2], 'lyric': [3, 3.75, 18], 'live': [2, 2, 20], 'reaction': [2, 2, 20], 'call lecture': [3, 3.58, 16.85], 'other': [2, 2, 20] };
+  const VIDEO_ICON_VB = { 'mv': [3, 3.9, 18], 'dance practice': [4.15, 1.8, 20.2], 'lyric': [3, 3.75, 18], 'live': [2, 2, 20], 'reaction': [2, 2, 20], 'call lecture': [3, 3.58, 16.85], 'other': [2, 2, 20], 'fancam': [2, 1.65, 20] };
   const videoIconHtml = key => { const k = VIDEO_ICON_PATHS[key] ? key : 'other', b = VIDEO_ICON_VB[k]; return `<svg class="sns-modal-ic" viewBox="${b[0]} ${b[1]} ${b[2]} ${b[2]}" fill="none" stroke="currentColor" stroke-width="${+(2 * b[2] / 20).toFixed(3)}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${VIDEO_ICON_PATHS[k]}</svg>`; };
   const setVidTagMode = (on, animate) => setTagModeFor({ body: vidModalBody, box: vidModalBox, sw: vidTagSwitch }, on, animate);
   vidTagSwitch.onclick = () => {

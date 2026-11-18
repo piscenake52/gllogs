@@ -560,7 +560,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var haveSongs = Object.keys(songKeys).length > 0; // songs.json could not be read: the song checks are skipped (everything would look unregistered)
     var slById = {}; SL.forEach(function (e) { if (e && e.setlistid) slById[String(e.setlistid)] = e; });
     var alIds = {}; AL.forEach(function (a) { if (a && a.id) alIds[a.id] = a; });
-    var openSl = function (sid, r) { return function () { var g = function (a) { return (r && r[a] && r[a].join) ? r[a].join(',') : ''; }; jumpSeed = r ? { sid: sid, title: r.title || '', groups: g('groups'), tags: g('tags') } : null; tab('setlist'); toTop(); try { history.replaceState(null, '', '#setlist'); } catch (e) {} $('fid').value = sid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); }; };
+    var openSl = function (sid, r) { return function () { var g = function (a) { return (r && r[a] && r[a].join) ? r[a].join(',') : ''; }; jumpSeed = r ? { sid: sid, title: r.title || '', groups: g('groups'), tags: g('tags'), venue: r.venue || '' } : null; tab('setlist'); toTop(); try { history.replaceState(null, '', '#setlist'); } catch (e) {} $('fid').value = sid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); }; };
     var openAl = function (a, seed) { return function () { gotoAlbum(a, seed || { title: a.title || '', type: a.type || '', date: a.date || '', groups: '', logid: '' }); }; };
     // 1) setlist not registered (past only; the rows that share one setlistid are one item)
     var SLC = ['LIVE', 'TOUR', 'RELEASEEVENT', 'FANMEETING'], bySid = {};
@@ -1366,7 +1366,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var wrap = el.parentNode; wrap.classList.add('hasfp');
     var b = document.createElement('button'); b.type = 'button'; b.className = 'fx fp'; b.textContent = '\u2197'; b.title = 'open setlist'; b.setAttribute('aria-label', 'open setlist');
     var sync = function () { b.hidden = !/^\d{12}$/.test(el.value.trim()); };
-    b.onclick = function () { var sid = el.value.trim(); var gv = function (k) { var e = $('f-' + k); return e ? e.value : ''; }; jumpSeed = { sid: sid, title: gv('title'), groups: gv('groups'), tags: gv('tags') }; tab('setlist'); toTop(); try { history.replaceState(null, '', '#setlist'); } catch (e) {} $('fid').value = sid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); };
+    b.onclick = function () { var sid = el.value.trim(); var gv = function (k) { var e = $('f-' + k); return e ? e.value : ''; }; jumpSeed = { sid: sid, title: gv('title'), groups: gv('groups'), tags: gv('tags'), venue: gv('venue') }; tab('setlist'); toTop(); try { history.replaceState(null, '', '#setlist'); } catch (e) {} $('fid').value = sid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); };
     el.addEventListener('input', sync); sync();
     wrap.appendChild(b);
   }
@@ -3362,7 +3362,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }).catch(function () {});
   }
   // type radio buttons (logs / setlist) drive the hidden select that the rest of the code reads
-  // new setlist opened from a logs row: title <- title, artist <- groups (G2 / L2), member <- member codes of groups, venue <- the tag that equals a venue already used in setlist.json
+  // new setlist opened from a logs row: title <- title, artist <- groups (G2 / L2), member <- member codes of groups, venue <- the venue of the logs row (venue to venue only: tags are never used)
   function normV(s) { return String(s || '').normalize('NFKC').replace(/\s+/g, '').toLowerCase(); }
   function seedFromLogs(sd, list) {
     var gs = String(sd.groups || '').split(/[,\n]/).map(function (x) { return x.trim(); }).filter(Boolean);
@@ -3370,14 +3370,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (gs.indexOf('G2') >= 0) art.push(ART_G2);
     if (gs.indexOf('L2') >= 0) art.push(ART_L2);
     var mem = gs.filter(function (g) { return G2_MEM.indexOf(g) >= 0 || L2_MEM.indexOf(g) >= 0; });
-    var venues = {};
-    (list || []).forEach(function (r) { if (r && r.venue) venues[normV(r.venue)] = String(r.venue); });
-    var ven = '', tg = String(sd.tags || '').split(/[,\n]/);
-    for (var i = 0; i < tg.length && !ven; i++) { var k = normV(tg[i]); if (k && venues[k]) ven = venues[k]; }
+    var ven = String(sd.venue || '').trim();
     if (sd.title) setVal('title', sd.title);
     if (art.length) setVal('artist', art.join(AJOIN));
     if (mem.length) setVal('member', mem.join(','));
-    if (!ven) { for (var j = 0; j < tg.length && !ven; j++) ven = tg[j].trim(); } // no tag equals a known venue: the first tag is used as it is
     if (ven) setVal('venue', ven);
   }
   // new setlist whose id is used as the setlistid of a logs row: title / groups / tags are taken from that logs row (full logs.json, because the index has no groups)
@@ -3386,11 +3382,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     if (seedId === id) return; seedId = id;
     function pick(d) {
       var rows = (Array.isArray(d) ? d : []).filter(function (r) { return r && String(r.setlistid) === id && r.contents !== 'ANNIVERSARY'; });
-      return rows.filter(function (x) { return x.tags && x.tags.length; })[0] || rows[0] || null;
+      return rows.filter(function (x) { return x.venue; })[0] || rows.filter(function (x) { return x.tags && x.tags.length; })[0] || rows[0] || null;
     }
     function apply(r) {
       if (!r || !found || !found.isNew || found.kind !== 'setlist' || found.id !== id) return;
-      seedFromLogs({ sid: id, title: r.title || '', groups: (r.groups || []).join(','), tags: (r.tags || []).join(',') }, list);
+      seedFromLogs({ sid: id, title: r.title || '', groups: (r.groups || []).join(','), tags: (r.tags || []).join(','), venue: r.venue || '' }, list);
       fstat('Not found: ' + id + ' (new: filled from the id and the logs row ' + (r.logid || '') + ')');
     }
     // the light index has groups / tags for LIVE / RELEASEEVENT / FANMEETING; any other row (or an older index) falls back to the full logs.json
