@@ -1848,23 +1848,9 @@
     ]
   },
   {
-    "logid": "281021178039",
-    "date": "20261119",
-    "time": "1700",
-    "contents": "YOUTUBE",
-    "title": "がるがるちゃんねる",
-    "url": "https://youtube.com/@girls2.official",
-    "groups": [
-      "G2"
-    ],
-    "tags": [
-      "がるがるちゃんねる"
-    ]
-  },
-  {
     "logid": "b3e9590e0a8b",
     "date": "20261119",
-    "time": "",
+    "time": "1930",
     "contents": "CL",
     "title": "木曜日のフォーエイト　山口莉愛",
     "groups": [
@@ -1872,6 +1858,8 @@
       "RIN"
     ],
     "tags": [
+      "VICTORY",
+      "EXILE",
       "木曜日のフォーエイト"
     ],
     "sns": [
@@ -1887,6 +1875,20 @@
           }
         ]
       }
+    ]
+  },
+  {
+    "logid": "281021178039",
+    "date": "20261119",
+    "time": "1700",
+    "contents": "YOUTUBE",
+    "title": "がるがるちゃんねる",
+    "url": "https://youtube.com/@girls2.official",
+    "groups": [
+      "G2"
+    ],
+    "tags": [
+      "がるがるちゃんねる"
     ]
   },
   {
