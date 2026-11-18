@@ -1,0 +1,11 @@
+{
+ "id": "20261118121731-vagz",
+ "status": "done",
+ "time": "2026-11-18 12:17:48 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261118121731_20261118121731-vagz.json"
+ ],
+ "errors": [],
+ "notes": []
+}
