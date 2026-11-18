@@ -2332,6 +2332,66 @@
     ]
   },
   {
+    "logid": "793c6c74613e",
+    "date": "20261118",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2122980782218285395?a=7Get-A2vQ4OMideUYqo&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSp7Dnkeo/",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "Magic Xmas",
+              "タイガの振り付け"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "3cbb95c3b2e4",
     "date": "20261117",
     "time": "2359",
