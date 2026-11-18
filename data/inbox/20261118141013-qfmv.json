@@ -1,9 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "e5441cac6282",
-  "groups_free": "L2,RIN,KAN,YUW",
-  "sns": "https://vt.tiktok.com/ZSpWb2C4p/ | YUW | I like it,CIRRA"
- },
- "created": "2026-11-18T05:10:13Z"
-}
