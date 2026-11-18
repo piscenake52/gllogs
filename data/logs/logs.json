@@ -2119,6 +2119,54 @@
     ]
   },
   {
+    "logid": "385291fbfa81",
+    "date": "20261118",
+    "time": "",
+    "contents": "WEB",
+    "title": "TOKYO HEADLINE　【私たち本来の姿で】",
+    "url": "https://www.tokyoheadline.com/879241/",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "relations": [
+      "KIR"
+    ],
+    "tags": [
+      "TOKYO HEADLINE"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/TOKYO_HEADLINE/status/2122901984303002073?a=D7S5-oMnmpkByMfzl7c&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM"
+            ],
+            "with": [
+              "KIR"
+            ],
+            "tags": [
+              "インタビュー公開"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "3cbb95c3b2e4",
     "date": "20261117",
     "time": "2359",
