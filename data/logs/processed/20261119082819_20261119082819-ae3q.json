@@ -1,0 +1,30 @@
+{
+  "date": "20261201",
+  "time": "2100",
+  "contents": "RADIO",
+  "title": "NBCラジオ「MUSIC WOLF」",
+  "url": "https://girls2-fc.jp/page/familyNews/1252903558051790850",
+  "groups": [
+    "G2",
+    "YOK",
+    "KIR"
+  ],
+  "tags": [
+    "=",
+    "コメント出演"
+  ],
+  "sns": [
+    {
+      "type": "etc",
+      "urls": [
+        {
+          "url": "https://www.nbc-radio.jp/radio/music-wolf/",
+          "member": [],
+          "tags": [
+            "番組HP"
+          ]
+        }
+      ]
+    }
+  ]
+}
