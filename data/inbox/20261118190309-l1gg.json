@@ -1,0 +1,11 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "date": "20261118",
+  "groups_free": "L2,RIN,TBK,HIR,YUW,KAN,RRK,AKR,KIK",
+  "contents_free": "SNS",
+  "item_title": "SNS　Laki",
+  "sns": "https://x.com/Laki922official/status/2122964138477683052?a=hu1cCXKOrSpUcGBwEMo&s=19 | RIN,TBK,HIR,YUW,KAN,RRK,AKR,KIK | メンバー紹介"
+ },
+ "created": "2026-11-18T10:03:09Z"
+}
