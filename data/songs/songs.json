@@ -894,7 +894,21 @@
   {
     "artist": "Girls²",
     "title": "Rise & Shine",
-    "link": "https://music.youtube.com/watch?v=2CWDKNJhCOk&si=nTY23AohNzcLlw6D"
+    "link": "https://music.youtube.com/watch?v=2CWDKNJhCOk&si=nTY23AohNzcLlw6D",
+    "lyrics": "https://www.uta-net.com/song/344650/",
+    "videos": [
+      {
+        "type": "Dance Practice",
+        "url": "https://youtu.be/KMpwPxco-nU?si=IdwQuAJgLM9IQrIp"
+      },
+      {
+        "type": "Fancam",
+        "url": "https://www.youtube.com/watch?v=0pcZYskuDb4",
+        "tags": [
+          "バンコク日本博"
+        ]
+      }
+    ]
   },
   {
     "artist": "Girls²",
