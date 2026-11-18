@@ -1,9 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "385291fbfa81",
-  "relations_free": "!clear",
-  "tags": "=,LDHに唯一無二,私の推し曲,交通ルールは守った上で"
- },
- "created": "2026-11-18T05:34:07Z"
-}
