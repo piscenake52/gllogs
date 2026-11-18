@@ -54,12 +54,19 @@
       "YOK",
       "KUR",
       "MNM",
-      "KIR",
-      "TOA",
-      "RAN"
+      "KIR"
     ],
     "title": "Girls² Live Tour 2022 \"Shangri-la\"\n愛知公演",
-    "venue": "名古屋国際会議場"
+    "venue": "名古屋国際会議場",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Shangri-la",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "id": "202605051600",
