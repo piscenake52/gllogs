@@ -2392,6 +2392,47 @@
     ]
   },
   {
+    "logid": "c3b02a66efa0",
+    "date": "20261118",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2122964138477683052?a=hu1cCXKOrSpUcGBwEMo&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "メンバー紹介"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "3cbb95c3b2e4",
     "date": "20261117",
     "time": "2359",
