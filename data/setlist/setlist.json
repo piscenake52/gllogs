@@ -42,7 +42,16 @@
       "TOA"
     ],
     "title": "Girls² LIVE TOUR 2023 -activate-\n新潟公演",
-    "venue": "新潟テルサ"
+    "venue": "新潟テルサ",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Rise & Shine",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
   },
   {
     "setlistid": "202211191600",
