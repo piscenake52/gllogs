@@ -297,7 +297,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .rpsrow .fsel { flex:0 0 8em; }
 #glih .rpsrow .rpct { flex:0 0 8em; width:8em; }
 #glih .rpsrow .fsug { flex:1 0 100%; }
-#glih .rpsrow .rpw { position:relative; display:block; min-width:0; } #glih .rpsrow .rpw > .fin { width:100%; box-sizing:border-box; } #glih .rpsrow .rpwc { flex:0 0 8em; width:8em; } #glih .rpsrow .rpl2 .rpwa { flex:0 0 6.5em; width:6.5em; } #glih .rpsrow .rpl2 .rpwg { flex:1 1 0; width:0; }
+#glih .rpsrow .rpw { position:relative; display:block; min-width:0; } #glih .rpsrow .rpw > .fin { width:100%; box-sizing:border-box; } #glih .rpsrow .rpwc { flex:0 0 8em; width:8em; } #glih .rpsrow .rpl2 .rpwa { flex:0 0 6.5em; width:6.5em; } #glih .rpsrow .rpl2 .rpwg { flex:1 1 0; width:0; } #glih .rpsrow .rpwt { flex:1 0 100%; }
 #glih .rpsrow .rpw .fsug { position:absolute; left:0; top:100%; z-index:30; flex:none; width:max-content; min-width:100%; max-width:min(22em, 80vw); margin:2px 0 0; background:var(--card); box-shadow:0 4px 14px rgba(0,0,0,.35); }
 #glih .rpsrow .rpf { flex:1 1 8em; min-width:6em; }
 #glih .rpsrow .rpmap { flex:1 0 100%; }
@@ -1522,11 +1522,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var box = document.createElement('div'); box.className = 'fcand fsug'; box.hidden = true; el.parentNode.insertBefore(box, el.nextSibling);
     function hide() { box.hidden = true; box.innerHTML = ''; }
     function items() {
-      var a = r.a.value.trim().replace(/\u516c\u6f14$/, ''), out = [], seen = {}; if (!a) return out;
-      rowsOf('logs').filter(function (x) { return areaOf(x) === a; }).sort(function (x, y) { return String(y.date).localeCompare(String(x.date)); }).forEach(function (x) {
-        var v = kind === 'map' ? x.map : (x.tags && x.tags.length ? x.tags.join(',') : ''); if (!v || seen[v]) return; seen[v] = 1;
+      var a = r.a.value.trim().replace(/\u516c\u6f14$/, ''), out = [], seen = {}; if (!a && kind !== 'venue') return out; // venue: with no area, all the past venues are offered
+      rowsOf('logs').filter(function (x) { return kind === 'venue' ? (!a || areaOf(x) === a) && x.venue : areaOf(x) === a; }).sort(function (x, y) { return String(y.date).localeCompare(String(x.date)); }).forEach(function (x) {
+        var v = kind === 'venue' ? x.venue : kind === 'map' ? x.map : (x.tags && x.tags.length ? x.tags.join(',') : ''); if (!v || seen[v]) return; seen[v] = 1;
         var venue = x.tags && x.tags.length ? x.tags.join(',') : x.title;
-        out.push({ v: v, lab: kind === 'map' ? venue + '  ' + fmtDigits(String(x.date), 'date') : v + '  ' + fmtDigits(String(x.date), 'date') });
+        out.push({ v: v, lab: (kind === 'map' ? venue : v) + '  ' + fmtDigits(String(x.date), 'date') });
       });
       return out;
     }
@@ -1539,6 +1539,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     // when area + the typed map (or tags) narrow the past rows down to exactly one map/tags pair, the other box is filled in (only while it is empty or was filled in this way)
     function other() { return kind === 'map' ? r.g : r.m; }
     function autoFill() {
+      if (kind === 'venue') return;
       var a = r.a.value.trim().replace(/\u516c\u6f14$/, ''), v = normQ(el.value.trim()), o = other(); if (!a || !v) return;
       if (o.value.trim() && o.dataset.auto !== '1') return;
       var combos = {}, n = 0, last = null;
@@ -2622,12 +2623,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         r.t = mk('fin rpt'); dtText(r.t, 'time'); l1.appendChild(r.t); dtPicker(r.t, 'time'); r.x.classList.add('rpxb'); l1.appendChild(r.x); // the remove button sits at the right end of the time row
         var l2 = document.createElement('div'); l2.className = 'rpl2'; col.appendChild(l2); // area (narrow) and the tags of this show on one line
         r.a = mk('fin rpa', 'area'); l2.appendChild(r.a); relWrap(r.a, 'rpwa');
-        r.g = mk('fin rpg', 'tags'); l2.appendChild(r.g); relWrap(r.g, 'rpwg');
+        r.v = mk('fin rpg', 'venue'); l2.appendChild(r.v); relWrap(r.v, 'rpwg');
         r.m = mk('fin rpf rpmap', 'https://...'); col.appendChild(r.m); addMapHtml(r.m);
+        r.g = mk('fin rpf rpmap', 'tags'); col.appendChild(r.g); relWrap(r.g, 'rpwt'); // order: area, venue / map url / tags
         addSuggest(r.a, areaOptions, r.a, true);
-        addRowSuggest(r.m, r, 'map'); addRowSuggest(r.g, r, 'tags');
+        addRowSuggest(r.m, r, 'map'); addRowSuggest(r.g, r, 'tags'); addRowSuggest(r.v, r, 'venue'); r.v.addEventListener('focus', venueNeed);
         [r.d, r.t].forEach(function (e) { e.addEventListener('input', function () { r.touched = true; }); });
-        [r.d, r.t, r.a, r.m, r.g].forEach(function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
+        [r.d, r.t, r.a, r.v, r.m, r.g].forEach(function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
         r.x.onclick = function () { if (TR.rows.length < 2) return; TR.rows.splice(TR.rows.indexOf(r), 1); rowsBox.removeChild(row); renum(); changed(); };
         TR.rows.push(r); rowsBox.appendChild(row); renum();
         return r;
@@ -2649,14 +2651,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var lines = [], rows = [], bad = false;
       list.innerHTML = '';
       TR.rows.forEach(function (r) {
-        var d = digits(r.d.value), t = digits(r.t.value), a = r.a.value.trim(), m = r.m.value.trim(), g = r.g.value.trim().replace(/\s*[,\u3001]\s*/g, ',');
-        var empty = d === '' && t === '' && a === '' && m === '' && g === '';
+        var d = digits(r.d.value), t = digits(r.t.value), a = r.a.value.trim(), m = r.m.value.trim(), v = r.v.value.trim().replace(/\s*\|\s*/g, ' '), g = r.g.value.trim().replace(/\s*[,\u3001]\s*/g, ',');
+        var empty = d === '' && t === '' && a === '' && v === '' && m === '' && g === '';
         var dBad = d !== '' && !okDate(d), tBad = t !== '' && !okTime(t), mBad = m !== '' && !/^https?:\/\/\S+$/i.test(m), noD = d === '' && !empty;
         r.d.classList.toggle('bad', dBad || noD); r.t.classList.toggle('bad', tBad); r.m.classList.toggle('bad', mBad);
         if (empty) return;
         if (dBad || tBad || mBad || noD) { bad = true; return; }
         var lab = a ? ' ' + a + sfx : '';
-        var f = [t0 + lab, ct, url, sp0 ? sp0 + lab : '', m, '', g];
+        var f = [t0 + lab, ct, url, sp0 ? sp0 + lab : '', m, '', g, v]; // ... | map | setlistid | tags | venue
         while (f.length > 1 && f[f.length - 1] === '') f.pop();
         lines.push(d + ' ' + (t || '-') + ' | ' + f.join(' | '));
         rows.push(d);
