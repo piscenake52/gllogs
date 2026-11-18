@@ -1504,12 +1504,58 @@
     ]
   },
   {
+    "logid": "ce975948a7c5",
+    "date": "20261123",
+    "time": "1330",
+    "contents": "CLOSE",
+    "title": "Girls²「EASY」発売記念 メンバー個別オンライントーク会 2部 先着販売終了",
+    "display_sp": "「EASY」発売記念 オンライントーク会 2部 先着販売終了",
+    "url": "https://girls2-fc.jp/page/familyNews/1248472701371154434",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "EASY",
+      "EASY衣装スペシャル"
+    ]
+  },
+  {
     "logid": "219d4d68f57f",
     "date": "20261123",
     "time": "1200",
     "contents": "EVENT",
     "title": "Girls²「EASY」発売記念 メンバー個別オンライントーク会 1部",
     "display_sp": "「EASY」発売記念 個別オンライントーク会 1部",
+    "url": "https://girls2-fc.jp/page/familyNews/1248472701371154434",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "EASY",
+      "EASY衣装スペシャル"
+    ]
+  },
+  {
+    "logid": "ffc0e18a5ef8",
+    "date": "20261123",
+    "time": "1130",
+    "contents": "CLOSE",
+    "title": "Girls²「EASY」発売記念 メンバー個別オンライントーク会 1部 先着販売終了",
+    "display_sp": "「EASY」発売記念 オンライントーク会 1部 先着販売終了",
     "url": "https://girls2-fc.jp/page/familyNews/1248472701371154434",
     "groups": [
       "G2",
@@ -1935,6 +1981,29 @@
           }
         ]
       }
+    ]
+  },
+  {
+    "logid": "5f11d73ec196",
+    "date": "20261119",
+    "time": "1800",
+    "contents": "SALES",
+    "title": "Girls²「EASY」発売記念 メンバー個別オンライントーク会 先着販売開始",
+    "display_sp": "「EASY」発売記念 オンライントーク会 先着販売開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1248472701371154434",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "EASY",
+      "EASY衣装スペシャル"
     ]
   },
   {
