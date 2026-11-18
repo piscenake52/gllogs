@@ -830,7 +830,18 @@
   {
     "artist": "Girls²",
     "title": "Shangri-la",
-    "link": "https://music.youtube.com/watch?v=Xdb4PqqmbpE&si=LQS-pFHuvZieH3mK"
+    "link": "https://music.youtube.com/watch?v=Xdb4PqqmbpE&si=LQS-pFHuvZieH3mK",
+    "lyrics": "https://www.uta-net.com/song/323452/",
+    "videos": [
+      {
+        "type": "MV",
+        "url": "https://youtu.be/AlZyXwvAPvg?si=2PUyta6_EDDOL_Pi"
+      },
+      {
+        "type": "Dance Practice",
+        "url": "https://youtu.be/ZSF9fxcs6Ck?si=jp6wbpsXyTxjl-E2"
+      }
+    ]
   },
   {
     "artist": "Girls²",

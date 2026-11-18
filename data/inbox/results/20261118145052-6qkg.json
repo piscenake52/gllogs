@@ -1,0 +1,11 @@
+{
+ "id": "20261118145052-6qkg",
+ "status": "done",
+ "time": "2026-11-18 14:51:07 JST",
+ "template": "add_songs.yml",
+ "queue_files": [
+  "data/songs/queue/20261118145052_20261118145052-6qkg.json"
+ ],
+ "errors": [],
+ "notes": []
+}
