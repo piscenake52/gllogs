@@ -1,0 +1,11 @@
+{
+ "id": "20261118150804-bn1i",
+ "status": "done",
+ "time": "2026-11-18 15:08:19 JST",
+ "template": "add_songs.yml",
+ "queue_files": [
+  "data/songs/queue/20261118150804_20261118150804-bn1i.json"
+ ],
+ "errors": [],
+ "notes": []
+}

@@ -1,0 +1,38 @@
+{
+  "artist": "Girls²",
+  "title": "Rise & Shine",
+  "videos": [
+    {
+      "type": "Dance Practice",
+      "url": "https://youtu.be/KMpwPxco-nU?si=IdwQuAJgLM9IQrIp"
+    },
+    {
+      "type": "Fancam",
+      "url": "https://www.youtube.com/watch?v=0pcZYskuDb4",
+      "tags": [
+        "バンコク日本博"
+      ]
+    },
+    {
+      "type": "Fancam",
+      "url": "https://youtu.be/xq8NjOMHPlY?si=xZC9sbEk_txlRdWt&t=272",
+      "tags": [
+        "バンコク日本博"
+      ]
+    },
+    {
+      "type": "Fancam",
+      "url": "https://youtu.be/-Tn0pQFuF3o?si=VQdH2hITzdSaI-3y&t=273",
+      "tags": [
+        "バンコク日本博"
+      ]
+    },
+    {
+      "type": "Fancam",
+      "url": "https://www.youtube.com/watch?v=xKkvAvieXaU",
+      "tags": [
+        "バンコク日本博"
+      ]
+    }
+  ]
+}
