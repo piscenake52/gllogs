@@ -1,0 +1,9 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "749bfeb785cb",
+  "venue": "名古屋国際会議場",
+  "tags": "=,Shangri-la"
+ },
+ "created": "2026-11-18T05:37:01Z"
+}
