@@ -446,8 +446,8 @@ def parse_repeat(raw_str):
             if rest[0]:
                 op["title"] = rest[0]
         elif len(rest) >= 2:
-            if len(rest) > 7:
-                errors.append(f"- **繰り返し登録**: `|` が多すぎます。`日付 時刻 | タイトル | contents | URL | display_sp | map | setlistid | tags` の形で入力してください（`{shown}`）")
+            if len(rest) > 8:
+                errors.append(f"- **繰り返し登録**: `|` が多すぎます。`日付 時刻 | タイトル | contents | URL | display_sp | map | setlistid | tags | venue` の形で入力してください（`{shown}`）")
                 continue
             title, cont = rest[0], rest[1].upper()
             url = rest[2] if len(rest) > 2 else ""
@@ -459,6 +459,7 @@ def parse_repeat(raw_str):
                 t = t.strip()
                 if t and t not in row_tags:
                     row_tags.append(t)
+            venue_ = rest[7].strip() if len(rest) > 7 else ""
             map_ = map_from_html(map_)
             if map_ and not re.fullmatch(r"https?://\S+", map_):
                 errors.append(f"- **繰り返し登録**: mapはhttp(s)://から始めてください（`{shown}`）")
@@ -482,6 +483,8 @@ def parse_repeat(raw_str):
                 op["display_sp"] = sp
             if map_:
                 op["map"] = map_
+            if venue_:
+                op["venue"] = venue_
             if sid:
                 op["setlistid"] = sid
             if row_tags:

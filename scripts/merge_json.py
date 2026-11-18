@@ -778,9 +778,9 @@ def apply_repeat(target, main_data, item, repeat, issue, issue_map, anniv=False,
                 rec[k] = bump_number(v0, i)  # title と同じく #数字 を回ごとに +1
         if "time" in occ:
             rec["time"] = occ["time"]  # 行ごとの時刻（空文字 = 時刻なし）
-        for k in ("contents", "url", "display_sp", "map", "setlistid"):
+        for k in ("contents", "url", "display_sp", "map", "venue", "setlistid"):
             if occ.get(k):
-                rec[k] = occ[k]  # 行ごとの contents / URL / map / setlistid
+                rec[k] = occ[k]  # 行ごとの contents / URL / map / venue / setlistid
         if occ.get("tags"):
             rec["tags"] = list(dict.fromkeys(list(rec.get("tags") or []) + list(occ["tags"])))  # 行ごとのtagsはフォームのtagsに足す
         row = None
@@ -1333,6 +1333,67 @@ def process_target(target, issue_map):
     return changed > 0
 
 
+def venue_state():
+    """logs の venue 連携用: 処理前後を比べるための、logid → (venue, setlistid) と、setlist の setlistid 一覧"""
+    logs = {}
+    for r in load_json_list(TARGETS[0]["main_file"], "メインファイル"):
+        if isinstance(r, dict) and r.get("logid"):
+            logs[r["logid"]] = (str(r.get("venue") or "").strip(), str(r.get("setlistid") or ""))
+    sids = {r.get("setlistid") for r in load_json_list(TARGETS[1]["main_file"], "メインファイル") if isinstance(r, dict)}
+    return logs, sids
+
+
+def sync_venue(before):
+    """logs の venue を、結びついた setlist(setlistid が同じ)の venue にそろえる。
+    ・logs の venue を登録・変更したら、setlist の venue を常に上書きする / 空にしたら setlist の venue も消す
+    ・setlist を新規登録したときは、結びついた logs の venue を初期値にする(setlist 側で venue を入力していない場合)"""
+    logs_before, sids_before = before
+    logs_t, set_t = TARGETS[0], TARGETS[1]
+    logs = load_json_list(logs_t["main_file"], "メインファイル")
+    setlist = load_json_list(set_t["main_file"], "メインファイル")
+    if not logs or not setlist:
+        return False
+    ev = {}  # setlistid -> 新しい venue(消すときは None)
+    by_sid = {}  # setlistid -> logs の venue(新しい順に最初のもの)
+    for r in logs:  # logs は新しい日付順
+        if not isinstance(r, dict) or r.get("ref"):
+            continue
+        sid, v = str(r.get("setlistid") or ""), str(r.get("venue") or "").strip()
+        if sid and v and sid not in by_sid:
+            by_sid[sid] = v
+        was = logs_before.get(r.get("logid"), ("", ""))
+        if not sid or (v, sid) == was:
+            continue
+        if v:
+            ev.setdefault(sid, v)
+        elif was[0]:
+            ev.setdefault(sid, None)  # venue を空にした
+    for r in setlist:
+        sid = r.get("setlistid") if isinstance(r, dict) else None
+        if sid and sid not in sids_before and sid not in ev and by_sid.get(sid) and is_blank(r.get("venue")):
+            ev[sid] = by_sid[sid]  # setlist の新規登録: logs の venue を初期値に
+    changed = False
+    for i, r in enumerate(setlist):
+        sid = r.get("setlistid") if isinstance(r, dict) else None
+        if sid not in ev:
+            continue
+        v, one = ev[sid], False
+        if v is None:
+            if "venue" in r:
+                del r["venue"]; one = True
+        elif r.get("venue") != v:
+            r["venue"] = v; one = True
+        if one:
+            setlist[i] = reorder(set_t, r)
+            changed = True
+    if changed:
+        with open(set_t["main_file"], "w", encoding="utf-8") as f:
+            json.dump(setlist, f, ensure_ascii=False, indent=2)
+        write_index(set_t, setlist)
+        print(f"[venue] logs の venue を setlist {len(ev)}件に反映しました")
+    return changed
+
+
 MANIFEST_FILE = "data/manifest.json"
 
 
@@ -1388,9 +1449,15 @@ def main():
     issue_map = dict(issue_map_raw) if isinstance(issue_map_raw, dict) else {}
 
     updated = False
+    venue_before = venue_state()
     for target in TARGETS:
         if process_target(target, issue_map):
             updated = True
+    try:
+        if sync_venue(venue_before):
+            updated = True
+    except Exception as e:  # venue の連携で失敗しても、ほかの処理結果は残す
+        report_add("error", f"logs の venue を setlist へ反映できませんでした: {type(e).__name__}: {e}")
 
     if issue_map != issue_map_raw:
         os.makedirs(os.path.dirname(ISSUE_MAP_FILE), exist_ok=True)
