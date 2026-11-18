@@ -1,8 +1,4 @@
 {
- "template": "add_logs.yml",
- "params": {
   "logid": "68b391f72331",
   "display_sp": "『Magic Xmas』 LINE MUSIC再生CP対象期間開始"
- },
- "created": "2026-11-18T00:35:28Z"
 }
