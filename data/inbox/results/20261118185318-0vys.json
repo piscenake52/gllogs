@@ -1,0 +1,11 @@
+{
+ "id": "20261118185318-0vys",
+ "status": "done",
+ "time": "2026-11-18 18:53:38 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261118185318_20261118185318-0vys.json"
+ ],
+ "errors": [],
+ "notes": []
+}
