@@ -1,9 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "da799be8baf2",
-  "relations_free": "L2,TBK",
-  "tags": "=,ラー博お気に入りポイント,ラーメン後の甘いもの,ストラック9挑戦動画"
- },
- "created": "2026-11-19T03:50:58Z"
-}

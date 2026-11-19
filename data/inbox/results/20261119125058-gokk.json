@@ -1,0 +1,11 @@
+{
+ "id": "20261119125058-gokk",
+ "status": "done",
+ "time": "2026-11-19 12:51:15 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261119125058_20261119125058-gokk.json"
+ ],
+ "errors": [],
+ "notes": []
+}
