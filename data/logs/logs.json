@@ -965,6 +965,35 @@
     ]
   },
   {
+    "logid": "a6e3736139d6",
+    "date": "20261130",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "「Zipper」冬号 チェキプレゼント抽選付き予約受付締切",
+    "url": "https://girls2-fc.jp/page/familyNews/1253161246576869376",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "tags": [
+      "Zipper"
+    ],
+    "sns": [
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://donutsbooks.com/",
+            "member": [],
+            "tags": [
+              "公式サイト"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "546102244903",
     "date": "20261129",
     "time": "1700",
@@ -1848,6 +1877,35 @@
     ],
     "tags": [
       "ダンスは遊びじゃない！"
+    ]
+  },
+  {
+    "logid": "4e7cd2ffce45",
+    "date": "20261120",
+    "time": "1900",
+    "contents": "CAMPAIGN",
+    "title": "「Zipper」冬号 チェキプレゼント抽選付き予約受付開始",
+    "url": "https://girls2-fc.jp/page/familyNews/1253161246576869376",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "tags": [
+      "Zipper"
+    ],
+    "sns": [
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://donutsbooks.com/",
+            "member": [],
+            "tags": [
+              "公式サイト"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
