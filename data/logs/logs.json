@@ -2284,6 +2284,45 @@
     ]
   },
   {
+    "logid": "01d81571c576",
+    "date": "20261119",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2123268415259627851?a=KHiyugW_W-G7Zi2dsCM&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "再生キャンペーン開催中"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "0b52f293f734",
     "date": "20261118",
     "time": "2359",
