@@ -1,0 +1,9 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "cf36841602a9",
+  "time": "1800",
+  "sns": "https://x.com/CL_OFFICIAL_ACC/status/2123405288539816140?a=AH9Ij0bdpBgrjCFPDrs&s=19 |  | CL"
+ },
+ "created": "2026-11-19T14:08:47Z"
+}
