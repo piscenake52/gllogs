@@ -8,7 +8,7 @@ import copy
 import sys
 import hashlib
 
-from common import is_blank, album_type_ok
+from common import is_blank, album_type_ok, SCHEMA
 
 MAX_PROCESSED_FILES = 30
 CLEAR = "!clear"  # 既存値を消したいときにIssueへ入力する特別な値
@@ -123,28 +123,27 @@ TARGETS = [
         "queue_dir": "data/logs/queue/",
         "processed_dir": "data/logs/processed/",
         "main_file": "data/logs/logs.json",
-        "key_fields": ["logid"],
-        "order": ["logid", "date", "time", "contents", "ref", "suffix", "title", "display_pc", "display_sp",
-                  "url", "venue", "map", "groups", "relations", "setlistid", "albumid", "tags", "sns"],
+        "key_fields": SCHEMA["logs"]["key_fields"],
+        "order": SCHEMA["logs"]["order"],
         "clear_to_empty_list": [],
         "append_lists": ["tags", "sns"],  # 更新時は上書きせず、既存の値に新しいものだけ追記する
         "sort_key": lambda x: (x.get("date") or "", x.get("time") or ""),
         "sort_reverse": True,
         "index_file": "data/logs/logs_index.json",  # 検索・候補用の軽量版（helperが先に読む）
-        "index_fields": ["logid", "date", "time", "contents", "ref", "suffix", "title", "setlistid", "albumid"],
+        "index_fields": SCHEMA["logs"]["index_fields"],
     },
     {
         "name": "setlist",
         "queue_dir": "data/setlist/queue/",
         "processed_dir": "data/setlist/processed/",
         "main_file": "data/setlist/setlist.json",
-        "key_fields": ["setlistid"],
-        "order": ["setlistid", "artist", "member", "title", "venue", "weather", "source", "songs"],
+        "key_fields": SCHEMA["setlist"]["key_fields"],
+        "order": SCHEMA["setlist"]["order"],
         "clear_to_empty_list": [],
         "sort_key": lambda x: x.get("setlistid") or "",
         "sort_reverse": True,
         "index_file": "data/setlist/setlist_index.json",
-        "index_fields": ["setlistid", "artist", "title", "venue"],
+        "index_fields": SCHEMA["setlist"]["index_fields"],
         "index_song_titles": True,  # songs は曲名の配列だけを入れる
     },
     {
@@ -152,8 +151,8 @@ TARGETS = [
         "queue_dir": "data/songs/queue/",
         "processed_dir": "data/songs/processed/",
         "main_file": "data/songs/songs.json",
-        "key_fields": ["artist", "title"],
-        "order": ["artist", "vocal", "title", "link", "lyrics", "videos"],
+        "key_fields": SCHEMA["songs"]["key_fields"],
+        "order": SCHEMA["songs"]["order"],
         "clear_to_empty_list": [],
         "sort_key": None,  # 追加順のまま
         "sort_reverse": False,
@@ -163,8 +162,8 @@ TARGETS = [
         "queue_dir": "data/albums/queue/",
         "processed_dir": "data/albums/processed/",
         "main_file": "data/albums/albums.json",
-        "key_fields": ["title", "type"],
-        "order": ["id", "title", "type", "artist", "member", "date", "tracks", "editions"],
+        "key_fields": SCHEMA["albums"]["key_fields"],
+        "order": SCHEMA["albums"]["order"],
         "clear_to_empty_list": [],
         "sort_key": lambda x: (x.get("date") or "", x.get("title") or ""),
         "sort_reverse": True,

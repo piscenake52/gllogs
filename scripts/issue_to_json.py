@@ -4,66 +4,17 @@ import re
 import unicodedata
 from datetime import datetime, timedelta, timezone
 
-from common import is_blank, album_type_ok, map_from_html
+from common import is_blank, album_type_ok, map_from_html, SCHEMA
 
 # フォームのラベルと完全一致させること
 # add_logs.yml
 # add_logs.yml の contents プルダウンの選択肢（自由入力の判定に使う）
 CONTENTS_OPTIONS = {"ANNIVERSARY", "BIRTHDAY", "DEBUT", "FORMATION", "CL", "COLUMN", "COOKING", "DIARY", "ETC", "CAMPAIGN", "CLOSE", "MESSAGE", "PLAYING", "RESULT", "EVENT", "FANMEETING", "RELEASEEVENT", "ANNIVERSARYLIVE", "FANCLUB", "TELEPHONE", "GLRADIO", "GTUBE", "LIVE", "TOUR", "MAGAZINE", "MEDIA", "BOOK", "NEWSPAPER", "MODEL", "MOVIE", "RADIO", "RELEASE", "BD", "CD", "DIGITAL", "EP", "DVD", "MUSICCARD", "SALES", "GOODS", "SNS", "STAGE", "STREAMING", "TICKET", "TV", "WEB", "PODCAST", "YOUTUBE", "GARUGARUCH"}
 
-LABELS_LOGS = {
-    "logid": "logid",
-    "date": "date",
-    "time": "time",
-    "contents": "contents",
-    "contents_free": "contents / 自由入力",
-    "title": "title",
-    "display_pc": "display_pc",
-    "display_sp": "display_sp",
-    "url": "url",
-    "venue": "venue",
-    "map": "map",
-    "setlistid": "setlistid",
-    "groups_g2": "groups / Girls²",
-    "groups_l2": "groups / Laki",
-    "groups_free": "groups / 自由入力",
-    "stf": "STF",
-    "relations_g2": "relations / Girls²",
-    "relations_l2": "relations / Laki",
-    "relations_free": "relations / 自由入力",
-    "tags": "tags",
-    "sns": "sns",
-    "repeat": "繰り返し登録 (1行1回)",
-    "delete": "DELETE",
-    "clear": "値の削除（更新時）",
-    "copy": "COPY",
-    "copy_text": "COPY / 文字入力",
-    "anniv": "ANNIVERSARY",
-    "anniv_text": "ANNIVERSARY / 文字入力",
-    "anniv_suffix": "ANNIVERSARY / 付与文言",
-}
+# フォームの項目名(ラベル)は scripts/schema.json の labels_logs / labels_ss(フォームの label と完全一致させる)
+LABELS_LOGS = SCHEMA["labels_logs"]
 # add_setlist_songs.yml
-LABELS_SS = {
-    "setlistid": "setlistid",
-    "copy_from": "COPY / コピー元 setlistid",
-    "artist_check": "artist / 選択",
-    "artist_free": "artist / 自由入力",
-    "vocal": "vocal",
-    "title": "title",
-    "link": "link",
-    "lyrics": "lyrics",
-    "videos": "videos",
-    "member_g2": "member / Girls²",
-    "member_l2": "member / Laki",
-    "member_free": "member / 自由入力",
-    "venue": "venue",
-    "source": "source",
-    "weather": "weather",
-    "songs": "曲目 (1行1曲)",
-    "songs_patch": "曲目の個別変更 (1行1操作)",
-    "delete": "DELETE",
-    "clear": "値の削除（更新時）",
-}
+LABELS_SS = SCHEMA["labels_ss"]
 # 旧フォーム(データの種類ドロップダウンあり)のIssueを誤って処理しないための目印
 LEGACY_MARKER = "### データの種類 (Type / logs, setlist, songs)"
 LEGACY_SONGS_LABEL = "曲目 (songs / setlist用 - 1行1曲)"  # setlist / songs が1つのフォームだった頃の見出し(再編集されたIssue用)
@@ -84,12 +35,7 @@ L2_OPTIONS = ["L2", "RIN", "TBK", "HIR", "YUW", "KAN", "RRK", "AKR", "KIK", "YUR
 ERROR_FILE = "issue_error.md"
 
 # 「値の削除（更新時）」チェックボックスで消せる項目（識別キーは除く。フォームの選択肢名と揃える）
-CLEARABLE = {
-    "logs": ["time", "contents", "title", "display_pc", "display_sp", "url", "venue", "map",
-             "groups", "relations", "setlistid", "tags", "sns"],
-    "setlist": ["artist", "title", "member", "venue", "weather", "source", "songs"],
-    "songs": ["vocal", "link", "lyrics", "videos"],
-}
+CLEARABLE = {t: SCHEMA[t]["clearable"] for t in ("logs", "setlist", "songs")}
 
 # 削除チェックボックスの選択肢名（add_logs.yml / add_setlist_songs.yml と揃える）
 DELETE_OPTION = "削除する"

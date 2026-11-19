@@ -1,6 +1,18 @@
 """issue_to_json.py と merge_json.py で共通に使う関数。
-Actions では scripts/ に3ファイルを一緒に置く(python scripts/xxx.py で common.py が自動的に読める)。"""
+Actions では scripts/ に、これらのファイルと schema.json を一緒に置く(python scripts/xxx.py で common.py が自動的に読める)。"""
+import json
+import os
 import re
+
+
+def load_schema():
+    """scripts/schema.json(項目の定義)を読む"""
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "schema.json")
+    with open(p, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+SCHEMA = load_schema()
 
 
 def is_blank(v):
