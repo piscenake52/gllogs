@@ -128,14 +128,34 @@ tour(helper の mode: tour)の1行は、末尾まで書くと `日付 時刻 | �
 |---|---|---|
 | `auto_merge.yml` | Issue → JSON に変換 → マージ → コミット | Issue の作成・編集時 |
 | `process_queue.yml` | queue の JSON と helper の依頼(`data/inbox/`)を処理 → マージ → コミット | queue・inbox への push、手動 |
+| `tests.yml` | 自動テストと事前チェック | scripts・tests・.github・helper の変更、PR、手動 |
 | `update_manifest.yml` | `data/manifest.json` の作り直し | データの手動編集の push(queue・inbox は除く)、手動 |
 | `rebuild_index.yml` | helper用インデックスの作り直し | 手動(Run workflow) |
 | `check_gaps.yml` | logs のタイトルの `#数字` の連番の抜けを調べる | 手動(Run workflow) |
 | `link_check.yml` | logs の `url` / `map` のリンク切れを少しずつ確認(結果は `data/logs/link_state.json`) | 毎日 03:00(JST)・手動 |
 
-`scripts/` には、`issue_to_json.py`、`merge_json.py`、`inbox_to_json.py`、**`common.py`** の4つを一緒に置きます(前の3つが `common.py` を読み込むので、欠けると動きません)。`inbox_to_json.py` は `.github/ISSUE_TEMPLATE/*.yml` を読むため、フォームのファイルも置いたままにしてください。
+`scripts/` には、`issue_to_json.py`、`merge_json.py`、`inbox_to_json.py`、**`common.py`**、**`schema.json`**(項目の定義)、`check_repo.py`(事前チェック)を一緒に置きます(`common.py` と `schema.json` が欠けると動きません)。`inbox_to_json.py` は `.github/ISSUE_TEMPLATE/*.yml` を読むため、フォームのファイルも置いたままにしてください。
 
 **注意**: 同じ queue を処理するワークフローは、`auto_merge.yml` と `process_queue.yml` の2つだけにします。同じ処理をするファイルが他にあると、同時に動いて競合・二重処理になります。
+
+## テストと事前チェック(保守のために)
+
+スクリプトやフォームを直したときは、リポジトリの直下で次を実行します(push すると `tests.yml` が自動で実行します)。PyYAML が必要です(`pip install pyyaml`)。
+
+```
+python scripts/check_repo.py                 # 事前チェック
+python -m unittest discover -s tests -v      # 自動テスト
+```
+
+- **事前チェック**(`scripts/check_repo.py`): data の JSON が読めるか / フォーム(`add_*.yml`)と `issue_to_json.py` の項目名が一致しているか / 「値の削除」の選択肢が合っているか / helper の `<script>` が ASCII だけか / `schema.json` と helper の項目が合っているか / キューを処理するワークフローが2つ(`auto_merge.yml` `process_queue.yml`)だけか。
+- **自動テスト**(`tests/`): 本物のスクリプトを一時フォルダで動かし、logs の登録・更新・削除、繰り返し登録、setlist の曲順なし、venue の同期、読めない JSON のエラー報告、helper 直送(inbox)を確かめます。直した所以外が壊れていないかの確認に使います。
+
+### 項目を足すとき(例: logs に `foo` を足す)
+1. `scripts/schema.json` … `logs.order`(並び順)に足す。更新時に消せる項目なら `logs.clearable` にも足す。フォームの項目名は `labels_logs` に足す。
+2. `.github/ISSUE_TEMPLATE/add_logs.yml` … 入力欄と、「値の削除」の選択肢を足す。
+3. `scripts/issue_to_json.py` … `build_logs` で値を読む。
+4. helper の `DEFS` と、`index.html` の表示を直す。
+5. 事前チェックを実行する。1〜4 の食い違いは、ここで見つかります。
 
 ## helper を Blogger に貼るときの注意
 

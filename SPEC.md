@@ -1406,3 +1406,13 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 
 ### 確認の状況
 上の項目は、Playwright(通信をモックしたもの)と node でのテスト、およびテスト用フォルダでの `inbox_to_json.py` → `merge_json.py` の実行で確認した。実機、Blogger、GitHub Actions の上での通し確認は、これから。
+
+
+## 2026-11-20 保守性の改善(テスト・事前チェック・項目定義の集約)
+
+- **`scripts/schema.json`**: 項目の定義を集めたファイル。`logs` `setlist` `songs` `albums` それぞれの `order`(保存時の項目の並び)・`key_fields`(識別キー)・`index_fields`(インデックスに入れる項目)・`clearable`(更新時に「値の削除」で消せる項目)と、フォームの項目名 `labels_logs` / `labels_ss`。`common.py` が読み込み(`SCHEMA`)、`issue_to_json.py` と `merge_json.py` はそこから値を取る(コード中の直書きをやめた。値は従来と同じ)。
+- **`scripts/check_repo.py`**(事前チェック): ①data のJSONが読めるか(queue・inbox は除く) ②`add_logs.yml` `add_setlist.yml` `add_songs.yml` の項目名が `LABELS_*` と一致するか、「値の削除」の選択肢が `clearable` と一致するか ③helper の `<script>` が ASCII のみか ④`schema.json` の整合(識別キー・消せる項目・インデックス項目が `order` に含まれる、重複がない)と、helper の `DEFS` に logs / setlist の編集できる全項目があるか ⑤`merge_json.py`(`--rebuild-index` なし)を実行するワークフローが `auto_merge.yml` と `process_queue.yml` だけか。問題があれば終了コード1。
+- **`tests/`**(`unittest`。`python -m unittest discover -s tests -v`): `helpers.py`(一時フォルダにリポジトリと同じ並びを作り、本物のスクリプトを実行する)、`test_pipeline.py`(logs の新規・更新・削除・繰り返し・インデックス・マニフェストの安定、setlist の曲順なし・個別変更、venue の同期4種(上書き・消去・新規setlistへの引き継ぎ・タグからは引き継がない)、読めないJSONのエラー報告と他ファイルの処理継続、inbox の登録・入力エラー・不正テンプレート・同時刻の依頼)、`test_check_repo.py`(事前チェックが問題を見つけられるか)。計27件。
+- **`.github/workflows/tests.yml`**: scripts・tests・.github・helper の変更、PR、手動で、事前チェックとテストを実行する。data の更新では動かない。権限は contents: read のみ。
+- **項目を足す手順**は README の「テストと事前チェック」にある。
+- 検証状況: ローカル(Python 3.10 相当)での実行のみ。GitHub Actions 上では未実行。
