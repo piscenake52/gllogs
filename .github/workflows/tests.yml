@@ -1,0 +1,30 @@
+name: Tests
+
+# スクリプト・フォーム・テスト・helper を変えたときに、自動テストと事前チェックを動かす。
+# データ(data/)の更新では動かさない(キュー処理のコミットで毎回走らないように)
+on:
+  push:
+    paths:
+      - 'scripts/**'
+      - 'tests/**'
+      - '.github/**'
+      - 'issue_helper*.html'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install pyyaml
+      - name: Pre-check (JSON / forms / helper ASCII / schema / workflows)
+        run: python scripts/check_repo.py
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
