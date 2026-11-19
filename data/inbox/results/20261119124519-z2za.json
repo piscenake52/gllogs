@@ -1,0 +1,11 @@
+{
+ "id": "20261119124519-z2za",
+ "status": "done",
+ "time": "2026-11-19 12:45:37 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261119124519_20261119124519-z2za.json"
+ ],
+ "errors": [],
+ "notes": []
+}
