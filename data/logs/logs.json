@@ -1909,6 +1909,34 @@
     ]
   },
   {
+    "logid": "cf36841602a9",
+    "date": "20261120",
+    "time": "1800",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　菱田未渚美",
+    "groups": [
+      "G2",
+      "MNM"
+    ],
+    "tags": [
+      "LDH NEWS CAST"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/CL_OFFICIAL_ACC/status/2123405288539816140?a=AH9Ij0bdpBgrjCFPDrs&s=19",
+            "member": [],
+            "tags": [
+              "CL"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "44ca1c25afeb",
     "date": "20261120",
     "time": "1000",
@@ -1979,20 +2007,6 @@
       "KUR",
       "MNM",
       "KIR"
-    ]
-  },
-  {
-    "logid": "cf36841602a9",
-    "date": "20261120",
-    "time": "",
-    "contents": "CL",
-    "title": "LDH NEWS CAST　菱田未渚美",
-    "groups": [
-      "G2",
-      "MNM"
-    ],
-    "tags": [
-      "LDH NEWS CAST"
     ]
   },
   {
