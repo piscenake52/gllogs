@@ -2080,6 +2080,35 @@
     ]
   },
   {
+    "logid": "9785f6dac8d5",
+    "date": "20261119",
+    "time": "1900",
+    "contents": "RADIO",
+    "title": "α-station「LIFT」",
+    "groups": [
+      "G2",
+      "MMK",
+      "MSK"
+    ],
+    "tags": [
+      "コメント出演"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2123282404853022789?a=_NDpGJxavk4_J7hMr-w&s=19",
+            "member": [],
+            "tags": [
+              "ラジオ出演情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "5f11d73ec196",
     "date": "20261119",
     "time": "1800",
