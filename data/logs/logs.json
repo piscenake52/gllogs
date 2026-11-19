@@ -2212,6 +2212,33 @@
     ]
   },
   {
+    "logid": "0b3d8ba655bd",
+    "date": "20261119",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "AKR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2123253681978225139?a=AA6iN6DeFETYeZOUgrY&s=19",
+            "member": [
+              "AKR"
+            ],
+            "tags": [
+              "雑誌掲載情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "0b52f293f734",
     "date": "20261118",
     "time": "2359",
