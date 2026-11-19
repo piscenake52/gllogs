@@ -2136,13 +2136,32 @@
     "date": "20261119",
     "time": "1700",
     "contents": "YOUTUBE",
-    "title": "がるがるちゃんねる",
-    "url": "https://youtube.com/@girls2.official",
+    "title": "ライブ終わりに名古屋飯たくさん食べたよ🍚",
+    "url": "https://youtu.be/jqGbzRdpiWs?si=3XH1E5ygXCcqW0oH",
     "groups": [
-      "G2"
+      "G2",
+      "YOK",
+      "MNM"
     ],
     "tags": [
       "がるがるちゃんねる"
+    ],
+    "sns": [
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://youtube.com/shorts/2E293v2qYpw?si=kTIMkm9nmPu8_NN6",
+            "member": [
+              "YOK",
+              "MNM"
+            ],
+            "tags": [
+              "Short"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
