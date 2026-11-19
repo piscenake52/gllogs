@@ -1,0 +1,9 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "e769235b04b8",
+  "relations_free": "L2,HIR",
+  "tags": "=,韓国旅行未公開写真集,騒がしい私の友達,お祝いごとが多い11月"
+ },
+ "created": "2026-11-19T03:47:42Z"
+}
