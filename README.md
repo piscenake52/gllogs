@@ -10,23 +10,40 @@
 
 | ファイル | 中身 | キー |
 |---|---|---|
-| `data/logs/logs.json` | 日程・ログ(`date` `time` `contents` `title` `groups` `setlistid` `tags` `sns` ほか) | `logid` |
+| `data/logs/logs.json` | 日程・ログ(`date` `time` `contents` `title` `groups` `venue` `setlistid` `tags` `sns` ほか) | `logid` |
 | `data/setlist/setlist.json` | セットリスト(`artist` `member` `venue` `songs`。曲ごとに歌唱メンバー `member` を持てる) | `setlistid` |
 | `data/songs/songs.json` | 楽曲リスト(`link` `lyrics` `videos`、歌唱メンバーなどの自由入力 `vocal`)。ビューアの楽曲バー・披露実績・動画で使う | `artist` + `title` |
 | `data/albums/albums.json` | アルバム・EP・シングルの収録曲と各種盤(`date` `tracks` `editions`)。データ部の🎶で表示 | `title` + `type` |
 | `data/logs/logs_index.json` `data/setlist/setlist_index.json` | helper用の軽量インデックス(自動生成) | |
+| `data/manifest.json` | 各データファイルの hash と size。ビューアが、変わったファイルだけを読むために使う(自動生成) | |
+| `data/inbox/` | helper から直接送られた依頼(処理後に削除)と、その結果 `results/<id>.json`(直近60件) | |
 
 JSONを直接編集せず、**Issue のフォーム**から登録します(下記)。
 
 ## データの登録のしかた
 
+登録のしかたは3つあります。どれも同じ変換処理を通ります。
+
+**A. Issue から**
 1. [Issues](../../issues/new/choose) で、用途に合ったフォームを選ぶ(logs / setlist / songs ほか)。または、**helper** で入力して、事前入力済みのIssueを開く。
 2. Issue を作ると、GitHub Actions が自動で JSON に変換し、データにマージして、コミットします。
 3. 入力に問題があれば、Issue にコメントが付きます。**Issueを編集すると再処理**されます(同じIssueは同じログを更新します)。
 
+**B. helper から直接送る(Issue なし)**
+1. helper の右下にある **setting** で、`repo` / `branch` / `token` を設定して保存する(token は ENCRYPT をオンにすると、パスフレーズで暗号化して保存されます)。
+2. 各タブの **send** を押すと、入力内容が `data/inbox/` に書き込まれ、Actions が処理します。結果(反映できたか、エラーの原因)は、helper に表示されます。
+3. 削除は Issue のフォームから行います(helper の delete ボタンは非表示です)。
+
+**C. queue に JSON を置く**
+`data/{logs,setlist,songs,albums}/queue/` に JSON ファイルを push すると、`process_queue.yml` が処理します(Actions の Run workflow でも実行できます)。
+
+- 読めないファイルがあると、Actions は失敗表示になり、原因(ファイル・何件目・何行目・理由)が Summary に出ます。そのファイルは queue に残り、直して置き直すか、再実行すると再処理されます。
+- push が競合したときは、最新に合わせ直して自動で再処理します(最大5回)。
+
 - 処理されるのは、`data` ラベル付きの Issue で、投稿者がこのリポジトリの OWNER / MEMBER / COLLABORATOR のものだけです。
 - 更新のとき、**空欄は「変更しない」**です。消したい項目は、フォームの「値の削除(更新時)」にチェックします。
-- 「DELETE」にチェックすると、そのデータを削除します。「COPY」は、コピー元のIDから新規登録します。
+- 「DELETE」にチェックすると、そのデータを削除します。「COPY」は、コピー元のIDから新規登録します(logs では、COPY 時の時刻欄に「anytime」を出せます)。
+- logs の `venue`(会場名)は、タグではなく専用の項目です。ビューアではタグ行の一番左に出て、`map` にリンクがなければ、📍が会場名で Google マップを検索します。logs の `venue` を登録・変更すると、同じ `setlistid` の setlist の `venue` にも反映されます(venue から venue だけ。タグからは引き継ぎません)。空にすると setlist のほうも消えます。
 
 ### ANNIVERSARY(記念日)の連動
 
@@ -50,6 +67,7 @@ LIVEなどを登録するときに「ANNIVERSARY」にチェックすると、�
 
 - 曲名の直後の `{メンバー}` が歌唱メンバー。`{-}` で指定を消す。省略すると全員扱い。
 - 個別変更は `N: ...`(更新)、`+N: ...`(挿入)、`-N: ...`(削除)、`N>M: 曲名`(移動)。
+- 曲順が分からない曲は、番号を `-` `?` か空にします(`-: 曲名` `?: 曲名` `: 曲名`)。順番なしの曲は最後に並び、ビューアでは `－` と表示されます(全曲が順番なしなら「曲順不明」のチップ)。更新では `+?: 曲名` で追加、`-?: 曲名` でタイトル指定の削除です。
 
 **sns(logs)**: 1行1件
 
@@ -67,6 +85,8 @@ type | url | member
 ```
 YYYYMMDD [時刻] | タイトル | contents | URL | display_sp
 ```
+
+tour(helper の mode: tour)の1行は、末尾まで書くと `日付 時刻 | タイトル | contents | URL | display_sp | map | setlistid | tags | venue` です。
 
 - 時刻は `HHMM` で、`-` は時刻なし。省略すると、フォームの時刻を使います。
 - タイトルの `#数字` は、回ごとに自動で+1されます。
@@ -107,12 +127,18 @@ YYYYMMDD [時刻] | タイトル | contents | URL | display_sp
 | ワークフロー | 内容 | 実行 |
 |---|---|---|
 | `auto_merge.yml` | Issue → JSON に変換 → マージ → コミット | Issue の作成・編集時 |
+| `process_queue.yml` | queue の JSON と helper の依頼(`data/inbox/`)を処理 → マージ → コミット | queue・inbox への push、手動 |
+| `update_manifest.yml` | `data/manifest.json` の作り直し | データの手動編集の push(queue・inbox は除く)、手動 |
 | `rebuild_index.yml` | helper用インデックスの作り直し | 手動(Run workflow) |
 | `check_gaps.yml` | logs のタイトルの `#数字` の連番の抜けを調べる | 手動(Run workflow) |
 | `link_check.yml` | logs の `url` / `map` のリンク切れを少しずつ確認(結果は `data/logs/link_state.json`) | 毎日 03:00(JST)・手動 |
 
-`scripts/` には、`issue_to_json.py`、`merge_json.py`、**`common.py`** の3つを一緒に置きます(前の2つが `common.py` を読み込むので、欠けると動きません)。
+`scripts/` には、`issue_to_json.py`、`merge_json.py`、`inbox_to_json.py`、**`common.py`** の4つを一緒に置きます(前の3つが `common.py` を読み込むので、欠けると動きません)。`inbox_to_json.py` は `.github/ISSUE_TEMPLATE/*.yml` を読むため、フォームのファイルも置いたままにしてください。
+
+**注意**: 同じ queue を処理するワークフローは、`auto_merge.yml` と `process_queue.yml` の2つだけにします。同じ処理をするファイルが他にあると、同時に動いて競合・二重処理になります。
 
 ## helper を Blogger に貼るときの注意
+
+helper の token は、このリポジトリだけを対象にして Contents の Read and write だけを許可し、期限を付けた Fine-grained token にしてください。
 
 Blogger は `<script>` 内の日本語や記号を数値文字参照に変換して文字化けさせます。`issue_helper_blogger.html` の `<script>` は **ASCII のみ**で書き、日本語は `\uXXXX` のエスケープにしてあります。編集するときも、この形を保ってください。
