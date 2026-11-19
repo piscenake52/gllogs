@@ -1,0 +1,11 @@
+{
+ "id": "20261119124742-jaxd",
+ "status": "done",
+ "time": "2026-11-19 12:48:01 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261119124742_20261119124742-jaxd.json"
+ ],
+ "errors": [],
+ "notes": []
+}
