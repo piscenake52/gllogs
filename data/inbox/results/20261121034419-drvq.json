@@ -1,0 +1,11 @@
+{
+ "id": "20261121034419-drvq",
+ "status": "done",
+ "time": "2026-11-21 03:44:40 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261121034419_20261121034419-drvq.json"
+ ],
+ "errors": [],
+ "notes": []
+}
