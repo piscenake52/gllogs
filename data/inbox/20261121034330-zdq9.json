@@ -1,0 +1,11 @@
+{
+ "template": "add_setlist.yml",
+ "params": {
+  "setlistid": "202111201730",
+  "item_title": "Girls² First Live Tour -Enjoy The Good Days-\n愛知公演",
+  "artist_free": "Girls²",
+  "member_free": "YZH,MMK,MSK,YOK,KUR,MNM,KIR,TOA,RAN",
+  "venue": "一宮市民会館"
+ },
+ "created": "2026-11-20T18:43:30Z"
+}
