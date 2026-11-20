@@ -174954,6 +174954,7 @@
     "title": "Girls² First Live Tour -Enjoy The Good Days- 愛知夜公演",
     "display_sp": "Girls² First Live Tour -Enjoy The Good Days- 愛知公演",
     "url": "https://girls2-fc.jp/page/EnjoyTheGoodDaysLp",
+    "venue": "一宮市民会館",
     "map": "https://maps.app.goo.gl/yubHHtKrZcLHUMgb6",
     "groups": [
       "G2",
@@ -174967,10 +174968,7 @@
       "TOA",
       "RAN"
     ],
-    "setlistid": "202111211730",
-    "tags": [
-      "一宮市民会館"
-    ]
+    "setlistid": "202111211730"
   },
   {
     "logid": "bff15e20746e",
