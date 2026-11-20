@@ -1,0 +1,11 @@
+{
+ "id": "20261120180827-lywm",
+ "status": "done",
+ "time": "2026-11-20 18:08:42 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261120180827_20261120180827-lywm.json"
+ ],
+ "errors": [],
+ "notes": []
+}
