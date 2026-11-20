@@ -1,0 +1,8 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "efbc94c132ed",
+  "tags": "=,EASY"
+ },
+ "created": "2026-11-20T04:41:00Z"
+}
