@@ -1,9 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "cf6cff7b39b5",
-  "relations_free": "G2,MMK,YOK,KIR",
-  "tags": "=,静岡帰りの凸凹コンビ,おすそ分け浜松餃子,お昼にお寿司"
- },
- "created": "2026-11-20T08:51:57Z"
-}
