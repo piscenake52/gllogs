@@ -1,7 +1,165 @@
 # GL log 実装仕様メモ
 
 `index.html`のコード中コメントを簡潔にする代わりに、詳細な仕様・理由をここにまとめている。
-見出しの行番号は、このメモを作成した時点の`index.html`内の行番号(目安)。
+**構成**: 最初に「現行仕様(まとめ)」(いまの仕様の基準)、そのあとに「機能ごとの詳細メモ」(背景・理由・個別の記録)。置き換え・廃止された旧仕様と変更の履歴は `CHANGELOG.md`。
+「詳細メモ」の見出しの行番号(`### L76` など)は、メモを作成した時点の`index.html`内の行番号(目安)。
+
+## 目次
+
+- 現行仕様(まとめ) … このファイルの基準。最初に読む
+- 機能ごとの詳細メモ … 以下の節(行番号ごとのCSS・JavaScriptのメモ、機能ごとの追記)
+- 変更の履歴・置き換え済みの旧仕様 … CHANGELOG.md
+
+## 現行仕様(まとめ。食い違うときは、ここが基準)
+
+2026-11 の変更をトピックごとにまとめたもの。これより後ろの「機能ごとの詳細メモ」は、背景や理由を含む個別の記録で、ここと食い違う部分は、すでに置き換え済みとして CHANGELOG.md に移してある。
+
+### データ・自動処理
+
+#### 処理の流れ(現行)
+```
+A. Issue(フォーム)      → auto_merge.yml   ─┐
+B. helper の send(直接) → data/inbox/*.json → process_queue.yml ─┤→ issue_to_json.py → data/*/queue/*.json
+C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
+   → merge_json.py(本体へマージ、queue → processed、manifest・インデックス更新)→ コミット・push
+```
+- **ワークフロー**: 次の2つが queue を処理する。`auto_merge.yml`(Issue の作成・編集)と `process_queue.yml`(下記の push・手動)。以前あった `merge_queue.yml` と `process-queue.yml`(ハイフン)は削除する。**同じ queue を処理するワークフローを複数置かない**(同時に動いて競合・二重処理になる)。
+- **`process_queue.yml`**: `data/{logs,setlist,songs,albums}/queue/*.json` と `data/inbox/*.json` への push、手動(Run workflow)で動く。concurrency は `gllogs-data-merge`(待ち合わせ、キャンセルなし)。PyYAML を入れる。
+- **`update_manifest.yml`**: `data/**` の push で `data/manifest.json` を作り直す(`merge_json.py --rebuild-manifest`)。`data/manifest.json`、`data/*/queue/**`、`data/inbox/**` の変更では動かない。
+- **push のリトライ**(`process_queue.yml` と `auto_merge.yml`): push に失敗したら、`pull --rebase` はしない(データJSONが競合するため)。`fetch` して `reset --hard origin/<branch>` で最新に合わせ、残っている queue を `merge_json.py` で再処理してから再コミット・再 push(最大5回、待ち時間は 5・10・15… 秒)。`auto_merge.yml` は、Issue から作った queue ファイルが reset で消えるため、処理前に `/tmp/qsnap` へ退避して復元する。別の実行が先に処理済みなら、変更なしで正常終了する。
+- **読めない queue ファイル**: `merge_json.py` は終了コード1で終わる(処理できた分は先に保存・コミットされる)。ワークフローは最後に失敗表示にする。読めないファイルは queue に残り、次の実行・手動実行で再試行される。
+
+#### エラーの詳細(`merge_json.py`)
+- 標準出力の `【スキップ】` `【警告】` `【エラー】` の行を、どのファイルの何件目かと一緒に記録する(`_Tee` / `REPORT`)。
+- JSON の構文エラーは、行・桁・該当行・ヒント(カンマの付け忘れ、余計なカンマ、引用符の閉じ忘れ、`[ ]` で囲む、など)つきで報告する(`explain_json_error`)。UTF-8 で読めないファイル、最上位がオブジェクトでも配列でもないファイル、オブジェクトでない要素、1件の想定外の例外(行番号つき。残りは続行)も報告する。
+- 出力: `queue_report.md`(表)と `queue_report.json`(コミットされない)。Actions の Summary にも出す。`auto_merge.yml` は `queue_report.md` を Issue にコメントする。
+- 構文エラーなど「読めない」ファイルは queue に残る。中身の一部だけ不正なファイルは、有効な件を適用して processed へ移し、不正な件はレポートにだけ残す。
+
+#### helper からの直接送信(`data/inbox/`)
+- helper が `data/inbox/<id>.json` を GitHub の Contents API(PUT)で作る。`<id>` は `YYYYMMDDHHMMSS-xxxx`(日本時間+乱数4文字)。
+- 依頼ファイルの形: `{"template": "add_logs.yml", "params": {フォーム項目のid: 値}, "created": "…Z"}`。`params` は、helper が Issue 作成URLに付けていたものと同じ。使えるテンプレートは `add_logs / add_setlist / add_songs / add_albums / add_bulk` の5つ。
+- `scripts/inbox_to_json.py`: テンプレートの項目から Issue の本文(`### 見出し` + 値。チェックボックスは `- [X]` / `- [ ]`)を組み立て、`issue_to_json.py` に渡す(Issue と同じ変換)。作られた queue ファイルには、依頼の id を後ろに付ける(同じ秒に複数届いても上書きしない)。
+- 結果: `data/inbox/results/<id>.json`(`status` は `queued` → `merge_json.py` のあとの `--finish` で `done` / `error`、`errors`、`notes`、`queue_files`)。直近60件だけ残す。依頼ファイル自体は処理後に削除する。
+- `.github/ISSUE_TEMPLATE/*.yml` を読むので、リポジトリに置いておく。`scripts/` には `inbox_to_json.py` も置く。
+- 削除は、フォームの「DELETE」と同じ(`delete=削除する`)。更新は、Issue と同じく、識別キー(logid など)と変更する項目だけを送る。
+
+#### manifest(`data/manifest.json`)
+- 形: `{"files": {"data/logs/logs.json": {"hash": "<sha256の先頭16桁>", "size": バイト数}, …}}`。対象は logs / setlist / songs / albums の本体JSON(インデックスは含まない)。時刻は入れず、内容が同じなら書き換えない(空のコミットが増えない)。`merge_json.py` が毎回(変更がなくても)更新し、`--rebuild-index` でも更新する。
+- ビューアは、manifest の hash が前回と同じなら、保存した版をそのまま使う。変わったファイルだけを `raw` から `?v=<hash>` つきで取得し、`size` と一致するか確認する。manifest が取れないときは、これまでどおり API の sha で確認する(フォールバック)。
+
+#### setlist の曲順が分からない曲(順番なし)
+- 曲の `order` を持たない曲を登録できる。形式: `-: 曲名`、`?: 曲名`、`: 曲名`(番号を空にする)。1行でも番号なし(`-` / `?` / 空)を書くと、それ以降の番号なしの行は同じ扱いになる(`unordered` の持ち越し)。番号ありの曲のあとに、番号なしの曲を並べて保存する(安定ソート)。
+- 更新のパッチ: `+?: 曲名` または `-?: 曲名` で、順番なしの曲を末尾に追加する。タイトルで曲を消す。`?:` での更新は不可(エラー)。
+- ビューアのセトリのポップアップ: 番号なしの曲は、番号の代わりに `－` を出し、最後に並べる。すべて番号なしのセトリは、「曲順不明」のチップを出す。
+- helper(setlist): 曲の欄の番号を空にできる(`noOrd`)。解析・整形・値の比較も番号なしに対応。
+
+#### logs の `venue`(会場名)
+- logs に任意の項目 `venue` を追加(`url` と `map` の間)。専用の項目で、tags には入れない。フォーム `add_logs.yml` に `venue` 欄(値の削除の選択肢にも追加)。`issue_to_json.py`(`LABELS_LOGS` / `CLEARABLE` / `build_logs`)と `merge_json.py`(項目の並び)に追加。更新・`!clear`・COPY の扱いは他の項目と同じ。
+- 軽量インデックス `logs_index.json` にも `venue` を入れる(helperの候補用。`tags` と同じ行の条件)。
+- 繰り返し登録のtourの行: 1行の書式は `日付 時刻 | タイトル | contents | URL | display_sp | map | setlistid | tags | venue`(末尾に venue の列を追加。以前の書式のまま使える)。最大列数は8。
+- **setlist への反映**(`merge_json.py` の `sync_venue`。すべての target の処理が終わったあとに実行):
+  - logs の行(ref の行は除く)の `venue` または `setlistid` が処理の前後で変わり、`setlistid` があるとき、同じ `setlistid` の setlist の `venue` を**常に上書き**する(複数の logs が同じ setlist を指すときは、新しい日付の行を優先)。
+  - logs の `venue` を空にした(消した)ときは、setlist の `venue` も消す。
+  - setlist を新規登録したとき(その `setlistid` が処理の前にはなかった)、setlist 側に `venue` がなければ、結びついた logs の `venue` を初期値にする。同じ処理の中で setlist の `venue` を入力した場合は、logs の変更があればそちらが優先。
+  - 反映は venue から venue だけ。tags からは引き継がない。setlist の検索用インデックスも更新する。失敗しても、ほかの処理結果は残し、原因をレポートに出す。
+
+#### データの項目・入力
+
+- **songs.json に `vocal`(任意・自由入力)**: 歌唱メンバー・ユニット名など。キーは従来どおり `artist` + `title`(vocalはキーではない)。例: artistは `Girls²`、vocalは `○○`。
+  - Issueフォーム `add_songs.yml`: `vocal` 欄(artistの下)と、「値の削除(更新時)」の `vocal` を追加。
+  - `issue_to_json.py`: ラベル `vocal` を読み、songsのレコードに入れる(`CLEARABLE` の songs に `vocal`)。`merge_json.py`: songs の項目の並びは `artist, vocal, title, link, lyrics, videos`。
+  - 更新: 入力した項目だけ上書き(空欄は変更しない)。消すときは「値の削除」または `!clear`。`videos` は入力すると丸ごと置き換わる。曲の削除は `DELETE`。
+  - 同じ曲かどうかは `artist` と `title` の完全一致で決まる。artist / title を変えると別の曲(新規)になり、元の曲は残る(名前の変更は旧データを `DELETE` して登録し直す)。
+- **snsの type 自動補正**(`issue_to_json.py`): `type | url` で type を明示しても、それが `site` か `etc` で、URLのドメインが X / Instagram / YouTube / TikTok / CL / radiko / GL²family と判定できるときは、その種類にする。type 自体を省略したときの自動判定は従来どおり(判定できなければ `etc`)。
+- **共通部品 `common.py`**: `is_blank` / `album_type_ok` / `map_from_html`(`<iframe src>` の埋め込みHTMLを地図URLに直す。`&amp;`→`&`)。`issue_to_json.py` と `merge_json.py` が `from common import ...` で使うため、Actionsでは **`common.py` と `schema.json` を、スクリプトと同じ場所(`scripts/`)に置く**(`schema.json` は項目の定義。「保守のための仕組み」を参照)。
+- **map の入力**: Googleマップの地図URL・埋め込みHTML(`<iframe ...>`)のどちらも入れられる(logsのmap、繰り返し登録のtourの行のmap)。保存時は地図URLにそろえる。ビューア側も埋め込みURLとiframeの両方を受け付ける。
+
+#### 保守のための仕組み(テスト・事前チェック・項目定義)
+
+- **`scripts/schema.json`**: 項目の定義を集めたファイル。`logs` `setlist` `songs` `albums` それぞれの `order`(保存時の項目の並び)・`key_fields`(識別キー)・`index_fields`(インデックスに入れる項目)・`clearable`(更新時に「値の削除」で消せる項目)と、フォームの項目名 `labels_logs` / `labels_ss`。`common.py` が読み込み(`SCHEMA`)、`issue_to_json.py` と `merge_json.py` はそこから値を取る(コード中の直書きをやめた。値は従来と同じ)。
+- **`scripts/check_repo.py`**(事前チェック): ①data のJSONが読めるか(queue・inbox は除く) ②`add_logs.yml` `add_setlist.yml` `add_songs.yml` の項目名が `LABELS_*` と一致するか、「値の削除」の選択肢が `clearable` と一致するか ③helper の `<script>` が ASCII のみか ④`schema.json` の整合(識別キー・消せる項目・インデックス項目が `order` に含まれる、重複がない)と、helper の `DEFS` に logs / setlist の編集できる全項目があるか ⑤`merge_json.py`(`--rebuild-index` なし)を実行するワークフローが `auto_merge.yml` と `process_queue.yml` だけか。問題があれば終了コード1。
+- **`tests/`**(`unittest`。`python -m unittest discover -s tests -v`): `helpers.py`(一時フォルダにリポジトリと同じ並びを作り、本物のスクリプトを実行する)、`test_pipeline.py`(logs の新規・更新・削除・繰り返し・インデックス・マニフェストの安定、setlist の曲順なし・個別変更、venue の同期4種(上書き・消去・新規setlistへの引き継ぎ・タグからは引き継がない)、読めないJSONのエラー報告と他ファイルの処理継続、inbox の登録・入力エラー・不正テンプレート・同時刻の依頼)、`test_check_repo.py`(事前チェックが問題を見つけられるか)。計27件。
+- **`.github/workflows/tests.yml`**: scripts・tests・.github・helper の変更、PR、手動で、事前チェックとテストを実行する。data の更新では動かない。権限は contents: read のみ。
+- **項目を足す手順**は README の「テストと事前チェック」にある。
+- 検証状況: ローカル(Python 3.10 相当)での実行のみ。GitHub Actions 上では未実行。
+
+### ビューア(index.html)
+
+- **BADGE機能の削除**: 「機能ごとの詳細メモ」の「BADGE機能の削除」のとおり。ヘッダー右の「<」も無くなり、ICON・TODAYは直接表示する。
+- **ヘッダー固定(🔓/🔒)**: 固定中は、ヘッダーとデータ部の間のラインを、アクセント色の2pxにする(1pxの線+下に1pxの影。レイアウトは動かない)。色は滑らかに変わる。固定の状態は `<head>` 先頭の小さなスクリプトが `html.hdr-locked` として先に付ける(起動時に青く光らないようにするため。起動中の間は色の遷移なし)。
+- **タップハイライト**: スマホで丸いボタンを押したときの四角い残像を消すため、全要素で `-webkit-tap-highlight-color: transparent`。押した感触は `:active` の暗転が出す。
+- **括弧の前後の空き**: 表示するときだけ、タイトル・データ文(PCは`display_pc`、スマホは`display_sp`、なければ`title`)の括弧 `「」『』【】()()` の前後に半角スペースを足す(`spaceBrackets`)。データは変えず、検索・照合には影響しない。
+  - 足さない: すでに空白(全角含む)があるところ / 括弧どうしが並ぶところ(閉じ括弧と閉じ括弧など。閉じ括弧と開き括弧の間は足す) / 閉じ括弧の後ろが 、。,.!?・:;(全角の,.:;を含む) / 行頭・行末の外側 / 開き括弧の前が上の記号のとき。
+  - `【】` の前が全角スペースのときは、前に足さない(後ろは足す)。
+- **snsポップアップの Fancam**: 「機能ごとの詳細メモ」の「sns の Fancam を種類(SNS)ごとにまとめる」のとおり(種類名は常に表示、開いたときは「▲」の右、「+N」は幅40px固定で3桁以上は文字を小さく)。
+- **snsの type 補正(表示)**: `type` が `site` / `etc` / 空でも、URLのドメインがXなどと判定できるリンクは、その種類の行に移して表示する(データは書き換えない)。
+- **動画ポップアップ**: 下端のTAGスイッチを再表示。ON/OFFは `vidTagMode` に保存して、次に開いたときも引き継ぐ。
+- **楽曲バー(♪)**: 右端に披露実績📊を常に表示(曲が読み込まれるまでは非表示)。押すと表示中の曲の披露実績を開く。
+- **披露実績アイコンの条件**(セトリ・アルバムのポップアップの各曲): **songs.json にある曲だけ表示し、披露が0件でも表示する**。無い曲は出さず、同じ幅の空きにする(songs.json未取得の間だけ従来の判定)。曲名の一致は披露実績の集計と同じ正規化(NFKC・大文字小文字・空白を無視)。
+- **vocalの表示**:
+  - 楽曲バー: `曲名 / artist vocal`(artistとvocalは半角スペース区切り。vocalが無ければ従来どおり)。
+  - アルバムのポップアップ(収録曲)と動画ポップアップの見出し: 曲名のあとに半角スペース+少し小さい文字(0.85倍・サブ色)でvocal。アルバムの収録曲は、曲名とアルバムのartistでsongs.jsonから探す(artistが違う同名曲は別の曲)。
+  - セトリのポップアップ・披露実績のポップアップ: vocalは出さない(セトリは入力されたartistのまま)。
+  - vocalでの検索は、今のところ対象外(あとで考える)。
+- **キーボード(PC)**: TODAYモードのとき、`←`=前日、`→`=翌日(フリックと同じ向き・同じスライド)。押しっぱなしでは、動きが終わるたびに次の日へ進む。入力欄・スライダー・ポップアップ・カレンダーが開いている間、Alt/Ctrl/Cmd/Shiftを押している間は動かさない。
+- **3回タップ(隠し機能)**:
+  - 発動条件: 年・月・日・曜日・時刻のボタン、📍、📋、💞、🏷️、💽、🔗がすべてON(♪は条件に含めない)。
+  - データ部の日付・時刻を3回タップ(PCは Ctrl/Shift/Cmd+クリック): 📋セトリ検索がOFFならlogidで `#logs`、ONならsetlistidで `#setlist` をhelperで別タブに開く。
+  - 上の条件に加えて♪がONのとき、楽曲バーの曲名の行を3回タップ(PCは Ctrl/Shift/Cmd+クリック): `?artist=…&title=…#songs` でhelperを開き、その曲を読み込む。バー右端のボタンは対象外。
+- **venue の表示**: venue を持つ行は、タグ行(🏷️)の一番左に会場名のチップを出す(`tags` には含めない)。チップを押すと、その会場名で検索。通常の検索の対象にも含める。記念日の参照行(`ref`)は、元の行の venue・map を引き継がないので、ピンも会場名も出ない。
+- **MAPピン(📍)の仕様**:
+  - 全ての行にピンの部品を作る。表示は MAP ボタン(`#mapToggleBtn`)が ON のときだけ。切り替えは、クラスの付け外しで左からスライドする(再描画しない)。
+  - map が Google の埋め込みURL・`<iframe src>` のとき: ポップアップで地図を表示(リンク先は埋め込みの座標から作った通常のURL)。それ以外の `http(s)://` のURL: そのまま新しいタブで開く。
+  - map にリンクがなく venue があるとき: ピンは押せる状態になり、会場名で Google マップを検索する URL(`https://www.google.com/maps/search/?api=1&query=…`)を新しいタブで開く。
+  - map も venue もない行は、ピンを隠して(幅は保つ)押せない。map が `http(s)://` でない値のときも、押せない(venue があれば検索)。
+- **披露実績ポップアップ**: アーティスト名(`.stat-artist`)を出す。
+- **動画ポップアップの Fancam**: 種類が `Fancam`(大文字小文字は問わない)の行のアイコンは、SNS ポップアップの Fancam(カメラ)と同じ絵・同じ表示範囲・同じ線の太さ。
+- **ヘッダー・ボタン**: ↺(`#backBtn`)を共有ボタンの左に表示して有効にした。ヘッダーと楽曲バーのボタンを、共有と映像、フォントとダーク・Uta-Net、鍵と披露実績が上下でそろう位置にした。Uta-Net ボタンの幅は、フォント・ダークのボタンと同じ。歌詞ボタン(`.song-lyrics-btn`)は幅56px。
+- **TODAY / ICON のボタン**: 幅を TODAY にそろえる(`#iconToggleBtn::after` に TODAY の文字を透明で置いて幅を確保)。
+- **FILTER の自動ON を廃止**: ▲/▼ ボタンで FILTER ボタンを自動でONにする動きをやめた(起動時の復元も同じ)。
+- **読み込み・表示の最適化**: `songIndex()`(小文字化した曲名の Map と、統計用の Set)で線形の検索を置き換える。`SORT_TITLE_COLLATOR` を `updateDisplay` の外に出す。`makeDataSource` は manifest ベース(`getManifest(force)`、`latest()`、`fetchFresh(info)`、API の sha へのフォールバック、`defer`)。songs・setlist・albums は、logs の描画が済むまで読み込みを遅らせる(`logsStarted`)。`<head>` の先頭スクリプトで IndexedDB の読み出しを早めに始める。
+- **アニメーション**: 押したときの縮み(WAAPI の `scale`)、ON にしたときの円形(`clip-path`)の広がり(ユーザー操作から1200ms以内の `is-active` だけ)、ポップアップの `translateY(18px) scale(.96)` からの表示。`MOTION` の変数で速度を調整する。
+
+### helper(issue_helper_blogger.html)
+
+- **songsタブ**:
+  - `id` 欄(`new` の下): タイトルの一部で `songs.json` を検索し、候補を押す(またはEnterで1件のとき)とその曲を読み込む。同じタイトルが複数あるときだけ、候補にartistを併記する。読み込み後はid欄は空に戻る。`new` で一緒にクリア。
+  - artistのチップ: 1段目の右端に「おはガール」を追加(Girls² / Laki / Girls² × iScream / おはガール、2段目 miracle² / magical² / mirage² / lovely²)。artistの候補は、artist欄の直下に出す(チップはそのあと)。
+  - `vocal` 欄(artistのチップの下、自由入力のみ): カーソルを置くと、選んだartist(順序・表記ゆれを同じとみなす)の曲で使われているvocalを件数つきで候補表示。入力で絞り込む。読み込んだ曲のvocalは入る。空にして送ると `!clear`。
+  - title の候補: artistで絞り、vocalが入っていればvocalでも絞る(部分一致。一致が無ければartistの曲を全部出す)。vocalが空なら従来どおり。
+  - `#songs?artist=…&title=…` で開くと、その曲を読み込む(ビューアの楽曲バーの3回タップ)。
+- **albumsタブ**: artist欄を date の上に移動(id → artist → date → title → type)。artistのチップにも「おはガール」を追加(songsと同じ並び)。
+- **logsタブ**:
+  - `copy` と `ANNIVERSARY` は同じ大きさの丸いチップ(大文字表記、`copy` ラベルあり)。copyとrepeat(interval / schedule / tour)の行は、date・timeの下に置く(新規でも既存でも同じ位置・同じ見た目)。repeatのチップの文字は大文字、サイズは3つとも同じ。
+  - 日付の左右の矢印ボタンは常に表示。既存データ表示時も date・time・時計アイコンの位置がずれない(2pxにそろえる)。
+  - sns: `url` / `tags` のラベルを追加し、入力欄内の表示は削除。tagsの `add` ボタンは入力欄の下に移動(Fancamと同じ大きさ)で、Fancamとの間に線を引く。
+  - map: Googleマップの地図URLと埋め込みHTMLのどちらも入れられる(iframeは地図URLに直す)。
+  - schedule: 「+ schedule」ボタンで、スケジュール欄を1行ずつ追加できる(×で消す。×は自由入力欄の右端)。追加行は `repeat=` の内容にも入る。
+  - ラベル・表示の整理: intervalの `skip` は `skip date`、tourの愛知は `area`、タグ1・タグ2は `tags`、`+` は `+ tour`。optional_sp、suffixの入力欄内の表示は削除。
+- **setlistタブ**: 曲の詳細の `note` にラベルを付け、入力欄内の表示は削除。既存データ表示時も、紐づくlogsの日付・時刻を読み取り専用で表示する(同じsetlistidのlogsのうち日付が一番古いもの)。copyの位置はtimeの下。
+- **曲の編集**: アルバムの収録曲(`alTracks`)とセトリの曲(`addSongsList`)は、同じ編集部品(`edBox` / `edActs`)を使う。
+- **setting(右下)**: メインの枠の外側・下の右端に小さな「setting」ボタン。押すと、ボタンの上に設定パネルが開く(もう一度押すと閉じる)。`#setting` で開いた状態にもできる。項目:
+  - `repo`(`owner/name`)、`branch`、`token`。リポジトリとブランチは、コード中の固定値の代わりに使う(Issue のリンクにも反映)。
+  - **token の保存**: localStorage(`glih_set`)。ENCRYPT をオンにすると、パスフレーズで暗号化して保存する(Web Crypto: PBKDF2-SHA256 250000回 → AES-GCM。ソルト・IV は保存ごとに乱数)。暗号化した token は、ページを開くたびに「unlock」が必要(unlock 後は、メモリ上だけに保持)。暗号化しないと平文で保存される。「clear token」で保存した token を消す(2回押し)。
+  - 「test」: リポジトリ・ブランチが見えるか、書き込み権限があるかを確認する。
+  - token は Fine-grained token(このリポジトリだけ、Contents の Read and write だけ、期限つき)を想定。`api.github.com` へのリクエスト以外には送らない。
+- **send**: 各タブ(logs / setlist、songs、albums、bulk)の Issue ボタンの下に表示。Issue のリンクの値(テンプレートと項目の値)をそのまま読み取って、`data/inbox/<id>.json` に PUT する。ネットワークエラー、409、429、5xx は最大3回再試行する。送信後、`data/inbox/results/<id>.json` を4秒ごと・最大約3分ポーリングして、`done` / `error`(原因・注意)を表示する。`done` のとき、logs・setlist・albums・songs のキャッシュを破棄する。エラーの表示は、401(token の誤り・期限切れ)、403(権限不足・上限)、404(リポジトリ・ブランチが見えない)、422、409 などを具体的に出す。
+- **Issue と send の表示条件**: 送れる状態になるまで(初期表示、new 直後、入力が不足のとき)、Issue ボタンと send を隠す(`a.go[aria-disabled="true"]` は非表示)。
+- **delete ボタン**: send の横に出す処理は残っているが、画面には出さない(`SHOW_DEL = false`)。削除は Issue のフォームから行う。`true` にすると、logs・setlist(読み込んだ行)、songs(一致した曲)、albums(読み込んだ盤)に delete ボタンが出る(確認ダイアログつき)。
+- **venue 欄**(logs): `map` の上。候補は、過去の logs の venue(重複を除き、使用回数が多い順、最大12件。入力すると前方一致を先に、最大8件)。`logs_index.json` に venue がない古いインデックスのときは、最初にカーソルを置いたとき、`logs.json` を一度だけ全部読んで候補を作る。tourモードでは、フォーム上部の venue は隠す。
+- **tour の1行**: 並びは「area と venue(1行)」→「map のURL」→「tags」。venue の候補は同じ area の過去の venue(area が空なら全部)。1行の venue は、その回の logs の venue になる。
+- **setlist への遷移・新規入力の venue**: logs の行の `venue` だけを引き継ぐ(tags は使わない)。check からの遷移(`openSl`)、logs のフォームからの遷移、setlistid が同じ logs の行からの自動入力、のすべて。元データの logs の行は、`venue` を持つ行を優先して選ぶ。
+- **COPY(logs)**: COPY をオンにしたとき、フォームの time 欄の横に「anytime」のチェックを出す。チェックを入れると time が空になり、`time=!clear`(コピー先は時刻なし)。チェックを外すと、元の時刻が戻る(元から時刻がなければ空のまま)。時刻を入力するとチェックは外れる。
+- **setlist の曲の入力**: 番号なし(`noOrd`)に対応(上の「曲順が分からない曲」)。
+- **setlist のコピー**: `addSlCopyFrom(box, sid)`。選んだ setlist から、同じタイトルのものを先頭に、artist・member・source・songs(titleは空のときだけ)を写す。
+- **check タブの追加項目**: setlist・albums・songs のデータが揃っているかの検査を追加(`ckReg`)。logs の setlist が未登録(`nosl`)、albums が未登録(`noalbum`)、setlist の曲が songs に未登録(`slsong`)、albums の曲が songs に未登録(`alsong`)、setlist に曲がない(`slnosong`)、albums に曲がない(`alnotrack`)、盤が未登録(`noedition`)。結果の行から、未登録のデータへ移動するボタン(`it.go`)がある。無視するキーは `CK_IG`。移動先は `jumpSeed` / `gotoAlbum` / `goSong` / `openSl`。
+- **フォームの説明文**: Issue フォーム(`add_*.yml`)の日本語の説明文は、簡潔な文に統一した。`add_setlist.yml` に `-:` `?:` `:` と `+?:` `-?:` の書き方を載せた。
+- **Blogger に貼るときの注意**: `<script>` は ASCII のみ・日本語や記号は `\uXXXX`・改行は LF(既存のとおり)。説明文などの日本語は、コメントの中だけ。
+
+### 確認の状況
+上の項目は、Playwright(通信をモックしたもの)と node でのテスト、およびテスト用フォルダでの `inbox_to_json.py` → `merge_json.py` の実行で確認した。実機、Blogger、GitHub Actions の上での通し確認は、これから。
+
+## 機能ごとの詳細メモ
 
 ## CSS
 
@@ -258,9 +416,6 @@ SETLISTアイコン表示:①セトリ検索モード中(従来通り)、②📋
 
 ### L2513
 四角(マーカー)はteam-both(G2/L2混在)の行のみ、G2/L2それぞれの最初のハートに直接クラスを付けて CSSでバッジのように重ねて表示する(独立した別枠にすると、四角の有無でハートの位置がずれてしまうため)
-
-### L2626(旧仕様: ダブルタップでのlogidコピーは廃止。現行は末尾「2026-11 の変更のまとめ」の3回タップ)
-【隠し機能】年・月・日・曜日・時刻の表示と、📍・📋️の表示がすべてONの間だけ有効。 データ行の日付/時刻部分をダブルタップ(ダブルクリック)すると、その行のlogidをクリップボードにコピーし、 画面下に表示する(Issueフォームで既存ログを更新するときにlogidを調べる用)。
 
 ### L2638
 有効な間だけ、日付/時刻の文字選択を止めるクラスを付ける(スマホのダブルタップで単語が選択され、 コピー/共有メニューが出てしまうのを防ぐ)。1回目のタップ(click)の時点で反映するので、2回目のタップに間に合う。 ※ mapMode などはこのコードより後ろで宣言されるため、読み込み時には呼ばず、クリック時にだけ呼ぶ。
@@ -589,15 +744,6 @@ TODAY/セトリ検索モードのどちらでもないとき、年/月/グルー
 - `http(s)`で始まらない不正なURLは番号だけ表示しクリック不可にする(`is-invalid`)
 - typeアイコンはSimple Icons由来のSVGパスで単色(`currentColor`)表示。未登録typeは同じ幅だけ空ける
 
-### logid / setlistid コピー機能(廃止: 末尾の「helper遷移の条件変更」を参照)
-
-日付・時刻のダブルクリック/ダブルタップでクリップボードにコピーしトースト表示する(2回目のタップでコピー)。
-
-- 発動条件: 年月日曜時+📍+📋️がすべてON
-- 🔗が**ON**(全部ON): `logid`をコピー(無ければ「この行にはlogidがありません」)
-- 🔗が**OFF**: `setlistid`をコピー(無ければ何も起きない。logidと違いトーストも出さない)
-- **helperを開ける状態(後述「helperへの遷移」)のときは、ダブルタップでもコピーしない**(3回タップに備えるため)。コピーする元の条件は上のとおり変えていない
-
 ### sticky-header(検索部固定)の注意点
 
 `body`に`overflow-x: hidden`だけを指定すると、ブラウザの仕様で`overflow-y`が暗黙的に`auto`扱いになり、`body`自体が独立したスクロールコンテナとみなされて`position: sticky`が効かなくなる。回避のため`overflow-x: hidden`は`body`ではなく`html`(元々`overflow-y: auto`を指定)にまとめて指定している。
@@ -641,28 +787,6 @@ TODAY/セトリ検索モードのどちらでもないとき、年/月/グルー
 - 外側のクリック・Escで閉じる。判定は`e.composedPath()`で行う(カレンダー内のボタンは再描画で要素が差し替わるため、`contains()`だと自分のクリックで閉じてしまう)
 - 位置は`position: fixed`で、リサイズ・スクロールのたびに計算し直す
 - 画面の文字は`\uXXXX`のエスケープで書く(後述のBloggerの文字化け対策と同じ流儀。index.htmlでは必須ではないが揃えてある)
-
-### helperへの遷移(隠し機能)(条件を変更: 末尾の「helper遷移の条件変更」が現行)
-
-データ部の日付・時刻を**3回連続タップ**(PCは Ctrl / Shift / Cmd + クリック)すると、その行のIDでhelperを別タブで開く(`https://gl-log.blogspot.com/p/issuehelper.html?id=<ID>#logs` または `#setlist`)。
-
-**helperを開ける状態**(`helperModeOn`)は、次のすべてを満たすとき:
-
-- 年月日曜時+📍+📋️がON(「logid / setlistid コピー機能」と同じ発動条件)
-- ♪(`songMode`)と💞(`heartModeOn`)がON
-- 次のどちらか
-  - 🔗がOFF、かつ📋セトリ検索がON → `setlistid`で`#setlist`を開く
-  - 🔗がON、かつ📋セトリ検索がOFF → `logid`で`#logs`を開く
-
-IDが無い行は何もしない。この状態では、**ダブルタップのIDコピーは行わない**(3回タップの途中でコピーのトーストが出ないようにするため)。helperを開ける状態でないときは、ダブルタップのコピーは従来どおり。
-
-| ♪💞 | 📋 | 🔗 | ダブルタップ | トリプルタップ |
-|---|---|---|---|---|
-| どちらかOFF | - | - | 🔗ONならlogid、OFFならsetlistidをコピー | なし |
-| ON | ON | OFF | コピーしない | helper(setlist) |
-| ON | OFF | ON | コピーしない | helper(logs) |
-| ON | ON | ON | 従来どおりコピー(logid) | なし |
-| ON | OFF | OFF | 従来どおりコピー(setlistid) | なし |
 
 ### contentsの追加・アイコン変更
 
@@ -932,9 +1056,6 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 入力したタグが既存タグと完全一致しないが、全角半角・大文字小文字・空白・記号・長音・ひらがな/カタカナ違いを無視すると既存タグと一致する場合に警告。`use existing`(既存表記に置換) / `keep mine`(そのまま、この画面の間は再警告しない)。
 - 編集で元から入っていたタグは対象外。編集距離による判定はしない(誤検出が多いため)。
 
-### 下書き自動保存(廃止)
-- 入力途中の内容を保存して復元・破棄を確認する機能(`glih_drafts`、`restore` / `discard` のバナー)は廃止した。helperを開いたときに、以前の保存分(localStorage の `glih_drafts`)は消す。
-
 ### setlist 貼り付け変換
 - setlist の songs 欄の下の `setlist paste` で開く。`1.` `1)` `①` `M1` 形式の番号を解釈、`EN1` / `アンコール` は連番で notes に `encore`。`※` / `MC` 行・見出し行は無視。末尾の `( )` と `★` 以降は notes。
 - songs.json に無い曲名は赤表示+候補(最大3件)。自動では直さず、候補を押すと置換。`apply to songs`(空なら置換、入力済みなら追記) / `undo`。
@@ -1074,7 +1195,7 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 💽ボタン = 一覧の行の💽(アルバムポップアップを開くアイコン)の表示/非表示。1回押すごとにON/OFF、`gl_alb_mode` に保存、初期はON。
 - 出入りは🔗と同じ動き: OFFは右へ0.28秒滑りながら薄くなり、消えたあとに幅が0になる。ONは幅がすぐ戻り、右から滑って出る。`prefers-reduced-motion` では動きなし。
 - 披露実績(📊)の表示は、ポップアップ右上の📊スイッチだけで切り替える(ヘッダとは連動しない)。`gl_stat_mode` に保存、初期はOFF。
-- 〔更新〕曲紹介バーの披露実績アイコン(`songStatBtn`)は、バーの右端に常に表示する(末尾「2026-11 の変更のまとめ」を参照)。
+- 〔更新〕曲紹介バーの披露実績アイコン(`songStatBtn`)は、バーの右端に常に表示する(「現行仕様」の変更のまとめ」を参照)。
 
 ## Uta-Netチップ
 - 歌詞の📜は、すべて「Uta-Net」ラベルのチップに変更: アルバム・セトリのポップアップの曲の行 / 曲紹介バー / ポップアップ右上のスイッチ。
@@ -1097,15 +1218,6 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 ## ヘッダの🕐から開くボタン
 - 年・月・日・曜・時のボタンの間隔は他のヘッダアイコンと同じ6px(大きさは24px)。
 
-## helper遷移の条件変更(logid / setlistid コピーの廃止)(現行: 末尾「2026-11 の変更のまとめ」の3回タップ)
-- 日付・時刻のダブルタップ/ダブルクリックでlogid・setlistidをコピーする機能は廃止(トーストも無し)。
-- 3回連続タップ(PCは Ctrl / Shift / Cmd + クリック)でhelperを別タブで開く機能だけが残る。
-- 発動条件: 年・月・日・曜・時のボタン、📍、📋、💞、🏷️、💽、🔗がすべてON。♪のON/OFFは条件に含めない。
-  - 📋セトリ検索がOFF: その行のlogidで `#logs` を開く。
-  - 📋セトリ検索がON: その行のsetlistidで `#setlist` を開く。
-- 条件を満たさないときは何も起きない。IDが無い行(logidが無い、または📋セトリ検索ONでsetlistidが無い)も何もしない。
-- 発動条件が揃っている間だけ、日付/時刻の文字選択(ダブルタップの単語選択とコピーメニュー)を止める。
-
 ## セトリポップアップの変更
 - 曲の行のUta-Netチップと披露実績(📊)は廃止(アルバムのポップアップには残る)。右上のUta-Net・📊スイッチもセトリのポップアップからは外し、アルバムのポップアップだけに付く。
 - ライブのタイトル(改行は元のまま)が折り返す場合は、折り返さずに入る幅まで、画面の幅-40pxを上限にポップアップを自動で広げる(曲の行の幅と同じ仕組み)。上限でも入らないときだけ折り返す。
@@ -1116,14 +1228,6 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 廃止するのは、ポップアップ右上のUta-Net・📊の切り替えスイッチ(チップ)だけ。行のUta-Net・📊は常に表示し、切り替えは無い(`gl_lyrics_mode`・`gl_stat_mode`は使わない)。
 - セトリポップアップの行のUta-Net・📊の表示条件は、typeに関わらず曲名がsongs.jsonにあれば表示(未取得の間だけmc・dt・dj・towelを除く)。
 - ライブのタイトルが折り返すときの幅の自動拡張は、そのまま有効。
-
-## 年フィルターの折りたたみ(YEARボタン)(置き換え: 末尾の「フィルターの折りたたみ(上の帯)」が現行)
-- 年フィルターの行の左端に折りたたみボタンを置く。開いている間は「‹」だけ。畳んだあと(行が縮む動きに合わせて)「YEAR ›」と文字が出る(将来、他のフィルターも横並びにするため)。
-- 押すと、年のボタンが左のYEARボタンへ滑りながら小さくなって吸い込まれる(ボタンに近い順に21msずつ遅れて、0.42秒)。吸い込みの終わり際(約7割)から、行そのものが42pxから22pxに縮み、下の行が上へ詰まる。YEARボタンは22pxの小さなつまみとして残り、矢印が反転する。もう一度押すと、先に行が広がり、YEARボタンの位置から年のボタンが右へ広がって戻る。
-- 畳んでいる間も、選択した年の絞り込みは有効のまま(チェックの状態は変えない)。
-- 状態は `gl_year_fold`(true / false)に保存し、次回も同じ状態で開く(起動時はアニメなし)。
-- （廃止）選択中の年の数のバッジ。BADGE機能の削除に伴い、現在は出さない。
-- `prefers-reduced-motion` ではアニメなしで切り替わる。畳んでいる間は年のボタン(`#yearChecks`)を `display:none` にする。
 
 ## フィルターの折りたたみ(上の帯)
 - フィルターの一番上に、折りたたみボタンの帯を置く: YEAR / GIRLS² / LAKI / CONTENTS を横並び(狭い幅では折り返す)。
@@ -1249,7 +1353,6 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 
 - helper(setlist / albums): artist と member を1つの「artist」欄に統合。artist の入力欄(Girls² / Laki 以外の名前も自由入力できる)と Girls² / Laki のチップの下に、member のチップ(G2 / L2 と各メンバー)を並べる。member のテキスト欄は隠し、値だけ保持する。メンバーを選ぶと artist のチップも連動する(G2のメンバー = Girls²、L2のメンバー = Laki。artist 欄に手で入れた他の名前は残す)。
 
-
 ## BADGE機能の削除
 - ヘッダーの BADGE ボタン、各フィルターボタンの「押したときの件数」(`.count-badge`)、畳んだボタンの選択数(`.fold-badge`)、DISPLAY の BADGE スイッチ、ヘルプの BADGE 行を削除した。理由: BADGE をONにすると全フィルターボタンぶんの件数計算(約100回 × 全件)が走り、データ件数が多いと表示が遅くなるため(約13,000件で1操作あたり約190ms増)。
 - ヘッダー右の「<」(`hdrMoreBtn`)を削除。ICON は常に直接表示する(スマホのズーム時 `zoom-wrap` も同じ)。検索行の「<」(`toolsMoreBtn`)は残す。
@@ -1264,155 +1367,3 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 動画リンクのポップアップ(曲の動画のFancam)は対象外で、従来どおり。
 
 ---
-
-## 2026-11 の変更のまとめ(最新仕様。前の節と食い違うときは、この節が現行)
-
-### データ・自動処理
-- **songs.json に `vocal`(任意・自由入力)**: 歌唱メンバー・ユニット名など。キーは従来どおり `artist` + `title`(vocalはキーではない)。例: artistは `Girls²`、vocalは `○○`。
-  - Issueフォーム `add_songs.yml`: `vocal` 欄(artistの下)と、「値の削除(更新時)」の `vocal` を追加。
-  - `issue_to_json.py`: ラベル `vocal` を読み、songsのレコードに入れる(`CLEARABLE` の songs に `vocal`)。`merge_json.py`: songs の項目の並びは `artist, vocal, title, link, lyrics, videos`。
-  - 更新: 入力した項目だけ上書き(空欄は変更しない)。消すときは「値の削除」または `!clear`。`videos` は入力すると丸ごと置き換わる。曲の削除は `DELETE`。
-  - 同じ曲かどうかは `artist` と `title` の完全一致で決まる。artist / title を変えると別の曲(新規)になり、元の曲は残る(名前の変更は旧データを `DELETE` して登録し直す)。
-- **snsの type 自動補正**(`issue_to_json.py`): `type | url` で type を明示しても、それが `site` か `etc` で、URLのドメインが X / Instagram / YouTube / TikTok / CL / radiko / GL²family と判定できるときは、その種類にする。type 自体を省略したときの自動判定は従来どおり(判定できなければ `etc`)。
-- **共通部品 `common.py`**: `is_blank` / `album_type_ok` / `map_from_html`(`<iframe src>` の埋め込みHTMLを地図URLに直す。`&amp;`→`&`)。`issue_to_json.py` と `merge_json.py` が `from common import ...` で使うため、Actionsでは **`common.py` を2つのスクリプトと同じ場所(`scripts/`)に置く**。
-- **map の入力**: Googleマップの地図URL・埋め込みHTML(`<iframe ...>`)のどちらも入れられる(logsのmap、繰り返し登録のtourの行のmap)。保存時は地図URLにそろえる。ビューア側も埋め込みURLとiframeの両方を受け付ける。
-
-### ビューア(index.html)
-- **BADGE機能の削除**: 上の「BADGE機能の削除」の節のとおり。ヘッダー右の「<」も無くなり、ICON・TODAYは直接表示する。
-- **ヘッダー固定(🔓/🔒)**: 固定中は、ヘッダーとデータ部の間のラインを、アクセント色の2pxにする(1pxの線+下に1pxの影。レイアウトは動かない)。色は滑らかに変わる。固定の状態は `<head>` 先頭の小さなスクリプトが `html.hdr-locked` として先に付ける(起動時に青く光らないようにするため。起動中の間は色の遷移なし)。
-- **タップハイライト**: スマホで丸いボタンを押したときの四角い残像を消すため、全要素で `-webkit-tap-highlight-color: transparent`。押した感触は `:active` の暗転が出す。
-- **括弧の前後の空き**: 表示するときだけ、タイトル・データ文(PCは`display_pc`、スマホは`display_sp`、なければ`title`)の括弧 `「」『』【】()()` の前後に半角スペースを足す(`spaceBrackets`)。データは変えず、検索・照合には影響しない。
-  - 足さない: すでに空白(全角含む)があるところ / 括弧どうしが並ぶところ(閉じ括弧と閉じ括弧など。閉じ括弧と開き括弧の間は足す) / 閉じ括弧の後ろが 、。,.!?・:;(全角の,.:;を含む) / 行頭・行末の外側 / 開き括弧の前が上の記号のとき。
-  - `【】` の前が全角スペースのときは、前に足さない(後ろは足す)。
-- **snsポップアップの Fancam**: 前の「sns の Fancam を種類(SNS)ごとにまとめる」の節のとおり(種類名は常に表示、開いたときは「▲」の右、「+N」は幅40px固定で3桁以上は文字を小さく)。
-- **snsの type 補正(表示)**: `type` が `site` / `etc` / 空でも、URLのドメインがXなどと判定できるリンクは、その種類の行に移して表示する(データは書き換えない)。
-- **動画ポップアップ**: 下端のTAGスイッチを再表示。ON/OFFは `vidTagMode` に保存して、次に開いたときも引き継ぐ。
-- **楽曲バー(♪)**: 右端に披露実績📊を常に表示(曲が読み込まれるまでは非表示)。押すと表示中の曲の披露実績を開く。
-- **披露実績アイコンの条件**(セトリ・アルバムのポップアップの各曲): **songs.json にある曲だけ表示し、披露が0件でも表示する**。無い曲は出さず、同じ幅の空きにする(songs.json未取得の間だけ従来の判定)。曲名の一致は披露実績の集計と同じ正規化(NFKC・大文字小文字・空白を無視)。
-- **vocalの表示**:
-  - 楽曲バー: `曲名 / artist vocal`(artistとvocalは半角スペース区切り。vocalが無ければ従来どおり)。
-  - アルバムのポップアップ(収録曲)と動画ポップアップの見出し: 曲名のあとに半角スペース+少し小さい文字(0.85倍・サブ色)でvocal。アルバムの収録曲は、曲名とアルバムのartistでsongs.jsonから探す(artistが違う同名曲は別の曲)。
-  - セトリのポップアップ・披露実績のポップアップ: vocalは出さない(セトリは入力されたartistのまま)。
-  - vocalでの検索は、今のところ対象外(あとで考える)。
-- **キーボード(PC)**: TODAYモードのとき、`←`=前日、`→`=翌日(フリックと同じ向き・同じスライド)。押しっぱなしでは、動きが終わるたびに次の日へ進む。入力欄・スライダー・ポップアップ・カレンダーが開いている間、Alt/Ctrl/Cmd/Shiftを押している間は動かさない。
-- **3回タップ(隠し機能)**:
-  - 発動条件: 年・月・日・曜日・時刻のボタン、📍、📋、💞、🏷️、💽、🔗がすべてON(♪は条件に含めない)。
-  - データ部の日付・時刻を3回タップ(PCは Ctrl/Shift/Cmd+クリック): 📋セトリ検索がOFFならlogidで `#logs`、ONならsetlistidで `#setlist` をhelperで別タブに開く。
-  - 上の条件に加えて♪がONのとき、楽曲バーの曲名の行を3回タップ(PCは Ctrl/Shift/Cmd+クリック): `?artist=…&title=…#songs` でhelperを開き、その曲を読み込む。バー右端のボタンは対象外。
-
-### helper(issue_helper_blogger.html)
-- **songsタブ**:
-  - `id` 欄(`new` の下): タイトルの一部で `songs.json` を検索し、候補を押す(またはEnterで1件のとき)とその曲を読み込む。同じタイトルが複数あるときだけ、候補にartistを併記する。読み込み後はid欄は空に戻る。`new` で一緒にクリア。
-  - artistのチップ: 1段目の右端に「おはガール」を追加(Girls² / Laki / Girls² × iScream / おはガール、2段目 miracle² / magical² / mirage² / lovely²)。artistの候補は、artist欄の直下に出す(チップはそのあと)。
-  - `vocal` 欄(artistのチップの下、自由入力のみ): カーソルを置くと、選んだartist(順序・表記ゆれを同じとみなす)の曲で使われているvocalを件数つきで候補表示。入力で絞り込む。読み込んだ曲のvocalは入る。空にして送ると `!clear`。
-  - title の候補: artistで絞り、vocalが入っていればvocalでも絞る(部分一致。一致が無ければartistの曲を全部出す)。vocalが空なら従来どおり。
-  - `#songs?artist=…&title=…` で開くと、その曲を読み込む(ビューアの楽曲バーの3回タップ)。
-- **albumsタブ**: artist欄を date の上に移動(id → artist → date → title → type)。artistのチップにも「おはガール」を追加(songsと同じ並び)。
-- **logsタブ**:
-  - `copy` と `ANNIVERSARY` は同じ大きさの丸いチップ(大文字表記、`copy` ラベルあり)。copyとrepeat(interval / schedule / tour)の行は、date・timeの下に置く(新規でも既存でも同じ位置・同じ見た目)。repeatのチップの文字は大文字、サイズは3つとも同じ。
-  - 日付の左右の矢印ボタンは常に表示。既存データ表示時も date・time・時計アイコンの位置がずれない(2pxにそろえる)。
-  - sns: `url` / `tags` のラベルを追加し、入力欄内の表示は削除。tagsの `add` ボタンは入力欄の下に移動(Fancamと同じ大きさ)で、Fancamとの間に線を引く。
-  - map: Googleマップの地図URLと埋め込みHTMLのどちらも入れられる(iframeは地図URLに直す)。
-  - schedule: 「+ schedule」ボタンで、スケジュール欄を1行ずつ追加できる(×で消す。×は自由入力欄の右端)。追加行は `repeat=` の内容にも入る。
-  - ラベル・表示の整理: intervalの `skip` は `skip date`、tourの愛知は `area`、タグ1・タグ2は `tags`、`+` は `+ tour`。optional_sp、suffixの入力欄内の表示は削除。
-- **setlistタブ**: 曲の詳細の `note` にラベルを付け、入力欄内の表示は削除。既存データ表示時も、紐づくlogsの日付・時刻を読み取り専用で表示する(同じsetlistidのlogsのうち日付が一番古いもの)。copyの位置はtimeの下。
-- **曲の編集**: アルバムの収録曲(`alTracks`)とセトリの曲(`addSongsList`)は、同じ編集部品(`edBox` / `edActs`)を使う。
-- **Bloggerに貼るときの注意**: `<script>` は ASCII のみ・日本語や記号は `\uXXXX`・改行はLF(既存のとおり)。
-
-## 2026-11 後半の変更のまとめ(最新仕様。前の節と食い違うときは、この節が現行)
-
-### データ・自動処理
-
-#### 処理の流れ(現行)
-```
-A. Issue(フォーム)      → auto_merge.yml   ─┐
-B. helper の send(直接) → data/inbox/*.json → process_queue.yml ─┤→ issue_to_json.py → data/*/queue/*.json
-C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
-   → merge_json.py(本体へマージ、queue → processed、manifest・インデックス更新)→ コミット・push
-```
-- **ワークフロー**: 次の2つが queue を処理する。`auto_merge.yml`(Issue の作成・編集)と `process_queue.yml`(下記の push・手動)。以前あった `merge_queue.yml` と `process-queue.yml`(ハイフン)は削除する。**同じ queue を処理するワークフローを複数置かない**(同時に動いて競合・二重処理になる)。
-- **`process_queue.yml`**: `data/{logs,setlist,songs,albums}/queue/*.json` と `data/inbox/*.json` への push、手動(Run workflow)で動く。concurrency は `gllogs-data-merge`(待ち合わせ、キャンセルなし)。PyYAML を入れる。
-- **`update_manifest.yml`**: `data/**` の push で `data/manifest.json` を作り直す(`merge_json.py --rebuild-manifest`)。`data/manifest.json`、`data/*/queue/**`、`data/inbox/**` の変更では動かない。
-- **push のリトライ**(`process_queue.yml` と `auto_merge.yml`): push に失敗したら、`pull --rebase` はしない(データJSONが競合するため)。`fetch` して `reset --hard origin/<branch>` で最新に合わせ、残っている queue を `merge_json.py` で再処理してから再コミット・再 push(最大5回、待ち時間は 5・10・15… 秒)。`auto_merge.yml` は、Issue から作った queue ファイルが reset で消えるため、処理前に `/tmp/qsnap` へ退避して復元する。別の実行が先に処理済みなら、変更なしで正常終了する。
-- **読めない queue ファイル**: `merge_json.py` は終了コード1で終わる(処理できた分は先に保存・コミットされる)。ワークフローは最後に失敗表示にする。読めないファイルは queue に残り、次の実行・手動実行で再試行される。
-
-#### エラーの詳細(`merge_json.py`)
-- 標準出力の `【スキップ】` `【警告】` `【エラー】` の行を、どのファイルの何件目かと一緒に記録する(`_Tee` / `REPORT`)。
-- JSON の構文エラーは、行・桁・該当行・ヒント(カンマの付け忘れ、余計なカンマ、引用符の閉じ忘れ、`[ ]` で囲む、など)つきで報告する(`explain_json_error`)。UTF-8 で読めないファイル、最上位がオブジェクトでも配列でもないファイル、オブジェクトでない要素、1件の想定外の例外(行番号つき。残りは続行)も報告する。
-- 出力: `queue_report.md`(表)と `queue_report.json`(コミットされない)。Actions の Summary にも出す。`auto_merge.yml` は `queue_report.md` を Issue にコメントする。
-- 構文エラーなど「読めない」ファイルは queue に残る。中身の一部だけ不正なファイルは、有効な件を適用して processed へ移し、不正な件はレポートにだけ残す。
-
-#### helper からの直接送信(`data/inbox/`)
-- helper が `data/inbox/<id>.json` を GitHub の Contents API(PUT)で作る。`<id>` は `YYYYMMDDHHMMSS-xxxx`(日本時間+乱数4文字)。
-- 依頼ファイルの形: `{"template": "add_logs.yml", "params": {フォーム項目のid: 値}, "created": "…Z"}`。`params` は、helper が Issue 作成URLに付けていたものと同じ。使えるテンプレートは `add_logs / add_setlist / add_songs / add_albums / add_bulk` の5つ。
-- `scripts/inbox_to_json.py`: テンプレートの項目から Issue の本文(`### 見出し` + 値。チェックボックスは `- [X]` / `- [ ]`)を組み立て、`issue_to_json.py` に渡す(Issue と同じ変換)。作られた queue ファイルには、依頼の id を後ろに付ける(同じ秒に複数届いても上書きしない)。
-- 結果: `data/inbox/results/<id>.json`(`status` は `queued` → `merge_json.py` のあとの `--finish` で `done` / `error`、`errors`、`notes`、`queue_files`)。直近60件だけ残す。依頼ファイル自体は処理後に削除する。
-- `.github/ISSUE_TEMPLATE/*.yml` を読むので、リポジトリに置いておく。`scripts/` には `inbox_to_json.py` も置く。
-- 削除は、フォームの「DELETE」と同じ(`delete=削除する`)。更新は、Issue と同じく、識別キー(logid など)と変更する項目だけを送る。
-
-#### manifest(`data/manifest.json`)
-- 形: `{"files": {"data/logs/logs.json": {"hash": "<sha256の先頭16桁>", "size": バイト数}, …}}`。対象は logs / setlist / songs / albums の本体JSON(インデックスは含まない)。時刻は入れず、内容が同じなら書き換えない(空のコミットが増えない)。`merge_json.py` が毎回(変更がなくても)更新し、`--rebuild-index` でも更新する。
-- ビューアは、manifest の hash が前回と同じなら、保存した版をそのまま使う。変わったファイルだけを `raw` から `?v=<hash>` つきで取得し、`size` と一致するか確認する。manifest が取れないときは、これまでどおり API の sha で確認する(フォールバック)。
-
-#### setlist の曲順が分からない曲(順番なし)
-- 曲の `order` を持たない曲を登録できる。形式: `-: 曲名`、`?: 曲名`、`: 曲名`(番号を空にする)。1行でも番号なし(`-` / `?` / 空)を書くと、それ以降の番号なしの行は同じ扱いになる(`unordered` の持ち越し)。番号ありの曲のあとに、番号なしの曲を並べて保存する(安定ソート)。
-- 更新のパッチ: `+?: 曲名` または `-?: 曲名` で、順番なしの曲を末尾に追加する。タイトルで曲を消す。`?:` での更新は不可(エラー)。
-- ビューアのセトリのポップアップ: 番号なしの曲は、番号の代わりに `－` を出し、最後に並べる。すべて番号なしのセトリは、「曲順不明」のチップを出す。
-- helper(setlist): 曲の欄の番号を空にできる(`noOrd`)。解析・整形・値の比較も番号なしに対応。
-
-#### logs の `venue`(会場名)
-- logs に任意の項目 `venue` を追加(`url` と `map` の間)。専用の項目で、tags には入れない。フォーム `add_logs.yml` に `venue` 欄(値の削除の選択肢にも追加)。`issue_to_json.py`(`LABELS_LOGS` / `CLEARABLE` / `build_logs`)と `merge_json.py`(項目の並び)に追加。更新・`!clear`・COPY の扱いは他の項目と同じ。
-- 軽量インデックス `logs_index.json` にも `venue` を入れる(helperの候補用。`tags` と同じ行の条件)。
-- 繰り返し登録のtourの行: 1行の書式は `日付 時刻 | タイトル | contents | URL | display_sp | map | setlistid | tags | venue`(末尾に venue の列を追加。以前の書式のまま使える)。最大列数は8。
-- **setlist への反映**(`merge_json.py` の `sync_venue`。すべての target の処理が終わったあとに実行):
-  - logs の行(ref の行は除く)の `venue` または `setlistid` が処理の前後で変わり、`setlistid` があるとき、同じ `setlistid` の setlist の `venue` を**常に上書き**する(複数の logs が同じ setlist を指すときは、新しい日付の行を優先)。
-  - logs の `venue` を空にした(消した)ときは、setlist の `venue` も消す。
-  - setlist を新規登録したとき(その `setlistid` が処理の前にはなかった)、setlist 側に `venue` がなければ、結びついた logs の `venue` を初期値にする。同じ処理の中で setlist の `venue` を入力した場合は、logs の変更があればそちらが優先。
-  - 反映は venue から venue だけ。tags からは引き継がない。setlist の検索用インデックスも更新する。失敗しても、ほかの処理結果は残し、原因をレポートに出す。
-
-### ビューア(index.html)
-- **venue の表示**: venue を持つ行は、タグ行(🏷️)の一番左に会場名のチップを出す(`tags` には含めない)。チップを押すと、その会場名で検索。通常の検索の対象にも含める。記念日の参照行(`ref`)は、元の行の venue・map を引き継がないので、ピンも会場名も出ない。
-- **MAPピン(📍)の仕様**:
-  - 全ての行にピンの部品を作る。表示は MAP ボタン(`#mapToggleBtn`)が ON のときだけ。切り替えは、クラスの付け外しで左からスライドする(再描画しない)。
-  - map が Google の埋め込みURL・`<iframe src>` のとき: ポップアップで地図を表示(リンク先は埋め込みの座標から作った通常のURL)。それ以外の `http(s)://` のURL: そのまま新しいタブで開く。
-  - map にリンクがなく venue があるとき: ピンは押せる状態になり、会場名で Google マップを検索する URL(`https://www.google.com/maps/search/?api=1&query=…`)を新しいタブで開く。
-  - map も venue もない行は、ピンを隠して(幅は保つ)押せない。map が `http(s)://` でない値のときも、押せない(venue があれば検索)。
-- **披露実績ポップアップ**: アーティスト名(`.stat-artist`)を出す。
-- **動画ポップアップの Fancam**: 種類が `Fancam`(大文字小文字は問わない)の行のアイコンは、SNS ポップアップの Fancam(カメラ)と同じ絵・同じ表示範囲・同じ線の太さ。
-- **ヘッダー・ボタン**: ↺(`#backBtn`)を共有ボタンの左に表示して有効にした。ヘッダーと楽曲バーのボタンを、共有と映像、フォントとダーク・Uta-Net、鍵と披露実績が上下でそろう位置にした。Uta-Net ボタンの幅は、フォント・ダークのボタンと同じ。歌詞ボタン(`.song-lyrics-btn`)は幅56px。
-- **TODAY / ICON のボタン**: 幅を TODAY にそろえる(`#iconToggleBtn::after` に TODAY の文字を透明で置いて幅を確保)。
-- **FILTER の自動ON を廃止**: ▲/▼ ボタンで FILTER ボタンを自動でONにする動きをやめた(起動時の復元も同じ)。
-- **読み込み・表示の最適化**: `songIndex()`(小文字化した曲名の Map と、統計用の Set)で線形の検索を置き換える。`SORT_TITLE_COLLATOR` を `updateDisplay` の外に出す。`makeDataSource` は manifest ベース(`getManifest(force)`、`latest()`、`fetchFresh(info)`、API の sha へのフォールバック、`defer`)。songs・setlist・albums は、logs の描画が済むまで読み込みを遅らせる(`logsStarted`)。`<head>` の先頭スクリプトで IndexedDB の読み出しを早めに始める。
-- **アニメーション**: 押したときの縮み(WAAPI の `scale`)、ON にしたときの円形(`clip-path`)の広がり(ユーザー操作から1200ms以内の `is-active` だけ)、ポップアップの `translateY(18px) scale(.96)` からの表示。`MOTION` の変数で速度を調整する。
-
-### helper(issue_helper_blogger.html)
-- **setting(右下)**: メインの枠の外側・下の右端に小さな「setting」ボタン。押すと、ボタンの上に設定パネルが開く(もう一度押すと閉じる)。`#setting` で開いた状態にもできる。項目:
-  - `repo`(`owner/name`)、`branch`、`token`。リポジトリとブランチは、コード中の固定値の代わりに使う(Issue のリンクにも反映)。
-  - **token の保存**: localStorage(`glih_set`)。ENCRYPT をオンにすると、パスフレーズで暗号化して保存する(Web Crypto: PBKDF2-SHA256 250000回 → AES-GCM。ソルト・IV は保存ごとに乱数)。暗号化した token は、ページを開くたびに「unlock」が必要(unlock 後は、メモリ上だけに保持)。暗号化しないと平文で保存される。「clear token」で保存した token を消す(2回押し)。
-  - 「test」: リポジトリ・ブランチが見えるか、書き込み権限があるかを確認する。
-  - token は Fine-grained token(このリポジトリだけ、Contents の Read and write だけ、期限つき)を想定。`api.github.com` へのリクエスト以外には送らない。
-- **send**: 各タブ(logs / setlist、songs、albums、bulk)の Issue ボタンの下に表示。Issue のリンクの値(テンプレートと項目の値)をそのまま読み取って、`data/inbox/<id>.json` に PUT する。ネットワークエラー、409、429、5xx は最大3回再試行する。送信後、`data/inbox/results/<id>.json` を4秒ごと・最大約3分ポーリングして、`done` / `error`(原因・注意)を表示する。`done` のとき、logs・setlist・albums・songs のキャッシュを破棄する。エラーの表示は、401(token の誤り・期限切れ)、403(権限不足・上限)、404(リポジトリ・ブランチが見えない)、422、409 などを具体的に出す。
-- **Issue と send の表示条件**: 送れる状態になるまで(初期表示、new 直後、入力が不足のとき)、Issue ボタンと send を隠す(`a.go[aria-disabled="true"]` は非表示)。
-- **delete ボタン**: send の横に出す処理は残っているが、画面には出さない(`SHOW_DEL = false`)。削除は Issue のフォームから行う。`true` にすると、logs・setlist(読み込んだ行)、songs(一致した曲)、albums(読み込んだ盤)に delete ボタンが出る(確認ダイアログつき)。
-- **venue 欄**(logs): `map` の上。候補は、過去の logs の venue(重複を除き、使用回数が多い順、最大12件。入力すると前方一致を先に、最大8件)。`logs_index.json` に venue がない古いインデックスのときは、最初にカーソルを置いたとき、`logs.json` を一度だけ全部読んで候補を作る。tourモードでは、フォーム上部の venue は隠す。
-- **tour の1行**: 並びは「area と venue(1行)」→「map のURL」→「tags」。venue の候補は同じ area の過去の venue(area が空なら全部)。1行の venue は、その回の logs の venue になる。
-- **setlist への遷移・新規入力の venue**: logs の行の `venue` だけを引き継ぐ(tags は使わない)。check からの遷移(`openSl`)、logs のフォームからの遷移、setlistid が同じ logs の行からの自動入力、のすべて。元データの logs の行は、`venue` を持つ行を優先して選ぶ。
-- **COPY(logs)**: COPY をオンにしたとき、フォームの time 欄の横に「anytime」のチェックを出す。チェックを入れると time が空になり、`time=!clear`(コピー先は時刻なし)。チェックを外すと、元の時刻が戻る(元から時刻がなければ空のまま)。時刻を入力するとチェックは外れる。
-- **setlist の曲の入力**: 番号なし(`noOrd`)に対応(上の「曲順が分からない曲」)。
-- **setlist のコピー**: `addSlCopyFrom(box, sid)`。選んだ setlist から、同じタイトルのものを先頭に、artist・member・source・songs(titleは空のときだけ)を写す。
-- **check タブの追加項目**: setlist・albums・songs のデータが揃っているかの検査を追加(`ckReg`)。logs の setlist が未登録(`nosl`)、albums が未登録(`noalbum`)、setlist の曲が songs に未登録(`slsong`)、albums の曲が songs に未登録(`alsong`)、setlist に曲がない(`slnosong`)、albums に曲がない(`alnotrack`)、盤が未登録(`noedition`)。結果の行から、未登録のデータへ移動するボタン(`it.go`)がある。無視するキーは `CK_IG`。移動先は `jumpSeed` / `gotoAlbum` / `goSong` / `openSl`。
-- **フォームの説明文**: Issue フォーム(`add_*.yml`)の日本語の説明文は、簡潔な文に統一した。`add_setlist.yml` に `-:` `?:` `:` と `+?:` `-?:` の書き方を載せた。
-- **Blogger に貼るときの注意**: `<script>` は ASCII のみ・日本語や記号は `\uXXXX`・改行は LF(既存のとおり)。説明文などの日本語は、コメントの中だけ。
-
-### 確認の状況
-上の項目は、Playwright(通信をモックしたもの)と node でのテスト、およびテスト用フォルダでの `inbox_to_json.py` → `merge_json.py` の実行で確認した。実機、Blogger、GitHub Actions の上での通し確認は、これから。
-
-
-## 2026-11-20 保守性の改善(テスト・事前チェック・項目定義の集約)
-
-- **`scripts/schema.json`**: 項目の定義を集めたファイル。`logs` `setlist` `songs` `albums` それぞれの `order`(保存時の項目の並び)・`key_fields`(識別キー)・`index_fields`(インデックスに入れる項目)・`clearable`(更新時に「値の削除」で消せる項目)と、フォームの項目名 `labels_logs` / `labels_ss`。`common.py` が読み込み(`SCHEMA`)、`issue_to_json.py` と `merge_json.py` はそこから値を取る(コード中の直書きをやめた。値は従来と同じ)。
-- **`scripts/check_repo.py`**(事前チェック): ①data のJSONが読めるか(queue・inbox は除く) ②`add_logs.yml` `add_setlist.yml` `add_songs.yml` の項目名が `LABELS_*` と一致するか、「値の削除」の選択肢が `clearable` と一致するか ③helper の `<script>` が ASCII のみか ④`schema.json` の整合(識別キー・消せる項目・インデックス項目が `order` に含まれる、重複がない)と、helper の `DEFS` に logs / setlist の編集できる全項目があるか ⑤`merge_json.py`(`--rebuild-index` なし)を実行するワークフローが `auto_merge.yml` と `process_queue.yml` だけか。問題があれば終了コード1。
-- **`tests/`**(`unittest`。`python -m unittest discover -s tests -v`): `helpers.py`(一時フォルダにリポジトリと同じ並びを作り、本物のスクリプトを実行する)、`test_pipeline.py`(logs の新規・更新・削除・繰り返し・インデックス・マニフェストの安定、setlist の曲順なし・個別変更、venue の同期4種(上書き・消去・新規setlistへの引き継ぎ・タグからは引き継がない)、読めないJSONのエラー報告と他ファイルの処理継続、inbox の登録・入力エラー・不正テンプレート・同時刻の依頼)、`test_check_repo.py`(事前チェックが問題を見つけられるか)。計27件。
-- **`.github/workflows/tests.yml`**: scripts・tests・.github・helper の変更、PR、手動で、事前チェックとテストを実行する。data の更新では動かない。権限は contents: read のみ。
-- **項目を足す手順**は README の「テストと事前チェック」にある。
-- 検証状況: ローカル(Python 3.10 相当)での実行のみ。GitHub Actions 上では未実行。

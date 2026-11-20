@@ -4,7 +4,8 @@
 
 - 閲覧ページ: `index.html`(Blogger のサイトに貼って使う。データは jsDelivr 経由でこのリポジトリのJSONを読む)
 - 入力補助ページ(helper): `issue_helper_blogger.html`(Blogger の固定ページ [issuehelper](https://gl-log.blogspot.com/p/issuehelper.html))
-- 実装の詳細な仕様: [SPEC.md](SPEC.md)
+- 実装の詳細な仕様: [SPEC.md](SPEC.md)(最初の「現行仕様(まとめ)」が基準)
+- 変更の履歴・置き換え済みの旧仕様: [CHANGELOG.md](CHANGELOG.md)
 
 ## データ
 
