@@ -1,8 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "18b666505ca4",
-  "tags": "=,お祝いメッセージ"
- },
- "created": "2026-11-20T09:02:32Z"
-}
