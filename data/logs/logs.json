@@ -2010,7 +2010,7 @@
     "time": "1000",
     "contents": "GLRADIO",
     "title": "隅谷百花＆小川桜花のがるらじ　後編",
-    "url": "https://girls2-fc.jp/page/familyNews/1242335195315568642",
+    "url": "https://girls2-fc.jp/page/girls2radio/1250680036189536257",
     "groups": [
       "G2",
       "MMK",
@@ -2018,6 +2018,30 @@
     ],
     "tags": [
       "がるらじ"
+    ],
+    "sns": [
+      {
+        "type": "gl2family",
+        "urls": [
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1250695121192615938",
+            "member": [
+              "MMK",
+              "YOK"
+            ],
+            "tags": [
+              "公開"
+            ]
+          },
+          {
+            "url": "https://girls2-fc.jp/page/familyNews/1242335195315568642",
+            "member": [],
+            "tags": [
+              "エピソード募集"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
