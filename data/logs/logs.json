@@ -1895,6 +1895,28 @@
             "tags": [
               "出演決定"
             ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2123760782974550298?a=njEvv8vGZY7jOBI87jQ&s=19",
+            "member": [
+              "KUR",
+              "KIR"
+            ],
+            "tags": [
+              "ラジオ情報"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "radiko",
+        "urls": [
+          {
+            "url": "https://radiko.jp/r_seasons/10002805",
+            "member": [],
+            "tags": [
+              "radiko"
+            ]
           }
         ]
       }
