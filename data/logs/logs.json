@@ -1880,6 +1880,9 @@
       "KIR"
     ],
     "tags": [
+      "念願のハロハロ",
+      "爆音闘魂こめて",
+      "七面鳥からGirls²",
       "POP OF THE WORLD"
     ],
     "sns": [
@@ -1916,6 +1919,45 @@
             "member": [],
             "tags": [
               "radiko"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "youtube",
+        "urls": [
+          {
+            "url": "https://music.youtube.com/watch?v=CMUEp4b03JE&si=8ScBBp6RqCZkrNmj",
+            "member": [],
+            "tags": [
+              "EASY"
+            ]
+          },
+          {
+            "url": "https://music.youtube.com/watch?v=vuG1XmFmJew&si=Ur9OTsSykJ8CMGmd",
+            "member": [],
+            "tags": [
+              "Magic Xmas"
+            ]
+          },
+          {
+            "url": "https://music.youtube.com/watch?v=LEC0RpfQpHI&si=gtOPGtjs8Jw75unc",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "Santa Tell Me",
+              "Ariana Grande"
+            ]
+          },
+          {
+            "url": "https://music.youtube.com/watch?v=4OTvCzGChJE&si=ALT8d4qw7sAnFOTp",
+            "member": [
+              "KUR"
+            ],
+            "tags": [
+              "A Nonsense Christmas",
+              "Sabrina Carpenter"
             ]
           }
         ]
