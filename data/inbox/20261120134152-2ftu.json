@@ -1,8 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "cddd000a2239",
-  "tags": "=,LINK UP"
- },
- "created": "2026-11-20T04:41:52Z"
-}

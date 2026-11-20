@@ -1,0 +1,11 @@
+{
+ "id": "20261120134152-2ftu",
+ "status": "done",
+ "time": "2026-11-20 13:42:06 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261120134152_20261120134152-2ftu.json"
+ ],
+ "errors": [],
+ "notes": []
+}
