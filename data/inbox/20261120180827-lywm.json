@@ -1,0 +1,9 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "de3344c6dec4",
+  "venue": "一宮市民会館",
+  "tags": "!clear"
+ },
+ "created": "2026-11-20T09:08:27Z"
+}
