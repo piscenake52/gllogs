@@ -107,6 +107,20 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
   - データ部の日付・時刻を3回タップ(PCは Ctrl/Shift/Cmd+クリック): 📋セトリ検索がOFFならlogidで `#logs`、ONならsetlistidで `#setlist` をhelperで別タブに開く。
   - 上の条件に加えて♪がONのとき、楽曲バーの曲名の行を3回タップ(PCは Ctrl/Shift/Cmd+クリック): `?artist=…&title=…#songs` でhelperを開き、その曲を読み込む。バー右端のボタンは対象外。
 - **venue の表示**: venue を持つ行は、タグ行(🏷️)の一番左に会場名のチップを出す(`tags` には含めない)。チップを押すと、その会場名で検索。通常の検索の対象にも含める。記念日の参照行(`ref`)は、元の行の venue・map を引き継がないので、ピンも会場名も出ない。
+- **タグ表示(🏷️)**(`createItemNode`):
+  - 🏷️ボタン(`#tagToggleBtn`)でON/OFF(`gl_log_tag_mode`)。ONのとき、チップがある行のタイトルの下にチップの段を出す。行の下端、またはチップの段の空いた所を押すと、その行だけ反転する(🏷️ボタンで全体を切り替えるとリセット)。チップを押すと、今の絞り込み(TODAYなど)を解除して、そのタグで検索する。
+  - **チップの出し方(上から順に、最初に当たったもの)**: ①venueがあれば一番左に出す。②行の`tags`(前後の空白を除き、空文字・重複は出さない。`tiktok更新`は常に出さない)。③行の`tags`が1つもないときだけ、snsリンクの`tags`から、1リンク内の重複を1回と数え、出現数の多い順(同数は登場順)に最大3つ。④tags・venue・snsのタグのどれもないときだけ、下の「抽出タグ」。
+  - **見た目(色ではなく、枠の形と濃さで見分ける)**: 行の`tags`=今のまま(`data-kind="tag"`)。venue=薄い青の地(`tc-venue`)。snsのタグ=地なし・破線(`tc-sns`)。抽出タグ=地なし・点線・文字を薄く(`tc-auto`)。ダークモードでも同じ関係。チップには`data-kind`が付く。
+  - **抽出タグ(仮の表示。データは変えない)**: TODAYモードのときだけ、tags・venue・snsのタグがなく、参照行(`ref`)でない行に、1つだけ出す。タグがいつか全部登録されたら、自然に出なくなる。
+    - 候補: 読み込み済みのlogs(参照行を除く)の`tags`。1回しか使われていないタグも含む。次は除く: グループ名(Girls²・Lucky²・Laki・iScream。`TAG_AUTO_STOP`)、`tiktok更新`(`HIDDEN_CHIP_TAGS`)、全角半角・空白をそろえて3文字未満のタグ。snsリンクのタグは候補にしない。
+    - 一致の条件(A案): タイトル+`display_pc`を小文字にしただけの文字列に、タグが**そのまま**含まれること。全角半角・空白はそろえない(押したときの検索は小文字化の部分一致なので、元の行が必ずヒットする)。英数字で始まる・終わるタグは、その側の隣が英数字(語の途中)なら一致としない(例: KAZ は okazaki に当たらない)。
+    - 複数当たるときは、文字数が長いタグを優先し、同じなら使用数の多いもの。
+    - 当たらなかったとき(代わりのタグ。`TAG_AUTO_FALLBACK`): contents が DIARY なら「日記更新」、GTUBE なら「Gtube」、GLRADIO なら「がるらじ」。それ以外のcontentsは何も出さない。除外リスト・3文字未満の除外は適用しない。
+    - 押したときの検索は、ほかのチップと同じくチップの文字で検索する。代わりのタグは、その語がタイトルに無い行が多く、元の行が結果に出ないことがある(「Gtube」はcontentsが検索対象なので出る。「日記更新」はほぼ出ない)。タグを登録していけば出るようになる。
+    - 候補の一覧は、最初の使用時に1回作り、`logs`が入れ替わると作り直す(`tagAutoSrc`)。TODAYを保持して起動したときは、空き時間(`requestIdleCallback`)に先に作る。
+    - 負荷: 実データ(約13,000行)で、1行あたり約0.02ms、一覧の作成は数ms。TODAYは年フィルターなしでその日付の行だけ(1日の最大32行)、年フィルターを全ONにしても最大88行。描画は40行ずつ。影響は計測できない程度。
+    - 実データでの当たり率(10/27時点、タグなし11,498行): 既存タグの語が当たるのは約13.6%(DIARYは4%、GTUBE 63%、GLRADIO 49%、COLUMN 100%)。残りの大半は、そのタグが他の行に登録されていないもの。
+  - 検索の対象には、行の`tags`、snsリンクの`tags`、venueが含まれる(抽出タグは含まない)。
 - **MAPピン(📍)の仕様**:
   - 全ての行にピンの部品を作る。表示は MAP ボタン(`#mapToggleBtn`)が ON のときだけ。切り替えは、クラスの付け外しで左からスライドする(再描画しない)。
   - map が Google の埋め込みURL・`<iframe src>` のとき: ポップアップで地図を表示(リンク先は埋め込みの座標から作った通常のURL)。それ以外の `http(s)://` のURL: そのまま新しいタブで開く。
@@ -158,6 +172,8 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 
 ### 確認の状況
 上の項目は、Playwright(通信をモックしたもの)と node でのテスト、およびテスト用フォルダでの `inbox_to_json.py` → `merge_json.py` の実行で確認した。実機、Blogger、GitHub Actions の上での通し確認は、これから。
+- 抽出タグ(2026-11-20): 本物の`index.html`を、モックデータ(エッジケース入り)で動かして確認した(TODAY・通常・ダークモード、チップを押したときの検索、除外、語の途中の一致、代わりのタグ)。負荷は実データのコピーで計測した。Blogger上・実機のスマホでは未確認。
+
 
 ## 機能ごとの詳細メモ
 
@@ -658,7 +674,7 @@ TODAY/セトリ検索モード中は、コンテンツ種類フィルターを�
 TODAY(セトリ検索モード中は独立管理のローカルなTODAY)は、モードに関わらず単純にOFFへ戻す。 セトリ検索モード中でも、セトリモード突入前の状態への復元はここでは行わない(復元はセトリボタンで モードを抜けた時のみ行う。CLEARは「セトリモードの初期表示状態」に戻すだけ)
 
 ### L4804
-logs.json取得:GitHub上の最新コミットSHAを確認し、変更があった場合のみ コミット固定のjsDelivr URL(長期キャッシュ可能)から取得しなおす。 変更がなければlocalStorageのキャッシュをそのまま使い、通信を省略する。
+logs.json取得:GitHub上の最新コミットSHAを確認し、変更があった場合のみ コミット固定のjsDelivr URL(長期キャッシュ可能)から取得しなおす。 変更がなければlocalStorageのキャッシュをそのまま使い、通信を省略する。(現行は、まず `data/manifest.json` のhashで変更を判定し、manifest が使えないときだけ、このSHA確認に切り替える。冒頭「現行仕様」の manifest を参照)
 
 ### L4829
 ハッシュがある場合は、TODAY/セトリ検索モードに応じたコンテンツ種類フィルターの再計算も含めて restoreFromHash側で行う(ここで先にautoUpdateContentTypeFiltersを呼んでも、直後にrestoreFromHashが チェック状態を上書きしてしまい無駄になるため呼ばない)
@@ -776,7 +792,7 @@ TODAY/セトリ検索モードのどちらでもないとき、年/月/グルー
 
 ### SNSリンクポップアップのメンバーランプ色
 
-`MEMBER_LAMP_COLORS`は、各メンバーのハート絵文字の色に合わせた**鮮明な色**にしてある(水色`#18b8ff`/青`#1f5fff`/オレンジ`#ff8200`/紫`#9a3cf5`/白`#ffffff`/ピンク`#ff4f9f`/黄`#ffd000`/緑`#1fcf5a`/赤`#f01e2c`)。G2とL2で同じ色(例: YZHとHIRは水色)。
+`MEMBER_LAMP_COLORS`は、各メンバーのハート絵文字の色に合わせた**鮮明な色**にしてある(水色`#25d0ff`/青`#3b6bff`/オレンジ`#ff9a1a`/紫`#c04dff`/白`#ffffff`/ピンク`#ff4db2`/黄`#ffe326`/緑`#2cf06a`/赤`#ff3d4d`)。G2とL2で同じ色(例: YZHとHIRは水色)。
 
 ### 検索窓の横のカレンダー(`#dateSearchBtn`)
 
@@ -813,15 +829,21 @@ TODAY/セトリ検索モードのどちらでもないとき、年/月/グルー
 GitHub Issue(フォーム) → Actions(auto_merge.yml)
   → scripts/issue_to_json.py(フォームの本文をキュー用JSONに変換)
   → scripts/merge_json.py(本体のJSONにマージ。処理済みはprocessedへ)
-  → data/ をコミット → index.html が jsDelivr 経由で読む
+  → data/ をコミット → index.html が読む(`data/manifest.json` で変わったファイルを判定し、jsDelivr(コミット固定)/ raw.githubusercontent.com から取得。manifest が使えないときは、GitHub API でコミットSHAを確認する)
 ```
+
+※これはIssue経由の基本の流れ。helperの直送・queueへの直接pushを含む現行の流れと、manifest の仕様は、冒頭「現行仕様」の「処理の流れ(現行)」「manifest」を参照。
 
 | ファイル | 役割 |
 |---|---|
 | `.github/ISSUE_TEMPLATE/add_logs.yml` | logs(日程・ログ)の登録・更新・削除フォーム |
 | `add_setlist.yml` / `add_setlist_songs.yml` | setlist(セットリスト)のフォーム。`add_setlist_songs.yml`は曲リスト(songs)用を兼ねたもの |
 | `add_songs.yml` | songs(楽曲リスト。再生リンク用)のフォーム |
+| `add_albums.yml` / `add_bulk.yml` | albums(アルバム)のフォーム / 一括更新(tag add など)のフォーム。helperの直送で使えるテンプレートは、add_logs / add_setlist / add_songs / add_albums / add_bulk |
 | `.github/workflows/auto_merge.yml` | Issueが`opened`/`edited`されたら変換とマージを実行 |
+| `process_queue.yml` | `data/*/queue/*.json` と `data/inbox/*.json`(helperの直送)への push、手動で、変換・マージ・コミットを実行(「現行仕様」を参照) |
+| `update_manifest.yml` | データの手動編集の push で `data/manifest.json` を作り直す |
+| `tests.yml` | scripts・tests・.github・helper の変更、PR、手動で、自動テストと事前チェックを実行 |
 | `rebuild_index.yml` | 手動実行。helper用の軽量インデックス(`logs_index.json`/`setlist_index.json`)を作り直す |
 | `check_gaps.yml` / `check_gaps.py` | 手動実行。logsのタイトルの`#数字`の連番の抜けを調べ、Issueに報告する |
 | `issue_helper_blogger.html` | 入力補助ページ(Bloggerの固定ページに貼る) |
@@ -913,8 +935,8 @@ G2のメンバー: `YZH, MMK, MSK, YOK, KUR, MNM, KIR`(展開されるのはこ�
 
 ### TOURモード(helper・繰り返し登録のmode: tour)
 - **使い方**: 繰り返し登録をONにして`tour`を選ぶ。1公演=1行(date / time / area / map)。`+`で行を増やし、`×`で行を消す。最初の行は、上のdate・timeを編集するまで追従する。登録済みの公演を開いて`next`の`tour`を押すと、公演名の元(最後のスペース以降を除いたもの)・contents・url・groupsを引き継いだ新規入力になり、追加公演を足せる
-- **共通**: title(公演名)・contents・url・groups・relations・snsは、フォーム上部の値を全行に使う。`suffix`(自由入力+チップ「公演」。空ならなし)と`optional-sp`(display_spの共通の名前)も全行共通
-- **行ごと**: 日付・時刻・area(過去のLIVEのtitleから候補を出す)・map・tags(上のtagsには足さず、行のtagsだけ)。tourモード中は上部のmap / setlistid / tagsは非表示で送らない。titleは`公演名`+半角スペース+`area`+`suffix`(areaが空なら公演名のまま)。display_spは`optional-sp`+同じ付け方。setlistidはcontentsがLIVEで時刻があればdate+timeが自動で入る
+- **共通**: title(公演名)・contents・url・groups・relations・snsは、フォーム上部の値を全行に使う。`suffix`(自由入力+チップ「公演」。空ならなし)と`optional`欄(display_spの共通の名前。コード上は`#glih-rpop`)も全行共通
+- **行ごと**: 日付・時刻・area(過去のLIVEのtitleから候補を出す)・venue(会場名。候補は過去のvenue。areaが空のときは全venue)・map・tags(上のtagsには足さず、行のtagsだけ)。入力欄の並びは、area+venue / map / tags。tourモード中は上部のvenue / map / setlistid / tagsは非表示で送らない。titleは`公演名`+半角スペース+`area`+`suffix`(areaが空なら公演名のまま)。display_spは`optional`欄+同じ付け方。setlistidはcontentsがLIVEで時刻があればdate+timeが自動で入る
 - **登録の中身**: 繰り返し登録の行`日付 時刻 | title | contents | url | display_sp | map | setlistid | tags`として送る(後ろの空欄は省く。tagsはカンマ区切りで、フォームのtagsに足す)
 - **候補表示(自動入力はしない)**: 行のareaが入っているときに、その行のmapまたはtagsの入力欄に入る(またはタイプする)と、同じareaの過去データのmap / tagsを新しい順に候補表示する。押すと入力される。対象のcontentsはLIVE・RELEASEEVENT・FANMEETING。areaは、過去データのtitleの最後の語(末尾の「公演」は除く)と一致するもの。候補の元は`logs_index.json`(この3つのcontentsだけ`map`・`tags`・`groups`を持つ)
 - **ANNIVERSARY**: tourモードでは使える(上部の「anniv.」)。チェックすると全行に参照型のANNIVERSARYを作る。付与文言は入力したまま(全行共通)
@@ -1015,14 +1037,14 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 
 ### helperの自動入力まとめ(logs / setlist)
 - **logsのSNS**: contentsがSNSのとき、titleが空(または自動値)なら、groupsがG2のみで`SNS　Girls2`、L2のみで`SNS　Laki`、未入力・両方で`SNS　`(全角スペース)を入れる。groupsを変えると追従。手で書き換えたtitleは触らない。contentsがSNS以外になり、titleが自動値のままなら空に戻す。
-- **setlistの新規入力**: idを入れる(日付+時刻を入れた場合も同じ)と、そのidをsetlistidに持つlogsの行から、title←title、artist←groups(G2→Girls²、L2→Laki)、member←groupsのメンバーコード、venue←logsの`venue`だけを引き継ぐ(tagsは使わない)。logsの矢印から遷移した場合は、遷移元の入力値を使う。logsが複数ある場合は`venue`を持つ行、次にtagsを持つ行を優先。元データは`logs_index.json`(LIVE・RELEASEEVENT・FANMEETINGは`groups`・`tags`・`map`・`venue`を持つ)。それ以外のcontentsの行や古いindexのときだけ`logs.json`本体を読む。
+- **setlistの新規入力**: idを入れる(日付+時刻を入れた場合も同じ)と、そのidをsetlistidに持つlogsの行から、title←title、artist←groups(G2→Girls²、L2→Laki)、member←groupsのメンバーコード、venue←logsの`venue`だけを引き継ぐ(tagsは使わない)。logsの矢印から遷移した場合は、遷移元の入力値を使う。logsが複数ある場合は、`venue`を持つ行、次にtagsを持つ行を優先して選ぶ(venueへ入れるのはvenueだけ)。元データは`logs_index.json`(LIVE・RELEASEEVENT・FANMEETINGは`groups`・`tags`・`map`・`venue`を持つ)。それ以外のcontentsの行や古いindexのときだけ`logs.json`本体を読む。
 - **既存のid**: 編集モード(findで読み込み)。自動入力はしない。
 - **tourのmap / tags**: areaと、入力したmap(tags)で過去データが1組に絞れたら、空のもう一方(または自動入力した値)を入れる。
 
 ## ヘッダーの時計ボタンと🏷️タグ表示
 
 - ヘッダー左端の🕐ボタンを押すと、時計の枠が右へ(📍📋🏷️🔗の上に)伸びて、中に年/月/日/曜/時のボタンが出る(`#dpPill`)。年/月/日/曜/時の制御は従来どおり。年月日曜時のどれかがONなら🕐もONの色。閉じる条件: 🕐をもう一度押す / 枠の外を押す / フォーカスが枠の外へ移る / Esc。左端は検索窓の左端にそろえる(`syncHeaderBtnGroupPosition`)
-- 🏷️ボタン(`#tagToggleBtn`、🔗の左。状態は`gl_log_tag_mode`に保存): ONのとき、tagsがある行のタイトルの下にタグのチップを出す(`.item-tags` / `.tag-chip`)。チップの左端はタイトルの左端にそろえ(`tagIndent`+`ResizeObserver`)、はみ出す分は横スクロール。空文字・重複のタグは出さない。snsリンクのtagsは出さない(SNSポップアップのTAG表示で見る)。チップを押すとそのタグで絞り込む(`applySuggestion`)
+- 🏷️ボタン(`#tagToggleBtn`、🔗の左。状態は`gl_log_tag_mode`に保存): ONのとき、tagsがある行のタイトルの下にタグのチップを出す(`.item-tags` / `.tag-chip`)。チップの左端はタイトルの左端にそろえ(`tagIndent`+`ResizeObserver`)、はみ出す分は横スクロール。空文字・重複のタグは出さない。snsリンクのtagsは、行のtagsが1つもないときに限り、出現数の多い順に最大3つを代わりに出す(詳しくは「現行仕様」のビューア「タグ表示」)。チップを押すとそのタグで絞り込む(`applySuggestion`)
 
 ### helper: check タブ(データ点検)
 
@@ -1263,9 +1285,9 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 - 畳んだ状態の記録(`gl_filter_fold`)は従来どおり自動記録のまま。
 
 ### DISPLAYの改訂(個別に表示/非表示)
-- DISPLAYのスイッチは、上から Uta-Net / 📊 STATS / ALL / YEAR / GIRLS² / LAKI / CONTENTS の7つ。ラベルは実際のボタンと同じ見た目(Uta-Netは枠つきの太字チップ、開閉チップは青いチップ+矢印、📊はアイコンを左に英単語)。
+- DISPLAYのスイッチは、現在は上から ICON / TODAY / ALL / YEAR / GIRLS² / LAKI / CONTENTS / Uta-Net / 📊 STATS の9つ(並びは、下の「並びの変更」「ICON / TODAY」の記述が現行。初期の7つの構成からの変更)。ラベルは実際のボタンと同じ見た目(Uta-Netは枠つきの太字チップ、開閉チップは青いチップ+矢印、📊はアイコンを左に英単語)。
 - 開閉チップはALL・YEAR・GIRLS²・LAKI・CONTENTSを個別に表示/非表示できる。非表示にした行は、畳んだ状態を無視して開いて見せる(保存した状態は残り、表示に戻すと元の状態に戻る)。ALLは、チップを出している行だけを開閉する。5つ全部OFFなら帯ごと出さない。
-- 保存: `gl_display_prefs` = `{"lyrics":bool,"stat":bool,"chips":{"all","year","g2","l2","cont"}}`。旧形式(`foldChips`)がfalseなら、チップ全部OFFとして読み替える。RESETは7つともONに戻す。
+- 保存: `gl_display_prefs` = `{"lyrics":bool,"stat":bool,"chips":{"all","year","g2","l2","cont"},"hdr":{"icon","today"}}`。旧形式(`foldChips`)がfalseなら、チップ全部OFFとして読み替える。RESETは9つともONに戻す。
 - 前の「SETTINGのDISPLAY」の3スイッチの記述は、この改訂で置き換え。
 - DISPLAYの並びは、上から ALL / YEAR / GIRLS² / LAKI / CONTENTS / Uta-Net / 📊 STATS の順に変更(開閉チップが上)。📊のラベルは STATS で確定。
 - DISPLAYの開閉チップ(ALL・YEAR・GIRLS²・LAKI・CONTENTS)のラベルの色は、スイッチのON/OFFに連動: ONは青、OFFは通常の色(グレー)。スイッチを切り替えた時点で変わる。

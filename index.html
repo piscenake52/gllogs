@@ -272,6 +272,10 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 .item.has-tags { transition: padding-bottom var(--dur-m) var(--ease-s); }
 .tag-chip { flex: 0 0 auto; font: inherit; font-size: calc(var(--data-font-scale) * 11.5px); line-height: 1; padding: 4px 8px; border-radius: var(--r-xs); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); cursor: pointer; white-space: nowrap; }
 .tag-chip:hover { background-color: var(--btn-hover); }
+/* チップの種類の見分け(薄い色・枠の形): 通常のtags=そのまま / venue=薄い青の地 / snsのタグ=破線 / 抽出タグ(TODAYのみ・仮の表示)=点線+薄い文字 */
+.tag-chip.tc-venue { background: rgba(14,165,233,.10); border-color: rgba(14,165,233,.38); }
+.tag-chip.tc-sns { background: transparent; border-style: dashed; }
+.tag-chip.tc-auto { background: transparent; border-style: dotted; opacity: .62; }
 @media (prefers-reduced-motion: reduce) { .item-tags, .item.has-tags { transition: none; } }
 /* リンクボタン追加でスマホ幅が窮屈になるため、地図・セトリボタンは少し小さくして幅を節約する */
 #mapToggleBtn, #setlistIconToggleBtn { padding: 4px 4px; font-size: var(--fs-xs); }
@@ -2939,6 +2943,48 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   // データ部のチップに出さないタグ(小文字で書く。増やすときはここに足す)。タグ検索・サジェストなど他の場所には影響しない
   const HIDDEN_CHIP_TAGS = new Set(['tiktok\u66f4\u65b0']);
   const ALBUM_ICON_CONTENTS = new Set(['CD', 'DVD', 'BD', 'MUSICCARD', 'RELEASE', 'EP', 'DIGITAL']); // 💽を出すcontents(albumidを持つ行は、contentsにかかわらず出す)
+  // 抽出タグ(仮の表示。TODAYモードのときだけ): 行にtags・venue・snsのタグが1つもないとき、既存のタグ(他の行のtags)のうち、タイトル・データ文に含まれるものを1つだけ出す。データは変えない
+  // 照合は「小文字にしただけの文字列に、そのまま含まれる」ときだけ(全角半角などはそろえない)。押したときの検索は小文字化の部分一致なので、必ず元の行がヒットする
+  // 英数字で始まる/終わるタグは、その側の隣が英数字(語の途中)なら一致としない(例: KAZ が okazaki に当たらない)。長い(文字数が多い)タグを優先し、同じなら使用数の多いもの
+  const TAG_AUTO_STOP = new Set(['girls\u00b2', 'girls2', 'lucky\u00b2', 'lucky2', 'laki', 'iscream']); // グループ名は抽出しない
+  let tagAutoCand = null, tagAutoSrc = null;
+  const tagAutoIndex = () => {
+    if (tagAutoCand && tagAutoSrc === logs) return tagAutoCand; // logs が入れ替わったら(再読み込み・設定変更)作り直す
+    const m = new Map();
+    logs.forEach(r => {
+      if (!r || r.ref || !Array.isArray(r.tags)) return;
+      r.tags.forEach(x => {
+        const t = typeof x === 'string' ? x.trim() : '';
+        if (!t) return;
+        const low = t.toLowerCase();
+        if (HIDDEN_CHIP_TAGS.has(low) || TAG_AUTO_STOP.has(low)) return;
+        if (low.normalize('NFKC').replace(/\s+/g, '').length < 3) return; // 3文字未満は誤爆しやすいので対象外
+        const e = m.get(low); if (e) e.c++; else m.set(low, { low, t, c: 1 });
+      });
+    });
+    tagAutoCand = [...m.values()].sort((a, b) => b.low.length - a.low.length || b.c - a.c);
+    tagAutoSrc = logs;
+    return tagAutoCand;
+  };
+  const isAlnum = ch => /[a-z0-9]/.test(ch);
+  // 既存タグの語がタイトルになかったときの代わりの抽出タグ(contentsごと)
+  const TAG_AUTO_FALLBACK = { DIARY: '\u65e5\u8a18\u66f4\u65b0', GTUBE: 'Gtube', GLRADIO: '\u304c\u308b\u3089\u3058' };
+  const extractTag = item => extractTagByText(item) || TAG_AUTO_FALLBACK[String(item.contents || '').toUpperCase()] || '';
+  const extractTagByText = item => {
+    const tx = ((item.title || '') + ' ' + (item.display_pc || '')).toLowerCase();
+    if (!tx.trim()) return '';
+    for (const e of tagAutoIndex()) {
+      let i = tx.indexOf(e.low);
+      while (i >= 0) {
+        const before = i > 0 ? tx[i - 1] : '', after = tx[i + e.low.length] || '';
+        const okL = !(isAlnum(e.low[0]) && before && isAlnum(before)), okR = !(isAlnum(e.low[e.low.length - 1]) && after && isAlnum(after));
+        if (okL && okR) return e.t;
+        i = tx.indexOf(e.low, i + 1);
+      }
+    }
+    return '';
+  };
+  (window.requestIdleCallback || (f => setTimeout(f, 800)))(() => { try { if (typeof todayHeld !== 'undefined' && todayHeld) tagAutoIndex(); } catch (e) {} }); // TODAYを保持したまま起動したときは、最初の描画の前後の空き時間に候補を作っておく
   const createItemNode = item => {
     const w = document.createElement('div');
     w.className = 'item' + (instantRender ? ' no-anim' : '');
@@ -3268,7 +3314,12 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       // 出現数が多い順(同数は登場順)で最大3つ。Array.sortは安定ソート
       tagList = [...snsCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(x => x[0]);
     }
-    { const vn = typeof item.venue === 'string' ? item.venue.trim() : ''; if (vn) tagList = [vn, ...tagList.filter(x => x !== vn)]; } // 会場名(venue)は、タグの一番左に出す(タグの値には入れない)
+    const rowTagSet = new Set(Array.isArray(item.tags) ? item.tags.map(x => typeof x === 'string' ? x.trim() : '') : []);
+    const fromSns = tagList.length > 0 && !tagList.some(x => rowTagSet.has(x)); // 行のtagsがなく、snsリンクのtagsから出しているとき
+    const vn = typeof item.venue === 'string' ? item.venue.trim() : '';
+    if (vn) tagList = [vn, ...tagList.filter(x => x !== vn)]; // 会場名(venue)は、タグの一番左に出す(タグの値には入れない)
+    let autoTag = '';
+    if (!tagList.length && todayMode && !item.ref) { autoTag = extractTag(item); if (autoTag) tagList = [autoTag]; } // tags・venue・snsのタグがない行だけ。TODAYモードのときだけ
     if (tagList.length) {
       w.classList.add('has-tags');
       const tr = document.createElement('div');
@@ -3278,7 +3329,9 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       tagList.forEach(tg => {
         const c = document.createElement('button');
         c.type = 'button';
-        c.className = 'tag-chip';
+        const kind = (vn && tg === vn) ? 'venue' : (autoTag && tg === autoTag) ? 'auto' : (fromSns ? 'sns' : 'tag');
+        c.className = 'tag-chip' + (kind === 'tag' ? '' : ' tc-' + kind);
+        c.dataset.kind = kind;
         c.tabIndex = -1;
         c.textContent = tg;
         c.onclick = e => { e.stopPropagation(); clearFiltersForTagSearch(); applySuggestion(tg); scrollToTop(); }; // 今の絞り込み(TODAY・各フィルター)を解除してから、そのタグで検索する
