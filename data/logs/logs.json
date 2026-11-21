@@ -229021,13 +229021,15 @@
     "date": "20100112",
     "time": "",
     "contents": "BIRTHDAY",
-    "title": "永山椿 誕生日",
-    "display_pc": "永山椿　誕生日",
-    "display_sp": "永山椿　誕生日",
+    "title": "永山椿　誕生日",
     "url": "https://www.ldh.co.jp/eng/management/nagayama_t/",
     "groups": [
       "L2",
       "TBK"
+    ],
+    "tags": [
+      "永山椿誕生祭",
+      "永山椿生誕祭"
     ]
   },
   {
