@@ -229083,13 +229083,15 @@
     "date": "20080417",
     "time": "",
     "contents": "BIRTHDAY",
-    "title": "森朱里 誕生日",
-    "display_pc": "森朱里　誕生日",
-    "display_sp": "森朱里　誕生日",
+    "title": "森朱里　誕生日",
     "url": "https://www.ldh.co.jp/eng/management/mori_a/",
     "groups": [
       "L2",
       "AKR"
+    ],
+    "tags": [
+      "森朱里誕生祭",
+      "森朱里生誕祭"
     ]
   },
   {
