@@ -1,0 +1,11 @@
+{
+ "id": "20261121171559-kgqs",
+ "status": "done",
+ "time": "2026-11-21 17:16:17 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261121171559_20261121171559-kgqs.json"
+ ],
+ "errors": [],
+ "notes": []
+}
