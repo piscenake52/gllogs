@@ -1,0 +1,11 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "73b047f4fca6",
+  "groups_free": "G2,YZH,MMK,MSK,YOK,KUR,MNM,KIR,TOA",
+  "item_title": "#770　Girls² LIVE TOUR 2025 -ガルガルエイト- 横浜公演",
+  "url": "https://girls2-fc.jp/page/gtube",
+  "tags": "=,Gtube"
+ },
+ "created": "2026-11-21T13:03:10Z"
+}
