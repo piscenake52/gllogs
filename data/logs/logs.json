@@ -229239,13 +229239,15 @@
     "date": "20040402",
     "time": "",
     "contents": "BIRTHDAY",
-    "title": "小川桜花 誕生日",
-    "display_pc": "小川桜花　誕生日",
-    "display_sp": "小川桜花　誕生日",
+    "title": "小川桜花　誕生日",
     "url": "https://www.ldh.co.jp/eng/management/ogawa_yoka/",
     "groups": [
       "G2",
       "YOK"
+    ],
+    "tags": [
+      "小川桜花誕生祭",
+      "小川桜花生誕祭"
     ]
   },
   {
