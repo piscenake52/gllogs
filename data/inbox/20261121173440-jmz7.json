@@ -1,0 +1,8 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "88de70545ff8",
+  "relations_free": "G2,KUR,L2,KIK,RIN,HIR,YUW,KAN,RRK,AKR"
+ },
+ "created": "2026-11-21T08:34:40Z"
+}
