@@ -1,8 +1,8 @@
 {
- "updated": "2026-11-20T23:59:03Z",
- "total": 11767,
- "checked": 7248,
- "ng": 2,
+ "updated": "2026-11-21T23:06:41Z",
+ "total": 11773,
+ "checked": 7498,
+ "ng": 3,
  "items": [
   {
    "url": "https://girls2-fc.jp/page/magicaltelephone/Girls2_65",
@@ -14,6 +14,17 @@
    ],
    "reason": "page not found (site title only)",
    "since": 1794880480
+  },
+  {
+   "url": "https://girls2-fc.jp/page/gtube",
+   "logids": [
+    "73b047f4fca6"
+   ],
+   "fields": [
+    "url"
+   ],
+   "reason": "page not found (site title only)",
+   "since": 1795302401
   },
   {
    "url": "https://girls2-fc.jp/page/forms/garuraji_2026_October",
