@@ -1,0 +1,11 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "date": "20261120",
+  "groups_free": "G2,KIR",
+  "contents_free": "SNS",
+  "item_title": "SNS　Girls²",
+  "sns": "https://x.com/Girls2_official/status/2123737138777018688?a=zwSSoEXV4kDAhBFAh9E&s=19 | KIR | サプライズ登壇,ワンダンス"
+ },
+ "created": "2026-11-21T01:36:40Z"
+}
