@@ -1036,7 +1036,7 @@ Bloggerの固定ページ(`https://gl-log.blogspot.com/p/issuehelper.html`)に�
 BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`など)に変換して**文字化け**させる。そのため helper の `<script>` は**ASCIIのみ**で書き、日本語・記号は`\uXXXX`のエスケープにする(コメントも英語にする)。公開前に、`<script>`内に非ASCII文字が無いことを確認する。
 
 ### helperの自動入力まとめ(logs / setlist)
-- **logsのSNS**: contentsがSNSのとき、titleが空(または自動値)なら、groupsがG2のみで`SNS　Girls2`、L2のみで`SNS　Laki`、未入力・両方で`SNS　`(全角スペース)を入れる。groupsを変えると追従。手で書き換えたtitleは触らない。contentsがSNS以外になり、titleが自動値のままなら空に戻す。
+- **logsのSNS**: **groupsが選ばれている状態で、contentsにSNSを選んだとき**にだけ、titleが空(またはhelperが自分で入れた値のまま)なら自動入力する。groupsがG2のみで`SNS　Girls²`(上付きの2)、L2のみで`SNS　Laki`、両方で`SNS　`(全角スペース)。**groupsが未選択でcontentsをSNSにした場合、そのあとでgroupsを選んでも自動入力しない**(titleの候補だけ出す。候補はcontentsとgroupsから作る)。自動入力のあとにgroupsを変えても、titleは追従しない。手で書き換えたtitleと、読み込んだデータのtitleは触らない。contentsがSNS以外になり、titleがhelperの入れた値のままなら空に戻す。
 - **setlistの新規入力**: idを入れる(日付+時刻を入れた場合も同じ)と、そのidをsetlistidに持つlogsの行から、title←title、artist←groups(G2→Girls²、L2→Laki)、member←groupsのメンバーコード、venue←logsの`venue`だけを引き継ぐ(tagsは使わない)。logsの矢印から遷移した場合は、遷移元の入力値を使う。logsが複数ある場合は、`venue`を持つ行、次にtagsを持つ行を優先して選ぶ(venueへ入れるのはvenueだけ)。元データは`logs_index.json`(LIVE・RELEASEEVENT・FANMEETINGは`groups`・`tags`・`map`・`venue`を持つ)。それ以外のcontentsの行や古いindexのときだけ`logs.json`本体を読む。
 - **既存のid**: 編集モード(findで読み込み)。自動入力はしない。
 - **tourのmap / tags**: areaと、入力したmap(tags)で過去データが1組に絞れたら、空のもう一方(または自動入力した値)を入れる。

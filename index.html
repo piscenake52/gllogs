@@ -275,7 +275,7 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 html, body { touch-action: manipulation; } /* ピンチ拡大は許可し、ダブルタップでの拡大だけ防ぐ(viewportの拡大禁止をやめた代わり) */
 /* チップの種類の見分け(薄い色・枠の形): 通常のtags=そのまま / venue=薄い青の地 / snsのタグ=破線 / 抽出タグ(TODAYのみ・仮の表示)=点線+薄い文字 */
 .tag-chip.tc-venue { background: rgba(14,165,233,.10); border-color: rgba(14,165,233,.38); }
-.tag-chip.tc-sns { background: transparent; border-style: dashed; }
+.tag-chip.tc-sns { border-style: dashed; }
 .tag-chip.tc-auto { background: transparent; border-style: dotted; opacity: .62; }
 @media (prefers-reduced-motion: reduce) { .item-tags, .item.has-tags { transition: none; } }
 /* リンクボタン追加でスマホ幅が窮屈になるため、地図・セトリボタンは少し小さくして幅を節約する */

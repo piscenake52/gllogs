@@ -2193,19 +2193,23 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     else fstat('Found: ' + found.id);
     warnRun();
   }
-  // contents SNS: the title gets `SNS` + a full-width space (+ Girls(superscript 2) when groups is G2 only, + Laki when groups is L2 only). It is rewritten while the title is still one of these auto values, and cleared when contents leaves SNS.
+  // contents SNS: only when contents is chosen as SNS while groups is already chosen, the title gets `SNS` + a full-width space (+ Girls(superscript 2) when groups is G2 only, + Laki when groups is L2 only). It never fills when groups is chosen later and never follows later groups changes (the title candidates are offered instead). It is cleared when contents leaves SNS while the title is still the value written here.
   function snsAutoTitle() {
     var ge = $('f-groups'), gs = ge ? ge.value.split(/[,\n]/).map(function (x) { return x.trim(); }) : [], g2 = gs.indexOf('G2') >= 0, l2 = gs.indexOf('L2') >= 0;
     return 'SNS\u3000' + (g2 && !l2 ? G2_NAME : l2 && !g2 ? 'Laki' : '');
   }
   var G2_NAME = 'Girls' + String.fromCharCode(0xb2); // Girls + superscript 2
   function isSnsAuto(v) { return v === 'SNS\u3000' || v === 'SNS\u3000Girls2' || v === 'SNS\u3000' + G2_NAME || v === 'SNS\u3000Laki'; } // the old plain-digit value is still treated as an auto value
-  function autoSnsTitle() {
-    var ce = $('f-contents'), te = $('f-title'); if (!ce || !te || !found || found.kind !== 'logs') return;
-    var c = ce.value.trim().toUpperCase(), ch = false, cur = te.value;
-    // only a title that this function wrote itself (found._snsAuto) or an empty one is rewritten: a title typed by hand (e.g. `SNS Girls2`) or loaded from the data is never replaced, even when it looks like an auto value and groups / contents change later
+  function autoSnsTitle(ev) {
+    var ce = $('f-contents'), te = $('f-title'), ge = $('f-groups'); if (!ce || !te || !found || found.kind !== 'logs') return;
+    var c = ce.value.trim().toUpperCase(), ch = false, cur = te.value, prev = found._cPrev; found._cPrev = c;
+    var hasG = !!ge && ge.value.split(/[,\n]/).some(function (x) { return x.trim() !== ''; });
+    // only a title that this function wrote itself (found._snsAuto) or an empty one is rewritten: a title typed by hand (e.g. `SNS Girls2`) or loaded from the data is never replaced
     var mine = found._snsAuto !== undefined && cur === found._snsAuto;
-    if (c === 'SNS') { var a = snsAutoTitle(); if ((cur.trim() === '' || mine) && cur !== a) { te.value = a; found._snsAuto = a; ch = true; } }
+    if (c === 'SNS') {
+      // fill only on the contents change itself (not when groups changes) and only when groups is already chosen
+      if (ev && ev.target === ce && prev !== 'SNS' && hasG) { var a = snsAutoTitle(); if ((cur.trim() === '' || mine) && cur !== a) { te.value = a; found._snsAuto = a; ch = true; } }
+    }
     else if (mine) { te.value = ''; found._snsAuto = undefined; ch = true; }
     if (ch) te.dispatchEvent(new Event('input', { bubbles: true }));
   }
