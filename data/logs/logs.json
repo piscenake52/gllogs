@@ -2333,6 +2333,33 @@
     ]
   },
   {
+    "logid": "59d0a7d0fd1a",
+    "date": "20261120",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　ワンダンス",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2123752847791788081?s=19",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "EVENT REPORT"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "862af15aa4c6",
     "date": "20261119",
     "time": "2359",
