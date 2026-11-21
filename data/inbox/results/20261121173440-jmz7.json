@@ -1,0 +1,11 @@
+{
+ "id": "20261121173440-jmz7",
+ "status": "done",
+ "time": "2026-11-21 17:34:56 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261121173440_20261121173440-jmz7.json"
+ ],
+ "errors": [],
+ "notes": []
+}
