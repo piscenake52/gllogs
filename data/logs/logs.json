@@ -1876,6 +1876,7 @@
     "url": "https://www.j-wave.co.jp/original/popworld/sp/",
     "groups": [
       "G2",
+      "YOK",
       "KUR",
       "KIR"
     ],
@@ -1907,6 +1908,40 @@
             ],
             "tags": [
               "ラジオ情報"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2123905734970904676?a=4JwdNf-JU8E6q604Pl8&s=19",
+            "member": [
+              "YOK",
+              "KIR"
+            ],
+            "tags": [
+              "まもなく生出演"
+            ]
+          },
+          {
+            "url": "https://x.com/pop_813/status/2123902958916309409?a=IjHInrZeAvHRpmUAndE&s=19",
+            "member": [],
+            "tags": [
+              "このあと"
+            ]
+          },
+          {
+            "url": "https://x.com/pop_813/status/2123911556509634702?a=HlPyZf9fQ0mzBG28ZPI&s=19",
+            "member": [],
+            "tags": [
+              "ライブ配信情報"
+            ]
+          },
+          {
+            "url": "https://x.com/pop_813/status/2123918619180732493?a=xXxNcmqNVduAMKgsEBo&s=19",
+            "member": [
+              "KUR",
+              "KIR"
+            ],
+            "tags": [
+              "生出演"
             ]
           }
         ]
