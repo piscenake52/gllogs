@@ -1,0 +1,11 @@
+{
+ "id": "20261122074559-wrqh",
+ "status": "done",
+ "time": "2026-11-22 07:46:12 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261122074559_20261122074559-wrqh.json"
+ ],
+ "errors": [],
+ "notes": []
+}
