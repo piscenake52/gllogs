@@ -1,0 +1,11 @@
+{
+ "id": "20261121215436-adzf",
+ "status": "done",
+ "time": "2026-11-21 21:54:56 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261121215436_20261121215436-adzf.json"
+ ],
+ "errors": [],
+ "notes": []
+}
