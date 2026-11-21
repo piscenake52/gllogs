@@ -70,7 +70,7 @@ try {
 })();
 //]]>
 </script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GL log</title>
 <meta name="description" content="Girls&#178;&#12539;Laki(&#26087;Lucky&#178;)&#12398;&#27963;&#21205;&#12525;&#12464;&#12539;&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;&#12539;&#12475;&#12483;&#12488;&#12522;&#12473;&#12488;&#12539;&#27005;&#26354;&#24773;&#22577;&#12434;&#12414;&#12392;&#12417;&#12383;&#12501;&#12449;&#12531;&#21521;&#12369;&#38750;&#20844;&#24335;&#12469;&#12452;&#12488;&#12300;GL log&#12301;&#12290;">
 <link rel="canonical" href="https://gl-log.blogspot.com/">
@@ -111,7 +111,7 @@ window.uiIc = function (n) { return '<svg class="ui-ic" viewBox="0 0 24 24" aria
 /* ==================== カラーテーマ(ライト/ダーク共通のCSS変数) ==================== */
 :root { --vz: 1; } /* html zoom(PC幅で1.25)の倍率。vh指定をzoom後の単位に直すために使う */
 :root {
-  --bg: #fff; --text: #222; --sub: #555; --muted: #888;
+  --bg: #fff; --text: #222; --sub: #555; --muted: #767676;
   --border: #f4f4f5; --input-border: #e4e4e7; --btn-bg: #f4f4f5;
   --btn-hover: #e4e4e7; --input-bg: #fafafa; --item-border: #f9f9f9;
   --active-bg: #27272a; --active-color: #fff;
@@ -130,7 +130,7 @@ window.uiIc = function (n) { return '<svg class="ui-ic" viewBox="0 0 24 24" aria
   --data-font-scale: 1; /* データ部の文字サイズ倍率(-/+ボタンで変更、既定100%=1) */
 }
 html.dark-mode, body.dark-mode {
-  --bg: #121212; --text: #f4f4f5; --sub: #a1a1aa; --muted: #71717a;
+  --bg: #121212; --text: #f4f4f5; --sub: #a1a1aa; --muted: #8b8b95;
   --border: #27272a; --input-border: #3f3f46; --btn-bg: #27272a;
   --btn-hover: #3f3f46; --input-bg: #18181b; --item-border: #1f1f23;
   --active-bg: #f4f4f5; --active-color: #121212;
@@ -272,6 +272,7 @@ body.wrap-mode .item-tags-in { flex-wrap: wrap; overflow-x: hidden; } /* 折り�
 .item.has-tags { transition: padding-bottom var(--dur-m) var(--ease-s); }
 .tag-chip { flex: 0 0 auto; font: inherit; font-size: calc(var(--data-font-scale) * 11.5px); line-height: 1; padding: 4px 8px; border-radius: var(--r-xs); background: var(--btn-bg); border: 1px solid var(--input-border); color: var(--text); cursor: pointer; white-space: nowrap; }
 .tag-chip:hover { background-color: var(--btn-hover); }
+html, body { touch-action: manipulation; } /* ピンチ拡大は許可し、ダブルタップでの拡大だけ防ぐ(viewportの拡大禁止をやめた代わり) */
 /* チップの種類の見分け(薄い色・枠の形): 通常のtags=そのまま / venue=薄い青の地 / snsのタグ=破線 / 抽出タグ(TODAYのみ・仮の表示)=点線+薄い文字 */
 .tag-chip.tc-venue { background: rgba(14,165,233,.10); border-color: rgba(14,165,233,.38); }
 .tag-chip.tc-sns { background: transparent; border-style: dashed; }
@@ -819,6 +820,10 @@ body .item-contents.is-content-open {
 
 .no-result.is-fadein { animation: rowIn var(--dur-m) var(--ease-m) both; }
 .no-result { font-size: var(--fs-m); color: var(--muted); padding: 25px 0; text-align: center; display: none; letter-spacing: 0.5px; }
+.load-error-msg { font-size: var(--fs-xs); letter-spacing: 0; margin-top: 8px; line-height: 1.5; }
+.load-error-msg:empty { display: none; }
+.footer-stale { font-size: var(--fs-xs); color: var(--muted); text-align: center; margin-top: 2px; }
+.stale-retry { background: none; border: none; padding: 2px 4px; font: inherit; color: var(--sub); text-decoration: underline; cursor: pointer; }
 .quick-reset-btn { display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: var(--active-bg); color: var(--active-color); font-size: var(--fs-xs); border: none; border-radius: var(--r-pill); cursor: pointer; outline: none; }
 .quick-reset-btn:hover { opacity: var(--op-hover); }
 
@@ -1199,17 +1204,17 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
 <div class="width-resize-handle right" id="widthHandleRight" aria-hidden="true"></div>
 
 <div class="container">
-  <div class="sticky-header is-initializing" id="stickyHeader">
+  <div class="sticky-header is-initializing" id="stickyHeader" role="banner">
     <div class="sticky-header-inner">
     <div class="header-row">
       <h1><a class="reset-link" id="resetLink" role="button" tabindex="0">GL log</a></h1>
       <div class="header-btn-group" id="headerBtnGroup" style="margin-left:auto;">
         <button class="toggle-btn date-part-btn" id="dpClockBtn" aria-haspopup="true" aria-expanded="false" aria-label="&#24180;&#26376;&#26085;&#26332;&#26178;"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="#f8fafc" stroke="#4b5563" stroke-width="1.8"/><path d="M12 3.6v1.6M20.4 12h-1.6M12 20.4v-1.6M3.6 12h1.6" stroke="#9ca3af" stroke-width="1.4" stroke-linecap="round"/><path d="M12 12V6.2" stroke="#1f2937" stroke-width="1.9" stroke-linecap="round"/><path d="M12 12l2.7-3.4" stroke="#1f2937" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="12" r="1.2" fill="#1f2937"/></svg></button>
-        <button class="toggle-btn date-part-btn" id="mapToggleBtn"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.5V22" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="8.2" r="6.6" fill="#ef4444"/><circle cx="9.7" cy="5.9" r="1.9" fill="#fff" fill-opacity=".55"/></svg></button>
-        <button class="toggle-btn date-part-btn" id="setlistIconToggleBtn"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="20" rx="2.4" fill="#c98a4b"/><rect x="5.8" y="6.5" width="12.4" height="14.5" rx="1.2" fill="#fff"/><path d="M8.6 11h6.8M8.6 14.5h6.8M8.6 18h4" stroke="#b8bec9" stroke-width="1.6" stroke-linecap="round"/><rect x="8" y="1" width="8" height="5" rx="1.5" fill="#9aa3b0"/><rect x="10.2" y="2.3" width="3.6" height="1.4" rx=".7" fill="#e5e7eb"/></svg></button>
+        <button class="toggle-btn date-part-btn" id="mapToggleBtn" aria-label="&#12510;&#12483;&#12503;&#12398;&#12500;&#12531;"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.5V22" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="8.2" r="6.6" fill="#ef4444"/><circle cx="9.7" cy="5.9" r="1.9" fill="#fff" fill-opacity=".55"/></svg></button>
+        <button class="toggle-btn date-part-btn" id="setlistIconToggleBtn" aria-label="&#12475;&#12483;&#12488;&#12522;&#12473;&#12488;&#12398;&#12450;&#12452;&#12467;&#12531;"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="20" rx="2.4" fill="#c98a4b"/><rect x="5.8" y="6.5" width="12.4" height="14.5" rx="1.2" fill="#fff"/><path d="M8.6 11h6.8M8.6 14.5h6.8M8.6 18h4" stroke="#b8bec9" stroke-width="1.6" stroke-linecap="round"/><rect x="8" y="1" width="8" height="5" rx="1.5" fill="#9aa3b0"/><rect x="10.2" y="2.3" width="3.6" height="1.4" rx=".7" fill="#e5e7eb"/></svg></button>
         <button class="toggle-btn date-part-btn" id="tagToggleBtn" aria-label="Tags"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(12 12) scale(1.12) translate(-12 -12)"><path d="M3 3.5A.5.5 0 0 1 3.5 3H11.7a1 1 0 0 1 .7.3l8.3 8.3a1.6 1.6 0 0 1 0 2.2l-6.9 6.9a1.6 1.6 0 0 1-2.2 0L2.3 12.4A1 1 0 0 1 2 11.7z" fill="#fcd29a" stroke="#e39a3d" stroke-width="1.3" stroke-linejoin="round"/><circle cx="7.6" cy="7.6" r="1.7" fill="#fff" stroke="#e39a3d" stroke-width="1"/></g></svg></button>
         <button class="toggle-btn date-part-btn" id="statToggleBtn" aria-label="Albums" aria-pressed="true"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.8" y="2" width="20.4" height="20" rx="2.6" fill="#5b6068"/><circle cx="11.4" cy="12" r="8.2" fill="#e5e7eb"/><path d="M11.4 12L17.5 6.5A8.2 8.2 0 0 1 19.6 12z" fill="#a5b4fc" fill-opacity=".65"/><path d="M11.4 12L6 6.8A8.2 8.2 0 0 1 11.4 3.8z" fill="#fbcfe8" fill-opacity=".8"/><circle cx="11.4" cy="12" r="5" fill="none" stroke="#cbd5e1" stroke-width=".8"/><circle cx="11.4" cy="12" r="1.7" fill="#5b6068"/><rect x="17.6" y="9" width="4.6" height="6" rx="1" fill="#f3f4f6"/></svg></button>
-        <button class="toggle-btn date-part-btn" id="linkToggleBtn"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(12 12) scale(1.18) translate(-12 -12)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" stroke="#7b8594" stroke-width="2.8"/><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" stroke="#c3cad5" stroke-width="1"/></g></svg></button>
+        <button class="toggle-btn date-part-btn" id="linkToggleBtn" aria-label="&#12522;&#12531;&#12463;"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(12 12) scale(1.18) translate(-12 -12)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" stroke="#7b8594" stroke-width="2.8"/><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" stroke="#c3cad5" stroke-width="1"/></g></svg></button>
       </div>
       <div class="dp-pill" id="dpPill" aria-hidden="true">
         <button class="toggle-btn date-part-btn dp-pill-clock" id="dpPillClockBtn" tabindex="-1" aria-label="&#38281;&#12376;&#12427;"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="#f8fafc" stroke="#4b5563" stroke-width="1.8"/><path d="M12 3.6v1.6M20.4 12h-1.6M12 20.4v-1.6M3.6 12h1.6" stroke="#9ca3af" stroke-width="1.4" stroke-linecap="round"/><path d="M12 12V6.2" stroke="#1f2937" stroke-width="1.9" stroke-linecap="round"/><path d="M12 12l2.7-3.4" stroke="#1f2937" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="12" r="1.2" fill="#1f2937"/></svg></button>
@@ -1225,7 +1230,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       </div>
     </div>
     <div class="extra-tools-row">
-      <button class="toggle-btn" id="songToggleBtn">&#9834;</button>
+      <button class="toggle-btn" id="songToggleBtn" aria-label="&#27005;&#26354;&#12496;&#12540;">&#9834;</button>
       <button class="toggle-btn" id="heartToggleBtn" aria-label="Hearts"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><g transform="translate(11 .4) scale(.6)"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#f472b6"/></g><g transform="translate(-2.6 3.6) scale(.9)"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#ef4444"/></g></svg></button>
       <div class="search-box-wrap">
         <button type="button" class="toggle-btn search-setlist-btn" id="setlistToggleBtn" aria-label="Setlist search mode"><svg class="ui-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="20" rx="2.4" fill="#c98a4b"/><rect x="5.8" y="6.5" width="12.4" height="14.5" rx="1.2" fill="#fff"/><path d="M8.6 11h6.8M8.6 14.5h6.8M8.6 18h4" stroke="#b8bec9" stroke-width="1.6" stroke-linecap="round"/><rect x="8" y="1" width="8" height="5" rx="1.5" fill="#9aa3b0"/><rect x="10.2" y="2.3" width="3.6" height="1.4" rx=".7" fill="#e5e7eb"/></svg></button>
@@ -1287,7 +1292,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
 
     <div class="result-header-row">
       <div class="result-count-group">
-        <button class="toggle-btn" id="filterSummaryToggleBtn" aria-label="&#29694;&#22312;&#12398;&#12501;&#12451;&#12523;&#12479;&#12540;&#19968;&#35239;&#12434;&#34920;&#31034;">FILTER</button>
+        <button class="toggle-btn" id="filterSummaryToggleBtn" aria-label="FILTER: &#29694;&#22312;&#12398;&#12501;&#12451;&#12523;&#12479;&#12540;&#19968;&#35239;&#12434;&#34920;&#31034;">FILTER</button>
         <div class="result-count" id="resultCount">LOADING...</div>
       </div>
       <div class="day-nav-group" id="dayNavGroup">
@@ -1304,14 +1309,15 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     </div>
   </div>
 
-  <div class="day-slide-area" id="daySlideArea">
+  <div class="day-slide-area" id="daySlideArea" role="main">
   <div class="items" id="items"></div>
   <div id="scrollSentinel"></div>
   <div class="no-result" id="noResult"><span id="noResultText">NO RESULTS FOUND</span><br><button class="quick-reset-btn" id="quickResetBtn">CLEAR ALL FILTERS</button></div>
   </div>
   <div id="dayFlickFill"></div>
-  <div class="no-result" id="loadError">LOAD ERROR<br><button class="quick-reset-btn" id="retryBtn">RETRY</button></div>
-  <div class="footer-update-time" id="updateTime">updated > --</div>
+  <div class="no-result" id="loadError" role="alert">LOAD ERROR<div class="load-error-msg" id="loadErrorMsg"></div><div class="load-error-msg" id="loadErrorRetry"></div><br><button class="quick-reset-btn" id="retryBtn">RETRY</button></div>
+  <div class="footer-update-time" id="updateTime" role="status">updated > --</div>
+  <div class="footer-stale" id="staleNotice" role="status" style="display:none"><span>&#26368;&#26032;&#12398;&#30906;&#35469;&#12395;&#22833;&#25943;&#12375;&#12414;&#12375;&#12383;</span> <button type="button" class="stale-retry" id="staleRetryBtn">&#20877;&#35430;&#34892;</button></div>
   <div class="footer-btn-row" id="footerBtnRow">
     <button type="button" class="help-btn" id="helpBtn" aria-label="&#12504;&#12523;&#12503;&#12434;&#34920;&#31034;">?</button>
     <button type="button" class="help-btn" id="settingsBtn" aria-label="&#35373;&#23450;&#12434;&#34920;&#31034;">&#9881;&#65039;</button>
@@ -3240,6 +3246,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         ti.tabIndex = -1; // データ部のアイコンはTab移動の対象にしない(クリック/タップでは従来通り開閉可能)
         ti.setAttribute('role', 'button');
         ti.setAttribute('aria-expanded', 'false');
+        ti.setAttribute('aria-label', (teamClass === 'g2' ? 'Girls\u00b2' : teamClass === 'l2' ? 'Laki' : 'Girls\u00b2 / Laki') + ' \u306e\u30e1\u30f3\u30d0\u30fc\u3092\u958b\u9589');
         if (heartModeOn) {
           hearts.classList.add('is-open');
           ti.setAttribute('aria-expanded', 'true');
@@ -4218,7 +4225,15 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   const openSetlistModal = setlistid => {
     const entry = setlistData.find(e => e.setlistid === setlistid);
     if (!entry) {
-      setlistModalBody.innerHTML = '<div class="setlist-modal-empty">SETLIST NOT FOUND</div>';
+      // setlist.json を読み込めていないときは、原因と再試行ボタンを出す(読み込めているのにidがないときだけ NOT FOUND)
+      const loadErr = !setlistData.length && typeof setlistSrc !== 'undefined' && setlistSrc.lastError();
+      if (loadErr) {
+        setlistModalBody.innerHTML = '<div class="setlist-modal-empty">' + loadErrText(loadErr) + '<br><button type="button" class="quick-reset-btn" id="setlistRetryBtn">RETRY</button></div>';
+        $('setlistRetryBtn').onclick = () => {
+          setlistModalBody.innerHTML = '<div class="setlist-modal-empty">LOADING...</div>';
+          setlistSrc.check(false).then(() => openSetlistModal(setlistid));
+        };
+      } else setlistModalBody.innerHTML = '<div class="setlist-modal-empty">SETLIST NOT FOUND</div>';
       setlistModalOverlay.classList.add('is-open');
       return;
     }
@@ -6639,6 +6654,28 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     return manifestP;
   };
 
+  // 読み込みの失敗の原因を、利用者向けの短い文にする(技術的な内容は画面に出さず、コンソールにだけ残す)
+  const LOAD_ERR_MSG = {
+    net: '\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u306b\u63a5\u7d9a\u3067\u304d\u307e\u305b\u3093',
+    notfound: '\u30c7\u30fc\u30bf\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093',
+    limit: 'GitHub \u306e\u5236\u9650\u306b\u9054\u3057\u307e\u3057\u305f\u3002\u3057\u3070\u3089\u304f\u3057\u3066\u304b\u3089\u3084\u308a\u76f4\u3057\u3066\u304f\u3060\u3055\u3044',
+    server: 'GitHub \u5074\u306e\u969c\u5bb3\u306e\u53ef\u80fd\u6027\u304c\u3042\u308a\u307e\u3059',
+    json: '\u30c7\u30fc\u30bf\u306e\u5f62\u5f0f\u304c\u6b63\u3057\u304f\u3042\u308a\u307e\u305b\u3093',
+    timeout: '\u5fdc\u7b54\u304c\u3042\u308a\u307e\u305b\u3093',
+    unknown: '\u8aad\u307f\u8fbc\u3081\u307e\u305b\u3093\u3067\u3057\u305f'
+  };
+  const loadErrKind = err => {
+    if (!err) return 'unknown';
+    if (err.name === 'AbortError' || err.name === 'TimeoutError') return 'timeout';
+    const st = err.status;
+    if (st === 404) return 'notfound';
+    if (st === 403 || st === 429) return 'limit';
+    if (st >= 500) return 'server';
+    if (err instanceof SyntaxError) return 'json';
+    if ((typeof navigator !== 'undefined' && navigator.onLine === false) || err instanceof TypeError) return 'net';
+    return 'unknown';
+  };
+  const loadErrText = err => LOAD_ERR_MSG[loadErrKind(err)];
   // データ取得の共通処理(logs / songs / setlist / albums で共通)。キャッシュを先に表示 → 最新コミットSHAを確認 → 変更があれば取り直す。
   // 取得はSHA固定のjsDelivr、SHAが取れないときはキャッシュバスト付きのrawから。o: { file, verKey, dataKey, checkKey, apply(data), isEmpty(), cache?: { load(), save(data) }, onFail?() }
   const makeDataSource = o => {
@@ -6653,8 +6690,14 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       : info.ver
         ? `https://cdn.jsdelivr.net/gh/${REPO}@${info.ver}/${o.file}`
         : `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${o.file}?v=${Date.now()}`;
-    const fetchFresh = info => fetch(urlOf(info))
-      .then(res => { if (!res.ok) throw new Error('Network response was not ok'); return res.arrayBuffer(); })
+    const fetchFresh = info => {
+      // 応答がないまま待ち続けないよう、60秒で打ち切る(原因の表示は「応答がありません」)
+      const ac = typeof AbortController === 'function' ? new AbortController() : null;
+      const tm = ac ? setTimeout(() => ac.abort(), 60000) : 0;
+      return fetchFresh0(info, ac).finally(() => clearTimeout(tm));
+    };
+    const fetchFresh0 = (info, ac) => fetch(urlOf(info), ac ? { signal: ac.signal } : undefined)
+      .then(res => { if (!res.ok) throw Object.assign(new Error('Network response was not ok: ' + res.status), { status: res.status }); return res.arrayBuffer(); })
       .then(buf => {
         // マニフェストのバイト数と合わないとき(CDNの古い内容など)は、表示には使うが版は記録しない(次回また取り直す)
         const verified = !(info.size && buf.byteLength !== info.size);
@@ -6679,11 +6722,16 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       })
       .catch(() => latestSha().then(sha => ({ ver: sha || null })));
     // force=true: 版の比較を無視して必ず取り直す(タイトルクリック・特定の配信元)
+    // 結果の通知(o.onOk / o.onFail(err) / o.onStale(err))。lastError(): 直近の取得の失敗(成功すると null)
+    let lastErr = null;
+    const done = ok => { lastErr = null; if (o.onOk) { try { o.onOk(); } catch (e) {} } return ok; };
     const check = force => latest(force)
       .then(info => { if (force || (info.ver && info.ver !== lsGet(o.verKey)) || o.isEmpty()) return fetchFresh(info); }) // 変更なし:表示済みでなければ念のため取得
+      .then(() => done())
       .catch(err => {
         console.error('Failed to check ' + o.file + ':', err);
-        if (force || o.isEmpty()) return fetchFresh({ ver: null }).catch(err2 => { console.error('Failed to load ' + o.file + ':', err2); if (o.onFail) o.onFail(); }); // 版の確認に失敗: 版なしで取り直す
+        if (force || o.isEmpty()) return fetchFresh({ ver: null }).then(() => done(), err2 => { console.error('Failed to load ' + o.file + ':', err2); lastErr = err2; if (o.onFail) o.onFail(err2); }); // 版の確認に失敗: 版なしで取り直す
+        lastErr = err; if (o.onStale) o.onStale(err); // 表示できているデータはあるが、最新の確認に失敗した
       });
     // キャッシュ表示 → 直近チェックから一定時間以内なら、確認自体をスキップ。
     // o.defer(): 返したPromiseが終わる(最大4秒)まで確認を待つ。キャッシュを表示できているときだけ(logsの確認・更新を先に済ませるため)
@@ -6695,7 +6743,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       const wait = cached && o.defer ? Promise.race([Promise.resolve(o.defer()).catch(() => {}), new Promise(r => setTimeout(r, 4000))]) : Promise.resolve();
       return wait.then(() => check(false));
     });
-    return { check, start };
+    return { check, start, lastError: () => lastErr };
   };
 
   // 参照型データ(ref)を、参照元の値で補って1件のデータにする。自分の値があればそちらを優先する。
@@ -6850,21 +6898,42 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         return false; // 壊れたキャッシュは無視して素通り(新規取得に進む)
       }
     });
-  const logsSrc = makeDataSource({ file: FILE, verKey: VERSION_KEY, dataKey: DATA_KEY, checkKey: CHECK_TIME_KEY, apply: d => applyLogs(d), isEmpty: () => !logs.length, cache: { load: loadLogsCache, save: saveLogsCache }, onFail: () => showLoadError() });
+  const logsSrc = makeDataSource({ file: FILE, verKey: VERSION_KEY, dataKey: DATA_KEY, checkKey: CHECK_TIME_KEY, apply: d => applyLogs(d), isEmpty: () => !logs.length, cache: { load: loadLogsCache, save: saveLogsCache }, onFail: err => showLoadError(err), onStale: () => setStale(true), onOk: () => loadOk() });
 
-  const showLoadError = () => {
+  // 読み込み失敗の表示と再試行。データが1件も表示できないときは、原因を出し、約3秒・8秒・20秒後に自動で再試行する(最大3回)。通信が戻ったとき・画面が前面に戻ったときにも1回試す。
+  // 表示できているデータがあるのに最新の確認に失敗したときは、画面下に小さく知らせる(データの表示は変えない)
+  const RETRY_DELAYS = [3000, 8000, 20000];
+  let retryN = 0, retryTimer = 0, retrying = false, staleOn = false;
+  const setRetryText = t => { const el = $('loadErrorRetry'); if (el) el.textContent = t; };
+  const clearRetryTimer = () => { clearTimeout(retryTimer); retryTimer = 0; };
+  const setStale = on => { staleOn = on; const el = $('staleNotice'); if (el) el.style.display = on ? '' : 'none'; };
+  const loadOk = () => { retryN = 0; clearRetryTimer(); setRetryText(''); setStale(false); $('loadError').style.display = 'none'; };
+  const showLoadError = err => {
     $('resultCount').textContent = '';
     $('sortBtn').style.display = 'none';
     $('inlineClearBtn').style.display = 'none';
     $('noResult').style.display = 'none';
+    $('loadErrorMsg').textContent = loadErrText(err);
     $('loadError').style.display = 'block';
+    clearRetryTimer();
+    if (retryN < RETRY_DELAYS.length) {
+      setRetryText('\u81ea\u52d5\u3067\u518d\u8a66\u884c\u3057\u307e\u3059 (' + (retryN + 1) + '/' + RETRY_DELAYS.length + ')');
+      retryTimer = setTimeout(() => { retryTimer = 0; retryN++; retryNow(true); }, RETRY_DELAYS[retryN]);
+    } else setRetryText('');
   };
-
-  $('retryBtn').onclick = () => {
-    $('loadError').style.display = 'none';
+  const retryNow = auto => {
+    if (retrying) return;
+    retrying = true; clearRetryTimer();
+    if (auto) setRetryText('\u518d\u8a66\u884c\u4e2d (' + retryN + '/' + RETRY_DELAYS.length + ')');
+    else { $('loadError').style.display = 'none'; }
     $('resultCount').textContent = 'LOADING...';
-    checkForUpdates();
+    return checkForUpdates().then(() => { retrying = false; }, () => { retrying = false; });
   };
+  $('retryBtn').onclick = () => retryNow(false);
+  $('staleRetryBtn').onclick = () => retryNow(false);
+  const retryIfNeeded = () => { if ((!logs.length || staleOn) && !retrying) { retryNow(false); } };
+  window.addEventListener('online', retryIfNeeded);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') retryIfNeeded(); });
 
   const checkForUpdates = () => logsSrc.check(false); // 再試行ボタンから
   const forceReloadLogs = () => logsSrc.check(true); // トップのタイトルリンク: 直近チェック時刻やSHA比較を無視し、常に最新を取得し直す
