@@ -229183,13 +229183,15 @@
     "date": "20041120",
     "time": "",
     "contents": "BIRTHDAY",
-    "title": "隅谷百花 誕生日",
-    "display_pc": "隅谷百花　誕生日",
-    "display_sp": "隅谷百花　誕生日",
+    "title": "隅谷百花　誕生日",
     "url": "https://www.ldh.co.jp/eng/management/sumitani_m/",
     "groups": [
       "G2",
       "MMK"
+    ],
+    "tags": [
+      "隅谷百花誕生祭",
+      "隅谷百花生誕祭"
     ]
   },
   {
