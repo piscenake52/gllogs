@@ -1,8 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "827738fca1b8",
-  "sns": "https://x.com/pop_813/status/2123911462825689094?a=-JaZpYMI3zxX1exmeEQ&s=19 |  | リリース情報"
- },
- "created": "2026-11-21T01:32:44Z"
-}
