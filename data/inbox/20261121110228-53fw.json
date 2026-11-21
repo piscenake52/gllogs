@@ -1,0 +1,8 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "827738fca1b8",
+  "sns": "https://x.com/pop_813/status/2123911535018041583?a=ODn2JHiV6O3o9YfQyp0&s=19 |  | Umbrella"
+ },
+ "created": "2026-11-21T02:02:28Z"
+}
