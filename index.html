@@ -3323,10 +3323,10 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     }
     const rowTagSet = new Set(Array.isArray(item.tags) ? item.tags.map(x => typeof x === 'string' ? x.trim() : '') : []);
     const fromSns = tagList.length > 0 && !tagList.some(x => rowTagSet.has(x)); // 行のtagsがなく、snsリンクのtagsから出しているとき
-    const vn = typeof item.venue === 'string' ? item.venue.trim() : '';
+    const vn = (typeof item.venue === 'string' && item.venue.trim()) || (typeof item._refVenue === 'string' ? item._refVenue.trim() : '');
     if (vn) tagList = [vn, ...tagList.filter(x => x !== vn)]; // 会場名(venue)は、タグの一番左に出す(タグの値には入れない)
     let autoTag = '';
-    if (!tagList.length && todayMode && !item.ref) { autoTag = extractTag(item); if (autoTag) tagList = [autoTag]; } // tags・venue・snsのタグがない行だけ。TODAYモードのときだけ
+    if (!tagList.length && todayMode && (!item.ref || item._refSrc)) { autoTag = extractTag(item._refSrc || item); if (autoTag) tagList = [autoTag]; } // tags・venue・snsのタグがない行だけ。TODAYモードのときだけ
     if (tagList.length) {
       w.classList.add('has-tags');
       const tr = document.createElement('div');
@@ -4826,7 +4826,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
       }
 
       if (kw) {
-        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '') + ' ' + (item.venue || '') + snsTagsText(item)).toLowerCase() + albumTrackText(item);
+        const searchText = (item.title + ' ' + (item.display_pc || '') + ' ' + (item.display_sp || '') + ' ' + item.date + ' ' + item.contents + ' ' + normalizeContType(item.contents) + ' ' + (item.tags ? item.tags.join(' ') : '') + ' ' + (item.venue || '') + ' ' + (item._refVenue || '') + snsTagsText(item)).toLowerCase() + albumTrackText(item);
         textOk = matchesSearchKeyword(searchText, kw, item);
       }
     }
@@ -6766,6 +6766,8 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         if (!has(r[k]) && has(src[k])) r[k] = src[k];
       });
       if (src.setlistid && !r.setlistid) r._refSetlistid = src.setlistid; // 参照元のセトリ。📋アイコンだけに使う(セトリ検索・メンバー判定・helperのIDには使わない)
+      if (!has(r.venue) && has(src.venue)) r._refVenue = src.venue; // 会場名はチップ表示と検索にだけ使う(venueそのものは引き継がない=地図ピンには影響しない)
+      r._refSrc = src; // 抽出タグを参照元の内容(タイトル・contents)から出すため
       r._refContents = src.contents; // 参照元(リリースなど)のcontents。記念日の行にも💽を出すために使う
       out.push(r);
     });
