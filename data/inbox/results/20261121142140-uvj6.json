@@ -1,0 +1,11 @@
+{
+ "id": "20261121142140-uvj6",
+ "status": "done",
+ "time": "2026-11-21 14:21:57 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261121142140_20261121142140-uvj6.json"
+ ],
+ "errors": [],
+ "notes": []
+}
