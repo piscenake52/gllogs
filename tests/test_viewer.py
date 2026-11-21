@@ -259,6 +259,66 @@ class TestTagChips(ViewerCase):
         self.assertEqual(pg.input_value("#searchInput"), "お見送り会")
 
 
+class TestRefRows(ViewerCase):
+    """ANNIVERSARY の参照行(ref)は、参照元のvenue・tags・sns・抽出タグを同じ種別のチップで出す。"""
+    TODAY_ON = {"gl_log_tag_mode": "true", "gl_log_today_mode": "true"}
+
+    def ref_chips(self, srcs, ref_extra=None, ls=None):
+        logs = list(srcs) + [row(900, "", "ANNIVERSARY", None, date="20251120", ref=srcs[0]["logid"], **(ref_extra or {}))]
+        logs[-1].pop("title", None)
+        logs += [row(901, "1100", "EVENT", "辞書用", tags=["お見送り会"], date="20261119")]
+        pg = self.open(logs, ls=ls or self.TODAY_ON)
+        res = pg.evaluate("""[...document.querySelectorAll('.item')].map(w => [w.querySelector('.item-title').textContent,
+            [...w.querySelectorAll('.tag-chip')].map(c => c.dataset.kind + ':' + c.textContent)])""")
+        return [c for t, c in res if "記念日" in t], pg
+
+    def src(self, title, contents="LIVE", **kw):
+        kw.setdefault("date", "20250101")
+        return row(800, "1000", contents, title, **kw)
+
+    def test_venue_inherited_as_venue_chip(self):
+        got, _ = self.ref_chips([self.src("Girls2 Live", venue="東京ガーデンシアター")])
+        self.assertEqual(got, [["venue:東京ガーデンシアター"]])
+
+    def test_tags_inherited(self):
+        got, _ = self.ref_chips([self.src("Girls2 Live", tags=["お見送り会"])])
+        self.assertEqual(got, [["tag:お見送り会"]])
+
+    def test_sns_tags_inherited(self):
+        sns = [{"type": "x", "urls": [{"url": "https://x.com/a/status/1", "tags": ["挨拶"]}]}]
+        got, _ = self.ref_chips([self.src("Girls2 Live", sns=sns)])
+        self.assertEqual(got, [["sns:挨拶"]])
+
+    def test_auto_tag_from_source_title(self):
+        got, _ = self.ref_chips([self.src("お見送り会 in 名古屋", "EVENT")])
+        self.assertEqual(got, [["auto:お見送り会"]])
+
+    def test_auto_tag_fallback_uses_source_contents(self):
+        got, _ = self.ref_chips([self.src("ただの日記", "DIARY")])
+        self.assertEqual(got, [["auto:日記更新"]])
+
+    def test_no_chip_when_source_has_nothing(self):
+        got, _ = self.ref_chips([self.src("ただの予定", "EVENT")])
+        self.assertEqual(got, [[]])
+
+    def test_own_venue_wins_and_map_not_inherited(self):
+        got, pg = self.ref_chips([self.src("Girls2 Live", venue="東京ガーデンシアター")],
+                                 ref_extra={"venue": "横浜アリーナ"})
+        self.assertEqual(got, [["venue:横浜アリーナ"]])
+        _, pg = self.ref_chips([self.src("Girls2 Live", venue="東京ガーデンシアター")],
+                               ls=dict(self.TODAY_ON, gl_log_map_mode="true"))
+        # 参照元にmapが無くvenueだけの場合、参照行に地図ピンは出さない(venueそのものは引き継がない)
+        self.assertEqual(pg.evaluate("[...document.querySelectorAll('.item')].filter(w => w.textContent.includes('記念日')).map(w => w.querySelectorAll('a.map-pin').length)"), [0])
+
+    def test_venue_chip_click_searches_venue(self):
+        """会場チップを押すと会場名で検索され、参照元の行が見つかる(ANNIVERSARYの登録年の行は検索結果に出さない仕様)。"""
+        _, pg = self.ref_chips([self.src("Girls2 Live", venue="東京ガーデンシアター")])
+        pg.click(".tag-chip[data-kind=venue]")
+        pg.wait_for_timeout(800)
+        self.assertEqual(pg.input_value("#searchInput"), "東京ガーデンシアター")
+        self.assertIn("Girls2 Live", pg.inner_text("#daySlideArea"))
+
+
 class TestLoadFailure(ViewerCase):
     LOGS = [row(1, "1000", "LIVE", "Girls2 Live", date="20261101")]
 
