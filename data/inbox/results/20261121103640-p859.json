@@ -1,0 +1,11 @@
+{
+ "id": "20261121103640-p859",
+ "status": "done",
+ "time": "2026-11-21 10:36:55 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261121103640_20261121103640-p859.json"
+ ],
+ "errors": [],
+ "notes": []
+}

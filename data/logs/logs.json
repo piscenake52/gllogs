@@ -2360,6 +2360,34 @@
     ]
   },
   {
+    "logid": "20aeaca0c779",
+    "date": "20261120",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2123737138777018688?a=zwSSoEXV4kDAhBFAh9E&s=19",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "サプライズ登壇",
+              "ワンダンス"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "862af15aa4c6",
     "date": "20261119",
     "time": "2359",
