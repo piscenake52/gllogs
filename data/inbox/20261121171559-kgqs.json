@@ -1,0 +1,8 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "43f6c0397d87",
+  "sns": "https://x.com/Girls2_official/status/2123982255798600177?a=-yJZBPCJ58jkrbpilvo&s=19 | YOK | 本日開催"
+ },
+ "created": "2026-11-21T08:15:59Z"
+}
