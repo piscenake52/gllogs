@@ -1913,6 +1913,33 @@
     ]
   },
   {
+    "logid": "2f196f4f733a",
+    "date": "20261122",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DgCmDbVD7gk/?cnvx=amJwc2d2a2YwZHF2",
+            "member": [
+              "RIN"
+            ],
+            "tags": [
+              "18歳になりました"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "677473a440b8",
     "date": "20261121",
     "time": "2000",
