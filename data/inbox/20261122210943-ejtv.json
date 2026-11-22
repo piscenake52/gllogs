@@ -1,8 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "403fcb7e16a8",
-  "sns": "https://x.com/Laki922official/status/2124337079719170347?a=inipDPJXjcJ_qOEn8I4&s=19 | HIR | 日記更新"
- },
- "created": "2026-11-22T12:09:43Z"
-}

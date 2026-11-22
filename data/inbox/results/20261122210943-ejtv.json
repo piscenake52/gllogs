@@ -1,0 +1,11 @@
+{
+ "id": "20261122210943-ejtv",
+ "status": "done",
+ "time": "2026-11-22 21:09:56 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261122210943_20261122210943-ejtv.json"
+ ],
+ "errors": [],
+ "notes": []
+}
