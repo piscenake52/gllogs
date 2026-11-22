@@ -1,0 +1,11 @@
+{
+ "id": "20261122193702-pb85",
+ "status": "done",
+ "time": "2026-11-22 19:37:17 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261122193702_20261122193702-pb85.json"
+ ],
+ "errors": [],
+ "notes": []
+}
