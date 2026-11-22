@@ -299,7 +299,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .rpsrow .fsug { flex:1 0 100%; }
 #glih .rpsrow .rpw { position:relative; display:block; min-width:0; } #glih .rpsrow .rpw > .fin { width:100%; box-sizing:border-box; } #glih .rpsrow .rpwc { flex:0 0 8em; width:8em; } #glih .rpsrow .rpl2 .rpwa { flex:0 0 6.5em; width:6.5em; } #glih .rpsrow .rpl2 .rpwg { flex:1 1 0; width:0; } #glih .rpsrow .rpwt { flex:1 0 100%; }
 #glih .rpsrow .rpw .fsug { position:absolute; left:0; top:100%; z-index:30; flex:none; width:max-content; min-width:100%; max-width:min(22em, 80vw); margin:2px 0 0; background:var(--card); box-shadow:0 4px 14px rgba(0,0,0,.35); }
-#glih .rpsrow .rpf { flex:1 1 8em; min-width:6em; }
+#glih .rpsrow .rpf { flex:1 1 8em; min-width:6em; } #glih .rpsrow .rpwf { flex:1 1 8em; min-width:6em; }
 #glih .rpsrow .rpmap { flex:1 0 100%; }
 #glih .rpsrow .rpch { flex:1 0 100%; gap:4px; }
 #glih .rpuc { display:flex; gap:8px; align-items:flex-start; } #glih .rpuc > .field { margin:0 0 10px; } #glih .rpuc > .field:nth-child(1) { flex:0 0 auto; width:calc(9em + 6px); } #glih .rpuc > .field:nth-child(2) { flex:0 0 auto; width:calc(9.9em + 34px); } #glih .rpuc > .field:nth-child(3) { flex:0 0 3em; } #glih .rpuc { gap:6px; } #glih .rpuc .fin.num { flex:0 0 3em; width:3em; padding-left:2px; padding-right:2px; } #glih .rpuc .fsel { flex:0 0 6em; padding-left:4px; padding-right:2px; } /* every + until + count on one row */
@@ -1590,11 +1590,26 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   // logs title box: candidates made from the contents (and groups) of the row. Rows with the same contents whose title starts with an upper-case `WORD` + full-width space (POST / SNS ...) give the prefixes; each prefix is offered with the group name (G2 only = Girls2, L2 only = Laki) and alone, then the titles of that kind used 2+ times. Contents with few rows (not DIARY) also offer their frequent whole titles.
   var titleMemo = { key: '', list: [] };
+  // fixed title candidates by contents (always offered, even with few rows): SNS = Instagram Live / TikTok Live, CL = CL cast. Each is followed by a full-width space + the suffix made from groups: 1-5 chosen members = their names joined by the middle dot; otherwise G2 only = Girls(2), L2 only = Laki, else nothing.
+  var MEMBER_NAMES = { YZH: '\u5c0f\u7530\u67da\u8449',MMK: '\u9685\u8c37\u767e\u82b1',MSK: '\u9db4\u5c4b\u7f8e\u54b2',YOK: '\u5c0f\u5ddd\u685c\u82b1',KUR: '\u5897\u7530\u4f86\u4e9c',MNM: '\u83f1\u7530\u672a\u6e1a\u7f8e',KIR: '\u5c71\u53e3\u7dba\u7f85',TOA: '\u539f\u7530\u90fd\u611b',RAN: '\u77f3\u4e95\u862d',RIN: '\u5c71\u53e3\u8389\u611b',TBK: '\u6c38\u5c71\u693f',HIR: '\u6df1\u6fa4\u65e5\u5f69',YUW: '\u6bd4\u5609\u512a\u548c',KAN: '\u4f50\u85e4\u681e\u5948',RRK: '\u4e0a\u6751\u68a8\u3005\u9999',AKR: '\u68ee\u6731\u91cc',KIK: '\u4f50\u85e4\u5983\u5e0c',YUR: '\u6749\u6d66\u512a\u4f86' };
+  var LIVE_TITLES = { SNS: ['Instagram Live', 'TikTok Live'], CL: ['CL\u30ad\u30e3\u30b9'] };
+  function liveSuffix(gs) {
+    var ord = typeof BK_ORD !== 'undefined' ? BK_ORD : Object.keys(MEMBER_NAMES), mem = ord.filter(function (c) { return MEMBER_NAMES[c] && gs.indexOf(c) >= 0; });
+    if (mem.length >= 1 && mem.length <= 5) return mem.map(function (c) { return MEMBER_NAMES[c]; }).join('\u30fb');
+    var g2 = gs.indexOf('G2') >= 0, l2 = gs.indexOf('L2') >= 0;
+    return g2 && !l2 ? G2_NAME : l2 && !g2 ? 'Laki' : '';
+  }
   function logsTitleOpts() {
     var ce = $('f-contents'), ge = $('f-groups'), c = ce ? ce.value.trim().toUpperCase() : '', rows = cache.logs || ix.logs || [];
-    if (!c || !rows.length) return [];
+    if (!c) return [];
     var gs = ge ? ge.value.split(/[,\u3001\s]+/).map(function (x) { return x.trim().toUpperCase(); }) : [], g2 = gs.indexOf('G2') >= 0, l2 = gs.indexOf('L2') >= 0, name = g2 && !l2 ? G2_NAME : l2 && !g2 ? 'Laki' : '';
-    var key = c + '|' + name + '|' + rows.length; if (titleMemo.key === key) return titleMemo.list;
+    var fixed = (LIVE_TITLES[c] || []).map(function (t) { var sf = liveSuffix(gs); return { v: sf ? t + '\u3000' + sf : t, n: undefined, sub: '', k: normQ(sf ? t + '\u3000' + sf : t) }; });
+    if (c === 'GLRADIO') { // GLRADIO: the chosen members (1-5) joined by a full-width ampersand + the show name (no first / second half)
+      var ordR = typeof BK_ORD !== 'undefined' ? BK_ORD : Object.keys(MEMBER_NAMES), memR = ordR.filter(function (x) { return MEMBER_NAMES[x] && gs.indexOf(x) >= 0; });
+      if (memR.length >= 1 && memR.length <= 5) { var tr = memR.map(function (x) { return MEMBER_NAMES[x]; }).join('\uff06') + '\u306e\u304c\u308b\u3089\u3058'; fixed.push({ v: tr, n: undefined, sub: '', k: normQ(tr) }); }
+    }
+    if (!rows.length) return fixed;
+    var key = c + '|' + name + '|' + rows.length + '|' + liveSuffix(gs); if (titleMemo.key === key) return titleMemo.list;
     var cnt = {}, pre = {}, n = 0;
     rows.forEach(function (r) {
       if (!r || String(r.contents || '').toUpperCase() !== c || typeof r.title !== 'string') return;
@@ -1609,7 +1624,25 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       Object.keys(cnt).filter(function (t) { return t.indexOf(p) === 0 && t !== p && cnt[t] >= 2; }).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 4).forEach(function (t) { add(t, '', cnt[t]); });
     });
     if (n <= 1500) Object.keys(cnt).filter(function (t) { return cnt[t] >= 3; }).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 6).forEach(function (t) { add(t, '', cnt[t]); });
+    var fv = {}; fixed.forEach(function (o) { fv[o.v] = 1; });
+    out = fixed.concat(out.filter(function (o) { return !fv[o.v]; }));
     titleMemo = { key: key, list: out }; return out;
+  }
+  // schedule rows (start / close / result / due): label candidates = the last word of titles of the same contents used 2+ times, without the ones already shown as chips of the row
+  var labelMemo = {};
+  function labelOpts(r) {
+    var ce = $('f-contents'), c = ((r.sel && r.sel.value.trim()) || (ce ? ce.value.trim() : '')).toUpperCase(), rows = cache.logs || ix.logs || [];
+    if (!c || !rows.length) return [];
+    var key = c + '|' + rows.length + '|' + r.ch.join('/'); if (labelMemo.key !== key) {
+      var cnt = {};
+      rows.forEach(function (x) {
+        if (!x || String(x.contents || '').toUpperCase() !== c || typeof x.title !== 'string') return;
+        var m = x.title.trim().match(/[\u3000 ]([^\u3000 ]+)$/); if (!m || /^[A-Za-z0-9]+$/.test(m[1])) return;
+        cnt[m[1]] = (cnt[m[1]] || 0) + 1;
+      });
+      labelMemo = { key: key, list: Object.keys(cnt).filter(function (w) { return cnt[w] >= 2 && r.ch.indexOf(w) < 0; }).sort(function (a, b) { return cnt[b] - cnt[a]; }).slice(0, 12).map(function (w) { return { v: w, n: cnt[w], k: normQ(w) }; }) };
+    }
+    return labelMemo.list;
   }
   var venueOptions = makeOpts('venue', ['setlist'], function (m) { rowsOf('setlist').forEach(function (r) { if (r) addTo(m, r.venue); }); });
   var artistOptions = makeOpts('artist', ['setlist', 'songs'], function (m) { rowsOf('setlist').forEach(function (r) { if (r) addTo(m, r.artist); }); (cache.songs || []).forEach(function (r) { if (r) addTo(m, r.artist); }); });
@@ -2589,7 +2622,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         }
         r.sel.value = r.ct; row.appendChild(r.sel); relWrap(r.sel, 'rpwc');
         addSuggest(r.sel, lxContents, r.sel);
-        r.sf2 = document.createElement('input'); r.sf2.type = 'text'; r.sf2.className = 'fin rpf'; r.sf2.value = r.sf; r.sf2.title = 'label added to the title (start: empty = the title above as it is)'; r.sf2.setAttribute('autocomplete', 'off'); row.appendChild(r.sf2);
+        r.sf2 = document.createElement('input'); r.sf2.type = 'text'; r.sf2.className = 'fin rpf'; r.sf2.value = r.sf; r.sf2.title = 'label added to the title (start: empty = the title above as it is)'; r.sf2.setAttribute('autocomplete', 'off'); row.appendChild(r.sf2); relWrap(r.sf2, 'rpwf'); addSuggest(r.sf2, function () { return labelOpts(r); }, r.sf2, true, false, function () { return 8; });
         var chr = document.createElement('div'); chr.className = 'chipr rpch'; // wording candidates: a click puts the word into the label (click again = clear)
         r.ch.forEach(function (w) { var cb2 = document.createElement('button'); cb2.type = 'button'; cb2.className = 'chip'; cb2.textContent = w; cb2.onclick = function () { r.sf2.value = r.sf2.value === w ? '' : w; r.sf2.dispatchEvent(new Event('input', { bubbles: true })); }; chr.appendChild(cb2); });
         row.appendChild(chr);
@@ -2898,7 +2931,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var tg = alInput(); tg.placeholder = 'tags (comma separated, optional)'; tg.style.cssText = 'flex:0 0 100%;min-width:0'; tg.value = Array.isArray(tags) ? tags.join(',') : (tags || ''); r._tg = tg;
       [t, u, tg].forEach(function (e) { e.addEventListener('input', function () { vTouched = true; autoV = false; upd(); }); });
       function mvb(txt, lab, dir) { var m = document.createElement('button'); m.type = 'button'; m.className = 'small'; m.textContent = txt; m.setAttribute('aria-label', lab); m.onclick = function () { var sib = dir < 0 ? r.previousElementSibling : r.nextElementSibling; if (!sib) return; if (dir < 0) vrows.insertBefore(r, sib); else vrows.insertBefore(sib, r); vTouched = true; autoV = false; upd(); }; return m; }
-      r.appendChild(t); r.appendChild(u); r.appendChild(mvb('\u2191', 'up', -1)); r.appendChild(mvb('\u2193', 'down', 1)); r.appendChild(x); r.appendChild(tg); vrows.appendChild(r); return r;
+      // open icon at the right end: opens the typed url in a new tab (greyed out while the url is empty or not http(s))
+      var o = document.createElement('a'); o.className = 'small ib'; o.textContent = '\u2197'; o.target = '_blank'; o.rel = 'noopener'; o.title = 'open'; o.style.textDecoration = 'none';
+      function so() { var v = u.value.trim(); if (/^https?:\/\//i.test(v)) { o.href = v; o.removeAttribute('aria-disabled'); o.style.opacity = ''; o.style.pointerEvents = ''; o.setAttribute('aria-label', 'open ' + v); } else { o.removeAttribute('href'); o.setAttribute('aria-disabled', 'true'); o.style.opacity = '.4'; o.style.pointerEvents = 'none'; o.setAttribute('aria-label', 'open (no url)'); } }
+      u.addEventListener('input', so); so();
+      r.appendChild(t); r.appendChild(u); r.appendChild(mvb('\u2191', 'up', -1)); r.appendChild(mvb('\u2193', 'down', 1)); r.appendChild(x); r.appendChild(o); r.appendChild(tg); vrows.appendChild(r); return r;
     }
     VT.slice(0, -1).concat(['+'], VT.slice(-1)).forEach(function (v) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v === '+' ? 'Etc' : v;
