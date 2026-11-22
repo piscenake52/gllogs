@@ -1,0 +1,11 @@
+{
+ "id": "20261122170855-vruz",
+ "status": "done",
+ "time": "2026-11-22 17:09:09 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261122170855_20261122170855-vruz.json"
+ ],
+ "errors": [],
+ "notes": []
+}
