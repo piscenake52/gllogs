@@ -1971,6 +1971,45 @@
     ]
   },
   {
+    "logid": "14a5877fbd6c",
+    "date": "20261122",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2124478544080519493?a=Ob6lpsXFwfyr-9gH6_Q&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "明日開催"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "677473a440b8",
     "date": "20261121",
     "time": "2000",
