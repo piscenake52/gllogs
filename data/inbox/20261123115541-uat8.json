@@ -1,0 +1,9 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "2f196f4f733a",
+  "groups_free": "L2,RIN,TBK,HIR,YUW,KAN,RRK,AKR,KIK",
+  "sns": "https://www.instagram.com/p/DgCQwt3j3GO/?fqnt=MXNkZXY2azI4ZzN1ag== | RIN+TBK,HIR,YUW,KAN,RRK,AKR,KIK | HBDRINA"
+ },
+ "created": "2026-11-23T02:55:41Z"
+}
