@@ -1589,7 +1589,7 @@
   {
     "logid": "eb89672d6a26",
     "date": "20261124",
-    "time": "1600",
+    "time": "1621",
     "contents": "RADIO",
     "title": "FM-NIIGATA「SOUND SPLASH」",
     "groups": [
@@ -1599,6 +1599,20 @@
     ],
     "tags": [
       "コメント出演"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/SOUNDSPLASH775/status/2124820778822852650?a=12bV735dIhhwju5swBQ&s=19",
+            "member": [],
+            "tags": [
+              "SOUNDSPLASH"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
