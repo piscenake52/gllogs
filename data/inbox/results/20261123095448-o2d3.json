@@ -1,0 +1,11 @@
+{
+ "id": "20261123095448-o2d3",
+ "status": "done",
+ "time": "2026-11-23 09:55:00 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261123095448_20261123095448-o2d3.json"
+ ],
+ "errors": [],
+ "notes": []
+}

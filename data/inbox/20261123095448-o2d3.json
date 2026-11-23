@@ -1,9 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "85de93db6b19",
-  "venue": "東京建物 Brillia HALL",
-  "tags": "=,吉本興業"
- },
- "created": "2026-11-23T00:54:48Z"
-}
