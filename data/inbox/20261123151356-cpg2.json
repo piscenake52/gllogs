@@ -1,9 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "44ffff0c2437",
-  "venue": "COMTEC PORTBASE",
-  "tags": "!clear"
- },
- "created": "2026-11-23T06:13:56Z"
-}
