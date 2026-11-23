@@ -129,7 +129,7 @@ def check_workflows(root=ROOT):
         name = os.path.basename(p)
         with open(p, "r", encoding="utf-8") as f:
             s = f.read()
-        runs = [ln for ln in s.split("\n") if "merge_json.py" in ln and not ln.lstrip().startswith("#") and "--rebuild-index" not in ln]
+        runs = [ln for ln in s.split("\n") if "merge_json.py" in ln and not ln.lstrip().startswith("#") and "--rebuild-index" not in ln and "--rebuild-manifest" not in ln]  # キューを処理しない(マニフェスト/インデックスの作り直しだけ)
         if runs and name not in QUEUE_WORKFLOWS:
             problems.append(f".github/workflows/{name}: キューを処理する merge_json.py を実行しています。同時に動くと競合するため、{' と '.join(sorted(QUEUE_WORKFLOWS))} 以外では実行しないでください")
     return problems
