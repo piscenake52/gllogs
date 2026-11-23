@@ -29,6 +29,31 @@
     ]
   },
   {
+    "setlistid": "202311231600",
+    "artist": "Girls²",
+    "member": [
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "title": "Girls² LIVE TOUR 2023 -activate-\n静岡公演",
+    "venue": "静岡市清水文化会館マリナート",
+    "songs": [
+      {
+        "order": 1,
+        "title": "Rise & Shine",
+        "type": "song",
+        "original": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
     "setlistid": "202311191600",
     "artist": "Girls²",
     "member": [
