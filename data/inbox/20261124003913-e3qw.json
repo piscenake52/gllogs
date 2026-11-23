@@ -1,0 +1,8 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "c1e25add4730",
+  "tags": "=,壁掛け用,卓上用"
+ },
+ "created": "2026-11-23T15:39:13Z"
+}
