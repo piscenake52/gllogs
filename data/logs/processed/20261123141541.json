@@ -1,0 +1,32 @@
+{
+  "date": "20261210",
+  "time": "1000",
+  "contents": "GLRADIO",
+  "title": "【特別番組】小田柚葉＆増田來亜のがるらじ",
+  "display_pc": "小田柚葉＆増田來亜のがるらじ ～GL²family RADIO～",
+  "url": "https://girls2-fc.jp/page/girls2radio/",
+  "groups": [
+    "G2",
+    "YZH",
+    "KUR"
+  ],
+  "_repeat": [
+    {
+      "date": "20261210",
+      "time": "1000",
+      "title": "【特別番組】小田柚葉＆増田來亜のがるらじ 前編",
+      "contents": "GLRADIO",
+      "url": "https://girls2-fc.jp/page/girls2radio/",
+      "display_sp": "小田柚葉＆増田來亜のがるらじ 前編"
+    },
+    {
+      "date": "20261220",
+      "time": "1000",
+      "title": "【特別番組】小田柚葉＆増田來亜のがるらじ 後編",
+      "contents": "GLRADIO",
+      "url": "https://girls2-fc.jp/page/girls2radio/",
+      "display_sp": "小田柚葉＆増田來亜のがるらじ 後編"
+    }
+  ],
+  "_issue": "3772"
+}
