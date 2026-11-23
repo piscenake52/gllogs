@@ -1,0 +1,30 @@
+{
+  "date": "20261124",
+  "time": "0830",
+  "contents": "RADIO",
+  "title": "KNBラジオ「とれたてワイド朝生！」",
+  "groups": [
+    "G2",
+    "YZH",
+    "KUR"
+  ],
+  "tags": [
+    "=",
+    "コメント出演"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Girls2_official/status/2125001457971695909?a=HoIiwYlWroZNeUpGxUY&s=19",
+          "member": [],
+          "tags": [
+            "本日のラジオ出演情報"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3783"
+}
