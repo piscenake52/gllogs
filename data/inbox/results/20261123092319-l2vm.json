@@ -1,0 +1,11 @@
+{
+ "id": "20261123092319-l2vm",
+ "status": "done",
+ "time": "2026-11-23 09:23:36 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261123092319_20261123092319-l2vm.json"
+ ],
+ "errors": [],
+ "notes": []
+}

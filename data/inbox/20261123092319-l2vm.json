@@ -1,9 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "e617eadc6b21",
-  "tags": "=,幸せにする食,飯テロ,おすすめのお店",
-  "sns": "https://x.com/Girls2_official/status/2124393129063419990?a=JmBoVBDiOlhwTWnf9NQ&s=19 | KIR | 日記更新"
- },
- "created": "2026-11-23T00:23:19Z"
-}
