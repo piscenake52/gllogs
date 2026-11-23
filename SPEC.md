@@ -69,6 +69,7 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
   - Issueフォーム `add_songs.yml`: `vocal` 欄(artistの下)と、「値の削除(更新時)」の `vocal` を追加。
   - `issue_to_json.py`: ラベル `vocal` を読み、songsのレコードに入れる(`CLEARABLE` の songs に `vocal`)。`merge_json.py`: songs の項目の並びは `artist, vocal, title, link, lyrics, videos`。
   - 更新: 入力した項目だけ上書き(空欄は変更しない)。消すときは「値の削除」または `!clear`。`videos` は入力すると丸ごと置き換わる。曲の削除は `DELETE`。
+  - helper(songs)のvideos入力: 1行目は type・tags・↑↓、2行目は url(欄の右端の内側に↗アイコン。http(s)の値のときだけ表示し、押すと新しいタブで開く)と、右端に✕(その行を削除)。送る書式は `type | url | tags` のまま。
   - 同じ曲かどうかは `artist` と `title` の完全一致で決まる。artist / title を変えると別の曲(新規)になり、元の曲は残る(名前の変更は旧データを `DELETE` して登録し直す)。
 - **snsの type 自動補正**(`issue_to_json.py`): `type | url` で type を明示しても、それが `site` か `etc` で、URLのドメインが X / Instagram / YouTube / TikTok / CL / radiko / GL²family と判定できるときは、その種類にする。type 自体を省略したときの自動判定は従来どおり(判定できなければ `etc`)。
 - **共通部品 `common.py`**: `is_blank` / `album_type_ok` / `map_from_html`(`<iframe src>` の埋め込みHTMLを地図URLに直す。`&amp;`→`&`)。`issue_to_json.py` と `merge_json.py` が `from common import ...` で使うため、Actionsでは **`common.py` と `schema.json` を、スクリプトと同じ場所(`scripts/`)に置く**(`schema.json` は項目の定義。「保守のための仕組み」を参照)。
@@ -149,7 +150,7 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
   - sns: `url` / `tags` のラベルを追加し、入力欄内の表示は削除。tagsの `add` ボタンは入力欄の下に移動(Fancamと同じ大きさ)で、Fancamとの間に線を引く。
   - map: Googleマップの地図URLと埋め込みHTMLのどちらも入れられる(iframeは地図URLに直す)。
   - schedule: 「+ schedule」ボタンで、スケジュール欄を1行ずつ追加できる(×で消す。×は自由入力欄の右端)。追加行は `repeat=` の内容にも入る。
-  - ラベル・表示の整理: intervalの `skip` は `skip date`、tourの愛知は `area`、タグ1・タグ2は `tags`、`+` は `+ tour`。optional_sp、suffixの入力欄内の表示は削除。
+  - ラベル・表示の整理: intervalの `skip` は `skip date`、tourの愛知は `area`、タグ1・タグ2は `tags`、`+` は `+ tour`。display_sp(旧optional、optional_sp)、suffixの入力欄内の表示は削除。
 - **setlistタブ**: 曲の詳細の `note` にラベルを付け、入力欄内の表示は削除。既存データ表示時も、紐づくlogsの日付・時刻を読み取り専用で表示する(同じsetlistidのlogsのうち日付が一番古いもの)。copyの位置はtimeの下。
 - **曲の編集**: アルバムの収録曲(`alTracks`)とセトリの曲(`addSongsList`)は、同じ編集部品(`edBox` / `edActs`)を使う。
 - **setting(右下)**: メインの枠の外側・下の右端に小さな「setting」ボタン。押すと、ボタンの上に設定パネルが開く(もう一度押すと閉じる)。`#setting` で開いた状態にもできる。項目:
@@ -885,7 +886,7 @@ setlist(1件): `setlistid, artist, member, title, venue, songs`
 ```
 
 - `time`は4桁(`HHMM`)。**空欄は「時刻なし」**(`0000`には補完しない)。
-- `setlistid`は12桁(`YYYYMMDDHHMM`)。logsの`contents`が`LIVE`で`setlistid`が未入力なら、`date`+`time`で自動入力する。
+- `setlistid`は12桁(`YYYYMMDDHHMM`)。logsの`contents`が`LIVE`/`TOUR`/`ANNIVERSARYLIVE`/`RELEASEEVENT`/`FANMEETING`で`setlistid`が未入力なら、`date`+`time`で自動入力する。
 - `songs[].member`は曲ごとの歌唱メンバー(省略=全員)。
 
 ### グループ・メンバーの登録仕様(すべての入力箇所)
@@ -935,9 +936,10 @@ G2のメンバー: `YZH, MMK, MSK, YOK, KUR, MNM, KIR`(展開されるのはこ�
 
 ### TOURモード(helper・繰り返し登録のmode: tour)
 - **使い方**: 繰り返し登録をONにして`tour`を選ぶ。1公演=1行(date / time / area / map)。`+`で行を増やし、`×`で行を消す。最初の行は、上のdate・timeを編集するまで追従する。登録済みの公演を開いて`next`の`tour`を押すと、公演名の元(最後のスペース以降を除いたもの)・contents・url・groupsを引き継いだ新規入力になり、追加公演を足せる
-- **共通**: title(公演名)・contents・url・groups・relations・snsは、フォーム上部の値を全行に使う。`suffix`(自由入力+チップ「公演」。空ならなし)と`optional`欄(display_spの共通の名前。コード上は`#glih-rpop`)も全行共通
-- **行ごと**: 日付・時刻・area(過去のLIVEのtitleから候補を出す)・venue(会場名。候補は過去のvenue。areaが空のときは全venue)・map・tags(上のtagsには足さず、行のtagsだけ)。入力欄の並びは、area+venue / map / tags。tourモード中は上部のvenue / map / setlistid / tagsは非表示で送らない。titleは`公演名`+半角スペース+`area`+`suffix`(areaが空なら公演名のまま)。display_spは`optional`欄+同じ付け方。setlistidはcontentsがLIVEで時刻があればdate+timeが自動で入る
-- **登録の中身**: 繰り返し登録の行`日付 時刻 | title | contents | url | display_sp | map | setlistid | tags`として送る(後ろの空欄は省く。tagsはカンマ区切りで、フォームのtagsに足す)
+- **共通**: title(公演名)・contents・url・groups・relations・snsは、フォーム上部の値を全行に使う。`suffix`(自由入力+チップ「公演」。空ならなし)と`display_sp`欄(旧名`optional`。コード上は`#glih-rpop`)と`display_pc`欄(display_spの上に、少し間をあけて並べる。`display_sp`欄と同じく全行共通)も全行共通
+- **行ごと**: 日付・時刻・area(過去のLIVEのtitleから候補を出す)・venue(会場名。候補は過去のvenue。areaが空のときは全venue)・map・tags(上のtagsには足さず、行のtagsだけ)。入力欄の並びは、area+venue / map / tags。tourモード中は上部のvenue / map / setlistid / tagsは非表示で送らない。titleは`公演名`+半角スペース+`area`+`suffix`(areaが空なら公演名のまま)。display_pc・display_spは、それぞれの共通欄+同じ付け方。setlistidはcontentsがLIVE等(上の5つ)で時刻があればdate+timeが自動で入る
+- **登録の中身**: 繰り返し登録の行`日付 時刻 | title | contents | url | display_sp | map | setlistid | tags`として送る(後ろの空欄は省く。tagsはカンマ区切りで、フォームのtagsに足す)(display_pcは行に載せず、フォームの`display_pc`として送る。mergeが回ごとに行の部分を足す／`#数字`を+1する)
+- **intervalの確認一覧**: 各行に `タイトル / pc: display_pc / sp: display_sp` を並べる(それぞれ`#数字`を回ごとに+1した値)。schedule・tourには確認一覧は出ない。
 - **候補表示(自動入力はしない)**: 行のareaが入っているときに、その行のmapまたはtagsの入力欄に入る(またはタイプする)と、同じareaの過去データのmap / tagsを新しい順に候補表示する。押すと入力される。対象のcontentsはLIVE・RELEASEEVENT・FANMEETING。areaは、過去データのtitleの最後の語(末尾の「公演」は除く)と一致するもの。候補の元は`logs_index.json`(この3つのcontentsだけ`map`・`tags`・`groups`を持つ)
 - **ANNIVERSARY**: tourモードでは使える(上部の「anniv.」)。チェックすると全行に参照型のANNIVERSARYを作る。付与文言は入力したまま(全行共通)
 
@@ -1037,6 +1039,7 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 
 ### helperの自動入力まとめ(logs / setlist)
 - **logsのSNS**: **groupsが選ばれている状態で、contentsにSNSを選んだとき**にだけ、titleが空(またはhelperが自分で入れた値のまま)なら自動入力する。groupsがG2のみで`SNS　Girls²`(上付きの2)、L2のみで`SNS　Laki`、両方で`SNS　`(全角スペース)。**groupsが未選択でcontentsをSNSにした場合、そのあとでgroupsを選んでも自動入力しない**(titleの候補だけ出す。候補はcontentsとgroupsから作る)。自動入力のあとにgroupsを変えても、titleは追従しない。手で書き換えたtitleと、読み込んだデータのtitleは触らない。contentsがSNS以外になり、titleがhelperの入れた値のままなら空に戻す。
+- **logsのtitle候補(helper)**: titleの入力で出る候補。(1)固定の候補: contentsがSNSなら `Instagram Live` / `TikTok Live`、CLなら `CLキャス`。後ろに全角スペース+メンバー名(groupsで選ばれたメンバー1〜5人、複数は`・`で結合)を付ける。メンバーが選ばれていなければ、G2だけならグループ名(Girls²)、L2だけならLakiを付ける(それ以外は付けない)。候補は先頭に出し、自動入力はしない。(2)contentsがGLRADIOのとき、選ばれたメンバー名を`＆`で結んだ名前+`のがるらじ`を候補に出す(前編・後編は付けない)。(3)POSTの候補はGirls²とLakiのみ。(4)繰り返し登録のscheduleの行ラベル(row label)に、チップにない語の候補を出す。
 - **setlistの新規入力**: idを入れる(日付+時刻を入れた場合も同じ)と、そのidをsetlistidに持つlogsの行から、title←title、artist←groups(G2→Girls²、L2→Laki)、member←groupsのメンバーコード、venue←logsの`venue`だけを引き継ぐ(tagsは使わない)。logsの矢印から遷移した場合は、遷移元の入力値を使う。logsが複数ある場合は、`venue`を持つ行、次にtagsを持つ行を優先して選ぶ(venueへ入れるのはvenueだけ)。元データは`logs_index.json`(LIVE・RELEASEEVENT・FANMEETINGは`groups`・`tags`・`map`・`venue`を持つ)。それ以外のcontentsの行や古いindexのときだけ`logs.json`本体を読む。
 - **既存のid**: 編集モード(findで読み込み)。自動入力はしない。
 - **tourのmap / tags**: areaと、入力したmap(tags)で過去データが1組に絞れたら、空のもう一方(または自動入力した値)を入れる。
@@ -1188,7 +1191,7 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 
 ### setlistid の自動付与
 
-- date+time が揃っている行で setlistid が未設定のとき、contents が LIVE / TOUR / RELEASEEVENT / FANMEETING なら date+time(12桁)を自動で付ける(merge_json.py の SETLISTID_CONTENTS)。登録できる contents に EP を追加(RELEASE 扱い)。
+- date+time が揃っている行で setlistid が未設定のとき、contents が LIVE / TOUR / ANNIVERSARYLIVE / RELEASEEVENT / FANMEETING なら date+time(12桁)を自動で付ける(merge_json.py の SETLISTID_CONTENTS)。登録できる contents に EP を追加(RELEASE 扱い)。
 
 ### albums の type(自由入力)
 

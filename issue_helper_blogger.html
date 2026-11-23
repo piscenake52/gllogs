@@ -492,7 +492,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     mk('gap', 'w', '# numbers: gaps / duplicates', 'series with #n in the title: a missing or repeated number');
     mk('noend', 'w', 'start without end / deadline', 'past rows only; e.g. a start of sales with no end of sales');
     mk('noann', 'w', 'LIVE / EVENT / RELEASE without ANNIVERSARY', 'LIVE, TOUR, EVENT (incl. RELEASEEVENT, FANMEETING), RELEASE (incl. CD, DVD, BD, DIGITAL, MUSICCARD, EP) with no linked ANNIVERSARY row');
-    mk('nosl', 'w', 'setlist not registered', 'past LIVE / TOUR / RELEASEEVENT / FANMEETING rows whose setlistid (date + time if empty) is not in setlist.json. Open it to register');
+    mk('nosl', 'w', 'setlist not registered', 'past LIVE / TOUR / ANNIVERSARYLIVE / RELEASEEVENT / FANMEETING rows whose setlistid (date + time if empty) is not in setlist.json. Open it to register');
     mk('noalbum', 'w', 'album not registered', 'CD / DVD / BD / MUSICCARD / RELEASE / EP / DIGITAL rows with no album in albums.json (no albumid, or the albumid / name does not match)');
     mk('slsong', 'w', 'song not registered (setlist)', 'songs in setlist.json that are not in songs.json (mc / dt / dj / towel excluded)');
     mk('alsong', 'w', 'song not registered (album)', 'tracks of albums.json that are not in songs.json');
@@ -563,7 +563,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var openSl = function (sid, r) { return function () { var g = function (a) { return (r && r[a] && r[a].join) ? r[a].join(',') : ''; }; jumpSeed = r ? { sid: sid, title: r.title || '', groups: g('groups'), tags: g('tags'), venue: r.venue || '' } : null; tab('setlist'); toTop(); try { history.replaceState(null, '', '#setlist'); } catch (e) {} $('fid').value = sid; $('fid').dispatchEvent(new Event('input', { bubbles: true })); doFind(); }; };
     var openAl = function (a, seed) { return function () { gotoAlbum(a, seed || { title: a.title || '', type: a.type || '', date: a.date || '', groups: '', logid: '' }); }; };
     // 1) setlist not registered (past only; the rows that share one setlistid are one item)
-    var SLC = ['LIVE', 'TOUR', 'RELEASEEVENT', 'FANMEETING'], bySid = {};
+    var SLC = ['LIVE', 'TOUR', 'ANNIVERSARYLIVE', 'RELEASEEVENT', 'FANMEETING'], bySid = {};
     rows.forEach(function (r) {
       if (!r || r.ref || SLC.indexOf(String(r.contents || '').toUpperCase()) < 0) return;
       var sid = r.setlistid ? String(r.setlistid) : (r.date && r.time ? String(r.date) + String(r.time) : ''); if (!/^\d{12}$/.test(sid) || String(r.date || '') >= today || slById[sid]) return;
@@ -2440,7 +2440,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     snsFoldInit(); extraUI(); asciiInit(); applyModeUI(); updateFind(); refInfo();
   }
   // logs: the setlistid box is shown only for the contents that have a setlist (SID_CONTENTS). A row that already has a setlistid (loaded or typed) keeps it visible so that it can be edited / cleared. Tour mode hides it (per show); schedule mode keeps it (the contents box is hidden there).
-  var SID_CONTENTS = ['LIVE', 'ANNIVERSARYLIVE', 'FANMEETING', 'RELEASEEVENT'];
+  var SID_CONTENTS = ['LIVE', 'TOUR', 'ANNIVERSARYLIVE', 'FANMEETING', 'RELEASEEVENT'];
   function sidSync() {
     var e = $('f-setlistid'), fl = e && e.closest('.field'); if (!fl || !found || found.kind !== 'logs') return;
     var ce = $('f-contents'), c = ce ? ce.value.trim().toUpperCase() : '', rpOn = $('rpon') && $('rpon').checked, md = rpOn && typeof repMode === 'function' ? repMode() : '';
@@ -2920,30 +2920,26 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     addSuggest(vo, vocalOpts, vo.closest('.field'), true, false, function () { return !!artKey(sa.value); });
     function hasMine() { var a = artSet(sa.value); return a.length > 0 && (cache.songs || []).some(function (r) { if (!r || !r.title) return false; var rs = artSet(r.artist); return a.every(function (x) { return rs.indexOf(x) >= 0; }); }); }
     tsug = addSuggest(st, titleOpts, st.closest('.field'), false, false, hasMine); sa.addEventListener('change', function () { if (sa.value.trim()) tsug.show(); }); // an artist is chosen: the songs of it are listed when the cursor enters the title
-    // videos (YouTube): rows of [type][url][x] + a tags box under each row. A type chip adds a row; typing in a row is free text. Sent as lines `type | url | tags` (replaces the whole list).
+    // videos (YouTube): rows of [type][tags][buttons][open] + the url box under each row. A type chip adds a row; typing in a row is free text. Sent as lines `type | url | tags` (replaces the whole list).
     var VT = ['MV', 'Dance Practice', 'Lyric', 'Live', 'Reaction', 'Call Lecture', 'Performance', 'Fancam'], YT = /^https?:\/\/(www\.|m\.|music\.)?(youtube\.com|youtu\.be)\//i;
     var vrows = $('svrows'), vch = $('svch'), vTouched = false, autoV = false, autoM = null;
     function vTagList(v) { return String(v || '').split(/[,\u3001\uFF0C]/).map(function (x) { return x.trim(); }).filter(function (x, i, a) { return x && a.indexOf(x) === i; }); }
-    function vList() { return [].map.call(vrows.children, function (r) { return { type: r.children[0].value.trim(), url: r.children[1].value.trim(), tags: r._tg ? r._tg.value : '', el: r }; }); }
+    function vList() { return [].map.call(vrows.children, function (r) { return { type: r.children[0].value.trim(), url: r._u.value.trim(), tags: r._tg ? r._tg.value : '', el: r }; }); }
     function vText(list) { return list.filter(function (v) { return v.url; }).map(function (v) { var tg = vTagList(v.tags).join(','); return (v.type || 'Other') + ' | ' + v.url + (tg ? ' | ' + tg : ''); }).join('\n'); }
     function vAdd(type, url, tags) {
       var r = document.createElement('div'); r.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px;align-items:center';
       var t = alInput(); t.placeholder = 'type'; t.style.cssText = 'flex:0 0 6.5em;min-width:0'; t.value = type || '';
-      var u = alInput(); u.placeholder = 'https://youtu.be/...'; u.style.cssText = 'flex:1;min-width:0'; u.value = url || '';
+      var u = alInput(); u.placeholder = 'https://youtu.be/...'; u.style.cssText = 'flex:1;min-width:0'; u.value = url || ''; r._u = u;
       var x = document.createElement('button'); x.type = 'button'; x.className = 'small'; x.textContent = '\u2715'; x.setAttribute('aria-label', 'remove');
       x.onclick = function () { r.remove(); vTouched = true; autoV = false; upd(); };
-      var tg = alInput(); tg.placeholder = 'tags (comma separated, optional)'; tg.style.cssText = 'flex:0 0 100%;min-width:0'; tg.value = Array.isArray(tags) ? tags.join(',') : (tags || ''); r._tg = tg;
+      var tg = alInput(); tg.placeholder = 'tags (comma separated, optional)'; tg.style.cssText = 'flex:1;min-width:0'; tg.value = Array.isArray(tags) ? tags.join(',') : (tags || ''); r._tg = tg;
       [t, u, tg].forEach(function (e) { e.addEventListener('input', function () { vTouched = true; autoV = false; upd(); }); });
       function mvb(txt, lab, dir) { var m = document.createElement('button'); m.type = 'button'; m.className = 'small'; m.textContent = txt; m.setAttribute('aria-label', lab); m.onclick = function () { var sib = dir < 0 ? r.previousElementSibling : r.nextElementSibling; if (!sib) return; if (dir < 0) vrows.insertBefore(r, sib); else vrows.insertBefore(sib, r); vTouched = true; autoV = false; upd(); }; return m; }
-      // open icon at the right end: opens the typed url in a new tab (greyed out while the url is empty or not http(s))
-      var o = document.createElement('a'); o.className = 'small ib'; o.textContent = '\u2197'; o.target = '_blank'; o.rel = 'noopener'; o.title = 'open'; o.style.textDecoration = 'none';
-      function so() { var v = u.value.trim(); if (/^https?:\/\//i.test(v)) { o.href = v; o.removeAttribute('aria-disabled'); o.style.opacity = ''; o.style.pointerEvents = ''; o.setAttribute('aria-label', 'open ' + v); } else { o.removeAttribute('href'); o.setAttribute('aria-disabled', 'true'); o.style.opacity = '.4'; o.style.pointerEvents = 'none'; o.setAttribute('aria-label', 'open (no url)'); } }
-      u.addEventListener('input', so); so();
-      r.appendChild(t); r.appendChild(u); r.appendChild(mvb('\u2191', 'up', -1)); r.appendChild(mvb('\u2193', 'down', 1)); r.appendChild(x); r.appendChild(o); r.appendChild(tg); vrows.appendChild(r); return r;
+      r.appendChild(t); r.appendChild(tg); r.appendChild(mvb('\u2191', 'up', -1)); r.appendChild(mvb('\u2193', 'down', 1)); var uw = document.createElement('div'); uw.style.cssText = 'flex:0 0 100%;display:flex;gap:6px;align-items:center;min-width:0'; var iw = document.createElement('div'); iw.style.cssText = 'flex:1;position:relative;min-width:0'; u.style.cssText = 'width:100%;box-sizing:border-box;min-width:0'; iw.appendChild(u); addOpen(u, 5); uw.appendChild(iw); uw.appendChild(x); r.appendChild(uw); vrows.appendChild(r); return r; // line 1: type, tags, up/down / line 2: url (open icon inside) + the delete button at the right end
     }
     VT.slice(0, -1).concat(['+'], VT.slice(-1)).forEach(function (v) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v === '+' ? 'Etc' : v;
-      b.onclick = function () { var r = vAdd(v === '+' ? '' : v, ''); vTouched = true; autoV = false; r.children[1].focus(); upd(); };
+      b.onclick = function () { var r = vAdd(v === '+' ? '' : v, ''); vTouched = true; autoV = false; r._u.focus(); upd(); };
       vch.appendChild(b);
     });
     function vSet(list) { vrows.innerHTML = ''; (list || []).forEach(function (v) { vAdd(v.type, v.url, v.tags); }); }
@@ -2966,7 +2962,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (autoV && match !== autoM) { autoV = false; vSet([]); } // the rows were filled from another song
       if (match && mv.length && !vList().length && !vTouched) { autoV = true; autoM = match; vSet(mv); }
       var vl = vList(), vBad = false;
-      vl.forEach(function (v) { var bad = !!v.url && !YT.test(v.url); v.el.children[1].classList.toggle('bad', bad); if (bad) vBad = true; });
+      vl.forEach(function (v) { var bad = !!v.url && !YT.test(v.url); v.el._u.classList.toggle('bad', bad); if (bad) vBad = true; });
       var vt = vText(vl), mt = vText(mv.map(function (v) { return { type: v.type, url: v.url, tags: Array.isArray(v.tags) ? v.tags.join(',') : '' }; }));
       var ly = sy.value.trim(), lyBad = !!ly && ly.indexOf(UTA) !== 0; sy.classList.toggle('bad', lyBad);
       var l = sl.value.trim(), p = {};
