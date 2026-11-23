@@ -2020,7 +2020,14 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
-      "RIN"
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "sns": [
       {
@@ -2033,6 +2040,24 @@
             ],
             "tags": [
               "18歳になりました"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/DgCQwt3j3GO/?fqnt=MXNkZXY2azI4ZzN1ag==",
+            "member": [
+              "RIN"
+            ],
+            "with": [
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "HBDRINA"
             ]
           }
         ]
