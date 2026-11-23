@@ -1,0 +1,11 @@
+{
+ "id": "20261123170332-lamv",
+ "status": "done",
+ "time": "2026-11-23 17:03:47 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261123170332_20261123170332-lamv.json"
+ ],
+ "errors": [],
+ "notes": []
+}
