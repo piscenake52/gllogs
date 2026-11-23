@@ -1,0 +1,8 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "f3167e949c25",
+  "tags": "=,深夜テンションで,A型だから,上半期のご褒美"
+ },
+ "created": "2026-11-23T03:34:43Z"
+}
