@@ -1,0 +1,11 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "date": "20261123",
+  "groups_free": "G2,KIR",
+  "contents_free": "SNS",
+  "item_title": "SNS　ワンダンス",
+  "sns": "https://x.com/wandance_movie/status/2124774960585666572?a=FJ3-wflT9mlLIwNt_k8&s=19 | KIR | お気に入りワンムーブ"
+ },
+ "created": "2026-11-23T11:55:26Z"
+}
