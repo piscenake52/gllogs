@@ -2199,8 +2199,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       else if (ch) dl.push([f.k, '(empty)', one(orig[f.k]), 'not sent']);
     });
     if (found.kind === 'logs' && found.isNew && $('rpon') && $('rpon').checked && repMode() === 'tour') { ['map', 'venue', 'setlistid'].forEach(function (k) { if (p[k] !== undefined) { delete p[k]; n--; } }); dl = dl.filter(function (x) { return ['map', 'setlistid'].indexOf(x[0]) < 0; }); } // tour mode: those are per show
-    if (found.kind === 'logs' && found.isNew && $('rpon') && $('rpon').checked) { // repeat: display_pc is not used; display_sp only comes from the interval optional (schedule / tour have their own)
-      ['display_pc'].concat(repMode() === 'interval' ? [] : ['display_sp']).forEach(function (k) { if (p[k] !== undefined) { delete p[k]; n--; } }); dl = dl.filter(function (x) { return x[0] !== 'display_pc' && (repMode() === 'interval' || x[0] !== 'display_sp'); });
+    if (found.kind === 'logs' && found.isNew && $('rpon') && $('rpon').checked && repMode() !== 'interval') { // repeat: display_pc is sent as typed (the merge adds the row part / counts up the number); display_sp only comes from the interval optional (schedule / tour have their own)
+      ['display_sp'].forEach(function (k) { if (p[k] !== undefined) { delete p[k]; n--; } }); dl = dl.filter(function (x) { return x[0] !== 'display_sp'; });
     }
     var errs = validateFind(found.kind);
     DEFS[found.kind].fields.forEach(function (f) { var e = $('f-' + f.k); if (e && e.classList.contains('asbad')) errs.push(f.k + ': half-width only'); });
@@ -2568,7 +2568,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       + '<div class="field"><label for="glih-rpd">until</label><input type="text" id="glih-rpd" class="fin" autocomplete="off"></div>'
       + '<div class="field"><label for="glih-rpc">count</label><input type="text" id="glih-rpc" class="fin num" inputmode="numeric" value="4" autocomplete="off"></div>'
       + '<div class="field"><label for="glih-rpx">skip date</label><input type="text" id="glih-rpx" class="fin" autocomplete="off" spellcheck="false"></div>'
-      + '<div class="field rpsop"><label for="glih-rpop">optional</label><div class="fgcol"><input type="text" id="glih-rpop" class="fin" autocomplete="off"></div></div>'
+      + '<div class="field rpsop"><label for="glih-rpop">display_sp</label><div class="fgcol"><input type="text" id="glih-rpop" class="fin" autocomplete="off"></div></div>'
       + '</div><div id="glih-rpsc" hidden></div><div id="glih-rptr" hidden></div>'
       + '<div class="fcand" id="glih-rpl"></div><div class="fstat" id="glih-rpm"></div></div>';
     var ffb = $('ff'); ffb.insertBefore(box, ffb.firstChild); // top of the form = right under date / time (it is cleared with the form)
@@ -2641,7 +2641,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         changed(); try { r.d.focus(); } catch (e) {}
       };
       sc.appendChild(scAdd);
-      var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rpsp">optional</label><div class="fgcol"><input type="text" id="glih-rpsp" class="fin" autocomplete="off"></div>'; sc.appendChild(sw);
+      var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rpsp">display_sp</label><div class="fgcol"><input type="text" id="glih-rpsp" class="fin" autocomplete="off"></div>'; sc.appendChild(sw);
       [].forEach.call(sw.querySelectorAll('input,select'), function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
     })();
     // tour mode: one row per show (date / time / area / map). The title of a row = the title above + a full-width space + area + suffix; contents / url / groups ... are the ones above. A + button adds a row.
@@ -2678,7 +2678,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var cb = document.createElement('button'); cb.type = 'button'; cb.className = 'chip'; cb.textContent = '\u516c\u6f14'; scb.appendChild(cb);
       cb.onclick = function () { TR.sfx.value = TR.sfx.value.trim() === cb.textContent ? '' : cb.textContent; TR.sfx.dispatchEvent(new Event('input', { bubbles: true })); };
       TR.sfx.addEventListener('input', function () { cb.classList.toggle('on', TR.sfx.value.trim() === cb.textContent); changed(); });
-      var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rptp">optional</label><div class="fgcol"><input type="text" id="glih-rptp" class="fin" autocomplete="off"></div>'; tr.appendChild(sw);
+      var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rptp">display_sp</label><div class="fgcol"><input type="text" id="glih-rptp" class="fin" autocomplete="off"></div>'; tr.appendChild(sw);
       TR.sp = sw.querySelector('input'); TR.sp.addEventListener('input', changed);
     })();
     function tourRefresh() {
@@ -2752,7 +2752,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var qm = $('rpmd').children; for (i = 0; i < qm.length; i++) qm[i].classList.toggle('on', on.checked && qm[i].getAttribute('data-m') === mode);
       var tourOn = on.checked && mode === 'tour';
       ['map', 'venue'].forEach(function (k) { var e = $('f-' + k), fl = e && e.closest('.field'); if (fl) fl.hidden = tourOn; }); sidSync(); // tour mode: map / setlistid are per show (below). tags stay: they are common to every show (each show adds its own)
-      ['display_pc', 'display_sp'].forEach(function (k) { var e = $('f-' + k), fl = e && e.closest('.field'); if (fl) fl.hidden = on.checked; }); // repeat: display_pc / display_sp are not typed here (optional below / each mode has its own)
+      ['display_sp'].forEach(function (k) { var e = $('f-' + k), fl = e && e.closest('.field'); if (fl) fl.hidden = on.checked; }); // repeat: display_sp is not typed here (optional below / each mode has its own). display_pc stays: the merge adds the part after the form title (deadline / area) or counts up the #number, like the title
       var fbx = $('f-display_pc') && $('f-display_pc').closest('.fbox'); if (fbx) { fbx.hidden = !fbx.querySelector('.field:not([hidden])'); if (fbx.previousElementSibling && fbx.previousElementSibling.classList.contains('fbh')) fbx.previousElementSibling.hidden = fbx.hidden; }
       if (tourOn && !asked) { asked = true; fetchIndex('logs').catch(function () {}); }
       $('rpiv').hidden = mode !== 'interval'; $('rpsc').hidden = mode !== 'schedule'; $('rptr').hidden = mode !== 'tour';
@@ -2772,18 +2772,18 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       else if (!ud && !c) note = 'Set until or count.';
       else { var g = genDates(st.d, unit.value, every, ud, c, skip, wd, +$('rpo').value); rows = g.dates; if (uOk && !cTouched) cnt.value = String(rows.length); if (g.capped) note = 'Stopped at ' + REP_MAX + ' rows (the maximum).'; }
       if (!uOk && !cTouched && cnt.value !== '4') cnt.value = '4'; // until cleared: back to the default count
-      var checked = rows.filter(function (k) { return !off[k]; }), t0 = ($('f-title') || {}).value || '', ct = (($('f-contents') || {}).value || '').trim();
+      var checked = rows.filter(function (k) { return !off[k]; }), t0 = ($('f-title') || {}).value || '', ct = (($('f-contents') || {}).value || '').trim(), pc0 = (($('f-display_pc') || {}).value || '').trim(), sp0 = (($('f-display_sp') || {}).value || '').trim();
       var have = {}; rowsOf('logs').forEach(function (r) { if (r && r.date) have[r.date + '|' + (r.time || '') + '|' + (r.contents || '') + '|' + (r.title || '')] = 1; });
-      var key = [rows.join(','), checked.join(','), t0, ct, st ? st.t : '', Object.keys(have).length].join('#');
+      var key = [rows.join(','), checked.join(','), t0, pc0, sp0, ct, st ? st.t : '', Object.keys(have).length].join('#');
       if (key !== memo) {
         memo = key; list.innerHTML = '';
         var idx = 0;
         rows.forEach(function (k) {
           var lb = document.createElement('label'), cb = document.createElement('input'), d = document.createElement('span'), m = document.createElement('span'), isOn = !off[k], tt = '';
           lb.className = 'rprow' + (isOn ? '' : ' off'); cb.type = 'checkbox'; cb.checked = isOn;
-          if (isOn) { tt = bumpTitle(t0, idx); idx++; }
+          var pcv = '', spv = ''; if (isOn) { tt = bumpTitle(t0, idx); pcv = pc0 ? bumpTitle(pc0, idx) : ''; spv = sp0 ? bumpTitle(sp0, idx) : ''; idx++; } // display_pc / display_sp: the number counts up like the title (the same rule as the merge)
           d.className = 'd'; d.textContent = fmtD(k, '') + ' ' + ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][dateOf(k).getDay()];
-          m.className = 'm'; m.textContent = tt.replace(/\s*\n\s*/g, ' / ');
+          m.className = 'm'; m.textContent = tt.replace(/\s*\n\s*/g, ' / ') + (pcv ? ' / pc: ' + pcv.replace(/\s*\n\s*/g, ' / ') : '') + (spv ? ' / sp: ' + spv.replace(/\s*\n\s*/g, ' / ') : '');
           cb.onchange = function () { if (cb.checked) delete off[k]; else off[k] = 1; changed(); };
           lb.appendChild(cb); lb.appendChild(d); lb.appendChild(m);
           if (isOn && have[k + '|' + (st ? st.t : '') + '|' + (ct || 'ETC') + '|' + tt]) { var ex = document.createElement('span'); ex.className = 'ex'; ex.textContent = 'exists'; lb.appendChild(ex); }
