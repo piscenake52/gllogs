@@ -1671,10 +1671,30 @@
       "L2",
       "KIK"
     ],
+    "relations": [
+      "YUW",
+      "RIN"
+    ],
     "tags": [
       "同い年の日",
       "本人NGなものばかり",
       "1日早いおめでとう"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2124699465609031737?a=HKs0_iNFB1SYj0kS3yU&s=19",
+            "member": [
+              "KIK"
+            ],
+            "tags": [
+              "日記更新"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
