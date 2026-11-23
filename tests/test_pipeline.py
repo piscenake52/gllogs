@@ -54,6 +54,17 @@ class LogsBasics(Repo):
         self.assertIn("x", rows["20261101"].get("tags", []))
         self.assertNotIn("venue", rows["20261102"])
 
+    def test_repeat_display_pc_follows_title(self):
+        """繰り返し登録: フォームのdisplay_pcは、行のtitleがフォームのtitleに足した部分を同じように足す(締切・地域名など)。
+        行にtitleがなければ #数字 を回ごとに+1。display_spは行の指定を使う。"""
+        rep = "20261101 1800 | ツアー #1 | LIVE\n20261102 1800 | ツアー #1 東京 | LIVE | | PC専用なし\n20261103 | | LIVE"
+        self.submit(logs_body(title="ツアー #1", display_pc="ツアー PC #1", **{"繰り返し登録 (1行1回)": rep}))
+        rows = {r["date"]: r for r in self.read("data/logs/logs.json")}
+        self.assertEqual(rows["20261101"]["display_pc"], "ツアー PC #1")
+        self.assertEqual(rows["20261102"]["display_pc"], "ツアー PC #1 東京")
+        self.assertEqual(rows["20261102"]["display_sp"], "PC専用なし")
+        self.assertEqual(rows["20261103"]["display_pc"], "ツアー PC #3")  # 3回目 = #1 + 2
+
     def test_merge_is_idempotent(self):
         self.submit(logs_body())
         a = self.read("data/manifest.json")
