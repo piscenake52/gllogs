@@ -2749,8 +2749,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       body.hidden = !on.checked;
       var slot = $('rpslot'); ['contents', 'title'].forEach(function (k) { var f = $('f-' + k) && $('f-' + k).closest('.field'); if (!f || !MK[k]) return; if (on.checked) { if (f.parentNode !== slot) slot.appendChild(f); } else if (f.parentNode === slot) MK[k].parentNode.insertBefore(f, MK[k].nextSibling); });
       var pcf = $('f-display_pc') && $('f-display_pc').closest('.field'), spf0 = $('f-display_sp') && $('f-display_sp').closest('.field'); if (pcf && spf0) { // display_pc sits right above the display_sp of the chosen mode; when repeat is off it goes back in front of the form's display_sp
-        if (on.checked) { var pn = $({ interval: 'rpiv', schedule: 'rpsc', tour: 'rptr' }[mode] || ''), sp1 = pn && pn.querySelector('.rpsop'); if (sp1 && pcf.nextElementSibling !== sp1) sp1.parentNode.insertBefore(pcf, sp1); else if (!sp1 && pcf.parentNode !== slot) slot.appendChild(pcf); }
-        else if (pcf.parentNode !== spf0.parentNode || pcf.nextElementSibling !== spf0) spf0.parentNode.insertBefore(pcf, spf0);
+        if (on.checked) { var pn = $({ interval: 'rpiv', schedule: 'rpsc', tour: 'rptr' }[mode] || ''), sp1 = pn && pn.querySelector('.rpsop'); if (sp1 && pcf.nextElementSibling !== sp1) sp1.parentNode.insertBefore(pcf, sp1); else if (!sp1 && pcf.parentNode !== slot) slot.appendChild(pcf); pcf.style.marginTop = '14px'; /* a gap under the + button / the rows above */ }
+        else { pcf.style.marginTop = ''; if (pcf.parentNode !== spf0.parentNode || pcf.nextElementSibling !== spf0) spf0.parentNode.insertBefore(pcf, spf0); }
       } // repeat on: contents / title / display_pc sit under the mode
       var cf = $('f-contents') && $('f-contents').closest('.field'); if (cf) cf.hidden = on.checked && mode === 'schedule'; // schedule: each row has its own contents (the start row starts from the value typed here)
       var qm = $('rpmd').children; for (i = 0; i < qm.length; i++) qm[i].classList.toggle('on', on.checked && qm[i].getAttribute('data-m') === mode);
