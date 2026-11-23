@@ -1,0 +1,11 @@
+{
+ "id": "20261123123443-k61x",
+ "status": "done",
+ "time": "2026-11-23 12:34:58 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261123123443_20261123123443-k61x.json"
+ ],
+ "errors": [],
+ "notes": []
+}
