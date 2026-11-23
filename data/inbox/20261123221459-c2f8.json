@@ -1,8 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "b0862f5ac91d",
-  "groups_free": "L2,RIN"
- },
- "created": "2026-11-23T13:14:59Z"
-}
