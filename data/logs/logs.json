@@ -117897,6 +117897,26 @@
     ]
   },
   {
+    "logid": "dcf356034239",
+    "date": "20231123",
+    "time": "1600",
+    "contents": "TOUR",
+    "title": "Girls² LIVE TOUR 2023 -activate- 静岡公演",
+    "venue": "静岡市清水文化会館マリナート",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "TOA"
+    ],
+    "setlistid": "202311231600"
+  },
+  {
     "logid": "8595c9a3f0d8",
     "date": "20231123",
     "time": "1200",
@@ -117950,27 +117970,6 @@
     "groups": [
       "L2",
       "RIN"
-    ]
-  },
-  {
-    "logid": "dcf356034239",
-    "date": "20231123",
-    "time": "",
-    "contents": "TOUR",
-    "title": "Girls² LIVE TOUR 2023 -activate- 静岡公演",
-    "groups": [
-      "G2",
-      "YZH",
-      "MMK",
-      "MSK",
-      "YOK",
-      "KUR",
-      "MNM",
-      "KIR",
-      "TOA"
-    ],
-    "tags": [
-      "静岡市清水文化会館マリナート"
     ]
   },
   {
