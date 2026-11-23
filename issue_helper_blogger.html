@@ -2747,13 +2747,17 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var qs = $('rpq').children, i;
       for (i = 0; i < qs.length; i++) qs[i].classList.toggle('on', qs[i].getAttribute('data-n') === String(parseInt(num.value, 10)) && qs[i].getAttribute('data-u') === unit.value);
       body.hidden = !on.checked;
-      var slot = $('rpslot'); ['contents', 'title'].forEach(function (k) { var f = $('f-' + k) && $('f-' + k).closest('.field'); if (!f || !MK[k]) return; if (on.checked) { if (f.parentNode !== slot) slot.appendChild(f); } else if (f.parentNode === slot) MK[k].parentNode.insertBefore(f, MK[k].nextSibling); }); // repeat on: contents / title sit under the mode
+      var slot = $('rpslot'); ['contents', 'title'].forEach(function (k) { var f = $('f-' + k) && $('f-' + k).closest('.field'); if (!f || !MK[k]) return; if (on.checked) { if (f.parentNode !== slot) slot.appendChild(f); } else if (f.parentNode === slot) MK[k].parentNode.insertBefore(f, MK[k].nextSibling); });
+      var pcf = $('f-display_pc') && $('f-display_pc').closest('.field'), spf0 = $('f-display_sp') && $('f-display_sp').closest('.field'); if (pcf && spf0) { // display_pc sits right above the display_sp of the chosen mode; when repeat is off it goes back in front of the form's display_sp
+        if (on.checked) { var pn = $({ interval: 'rpiv', schedule: 'rpsc', tour: 'rptr' }[mode] || ''), sp1 = pn && pn.querySelector('.rpsop'); if (sp1 && pcf.nextElementSibling !== sp1) sp1.parentNode.insertBefore(pcf, sp1); else if (!sp1 && pcf.parentNode !== slot) slot.appendChild(pcf); }
+        else if (pcf.parentNode !== spf0.parentNode || pcf.nextElementSibling !== spf0) spf0.parentNode.insertBefore(pcf, spf0);
+      } // repeat on: contents / title / display_pc sit under the mode
       var cf = $('f-contents') && $('f-contents').closest('.field'); if (cf) cf.hidden = on.checked && mode === 'schedule'; // schedule: each row has its own contents (the start row starts from the value typed here)
       var qm = $('rpmd').children; for (i = 0; i < qm.length; i++) qm[i].classList.toggle('on', on.checked && qm[i].getAttribute('data-m') === mode);
       var tourOn = on.checked && mode === 'tour';
       ['map', 'venue'].forEach(function (k) { var e = $('f-' + k), fl = e && e.closest('.field'); if (fl) fl.hidden = tourOn; }); sidSync(); // tour mode: map / setlistid are per show (below). tags stay: they are common to every show (each show adds its own)
       ['display_sp'].forEach(function (k) { var e = $('f-' + k), fl = e && e.closest('.field'); if (fl) fl.hidden = on.checked; }); // repeat: display_sp is not typed here (optional below / each mode has its own). display_pc stays: the merge adds the part after the form title (deadline / area) or counts up the #number, like the title
-      var fbx = $('f-display_pc') && $('f-display_pc').closest('.fbox'); if (fbx) { fbx.hidden = !fbx.querySelector('.field:not([hidden])'); if (fbx.previousElementSibling && fbx.previousElementSibling.classList.contains('fbh')) fbx.previousElementSibling.hidden = fbx.hidden; }
+      var fbx = $('f-display_sp') && $('f-display_sp').closest('.fbox'); if (fbx) { fbx.hidden = !fbx.querySelector('.field:not([hidden])'); if (fbx.previousElementSibling && fbx.previousElementSibling.classList.contains('fbh')) fbx.previousElementSibling.hidden = fbx.hidden; }
       if (tourOn && !asked) { asked = true; fetchIndex('logs').catch(function () {}); }
       $('rpiv').hidden = mode !== 'interval'; $('rpsc').hidden = mode !== 'schedule'; $('rptr').hidden = mode !== 'tour';
       if (mode === 'tour') { if (!on.checked) { last = null; return null; } return tourRefresh(); }
