@@ -1,0 +1,14 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "date": "20261215",
+  "time": "1000",
+  "groups_free": "L2,RRK,KIK",
+  "contents_free": "GLRADIO",
+  "item_title": "Lakiの「がるらじ ～GL² family RADIO～」 ～上村梨々香＆佐藤妃希～",
+  "display_pc": "上村梨々香＆佐藤妃希のがるらじ ～GL²family RADIO～",
+  "url": "https://girls2-fc.jp/page/lucky2radio/",
+  "repeat": "20261215 1000 | Lakiの「がるらじ ～GL² family RADIO～」 ～上村梨々香＆佐藤妃希～ 前編 | GLRADIO | https://girls2-fc.jp/page/lucky2radio/ | 上村梨々香＆佐藤妃希のがるらじ 前編\n20261225 1000 | Lakiの「がるらじ ～GL² family RADIO～」 ～上村梨々香＆佐藤妃希～ 後編 | GLRADIO | https://girls2-fc.jp/page/lucky2radio/ | 上村梨々香＆佐藤妃希のがるらじ 後編"
+ },
+ "created": "2026-11-23T05:17:37Z"
+}
