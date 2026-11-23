@@ -1879,6 +1879,46 @@
     ]
   },
   {
+    "logid": "316feeeed1c8",
+    "date": "20261123",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2124727753660670223?a=MxfGB95DAPvHkoxOUh8&s=19",
+            "member": [
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "CIRRAの皆さん"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "8afb502c1dda",
     "date": "20261122",
     "time": "2359",
