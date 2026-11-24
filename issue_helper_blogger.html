@@ -402,6 +402,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <button type="button" class="go" id="glih-topnew">new</button>
   <select id="glih-fkind" hidden><option value="logs">logs</option><option value="setlist">setlist</option></select>
   <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fnew" hidden>new</button></div>
+  <div class="small" id="glih-fload" role="status" aria-live="polite" hidden style="border:0;background:none;padding:2px 0 6px;cursor:default;white-space:normal;color:var(--sub)"></div>
   <div class="field" id="glih-frd"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdprev" title="prev day">&lt;</button><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdnext" title="next day">&gt;</button></div>
   <div class="field" id="glih-frt"><label for="glih-fdt">time</label><input type="text" id="glih-fdt" class="fin" autocomplete="off"><label class="chk" id="glih-fanyl" style="margin:0"><input type="checkbox" id="glih-fany">anytime</label></div>
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk cpchip"><input type="checkbox" id="glih-fcp">COPY</label></div>
@@ -1884,11 +1885,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function rawFetch(path) {
     return fetch('https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + path + '?v=' + Date.now(), { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); });
   }
+  // big data files (logs.json / logs_index.json): the copy kept in IndexedDB is used when its commit id is the latest one. When GitHub cannot tell the latest id (api limit / offline / slow), a copy saved less than STALE_MS ago is used instead of downloading everything again; a fresh download is always saved (with its time).
+  var STALE_MS = 10 * 60 * 1000;
   function bigFetch(key, path) {
-    return Promise.all([latestSha(path), idbGet(key)]).then(function (a) {
-      var sha = a[0], rec = a[1];
-      if (sha && rec && rec.sha === sha && typeof rec.text === 'string') { try { return JSON.parse(rec.text); } catch (e) { /* broken copy: fetch again */ } }
-      return rawFetch(path).then(function (text) { var d = JSON.parse(text); if (sha) idbPut(key, { sha: sha, text: text }); return d; });
+    var slow = new Promise(function (res) { setTimeout(function () { res('slow'); }, 4000); }); // the api answer is not waited for longer than this
+    return Promise.all([Promise.race([latestSha(path), slow]), idbGet(key)]).then(function (a) {
+      var sha = a[0] === 'slow' ? null : a[0], rec = a[1], ok = rec && typeof rec.text === 'string';
+      if (ok && ((sha && rec.sha === sha) || (!sha && rec.t && Date.now() - rec.t < STALE_MS))) { try { return JSON.parse(rec.text); } catch (e) { /* broken copy: fetch again */ } }
+      return rawFetch(path).then(function (text) { var d = JSON.parse(text); idbPut(key, { sha: sha, t: Date.now(), text: text }); return d; });
     });
   }
   var inflight = {}; // one download at a time per file: callers that arrive while it is loading share the same request
@@ -1916,6 +1920,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   // true when the light index already carries the tags of every row (stags = the tags of the sns links). An older index has neither, so the full logs.json is needed.
   function ixHasTags() { return !!(ix.logs && ix.logs.some(function (r) { return r && r.stags; })); }
   function needTags() { return ixHasTags() ? Promise.resolve() : fetchIndex('logs').then(function () { return ixHasTags() ? null : fetchData('logs'); }); }
+  function fload(t) { var e = $('fload'); if (!e) return; e.textContent = t || ''; e.hidden = !t; } // the loading / load error line under the id box of the find tab
   function fstat() {} // the status line of the find tab is not shown (kept as a no-op so the callers stay simple)
   // input check for date (yyyymmdd), time (hhmm) and setlistid (12 digits) of the find tab. Empty is allowed. Invalid fields get a red border and the Issue link is disabled.
   function validateFind(kind) {
@@ -2681,9 +2686,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rptp">display_sp</label><div class="fgcol"><input type="text" id="glih-rptp" class="fin" autocomplete="off"></div>'; tr.appendChild(sw);
       TR.sp = sw.querySelector('input'); TR.sp.addEventListener('input', changed);
     })();
+    function prevRow(d, t, ttl, pcv, spv) { // schedule / tour: the confirmation list (date time, title / pc: display_pc / sp: display_sp), the same look as interval
+      var lb = document.createElement('div'), ds = document.createElement('span'), ms = document.createElement('span');
+      lb.className = 'rprow'; ds.className = 'd'; ds.textContent = fmtD(d, t); ms.className = 'm';
+      ms.textContent = ttl.replace(/\s*\n\s*/g, ' / ') + (pcv ? ' / pc: ' + pcv.replace(/\s*\n\s*/g, ' / ') : '') + (spv ? ' / sp: ' + spv.replace(/\s*\n\s*/g, ' / ') : '');
+      lb.appendChild(ds); lb.appendChild(ms); list.appendChild(lb);
+    }
     function tourRefresh() {
       var st = topReady('logs'), t0 = ((($('f-title') || {}).value) || '').replace(/\s*\n\s*/g, ' ').trim(), uv = ((($('f-url') || {}).value) || '').trim(), url = /^https?:\/\/\S+$/i.test(uv) ? uv : '';
-      var ct = ((($('f-contents') || {}).value) || '').trim().toUpperCase(), sp0 = (TR.sp.value || '').replace(/\s*\n\s*/g, ' ').trim(), sfx = TR.sfx.value.trim();
+      var ct = ((($('f-contents') || {}).value) || '').trim().toUpperCase(), sp0 = (TR.sp.value || '').replace(/\s*\n\s*/g, ' ').trim(), sfx = TR.sfx.value.trim(), pc0 = ((($('f-display_pc') || {}).value) || '').replace(/\s*\n\s*/g, ' ').trim();
       var r0 = TR.rows[0]; if (st && r0 && !r0.touched) { r0.d.value = fmtDigits(st.d, 'date'); r0.t.value = st.t ? fmtDigits(st.t, 'time') : ''; } // the first row follows the date / time above until it is edited
       var lines = [], rows = [], bad = false;
       list.innerHTML = '';
@@ -2699,13 +2710,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         while (f.length > 1 && f[f.length - 1] === '') f.pop();
         lines.push(d + ' ' + (t || '-') + ' | ' + f.join(' | '));
         rows.push(d);
+        prevRow(d, t, t0 + lab, pc0 ? pc0 + lab : '', sp0 ? sp0 + lab : ''); // pc: the merge adds the area part after the form title
       });
-      list.hidden = true; msg.textContent = '';
+      list.hidden = !rows.length; memo = ''; msg.textContent = '';
       last = { rows: rows, lines: lines };
       return last;
     }
     function schedRefresh() {
-      var st = topReady('logs'), t0 = ((($('f-title') || {}).value) || '').replace(/\s*\n\s*/g, ' ').trim(), uv = ((($('f-url') || {}).value) || '').trim(), same = /^https?:\/\/\S+$/i.test(uv), sp0 = ($('rpsp').value || '').replace(/\s*\n\s*/g, ' ').trim();
+      var st = topReady('logs'), t0 = ((($('f-title') || {}).value) || '').replace(/\s*\n\s*/g, ' ').trim(), uv = ((($('f-url') || {}).value) || '').trim(), same = /^https?:\/\/\S+$/i.test(uv), sp0 = ($('rpsp').value || '').replace(/\s*\n\s*/g, ' ').trim(), pc0 = ((($('f-display_pc') || {}).value) || '').replace(/\s*\n\s*/g, ' ').trim();
       var lines = [], rows = [], note = '', bad = false;
       list.innerHTML = '';
       if (!st) note = 'Set the date above first.';
@@ -2732,12 +2744,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         var ct = r.sel.value.trim().toUpperCase(), badC = ct !== '' && CONTENTS_LIST.indexOf(ct) < 0;
         r.sel.classList.toggle('bad', badC);
         if (badC) { bad = true; return; } // a contents that is not in the list: the row is skipped
+        var n0 = rows.length, ttv = tt, pcv = ''; // an empty title: the merge counts the #number up (title / pc); a title with a label: pc gets the part after the form title
+        if (tt) pcv = pc0 ? (t0 && tt.indexOf(t0) === 0 ? pc0 + tt.slice(t0.length) : pc0) : ''; else { ttv = bumpTitle(t0, n0); pcv = pc0 ? bumpTitle(pc0, n0) : ''; }
         lines.push(d + ' ' + (t || '-') + ' | ' + tt + ' | ' + ct + (same || sv ? ' | ' + (same ? uv : '') : '') + (sv ? ' | ' + sv : ''));
         rows.push(d);
-        var lb = document.createElement('div'), ds = document.createElement('span'), ms = document.createElement('span');
-        lb.className = 'rprow'; ds.className = 'd'; ds.textContent = fmtD(d, '') + ' ' + (t ? t.slice(0, 2) + ':' + t.slice(2) : '--:--'); ms.className = 'm'; ms.textContent = (tt || '(title above)') + ' / ' + (ct || '(contents above)') + (sv ? ' / sp: ' + sv : '');
+        prevRow(d, t, ttv, pcv, sv);
       });
-      list.hidden = true; // schedule mode: no preview list
+      list.hidden = !rows.length; memo = ''; // the confirmation list (title / pc / sp) of each row
       if (!note && bad) note = 'A date / time / contents of a row is not valid (the row is skipped).';
       msg.textContent = ''; // schedule mode: no message (a row with a bad date / time / contents is just skipped; the field turns red)
       last = { rows: rows, lines: lines };
@@ -3440,9 +3453,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function doFind() {
     var kind = $('fkind').value, id = $('fid').value.trim(), def = DEFS[kind];
     clearFound();
+    fload('');
     if (!id) { fstat('Enter an id.'); return; }
-    fstat('Loading...');
+    fstat('Loading...'); fload('Loading ' + kind + ' data...');
     fetchData(kind).then(function (d) {
+      fload('');
       var list = Array.isArray(d) ? d : [], row = null;
       for (var i = 0; i < list.length; i++) { if (list[i] && String(list[i][def.idKey]) === id) { row = list[i]; break; } }
       if (!row) {
@@ -3461,7 +3476,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         fstat('Not found: ' + id); return;
       }
       hideCands(); fstat('Found: ' + id); renderFound(kind, id, row);
-    }).catch(function (e) { fstat('Load error: ' + e.message); });
+    }).catch(function (e) { fstat('Load error: ' + e.message); fload('Load error: ' + e.message + ' (press again to retry)'); });
   }
   // id helper: pick a date (and optionally a time) -> list the rows of that day (time + title + id). Picking one puts its id into the id box.
   function dtSearch() {
