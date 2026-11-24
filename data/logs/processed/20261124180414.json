@@ -1,0 +1,25 @@
+{
+  "logid": "6a8b596421a5",
+  "groups": [
+    "L2",
+    "AKR",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/TOKYO_HEADLINE/status/2125072214538195201?a=fDAPMB6JlrzJc7YVUuE&s=19",
+          "member": [
+            "AKR"
+          ],
+          "tags": [
+            "TOKYO HEADLINE"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3795"
+}

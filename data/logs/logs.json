@@ -1871,12 +1871,29 @@
     "url": "https://www.tokyoheadline.com/880392/",
     "groups": [
       "L2",
-      "AKR"
+      "AKR",
+      "KIK"
     ],
     "tags": [
       "念願のお芋掘り",
       "LDH LIVE EXPO",
       "てるてるさん"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/TOKYO_HEADLINE/status/2125072214538195201?a=fDAPMB6JlrzJc7YVUuE&s=19",
+            "member": [
+              "AKR"
+            ],
+            "tags": [
+              "TOKYO HEADLINE"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
