@@ -10102,6 +10102,7 @@
     "title": "POST　Laki",
     "groups": [
       "L2",
+      "TBK",
       "AKR"
     ],
     "sns": [
@@ -10115,6 +10116,15 @@
             ],
             "tags": [
               "コラボキャス配信"
+            ]
+          },
+          {
+            "url": "https://www.cl-live.com/posts/efQN8mBnwbvAfwHsxdj5Vi?lang=ja",
+            "member": [
+              "TBK"
+            ],
+            "tags": [
+              "CIRRA"
             ]
           }
         ]
