@@ -2935,27 +2935,48 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     tsug = addSuggest(st, titleOpts, st.closest('.field'), false, false, hasMine); sa.addEventListener('change', function () { if (sa.value.trim()) tsug.show(); }); // an artist is chosen: the songs of it are listed when the cursor enters the title
     // videos (YouTube): rows of [type][tags][buttons][open] + the url box under each row. A type chip adds a row; typing in a row is free text. Sent as lines `type | url | tags` (replaces the whole list).
     var VT = ['MV', 'Dance Practice', 'Lyric', 'Live', 'Reaction', 'Call Lecture', 'Performance', 'Fancam'], YT = /^https?:\/\/(www\.|m\.|music\.)?(youtube\.com|youtu\.be)\//i;
-    var vrows = $('svrows'), vch = $('svch'), vTouched = false, autoV = false, autoM = null;
+    var vrows = $('svrows'), vch = $('svch'), vTouched = false, autoV = false, autoM = null; vrows.className = 'chipr snsl'; // one video per row, like the sns links of logs
     function vTagList(v) { return String(v || '').split(/[,\u3001\uFF0C]/).map(function (x) { return x.trim(); }).filter(function (x, i, a) { return x && a.indexOf(x) === i; }); }
-    function vList() { return [].map.call(vrows.children, function (r) { return { type: r.children[0].value.trim(), url: r._u.value.trim(), tags: r._tg ? r._tg.value : '', el: r }; }); }
-    function vText(list) { return list.filter(function (v) { return v.url; }).map(function (v) { var tg = vTagList(v.tags).join(','); return (v.type || 'Other') + ' | ' + v.url + (tg ? ' | ' + tg : ''); }).join('\n'); }
-    function vAdd(type, url, tags) {
-      var r = document.createElement('div'); r.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px;align-items:center';
+    function vList() { return [].map.call(vrows.children, function (r) { return { type: r._t.value.trim(), url: r._u.value.trim(), tags: r._tg ? r._tg.value : '', del: !!r._del, el: r }; }); }
+    function vText(list) { return list.filter(function (v) { return v.url && !v.del; }).map(function (v) { var tg = vTagList(v.tags).join(','); return (v.type || 'Other') + ' | ' + v.url + (tg ? ' | ' + tg : ''); }).join('\n'); }
+    function vAdd(type, url, tags, orig) {
+      var w = document.createElement('div'), r = document.createElement('div'); r.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px;align-items:center'; w.className = 'vw'; // w = one video (the chip + the editor row r)
       var t = alInput(); t.placeholder = 'type'; t.style.cssText = 'flex:0 0 6.5em;min-width:0'; t.value = type || '';
       var u = alInput(); u.placeholder = 'https://youtu.be/...'; u.style.cssText = 'flex:1;min-width:0'; u.value = url || ''; r._u = u;
       var x = document.createElement('button'); x.type = 'button'; x.className = 'small'; x.textContent = '\u2715'; x.setAttribute('aria-label', 'remove');
-      x.onclick = function () { r.remove(); vTouched = true; autoV = false; upd(); };
+      x.onclick = function () { w.remove(); vTouched = true; autoV = false; upd(); }; x.style.display = 'none'; // deleting is done with the x of the chip
       var tg = alInput(); tg.placeholder = 'tags (comma separated, optional)'; tg.style.cssText = 'flex:1;min-width:0'; tg.value = Array.isArray(tags) ? tags.join(',') : (tags || ''); r._tg = tg;
       [t, u, tg].forEach(function (e) { e.addEventListener('input', function () { vTouched = true; autoV = false; upd(); }); });
-      function mvb(txt, lab, dir) { var m = document.createElement('button'); m.type = 'button'; m.className = 'small'; m.textContent = txt; m.setAttribute('aria-label', lab); m.onclick = function () { var sib = dir < 0 ? r.previousElementSibling : r.nextElementSibling; if (!sib) return; if (dir < 0) vrows.insertBefore(r, sib); else vrows.insertBefore(sib, r); vTouched = true; autoV = false; upd(); }; return m; }
-      r.appendChild(t); r.appendChild(tg); r.appendChild(mvb('\u2191', 'up', -1)); r.appendChild(mvb('\u2193', 'down', 1)); var uw = document.createElement('div'); uw.style.cssText = 'flex:0 0 100%;display:flex;gap:6px;align-items:center;min-width:0'; var iw = document.createElement('div'); iw.style.cssText = 'flex:1;position:relative;min-width:0'; u.style.cssText = 'width:100%;box-sizing:border-box;min-width:0'; iw.appendChild(u); addOpen(u, 5); uw.appendChild(iw); uw.appendChild(x); r.appendChild(uw); vrows.appendChild(r); return r; // line 1: type, tags, up/down / line 2: url (open icon inside) + the delete button at the right end
+      function mvb(txt, lab, dir) { var m = document.createElement('button'); m.type = 'button'; m.className = 'small'; m.textContent = txt; m.setAttribute('aria-label', lab); m.onclick = function () { var sib = dir < 0 ? w.previousElementSibling : w.nextElementSibling; if (!sib) return; if (dir < 0) vrows.insertBefore(w, sib); else vrows.insertBefore(sib, w); vTouched = true; autoV = false; upd(); }; return m; }
+      r.appendChild(t); r.appendChild(tg); r.appendChild(mvb('\u2191', 'up', -1)); r.appendChild(mvb('\u2193', 'down', 1)); var uw = document.createElement('div'); uw.style.cssText = 'flex:0 0 100%;display:flex;gap:6px;align-items:center;min-width:0'; var iw = document.createElement('div'); iw.style.cssText = 'flex:1;position:relative;min-width:0'; u.style.cssText = 'width:100%;box-sizing:border-box;min-width:0'; iw.appendChild(u); addOpen(u, 5); uw.appendChild(iw); uw.appendChild(x); r.appendChild(uw); w._t = t; w._u = u; w._tg = tg; w._del = false; w._ed = r; // the editor row (r): line 1 = type, tags, up / down; line 2 = url (open icon inside)
+      var cw = document.createElement('span'); cw.className = 'chipw'; // the chip like a sns link: url / type and tags, then edit, delete and open
+      var cb = document.createElement('button'); cb.type = 'button'; cb.className = 'chip'; cb.title = 'edit type / url / tags';
+      var l1 = document.createElement('span'); l1.className = 'l1'; cb.appendChild(l1); var l2 = document.createElement('span'); l2.className = 'l2'; cb.appendChild(l2);
+      var eb = document.createElement('button'); eb.type = 'button'; eb.className = 'ed'; eb.textContent = '\u270e'; eb.title = 'edit type / url / tags'; eb.setAttribute('aria-label', 'edit video');
+      var db = document.createElement('button'); db.type = 'button'; db.className = 'ed'; db.textContent = '\u00d7'; db.title = 'remove'; db.setAttribute('aria-label', 'remove video');
+      var ob = document.createElement('a'); ob.className = 'lk'; ob.target = '_blank'; ob.rel = 'noopener'; ob.textContent = '\u2197'; ob.title = 'open'; ob.setAttribute('aria-label', 'open video');
+      function showEd(on) { r.hidden = !on; eb.classList.toggle('on', on); }
+      function refresh() {
+        var u1 = u.value.trim(), tl = vTagList(tg.value);
+        l1.textContent = u1 ? u1.replace(/^https?:\/\/(www\.)?/, '').slice(0, 40) : '(no url)'; l2.textContent = (t.value.trim() || 'Other') + (tl.length ? ' \u00b7 ' + tl.join(', ') : '');
+        if (/^https?:\/\//i.test(u1)) { ob.href = u1; ob.style.visibility = ''; } else { ob.removeAttribute('href'); ob.style.visibility = 'hidden'; }
+      }
+      cb.onclick = eb.onclick = function () { showEd(r.hidden); };
+      db.onclick = function () {
+        if (!orig) { w.remove(); vTouched = true; autoV = false; upd(); return; } // a video that was added now: removed at once
+        w._del = !w._del; cb.classList.toggle('rm', w._del); db.textContent = w._del ? '\u21a9' : '\u00d7'; db.title = w._del ? 'restore' : 'remove'; db.setAttribute('aria-label', (w._del ? 'restore' : 'remove') + ' video'); // a loaded video: struck through, restorable
+        vTouched = true; autoV = false; upd();
+      };
+      [t, u, tg].forEach(function (e) { e.addEventListener('input', refresh); });
+      w._cb = cb; refresh(); showEd(!orig);
+      cw.appendChild(cb); cw.appendChild(eb); cw.appendChild(db); cw.appendChild(ob); w.appendChild(cw); w.appendChild(r); vrows.appendChild(w); return w;
     }
     VT.slice(0, -1).concat(['+'], VT.slice(-1)).forEach(function (v) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v === '+' ? 'Etc' : v;
       b.onclick = function () { var r = vAdd(v === '+' ? '' : v, ''); vTouched = true; autoV = false; r._u.focus(); upd(); };
       vch.appendChild(b);
     });
-    function vSet(list) { vrows.innerHTML = ''; (list || []).forEach(function (v) { vAdd(v.type, v.url, v.tags); }); }
+    function vSet(list) { vrows.innerHTML = ''; (list || []).forEach(function (v) { vAdd(v.type, v.url, v.tags, true); }); }
     function vClear() { vTouched = false; autoV = false; vSet([]); }
     function setLink(v) { prog = true; sl.value = v; sl.dispatchEvent(new Event('input', { bubbles: true })); prog = false; }
     function setLyr(v) { progY = true; sy.value = v; sy.dispatchEvent(new Event('input', { bubbles: true })); progY = false; }
@@ -2975,7 +2996,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (autoV && match !== autoM) { autoV = false; vSet([]); } // the rows were filled from another song
       if (match && mv.length && !vList().length && !vTouched) { autoV = true; autoM = match; vSet(mv); }
       var vl = vList(), vBad = false;
-      vl.forEach(function (v) { var bad = !!v.url && !YT.test(v.url); v.el._u.classList.toggle('bad', bad); if (bad) vBad = true; });
+      vl.forEach(function (v) { var bad = !v.del && !!v.url && !YT.test(v.url); v.el._u.classList.toggle('bad', bad); if (v.el._cb) v.el._cb.style.borderColor = bad ? '#d33' : ''; if (bad) vBad = true; });
       var vt = vText(vl), mt = vText(mv.map(function (v) { return { type: v.type, url: v.url, tags: Array.isArray(v.tags) ? v.tags.join(',') : '' }; }));
       var ly = sy.value.trim(), lyBad = !!ly && ly.indexOf(UTA) !== 0; sy.classList.toggle('bad', lyBad);
       var l = sl.value.trim(), p = {};
