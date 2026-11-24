@@ -1,0 +1,9 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "93830bd1ebf1",
+  "groups_free": "L2,AKR,TBK",
+  "sns": "https://www.cl-live.com/posts/efQN8mBnwbvAfwHsxdj5Vi?lang=ja | TBK | CIRRA"
+ },
+ "created": "2026-11-24T05:07:10Z"
+}
