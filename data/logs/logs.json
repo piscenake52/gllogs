@@ -2376,6 +2376,7 @@
     "title": "SNS　Girls²",
     "groups": [
       "G2",
+      "YZH",
       "YOK"
     ],
     "sns": [
@@ -2390,6 +2391,20 @@
             "tags": [
               "浜野はるき",
               "TGC"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DgFQwz_EhhF/?dmpr=M3RuaDVxdHB6ZnBh",
+            "member": [
+              "YZH"
+            ],
+            "tags": [
+              "4時間ディズニー"
             ]
           }
         ]
