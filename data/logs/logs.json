@@ -1276,6 +1276,7 @@
     "display_pc": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-",
     "display_sp": "LDH LIVE-EXPO 2026 -PERFECT YEAR BEST-",
     "url": "https://www.ldh-liveschedule.jp/sys/tour/44706/",
+    "venue": "MUFGスタジアム",
     "map": "https://maps.app.goo.gl/5CC6VwoEM9Vf3R3Q6",
     "groups": [
       "G2",
@@ -1296,12 +1297,11 @@
       "AKR",
       "KIK"
     ],
-    "setlistid": "202611281730",
     "relations": [
       "TOA"
     ],
+    "setlistid": "202611281730",
     "tags": [
-      "MUFGスタジアム",
       "国立競技場"
     ]
   },
