@@ -1,0 +1,11 @@
+{
+ "id": "20261124111019-db34",
+ "status": "done",
+ "time": "2026-11-24 11:10:33 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261124111019_20261124111019-db34.json"
+ ],
+ "errors": [],
+ "notes": []
+}
