@@ -1792,32 +1792,12 @@
     ]
   },
   {
-    "logid": "ad3996ea259f",
-    "date": "20261125",
-    "time": "",
-    "contents": "CLOSE",
-    "title": "Laki LIVE TOUR 2027 -LINK UP- GL²family・GL²friend会員2次先行チケット入金期限",
-    "display_pc": "Laki LIVE TOUR 2027 -LINK UP- GL²family・GL²friend会員2次先行チケット入金期限",
-    "display_sp": "LIVE TOUR 2027 -LINK UP- GL²family・GL²friend2次先行入金期限",
-    "url": "https://girls2-fc.jp/page/familyNews/1231858087841759233",
-    "groups": [
-      "L2",
-      "RIN",
-      "TBK",
-      "HIR",
-      "YUW",
-      "KAN",
-      "RRK",
-      "AKR",
-      "KIK"
-    ]
-  },
-  {
     "logid": "c49a41141433",
     "date": "20261125",
-    "time": "",
+    "time": "0000",
     "contents": "STREAMING",
     "title": "映画「デス≠キル／ゲーム」U-NEXT先行配信開始",
+    "url": "https://video.unext.jp/freeword?query=%E3%81%A7%E3%81%99%E3%81%8D%E3%82%8B%E3%81%92%E3%83%BC%E3%82%80&td=SID0325685",
     "groups": [
       "G2",
       "KIR"
@@ -1838,6 +1818,27 @@
           }
         ]
       }
+    ]
+  },
+  {
+    "logid": "ad3996ea259f",
+    "date": "20261125",
+    "time": "",
+    "contents": "CLOSE",
+    "title": "Laki LIVE TOUR 2027 -LINK UP- GL²family・GL²friend会員2次先行チケット入金期限",
+    "display_pc": "Laki LIVE TOUR 2027 -LINK UP- GL²family・GL²friend会員2次先行チケット入金期限",
+    "display_sp": "LIVE TOUR 2027 -LINK UP- GL²family・GL²friend2次先行入金期限",
+    "url": "https://girls2-fc.jp/page/familyNews/1231858087841759233",
+    "groups": [
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ]
   },
   {
