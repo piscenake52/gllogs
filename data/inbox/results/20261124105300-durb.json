@@ -1,0 +1,11 @@
+{
+ "id": "20261124105300-durb",
+ "status": "done",
+ "time": "2026-11-24 10:53:16 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261124105300_20261124105300-durb.json"
+ ],
+ "errors": [],
+ "notes": []
+}
