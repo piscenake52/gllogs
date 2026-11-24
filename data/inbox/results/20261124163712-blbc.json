@@ -1,0 +1,11 @@
+{
+ "id": "20261124163712-blbc",
+ "status": "done",
+ "time": "2026-11-24 16:37:30 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261124163712_20261124163712-blbc.json"
+ ],
+ "errors": [],
+ "notes": []
+}
