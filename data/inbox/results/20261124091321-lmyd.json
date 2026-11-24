@@ -1,0 +1,11 @@
+{
+ "id": "20261124091321-lmyd",
+ "status": "done",
+ "time": "2026-11-24 09:13:36 JST",
+ "template": "add_songs.yml",
+ "queue_files": [
+  "data/songs/queue/20261124091321_20261124091321-lmyd.json"
+ ],
+ "errors": [],
+ "notes": []
+}
