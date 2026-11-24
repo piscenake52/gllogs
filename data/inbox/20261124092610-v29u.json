@@ -1,0 +1,13 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "date": "20261124",
+  "time": "1400",
+  "groups_free": "G2,MSK,MNM",
+  "contents_free": "RADIO",
+  "item_title": "e-radio「キャッチ！」",
+  "tags": "=,コメント出演",
+  "sns": "https://x.com/Girls2_official/status/2125016553229816159?a=vDqGiLDnIw-n8k9OLvQ&s=19 |  | 本日のラジオ出演情報"
+ },
+ "created": "2026-11-24T00:26:10Z"
+}
