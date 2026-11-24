@@ -1,0 +1,9 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "689dc7a1ecd1",
+  "groups_free": "L2,STF,YUW",
+  "sns": "https://x.com/Laki922official/status/2125122243906716081?a=Lm-72StppWgvBwjqfaQ&s=19 | YUW | 日記更新"
+ },
+ "created": "2026-11-24T07:19:17Z"
+}
