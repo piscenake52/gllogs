@@ -1,0 +1,8 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "07488d2b70c2",
+  "sns": "https://www.instagram.com/reel/DgG8OINN-nR/?fqnt=MTN6MWR1M2xka3g3dA== | KIR | countdown"
+ },
+ "created": "2026-11-24T22:09:51Z"
+}
