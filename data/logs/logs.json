@@ -2015,6 +2015,33 @@
     ]
   },
   {
+    "logid": "07488d2b70c2",
+    "date": "20261124",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　ワンダンス",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2125054298249654731?a=VM0PaZhdJEhknw5p0cA&s=19",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "countdown"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "424b7594e861",
     "date": "20261123",
     "time": "2359",

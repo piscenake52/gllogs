@@ -1,0 +1,11 @@
+{
+ "id": "20261124135410-egu6",
+ "status": "done",
+ "time": "2026-11-24 13:54:25 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261124135410_20261124135410-egu6.json"
+ ],
+ "errors": [],
+ "notes": []
+}
