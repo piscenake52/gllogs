@@ -1,0 +1,11 @@
+{
+ "id": "20261124134132-wizp",
+ "status": "done",
+ "time": "2026-11-24 13:41:47 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261124134132_20261124134132-wizp.json"
+ ],
+ "errors": [],
+ "notes": []
+}

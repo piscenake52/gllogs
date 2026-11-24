@@ -1,8 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "03dd5d92ebd9",
-  "sns": "https://x.com/Girls2_official/status/2125062572663808126?a=31JztXnx6OSHoaPOb_Y&s=19 | YOK | 日記更新"
- },
- "created": "2026-11-24T04:41:32Z"
-}
