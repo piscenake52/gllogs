@@ -97,6 +97,7 @@ tour(helper の mode: tour)の1行は、末尾まで書くと `日付 時刻 | �
 - `id` 欄にタイトルの一部を入れると、`songs.json` から候補が出ます。選ぶと、その曲の artist・vocal・title・link・lyrics・動画が読み込まれます(同じタイトルが複数あるときは artist も表示)。
 - `vocal` は自由入力です(例: artist は `Girls²`、vocal は歌唱メンバー)。artist を選んで `vocal` 欄にカーソルを置くと、その artist の曲で使われている vocal が候補に出ます。title の候補も、artist と vocal で絞り込まれます。
 - 曲を特定するのは `artist` と `title` の組み合わせです。どちらかを変えると別の曲になります(名前を直すときは、新しい名前で登録して、旧データを `DELETE` してください)。
+- 動画(videos)は、1行目に type・tags・↑↓、2行目に url を入れます(url が http(s) のときは欄の中の ↗ で新しいタブに開き、行の右端の ✕ でその行を削除)。送る書式は `type | url | tags` です。入力すると、動画は丸ごと置き換わります。
 - ビューアの楽曲バーの3回タップから、`#songs` で開くこともできます。
 
 ### helper の使い方(関連日程の一括登録)
@@ -109,6 +110,14 @@ tour(helper の mode: tour)の1行は、末尾まで書くと `日付 時刻 | �
    - contents は自由入力で、候補が出ます(`close` は `CLOSE`、`result` は `RESULT`、`due` は `CLOSE` が初期値)。
    - ラベル(`締切`、`当選発表` など)が、タイトルの後ろに付きます(例: `◯◯ 締切`)。
    - `display_sp` に短い名前を入れると、「その名前 + ラベル」が各行の display_sp になります。
+   - `display_pc` は、フォームの欄に入れると、ラベル(tour は地域名)が後ろに付く形で各行に入ります(ラベルのない行は `#数字` が回ごとに +1)。
+   - 各行の title / pc / sp は、画面の確認一覧で、送る前に見られます(interval・schedule・tour 共通)。
+
+### helper の便利機能
+
+- **title の候補**(logs): contents が SNS なら `Instagram Live` / `TikTok Live`、CL なら `CLキャス`(後ろに、選んだメンバー名かグループ名が付く)。GLRADIO はメンバー名+`のがるらじ`。schedule の行ラベルにも候補が出ます。SNS では、groups を選んだ状態で contents を SNS にしたときだけ、title が自動で入ります。
+- **setlistid 欄**: LIVE・TOUR・ANNIVERSARYLIVE・FANMEETING・RELEASEEVENT のときに出ます。
+- **id 検索の読み込み**: 大きなデータはブラウザ(IndexedDB)に保存します。GitHub が遅い・つながらないときは、10分以内に保存したコピーを使います。読み込み中・エラーは、id 欄の下に出ます。
 
 ## データ部の便利機能(隠し機能)
 

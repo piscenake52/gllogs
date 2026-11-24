@@ -4,6 +4,8 @@
 
 ## 変更の履歴(新しい順)
 
+- **2026-11-24(helper)** 繰り返し登録: `display_pc` に対応、`optional` を `display_sp` に改名、schedule・tour にも確認一覧(title / pc / sp)を追加(interval は `pc:` / `sp:` を表示)。title の候補(Instagram Live・TikTok Live・CLキャス・GLRADIO・schedule の行ラベル)、SNS の title 自動入力(groups 選択時のみ)、setlistid 欄を TOUR でも表示。songs の videos の入力画面(url とタグの入れ替え、↗ と ✕ の位置)。id 検索の読み込み: IndexedDB のコピー(10分)の利用と、読み込み中・エラーの表示。
+- **2026-11-24(viewer・データ)** 抽出タグのフォールバック(DIARY=日記更新、GTUBE=Gtube、GLRADIO=がるらじ)。ANNIVERSARY の参照行に venue・tags・sns・抽出タグを引き継ぐ。SNS チップの背景を通常タグと同じにした(破線は維持)。viewer のテスト(`tests/test_viewer.py`、`tests.yml` の `viewer` ジョブ)。`check_repo.py` が `--rebuild-manifest` を誤検出する問題を修正。空白の正規化(`space_normalize_20261122.json`、393件)。
 - **2026-11-20(文書の見直し)** SPEC.md の詳細メモを、コードと突き合わせて現行に合わせた: メンバーのランプ色、DISPLAYのスイッチ(9つ・`hdr`の保存)、tour 行の venue、ファイル一覧(`process_queue.yml` ほか)、データ取得の流れ(manifest)、display_sp の共通名(`optional`欄)。
 - **2026-11-20(追加)** ビューアのタグ表示: 抽出タグ(TODAYのみ・仮の表示)、チップの種類の見分け(tags / venue / snsのタグ / 抽出タグ)、contents別の代わりのタグ(DIARY=日記更新、GTUBE=Gtube、GLRADIO=がるらじ)。SPEC.md の古い記述(snsリンクのtagsは出さない)を、現行に直した。
 - **2026-11-20** 保守性の改善: `scripts/schema.json`(項目の定義の集約)、`scripts/check_repo.py`(事前チェック)、`tests/`(自動テスト27件)、`tests.yml` を追加。SPEC.md を「現行仕様(まとめ)」中心に再構成し、旧仕様をこのファイルに移した。
