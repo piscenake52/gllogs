@@ -1976,6 +1976,31 @@
     ]
   },
   {
+    "logid": "ee81bc66813b",
+    "date": "20261124",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "YUW"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Laki922official/status/2125084345622987006?a=zb-RVLDTiSNshMpaNP4&s=19",
+            "member": [],
+            "tags": [
+              "本日の配信情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "424b7594e861",
     "date": "20261123",
     "time": "2359",
