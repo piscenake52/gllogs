@@ -1,0 +1,10 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "689dc7a1ecd1",
+  "groups_free": "STF,L2",
+  "relations_free": "L2,RIN,TBK,HIR,YUW,KAN,RRK,AKR,KIK",
+  "tags": "=,赤髪マインドギャル,ぐるぐる優和,眉毛の可動域"
+ },
+ "created": "2026-11-24T07:11:51Z"
+}
