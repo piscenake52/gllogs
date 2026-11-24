@@ -664,6 +664,9 @@ body.wrap-mode .team-hearts { align-self: flex-start; margin-top: calc(var(--dat
 .items.logid-gesture .item-date, .items.logid-gesture .item-time { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; } /* logid表示が有効な間は、ダブルタップで文字が選択されコピーメニューが出るのを防ぐ */
 .logid-toast { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: var(--z-toast); max-width: calc(100vw - 24px); box-sizing: border-box; padding: 8px 14px; border-radius: var(--r-m); background: var(--text); color: var(--bg); font-size: var(--fs-s); line-height: 1.5; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px 8px; box-shadow: var(--shadow-m); user-select: text; -webkit-user-select: text; }
 .logid-toast[hidden] { display: none; }
+#shareToast { opacity: 0; transform: translate(-50%, 10px); transition: opacity var(--dur-s) var(--ease-s), transform var(--dur-m) var(--ease-m); } /* 共有のトースト: 下から少し上がりながら出る(消えるときは逆) */
+#shareToast.is-show { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) { #shareToast { transition: none; } }
 .logid-toast .logid-value { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: var(--fs-m); font-weight: bold; letter-spacing: .5px; }
 .logid-toast .logid-note { opacity: var(--op-sub); font-size: var(--fs-xs); }
 .item-time.is-blank { visibility: hidden; } /* time未設定の行も"00:00"と同じ幅を確保したまま見た目だけブランクにする */
@@ -6816,8 +6819,9 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   const shareToast = msg => {
     let t = $('shareToast');
     if (!t) { t = document.createElement('div'); t.id = 'shareToast'; t.className = 'logid-toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
-    t.textContent = msg; t.hidden = false;
-    clearTimeout(shareToast._t); shareToast._t = setTimeout(() => { t.hidden = true; }, 2200);
+    t.textContent = msg; clearTimeout(shareToast._t); clearTimeout(shareToast._h);
+    t.hidden = false; void t.offsetWidth; t.classList.add('is-show');
+    shareToast._t = setTimeout(() => { t.classList.remove('is-show'); shareToast._h = setTimeout(() => { t.hidden = true; }, 300); }, 2200);
   };
   $('shareBtn').onclick = async () => {
     const url = buildShareUrl();
