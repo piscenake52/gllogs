@@ -1,0 +1,11 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "date": "20261124",
+  "groups_free": "L2,YUW",
+  "contents_free": "SNS",
+  "item_title": "SNS　Laki",
+  "sns": "https://x.com/Laki922official/status/2125084345622987006?a=zb-RVLDTiSNshMpaNP4&s=19 |  | 本日の配信情報"
+ },
+ "created": "2026-11-24T04:44:44Z"
+}
