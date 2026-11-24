@@ -1697,6 +1697,36 @@
     ]
   },
   {
+    "logid": "752e2b6a4890",
+    "date": "20261124",
+    "time": "1915",
+    "contents": "CL",
+    "title": "LDH NEWS CAST　比嘉優和",
+    "groups": [
+      "L2",
+      "YUW"
+    ],
+    "tags": [
+      "LDH NEWS CAST"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/CL_OFFICIAL_ACC/status/2124872184732828088?a=U8_hFHlWse9376hnKj4&s=19",
+            "member": [
+              "YUW"
+            ],
+            "tags": [
+              "CL"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "eb89672d6a26",
     "date": "20261124",
     "time": "1621",

@@ -1,0 +1,42 @@
+{
+  "date": "20261124",
+  "time": "1915",
+  "url": "!clear",
+  "tags": [
+    "=",
+    "LDH NEWS CAST"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/CL_OFFICIAL_ACC/status/2124872184732828088?a=U8_hFHlWse9376hnKj4&s=19",
+          "member": [
+            "YUW"
+          ],
+          "tags": [
+            "CL"
+          ]
+        }
+      ]
+    },
+    {
+      "_remove": "https://x.com/CL_OFFICIAL_ACC/status/2110717975322132507"
+    },
+    {
+      "_remove": "https://x.com/Laki922official/status/2111000909098659868"
+    },
+    {
+      "_remove": "https://x.com/CL_OFFICIAL_ACC/status/2111019098796875951"
+    },
+    {
+      "_remove": "https://www.cl-live.com/posts/54AzcNx9zTF9VV3o7pC15a"
+    },
+    {
+      "_remove": "https://www.cl-live.com/posts/n7kg9o1i4UcVCZ5fC5F5Xk"
+    }
+  ],
+  "_copy_from": "c5e5de4c5613",
+  "_issue": "3790"
+}
