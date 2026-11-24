@@ -1714,6 +1714,35 @@
     ]
   },
   {
+    "logid": "645342c281ba",
+    "date": "20261124",
+    "time": "1400",
+    "contents": "RADIO",
+    "title": "e-radio「キャッチ！」",
+    "groups": [
+      "G2",
+      "MSK",
+      "MNM"
+    ],
+    "tags": [
+      "コメント出演"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2125016553229816159?a=vDqGiLDnIw-n8k9OLvQ&s=19",
+            "member": [],
+            "tags": [
+              "本日のラジオ出演情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "6a8b596421a5",
     "date": "20261124",
     "time": "1200",
