@@ -1,8 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "70a998e80a0a",
-  "sns": "https://x.com/deathkillgame/status/2106023408731578759?a=esHi92Pi0S4L8-sjUIw&s=19 | KIR | 舞台挨拶無事終了"
- },
- "created": "2026-11-24T07:21:29Z"
-}
