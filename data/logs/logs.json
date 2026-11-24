@@ -2377,7 +2377,12 @@
     "groups": [
       "G2",
       "YZH",
-      "YOK"
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
     ],
     "sns": [
       {
@@ -2405,6 +2410,20 @@
             ],
             "tags": [
               "4時間ディズニー"
+            ]
+          },
+          {
+            "url": "https://www.instagram.com/p/DgWero3lBdA/?bqrl=dzN4d3czNXEyazQw",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM"
+            ],
+            "tags": [
+              "Real Sound"
             ]
           }
         ]

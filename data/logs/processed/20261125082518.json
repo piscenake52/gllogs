@@ -1,0 +1,35 @@
+{
+  "logid": "05addd307eee",
+  "groups": [
+    "G2",
+    "YZH",
+    "MMK",
+    "MSK",
+    "YOK",
+    "KUR",
+    "MNM",
+    "KIR"
+  ],
+  "sns": [
+    {
+      "type": "instagram",
+      "urls": [
+        {
+          "url": "https://www.instagram.com/p/DgWero3lBdA/?bqrl=dzN4d3czNXEyazQw",
+          "member": [
+            "YZH",
+            "MMK",
+            "MSK",
+            "YOK",
+            "KUR",
+            "MNM"
+          ],
+          "tags": [
+            "Real Sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3807"
+}
