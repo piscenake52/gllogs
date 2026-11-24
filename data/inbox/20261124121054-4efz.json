@@ -1,0 +1,9 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "03dd5d92ebd9",
+  "relations_free": "G2,YZH,MMK,MSK,KUR,MNM,KIR",
+  "tags": "=,いきなり苺美瑠狂,すごく大きな経験,皆さんの反応"
+ },
+ "created": "2026-11-24T03:10:54Z"
+}
