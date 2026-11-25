@@ -4,6 +4,7 @@
 
 ## 変更の履歴(新しい順)
 
+- **2026-11-26(viewer・helper songs)** 動画ポップアップの表示順を変更: Performance を Dance Practice の次(3番目)に入れ、Other・自由入力は Call Lecture の後ろ、Fancam は常に一番下にした(以前は MV → Dance Practice → Lyric → Live → Reaction → Call Lecture で、それ以外は登録順)。helper(songs)の videos の ↑↓ ボタンを削除した(順番を変えるには、削除して追加し直す)。
 - **2026-11-26(helper songs)** videos の表示を変更: 登録済みの動画を、一番下の `videos links (件数)` ボタン(logs の sns links と同じ開閉・`+n` / `-n` 表示)の中にまとめた。追加する動画はチップを出さず編集欄だけにし、✕ で削除する。追加分がある状態で曲を選んでも登録済みの動画を読み込み、追加分は後ろに残る。README.md の古い説明(行の ✕ で削除)も直した。通信をモックしたブラウザで確認(実機・Blogger は未確認)。
 - **2026-11-26(helper)** アニメーションを追加(`opacity` / `transform` のみ・0.2秒以内・reduced-motion では停止): repeat の中身・読み込み中の行・候補リスト・send の結果のフェードイン、チップを押している間の縮小。通信をモックしたブラウザで確認(実機・Blogger は未確認)。
 - **2026-11-26(整理)** `link_check.py` 単体の件数の既定を 400 から 250 にし、ワークフローとそろえた。不要なファイルを削除: `scripts/test_check_repo.py`(`tests/` 版と重複する古い版)、`.github/ISSUE_TEMPLATE/link_check.yml`(紛れ込んだ workflow のコピー)、`.github/ISSUE_TEMPLATE/add_setlist_songs.yml`(setlist / songs が1つだった頃の形のフォーム。setlist と songs は `add_setlist.yml` / `add_songs.yml` を使う)。GitHub Actions の `Tests`(`test` / `viewer`)の成功を確認。SPEC.md と `issue_to_json.py` のコメントを合わせた。

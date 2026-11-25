@@ -3895,9 +3895,9 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
     const f = pickSong(hits, artist);
     return f ? sortVideos(f.videos.filter(v => v && /^https?:\/\//.test(v.url || ''))) : [];
   };
-  // 表示順: MV, Dance Practice, Lyric, Live, Reaction, Call Lecture の順。それ以外(Otherや自由入力)は後ろに、登録順のまま
-  const VIDEO_ORDER = ['mv', 'dance practice', 'lyric', 'live', 'reaction', 'call lecture'];
-  const sortVideos = list => list.map((v, i) => { const r = VIDEO_ORDER.indexOf(String(v.type || '').trim().toLowerCase()); return { v, i, r: r < 0 ? 99 : r }; }).sort((x, y) => x.r - y.r || x.i - y.i).map(x => x.v);
+  // 表示順: MV, Dance Practice, Performance, Lyric, Live, Reaction, Call Lecture の順。それ以外(Otherや自由入力)はその後ろに登録順のまま、Fancam は常に一番下
+  const VIDEO_ORDER = ['mv', 'dance practice', 'performance', 'lyric', 'live', 'reaction', 'call lecture'];
+  const sortVideos = list => list.map((v, i) => { const t = String(v.type || '').trim().toLowerCase(), r = VIDEO_ORDER.indexOf(t); return { v, i, r: t === 'fancam' ? 100 : r < 0 ? 99 : r }; }).sort((x, y) => x.r - y.r || x.i - y.i).map(x => x.v);
   // 動画リンクのポップアップはsnsポップアップと同じ作り(openVideoModal)。複数ある種類は番号チップで並べ、TAGスイッチでタグを出す
   const openVideos = (vids, anchor, title, artist) => { if (vids.length) openVideoModal(vids, title, artist); };
   const vidHtml = (title, artist) => videosByTitle(title, artist).length

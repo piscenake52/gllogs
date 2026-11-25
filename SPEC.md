@@ -70,10 +70,10 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
   - `issue_to_json.py`: ラベル `vocal` を読み、songsのレコードに入れる(`CLEARABLE` の songs に `vocal`)。`merge_json.py`: songs の項目の並びは `artist, vocal, title, link, lyrics, videos`。
   - 更新: 入力した項目だけ上書き(空欄は変更しない)。消すときは「値の削除」または `!clear`。`videos` は入力すると丸ごと置き換わる。曲の削除は `DELETE`。
   - helper(songs)のvideos入力: 上から、追加する動画の編集欄 → typeのチップ → `videos links (登録件数)` ボタン → 登録済みの動画。送る書式は `type | url | tags` のまま。
-    - 追加した動画: チップ(✎ × ↗)は出さず、編集欄だけ(1行目に type・tags・↑↓、2行目に url。url が http(s) のときは欄の中の ↗ で開く)。url欄の右の ✕ で削除する。
+    - 追加した動画: チップ(✎ × ↗)は出さず、編集欄だけ(1行目に type・tags、2行目に url。url が http(s) のときは欄の中の ↗ で開く)。url欄の右の ✕ で削除する。
     - 登録済みの動画: `videos links` ボタンで開閉する(曲を読み込んだ直後は閉じる)。1動画1チップで、本体か✎で編集行を開閉 / ×で取り消し線(↩で元に戻す) / ↗で新しいタブで開く。YouTube以外のURLがあるときは自動で開く。
     - ボタンの件数は登録済みの数。追加は `+n`、削除指定(取り消し線・urlを空にしたもの)は `-n` を付ける。
-    - 送る順は 登録済み → 追加分(↑↓はそれぞれの中だけ)。別の曲に変えると登録済み側は読み直し(未送信の編集は破棄)、追加分は残る。id欄の候補を選ぶか `new` で追加分も消える。残る動画がないときは `!clear`(全削除)。urlを空にした動画は送る内容から外れる。YouTube以外のURLがあると送信できない。
+    - 送る順は 登録済み → 追加分(画面での並べ替えはない。↑↓ボタンは2026-11-26に削除)。別の曲に変えると登録済み側は読み直し(未送信の編集は破棄)、追加分は残る。id欄の候補を選ぶか `new` で追加分も消える。残る動画がないときは `!clear`(全削除)。urlを空にした動画は送る内容から外れる。YouTube以外のURLがあると送信できない。
   - 同じ曲かどうかは `artist` と `title` の完全一致で決まる。artist / title を変えると別の曲(新規)になり、元の曲は残る(名前の変更は旧データを `DELETE` して登録し直す)。
 - **snsの type 自動補正**(`issue_to_json.py`): `type | url` で type を明示しても、それが `site` か `etc` で、URLのドメインが X / Instagram / YouTube / TikTok / CL / radiko / GL²family と判定できるときは、その種類にする。type 自体を省略したときの自動判定は従来どおり(判定できなければ `etc`)。
 - **共通部品 `common.py`**: `is_blank` / `album_type_ok` / `map_from_html`(`<iframe src>` の埋め込みHTMLを地図URLに直す。`&amp;`→`&`)。`issue_to_json.py` と `merge_json.py` が `from common import ...` で使うため、Actionsでは **`common.py` と `schema.json` を、スクリプトと同じ場所(`scripts/`)に置く**(`schema.json` は項目の定義。「保守のための仕組み」を参照)。
@@ -132,6 +132,7 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
   - map にリンクがなく venue があるとき: ピンは押せる状態になり、会場名で Google マップを検索する URL(`https://www.google.com/maps/search/?api=1&query=…`)を新しいタブで開く。
   - map も venue もない行は、ピンを隠して(幅は保つ)押せない。map が `http(s)://` でない値のときも、押せない(venue があれば検索)。
 - **披露実績ポップアップ**: アーティスト名(`.stat-artist`)を出す。
+- **動画ポップアップの表示順**(2026-11-26): MV → Dance Practice → Performance → Lyric → Live → Reaction → Call Lecture → それ以外(Other・自由入力。登録順のまま) → Fancam(常に一番下)。typeは大文字小文字と前後の空白を区別しない。同じtypeは1行にまとめ、登録順に番号を付ける。
 - **動画ポップアップの Fancam**: 種類が `Fancam`(大文字小文字は問わない)の行のアイコンは、SNS ポップアップの Fancam(カメラ)と同じ絵・同じ表示範囲・同じ線の太さ。
 - **ヘッダー・ボタン**: ↺(`#backBtn`)を共有ボタンの左に表示して有効にした。ヘッダーと楽曲バーのボタンを、共有と映像、フォントとダーク・Uta-Net、鍵と披露実績が上下でそろう位置にした。Uta-Net ボタンの幅は、フォント・ダークのボタンと同じ。歌詞ボタン(`.song-lyrics-btn`)は幅56px。
 - **TODAY / ICON のボタン**: 幅を TODAY にそろえる(`#iconToggleBtn::after` に TODAY の文字を透明で置いて幅を確保)。
