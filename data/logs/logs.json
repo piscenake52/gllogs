@@ -1415,6 +1415,63 @@
     ]
   },
   {
+    "logid": "69748ef26f5d",
+    "date": "20261127",
+    "time": "1200",
+    "contents": "TICKET",
+    "title": "Abema「Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special 東京公演」チケット販売開始",
+    "display_pc": "Abema「Girls² LIVE TOUR 2026 Xmas Special 東京公演」チケット販売開始",
+    "display_sp": "Abema「LIVE TOUR 2026 Xmas Special」チケット販売開始",
+    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "Seven Blooms Beyond"
+    ],
+    "sns": [
+      {
+        "type": "etc",
+        "urls": [
+          {
+            "url": "https://m.ldhgirls-m.jp/news/detail?news_id=55075",
+            "member": [],
+            "tags": [
+              "LDH Girls mobile"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2121819228517126591",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "情報解禁"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "11be3cb84118",
     "date": "20261127",
     "time": "1000",
