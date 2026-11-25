@@ -1,0 +1,43 @@
+{
+  "artist": "Laki",
+  "title": "こくご・さんすう・りか・恋愛！",
+  "videos": [
+    {
+      "type": "MV",
+      "url": "https://youtu.be/2119qX27fDw?si=5KRfGAS1cOgJ1NdQ"
+    },
+    {
+      "type": "Dance Practice",
+      "url": "https://youtu.be/QYlGH3D_VWs?si=vmjhVp-Uc73YFlfs"
+    },
+    {
+      "type": "リズムダンス",
+      "url": "https://youtu.be/4TAezXd0WAo?si=PwuJhdNd3nXO95N1",
+      "tags": [
+        "中学生"
+      ]
+    },
+    {
+      "type": "Call Lecture",
+      "url": "https://youtu.be/w3vnBdEBRRw?si=S2El5DcnTQuJBF5N"
+    },
+    {
+      "type": "リズムダンス",
+      "url": "https://youtu.be/SIsMcdB4bVA?si=fm38cOBzkcywfc6E",
+      "tags": [
+        "小学生"
+      ]
+    },
+    {
+      "type": "MV Behind",
+      "url": "https://youtu.be/Q6J8fixzxas?si=EzGNIpTmR4CXVGnF"
+    },
+    {
+      "type": "リズムダンス",
+      "url": "https://youtu.be/AGqO5YXNkgc?si=DDZwN0-35VmAF1y6",
+      "tags": [
+        "音源"
+      ]
+    }
+  ]
+}
