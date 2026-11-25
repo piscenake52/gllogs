@@ -1,0 +1,11 @@
+{
+ "id": "20261125104026-ugdc",
+ "status": "done",
+ "time": "2026-11-25 10:40:39 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261125104026_20261125104026-ugdc.json"
+ ],
+ "errors": [],
+ "notes": []
+}
