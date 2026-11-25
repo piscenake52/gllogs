@@ -1562,6 +1562,50 @@
     "suffix": "放送記念日"
   },
   {
+    "logid": "17d52d26c834",
+    "date": "20261128",
+    "time": "2000",
+    "contents": "CLOSE",
+    "title": "Girls² 11月スペシャル壁紙プレゼントキャンペーン 終了",
+    "display_sp": "11月スペシャル壁紙プレゼントCP 終了",
+    "url": "https://girls2-fc.jp/page/wallpaper/1252202976852836352",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "Umbrella"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2125545044052709688?a=dweE9bgWK3fL0VycdaM&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "FCコンテンツ"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "ec18c3745b81",
     "date": "20261128",
     "time": "1730",
@@ -1971,6 +2015,50 @@
     ],
     "tags": [
       "ききの踊ってみたチャレンジ"
+    ]
+  },
+  {
+    "logid": "76fe31657fc5",
+    "date": "20261125",
+    "time": "2000",
+    "contents": "FANCLUB",
+    "title": "Girls² 11月スペシャル壁紙プレゼントキャンペーン 開始",
+    "display_sp": "11月スペシャル壁紙プレゼントCP 開始",
+    "url": "https://girls2-fc.jp/page/wallpaper/1252202976852836352",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "Umbrella"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2125545044052709688?a=dweE9bgWK3fL0VycdaM&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "FCコンテンツ"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
