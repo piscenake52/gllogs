@@ -82,7 +82,7 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 - **`tests/`**(`unittest`。`python -m unittest discover -s tests -v`): `helpers.py`(一時フォルダにリポジトリと同じ並びを作り、本物のスクリプトを実行する)、`test_pipeline.py`(logs の新規・更新・削除・繰り返し・インデックス・マニフェストの安定、setlist の曲順なし・個別変更、venue の同期4種(上書き・消去・新規setlistへの引き継ぎ・タグからは引き継がない)、読めないJSONのエラー報告と他ファイルの処理継続、inbox の登録・入力エラー・不正テンプレート・同時刻の依頼)、`test_check_repo.py`(事前チェックが問題を見つけられるか)。計28件。あわせて `tests/test_viewer.py`(ビューアをブラウザ(Playwright + Chromium)で開き、通信はモック・日付は固定で確認する。axe-core によるアクセシビリティ検査を含む。37件)があり、合計65件。
 - **`.github/workflows/tests.yml`**: scripts・tests・.github・helper・index.html の変更、PR、手動で動く。`test` ジョブ(事前チェックと unittest)と `viewer` ジョブ(`tests.test_viewer`。Playwright・axe-core を入れて実行)の2つ。data の更新では動かない。権限は contents: read のみ。
 - **項目を足す手順**は README の「テストと事前チェック」にある。
-- 検証状況: ローカルでの実行のみ(unittest 28件+viewer 37件)。GitHub Actions 上(`test` / `viewer` ジョブ)の結果は未確認。
+- 検証状況: ローカル(unittest 28件+viewer 37件)に加え、GitHub Actions でも `test` / `viewer` ジョブの成功を確認した(2026-11-26、手動実行、`0fa9983`)。
 
 ### ビューア(index.html)
 
@@ -838,7 +838,7 @@ GitHub Issue(フォーム) → Actions(auto_merge.yml)
 | ファイル | 役割 |
 |---|---|
 | `.github/ISSUE_TEMPLATE/add_logs.yml` | logs(日程・ログ)の登録・更新・削除フォーム |
-| `add_setlist.yml` / `add_setlist_songs.yml` | setlist(セットリスト)のフォーム。`add_setlist_songs.yml`は曲リスト(songs)用を兼ねたもの |
+| `add_setlist.yml` | setlist(セットリスト)のフォーム |
 | `add_songs.yml` | songs(楽曲リスト。再生リンク用)のフォーム |
 | `add_albums.yml` / `add_bulk.yml` | albums(アルバム)のフォーム / 一括更新(tag add など)のフォーム。helperの直送で使えるテンプレートは、add_logs / add_setlist / add_songs / add_albums / add_bulk |
 | `.github/workflows/auto_merge.yml` | Issueが`opened`/`edited`されたら変換とマージを実行 |
@@ -1104,7 +1104,7 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 ## リンク切れチェック(link_check.py / link_check.yml)
 
 - GitHub Actions が毎日 03:00(JST)に、logs.json の `url` / `map` を少しずつ確認する(手動実行も可。件数は `limit` で変えられる)。結果は `data/logs/link_state.json`(全URLの状態)と `data/logs/link_report.json`(切れだけ)に保存され、helper の check タブ `link broken` が読む。
-- 通常の閲覧・運営に影響しないための制限: 1回 250 件(ワークフローの既定。`link_check.py` 単体の既定は 400 件)・25 分まで / 確認の間隔 1 秒(ブラウザ) 0.5 秒(それ以外) / ブラウザでは画像・動画・フォント・CSS を読み込まない / 毎日の夜間のみ。確認が古い順に回るので、全件が一巡するまで数十日かかる。`url` を直した行は未確認として優先して確認される。
+- 通常の閲覧・運営に影響しないための制限: 1回 250 件(ワークフローと `link_check.py` 単体で共通の既定)・25 分まで / 確認の間隔 1 秒(ブラウザ) 0.5 秒(それ以外) / ブラウザでは画像・動画・フォント・CSS を読み込まない / 毎日の夜間のみ。確認が古い順に回るので、全件が一巡するまで数十日かかる。`url` を直した行は未確認として優先して確認される。
 - 判定方法: 
   - girls2-fc.jp/page/...: 画面なしの Chromium で開き、最大 8 秒待つ。記事のタイトルが出れば ok、サイト共通のタイトル(`Girls²(ガールズガールズ)...`)のまま、またはトップへ遷移したら NG。
   - YouTube(watch / youtu.be / shorts / live): oEmbed で 404 なら NG(401/403 は判定不能)。
