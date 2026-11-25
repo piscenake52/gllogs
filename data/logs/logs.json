@@ -230701,6 +230701,54 @@
     "ref": "9834aa318792"
   },
   {
+    "logid": "6a8e572d108e",
+    "date": "20181125",
+    "time": "1700",
+    "contents": "TOUR",
+    "title": "magical² LIVE Magic 大阪公演",
+    "url": "https://www.sonymusic.co.jp/artist/magical2/info/497649",
+    "venue": "エブノ泉の森ホール",
+    "groups": [
+      "G2",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
+    ],
+    "setlistid": "201811251700"
+  },
+  {
+    "logid": "c7cea7802491",
+    "date": "20181125",
+    "time": "1100",
+    "contents": "TOUR",
+    "title": "magical² LIVE Magic 大阪公演",
+    "url": "https://www.sonymusic.co.jp/artist/magical2/info/497649",
+    "venue": "エブノ泉の森ホール",
+    "groups": [
+      "G2",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
+    ],
+    "setlistid": "201811251100"
+  },
+  {
+    "logid": "f9a11ed4e79e",
+    "date": "20181125",
+    "contents": "ANNIVERSARY",
+    "ref": "c7cea7802491",
+    "suffix": "記念日"
+  },
+  {
+    "logid": "10ae8eff33a9",
+    "date": "20181125",
+    "contents": "ANNIVERSARY",
+    "ref": "6a8e572d108e",
+    "suffix": "記念日"
+  },
+  {
     "logid": "b489221f3547",
     "date": "20181017",
     "time": "1830",
