@@ -69,7 +69,11 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
   - Issueフォーム `add_songs.yml`: `vocal` 欄(artistの下)と、「値の削除(更新時)」の `vocal` を追加。
   - `issue_to_json.py`: ラベル `vocal` を読み、songsのレコードに入れる(`CLEARABLE` の songs に `vocal`)。`merge_json.py`: songs の項目の並びは `artist, vocal, title, link, lyrics, videos`。
   - 更新: 入力した項目だけ上書き(空欄は変更しない)。消すときは「値の削除」または `!clear`。`videos` は入力すると丸ごと置き換わる。曲の削除は `DELETE`。
-  - helper(songs)のvideos入力: 登録済みの動画ごとに1つのチップで表示する。✎で編集行を開く / ×で取り消し線(↩で元に戻す) / ↗で新しいタブで開く。新しく足した動画は、×で即座に消える。送る書式は `type | url | tags` のまま。`!clear` で全削除。
+  - helper(songs)のvideos入力: 上から、追加する動画の編集欄 → typeのチップ → `videos links (登録件数)` ボタン → 登録済みの動画。送る書式は `type | url | tags` のまま。
+    - 追加した動画: チップ(✎ × ↗)は出さず、編集欄だけ(1行目に type・tags・↑↓、2行目に url。url が http(s) のときは欄の中の ↗ で開く)。url欄の右の ✕ で削除する。
+    - 登録済みの動画: `videos links` ボタンで開閉する(曲を読み込んだ直後は閉じる)。1動画1チップで、本体か✎で編集行を開閉 / ×で取り消し線(↩で元に戻す) / ↗で新しいタブで開く。YouTube以外のURLがあるときは自動で開く。
+    - ボタンの件数は登録済みの数。追加は `+n`、削除指定(取り消し線・urlを空にしたもの)は `-n` を付ける。
+    - 送る順は 登録済み → 追加分(↑↓はそれぞれの中だけ)。別の曲に変えると登録済み側は読み直し(未送信の編集は破棄)、追加分は残る。id欄の候補を選ぶか `new` で追加分も消える。残る動画がないときは `!clear`(全削除)。urlを空にした動画は送る内容から外れる。YouTube以外のURLがあると送信できない。
   - 同じ曲かどうかは `artist` と `title` の完全一致で決まる。artist / title を変えると別の曲(新規)になり、元の曲は残る(名前の変更は旧データを `DELETE` して登録し直す)。
 - **snsの type 自動補正**(`issue_to_json.py`): `type | url` で type を明示しても、それが `site` か `etc` で、URLのドメインが X / Instagram / YouTube / TikTok / CL / radiko / GL²family と判定できるときは、その種類にする。type 自体を省略したときの自動判定は従来どおり(判定できなければ `etc`)。
 - **共通部品 `common.py`**: `is_blank` / `album_type_ok` / `map_from_html`(`<iframe src>` の埋め込みHTMLを地図URLに直す。`&amp;`→`&`)。`issue_to_json.py` と `merge_json.py` が `from common import ...` で使うため、Actionsでは **`common.py` と `schema.json` を、スクリプトと同じ場所(`scripts/`)に置く**(`schema.json` は項目の定義。「保守のための仕組み」を参照)。
@@ -169,6 +173,10 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 - **setlist のコピー**: `addSlCopyFrom(box, sid)`。選んだ setlist から、同じタイトルのものを先頭に、artist・member・source・songs(titleは空のときだけ)を写す。
 - **check タブの追加項目**: setlist・albums・songs のデータが揃っているかの検査を追加(`ckReg`)。logs の setlist が未登録(`nosl`)、albums が未登録(`noalbum`)、setlist の曲が songs に未登録(`slsong`)、albums の曲が songs に未登録(`alsong`)、setlist に曲がない(`slnosong`)、albums に曲がない(`alnotrack`)、盤が未登録(`noedition`)。結果の行から、未登録のデータへ移動するボタン(`it.go`)がある。無視するキーは `CK_IG`。移動先は `jumpSeed` / `gotoAlbum` / `goSong` / `openSl`。
 - **フォームの説明文**: Issue フォーム(`add_*.yml`)の日本語の説明文は、簡潔な文に統一した。`add_setlist.yml` に `-:` `?:` `:` と `+?:` `-?:` の書き方を載せた。
+- **アニメーション**(2026-11-26): `opacity` と `transform` だけを使い、0.2秒以内。CSS はすべて `prefers-reduced-motion: no-preference` の中に置く(視差効果を減らす設定では動かない)。
+  - repeat の中身(`#glih-rpbody` と interval / schedule / tour の欄)、読み込み中・エラーの行(`#glih-fload`)、候補リスト(`.fcand`)は、表示するときに少し上からフェードイン(`glih-in`、0.18秒)。閉じるときの動きはない。
+  - send の結果表示(`.sendst`)は、結果の文に置き換わるときに同じフェードイン(`popIn`。クラス `glih-pop` を付け直して再生する)。
+  - チップ(`.chip`)は、押している間だけ縮む(`scale(.94)`、0.12秒)。ON / OFF の色の切り替えは動かさない。
 - **Blogger に貼るときの注意**: `<script>` は ASCII のみ・日本語や記号は `\uXXXX`・改行は LF(既存のとおり)。説明文などの日本語は、コメントの中だけ。
 
 ### 確認の状況

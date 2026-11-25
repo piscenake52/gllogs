@@ -4,6 +4,8 @@
 
 ## 変更の履歴(新しい順)
 
+- **2026-11-26(helper songs)** videos の表示を変更: 登録済みの動画を、一番下の `videos links (件数)` ボタン(logs の sns links と同じ開閉・`+n` / `-n` 表示)の中にまとめた。追加する動画はチップを出さず編集欄だけにし、✕ で削除する。追加分がある状態で曲を選んでも登録済みの動画を読み込み、追加分は後ろに残る。README.md の古い説明(行の ✕ で削除)も直した。通信をモックしたブラウザで確認(実機・Blogger は未確認)。
+- **2026-11-26(helper)** アニメーションを追加(`opacity` / `transform` のみ・0.2秒以内・reduced-motion では停止): repeat の中身・読み込み中の行・候補リスト・send の結果のフェードイン、チップを押している間の縮小。通信をモックしたブラウザで確認(実機・Blogger は未確認)。
 - **2026-11-26(整理)** `link_check.py` 単体の件数の既定を 400 から 250 にし、ワークフローとそろえた。不要なファイルを削除: `scripts/test_check_repo.py`(`tests/` 版と重複する古い版)、`.github/ISSUE_TEMPLATE/link_check.yml`(紛れ込んだ workflow のコピー)、`.github/ISSUE_TEMPLATE/add_setlist_songs.yml`(setlist / songs が1つだった頃の形のフォーム。setlist と songs は `add_setlist.yml` / `add_songs.yml` を使う)。GitHub Actions の `Tests`(`test` / `viewer`)の成功を確認。SPEC.md と `issue_to_json.py` のコメントを合わせた。
 - **2026-11-25(文書の見直し・helper・viewer)** SPEC.md・README.md・CHANGELOG.md を現状に合わせた(テスト件数 28+viewer 37=65、`tests.yml` の `viewer` ジョブ、`check_repo.py` の `--rebuild-manifest` 除外、リンク切れチェックの件数の既定値(workflow 250 / 単体 400)、動画入力の表示)。helper(songs)の videos 入力を、動画ごとの1チップ表示に変更(✎ 編集 / × 取り消し線・↩ 元に戻す / ↗ 開く。新規の動画は × で即削除)。共有のトーストを、下から上がる動き(opacity / transform)に。不要になった `script.js` / `style.css` を削除。見送った案: BIRTHDAY の「誕生日」フォールバック、helper の入力時の空白の正規化、find の軽量インデックス(案B)。
 - **2026-11-24(helper)** 繰り返し登録: `display_pc` に対応、`optional` を `display_sp` に改名、schedule・tour にも確認一覧(title / pc / sp)を追加(interval は `pc:` / `sp:` を表示)。title の候補(Instagram Live・TikTok Live・CLキャス・GLRADIO・schedule の行ラベル)、SNS の title 自動入力(groups 選択時のみ)、setlistid 欄を TOUR でも表示。songs の videos の入力画面(url とタグの入れ替え、↗ と ✕ の位置)。id 検索の読み込み: IndexedDB のコピー(10分)の利用と、読み込み中・エラーの表示。

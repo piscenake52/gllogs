@@ -327,6 +327,13 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .fx.ta { top:8px; transform:none; }
 #glih .fx:hover { background:var(--btn); color:var(--text); }
 #glih .fx[hidden] { display:none; } #glih .fx:disabled { opacity:.35; pointer-events:none; } #glih .alinp .fx { right:5px; } #glih .alinp:has(.fx:not(.jmp):not([hidden])) .fx.jmp { right:29px; } #glih .alinp:has(.fx:not(.jmp):not([hidden])) .fin { padding-right:54px !important; } /* the clear mark is shown: the open arrow sits on its left (the box gets room for both) */
+/* motion: opacity / transform only, 0.2s or less, off with reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+@keyframes glih-in { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:none; } }
+#glih #glih-rpbody:not([hidden]), #glih #glih-rpiv:not([hidden]), #glih #glih-rpsc:not([hidden]), #glih #glih-rptr:not([hidden]), #glih #glih-fload:not([hidden]), #glih #glih-svreg:not([hidden]), #glih .fcand:not([hidden]), #glih .sendst.glih-pop { animation:glih-in .18s ease-out; }
+#glih .chip { transition:transform .12s ease-out; }
+#glih .chip:active:not(:disabled) { transform:scale(.94); }
+}
 /*]]>*/
 </style>
 
@@ -382,7 +389,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   <div class="field"><label for="glih-st">title</label><input type="text" id="glih-st" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label for="glih-sl">link</label><input type="text" id="glih-sl" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
   <div class="field"><label for="glih-sy">lyrics</label><input type="text" id="glih-sy" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
-  <div class="field top"><label>videos</label><div class="fgcol" id="glih-svid"><div id="glih-svrows"></div><div class="chipr" id="glih-svch"></div></div></div>
+  <div class="field top"><label>videos</label><div class="fgcol" id="glih-svid"><div id="glih-svrows"></div><div class="chipr" id="glih-svch"></div><div class="snstog" id="glih-svtog"></div><div class="chipr snsl" id="glih-svreg" hidden></div></div></div>
   <a class="go" id="glih-go-songs" target="_blank" rel="noopener" aria-disabled="true">songs</a>
 </section>
 
@@ -874,6 +881,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       return new Promise(function (ok) { setTimeout(ok, 4000); }).then(function () { return waitResult(id, st, n + 1); });
     });
   }
+  function popIn(el) { el.classList.remove('glih-pop'); void el.offsetWidth; el.classList.add('glih-pop'); el.onanimationend = function () { el.classList.remove('glih-pop'); }; } // replay the fade-in of a line whose text was replaced
   function sendReq(tpl, params, st, btns) {
     if (!tok) { st.textContent = cfg.mode === 'enc' && cfg.enc ? 'the token is locked: open the setting tab and unlock it' : 'no token: open the setting tab'; return; }
     var id = stampId(), req = { template: tpl, params: params, created: new Date().toISOString().replace(/\.\d+Z$/, 'Z') };
@@ -882,7 +890,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (res.status === 'done') { st.textContent = 'done: reflected' + (res.notes && res.notes.length ? '\n' + res.notes.join('\n') : ''); delete cache.logs; delete cache.setlist; delete cache.albums; delete cache.songs; }
       else if (res.status === 'error') st.textContent = 'not reflected:\n' + (res.errors || []).concat(res.notes || []).join('\n');
       else st.textContent = 'sent, but the result did not arrive in time. Check the Actions tab of the repository.';
-    }, function (e) { st.textContent = 'failed: ' + e.message; }).then(function () { btns.forEach(function (b) { b.disabled = false; }); syncAll(); });
+    }, function (e) { st.textContent = 'failed: ' + e.message; }).then(function () { popIn(st); btns.forEach(function (b) { b.disabled = false; }); syncAll(); });
   }
   var sendSyncs = [];
   function syncAll() { sendSyncs.forEach(function (f) { f(); }); }
@@ -2900,8 +2908,8 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }
     // a candidate was chosen: take over its artist and reload link / lyrics / videos from the song (a hand-typed value is replaced too)
     function pickSong(r) {
-      sl._touched = false; sy._touched = false; vTouched = false; auto = false; autoY = false; autoV = false;
-      prog = true; sl.value = ''; prog = false; progY = true; sy.value = ''; progY = false; vSet([]); vo._touched = false; autoVo = false; progVo = true; vo.value = ''; progVo = false;
+      sl._touched = false; sy._touched = false; auto = false; autoY = false;
+      prog = true; sl.value = ''; prog = false; progY = true; sy.value = ''; progY = false; vClear(); vo._touched = false; autoVo = false; progVo = true; vo.value = ''; progVo = false;
       if (artKey(sa.value) !== artKey(r.artist)) { sa.value = r.artist || ''; sa.dispatchEvent(new Event('input', { bubbles: true })); }
     }
     var CH = ['Girls\u00B2', 'Laki', 'Girls\u00B2 \u00D7 iScream', '\u304A\u306F\u30AC\u30FC\u30EB', 'miracle\u00B2', 'magical\u00B2', 'mirage\u00B2', 'lovely\u00B2']; // artist chips
@@ -2933,21 +2941,28 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     addSuggest(vo, vocalOpts, vo.closest('.field'), true, false, function () { return !!artKey(sa.value); });
     function hasMine() { var a = artSet(sa.value); return a.length > 0 && (cache.songs || []).some(function (r) { if (!r || !r.title) return false; var rs = artSet(r.artist); return a.every(function (x) { return rs.indexOf(x) >= 0; }); }); }
     tsug = addSuggest(st, titleOpts, st.closest('.field'), false, false, hasMine); sa.addEventListener('change', function () { if (sa.value.trim()) tsug.show(); }); // an artist is chosen: the songs of it are listed when the cursor enters the title
-    // videos (YouTube): rows of [type][tags][buttons][open] + the url box under each row. A type chip adds a row; typing in a row is free text. Sent as lines `type | url | tags` (replaces the whole list).
+    // videos (YouTube): rows of [type][tags][buttons] + the url box under each row. A type chip adds a row (no chip, removed with its x). The registered videos are chips folded under the `videos links` button. Typing in a row is free text. Sent as lines `type | url | tags` (replaces the whole list).
     var VT = ['MV', 'Dance Practice', 'Lyric', 'Live', 'Reaction', 'Call Lecture', 'Performance', 'Fancam'], YT = /^https?:\/\/(www\.|m\.|music\.)?(youtube\.com|youtu\.be)\//i;
-    var vrows = $('svrows'), vch = $('svch'), vTouched = false, autoV = false, autoM = null; vrows.className = 'chipr snsl'; // one video per row, like the sns links of logs
+    var vrows = $('svrows'), vch = $('svch'), regM = null, vOpen = false; vrows.className = 'chipr snsl'; // vrows = videos added now, vreg = videos registered in the loaded song (regM)
+    var vreg = $('svreg'), vtog = wbtn('', function () { vFold(!vOpen); }); $('svtog').appendChild(vtog);
+    function vFold(open) { vOpen = open; vreg.hidden = !open || !vreg.children.length; vCount(); }
+    function vCount() { // videos links (registered) +added -removed, like the sns links button of logs
+      var reg = [].slice.call(vreg.children), del = reg.filter(function (w) { return w._del || !w._u.value.trim(); }).length, add = [].filter.call(vrows.children, function (w) { return !!w._u.value.trim(); }).length, open = vOpen && reg.length > 0;
+      vtog.textContent = 'videos links (' + reg.length + ') ' + (open ? '\u25B4' : '\u25BE'); vtog.setAttribute('aria-expanded', open ? 'true' : 'false');
+      [[add, 'snsadd', ' +'], [del, 'snsdel', ' -']].forEach(function (c) { if (!c[0]) return; var sp = document.createElement('span'); sp.className = c[1]; sp.textContent = c[2] + c[0]; vtog.appendChild(sp); });
+    }
     function vTagList(v) { return String(v || '').split(/[,\u3001\uFF0C]/).map(function (x) { return x.trim(); }).filter(function (x, i, a) { return x && a.indexOf(x) === i; }); }
-    function vList() { return [].map.call(vrows.children, function (r) { return { type: r._t.value.trim(), url: r._u.value.trim(), tags: r._tg ? r._tg.value : '', del: !!r._del, el: r }; }); }
+    function vList() { return [].slice.call(vreg.children).concat([].slice.call(vrows.children)).map(function (r) { return { type: r._t.value.trim(), url: r._u.value.trim(), tags: r._tg ? r._tg.value : '', del: !!r._del, el: r }; }); }
     function vText(list) { return list.filter(function (v) { return v.url && !v.del; }).map(function (v) { var tg = vTagList(v.tags).join(','); return (v.type || 'Other') + ' | ' + v.url + (tg ? ' | ' + tg : ''); }).join('\n'); }
     function vAdd(type, url, tags, orig) {
       var w = document.createElement('div'), r = document.createElement('div'); r.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px;align-items:center'; w.className = 'vw'; // w = one video (the chip + the editor row r)
       var t = alInput(); t.placeholder = 'type'; t.style.cssText = 'flex:0 0 6.5em;min-width:0'; t.value = type || '';
       var u = alInput(); u.placeholder = 'https://youtu.be/...'; u.style.cssText = 'flex:1;min-width:0'; u.value = url || ''; r._u = u;
       var x = document.createElement('button'); x.type = 'button'; x.className = 'small'; x.textContent = '\u2715'; x.setAttribute('aria-label', 'remove');
-      x.onclick = function () { w.remove(); vTouched = true; autoV = false; upd(); }; x.style.display = 'none'; // deleting is done with the x of the chip
+      x.onclick = function () { w.remove(); upd(); }; x.style.display = orig ? 'none' : ''; // a registered video is deleted with the x of its chip
       var tg = alInput(); tg.placeholder = 'tags (comma separated, optional)'; tg.style.cssText = 'flex:1;min-width:0'; tg.value = Array.isArray(tags) ? tags.join(',') : (tags || ''); r._tg = tg;
-      [t, u, tg].forEach(function (e) { e.addEventListener('input', function () { vTouched = true; autoV = false; upd(); }); });
-      function mvb(txt, lab, dir) { var m = document.createElement('button'); m.type = 'button'; m.className = 'small'; m.textContent = txt; m.setAttribute('aria-label', lab); m.onclick = function () { var sib = dir < 0 ? w.previousElementSibling : w.nextElementSibling; if (!sib) return; if (dir < 0) vrows.insertBefore(w, sib); else vrows.insertBefore(sib, w); vTouched = true; autoV = false; upd(); }; return m; }
+      [t, u, tg].forEach(function (e) { e.addEventListener('input', upd); });
+      function mvb(txt, lab, dir) { var m = document.createElement('button'); m.type = 'button'; m.className = 'small'; m.textContent = txt; m.setAttribute('aria-label', lab); m.onclick = function () { var sib = dir < 0 ? w.previousElementSibling : w.nextElementSibling; if (!sib) return; if (dir < 0) w.parentNode.insertBefore(w, sib); else w.parentNode.insertBefore(sib, w); upd(); }; return m; }
       r.appendChild(t); r.appendChild(tg); r.appendChild(mvb('\u2191', 'up', -1)); r.appendChild(mvb('\u2193', 'down', 1)); var uw = document.createElement('div'); uw.style.cssText = 'flex:0 0 100%;display:flex;gap:6px;align-items:center;min-width:0'; var iw = document.createElement('div'); iw.style.cssText = 'flex:1;position:relative;min-width:0'; u.style.cssText = 'width:100%;box-sizing:border-box;min-width:0'; iw.appendChild(u); addOpen(u, 5); uw.appendChild(iw); uw.appendChild(x); r.appendChild(uw); w._t = t; w._u = u; w._tg = tg; w._del = false; w._ed = r; // the editor row (r): line 1 = type, tags, up / down; line 2 = url (open icon inside)
       var cw = document.createElement('span'); cw.className = 'chipw'; // the chip like a sns link: url / type and tags, then edit, delete and open
       var cb = document.createElement('button'); cb.type = 'button'; cb.className = 'chip'; cb.title = 'edit type / url / tags';
@@ -2962,22 +2977,22 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         if (/^https?:\/\//i.test(u1)) { ob.href = u1; ob.style.visibility = ''; } else { ob.removeAttribute('href'); ob.style.visibility = 'hidden'; }
       }
       cb.onclick = eb.onclick = function () { showEd(r.hidden); };
-      db.onclick = function () {
-        if (!orig) { w.remove(); vTouched = true; autoV = false; upd(); return; } // a video that was added now: removed at once
-        w._del = !w._del; cb.classList.toggle('rm', w._del); db.textContent = w._del ? '\u21a9' : '\u00d7'; db.title = w._del ? 'restore' : 'remove'; db.setAttribute('aria-label', (w._del ? 'restore' : 'remove') + ' video'); // a loaded video: struck through, restorable
-        vTouched = true; autoV = false; upd();
+      db.onclick = function () { // struck through, restorable
+        w._del = !w._del; cb.classList.toggle('rm', w._del); db.textContent = w._del ? '\u21a9' : '\u00d7'; db.title = w._del ? 'restore' : 'remove'; db.setAttribute('aria-label', (w._del ? 'restore' : 'remove') + ' video');
+        upd();
       };
       [t, u, tg].forEach(function (e) { e.addEventListener('input', refresh); });
-      w._cb = cb; refresh(); showEd(!orig);
-      cw.appendChild(cb); cw.appendChild(eb); cw.appendChild(db); cw.appendChild(ob); w.appendChild(cw); w.appendChild(r); vrows.appendChild(w); return w;
+      refresh(); showEd(!orig);
+      if (orig) { w._cb = cb; cw.appendChild(cb); cw.appendChild(eb); cw.appendChild(db); cw.appendChild(ob); w.appendChild(cw); } // a video that is added now has no chip: only the editor row
+      w.appendChild(r); (orig ? vreg : vrows).appendChild(w); return w;
     }
     VT.slice(0, -1).concat(['+'], VT.slice(-1)).forEach(function (v) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = v === '+' ? 'Etc' : v;
-      b.onclick = function () { var r = vAdd(v === '+' ? '' : v, ''); vTouched = true; autoV = false; r._u.focus(); upd(); };
+      b.onclick = function () { var r = vAdd(v === '+' ? '' : v, ''); r._u.focus(); upd(); };
       vch.appendChild(b);
     });
-    function vSet(list) { vrows.innerHTML = ''; (list || []).forEach(function (v) { vAdd(v.type, v.url, v.tags, true); }); }
-    function vClear() { vTouched = false; autoV = false; vSet([]); }
+    function vSet(list) { vreg.innerHTML = ''; (list || []).forEach(function (v) { vAdd(v.type, v.url, v.tags, true); }); vFold(false); } // the registered list (folded at first)
+    function vClear() { regM = null; vrows.innerHTML = ''; vSet([]); }
     function setLink(v) { prog = true; sl.value = v; sl.dispatchEvent(new Event('input', { bubbles: true })); prog = false; }
     function setLyr(v) { progY = true; sy.value = v; sy.dispatchEvent(new Event('input', { bubbles: true })); progY = false; }
     function upd() {
@@ -2993,10 +3008,10 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (autoVo && !(match && mvo === vo.value.trim())) { autoVo = false; progVo = true; vo.value = ''; progVo = false; } // the value was filled from another song
       if (mvo && !vo.value.trim() && !vo._touched) { autoVo = true; progVo = true; vo.value = mvo; progVo = false; }
       var mv = match && Array.isArray(match.videos) ? match.videos : [];
-      if (autoV && match !== autoM) { autoV = false; vSet([]); } // the rows were filled from another song
-      if (match && mv.length && !vList().length && !vTouched) { autoV = true; autoM = match; vSet(mv); }
+      if (match !== regM) { regM = match; vSet(mv); } // the registered videos follow the song; the videos added now stay
       var vl = vList(), vBad = false;
-      vl.forEach(function (v) { var bad = !v.del && !!v.url && !YT.test(v.url); v.el._u.classList.toggle('bad', bad); if (v.el._cb) v.el._cb.style.borderColor = bad ? '#d33' : ''; if (bad) vBad = true; });
+      vl.forEach(function (v) { var bad = !v.del && !!v.url && !YT.test(v.url); v.el._u.classList.toggle('bad', bad); if (v.el._cb) v.el._cb.style.borderColor = bad ? '#d33' : ''; if (bad) { vBad = true; if (v.el.parentNode === vreg && !vOpen) vFold(true); } }); // a bad registered url is not left folded away
+      vCount();
       var vt = vText(vl), mt = vText(mv.map(function (v) { return { type: v.type, url: v.url, tags: Array.isArray(v.tags) ? v.tags.join(',') : '' }; }));
       var ly = sy.value.trim(), lyBad = !!ly && ly.indexOf(UTA) !== 0; sy.classList.toggle('bad', lyBad);
       var l = sl.value.trim(), p = {};
@@ -3014,7 +3029,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     sy.addEventListener('input', function () { if (!progY) { sy._touched = true; autoY = false; } upd(); });
     vo.addEventListener('input', function () { if (!progVo) { vo._touched = true; autoVo = false; } upd(); });
     sa.addEventListener('input', upd); st.addEventListener('input', upd);
-    st.addEventListener('input', function () { if (!st.value.trim() && !prog) { sl._touched = false; sy._touched = false; vTouched = false; } });
+    st.addEventListener('input', function () { if (!st.value.trim() && !prog) { sl._touched = false; sy._touched = false; } });
     // the songs button: after the form page is opened, the input is reset
     $('go-songs').addEventListener('click', function () {
       if ($('go-songs').getAttribute('aria-disabled') === 'true') return;
