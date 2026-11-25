@@ -1,9 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "b3b309602b0b",
-  "groups_free": "L2,TBK,AKR,G2",
-  "sns": "https://x.com/Laki922official/status/2125394043064426685?a=_A49pT3DhOPY90iALKg&s=19 | TBK,AKR | FC情報"
- },
- "created": "2026-11-25T01:15:27Z"
-}

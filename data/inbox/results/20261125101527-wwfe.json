@@ -1,0 +1,11 @@
+{
+ "id": "20261125101527-wwfe",
+ "status": "done",
+ "time": "2026-11-25 10:15:46 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261125101527_20261125101527-wwfe.json"
+ ],
+ "errors": [],
+ "notes": []
+}
