@@ -1,0 +1,42 @@
+{
+  "logid": "ee81bc66813b",
+  "groups": [
+    "L2",
+    "TBK",
+    "YUW",
+    "AKR",
+    "KIK"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/Laki922official/status/2125223187474698511?a=ORm9cd3Fyt9bWMJ6lfU&s=19",
+          "member": [],
+          "tags": [
+            "TikTok更新"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSs2KKFwh/",
+          "member": [
+            "TBK",
+            "YUW",
+            "AKR",
+            "KIK"
+          ],
+          "tags": [
+            "ラストティーン"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3827"
+}

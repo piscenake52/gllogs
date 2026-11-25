@@ -2895,7 +2895,10 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
-      "YUW"
+      "TBK",
+      "YUW",
+      "AKR",
+      "KIK"
     ],
     "sns": [
       {
@@ -2906,6 +2909,30 @@
             "member": [],
             "tags": [
               "本日の配信情報"
+            ]
+          },
+          {
+            "url": "https://x.com/Laki922official/status/2125223187474698511?a=ORm9cd3Fyt9bWMJ6lfU&s=19",
+            "member": [],
+            "tags": [
+              "TikTok更新"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSs2KKFwh/",
+            "member": [
+              "TBK",
+              "YUW",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "ラストティーン"
             ]
           }
         ]
