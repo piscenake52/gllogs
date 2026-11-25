@@ -230749,6 +230749,52 @@
     "suffix": "記念日"
   },
   {
+    "logid": "729bee3f640a",
+    "date": "20181118",
+    "time": "1700",
+    "contents": "LIVE",
+    "title": "magical² LIVE Magic 埼玉公演",
+    "venue": "春日部市民文化会館",
+    "groups": [
+      "G2",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
+    ],
+    "setlistid": "201811181700"
+  },
+  {
+    "logid": "897607c5328d",
+    "date": "20181118",
+    "time": "1100",
+    "contents": "LIVE",
+    "title": "magical² LIVE Magic 埼玉公演",
+    "venue": "春日部市民文化会館",
+    "groups": [
+      "G2",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR"
+    ],
+    "setlistid": "201811181100"
+  },
+  {
+    "logid": "9a3d9075153e",
+    "date": "20181118",
+    "contents": "ANNIVERSARY",
+    "ref": "897607c5328d",
+    "suffix": "記念日"
+  },
+  {
+    "logid": "35c82aae85d5",
+    "date": "20181118",
+    "contents": "ANNIVERSARY",
+    "ref": "729bee3f640a",
+    "suffix": "記念日"
+  },
+  {
     "logid": "b489221f3547",
     "date": "20181017",
     "time": "1830",
