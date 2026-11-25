@@ -1927,7 +1927,36 @@
     "contents": "RADIO",
     "title": "文化放送 「Girls²のがるがるトーク！」",
     "groups": [
-      "G2"
+      "G2",
+      "KUR",
+      "MNM"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2125529394114666569?a=InzPD8SvXZ0qzkkoMh0&s=19",
+            "member": [
+              "KUR",
+              "MNM"
+            ],
+            "tags": [
+              "ラジオ情報"
+            ]
+          },
+          {
+            "url": "https://x.com/joqrgirls/status/2125529329425887243?a=CSCamLanrV5uRPqC9fY&s=19",
+            "member": [
+              "KUR",
+              "MNM"
+            ],
+            "tags": [
+              "くれみなコンビ"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
