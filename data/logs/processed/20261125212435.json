@@ -1,0 +1,40 @@
+{
+  "logid": "2e838e8af91f",
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/OCTPATHofficial/status/2125515122974318842?a=SU4W5uSrPT7Z963--5M&s=19",
+          "member": [
+            "KUR",
+            "MNM",
+            "KIR"
+          ],
+          "tags": [
+            "TikTok更新",
+            "OCTPATH"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tiktok",
+      "urls": [
+        {
+          "url": "https://vt.tiktok.com/ZSs6Y6fmf/",
+          "member": [
+            "KUR",
+            "MNM",
+            "KIR"
+          ],
+          "tags": [
+            "OCTPATH",
+            "スマイルソング"
+          ]
+        }
+      ]
+    }
+  ],
+  "_issue": "3844"
+}
