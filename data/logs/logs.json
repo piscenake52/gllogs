@@ -1546,6 +1546,33 @@
     ]
   },
   {
+    "logid": "62bba32b4710",
+    "date": "20261129",
+    "time": "1130",
+    "contents": "TV",
+    "title": "テレビ東京「種から植えるTV」",
+    "groups": [
+      "G2",
+      "MSK",
+      "YOK",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/taneue70403/status/2125537415775568195?a=ooGOZaNNKGJxn_uMzQk&s=19",
+            "member": [],
+            "tags": [
+              "種から植えるTV"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "f09c8fc46741",
     "date": "20261129",
     "time": "",
