@@ -69,7 +69,7 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
   - Issueフォーム `add_songs.yml`: `vocal` 欄(artistの下)と、「値の削除(更新時)」の `vocal` を追加。
   - `issue_to_json.py`: ラベル `vocal` を読み、songsのレコードに入れる(`CLEARABLE` の songs に `vocal`)。`merge_json.py`: songs の項目の並びは `artist, vocal, title, link, lyrics, videos`。
   - 更新: 入力した項目だけ上書き(空欄は変更しない)。消すときは「値の削除」または `!clear`。`videos` は入力すると丸ごと置き換わる。曲の削除は `DELETE`。
-  - helper(songs)のvideos入力: 1行目は type・tags・↑↓、2行目は url(欄の右端の内側に↗アイコン。http(s)の値のときだけ表示し、押すと新しいタブで開く)と、右端に✕(その行を削除)。送る書式は `type | url | tags` のまま。
+  - helper(songs)のvideos入力: 登録済みの動画ごとに1つのチップで表示する。✎で編集行を開く / ×で取り消し線(↩で元に戻す) / ↗で新しいタブで開く。新しく足した動画は、×で即座に消える。送る書式は `type | url | tags` のまま。`!clear` で全削除。
   - 同じ曲かどうかは `artist` と `title` の完全一致で決まる。artist / title を変えると別の曲(新規)になり、元の曲は残る(名前の変更は旧データを `DELETE` して登録し直す)。
 - **snsの type 自動補正**(`issue_to_json.py`): `type | url` で type を明示しても、それが `site` か `etc` で、URLのドメインが X / Instagram / YouTube / TikTok / CL / radiko / GL²family と判定できるときは、その種類にする。type 自体を省略したときの自動判定は従来どおり(判定できなければ `etc`)。
 - **共通部品 `common.py`**: `is_blank` / `album_type_ok` / `map_from_html`(`<iframe src>` の埋め込みHTMLを地図URLに直す。`&amp;`→`&`)。`issue_to_json.py` と `merge_json.py` が `from common import ...` で使うため、Actionsでは **`common.py` と `schema.json` を、スクリプトと同じ場所(`scripts/`)に置く**(`schema.json` は項目の定義。「保守のための仕組み」を参照)。
@@ -78,11 +78,11 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 #### 保守のための仕組み(テスト・事前チェック・項目定義)
 
 - **`scripts/schema.json`**: 項目の定義を集めたファイル。`logs` `setlist` `songs` `albums` それぞれの `order`(保存時の項目の並び)・`key_fields`(識別キー)・`index_fields`(インデックスに入れる項目)・`clearable`(更新時に「値の削除」で消せる項目)と、フォームの項目名 `labels_logs` / `labels_ss`。`common.py` が読み込み(`SCHEMA`)、`issue_to_json.py` と `merge_json.py` はそこから値を取る(コード中の直書きをやめた。値は従来と同じ)。
-- **`scripts/check_repo.py`**(事前チェック): ①data のJSONが読めるか(queue・inbox は除く) ②`add_logs.yml` `add_setlist.yml` `add_songs.yml` の項目名が `LABELS_*` と一致するか、「値の削除」の選択肢が `clearable` と一致するか ③helper の `<script>` が ASCII のみか ④`schema.json` の整合(識別キー・消せる項目・インデックス項目が `order` に含まれる、重複がない)と、helper の `DEFS` に logs / setlist の編集できる全項目があるか ⑤`merge_json.py`(`--rebuild-index` なし)を実行するワークフローが `auto_merge.yml` と `process_queue.yml` だけか。問題があれば終了コード1。
-- **`tests/`**(`unittest`。`python -m unittest discover -s tests -v`): `helpers.py`(一時フォルダにリポジトリと同じ並びを作り、本物のスクリプトを実行する)、`test_pipeline.py`(logs の新規・更新・削除・繰り返し・インデックス・マニフェストの安定、setlist の曲順なし・個別変更、venue の同期4種(上書き・消去・新規setlistへの引き継ぎ・タグからは引き継がない)、読めないJSONのエラー報告と他ファイルの処理継続、inbox の登録・入力エラー・不正テンプレート・同時刻の依頼)、`test_check_repo.py`(事前チェックが問題を見つけられるか)。計27件。
-- **`.github/workflows/tests.yml`**: scripts・tests・.github・helper の変更、PR、手動で、事前チェックとテストを実行する。data の更新では動かない。権限は contents: read のみ。
+- **`scripts/check_repo.py`**(事前チェック): ①data のJSONが読めるか(queue・inbox は除く) ②`add_logs.yml` `add_setlist.yml` `add_songs.yml` の項目名が `LABELS_*` と一致するか、「値の削除」の選択肢が `clearable` と一致するか ③helper の `<script>` が ASCII のみか ④`schema.json` の整合(識別キー・消せる項目・インデックス項目が `order` に含まれる、重複がない)と、helper の `DEFS` に logs / setlist の編集できる全項目があるか ⑤`merge_json.py`(`--rebuild-index` `--rebuild-manifest` なし)を実行するワークフローが `auto_merge.yml` と `process_queue.yml` だけか。問題があれば終了コード1。
+- **`tests/`**(`unittest`。`python -m unittest discover -s tests -v`): `helpers.py`(一時フォルダにリポジトリと同じ並びを作り、本物のスクリプトを実行する)、`test_pipeline.py`(logs の新規・更新・削除・繰り返し・インデックス・マニフェストの安定、setlist の曲順なし・個別変更、venue の同期4種(上書き・消去・新規setlistへの引き継ぎ・タグからは引き継がない)、読めないJSONのエラー報告と他ファイルの処理継続、inbox の登録・入力エラー・不正テンプレート・同時刻の依頼)、`test_check_repo.py`(事前チェックが問題を見つけられるか)。計28件。あわせて `tests/test_viewer.py`(ビューアをブラウザ(Playwright + Chromium)で開き、通信はモック・日付は固定で確認する。axe-core によるアクセシビリティ検査を含む。37件)があり、合計65件。
+- **`.github/workflows/tests.yml`**: scripts・tests・.github・helper・index.html の変更、PR、手動で動く。`test` ジョブ(事前チェックと unittest)と `viewer` ジョブ(`tests.test_viewer`。Playwright・axe-core を入れて実行)の2つ。data の更新では動かない。権限は contents: read のみ。
 - **項目を足す手順**は README の「テストと事前チェック」にある。
-- 検証状況: ローカル(Python 3.10 相当)での実行のみ。GitHub Actions 上では未実行。
+- 検証状況: ローカルでの実行のみ(unittest 28件+viewer 37件)。GitHub Actions 上(`test` / `viewer` ジョブ)の結果は未確認。
 
 ### ビューア(index.html)
 
@@ -133,7 +133,7 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 - **TODAY / ICON のボタン**: 幅を TODAY にそろえる(`#iconToggleBtn::after` に TODAY の文字を透明で置いて幅を確保)。
 - **FILTER の自動ON を廃止**: ▲/▼ ボタンで FILTER ボタンを自動でONにする動きをやめた(起動時の復元も同じ)。
 - **読み込み・表示の最適化**: `songIndex()`(小文字化した曲名の Map と、統計用の Set)で線形の検索を置き換える。`SORT_TITLE_COLLATOR` を `updateDisplay` の外に出す。`makeDataSource` は manifest ベース(`getManifest(force)`、`latest()`、`fetchFresh(info)`、API の sha へのフォールバック、`defer`)。songs・setlist・albums は、logs の描画が済むまで読み込みを遅らせる(`logsStarted`)。`<head>` の先頭スクリプトで IndexedDB の読み出しを早めに始める。
-- **アニメーション**: 押したときの縮み(WAAPI の `scale`)、ON にしたときの円形(`clip-path`)の広がり(ユーザー操作から1200ms以内の `is-active` だけ)、ポップアップの `translateY(18px) scale(.96)` からの表示。`MOTION` の変数で速度を調整する。
+- **アニメーション**: 押したときの縮み(WAAPI の `scale`)、ON にしたときの円形(`clip-path`)の広がり(ユーザー操作から1200ms以内の `is-active` だけ)、ポップアップの `translateY(18px) scale(.96)` からの表示。`MOTION` の変数で速度を調整する。共有のトースト(`#shareToast`)は、下から少し上がりながら出る(opacity と transform だけ)。アニメーションは opacity / transform のみ・0.2秒以内を原則とし、`prefers-reduced-motion` では止める。
 
 ### helper(issue_helper_blogger.html)
 
@@ -1104,7 +1104,7 @@ BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`
 ## リンク切れチェック(link_check.py / link_check.yml)
 
 - GitHub Actions が毎日 03:00(JST)に、logs.json の `url` / `map` を少しずつ確認する(手動実行も可。件数は `limit` で変えられる)。結果は `data/logs/link_state.json`(全URLの状態)と `data/logs/link_report.json`(切れだけ)に保存され、helper の check タブ `link broken` が読む。
-- 通常の閲覧・運営に影響しないための制限: 1回 250 件・25 分まで / 確認の間隔 1 秒(ブラウザ) 0.5 秒(それ以外) / ブラウザでは画像・動画・フォント・CSS を読み込まない / 毎日の夜間のみ。確認が古い順に回るので、全件が一巡するまで数十日かかる。`url` を直した行は未確認として優先して確認される。
+- 通常の閲覧・運営に影響しないための制限: 1回 250 件(ワークフローの既定。`link_check.py` 単体の既定は 400 件)・25 分まで / 確認の間隔 1 秒(ブラウザ) 0.5 秒(それ以外) / ブラウザでは画像・動画・フォント・CSS を読み込まない / 毎日の夜間のみ。確認が古い順に回るので、全件が一巡するまで数十日かかる。`url` を直した行は未確認として優先して確認される。
 - 判定方法: 
   - girls2-fc.jp/page/...: 画面なしの Chromium で開き、最大 8 秒待つ。記事のタイトルが出れば ok、サイト共通のタイトル(`Girls²(ガールズガールズ)...`)のまま、またはトップへ遷移したら NG。
   - YouTube(watch / youtu.be / shorts / live): oEmbed で 404 なら NG(401/403 は判定不能)。

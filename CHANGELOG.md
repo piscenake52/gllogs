@@ -4,6 +4,7 @@
 
 ## 変更の履歴(新しい順)
 
+- **2026-11-25(文書の見直し・helper・viewer)** SPEC.md・README.md・CHANGELOG.md を現状に合わせた(テスト件数 28+viewer 37=65、`tests.yml` の `viewer` ジョブ、`check_repo.py` の `--rebuild-manifest` 除外、リンク切れチェックの件数の既定値(workflow 250 / 単体 400)、動画入力の表示)。helper(songs)の videos 入力を、動画ごとの1チップ表示に変更(✎ 編集 / × 取り消し線・↩ 元に戻す / ↗ 開く。新規の動画は × で即削除)。共有のトーストを、下から上がる動き(opacity / transform)に。不要になった `script.js` / `style.css` を削除。見送った案: BIRTHDAY の「誕生日」フォールバック、helper の入力時の空白の正規化、find の軽量インデックス(案B)。
 - **2026-11-24(helper)** 繰り返し登録: `display_pc` に対応、`optional` を `display_sp` に改名、schedule・tour にも確認一覧(title / pc / sp)を追加(interval は `pc:` / `sp:` を表示)。title の候補(Instagram Live・TikTok Live・CLキャス・GLRADIO・schedule の行ラベル)、SNS の title 自動入力(groups 選択時のみ)、setlistid 欄を TOUR でも表示。songs の videos の入力画面(url とタグの入れ替え、↗ と ✕ の位置)。id 検索の読み込み: IndexedDB のコピー(10分)の利用と、読み込み中・エラーの表示。
 - **2026-11-24(viewer・データ)** 抽出タグのフォールバック(DIARY=日記更新、GTUBE=Gtube、GLRADIO=がるらじ)。ANNIVERSARY の参照行に venue・tags・sns・抽出タグを引き継ぐ。SNS チップの背景を通常タグと同じにした(破線は維持)。viewer のテスト(`tests/test_viewer.py`、`tests.yml` の `viewer` ジョブ)。`check_repo.py` が `--rebuild-manifest` を誤検出する問題を修正。空白の正規化(`space_normalize_20261122.json`、393件)。
 - **2026-11-20(文書の見直し)** SPEC.md の詳細メモを、コードと突き合わせて現行に合わせた: メンバーのランプ色、DISPLAYのスイッチ(9つ・`hdr`の保存)、tour 行の venue、ファイル一覧(`process_queue.yml` ほか)、データ取得の流れ(manifest)、display_sp の共通名(`optional`欄)。

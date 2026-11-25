@@ -154,11 +154,11 @@ tour(helper の mode: tour)の1行は、末尾まで書くと `日付 時刻 | �
 
 ```
 python scripts/check_repo.py                 # 事前チェック
-python -m unittest discover -s tests -v      # 自動テスト
+python -m unittest discover -s tests -v      # 自動テスト(viewer のテストも含む。Playwright が無いと viewer は動かない)
 ```
 
 - **事前チェック**(`scripts/check_repo.py`): data の JSON が読めるか / フォーム(`add_*.yml`)と `issue_to_json.py` の項目名が一致しているか / 「値の削除」の選択肢が合っているか / helper の `<script>` が ASCII だけか / `schema.json` と helper の項目が合っているか / キューを処理するワークフローが2つ(`auto_merge.yml` `process_queue.yml`)だけか。
-- **自動テスト**(`tests/`): 本物のスクリプトを一時フォルダで動かし、logs の登録・更新・削除、繰り返し登録、setlist の曲順なし、venue の同期、読めない JSON のエラー報告、helper 直送(inbox)を確かめます。直した所以外が壊れていないかの確認に使います。
+- **自動テスト**(`tests/`): 本物のスクリプトを一時フォルダで動かし、logs の登録・更新・削除、繰り返し登録、setlist の曲順なし、venue の同期、読めない JSON のエラー報告、helper 直送(inbox)を確かめます(28件)。`tests/test_viewer.py`(37件)は、ビューア(`index.html`)をブラウザで実際に開き、通信はモック・日付は固定で表示と操作、アクセシビリティ(axe-core)を確かめます(実行には `pip install playwright` と `playwright install chromium`、`npm install axe-core@4` が必要)。`tests.yml` の `test` ジョブと `viewer` ジョブで自動実行されます。直した所以外が壊れていないかの確認に使います。
 
 ### 項目を足すとき(例: logs に `foo` を足す)
 1. `scripts/schema.json` … `logs.order`(並び順)に足す。更新時に消せる項目なら `logs.clearable` にも足す。フォームの項目名は `labels_logs` に足す。
