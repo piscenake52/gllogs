@@ -1,0 +1,11 @@
+{
+ "id": "20261125113306-52ba",
+ "status": "done",
+ "time": "2026-11-25 11:33:25 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261125113306_20261125113306-52ba.json"
+ ],
+ "errors": [],
+ "notes": []
+}
