@@ -2275,6 +2275,41 @@
             "tags": [
               "テレビ出演情報"
             ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2125201677452263727?a=Q_wTc0or7WoRbs4Jlxo&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "本日放送"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tiktok",
+        "urls": [
+          {
+            "url": "https://vt.tiktok.com/ZSs2EJx8B/",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "EASY"
+            ]
           }
         ]
       }
