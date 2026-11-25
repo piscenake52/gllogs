@@ -1,0 +1,11 @@
+{
+ "id": "20261125103121-wybl",
+ "status": "done",
+ "time": "2026-11-25 10:31:38 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261125103121_20261125103121-wybl.json"
+ ],
+ "errors": [],
+ "notes": []
+}
