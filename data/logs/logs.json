@@ -2246,6 +2246,45 @@
     ]
   },
   {
+    "logid": "2e838e8af91f",
+    "date": "20261125",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/Girls2_official/status/2125430043669406169?a=-V0RdiLjE6wXyAzkU38&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "ネットサイン会開催決定"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "27c23c67860e",
     "date": "20261124",
     "time": "2359",
