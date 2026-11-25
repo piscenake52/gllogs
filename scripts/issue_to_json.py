@@ -13,7 +13,7 @@ CONTENTS_OPTIONS = {"ANNIVERSARY", "BIRTHDAY", "DEBUT", "FORMATION", "CL", "COLU
 
 # フォームの項目名(ラベル)は scripts/schema.json の labels_logs / labels_ss(フォームの label と完全一致させる)
 LABELS_LOGS = SCHEMA["labels_logs"]
-# add_setlist_songs.yml
+# add_setlist.yml / add_songs.yml
 LABELS_SS = SCHEMA["labels_ss"]
 # 旧フォーム(データの種類ドロップダウンあり)のIssueを誤って処理しないための目印
 LEGACY_MARKER = "### データの種類 (Type / logs, setlist, songs)"
@@ -37,7 +37,7 @@ ERROR_FILE = "issue_error.md"
 # 「値の削除（更新時）」チェックボックスで消せる項目（識別キーは除く。フォームの選択肢名と揃える）
 CLEARABLE = {t: SCHEMA[t]["clearable"] for t in ("logs", "setlist", "songs")}
 
-# 削除チェックボックスの選択肢名（add_logs.yml / add_setlist_songs.yml と揃える）
+# 削除チェックボックスの選択肢名（add_logs.yml / add_setlist.yml / add_songs.yml と揃える）
 DELETE_OPTION = "削除する"
 COPY_OPTION = "コピーして新規登録"  # logs: logid のデータをコピーして新規登録
 
