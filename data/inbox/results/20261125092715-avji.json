@@ -1,0 +1,11 @@
+{
+ "id": "20261125092715-avji",
+ "status": "done",
+ "time": "2026-11-25 09:27:31 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261125092715_20261125092715-avji.json"
+ ],
+ "errors": [],
+ "notes": []
+}
