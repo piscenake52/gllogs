@@ -1,8 +1,0 @@
-{
- "template": "add_logs.yml",
- "params": {
-  "logid": "dca7478820d3",
-  "tags": "=,ワンダンス"
- },
- "created": "2026-11-26T07:56:17Z"
-}

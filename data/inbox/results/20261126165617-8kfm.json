@@ -1,0 +1,11 @@
+{
+ "id": "20261126165617-8kfm",
+ "status": "done",
+ "time": "2026-11-26 16:56:35 JST",
+ "template": "add_logs.yml",
+ "queue_files": [
+  "data/logs/queue/20261126165617_20261126165617-8kfm.json"
+ ],
+ "errors": [],
+ "notes": []
+}
