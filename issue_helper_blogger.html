@@ -2942,7 +2942,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function hasMine() { var a = artSet(sa.value); return a.length > 0 && (cache.songs || []).some(function (r) { if (!r || !r.title) return false; var rs = artSet(r.artist); return a.every(function (x) { return rs.indexOf(x) >= 0; }); }); }
     tsug = addSuggest(st, titleOpts, st.closest('.field'), false, false, hasMine); sa.addEventListener('change', function () { if (sa.value.trim()) tsug.show(); }); // an artist is chosen: the songs of it are listed when the cursor enters the title
     // videos (YouTube): rows of [type][tags][buttons] + the url box under each row. A type chip adds a row (no chip, removed with its x). The registered videos are chips folded under the `videos links` button. Typing in a row is free text. Sent as lines `type | url | tags` (replaces the whole list).
-    var VT = ['MV', 'Dance Practice', 'Lyric', 'Live', 'Reaction', 'Call Lecture', 'Performance', 'Fancam'], YT = /^https?:\/\/(www\.|m\.|music\.)?(youtube\.com|youtu\.be)\//i;
+    var VT = ['MV', 'Dance Practice', 'Performance', 'Lyric', 'Live', 'Reaction', 'Call Lecture', 'Fancam'], YT = /^https?:\/\/(www\.|m\.|music\.)?(youtube\.com|youtu\.be)\//i;
     var vrows = $('svrows'), vch = $('svch'), regM = null, vOpen = false; vrows.className = 'chipr snsl'; // vrows = videos added now, vreg = videos registered in the loaded song (regM)
     var vreg = $('svreg'), vtog = wbtn('', function () { vFold(!vOpen); }); $('svtog').appendChild(vtog);
     function vFold(open) { vOpen = open; vreg.hidden = !open || !vreg.children.length; vCount(); }
