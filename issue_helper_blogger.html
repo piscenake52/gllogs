@@ -2947,7 +2947,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var vreg = $('svreg'), vtog = wbtn('', function () { vFold(!vOpen); }); $('svtog').appendChild(vtog);
     function vFold(open) { vOpen = open; vreg.hidden = !open || !vreg.children.length; vCount(); }
     function vCount() { // videos links (registered) +added -removed, like the sns links button of logs
-      var reg = [].slice.call(vreg.children), del = reg.filter(function (w) { return w._del || !w._u.value.trim(); }).length, add = [].filter.call(vrows.children, function (w) { return !!w._u.value.trim(); }).length, open = vOpen && reg.length > 0;
+      var reg = [].slice.call(vreg.children), del = reg.filter(function (w) { return w._del; }).length, add = [].filter.call(vrows.children, function (w) { return !!w._u.value.trim(); }).length, open = vOpen && reg.length > 0;
       vtog.textContent = 'videos links (' + reg.length + ') ' + (open ? '\u25B4' : '\u25BE'); vtog.setAttribute('aria-expanded', open ? 'true' : 'false');
       [[add, 'snsadd', ' +'], [del, 'snsdel', ' -']].forEach(function (c) { if (!c[0]) return; var sp = document.createElement('span'); sp.className = c[1]; sp.textContent = c[2] + c[0]; vtog.appendChild(sp); });
     }
@@ -3009,7 +3009,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var mv = match && Array.isArray(match.videos) ? match.videos : [];
       if (match !== regM) { regM = match; vSet(mv); } // the registered videos follow the song; the videos added now stay
       var vl = vList(), vBad = false;
-      vl.forEach(function (v) { var bad = !v.del && !!v.url && !YT.test(v.url); v.el._u.classList.toggle('bad', bad); if (v.el._cb) v.el._cb.style.borderColor = bad ? '#d33' : ''; if (bad) { vBad = true; if (v.el.parentNode === vreg && !vOpen) vFold(true); } }); // a bad registered url is not left folded away
+      vl.forEach(function (v) { var bad = !v.del && (v.url ? !YT.test(v.url) : v.el.parentNode === vreg); v.el._u.classList.toggle('bad', bad); if (v.el._cb) v.el._cb.style.borderColor = bad ? '#d33' : ''; if (bad) { vBad = true; if (v.el.parentNode === vreg && !vOpen) vFold(true); } }); // a bad or empty registered url is not left folded away
       vCount();
       var vt = vText(vl), mt = vText(mv.map(function (v) { return { type: v.type, url: v.url, tags: Array.isArray(v.tags) ? v.tags.join(',') : '' }; }));
       var ly = sy.value.trim(), lyBad = !!ly && ly.indexOf(UTA) !== 0; sy.classList.toggle('bad', lyBad);

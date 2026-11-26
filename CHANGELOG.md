@@ -4,6 +4,8 @@
 
 ## 変更の履歴(新しい順)
 
+- **2026-11-26(helper songs・送信の条件)** 登録済みの動画の url が空の間は `songs` / `send` ボタンを出さないようにした(以前はその動画が送信内容から外れ、残りがないと `!clear` で全削除になった)。空の url は入力エラー(赤枠・一覧を自動で開く)とし、ボタンの `-n` には数えない。削除は × で指定する。
+- **2026-11-26(helper songs・チップの順)** type のチップの並びを動画ポップアップの表示順にそろえた(Performance を Dance Practice の次へ)。
 - **2026-11-26(viewer・helper songs)** 動画ポップアップの表示順を変更: Performance を Dance Practice の次(3番目)に入れ、Other・自由入力は Call Lecture の後ろ、Fancam は常に一番下にした(以前は MV → Dance Practice → Lyric → Live → Reaction → Call Lecture で、それ以外は登録順)。helper(songs)の videos の ↑↓ ボタンを削除した(順番を変えるには、削除して追加し直す)。
 - **2026-11-26(helper songs)** videos の表示を変更: 登録済みの動画を、一番下の `videos links (件数)` ボタン(logs の sns links と同じ開閉・`+n` / `-n` 表示)の中にまとめた。追加する動画はチップを出さず編集欄だけにし、✕ で削除する。追加分がある状態で曲を選んでも登録済みの動画を読み込み、追加分は後ろに残る。README.md の古い説明(行の ✕ で削除)も直した。通信をモックしたブラウザで確認(実機・Blogger は未確認)。
 - **2026-11-26(helper)** アニメーションを追加(`opacity` / `transform` のみ・0.2秒以内・reduced-motion では停止): repeat の中身・読み込み中の行・候補リスト・send の結果のフェードイン、チップを押している間の縮小。通信をモックしたブラウザで確認(実機・Blogger は未確認)。
