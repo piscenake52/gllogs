@@ -39,7 +39,7 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 - helper が `data/inbox/<id>.json` を GitHub の Contents API(PUT)で作る。`<id>` は `YYYYMMDDHHMMSS-xxxx`(日本時間+乱数4文字)。
 - 依頼ファイルの形: `{"template": "add_logs.yml", "params": {フォーム項目のid: 値}, "created": "…Z"}`。`params` は、helper が Issue 作成URLに付けていたものと同じ。使えるテンプレートは `add_logs / add_setlist / add_songs / add_albums / add_bulk` の5つ。
 - `scripts/inbox_to_json.py`: テンプレートの項目から Issue の本文(`### 見出し` + 値。チェックボックスは `- [X]` / `- [ ]`)を組み立て、`issue_to_json.py` に渡す(Issue と同じ変換)。作られた queue ファイルには、依頼の id を後ろに付ける(同じ秒に複数届いても上書きしない)。
-- 結果: `data/inbox/results/<id>.json`(`status` は `queued` → `merge_json.py` のあとの `--finish` で `done` / `error`、`errors`、`notes`、`queue_files`)。直近60件だけ残す。依頼ファイル自体は処理後に削除する。
+- 結果: `data/inbox/results/<id>.json`(`status` は `queued` → `merge_json.py` のあとの `--finish` で `done` / `error`、`errors`、`notes`、`queue_files`、`skipped`)。`skipped` は、`done` でも反映されなかったものがある(`queue_report.json` の行か `merge_notice.md` がある)ときに true。`merge_notice.md` は同時に処理した全依頼に付く。直近60件だけ残す。依頼ファイル自体は処理後に削除する。
 - `.github/ISSUE_TEMPLATE/*.yml` を読むので、リポジトリに置いておく。`scripts/` には `inbox_to_json.py` も置く。
 - 削除は、フォームの「DELETE」と同じ(`delete=削除する`)。更新は、Issue と同じく、識別キー(logid など)と変更する項目だけを送る。
 
@@ -84,10 +84,11 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 
 - **`scripts/schema.json`**: 項目の定義を集めたファイル。`logs` `setlist` `songs` `albums` それぞれの `order`(保存時の項目の並び)・`key_fields`(識別キー)・`index_fields`(インデックスに入れる項目)・`clearable`(更新時に「値の削除」で消せる項目)と、フォームの項目名 `labels_logs` / `labels_ss`。`common.py` が読み込み(`SCHEMA`)、`issue_to_json.py` と `merge_json.py` はそこから値を取る(コード中の直書きをやめた。値は従来と同じ)。
 - **`scripts/check_repo.py`**(事前チェック): ①data のJSONが読めるか(queue・inbox は除く) ②`add_logs.yml` `add_setlist.yml` `add_songs.yml` の項目名が `LABELS_*` と一致するか、「値の削除」の選択肢が `clearable` と一致するか ③helper の `<script>` が ASCII のみか ④`schema.json` の整合(識別キー・消せる項目・インデックス項目が `order` に含まれる、重複がない)と、helper の `DEFS` に logs / setlist の編集できる全項目があるか ⑤`merge_json.py`(`--rebuild-index` `--rebuild-manifest` なし)を実行するワークフローが `auto_merge.yml` と `process_queue.yml` だけか。問題があれば終了コード1。
-- **`tests/`**(`unittest`。`python -m unittest discover -s tests -v`): `helpers.py`(一時フォルダにリポジトリと同じ並びを作り、本物のスクリプトを実行する)、`test_pipeline.py`(logs の新規・更新・削除・繰り返し・インデックス・マニフェストの安定、setlist の曲順なし・個別変更、venue の同期4種(上書き・消去・新規setlistへの引き継ぎ・タグからは引き継がない)、読めないJSONのエラー報告と他ファイルの処理継続、inbox の登録・入力エラー・不正テンプレート・同時刻の依頼)、`test_check_repo.py`(事前チェックが問題を見つけられるか)。計28件。あわせて `tests/test_viewer.py`(ビューアをブラウザ(Playwright + Chromium)で開き、通信はモック・日付は固定で確認する。axe-core によるアクセシビリティ検査を含む。37件)があり、合計65件。
-- **`.github/workflows/tests.yml`**: scripts・tests・.github・helper・index.html の変更、PR、手動で動く。`test` ジョブ(事前チェックと unittest)と `viewer` ジョブ(`tests.test_viewer`。Playwright・axe-core を入れて実行)の2つ。data の更新では動かない。権限は contents: read のみ。
+- **`tests/`**(`unittest`。`python -m unittest discover -s tests -v`): `helpers.py`(一時フォルダにリポジトリと同じ並びを作り、本物のスクリプトを実行する)、`test_pipeline.py`(logs の新規・更新・削除・繰り返し・インデックス・マニフェストの安定、setlist の曲順なし・個別変更、venue の同期4種(上書き・消去・新規setlistへの引き継ぎ・タグからは引き継がない)、読めないJSONのエラー報告と他ファイルの処理継続、inbox の登録・入力エラー・不正テンプレート・同時刻の依頼・`skipped` の判定)、`test_check_repo.py`(事前チェックが問題を見つけられるか)。計31件。`tests/test_viewer.py`(ビューアをブラウザ(Playwright + Chromium)で開き、通信はモック・日付は固定で確認する。axe-core によるアクセシビリティ検査を含む。37件)と、`tests/test_helper.py`(helper を同じ方法で開き、send の内容を本物の `inbox_to_json.py` → `merge_json.py` に通して登録結果まで確認する。起動、logs、repeat、告知文の読み取り、songs の videos、setlist。albums・bulk・check・token の暗号化・find の候補は対象外。27件)があり、合計95件。
+- **`.github/workflows/tests.yml`**: scripts・tests・.github・helper・index.html の変更、PR、手動で動く。`test` ジョブ(事前チェックと unittest)、`viewer` ジョブ(`tests.test_viewer`。Playwright・axe-core を入れて実行)、`helper` ジョブ(`tests.test_helper`)の3つ。data の更新では動かない。権限は contents: read のみ。
+- **`.github/workflows/pages.yml`**: helper・`tests/test_helper.py`・`pages.yml` の main への push と手動で動く。`test` ジョブ(事前チェックと helper のテスト)が通ったときだけ、`deploy` ジョブが helper にページの外枠(doctype・charset・viewport・noindex)を付けて GitHub Pages に公開する。失敗したら公開中のページはそのまま。公開するのは helper のページだけ。
 - **項目を足す手順**は README の「テストと事前チェック」にある。
-- 検証状況: ローカル(unittest 28件+viewer 37件)に加え、GitHub Actions でも `test` / `viewer` ジョブの成功を確認した(2026-11-26、手動実行、`0fa9983`)。
+- 検証状況: ローカルで95件(1件 skip)、GitHub Actions の `Tests` と `Publish helper` の成功を確認した(2026-11-26、`fb76b8d`)。
 
 ### ビューア(index.html)
 
@@ -164,7 +165,7 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
   - **token の保存**: localStorage(`glih_set`)。ENCRYPT をオンにすると、パスフレーズで暗号化して保存する(Web Crypto: PBKDF2-SHA256 250000回 → AES-GCM。ソルト・IV は保存ごとに乱数)。暗号化した token は、ページを開くたびに「unlock」が必要(unlock 後は、メモリ上だけに保持)。暗号化しないと平文で保存される。「clear token」で保存した token を消す(2回押し)。
   - 「test」: リポジトリ・ブランチが見えるか、書き込み権限があるかを確認する。
   - token は Fine-grained token(このリポジトリだけ、Contents の Read and write だけ、期限つき)を想定。`api.github.com` へのリクエスト以外には送らない。
-- **send**: 各タブ(logs / setlist、songs、albums、bulk)の Issue ボタンの下に表示。Issue のリンクの値(テンプレートと項目の値)をそのまま読み取って、`data/inbox/<id>.json` に PUT する。ネットワークエラー、409、429、5xx は最大3回再試行する。送信後、`data/inbox/results/<id>.json` を4秒ごと・最大約3分ポーリングして、`done` / `error`(原因・注意)を表示する。`done` のとき、logs・setlist・albums・songs のキャッシュを破棄する。エラーの表示は、401(token の誤り・期限切れ)、403(権限不足・上限)、404(リポジトリ・ブランチが見えない)、422、409 などを具体的に出す。
+- **send**: 各タブ(logs / setlist、songs、albums、bulk)の Issue ボタンの下に表示。Issue のリンクの値(テンプレートと項目の値)をそのまま読み取って、`data/inbox/<id>.json` に PUT する。ネットワークエラー、409、429、5xx は最大3回再試行する。送信後、`data/inbox/results/<id>.json` を4秒ごと・最大約3分ポーリングして、`done` / `error`(原因・注意)を表示する。`done` でも結果の `skipped` が true のときは `NOT all reflected (check below)` と表示する。`done` のとき、logs・setlist・albums・songs のキャッシュを破棄する。エラーの表示は、401(token の誤り・期限切れ)、403(権限不足・上限)、404(リポジトリ・ブランチが見えない)、422、409 などを具体的に出す。
 - **Issue と send の表示条件**: 送れる状態になるまで(初期表示、new 直後、入力が不足のとき)、Issue ボタンと send を隠す(`a.go[aria-disabled="true"]` は非表示)。
 - **delete ボタン**: send の横に出す処理は残っているが、画面には出さない(`SHOW_DEL = false`)。削除は Issue のフォームから行う。`true` にすると、logs・setlist(読み込んだ行)、songs(一致した曲)、albums(読み込んだ盤)に delete ボタンが出る(確認ダイアログつき)。
 - **venue 欄**(logs): `map` の上。候補は、過去の logs の venue(重複を除き、使用回数が多い順、最大12件。入力すると前方一致を先に、最大8件)。`logs_index.json` に venue がない古いインデックスのときは、最初にカーソルを置いたとき、`logs.json` を一度だけ全部読んで候補を作る。tourモードでは、フォーム上部の venue は隠す。
@@ -179,10 +180,18 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
   - repeat の中身(`#glih-rpbody` と interval / schedule / tour の欄)、読み込み中・エラーの行(`#glih-fload`)、候補リスト(`.fcand`)は、表示するときに少し上からフェードイン(`glih-in`、0.18秒)。閉じるときの動きはない。
   - send の結果表示(`.sendst`)は、結果の文に置き換わるときに同じフェードイン(`popIn`。クラス `glih-pop` を付け直して再生する)。
   - チップ(`.chip`)は、押している間だけ縮む(`scale(.94)`、0.12秒)。ON / OFF の色の切り替えは動かさない。
-- **Blogger に貼るときの注意**: `<script>` は ASCII のみ・日本語や記号は `\uXXXX`・改行は LF(既存のとおり)。説明文などの日本語は、コメントの中だけ。
+- **公開**: GitHub Pages(`https://piscenake52.github.io/gllogs/`)。Blogger には貼らない。`<script>` は ASCII のみ・日本語や記号は `\uXXXX`・改行は LF(既存のとおり。`check_repo.py` が検査する)。説明文などの日本語は、コメントの中だけ。
+- **setlist の必須項目**(2026-11-26): 新規とコピーは `artist` と `title` が必須(空白だけも不可)。空の欄は入力エラーの表示にし、`Check: …` を出して Issue と send を隠す。登録済みの更新は変更した項目だけを送る。
+- **告知文の読み取り**(2026-11-26): repeat の schedule の一番上に `notice` 欄と `read`。`parseNotice(text, today)` がルールで日程を読む(外部サービスは使わず、送信もしない)。
+  - 日付は `M/D`・`M月D日`(年・曜日・時刻は省略可)。年がない日付は、約4か月前〜約1年先から、曜日が合って近いもの(合わなければ警告)。`24:00` は `2359`。
+  - 行の振り分け: 入金・支払 → `due`、当落・当選・結果発表 → `result`、期間・受付・応募・販売など → `start` / `close`。同じ行にキーワードがなければ直前の見出しで判定する。判断できない日時や2つめの期間は「入れていない日時」に出す。
+  - `read` は title・url・display_sp と4つの行を上書きする(読めた日程がないときは何も変えない)。start の日付がなければ start 行は空。groups は空のときだけ(Girls² → `G2`、Laki → `L2`)。
+  - ラベルは期間の種類で変える(開始/終了、受付開始/受付締切、応募受付開始/応募受付締切、抽選受付開始/抽選受付締切、販売開始/販売終了)。`result` は当選発表(当選連絡)、`due` は入金期限(支払期限)。
+  - start の contents は、URL が `girls2-fc.jp/page/wallpaper/` なら `FANCLUB`、「キャンペーン」を含めば `CAMPAIGN`。display_sp は先頭の「Girls² 」を省き「キャンペーン」→「CP」。
+  - タグは、登録済みの logs のタグが行の先頭か『』「」の中にあれば候補チップ(最大6件)。押すと tags に入る。
 
 ### 確認の状況
-上の項目は、Playwright(通信をモックしたもの)と node でのテスト、およびテスト用フォルダでの `inbox_to_json.py` → `merge_json.py` の実行で確認した。実機、Blogger、GitHub Actions の上での通し確認は、これから。
+上の項目は、Playwright(通信をモックしたもの)と node でのテスト、およびテスト用フォルダでの `inbox_to_json.py` → `merge_json.py` の実行で確認した。2026-11-26 に、公開した helper の動作とビューアからの3回タップをユーザーが確認した(OK との回答)。そのあとの setlist の必須項目と `NOT all reflected` の表示は、実機では未確認。告知文の読み取りは、実際の告知1件と架空の例で確認し、抽選の実際の告知は未確認。
 - 抽出タグ(2026-11-20): 本物の`index.html`を、モックデータ(エッジケース入り)で動かして確認した(TODAY・通常・ダークモード、チップを押したときの検索、除外、語の途中の一致、代わりのタグ)。負荷は実データのコピーで計測した。Blogger上・実機のスマホでは未確認。
 
 
@@ -856,8 +865,9 @@ GitHub Issue(フォーム) → Actions(auto_merge.yml)
 | `update_manifest.yml` | データの手動編集の push で `data/manifest.json` を作り直す |
 | `tests.yml` | scripts・tests・.github・helper の変更、PR、手動で、自動テストと事前チェックを実行 |
 | `rebuild_index.yml` | 手動実行。helper用の軽量インデックス(`logs_index.json`/`setlist_index.json`)を作り直す |
-| `check_gaps.yml` / `check_gaps.py` | 手動実行。logsのタイトルの`#数字`の連番の抜けを調べ、Issueに報告する |
-| `issue_helper_blogger.html` | 入力補助ページ(Bloggerの固定ページに貼る) |
+| `check_gaps.yml` / `check_gaps.py` | 毎週月曜 03:30(JST)と手動。logsのタイトルの`#数字`の連番の抜けを調べ、Issueに報告する(2回目以降はIssueの本文を上書き) |
+| `pages.yml` | helper のテストが通ったら GitHub Pages に公開する(「現行仕様」を参照) |
+| `issue_helper_blogger.html` | 入力補助ページ(GitHub Pages で公開。ファイル名は以前のまま) |
 
 - **処理対象のIssue**: `data`ラベル付き(または旧形式のタイトル`[DATA]`)で、投稿者がリポジトリの OWNER / MEMBER / COLLABORATOR のものだけ。
 - **同時実行**: データ更新・インデックス再作成は同じconcurrencyグループ(`gllogs-data-merge`)で直列に実行し、コミットの衝突を防ぐ。
@@ -1032,7 +1042,7 @@ YYYYMMDD [時刻] [| タイトル [| contents [| URL [| display_sp]]]]
 
 ### helper(`issue_helper_blogger.html`)
 
-Bloggerの固定ページ(`https://gl-log.blogspot.com/p/issuehelper.html`)に貼る入力補助ページ。入力内容から、Issueフォームの**事前入力付きURL**(`/issues/new?template=...&項目=値`)を作る。変更した項目(青枠)だけを事前入力する。tags/snsは更新時に追記、空欄にした値の削除はフォームの「値の削除」で行う。relationsは事前入力できない(JSONで確認)。
+GitHub Pages(`https://piscenake52.github.io/gllogs/`)で公開する入力補助ページ。入力内容から、Issueフォームの**事前入力付きURL**(`/issues/new?template=...&項目=値`)を作る。変更した項目(青枠)だけを事前入力する。tags/snsは更新時に追記、空欄にした値の削除はフォームの「値の削除」で行う。relationsは事前入力できない(JSONで確認)。
 
 - **タブ**: logs / setlist / songs。logsとsetlistは同じ「探す・編集」パネルを共有する(`found`、`renderFound`、`doFind`)
 - **新規モード**: 上部の日付・時刻(または「anytime」=時刻なし)を入れると空のフォームができる。**編集モード**: IDで探して読み込む(上部の日付・時刻は隠れる)
@@ -1043,9 +1053,9 @@ Bloggerの固定ページ(`https://gl-log.blogspot.com/p/issuehelper.html`)に�
 - **曲目の補助**: 1曲ずつ追加・挿入・更新・削除・移動。type・メンバーのチップ付き
 - **snsの補助**: テキストエリアの**上**に、URL欄・メンバーチップ・`add`ボタン。登録済みのリンクは、ボタンの中に**2段**(1段目=リンク、2段目=メンバー)で左寄せに並び、押すとそのリンクを消す/戻す(取り消し線)、右端の↗で開く
 
-#### Bloggerに貼るときの制約(重要)
+#### `<script>` の文字の制約
 
-BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`など)に変換して**文字化け**させる。そのため helper の `<script>` は**ASCIIのみ**で書き、日本語・記号は`\uXXXX`のエスケープにする(コメントも英語にする)。公開前に、`<script>`内に非ASCII文字が無いことを確認する。
+helper の `<script>` は**ASCIIのみ**で書き、日本語・記号は`\uXXXX`のエスケープにする(コメントも英語にする)。Bloggerに貼っていた頃の文字化け対策で、現在も`check_repo.py`が検査する。
 
 ### helperの自動入力まとめ(logs / setlist)
 - **logsのSNS**: **groupsが選ばれている状態で、contentsにSNSを選んだとき**にだけ、titleが空(またはhelperが自分で入れた値のまま)なら自動入力する。groupsがG2のみで`SNS　Girls²`(上付きの2)、L2のみで`SNS　Laki`、両方で`SNS　`(全角スペース)。**groupsが未選択でcontentsをSNSにした場合、そのあとでgroupsを選んでも自動入力しない**(titleの候補だけ出す。候補はcontentsとgroupsから作る)。自動入力のあとにgroupsを変えても、titleは追従しない。手で書き換えたtitleと、読み込んだデータのtitleは触らない。contentsがSNS以外になり、titleがhelperの入れた値のままなら空に戻す。

@@ -4,6 +4,12 @@
 
 ## 変更の履歴(新しい順)
 
+- **2026-11-26(helper 送信結果)** `done` でも反映されなかったものがあるときは `NOT all reflected (check below)` と表示するようにした(以前はすべて `done: reflected`)。`inbox_to_json.py` が結果に `skipped` を付ける。
+- **2026-11-26(helper setlist)** 新規(コピーを含む)は `artist` と `title` を必須にした(以前は空でも送れて、マージでスキップされた)。
+- **2026-11-26(テスト)** helper の自動テスト `tests/test_helper.py` を追加。`tests.yml` に `helper` ジョブを足し、`pages.yml` はテストが通ったときだけ公開するようにした。
+- **2026-11-26(helper の公開先)** helper を GitHub Pages(https://piscenake52.github.io/gllogs/)で公開するようにし、ビューアの3回タップと Issue フォームのリンクも変えた。Blogger への貼り付けは廃止。旧仕様: 「Bloggerの固定ページ(`https://gl-log.blogspot.com/p/issuehelper.html`)に貼る入力補助ページ」「BloggerはHTMLの`<script>`内の非ASCII文字を、数値文字参照(`&#171;`など)に変換して**文字化け**させる。そのため helper の `<script>` は**ASCIIのみ**で書き、日本語・記号は`\uXXXX`のエスケープにする(コメントも英語にする)。公開前に、`<script>`内に非ASCII文字が無いことを確認する。」
+- **2026-11-26(helper 告知文の読み取り)** repeat の schedule に `notice` 欄と `read` を追加。貼った告知文から日程などを入れる。
+- **2026-11-26(抜け番号チェック)** `check_gaps.yml` を毎週月曜 03:30(JST)にも実行するようにした(以前は手動のみ)。
 - **2026-11-26(helper songs・送信の条件)** 登録済みの動画の url が空の間は `songs` / `send` ボタンを出さないようにした(以前はその動画が送信内容から外れ、残りがないと `!clear` で全削除になった)。空の url は入力エラー(赤枠・一覧を自動で開く)とし、ボタンの `-n` には数えない。削除は × で指定する。
 - **2026-11-26(helper songs・チップの順)** type のチップの並びを動画ポップアップの表示順にそろえた(Performance を Dance Practice の次へ)。
 - **2026-11-26(viewer・helper songs)** 動画ポップアップの表示順を変更: Performance を Dance Practice の次(3番目)に入れ、Other・自由入力は Call Lecture の後ろ、Fancam は常に一番下にした(以前は MV → Dance Practice → Lyric → Live → Reaction → Call Lecture で、それ以外は登録順)。helper(songs)の videos の ↑↓ ボタンを削除した(順番を変えるには、削除して追加し直す)。

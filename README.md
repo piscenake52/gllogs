@@ -3,7 +3,7 @@
 [GL log](https://gl-log.blogspot.com/) のデータ(日程・ログ、セットリスト、楽曲リスト)と、その登録の仕組みをまとめたリポジトリです。
 
 - 閲覧ページ: `index.html`(Blogger のサイトに貼って使う。データは jsDelivr 経由でこのリポジトリのJSONを読む)
-- 入力補助ページ(helper): `issue_helper_blogger.html`(Blogger の固定ページ [issuehelper](https://gl-log.blogspot.com/p/issuehelper.html))
+- 入力補助ページ(helper): [https://piscenake52.github.io/gllogs/](https://piscenake52.github.io/gllogs/)(元ファイルは `issue_helper_blogger.html`。GitHub Pages で公開。Blogger には貼らない)
 - 実装の詳細な仕様: [SPEC.md](SPEC.md)(最初の「現行仕様(まとめ)」が基準)
 - 変更の履歴・置き換え済みの旧仕様: [CHANGELOG.md](CHANGELOG.md)
 
@@ -32,7 +32,7 @@ JSONを直接編集せず、**Issue のフォーム**から登録します(下�
 
 **B. helper から直接送る(Issue なし)**
 1. helper の右下にある **setting** で、`repo` / `branch` / `token` を設定して保存する(token は ENCRYPT をオンにすると、パスフレーズで暗号化して保存されます)。
-2. 各タブの **send** を押すと、入力内容が `data/inbox/` に書き込まれ、Actions が処理します。結果(反映できたか、エラーの原因)は、helper に表示されます。
+2. 各タブの **send** を押すと、入力内容が `data/inbox/` に書き込まれ、Actions が処理します。結果は helper に表示されます。`done: reflected` は反映済み、`NOT all reflected (check below)` は反映されなかったものがある(理由は下に出る)、`not reflected` はエラーです。同時に複数送ると、別の送信の通知が原因で `NOT all reflected` になることがあります。
 3. 削除は Issue のフォームから行います(helper の delete ボタンは非表示です)。
 
 **C. queue に JSON を置く**
@@ -92,6 +92,10 @@ tour(helper の mode: tour)の1行は、末尾まで書くと `日付 時刻 | �
 - 時刻は `HHMM` で、`-` は時刻なし。省略すると、フォームの時刻を使います。
 - タイトルの `#数字` は、回ごとに自動で+1されます。
 
+### helper の setlist タブ
+
+- 新規(コピーを含む)は `artist` と `title` が必須です。空の間は `Issue` と `send` のボタンが出ません。
+
 ### helper の songs タブ
 
 - `id` 欄にタイトルの一部を入れると、`songs.json` から候補が出ます。選ぶと、その曲の artist・vocal・title・link・lyrics・動画が読み込まれます(同じタイトルが複数あるときは artist も表示)。
@@ -114,6 +118,19 @@ tour(helper の mode: tour)の1行は、末尾まで書くと `日付 時刻 | �
    - `display_sp` に短い名前を入れると、「その名前 + ラベル」が各行の display_sp になります。
    - `display_pc` は、フォームの欄に入れると、ラベル(tour は地域名)が後ろに付く形で各行に入ります(ラベルのない行は `#数字` が回ごとに +1)。
    - 各行の title / pc / sp は、画面の確認一覧で、送る前に見られます(interval・schedule・tour 共通)。
+
+### helper の告知文の読み取り(schedule)
+
+1. helper の logs で日付・時刻を入れ(仮でよい。anytime も可)、repeat の mode を `schedule` にする。
+2. `notice` 欄に告知文を貼り、`read` を押す。日程が `start` / `close` / `result` / `due` の各行に入ります。
+3. 確認一覧を見てから送ります(`read` だけでは送りません)。
+
+- `title`・`url`・`display_sp`・4つの行は上書きします(告知にない行は空)。`groups` は空のときだけ入ります。
+- タイトルの後ろの言葉は、告知の種類で変わります(開始 / 終了、受付、応募受付、抽選受付、販売、当選発表、入金期限)。
+- `start` の contents は、URL が `girls2-fc.jp/page/wallpaper` なら `FANCLUB`、ほかの「キャンペーン」は `CAMPAIGN` です。
+- `display_sp` は、先頭の「Girls² 」を省き、「キャンペーン」を「CP」にします。
+- 作品名などの登録済みタグは、候補のチップを押すと `tags` に入ります。
+- 判断できない日時と、曜日が合わない日付は、メッセージに出ます。画像の告知と「3日後まで」のような表現は読めません。
 
 ### helper の便利機能
 
@@ -140,10 +157,11 @@ tour(helper の mode: tour)の1行は、末尾まで書くと `日付 時刻 | �
 |---|---|---|
 | `auto_merge.yml` | Issue → JSON に変換 → マージ → コミット | Issue の作成・編集時 |
 | `process_queue.yml` | queue の JSON と helper の依頼(`data/inbox/`)を処理 → マージ → コミット | queue・inbox への push、手動 |
-| `tests.yml` | 自動テストと事前チェック | scripts・tests・.github・helper の変更、PR、手動 |
+| `tests.yml` | 自動テストと事前チェック | scripts・tests・.github・helper・index.html の変更、PR、手動 |
+| `pages.yml` | helper を GitHub Pages で公開(事前チェックと helper のテストが通ったときだけ) | helper・`test_helper.py`・`pages.yml` の push、手動 |
 | `update_manifest.yml` | `data/manifest.json` の作り直し | データの手動編集の push(queue・inbox は除く)、手動 |
 | `rebuild_index.yml` | helper用インデックスの作り直し | 手動(Run workflow) |
-| `check_gaps.yml` | logs のタイトルの `#数字` の連番の抜けを調べる | 手動(Run workflow) |
+| `check_gaps.yml` | logs のタイトルの `#数字` の連番の抜けを調べ、Issue にまとめる | 毎週月曜 03:30(JST)・手動 |
 | `link_check.yml` | logs の `url` / `map` のリンク切れを少しずつ確認(結果は `data/logs/link_state.json`) | 毎日 03:00(JST)・手動 |
 
 `scripts/` には、`issue_to_json.py`、`merge_json.py`、`inbox_to_json.py`、**`common.py`**、**`schema.json`**(項目の定義)、`check_repo.py`(事前チェック)を一緒に置きます(`common.py` と `schema.json` が欠けると動きません)。`inbox_to_json.py` は `.github/ISSUE_TEMPLATE/*.yml` を読むため、フォームのファイルも置いたままにしてください。
@@ -156,11 +174,11 @@ tour(helper の mode: tour)の1行は、末尾まで書くと `日付 時刻 | �
 
 ```
 python scripts/check_repo.py                 # 事前チェック
-python -m unittest discover -s tests -v      # 自動テスト(viewer のテストも含む。Playwright が無いと viewer は動かない)
+python -m unittest discover -s tests -v      # 自動テスト(viewer と helper のテストも含む。Playwright が無いと、この2つは skip か失敗)
 ```
 
 - **事前チェック**(`scripts/check_repo.py`): data の JSON が読めるか / フォーム(`add_*.yml`)と `issue_to_json.py` の項目名が一致しているか / 「値の削除」の選択肢が合っているか / helper の `<script>` が ASCII だけか / `schema.json` と helper の項目が合っているか / キューを処理するワークフローが2つ(`auto_merge.yml` `process_queue.yml`)だけか。
-- **自動テスト**(`tests/`): 本物のスクリプトを一時フォルダで動かし、logs の登録・更新・削除、繰り返し登録、setlist の曲順なし、venue の同期、読めない JSON のエラー報告、helper 直送(inbox)を確かめます(28件)。`tests/test_viewer.py`(37件)は、ビューア(`index.html`)をブラウザで実際に開き、通信はモック・日付は固定で表示と操作、アクセシビリティ(axe-core)を確かめます(実行には `pip install playwright` と `playwright install chromium`、`npm install axe-core@4` が必要)。`tests.yml` の `test` ジョブと `viewer` ジョブで自動実行されます。直した所以外が壊れていないかの確認に使います。
+- **自動テスト**(`tests/`): 本物のスクリプトを一時フォルダで動かし、logs の登録・更新・削除、繰り返し登録、setlist の曲順なし、venue の同期、読めない JSON のエラー報告、helper 直送(inbox)を確かめます(31件)。`tests/test_viewer.py`(37件)はビューア(`index.html`)を、`tests/test_helper.py`(27件)は helper をブラウザで実際に開き、通信はモック・日付は固定で確かめます。helper のテストは、送る内容を本物のスクリプトに通して登録結果まで確認します。実行には `pip install playwright pyyaml` と `playwright install chromium`(viewer のアクセシビリティ検査には `npm install axe-core@4`)が必要です。`tests.yml` の `test` / `viewer` / `helper` ジョブで自動実行されます。helper の機能を変えたら、`test_helper.py` も直します。
 
 ### 項目を足すとき(例: logs に `foo` を足す)
 1. `scripts/schema.json` … `logs.order`(並び順)に足す。更新時に消せる項目なら `logs.clearable` にも足す。フォームの項目名は `labels_logs` に足す。
@@ -169,8 +187,9 @@ python -m unittest discover -s tests -v      # 自動テスト(viewer のテス�
 4. helper の `DEFS` と、`index.html` の表示を直す。
 5. 事前チェックを実行する。1〜4 の食い違いは、ここで見つかります。
 
-## helper を Blogger に貼るときの注意
+## helper の公開と注意
 
-helper の token は、このリポジトリだけを対象にして Contents の Read and write だけを許可し、期限を付けた Fine-grained token にしてください。
-
-Blogger は `<script>` 内の日本語や記号を数値文字参照に変換して文字化けさせます。`issue_helper_blogger.html` の `<script>` は **ASCII のみ**で書き、日本語は `\uXXXX` のエスケープにしてあります。編集するときも、この形を保ってください。
+- `issue_helper_blogger.html` を main に push すると、テストが通れば `pages.yml` が [https://piscenake52.github.io/gllogs/](https://piscenake52.github.io/gllogs/) に公開します(ファイル名は以前のまま)。最初の1回だけ、Settings → Pages → Source を「GitHub Actions」にします。
+- ブラウザの設定(token など)は URL ごとに保存されます。
+- helper の token は、このリポジトリだけを対象にして Contents の Read and write だけを許可し、期限を付けた Fine-grained token にしてください。
+- `<script>` は **ASCII のみ**で書き、日本語は `\uXXXX` のエスケープにします(`check_repo.py` が検査します)。
