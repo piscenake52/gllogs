@@ -1,0 +1,49 @@
+name: Publish helper (GitHub Pages)
+
+# helper を GitHub Pages で公開する(Blogger に貼らずに、push だけで反映する)。
+# 公開するのは helper のページだけ。最初に Settings → Pages → Source を「GitHub Actions」にする
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'issue_helper_blogger.html'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: gllogs-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # helper は Blogger に貼る部品なので、ページの外枠を付ける
+      - name: Build the page
+        run: |
+          mkdir -p site
+          {
+            printf '%s\n' '<!doctype html>' '<html lang="ja">' '<head>' '<meta charset="utf-8">'
+            printf '%s\n' '<meta name="viewport" content="width=device-width, initial-scale=1">'
+            printf '%s\n' '<meta name="robots" content="noindex, nofollow">' '<title>GL log helper</title>'
+            printf '%s\n' '<style>body{margin:0;padding:8px}</style>' '</head>' '<body>'
+            cat issue_helper_blogger.html
+            printf '%s\n' '</body>' '</html>'
+          } > site/index.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
