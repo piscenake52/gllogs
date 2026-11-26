@@ -3021,6 +3021,34 @@
     ]
   },
   {
+    "logid": "9851b594b646",
+    "date": "20261125",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Laki",
+    "groups": [
+      "L2",
+      "HIR"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DgKNFq-mNTl/?gwpx=MTNmamRtbDlveG5pYw==",
+            "member": [
+              "HIR"
+            ],
+            "tags": [
+              "恵比寿",
+              "OOTD"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "27c23c67860e",
     "date": "20261124",
     "time": "2359",
