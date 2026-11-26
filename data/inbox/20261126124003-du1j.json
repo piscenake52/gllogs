@@ -1,0 +1,8 @@
+{
+ "template": "add_logs.yml",
+ "params": {
+  "logid": "d5d653de1aaa",
+  "sns": "https://x.com/hajimatteru/status/2125616041770561662?a=eyA5ALzTru-J7FmBkxc&s=19 | | Fancam"
+ },
+ "created": "2026-11-26T03:40:03Z"
+}
