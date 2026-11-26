@@ -4,7 +4,7 @@
 
 - 閲覧ページ: `index.html`(Blogger のサイトに貼って使う。データは jsDelivr 経由でこのリポジトリのJSONを読む)
 - 入力補助ページ(helper): [https://piscenake52.github.io/gllogs/](https://piscenake52.github.io/gllogs/)(元ファイルは `helper.html`。GitHub Pages で公開。Blogger には貼らない)
-- 実装の詳細な仕様: [SPEC.md](SPEC.md)(最初の「現行仕様(まとめ)」が基準)
+- 実装の詳細な仕様: [SPEC.md](SPEC.md)(入口。[閲覧ページ](docs/spec_viewer.md) / [helper](docs/spec_helper.md) / [データ・自動処理](docs/spec_data.md) に分かれ、各ファイル最初の「現行仕様(まとめ)」が基準)
 - 変更の履歴・置き換え済みの旧仕様: [CHANGELOG.md](CHANGELOG.md)
 
 ## データ
@@ -56,7 +56,7 @@ LIVEなどを登録するときに「ANNIVERSARY」にチェックすると、�
 - **個別メンバーも選ぶ**と、選んだメンバーだけが登録されます(`G2,MSK` → `MSK` だけ)。
 - logs の `groups` だけは、グループのコード(`G2` / `L2`)そのものもデータに持ちます(自由入力では展開しません)。
 
-詳しい表は [SPEC.md](SPEC.md) の「グループ・メンバーの登録仕様」を見てください。
+詳しい表は [docs/spec_data.md](docs/spec_data.md) の「グループ・メンバーの登録仕様」を見てください。
 
 ### 書式のメモ
 
@@ -140,7 +140,7 @@ tour(helper の mode: tour)の1行は、末尾まで書くと `日付 時刻 | �
 
 ## データ部の便利機能(隠し機能)
 
-年・月・日・曜日・時刻のボタン、📍、📋、💞、🏷️、💽、🔗が**すべてON**のときだけ有効です(♪は条件に含めません。詳細は [SPEC.md](SPEC.md))。PC は Ctrl / Shift / Cmd を押しながらクリックで、1回で動きます。
+年・月・日・曜日・時刻のボタン、📍、📋、💞、🏷️、💽、🔗が**すべてON**のときだけ有効です(♪は条件に含めません。詳細は [docs/spec_viewer.md](docs/spec_viewer.md))。PC は Ctrl / Shift / Cmd を押しながらクリックで、1回で動きます。
 
 - **日付・時刻を3回タップ**: その行を helper で別タブに開きます。📋セトリ検索が OFF なら `logid` で `#logs`、ON なら `setlistid` で `#setlist`。ID のない行は何も起きません。
 - **楽曲バー(♪が ON)の曲名を3回タップ**: その曲を helper の songs タブで開きます(`?artist=…&title=…#songs`)。
