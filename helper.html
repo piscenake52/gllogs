@@ -1,5 +1,5 @@
-<!-- Blogger の固定ページ(HTMLビュー)に、このままコピー&貼り付けして公開する。<html>/<head>/<body> は含めない。
-     CSSは #glih の中だけに効くようにしてあり、ブログのテーマには影響しない -->
+<!-- GitHub Pages で公開する入力補助ページ(pages.yml がページの外枠を付ける)。<html>/<head>/<body> は含めない。
+     CSSは #glih の中だけに効くようにしてある -->
 <style>
 /*<![CDATA[*/
 /* ページ全体の背景も黒にする: helper (#glih) を含む親要素すべて(body / 記事の枠など。テーマが違ってもクラス名に依存しない)の背景を黒にする */
@@ -452,8 +452,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   // Settings: repository and issue template file names (in .github/ISSUE_TEMPLATE/)
   var REPO = 'piscenake52/gllogs', TPL_LOGS = 'add_logs.yml', TPL_SETLIST = 'add_setlist.yml', TPL_SONGS = 'add_songs.yml', TPL_ALBUMS = 'add_albums.yml';
   var root = document.getElementById('glih');
-  // NOTE: keep this script ASCII-only. Blogger converts non-ASCII characters into &#NNNN; entities, which are NOT decoded inside <script>.
-  var DASH = '\u2014'; // em dash as an ASCII escape: Blogger turns a literal dash inside <script> into &#8212;, which JS does not decode
+  var DASH = '\u2014'; // em dash
   function $(id) { return document.getElementById('glih-' + id); }
   function digits(v) { return DG(v); }
   var FWD_RE = new RegExp('[' + String.fromCharCode(0xFF10) + '-' + String.fromCharCode(0xFF19) + ']', 'g');

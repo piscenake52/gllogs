@@ -8,7 +8,7 @@ on:
       - 'scripts/**'
       - 'tests/**'
       - '.github/**'
-      - 'issue_helper*.html'
+      - 'helper.html'
       - 'index.html'
   pull_request:
   workflow_dispatch:
@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: '3.10'
       - run: pip install pyyaml
-      - name: Pre-check (JSON / forms / helper ASCII / schema / workflows)
+      - name: Pre-check (JSON / forms / schema / workflows)
         run: python scripts/check_repo.py
       - name: Unit tests
         run: python -m unittest discover -s tests -v
@@ -48,7 +48,7 @@ jobs:
         run: python -m unittest tests.test_viewer -v
 
   helper:
-    # helper(issue_helper_blogger.html)をブラウザで実際に開いて確認する。通信はモック、日付は固定
+    # helper(helper.html)をブラウザで実際に開いて確認する。通信はモック、日付は固定
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

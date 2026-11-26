@@ -3,9 +3,8 @@
 チェック内容:
   1. data/ 以下のJSONが読めるか(queue と inbox は除く。そちらは処理側がエラー報告する)
   2. Issueフォーム(.github/ISSUE_TEMPLATE/add_*.yml)と issue_to_json.py の項目名(LABELS_*)・「値の削除」の選択肢が一致しているか
-  3. helper(issue_helper*.html)の <script> が ASCII だけか(Blogger に貼ると、日本語や記号が壊れる原因になる)
-  4. scripts/schema.json の中身が整合しているか(消せる項目が並び順に含まれる、など)と、helper(DEFS)に logs / setlist の全項目があるか
-  5. 同じキューを処理するワークフローが増えていないか(auto_merge.yml と process_queue.yml 以外で merge_json.py を実行していないか)
+  3. scripts/schema.json の中身が整合しているか(消せる項目が並び順に含まれる、など)と、helper(DEFS)に logs / setlist の全項目があるか
+  4. 同じキューを処理するワークフローが増えていないか(auto_merge.yml と process_queue.yml 以外で merge_json.py を実行していないか)
 """
 import glob
 import json
@@ -73,29 +72,6 @@ def check_forms(root=ROOT):
     return problems
 
 
-def non_ascii_in_scripts(html):
-    """<script> 内の ASCII でない文字を、(行番号, その行の抜粋)で返す"""
-    out = []
-    for mt in re.finditer(r"<script\b[^>]*>(.*?)</script>", html, re.S | re.I):
-        start = html.count("\n", 0, mt.start(1)) + 1
-        for i, line in enumerate(mt.group(1).split("\n")):
-            if any(ord(c) > 127 for c in line):
-                out.append((start + i, line.strip()[:60]))
-    return out
-
-
-def check_helper_ascii(root=ROOT):
-    problems = []
-    for p in glob.glob(os.path.join(root, "**", "issue_helper*.html"), recursive=True):
-        if "node_modules" in p:
-            continue
-        with open(p, "r", encoding="utf-8") as f:
-            html = f.read()
-        for ln, text in non_ascii_in_scripts(html)[:5]:
-            problems.append(f"{os.path.relpath(p, root)}:{ln}: <script> に ASCII でない文字があります(Blogger で壊れます。\\uXXXX にしてください): {text}")
-    return problems
-
-
 def check_schema(root=ROOT):
     problems = []
     try:
@@ -112,8 +88,8 @@ def check_schema(root=ROOT):
                     problems.append(f"schema.json: {t}.{key} の「{x}」が {t}.order にありません")
         if len(order) != len(set(order)):
             problems.append(f"schema.json: {t}.order に重複があります")
-    # helper(issue_helper*.html)の DEFS に、logs / setlist の編集できる項目があるか
-    for p in glob.glob(os.path.join(root, "**", "issue_helper_blogger.html"), recursive=True):
+    # helper(helper.html)の DEFS に、logs / setlist の編集できる項目があるか
+    for p in glob.glob(os.path.join(root, "helper.html")):
         with open(p, "r", encoding="utf-8") as f:
             keys = set(re.findall(r"\bk:\s*'([a-z_0-9]+)'", f.read()))
         for t in ("logs", "setlist"):
@@ -136,7 +112,7 @@ def check_workflows(root=ROOT):
 
 
 def main():
-    sections = [("JSON", check_json), ("フォームとコードの項目", check_forms), ("helper の ASCII", check_helper_ascii), ("schema.json と helper の項目", check_schema), ("ワークフロー", check_workflows)]
+    sections = [("JSON", check_json), ("フォームとコードの項目", check_forms), ("schema.json と helper の項目", check_schema), ("ワークフロー", check_workflows)]
     total = 0
     for title, fn in sections:
         probs = fn()

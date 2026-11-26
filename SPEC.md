@@ -83,12 +83,12 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 #### 保守のための仕組み(テスト・事前チェック・項目定義)
 
 - **`scripts/schema.json`**: 項目の定義を集めたファイル。`logs` `setlist` `songs` `albums` それぞれの `order`(保存時の項目の並び)・`key_fields`(識別キー)・`index_fields`(インデックスに入れる項目)・`clearable`(更新時に「値の削除」で消せる項目)と、フォームの項目名 `labels_logs` / `labels_ss`。`common.py` が読み込み(`SCHEMA`)、`issue_to_json.py` と `merge_json.py` はそこから値を取る(コード中の直書きをやめた。値は従来と同じ)。
-- **`scripts/check_repo.py`**(事前チェック): ①data のJSONが読めるか(queue・inbox は除く) ②`add_logs.yml` `add_setlist.yml` `add_songs.yml` の項目名が `LABELS_*` と一致するか、「値の削除」の選択肢が `clearable` と一致するか ③helper の `<script>` が ASCII のみか ④`schema.json` の整合(識別キー・消せる項目・インデックス項目が `order` に含まれる、重複がない)と、helper の `DEFS` に logs / setlist の編集できる全項目があるか ⑤`merge_json.py`(`--rebuild-index` `--rebuild-manifest` なし)を実行するワークフローが `auto_merge.yml` と `process_queue.yml` だけか。問題があれば終了コード1。
-- **`tests/`**(`unittest`。`python -m unittest discover -s tests -v`): `helpers.py`(一時フォルダにリポジトリと同じ並びを作り、本物のスクリプトを実行する)、`test_pipeline.py`(logs の新規・更新・削除・繰り返し・インデックス・マニフェストの安定、setlist の曲順なし・個別変更、venue の同期4種(上書き・消去・新規setlistへの引き継ぎ・タグからは引き継がない)、読めないJSONのエラー報告と他ファイルの処理継続、inbox の登録・入力エラー・不正テンプレート・同時刻の依頼・`skipped` の判定)、`test_check_repo.py`(事前チェックが問題を見つけられるか)。計31件。`tests/test_viewer.py`(ビューアをブラウザ(Playwright + Chromium)で開き、通信はモック・日付は固定で確認する。axe-core によるアクセシビリティ検査を含む。37件)と、`tests/test_helper.py`(helper を同じ方法で開き、send の内容を本物の `inbox_to_json.py` → `merge_json.py` に通して登録結果まで確認する。起動、logs、repeat、告知文の読み取り、songs の videos、setlist。albums・bulk・check・token の暗号化・find の候補は対象外。27件)があり、合計95件。
+- **`scripts/check_repo.py`**(事前チェック): ①data のJSONが読めるか(queue・inbox は除く) ②`add_logs.yml` `add_setlist.yml` `add_songs.yml` の項目名が `LABELS_*` と一致するか、「値の削除」の選択肢が `clearable` と一致するか ③`schema.json` の整合(識別キー・消せる項目・インデックス項目が `order` に含まれる、重複がない)と、helper の `DEFS` に logs / setlist の編集できる全項目があるか ④`merge_json.py`(`--rebuild-index` `--rebuild-manifest` なし)を実行するワークフローが `auto_merge.yml` と `process_queue.yml` だけか。問題があれば終了コード1。
+- **`tests/`**(`unittest`。`python -m unittest discover -s tests -v`): `helpers.py`(一時フォルダにリポジトリと同じ並びを作り、本物のスクリプトを実行する)、`test_pipeline.py`(logs の新規・更新・削除・繰り返し・インデックス・マニフェストの安定、setlist の曲順なし・個別変更、venue の同期4種(上書き・消去・新規setlistへの引き継ぎ・タグからは引き継がない)、読めないJSONのエラー報告と他ファイルの処理継続、inbox の登録・入力エラー・不正テンプレート・同時刻の依頼・`skipped` の判定)、`test_check_repo.py`(事前チェックが問題を見つけられるか)。計30件。`tests/test_viewer.py`(ビューアをブラウザ(Playwright + Chromium)で開き、通信はモック・日付は固定で確認する。axe-core によるアクセシビリティ検査を含む。37件)と、`tests/test_helper.py`(helper を同じ方法で開き、send の内容を本物の `inbox_to_json.py` → `merge_json.py` に通して登録結果まで確認する。起動、logs、repeat、告知文の読み取り、songs の videos、setlist。albums・bulk・check・token の暗号化・find の候補は対象外。27件)があり、合計94件。
 - **`.github/workflows/tests.yml`**: scripts・tests・.github・helper・index.html の変更、PR、手動で動く。`test` ジョブ(事前チェックと unittest)、`viewer` ジョブ(`tests.test_viewer`。Playwright・axe-core を入れて実行)、`helper` ジョブ(`tests.test_helper`)の3つ。data の更新では動かない。権限は contents: read のみ。
 - **`.github/workflows/pages.yml`**: helper・`tests/test_helper.py`・`pages.yml` の main への push と手動で動く。`test` ジョブ(事前チェックと helper のテスト)が通ったときだけ、`deploy` ジョブが helper にページの外枠(doctype・charset・viewport・noindex)を付けて GitHub Pages に公開する。失敗したら公開中のページはそのまま。公開するのは helper のページだけ。
 - **項目を足す手順**は README の「テストと事前チェック」にある。
-- 検証状況: ローカルで95件(1件 skip)、GitHub Actions の `Tests` と `Publish helper` の成功を確認した(2026-11-26、`fb76b8d`)。
+- 検証状況: ローカルで95件(1件 skip)、GitHub Actions の `Tests` と `Publish helper` の成功を確認した(2026-11-26、`fb76b8d`)。2026-11-27 に ASCII の検査とそのテスト1件を削除した。
 
 ### ビューア(index.html)
 
@@ -142,7 +142,7 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 - **読み込み・表示の最適化**: `songIndex()`(小文字化した曲名の Map と、統計用の Set)で線形の検索を置き換える。`SORT_TITLE_COLLATOR` を `updateDisplay` の外に出す。`makeDataSource` は manifest ベース(`getManifest(force)`、`latest()`、`fetchFresh(info)`、API の sha へのフォールバック、`defer`)。songs・setlist・albums は、logs の描画が済むまで読み込みを遅らせる(`logsStarted`)。`<head>` の先頭スクリプトで IndexedDB の読み出しを早めに始める。
 - **アニメーション**: 押したときの縮み(WAAPI の `scale`)、ON にしたときの円形(`clip-path`)の広がり(ユーザー操作から1200ms以内の `is-active` だけ)、ポップアップの `translateY(18px) scale(.96)` からの表示。`MOTION` の変数で速度を調整する。共有のトースト(`#shareToast`)は、下から少し上がりながら出る(opacity と transform だけ)。アニメーションは opacity / transform のみ・0.2秒以内を原則とし、`prefers-reduced-motion` では止める。
 
-### helper(issue_helper_blogger.html)
+### helper(helper.html)
 
 - **songsタブ**:
   - `id` 欄(`new` の下): タイトルの一部で `songs.json` を検索し、候補を押す(またはEnterで1件のとき)とその曲を読み込む。同じタイトルが複数あるときだけ、候補にartistを併記する。読み込み後はid欄は空に戻る。`new` で一緒にクリア。
@@ -180,7 +180,7 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
   - repeat の中身(`#glih-rpbody` と interval / schedule / tour の欄)、読み込み中・エラーの行(`#glih-fload`)、候補リスト(`.fcand`)は、表示するときに少し上からフェードイン(`glih-in`、0.18秒)。閉じるときの動きはない。
   - send の結果表示(`.sendst`)は、結果の文に置き換わるときに同じフェードイン(`popIn`。クラス `glih-pop` を付け直して再生する)。
   - チップ(`.chip`)は、押している間だけ縮む(`scale(.94)`、0.12秒)。ON / OFF の色の切り替えは動かさない。
-- **公開**: GitHub Pages(`https://piscenake52.github.io/gllogs/`)。Blogger には貼らない。`<script>` は ASCII のみ・日本語や記号は `\uXXXX`・改行は LF(既存のとおり。`check_repo.py` が検査する)。説明文などの日本語は、コメントの中だけ。
+- **公開**: GitHub Pages(`https://piscenake52.github.io/gllogs/`)。Blogger には貼らない。ファイルは UTF-8・改行は LF。
 - **setlist の必須項目**(2026-11-26): 新規とコピーは `artist` と `title` が必須(空白だけも不可)。空の欄は入力エラーの表示にし、`Check: …` を出して Issue と send を隠す。登録済みの更新は変更した項目だけを送る。
 - **告知文の読み取り**(2026-11-26): repeat の schedule の一番上に `notice` 欄と `read`。`parseNotice(text, today)` がルールで日程を読む(外部サービスは使わず、送信もしない)。
   - 日付は `M/D`・`M月D日`(年・曜日・時刻は省略可)。年がない日付は、約4か月前〜約1年先から、曜日が合って近いもの(合わなければ警告)。`24:00` は `2359`。
@@ -867,7 +867,7 @@ GitHub Issue(フォーム) → Actions(auto_merge.yml)
 | `rebuild_index.yml` | 手動実行。helper用の軽量インデックス(`logs_index.json`/`setlist_index.json`)を作り直す |
 | `check_gaps.yml` / `check_gaps.py` | 毎週月曜 03:30(JST)と手動。logsのタイトルの`#数字`の連番の抜けを調べ、Issueに報告する(2回目以降はIssueの本文を上書き) |
 | `pages.yml` | helper のテストが通ったら GitHub Pages に公開する(「現行仕様」を参照) |
-| `issue_helper_blogger.html` | 入力補助ページ(GitHub Pages で公開。ファイル名は以前のまま) |
+| `helper.html` | 入力補助ページ(GitHub Pages で公開) |
 
 - **処理対象のIssue**: `data`ラベル付き(または旧形式のタイトル`[DATA]`)で、投稿者がリポジトリの OWNER / MEMBER / COLLABORATOR のものだけ。
 - **同時実行**: データ更新・インデックス再作成は同じconcurrencyグループ(`gllogs-data-merge`)で直列に実行し、コミットの衝突を防ぐ。
@@ -1040,7 +1040,7 @@ YYYYMMDD [時刻] [| タイトル [| contents [| URL [| display_sp]]]]
 6. intervalモードの「N of M dates will be registered (the same time / contents / groups / relations / tags; url / map / sns / display are not copied; the #number counts up).」
    → チェックを入れたM件のうちN件が登録される。時刻・contents・groups・relations・tagsは、元と同じものを全件に使う。url・snsは全件に引き継ぎ、display_pc・display_spもtitleと同じく`#数字`が回ごとに+1される(空にした項目は付けない)。mapは引き継がない。
 
-### helper(`issue_helper_blogger.html`)
+### helper(`helper.html`)
 
 GitHub Pages(`https://piscenake52.github.io/gllogs/`)で公開する入力補助ページ。入力内容から、Issueフォームの**事前入力付きURL**(`/issues/new?template=...&項目=値`)を作る。変更した項目(青枠)だけを事前入力する。tags/snsは更新時に追記、空欄にした値の削除はフォームの「値の削除」で行う。relationsは事前入力できない(JSONで確認)。
 
@@ -1053,9 +1053,9 @@ GitHub Pages(`https://piscenake52.github.io/gllogs/`)で公開する入力補助
 - **曲目の補助**: 1曲ずつ追加・挿入・更新・削除・移動。type・メンバーのチップ付き
 - **snsの補助**: テキストエリアの**上**に、URL欄・メンバーチップ・`add`ボタン。登録済みのリンクは、ボタンの中に**2段**(1段目=リンク、2段目=メンバー)で左寄せに並び、押すとそのリンクを消す/戻す(取り消し線)、右端の↗で開く
 
-#### `<script>` の文字の制約
+#### `<script>` の文字
 
-helper の `<script>` は**ASCIIのみ**で書き、日本語・記号は`\uXXXX`のエスケープにする(コメントも英語にする)。Bloggerに貼っていた頃の文字化け対策で、現在も`check_repo.py`が検査する。
+ASCII のみの制約は 2026-11-27 に廃止した(Blogger に貼らなくなったため)。ファイルは UTF-8 で、日本語をそのまま書ける。既存の `\uXXXX` の表記はそのまま。
 
 ### helperの自動入力まとめ(logs / setlist)
 - **logsのSNS**: **groupsが選ばれている状態で、contentsにSNSを選んだとき**にだけ、titleが空(またはhelperが自分で入れた値のまま)なら自動入力する。groupsがG2のみで`SNS　Girls²`(上付きの2)、L2のみで`SNS　Laki`、両方で`SNS　`(全角スペース)。**groupsが未選択でcontentsをSNSにした場合、そのあとでgroupsを選んでも自動入力しない**(titleの候補だけ出す。候補はcontentsとgroupsから作る)。自動入力のあとにgroupsを変えても、titleは追従しない。手で書き換えたtitleと、読み込んだデータのtitleは触らない。contentsがSNS以外になり、titleがhelperの入れた値のままなら空に戻す。
@@ -1076,7 +1076,6 @@ helper の `<script>` は**ASCIIのみ**で書き、日本語・記号は`\uXXXX
 - 要確認: 同日・同時刻・同題名・同種類の重複候補、urlがhttp(s)でない、tags(空配列/空文字/前後空白/重複)。
 - 参考: 1回しか使われていないタグ、urlが無い行(titleのある行のみ)。
 - 重複候補だけ`ignore`できる(キー=logidを並べ替えて連結、localStorage `glih_ck_ignore`。端末ごと)。`open N`はlogidをid欄に入れてlogsタブで検索する。
-- scriptはASCIIのみ・CRLF・`node --check`(helperの共通ルール)。
 
 ### helperのnext(repeat/tour/weekly/monthly/yearly)で引き継ぐ項目
 

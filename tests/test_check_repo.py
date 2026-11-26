@@ -23,11 +23,6 @@ class CheckRepo(Repo):
         self.assertEqual(len(probs), 1)
         self.assertIn("data/logs/logs.json", probs[0])
 
-    def test_non_ascii_in_script_found(self):
-        html = "<p>日本語OK</p><script>\nvar a = 1;\nvar b = '日本';\n</script>"
-        self.assertEqual(cr.non_ascii_in_scripts(html)[0][0], 3)
-        self.assertEqual(cr.non_ascii_in_scripts("<script>var a='\\u65e5';</script><p>日</p>"), [])
-
     def test_form_label_mismatch_found(self):
         self.edit(".github/ISSUE_TEMPLATE/add_logs.yml", 'label: "venue"', 'label: "venueX"')
         self.assertTrue(any("venueX" in x for x in cr.check_forms(self.dir)))
@@ -45,7 +40,7 @@ class CheckRepo(Repo):
         self.assertTrue(any("nofield" in x for x in cr.check_schema(self.dir)))
 
     def test_helper_missing_field_found(self):
-        self.write("issue_helper_blogger.html", "<script>var DEFS = [{ k: 'date' }];</script>")
+        self.write("helper.html", "<script>var DEFS = [{ k: 'date' }];</script>")
         probs = cr.check_schema(self.dir)
         self.assertTrue(any("venue" in x for x in probs))
 

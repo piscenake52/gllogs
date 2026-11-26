@@ -6,7 +6,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'issue_helper_blogger.html'
+      - 'helper.html'
       - 'tests/test_helper.py'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -47,7 +47,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # helper は Blogger に貼る部品なので、ページの外枠を付ける
+      # helper.html は外枠のない部品なので、ページの外枠を付ける
       - name: Build the page
         run: |
           mkdir -p site
@@ -56,7 +56,7 @@ jobs:
             printf '%s\n' '<meta name="viewport" content="width=device-width, initial-scale=1">'
             printf '%s\n' '<meta name="robots" content="noindex, nofollow">' '<title>GL log helper</title>'
             printf '%s\n' '<style>body{margin:0;padding:8px}</style>' '</head>' '<body>'
-            cat issue_helper_blogger.html
+            cat helper.html
             printf '%s\n' '</body>' '</html>'
           } > site/index.html
 

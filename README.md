@@ -3,7 +3,7 @@
 [GL log](https://gl-log.blogspot.com/) のデータ(日程・ログ、セットリスト、楽曲リスト)と、その登録の仕組みをまとめたリポジトリです。
 
 - 閲覧ページ: `index.html`(Blogger のサイトに貼って使う。データは jsDelivr 経由でこのリポジトリのJSONを読む)
-- 入力補助ページ(helper): [https://piscenake52.github.io/gllogs/](https://piscenake52.github.io/gllogs/)(元ファイルは `issue_helper_blogger.html`。GitHub Pages で公開。Blogger には貼らない)
+- 入力補助ページ(helper): [https://piscenake52.github.io/gllogs/](https://piscenake52.github.io/gllogs/)(元ファイルは `helper.html`。GitHub Pages で公開。Blogger には貼らない)
 - 実装の詳細な仕様: [SPEC.md](SPEC.md)(最初の「現行仕様(まとめ)」が基準)
 - 変更の履歴・置き換え済みの旧仕様: [CHANGELOG.md](CHANGELOG.md)
 
@@ -177,8 +177,8 @@ python scripts/check_repo.py                 # 事前チェック
 python -m unittest discover -s tests -v      # 自動テスト(viewer と helper のテストも含む。Playwright が無いと、この2つは skip か失敗)
 ```
 
-- **事前チェック**(`scripts/check_repo.py`): data の JSON が読めるか / フォーム(`add_*.yml`)と `issue_to_json.py` の項目名が一致しているか / 「値の削除」の選択肢が合っているか / helper の `<script>` が ASCII だけか / `schema.json` と helper の項目が合っているか / キューを処理するワークフローが2つ(`auto_merge.yml` `process_queue.yml`)だけか。
-- **自動テスト**(`tests/`): 本物のスクリプトを一時フォルダで動かし、logs の登録・更新・削除、繰り返し登録、setlist の曲順なし、venue の同期、読めない JSON のエラー報告、helper 直送(inbox)を確かめます(31件)。`tests/test_viewer.py`(37件)はビューア(`index.html`)を、`tests/test_helper.py`(27件)は helper をブラウザで実際に開き、通信はモック・日付は固定で確かめます。helper のテストは、送る内容を本物のスクリプトに通して登録結果まで確認します。実行には `pip install playwright pyyaml` と `playwright install chromium`(viewer のアクセシビリティ検査には `npm install axe-core@4`)が必要です。`tests.yml` の `test` / `viewer` / `helper` ジョブで自動実行されます。helper の機能を変えたら、`test_helper.py` も直します。
+- **事前チェック**(`scripts/check_repo.py`): data の JSON が読めるか / フォーム(`add_*.yml`)と `issue_to_json.py` の項目名が一致しているか / 「値の削除」の選択肢が合っているか / `schema.json` と helper の項目が合っているか / キューを処理するワークフローが2つ(`auto_merge.yml` `process_queue.yml`)だけか。
+- **自動テスト**(`tests/`): 本物のスクリプトを一時フォルダで動かし、logs の登録・更新・削除、繰り返し登録、setlist の曲順なし、venue の同期、読めない JSON のエラー報告、helper 直送(inbox)を確かめます(30件)。`tests/test_viewer.py`(37件)はビューア(`index.html`)を、`tests/test_helper.py`(27件)は helper をブラウザで実際に開き、通信はモック・日付は固定で確かめます。helper のテストは、送る内容を本物のスクリプトに通して登録結果まで確認します。実行には `pip install playwright pyyaml` と `playwright install chromium`(viewer のアクセシビリティ検査には `npm install axe-core@4`)が必要です。`tests.yml` の `test` / `viewer` / `helper` ジョブで自動実行されます。helper の機能を変えたら、`test_helper.py` も直します。
 
 ### 項目を足すとき(例: logs に `foo` を足す)
 1. `scripts/schema.json` … `logs.order`(並び順)に足す。更新時に消せる項目なら `logs.clearable` にも足す。フォームの項目名は `labels_logs` に足す。
@@ -189,7 +189,7 @@ python -m unittest discover -s tests -v      # 自動テスト(viewer と helper
 
 ## helper の公開と注意
 
-- `issue_helper_blogger.html` を main に push すると、テストが通れば `pages.yml` が [https://piscenake52.github.io/gllogs/](https://piscenake52.github.io/gllogs/) に公開します(ファイル名は以前のまま)。最初の1回だけ、Settings → Pages → Source を「GitHub Actions」にします。
+- `helper.html` を main に push すると、テストが通れば `pages.yml` が [https://piscenake52.github.io/gllogs/](https://piscenake52.github.io/gllogs/) に公開します。最初の1回だけ、Settings → Pages → Source を「GitHub Actions」にします。
 - ブラウザの設定(token など)は URL ごとに保存されます。
 - helper の token は、このリポジトリだけを対象にして Contents の Read and write だけを許可し、期限を付けた Fine-grained token にしてください。
-- `<script>` は **ASCII のみ**で書き、日本語は `\uXXXX` のエスケープにします(`check_repo.py` が検査します)。
+- ファイルは UTF-8 で保存します。`<script>` に日本語をそのまま書けます(既存の `\uXXXX` の表記も、そのまま使えます)。

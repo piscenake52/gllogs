@@ -1,8 +1,8 @@
-"""helper(issue_helper_blogger.html)の自動テスト。Playwright(Chromium)で実際に開いて確認する。
+"""helper(helper.html)の自動テスト。Playwright(Chromium)で実際に開いて確認する。
 
 準備:  pip install playwright pyyaml && playwright install chromium
 実行:  python -m unittest tests.test_helper -v
-helper の場所は環境変数 HELPER_HTML で指定(既定: リポジトリ直下の issue_helper_blogger.html)。
+helper の場所は環境変数 HELPER_HTML で指定(既定: リポジトリ直下の helper.html)。
 Playwright か helper が無い環境では全体を skip する。
 通信はすべてモック(GitHub には何も送らない)、日付は 2026-11-20 12:00(JST)に固定する。
 send した内容は、本物の inbox_to_json.py → merge_json.py に通して、登録結果まで確認する。
@@ -18,7 +18,7 @@ from urllib.parse import parse_qs, urlsplit
 from tests.helpers import Repo
 
 ROOT = Path(__file__).resolve().parent.parent
-HELPER = Path(os.environ.get("HELPER_HTML") or ROOT / "issue_helper_blogger.html")
+HELPER = Path(os.environ.get("HELPER_HTML") or ROOT / "helper.html")
 
 try:
     from playwright.sync_api import sync_playwright
