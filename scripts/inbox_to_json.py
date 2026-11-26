@@ -147,6 +147,7 @@ def finish():
         if notice:
             res["notes"].append(notice)
         res["status"] = "error" if remain else "done"
+        res["skipped"] = bool(mine or notice)  # done でも、反映されなかったものがある(helper の表示を分ける)
         res["time"] = now_iso()
         write_result(res["id"], res)
         print(f"[inbox] {res['id']}: {res['status']}")

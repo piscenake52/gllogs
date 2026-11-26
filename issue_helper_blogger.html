@@ -887,7 +887,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var id = stampId(), req = { template: tpl, params: params, created: new Date().toISOString().replace(/\.\d+Z$/, 'Z') };
     btns.forEach(function (b) { b.disabled = true; }); st.textContent = 'sending ...';
     putFile('data/inbox/' + id + '.json', JSON.stringify(req, null, 1), 'helper: ' + id).then(function () { return waitResult(id, st); }).then(function (res) {
-      if (res.status === 'done') { st.textContent = 'done: reflected' + (res.notes && res.notes.length ? '\n' + res.notes.join('\n') : ''); delete cache.logs; delete cache.setlist; delete cache.albums; delete cache.songs; }
+      if (res.status === 'done') { st.textContent = (res.skipped ? 'NOT all reflected (check below)' : 'done: reflected') + ((res.errors || []).concat(res.notes || []).length ? '\n' + (res.errors || []).concat(res.notes || []).join('\n') : ''); delete cache.logs; delete cache.setlist; delete cache.albums; delete cache.songs; }
       else if (res.status === 'error') st.textContent = 'not reflected:\n' + (res.errors || []).concat(res.notes || []).join('\n');
       else st.textContent = 'sent, but the result did not arrive in time. Check the Actions tab of the repository.';
     }, function (e) { st.textContent = 'failed: ' + e.message; }).then(function () { popIn(st); btns.forEach(function (b) { b.disabled = false; }); syncAll(); });

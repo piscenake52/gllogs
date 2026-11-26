@@ -134,7 +134,7 @@ class HelperCase(Repo):
     def send(self, pg, button="#glih-go-find"):
         n = len(self.sent)
         pg.locator(button + " + .sendrow button.go").click()
-        pg.wait_for_function("b => /^(done|not reflected|failed|sent, but)/.test("
+        pg.wait_for_function("b => /^(done|not reflected|NOT all reflected|failed|sent, but)/.test("
                              "document.querySelector(b + ' + .sendrow + .sendst').textContent)", arg=button)
         self.assertEqual(len(self.sent), n + 1)
         return self.sent[-1]
@@ -153,6 +153,7 @@ class HelperCase(Repo):
         res = self.read("data/inbox/results/20261120120000-test.json")
         self.assertEqual(res["status"], "done", res)
         self.assertEqual(res.get("notes") or [], [], res)  # done でも、スキップされた行があれば notes に出る
+        self.assertFalse(res["skipped"], res)
 
     def read_notice(self, pg, text):
         pg.fill("#glih-fdd", "20261120")
@@ -244,6 +245,20 @@ class TestLogs(HelperCase):
         self.new_log(pg, title="x")
         self.send(pg)
         self.assertIn("テストのエラー", self.status(pg))
+
+    def test_skipped_record_is_not_shown_as_reflected(self):
+        pg = self.open(result={"status": "done", "skipped": True, "notes": ["1件目: テストの理由"]})
+        self.new_log(pg, title="x")
+        self.send(pg)
+        self.assertTrue(self.status(pg).startswith("NOT all reflected"), self.status(pg))
+        self.assertIn("テストの理由", self.status(pg))
+        self.assertNotIn("done: reflected", self.status(pg))
+
+    def test_note_without_skip_stays_done(self):
+        pg = self.open(result={"status": "done", "skipped": False, "notes": ["無視した項目: x"]})
+        self.new_log(pg, title="x")
+        self.send(pg)
+        self.assertTrue(self.status(pg).startswith("done: reflected"), self.status(pg))
 
     def test_rejected_token_is_shown(self):
         pg = self.open(put_status=401)

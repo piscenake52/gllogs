@@ -169,6 +169,25 @@ class Inbox(Repo):
         self.assertEqual(res["status"], "done")
         self.assertFalse(self.exists("data/inbox/20261120000000-abcd.json"))  # 依頼ファイルは消える
 
+    def test_skipped_record_is_flagged(self):
+        self.request("20261120000003-skip", "add_setlist.yml", {"setlistid": "202611011800", "item_title": "artistなし"})
+        self.run_flow()
+        res = self.read("data/inbox/results/20261120000003-skip.json")
+        self.assertEqual(res["status"], "done")
+        self.assertTrue(res["skipped"], res)
+        self.assertTrue(res["notes"])
+
+    def test_reflected_record_is_not_flagged(self):
+        self.request("20261120000004-good", "add_logs.yml", {"date": "20261101", "time": "1800", "contents": "LIVE", "item_title": "x"})
+        self.run_flow()
+        self.assertFalse(self.read("data/inbox/results/20261120000004-good.json")["skipped"])
+
+    def test_delete_target_not_found_is_flagged(self):
+        self.request("20261120000005-gone", "add_logs.yml", {"logid": "ffffffffffff", "delete": "削除する"})
+        self.run_flow()
+        res = self.read("data/inbox/results/20261120000005-gone.json")
+        self.assertTrue(res["skipped"], res)
+
     def test_invalid_input_reports_error(self):
         self.request("20261120000001-efgh", "add_logs.yml", {"date": "20261101", "time": "bad", "contents": "LIVE", "item_title": "x"})
         r = self.run_script("inbox_to_json.py"); self.assertEqual(r.returncode, 0)
