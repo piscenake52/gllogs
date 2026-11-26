@@ -2569,6 +2569,87 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     }
     return { dates: out, capped: capped };
   }
+  // ---- schedule mode: read the dates of a pasted notice (rules only, nothing is sent). today = yyyymmdd ----
+  function parseNotice(text, today) {
+    var out = { title: '', url: '', rows: {}, other: [], warn: [], kind: '' };
+    var WD = '\u65e5\u6708\u706b\u6c34\u6728\u91d1\u571f', SEP = '(?:~|\u301c|-|\u2010|\u2013|\u2014|\u2015|\u2212|\u2192|\u30fc)';
+    var DRE = /(?:(20\d\d)\s*[\u5e74\/.]\s*)?(\d{1,2})\s*(?:\u6708|\/)\s*(\d{1,2})(?!\d)\s*\u65e5?\s*(?:\(\s*([\u65e5\u6708\u706b\u6c34\u6728\u91d1\u571f])[^)]{0,6}\))?\s*(?:(\u5348\u524d|\u5348\u5f8c)?\s*(\d{1,2})\s*(?::|\u6642(?!\u9593))\s*(\d{1,2})?\s*\u5206?)?/g;
+    var K_DUE = /\u5165\u91d1|\u652f\u6255/, K_RES = /\u5f53\u843d|\u5f53\u9078|\u62bd\u9078\u7d50\u679c|\u7d50\u679c\u767a\u8868/, K_PER = /\u671f\u9593|\u53d7\u4ed8|\u7533\u8fbc|\u7533\u3057\u8fbc|\u5fdc\u52df|\u8ca9\u58f2|\u958b\u59cb|\u7de0\u5207|\u7de0\u3081\u5207|\u7d42\u4e86|\u307e\u3067|\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9|\u914d\u5e03|\u30a8\u30f3\u30c8\u30ea\u30fc/;
+    function two(n) { return (n < 10 ? '0' : '') + n; }
+    function day(y, m, d) { var x = new Date(y, m - 1, d); return x.getMonth() === m - 1 && x.getDate() === d ? x : null; }
+    var now = day(+today.slice(0, 4), +today.slice(4, 6), +today.slice(6, 8));
+    function toDate(m, after) {
+      var mo = +m[2], da = +m[3], wd = m[4] ? WD.indexOf(m[4]) : -1, c = [], y0 = now.getFullYear();
+      (m[1] ? [+m[1]] : [y0 - 1, y0, y0 + 1]).forEach(function (y) { var x = day(y, mo, da); if (x && (m[1] || (x - now) / 864e5 > -120 && (x - now) / 864e5 < 400)) c.push(x); }); // without a year: only dates from about 4 months ago to about a year ahead
+      if (!c.length) return null;
+      var hit = wd < 0 ? c : c.filter(function (x) { return x.getDay() === wd; });
+      var base = after || now;
+      function far(x) { var df = (x - base) / 864e5; return df < (after ? 0 : -90) ? 1000 - df : Math.abs(df); }
+      var best = (hit.length ? hit : c).slice().sort(function (a, b) { return far(a) - far(b); })[0];
+      if (!hit.length) out.warn.push(mo + '/' + da + '(' + m[4] + ') : \u66dc\u65e5\u304c\u5408\u3044\u307e\u305b\u3093');
+      return best;
+    }
+    function toTime(ap, h, mi, label) {
+      if (h === undefined) return '';
+      h = +h; mi = +(mi || 0); if (ap === '\u5348\u5f8c' && h < 12) h += 12;
+      if (h === 24 && mi === 0) { out.warn.push(label + ' 24:00 \u306f 23:59 \u306b\u3057\u307e\u3057\u305f'); return '2359'; }
+      if (h > 23 || mi > 59) { out.warn.push(label + ' \u306e\u6642\u523b\u306f\u8aad\u3081\u306a\u3044\u305f\u3081\u7a7a\u306b\u3057\u307e\u3057\u305f'); return ''; }
+      return two(h) + two(mi);
+    }
+    var raw = String(text || '').split(/\r?\n/).map(function (x) { return x.trim(); }).filter(Boolean);
+    var um = String(text || '').match(/https?:\/\/[\x21-\x7e]+/); if (um) out.url = um[0];
+    var lines = [];
+    raw.forEach(function (x) {
+      var n = x.replace(/https?:\/\/[\x21-\x7e]+/g, ' ').normalize('NFKC').trim(); if (!n) return;
+      var prev = lines[lines.length - 1];
+      DRE.lastIndex = 0; var has = DRE.test(n);
+      if (prev && prev.has && has && (new RegExp(SEP + '$').test(prev.n) || new RegExp('^' + SEP).test(n))) { prev.n += ' ' + n; return; }
+      lines.push({ raw: x, n: n, has: has });
+    });
+    var head = '';
+    lines.forEach(function (l) {
+      if (!l.has) {
+        var isHead = /^[\u3010\[\u25a0\u25c6\u25cf\u25bc\u300a<\uff1c\u3008]/.test(l.raw) || K_PER.test(l.n) && l.n.length <= 20 || K_DUE.test(l.n) && l.n.length <= 20 || K_RES.test(l.n) && l.n.length <= 20;
+        if (!out.title && !/^(?:\u3010[^\u3011]*\u3011$|[\u25a0\u25c6\u25cf\u25bc\u203b]|https?:)/.test(l.raw) && !/(?:\u671f\u9593|\u65e5\u6642|\u65e5\u7a0b|\u671f\u9650|\u7de0\u5207|\u767a\u8868|\u306b\u3064\u3044\u3066)\s*[:\u3011\]]?$/.test(l.n) && l.n.replace(/https?:\/\/\S+/g, '').trim()) out.title = l.raw;
+        head = isHead ? l.n : '';
+        return;
+      }
+      var found = [], m, last = null; DRE.lastIndex = 0;
+      while ((m = DRE.exec(l.n))) {
+        var x = toDate(m, last); if (!x) continue;
+        var ds = '' + x.getFullYear() + two(x.getMonth() + 1) + two(x.getDate());
+        found.push({ d: ds, t: toTime(m[5], m[6], m[7], m[2] + '/' + m[3]), at: m.index, end: m.index + m[0].length }); last = x;
+      }
+      if (!found.length) return;
+      var a = found[0], b = found[1];
+      var between = b ? l.n.slice(a.end, b.at).trim() : '';
+      var range = !!b && new RegExp('^' + SEP + '$').test(between);
+      var tail = l.n.slice(a.end).match(new RegExp('^\\s*' + SEP + '\\s*(\\d{1,2}):(\\d\\d)'));
+      if (!b && tail) { b = { d: a.d, t: toTime('', tail[1], tail[2], '\u7d42\u4e86') }; range = true; }
+      var own = l.n.slice(0, a.at) + ' ' + l.n.slice((range ? found[found.length - 1] : a).end);
+      var ctx = K_DUE.test(own) || K_RES.test(own) || K_PER.test(own) ? own : head;
+      function put(k, v) { if (out.rows[k]) out.other.push(l.raw); else out.rows[k] = { d: v.d, t: v.t }; }
+      if (K_DUE.test(ctx)) put('due', range ? b : a);
+      else if (K_RES.test(ctx)) put('result', a);
+      else if (!K_PER.test(ctx)) out.other.push(l.raw);
+      else if (range) {
+        if (out.rows.start || out.rows.close) { out.other.push(l.raw); return; }
+        put('start', a); put('close', b);
+        if (!out.kind) out.kind = head + ' ' + own;
+      } else {
+        var before = new RegExp(SEP + '\\s*$').test(l.n.slice(0, a.at)), aft = l.n.slice(a.end).trim();
+        var k = before || /^\u307e\u3067/.test(aft) || /\u7de0\u5207|\u7de0\u3081\u5207|\u7d42\u4e86|\u671f\u9650/.test(ctx) ? 'close' : new RegExp('^(?:' + SEP + '|\u304b\u3089|\u3088\u308a)').test(aft) || /\u958b\u59cb|\u30b9\u30bf\u30fc\u30c8/.test(ctx + aft) ? 'start' : '';
+        if (!k) { out.other.push(l.raw); return; }
+        put(k, a); if (!out.kind) out.kind = head + ' ' + own;
+      }
+      if (found.length > (range && !tail ? 2 : 1)) out.other.push(l.raw);
+    });
+    return out;
+  }
+  function noticeLabels(kind, all) { // the words added after the title, by the kind of the period
+    var p = /\u62bd\u9078/.test(kind) ? ['\u62bd\u9078\u53d7\u4ed8\u958b\u59cb', '\u62bd\u9078\u53d7\u4ed8\u7de0\u5207'] : /\u5fdc\u52df|\u30a8\u30f3\u30c8\u30ea\u30fc/.test(kind) ? ['\u5fdc\u52df\u53d7\u4ed8\u958b\u59cb', '\u5fdc\u52df\u53d7\u4ed8\u7de0\u5207'] : /\u8ca9\u58f2/.test(kind) ? ['\u8ca9\u58f2\u958b\u59cb', '\u8ca9\u58f2\u7d42\u4e86'] : /\u53d7\u4ed8|\u7533\u8fbc|\u7533\u3057\u8fbc/.test(kind) ? ['\u53d7\u4ed8\u958b\u59cb', '\u53d7\u4ed8\u7de0\u5207'] : ['\u958b\u59cb', '\u7d42\u4e86'];
+    return { start: p[0], close: p[1], result: /\u5f53\u9078\u9023\u7d61/.test(all) ? '\u5f53\u9078\u9023\u7d61' : '\u5f53\u9078\u767a\u8868', due: /\u652f\u6255/.test(all) && !/\u5165\u91d1/.test(all) ? '\u652f\u6255\u671f\u9650' : '\u5165\u91d1\u671f\u9650' };
+  }
   function addRepeat(after) {
     var box = document.createElement('div'); box.className = 'rep';
     box.innerHTML = '<div class="field"><label>repeat</label><div class="chipr nw" id="glih-rpmd"></div><input type="checkbox" id="glih-rpon" hidden></div>'
@@ -2654,6 +2735,57 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         changed(); try { r.d.focus(); } catch (e) {}
       };
       sc.appendChild(scAdd);
+      (function () { // paste a notice -> fill the title / url / groups / display_sp and the start / close / result / due rows
+        var w = document.createElement('div'); w.className = 'field top';
+        w.innerHTML = '<label for="glih-rpnt">notice</label><div class="fgcol"><textarea id="glih-rpnt" class="fta" rows="3" spellcheck="false"></textarea><button type="button" class="small" id="glih-rpntb" style="width:100%;margin:6px 0 0;padding:8px 6px">read</button><div id="glih-rpntm" style="font-size:12px;color:var(--sub);white-space:pre-wrap;word-break:break-all"></div><div class="chipr" id="glih-rpntt"></div></div>';
+        sc.insertBefore(w, sc.firstChild);
+        var ta = w.querySelector('textarea'), note = w.querySelector('#glih-rpntm'), tc = w.querySelector('#glih-rpntt');
+        function val(k) { return (($('f-' + k) || {}).value || '').trim(); }
+        function tagChips(text, title) {
+          tc.innerHTML = '';
+          fetchIndex('logs').then(function () {
+            if (ta.value !== text) return;
+            var ls = text.split(/\r?\n/).map(function (x) { return x.trim().toLowerCase(); }).filter(function (x) { return x && x !== title.toLowerCase(); });
+            var hit = tagOptsFor('logs')().filter(function (o) {
+              var v = String(o.v).toLowerCase(); if (v.length < 2) return false;
+              return ls.some(function (x) { return x === v || x.indexOf(v + ' ') === 0; }) || ['\u300e\u300f', '\u300c\u300d'].some(function (q) { return text.toLowerCase().indexOf(q[0] + v + q[1]) >= 0; });
+            }).slice(0, 6);
+            tc.innerHTML = '';
+            hit.forEach(function (o) {
+              var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = o.v;
+              function has() { return tagTokens(val('tags')).indexOf(o.v) >= 0; }
+              b.onclick = function () { var t = tagTokens(val('tags')); setVal('tags', (has() ? t.filter(function (x) { return x !== o.v; }) : t.concat(o.v)).join(',')); b.classList.toggle('on', has()); };
+              b.classList.toggle('on', has()); tc.appendChild(b);
+            });
+          }, function () {});
+        }
+        w.querySelector('#glih-rpntb').onclick = function () {
+          var text = ta.value, now = new Date(), today = String(now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate());
+          var p = parseNotice(text, today);
+          if (!Object.keys(p.rows).length) { tc.innerHTML = ''; note.textContent = ['\u65e5\u7a0b\u3092\u8aad\u307f\u53d6\u308c\u307e\u305b\u3093\u3067\u3057\u305f\uff08\u5165\u529b\u306f\u5909\u3048\u3066\u3044\u307e\u305b\u3093\uff09'].concat(p.other).join('\n'); return; }
+          var lb = noticeLabels(p.kind, text.normalize('NFKC'));
+          SC.forEach(function (r) {
+            if (r.k === 'extra') return;
+            var v = p.rows[r.k];
+            if (r.k === 'start') r.dtTouched = true; // set before any event: the row must not follow the date above (no start date in the notice = the row stays empty)
+            r.d.value = v ? fmtDigits(v.d, 'date') : ''; r.t.value = v && v.t ? fmtDigits(v.t, 'time') : '';
+            r.d.classList.remove('bad'); r.t.classList.remove('bad');
+            r.sf2.value = v ? lb[r.k] : r.sf; r.sf2.dispatchEvent(new Event('input', { bubbles: true }));
+            if (r.k === 'start') {
+              var ct = /girls2-fc\.jp\/page\/wallpaper\//.test(p.url) ? 'FANCLUB' : text.indexOf('\u30ad\u30e3\u30f3\u30da\u30fc\u30f3') >= 0 ? 'CAMPAIGN' : '';
+              if (ct) { r.sel.value = ct; r.touched = true; }
+            }
+          });
+          if (p.title) { setVal('title', p.title); $('rpsp').value = p.title.replace(/^Girls(?:\u00b2|2)[\s\u3000]*/, '').replace(/\u30ad\u30e3\u30f3\u30da\u30fc\u30f3/g, 'CP'); }
+          if (p.url) setVal('url', p.url);
+          var gs = [/Girls(?:\u00b2|2)/i.test(p.title) ? 'G2' : '', /Laki/.test(p.title) ? 'L2' : ''].filter(Boolean);
+          if (gs.length && !val('groups')) setVal('groups', gs.join(','));
+          var m = ['\u8aad\u307f\u53d6\u308a\u307e\u3057\u305f\u3002\u4e0b\u306e\u4e00\u89a7\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002'].concat(p.warn);
+          if (p.other.length) m = m.concat(['\u5165\u308c\u3066\u3044\u306a\u3044\u65e5\u6642:'], p.other);
+          note.textContent = m.join('\n');
+          changed(); tagChips(text, p.title);
+        };
+      })();
       var sw = document.createElement('div'); sw.className = 'field rpsop'; sw.innerHTML = '<label for="glih-rpsp">display_sp</label><div class="fgcol"><input type="text" id="glih-rpsp" class="fin" autocomplete="off"></div>'; sc.appendChild(sw);
       [].forEach.call(sw.querySelectorAll('input,select'), function (e) { e.addEventListener('input', changed); e.addEventListener('change', changed); });
     })();
