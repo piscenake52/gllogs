@@ -46,3 +46,16 @@ jobs:
       - run: npm install axe-core@4
       - name: Viewer tests
         run: python -m unittest tests.test_viewer -v
+
+  helper:
+    # helper(issue_helper_blogger.html)をブラウザで実際に開いて確認する。通信はモック、日付は固定
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install playwright pyyaml
+      - run: playwright install --with-deps chromium
+      - name: Helper tests
+        run: python -m unittest tests.test_helper -v

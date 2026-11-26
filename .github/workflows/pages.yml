@@ -7,21 +7,40 @@ on:
     branches: [main]
     paths:
       - 'issue_helper_blogger.html'
+      - 'tests/test_helper.py'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: gllogs-pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  # 公開する前に helper のテストを通す。失敗したら公開しない(公開中のページはそのまま)
+  test:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install playwright pyyaml
+      - run: playwright install --with-deps chromium
+      - name: Pre-check
+        run: python scripts/check_repo.py
+      - name: Helper tests
+        run: python -m unittest tests.test_helper -v
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
