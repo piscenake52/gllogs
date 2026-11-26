@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        📅 [カレンダーで日付・開演時刻を選ぶ](https://gl-log.blogspot.com/p/issuehelper.html#setlist) — 選んだ値が入力済みで開きます。直接入力もできます。
+        📅 [カレンダーで日付・開演時刻を選ぶ](https://piscenake52.github.io/gllogs/#setlist) — 選んだ値が入力済みで開きます。直接入力もできます。
 
   - type: input
     id: setlistid
