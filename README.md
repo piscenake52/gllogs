@@ -159,7 +159,7 @@ tour(helper の mode: tour)の1行は、末尾まで書くと `日付 時刻 | �
 | `process_queue.yml` | queue の JSON と helper の依頼(`data/inbox/`)を処理 → マージ → コミット | queue・inbox への push、手動 |
 | `tests.yml` | 自動テストと事前チェック | scripts・tests・.github・helper・index.html の変更、PR、手動 |
 | `pages.yml` | helper を GitHub Pages で公開(事前チェックと helper のテストが通ったときだけ) | helper・`test_helper.py`・`pages.yml` の push、手動 |
-| `update_manifest.yml` | `data/manifest.json` の作り直し | データの手動編集の push(queue・inbox は除く)、手動 |
+| `update_manifest.yml` | `data/manifest.json` の作り直し | データの手動編集の push(queue・inbox は除く) |
 | `rebuild_index.yml` | helper用インデックスの作り直し | 手動(Run workflow) |
 | `check_gaps.yml` | logs のタイトルの `#数字` の連番の抜けを調べ、Issue にまとめる | 毎週月曜 03:30(JST)・手動 |
 | `link_check.yml` | logs の `url` / `map` のリンク切れを少しずつ確認(結果は `data/logs/link_state.json`) | 毎日 03:00(JST)・手動 |
