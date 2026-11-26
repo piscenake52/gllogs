@@ -1,7 +1,9 @@
 name: Check # number gaps
 
 on:
-  workflow_dispatch:   # 自動実行はしない。必要なときだけ、Actions画面の「Run workflow」で手動実行する
+  schedule:
+    - cron: '30 18 * * 0'   # 毎週月曜 03:30 JST(自動実行)
+  workflow_dispatch:   # Actions画面の「Run workflow」でも手動実行できる
 
 permissions:
   contents: read
