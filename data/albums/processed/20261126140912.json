@@ -1,0 +1,58 @@
+{
+  "title": "こくご・さんすう・りか・恋愛!",
+  "type": "ep",
+  "artist": "Laki",
+  "member": [
+    "RIN",
+    "YUR",
+    "TBK",
+    "HIR",
+    "YUW",
+    "KAN",
+    "RRK",
+    "AKR",
+    "KIK"
+  ],
+  "_logids": [
+    "91e201485d39"
+  ],
+  "date": "20240703",
+  "tracks": [
+    {
+      "no": 1,
+      "title": "こくご・さんすう・りか・恋愛！"
+    },
+    {
+      "no": 2,
+      "title": "Dub♡Love!!"
+    },
+    {
+      "no": 3,
+      "title": "バグって急接近！？"
+    }
+  ],
+  "editions": [
+    {
+      "name": "初回生産限定盤",
+      "format": "CD+DVD",
+      "note": "AICL-4597～4598",
+      "price": 2800,
+      "extra": [
+        {
+          "no": "DVD1",
+          "title": "こくご・さんすう・りか・恋愛！ Music Video"
+        },
+        {
+          "no": "DVD2",
+          "title": "こくご・さんすう・りか・恋愛！ Music Video Behind"
+        }
+      ]
+    },
+    {
+      "name": "通常盤",
+      "format": "CD",
+      "note": "AICL-4599",
+      "price": 1800
+    }
+  ]
+}

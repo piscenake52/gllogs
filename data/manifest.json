@@ -1,12 +1,12 @@
 {
  "files": {
   "data/albums/albums.json": {
-   "hash": "ea021cee6d9d3178",
-   "size": 25644
+   "hash": "2593fa94646c081a",
+   "size": 26798
   },
   "data/logs/logs.json": {
-   "hash": "b9105f740953794a",
-   "size": 6140834
+   "hash": "22128bd1a2f9264f",
+   "size": 6140865
   },
   "data/setlist/setlist.json": {
    "hash": "f4f5e2a7ea4f375d",
