@@ -377,20 +377,39 @@ class TestSetlist(HelperCase):
     OLD = {"setlistid": "202611011800", "title": "既存の公演", "artist": "Girls²",
            "songs": [{"order": 1, "title": "一曲目", "type": "song"}]}
 
-    def test_new_setlist_needs_artist(self):
+    def test_new_setlist_needs_artist_and_title(self):
         pg = self.open("#setlist")
         pg.fill("#glih-fdd", "20261201")
         pg.fill("#glih-fdt", "1800")
         pg.wait_for_selector("#glih-f-songs", state="attached")
-        pg.fill("#glih-f-title", "架空公演")
-        for blank in ("", "   "):
-            pg.fill("#glih-f-artist", blank)
-            self.assertIsNone(self.issue(pg))
-            self.assertFalse(pg.locator("#glih-go-find + .sendrow").is_visible())
-            self.assertIn("bad", pg.get_attribute("#glih-f-artist", "class"))
-        pg.fill("#glih-f-artist", "Girls²")
-        self.assertEqual(self.issue(pg)["artist_free"], "Girls²")
-        self.assertNotIn("bad", pg.get_attribute("#glih-f-artist", "class"))
+        values = {"artist": "Girls²", "title": "架空公演"}
+        for key in values:
+            for k, v in values.items():
+                pg.fill("#glih-f-" + k, v)
+            for blank in ("", "   "):
+                pg.fill("#glih-f-" + key, blank)
+                self.assertIsNone(self.issue(pg), key)
+                self.assertFalse(pg.locator("#glih-go-find + .sendrow").is_visible())
+                self.assertIn("bad", pg.get_attribute("#glih-f-" + key, "class"))
+        pg.fill("#glih-f-title", values["title"])
+        q = self.issue(pg)
+        self.assertEqual((q["artist_free"], q["item_title"]), ("Girls²", "架空公演"))
+        for key in values:
+            self.assertNotIn("bad", pg.get_attribute("#glih-f-" + key, "class"))
+
+    def test_copied_setlist_needs_artist_and_title(self):
+        pg = self.open("?id=202611011800#setlist", setlists=(self.OLD,))
+        pg.wait_for_selector("#glih-f-songs", state="attached")
+        pg.check("#glih-fcp", force=True)
+        pg.fill("#glih-fdd", "20261201")
+        pg.fill("#glih-fdt", "1800")
+        self.assertIsNotNone(self.issue(pg))
+        for key in ("artist", "title"):
+            old = pg.input_value("#glih-f-" + key)
+            pg.fill("#glih-f-" + key, "")
+            self.assertIsNone(self.issue(pg), key)
+            pg.fill("#glih-f-" + key, old)
+        self.assertEqual(self.issue(pg)["copy_from"], "202611011800")
 
     def test_existing_setlist_can_be_updated_without_resending_artist(self):
         pg = self.open("?id=202611011800#setlist", setlists=(self.OLD,))
