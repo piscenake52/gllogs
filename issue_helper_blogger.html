@@ -2218,6 +2218,9 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     var errs = validateFind(found.kind);
     DEFS[found.kind].fields.forEach(function (f) { var e = $('f-' + f.k); if (e && e.classList.contains('asbad')) errs.push(f.k + ': half-width only'); });
     if (found.kind === 'logs' && found.isNew && !topReady('logs')) errs.push('date / time');
+    if (found.kind === 'setlist') { // a new setlist (also a copy) needs an artist: without it the merge skips the record
+      var noArt = (found.isNew || $('fcp').checked) && !$('f-artist').value.trim(); $('f-artist').classList.toggle('bad', noArt); if (noArt) errs.push('artist');
+    }
     if (found.kind === 'logs' && found.isNew && rep) { // repeat registration: the checked dates go to the repeat field (the first one is also the date)
       var rs = rep.refresh();
       if (rs) {

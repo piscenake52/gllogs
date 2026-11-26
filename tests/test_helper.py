@@ -64,7 +64,7 @@ def tearDownModule():
 @unittest.skipIf(sync_playwright is None, "playwright が無いので skip")
 @unittest.skipUnless(HELPER.exists(), "helper が見つからないので skip (HELPER_HTML で指定)")
 class HelperCase(Repo):
-    def open(self, path="#logs", token=True, logs=(LOG,), songs=(SONG,), result=None, put_status=201):
+    def open(self, path="#logs", token=True, logs=(LOG,), songs=(SONG,), setlists=(), result=None, put_status=201):
         """helper を開く。self.sent に send した依頼(data/inbox/ への PUT)が入る"""
         ctx = _browser["b"].new_context(viewport={"width": 390, "height": 900},
                                         timezone_id="Asia/Tokyo", locale="ja-JP")
@@ -79,8 +79,8 @@ class HelperCase(Repo):
         page = ('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width">'
                 + HELPER.read_text(encoding="utf-8"))
         data = {"data/logs/logs.json": list(logs), "data/logs/logs_index.json": list(logs),
-                "data/songs/songs.json": list(songs), "data/setlist/setlist.json": [],
-                "data/setlist/setlist_index.json": [], "data/albums/albums.json": []}
+                "data/songs/songs.json": list(songs), "data/setlist/setlist.json": list(setlists),
+                "data/setlist/setlist_index.json": list(setlists), "data/albums/albums.json": []}
         cors = {"access-control-allow-origin": "*", "access-control-allow-headers": "*",
                 "access-control-allow-methods": "GET,PUT,OPTIONS"}
 
@@ -374,6 +374,32 @@ class TestSongs(HelperCase):
 
 
 class TestSetlist(HelperCase):
+    OLD = {"setlistid": "202611011800", "title": "既存の公演", "artist": "Girls²",
+           "songs": [{"order": 1, "title": "一曲目", "type": "song"}]}
+
+    def test_new_setlist_needs_artist(self):
+        pg = self.open("#setlist")
+        pg.fill("#glih-fdd", "20261201")
+        pg.fill("#glih-fdt", "1800")
+        pg.wait_for_selector("#glih-f-songs", state="attached")
+        pg.fill("#glih-f-title", "架空公演")
+        for blank in ("", "   "):
+            pg.fill("#glih-f-artist", blank)
+            self.assertIsNone(self.issue(pg))
+            self.assertFalse(pg.locator("#glih-go-find + .sendrow").is_visible())
+            self.assertIn("bad", pg.get_attribute("#glih-f-artist", "class"))
+        pg.fill("#glih-f-artist", "Girls²")
+        self.assertEqual(self.issue(pg)["artist_free"], "Girls²")
+        self.assertNotIn("bad", pg.get_attribute("#glih-f-artist", "class"))
+
+    def test_existing_setlist_can_be_updated_without_resending_artist(self):
+        pg = self.open("?id=202611011800#setlist", setlists=(self.OLD,))
+        pg.wait_for_selector("#glih-f-songs", state="attached")
+        pg.fill("#glih-f-title", "直した公演")
+        q = self.issue(pg)
+        self.assertEqual(q["item_title"], "直した公演")
+        self.assertNotIn("artist_free", q)
+
     def test_new_setlist_is_registered(self):
         pg = self.open("#setlist")
         pg.fill("#glih-fdd", "20261201")
