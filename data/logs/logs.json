@@ -2751,8 +2751,14 @@
     "title": "SNS　Laki",
     "groups": [
       "L2",
+      "RIN",
+      "TBK",
+      "HIR",
       "YUW",
-      "RRK"
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
     ],
     "sns": [
       {
@@ -2769,6 +2775,27 @@
               "Dream & Happiness",
               "EXILE",
               "ゆわりりーる"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/ldh_scream/status/2125587455361560770?a=SHiHzOd-cSTUJUiAxyA&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK"
+            ],
+            "tags": [
+              "LDH SCREAM"
             ]
           }
         ]
