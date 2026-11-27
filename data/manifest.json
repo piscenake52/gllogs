@@ -2,19 +2,23 @@
  "files": {
   "data/albums/albums.json": {
    "hash": "2593fa94646c081a",
-   "size": 26798
+   "size": 26798,
+   "updated": "2026-11-26T14:09:28+09:00"
   },
   "data/logs/logs.json": {
    "hash": "ee0a6edfcb20b3a4",
-   "size": 6168433
+   "size": 6168433,
+   "updated": "2026-11-27T16:10:15+09:00"
   },
   "data/setlist/setlist.json": {
    "hash": "f4f5e2a7ea4f375d",
-   "size": 5645
+   "size": 5645,
+   "updated": "2026-11-25T16:37:16+09:00"
   },
   "data/songs/songs.json": {
    "hash": "91b35726d9faa94b",
-   "size": 53758
+   "size": 53758,
+   "updated": "2026-11-26T05:58:19+09:00"
   }
  }
 }

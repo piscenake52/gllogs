@@ -46,6 +46,10 @@ jobs:
       - run: npm install axe-core@4
       - name: Viewer tests
         run: python -m unittest tests.test_viewer -v
+      - name: Viewer tests (split version for GitHub Pages)
+        run: |
+          python scripts/build_viewer.py index.html "$RUNNER_TEMP/preview" --preview
+          INDEX_HTML="$RUNNER_TEMP/preview/index.html" python -m unittest tests.test_viewer -v
 
   helper:
     # helper(helper.html)をブラウザで実際に開いて確認する。通信はモック、日付は固定

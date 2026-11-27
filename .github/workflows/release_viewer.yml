@@ -1,0 +1,105 @@
+name: Release viewer
+
+# 閲覧ページを本番(https://piscenake52.github.io/gllogs/viewer/)に公開する。手動(Run workflow)だけで動く。
+# テスト用(/viewer/preview/)を確認してから実行する。戻すときは、ref に前の版のコミット ID を入れる
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: '公開する版(コミット ID)。空欄なら main の最新'
+        required: false
+        default: ''
+
+concurrency:
+  group: gllogs-viewer-release
+  cancel-in-progress: false
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          filter: blob:none
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Pick the version
+        id: pick
+        env:
+          REF: ${{ inputs.ref }}
+        run: |
+          SHA=$(git rev-parse --verify --end-of-options "${REF:-HEAD}^{commit}")
+          git merge-base --is-ancestor "$SHA" HEAD || { echo "::error::main にない版は公開できません"; exit 1; }
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          git worktree add -q "$RUNNER_TEMP/release" "$SHA"
+
+      - run: pip install playwright
+      - run: playwright install --with-deps chromium
+
+      - name: Test the version
+        working-directory: ${{ runner.temp }}/release
+        run: |
+          npm install axe-core@4
+          BUILD=scripts/build_viewer.py
+          [ -f "$BUILD" ] || BUILD="$GITHUB_WORKSPACE/scripts/build_viewer.py"
+          python "$BUILD" index.html "$RUNNER_TEMP/built" --preview
+          INDEX_HTML="$RUNNER_TEMP/built/index.html" python -m unittest tests.test_viewer -v
+
+      # Blogger に貼る内容(loader.txt)が前の本番から変わったときは、貼り直しが必要
+      - name: Check the loader
+        run: |
+          BASE=https://piscenake52.github.io/gllogs/viewer
+          # それぞれの版の作成スクリプトで作る(pages.yml の本番の作り方と同じ)
+          make_loader() { # $1: 版のフォルダ, $2: 出力先
+            local build="$1/scripts/build_viewer.py"
+            [ -f "$build" ] || build=scripts/build_viewer.py
+            python "$build" "$1/index.html" "$2" --url "$BASE"
+          }
+          make_loader "$RUNNER_TEMP/release" "$RUNNER_TEMP/new"
+          if [ -f viewer_release.txt ]; then
+            git worktree add -q "$RUNNER_TEMP/previous" "$(head -n1 viewer_release.txt)"
+            if make_loader "$RUNNER_TEMP/previous" "$RUNNER_TEMP/old" \
+                && cmp -s "$RUNNER_TEMP/old/loader.txt" "$RUNNER_TEMP/new/loader.txt"; then
+              echo "Blogger の貼り直しは不要です。" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "::warning::Blogger の貼り直しが必要です($BASE/loader.txt)"
+              echo "**Blogger の貼り直しが必要です:** $BASE/loader.txt" >> "$GITHUB_STEP_SUMMARY"
+            fi
+          else
+            echo "初回の公開です。Blogger に貼る内容: $BASE/loader.txt" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Record the version
+        env:
+          SHA: ${{ steps.pick.outputs.sha }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          echo "$SHA" > viewer_release.txt
+          git add viewer_release.txt
+          if ! git diff --staged --quiet; then
+            git commit -q -m "Release viewer ${SHA:0:7}"
+            for i in 1 2 3 4 5; do
+              git pull -q --rebase origin main && git push -q origin HEAD:main && break
+              [ "$i" = 5 ] && exit 1
+              sleep 5
+            done
+          fi
+          echo "公開する版: $SHA" >> "$GITHUB_STEP_SUMMARY"
+
+  publish:
+    needs: record
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml

@@ -1,15 +1,22 @@
-name: Publish helper (GitHub Pages)
+name: Publish pages (GitHub Pages)
 
-# helper を GitHub Pages で公開する(Blogger に貼らずに、push だけで反映する)。
-# 公開するのは helper のページだけ。最初に Settings → Pages → Source を「GitHub Actions」にする
+# GitHub Pages に公開する(Blogger に貼らずに、push で反映する)。公開するもの:
+#   /                 helper(helper.html の最新)
+#   /viewer/preview/  閲覧ページのテスト用(index.html の最新)
+#   /viewer/          閲覧ページの本番(viewer_release.txt の版。「Release viewer」で更新する)
+# 最初に Settings → Pages → Source を「GitHub Actions」にする
 on:
   push:
     branches: [main]
     paths:
       - 'helper.html'
+      - 'index.html'
+      - 'scripts/build_viewer.py'
       - 'tests/test_helper.py'
+      - 'tests/test_viewer.py'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: read
@@ -19,20 +26,35 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # 公開する前に helper のテストを通す。失敗したら公開しない(公開中のページはそのまま)
+  # 公開する前にテストを通す。失敗したら公開しない(公開中のページはそのまま)
   test:
     runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.head.outputs.sha }}
     steps:
+      # テストと公開は、その時点の main の最新(同じ版)を使う。古い実行が後から公開して巻き戻らないように
       - uses: actions/checkout@v4
+        with:
+          ref: main
+      - id: head
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
       - run: pip install playwright pyyaml
       - run: playwright install --with-deps chromium
+      - run: npm install axe-core@4
       - name: Pre-check
         run: python scripts/check_repo.py
       - name: Helper tests
         run: python -m unittest tests.test_helper -v
+      - name: Viewer tests (split version)
+        run: |
+          python scripts/build_viewer.py index.html "$RUNNER_TEMP/preview" --preview
+          INDEX_HTML="$RUNNER_TEMP/preview/index.html" python -m unittest tests.test_viewer -v
 
   deploy:
     needs: test
@@ -46,6 +68,8 @@ jobs:
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.test.outputs.sha }}
 
       # helper.html は外枠のない部品なので、ページの外枠を付ける
       - name: Build the page
@@ -59,6 +83,23 @@ jobs:
             cat helper.html
             printf '%s\n' '</body>' '</html>'
           } > site/index.html
+
+      - name: Build the viewer
+        env:
+          BASE: https://piscenake52.github.io/gllogs/viewer
+        run: |
+          python scripts/build_viewer.py index.html site/viewer/preview --url "$BASE/preview" --preview
+          # 本番は、いつも main の最新の viewer_release.txt が指す版から作る(まだ無ければ作らない)
+          git fetch -q --depth=1 origin main
+          if git cat-file -e FETCH_HEAD:viewer_release.txt 2>/dev/null; then
+            SHA=$(git show FETCH_HEAD:viewer_release.txt | head -n1)
+            echo "$SHA" | grep -Eq '^[0-9a-f]{40}$'
+            git fetch -q --depth=1 origin "$SHA"
+            git worktree add -q "$RUNNER_TEMP/release" "$SHA"
+            BUILD="$RUNNER_TEMP/release/scripts/build_viewer.py"
+            [ -f "$BUILD" ] || BUILD=scripts/build_viewer.py
+            python "$BUILD" "$RUNNER_TEMP/release/index.html" site/viewer --url "$BASE"
+          fi
 
       - uses: actions/upload-pages-artifact@v3
         with:

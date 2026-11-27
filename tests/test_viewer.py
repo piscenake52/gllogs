@@ -87,6 +87,8 @@ class ViewerCase(unittest.TestCase):
             if m == "offline":
                 return r.abort()
             if "manifest.json" in u:
+                if "manifest" in st:
+                    return r.fulfill(status=200, content_type="application/json", body=json.dumps(st["manifest"]))
                 return r.fulfill(status=404, body="")
             if m in ("404", "403", "500") and "api.github.com" not in u:
                 return r.fulfill(status=int(m), body="")
@@ -136,6 +138,29 @@ class TestStartup(ViewerCase):
         self.assertGreater(box["tw"], 0)
         self.assertLessEqual(box["tw"], box["ww"] + 1)
         self.assertLess(box["h"], 160)
+
+
+class TestUpdatedDate(ViewerCase):
+    """画面下の「updated >」は、logs.json を最後に更新した日。"""
+
+    def test_from_manifest(self):
+        st = {"manifest": {"files": {"data/logs/logs.json": {"hash": "abc", "updated": "2026-11-18T23:30:00+09:00"}}}}
+        pg = self.open([row(1, "1000", "LIVE", "Girls2 Live")], route_state=st)
+        pg.wait_for_function("document.getElementById('updateTime').textContent === 'updated > 2026.11.18'")
+        self.assertEqual(pg.evaluate("localStorage.getItem('gl_log_updated')"), "2026-11-18T23:30:00+09:00")
+
+    def test_keeps_previous_date_when_data_is_stale(self):
+        st = {"manifest": {"files": {"data/logs/logs.json": {"hash": "abc", "size": 999999,
+                                                             "updated": "2026-11-18T23:30:00+09:00"}}}}
+        pg = self.open([row(1, "1000", "LIVE", "Girls2 Live")], route_state=st,
+                       ls={"gl_log_updated": "2026-11-01T00:00:00+09:00"})
+        self.assertEqual(pg.inner_text("#updateTime").strip().lower(), "updated > 2026.11.01")
+
+    def test_keeps_previous_date_when_no_date_is_known(self):
+        pg = self.open([row(1, "1000", "LIVE", "Girls2 Live")],
+                       ls={"gl_log_updated": "2026-11-01T00:00:00+09:00"})
+        # manifest もコミット情報の日付も無いときは、前回の値のまま
+        self.assertEqual(pg.inner_text("#updateTime").strip().lower(), "updated > 2026.11.01")
 
 
 class TestSearch(ViewerCase):

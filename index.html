@@ -6617,22 +6617,16 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
   $('quickResetBtn').onclick = resetAll;
   $('inlineClearBtn').onclick = resetAll;
 
-  fetch('/feeds/posts/default?alt=json&max-results=1')
-    .then(res => res.json())
-    .then(data => {
-      const entry = data.feed.entry;
-      if (entry && entry.length > 0) {
-        const updatedStr = entry[0].updated.$t;
-        const dateObj = new Date(updatedStr);
-        const y = dateObj.getFullYear();
-        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
-        const d = String(dateObj.getDate()).padStart(2, '0');
-        $('updateTime').textContent = `updated > ${y}.${m}.${d}`;
-      }
-    })
-    .catch(err => {
-      console.error('Failed to load blogger feed:', err);
-    });
+  // updated > の日付: logs.json を最後に更新した日(manifest の updated)。前回の値を先に表示する
+  const UPDATED_KEY = 'gl_log_updated';
+  const showUpdated = iso => {
+    const dt = new Date(iso || '');
+    if (isNaN(dt.getTime())) return false;
+    const m = String(dt.getMonth() + 1).padStart(2, '0'), d = String(dt.getDate()).padStart(2, '0');
+    $('updateTime').textContent = `updated > ${dt.getFullYear()}.${m}.${d}`;
+    return true;
+  };
+  showUpdated(store.get(UPDATED_KEY));
 
   // logs.json取得:最新コミットSHAを確認し、変更があればコミット固定のjsDelivr URLから取得する
   const REPO = 'piscenake52/gllogs';
@@ -6710,30 +6704,35 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         o.apply(data);
         return Promise.resolve(cache.save(data)).then(ok => { // データを保存できた時だけ版を記録する(保存失敗時に古い版だけ残らないように)
           if (info.ver && ok && verified) lsSet(o.verKey, info.ver); else lsDel(o.verKey);
+          return verified; // 更新日を出してよいか(古い内容のときは false)
         });
       });
     const latestSha = () => fetch(`https://api.github.com/repos/${REPO}/commits?path=${o.file}&sha=${BRANCH}&page=1&per_page=1`, { cache: 'no-store' })
       .then(res => { if (!res.ok) throw new Error('GitHub API error'); return res.json(); })
-      .then(commits => { lsSet(o.checkKey, String(Date.now())); return commits[0] && commits[0].sha; });
+      .then(commits => { lsSet(o.checkKey, String(Date.now())); const c = commits[0]; return { ver: (c && c.sha) || null, updated: c && c.commit && c.commit.committer && c.commit.committer.date }; });
     // 最新の版: まずマニフェスト(小さなファイル1つ。4つのデータで共有)。取れないとき・載っていないときだけ、従来のGitHub API(コミットSHA)
     const latest = force => getManifest(force)
       .then(files => {
         const e = files[o.file];
         if (!e || !e.hash) throw new Error('not in manifest');
         lsSet(o.checkKey, String(Date.now()));
-        return { ver: 'm:' + e.hash, size: e.size };
+        return { ver: 'm:' + e.hash, size: e.size, updated: e.updated };
       })
-      .catch(() => latestSha().then(sha => ({ ver: sha || null })));
+      .catch(() => latestSha());
     // force=true: 版の比較を無視して必ず取り直す(タイトルクリック・特定の配信元)
     // 結果の通知(o.onOk / o.onFail(err) / o.onStale(err))。lastError(): 直近の取得の失敗(成功すると null)
     let lastErr = null;
     const done = ok => { lastErr = null; if (o.onOk) { try { o.onOk(); } catch (e) {} } return ok; };
-    const check = force => latest(force)
-      .then(info => { if (force || (info.ver && info.ver !== lsGet(o.verKey)) || o.isEmpty()) return fetchFresh(info); }) // 変更なし:表示済みでなければ念のため取得
+    // 更新日は、その版のデータを表示できているときだけ通知する
+    let upd = null; // 直近に分かった更新日
+    const notify = verified => { if (verified !== false && upd && o.onUpdated) o.onUpdated(upd); };
+    const check = force => (upd = null, latest(force))
+      .then(info => { upd = info.updated || null; return (force || (info.ver && info.ver !== lsGet(o.verKey)) || o.isEmpty()) ? fetchFresh(info) : null; }) // 変更なし:表示済みでなければ念のため取得
+      .then(notify)
       .then(() => done())
       .catch(err => {
         console.error('Failed to check ' + o.file + ':', err);
-        if (force || o.isEmpty()) return fetchFresh({ ver: null }).then(() => done(), err2 => { console.error('Failed to load ' + o.file + ':', err2); lastErr = err2; if (o.onFail) o.onFail(err2); }); // 版の確認に失敗: 版なしで取り直す
+        if (force || o.isEmpty()) return fetchFresh({ ver: null }).then(() => { notify(); return done(); }, err2 => { console.error('Failed to load ' + o.file + ':', err2); lastErr = err2; if (o.onFail) o.onFail(err2); }); // 版の確認に失敗: 版なしで取り直す
         lastErr = err; if (o.onStale) o.onStale(err); // 表示できているデータはあるが、最新の確認に失敗した
       });
     // キャッシュ表示 → 直近チェックから一定時間以内なら、確認自体をスキップ。
@@ -6904,7 +6903,7 @@ button:not(:disabled):active, [role="button"]:active, .tag-chip:active, .checks 
         return false; // 壊れたキャッシュは無視して素通り(新規取得に進む)
       }
     });
-  const logsSrc = makeDataSource({ file: FILE, verKey: VERSION_KEY, dataKey: DATA_KEY, checkKey: CHECK_TIME_KEY, apply: d => applyLogs(d), isEmpty: () => !logs.length, cache: { load: loadLogsCache, save: saveLogsCache }, onFail: err => showLoadError(err), onStale: () => setStale(true), onOk: () => loadOk() });
+  const logsSrc = makeDataSource({ onUpdated: iso => { if (showUpdated(iso)) store.set(UPDATED_KEY, iso); }, file: FILE, verKey: VERSION_KEY, dataKey: DATA_KEY, checkKey: CHECK_TIME_KEY, apply: d => applyLogs(d), isEmpty: () => !logs.length, cache: { load: loadLogsCache, save: saveLogsCache }, onFail: err => showLoadError(err), onStale: () => setStale(true), onOk: () => loadOk() });
 
   // 読み込み失敗の表示と再試行。データが1件も表示できないときは、原因を出し、約3秒・8秒・20秒後に自動で再試行する(最大3回)。通信が戻ったとき・画面が前面に戻ったときにも1回試す。
   // 表示できているデータがあるのに最新の確認に失敗したときは、画面下に小さく知らせる(データの表示は変えない)

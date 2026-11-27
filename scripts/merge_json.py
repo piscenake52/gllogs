@@ -7,6 +7,7 @@ import uuid
 import copy
 import sys
 import hashlib
+from datetime import datetime, timedelta, timezone
 
 from common import is_blank, album_type_ok, SCHEMA
 
@@ -1399,7 +1400,17 @@ MANIFEST_FILE = "data/manifest.json"
 def write_manifest():
     """viewer用のバージョン表。メインのデータファイルごとに、中身のハッシュ(sha256の先頭16文字)とバイト数を書く。
     viewerはこの小さなファイル1つを見るだけで、どのファイルが変わったか分かる(GitHub APIを使わない)。
-    時刻などは入れない: データが同じなら同じ内容になり、空のコミットが増えない"""
+    updated は、中身が変わった時刻(日本時間)。viewer の「updated >」に使う。
+    中身が同じなら前の値を引き継ぐので、内容は変わらず、空のコミットは増えない"""
+    old_text = None
+    if os.path.exists(MANIFEST_FILE):
+        with open(MANIFEST_FILE, "r", encoding="utf-8") as f:
+            old_text = f.read()
+    try:
+        old_files = json.loads(old_text or "{}").get("files") or {}
+    except (json.JSONDecodeError, AttributeError):
+        old_files = {}
+    now = datetime.now(timezone(timedelta(hours=9))).isoformat(timespec="seconds")
     files = {}
     for target in TARGETS:
         path = target["main_file"]
@@ -1407,13 +1418,15 @@ def write_manifest():
             continue
         with open(path, "rb") as f:
             raw = f.read()
-        files[path] = {"hash": hashlib.sha256(raw).hexdigest()[:16], "size": len(raw)}
+        entry = {"hash": hashlib.sha256(raw).hexdigest()[:16], "size": len(raw)}
+        old = old_files.get(path) or {}
+        if old.get("hash") != entry["hash"]:
+            entry["updated"] = now
+        elif old.get("updated"):
+            entry["updated"] = old["updated"]
+        files[path] = entry
     os.makedirs(os.path.dirname(MANIFEST_FILE), exist_ok=True)
     new_text = json.dumps({"files": files}, ensure_ascii=False, sort_keys=True, indent=1) + "\n"
-    old_text = None
-    if os.path.exists(MANIFEST_FILE):
-        with open(MANIFEST_FILE, "r", encoding="utf-8") as f:
-            old_text = f.read()
     if new_text != old_text:
         with open(MANIFEST_FILE, "w", encoding="utf-8", newline="\n") as f:
             f.write(new_text)
