@@ -1804,6 +1804,11 @@
       "L2",
       "TBK"
     ],
+    "relations": [
+      "RIN",
+      "HIR",
+      "YUW"
+    ],
     "tags": [
       "NATSLIVE",
       "後ろにいるひよこ",
