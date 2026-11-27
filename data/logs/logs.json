@@ -2854,6 +2854,33 @@
     ]
   },
   {
+    "logid": "912728374704",
+    "date": "20261127",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　ワンダンス",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "instagram",
+        "urls": [
+          {
+            "url": "https://www.instagram.com/p/DgPtzKOH99o/?img_index=3&hvrq=MTF0c2wyYnVtOXluMQ==",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "具志柊花"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "dca7478820d3",
     "date": "20261126",
     "time": "2359",
