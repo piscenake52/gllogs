@@ -2883,6 +2883,45 @@
     ]
   },
   {
+    "logid": "c79d9769a805",
+    "date": "20261126",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/ldh_scream/status/2125587455361560770?a=SHiHzOd-cSTUJUiAxyA&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "LDH SCREAM"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "5aa3653b96c5",
     "date": "20261125",
     "time": "2100",
