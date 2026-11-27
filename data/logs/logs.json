@@ -1862,6 +1862,38 @@
     ]
   },
   {
+    "logid": "dda3c514e85a",
+    "date": "20261127",
+    "time": "1500",
+    "contents": "CAMPAIGN",
+    "title": "NATSLIVE「Lakiガチャクッキング」　#016 一般観覧受付開始",
+    "display_sp": "NATSLIVE「Lakiガチャクッキング」　#016 一般観覧受付開始",
+    "groups": [
+      "L2",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "tags": [
+      "Lakiガチャクッキング"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/NATSLIVE_app/status/2125107143288447022?a=p8SLGFvGU9dezYBdblM&s=19",
+            "member": [],
+            "tags": [
+              "配信決定"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "40f04fdcc296",
     "date": "20261127",
     "time": "1400",
@@ -2460,6 +2492,38 @@
     ]
   },
   {
+    "logid": "b6c50732f376",
+    "date": "20261127",
+    "time": "",
+    "contents": "RESULT",
+    "title": "NATSLIVE「Lakiガチャクッキング」　#016 プラチナ会員先行観覧当選連絡",
+    "display_sp": "NATSLIVE「Lakiガチャクッキング」　#016 プラチナ会員先行観覧当選連絡",
+    "groups": [
+      "L2",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "tags": [
+      "Lakiガチャクッキング"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/NATSLIVE_app/status/2125107143288447022?a=p8SLGFvGU9dezYBdblM&s=19",
+            "member": [],
+            "tags": [
+              "配信決定"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "dca7478820d3",
     "date": "20261126",
     "time": "2359",
@@ -2942,6 +3006,38 @@
             ],
             "tags": [
               "LDH SCREAM"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "b07810b0291f",
+    "date": "20261126",
+    "time": "",
+    "contents": "CLOSE",
+    "title": "NATSLIVE「Lakiガチャクッキング」　#016 プラチナ会員先行観覧受付締切",
+    "display_sp": "NATSLIVE「Lakiガチャクッキング」　#016 プラチナ会員先行観覧受付締切",
+    "groups": [
+      "L2",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "tags": [
+      "Lakiガチャクッキング"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/NATSLIVE_app/status/2125107143288447022?a=p8SLGFvGU9dezYBdblM&s=19",
+            "member": [],
+            "tags": [
+              "配信決定"
             ]
           }
         ]
@@ -3977,6 +4073,38 @@
             "member": [],
             "tags": [
               "本日のラジオ出演情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "b570e96a1a56",
+    "date": "20261124",
+    "time": "1500",
+    "contents": "CAMPAIGN",
+    "title": "NATSLIVE「Lakiガチャクッキング」　#016 プラチナ会員先行観覧受付開始",
+    "display_sp": "NATSLIVE「Lakiガチャクッキング」　#016 プラチナ会員先行観覧受付開始",
+    "groups": [
+      "L2",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "tags": [
+      "Lakiガチャクッキング"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/NATSLIVE_app/status/2125107143288447022?a=p8SLGFvGU9dezYBdblM&s=19",
+            "member": [],
+            "tags": [
+              "配信決定"
             ]
           }
         ]
