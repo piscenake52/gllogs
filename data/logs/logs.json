@@ -2104,7 +2104,8 @@
       "G2",
       "KIR",
       "L2",
-      "RIN"
+      "RIN",
+      "KIK"
     ],
     "tags": [
       "ワンダンス"
@@ -2130,6 +2131,15 @@
             "tags": [
               "本日公開",
               "from KIRA"
+            ]
+          },
+          {
+            "url": "https://x.com/wandance_movie/status/2126142123347185669?a=4YJF9uzhU0C-pTSpOzw&s=19",
+            "member": [
+              "KIK"
+            ],
+            "tags": [
+              "本日公開"
             ]
           }
         ]
