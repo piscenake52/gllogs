@@ -98,7 +98,8 @@ jobs:
             git worktree add -q "$RUNNER_TEMP/release" "$SHA"
             BUILD="$RUNNER_TEMP/release/scripts/build_viewer.py"
             [ -f "$BUILD" ] || BUILD=scripts/build_viewer.py
-            python "$BUILD" "$RUNNER_TEMP/release/index.html" site/viewer --url "$BASE"
+            # --preview: /viewer/ を単独で開ける確認ページ(index.html、検索に出さない)も作る
+            python "$BUILD" "$RUNNER_TEMP/release/index.html" site/viewer --url "$BASE" --preview
           fi
 
       - uses: actions/upload-pages-artifact@v3
