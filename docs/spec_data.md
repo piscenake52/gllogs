@@ -34,8 +34,9 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 - 削除は、フォームの「DELETE」と同じ(`delete=削除する`)。更新は、Issue と同じく、識別キー(logid など)と変更する項目だけを送る。
 
 #### manifest(`data/manifest.json`)
-- 形: `{"files": {"data/logs/logs.json": {"hash": "<sha256の先頭16桁>", "size": バイト数}, …}}`。対象は logs / setlist / songs / albums の本体JSON(インデックスは含まない)。時刻は入れず、内容が同じなら書き換えない(空のコミットが増えない)。`merge_json.py` が毎回(変更がなくても)更新し、`--rebuild-index` でも更新する。
+- 形: `{"files": {"data/logs/logs.json": {"hash": "<sha256の先頭16桁>", "size": バイト数}, …}}`。対象は logs / setlist / songs / albums の本体JSON(インデックスは含まない)。各ファイルには `updated`(中身の hash が変わった日時。日本時間の ISO 形式)も入る。中身が同じなら前の値を引き継ぎ、内容が同じなら書き換えない(空のコミットが増えない)。`merge_json.py` が毎回(変更がなくても)更新し、`--rebuild-index` でも更新する。
 - ビューアは、manifest の hash が前回と同じなら、保存した版をそのまま使う。変わったファイルだけを `raw` から `?v=<hash>` つきで取得し、`size` と一致するか確認する。manifest が取れないときは、これまでどおり API の sha で確認する(フォールバック)。
+- 画面下の `updated >` は `logs.json` の `updated` の日付(フォールバック時は最新コミットの日時)。値はブラウザに保存し、次回はその値を先に表示する。以前使っていた Blogger のフィードは読まない。
 
 #### setlist の曲順が分からない曲(順番なし)
 - 曲の `order` を持たない曲を登録できる。形式: `-: 曲名`、`?: 曲名`、`: 曲名`(番号を空にする)。1行でも番号なし(`-` / `?` / 空)を書くと、それ以降の番号なしの行は同じ扱いになる(`unordered` の持ち越し)。番号ありの曲のあとに、番号なしの曲を並べて保存する(安定ソート)。
@@ -74,11 +75,13 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 
 - **`scripts/schema.json`**: 項目の定義を集めたファイル。`logs` `setlist` `songs` `albums` それぞれの `order`(保存時の項目の並び)・`key_fields`(識別キー)・`index_fields`(インデックスに入れる項目)・`clearable`(更新時に「値の削除」で消せる項目)と、フォームの項目名 `labels_logs` / `labels_ss`。`common.py` が読み込み(`SCHEMA`)、`issue_to_json.py` と `merge_json.py` はそこから値を取る(コード中の直書きをやめた。値は従来と同じ)。
 - **`scripts/check_repo.py`**(事前チェック): ①data のJSONが読めるか(queue・inbox は除く) ②`add_logs.yml` `add_setlist.yml` `add_songs.yml` の項目名が `LABELS_*` と一致するか、「値の削除」の選択肢が `clearable` と一致するか ③`schema.json` の整合(識別キー・消せる項目・インデックス項目が `order` に含まれる、重複がない)と、helper の `DEFS` に logs / setlist の編集できる全項目があるか ④`merge_json.py`(`--rebuild-index` `--rebuild-manifest` なし)を実行するワークフローが `auto_merge.yml` と `process_queue.yml` だけか。問題があれば終了コード1。
-- **`tests/`**(`unittest`。`python -m unittest discover -s tests -v`): `helpers.py`(一時フォルダにリポジトリと同じ並びを作り、本物のスクリプトを実行する)、`test_pipeline.py`(logs の新規・更新・削除・繰り返し・インデックス・マニフェストの安定、setlist の曲順なし・個別変更、venue の同期4種(上書き・消去・新規setlistへの引き継ぎ・タグからは引き継がない)、読めないJSONのエラー報告と他ファイルの処理継続、inbox の登録・入力エラー・不正テンプレート・同時刻の依頼・`skipped` の判定)、`test_check_repo.py`(事前チェックが問題を見つけられるか)。計30件。`tests/test_viewer.py`(ビューアをブラウザ(Playwright + Chromium)で開き、通信はモック・日付は固定で確認する。axe-core によるアクセシビリティ検査を含む。37件)と、`tests/test_helper.py`(helper を同じ方法で開き、send の内容を本物の `inbox_to_json.py` → `merge_json.py` に通して登録結果まで確認する。起動、logs、repeat、告知文の読み取り、songs の videos、setlist。albums・bulk・check・token の暗号化・find の候補は対象外。27件)があり、合計94件。
-- **`.github/workflows/tests.yml`**: scripts・tests・.github・helper・index.html の変更、PR、手動で動く。`test` ジョブ(事前チェックと unittest)、`viewer` ジョブ(`tests.test_viewer`。Playwright・axe-core を入れて実行)、`helper` ジョブ(`tests.test_helper`)の3つ。data の更新では動かない。権限は contents: read のみ。
-- **`.github/workflows/pages.yml`**: helper・`tests/test_helper.py`・`pages.yml` の main への push と手動で動く。`test` ジョブ(事前チェックと helper のテスト)が通ったときだけ、`deploy` ジョブが helper にページの外枠(doctype・charset・viewport・noindex)を付けて GitHub Pages に公開する。失敗したら公開中のページはそのまま。公開するのは helper のページだけ。
+- **`tests/`**(`unittest`。`python -m unittest discover -s tests -v`): `helpers.py`(一時フォルダにリポジトリと同じ並びを作り、本物のスクリプトを実行する)、`test_pipeline.py`(logs の新規・更新・削除・繰り返し・インデックス・マニフェストの安定、setlist の曲順なし・個別変更、venue の同期4種(上書き・消去・新規setlistへの引き継ぎ・タグからは引き継がない)、読めないJSONのエラー報告と他ファイルの処理継続、inbox の登録・入力エラー・不正テンプレート・同時刻の依頼・`skipped` の判定)、`test_check_repo.py`(事前チェックが問題を見つけられるか)。計30件。`test_build_viewer.py`(`index.html` を公開用に分ける処理。ブラウザ不要。4件)。`tests/test_viewer.py`(ビューアをブラウザ(Playwright + Chromium)で開き、通信はモック・日付は固定で確認する。axe-core によるアクセシビリティ検査を含む。40件。`INDEX_HTML` を指定すると、公開用に分けた版を確認する)と、`tests/test_helper.py`(helper を同じ方法で開き、send の内容を本物の `inbox_to_json.py` → `merge_json.py` に通して登録結果まで確認する。起動、logs、repeat、告知文の読み取り、songs の videos、setlist。albums・bulk・check・token の暗号化・find の候補は対象外。27件)があり、合計101件。
+- **`.github/workflows/tests.yml`**: scripts・tests・.github・helper・index.html の変更、PR、手動で動く。`test` ジョブ(事前チェックと unittest)、`viewer` ジョブ(`tests.test_viewer`。Playwright・axe-core を入れて、元の `index.html` と公開用に分けた版の2回実行)、`helper` ジョブ(`tests.test_helper`)の3つ。data の更新では動かない。権限は contents: read のみ。
+- **`.github/workflows/pages.yml`**: helper・`index.html`・`scripts/build_viewer.py`・`tests/test_helper.py`・`tests/test_viewer.py`・`pages.yml` の main への push、手動、`release_viewer.yml` からの呼び出しで動く。`test` ジョブ(main の最新を使い、事前チェック・helper のテスト・公開用に分けた閲覧ページのテスト)が通ったときだけ、`deploy` ジョブが同じ版を GitHub Pages に公開する。失敗したら公開中のページはそのまま。公開するもの: `/` helper(外枠の doctype・charset・viewport・noindex を付ける) / `/viewer/preview/` 閲覧ページのテスト用 / `/viewer/` 本番(main の `viewer_release.txt` が指す版を、その版の `build_viewer.py` で作る。ファイルがなければ作らない)。
+- **`.github/workflows/release_viewer.yml`**(`Release viewer`): 手動だけ。入力 `ref`(空欄は main の最新。main に含まれる版だけ)。`record` ジョブが、その版の閲覧ページのテストを分けた版で実行し、`loader.txt` が前の本番から変わるときは Blogger の貼り直しが必要と警告して、`viewer_release.txt` にコミット ID を書いてコミットする。`publish` ジョブが `pages.yml` を呼ぶ。main のテストが失敗している間は、本番の公開も戻す操作もできない。
+- **`scripts/build_viewer.py`**: `index.html` を `viewer.js`(`<style>` と本文の HTML を書き出してから、本体のスクリプトを実行)と `loader.txt`(Blogger に貼る内容。`<style>` を除く `<head>`、接続の先読み、読み込み失敗の表示、`viewer.js` の読み込み)に分ける。`--preview` で単独で開ける `index.html`(noindex)も作る。`<style>` が1つでない、`<body>` に外部スクリプトがある、最初のスクリプトより後ろに HTML がある場合などは失敗する。
 - **項目を足す手順**は README の「テストと事前チェック」にある。
-- 検証状況: ローカルで95件(1件 skip)、GitHub Actions の `Tests` と `Publish helper` の成功を確認した(2026-11-26、`fb76b8d`)。2026-11-27 に ASCII の検査とそのテスト1件を削除した。
+- 検証状況: ローカルで95件(1件 skip)、GitHub Actions の `Tests` と `Publish helper` の成功を確認した(2026-11-26、`fb76b8d`)。2026-11-27 に ASCII の検査とそのテスト1件を削除した。2026-11-27 の閲覧ページの公開開始後、GitHub Actions の成功と、Blogger の切り替え完了(ユーザーの操作)を確認した。公開ページの描画速度は未計測。
 
 ## 機能ごとの詳細メモ
 
@@ -90,7 +93,7 @@ C. queue に JSON を直接 push(手動)         → process_queue.yml ─┘
 GitHub Issue(フォーム) → Actions(auto_merge.yml)
   → scripts/issue_to_json.py(フォームの本文をキュー用JSONに変換)
   → scripts/merge_json.py(本体のJSONにマージ。処理済みはprocessedへ)
-  → data/ をコミット → index.html が読む(`data/manifest.json` で変わったファイルを判定し、jsDelivr(コミット固定)/ raw.githubusercontent.com から取得。manifest が使えないときは、GitHub API でコミットSHAを確認する)
+  → data/ をコミット → 閲覧ページ(index.html)が読む(`data/manifest.json` で変わったファイルを判定し、jsDelivr(コミット固定)/ raw.githubusercontent.com から取得。manifest が使えないときは、GitHub API でコミットSHAを確認する)
 ```
 
 ※これはIssue経由の基本の流れ。helperの直送・queueへの直接pushを含む現行の流れと、manifest の仕様は、冒頭「現行仕様」の「処理の流れ(現行)」「manifest」を参照。
@@ -104,10 +107,12 @@ GitHub Issue(フォーム) → Actions(auto_merge.yml)
 | `.github/workflows/auto_merge.yml` | Issueが`opened`/`edited`されたら変換とマージを実行 |
 | `process_queue.yml` | `data/*/queue/*.json` と `data/inbox/*.json`(helperの直送)への push、手動で、変換・マージ・コミットを実行(「現行仕様」を参照) |
 | `update_manifest.yml` | データの手動編集の push で `data/manifest.json` を作り直す |
-| `tests.yml` | scripts・tests・.github・helper の変更、PR、手動で、自動テストと事前チェックを実行 |
+| `tests.yml` | scripts・tests・.github・helper・index.html の変更、PR、手動で、自動テストと事前チェックを実行 |
 | `rebuild_index.yml` | 手動実行。helper用の軽量インデックス(`logs_index.json`/`setlist_index.json`)を作り直す |
 | `check_gaps.yml` / `check_gaps.py` | 毎週月曜 03:30(JST)と手動。logsのタイトルの`#数字`の連番の抜けを調べ、Issueに報告する(2回目以降はIssueの本文を上書き) |
-| `pages.yml` | helper のテストが通ったら GitHub Pages に公開する(「現行仕様」を参照) |
+| `pages.yml` | テストが通ったら helper と閲覧ページを GitHub Pages に公開する(「現行仕様」を参照) |
+| `release_viewer.yml` | 手動実行。閲覧ページを本番に公開する(「現行仕様」を参照) |
+| `scripts/build_viewer.py` | `index.html` を公開用の `viewer.js` と `loader.txt` に分ける |
 | `helper.html` | 入力補助ページ(GitHub Pages で公開) |
 
 - **処理対象のIssue**: `data`ラベル付き(または旧形式のタイトル`[DATA]`)で、投稿者がリポジトリの OWNER / MEMBER / COLLABORATOR のものだけ。

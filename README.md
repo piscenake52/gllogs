@@ -2,7 +2,7 @@
 
 [GL log](https://gl-log.blogspot.com/) のデータ(日程・ログ、セットリスト、楽曲リスト)と、その登録の仕組みをまとめたリポジトリです。
 
-- 閲覧ページ: `index.html`(Blogger のサイトに貼って使う。データは jsDelivr 経由でこのリポジトリのJSONを読む)
+- 閲覧ページ: [GL log](https://gl-log.blogspot.com/)(元ファイルは `index.html`。GitHub Pages で公開し、Blogger の投稿には読み込み用の `loader.txt` だけを貼る。データは jsDelivr などからこのリポジトリのJSONを読む。[公開の手順](#閲覧ページの公開))
 - 入力補助ページ(helper): [https://piscenake52.github.io/gllogs/](https://piscenake52.github.io/gllogs/)(元ファイルは `helper.html`。GitHub Pages で公開。Blogger には貼らない)
 - 実装の詳細な仕様: [SPEC.md](SPEC.md)(入口。[閲覧ページ](docs/spec_viewer.md) / [helper](docs/spec_helper.md) / [データ・自動処理](docs/spec_data.md) に分かれ、各ファイル最初の「現行仕様(まとめ)」が基準)
 - 変更の履歴・置き換え済みの旧仕様: [CHANGELOG.md](CHANGELOG.md)
@@ -16,7 +16,7 @@
 | `data/songs/songs.json` | 楽曲リスト(`link` `lyrics` `videos`、歌唱メンバーなどの自由入力 `vocal`)。ビューアの楽曲バー・披露実績・動画で使う | `artist` + `title` |
 | `data/albums/albums.json` | アルバム・EP・シングルの収録曲と各種盤(`date` `tracks` `editions`)。データ部の🎶で表示 | `title` + `type` |
 | `data/logs/logs_index.json` `data/setlist/setlist_index.json` | helper用の軽量インデックス(自動生成) | |
-| `data/manifest.json` | 各データファイルの hash と size。ビューアが、変わったファイルだけを読むために使う(自動生成) | |
+| `data/manifest.json` | 各データファイルの hash・size・updated(中身が変わった日時)。ビューアが、変わったファイルだけを読むためと、`updated >` の日付に使う(自動生成) | |
 | `data/inbox/` | helper から直接送られた依頼(処理後に削除)と、その結果 `results/<id>.json`(直近60件) | |
 
 JSONを直接編集せず、**Issue のフォーム**から登録します(下記)。
@@ -158,13 +158,14 @@ tour(helper の mode: tour)の1行は、末尾まで書くと `日付 時刻 | �
 | `auto_merge.yml` | Issue → JSON に変換 → マージ → コミット | Issue の作成・編集時 |
 | `process_queue.yml` | queue の JSON と helper の依頼(`data/inbox/`)を処理 → マージ → コミット | queue・inbox への push、手動 |
 | `tests.yml` | 自動テストと事前チェック | scripts・tests・.github・helper・index.html の変更、PR、手動 |
-| `pages.yml` | helper を GitHub Pages で公開(事前チェックと helper のテストが通ったときだけ) | helper・`test_helper.py`・`pages.yml` の push、手動 |
+| `pages.yml` | helper と閲覧ページ(テスト用・本番)を GitHub Pages で公開(事前チェックと helper・閲覧ページのテストが通ったときだけ) | helper・`index.html`・`build_viewer.py`・`test_helper.py`・`test_viewer.py`・`pages.yml` の push、手動、`release_viewer.yml` から |
+| `release_viewer.yml` | 閲覧ページを本番に公開(`Release viewer`) | 手動(Run workflow) |
 | `update_manifest.yml` | `data/manifest.json` の作り直し | データの手動編集の push(queue・inbox は除く) |
 | `rebuild_index.yml` | helper用インデックスの作り直し | 手動(Run workflow) |
 | `check_gaps.yml` | logs のタイトルの `#数字` の連番の抜けを調べ、Issue にまとめる | 毎週月曜 03:30(JST)・手動 |
 | `link_check.yml` | logs の `url` / `map` のリンク切れを少しずつ確認(結果は `data/logs/link_state.json`) | 毎日 03:00(JST)・手動 |
 
-`scripts/` には、`issue_to_json.py`、`merge_json.py`、`inbox_to_json.py`、**`common.py`**、**`schema.json`**(項目の定義)、`check_repo.py`(事前チェック)を一緒に置きます(`common.py` と `schema.json` が欠けると動きません)。`inbox_to_json.py` は `.github/ISSUE_TEMPLATE/*.yml` を読むため、フォームのファイルも置いたままにしてください。
+`scripts/` には、`issue_to_json.py`、`merge_json.py`、`inbox_to_json.py`、**`common.py`**、**`schema.json`**(項目の定義)、`check_repo.py`(事前チェック)を一緒に置きます(`common.py` と `schema.json` が欠けると動きません)。`inbox_to_json.py` は `.github/ISSUE_TEMPLATE/*.yml` を読むため、フォームのファイルも置いたままにしてください。ほかに、`build_viewer.py` は閲覧ページの公開用のファイルを作ります。
 
 **注意**: 同じ queue を処理するワークフローは、`auto_merge.yml` と `process_queue.yml` の2つだけにします。同じ処理をするファイルが他にあると、同時に動いて競合・二重処理になります。
 
@@ -178,7 +179,7 @@ python -m unittest discover -s tests -v      # 自動テスト(viewer と helper
 ```
 
 - **事前チェック**(`scripts/check_repo.py`): data の JSON が読めるか / フォーム(`add_*.yml`)と `issue_to_json.py` の項目名が一致しているか / 「値の削除」の選択肢が合っているか / `schema.json` と helper の項目が合っているか / キューを処理するワークフローが2つ(`auto_merge.yml` `process_queue.yml`)だけか。
-- **自動テスト**(`tests/`): 本物のスクリプトを一時フォルダで動かし、logs の登録・更新・削除、繰り返し登録、setlist の曲順なし、venue の同期、読めない JSON のエラー報告、helper 直送(inbox)を確かめます(30件)。`tests/test_viewer.py`(37件)はビューア(`index.html`)を、`tests/test_helper.py`(27件)は helper をブラウザで実際に開き、通信はモック・日付は固定で確かめます。helper のテストは、送る内容を本物のスクリプトに通して登録結果まで確認します。実行には `pip install playwright pyyaml` と `playwright install chromium`(viewer のアクセシビリティ検査には `npm install axe-core@4`)が必要です。`tests.yml` の `test` / `viewer` / `helper` ジョブで自動実行されます。helper の機能を変えたら、`test_helper.py` も直します。
+- **自動テスト**(`tests/`): 本物のスクリプトを一時フォルダで動かし、logs の登録・更新・削除、繰り返し登録、setlist の曲順なし、venue の同期、読めない JSON のエラー報告、helper 直送(inbox)を確かめます(30件)。`tests/test_build_viewer.py`(4件)は `index.html` を公開用に分ける処理を、`tests/test_viewer.py`(40件)はビューア(`index.html`)を、`tests/test_helper.py`(27件)は helper をブラウザで実際に開き、通信はモック・日付は固定で確かめます。helper のテストは、送る内容を本物のスクリプトに通して登録結果まで確認します。実行には `pip install playwright pyyaml` と `playwright install chromium`(viewer のアクセシビリティ検査には `npm install axe-core@4`)が必要です。`tests.yml` の `test` / `viewer` / `helper` ジョブで自動実行されます(`viewer` は、公開用に分けた形でも実行します)。helper の機能を変えたら、`test_helper.py` も直します。
 
 ### 項目を足すとき(例: logs に `foo` を足す)
 1. `scripts/schema.json` … `logs.order`(並び順)に足す。更新時に消せる項目なら `logs.clearable` にも足す。フォームの項目名は `labels_logs` に足す。
@@ -186,6 +187,25 @@ python -m unittest discover -s tests -v      # 自動テスト(viewer と helper
 3. `scripts/issue_to_json.py` … `build_logs` で値を読む。
 4. helper の `DEFS` と、`index.html` の表示を直す。
 5. 事前チェックを実行する。1〜4 の食い違いは、ここで見つかります。
+
+## 閲覧ページの公開
+
+`index.html` は Blogger に貼りません。GitHub Pages で公開し、2段階で反映します。
+
+| URL | 中身 |
+|---|---|
+| [https://piscenake52.github.io/gllogs/viewer/preview/](https://piscenake52.github.io/gllogs/viewer/preview/) | テスト用(main の最新の `index.html`) |
+| [https://piscenake52.github.io/gllogs/viewer/](https://piscenake52.github.io/gllogs/viewer/) | 本番(`viewer_release.txt` の版)。[GL log](https://gl-log.blogspot.com/) が読み込む |
+
+1. `index.html` を main に push する。テストが通れば、テスト用の URL に反映されます。
+2. テスト用の URL で確認する。
+3. Actions → `Release viewer` → Run workflow(`ref` は空欄)で本番に反映します。反映まで10分ほどかかることがあります。
+
+- **前の版に戻す**: `Release viewer` の `ref` に、戻したい版のコミット ID を入れて実行します。
+- **Blogger の貼り直し**: `<head>`(`<style>` を除く)か読み込みの部分が変わったときだけ必要です。`Release viewer` の実行結果に警告が出るので、[loader.txt](https://piscenake52.github.io/gllogs/viewer/loader.txt) の内容を Blogger の投稿に貼り直します。
+- main のテストが失敗している間は、本番の公開も戻す操作もできません。
+- `index.html` は、`<head>` の `<style>` を1つにし、`<body>` の最初のスクリプトより後ろに HTML を置かないでください(分けられず、公開が失敗します)。
+- 画面の文字の書き方(HTML は `&#NNN;`、JavaScript は `\uXXXX`)は、テストが検査しています。
 
 ## helper の公開と注意
 

@@ -1,9 +1,14 @@
 # 変更の履歴(CHANGELOG)
 
-`SPEC.md` が現行仕様の置き場。ここには、**変更の経緯**と、**置き換え・廃止された旧仕様**(原文のまま)を置く。
+現行仕様の置き場は [SPEC.md](SPEC.md)(入口)と `docs/` の各仕様。ここには、**変更の経緯**と、**置き換え・廃止された旧仕様**(原文のまま)を置く。
 
 ## 変更の履歴(新しい順)
 
+- **2026-11-27(viewer の公開先)** 閲覧ページを GitHub Pages で公開するようにした。`index.html` を push するとテスト用(`/viewer/preview/`)に反映し、Actions の `Release viewer` で本番(`/viewer/`)に反映する(前の版にも戻せる)。Blogger の投稿は読み込み用の `loader.txt` に差し替えた(サイトのアドレスは同じ)。`scripts/build_viewer.py`・`release_viewer.yml`・`tests/test_build_viewer.py` を追加。旧仕様: 「`index.html` を Blogger のサイトに貼って使う」。
+- **2026-11-27(updated >)** `data/manifest.json` に `updated`(中身が変わった日時)を追加し、`updated >` は `logs.json` の更新日を出すようにした。Blogger のフィードの読み込みは廃止。旧仕様: manifest は「時刻は入れず、内容が同じなら書き換えない」。
+- **2026-11-27(仕様書の分割)** SPEC.md を入口にして、内容を `docs/spec_viewer.md` / `docs/spec_helper.md` / `docs/spec_data.md` に分けた。
+- **2026-11-27(helper)** ファイル名を `issue_helper_blogger.html` から `helper.html` に変えた(公開 URL は同じ)。ASCII のみの制約と、そのテスト1件を廃止した。
+- **2026-11-27(整理)** 使わないファイル(`data/logs/failed/1117.json`、`version.json`)を削除した。README の `update_manifest.yml` の実行条件(手動実行はできない)を直した。
 - **2026-11-26(helper 送信結果)** `done` でも反映されなかったものがあるときは `NOT all reflected (check below)` と表示するようにした(以前はすべて `done: reflected`)。`inbox_to_json.py` が結果に `skipped` を付ける。
 - **2026-11-26(helper setlist)** 新規(コピーを含む)は `artist` と `title` を必須にした(以前は空でも送れて、マージでスキップされた)。
 - **2026-11-26(テスト)** helper の自動テスト `tests/test_helper.py` を追加。`tests.yml` に `helper` ジョブを足し、`pages.yml` はテストが通ったときだけ公開するようにした。
