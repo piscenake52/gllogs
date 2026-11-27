@@ -185,6 +185,7 @@ class TestStartup(HelperCase):
         pg.wait_for_timeout(500)
         self.assertEqual(pg.input_value("#glih-st"), "テスト曲")
         self.assertIn("(1)", pg.inner_text("#glih-svtog"))
+        self.assertTrue(pg.is_visible("#glih-sl"))
         self.assertEqual(self.errors, [])
 
 
@@ -354,6 +355,53 @@ class TestSongs(HelperCase):
         pg.fill("#glih-st", "テスト曲")
         pg.wait_for_selector("#glih-svtog button:has-text('(1)')")
         return pg
+
+    DETAIL = ("#glih-sl", "#glih-sy", "#glih-svid")
+
+    def assert_detail(self, pg, shown):
+        pg.wait_for_timeout(300)
+        self.assertEqual([pg.is_visible(s) for s in self.DETAIL], [shown] * 3)
+        if not shown:
+            self.assertIsNone(self.issue(pg, "#glih-go-songs"))
+
+    def test_detail_hidden_until_new_song_is_decided(self):
+        pg = self.open("#songs")
+        self.assert_detail(pg, False)
+        pg.fill("#glih-sa", "Girls²")
+        pg.fill("#glih-st", "新しい曲")
+        self.assert_detail(pg, False)
+        pg.press("#glih-st", "Tab")
+        self.assert_detail(pg, True)
+        pg.fill("#glih-sl", "https://youtu.be/ccccccccccc")
+        pg.fill("#glih-st", "")
+        self.assert_detail(pg, False)
+        pg.fill("#glih-st", "別の新しい曲")
+        pg.press("#glih-st", "Enter")
+        self.assert_detail(pg, True)
+        self.assertEqual(pg.input_value("#glih-sl"), "https://youtu.be/ccccccccccc")
+        self.assertIsNotNone(self.issue(pg, "#glih-go-songs"))
+        pg.fill("#glih-sa", "")
+        self.assert_detail(pg, False)
+        pg.click("#glih-songnew")
+        self.assert_detail(pg, False)
+        self.assertEqual(self.errors, [])
+
+    def test_detail_title_first_then_artist(self):
+        pg = self.open("#songs")
+        pg.fill("#glih-st", "新しい曲")
+        pg.press("#glih-st", "Tab")
+        self.assert_detail(pg, False)
+        pg.locator("button.chip[data-v='Laki']:visible").click()
+        self.assert_detail(pg, True)
+        self.assertEqual(self.errors, [])
+
+    def test_detail_registered_song_ignores_vocal(self):
+        pg = self.open_song()
+        self.assert_detail(pg, True)
+        pg.fill("#glih-svo", "別の歌唱")
+        self.assert_detail(pg, True)
+        self.assertEqual(self.issue(pg, "#glih-go-songs")["vocal"], "別の歌唱")
+        self.assertEqual(self.errors, [])
 
     def test_added_video_keeps_registered_ones(self):
         pg = self.open_song()

@@ -3057,7 +3057,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       var b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (vi === 4 ? ' artnl' : '') + (v.length > 10 ? ' artlong' : ''); b.textContent = v; b.setAttribute('data-v', v);
       b.onclick = function () {
         sa.value = sa.value.trim() === v ? '' : v; // one chip at a time (a new one replaces the chosen one; a collaboration is typed in the box: `A, B` or `A \u00D7 B`)
-        sa.dispatchEvent(new Event('input', { bubbles: true })); if (tsug && sa.value.trim()) tsug.show();
+        sa.dispatchEvent(new Event('input', { bubbles: true })); commitSong(); if (tsug && sa.value.trim()) tsug.show();
       };
       acs.appendChild(b);
     });
@@ -3128,9 +3128,14 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     function vClear() { regM = null; vrows.innerHTML = ''; vSet([]); }
     function setLink(v) { prog = true; sl.value = v; sl.dispatchEvent(new Event('input', { bubbles: true })); prog = false; }
     function setLyr(v) { progY = true; sy.value = v; sy.dispatchEvent(new Event('input', { bubbles: true })); progY = false; }
+    // link / lyrics / videos (and the songs button) are shown only after the song is decided: artist + title match a registered song, or a new one is committed (the title box is left / Enter, or the song is opened from outside). The vocal does not matter
+    var titleDone = null, okKey = '';
+    function songKey() { return sa.value.trim() + '\u0001' + st.value.trim(); }
+    function commitSong() { var t = st.value.trim(); if (sa.value.trim() && t && titleDone === t) okKey = songKey(); upd(); }
+    function showDetail(on) { [sl, sy, $('svid')].forEach(function (e) { e.closest('.field').hidden = !on; }); }
     function upd() {
       var a = sa.value.trim(), t = st.value.trim(), list = cache.songs;
-      if (!list) { setLink2(''); return; }
+      if (!list) { match = null; showDetail(!!(a && t) && okKey === songKey()); setLink2(''); return; }
       match = null;
       if (a && t) list.forEach(function (r) { if (!match && r && artKey(r.artist) === artKey(a) && String(r.title || '').trim() === t) match = r; });
       if (auto && !(match && String(match.link || '').trim() === sl.value.trim())) { auto = false; setLink(''); } // the value was filled from another song
@@ -3144,6 +3149,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (match !== regM) { regM = match; vSet(mv); } // the registered videos follow the song; the videos added now stay
       var vl = vList(), vBad = false;
       vl.forEach(function (v) { var bad = !v.del && (v.url ? !YT.test(v.url) : v.el.parentNode === vreg); v.el._u.classList.toggle('bad', bad); if (v.el._cb) v.el._cb.style.borderColor = bad ? '#d33' : ''; if (bad) { vBad = true; if (v.el.parentNode === vreg && !vOpen) vFold(true); } }); // a bad or empty registered url is not left folded away
+      var shown = !!(a && t) && (!!match || okKey === songKey()); showDetail(shown);
       vCount();
       var vt = vText(vl), mt = vText(mv.map(function (v) { return { type: v.type, url: v.url, tags: Array.isArray(v.tags) ? v.tags.join(',') : '' }; }));
       var ly = sy.value.trim(), lyBad = !!ly && ly.indexOf(UTA) !== 0; sy.classList.toggle('bad', lyBad);
@@ -3153,7 +3159,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
       if (l && !(match && l === String(match.link || '').trim())) p.link = l;
       if (ly && !lyBad && !(match && ly === String(match.lyrics || '').trim())) p.lyrics = ly;
       if (!vBad && vt !== mt) p.videos = vt || '!clear';
-      var ok = !!(a && t) && !lyBad && !vBad;
+      var ok = shown && !lyBad && !vBad;
       setLink2(ok ? issueUrl(TPL_SONGS, p) : '');
     }
     delFns.songs = function () { return match ? { tpl: TPL_SONGS, label: match.artist + ' / ' + match.title, params: { artist_free: match.artist, item_title: match.title, delete: DELTXT } } : null; };
@@ -3161,7 +3167,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     sl.addEventListener('input', function () { if (!prog) { sl._touched = true; auto = false; } upd(); });
     sy.addEventListener('input', function () { if (!progY) { sy._touched = true; autoY = false; } upd(); });
     vo.addEventListener('input', function () { if (!progVo) { vo._touched = true; autoVo = false; } upd(); });
+    sa.addEventListener('input', function () { okKey = ''; }); st.addEventListener('input', function () { okKey = ''; titleDone = null; }); // before upd: a changed artist / title has to be decided again
     sa.addEventListener('input', upd); st.addEventListener('input', upd);
+    sa.addEventListener('blur', commitSong);
+    st.addEventListener('blur', function () { titleDone = st.value.trim(); commitSong(); });
+    st.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.isComposing) setTimeout(function () { titleDone = st.value.trim(); commitSong(); }, 0); }); // after the candidate list has taken the Enter
     st.addEventListener('input', function () { if (!st.value.trim() && !prog) { sl._touched = false; sy._touched = false; } });
     // the songs button: after the form page is opened, the input is reset
     $('go-songs').addEventListener('click', function () {
@@ -3172,6 +3182,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     songApi = { open: function (artist, title) {
       sl._touched = false; auto = false; prog = true; sl.value = ''; prog = false; sy._touched = false; autoY = false; progY = true; sy.value = ''; progY = false; vClear(); vo._touched = false; autoVo = false; progVo = true; vo.value = ''; progVo = false;
       sa.value = artist || ''; sa.dispatchEvent(new Event('input', { bubbles: true })); st.value = title || ''; st.dispatchEvent(new Event('input', { bubbles: true }));
+      titleDone = st.value.trim(); commitSong(); // opened with a title: no need to leave the title box
     } };
     upd();
     fetchData('songs').then(function () { upd(); }).catch(function () {});
