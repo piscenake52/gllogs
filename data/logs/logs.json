@@ -2683,6 +2683,62 @@
     ]
   },
   {
+    "logid": "753f195ac820",
+    "date": "20261127",
+    "time": "",
+    "contents": "SNS",
+    "title": "SNS　Girls²・Laki",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR",
+      "L2",
+      "RIN",
+      "TBK",
+      "HIR",
+      "YUW",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/ldhliveexpo/status/2126254453301150145?a=ZrAdZklIuhquMD4XQNA&s=19",
+            "member": [
+              "RIN",
+              "TBK",
+              "HIR",
+              "YUW",
+              "KAN",
+              "RRK",
+              "AKR",
+              "KIK",
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "明日から開幕"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "dca7478820d3",
     "date": "20261126",
     "time": "2359",
