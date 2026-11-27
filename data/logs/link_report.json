@@ -1,8 +1,8 @@
 {
- "updated": "2026-11-26T01:54:39Z",
- "total": 11804,
- "checked": 8497,
- "ng": 5,
+ "updated": "2026-11-27T01:48:37Z",
+ "total": 11809,
+ "checked": 8746,
+ "ng": 4,
  "items": [
   {
    "url": "https://girls2-fc.jp/page/magicaltelephone/Girls2_65",
@@ -14,17 +14,6 @@
    ],
    "reason": "page not found (site title only)",
    "since": 1794880480
-  },
-  {
-   "url": "https://girls2-fc.jp/page/gtube/",
-   "logids": [
-    "11be3cb84118"
-   ],
-   "fields": [
-    "url"
-   ],
-   "reason": "page not found (site title only)",
-   "since": 1795493494
   },
   {
    "url": "https://girls2-fc.jp/page/girls2radio/",
