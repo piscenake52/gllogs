@@ -1379,6 +1379,34 @@
     ]
   },
   {
+    "logid": "600aa31e63fe",
+    "date": "20261204",
+    "time": "",
+    "contents": "RESULT",
+    "title": "NATSLIVE「Lakiガチャクッキング」　#016 一般観覧当選発表",
+    "groups": [
+      "L2",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/NATSLIVE_app/status/2125107143288447022?a=XumV9eKPN1YaLsUEOnQ&s=19",
+            "member": [],
+            "tags": [
+              "配信決定"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "3b5206003a64",
     "date": "20261203",
     "time": "1700",
@@ -1415,6 +1443,34 @@
             "member": [],
             "tags": [
               "公式サイト"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "98a5d2a31e26",
+    "date": "20261203",
+    "time": "",
+    "contents": "CLOSE",
+    "title": "NATSLIVE「Lakiガチャクッキング」　#016 一般観覧受付締切",
+    "groups": [
+      "L2",
+      "KAN",
+      "RRK",
+      "AKR",
+      "KIK"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/NATSLIVE_app/status/2125107143288447022?a=XumV9eKPN1YaLsUEOnQ&s=19",
+            "member": [],
+            "tags": [
+              "配信決定"
             ]
           }
         ]
