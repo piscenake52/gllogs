@@ -211,6 +211,51 @@
     "ref": "7dc7aea31797"
   },
   {
+    "logid": "968acaaa9898",
+    "date": "20270111",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "Abema「Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special 東京公演」見逃し配信終了",
+    "display_pc": "Abema「Girls² LIVE TOUR 2026 Christmas Special」見逃し配信終了",
+    "display_sp": "Abema「LIVE TOUR 2026 Xmas SP」見逃し配信終了",
+    "url": "https://abema.tv/live-event/3a321cc9-54ca-4152-9881-1f4a439e81ce?utm_medium=social&utm_source=twitter&utm_content=video_card&utm_campaign=oya_20261127_premium_girls2-1225&open_browser=true",
+    "groups": [
+      "G2",
+      "YZH",
+      "MMK",
+      "MSK",
+      "YOK",
+      "KUR",
+      "MNM",
+      "KIR"
+    ],
+    "tags": [
+      "Seven Blooms Beyond"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/ABEMA/status/2126151542248251663?a=tUsk9UfYyqRLD66YXMA&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "情報解禁"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "efa7cf75fc62",
     "date": "20261231",
     "time": "1700",
