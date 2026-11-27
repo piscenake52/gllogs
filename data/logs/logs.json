@@ -1202,6 +1202,35 @@
     ]
   },
   {
+    "logid": "4cda0aed2160",
+    "date": "20261206",
+    "time": "2359",
+    "contents": "CLOSE",
+    "title": "映画「ワンダンス」ハッシュタグキャンペーン 応募受付締切",
+    "display_sp": "映画「ワンダンス」ハッシュタグCP 応募受付締切",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+      "ワンダンス"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2126114368635249010?a=JCjVFYopA4XR0lcdzTE&s=19",
+            "member": [],
+            "tags": [
+              "キャンペーン開始"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "2357e7438679",
     "date": "20261206",
     "time": "",
@@ -2381,6 +2410,35 @@
             "member": [],
             "tags": [
               "ムビコレ"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "bb1e3d723a19",
+    "date": "20261127",
+    "time": "",
+    "contents": "CAMPAIGN",
+    "title": "映画「ワンダンス」ハッシュタグキャンペーン 応募受付開始",
+    "display_sp": "映画「ワンダンス」ハッシュタグCP 応募受付開始",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+      "ワンダンス"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2126114368635249010?a=JCjVFYopA4XR0lcdzTE&s=19",
+            "member": [],
+            "tags": [
+              "キャンペーン開始"
             ]
           }
         ]

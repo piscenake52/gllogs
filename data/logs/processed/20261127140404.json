@@ -1,0 +1,43 @@
+{
+  "date": "20261127",
+  "title": "映画「ワンダンス」ハッシュタグキャンペーン",
+  "groups": [
+    "G2",
+    "KIR"
+  ],
+  "tags": [
+    "=",
+    "ワンダンス"
+  ],
+  "sns": [
+    {
+      "type": "x",
+      "urls": [
+        {
+          "url": "https://x.com/wandance_movie/status/2126114368635249010?a=JCjVFYopA4XR0lcdzTE&s=19",
+          "member": [],
+          "tags": [
+            "キャンペーン開始"
+          ]
+        }
+      ]
+    }
+  ],
+  "_repeat": [
+    {
+      "date": "20261127",
+      "time": "",
+      "title": "映画「ワンダンス」ハッシュタグキャンペーン 応募受付開始",
+      "contents": "CAMPAIGN",
+      "display_sp": "映画「ワンダンス」ハッシュタグCP 応募受付開始"
+    },
+    {
+      "date": "20261206",
+      "time": "2359",
+      "title": "映画「ワンダンス」ハッシュタグキャンペーン 応募受付締切",
+      "contents": "CLOSE",
+      "display_sp": "映画「ワンダンス」ハッシュタグCP 応募受付締切"
+    }
+  ],
+  "_issue": "3920"
+}
