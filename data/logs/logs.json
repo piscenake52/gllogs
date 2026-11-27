@@ -1135,6 +1135,34 @@
     ]
   },
   {
+    "logid": "2357e7438679",
+    "date": "20261206",
+    "time": "",
+    "contents": "CLOSE",
+    "title": "映画「ワンダンス」POPUP SHOP 終了",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+      "ワンダンス"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2125816824004829599?a=wqW9zqwmRkzHaIetbsw&s=19",
+            "member": [],
+            "tags": [
+              "POPUP SHOP"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "logid": "84708c738acc",
     "date": "20261205",
     "time": "1700",
@@ -2209,6 +2237,34 @@
             "tags": [
               "LDH LIVE EXPO",
               "グッズ情報"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "logid": "3525e33038d3",
+    "date": "20261127",
+    "time": "",
+    "contents": "GOODS",
+    "title": "映画「ワンダンス」POPUP SHOP 開始",
+    "groups": [
+      "G2",
+      "KIR"
+    ],
+    "tags": [
+      "ワンダンス"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/wandance_movie/status/2125816824004829599?a=wqW9zqwmRkzHaIetbsw&s=19",
+            "member": [],
+            "tags": [
+              "POPUP SHOP"
             ]
           }
         ]
