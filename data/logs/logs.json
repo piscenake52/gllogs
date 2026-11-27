@@ -1838,7 +1838,9 @@
     "url": "https://happinet-phantom.com/wandance/",
     "groups": [
       "G2",
-      "KIR"
+      "KIR",
+      "L2",
+      "RIN"
     ],
     "tags": [
       "ワンダンス"
@@ -1854,6 +1856,16 @@
             ],
             "tags": [
               "本日公開"
+            ]
+          },
+          {
+            "url": "https://x.com/Girls2_official/status/2126133947692409313?a=p0ykiALO0zTBAaCVENU&s=19",
+            "member": [
+              "KIR"
+            ],
+            "tags": [
+              "本日公開",
+              "from KIRA"
             ]
           }
         ]
