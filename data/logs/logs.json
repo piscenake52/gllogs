@@ -517,12 +517,12 @@
   {
     "logid": "59751f6b8e9b",
     "date": "20261225",
-    "time": "1800",
+    "time": "1730",
     "contents": "STREAMING",
     "title": "Abema「Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special 東京公演」",
     "display_pc": "Abema「Girls² LIVE TOUR 2026 -Seven Blooms Beyond- Christmas Special 東京公演」",
     "display_sp": "Abema「LIVE TOUR 2026 -Seven Blooms Beyond- Xmas SP 東京」",
-    "url": "https://girls2-fc.jp/page/events/SevenBloomsBeyond",
+    "url": "https://abema.tv/live-event/3a321cc9-54ca-4152-9881-1f4a439e81ce?utm_medium=social&utm_source=twitter&utm_content=video_card&utm_campaign=oya_20261127_premium_girls2-1225&open_browser=true",
     "groups": [
       "G2",
       "YZH",
@@ -535,6 +535,28 @@
     ],
     "tags": [
       "Seven Blooms Beyond"
+    ],
+    "sns": [
+      {
+        "type": "x",
+        "urls": [
+          {
+            "url": "https://x.com/ABEMA/status/2126151542248251663?a=tUsk9UfYyqRLD66YXMA&s=19",
+            "member": [
+              "YZH",
+              "MMK",
+              "MSK",
+              "YOK",
+              "KUR",
+              "MNM",
+              "KIR"
+            ],
+            "tags": [
+              "情報解禁"
+            ]
+          }
+        ]
+      }
     ]
   },
   {
