@@ -178,7 +178,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .fdiff b { color:var(--text); font-weight:600; }
 #glih .fdiff .rmk { color:var(--sub); opacity:.8; }
 #glih .fstat { font-size:12px; color:var(--sub); margin:0 0 10px; min-height:1.4em; }
-#glih button.go.pjgo { background:var(--btn); color:var(--text); box-shadow:inset 0 0 0 1px var(--line); } #glih .pjbox[hidden] { display:none; } #glih .pjbox { margin:0 0 14px; padding:0 0 12px; border-bottom:1px solid var(--line); } #glih .pji { padding:6px 0; border-top:1px solid var(--line); font-size:12px; line-height:1.5; word-break:break-all; } #glih .pji:first-child { border-top:0; } #glih .pji .m { color:var(--sub); font-size:11px; } #glih .pji .e { color:#d33; font-size:11px; }
+#glih button.go.pjgo { background:var(--btn); color:var(--text); box-shadow:inset 0 0 0 1px var(--line); } #glih .pjbox[hidden] { display:none; } #glih .pjbox { margin:0 0 14px; } #glih .pji { padding:6px 0; border-top:1px solid var(--line); font-size:12px; line-height:1.5; word-break:break-all; } #glih .pji:first-child { border-top:0; } #glih .pji .m { color:var(--sub); font-size:11px; } #glih .pji .e { color:#d33; font-size:11px; }
 #glih .jsonbox { width:100%; box-sizing:border-box; min-height:9em; margin:6px 0 4px; padding:8px; font:12px/1.4 ui-monospace,Menlo,Consolas,monospace; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; resize:vertical; box-shadow:none; }
 #glih .fw { flex:1; min-width:0; position:relative; display:block; }
 #glih .fw > .fin, #glih .fw > .fta { width:100%; padding-right:30px; }
@@ -408,6 +408,11 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 
 <section id="glih-p-find" hidden>
   <button type="button" class="go" id="glih-topnew">new</button>
+  <select id="glih-fkind" hidden><option value="logs">logs</option><option value="setlist">setlist</option></select>
+  <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fnew" hidden>new</button></div>
+  <div class="small" id="glih-fload" role="status" aria-live="polite" hidden style="border:0;background:none;padding:2px 0 6px;cursor:default;white-space:normal;color:var(--sub)"></div>
+  <div class="field" id="glih-frd"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdprev" title="prev day">&lt;</button><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdnext" title="next day">&gt;</button></div>
+  <div class="field" id="glih-frt"><label for="glih-fdt">time</label><input type="text" id="glih-fdt" class="fin" autocomplete="off"><label class="chk" id="glih-fanyl" style="margin:0"><input type="checkbox" id="glih-fany">anytime</label></div>
   <div id="glih-pjrow"><button type="button" class="go pjgo" id="glih-pjtog" aria-expanded="false">paste json &#9662;</button></div>
   <div class="pjbox" id="glih-pjbox" hidden>
     <textarea id="glih-pjson" class="jsonbox" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off" aria-label="logs json" placeholder="[ {...}, {...} ]  or  {...} per line"></textarea>
@@ -417,11 +422,6 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     <div class="sendrow" id="glih-pjsrow" hidden><button type="button" class="go" id="glih-pjsend">send</button></div>
     <div class="cknote sendst" id="glih-pjst"></div>
   </div>
-  <select id="glih-fkind" hidden><option value="logs">logs</option><option value="setlist">setlist</option></select>
-  <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fnew" hidden>new</button></div>
-  <div class="small" id="glih-fload" role="status" aria-live="polite" hidden style="border:0;background:none;padding:2px 0 6px;cursor:default;white-space:normal;color:var(--sub)"></div>
-  <div class="field" id="glih-frd"><label for="glih-fdd">date</label><input type="text" id="glih-fdd" class="fin" autocomplete="off"><button type="button" class="small" id="glih-fdprev" title="prev day">&lt;</button><button type="button" class="small" id="glih-fdtoday">today</button><button type="button" class="small" id="glih-fdnext" title="next day">&gt;</button></div>
-  <div class="field" id="glih-frt"><label for="glih-fdt">time</label><input type="text" id="glih-fdt" class="fin" autocomplete="off"><label class="chk" id="glih-fanyl" style="margin:0"><input type="checkbox" id="glih-fany">anytime</label></div>
   <div class="field" id="glih-fcprow" hidden><label for="glih-fcp">copy</label><label class="chk cpchip"><input type="checkbox" id="glih-fcp">COPY</label></div>
   <div class="field" id="glih-fcontrow" hidden><label>repeat</label><div class="chipr" id="glih-fcc"><button type="button" class="chip" data-m="interval" title="new entry on the same date, repeat: interval, next # number">interval</button><button type="button" class="chip" data-m="schedule" title="new entry on the same date, repeat: schedule, next # number">schedule</button><button type="button" class="chip" data-m="tour" title="new entry in tour mode (same title base / contents / url / groups; add shows)">tour</button></div></div>
   <div class="fcand" id="glih-fdl" hidden></div>
