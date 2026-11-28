@@ -1,0 +1,159 @@
+<div id="adm">
+<style>
+html,body{background:#000!important}
+#adm{position:relative;font:14px/1.5 system-ui,sans-serif;max-width:640px;margin:0 auto;padding:12px;color:#e5e7eb;background:#000;box-shadow:0 0 0 100vmax #000;clip-path:inset(0 -100vmax)}
+#adm *{box-sizing:border-box}#adm h1{font-size:16px;margin:0 0 8px}
+#adm .tabs{display:flex;gap:6px;margin-bottom:10px}
+#adm button{background:#1f2937;color:#e5e7eb;border:1px solid #374151;border-radius:8px;padding:8px 12px;cursor:pointer}
+#adm button.on,#adm .go{background:#2563eb;border-color:#2563eb}
+#adm label{display:block;margin:8px 0 2px;font-size:12px;color:#9ca3af}
+#adm input,#adm select,#adm textarea{width:100%;padding:8px;background:#111827;color:#e5e7eb;border:1px solid #374151;border-radius:8px;font:inherit}
+#adm input[type=checkbox]{width:auto}#adm textarea{min-height:90px}
+#adm .row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+#adm .box{margin-top:14px;padding:10px;border:1px solid #374151;border-radius:8px}
+#adm .q{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid #1f2937;font-size:13px}
+#adm{color-scheme:dark}#adm .aid{display:flex;gap:6px;margin-top:4px;align-items:center;flex-wrap:wrap}#adm .aid input[type=date],#adm .aid input[type=time]{width:auto;min-height:38px}#adm label.cb{display:inline-flex;align-items:center;gap:6px;margin:0;padding:8px 12px;min-height:38px;border:1px solid #374151;border-radius:8px;font-size:13px;color:#e5e7eb}
+#adm .err{color:#f87171}#adm .ok{color:#4ade80}
+</style>
+<h1>SARD UNDERLINKS DATA ENTRY</h1>
+<div class="tabs" id="tabs"></div>
+<form id="f" onsubmit="return false"></form>
+<div class="box" id="set" hidden><label>REPO</label><input id="s_repo"><label>BRANCH</label><input id="s_br">
+<label>GITHUB TOKEN (Fine-grained, 対象リポジトリの Contents: Read and write のみ, 期限つき)</label><input id="s_tk" type="password" autocomplete="off">
+<label>パスフレーズ (入れて保存すると token を暗号化して保存。開くたびに unlock が必要)</label><input id="s_pw" type="password" autocomplete="off">
+<div class="row"><button id="s_save">保存</button><button id="s_unlock">unlock</button><button id="s_test">test</button><button id="s_clear">clear token</button></div>
+<div id="s_st" style="margin-top:8px;font-size:12px"></div>
+<div style="margin-top:8px;font-size:12px;color:#9ca3af">token は「追加（キューへ）」を使うときだけ必要です。「ISSUEで送信」には要りません。token は api.github.com にだけ送られます。</div></div>
+<div class="row" id="acts"><button class="go" id="add">追加（キューへ）</button><button id="add2">ISSUEで送信</button></div>
+<div style="margin-top:8px"><span id="msg"></span></div>
+<div class="box"><b>RESULTS</b><div id="rl"></div></div>
+<div class="box"><b>QUEUE</b> <span id="qc"></span><div id="ql"></div>
+<div class="row"><button id="retry">今すぐ再試行</button><button id="drop">失敗を破棄</button></div></div>
+
+<script>
+(function(){
+var LS=localStorage,MEM=['YUA','IZM','HRM','MIU','OFFICIAL'],$=function(s){return document.querySelector(s)};
+var CT=['live','tour','event','release','tv','radio','fanclub','sns','youtube','web','ticket','anniversary','birthday','cd','bd','dvd','musiccard','goods','book','magazine','newspaper','digital','fanmeeting','stage','debut','formation','campaign'];
+var F={logs:[['date','DATE YYYYMMDD',1,'d8'],['time','TIME HHMM',0,'t4'],['cat','CAT',1,CT],['title','TITLE',1],['url','URL',0,'url'],['members','MEMBERS\uff08YUA,IZM,HRM,MIU,OFFICIAL\uff09',0,'mem'],['src','SRC 出典（OFFICIAL / MEMBER / MEDIA / FAN）',0,['OFFICIAL','MEMBER','MEDIA','FAN']],['tags','TAGS\uff08\u30ab\u30f3\u30de\u533a\u5207\u308a\uff09',0,'arr'],['live','LIVE\uff08setlist \u306e ID\u3002\u7a7a\u6b04\u306a\u3089 DATE+TIME\uff09',0,'id12'],
+['_live.venue','\u3010LIVE/TOUR/EVENT\u3011VENUE',0,'','live'],['_live.area','\u3010LIVE/TOUR/EVENT\u3011AREA',0,'','live'],['_live.kind','\u3010LIVE/TOUR/EVENT\u3011KIND\uff08CAT \u5185\u306e\u533a\u5206\u3002event \u306a\u3089 releaseevent \u306a\u3069\u3002\u81ea\u7531\u5165\u529b\uff09',0,'','live'],['_live.tour','\u3010LIVE/TOUR/EVENT\u3011TOUR\uff08\u30c4\u30a2\u30fc\u540d\u30fb\u30b7\u30ea\u30fc\u30ba\u540d\uff09',0,'','live'],['_live.open','\u3010LIVE/TOUR/EVENT\u3011OPEN HHMM',0,'t4','live'],['_live.songs','\u3010LIVE/TOUR/EVENT\u3011SONGS\uff081\u884c: \u66f2\u540d | type | note\u3002TIME \u304c\u5fc5\u8981\uff09',0,'sl','live'],
+['_release.name','\u3010RELEASE\u3011\u4f5c\u54c1\u540d',0,'','release'],['_release.type','\u3010RELEASE\u3011\u7a2e\u5225',0,['album','single'],'release'],['_release.songs','\u3010RELEASE\u3011\u53ce\u9332\u66f2\uff081\u884c1\u66f2\u3002DATE \u304c\u767a\u58f2\u65e5\u306b\u306a\u308a\u307e\u3059\uff09',0,'tl','release'],
+['_video.label','\u3010YOUTUBE\u3011VIDEO LABEL\uff08MV \u306a\u3069\uff09',0,'','video'],['_video.song','\u3010YOUTUBE\u3011SONG\uff08\u66f2\u540d\uff09',0,'','video']],
+songs:[['title','TITLE',1],['yomi','YOMI\uff08\u3072\u3089\u304c\u306a\uff09'],['date','DATE YYYYMMDD',0,'d8'],['release','RELEASE\uff081\u884c: \u540d\u524d | album \u304b single\uff09',0,'rel'],['keywords','KEYWORDS\uff08\u30ab\u30f3\u30de\u533a\u5207\u308a\uff09',0,'arr'],['url','YOUTUBE URL',0,'url'],['lyricsid','LYRICSID\uff08\u6b4c\u30cd\u30c3\u30c8\u306eURL\u304b\u756a\u53f7\uff09',0,'lyr'],['lyric','LYRIC\uff08\u6b4c\u8a5e\u306e\u4e00\u90e8\uff09'],['original.name','ORIGINAL NAME'],['original.title','ORIGINAL TITLE'],['original.year','ORIGINAL YEAR'],['original.work','ORIGINAL WORK']],
+setlist:[['id','ID YYYYMMDDHHMM',1,'id12'],['title','TITLE',1],['venue','VENUE'],['area','AREA'],['cat','CAT',0,['live','tour','event']],['kind','KIND\uff08CAT \u5185\u306e\u533a\u5206\u3002event \u306a\u3089 releaseevent \u306a\u3069\u3002\u81ea\u7531\u5165\u529b\uff09'],['tour','TOUR\uff08\u30c4\u30a2\u30fc\u540d\u30fb\u30b7\u30ea\u30fc\u30ba\u540d\uff09'],['open','OPEN HHMM',0,'t4'],['members','MEMBERS\uff08YUA,IZM,HRM,MIU,OFFICIAL\uff09',0,'mem'],['songs','SONGS\uff081\u884c: \u66f2\u540d | type | note\u3002type \u306f encore \u306a\u3069\uff09',0,'sl']],
+videos:[['title','TITLE',1],['label','LABEL\uff08MV \u306a\u3069\uff09'],['url','URL',1,'url'],['song','SONG\uff08\u66f2\u540d\u307e\u305f\u306f id\uff09']]};
+var kind='logs',Q=JSON.parse(LS.su_q||'[]'),busy=false,TK=LS.su_tke?'':(LS.su_tk||''),R=[];
+var gen=function(p){return p+Date.now().toString(36)+Math.random().toString(36).slice(2,6)};
+var cfg=function(){return{repo:LS.su_repo||'piscenake52/sulinks',br:LS.su_br||'main',tk:TK}};
+var say=function(t,c){var m=$('#msg');m.textContent=t;m.className=c||''};
+var save=function(){LS.su_q=JSON.stringify(Q);draw()};
+var b64=function(s){return btoa(unescape(encodeURIComponent(s)))};
+var sleep=function(ms){return new Promise(function(r){setTimeout(r,ms)})};
+var newPath=function(k){return 'data/'+k+'/queue/'+Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.json'};
+function grp(c){return c==='live'||c==='tour'||c==='event'?'live':c==='release'?'release':c==='youtube'?'video':''}
+var KD={live:['fes','oneman'],event:['releaseevent','talk','fanmeeting','stage'],tour:[]};
+function kfill(){var dl=document.getElementById('kl');if(!dl)return;var c=document.getElementById('f_cat'),v=c?c.value:'',a=KD[v]||(v?[]:[].concat(KD.live,KD.event));dl.innerHTML=a.map(function(o){return'<option value="'+o+'">'}).join('')}
+function sync(){kfill();var c=document.getElementById('f_cat'),g=c?grp(c.value):'';[].forEach.call(document.querySelectorAll('#f [data-g]'),function(w){w.style.display=w.dataset.g===g?'':'none'})}
+function ymd(d){return d.getFullYear()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2)}
+function zen(v){return String(v).trim().replace(/[\uff10-\uff19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/\uff1a/g,':')}
+function nd(v){v=zen(v);var t=new Date(),m;
+if(/^(today|\u4eca\u65e5)$/i.test(v))return ymd(t);
+if(v==='\u6628\u65e5'){t.setDate(t.getDate()-1);return ymd(t)}
+if(v==='\u660e\u65e5'){t.setDate(t.getDate()+1);return ymd(t)}
+if(m=v.match(/^(\d{4})[\/.\-\u5e74](\d{1,2})[\/.\-\u6708](\d{1,2})\u65e5?$/))return m[1]+('0'+m[2]).slice(-2)+('0'+m[3]).slice(-2);
+if(m=v.match(/^(\d{1,2})[\/.\-\u6708](\d{1,2})\u65e5?$/))return t.getFullYear()+('0'+m[1]).slice(-2)+('0'+m[2]).slice(-2);
+return v}
+function okd(s){if(!/^\d{8}$/.test(s))return false;var y=+s.slice(0,4),m=+s.slice(4,6),d=+s.slice(6),x=new Date(y,m-1,d);return x.getFullYear()===y&&x.getMonth()===m-1&&x.getDate()===d}
+function wd(s){return okd(s)?['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date(+s.slice(0,4),+s.slice(4,6)-1,+s.slice(6)).getDay()]:''}
+function nt(v){v=zen(v);var m;if(m=v.match(/^(\d{1,2})[:\u6642](\d{1,2})?\u5206?$/))return('0'+m[1]).slice(-2)+('0'+(m[2]||'0')).slice(-2);if(/^\d{3}$/.test(v))return'0'+v;return v}
+function aid(e,w,k){var r=document.createElement('div');r.className='aid';
+if(k==='d8'){var p=document.createElement('input');p.type='date';var b=document.createElement('button');b.type='button';b.textContent='\u4eca\u65e5';var s=document.createElement('span');s.style.cssText='font-size:12px;color:#9ca3af';
+var show=function(){var v=nd(e.value);s.textContent=okd(v)?v.slice(0,4)+'-'+v.slice(4,6)+'-'+v.slice(6)+' ('+wd(v)+')':'';if(okd(v))p.value=v.slice(0,4)+'-'+v.slice(4,6)+'-'+v.slice(6)};
+p.onchange=function(){if(p.value){e.value=p.value.replace(/-/g,'');show()}};
+b.onclick=function(){e.value=ymd(new Date());show()};
+e.oninput=show;e.onblur=function(){var v=nd(e.value);if(okd(v))e.value=v;show()};r.append(p,b,s)}
+else if(k==='t4'){var q=document.createElement('input');q.type='time';q.onchange=function(){if(q.value)e.value=q.value.replace(':','')};
+e.onblur=function(){var v=nt(e.value);if(/^\d{4}$/.test(v))e.value=v;if(/^\d{4}$/.test(v))q.value=v.slice(0,2)+':'+v.slice(2)};r.append(q)}
+else if(k==='mem'){var cbs=MEM.map(function(c){var l=document.createElement('label');l.className='cb';var x=document.createElement('input');x.type='checkbox';x.value=c;l.append(x,c);r.append(l);return x});
+var all=document.createElement('button');all.type='button';all.textContent='4\u4eba\u5168\u54e1';
+var rd=function(){var t=e.value.toUpperCase().split(/[,\u3001\s]+/);cbs.forEach(function(x){x.checked=t.indexOf(x.value)>=0})};
+var wr=function(){e.value=cbs.filter(function(x){return x.checked}).map(function(x){return x.value}).join(',')};
+cbs.forEach(function(x){x.onchange=wr});all.onclick=function(){e.value='YUA,IZM,HRM,MIU';rd()};e.oninput=rd;r.append(all)}
+w.append(r)}
+function form(){var f=$('#f'),st=kind==='settings';$('#set').hidden=!st;f.style.display=st?'none':'';$('#acts').style.display=st?'none':'';
+document.querySelectorAll('#tabs button').forEach(function(b){b.className=b.dataset.k===kind?'on':''});
+if(st)return;f.innerHTML='';F[kind].forEach(function(d){var l=document.createElement('label');l.textContent=d[1]+(d[2]?' *':'');var e;
+if(Array.isArray(d[3])){e=document.createElement('select');e.innerHTML='<option></option>'+d[3].map(function(o){return'<option>'+o+'</option>'}).join('')}
+else if(d[3]==='rel'||d[3]==='sl'||d[3]==='tl'){e=document.createElement('textarea')}else{e=document.createElement('input');if(d[3]==='chk')e.type='checkbox'}
+e.id='f_'+d[0];if(d[0]==='_live.kind'||(kind==='setlist'&&d[0]==='kind'))e.setAttribute('list','kl');var w=document.createElement('div');if(d[4])w.dataset.g=d[4];w.append(l,e);if(d[3]==='d8'||d[3]==='t4'||d[3]==='mem')aid(e,w,d[3]);f.append(w)});
+var dl=document.createElement('datalist');dl.id='kl';f.append(dl);var c=document.getElementById('f_cat');if(c)c.onchange=sync;sync();
+document.querySelectorAll('#tabs button').forEach(function(b){b.className=b.dataset.k===kind?'on':''})}
+function conv(d,v){var t=d[3];if(t==='chk')return v?true:undefined;v=String(v).trim();if(!v){if(d[2])throw Error(d[1]+' \u306f\u5fc5\u9808');return undefined}
+var csv=function(s){return s.split(/[,\u3001]/).map(function(x){return x.trim()}).filter(Boolean)};
+if(t==='d8')v=nd(v);if(t==='t4')v=nt(v);
+if(t==='d8'&&!okd(v))throw Error(d[1]+' \u306f\u5b58\u5728\u3059\u308b\u65e5\u4ed8\u306e8\u6841\u306e\u6570\u5b57');
+if(t==='id12'&&!/^\d{12}$/.test(v))throw Error(d[1]+' \u306f12\u6841\u306e\u6570\u5b57');
+if(t==='t4'&&!(/^\d{4}$/.test(v)&&+v.slice(0,2)<24&&+v.slice(2)<60))throw Error(d[1]+' \u306f4\u6841\u306e\u6642\u523b\uff08\u4f8b 1730\uff09');
+if(t==='url'&&!/^https?:\/\//i.test(v))throw Error(d[1]+' \u306f http(s):// \u3067\u59cb\u3081\u308b');
+if(t==='arr')return csv(v);
+if(t==='mem'){var m=csv(v.toUpperCase());m.forEach(function(x){if(MEM.indexOf(x)<0)throw Error('\u30e1\u30f3\u30d0\u30fc\u30b3\u30fc\u30c9\u4e0d\u6b63: '+x)});return m}
+if(t==='rel'){var rl=v.split('\n').filter(function(r){return r.trim()}).map(function(r){var p=r.split('|').map(function(x){return x.trim()});var ty=(p[1]||'').toLowerCase();if(!p[0]||(ty!=='album'&&ty!=='single'))throw Error('RELEASE \u306f\u300c\u540d\u524d | album\u300d\u304b\u300c\u540d\u524d | single\u300d\u306e\u5f62\u5f0f');return{name:p[0],type:ty}});return rl.length===1?rl[0]:rl}
+if(t==='lyr'){var lm=v.match(/uta-net\.com\/song\/(\d+)/);if(lm)return lm[1];if(/^\d+$/.test(v))return v;throw Error(d[1]+' \u306f\u6b4c\u30cd\u30c3\u30c8\u306eURL\u304b\u756a\u53f7')}
+if(t==='tl')return v.split('\n').map(function(x){return x.trim()}).filter(Boolean);
+if(t==='sl')return v.split('\n').filter(function(r){return r.trim()}).map(function(r,i){var p=r.split('|').map(function(x){return x.trim()});var o={no:i+1,title:p[0]};if(!p[0])throw Error('SONGS \u306e\u66f2\u540d\u304c\u7a7a\u306e\u884c\u304c\u3042\u308a\u307e\u3059');if(p[1])o.type=p[1];if(p.length>2)o.note=p.slice(2).join(' | ');return o});
+return v}
+function add(dest){try{var it={},cv=document.getElementById('f_cat'),vg=kind==='logs'&&cv?grp(cv.value):'';F[kind].forEach(function(d){if(d[4]&&d[4]!==vg)return;var e=document.getElementById('f_'+d[0]),v=conv(d,d[3]==='chk'?e.checked:e.value);if(v!==undefined){var p=d[0].split('.');if(p.length>1){it[p[0]]=it[p[0]]||{};it[p[0]][p[1]]=v}else it[d[0]]=v}});
+if(kind==='logs'){
+if(it._live){if(!it.time&&!it.live)throw Error('LIVE/EVENT \u306e\u60c5\u5831\u3092\u5165\u308c\u308b\u3068\u304d\u306f TIME \u304c\u5fc5\u8981\u3067\u3059');}
+if(it.cat==='tour'&&!(it._live&&it._live.tour))throw Error('CAT \u304c tour \u306e\u3068\u304d\u306f TOUR\uff08\u30c4\u30a2\u30fc\u540d\uff09\u304c\u5fc5\u8981\u3067\u3059');
+if(it._release){if(!it._release.name||!it._release.type||!it._release.songs)throw Error('RELEASE \u306f \u4f5c\u54c1\u540d\u30fb\u7a2e\u5225\u30fb\u53ce\u9332\u66f2 \u3092\u3059\u3079\u3066\u5165\u308c\u3066\u304f\u3060\u3055\u3044')}
+if(it._video&&!it.url)throw Error('\u52d5\u753b\u3092\u767b\u9332\u3059\u308b\u3068\u304d\u306f URL \u304c\u5fc5\u8981\u3067\u3059')}
+if(kind==='logs'){var o={id:gen('L')};for(var k in it)o[k]=it[k];it=o}
+if(dest==='issue'){var u='https://github.com/'+cfg().repo+'/issues/new?template=add_queue.yml&title='+encodeURIComponent('[QUEUE] '+kind+' '+(it.title||''))+'&kind='+encodeURIComponent(kind)+'&item='+encodeURIComponent(JSON.stringify(it));
+if(u.length>7500)throw Error('\u5185\u5bb9\u304c\u9577\u3059\u304e\u3066 ISSUE \u3067\u306f\u9001\u308c\u307e\u305b\u3093\u3002\u300c\u8ffd\u52a0\uff08\u30ad\u30e5\u30fc\u3078\uff09\u300d\u3092\u4f7f\u3063\u3066\u304f\u3060\u3055\u3044');
+var w=window.open(u,'_blank');if(!w)throw Error('\u30dd\u30c3\u30d7\u30a2\u30c3\u30d7\u304c\u30d6\u30ed\u30c3\u30af\u3055\u308c\u307e\u3057\u305f\u3002\u8a31\u53ef\u3057\u3066\u304b\u3089\u3082\u3046\u4e00\u5ea6\u62bc\u3057\u3066\u304f\u3060\u3055\u3044');w.opener=null;form();say('GitHub \u306e\u753b\u9762\u3092\u958b\u304d\u307e\u3057\u305f\u3002\u5185\u5bb9\u306f\u5909\u3048\u305a\u306b\u9001\u4fe1\u3057\u3066\u304f\u3060\u3055\u3044','ok');return}
+Q.push({kind:kind,path:newPath(kind),body:b64(JSON.stringify({item:it})),title:it.title,tries:0,st:'wait',next:0});save();form();say('\u30ad\u30e5\u30fc\u306b\u8ffd\u52a0\u3057\u307e\u3057\u305f','ok');run()}catch(e){say(e.message,'err')}}
+async function run(){if(busy)return;busy=true;try{for(;;){var it=Q.find(function(x){return x.st!=='failed'&&Date.now()>=(x.next||0)});if(!it)break;var c=cfg();if(!c.tk){say(LS.su_tke?'SETTINGS \u3067 unlock \u3057\u3066\u304f\u3060\u3055\u3044':'SETTINGS \u3067 token \u3092\u8a2d\u5b9a\u3057\u3066\u304f\u3060\u3055\u3044','err');break}
+var r;try{r=await fetch('https://api.github.com/repos/'+c.repo+'/contents/'+it.path,{method:'PUT',headers:{Authorization:'Bearer '+c.tk,Accept:'application/vnd.github+json'},body:JSON.stringify({message:'queue: '+it.kind+' '+(it.title||''),content:it.body,branch:c.br})})}catch(e){r={ok:false,status:0}}
+if(r.ok){Q=Q.filter(function(x){return x!==it});save();watch(it,c);await sleep(1200);continue}
+if(r.status===401||r.status===404){say('\u8a8d\u8a3c/\u30ea\u30dd\u30b8\u30c8\u30ea\u8a2d\u5b9a\u30a8\u30e9\u30fc\uff08'+r.status+'\uff09\u3002SETTINGS\u3092\u78ba\u8a8d\u3057\u3066\u300c\u4eca\u3059\u3050\u518d\u8a66\u884c\u300d','err');it.err=r.status;it.next=Date.now()+3600000;save();break}
+it.tries++;if(r.status===422){it.path=newPath(it.kind);if(it.tries>3)it.st='failed'}
+it.next=Date.now()+Math.min(60000,2000*Math.pow(2,it.tries));save()}}finally{busy=false}}
+function b64b(buf){var s='',a=new Uint8Array(buf);for(var i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return btoa(s)}
+function unb64(t){var s=atob(t),a=new Uint8Array(s.length);for(var i=0;i<a.length;i++)a[i]=s.charCodeAt(i);return a}
+function dkey(pw,salt){return crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']).then(function(k){return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:250000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])})}
+function encTok(t,pw){var salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));return dkey(pw,salt).then(function(k){return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},k,new TextEncoder().encode(t))}).then(function(ct){return{s:b64b(salt),i:b64b(iv),c:b64b(ct)}})}
+function decTok(e,pw){return dkey(pw,unb64(e.s)).then(function(k){return crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(e.i)},k,unb64(e.c))}).then(function(pt){return new TextDecoder().decode(pt)})}
+function hasCrypto(){return !!(window.crypto&&crypto.subtle&&window.TextEncoder)}
+function httpMsg(s){return s===401?'token \u304c\u7121\u52b9\u304b\u671f\u9650\u5207\u308c\u3067\u3059 (401)':s===403?'\u6a29\u9650\u4e0d\u8db3\u304b\u56de\u6570\u5236\u9650\u3067\u3059 (403)':s===404?'\u30ea\u30dd\u30b8\u30c8\u30ea\u304b\u30d6\u30e9\u30f3\u30c1\u304c\u898b\u3064\u304b\u3089\u306a\u3044\u304b\u3001token \u304b\u3089\u898b\u3048\u307e\u305b\u3093 (404)':'GitHub \u30a8\u30e9\u30fc ('+s+')'}
+function stat(){$('#s_st').textContent=LS.su_tke?(TK?'token: \u6697\u53f7\u5316\u4fdd\u5b58 (unlock \u6e08\u307f)':'token: \u6697\u53f7\u5316\u4fdd\u5b58 (\u30ed\u30c3\u30af\u4e2d\u3002\u30d1\u30b9\u30d5\u30ec\u30fc\u30ba\u3092\u5165\u308c\u3066 unlock)'):LS.su_tk?'token: \u4fdd\u5b58\u6e08\u307f (\u6697\u53f7\u5316\u306a\u3057\u3002\u30d1\u30b9\u30d5\u30ec\u30fc\u30ba\u3092\u5165\u308c\u3066\u4fdd\u5b58\u3057\u76f4\u3059\u3068\u6697\u53f7\u5316\u3067\u304d\u307e\u3059)':'token: \u672a\u8a2d\u5b9a'}
+function drawR(){var l=$('#rl');l.innerHTML='';R.slice(-10).reverse().forEach(function(x){var d=document.createElement('div');d.className='q';var a=document.createElement('span'),b=document.createElement('span');a.textContent=x.kind.toUpperCase()+' '+(x.title||'');b.textContent=x.txt;b.className=x.cls||'';d.append(a,b);l.append(d)})}
+async function watch(it,c){var x={kind:it.kind,title:it.title,txt:'\u53cd\u6620\u5f85\u3061',cls:''},id=it.path.split('/').pop().replace(/\.json$/,''),fin=false;R.push(x);drawR();
+for(var n=0;n<45&&!fin;n++){await sleep(4000);
+try{var r=await fetch('https://api.github.com/repos/'+c.repo+'/contents/data/results/'+id+'.json?ref='+encodeURIComponent(c.br),{headers:{Authorization:'Bearer '+c.tk,Accept:'application/vnd.github.raw+json'},cache:'no-store'});
+if(r.status===401||r.status===403){x.txt='\u7d50\u679c\u3092\u78ba\u8a8d\u3067\u304d\u307e\u305b\u3093: '+httpMsg(r.status);x.cls='err';fin=true}
+else if(r.status===200){var j=await r.json();
+if(j.status==='done'){x.txt='\u5b8c\u4e86'+((j.notes&&j.notes.length)?' ('+j.notes.join(', ')+')':'');x.cls='ok';fin=true}
+else if(j.status==='error'){x.txt='\u5931\u6557: '+((j.errors||[]).join(' / ')||'\u4e0d\u660e')+((j.notes&&j.notes.length)?' ('+j.notes.join(', ')+')':'');x.cls='err';fin=true}}}catch(e){}
+if(!fin)x.txt='\u53cd\u6620\u5f85\u3061 ('+(n+1)*4+'s)';drawR()}
+if(!fin){x.txt='\u7d50\u679c\u304c\u78ba\u8a8d\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f (Actions \u3092\u898b\u3066\u304f\u3060\u3055\u3044)';x.cls='err';drawR()}}
+function draw(){var n=Q.length;$('#qc').textContent='\uff08'+n+'\u4ef6\uff09';var l=$('#ql');l.innerHTML='';Q.forEach(function(x){var d=document.createElement('div');d.className='q';var a=document.createElement('span'),b=document.createElement('span');
+a.textContent=x.kind.toUpperCase()+' '+(x.title||'');b.textContent=x.st==='failed'?'\u5931\u6557':x.tries?'\u518d\u8a66\u884c\u5f85\u3061('+x.tries+')':'\u9001\u4fe1\u5f85\u3061';if(x.st==='failed')b.className='err';d.append(a,b);l.append(d)})}
+var tabs=$('#tabs');Object.keys(F).forEach(function(k){var b=document.createElement('button');b.textContent=k.toUpperCase();b.dataset.k=k;b.onclick=function(){kind=k;form()};tabs.append(b)});
+var sb=document.createElement('button');sb.textContent='SETTINGS';sb.dataset.k='settings';sb.onclick=function(){kind='settings';form()};tabs.append(sb);
+$('#add').onclick=function(){add('queue')};$('#add2').onclick=function(){add('issue')};$('#retry').onclick=function(){Q.forEach(function(x){x.next=0;if(x.st==='failed'){x.st='wait';x.tries=0}});save();run()};
+$('#drop').onclick=function(){Q=Q.filter(function(x){return x.st!=='failed'});save()};
+var c0=cfg();$('#s_repo').value=c0.repo;$('#s_br').value=c0.br;stat();
+$('#s_save').onclick=async function(){LS.su_repo=$('#s_repo').value.trim();LS.su_br=$('#s_br').value.trim();var t=$('#s_tk').value.trim(),pw=$('#s_pw').value;
+if(t){if(pw){if(!hasCrypto()){say('\u3053\u306e\u74b0\u5883\u3067\u306f\u6697\u53f7\u5316\u3067\u304d\u307e\u305b\u3093','err');return}LS.su_tke=JSON.stringify(await encTok(t,pw));LS.removeItem('su_tk')}else{LS.su_tk=t;LS.removeItem('su_tke')}TK=t;$('#s_tk').value='';$('#s_pw').value=''}
+stat();say('\u8a2d\u5b9a\u3092\u4fdd\u5b58\u3057\u307e\u3057\u305f','ok');run()};
+$('#s_unlock').onclick=async function(){if(!LS.su_tke){say('\u6697\u53f7\u5316\u3055\u308c\u305f token \u306f\u3042\u308a\u307e\u305b\u3093','err');return}
+try{TK=await decTok(JSON.parse(LS.su_tke),$('#s_pw').value);$('#s_pw').value='';stat();say('unlock \u3057\u307e\u3057\u305f','ok');run()}catch(e){say('\u30d1\u30b9\u30d5\u30ec\u30fc\u30ba\u304c\u9055\u3044\u307e\u3059','err')}};
+$('#s_test').onclick=async function(){var c=cfg();if(!c.tk){say(LS.su_tke?'unlock \u3057\u3066\u304f\u3060\u3055\u3044':'token \u3092\u8a2d\u5b9a\u3057\u3066\u304f\u3060\u3055\u3044','err');return}
+try{var r=await fetch('https://api.github.com/repos/'+c.repo,{headers:{Authorization:'Bearer '+c.tk,Accept:'application/vnd.github+json'},cache:'no-store'});
+if(!r.ok){say(httpMsg(r.status),'err');return}var j=await r.json();
+if(j.permissions&&j.permissions.push)say('OK: \u66f8\u304d\u8fbc\u307f\u3067\u304d\u307e\u3059','ok');else if(j.permissions)say('\u30ea\u30dd\u30b8\u30c8\u30ea\u306f\u898b\u3048\u307e\u3059\u304c\u3001\u66f8\u304d\u8fbc\u307f\u6a29\u9650\u304c\u3042\u308a\u307e\u305b\u3093','err');else say('\u30ea\u30dd\u30b8\u30c8\u30ea\u306f\u898b\u3048\u307e\u3059\u3002\u66f8\u304d\u8fbc\u307f\u6a29\u9650\u306f\u78ba\u8a8d\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f','ok')}catch(e){say('\u901a\u4fe1\u30a8\u30e9\u30fc','err')}};
+$('#s_clear').onclick=function(){LS.removeItem('su_tk');LS.removeItem('su_tke');TK='';$('#s_tk').value='';$('#s_pw').value='';stat();say('token \u3092\u524a\u9664\u3057\u307e\u3057\u305f','ok')};
+window.onbeforeunload=function(){if(Q.length)return'\u672a\u9001\u4fe1\u306e\u30ad\u30e5\u30fc\u304c\u3042\u308a\u307e\u3059'};
+setInterval(run,5000);form();draw();run();
+})();
+</script></div>
