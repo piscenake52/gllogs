@@ -2,6 +2,8 @@
 
 依頼ファイルの形式:  {"template": "add_logs.yml", "params": {"フォーム項目のid": "値", ...}, "created": "2026-10-19T12:34:56Z"}
   params は、helper が Issue 作成URLに付けていたものと同じ(= フォーム項目のid → 値)。
+helper の paste json:  {"template": "queue_logs", "items": [ {...}, ... ], "created": "..."}
+  items は data/logs/queue/ に置くJSONと同じ。変換せず、そのまま data/logs/queue/<id>.json に書く。
 使い方:
   python scripts/inbox_to_json.py            依頼 → data/*/queue/*.json  と  data/inbox/results/<id>.json(結果)
   python scripts/inbox_to_json.py --finish   merge_json.py のあとに実行。結果ファイルに、反映できたか・スキップの理由を書き足す
@@ -20,6 +22,7 @@ TEMPLATE_DIR = ".github/ISSUE_TEMPLATE"
 ALLOWED = ("add_logs.yml", "add_setlist.yml", "add_songs.yml", "add_albums.yml", "add_bulk.yml")
 QUEUE_DIRS = ("data/logs/queue", "data/setlist/queue", "data/songs/queue", "data/albums/queue")
 KEEP_RESULTS = 60
+RAW_LOGS = "queue_logs"  # helper の paste json
 HERE = os.path.dirname(os.path.abspath(__file__))
 JST = timezone(timedelta(hours=9))
 
@@ -70,6 +73,22 @@ def write_result(rid, data):
         json.dump(data, f, ensure_ascii=False, indent=1)
 
 
+def queue_raw_logs(rid, req, res):
+    """貼り付けられた logs の JSON を、そのままキューに置く(中身の確認は merge_json.py)"""
+    items = req.get("items")
+    res["template"] = RAW_LOGS
+    if not isinstance(items, list) or not items or not all(isinstance(x, dict) for x in items):
+        res["errors"].append("依頼ファイルを読めません: items はオブジェクト { } の配列にしてください")
+        return res
+    dest = f"data/logs/queue/{rid}.json"
+    os.makedirs(os.path.dirname(dest), exist_ok=True)
+    with open(dest, "w", encoding="utf-8") as f:
+        json.dump(items, f, ensure_ascii=False, indent=2)
+    res["queue_files"].append(dest)
+    res["status"] = "queued"
+    return res
+
+
 def convert_one(path):
     rid = os.path.splitext(os.path.basename(path))[0]
     res = {"id": rid, "status": "error", "time": now_iso(), "template": "", "queue_files": [], "errors": [], "notes": []}
@@ -77,6 +96,8 @@ def convert_one(path):
         with open(path, "r", encoding="utf-8") as f:
             req = json.load(f)
         tplname = str(req.get("template", ""))
+        if tplname == RAW_LOGS:
+            return queue_raw_logs(rid, req, res)
         params = req.get("params")
         if tplname not in ALLOWED:
             raise ValueError(f"template が不正です: {tplname!r}（使えるもの: {', '.join(ALLOWED)}）")

@@ -178,6 +178,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .fdiff b { color:var(--text); font-weight:600; }
 #glih .fdiff .rmk { color:var(--sub); opacity:.8; }
 #glih .fstat { font-size:12px; color:var(--sub); margin:0 0 10px; min-height:1.4em; }
+#glih .pjrow { margin:0 0 10px; } #glih .pjrow[hidden], #glih .pjbox[hidden] { display:none; } #glih .pjbox { margin:0 0 14px; padding:0 0 12px; border-bottom:1px solid var(--line); } #glih .pji { padding:6px 0; border-top:1px solid var(--line); font-size:12px; line-height:1.5; word-break:break-all; } #glih .pji:first-child { border-top:0; } #glih .pji .m { color:var(--sub); font-size:11px; } #glih .pji .e { color:#d33; font-size:11px; }
 #glih .jsonbox { width:100%; box-sizing:border-box; min-height:9em; margin:6px 0 4px; padding:8px; font:12px/1.4 ui-monospace,Menlo,Consolas,monospace; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; resize:vertical; box-shadow:none; }
 #glih .fw { flex:1; min-width:0; position:relative; display:block; }
 #glih .fw > .fin, #glih .fw > .fta { width:100%; padding-right:30px; }
@@ -407,6 +408,15 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 
 <section id="glih-p-find" hidden>
   <button type="button" class="go" id="glih-topnew">new</button>
+  <div class="pjrow" id="glih-pjrow"><button type="button" class="small" id="glih-pjtog" aria-expanded="false">paste json &#9662;</button></div>
+  <div class="pjbox" id="glih-pjbox" hidden>
+    <textarea id="glih-pjson" class="jsonbox" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off" aria-label="logs json" placeholder="[ {...}, {...} ]  or  {...} per line"></textarea>
+    <button type="button" class="small" id="glih-pjclr">clear</button>
+    <div class="cknote" id="glih-pjinfo" role="status" aria-live="polite"></div>
+    <div class="bkl" id="glih-pjlist" hidden></div>
+    <div class="sendrow" id="glih-pjsrow" hidden><button type="button" class="go" id="glih-pjsend">send</button></div>
+    <div class="cknote sendst" id="glih-pjst"></div>
+  </div>
   <select id="glih-fkind" hidden><option value="logs">logs</option><option value="setlist">setlist</option></select>
   <div class="field"><label for="glih-fid">id</label><input type="text" id="glih-fid" class="fin" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="small" id="glih-fnew" hidden>new</button></div>
   <div class="small" id="glih-fload" role="status" aria-live="polite" hidden style="border:0;background:none;padding:2px 0 6px;cursor:default;white-space:normal;color:var(--sub)"></div>
@@ -467,6 +477,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function toTop() { try { root.scrollIntoView({ block: 'start' }); } catch (e) { window.scrollTo(0, 0); } } // a tab opened by a button / link starts at the top of the helper
   function tab(name) {
     var isFind = name === 'logs' || name === 'setlist';
+    if (isFind) pjShow(name === 'logs');
     $('p-find').hidden = !isFind; $('p-songs').hidden = name !== 'songs'; if (name === 'songs') songsInit();
     $('p-albums').hidden = name !== 'albums'; if (name === 'albums') albumsInit();
     $('p-check').hidden = name !== 'check'; if (name === 'check') ckInit();
@@ -881,15 +892,136 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     });
   }
   function popIn(el) { el.classList.remove('glih-pop'); void el.offsetWidth; el.classList.add('glih-pop'); el.onanimationend = function () { el.classList.remove('glih-pop'); }; } // replay the fade-in of a line whose text was replaced
-  function sendReq(tpl, params, st, btns) {
+  function sendReq(tpl, params, st, btns, items) {
     if (!tok) { st.textContent = cfg.mode === 'enc' && cfg.enc ? 'the token is locked: open the setting tab and unlock it' : 'no token: open the setting tab'; return; }
     var id = stampId(), req = { template: tpl, params: params, created: new Date().toISOString().replace(/\.\d+Z$/, 'Z') };
+    if (items) { delete req.params; req.items = items; }
+    var out = 'failed';
     btns.forEach(function (b) { b.disabled = true; }); st.textContent = 'sending ...';
-    putFile('data/inbox/' + id + '.json', JSON.stringify(req, null, 1), 'helper: ' + id).then(function () { return waitResult(id, st); }).then(function (res) {
+    return putFile('data/inbox/' + id + '.json', JSON.stringify(req, null, 1), 'helper: ' + id).then(function () { return waitResult(id, st); }).then(function (res) {
+      out = res.status;
       if (res.status === 'done') { st.textContent = (res.skipped ? 'NOT all reflected (check below)' : 'done: reflected') + ((res.errors || []).concat(res.notes || []).length ? '\n' + (res.errors || []).concat(res.notes || []).join('\n') : ''); delete cache.logs; delete cache.setlist; delete cache.albums; delete cache.songs; }
       else if (res.status === 'error') st.textContent = 'not reflected:\n' + (res.errors || []).concat(res.notes || []).join('\n');
       else st.textContent = 'sent, but the result did not arrive in time. Check the Actions tab of the repository.';
-    }, function (e) { st.textContent = 'failed: ' + e.message; }).then(function () { popIn(st); btns.forEach(function (b) { b.disabled = false; }); syncAll(); });
+    }, function (e) { st.textContent = 'failed: ' + e.message; }).then(function () { popIn(st); btns.forEach(function (b) { b.disabled = false; }); syncAll(); return out; });
+  }
+  // ---- paste json (logs tab): the same json as a data/logs/queue/ file (an array, one object, or objects one after another). It is checked and listed here, then sent through data/inbox/ ----
+  function pjParse(text) {
+    var s = String(text).replace(/^﻿/, ''), items = [], errs = [], i = 0, n = s.length, inArr = false, closed = false;
+    function line(p) { return s.slice(0, p).split('\n').length; }
+    function skip(re) { while (i < n && re.test(s.charAt(i))) i++; }
+    skip(/\s/);
+    if (s.charAt(i) === '[') { inArr = true; i++; }
+    while (!errs.length) {
+      skip(/[\s,]/);
+      if (i >= n) break;
+      var c = s.charAt(i);
+      if (inArr && c === ']') { closed = true; i++; skip(/[\s,]/); if (i < n) errs.push('line ' + line(i) + ': extra text after ]'); break; }
+      if (c !== '{') { errs.push('line ' + line(i) + ': { is expected, found ' + s.slice(i, i + 12).split('\n')[0]); break; }
+      var start = i, depth = 0, str = false;
+      for (; i < n; i++) {
+        c = s.charAt(i);
+        if (str) { if (c === '\\') i++; else if (c === '"') str = false; else if (c === '\n') break; }
+        else if (c === '"') str = true;
+        else if (c === '{' || c === '[') depth++;
+        else if (c === '}' || c === ']') { depth--; if (!depth) break; }
+      }
+      var no = items.length + 1;
+      if (str && s.charAt(i) === '\n') { errs.push('item ' + no + ', line ' + line(i) + ': " is not closed'); break; }
+      if (depth || i >= n) { errs.push('item ' + no + ', line ' + line(start) + ': } is missing'); break; }
+      i++;
+      var part = s.slice(start, i);
+      try { items.push(JSON.parse(part)); } catch (e) {
+        var m = String(e.message), p = m.match(/position (\d+)/);
+        errs.push('item ' + no + ', line ' + line(p ? start + +p[1] : start) + ': ' + m);
+      }
+    }
+    if (!errs.length && inArr && !closed) errs.push('] is missing at the end');
+    return { items: items, errs: errs };
+  }
+  function pjCheck(item, byId) { // one record -> { op, err, note, head } (the same order of decisions as merge_json.py)
+    var id = item.logid, old = typeof id === 'string' && byId ? byId[id] : null, r = { op: 'new', err: '', note: '' };
+    function has(k) { return item[k] !== undefined && item[k] !== null && item[k] !== ''; }
+    function badFmt() {
+      if (has('date') && item.date !== '!clear' && !(typeof item.date === 'string' && okDate(item.date))) return 'date: 8 digits in quotes (yyyymmdd)';
+      if (has('time') && item.time !== '!clear' && !(typeof item.time === 'string' && okTime(item.time))) return 'time: 4 digits in quotes (hhmm)';
+      return '';
+    }
+    if (has('logid') && typeof id !== 'string') r.err = 'logid: put it in quotes';
+    if (item._bulk !== undefined) { r.op = 'bulk'; r.note = JSON.stringify(item._bulk); }
+    else if (item._delete) { r.op = 'delete'; if (!has('logid')) r.err = 'delete needs logid'; else if (byId && !old) r.note = 'logid not found: nothing is deleted'; }
+    else if (Array.isArray(item._repeat) && item._repeat.length && !item._copy_from) { r.op = 'repeat'; r.note = item._repeat.length + ' dates'; }
+    else if (item._copy_from) { r.op = 'copy'; r.note = 'from ' + item._copy_from; if (byId && !byId[item._copy_from]) r.err = 'copy source logid not found'; else r.err = r.err || badFmt(); }
+    else if (old) { r.op = 'update'; r.err = r.err || badFmt(); r.note = 'change: ' + (Object.keys(item).filter(function (k) { return k !== 'logid' && k.charAt(0) !== '_'; }).join(', ') || '(nothing)'); }
+    else {
+      if (has('logid') && !byId) { r.op = '?'; r.err = r.err || badFmt(); r.note = 'new / update: unknown'; }
+      else {
+        if (has('logid')) r.note = 'logid not found: added as new';
+        r.err = r.err || (has('date') ? badFmt() : 'new entry needs date');
+      }
+    }
+    var v = {}; ['date', 'time', 'contents', 'title'].forEach(function (k) { v[k] = has(k) ? item[k] : old ? old[k] : ''; });
+    r.head = [v.date, v.time, v.contents, v.title].filter(Boolean).join(' ') || (id ? 'logid ' + id : '');
+    return r;
+  }
+  var pjS = { items: null, rows: [], byId: null, state: '', busy: false, done: null };
+  function pjShow(on) { $('pjrow').hidden = !on; $('pjbox').hidden = !on || $('pjtog').getAttribute('aria-expanded') !== 'true'; }
+  function pjLoad() {
+    pjS.state = 'loading';
+    return fetchIndex('logs').then(function (d) { var m = Object.create(null); d.forEach(function (e) { if (e && e.logid) m[e.logid] = e; }); pjS.byId = m; pjS.state = 'ok'; }, function () { pjS.byId = null; pjS.state = 'ng'; }).then(pjRender);
+  }
+  function pjRender() {
+    var text = $('pjson').value, info = $('pjinfo'), list = $('pjlist'), bad = false, ready = false;
+    list.textContent = ''; pjS.items = null; pjS.rows = [];
+    if (text.trim()) {
+      var p = pjParse(text);
+      if (p.errs.length) { bad = true; info.textContent = 'JSON error: ' + p.errs.join(' / '); }
+      else if (!p.items.length) { info.textContent = 'no records'; }
+      else {
+        var count = {}, ng = 0;
+        p.items.forEach(function (item, i) {
+          var r = pjCheck(item, pjS.byId); pjS.rows.push(r); count[r.op] = (count[r.op] || 0) + 1; if (r.err) ng++;
+          var d = document.createElement('div'); d.className = 'pji';
+          var h = document.createElement('div'); h.textContent = (i + 1) + '. [' + r.op + '] ' + r.head; d.appendChild(h);
+          [['m', r.note], ['e', r.err]].forEach(function (x) { if (!x[1]) return; var s = document.createElement('div'); s.className = x[0]; s.textContent = x[1]; d.appendChild(s); });
+          list.appendChild(d);
+        });
+        info.textContent = p.items.length + ' records: ' + Object.keys(count).map(function (k) { return k + ' ' + count[k]; }).join(', ') +
+          (ng ? '\n' + ng + ' with errors (fix them to send)' : '') +
+          (pjS.state === 'loading' ? '\nloading logs ...' : pjS.state === 'ng' ? '\ncould not load logs: new / update is not checked' : '');
+        bad = ng > 0; pjS.items = p.items; ready = !ng && pjS.state !== 'loading';
+      }
+    } else info.textContent = '';
+    info.style.whiteSpace = 'pre-wrap';
+    list.hidden = !pjS.rows.length; $('pjson').classList.toggle('bad', bad);
+    $('pjsrow').hidden = !(ready || pjS.busy); $('pjsend').disabled = pjS.busy || pjS.done === text;
+  }
+  function pjInit() {
+    var box = $('pjson'), st = $('pjst'), timer = 0;
+    $('pjtog').onclick = function () {
+      var open = $('pjtog').getAttribute('aria-expanded') !== 'true';
+      $('pjtog').setAttribute('aria-expanded', open ? 'true' : 'false'); $('pjtog').textContent = 'paste json ' + (open ? '▴' : '▾'); $('pjbox').hidden = !open;
+      if (open) { if (pjS.state !== 'ok') pjLoad(); else pjRender(); box.focus(); }
+    };
+    box.addEventListener('input', function () { clearTimeout(timer); if (!pjS.busy) st.textContent = ''; $('pjsrow').hidden = !pjS.busy; timer = setTimeout(pjRender, 250); });
+    $('pjclr').onclick = function () { if (pjS.busy) return; box.value = ''; st.textContent = ''; pjS.done = null; pjRender(); box.focus(); };
+    $('pjsend').onclick = function () {
+      clearTimeout(timer); pjRender();
+      if (!pjS.items || $('pjsrow').hidden || $('pjsend').disabled) return;
+      var danger = [];
+      pjS.rows.forEach(function (r, i) { if (r.op === 'delete' || r.op === 'bulk') danger.push((i + 1) + '. [' + r.op + '] ' + (r.op === 'bulk' ? r.note : r.head)); });
+      if (danger.length && !window.confirm('Send with delete / bulk change?\n' + danger.slice(0, 15).join('\n') + (danger.length > 15 ? '\n... ' + danger.length + ' in total' : ''))) return;
+      var text = box.value, p = sendReq('queue_logs', null, st, [$('pjsend')], pjS.items);
+      if (!p) return;
+      pjS.busy = true; box.readOnly = true; $('pjclr').disabled = true;
+      p.then(function (status) {
+        pjS.busy = false; box.readOnly = false; $('pjclr').disabled = false;
+        // reflected, or possibly reflected (no result in time): the same text cannot be sent twice
+        if (status === 'done' || status === 'timeout') pjS.done = text;
+        if (status === 'done') { delete ix.logs; pjLoad(); } else pjRender();
+      });
+    };
+    $('fkind').addEventListener('change', function () { pjShow($('fkind').value === 'logs'); });
   }
   var sendSyncs = [];
   function syncAll() { sendSyncs.forEach(function (f) { f(); }); }
@@ -4085,6 +4217,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function setOpen(on) { $('p-set').hidden = !on; $('setbtn').setAttribute('aria-expanded', on ? 'true' : 'false'); if (on) setInit(); }
   $('setbtn').onclick = function () { setOpen($('p-set').hidden); };
   if (location.hash === '#setting') setOpen(true);
+  pjInit();
   tab(location.hash === '#setlist' ? 'setlist' : location.hash === '#songs' ? 'songs' : location.hash === '#check' ? 'check' : location.hash === '#bulk' ? 'bulk' : 'logs'); // the first view is the logs tab (#find is the same as #logs)
   if (location.hash === '#songs' && songApi) { // opened with ?artist=...&title=... (the 3-tap on the viewer's song bar): load that song in the songs tab
     var qa = '', qt = '';

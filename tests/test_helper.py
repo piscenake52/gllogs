@@ -268,6 +268,100 @@ class TestLogs(HelperCase):
         self.assertIn("401", self.status(pg))
 
 
+class TestPasteJson(HelperCase):
+    """logs タブの paste json"""
+
+    ITEMS = [{"date": "20261128", "time": "1200", "contents": "DIARY", "title": "It's my birthday🎂 } [",
+              "display_pc": "架空　It's my birthday🎂", "url": "https://example.com/a", "groups": ["G2", "MMK"]},
+             {"date": "20261128", "time": "1200", "contents": "DIARY", "title": "2件目",
+              "url": "https://example.com/b", "groups": ["L2", "RRK"]}]
+
+    def paste(self, pg, text):
+        if not pg.is_visible("#glih-pjson"):
+            pg.click("#glih-pjtog")
+        pg.fill("#glih-pjson", text)
+        pg.wait_for_timeout(600)
+
+    def pj_send(self, pg):
+        pg.click("#glih-pjsend")
+        pg.wait_for_function("() => /^(done|not reflected|NOT all reflected|failed|sent, but)/.test("
+                             "document.getElementById('glih-pjst').textContent)")
+        return self.sent[-1]
+
+    def test_array_is_sent_and_registered(self):
+        pg = self.open()
+        self.paste(pg, json.dumps(self.ITEMS, ensure_ascii=False, indent=2))
+        self.assertIn("2 records: new 2", pg.inner_text("#glih-pjinfo"))
+        sent = self.pj_send(pg)
+        self.assertEqual(sent["request"]["template"], "queue_logs")
+        self.assertEqual(sent["request"]["items"], self.ITEMS)
+        self.assertTrue(pg.is_disabled("#glih-pjsend"))  # 同じ内容は続けて送れない
+        self.register(sent)
+        self.assertEqual(sorted(r["title"] for r in self.read("data/logs/logs.json")),
+                         sorted(r["title"] for r in self.ITEMS))
+        self.assertEqual(self.errors, [])
+
+    def test_accepted_shapes(self):
+        pg = self.open()
+        a, b = (json.dumps(x, ensure_ascii=False) for x in self.ITEMS)
+        for text in (a, a + "\n" + b, a + ",\n" + b + ",\n", "[" + a + ",\n" + b + ",]"):
+            self.paste(pg, text)
+            self.assertTrue(pg.is_visible("#glih-pjsend"), text)
+            self.assertNotIn("error", pg.inner_text("#glih-pjinfo"), text)
+
+    def test_errors_cannot_be_sent(self):
+        pg = self.open()
+        a = json.dumps(self.ITEMS[0], ensure_ascii=False)
+        for text, msg in (("[" + a, "] is missing"), (a + "\n{", "item 2, line 2"), ("abc", "{ is expected"),
+                          ('{"date": "20261128" "time": "1200"}', "item 1, line 1"),
+                          ('{"title": "x"}', "new entry needs date"),
+                          ('{"date": 20261128, "title": "x"}', "date: 8 digits"),
+                          ('{"date": "20261128", "time": "9:00"}', "time: 4 digits"),
+                          ('{"_delete": true}', "delete needs logid")):
+            self.paste(pg, text)
+            self.assertIn(msg, pg.inner_text("#glih-p-find"), text)
+            self.assertFalse(pg.is_visible("#glih-pjsend"), text)
+        self.assertEqual(self.sent, [])
+        self.assertEqual(self.errors, [])
+
+    def test_update_and_delete_are_confirmed(self):
+        pg = self.open()
+        self.paste(pg, json.dumps({"logid": LOG["logid"], "title": "直した"}, ensure_ascii=False))
+        self.assertIn("[update] 20261101 1800 LIVE 直した", pg.inner_text("#glih-pjlist"))
+        self.paste(pg, json.dumps({"logid": LOG["logid"], "_delete": True}))
+        self.assertIn("[delete]", pg.inner_text("#glih-pjlist"))
+        asked = []
+        pg.once("dialog", lambda d: (asked.append(d.message), d.dismiss()))
+        pg.click("#glih-pjsend")
+        pg.wait_for_timeout(300)
+        self.assertIn("[delete]", asked[0])
+        self.assertEqual(self.sent, [])
+        pg.once("dialog", lambda d: d.accept())
+        sent = self.pj_send(pg)
+        self.write("data/logs/logs.json", [LOG])
+        self.register(sent)
+        self.assertEqual(self.read("data/logs/logs.json"), [])
+
+    def test_hidden_on_setlist(self):
+        pg = self.open()
+        self.paste(pg, "{")
+        pg.click("#glih [data-tab=setlist]")
+        self.assertFalse(pg.is_visible("#glih-pjtog"))
+        self.assertFalse(pg.is_visible("#glih-pjson"))
+        pg.click("#glih [data-tab=logs]")
+        self.assertTrue(pg.is_visible("#glih-pjson"))
+
+    def test_skipped_item_is_reported(self):
+        self.write("data/inbox/20261120120000-test.json",
+                   {"template": "queue_logs", "items": [self.ITEMS[0], {"title": "日付なし"}]})
+        self.run_script("inbox_to_json.py")
+        self.merge_ok()
+        self.run_script("inbox_to_json.py", "--finish")
+        res = self.read("data/inbox/results/20261120120000-test.json")
+        self.assertEqual((res["status"], res["skipped"]), ("done", True), res)
+        self.assertIn("2件目", " ".join(res["notes"]))
+
+
 class TestRepeat(HelperCase):
     def test_interval(self):
         pg = self.open()
