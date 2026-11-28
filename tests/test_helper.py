@@ -351,6 +351,27 @@ class TestPasteJson(HelperCase):
         pg.click("#glih [data-tab=logs]")
         self.assertTrue(pg.is_visible("#glih-pjson"))
 
+    def test_hidden_while_a_record_is_decided(self):
+        pg = self.open()
+        self.paste(pg, "{")
+        self.new_log(pg, title="x")
+        self.assertFalse(pg.is_visible("#glih-pjtog"))
+        self.assertFalse(pg.is_visible("#glih-pjson"))
+        pg.click("#glih-topnew")
+        pg.wait_for_selector("#glih-pjtog")
+        pg.fill("#glih-fid", LOG["logid"])
+        pg.press("#glih-fid", "Enter")
+        pg.wait_for_selector("#glih-f-title")
+        self.assertFalse(pg.is_visible("#glih-pjtog"))
+        pg.fill("#glih-fid", "")
+        pg.wait_for_selector("#glih-pjtog")
+        self.assertEqual(pg.input_value("#glih-pjson"), "{")
+
+    def test_hidden_when_opened_with_log_id(self):
+        pg = self.open("?id=abc123abc123#logs")
+        pg.wait_for_selector("#glih-f-title")
+        self.assertFalse(pg.is_visible("#glih-pjtog"))
+
     def test_skipped_item_is_reported(self):
         self.write("data/inbox/20261120120000-test.json",
                    {"template": "queue_logs", "items": [self.ITEMS[0], {"title": "日付なし"}]})

@@ -178,7 +178,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 #glih .fdiff b { color:var(--text); font-weight:600; }
 #glih .fdiff .rmk { color:var(--sub); opacity:.8; }
 #glih .fstat { font-size:12px; color:var(--sub); margin:0 0 10px; min-height:1.4em; }
-#glih .pjrow { margin:0 0 10px; } #glih .pjrow[hidden], #glih .pjbox[hidden] { display:none; } #glih .pjbox { margin:0 0 14px; padding:0 0 12px; border-bottom:1px solid var(--line); } #glih .pji { padding:6px 0; border-top:1px solid var(--line); font-size:12px; line-height:1.5; word-break:break-all; } #glih .pji:first-child { border-top:0; } #glih .pji .m { color:var(--sub); font-size:11px; } #glih .pji .e { color:#d33; font-size:11px; }
+#glih button.go.pjgo { background:var(--btn); color:var(--text); box-shadow:inset 0 0 0 1px var(--line); } #glih .pjbox[hidden] { display:none; } #glih .pjbox { margin:0 0 14px; padding:0 0 12px; border-bottom:1px solid var(--line); } #glih .pji { padding:6px 0; border-top:1px solid var(--line); font-size:12px; line-height:1.5; word-break:break-all; } #glih .pji:first-child { border-top:0; } #glih .pji .m { color:var(--sub); font-size:11px; } #glih .pji .e { color:#d33; font-size:11px; }
 #glih .jsonbox { width:100%; box-sizing:border-box; min-height:9em; margin:6px 0 4px; padding:8px; font:12px/1.4 ui-monospace,Menlo,Consolas,monospace; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; resize:vertical; box-shadow:none; }
 #glih .fw { flex:1; min-width:0; position:relative; display:block; }
 #glih .fw > .fin, #glih .fw > .fta { width:100%; padding-right:30px; }
@@ -408,7 +408,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
 
 <section id="glih-p-find" hidden>
   <button type="button" class="go" id="glih-topnew">new</button>
-  <div class="pjrow" id="glih-pjrow"><button type="button" class="small" id="glih-pjtog" aria-expanded="false">paste json &#9662;</button></div>
+  <div id="glih-pjrow"><button type="button" class="go pjgo" id="glih-pjtog" aria-expanded="false">paste json &#9662;</button></div>
   <div class="pjbox" id="glih-pjbox" hidden>
     <textarea id="glih-pjson" class="jsonbox" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off" aria-label="logs json" placeholder="[ {...}, {...} ]  or  {...} per line"></textarea>
     <button type="button" class="small" id="glih-pjclr">clear</button>
@@ -477,7 +477,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   function toTop() { try { root.scrollIntoView({ block: 'start' }); } catch (e) { window.scrollTo(0, 0); } } // a tab opened by a button / link starts at the top of the helper
   function tab(name) {
     var isFind = name === 'logs' || name === 'setlist';
-    if (isFind) pjShow(name === 'logs');
+    if (isFind) pjShow();
     $('p-find').hidden = !isFind; $('p-songs').hidden = name !== 'songs'; if (name === 'songs') songsInit();
     $('p-albums').hidden = name !== 'albums'; if (name === 'albums') albumsInit();
     $('p-check').hidden = name !== 'check'; if (name === 'check') ckInit();
@@ -965,7 +965,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
     return r;
   }
   var pjS = { items: null, rows: [], byId: null, state: '', busy: false, done: null };
-  function pjShow(on) { $('pjrow').hidden = !on; $('pjbox').hidden = !on || $('pjtog').getAttribute('aria-expanded') !== 'true'; }
+  function pjShow() { var on = $('fkind').value === 'logs' && !found; /* hidden once a record to add / update is decided */ $('pjrow').hidden = !on; $('pjbox').hidden = !on || $('pjtog').getAttribute('aria-expanded') !== 'true'; }
   function pjLoad() {
     pjS.state = 'loading';
     return fetchIndex('logs').then(function (d) { var m = Object.create(null); d.forEach(function (e) { if (e && e.logid) m[e.logid] = e; }); pjS.byId = m; pjS.state = 'ok'; }, function () { pjS.byId = null; pjS.state = 'ng'; }).then(pjRender);
@@ -1021,7 +1021,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
         if (status === 'done') { delete ix.logs; pjLoad(); } else pjRender();
       });
     };
-    $('fkind').addEventListener('change', function () { pjShow($('fkind').value === 'logs'); });
+    $('fkind').addEventListener('change', pjShow);
   }
   var sendSyncs = [];
   function syncAll() { sendSyncs.forEach(function (f) { f(); }); }
@@ -2543,7 +2543,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   function renderFound(kind, id, row, isNew) {
     snsFold = null;
-    found = { kind: kind, id: id, isNew: !!isNew, row: row }; orig = {}; rep = null; $('fan').checked = false; $('fan').disabled = false; $('fansx').value = DEFSX;
+    found = { kind: kind, id: id, isNew: !!isNew, row: row }; pjShow(); orig = {}; rep = null; $('fan').checked = false; $('fan').disabled = false; $('fansx').value = DEFSX;
     parkCopyRows(); // before the form is rebuilt (the form box is cleared next)
     var box = $('ff'); box.innerHTML = '';
     if (kind === 'setlist' && !isNew) { // existing setlist: the date / time of the linked logs row (same setlistid) is shown, read only
@@ -2655,7 +2655,7 @@ html:has(#glih), body:has(#glih), :has(> #glih), :has(#glih):not(#glih) { backgr
   }
   $('fcp').addEventListener('change', syncAnyCopy);
   function parkCopyRows() { var f0 = $('frt'); f0.parentNode.insertBefore($('fcprow'), f0.nextSibling); f0.parentNode.insertBefore($('fcontrow'), $('fcprow').nextSibling); } // copy / next live under the form's time in existing-logs mode; back to the top place before the form box is cleared
-  function clearFound() { parkCopyRows(); found = null; seedId = ''; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('fansrow').hidden = true; $('fansx').value = DEFSX; $('ff').innerHTML = ''; $('frefrow').hidden = true; if ($('falbrow')) { $('falbrow').hidden = true; $('falbbox').innerHTML = ''; } $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
+  function clearFound() { parkCopyRows(); found = null; pjShow(); seedId = ''; rep = null; showDiff([]); $('fcprow').hidden = true; $('fcp').checked = false; $('fan').checked = false; $('fan').disabled = false; $('fanrow').hidden = true; $('fansrow').hidden = true; $('fansx').value = DEFSX; $('ff').innerHTML = ''; $('frefrow').hidden = true; if ($('falbrow')) { $('falbrow').hidden = true; $('falbbox').innerHTML = ''; } $('fjson').hidden = true; $('fjrow').hidden = true; $('fjson').classList.remove('bad'); setLink($('go-find'), ''); $('go-find').textContent = 'Issue'; applyModeUI(); }
   // ---- repeat registration (new logs only): the date list is built here (every N days / weeks / months, until a date and / or a count, minus skipped dates), previewed with check boxes and sent as the repeat field of the form (one yyyymmdd per line; the server counts up the #number of the title for each row) ----
   var rep = null, REP_MAX = 60;
   function pad2(n) { return ('0' + n).slice(-2); }
